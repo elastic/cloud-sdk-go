@@ -1,0 +1,39 @@
+#### Development targets
+
+REPORT_PATH ?= ./reports
+TEST_UNIT_FLAGS ?= -timeout 10s -p 4 -race -cover -coverprofile=reports/c.out
+TEST_UNIT_PACKAGE ?= ./...
+
+LINT_CHANGES = $(shell gofmt -d -e -s .)
+
+## Runs unit tests. Use TEST_UNIT_FLAGS and TEST_UNIT_PACKAGE to control which flags and packages are used and tested.
+.PHONY: unit
+unit: _report_path
+	@ echo "-> Running unit tests for $(BINARY)..."
+	@ go test $(TEST_UNIT_FLAGS) $(TEST_UNIT_PACKAGE)
+
+## Formats the all Go files to the desired format.
+.PHONY: format
+format: deps
+	@ echo "-> Formatting Go files..."
+	@ $(GOBIN)/go-licenser -license ASL2
+	@ $(GOBIN)/golangci-lint run --fix
+	@ echo "-> Done."
+
+## Checks if there's any format violations on the Go files.
+.PHONY: lint
+lint: deps
+	@ echo "-> Running linters..."
+	@ $(GOBIN)/golint -set_exit_status ./...
+	@ $(GOBIN)/golangci-lint run
+	@ $(GOBIN)/go-licenser -d .
+	@ echo "-> Done."
+
+.PHONY: _report_path
+_report_path:
+	@ mkdir -p $(REPORT_PATH)
+
+.PHONY: unit-coverage
+unit-coverage: _report_path
+	@ echo "-> Generating coverage report..."
+	@ go tool cover -html=$(REPORT_PATH)/c.out -o $(REPORT_PATH)/coverage.html

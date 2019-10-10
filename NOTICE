@@ -1,0 +1,31 @@
+cloud-sdk-go
+Copyright 2019 Elasticsearch B.V.
+
+This product includes software developed at Elasticsearch B.V. and
+third-party software developed by the licenses listed below.
+
+=========================================================================
+
+github.com/davecgh/go-spew             0BSD
+github.com/go-openapi/analysis         Apache-2.0
+github.com/go-openapi/errors           Apache-2.0
+github.com/go-openapi/jsonpointer      Apache-2.0
+github.com/go-openapi/jsonreference    Apache-2.0
+github.com/go-openapi/loads            Apache-2.0
+github.com/go-openapi/runtime          Apache-2.0
+github.com/go-openapi/spec             Apache-2.0
+github.com/go-openapi/strfmt           Apache-2.0
+github.com/go-openapi/swag             Apache-2.0
+github.com/go-openapi/validate         Apache-2.0
+github.com/pkg/errors                  BSD-2-Clause
+github.com/pmezard/go-difflib          BSD-3-Clause
+golang.org/x/net                       BSD-3-Clause
+golang.org/x/sys                       BSD-3-Clause
+golang.org/x/text                      BSD-3-Clause
+github.com/dgrijalva/jwt-go            MIT
+github.com/fatih/color                 MIT
+github.com/kr/pretty                   MIT
+github.com/mattn/go-colorable          MIT
+github.com/hashicorp/go-multierror     MPL-2.0-no-copyleft-exception
+
+=========================================================================

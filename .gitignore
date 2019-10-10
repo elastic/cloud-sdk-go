@@ -1,0 +1,6 @@
+swagger.json
+reports/
+.idea/
+.DS_Store
+*.iml
+bin
