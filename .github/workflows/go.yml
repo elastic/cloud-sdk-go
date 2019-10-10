@@ -23,3 +23,7 @@ jobs:
     - name: Linters
       run: make lint
       id: lint
+    
+    - name: Run unit tests
+      run: make unit
+      id: unit
