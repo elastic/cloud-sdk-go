@@ -23,7 +23,3 @@ jobs:
     - name: Linters
       run: make lint
       id: lint
-    
-    - name: Check the docs are up to date
-      run: make docs
-      id: docs
