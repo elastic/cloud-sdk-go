@@ -124,7 +124,7 @@ we'll see this lines after the yes/no question
 		c <- scanner.Scan("Yes or no [y/N]: ")
 	}()
 	<-s
-	<-time.After(time.Millisecond)
+	<-time.After(time.Millisecond * 10)
 	fmt.Fprintln(outputDevice, "somehing")
 	fmt.Fprintln(outputDevice, "somehing")
 	fmt.Fprintln(outputDevice, "somehing")
@@ -137,13 +137,13 @@ we'll see this lines after the yes/no question
 	}()
 	<-s
 
-	<-time.After(time.Millisecond)
+	<-time.After(time.Millisecond * 10)
 	fmt.Fprintln(inputDevice, "")
 
 	fmt.Fprintln(outputDevice, "output is paused")
 	fmt.Fprintln(outputDevice, "we'll see this lines after the yes/no question")
 
-	<-time.After(time.Millisecond * 2)
+	<-time.After(time.Millisecond * 10)
 	fmt.Fprintln(inputDevice, "n")
 	<-c
 
