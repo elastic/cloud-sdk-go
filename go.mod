@@ -14,7 +14,7 @@ require (
 	github.com/go-openapi/spec v0.19.0
 	github.com/go-openapi/strfmt v0.18.0
 	github.com/go-openapi/swag v0.18.0
-	github.com/go-openapi/validate v0.18.0
+	github.com/go-openapi/validate v0.19.3
 	github.com/hashicorp/go-multierror v1.0.0
 	github.com/kr/pretty v0.1.0 // indirect
 	github.com/mattn/go-colorable v0.1.2 // indirect
