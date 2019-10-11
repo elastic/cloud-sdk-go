@@ -26,6 +26,7 @@ github.com/go-openapi/analysis v0.18.0/go.mod h1:IowGgpVeD0vNm45So8nr+IcQ3pxVtpR
 github.com/go-openapi/analysis v0.19.2/go.mod h1:3P1osvZa9jKjb8ed2TPng3f0i/UY9snX6gxi44djMjk=
 github.com/go-openapi/analysis v0.19.4 h1:1TjOzrWkj+9BrjnM1yPAICbaoC0FyfD49oVkTBrSSa0=
 github.com/go-openapi/analysis v0.19.4/go.mod h1:3P1osvZa9jKjb8ed2TPng3f0i/UY9snX6gxi44djMjk=
+github.com/go-openapi/analysis v0.19.5/go.mod h1:hkEAkxagaIvIP7VTn8ygJNkd4kAYON2rCu0v0ObL0AU=
 github.com/go-openapi/errors v0.17.0/go.mod h1:LcZQpmvG4wyF5j4IhA73wkLFQg+QJXOQHVjmcZxhka0=
 github.com/go-openapi/errors v0.17.2/go.mod h1:LcZQpmvG4wyF5j4IhA73wkLFQg+QJXOQHVjmcZxhka0=
 github.com/go-openapi/errors v0.18.0 h1:+RnmJ5MQccF7jwWAoMzwOpzJEspZ18ZIWfg9Z2eiXq8=
@@ -52,12 +53,15 @@ github.com/go-openapi/loads v0.18.0/go.mod h1:72tmFy5wsWx89uEVddd0RjRWPZm92WRLhf
 github.com/go-openapi/loads v0.19.0/go.mod h1:72tmFy5wsWx89uEVddd0RjRWPZm92WRLhf7AC+0+OOU=
 github.com/go-openapi/loads v0.19.2 h1:rf5ArTHmIJxyV5Oiks+Su0mUens1+AjpkPoWr5xFRcI=
 github.com/go-openapi/loads v0.19.2/go.mod h1:QAskZPMX5V0C2gvfkGZzJlINuP7Hx/4+ix5jWFxsNPs=
+github.com/go-openapi/loads v0.19.3/go.mod h1:YVfqhUCdahYwR3f3iiwQLhicVRvLlU/WO5WPaZvcvSI=
 github.com/go-openapi/runtime v0.0.0-20180920151709-4f900dc2ade9/go.mod h1:6v9a6LTXWQCdL8k1AO3cvqx5OtZY/Y9wKTgaoP6YRfA=
 github.com/go-openapi/runtime v0.18.0 h1:ddoL4Uo/729XbNAS9UIsG7Oqa8R8l2edBe6Pq/i8AHM=
 github.com/go-openapi/runtime v0.18.0/go.mod h1:uI6pHuxWYTy94zZxgcwJkUWa9wbIlhteGfloI10GD4U=
 github.com/go-openapi/runtime v0.19.0/go.mod h1:OwNfisksmmaZse4+gpV3Ne9AyMOlP1lt4sK4FXt0O64=
 github.com/go-openapi/runtime v0.19.4 h1:csnOgcgAiuGoM/Po7PEpKDoNulCcF3FGbSnbHfxgjMI=
 github.com/go-openapi/runtime v0.19.4/go.mod h1:X277bwSUBxVlCYR3r7xgZZGKVvBd/29gLDlFGtJ8NL4=
+github.com/go-openapi/runtime v0.19.6 h1:l29vRpaaQI+xe4EDZKcUa789VWffmFpxskMKK0aNfKs=
+github.com/go-openapi/runtime v0.19.6/go.mod h1:WIH6IYPXOrtgTClTV8xzdrD20jBlrK25D0aQbdSlqp8=
 github.com/go-openapi/spec v0.17.0/go.mod h1:XkF/MOi14NmjsfZ8VtAKf8pIlbZzyoTvZsdfssdxcBI=
 github.com/go-openapi/spec v0.17.2/go.mod h1:XkF/MOi14NmjsfZ8VtAKf8pIlbZzyoTvZsdfssdxcBI=
 github.com/go-openapi/spec v0.18.0/go.mod h1:XkF/MOi14NmjsfZ8VtAKf8pIlbZzyoTvZsdfssdxcBI=
