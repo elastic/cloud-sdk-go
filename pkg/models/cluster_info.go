@@ -36,6 +36,9 @@ type ClusterInfo struct {
 	// The top level info object for APM
 	Apm *ApmInfo `json:"apm,omitempty"`
 
+	// The top level info object for App Search
+	AppSearch *AppSearchInfo `json:"app_search,omitempty"`
+
 	// The top-level object information for an Elasticsearch cluster.
 	Elasticsearch *ElasticsearchClusterInfo `json:"elasticsearch,omitempty"`
 
@@ -48,6 +51,10 @@ func (m *ClusterInfo) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateApm(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateAppSearch(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -75,6 +82,24 @@ func (m *ClusterInfo) validateApm(formats strfmt.Registry) error {
 		if err := m.Apm.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("apm")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ClusterInfo) validateAppSearch(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.AppSearch) { // not required
+		return nil
+	}
+
+	if m.AppSearch != nil {
+		if err := m.AppSearch.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("app_search")
 			}
 			return err
 		}
