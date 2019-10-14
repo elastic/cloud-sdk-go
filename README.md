@@ -4,7 +4,7 @@ Go SDK for Elastic Cloud. Its goal is to provide common ground for all Elastic C
 
 ## Installation
 
-Run the following `go get` command to install the SDK in your module dependencies directory
+Run the following `go get` command to install the SDK in your module dependencies directory:
 
 ```console
 go get -u github.com/elastic/cloud-sdk-go
