@@ -42,6 +42,74 @@ type Client struct {
 }
 
 /*
+CancelDeploymentResourcePendingPlan cancels resource pending plan
+
+Cancels the pending plan of a Resource belonging to a given Deployment.
+*/
+func (a *Client) CancelDeploymentResourcePendingPlan(params *CancelDeploymentResourcePendingPlanParams, authInfo runtime.ClientAuthInfoWriter) (*CancelDeploymentResourcePendingPlanOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCancelDeploymentResourcePendingPlanParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "cancel-deployment-resource-pending-plan",
+		Method:             "DELETE",
+		PathPattern:        "/deployments/{deployment_id}/{resource_kind}/{ref_id}/plan/pending",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &CancelDeploymentResourcePendingPlanReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*CancelDeploymentResourcePendingPlanOK), nil
+
+}
+
+/*
+CreateDeployment creates deployment
+
+Creates a Deployment.
+*/
+func (a *Client) CreateDeployment(params *CreateDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*CreateDeploymentOK, *CreateDeploymentAccepted, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCreateDeploymentParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "create-deployment",
+		Method:             "POST",
+		PathPattern:        "/deployments",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &CreateDeploymentReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, nil, err
+	}
+	switch value := result.(type) {
+	case *CreateDeploymentOK:
+		return value, nil, nil
+	case *CreateDeploymentAccepted:
+		return nil, value, nil
+	}
+	return nil, nil, nil
+
+}
+
+/*
 CreateDeploymentNote creates deployment note
 
 Create note for the running deployment.
@@ -73,6 +141,37 @@ func (a *Client) CreateDeploymentNote(params *CreateDeploymentNoteParams, authIn
 }
 
 /*
+DeleteDeployment deletes deployment
+
+Deletes a Deployment and all its resources.
+*/
+func (a *Client) DeleteDeployment(params *DeleteDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteDeploymentOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteDeploymentParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "delete-deployment",
+		Method:             "DELETE",
+		PathPattern:        "/deployments/{deployment_id}",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeleteDeploymentReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*DeleteDeploymentOK), nil
+
+}
+
+/*
 DeleteDeploymentNote deletes deployment note
 
 Delete note for the running deployment.
@@ -100,6 +199,192 @@ func (a *Client) DeleteDeploymentNote(params *DeleteDeploymentNoteParams, authIn
 		return nil, err
 	}
 	return result.(*DeleteDeploymentNoteOK), nil
+
+}
+
+/*
+DeleteDeploymentStatelessResource deletes stateless resource from deployment
+
+Delete Stateless Resource belonging to a given Deployment. Deployment must be shutdown already.
+*/
+func (a *Client) DeleteDeploymentStatelessResource(params *DeleteDeploymentStatelessResourceParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteDeploymentStatelessResourceOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteDeploymentStatelessResourceParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "delete-deployment-stateless-resource",
+		Method:             "DELETE",
+		PathPattern:        "/deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeleteDeploymentStatelessResourceReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*DeleteDeploymentStatelessResourceOK), nil
+
+}
+
+/*
+GetDeployment gets deployment
+
+Retrieves information about a Deployment.
+*/
+func (a *Client) GetDeployment(params *GetDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetDeploymentParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "get-deployment",
+		Method:             "GET",
+		PathPattern:        "/deployments/{deployment_id}",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetDeploymentReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetDeploymentOK), nil
+
+}
+
+/*
+GetDeploymentApmResourceInfo gets deployment a p m resource info
+
+Get info about an APM Resource belonging to a given Deployment.
+*/
+func (a *Client) GetDeploymentApmResourceInfo(params *GetDeploymentApmResourceInfoParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentApmResourceInfoOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetDeploymentApmResourceInfoParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "get-deployment-apm-resource-info",
+		Method:             "GET",
+		PathPattern:        "/deployments/{deployment_id}/apm/{ref_id}",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetDeploymentApmResourceInfoReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetDeploymentApmResourceInfoOK), nil
+
+}
+
+/*
+GetDeploymentAppsearchResourceInfo gets deployment app search resource info
+
+Get info about an App Search Resource belonging to a given Deployment.
+*/
+func (a *Client) GetDeploymentAppsearchResourceInfo(params *GetDeploymentAppsearchResourceInfoParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentAppsearchResourceInfoOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetDeploymentAppsearchResourceInfoParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "get-deployment-appsearch-resource-info",
+		Method:             "GET",
+		PathPattern:        "/deployments/{deployment_id}/appsearch/{ref_id}",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetDeploymentAppsearchResourceInfoReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetDeploymentAppsearchResourceInfoOK), nil
+
+}
+
+/*
+GetDeploymentEsResourceInfo gets deployment elasticsearch resource info
+
+Get info about an Elasticsearch Resource belonging to a given Deployment.
+*/
+func (a *Client) GetDeploymentEsResourceInfo(params *GetDeploymentEsResourceInfoParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentEsResourceInfoOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetDeploymentEsResourceInfoParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "get-deployment-es-resource-info",
+		Method:             "GET",
+		PathPattern:        "/deployments/{deployment_id}/elasticsearch/{ref_id}",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetDeploymentEsResourceInfoReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetDeploymentEsResourceInfoOK), nil
+
+}
+
+/*
+GetDeploymentKibResourceInfo gets deployment kibana resource info
+
+Get info about an Kibana Resource belonging to a given Deployment.
+*/
+func (a *Client) GetDeploymentKibResourceInfo(params *GetDeploymentKibResourceInfoParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentKibResourceInfoOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetDeploymentKibResourceInfoParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "get-deployment-kib-resource-info",
+		Method:             "GET",
+		PathPattern:        "/deployments/{deployment_id}/kibana/{ref_id}",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetDeploymentKibResourceInfoReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetDeploymentKibResourceInfoOK), nil
 
 }
 
@@ -166,6 +451,161 @@ func (a *Client) GetDeploymentNotes(params *GetDeploymentNotesParams, authInfo r
 }
 
 /*
+ListDeployments lists deployments
+
+List Deployments.
+*/
+func (a *Client) ListDeployments(params *ListDeploymentsParams, authInfo runtime.ClientAuthInfoWriter) (*ListDeploymentsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewListDeploymentsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "list-deployments",
+		Method:             "GET",
+		PathPattern:        "/deployments",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &ListDeploymentsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*ListDeploymentsOK), nil
+
+}
+
+/*
+RestartDeploymentEsResource restarts deployment elasticsearch resource
+
+Restarts an Elasticsearch Resource. If a Resource is active: this command re-applies the existing plan but applies a "cluster_reboot", which issues a restart command and waits for it to complete. If a Resource is inactive: this command starts it up with the most recent successful plan.
+*/
+func (a *Client) RestartDeploymentEsResource(params *RestartDeploymentEsResourceParams, authInfo runtime.ClientAuthInfoWriter) (*RestartDeploymentEsResourceAccepted, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewRestartDeploymentEsResourceParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "restart-deployment-es-resource",
+		Method:             "POST",
+		PathPattern:        "/deployments/{deployment_id}/elasticsearch/{ref_id}/_restart",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &RestartDeploymentEsResourceReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*RestartDeploymentEsResourceAccepted), nil
+
+}
+
+/*
+RestartDeploymentStatelessResource restarts deployment stateless resource
+
+Restarts an Stateless Resource. If a Resource is active: this command re-applies the existing plan but applies a "cluster_reboot", which issues a restart command and waits for it to complete. If a Resource is inactive: this command starts it up with the most recent successful plan.
+*/
+func (a *Client) RestartDeploymentStatelessResource(params *RestartDeploymentStatelessResourceParams, authInfo runtime.ClientAuthInfoWriter) (*RestartDeploymentStatelessResourceAccepted, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewRestartDeploymentStatelessResourceParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "restart-deployment-stateless-resource",
+		Method:             "POST",
+		PathPattern:        "/deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_restart",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &RestartDeploymentStatelessResourceReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*RestartDeploymentStatelessResourceAccepted), nil
+
+}
+
+/*
+RestoreDeployment restores a shutdown deployment
+
+Restores all resources in a Deployment.
+*/
+func (a *Client) RestoreDeployment(params *RestoreDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*RestoreDeploymentOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewRestoreDeploymentParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "restore-deployment",
+		Method:             "POST",
+		PathPattern:        "/deployments/{deployment_id}/_restore",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &RestoreDeploymentReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*RestoreDeploymentOK), nil
+
+}
+
+/*
+RestoreDeploymentResource restores a shutdown resource
+
+Restores a shutdown resource belonging to a given Deployment.
+*/
+func (a *Client) RestoreDeploymentResource(params *RestoreDeploymentResourceParams, authInfo runtime.ClientAuthInfoWriter) (*RestoreDeploymentResourceOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewRestoreDeploymentResourceParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "restore-deployment-resource",
+		Method:             "POST",
+		PathPattern:        "/deployments/{deployment_id}/{resource_kind}/{ref_id}/_restore",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &RestoreDeploymentResourceReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*RestoreDeploymentResourceOK), nil
+
+}
+
+/*
 ResyncDeployment resynchronizes deployment
 
 Immediately resynchronizes the search index for the selected deployment.
@@ -228,6 +668,441 @@ func (a *Client) ResyncDeployments(params *ResyncDeploymentsParams, authInfo run
 }
 
 /*
+SearchDeployments searches deployments
+
+Retrieves the information for all of the Deployments that match the specified query.
+*/
+func (a *Client) SearchDeployments(params *SearchDeploymentsParams, authInfo runtime.ClientAuthInfoWriter) (*SearchDeploymentsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSearchDeploymentsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "search-deployments",
+		Method:             "POST",
+		PathPattern:        "/deployments/_search",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &SearchDeploymentsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*SearchDeploymentsOK), nil
+
+}
+
+/*
+SetDeploymentResourceRawMetadata sets a deployment s resource metadata
+
+Advanced use only. Sets the internal metadata, in free-form JSON, for the resource.
+Only use the parameter to set the modified JSON that is returned from the get version of the metadata.
+*/
+func (a *Client) SetDeploymentResourceRawMetadata(params *SetDeploymentResourceRawMetadataParams, authInfo runtime.ClientAuthInfoWriter) (*SetDeploymentResourceRawMetadataOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSetDeploymentResourceRawMetadataParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "set-deployment-resource-raw-metadata",
+		Method:             "POST",
+		PathPattern:        "/deployments/{deployment_id}/{resource_kind}/{ref_id}/metadata/raw",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &SetDeploymentResourceRawMetadataReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*SetDeploymentResourceRawMetadataOK), nil
+
+}
+
+/*
+ShutdownDeployment shuts down deployment
+
+Shuts down all resources in a Deployment.
+*/
+func (a *Client) ShutdownDeployment(params *ShutdownDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*ShutdownDeploymentOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewShutdownDeploymentParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "shutdown-deployment",
+		Method:             "POST",
+		PathPattern:        "/deployments/{deployment_id}/_shutdown",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &ShutdownDeploymentReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*ShutdownDeploymentOK), nil
+
+}
+
+/*
+ShutdownDeploymentEsResource shutdowns deployment elasticsearch resource
+
+Shutdown Elasticsearch Resource belonging to a given Deployment.
+*/
+func (a *Client) ShutdownDeploymentEsResource(params *ShutdownDeploymentEsResourceParams, authInfo runtime.ClientAuthInfoWriter) (*ShutdownDeploymentEsResourceOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewShutdownDeploymentEsResourceParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "shutdown-deployment-es-resource",
+		Method:             "POST",
+		PathPattern:        "/deployments/{deployment_id}/elasticsearch/{ref_id}/_shutdown",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &ShutdownDeploymentEsResourceReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*ShutdownDeploymentEsResourceOK), nil
+
+}
+
+/*
+ShutdownDeploymentStatelessResource shutdowns deployment stateless resource
+
+Shutdown Stateless Resource belonging to a given Deployment.
+*/
+func (a *Client) ShutdownDeploymentStatelessResource(params *ShutdownDeploymentStatelessResourceParams, authInfo runtime.ClientAuthInfoWriter) (*ShutdownDeploymentStatelessResourceOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewShutdownDeploymentStatelessResourceParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "shutdown-deployment-stateless-resource",
+		Method:             "POST",
+		PathPattern:        "/deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_shutdown",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &ShutdownDeploymentStatelessResourceReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*ShutdownDeploymentStatelessResourceOK), nil
+
+}
+
+/*
+StartDeploymentResourceInstances starts instances
+
+Starts instances belonging to a Deployment Resource.
+*/
+func (a *Client) StartDeploymentResourceInstances(params *StartDeploymentResourceInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*StartDeploymentResourceInstancesAccepted, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewStartDeploymentResourceInstancesParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "start-deployment-resource-instances",
+		Method:             "POST",
+		PathPattern:        "/deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_ids}/_start",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &StartDeploymentResourceInstancesReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*StartDeploymentResourceInstancesAccepted), nil
+
+}
+
+/*
+StartDeploymentResourceInstancesAll starts all instances
+
+Starts all instances belonging to a Deployment Resource.
+*/
+func (a *Client) StartDeploymentResourceInstancesAll(params *StartDeploymentResourceInstancesAllParams, authInfo runtime.ClientAuthInfoWriter) (*StartDeploymentResourceInstancesAllAccepted, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewStartDeploymentResourceInstancesAllParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "start-deployment-resource-instances-all",
+		Method:             "POST",
+		PathPattern:        "/deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/_start",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &StartDeploymentResourceInstancesAllReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*StartDeploymentResourceInstancesAllAccepted), nil
+
+}
+
+/*
+StartDeploymentResourceInstancesAllMaintenanceMode starts maintenance mode all instances
+
+Starts maintenance mode of all instances belonging to a Resource.
+*/
+func (a *Client) StartDeploymentResourceInstancesAllMaintenanceMode(params *StartDeploymentResourceInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StartDeploymentResourceInstancesAllMaintenanceModeAccepted, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewStartDeploymentResourceInstancesAllMaintenanceModeParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "start-deployment-resource-instances-all-maintenance-mode",
+		Method:             "POST",
+		PathPattern:        "/deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/maintenance-mode/_start",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &StartDeploymentResourceInstancesAllMaintenanceModeReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*StartDeploymentResourceInstancesAllMaintenanceModeAccepted), nil
+
+}
+
+/*
+StartDeploymentResourceMaintenanceMode starts maintenance mode
+
+Starts maintenance mode of instances belonging to a Deployment Resource.
+*/
+func (a *Client) StartDeploymentResourceMaintenanceMode(params *StartDeploymentResourceMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StartDeploymentResourceMaintenanceModeAccepted, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewStartDeploymentResourceMaintenanceModeParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "start-deployment-resource-maintenance-mode",
+		Method:             "POST",
+		PathPattern:        "/deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_ids}/maintenance-mode/_start",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &StartDeploymentResourceMaintenanceModeReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*StartDeploymentResourceMaintenanceModeAccepted), nil
+
+}
+
+/*
+StopDeploymentResourceInstances stops of instances
+
+Stops instances belonging to a Deployment Resource.
+*/
+func (a *Client) StopDeploymentResourceInstances(params *StopDeploymentResourceInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*StopDeploymentResourceInstancesAccepted, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewStopDeploymentResourceInstancesParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "stop-deployment-resource-instances",
+		Method:             "POST",
+		PathPattern:        "/deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_ids}/_stop",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &StopDeploymentResourceInstancesReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*StopDeploymentResourceInstancesAccepted), nil
+
+}
+
+/*
+StopDeploymentResourceInstancesAll stops all instances
+
+Stops all instances belonging to a Deployment Resource.
+*/
+func (a *Client) StopDeploymentResourceInstancesAll(params *StopDeploymentResourceInstancesAllParams, authInfo runtime.ClientAuthInfoWriter) (*StopDeploymentResourceInstancesAllAccepted, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewStopDeploymentResourceInstancesAllParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "stop-deployment-resource-instances-all",
+		Method:             "POST",
+		PathPattern:        "/deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/_stop",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &StopDeploymentResourceInstancesAllReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*StopDeploymentResourceInstancesAllAccepted), nil
+
+}
+
+/*
+StopDeploymentResourceInstancesAllMaintenanceMode stops maintenance mode all instances
+
+Stops maintenance mode of all instances belonging to a Deployment Resource.
+*/
+func (a *Client) StopDeploymentResourceInstancesAllMaintenanceMode(params *StopDeploymentResourceInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StopDeploymentResourceInstancesAllMaintenanceModeAccepted, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewStopDeploymentResourceInstancesAllMaintenanceModeParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "stop-deployment-resource-instances-all-maintenance-mode",
+		Method:             "POST",
+		PathPattern:        "/deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/maintenance-mode/_stop",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &StopDeploymentResourceInstancesAllMaintenanceModeReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*StopDeploymentResourceInstancesAllMaintenanceModeAccepted), nil
+
+}
+
+/*
+StopDeploymentResourceMaintenanceMode stops maintenance mode
+
+Stops maintenance mode of instances belonging to a Deployment Resource.
+*/
+func (a *Client) StopDeploymentResourceMaintenanceMode(params *StopDeploymentResourceMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StopDeploymentResourceMaintenanceModeAccepted, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewStopDeploymentResourceMaintenanceModeParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "stop-deployment-resource-maintenance-mode",
+		Method:             "POST",
+		PathPattern:        "/deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_ids}/maintenance-mode/_stop",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &StopDeploymentResourceMaintenanceModeReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*StopDeploymentResourceMaintenanceModeAccepted), nil
+
+}
+
+/*
+UpdateDeployment updates deployment
+
+Updates a Deployment.
+*/
+func (a *Client) UpdateDeployment(params *UpdateDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateDeploymentOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdateDeploymentParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "update-deployment",
+		Method:             "PUT",
+		PathPattern:        "/deployments/{deployment_id}",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &UpdateDeploymentReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*UpdateDeploymentOK), nil
+
+}
+
+/*
 UpdateDeploymentNote updates deployment note
 
 Update note for the running deployment.
@@ -255,6 +1130,37 @@ func (a *Client) UpdateDeploymentNote(params *UpdateDeploymentNoteParams, authIn
 		return nil, err
 	}
 	return result.(*UpdateDeploymentNoteOK), nil
+
+}
+
+/*
+UpgradeDeploymentStatelessResource upgrades kibana a p m app search inside deployment
+
+Upgrades a running cluster.
+*/
+func (a *Client) UpgradeDeploymentStatelessResource(params *UpgradeDeploymentStatelessResourceParams, authInfo runtime.ClientAuthInfoWriter) (*UpgradeDeploymentStatelessResourceAccepted, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpgradeDeploymentStatelessResourceParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "upgrade-deployment-stateless-resource",
+		Method:             "POST",
+		PathPattern:        "/deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_upgrade",
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &UpgradeDeploymentStatelessResourceReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*UpgradeDeploymentStatelessResourceAccepted), nil
 
 }
 

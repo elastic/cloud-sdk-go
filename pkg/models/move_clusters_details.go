@@ -39,7 +39,7 @@ type MoveClustersDetails struct {
 	ApmClusters []*MoveApmClusterDetails `json:"apm_clusters"`
 
 	// Detailed information about the App Search clusters being moved.
-	AppsearchClusters []*MoveApmClusterDetails `json:"appsearch_clusters"`
+	AppsearchClusters []*MoveAppSearchDetails `json:"appsearch_clusters"`
 
 	// Detailed information about the Elasticsearch clusters being moved.
 	ElasticsearchClusters []*MoveElasticsearchClusterDetails `json:"elasticsearch_clusters"`

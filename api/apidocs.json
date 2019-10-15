@@ -25,8 +25,6 @@
   }, {
     "name" : "DeploymentsIpFiltering"
   }, {
-    "name" : "Extensions"
-  }, {
     "name" : "Platform"
   }, {
     "name" : "PlatformConfigurationInstances"
@@ -8504,6 +8502,99 @@
         }
       }
     },
+    "/deployments" : {
+      "get" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "List Deployments",
+        "description" : "List Deployments.",
+        "operationId" : "list-deployments",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "The list of deployments that belong to the authenticated user",
+            "schema" : {
+              "$ref" : "#/definitions/DeploymentsListResponse"
+            }
+          },
+          "401" : {
+            "description" : "You are not authorized to perform this action",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployment - CRUD"
+        }
+      },
+      "post" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Create Deployment",
+        "description" : "Creates a Deployment.",
+        "operationId" : "create-deployment",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "The deployment definition",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/DeploymentCreateRequest"
+          }
+        }, {
+          "name" : "request_id",
+          "in" : "query",
+          "description" : "An optional idempotency token - if two create requests share the same request_id token (min size 32 characters, max 128) then only one deployment will be created, the second request will return the info of that deployment (in the same format described below, but with blanks for auth-related fields)",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "validate_only",
+          "in" : "query",
+          "description" : "If true, will just validate the Deployment definition but will not perform the creation",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The request was valid and a new deployment was created",
+            "schema" : {
+              "$ref" : "#/definitions/DeploymentCreateResponse"
+            }
+          },
+          "202" : {
+            "description" : "The request was valid",
+            "schema" : {
+              "$ref" : "#/definitions/DeploymentCreateResponse"
+            }
+          },
+          "400" : {
+            "description" : "The deployment request had errors",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "401" : {
+            "description" : "You are not authorized to perform this action",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployment - CRUD"
+        }
+      }
+    },
     "/deployments/_resync" : {
       "post" : {
         "tags" : [ "Deployments" ],
@@ -8541,263 +8632,32 @@
         }
       }
     },
-    "/deployments/extensions" : {
-      "get" : {
-        "tags" : [ "Extensions" ],
-        "summary" : "List Extensions",
-        "description" : "Retrieves all of the available extensions.",
-        "operationId" : "list-extensions",
-        "parameters" : [ ],
-        "responses" : {
-          "200" : {
-            "description" : "The Extensions that are available",
-            "schema" : {
-              "$ref" : "#/definitions/Extensions"
-            }
-          }
-        },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
-        "x-doc" : {
-          "tag" : "Deployments - Extensions"
-        }
-      },
+    "/deployments/_search" : {
       "post" : {
-        "tags" : [ "Extensions" ],
-        "summary" : "Create an extension",
-        "description" : "Creates an extension.",
-        "operationId" : "create-extension",
+        "tags" : [ "Deployments" ],
+        "summary" : "Search Deployments",
+        "description" : "Retrieves the information for all of the Deployments that match the specified query.",
+        "operationId" : "search-deployments",
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
-          "description" : "the data that creates the extension",
-          "required" : true,
+          "description" : "(Optional) The search request to execute. NOTE: When not specified, all of the deployments are matched.",
+          "required" : false,
           "schema" : {
-            "$ref" : "#/definitions/CreateExtensionRequest"
-          }
-        } ],
-        "responses" : {
-          "201" : {
-            "description" : "The Extension that was just created.",
-            "schema" : {
-              "$ref" : "#/definitions/Extension"
-            },
-            "headers" : {
-              "x-cloud-resource-version" : {
-                "type" : "string",
-                "description" : "The resource version, which is used to avoid update conflicts with concurrent operations"
-              },
-              "x-cloud-resource-created" : {
-                "type" : "string",
-                "description" : "The date-time when the resource was created (ISO format relative to UTC)"
-              },
-              "x-cloud-resource-last-modified" : {
-                "type" : "string",
-                "description" : "The date-time when the resource was last modified (ISO format relative to UTC)"
-              }
-            }
-          },
-          "404" : {
-            "description" : "Your current session does not have a user id associated with it. (code: `extensions.no_user_id`)",
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            },
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "extensions.no_user_id" ]
-              }
-            }
-          },
-          "400" : {
-            "description" : "Could not download the extension from the specified URL. (code: `extensions.request_execution_failed`)",
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            },
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "extensions.request_execution_failed" ]
-              }
-            }
-          },
-          "409" : {
-            "description" : "An extension already exists with the generated id. Please try again. (code: `extensions.id_already_exists`)",
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            },
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "extensions.id_already_exists" ]
-              }
-            }
-          }
-        },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
-        "x-doc" : {
-          "tag" : "Deployments - Extensions"
-        }
-      }
-    },
-    "/deployments/extensions/{extension_id}" : {
-      "get" : {
-        "tags" : [ "Extensions" ],
-        "summary" : "Get Extension",
-        "description" : "Retrieves an Extension.",
-        "operationId" : "get-extension",
-        "parameters" : [ {
-          "name" : "extension_id",
-          "in" : "path",
-          "description" : "Id of an Extension",
-          "required" : true,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "The Extension",
-            "schema" : {
-              "$ref" : "#/definitions/Extension"
-            },
-            "headers" : {
-              "x-cloud-resource-version" : {
-                "type" : "string",
-                "description" : "The resource version, which is used to avoid update conflicts with concurrent operations"
-              },
-              "x-cloud-resource-created" : {
-                "type" : "string",
-                "description" : "The date-time when the resource was created (ISO format relative to UTC)"
-              },
-              "x-cloud-resource-last-modified" : {
-                "type" : "string",
-                "description" : "The date-time when the resource was last modified (ISO format relative to UTC)"
-              }
-            }
-          },
-          "404" : {
-            "description" : "The Extension requested does not exist. (code: `extensions.not_found`)",
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            },
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "extensions.not_found" ]
-              }
-            }
-          }
-        },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
-        "x-doc" : {
-          "tag" : "Deployments - Extensions"
-        }
-      },
-      "post" : {
-        "tags" : [ "Extensions" ],
-        "summary" : "Update Extension",
-        "description" : "Updates a Extension.",
-        "operationId" : "update-extension",
-        "parameters" : [ {
-          "name" : "extension_id",
-          "in" : "path",
-          "description" : "Id of an Extension",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "in" : "body",
-          "name" : "body",
-          "description" : "The Extension update data.",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/definitions/UpdateExtensionRequest"
+            "$ref" : "#/definitions/SearchRequest"
           }
         } ],
         "responses" : {
           "200" : {
-            "description" : "Extension updated successfully.",
+            "description" : "The list of deployments that match the specified query and belong to the authenticated user",
             "schema" : {
-              "$ref" : "#/definitions/Extension"
-            },
-            "headers" : {
-              "x-cloud-resource-version" : {
-                "type" : "string",
-                "description" : "The resource version, which is used to avoid update conflicts with concurrent operations"
-              },
-              "x-cloud-resource-created" : {
-                "type" : "string",
-                "description" : "The date-time when the resource was created (ISO format relative to UTC)"
-              },
-              "x-cloud-resource-last-modified" : {
-                "type" : "string",
-                "description" : "The date-time when the resource was last modified (ISO format relative to UTC)"
-              }
+              "$ref" : "#/definitions/DeploymentsSearchResponse"
             }
           },
           "401" : {
-            "description" : "* The Extension does not belong to you. (code: `extensions.unauthorised`)\n* Your current session does not have a user id associated with it. (code: `extensions.no_user_id`)",
+            "description" : "You are not authorized to perform this action",
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
-            },
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "extensions.unauthorised", "extensions.no_user_id" ]
-              }
-            }
-          },
-          "404" : {
-            "description" : "The Extension you want does not exist. (code: `extensions.not_found`)",
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            },
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "extensions.not_found" ]
-              }
-            }
-          },
-          "400" : {
-            "description" : "Could not download the extension from the specified URL. (code: `extensions.request_execution_failed`)",
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            },
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "extensions.request_execution_failed" ]
-              }
-            }
-          },
-          "409" : {
-            "description" : "The version you sent does not match the persisted version. (code: `extensions.version_conflict`)",
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            },
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "extensions.version_conflict" ]
-              }
             }
           }
         },
@@ -8807,178 +8667,7 @@
           "apiKey" : [ ]
         } ],
         "x-doc" : {
-          "tag" : "Deployments - Extensions"
-        }
-      },
-      "put" : {
-        "tags" : [ "Extensions" ],
-        "summary" : "Uploads the Extension",
-        "description" : "Uploads archive for an Extension.",
-        "operationId" : "upload-extension",
-        "consumes" : [ "multipart/form-data" ],
-        "parameters" : [ {
-          "name" : "extension_id",
-          "in" : "path",
-          "description" : "Id of an Extension",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "file",
-          "in" : "formData",
-          "description" : "Zip file that contains the extension",
-          "required" : true,
-          "type" : "file"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Archive uploaded successfully.",
-            "schema" : {
-              "$ref" : "#/definitions/Extension"
-            },
-            "headers" : {
-              "x-cloud-resource-version" : {
-                "type" : "string",
-                "description" : "The resource version, which is used to avoid update conflicts with concurrent operations"
-              },
-              "x-cloud-resource-created" : {
-                "type" : "string",
-                "description" : "The date-time when the resource was created (ISO format relative to UTC)"
-              },
-              "x-cloud-resource-last-modified" : {
-                "type" : "string",
-                "description" : "The date-time when the resource was last modified (ISO format relative to UTC)"
-              }
-            }
-          },
-          "401" : {
-            "description" : "* The Extension does not belong to you. (code: `extensions.unauthorised`)\n* Your current session does not have a user id associated with it. (code: `extensions.no_user_id`)",
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            },
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "extensions.unauthorised", "extensions.no_user_id" ]
-              }
-            }
-          },
-          "404" : {
-            "description" : "The Extension you want does not exist. (code: `extensions.not_found`)",
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            },
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "extensions.not_found" ]
-              }
-            }
-          },
-          "400" : {
-            "description" : "Could not accept the extensions file. (code: `extensions.request_execution_failed`)",
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            },
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "extensions.request_execution_failed" ]
-              }
-            }
-          }
-        },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
-        "x-doc" : {
-          "tag" : "Deployments - Extensions"
-        }
-      },
-      "delete" : {
-        "tags" : [ "Extensions" ],
-        "summary" : "Delete Extension",
-        "description" : "Deletes a Extension.",
-        "operationId" : "delete-extension",
-        "parameters" : [ {
-          "name" : "extension_id",
-          "in" : "path",
-          "description" : "Id of an Extension",
-          "required" : true,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Extension deleted successfully.",
-            "schema" : {
-              "$ref" : "#/definitions/EmptyResponse"
-            },
-            "headers" : {
-              "x-cloud-resource-version" : {
-                "type" : "string",
-                "description" : "The resource version, which is used to avoid update conflicts with concurrent operations"
-              },
-              "x-cloud-resource-created" : {
-                "type" : "string",
-                "description" : "The date-time when the resource was created (ISO format relative to UTC)"
-              },
-              "x-cloud-resource-last-modified" : {
-                "type" : "string",
-                "description" : "The date-time when the resource was last modified (ISO format relative to UTC)"
-              }
-            }
-          },
-          "401" : {
-            "description" : "* The Extension does not belong to you. (code: `extensions.unauthorised`)\n* Your current session does not have a user id associated with it. (code: `extensions.no_user_id`)",
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            },
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "extensions.unauthorised", "extensions.no_user_id" ]
-              }
-            }
-          },
-          "404" : {
-            "description" : "The Extension requested does not exist. (code: `extensions.not_found`)",
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            },
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "extensions.not_found" ]
-              }
-            }
-          },
-          "409" : {
-            "description" : "The version you sent does not match the persisted version. (code: `extensions.version_conflict`)",
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            },
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "extensions.version_conflict" ]
-              }
-            }
-          }
-        },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
-        "x-doc" : {
-          "tag" : "Deployments - Extensions"
+          "tag" : "Deployment - Commands"
         }
       }
     },
@@ -9431,6 +9120,338 @@
         }
       }
     },
+    "/deployments/{deployment_id}" : {
+      "get" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Get Deployment",
+        "description" : "Retrieves information about a Deployment.",
+        "operationId" : "get-deployment",
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "show_security",
+          "in" : "query",
+          "description" : "Whether to include the Elasticsearch 2.x security information in the response - can be large per cluster and also include credentials",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "show_metadata",
+          "in" : "query",
+          "description" : "Whether to include the full cluster metadata in the response - can be large per cluster and also include credentials",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "show_plans",
+          "in" : "query",
+          "description" : "Whether to include the full current and pending plan information in the response - can be large per cluster",
+          "required" : false,
+          "type" : "boolean",
+          "default" : true
+        }, {
+          "name" : "show_plan_logs",
+          "in" : "query",
+          "description" : "Whether to include with the current and pending plan information the attempt log - can be very large per cluster",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "show_plan_history",
+          "in" : "query",
+          "description" : "Whether to include with the current and pending plan information the plan history- can be very large per cluster",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "show_plan_defaults",
+          "in" : "query",
+          "description" : "If showing plans, whether to show values that are left at their default value (less readable but more informative)",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "convert_legacy_plans",
+          "in" : "query",
+          "description" : "If showing plans, whether to leave pre-2.0.0 plans in their legacy format (the default), or whether to update them to 2.0.x+ format (if 'true')",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "show_system_alerts",
+          "in" : "query",
+          "description" : "Number of system alerts (such as forced restarts due to memory limits) to be included in the response - can be large per cluster. Negative numbers or 0 will not return field.",
+          "required" : false,
+          "type" : "integer",
+          "default" : 0
+        }, {
+          "name" : "show_settings",
+          "in" : "query",
+          "description" : "Whether to show cluster settings in the response.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "enrich_with_template",
+          "in" : "query",
+          "description" : "If showing plans, whether to enrich the plan by including the missing elements from the deployment template it is based on",
+          "required" : false,
+          "type" : "boolean",
+          "default" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The Deployment info response",
+            "schema" : {
+              "$ref" : "#/definitions/DeploymentGetResponse"
+            },
+            "headers" : {
+              "x-cloud-resource-version" : {
+                "type" : "string",
+                "description" : "The resource version, which is used to avoid update conflicts with concurrent operations"
+              },
+              "x-cloud-resource-created" : {
+                "type" : "string",
+                "description" : "The date-time when the resource was created (ISO format relative to UTC)"
+              },
+              "x-cloud-resource-last-modified" : {
+                "type" : "string",
+                "description" : "The date-time when the resource was last modified (ISO format relative to UTC)"
+              }
+            }
+          },
+          "401" : {
+            "description" : "You are not authorized to perform this action",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "404" : {
+            "description" : "The Deployment specified by {deployment_id} cannot be found",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "500" : {
+            "description" : "We have failed you.",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployment - CRUD"
+        }
+      },
+      "put" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Update Deployment",
+        "description" : "Updates a Deployment.",
+        "operationId" : "update-deployment",
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "The deployment definition",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/DeploymentUpdateRequest"
+          }
+        }, {
+          "name" : "hide_pruned_orphans",
+          "in" : "query",
+          "description" : "Whether or not to hide orphaned resources that were shut down (relevant if prune on the request is true)",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "skip_snapshot",
+          "in" : "query",
+          "description" : "Whether or not to skip snapshots before shutting down orphaned resources (relevant if prune on the request is true)",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "validate_only",
+          "in" : "query",
+          "description" : "If true, will just validate the Deployment definition but will not perform the update",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "version",
+          "in" : "query",
+          "description" : "If specified then checks for conflicts against the version stored in the persistent store (returned in 'x-cloud-resource-version' of the GET request)",
+          "required" : false,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The request was valid and the deployment was updated",
+            "schema" : {
+              "$ref" : "#/definitions/DeploymentUpdateResponse"
+            },
+            "headers" : {
+              "x-cloud-resource-version" : {
+                "type" : "string",
+                "description" : "The resource version, which is used to avoid update conflicts with concurrent operations"
+              },
+              "x-cloud-resource-created" : {
+                "type" : "string",
+                "description" : "The date-time when the resource was created (ISO format relative to UTC)"
+              },
+              "x-cloud-resource-last-modified" : {
+                "type" : "string",
+                "description" : "The date-time when the resource was last modified (ISO format relative to UTC)"
+              }
+            }
+          },
+          "400" : {
+            "description" : "The deployment request had errors",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "401" : {
+            "description" : "You are not authorized to perform this action",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "404" : {
+            "description" : "The Deployment specified by {deployment_id} cannot be found",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployment - CRUD"
+        }
+      },
+      "delete" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Delete Deployment",
+        "description" : "Deletes a Deployment and all its resources.",
+        "operationId" : "delete-deployment",
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The request was valid and the deployment was deleted",
+            "schema" : {
+              "$ref" : "#/definitions/DeploymentDeleteResponse"
+            }
+          },
+          "400" : {
+            "description" : "The Deployment resources have not been shutdown yet",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "401" : {
+            "description" : "You are not authorized to perform this action",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "404" : {
+            "description" : "The Deployment specified by {deployment_id} cannot be found",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployment - CRUD"
+        }
+      }
+    },
+    "/deployments/{deployment_id}/_restore" : {
+      "post" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Restores a shutdown Deployment",
+        "description" : "Restores all resources in a Deployment.",
+        "operationId" : "restore-deployment",
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "restore_snapshot",
+          "in" : "query",
+          "description" : "Whether or not to restore a snapshot for those resources that allow it.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The request was valid and the resources of the deployment were restored",
+            "schema" : {
+              "$ref" : "#/definitions/DeploymentRestoreResponse"
+            }
+          },
+          "400" : {
+            "description" : "There are Elasticsearch resources in the deployment which are not shut down",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "401" : {
+            "description" : "You are not authorized to perform this action",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "404" : {
+            "description" : "The Deployment specified by {deployment_id} cannot be found",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployment - CRUD"
+        }
+      }
+    },
     "/deployments/{deployment_id}/_resync" : {
       "post" : {
         "tags" : [ "Deployments" ],
@@ -9471,6 +9492,652 @@
         } ],
         "x-doc" : {
           "tag" : "Deployment - resync"
+        }
+      }
+    },
+    "/deployments/{deployment_id}/_shutdown" : {
+      "post" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Shuts down Deployment",
+        "description" : "Shuts down all resources in a Deployment.",
+        "operationId" : "shutdown-deployment",
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "hide",
+          "in" : "query",
+          "description" : "Whether or not to hide the deployment and its resources",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "skip_snapshot",
+          "in" : "query",
+          "description" : "Whether or not to skip snapshots before shutting down the resources",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The request was valid and the resources of the deployment were shutdown",
+            "schema" : {
+              "$ref" : "#/definitions/DeploymentShutdownResponse"
+            }
+          },
+          "400" : {
+            "description" : "The deployment request had errors",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "401" : {
+            "description" : "You are not authorized to perform this action",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "404" : {
+            "description" : "The Deployment specified by {deployment_id} cannot be found",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployment - CRUD"
+        }
+      }
+    },
+    "/deployments/{deployment_id}/apm/{ref_id}" : {
+      "get" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Get Deployment APM Resource Info",
+        "description" : "Get info about an APM Resource belonging to a given Deployment.",
+        "operationId" : "get-deployment-apm-resource-info",
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "ref_id",
+          "in" : "path",
+          "description" : "User-specified RefId for the Resource",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "show_metadata",
+          "in" : "query",
+          "description" : "Whether to include the full cluster metadata in the response - can be large per cluster and also include credentials",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "show_plans",
+          "in" : "query",
+          "description" : "Whether to include the full current and pending plan information in the response - can be large per cluster",
+          "required" : false,
+          "type" : "boolean",
+          "default" : true
+        }, {
+          "name" : "show_plan_logs",
+          "in" : "query",
+          "description" : "Whether to include with the current and pending plan information the attempt log - can be very large per cluster",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "show_plan_history",
+          "in" : "query",
+          "description" : "Whether to include with the current and pending plan information the plan history- can be very large per cluster",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "show_plan_defaults",
+          "in" : "query",
+          "description" : "If showing plans, whether to show values that are left at their default value (less readable but more informative)",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "show_settings",
+          "in" : "query",
+          "description" : "Whether to show cluster settings in the response.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Standard response",
+            "schema" : {
+              "$ref" : "#/definitions/ApmResourceInfo"
+            }
+          },
+          "401" : {
+            "description" : "You are not authorized to perform this action",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "404" : {
+            "description" : "The Deployment specified by {deployment_id} cannot be found",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "500" : {
+            "description" : "We have failed you.",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployment - Info"
+        }
+      }
+    },
+    "/deployments/{deployment_id}/appsearch/{ref_id}" : {
+      "get" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Get Deployment App Search Resource Info",
+        "description" : "Get info about an App Search Resource belonging to a given Deployment.",
+        "operationId" : "get-deployment-appsearch-resource-info",
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "ref_id",
+          "in" : "path",
+          "description" : "User-specified RefId for the Resource",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "show_metadata",
+          "in" : "query",
+          "description" : "Whether to include the full cluster metadata in the response - can be large per cluster and also include credentials",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "show_plans",
+          "in" : "query",
+          "description" : "Whether to include the full current and pending plan information in the response - can be large per cluster",
+          "required" : false,
+          "type" : "boolean",
+          "default" : true
+        }, {
+          "name" : "show_plan_logs",
+          "in" : "query",
+          "description" : "Whether to include with the current and pending plan information the attempt log - can be very large per cluster",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "show_plan_history",
+          "in" : "query",
+          "description" : "Whether to include with the current and pending plan information the plan history- can be very large per cluster",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "show_plan_defaults",
+          "in" : "query",
+          "description" : "If showing plans, whether to show values that are left at their default value (less readable but more informative)",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "show_settings",
+          "in" : "query",
+          "description" : "Whether to show cluster settings in the response.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Standard response",
+            "schema" : {
+              "$ref" : "#/definitions/AppSearchResourceInfo"
+            }
+          },
+          "401" : {
+            "description" : "You are not authorized to perform this action",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "404" : {
+            "description" : "The Deployment specified by {deployment_id} cannot be found",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "500" : {
+            "description" : "We have failed you.",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployment - Info"
+        }
+      }
+    },
+    "/deployments/{deployment_id}/elasticsearch/{ref_id}" : {
+      "get" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Get Deployment Elasticsearch Resource Info",
+        "description" : "Get info about an Elasticsearch Resource belonging to a given Deployment.",
+        "operationId" : "get-deployment-es-resource-info",
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "ref_id",
+          "in" : "path",
+          "description" : "User-specified RefId for the Resource",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "show_security",
+          "in" : "query",
+          "description" : "Whether to include the Elasticsearch 2.x security information in the response - can be large per cluster and also include credentials",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "show_metadata",
+          "in" : "query",
+          "description" : "Whether to include the full cluster metadata in the response - can be large per cluster and also include credentials",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "show_plans",
+          "in" : "query",
+          "description" : "Whether to include the full current and pending plan information in the response - can be large per cluster",
+          "required" : false,
+          "type" : "boolean",
+          "default" : true
+        }, {
+          "name" : "show_plan_logs",
+          "in" : "query",
+          "description" : "Whether to include with the current and pending plan information the attempt log - can be very large per cluster",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "show_plan_history",
+          "in" : "query",
+          "description" : "Whether to include with the current and pending plan information the plan history- can be very large per cluster",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "show_plan_defaults",
+          "in" : "query",
+          "description" : "If showing plans, whether to show values that are left at their default value (less readable but more informative)",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "convert_legacy_plans",
+          "in" : "query",
+          "description" : "If showing plans, whether to leave pre-2.0.0 plans in their legacy format (the default), or whether to update them to 2.0.x+ format (if 'true')",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "show_system_alerts",
+          "in" : "query",
+          "description" : "Number of system alerts (such as forced restarts due to memory limits) to be included in the response - can be large per cluster. Negative numbers or 0 will not return field.",
+          "required" : false,
+          "type" : "integer",
+          "default" : 0
+        }, {
+          "name" : "show_settings",
+          "in" : "query",
+          "description" : "Whether to show cluster settings in the response.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "enrich_with_template",
+          "in" : "query",
+          "description" : "If showing plans, whether to enrich the plan by including the missing elements from the deployment template it is based on",
+          "required" : false,
+          "type" : "boolean",
+          "default" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Standard response",
+            "schema" : {
+              "$ref" : "#/definitions/ElasticsearchResourceInfo"
+            }
+          },
+          "401" : {
+            "description" : "You are not authorized to perform this action",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "404" : {
+            "description" : "The Deployment specified by {deployment_id} cannot be found",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "500" : {
+            "description" : "We have failed you.",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployment - Info"
+        }
+      }
+    },
+    "/deployments/{deployment_id}/elasticsearch/{ref_id}/_restart" : {
+      "post" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Restart Deployment Elasticsearch Resource",
+        "description" : "Restarts an Elasticsearch Resource. If a Resource is active: this command re-applies the existing plan but applies a \"cluster_reboot\", which issues a restart command and waits for it to complete. If a Resource is inactive: this command starts it up with the most recent successful plan.",
+        "operationId" : "restart-deployment-es-resource",
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "ref_id",
+          "in" : "path",
+          "description" : "User-specified RefId for the Resource",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "restore_snapshot",
+          "in" : "query",
+          "description" : "If restoring from shutdown and true (the default), then will restore the cluster from the last snapshot (if available)",
+          "required" : false,
+          "type" : "boolean",
+          "default" : true
+        }, {
+          "name" : "skip_snapshot",
+          "in" : "query",
+          "description" : "If true, will not take a snapshot of the cluster before restarting",
+          "required" : false,
+          "type" : "boolean",
+          "default" : true
+        }, {
+          "name" : "cancel_pending",
+          "in" : "query",
+          "description" : "If true, will cancel any pending plans before restarting (else will error)",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "group_attribute",
+          "in" : "query",
+          "description" : "Indicates the property or properties used to divide the list of instances to restart in groups. Valid options are: '\\_\\_all\\_\\_' (restart all at once), '\\_\\_zone\\_\\_' by logical zone, '\\_\\_name\\_\\_' one instance at the time, or a comma-separated list of attributes of the instances",
+          "required" : false,
+          "type" : "string",
+          "default" : "\\_\\_zone\\_\\_"
+        }, {
+          "name" : "shard_init_wait_time",
+          "in" : "query",
+          "description" : "The time, in seconds, to wait for shards that show no progress of initializing, before rolling the next group (default: 10 minutes)",
+          "required" : false,
+          "type" : "integer",
+          "default" : 600,
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "202" : {
+            "description" : "The restart command was issued successfully",
+            "schema" : {
+              "$ref" : "#/definitions/DeploymentResourceCommandResponse"
+            }
+          },
+          "404" : {
+            "description" : "The Resource specified by {ref_id} cannot be found",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "422" : {
+            "description" : "The command sent to a Resource found the Resource in an illegal state, the error message gives more details",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "449" : {
+            "description" : "elevated permissions are required. (code: '\"root.unauthorized.rbac.elevated_permissions_required\"')",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployment - Commands"
+        }
+      }
+    },
+    "/deployments/{deployment_id}/elasticsearch/{ref_id}/_shutdown" : {
+      "post" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Shutdown Deployment Elasticsearch Resource",
+        "description" : "Shutdown Elasticsearch Resource belonging to a given Deployment.",
+        "operationId" : "shutdown-deployment-es-resource",
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "ref_id",
+          "in" : "path",
+          "description" : "User-specified RefId for the Resource",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "hide",
+          "in" : "query",
+          "description" : "Hide cluster on shutdown. Hidden clusters are not listed by default",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "skip_snapshot",
+          "in" : "query",
+          "description" : "If true, will skip taking a snapshot of the cluster before shutting the cluster down (if even possible)",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Standard response",
+            "schema" : {
+              "$ref" : "#/definitions/DeploymentResourceCommandResponse"
+            }
+          },
+          "401" : {
+            "description" : "You are not authorized to perform this action",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "404" : {
+            "description" : "The Deployment specified by {deployment_id} cannot be found",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "500" : {
+            "description" : "We have failed you.",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployment - Commands"
+        }
+      }
+    },
+    "/deployments/{deployment_id}/kibana/{ref_id}" : {
+      "get" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Get Deployment Kibana Resource Info",
+        "description" : "Get info about an Kibana Resource belonging to a given Deployment.",
+        "operationId" : "get-deployment-kib-resource-info",
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "ref_id",
+          "in" : "path",
+          "description" : "User-specified RefId for the Resource",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "show_metadata",
+          "in" : "query",
+          "description" : "Whether to include the full cluster metadata in the response - can be large per cluster and also include credentials",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "show_plans",
+          "in" : "query",
+          "description" : "Whether to include the full current and pending plan information in the response - can be large per cluster",
+          "required" : false,
+          "type" : "boolean",
+          "default" : true
+        }, {
+          "name" : "show_plan_logs",
+          "in" : "query",
+          "description" : "Whether to include with the current and pending plan information the attempt log - can be very large per cluster",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "show_plan_history",
+          "in" : "query",
+          "description" : "Whether to include with the current and pending plan information the plan history- can be very large per cluster",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "show_plan_defaults",
+          "in" : "query",
+          "description" : "If showing plans, whether to show values that are left at their default value (less readable but more informative)",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "convert_legacy_plans",
+          "in" : "query",
+          "description" : "If showing plans, whether to leave pre-2.0.0 plans in their legacy format (the default), or whether to update them to 2.0.x+ format (if 'true')",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "show_settings",
+          "in" : "query",
+          "description" : "Whether to show cluster settings in the response.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Standard response",
+            "schema" : {
+              "$ref" : "#/definitions/KibanaResourceInfo"
+            }
+          },
+          "401" : {
+            "description" : "You are not authorized to perform this action",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "404" : {
+            "description" : "The Deployment specified by {deployment_id} cannot be found",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "500" : {
+            "description" : "We have failed you.",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployment - Info"
         }
       }
     },
@@ -9832,6 +10499,1307 @@
         } ],
         "x-doc" : {
           "tag" : "Deployments - Notes"
+        }
+      }
+    },
+    "/deployments/{deployment_id}/{resource_kind}/{ref_id}/_restore" : {
+      "post" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Restores a shutdown resource",
+        "description" : "Restores a shutdown resource belonging to a given Deployment.",
+        "operationId" : "restore-deployment-resource",
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "resource_kind",
+          "in" : "path",
+          "description" : "The kind of resource",
+          "required" : true,
+          "type" : "string",
+          "enum" : [ "elasticsearch", "kibana", "apm", "appsearch" ]
+        }, {
+          "name" : "ref_id",
+          "in" : "path",
+          "description" : "User-specified RefId for the Resource",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "restore_snapshot",
+          "in" : "query",
+          "description" : "Whether or not to restore a snapshot for those resources that allow it.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Standard Deployment Resource Crud Response",
+            "schema" : {
+              "$ref" : "#/definitions/DeploymentResourceCrudResponse"
+            }
+          },
+          "404" : {
+            "description" : "The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            },
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.deployment_not_found" ]
+              }
+            }
+          },
+          "400" : {
+            "description" : "The resource is not shut down. (code: `deployments.resource_not_shutdown`)",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            },
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.resource_not_shutdown" ]
+              }
+            }
+          },
+          "449" : {
+            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            },
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployment Resources - CRUD"
+        }
+      }
+    },
+    "/deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/_start" : {
+      "post" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Start all instances",
+        "description" : "Starts all instances belonging to a Deployment Resource.",
+        "operationId" : "start-deployment-resource-instances-all",
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "resource_kind",
+          "in" : "path",
+          "description" : "The kind of resource (one of elasticsearch, kibana or apm)",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "ref_id",
+          "in" : "path",
+          "description" : "User-specified RefId for the Resource",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "202" : {
+            "description" : "The start command was issued successfully",
+            "schema" : {
+              "$ref" : "#/definitions/DeploymentResourceCommandResponse"
+            }
+          },
+          "404" : {
+            "description" : "The Resource specified by {ref_id} cannot be found",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "422" : {
+            "description" : "The command sent to a Resource found the Resource in an illegal state, the error message gives more details",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "449" : {
+            "description" : "elevated permissions are required. (code: '\"root.unauthorized.rbac.elevated_permissions_required\"')",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "403" : {
+            "description" : "The start command was prohibited for the given Resource.",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployment - Commands"
+        }
+      }
+    },
+    "/deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/_stop" : {
+      "post" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Stop all instances",
+        "description" : "Stops all instances belonging to a Deployment Resource.",
+        "operationId" : "stop-deployment-resource-instances-all",
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "resource_kind",
+          "in" : "path",
+          "description" : "The kind of resource (one of elasticsearch, kibana or apm)",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "ref_id",
+          "in" : "path",
+          "description" : "User-specified RefId for the Resource",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "202" : {
+            "description" : "The stop command was issued successfully",
+            "schema" : {
+              "$ref" : "#/definitions/DeploymentResourceCommandResponse"
+            }
+          },
+          "404" : {
+            "description" : "The Resource specified by {ref_id} cannot be found",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "422" : {
+            "description" : "The command sent to a Resource found the Resource in an illegal state, the error message gives more details",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "449" : {
+            "description" : "elevated permissions are required. (code: '\"root.unauthorized.rbac.elevated_permissions_required\"')",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "403" : {
+            "description" : "The stop command was prohibited for the given Resource.",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployment - Commands"
+        }
+      }
+    },
+    "/deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/maintenance-mode/_start" : {
+      "post" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Start maintenance mode (all instances)",
+        "description" : "Starts maintenance mode of all instances belonging to a Resource.",
+        "operationId" : "start-deployment-resource-instances-all-maintenance-mode",
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "resource_kind",
+          "in" : "path",
+          "description" : "The kind of resource (one of elasticsearch, kibana or apm)",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "ref_id",
+          "in" : "path",
+          "description" : "User-specified RefId for the Resource",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "202" : {
+            "description" : "The start maintenance command was issued successfully",
+            "schema" : {
+              "$ref" : "#/definitions/DeploymentResourceCommandResponse"
+            }
+          },
+          "404" : {
+            "description" : "The Resource specified by {ref_id} cannot be found",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "422" : {
+            "description" : "The command sent to a Resource found the Resource in an illegal state, the error message gives more details",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "449" : {
+            "description" : "elevated permissions are required. (code: '\"root.unauthorized.rbac.elevated_permissions_required\"')",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "403" : {
+            "description" : "The start maintenance mode command was prohibited for the given Resource.",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployment - Commands"
+        }
+      }
+    },
+    "/deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/maintenance-mode/_stop" : {
+      "post" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Stop maintenance mode (all instances)",
+        "description" : "Stops maintenance mode of all instances belonging to a Deployment Resource.",
+        "operationId" : "stop-deployment-resource-instances-all-maintenance-mode",
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "resource_kind",
+          "in" : "path",
+          "description" : "The kind of resource (one of elasticsearch, kibana or apm)",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "ref_id",
+          "in" : "path",
+          "description" : "User-specified RefId for the Resource",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "202" : {
+            "description" : "The stop maintenance mode command was issued successfully",
+            "schema" : {
+              "$ref" : "#/definitions/DeploymentResourceCommandResponse"
+            }
+          },
+          "404" : {
+            "description" : "The Resource specified by {ref_id} cannot be found",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "422" : {
+            "description" : "The command sent to a Resource found the Resource in an illegal state, the error message gives more details",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "449" : {
+            "description" : "elevated permissions are required. (code: '\"root.unauthorized.rbac.elevated_permissions_required\"')",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "403" : {
+            "description" : "The stop maintenance mode command was prohibited for the given Resource.",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployment - Commands"
+        }
+      }
+    },
+    "/deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_ids}/_start" : {
+      "post" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Start instances",
+        "description" : "Starts instances belonging to a Deployment Resource.",
+        "operationId" : "start-deployment-resource-instances",
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "resource_kind",
+          "in" : "path",
+          "description" : "The kind of resource (one of elasticsearch, kibana or apm)",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "ref_id",
+          "in" : "path",
+          "description" : "User-specified RefId for the Resource",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "instance_ids",
+          "in" : "path",
+          "description" : "Comma-delimited list of instance identifiers of the Resource",
+          "required" : true,
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          },
+          "collectionFormat" : "csv"
+        }, {
+          "name" : "ignore_missing",
+          "in" : "query",
+          "description" : "If true and the instance does not exist then quietly proceed to the next instance, otherwise treated as an error",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        } ],
+        "responses" : {
+          "202" : {
+            "description" : "The start command was issued successfully",
+            "schema" : {
+              "$ref" : "#/definitions/DeploymentResourceCommandResponse"
+            }
+          },
+          "404" : {
+            "description" : "The Resource specified by {ref_id} cannot be found",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "422" : {
+            "description" : "The command sent to a Resource found the Resource in an illegal state, the error message gives more details",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "449" : {
+            "description" : "elevated permissions are required. (code: '\"root.unauthorized.rbac.elevated_permissions_required\"')",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "403" : {
+            "description" : "The start command was prohibited for the given Resource.",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployment - Commands"
+        }
+      }
+    },
+    "/deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_ids}/_stop" : {
+      "post" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Stop of instances",
+        "description" : "Stops instances belonging to a Deployment Resource.",
+        "operationId" : "stop-deployment-resource-instances",
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "resource_kind",
+          "in" : "path",
+          "description" : "The kind of resource (one of elasticsearch, kibana or apm)",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "ref_id",
+          "in" : "path",
+          "description" : "User-specified RefId for the Resource",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "instance_ids",
+          "in" : "path",
+          "description" : "Comma-delimited list of instance identifiers of the Resource",
+          "required" : true,
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          },
+          "collectionFormat" : "csv"
+        }, {
+          "name" : "ignore_missing",
+          "in" : "query",
+          "description" : "If true and the instance does not exist then quietly proceed to the next instance, otherwise treated as an error",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        } ],
+        "responses" : {
+          "202" : {
+            "description" : "The stop command was issued successfully",
+            "schema" : {
+              "$ref" : "#/definitions/DeploymentResourceCommandResponse"
+            }
+          },
+          "404" : {
+            "description" : "The Resource specified by {ref_id} cannot be found",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "422" : {
+            "description" : "The command sent to a Resource found the Resource in an illegal state, the error message gives more details",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "449" : {
+            "description" : "elevated permissions are required. (code: '\"root.unauthorized.rbac.elevated_permissions_required\"')",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "403" : {
+            "description" : "The stop command was prohibited for the given Resource.",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployment - Commands"
+        }
+      }
+    },
+    "/deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_ids}/maintenance-mode/_start" : {
+      "post" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Start maintenance mode",
+        "description" : "Starts maintenance mode of instances belonging to a Deployment Resource.",
+        "operationId" : "start-deployment-resource-maintenance-mode",
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "resource_kind",
+          "in" : "path",
+          "description" : "The kind of resource (one of elasticsearch, kibana or apm)",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "ref_id",
+          "in" : "path",
+          "description" : "User-specified RefId for the Resource",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "instance_ids",
+          "in" : "path",
+          "description" : "Comma-delimited list of instance identifiers of the Resource",
+          "required" : true,
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          },
+          "collectionFormat" : "csv"
+        }, {
+          "name" : "ignore_missing",
+          "in" : "query",
+          "description" : "If true and the instance does not exist then quietly proceed to the next instance, otherwise treated as an error",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        } ],
+        "responses" : {
+          "202" : {
+            "description" : "The stop maintenance command was issued successfully",
+            "schema" : {
+              "$ref" : "#/definitions/DeploymentResourceCommandResponse"
+            }
+          },
+          "404" : {
+            "description" : "The Resource specified by {ref_id} cannot be found",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "422" : {
+            "description" : "The command sent to a Resource found the Resource in an illegal state, the error message gives more details",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "449" : {
+            "description" : "elevated permissions are required. (code: '\"root.unauthorized.rbac.elevated_permissions_required\"')",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "403" : {
+            "description" : "The start maintenance mode command was prohibited for the given Resource.",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployment - Commands"
+        }
+      }
+    },
+    "/deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_ids}/maintenance-mode/_stop" : {
+      "post" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Stop maintenance mode",
+        "description" : "Stops maintenance mode of instances belonging to a Deployment Resource.",
+        "operationId" : "stop-deployment-resource-maintenance-mode",
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "resource_kind",
+          "in" : "path",
+          "description" : "The kind of resource (one of elasticsearch, kibana or apm)",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "ref_id",
+          "in" : "path",
+          "description" : "User-specified RefId for the Resource",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "instance_ids",
+          "in" : "path",
+          "description" : "Comma-delimited list of instance identifiers of the Resource",
+          "required" : true,
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          },
+          "collectionFormat" : "csv"
+        }, {
+          "name" : "ignore_missing",
+          "in" : "query",
+          "description" : "If true and the instance does not exist then quietly proceed to the next instance, otherwise treated as an error",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        } ],
+        "responses" : {
+          "202" : {
+            "description" : "The stop maintenance mode command was issued successfully",
+            "schema" : {
+              "$ref" : "#/definitions/DeploymentResourceCommandResponse"
+            }
+          },
+          "404" : {
+            "description" : "The Resource specified by {ref_id} cannot be found",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "422" : {
+            "description" : "The command sent to a Resource found the Resource in an illegal state, the error message gives more details",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "449" : {
+            "description" : "elevated permissions are required. (code: '\"root.unauthorized.rbac.elevated_permissions_required\"')",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "403" : {
+            "description" : "The stop maintenance mode command was prohibited for the given Resource.",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployment - Commands"
+        }
+      }
+    },
+    "/deployments/{deployment_id}/{resource_kind}/{ref_id}/metadata/raw" : {
+      "post" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Set a Deployment's resource metadata",
+        "description" : "Advanced use only. Sets the internal metadata, in free-form JSON, for the resource.\nOnly use the parameter to set the modified JSON that is returned from the get version of the metadata.",
+        "operationId" : "set-deployment-resource-raw-metadata",
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "resource_kind",
+          "in" : "path",
+          "description" : "The kind of resource",
+          "required" : true,
+          "type" : "string",
+          "enum" : [ "elasticsearch", "kibana", "apm", "appsearch" ]
+        }, {
+          "name" : "ref_id",
+          "in" : "path",
+          "description" : "User-specified RefId for the Resource",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "version",
+          "in" : "query",
+          "description" : "If specified, checks for conflicts against the metadata version (returned in 'x-cloud-resource-version' of the GET request)",
+          "required" : false,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "The freeform JSON for the cluster (should always be based on the current version retrieved from the GET)",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The resource metadata was successfully changed (the updated JSON is returned)",
+            "schema" : {
+              "type" : "string"
+            },
+            "headers" : {
+              "x-cloud-resource-version" : {
+                "type" : "string",
+                "description" : "The resource version, which is used to avoid update conflicts with concurrent operations"
+              },
+              "x-cloud-resource-created" : {
+                "type" : "string",
+                "description" : "The date-time when the resource was created (ISO format relative to UTC)"
+              },
+              "x-cloud-resource-last-modified" : {
+                "type" : "string",
+                "description" : "The date-time when the resource was last modified (ISO format relative to UTC)"
+              }
+            }
+          },
+          "404" : {
+            "description" : "A resource with the given refId cannot be found in the deployment. (code: `deployments.deployment_resource_not_found`)",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            },
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.deployment_resource_not_found" ]
+              }
+            }
+          },
+          "400" : {
+            "description" : "The metadata is invalid. (code: `deployments.invalid_metadata`)",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            },
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.invalid_metadata" ]
+              }
+            }
+          },
+          "500" : {
+            "description" : "We have failed you. (code: `deployments.metadata_internal_error`)",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            },
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.metadata_internal_error" ]
+              }
+            }
+          },
+          "449" : {
+            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            },
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployment Resources - CRUD"
+        }
+      }
+    },
+    "/deployments/{deployment_id}/{resource_kind}/{ref_id}/plan/pending" : {
+      "delete" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Cancel resource pending plan",
+        "description" : "Cancels the pending plan of a Resource belonging to a given Deployment.",
+        "operationId" : "cancel-deployment-resource-pending-plan",
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "resource_kind",
+          "in" : "path",
+          "description" : "The kind of resource",
+          "required" : true,
+          "type" : "string",
+          "enum" : [ "elasticsearch", "kibana", "apm", "appsearch" ]
+        }, {
+          "name" : "ref_id",
+          "in" : "path",
+          "description" : "User-specified RefId for the Resource",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "force_delete",
+          "in" : "query",
+          "description" : "When `true`, deletes the pending plan instead of attempting a graceful cancellation. The default is `false`.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "ignore_missing",
+          "in" : "query",
+          "description" : "When `true`, returns successfully, even when plans are missing. The default is `false`.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Standard Deployment Resource Crud Response",
+            "schema" : {
+              "$ref" : "#/definitions/DeploymentResourceCrudResponse"
+            }
+          },
+          "404" : {
+            "description" : "The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            },
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.deployment_not_found" ]
+              }
+            }
+          },
+          "400" : {
+            "description" : "The Resource does not have a pending plan. (code: `deployments.resource_does_not_have_a_pending_plan`)",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            },
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.resource_does_not_have_a_pending_plan" ]
+              }
+            }
+          },
+          "500" : {
+            "description" : "We have failed you. (code: `deployments.deployment_resource_no_longer_exists`)",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            },
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.deployment_resource_no_longer_exists" ]
+              }
+            }
+          },
+          "449" : {
+            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            },
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployment Resources - CRUD"
+        }
+      }
+    },
+    "/deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}" : {
+      "delete" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Delete Stateless Resource from Deployment",
+        "description" : "Delete Stateless Resource belonging to a given Deployment. Deployment must be shutdown already.",
+        "operationId" : "delete-deployment-stateless-resource",
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "stateless_resource_kind",
+          "in" : "path",
+          "description" : "The kind of stateless resource",
+          "required" : true,
+          "type" : "string",
+          "enum" : [ "kibana", "apm", "appsearch" ]
+        }, {
+          "name" : "ref_id",
+          "in" : "path",
+          "description" : "User-specified RefId for the Resource",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Standard Deployment Resource Crud Response",
+            "schema" : {
+              "$ref" : "#/definitions/DeploymentResourceCrudResponse"
+            }
+          },
+          "404" : {
+            "description" : "A resource with the given refId cannot be found in the deployment. (code: `deployments.deployment_resource_not_found`)",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            },
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.deployment_resource_not_found" ]
+              }
+            }
+          },
+          "400" : {
+            "description" : "Resource has still instances. (code: `deployments.resource_has_instances`)",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            },
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.resource_has_instances" ]
+              }
+            }
+          },
+          "500" : {
+            "description" : "We have failed you. (code: `deployments.deployment_resource_no_longer_exists`)",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            },
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.deployment_resource_no_longer_exists" ]
+              }
+            }
+          },
+          "449" : {
+            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            },
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployment Resources - CRUD"
+        }
+      }
+    },
+    "/deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_restart" : {
+      "post" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Restart Deployment Stateless Resource",
+        "description" : "Restarts an Stateless Resource. If a Resource is active: this command re-applies the existing plan but applies a \"cluster_reboot\", which issues a restart command and waits for it to complete. If a Resource is inactive: this command starts it up with the most recent successful plan.",
+        "operationId" : "restart-deployment-stateless-resource",
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "stateless_resource_kind",
+          "in" : "path",
+          "description" : "The kind of stateless resource",
+          "required" : true,
+          "type" : "string",
+          "enum" : [ "kibana", "apm", "appsearch" ]
+        }, {
+          "name" : "ref_id",
+          "in" : "path",
+          "description" : "User-specified RefId for the Resource",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "cancel_pending",
+          "in" : "query",
+          "description" : "If true, will cancel any pending plans before restarting (else will error)",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        } ],
+        "responses" : {
+          "202" : {
+            "description" : "The restart command was issued successfully",
+            "schema" : {
+              "$ref" : "#/definitions/DeploymentResourceCommandResponse"
+            }
+          },
+          "404" : {
+            "description" : "The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            },
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.deployment_resource_not_found" ]
+              }
+            }
+          },
+          "422" : {
+            "description" : "The command sent to a Resource found the Resource in an illegal state, the error message gives more details. (code: `deployments.deployment_resource_plan_change_error`)",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            },
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.deployment_resource_plan_change_error" ]
+              }
+            }
+          },
+          "500" : {
+            "description" : "We have failed you. (code: `deployments.deployment_resource_no_longer_exists`)",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            },
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.deployment_resource_no_longer_exists" ]
+              }
+            }
+          },
+          "449" : {
+            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            },
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployment - Commands"
+        }
+      }
+    },
+    "/deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_shutdown" : {
+      "post" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Shutdown Deployment Stateless Resource",
+        "description" : "Shutdown Stateless Resource belonging to a given Deployment.",
+        "operationId" : "shutdown-deployment-stateless-resource",
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "stateless_resource_kind",
+          "in" : "path",
+          "description" : "The kind of stateless resource",
+          "required" : true,
+          "type" : "string",
+          "enum" : [ "kibana", "apm", "appsearch" ]
+        }, {
+          "name" : "ref_id",
+          "in" : "path",
+          "description" : "User-specified RefId for the Resource",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "hide",
+          "in" : "query",
+          "description" : "Hide cluster on shutdown. Hidden clusters are not listed by default",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "skip_snapshot",
+          "in" : "query",
+          "description" : "If true, will skip taking a snapshot of the cluster before shutting the cluster down (if even possible)",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Standard response",
+            "schema" : {
+              "$ref" : "#/definitions/DeploymentResourceCommandResponse"
+            }
+          },
+          "404" : {
+            "description" : "The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            },
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.deployment_resource_not_found" ]
+              }
+            }
+          },
+          "500" : {
+            "description" : "We have failed you. (code: `deployments.deployment_resource_no_longer_exists`)",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            },
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.deployment_resource_no_longer_exists" ]
+              }
+            }
+          },
+          "449" : {
+            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            },
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployment - Commands"
+        }
+      }
+    },
+    "/deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_upgrade" : {
+      "post" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Upgrade Kibana, APM, AppSearch inside Deployment",
+        "description" : "Upgrades a running cluster.",
+        "operationId" : "upgrade-deployment-stateless-resource",
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "stateless_resource_kind",
+          "in" : "path",
+          "description" : "The kind of stateless resource",
+          "required" : true,
+          "type" : "string",
+          "enum" : [ "kibana", "apm", "appsearch" ]
+        }, {
+          "name" : "ref_id",
+          "in" : "path",
+          "description" : "User-specified RefId for the Resource",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "validate_only",
+          "in" : "query",
+          "description" : "When `true`, returns the update version without performing the upgrade",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        } ],
+        "responses" : {
+          "202" : {
+            "description" : "The upgrade command was issued successfully, use the \"GET\" command on the /{cluster_id} resource to monitor progress",
+            "schema" : {
+              "$ref" : "#/definitions/DeploymentResourceUpgradeResponse"
+            }
+          },
+          "404" : {
+            "description" : "The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            },
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.deployment_resource_not_found" ]
+              }
+            }
+          },
+          "449" : {
+            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            },
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployment - Commands"
         }
       }
     },
@@ -17629,6 +19597,29 @@
       },
       "description" : "The response model for the API keys."
     },
+    "Apm" : {
+      "type" : "object",
+      "required" : [ "backend_plan", "display_name", "elasticsearch_cluster_ref_id", "ref_id" ],
+      "properties" : {
+        "ref_id" : {
+          "type" : "string",
+          "description" : "A locally-unique user-specified id"
+        },
+        "display_name" : {
+          "type" : "string",
+          "description" : "The human readable name (defaults to the generated cluster id if not specified)"
+        },
+        "elasticsearch_cluster_ref_id" : {
+          "type" : "string",
+          "description" : "The user-specified id of the Elasticsearch Cluster that this will link to"
+        },
+        "backend_plan" : {
+          "type" : "object",
+          "description" : "The backend plan as JSON"
+        }
+      },
+      "description" : "Holds diagnostics for an APM resource"
+    },
     "ApmConfiguration" : {
       "type" : "object",
       "properties" : {
@@ -17743,6 +19734,36 @@
         }
       },
       "description" : "The overview information for the APM Server."
+    },
+    "ApmPayload" : {
+      "type" : "object",
+      "required" : [ "elasticsearch_cluster_ref_id", "plan", "ref_id", "region" ],
+      "properties" : {
+        "ref_id" : {
+          "type" : "string",
+          "description" : "A locally-unique user-specified id for APM"
+        },
+        "elasticsearch_cluster_ref_id" : {
+          "type" : "string",
+          "description" : "Alias to the Elasticsearch Cluster to attach APM to"
+        },
+        "display_name" : {
+          "type" : "string",
+          "description" : "The human readable name for the APM cluster (default: takes the name of its Elasticsearch cluster)"
+        },
+        "region" : {
+          "type" : "string",
+          "description" : "The region where this resource exists"
+        },
+        "plan" : {
+          "$ref" : "#/definitions/ApmPlan"
+        },
+        "settings" : {
+          "description" : "The settings for building this APM cluster",
+          "$ref" : "#/definitions/ApmSettings"
+        }
+      },
+      "description" : "An APM creation request paired with the alias of the Elasticsearch cluster it should be paired with"
     },
     "ApmPlan" : {
       "type" : "object",
@@ -17881,6 +19902,33 @@
       },
       "description" : "Information about current, pending, and past APM Server plans."
     },
+    "ApmResourceInfo" : {
+      "type" : "object",
+      "required" : [ "elasticsearch_cluster_ref_id", "id", "info", "ref_id", "region" ],
+      "properties" : {
+        "ref_id" : {
+          "type" : "string",
+          "description" : "The locally-unique user-specified id of a Resource"
+        },
+        "elasticsearch_cluster_ref_id" : {
+          "type" : "string",
+          "description" : "The Elasticsearch cluster that this resource depends on."
+        },
+        "id" : {
+          "type" : "string",
+          "description" : "The randomly-generated id of a Resource"
+        },
+        "region" : {
+          "type" : "string",
+          "description" : "The region where this resource exists"
+        },
+        "info" : {
+          "description" : "Info for the resource.",
+          "$ref" : "#/definitions/ApmInfo"
+        }
+      },
+      "description" : "Describes an APM resource belonging to a Deployment"
+    },
     "ApmSettings" : {
       "type" : "object",
       "properties" : {
@@ -17986,6 +20034,29 @@
       },
       "description" : "A container for information about a set of APM Servers."
     },
+    "AppSearch" : {
+      "type" : "object",
+      "required" : [ "backend_plan", "display_name", "elasticsearch_cluster_ref_id", "ref_id" ],
+      "properties" : {
+        "ref_id" : {
+          "type" : "string",
+          "description" : "A locally-unique user-specified id"
+        },
+        "display_name" : {
+          "type" : "string",
+          "description" : "The human readable name (defaults to the generated cluster id if not specified)"
+        },
+        "elasticsearch_cluster_ref_id" : {
+          "type" : "string",
+          "description" : "The user-specified id of the Elasticsearch Cluster that this will link to"
+        },
+        "backend_plan" : {
+          "type" : "object",
+          "description" : "The backend plan as JSON"
+        }
+      },
+      "description" : "Holds diagnostics for an AppSearch resource"
+    },
     "AppSearchConfiguration" : {
       "type" : "object",
       "properties" : {
@@ -18018,6 +20089,70 @@
         }
       }
     },
+    "AppSearchInfo" : {
+      "type" : "object",
+      "required" : [ "elasticsearch_cluster", "external_links", "healthy", "id", "name", "plan_info", "topology" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "The id of the App Search"
+        },
+        "name" : {
+          "type" : "string",
+          "description" : "The name of the App Search"
+        },
+        "elasticsearch_cluster" : {
+          "$ref" : "#/definitions/TargetElasticsearchCluster"
+        },
+        "deployment_id" : {
+          "type" : "string",
+          "description" : "The id of the deployment to which this App Search belongs to."
+        },
+        "healthy" : {
+          "type" : "boolean",
+          "description" : "Whether the App Search is healthy or not (one or more of the info subsections will have healthy: false)"
+        },
+        "status" : {
+          "type" : "string",
+          "description" : "App Search status",
+          "readOnly" : true,
+          "enum" : [ "initializing", "stopping", "stopped", "rebooting", "restarting", "reconfiguring", "started" ]
+        },
+        "plan_info" : {
+          "$ref" : "#/definitions/AppSearchPlansInfo"
+        },
+        "metadata" : {
+          "$ref" : "#/definitions/ClusterMetadataInfo"
+        },
+        "topology" : {
+          "$ref" : "#/definitions/ClusterTopologyInfo"
+        },
+        "external_links" : {
+          "type" : "array",
+          "description" : "External resources related to the App Search",
+          "uniqueItems" : true,
+          "items" : {
+            "$ref" : "#/definitions/ExternalHyperlink"
+          }
+        },
+        "links" : {
+          "type" : "object",
+          "description" : "A map of application-specific operations (which map to 'operationId's in the Swagger API) to metadata about that operation",
+          "additionalProperties" : {
+            "$ref" : "#/definitions/Hyperlink"
+          }
+        },
+        "settings" : {
+          "description" : "The cluster metadata settings for the App Search",
+          "$ref" : "#/definitions/AppSearchSettings"
+        },
+        "region" : {
+          "type" : "string",
+          "description" : "The region that this App Search belongs to. Only populated in SaaS or federated ECE."
+        }
+      },
+      "description" : "The overview information for the App Search Server."
+    },
     "AppSearchNodeTypes" : {
       "type" : "object",
       "required" : [ "appserver", "worker" ],
@@ -18032,6 +20167,36 @@
         }
       },
       "description" : "Node types to enable for an AppSearch instance"
+    },
+    "AppSearchPayload" : {
+      "type" : "object",
+      "required" : [ "elasticsearch_cluster_ref_id", "plan", "ref_id", "region" ],
+      "properties" : {
+        "ref_id" : {
+          "type" : "string",
+          "description" : "A locally-unique user-specified id for AppSearch"
+        },
+        "elasticsearch_cluster_ref_id" : {
+          "type" : "string",
+          "description" : "Alias to the Elasticsearch Cluster to attach AppSearch to"
+        },
+        "display_name" : {
+          "type" : "string",
+          "description" : "The human readable name for the AppSearch cluster (default: takes the name of its Elasticsearch cluster)"
+        },
+        "region" : {
+          "type" : "string",
+          "description" : "The region where this resource exists"
+        },
+        "plan" : {
+          "$ref" : "#/definitions/AppSearchPlan"
+        },
+        "settings" : {
+          "description" : "The settings for building this AppSearch cluster",
+          "$ref" : "#/definitions/AppSearchSettings"
+        }
+      },
+      "description" : "An AppSearch creation request paired with the alias of the Elasticsearch cluster it should be paired with"
     },
     "AppSearchPlan" : {
       "type" : "object",
@@ -18097,6 +20262,112 @@
           "enum" : [ "forced" ]
         }
       }
+    },
+    "AppSearchPlanInfo" : {
+      "type" : "object",
+      "required" : [ "attempt_start_time", "healthy", "plan_attempt_log" ],
+      "properties" : {
+        "plan_attempt_id" : {
+          "type" : "string",
+          "description" : "A UUID for each plan attempt"
+        },
+        "plan_attempt_name" : {
+          "type" : "string",
+          "description" : "A human readable name for each plan attempt, only populated when retrieving plan histories"
+        },
+        "healthy" : {
+          "type" : "boolean",
+          "description" : "Either the plan ended successfully, or is not yet completed (and no errors have occurred)"
+        },
+        "attempt_start_time" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "When this plan attempt (ie to apply the plan to the App Search) started (ISO format in UTC)"
+        },
+        "attempt_end_time" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "If this plan completed or failed (ie is not pending), when the attempt ended (ISO format in UTC)"
+        },
+        "plan_end_time" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "If this plan is not current or pending, when the plan was no longer active (ISO format in UTC)"
+        },
+        "plan" : {
+          "$ref" : "#/definitions/AppSearchPlan"
+        },
+        "plan_attempt_log" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/ClusterPlanStepInfo"
+          }
+        },
+        "source" : {
+          "description" : "Information describing the source that facilitated the plans current state",
+          "$ref" : "#/definitions/ChangeSourceInfo"
+        }
+      },
+      "description" : "Information about the App Search Server plan."
+    },
+    "AppSearchPlansInfo" : {
+      "type" : "object",
+      "required" : [ "healthy", "history" ],
+      "properties" : {
+        "healthy" : {
+          "type" : "boolean",
+          "description" : "Whether the plan situation is healthy (if unhealthy, means the last plan attempt failed)"
+        },
+        "current" : {
+          "$ref" : "#/definitions/AppSearchPlanInfo"
+        },
+        "pending" : {
+          "$ref" : "#/definitions/AppSearchPlanInfo"
+        },
+        "history" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/AppSearchPlanInfo"
+          }
+        }
+      },
+      "description" : "Information about current, pending, and past App Search Server plans."
+    },
+    "AppSearchResourceInfo" : {
+      "type" : "object",
+      "required" : [ "elasticsearch_cluster_ref_id", "id", "info", "ref_id", "region" ],
+      "properties" : {
+        "ref_id" : {
+          "type" : "string",
+          "description" : "The locally-unique user-specified id of a Resource"
+        },
+        "elasticsearch_cluster_ref_id" : {
+          "type" : "string",
+          "description" : "The Elasticsearch cluster that this resource depends on."
+        },
+        "id" : {
+          "type" : "string",
+          "description" : "The randomly-generated id of a Resource"
+        },
+        "region" : {
+          "type" : "string",
+          "description" : "The region where this resource exists"
+        },
+        "info" : {
+          "description" : "Info for the resource.",
+          "$ref" : "#/definitions/AppSearchInfo"
+        }
+      },
+      "description" : "Describes an App Search resource belonging to a Deployment"
+    },
+    "AppSearchSettings" : {
+      "type" : "object",
+      "properties" : {
+        "metadata" : {
+          "$ref" : "#/definitions/ClusterMetadataSettings"
+        }
+      },
+      "description" : "The settings for the App Search."
     },
     "AppSearchSubInfo" : {
       "type" : "object",
@@ -18485,6 +20756,10 @@
         "apm" : {
           "description" : "The top level info object for APM",
           "$ref" : "#/definitions/ApmInfo"
+        },
+        "app_search" : {
+          "description" : "The top level info object for App Search",
+          "$ref" : "#/definitions/AppSearchInfo"
         }
       },
       "description" : "A container for information about an Elasticsearch cluster, Kibana instance, or APM Server."
@@ -19492,30 +21767,6 @@
       },
       "description" : "The request body for creating an Elasticsearch cluster."
     },
-    "CreateExtensionRequest" : {
-      "type" : "object",
-      "required" : [ "extension_type", "name" ],
-      "properties" : {
-        "name" : {
-          "type" : "string",
-          "description" : "The extension name."
-        },
-        "download_url" : {
-          "type" : "string",
-          "description" : "The URL to download the extension archive."
-        },
-        "extension_type" : {
-          "type" : "string",
-          "description" : "The extension type.",
-          "enum" : [ "plugin", "bundle" ]
-        },
-        "version" : {
-          "type" : "string",
-          "description" : "The Elasticsearch version."
-        }
-      },
-      "description" : "The body of a request to create a new extension"
-    },
     "CreateKibanaInCreateElasticsearchRequest" : {
       "type" : "object",
       "required" : [ "plan" ],
@@ -19547,6 +21798,40 @@
         }
       },
       "description" : "The request body for creating one or more Kibana instances."
+    },
+    "Creates" : {
+      "type" : "object",
+      "properties" : {
+        "elasticsearch" : {
+          "type" : "array",
+          "description" : "Diagnostics for Elasticsearch clusters",
+          "items" : {
+            "$ref" : "#/definitions/Elasticsearch"
+          }
+        },
+        "kibana" : {
+          "type" : "array",
+          "description" : "Diagnostics for Kibanas",
+          "items" : {
+            "$ref" : "#/definitions/Kibana"
+          }
+        },
+        "apm" : {
+          "type" : "array",
+          "description" : "Diagnostics for APMs",
+          "items" : {
+            "$ref" : "#/definitions/Apm"
+          }
+        },
+        "appsearch" : {
+          "type" : "array",
+          "description" : "Diagnostics for AppSearches",
+          "items" : {
+            "$ref" : "#/definitions/AppSearch"
+          }
+        }
+      },
+      "description" : "Holds diagnostics for resources that will be created"
     },
     "CrossClusterSearchClusters" : {
       "type" : "object",
@@ -19620,6 +21905,386 @@
         }
       },
       "description" : "The request payload that deletes the API keys."
+    },
+    "DeploymentCreateMetadata" : {
+      "type" : "object",
+      "properties" : {
+        "system_owned" : {
+          "type" : "boolean",
+          "description" : "Indicates if a deployment is system owned (restricts the set of operations that can be performed on it)"
+        }
+      },
+      "description" : "Additional information about the new deployment object."
+    },
+    "DeploymentCreateRequest" : {
+      "type" : "object",
+      "required" : [ "resources" ],
+      "properties" : {
+        "name" : {
+          "type" : "string",
+          "description" : "A name for the deployment; otherwise this will be the generated deployment id"
+        },
+        "resources" : {
+          "description" : "The Resources that will belong to this Deployment",
+          "$ref" : "#/definitions/DeploymentCreateResources"
+        },
+        "settings" : {
+          "description" : "Additional configuration for this Deployment",
+          "$ref" : "#/definitions/DeploymentCreateSettings"
+        },
+        "metadata" : {
+          "description" : "Additional information for this Deployment",
+          "$ref" : "#/definitions/DeploymentCreateMetadata"
+        }
+      },
+      "description" : "A request for creating a new Deployment consisting of multiple clusters"
+    },
+    "DeploymentCreateResources" : {
+      "type" : "object",
+      "properties" : {
+        "elasticsearch" : {
+          "type" : "array",
+          "description" : "A list of payloads for Elasticsearch cluster creation.",
+          "items" : {
+            "$ref" : "#/definitions/ElasticsearchPayload"
+          }
+        },
+        "kibana" : {
+          "type" : "array",
+          "description" : "A list of payloads for Kibana creation.",
+          "items" : {
+            "$ref" : "#/definitions/KibanaPayload"
+          }
+        },
+        "apm" : {
+          "type" : "array",
+          "description" : "A list of payloads for APM creation.",
+          "items" : {
+            "$ref" : "#/definitions/ApmPayload"
+          }
+        },
+        "appsearch" : {
+          "type" : "array",
+          "description" : "A list of payloads for AppSearch creation.",
+          "items" : {
+            "$ref" : "#/definitions/AppSearchPayload"
+          }
+        }
+      },
+      "description" : "Describes the resources that will belong to a Deployment"
+    },
+    "DeploymentCreateResponse" : {
+      "type" : "object",
+      "required" : [ "created", "id", "name", "resources" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "The id of the deployment"
+        },
+        "name" : {
+          "type" : "string",
+          "description" : "The name of the deployment"
+        },
+        "created" : {
+          "type" : "boolean",
+          "description" : "Whether or not the deployment was freshly created"
+        },
+        "resources" : {
+          "type" : "array",
+          "description" : "List of created resources.",
+          "items" : {
+            "$ref" : "#/definitions/DeploymentResource"
+          }
+        },
+        "diagnostics" : {
+          "description" : "Backend diagnostics. Sent if validation is requested.",
+          "$ref" : "#/definitions/DeploymentDiagnostics"
+        }
+      },
+      "description" : "A response returned from the Deployment create endpoint"
+    },
+    "DeploymentCreateSettings" : {
+      "type" : "object",
+      "properties" : {
+        "ip_filtering_settings" : {
+          "description" : "The set of rulesets applies to this deployment.",
+          "$ref" : "#/definitions/IpFilteringSettings"
+        }
+      },
+      "description" : "Additional configuration for the new deployment object."
+    },
+    "DeploymentDeleteResponse" : {
+      "type" : "object",
+      "required" : [ "id", "name" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "The id of the deployment"
+        },
+        "name" : {
+          "type" : "string",
+          "description" : "The name of the deployment"
+        },
+        "orphaned" : {
+          "description" : "Details about orphaned resources",
+          "$ref" : "#/definitions/Orphaned"
+        }
+      },
+      "description" : "A response returned from the Deployment delete endpoint"
+    },
+    "DeploymentDiagnostics" : {
+      "type" : "object",
+      "properties" : {
+        "creates" : {
+          "description" : "Diagnostics for resources to be created",
+          "$ref" : "#/definitions/Creates"
+        },
+        "updates" : {
+          "description" : "Diagnostics for existing resources that may be updated",
+          "$ref" : "#/definitions/Updates"
+        }
+      },
+      "description" : "Describes the diagnostics for a given Deployment-modifying payload"
+    },
+    "DeploymentGetResponse" : {
+      "type" : "object",
+      "required" : [ "healthy", "id", "name", "resources" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "A randomly-generated id of this Deployment"
+        },
+        "name" : {
+          "type" : "string",
+          "description" : "The name of this deployment"
+        },
+        "healthy" : {
+          "type" : "boolean",
+          "description" : "Whether the deployment is overall healthy or not (one or more of the resource info subsections will have healthy: false)"
+        },
+        "resources" : {
+          "description" : "The Resources that belong to this Deployment",
+          "$ref" : "#/definitions/DeploymentResources"
+        },
+        "settings" : {
+          "description" : "Additional configuration for this Deployment",
+          "$ref" : "#/definitions/DeploymentSettings"
+        },
+        "metadata" : {
+          "description" : "Additional information about this deployment",
+          "$ref" : "#/definitions/DeploymentMetadata"
+        }
+      },
+      "description" : "Describes a given Deployment"
+    },
+    "DeploymentMetadata" : {
+      "type" : "object",
+      "required" : [ "last_modified" ],
+      "properties" : {
+        "owner_id" : {
+          "type" : "string",
+          "description" : "The user id (referencing whatever user database is in use) of the deployment owner"
+        },
+        "system_owned" : {
+          "type" : "boolean",
+          "description" : "Indicates if a deployment is system owned (restricts the set of operations that can be performed on it)"
+        },
+        "hidden" : {
+          "type" : "boolean",
+          "description" : "Whether or not this deployment is hidden from the normal deployment list",
+          "readOnly" : true
+        },
+        "subscription_level" : {
+          "type" : "string",
+          "description" : "Subscription level of the cluster",
+          "readOnly" : true
+        },
+        "last_modified" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "The most recent time the cluster metadata was changed (ISO format in UTC)"
+        }
+      },
+      "description" : "Additional information about the current deployment object."
+    },
+    "DeploymentResource" : {
+      "type" : "object",
+      "required" : [ "id", "kind", "ref_id", "region" ],
+      "properties" : {
+        "ref_id" : {
+          "type" : "string",
+          "description" : "A locally-unique friendly alias for this Elasticsearch cluster"
+        },
+        "elasticsearch_cluster_ref_id" : {
+          "type" : "string",
+          "description" : "The Elasticsearch cluster that this resource depends on."
+        },
+        "id" : {
+          "type" : "string",
+          "description" : "A system-unique id for the created resource"
+        },
+        "kind" : {
+          "type" : "string",
+          "description" : "The kind of resource"
+        },
+        "region" : {
+          "type" : "string",
+          "description" : "Identifier of the region in which this resource runs."
+        },
+        "cloud_id" : {
+          "type" : "string",
+          "description" : "An encoded string that provides other Elastic services with the necessary information to connect to this Elasticsearch and Kibana"
+        },
+        "credentials" : {
+          "description" : "Credentials for logging into a created resource. Only provided on initial create and absent otherwise.",
+          "$ref" : "#/definitions/ClusterCredentials"
+        },
+        "secret_token" : {
+          "type" : "string",
+          "description" : "Secret token for using a created resource. Only provided on initial create and absent otherwise."
+        }
+      },
+      "description" : "Data for a deployment resource"
+    },
+    "DeploymentResourceCommandResponse" : {
+      "type" : "object",
+      "description" : "Response returned when a command is successfully issued against a given Deployment resource"
+    },
+    "DeploymentResourceCrudResponse" : {
+      "type" : "object",
+      "required" : [ "id", "kind", "ref_id" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "The id of the deployment"
+        },
+        "kind" : {
+          "type" : "string",
+          "description" : "The kind of the stateless resource"
+        },
+        "ref_id" : {
+          "type" : "string",
+          "description" : "The reference id of the resource"
+        }
+      },
+      "description" : "A response returned from the Deployment Resource endpoints"
+    },
+    "DeploymentResourceUpgradeResponse" : {
+      "type" : "object",
+      "properties" : {
+        "resource_id" : {
+          "type" : "string"
+        },
+        "stack_version" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DeploymentResources" : {
+      "type" : "object",
+      "required" : [ "apm", "appsearch", "elasticsearch", "kibana" ],
+      "properties" : {
+        "elasticsearch" : {
+          "type" : "array",
+          "description" : "List of Elasticsearch resources in your Deployment",
+          "items" : {
+            "$ref" : "#/definitions/ElasticsearchResourceInfo"
+          }
+        },
+        "kibana" : {
+          "type" : "array",
+          "description" : "List of Kibana resources in your Deployment",
+          "items" : {
+            "$ref" : "#/definitions/KibanaResourceInfo"
+          }
+        },
+        "apm" : {
+          "type" : "array",
+          "description" : "List of Apm resources in your Deployment",
+          "items" : {
+            "$ref" : "#/definitions/ApmResourceInfo"
+          }
+        },
+        "appsearch" : {
+          "type" : "array",
+          "description" : "List of App Search resources in your Deployment",
+          "items" : {
+            "$ref" : "#/definitions/AppSearchResourceInfo"
+          }
+        }
+      },
+      "description" : "Describes a resource belonging to a Deployment"
+    },
+    "DeploymentRestoreResponse" : {
+      "type" : "object",
+      "required" : [ "id" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "The id of the deployment"
+        }
+      },
+      "description" : "A response returned from the Deployment restore endpoint"
+    },
+    "DeploymentSearchResponse" : {
+      "type" : "object",
+      "required" : [ "healthy", "id", "name", "resources" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "A randomly-generated id of this Deployment"
+        },
+        "name" : {
+          "type" : "string",
+          "description" : "The name of this deployment"
+        },
+        "healthy" : {
+          "type" : "boolean",
+          "description" : "Whether the deployment is overall healthy or not (one or more of the resource info subsections will have healthy: false)"
+        },
+        "resources" : {
+          "description" : "The Resources that belong to this Deployment",
+          "$ref" : "#/definitions/DeploymentResources"
+        },
+        "settings" : {
+          "description" : "Additional configuration for this Deployment",
+          "$ref" : "#/definitions/DeploymentSettings"
+        },
+        "metadata" : {
+          "description" : "Additional information about this deployment",
+          "$ref" : "#/definitions/DeploymentMetadata"
+        }
+      },
+      "description" : "Describes a searched Deployment"
+    },
+    "DeploymentSettings" : {
+      "type" : "object",
+      "properties" : {
+        "ip_filtering_settings" : {
+          "description" : "The set of rulesets applies to this deployment.",
+          "$ref" : "#/definitions/IpFilteringSettings"
+        }
+      },
+      "description" : "Additional configuration about the current deployment object."
+    },
+    "DeploymentShutdownResponse" : {
+      "type" : "object",
+      "required" : [ "id", "name" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "The id of the deployment"
+        },
+        "name" : {
+          "type" : "string",
+          "description" : "The name of the deployment"
+        },
+        "orphaned" : {
+          "description" : "Details about orphaned resources",
+          "$ref" : "#/definitions/Orphaned"
+        }
+      },
+      "description" : "A response returned from the Deployment shutdown endpoint"
     },
     "DeploymentTemplateDefinitionRequest" : {
       "type" : "object",
@@ -19720,6 +22385,165 @@
       },
       "description" : "Specifies the deployment template used to create the plan."
     },
+    "DeploymentUpdateMetadata" : {
+      "type" : "object",
+      "properties" : {
+        "system_owned" : {
+          "type" : "boolean",
+          "description" : "Indicates if a deployment is system owned (restricts the set of operations that can be performed on it)"
+        },
+        "hidden" : {
+          "type" : "boolean",
+          "description" : "Whether or not this deployment is hidden from the normal deployment list"
+        }
+      },
+      "description" : "Additional information about the current deployment object."
+    },
+    "DeploymentUpdateRequest" : {
+      "type" : "object",
+      "required" : [ "prune_orphans" ],
+      "properties" : {
+        "name" : {
+          "type" : "string",
+          "description" : "A new name for the deployment, otherwise stays the same."
+        },
+        "prune_orphans" : {
+          "type" : "boolean",
+          "description" : "Whether or not to prune orphan resources that are no longer mentioned in this request. Note that resourcesare tracked by ref_id, and if a resource's ref_id is changed, any previous running resources created with that previousref_id are considered to be orphaned as well."
+        },
+        "resources" : {
+          "description" : "New information about the Resources that will have this Deployment, otherwise they stay the same",
+          "$ref" : "#/definitions/DeploymentUpdateResources"
+        },
+        "metadata" : {
+          "description" : "New information about the current deployment object, otherwise stays the same",
+          "$ref" : "#/definitions/DeploymentUpdateMetadata"
+        }
+      },
+      "description" : "A request for updating a Deployment consisting of multiple resources"
+    },
+    "DeploymentUpdateResources" : {
+      "type" : "object",
+      "properties" : {
+        "elasticsearch" : {
+          "type" : "array",
+          "description" : "A list of payloads for Elasticsearch cluster updates",
+          "items" : {
+            "$ref" : "#/definitions/ElasticsearchPayload"
+          }
+        },
+        "kibana" : {
+          "type" : "array",
+          "description" : "A list of payloads for Kibana updates",
+          "items" : {
+            "$ref" : "#/definitions/KibanaPayload"
+          }
+        },
+        "apm" : {
+          "type" : "array",
+          "description" : "A list of payloads for APM updates",
+          "items" : {
+            "$ref" : "#/definitions/ApmPayload"
+          }
+        },
+        "appsearch" : {
+          "type" : "array",
+          "description" : "A list of payloads for AppSearch updates",
+          "items" : {
+            "$ref" : "#/definitions/AppSearchPayload"
+          }
+        }
+      },
+      "description" : "Describes the resources that will have the Deployment"
+    },
+    "DeploymentUpdateResponse" : {
+      "type" : "object",
+      "required" : [ "id", "name", "resources" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "The id of the deployment"
+        },
+        "name" : {
+          "type" : "string",
+          "description" : "The name of the deployment"
+        },
+        "resources" : {
+          "type" : "array",
+          "description" : "List of resources that are part of the deployment after the update operation.",
+          "items" : {
+            "$ref" : "#/definitions/DeploymentResource"
+          }
+        },
+        "shutdown_resources" : {
+          "description" : "List of resources that have been shut down",
+          "$ref" : "#/definitions/Orphaned"
+        },
+        "diagnostics" : {
+          "description" : "Backend diagnostics. Sent if validation is requested.",
+          "$ref" : "#/definitions/DeploymentDiagnostics"
+        }
+      },
+      "description" : "A response returned from the Deployment update endpoint"
+    },
+    "DeploymentsListResponse" : {
+      "type" : "object",
+      "required" : [ "deployments" ],
+      "properties" : {
+        "deployments" : {
+          "type" : "array",
+          "description" : "The deployments",
+          "items" : {
+            "$ref" : "#/definitions/DeploymentsListingData"
+          }
+        }
+      },
+      "description" : "Contains a list of deployments"
+    },
+    "DeploymentsListingData" : {
+      "type" : "object",
+      "required" : [ "id", "name", "resources" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "The id of this deployment"
+        },
+        "name" : {
+          "type" : "string",
+          "description" : "The name of this deployment"
+        },
+        "resources" : {
+          "type" : "array",
+          "description" : "List of resources in this deployment",
+          "items" : {
+            "$ref" : "#/definitions/DeploymentResource"
+          }
+        }
+      }
+    },
+    "DeploymentsSearchResponse" : {
+      "type" : "object",
+      "required" : [ "deployments", "return_count" ],
+      "properties" : {
+        "return_count" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The number of deployments actually returned"
+        },
+        "match_count" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "If a query is supplied, then the total number of deployments that matched"
+        },
+        "deployments" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/DeploymentSearchResponse"
+          }
+        }
+      },
+      "description" : "Contains a list of Deployments as result of a search request."
+    },
     "DiscreteSizes" : {
       "type" : "object",
       "required" : [ "default_size", "resource", "sizes" ],
@@ -19744,6 +22568,25 @@
         }
       },
       "description" : "Instance sizes that are supported by the Elasticsearch instance, Kibana instance, or APM Server configuration."
+    },
+    "Elasticsearch" : {
+      "type" : "object",
+      "required" : [ "backend_plan", "display_name", "ref_id" ],
+      "properties" : {
+        "ref_id" : {
+          "type" : "string",
+          "description" : "A locally-unique user-specified id"
+        },
+        "display_name" : {
+          "type" : "string",
+          "description" : "The human readable name for the cluster (defaults to the generated cluster id if not specified)"
+        },
+        "backend_plan" : {
+          "type" : "object",
+          "description" : "The backend plan as JSON"
+        }
+      },
+      "description" : "Holds diagnostics for an Elasticsearch cluster"
     },
     "ElasticsearchClusterBlockingIssueElement" : {
       "type" : "object",
@@ -20254,6 +23097,21 @@
       },
       "description" : "The structure that defines the routing settings for index curation."
     },
+    "ElasticsearchDependant" : {
+      "type" : "object",
+      "required" : [ "id", "kind" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "The id of the orphaned resource"
+        },
+        "kind" : {
+          "type" : "string",
+          "description" : "The kind of resource"
+        }
+      },
+      "description" : "Details about an orphaned Elasticsearch-dependent resources."
+    },
     "ElasticsearchInfo" : {
       "type" : "object",
       "required" : [ "healthy", "master_info", "shard_info" ],
@@ -20376,6 +23234,33 @@
       },
       "description" : "Controls the combinations of Elasticsearch node types. TIP: By default, the Elasticsearch node is master eligible, can hold data, and run ingest pipelines. WARNING: Do not set for tiebreaker topologies."
     },
+    "ElasticsearchPayload" : {
+      "type" : "object",
+      "required" : [ "plan", "ref_id", "region" ],
+      "properties" : {
+        "ref_id" : {
+          "type" : "string",
+          "description" : "A locally-unique user-specified id for this Elasticsearch cluster"
+        },
+        "display_name" : {
+          "type" : "string",
+          "description" : "The human readable name for the cluster (defaults to the generated cluster id if not specified)"
+        },
+        "region" : {
+          "type" : "string",
+          "description" : "The region where this resource exists"
+        },
+        "plan" : {
+          "description" : "The plan for building this Elasticsearch cluster",
+          "$ref" : "#/definitions/ElasticsearchClusterPlan"
+        },
+        "settings" : {
+          "description" : "The settings for building this Elasticsearch cluster",
+          "$ref" : "#/definitions/ElasticsearchClusterSettings"
+        }
+      },
+      "description" : "An alias for an Elasticsearch Cluster paired with a request for creating one"
+    },
     "ElasticsearchPlanControlConfiguration" : {
       "type" : "object",
       "properties" : {
@@ -20477,6 +23362,29 @@
         }
       },
       "description" : "Information about the unavailable replicas. NOTE: Unlike shards, unavailable replicas indicate a loss of redundancy rather than a loss of availability."
+    },
+    "ElasticsearchResourceInfo" : {
+      "type" : "object",
+      "required" : [ "id", "info", "ref_id", "region" ],
+      "properties" : {
+        "ref_id" : {
+          "type" : "string",
+          "description" : "The locally-unique user-specified id of a Resource"
+        },
+        "id" : {
+          "type" : "string",
+          "description" : "The randomly-generated id of a Resource"
+        },
+        "region" : {
+          "type" : "string",
+          "description" : "The region where this resource exists"
+        },
+        "info" : {
+          "description" : "Info for the resource.",
+          "$ref" : "#/definitions/ElasticsearchClusterInfo"
+        }
+      },
+      "description" : "Describes an Elasticsearch resource belonging to a Deployment"
     },
     "ElasticsearchScriptTypeSettings" : {
       "type" : "object",
@@ -20715,48 +23623,6 @@
         }
       },
       "description" : "Matches documents that have at least one non-`null` value in the original field."
-    },
-    "Extension" : {
-      "type" : "object",
-      "required" : [ "extension_type", "id", "name" ],
-      "properties" : {
-        "id" : {
-          "type" : "string",
-          "description" : "The extension ID"
-        },
-        "name" : {
-          "type" : "string",
-          "description" : "The extension name."
-        },
-        "url" : {
-          "type" : "string",
-          "description" : "The extension URL."
-        },
-        "extension_type" : {
-          "type" : "string",
-          "description" : "The extension type.",
-          "enum" : [ "plugin", "bundle" ]
-        },
-        "version" : {
-          "type" : "string",
-          "description" : "The Elasticsearch version."
-        }
-      },
-      "description" : "An API extension. It represents clusters' plugins and bundles"
-    },
-    "Extensions" : {
-      "type" : "object",
-      "required" : [ "extensions" ],
-      "properties" : {
-        "extensions" : {
-          "type" : "array",
-          "description" : "The list of extensions.",
-          "items" : {
-            "$ref" : "#/definitions/Extension"
-          }
-        }
-      },
-      "description" : "A collection of extensions"
     },
     "ExternalHyperlink" : {
       "type" : "object",
@@ -21068,6 +23934,29 @@
       },
       "description" : "The value that you configure for the Elasticsearch keystore secret."
     },
+    "Kibana" : {
+      "type" : "object",
+      "required" : [ "backend_plan", "display_name", "elasticsearch_cluster_ref_id", "ref_id" ],
+      "properties" : {
+        "ref_id" : {
+          "type" : "string",
+          "description" : "A locally-unique user-specified id"
+        },
+        "display_name" : {
+          "type" : "string",
+          "description" : "The human readable name (defaults to the generated cluster id if not specified)"
+        },
+        "elasticsearch_cluster_ref_id" : {
+          "type" : "string",
+          "description" : "The user-specified id of the Elasticsearch Cluster that this will link to"
+        },
+        "backend_plan" : {
+          "type" : "object",
+          "description" : "The backend plan as JSON"
+        }
+      },
+      "description" : "Holds diagnostics for a Kibana resource"
+    },
     "KibanaClusterInfo" : {
       "type" : "object",
       "required" : [ "cluster_id", "cluster_name", "elasticsearch_cluster", "external_links", "healthy", "metadata", "plan_info", "topology" ],
@@ -21330,6 +24219,36 @@
       },
       "description" : "The Kibana instance settings. When specified at the top level, provides a field-by-field default. When specified at the topology level, provides the override settings."
     },
+    "KibanaPayload" : {
+      "type" : "object",
+      "required" : [ "elasticsearch_cluster_ref_id", "plan", "ref_id", "region" ],
+      "properties" : {
+        "ref_id" : {
+          "type" : "string",
+          "description" : "A locally-unique user-specified id for Kibana"
+        },
+        "elasticsearch_cluster_ref_id" : {
+          "type" : "string",
+          "description" : "Alias to the Elasticsearch Cluster to attach Kibana to"
+        },
+        "display_name" : {
+          "type" : "string",
+          "description" : "The human readable name for the Kibana cluster (default: takes the name of its Elasticsearch cluster)"
+        },
+        "region" : {
+          "type" : "string",
+          "description" : "The region where this resource exists"
+        },
+        "plan" : {
+          "$ref" : "#/definitions/KibanaClusterPlan"
+        },
+        "settings" : {
+          "description" : "The settings for building this Kibana cluster",
+          "$ref" : "#/definitions/KibanaClusterSettings"
+        }
+      },
+      "description" : "A Kibana creation request paired with the alias of the Elasticsearch cluster it should be paired with"
+    },
     "KibanaPlanControlConfiguration" : {
       "type" : "object",
       "properties" : {
@@ -21377,6 +24296,33 @@
         }
       },
       "description" : "The configuration settings for the timeout and fallback parameters."
+    },
+    "KibanaResourceInfo" : {
+      "type" : "object",
+      "required" : [ "elasticsearch_cluster_ref_id", "id", "info", "ref_id", "region" ],
+      "properties" : {
+        "ref_id" : {
+          "type" : "string",
+          "description" : "The locally-unique user-specified id of a Resource"
+        },
+        "elasticsearch_cluster_ref_id" : {
+          "type" : "string",
+          "description" : "The Elasticsearch cluster that this resource depends on."
+        },
+        "id" : {
+          "type" : "string",
+          "description" : "The randomly-generated id of a Resource"
+        },
+        "region" : {
+          "type" : "string",
+          "description" : "The region where this resource exists"
+        },
+        "info" : {
+          "description" : "Info for the resource.",
+          "$ref" : "#/definitions/KibanaClusterInfo"
+        }
+      },
+      "description" : "Describes an Kibana resource belonging to a Deployment"
     },
     "KibanaSubClusterInfo" : {
       "type" : "object",
@@ -21958,6 +24904,28 @@
       },
       "description" : "The configuration object for moving App Searches."
     },
+    "MoveAppSearchDetails" : {
+      "type" : "object",
+      "required" : [ "cluster_id" ],
+      "properties" : {
+        "cluster_id" : {
+          "type" : "string",
+          "description" : "Identifier for the App Search."
+        },
+        "calculated_plan" : {
+          "description" : "If only validating the move, then the plan configuration that would be applied to the cluster.",
+          "$ref" : "#/definitions/TransientAppSearchPlanConfiguration"
+        },
+        "errors" : {
+          "type" : "array",
+          "description" : "A list of errors that occurred if the attempt to move the cluster failed.",
+          "items" : {
+            "$ref" : "#/definitions/BasicFailedReplyElement"
+          }
+        }
+      },
+      "description" : "Information about the App Search that you want to move."
+    },
     "MoveClustersCommandResponse" : {
       "type" : "object",
       "required" : [ "failures", "moves" ],
@@ -22001,7 +24969,7 @@
           "type" : "array",
           "description" : "Detailed information about the App Search clusters being moved.",
           "items" : {
-            "$ref" : "#/definitions/MoveApmClusterDetails"
+            "$ref" : "#/definitions/MoveAppSearchDetails"
           }
         }
       },
@@ -22205,6 +25173,59 @@
         }
       },
       "description" : "User notes"
+    },
+    "Orphaned" : {
+      "type" : "object",
+      "required" : [ "apm", "appsearch", "elasticsearch", "kibana" ],
+      "properties" : {
+        "elasticsearch" : {
+          "type" : "array",
+          "description" : "List of orphaned Elasticsearch resources",
+          "items" : {
+            "$ref" : "#/definitions/OrphanedElasticsearch"
+          }
+        },
+        "kibana" : {
+          "type" : "array",
+          "description" : "List of orphaned Kibana resource ids",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "apm" : {
+          "type" : "array",
+          "description" : "List of orphaned APM resource ids",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "appsearch" : {
+          "type" : "array",
+          "description" : "List of orphaned AppSearch resource ids",
+          "items" : {
+            "type" : "string"
+          }
+        }
+      },
+      "description" : "Details about orphaned resources."
+    },
+    "OrphanedElasticsearch" : {
+      "type" : "object",
+      "required" : [ "dependents", "id" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "The id of the orphaned resource"
+        },
+        "dependents" : {
+          "type" : "array",
+          "description" : "List of orphaned dependent resources",
+          "items" : {
+            "$ref" : "#/definitions/ElasticsearchDependant"
+          }
+        }
+      },
+      "description" : "Details about an orphaned Elasticsearch resources."
     },
     "PendingState" : {
       "type" : "object",
@@ -24276,29 +27297,39 @@
       },
       "description" : "Defines the configuration parameters that control how the plan is applied. For example, the Elasticsearch cluster topology and Kibana instance settings."
     },
-    "UpdateExtensionRequest" : {
+    "Updates" : {
       "type" : "object",
-      "required" : [ "extension_type", "name" ],
       "properties" : {
-        "name" : {
-          "type" : "string",
-          "description" : "The extension name."
+        "elasticsearch" : {
+          "type" : "array",
+          "description" : "Diagnostics for Elasticsearch clusters",
+          "items" : {
+            "$ref" : "#/definitions/Elasticsearch"
+          }
         },
-        "download_url" : {
-          "type" : "string",
-          "description" : "The URL to download the extension archive."
+        "kibana" : {
+          "type" : "array",
+          "description" : "Diagnostics for Kibanas",
+          "items" : {
+            "$ref" : "#/definitions/Kibana"
+          }
         },
-        "extension_type" : {
-          "type" : "string",
-          "description" : "The extension type.",
-          "enum" : [ "plugin", "bundle" ]
+        "apm" : {
+          "type" : "array",
+          "description" : "Diagnostics for APMs",
+          "items" : {
+            "$ref" : "#/definitions/Apm"
+          }
         },
-        "version" : {
-          "type" : "string",
-          "description" : "The Elasticsearch version."
+        "appsearch" : {
+          "type" : "array",
+          "description" : "Diagnostics for AppSearches",
+          "items" : {
+            "$ref" : "#/definitions/AppSearch"
+          }
         }
       },
-      "description" : "The body of a request to update an extension"
+      "description" : "Holds diagnostics for existing resources that might be updated"
     },
     "UsageStats" : {
       "type" : "object",
@@ -24475,7 +27506,7 @@
   },
   "x-elastic" : {
     "curl" : {
-      "auth" : "-H 'Authorization: ApiKey $CLOUD_API_KEY'"
+      "auth" : "-H \"Authorization: ApiKey $CLOUD_API_KEY\""
     }
   }
 }

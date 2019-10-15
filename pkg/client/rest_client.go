@@ -36,7 +36,6 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/client/comments"
 	"github.com/elastic/cloud-sdk-go/pkg/client/deployments"
 	"github.com/elastic/cloud-sdk-go/pkg/client/deployments_ip_filtering"
-	"github.com/elastic/cloud-sdk-go/pkg/client/extensions"
 	"github.com/elastic/cloud-sdk-go/pkg/client/platform"
 	"github.com/elastic/cloud-sdk-go/pkg/client/platform_configuration_instances"
 	"github.com/elastic/cloud-sdk-go/pkg/client/platform_configuration_security"
@@ -105,8 +104,6 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Rest {
 	cli.Deployments = deployments.New(transport, formats)
 
 	cli.DeploymentsIPFiltering = deployments_ip_filtering.New(transport, formats)
-
-	cli.Extensions = extensions.New(transport, formats)
 
 	cli.Platform = platform.New(transport, formats)
 
@@ -184,8 +181,6 @@ type Rest struct {
 
 	DeploymentsIPFiltering *deployments_ip_filtering.Client
 
-	Extensions *extensions.Client
-
 	Platform *platform.Client
 
 	PlatformConfigurationInstances *platform_configuration_instances.Client
@@ -224,8 +219,6 @@ func (c *Rest) SetTransport(transport runtime.ClientTransport) {
 	c.Deployments.SetTransport(transport)
 
 	c.DeploymentsIPFiltering.SetTransport(transport)
-
-	c.Extensions.SetTransport(transport)
 
 	c.Platform.SetTransport(transport)
 
