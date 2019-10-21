@@ -21,7 +21,7 @@ import (
 	"testing"
 )
 
-func TestCheckOnlyOneIsTrue(t *testing.T) {
+func TestCheckNoneOrOneIsTrue(t *testing.T) {
 	type args struct {
 		bools []bool
 	}
