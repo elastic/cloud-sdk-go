@@ -17,10 +17,8 @@
 
 package booleans
 
-import "errors"
-
-// CheckOnlyOneIsTrue checks that only one element of a given slice is true
-func CheckOnlyOneIsTrue(bools []bool, errMsg string) error {
+// CheckNoneOrOneIsTrue checks that none or only one element of a given slice is true
+func CheckNoneOrOneIsTrue(bools []bool) bool {
 	trueCount := 0
 
 	for _, b := range bools {
@@ -29,9 +27,5 @@ func CheckOnlyOneIsTrue(bools []bool, errMsg string) error {
 		}
 	}
 
-	if trueCount > 1 {
-		return errors.New(errMsg)
-	}
-
-	return nil
+	return trueCount <= 1
 }

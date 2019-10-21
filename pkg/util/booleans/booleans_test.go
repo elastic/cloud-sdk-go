@@ -18,61 +18,44 @@
 package booleans
 
 import (
-	"errors"
-	"reflect"
 	"testing"
 )
 
 func TestCheckOnlyOneIsTrue(t *testing.T) {
 	type args struct {
-		bools  []bool
-		errMsg string
+		bools []bool
 	}
 	tests := []struct {
-		name    string
-		args    args
-		wantErr bool
-		err     error
+		name string
+		args args
+		want bool
 	}{
 		{
-			name: "Returns an error if more than one element in the slice is true",
+			name: "Returns false if more than one element in the slice is true",
 			args: args{
-				bools:  []bool{true, true, true, false},
-				errMsg: "more than one element is true",
+				bools: []bool{true, true, true, false},
 			},
-			wantErr: true,
-			err:     errors.New("more than one element is true"),
+			want: false,
 		},
 		{
 			name: "Succeeds if all elements are false",
 			args: args{
-				bools:  []bool{false, false, false, false},
-				errMsg: "more than one element is true",
+				bools: []bool{false, false, false, false},
 			},
+			want: true,
 		},
 		{
 			name: "Succeeds if only one element is true",
 			args: args{
-				bools:  []bool{false, false, true, false},
-				errMsg: "more than one element is true",
+				bools: []bool{false, false, true, false},
 			},
+			want: true,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			err := CheckOnlyOneIsTrue(tt.args.bools, tt.args.errMsg)
-
-			if (err != nil) != tt.wantErr {
-				t.Errorf("Validate() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-
-			if tt.wantErr && tt.err == nil {
-				t.Errorf("Validate() expected errors = '%v' but no errors returned", tt.err)
-			}
-
-			if tt.wantErr && !reflect.DeepEqual(err, tt.err) {
-				t.Errorf("Validate() expected errors = '%v' but got %v", tt.err, err)
+			if got := CheckNoneOrOneIsTrue(tt.args.bools); got != tt.want {
+				t.Errorf("CheckNoneOrOneIsTrue() = %v, want %v", got, tt.want)
 			}
 		})
 	}
