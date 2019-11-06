@@ -20,7 +20,10 @@ package api
 import (
 	"context"
 	"errors"
+	"io/ioutil"
+	"net/http"
 	"reflect"
+	"strings"
 	"testing"
 
 	"github.com/go-openapi/runtime"
@@ -63,7 +66,20 @@ type ValueError struct{}
 
 func (e ValueError) Error() string { return "some error here" }
 
+type PrivateResp struct {
+	resp *http.Response
+}
+
+func (e PrivateResp) Error() string { return "some error here" }
+
 func TestUnwrapError(t *testing.T) {
+	var someEncapsulatedResp = &http.Response{
+		StatusCode: 200,
+		Body: ioutil.NopCloser(strings.NewReader(
+			`{"somefield": "someerror"}`,
+		)),
+	}
+	var privateResp = PrivateResp{resp: someEncapsulatedResp}
 	type args struct {
 		err error
 	}
@@ -121,6 +137,15 @@ func TestUnwrapError(t *testing.T) {
 				},
 			},
 			want: errors.New("the requested operation requires elevated permissions"),
+		},
+		{
+			name: "Can unpack a nested http.Response error",
+			args: args{
+				err: &runtime.APIError{
+					Response: privateResp,
+				},
+			},
+			want: errors.New(`{"somefield": "someerror"}`),
 		},
 		{
 			name: "Throws unknown error when the Response inside the APIError can't be unpacked",
