@@ -14,7 +14,7 @@ go get -u github.com/elastic/cloud-sdk-go
 
 The project's structure is based off the standard Go project layout. Therefore, all of our library code that we expect other projects to import is placed in the `pkg/` directory.
 
-The main packages for interacting directly with our public API endpoints are `client` and `models`. The source code for these is generated off the [public API swagger specification](./api/apidocs.json]).
+The main packages for interacting directly with our public API endpoints are `client` and `models`. The source code for these is generated off the [public API swagger specification](./api/apidocs.json).
 
 The rest are a series of packages that can be leveraged in many ways. For a detailed package description visit the SDK's packages documentation at [godoc.org](https://godoc.org/elastic/cloud-sdk-go). Alternatively you can use the [godoc](https://godoc.org/golang.org/x/tools/cmd/godoc) command on the root level of this project.
 
