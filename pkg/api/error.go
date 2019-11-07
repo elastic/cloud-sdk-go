@@ -23,7 +23,10 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io/ioutil"
+	"net/http"
 	"reflect"
+	"unsafe"
 
 	"github.com/go-openapi/runtime"
 )
@@ -43,6 +46,18 @@ func UnwrapError(err error) error {
 	if e, ok := err.(*runtime.APIError); ok {
 		if e.Code == 449 {
 			return errors.New("the requested operation requires elevated permissions")
+		}
+
+		if e.Response != nil {
+			if v := reflect.ValueOf(e.Response); v.IsValid() {
+				if resp := v.FieldByName("resp"); resp.IsValid() {
+					ptr := unsafe.Pointer(resp.Pointer())
+					res := (*http.Response)(ptr)
+					b, _ := ioutil.ReadAll(res.Body)
+					defer res.Body.Close()
+					return errors.New(string(b))
+				}
+			}
 		}
 
 		if res, _ := json.MarshalIndent(e.Response, "", "  "); !bytes.Equal(res, []byte("{}")) {
