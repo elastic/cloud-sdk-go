@@ -77,7 +77,7 @@ CreateDeployment creates deployment
 
 Creates a Deployment.
 */
-func (a *Client) CreateDeployment(params *CreateDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*CreateDeploymentOK, *CreateDeploymentAccepted, error) {
+func (a *Client) CreateDeployment(params *CreateDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*CreateDeploymentCreated, *CreateDeploymentAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateDeploymentParams()
@@ -100,7 +100,7 @@ func (a *Client) CreateDeployment(params *CreateDeploymentParams, authInfo runti
 		return nil, nil, err
 	}
 	switch value := result.(type) {
-	case *CreateDeploymentOK:
+	case *CreateDeploymentCreated:
 		return value, nil, nil
 	case *CreateDeploymentAccepted:
 		return nil, value, nil

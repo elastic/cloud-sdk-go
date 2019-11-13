@@ -42,8 +42,8 @@ type CreateDeploymentReader struct {
 func (o *CreateDeploymentReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
-	case 200:
-		result := NewCreateDeploymentOK()
+	case 201:
+		result := NewCreateDeploymentCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -75,24 +75,24 @@ func (o *CreateDeploymentReader) ReadResponse(response runtime.ClientResponse, c
 	}
 }
 
-// NewCreateDeploymentOK creates a CreateDeploymentOK with default headers values
-func NewCreateDeploymentOK() *CreateDeploymentOK {
-	return &CreateDeploymentOK{}
+// NewCreateDeploymentCreated creates a CreateDeploymentCreated with default headers values
+func NewCreateDeploymentCreated() *CreateDeploymentCreated {
+	return &CreateDeploymentCreated{}
 }
 
-/*CreateDeploymentOK handles this case with default header values.
+/*CreateDeploymentCreated handles this case with default header values.
 
 The request was valid and a new deployment was created
 */
-type CreateDeploymentOK struct {
+type CreateDeploymentCreated struct {
 	Payload *models.DeploymentCreateResponse
 }
 
-func (o *CreateDeploymentOK) Error() string {
-	return fmt.Sprintf("[POST /deployments][%d] createDeploymentOK  %+v", 200, o.Payload)
+func (o *CreateDeploymentCreated) Error() string {
+	return fmt.Sprintf("[POST /deployments][%d] createDeploymentCreated  %+v", 201, o.Payload)
 }
 
-func (o *CreateDeploymentOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CreateDeploymentCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.DeploymentCreateResponse)
 

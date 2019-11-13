@@ -8560,7 +8560,7 @@
           "default" : false
         } ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "The request was valid and a new deployment was created",
             "schema" : {
               "$ref" : "#/definitions/DeploymentCreateResponse"
