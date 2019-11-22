@@ -48,12 +48,19 @@ func UnwrapError(err error) error {
 			return errors.New("the requested operation requires elevated permissions")
 		}
 
+		var defaultError = fmt.Errorf("%s (status %d)", e.OperationName, e.Code)
 		if e.Response != nil {
 			if v := reflect.ValueOf(e.Response); v.IsValid() {
 				if resp := v.FieldByName("resp"); resp.IsValid() {
 					ptr := unsafe.Pointer(resp.Pointer())
 					res := (*http.Response)(ptr)
-					b, _ := ioutil.ReadAll(res.Body)
+					b, err := ioutil.ReadAll(res.Body)
+					if err != nil {
+						return fmt.Errorf(
+							"failed reading error body: %s",
+							defaultError.Error(),
+						)
+					}
 					defer res.Body.Close()
 					return errors.New(string(b))
 				}
@@ -63,7 +70,7 @@ func UnwrapError(err error) error {
 		if res, _ := json.MarshalIndent(e.Response, "", "  "); !bytes.Equal(res, []byte("{}")) {
 			return errors.New(string(res))
 		}
-		return fmt.Errorf("%s (status %d)", e.OperationName, e.Code)
+		return defaultError
 	}
 
 	payload := reflect.ValueOf(err).Elem().FieldByName("Payload")
