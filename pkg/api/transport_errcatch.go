@@ -27,7 +27,7 @@ import (
 // defined within the swagger spec from which the models have been generated.
 // Meaning this is a small hack which allows http.Response.Body to be accessed.
 // See error.go in the same package for details on how UnwrapError works. Note
-// that using this variable direclty won't allow any of the http.Transport
+// that using this variable directly won't allow any of the http.Transport
 // setttings to be overridden. To customize the transport further, please use
 // NewTransport()
 var DefaultTransport = new(ErrCatchTransport)
