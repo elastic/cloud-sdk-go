@@ -57,7 +57,9 @@ func newDefaultTransport() *http.Transport {
 	}
 }
 
-// NewTransport constructs a new http.RoundTripper from its config.
+// NewTransport constructs a new http.RoundTripper from its config. If rt is
+// *http.Transport then it will be wrapped with *ErrCatchTransport. See more
+// information on the GoDoc help for that type.
 func NewTransport(rt http.RoundTripper, cfg TransportConfig) http.RoundTripper {
 	if rt == nil {
 		// Change this to use the new .Clone() method once Go 1.13+ is
@@ -84,5 +86,5 @@ func NewTransport(rt http.RoundTripper, cfg TransportConfig) http.RoundTripper {
 		return NewDebugTransport(rt, cfg.Device)
 	}
 
-	return rt
+	return NewErrCatchTransport(rt)
 }
