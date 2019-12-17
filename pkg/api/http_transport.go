@@ -28,6 +28,11 @@ import (
 
 const transportCastErrFmt = "transport: failed converting %T to *http.Transport"
 
+var (
+	// DefaultTimeout is used when TransportConfig.Transport is not specified.
+	DefaultTimeout = 30 * time.Second
+)
+
 // TransportConfig is meant to be used so an http.RoundTripper is constructed
 // with the appropriate settings.
 type TransportConfig struct {
@@ -40,13 +45,20 @@ type TransportConfig struct {
 	// Can enable a debug RoundTripper which dumps the request and responses to
 	// the configured device.
 	VerboseSettings
+
+	// Timeout for the Transport net.Dialer.
+	Timeout time.Duration
 }
 
-func newDefaultTransport() *http.Transport {
+func newDefaultTransport(timeout time.Duration) *http.Transport {
+	if timeout.Seconds() <= 0 {
+		timeout = DefaultTimeout
+	}
+
 	return &http.Transport{
 		Proxy: http.ProxyFromEnvironment,
 		DialContext: (&net.Dialer{
-			Timeout:   30 * time.Second,
+			Timeout:   timeout,
 			KeepAlive: 30 * time.Second,
 			DualStack: true,
 		}).DialContext,
@@ -64,7 +76,7 @@ func NewTransport(rt http.RoundTripper, cfg TransportConfig) http.RoundTripper {
 	if rt == nil {
 		// Change this to use the new .Clone() method once Go 1.13+ is
 		// released. See https://github.com/golang/go/issues/26013.
-		rt = newDefaultTransport()
+		rt = newDefaultTransport(cfg.Timeout)
 	}
 
 	switch t := rt.(type) {

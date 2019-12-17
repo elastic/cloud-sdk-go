@@ -23,6 +23,7 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+	"time"
 
 	multierror "github.com/hashicorp/go-multierror"
 )
@@ -45,10 +46,13 @@ type Config struct {
 	ErrorDevice io.Writer
 
 	VerboseSettings
+
+	// Timeout for all of the API calls performed through the API structure.
+	Timeout time.Duration
 }
 
 // Validate returns an error if the config is invalid
-func (c Config) Validate() error {
+func (c *Config) Validate() error {
 	var err = new(multierror.Error)
 	if c.Client == nil {
 		err = multierror.Append(err, errors.New("api: client cannot be empty"))
@@ -62,6 +66,12 @@ func (c Config) Validate() error {
 	err = multierror.Append(err, c.VerboseSettings.Validate())
 
 	return err.ErrorOrNil()
+}
+
+func (c *Config) fillDefaults() {
+	if c.Timeout.Nanoseconds() <= 0 {
+		c.Timeout = DefaultTimeout
+	}
 }
 
 // VerboseSettings define the behaviour of verbosity.

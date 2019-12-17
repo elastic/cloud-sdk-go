@@ -53,6 +53,7 @@ type AuthWriter interface {
 
 // NewAPI initializes the API clients from an API config that it receives
 func NewAPI(c Config) (*API, error) {
+	c.fillDefaults()
 	if err := c.Validate(); err != nil {
 		return nil, err
 	}
@@ -61,7 +62,16 @@ func NewAPI(c Config) (*API, error) {
 		SkipTLSVerify:   c.SkipTLSVerify,
 		ErrorDevice:     c.ErrorDevice,
 		VerboseSettings: c.VerboseSettings,
+		Timeout:         c.Timeout,
 	})
+
+	// Sadly, all the clinet parameters take the DefaultTimeout from the runtime
+	// client if not specified in the call as a query parameter, modifying this
+	// value effectively affects all of the related clients.
+	runtimeclient.DefaultTimeout = c.Timeout
+
+	// Also sets the client Timeout value
+	c.Client.Timeout = c.Timeout
 
 	rest, err := newRestClient(c)
 	if err != nil {
