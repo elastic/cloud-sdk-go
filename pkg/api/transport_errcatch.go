@@ -50,7 +50,7 @@ type ErrCatchTransport struct {
 // of the current request.
 func (e *ErrCatchTransport) RoundTrip(req *http.Request) (*http.Response, error) {
 	if e.rt == nil {
-		newDefaultTransport()
+		newDefaultTransport(0)
 	}
 
 	res, err := e.rt.RoundTrip(req)
