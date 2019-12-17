@@ -65,7 +65,7 @@ func NewAPI(c Config) (*API, error) {
 		Timeout:         c.Timeout,
 	})
 
-	// Sadly, all the clinet parameters take the DefaultTimeout from the runtime
+	// Sadly, all the client parameters take the DefaultTimeout from the runtime
 	// client if not specified in the call as a query parameter, modifying this
 	// value effectively affects all of the related clients.
 	runtimeclient.DefaultTimeout = c.Timeout
