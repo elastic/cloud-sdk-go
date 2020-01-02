@@ -19,9 +19,9 @@ package api
 
 // Version contains the ECE API version compatibility for the current
 // auto-generated client and models. This needs to be updated every time a new
-// `api/apidocs.json` file added and the client and models are re-generated.
+// "api/apidocs.json" file added and the client and models are re-generated.
 // Even though the Bugfix version is specified, the general support statement is
 // on the minor version, i.e: 2.4.2 means that all the 2.4 branch is supported,
 // expecting some potentially unfixed bugs when ECE version is the same feature
 // version bug higher bugfix version.
-const Version = "2.4.2"
+const Version = "2.4.3"
