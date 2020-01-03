@@ -18,9 +18,10 @@
 package response
 
 import (
-	"github.com/elastic/cloud-sdk-go/pkg/client"
 	"github.com/go-openapi/runtime"
 	httptransport "github.com/go-openapi/runtime/client"
+
+	"github.com/elastic/cloud-sdk-go/pkg/client"
 )
 
 // SetRawJSON prepares the API transport to send raw JSON
