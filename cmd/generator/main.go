@@ -32,6 +32,8 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"path/filepath"
+	"text/template"
 
 	"github.com/go-openapi/spec"
 
@@ -40,24 +42,45 @@ import (
 
 var (
 	sourceFile, destinationFile string
+	version, defFile            string
 	defaultSourceFile           = "apidocs.json"
 	defaultDestinationFile      = "swagger.json"
 	errFileMustNotBeEmpty       = errors.New("file must not be empty")
 	errFailedUnmarshalingSpec   = errors.New("failed unmarshaling spec")
 )
 
+const tpl = `package {{.Package}}
+
+// Version contains the ECE API version compatibility for the current
+// auto-generated client and models. This needs to be updated every time a new
+// "api/apidocs.json" file added and the client and models are re-generated.
+// Even though the Bugfix version is specified, the general support statement is
+// on the minor version, i.e: 2.4.2 means that all the 2.4 branch is supported,
+// expecting some potentially unfixed bugs when ECE version is the same feature
+// version bug higher bugfix version.
+const Version = "{{.Version}}"
+`
+
 const (
 	_ = iota
 	codeCannotOpenFile
 	codeFileMustNotBeEmpty
 	codeFailedUnmarshalingSpec
+	codeFailedGeneratingVersionFile
 	codeFailedCreatingDestinationFile
 	codeFailedEncodingSpec
 )
 
+// Template is the template to generate the version file
+type Template struct {
+	Package, Version string
+}
+
 func main() {
 	flag.StringVar(&sourceFile, "source", defaultSourceFile, "source file to parse")
 	flag.StringVar(&destinationFile, "destination", defaultDestinationFile, "destination file to save the result")
+	flag.StringVar(&defFile, "def-file", "", "destination file where to save the definition result")
+	flag.StringVar(&version, "version", "", "ECE version")
 	flag.Parse()
 
 	b, err := ioutil.ReadFile(sourceFile)
@@ -72,6 +95,20 @@ func main() {
 		exitOnError(errFailedUnmarshalingSpec, codeFailedUnmarshalingSpec)
 	}
 	cloudSpec.Info.Version, cloudSpec.Info.Title = "v1", "rest"
+
+	commandFile, err := os.Create(defFile)
+	if err != nil {
+		println(err.Error())
+		commandFile = os.Stdout
+	}
+	defer commandFile.Close()
+
+	cloudspec.GetCommands(cloudSpec, commandFile, version)
+
+	exitOnError(
+		genVersionFile(filepath.Join("pkg", "api", "version.go"), version),
+		codeFailedGeneratingVersionFile,
+	)
 
 	// Modifies the spec mainly to make some properties of the swagger spec
 	// nullable or ommitable when they're empty to make it fully compatible
@@ -92,4 +129,18 @@ func exitOnError(err error, code int) {
 		fmt.Println(err)
 		os.Exit(code)
 	}
+}
+
+func genVersionFile(file, version string) error {
+	f, err := os.Create(file)
+	if err != nil {
+		return err
+	}
+
+	t, err := template.New("version").Parse(tpl)
+	if err != nil {
+		return err
+	}
+
+	return t.Execute(f, Template{Package: "api", Version: version})
 }
