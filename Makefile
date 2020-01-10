@@ -12,3 +12,4 @@ include scripts/Makefile.help
 include build/Makefile.swagger
 include build/Makefile.deps
 include build/Makefile.dev
+include build/Makefile.build
