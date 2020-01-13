@@ -17,7 +17,10 @@
 
 package slice
 
-import "testing"
+import (
+	"reflect"
+	"testing"
+)
 
 func TestHasString(t *testing.T) {
 	type args struct {
@@ -125,6 +128,36 @@ func TestIsEmpty(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := IsEmpty(tt.args.slice); got != tt.want {
 				t.Errorf("IsEmpty() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestStringSlice_ToMap(t *testing.T) {
+	type fields struct {
+		slice StringSlice
+	}
+	type args struct {
+		sep string
+	}
+	tests := []struct {
+		name     string
+		expected map[string]string
+		fields   fields
+		args     args
+	}{
+		{
+			name:     "should return the expected map",
+			fields:   fields{slice: StringSlice{"key:value", "anothervalue", ""}},
+			expected: map[string]string{"key": "value"},
+			args:     args{sep: ":"},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			actual := tt.fields.slice.ToMap(tt.args.sep)
+			if !reflect.DeepEqual(actual, tt.expected) {
+				t.Errorf("Expect: \n%+v Got: \n%+v", tt.expected, actual)
 			}
 		})
 	}
