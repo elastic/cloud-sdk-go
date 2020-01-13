@@ -161,9 +161,12 @@ func TestPoolAdd(t *testing.T) {
 		err    error
 	}{
 		{
+			// To avoid test flakiness, the behaviour of this test is as follows:
+			// The queue has 3 buffered spots and 2 work items are sent. We're simulating 
+			// that 2 items are consumed immediately via `limitConsumption` to 2.
 			name: "Add succeeds",
 			fields: fields{
-				queue: make(chan Validator),
+				queue: make(chan Validator, 3),
 				signals: Signals{
 					Added: make(chan struct{}),
 				},
@@ -176,6 +179,7 @@ func TestPoolAdd(t *testing.T) {
 				work:          generateWork(2),
 				consumeQueue:  true,
 				consumeSignal: true,
+				limitConsumption: 2,
 			},
 			want: want{
 				queueContents: generateWork(2),

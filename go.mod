@@ -12,10 +12,8 @@ require (
 	github.com/go-openapi/swag v0.19.6
 	github.com/go-openapi/validate v0.19.5
 	github.com/hashicorp/go-multierror v1.0.0
-	github.com/mattn/go-colorable v0.1.2 // indirect
 	github.com/pkg/errors v0.8.1
 	github.com/pmezard/go-difflib v1.0.0
-	golang.org/x/sys v0.0.0-20190726091711-fc99dfbffb4e // indirect
 )
 
 replace sourcegraph.com/sourcegraph/go-diff v0.5.1 => github.com/sourcegraph/go-diff v0.5.1
