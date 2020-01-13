@@ -17,6 +17,8 @@
 
 package slice
 
+import "strings"
+
 // HasString returns true if the given string value is found in the provided
 // slice, otherwise returns false.
 func HasString(slice []string, s string) bool {
@@ -47,4 +49,26 @@ func ContainsAll(slice, containedSlice []string) bool {
 		all = all && HasString(slice, c)
 	}
 	return all
+}
+
+// StringSlice wraps a string slice to provide methods on top of it
+type StringSlice []string
+
+// ToMap iterates over the slice and slices each element into substrings separated by sep. Then it adds a map key value
+// pair where the key is the first substring and value is the second substring
+//
+// If the sep is not found in the slice element then it's ignored
+//
+// It returns the produced map after iterating all slice elements
+func (ss StringSlice) ToMap(sep string) map[string]string {
+	newMap := make(map[string]string)
+
+	for _, s := range ss {
+		sliced := strings.Split(s, sep)
+		if len(sliced) == 2 {
+			newMap[sliced[0]] = sliced[1]
+		}
+	}
+
+	return newMap
 }
