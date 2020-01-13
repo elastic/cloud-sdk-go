@@ -162,7 +162,7 @@ func TestPoolAdd(t *testing.T) {
 	}{
 		{
 			// To avoid test flakiness, the behaviour of this test is as follows:
-			// The queue has 3 buffered spots and 2 work items are sent. We're simulating 
+			// The queue has 3 buffered spots and 2 work items are sent. We're simulating
 			// that 2 items are consumed immediately via `limitConsumption` to 2.
 			name: "Add succeeds",
 			fields: fields{
@@ -176,9 +176,9 @@ func TestPoolAdd(t *testing.T) {
 				timeouts: testTimeout,
 			},
 			args: args{
-				work:          generateWork(2),
-				consumeQueue:  true,
-				consumeSignal: true,
+				work:             generateWork(2),
+				consumeQueue:     true,
+				consumeSignal:    true,
 				limitConsumption: 2,
 			},
 			want: want{
