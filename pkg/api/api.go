@@ -19,22 +19,11 @@ package api
 
 import (
 	"net/http"
-	"net/url"
-	"path"
 
 	"github.com/go-openapi/runtime"
 	runtimeclient "github.com/go-openapi/runtime/client"
 
 	"github.com/elastic/cloud-sdk-go/pkg/client"
-)
-
-const (
-	// RegionPrefix is used when a Region is passed as part of the API config.
-	RegionPrefix = "/api/v1/regions"
-
-	// RegionlessPrefix is used when no region is specified, assumed target is
-	// most likely an ECE installation or a non federated one.
-	RegionlessPrefix = "/api/v1"
 )
 
 // API contains all of the API clients and authentication objects necessary
@@ -73,36 +62,13 @@ func NewAPI(c Config) (*API, error) {
 	// Also sets the client Timeout value
 	c.Client.Timeout = c.Timeout
 
-	rest, err := newRestClient(c)
+	transport, err := NewCloudClientRuntime(c)
 	if err != nil {
 		return nil, err
 	}
 
 	return &API{
-		V1API:      rest,
+		V1API:      client.New(transport, nil),
 		AuthWriter: c.AuthWriter,
 	}, nil
-}
-
-func newRestClient(c Config) (*client.Rest, error) {
-	u, err := url.Parse(c.Host)
-	if err != nil {
-		return nil, err
-	}
-
-	var basepath = RegionlessPrefix
-	if c.Region != "" {
-		basepath = path.Join(RegionPrefix, c.Region)
-	}
-
-	v1transport := runtimeclient.NewWithClient(
-		u.Host,
-		basepath,
-		[]string{u.Scheme},
-		c.Client,
-	)
-
-	// Additional consumers and producers that are needed for parts of the SDK
-	// to work correctly
-	return client.New(AddTypeConsumers(v1transport), nil), nil
 }
