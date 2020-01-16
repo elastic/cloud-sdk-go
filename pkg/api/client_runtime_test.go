@@ -69,7 +69,7 @@ func TestNewCloudClientRuntime(t *testing.T) {
 			},
 		},
 		{
-			name: "when region is specified the structure has two equal runtimes",
+			name: "when region is not specified the structure has two equal runtimes",
 			args: args{c: Config{
 				Host: "https://cloud.elastic.co",
 			}},
