@@ -76,8 +76,12 @@ type CloudClientRuntime struct {
 // which operation is being performed. Any API call to /deployments will use a
 // regionless runtime while all others will use a region (if specified).
 func (r *CloudClientRuntime) Submit(op *runtime.ClientOperation) (interface{}, error) {
+	return r.getRuntime(op).Submit(op)
+}
+
+func (r *CloudClientRuntime) getRuntime(op *runtime.ClientOperation) *runtimeclient.Runtime {
 	if strings.HasPrefix(op.PathPattern, "/deployments") {
-		return r.runtime.Submit(op)
+		return r.runtime
 	}
-	return r.regionRuntime.Submit(op)
+	return r.regionRuntime
 }
