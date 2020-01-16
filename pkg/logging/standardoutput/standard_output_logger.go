@@ -27,6 +27,19 @@ import (
 	loggingdecorator "github.com/elastic/cloud-sdk-go/pkg/logging/decorator"
 )
 
+const (
+	// TRACE represents the trace logging level
+	TRACE = "TRACE"
+	// DEBUG represents the debug logging level
+	DEBUG = "DEBUG"
+	// INFO represents the info logging level
+	INFO = "INFO"
+	// WARN represents the warn logging level
+	WARN = "WARN"
+	// ERROR represents the error logging level
+	ERROR = "ERROR"
+)
+
 var (
 	// DefaultColoringScheme format of log message
 	defFmt = "[%s] [%s:%s] %s\n"
@@ -73,17 +86,105 @@ func New() *StandardOutputLogger {
 
 func levelColor(scheme loggingdecorator.ColoringScheme, logLevel string) color.Attribute {
 	switch strings.ToUpper(logLevel) {
-	case "TRACE":
+	case TRACE:
 		return scheme.Trace
-	case "DEBUG":
+	case DEBUG:
 		return scheme.Debug
-	case "INFO":
+	case INFO:
 		return scheme.Info
-	case "WARN":
+	case WARN:
 		return scheme.Warn
-	case "ERROR":
+	case ERROR:
 		return scheme.Error
 	default:
 		return color.FgWhite
+	}
+}
+
+// StandardLogger is a struct to encapsulate a logging Dispatcher to allow us to add more methods
+type StandardLogger struct {
+	logging.Dispatcher
+}
+
+// NewStandardLogger creates a new standard Logger with required dispatcher properly configured
+func NewStandardLogger() logging.Dispatcher {
+	return StandardLogger{
+		Dispatcher: NewDispatcher(),
+	}
+}
+
+// NewDispatcher creates a new Logger dispatcher with required loggers properly configured
+func NewDispatcher() logging.Dispatcher {
+	return logging.NewLogDispatcher(New())
+}
+
+// Warn creates a new WARNING log message and properly initializes all required fields
+func Warn(msg string) logging.LogMessage {
+	return newLogMessage(logging.WARNING).WithMessage(msg)
+}
+
+// Error creates a new ERROR log message and properly initializes all required fields
+func Error(msg string) logging.LogMessage {
+	return newLogMessage(logging.ERROR).WithMessage(msg).WithError(logging.NewError().WithMessage(msg))
+}
+
+// Info creates a new INFO log message and properly initializes all required fields
+func Info(msg string) logging.LogMessage {
+	return newLogMessage(logging.INFO).WithMessage(msg)
+}
+
+// Debug creates a new DEBUG log message and properly initializes all required fields
+func Debug(msg string) logging.LogMessage {
+	return newLogMessage(logging.DEBUG).WithMessage(msg)
+}
+
+// Trace creates a new TRACE log message and properly initializes all required fields
+func Trace(msg string) logging.LogMessage {
+	return newLogMessage(logging.TRACE).WithMessage(msg)
+}
+
+// Level returns the LogLevel based on the given level as string
+// If the level is not found then the default (INFO) is returned
+func Level(level string) logging.LogLevel {
+	var logLevel logging.LogLevel
+	switch level {
+	case TRACE:
+		logLevel = logging.TRACE
+	case DEBUG:
+		logLevel = logging.DEBUG
+	case INFO:
+		logLevel = logging.INFO
+	case WARN:
+		logLevel = logging.WARNING
+	case ERROR:
+		logLevel = logging.ERROR
+	default:
+		logLevel = logging.INFO
+	}
+
+	return logLevel
+}
+
+func newLogMessage(level logging.LogLevel) logging.LogMessage {
+	return logging.NewLogMessage().
+		WithAgent(logging.NewAgent()).
+		WithLog(logging.NewLog().
+			WithLevel(level))
+}
+
+// Log will log the given message
+func (l StandardLogger) Log(message logging.LogMessage) {
+	if l.Dispatcher == nil {
+		return
+	}
+	if err := l.Dispatch(message); err != nil {
+		fmt.Printf("unable to dispatch log message [%s]. error : %s\n", message.Message, err.Error())
+	}
+}
+
+// LogIf will log the given message only if `shouldLog` argument is `true`
+func (l StandardLogger) LogIf(message logging.LogMessage, shouldLog bool) {
+	if shouldLog {
+		l.Log(message)
 	}
 }

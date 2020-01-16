@@ -351,7 +351,7 @@ func TestNewLogMessage(t *testing.T) {
 		name          string
 		logMsg        LogMessage
 		wantedAgent   Agent
-		wantedError   Error
+		wantedError   Err
 		wantedLog     Log
 		wantedHTTP    HTTP
 		wantedMessage string
