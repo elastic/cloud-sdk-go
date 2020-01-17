@@ -33,7 +33,7 @@ type LogMessage struct {
 	Labels    map[string]string `json:"labels,omitempty"`
 	Message   string            `json:"message,omitempty"`
 	Agent     Agent             `json:"agent,omitempty"`
-	Error     Error             `json:"error,omitempty"`
+	Error     Err               `json:"error,omitempty"`
 	HTTP      HTTP              `json:"http,omitempty"`
 	Log       Log               `json:"log,omitempty"`
 	ECS       ECS               `json:"ecs,omitempty"`
@@ -76,7 +76,7 @@ func (msg LogMessage) WithAgent(agent Agent) LogMessage {
 }
 
 // WithError sets the agent object field and returns the message itself
-func (msg LogMessage) WithError(err Error) LogMessage {
+func (msg LogMessage) WithError(err Err) LogMessage {
 	msg.Error = err
 	return msg
 }
@@ -131,34 +131,34 @@ func (agent Agent) WithEphemeralID(id string) Agent {
 	return agent
 }
 
-// Error is the structure of an error
+// Err is the structure of an error
 // These fields can represent errors of any kind. Use them for errors that happen while fetching events or in cases where the event itself contains an error.
-type Error struct {
+type Err struct {
 	Message string `json:"message,omitempty"`
 	ID      string `json:"id,omitempty"`
 	Code    string `json:"code,omitempty"`
 }
 
 // NewError creates a new Error and properly initializes all required fields
-func NewError() Error {
-	err := Error{}
+func NewError() Err {
+	err := Err{}
 	return err
 }
 
 // WithMessage sets the message field and returns the error itself
-func (err Error) WithMessage(msg string) Error {
+func (err Err) WithMessage(msg string) Err {
 	err.Message = msg
 	return err
 }
 
 // WithID sets the ID field and returns the error itself
-func (err Error) WithID(id string) Error {
+func (err Err) WithID(id string) Err {
 	err.ID = id
 	return err
 }
 
 // WithCode sets the Code field and returns the error itself
-func (err Error) WithCode(code string) Error {
+func (err Err) WithCode(code string) Err {
 	err.Code = code
 	return err
 }
