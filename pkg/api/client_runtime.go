@@ -80,7 +80,9 @@ func (r *CloudClientRuntime) Submit(op *runtime.ClientOperation) (interface{}, e
 }
 
 func (r *CloudClientRuntime) getRuntime(op *runtime.ClientOperation) *runtimeclient.Runtime {
-	if strings.HasPrefix(op.PathPattern, "/deployments") {
+	var isDeployment = strings.HasPrefix(op.PathPattern, "/deployments")
+	var notDeploymentNotes = !strings.Contains(op.PathPattern, "/note")
+	if isDeployment && notDeploymentNotes {
 		return r.runtime
 	}
 	return r.regionRuntime

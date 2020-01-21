@@ -152,6 +152,25 @@ func TestCloudClientRuntime_getRuntime(t *testing.T) {
 			want: &runtimeclient.Runtime{BasePath: "/api/v1"},
 		},
 		{
+			name: "/deployment/someid/notes operation uses the region path",
+			fields: fields{
+				regionRuntime: AddTypeConsumers(runtimeclient.NewWithClient(
+					"cloud.elastic.co",
+					fmt.Sprintf(RegionPrefix, "us-east-1"),
+					[]string{"https"}, nil,
+				)),
+				runtime: AddTypeConsumers(runtimeclient.NewWithClient(
+					"cloud.elastic.co",
+					RegionlessPrefix,
+					[]string{"https"}, nil,
+				)),
+			},
+			args: args{op: &runtime.ClientOperation{
+				PathPattern: "/deployments/someid/notes",
+			}},
+			want: &runtimeclient.Runtime{BasePath: "/api/v1/regions/us-east-1"},
+		},
+		{
 			name: "/platform operation uses the regioned path",
 			fields: fields{
 				regionRuntime: AddTypeConsumers(runtimeclient.NewWithClient(
