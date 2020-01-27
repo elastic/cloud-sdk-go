@@ -40,8 +40,8 @@ func TestNew(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			sol := New()
 
-			if sol.fmt != tt.expFormat {
-				t.Errorf("New() logger format wanted %s lreturned %s", tt.expFormat, sol.fmt)
+			if sol.format != tt.expFormat {
+				t.Errorf("New() logger format wanted %s lreturned %s", tt.expFormat, sol.format)
 				return
 			}
 			if !reflect.DeepEqual(*sol.ColoringScheme, tt.expColoringScheme) {
@@ -72,8 +72,8 @@ func TestNewWithArguments(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			sol := New().WithColoringScheme(&otherScheme).WithFormat(otherFormat)
 
-			if sol.fmt != tt.expFormat {
-				t.Errorf("New() logger format wanted %s lreturned %s", tt.expFormat, sol.fmt)
+			if sol.format != tt.expFormat {
+				t.Errorf("New() logger format wanted %s lreturned %s", tt.expFormat, sol.format)
 				return
 			}
 			if !reflect.DeepEqual(*sol.ColoringScheme, tt.expColoringScheme) {

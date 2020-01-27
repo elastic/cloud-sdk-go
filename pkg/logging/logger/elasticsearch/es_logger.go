@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 
-package eslogger
+package elasticsearch
 
 import (
 	"bytes"
@@ -31,14 +31,14 @@ const (
 	logIndex = "/logs/_doc"
 )
 
-// ESLogger is the implementation of ES cluster logging
-type ESLogger struct {
+// Logger is the implementation of ES cluster logging
+type Logger struct {
 	host, user, pass string
 }
 
 // Log sends a logging message to an ES cluster
 // If logger fails to deliver the message then logs an error message to the standard output logger
-func (esLogger ESLogger) Log(msg logging.LogMessage) error {
+func (esLogger Logger) Log(msg logging.LogMessage) error {
 	b, err := msg.Marshall()
 	if err != nil {
 		return err
@@ -79,25 +79,25 @@ func (esLogger ESLogger) Log(msg logging.LogMessage) error {
 	return nil
 }
 
-// WithHost sets the ES host and returns the ESLogger itself
-func (esLogger ESLogger) WithHost(host string) ESLogger {
+// WithHost sets the ES host and returns the Logger itself
+func (esLogger Logger) WithHost(host string) Logger {
 	esLogger.host = host
 	return esLogger
 }
 
-// WithUser sets the ES user and returns the ESLogger itself
-func (esLogger ESLogger) WithUser(user string) ESLogger {
+// WithUser sets the ES user and returns the Logger itself
+func (esLogger Logger) WithUser(user string) Logger {
 	esLogger.user = user
 	return esLogger
 }
 
-// WithPass sets the ES password and returns the ESLogger itself
-func (esLogger ESLogger) WithPass(pass string) ESLogger {
+// WithPass sets the ES password and returns the Logger itself
+func (esLogger Logger) WithPass(pass string) Logger {
 	esLogger.pass = pass
 	return esLogger
 }
 
-// New properly creates a new standard output logger initializing its internal state with default values
-func New() ESLogger {
-	return ESLogger{}
+// NewLogger properly creates a new elasticsearch logger
+func NewLogger() Logger {
+	return Logger{}
 }

@@ -33,21 +33,21 @@ var (
 
 // StandardOutput is the implementation of standard output logging
 type StandardOutput struct {
-	fmt string
+	format string
 	*loggingdecorator.ColoringScheme
 }
 
 // Log writes the given log message to the standard output using the logger defined format
 func (logger StandardOutput) Log(msg logging.LogMessage) error {
 	color.Set(logging.LevelColor(*logger.ColoringScheme, msg.Log.Level))
-	fmt.Printf(logger.fmt, msg.Timestamp, msg.Agent.Name, msg.Log.Level, msg.Message)
+	fmt.Printf(logger.format, msg.Timestamp, msg.Agent.Name, msg.Log.Level, msg.Message)
 	color.Unset()
 	return nil
 }
 
 // WithFormat sets the logger format and returns the logger itself
 func (logger *StandardOutput) WithFormat(format string) *StandardOutput {
-	logger.fmt = format
+	logger.format = format
 	return logger
 }
 
@@ -64,7 +64,7 @@ func (logger *StandardOutput) WithColoringScheme(scheme *loggingdecorator.Colori
 // New properly creates a new standard output logger initializing its internal state with default values
 func New() *StandardOutput {
 	return &StandardOutput{
-		fmt:            defFmt,
+		format:         defFmt,
 		ColoringScheme: loggingdecorator.DefaultColoringScheme(),
 	}
 }
