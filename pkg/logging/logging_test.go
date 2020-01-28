@@ -21,6 +21,10 @@ import (
 	"errors"
 	"reflect"
 	"testing"
+
+	"github.com/fatih/color"
+
+	loggingdecorator "github.com/elastic/cloud-sdk-go/pkg/logging/decorator"
 )
 
 func TestLogDispatcher_Add(t *testing.T) {
@@ -129,6 +133,279 @@ func TestLogDispatcher_Dispatch(t *testing.T) {
 	}
 }
 
+func TestLevel(t *testing.T) {
+	tests := []struct {
+		name        string
+		level       string
+		expLoglevel LogLevel
+	}{
+		{
+			name:        "should return logging.TRACE",
+			level:       trace,
+			expLoglevel: TRACE,
+		},
+		{
+			name:        "should return logging.DEBUG",
+			level:       debug,
+			expLoglevel: DEBUG,
+		},
+		{
+			name:        "should return logging.INFO",
+			level:       info,
+			expLoglevel: INFO,
+		},
+		{
+			name:        "should return logging.WARNING",
+			level:       warn,
+			expLoglevel: WARNING,
+		},
+		{
+			name:        "should return logging.ERROR",
+			level:       err,
+			expLoglevel: ERROR,
+		},
+		{
+			name:        "should return the default level",
+			level:       "UNKNOWN",
+			expLoglevel: INFO,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if tt.expLoglevel != Level(tt.level) {
+				t.Errorf("Level() expected %v but actual %s", tt.expLoglevel, tt.level)
+				return
+			}
+		})
+	}
+}
+
+func TestLevelColor(t *testing.T) {
+	scheme := loggingdecorator.ColoringScheme{
+		Trace: color.FgWhite,
+		Debug: color.FgYellow,
+		Info:  color.FgHiBlue,
+		Warn:  color.FgRed,
+		Error: color.FgCyan,
+	}
+
+	tests := []struct {
+		name     string
+		expColor color.Attribute
+		logLevel string
+		scheme   loggingdecorator.ColoringScheme
+	}{
+		{
+			name:     "levelColor should return the correct color for TRACE log level ",
+			expColor: color.FgWhite,
+			logLevel: trace,
+			scheme:   scheme,
+		},
+		{
+			name:     "levelColor should return the correct color for DEBUG log level ",
+			expColor: color.FgYellow,
+			logLevel: debug,
+			scheme:   scheme,
+		},
+		{
+			name:     "levelColor should return the correct color for INFO log level ",
+			expColor: color.FgHiBlue,
+			logLevel: info,
+			scheme:   scheme,
+		},
+		{
+			name:     "levelColor should return the correct color for WARN log level ",
+			expColor: color.FgRed,
+			logLevel: warn,
+			scheme:   scheme,
+		},
+		{
+			name:     "levelColor should return the correct color for ERROR log level ",
+			expColor: color.FgCyan,
+			logLevel: err,
+			scheme:   scheme,
+		},
+		{
+			name:     "levelColor should return the default color for unknown log level ",
+			expColor: color.FgWhite,
+			logLevel: "UNKNOWN",
+			scheme:   scheme,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			logColor := LevelColor(tt.scheme, tt.logLevel)
+
+			if logColor != tt.expColor {
+				t.Errorf("levelColor() wanted %v returned %v", tt.expColor, logColor)
+				return
+			}
+		})
+	}
+}
+
+func TestDebugMessage(t *testing.T) {
+	tests := []struct {
+		name string
+		msg  string
+	}{
+		{
+			name: "Log debug should properly create a debug message",
+			msg:  "Log message",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			logMessage := DebugMessage(tt.msg)
+
+			if logMessage.Message != tt.msg {
+				t.Errorf("Debug() logMessage.Message expected %s actual %s", tt.msg, logMessage.Message)
+				return
+			}
+			if logMessage.Log.Level != "DEBUG" {
+				t.Errorf("Debug() logMessage.Log.Level expected %s actual %s", "DEBUG", logMessage.Log.Level)
+				return
+			}
+			if !reflect.DeepEqual(logMessage.Agent, agent) {
+				t.Errorf("Debug() logMessage.Agent expected %v actual %v", agent, logMessage.Agent)
+				return
+			}
+		})
+	}
+}
+
+func TestWarnMessage(t *testing.T) {
+	tests := []struct {
+		name string
+		msg  string
+	}{
+		{
+			name: "Log warn should properly create a warn message",
+			msg:  "Log message",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			logMessage := WarnMessage(tt.msg)
+
+			if logMessage.Message != tt.msg {
+				t.Errorf("Warn() logMessage.Message expected %s actual %s", tt.msg, logMessage.Message)
+				return
+			}
+			if logMessage.Log.Level != "WARN" {
+				t.Errorf("Warn() logMessage.Log.Level expected %s actual %s", "WARN", logMessage.Log.Level)
+				return
+			}
+			if !reflect.DeepEqual(logMessage.Agent, agent) {
+				t.Errorf("Warn() logMessage.Agent expected %v actual %v", agent, logMessage.Agent)
+				return
+			}
+		})
+	}
+}
+
+func TestErrorMessage(t *testing.T) {
+	tests := []struct {
+		name string
+		msg  string
+	}{
+		{
+			name: "Log error should properly create an error message",
+			msg:  "Log message",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			logMessage := ErrorMessage(tt.msg)
+
+			if logMessage.Message != tt.msg {
+				t.Errorf("Error() logMessage.Message expected %s actual %s", tt.msg, logMessage.Message)
+				return
+			}
+			if logMessage.Error.Message != tt.msg {
+				t.Errorf("Error() logMessage.Message expected %s actual %s", tt.msg, logMessage.Message)
+				return
+			}
+			if logMessage.Log.Level != "ERROR" {
+				t.Errorf("Error() logMessage.Log.Level expected %s actual %s", "ERROR", logMessage.Log.Level)
+				return
+			}
+			if !reflect.DeepEqual(logMessage.Agent, agent) {
+				t.Errorf("Error() logMessage.Agent expected %v actual %v", agent, logMessage.Agent)
+				return
+			}
+		})
+	}
+}
+
+func TestTraceMessage(t *testing.T) {
+	tests := []struct {
+		name string
+		msg  string
+	}{
+		{
+			name: "Log error should properly create an error message",
+			msg:  "Log message",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			logMessage := TraceMessage(tt.msg)
+
+			if logMessage.Message != tt.msg {
+				t.Errorf("Error() logMessage.Message expected %s actual %s", tt.msg, logMessage.Message)
+				return
+			}
+			if logMessage.Error.Message != "" {
+				t.Errorf("Error() logMessage.Message expected %s actual %s", tt.msg, logMessage.Message)
+				return
+			}
+			if logMessage.Log.Level != "TRACE" {
+				t.Errorf("Error() logMessage.Log.Level expected %s actual %s", "TRACE", logMessage.Log.Level)
+				return
+			}
+			if !reflect.DeepEqual(logMessage.Agent, agent) {
+				t.Errorf("Error() logMessage.Agent expected %v actual %v", agent, logMessage.Agent)
+				return
+			}
+		})
+	}
+}
+
+func TestInfoMessage(t *testing.T) {
+	tests := []struct {
+		name string
+		msg  string
+	}{
+		{
+			name: "Log error should properly create an error message",
+			msg:  "Log message",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			logMessage := InfoMessage(tt.msg)
+
+			if logMessage.Message != tt.msg {
+				t.Errorf("Error() logMessage.Message expected %s actual %s", tt.msg, logMessage.Message)
+				return
+			}
+			if logMessage.Error.Message != "" {
+				t.Errorf("Error() logMessage.Message expected [%s] actual [%s]", tt.msg, logMessage.Message)
+				return
+			}
+			if logMessage.Log.Level != "INFO" {
+				t.Errorf("Error() logMessage.Log.Level expected %s actual %s", "INFO", logMessage.Log.Level)
+				return
+			}
+			if !reflect.DeepEqual(logMessage.Agent, agent) {
+				t.Errorf("Error() logMessage.Agent expected %v actual %v", agent, logMessage.Agent)
+				return
+			}
+		})
+	}
+}
+
 // Contains checks if a logger slice contains an element
 func contains(s []Logger, e Logger) bool {
 	for _, a := range s {
@@ -138,3 +415,5 @@ func contains(s []Logger, e Logger) bool {
 	}
 	return false
 }
+
+var agent = NewAgent()
