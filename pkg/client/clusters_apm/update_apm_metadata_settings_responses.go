@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // UpdateApmMetadataSettingsReader is a Reader for the UpdateApmMetadataSettings structure.
@@ -41,28 +41,24 @@ type UpdateApmMetadataSettingsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *UpdateApmMetadataSettingsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewUpdateApmMetadataSettingsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 403:
 		result := NewUpdateApmMetadataSettingsForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewUpdateApmMetadataSettingsNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewUpdateApmMetadataSettingsRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -100,6 +96,10 @@ type UpdateApmMetadataSettingsOK struct {
 
 func (o *UpdateApmMetadataSettingsOK) Error() string {
 	return fmt.Sprintf("[PATCH /clusters/apm/{cluster_id}/metadata/settings][%d] updateApmMetadataSettingsOK  %+v", 200, o.Payload)
+}
+
+func (o *UpdateApmMetadataSettingsOK) GetPayload() *models.ClusterMetadataSettings {
+	return o.Payload
 }
 
 func (o *UpdateApmMetadataSettingsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -140,6 +140,10 @@ func (o *UpdateApmMetadataSettingsForbidden) Error() string {
 	return fmt.Sprintf("[PATCH /clusters/apm/{cluster_id}/metadata/settings][%d] updateApmMetadataSettingsForbidden  %+v", 403, o.Payload)
 }
 
+func (o *UpdateApmMetadataSettingsForbidden) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *UpdateApmMetadataSettingsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -169,6 +173,10 @@ func (o *UpdateApmMetadataSettingsNotFound) Error() string {
 	return fmt.Sprintf("[PATCH /clusters/apm/{cluster_id}/metadata/settings][%d] updateApmMetadataSettingsNotFound  %+v", 404, o.Payload)
 }
 
+func (o *UpdateApmMetadataSettingsNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *UpdateApmMetadataSettingsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -196,6 +204,10 @@ type UpdateApmMetadataSettingsRetryWith struct {
 
 func (o *UpdateApmMetadataSettingsRetryWith) Error() string {
 	return fmt.Sprintf("[PATCH /clusters/apm/{cluster_id}/metadata/settings][%d] updateApmMetadataSettingsRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *UpdateApmMetadataSettingsRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *UpdateApmMetadataSettingsRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

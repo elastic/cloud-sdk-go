@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // StartDeploymentResourceInstancesReader is a Reader for the StartDeploymentResourceInstances structure.
@@ -41,35 +41,30 @@ type StartDeploymentResourceInstancesReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *StartDeploymentResourceInstancesReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 202:
 		result := NewStartDeploymentResourceInstancesAccepted()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 403:
 		result := NewStartDeploymentResourceInstancesForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewStartDeploymentResourceInstancesNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 422:
 		result := NewStartDeploymentResourceInstancesUnprocessableEntity()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewStartDeploymentResourceInstancesRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -99,6 +94,10 @@ func (o *StartDeploymentResourceInstancesAccepted) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_ids}/_start][%d] startDeploymentResourceInstancesAccepted  %+v", 202, o.Payload)
 }
 
+func (o *StartDeploymentResourceInstancesAccepted) GetPayload() models.DeploymentResourceCommandResponse {
+	return o.Payload
+}
+
 func (o *StartDeploymentResourceInstancesAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
@@ -124,6 +123,10 @@ type StartDeploymentResourceInstancesForbidden struct {
 
 func (o *StartDeploymentResourceInstancesForbidden) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_ids}/_start][%d] startDeploymentResourceInstancesForbidden  %+v", 403, o.Payload)
+}
+
+func (o *StartDeploymentResourceInstancesForbidden) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *StartDeploymentResourceInstancesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -155,6 +158,10 @@ func (o *StartDeploymentResourceInstancesNotFound) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_ids}/_start][%d] startDeploymentResourceInstancesNotFound  %+v", 404, o.Payload)
 }
 
+func (o *StartDeploymentResourceInstancesNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *StartDeploymentResourceInstancesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -184,6 +191,10 @@ func (o *StartDeploymentResourceInstancesUnprocessableEntity) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_ids}/_start][%d] startDeploymentResourceInstancesUnprocessableEntity  %+v", 422, o.Payload)
 }
 
+func (o *StartDeploymentResourceInstancesUnprocessableEntity) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *StartDeploymentResourceInstancesUnprocessableEntity) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -211,6 +222,10 @@ type StartDeploymentResourceInstancesRetryWith struct {
 
 func (o *StartDeploymentResourceInstancesRetryWith) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_ids}/_start][%d] startDeploymentResourceInstancesRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *StartDeploymentResourceInstancesRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *StartDeploymentResourceInstancesRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

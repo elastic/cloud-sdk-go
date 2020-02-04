@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // UpdateAllocatorSettingsReader is a Reader for the UpdateAllocatorSettings structure.
@@ -41,21 +41,18 @@ type UpdateAllocatorSettingsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *UpdateAllocatorSettingsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewUpdateAllocatorSettingsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewUpdateAllocatorSettingsNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewUpdateAllocatorSettingsRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -83,6 +80,10 @@ type UpdateAllocatorSettingsOK struct {
 
 func (o *UpdateAllocatorSettingsOK) Error() string {
 	return fmt.Sprintf("[PATCH /platform/infrastructure/allocators/{allocator_id}/settings][%d] updateAllocatorSettingsOK  %+v", 200, o.Payload)
+}
+
+func (o *UpdateAllocatorSettingsOK) GetPayload() *models.AllocatorSettings {
+	return o.Payload
 }
 
 func (o *UpdateAllocatorSettingsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -116,6 +117,10 @@ type UpdateAllocatorSettingsNotFound struct {
 
 func (o *UpdateAllocatorSettingsNotFound) Error() string {
 	return fmt.Sprintf("[PATCH /platform/infrastructure/allocators/{allocator_id}/settings][%d] updateAllocatorSettingsNotFound  %+v", 404, o.Payload)
+}
+
+func (o *UpdateAllocatorSettingsNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *UpdateAllocatorSettingsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -152,6 +157,10 @@ type UpdateAllocatorSettingsRetryWith struct {
 
 func (o *UpdateAllocatorSettingsRetryWith) Error() string {
 	return fmt.Sprintf("[PATCH /platform/infrastructure/allocators/{allocator_id}/settings][%d] updateAllocatorSettingsRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *UpdateAllocatorSettingsRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *UpdateAllocatorSettingsRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

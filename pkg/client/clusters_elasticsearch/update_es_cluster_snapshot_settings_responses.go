@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // UpdateEsClusterSnapshotSettingsReader is a Reader for the UpdateEsClusterSnapshotSettings structure.
@@ -41,28 +41,24 @@ type UpdateEsClusterSnapshotSettingsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *UpdateEsClusterSnapshotSettingsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewUpdateEsClusterSnapshotSettingsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 403:
 		result := NewUpdateEsClusterSnapshotSettingsForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewUpdateEsClusterSnapshotSettingsNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewUpdateEsClusterSnapshotSettingsRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -100,6 +96,10 @@ type UpdateEsClusterSnapshotSettingsOK struct {
 
 func (o *UpdateEsClusterSnapshotSettingsOK) Error() string {
 	return fmt.Sprintf("[PATCH /clusters/elasticsearch/{cluster_id}/snapshot/settings][%d] updateEsClusterSnapshotSettingsOK  %+v", 200, o.Payload)
+}
+
+func (o *UpdateEsClusterSnapshotSettingsOK) GetPayload() *models.ClusterSnapshotSettings {
+	return o.Payload
 }
 
 func (o *UpdateEsClusterSnapshotSettingsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -140,6 +140,10 @@ func (o *UpdateEsClusterSnapshotSettingsForbidden) Error() string {
 	return fmt.Sprintf("[PATCH /clusters/elasticsearch/{cluster_id}/snapshot/settings][%d] updateEsClusterSnapshotSettingsForbidden  %+v", 403, o.Payload)
 }
 
+func (o *UpdateEsClusterSnapshotSettingsForbidden) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *UpdateEsClusterSnapshotSettingsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -169,6 +173,10 @@ func (o *UpdateEsClusterSnapshotSettingsNotFound) Error() string {
 	return fmt.Sprintf("[PATCH /clusters/elasticsearch/{cluster_id}/snapshot/settings][%d] updateEsClusterSnapshotSettingsNotFound  %+v", 404, o.Payload)
 }
 
+func (o *UpdateEsClusterSnapshotSettingsNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *UpdateEsClusterSnapshotSettingsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -196,6 +204,10 @@ type UpdateEsClusterSnapshotSettingsRetryWith struct {
 
 func (o *UpdateEsClusterSnapshotSettingsRetryWith) Error() string {
 	return fmt.Sprintf("[PATCH /clusters/elasticsearch/{cluster_id}/snapshot/settings][%d] updateEsClusterSnapshotSettingsRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *UpdateEsClusterSnapshotSettingsRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *UpdateEsClusterSnapshotSettingsRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

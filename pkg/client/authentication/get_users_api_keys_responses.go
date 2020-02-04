@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetUsersAPIKeysReader is a Reader for the GetUsersAPIKeys structure.
@@ -41,7 +41,6 @@ type GetUsersAPIKeysReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetUsersAPIKeysReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetUsersAPIKeysOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -69,6 +68,10 @@ type GetUsersAPIKeysOK struct {
 
 func (o *GetUsersAPIKeysOK) Error() string {
 	return fmt.Sprintf("[GET /users/auth/keys/_all][%d] getUsersApiKeysOK  %+v", 200, o.Payload)
+}
+
+func (o *GetUsersAPIKeysOK) GetPayload() *models.APIKeysResponse {
+	return o.Payload
 }
 
 func (o *GetUsersAPIKeysOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

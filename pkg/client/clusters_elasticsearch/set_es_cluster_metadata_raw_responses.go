@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // SetEsClusterMetadataRawReader is a Reader for the SetEsClusterMetadataRaw structure.
@@ -41,21 +41,18 @@ type SetEsClusterMetadataRawReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *SetEsClusterMetadataRawReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewSetEsClusterMetadataRawOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewSetEsClusterMetadataRawNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewSetEsClusterMetadataRawRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -95,6 +92,10 @@ func (o *SetEsClusterMetadataRawOK) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/metadata/raw][%d] setEsClusterMetadataRawOK  %+v", 200, o.Payload)
 }
 
+func (o *SetEsClusterMetadataRawOK) GetPayload() interface{} {
+	return o.Payload
+}
+
 func (o *SetEsClusterMetadataRawOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-resource-created
@@ -131,6 +132,10 @@ func (o *SetEsClusterMetadataRawNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/metadata/raw][%d] setEsClusterMetadataRawNotFound  %+v", 404, o.Payload)
 }
 
+func (o *SetEsClusterMetadataRawNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *SetEsClusterMetadataRawNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -158,6 +163,10 @@ type SetEsClusterMetadataRawRetryWith struct {
 
 func (o *SetEsClusterMetadataRawRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/metadata/raw][%d] setEsClusterMetadataRawRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *SetEsClusterMetadataRawRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *SetEsClusterMetadataRawRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

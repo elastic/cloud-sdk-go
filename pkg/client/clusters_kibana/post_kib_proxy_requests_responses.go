@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // PostKibProxyRequestsReader is a Reader for the PostKibProxyRequests structure.
@@ -41,14 +41,12 @@ type PostKibProxyRequestsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PostKibProxyRequestsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewPostKibProxyRequestsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewPostKibProxyRequestsNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -97,6 +95,10 @@ type PostKibProxyRequestsNotFound struct {
 
 func (o *PostKibProxyRequestsNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/proxy/{kibana_path}][%d] postKibProxyRequestsNotFound  %+v", 404, o.Payload)
+}
+
+func (o *PostKibProxyRequestsNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *PostKibProxyRequestsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

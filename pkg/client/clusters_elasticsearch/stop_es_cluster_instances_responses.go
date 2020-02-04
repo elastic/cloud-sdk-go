@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // StopEsClusterInstancesReader is a Reader for the StopEsClusterInstances structure.
@@ -41,28 +41,24 @@ type StopEsClusterInstancesReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *StopEsClusterInstancesReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 202:
 		result := NewStopEsClusterInstancesAccepted()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 403:
 		result := NewStopEsClusterInstancesForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewStopEsClusterInstancesNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewStopEsClusterInstancesRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -90,6 +86,10 @@ type StopEsClusterInstancesAccepted struct {
 
 func (o *StopEsClusterInstancesAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/instances/{instance_ids}/_stop][%d] stopEsClusterInstancesAccepted  %+v", 202, o.Payload)
+}
+
+func (o *StopEsClusterInstancesAccepted) GetPayload() *models.ClusterCommandResponse {
+	return o.Payload
 }
 
 func (o *StopEsClusterInstancesAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -123,6 +123,10 @@ type StopEsClusterInstancesForbidden struct {
 
 func (o *StopEsClusterInstancesForbidden) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/instances/{instance_ids}/_stop][%d] stopEsClusterInstancesForbidden  %+v", 403, o.Payload)
+}
+
+func (o *StopEsClusterInstancesForbidden) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *StopEsClusterInstancesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -162,6 +166,10 @@ func (o *StopEsClusterInstancesNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/instances/{instance_ids}/_stop][%d] stopEsClusterInstancesNotFound  %+v", 404, o.Payload)
 }
 
+func (o *StopEsClusterInstancesNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *StopEsClusterInstancesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -196,6 +204,10 @@ type StopEsClusterInstancesRetryWith struct {
 
 func (o *StopEsClusterInstancesRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/instances/{instance_ids}/_stop][%d] stopEsClusterInstancesRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *StopEsClusterInstancesRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *StopEsClusterInstancesRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

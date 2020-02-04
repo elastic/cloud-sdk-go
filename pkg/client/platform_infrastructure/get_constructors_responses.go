@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetConstructorsReader is a Reader for the GetConstructors structure.
@@ -41,7 +41,6 @@ type GetConstructorsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetConstructorsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetConstructorsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -69,6 +68,10 @@ type GetConstructorsOK struct {
 
 func (o *GetConstructorsOK) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/constructors][%d] getConstructorsOK  %+v", 200, o.Payload)
+}
+
+func (o *GetConstructorsOK) GetPayload() *models.ConstructorOverview {
+	return o.Payload
 }
 
 func (o *GetConstructorsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

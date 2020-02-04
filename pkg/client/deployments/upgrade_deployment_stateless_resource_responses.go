@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // UpgradeDeploymentStatelessResourceReader is a Reader for the UpgradeDeploymentStatelessResource structure.
@@ -41,21 +41,18 @@ type UpgradeDeploymentStatelessResourceReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *UpgradeDeploymentStatelessResourceReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 202:
 		result := NewUpgradeDeploymentStatelessResourceAccepted()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewUpgradeDeploymentStatelessResourceNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewUpgradeDeploymentStatelessResourceRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -83,6 +80,10 @@ type UpgradeDeploymentStatelessResourceAccepted struct {
 
 func (o *UpgradeDeploymentStatelessResourceAccepted) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_upgrade][%d] upgradeDeploymentStatelessResourceAccepted  %+v", 202, o.Payload)
+}
+
+func (o *UpgradeDeploymentStatelessResourceAccepted) GetPayload() *models.DeploymentResourceUpgradeResponse {
+	return o.Payload
 }
 
 func (o *UpgradeDeploymentStatelessResourceAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -116,6 +117,10 @@ type UpgradeDeploymentStatelessResourceNotFound struct {
 
 func (o *UpgradeDeploymentStatelessResourceNotFound) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_upgrade][%d] upgradeDeploymentStatelessResourceNotFound  %+v", 404, o.Payload)
+}
+
+func (o *UpgradeDeploymentStatelessResourceNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *UpgradeDeploymentStatelessResourceNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -152,6 +157,10 @@ type UpgradeDeploymentStatelessResourceRetryWith struct {
 
 func (o *UpgradeDeploymentStatelessResourceRetryWith) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_upgrade][%d] upgradeDeploymentStatelessResourceRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *UpgradeDeploymentStatelessResourceRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *UpgradeDeploymentStatelessResourceRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

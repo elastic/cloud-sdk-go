@@ -23,13 +23,14 @@ package platform_infrastructure
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-openapi/runtime"
+	"fmt"
 
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new platform infrastructure API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -41,10 +42,127 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
-/*
-AddBlueprinterBlessing adds blessing
+// ClientService is the interface for Client methods
+type ClientService interface {
+	AddBlueprinterBlessing(params *AddBlueprinterBlessingParams, authInfo runtime.ClientAuthInfoWriter) (*AddBlueprinterBlessingOK, error)
 
-Add a Blessing for a runner to a role.
+	CreateBlueprinterRole(params *CreateBlueprinterRoleParams, authInfo runtime.ClientAuthInfoWriter) (*CreateBlueprinterRoleCreated, error)
+
+	CreateConfigStoreOption(params *CreateConfigStoreOptionParams, authInfo runtime.ClientAuthInfoWriter) (*CreateConfigStoreOptionCreated, error)
+
+	CreateProxiesFilteredGroup(params *CreateProxiesFilteredGroupParams, authInfo runtime.ClientAuthInfoWriter) (*CreateProxiesFilteredGroupOK, error)
+
+	DeleteAllocator(params *DeleteAllocatorParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteAllocatorOK, error)
+
+	DeleteAllocatorMetadataItem(params *DeleteAllocatorMetadataItemParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteAllocatorMetadataItemOK, error)
+
+	DeleteBlueprinterRole(params *DeleteBlueprinterRoleParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteBlueprinterRoleOK, error)
+
+	DeleteConfigStoreOption(params *DeleteConfigStoreOptionParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteConfigStoreOptionOK, error)
+
+	DeleteLicense(params *DeleteLicenseParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteLicenseOK, error)
+
+	DeleteProxiesFilteredGroup(params *DeleteProxiesFilteredGroupParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteProxiesFilteredGroupOK, error)
+
+	DeleteRunner(params *DeleteRunnerParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteRunnerOK, error)
+
+	GetAllocator(params *GetAllocatorParams, authInfo runtime.ClientAuthInfoWriter) (*GetAllocatorOK, error)
+
+	GetAllocatorMetadata(params *GetAllocatorMetadataParams, authInfo runtime.ClientAuthInfoWriter) (*GetAllocatorMetadataOK, error)
+
+	GetAllocatorSettings(params *GetAllocatorSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*GetAllocatorSettingsOK, error)
+
+	GetAllocators(params *GetAllocatorsParams, authInfo runtime.ClientAuthInfoWriter) (*GetAllocatorsOK, error)
+
+	GetBlueprinterRole(params *GetBlueprinterRoleParams, authInfo runtime.ClientAuthInfoWriter) (*GetBlueprinterRoleOK, error)
+
+	GetConfigStoreOption(params *GetConfigStoreOptionParams, authInfo runtime.ClientAuthInfoWriter) (*GetConfigStoreOptionOK, error)
+
+	GetConstructor(params *GetConstructorParams, authInfo runtime.ClientAuthInfoWriter) (*GetConstructorOK, error)
+
+	GetConstructors(params *GetConstructorsParams, authInfo runtime.ClientAuthInfoWriter) (*GetConstructorsOK, error)
+
+	GetLicense(params *GetLicenseParams, authInfo runtime.ClientAuthInfoWriter) (*GetLicenseOK, error)
+
+	GetProxies(params *GetProxiesParams, authInfo runtime.ClientAuthInfoWriter) (*GetProxiesOK, error)
+
+	GetProxiesFilteredGroup(params *GetProxiesFilteredGroupParams, authInfo runtime.ClientAuthInfoWriter) (*GetProxiesFilteredGroupOK, error)
+
+	GetProxiesFilteredGroupHealth(params *GetProxiesFilteredGroupHealthParams, authInfo runtime.ClientAuthInfoWriter) (*GetProxiesFilteredGroupHealthOK, error)
+
+	GetProxiesHealth(params *GetProxiesHealthParams, authInfo runtime.ClientAuthInfoWriter) (*GetProxiesHealthOK, error)
+
+	GetProxiesSettings(params *GetProxiesSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*GetProxiesSettingsOK, error)
+
+	GetProxy(params *GetProxyParams, authInfo runtime.ClientAuthInfoWriter) (*GetProxyOK, error)
+
+	GetRunner(params *GetRunnerParams, authInfo runtime.ClientAuthInfoWriter) (*GetRunnerOK, error)
+
+	GetRunners(params *GetRunnersParams, authInfo runtime.ClientAuthInfoWriter) (*GetRunnersOK, error)
+
+	ListBlueprinterRoles(params *ListBlueprinterRolesParams, authInfo runtime.ClientAuthInfoWriter) (*ListBlueprinterRolesOK, error)
+
+	ListConfigStoreOption(params *ListConfigStoreOptionParams, authInfo runtime.ClientAuthInfoWriter) (*ListConfigStoreOptionOK, error)
+
+	MoveClusters(params *MoveClustersParams, authInfo runtime.ClientAuthInfoWriter) (*MoveClustersAccepted, error)
+
+	MoveClustersByType(params *MoveClustersByTypeParams, authInfo runtime.ClientAuthInfoWriter) (*MoveClustersByTypeAccepted, error)
+
+	PutConfigStoreOption(params *PutConfigStoreOptionParams, authInfo runtime.ClientAuthInfoWriter) (*PutConfigStoreOptionOK, error)
+
+	ResyncAllocator(params *ResyncAllocatorParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncAllocatorOK, error)
+
+	ResyncAllocators(params *ResyncAllocatorsParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncAllocatorsAccepted, error)
+
+	ResyncConstructor(params *ResyncConstructorParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncConstructorOK, error)
+
+	ResyncConstructors(params *ResyncConstructorsParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncConstructorsAccepted, error)
+
+	ResyncRunner(params *ResyncRunnerParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncRunnerOK, error)
+
+	ResyncRunners(params *ResyncRunnersParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncRunnersAccepted, error)
+
+	SearchAllocators(params *SearchAllocatorsParams, authInfo runtime.ClientAuthInfoWriter) (*SearchAllocatorsOK, error)
+
+	SearchRunners(params *SearchRunnersParams, authInfo runtime.ClientAuthInfoWriter) (*SearchRunnersOK, error)
+
+	SetAllocatorMetadata(params *SetAllocatorMetadataParams, authInfo runtime.ClientAuthInfoWriter) (*SetAllocatorMetadataOK, error)
+
+	SetAllocatorMetadataItem(params *SetAllocatorMetadataItemParams, authInfo runtime.ClientAuthInfoWriter) (*SetAllocatorMetadataItemOK, error)
+
+	SetAllocatorSettings(params *SetAllocatorSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*SetAllocatorSettingsOK, error)
+
+	SetBlueprinterBlessings(params *SetBlueprinterBlessingsParams, authInfo runtime.ClientAuthInfoWriter) (*SetBlueprinterBlessingsOK, error)
+
+	SetLicense(params *SetLicenseParams, authInfo runtime.ClientAuthInfoWriter) (*SetLicenseOK, error)
+
+	SetProxiesSettings(params *SetProxiesSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*SetProxiesSettingsOK, error)
+
+	SetRunnerRoles(params *SetRunnerRolesParams, authInfo runtime.ClientAuthInfoWriter) (*SetRunnerRolesOK, error)
+
+	StartAllocatorMaintenanceMode(params *StartAllocatorMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StartAllocatorMaintenanceModeAccepted, error)
+
+	StartConstructorMaintenanceMode(params *StartConstructorMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StartConstructorMaintenanceModeAccepted, error)
+
+	StopAllocatorMaintenanceMode(params *StopAllocatorMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StopAllocatorMaintenanceModeAccepted, error)
+
+	StopConstructorMaintenanceMode(params *StopConstructorMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StopConstructorMaintenanceModeAccepted, error)
+
+	UpdateAllocatorSettings(params *UpdateAllocatorSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateAllocatorSettingsOK, error)
+
+	UpdateBlueprinterRole(params *UpdateBlueprinterRoleParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateBlueprinterRoleOK, error)
+
+	UpdateProxiesFilteredGroup(params *UpdateProxiesFilteredGroupParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateProxiesFilteredGroupOK, error)
+
+	UpdateProxiesSettings(params *UpdateProxiesSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateProxiesSettingsOK, error)
+
+	SetTransport(transport runtime.ClientTransport)
+}
+
+/*
+  AddBlueprinterBlessing adds blessing
+
+  Add a Blessing for a runner to a role.
 */
 func (a *Client) AddBlueprinterBlessing(params *AddBlueprinterBlessingParams, authInfo runtime.ClientAuthInfoWriter) (*AddBlueprinterBlessingOK, error) {
 	// TODO: Validate the params before sending
@@ -56,8 +174,8 @@ func (a *Client) AddBlueprinterBlessing(params *AddBlueprinterBlessingParams, au
 		ID:                 "add-blueprinter-blessing",
 		Method:             "PUT",
 		PathPattern:        "/platform/infrastructure/blueprinter/roles/{blueprinter_role_id}/blessings/{runner_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &AddBlueprinterBlessingReader{formats: a.formats},
@@ -68,14 +186,20 @@ func (a *Client) AddBlueprinterBlessing(params *AddBlueprinterBlessingParams, au
 	if err != nil {
 		return nil, err
 	}
-	return result.(*AddBlueprinterBlessingOK), nil
-
+	success, ok := result.(*AddBlueprinterBlessingOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for add-blueprinter-blessing: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-CreateBlueprinterRole creates a role
+  CreateBlueprinterRole creates a role
 
-Create a Blueprinter role.
+  Create a Blueprinter role.
 */
 func (a *Client) CreateBlueprinterRole(params *CreateBlueprinterRoleParams, authInfo runtime.ClientAuthInfoWriter) (*CreateBlueprinterRoleCreated, error) {
 	// TODO: Validate the params before sending
@@ -87,8 +211,8 @@ func (a *Client) CreateBlueprinterRole(params *CreateBlueprinterRoleParams, auth
 		ID:                 "create-blueprinter-role",
 		Method:             "POST",
 		PathPattern:        "/platform/infrastructure/blueprinter/roles",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &CreateBlueprinterRoleReader{formats: a.formats},
@@ -99,14 +223,20 @@ func (a *Client) CreateBlueprinterRole(params *CreateBlueprinterRoleParams, auth
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateBlueprinterRoleCreated), nil
-
+	success, ok := result.(*CreateBlueprinterRoleCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for create-blueprinter-role: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-CreateConfigStoreOption creates config store option
+  CreateConfigStoreOption creates config store option
 
-Inserts new Config Store Option.
+  Inserts new Config Store Option.
 */
 func (a *Client) CreateConfigStoreOption(params *CreateConfigStoreOptionParams, authInfo runtime.ClientAuthInfoWriter) (*CreateConfigStoreOptionCreated, error) {
 	// TODO: Validate the params before sending
@@ -118,8 +248,8 @@ func (a *Client) CreateConfigStoreOption(params *CreateConfigStoreOptionParams, 
 		ID:                 "create-config-store-option",
 		Method:             "POST",
 		PathPattern:        "/platform/configuration/store/{config_option_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &CreateConfigStoreOptionReader{formats: a.formats},
@@ -130,14 +260,20 @@ func (a *Client) CreateConfigStoreOption(params *CreateConfigStoreOptionParams, 
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateConfigStoreOptionCreated), nil
-
+	success, ok := result.(*CreateConfigStoreOptionCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for create-config-store-option: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-CreateProxiesFilteredGroup creates filtered group of proxies
+  CreateProxiesFilteredGroup creates filtered group of proxies
 
-Create the settings for a filtered group of proxies.
+  Create the settings for a filtered group of proxies.
 */
 func (a *Client) CreateProxiesFilteredGroup(params *CreateProxiesFilteredGroupParams, authInfo runtime.ClientAuthInfoWriter) (*CreateProxiesFilteredGroupOK, error) {
 	// TODO: Validate the params before sending
@@ -149,8 +285,8 @@ func (a *Client) CreateProxiesFilteredGroup(params *CreateProxiesFilteredGroupPa
 		ID:                 "create-proxies-filtered-group",
 		Method:             "POST",
 		PathPattern:        "/platform/infrastructure/proxies/filtered-groups",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &CreateProxiesFilteredGroupReader{formats: a.formats},
@@ -161,14 +297,20 @@ func (a *Client) CreateProxiesFilteredGroup(params *CreateProxiesFilteredGroupPa
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateProxiesFilteredGroupOK), nil
-
+	success, ok := result.(*CreateProxiesFilteredGroupOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for create-proxies-filtered-group: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-DeleteAllocator deletes allocator
+  DeleteAllocator deletes allocator
 
-Deletes the allocator.
+  Deletes the allocator.
 */
 func (a *Client) DeleteAllocator(params *DeleteAllocatorParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteAllocatorOK, error) {
 	// TODO: Validate the params before sending
@@ -180,8 +322,8 @@ func (a *Client) DeleteAllocator(params *DeleteAllocatorParams, authInfo runtime
 		ID:                 "delete-allocator",
 		Method:             "DELETE",
 		PathPattern:        "/platform/infrastructure/allocators/{allocator_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &DeleteAllocatorReader{formats: a.formats},
@@ -192,14 +334,20 @@ func (a *Client) DeleteAllocator(params *DeleteAllocatorParams, authInfo runtime
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteAllocatorOK), nil
-
+	success, ok := result.(*DeleteAllocatorOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for delete-allocator: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-DeleteAllocatorMetadataItem deletes allocator metadata item
+  DeleteAllocatorMetadataItem deletes allocator metadata item
 
-Removes a single item from the allocator metadata.
+  Removes a single item from the allocator metadata.
 */
 func (a *Client) DeleteAllocatorMetadataItem(params *DeleteAllocatorMetadataItemParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteAllocatorMetadataItemOK, error) {
 	// TODO: Validate the params before sending
@@ -211,8 +359,8 @@ func (a *Client) DeleteAllocatorMetadataItem(params *DeleteAllocatorMetadataItem
 		ID:                 "delete-allocator-metadata-item",
 		Method:             "DELETE",
 		PathPattern:        "/platform/infrastructure/allocators/{allocator_id}/metadata/{key}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &DeleteAllocatorMetadataItemReader{formats: a.formats},
@@ -223,14 +371,20 @@ func (a *Client) DeleteAllocatorMetadataItem(params *DeleteAllocatorMetadataItem
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteAllocatorMetadataItemOK), nil
-
+	success, ok := result.(*DeleteAllocatorMetadataItemOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for delete-allocator-metadata-item: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-DeleteBlueprinterRole deletes role
+  DeleteBlueprinterRole deletes role
 
-Delete a role.
+  Delete a role.
 */
 func (a *Client) DeleteBlueprinterRole(params *DeleteBlueprinterRoleParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteBlueprinterRoleOK, error) {
 	// TODO: Validate the params before sending
@@ -242,8 +396,8 @@ func (a *Client) DeleteBlueprinterRole(params *DeleteBlueprinterRoleParams, auth
 		ID:                 "delete-blueprinter-role",
 		Method:             "DELETE",
 		PathPattern:        "/platform/infrastructure/blueprinter/roles/{blueprinter_role_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &DeleteBlueprinterRoleReader{formats: a.formats},
@@ -254,14 +408,20 @@ func (a *Client) DeleteBlueprinterRole(params *DeleteBlueprinterRoleParams, auth
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteBlueprinterRoleOK), nil
-
+	success, ok := result.(*DeleteBlueprinterRoleOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for delete-blueprinter-role: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-DeleteConfigStoreOption deletes config store option by name
+  DeleteConfigStoreOption deletes config store option by name
 
-Delete Config Store Option by name.
+  Delete Config Store Option by name.
 */
 func (a *Client) DeleteConfigStoreOption(params *DeleteConfigStoreOptionParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteConfigStoreOptionOK, error) {
 	// TODO: Validate the params before sending
@@ -273,8 +433,8 @@ func (a *Client) DeleteConfigStoreOption(params *DeleteConfigStoreOptionParams, 
 		ID:                 "delete-config-store-option",
 		Method:             "DELETE",
 		PathPattern:        "/platform/configuration/store/{config_option_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &DeleteConfigStoreOptionReader{formats: a.formats},
@@ -285,14 +445,20 @@ func (a *Client) DeleteConfigStoreOption(params *DeleteConfigStoreOptionParams, 
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteConfigStoreOptionOK), nil
-
+	success, ok := result.(*DeleteConfigStoreOptionOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for delete-config-store-option: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-DeleteLicense deletes license
+  DeleteLicense deletes license
 
-Deletes the license.
+  Deletes the license.
 */
 func (a *Client) DeleteLicense(params *DeleteLicenseParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteLicenseOK, error) {
 	// TODO: Validate the params before sending
@@ -304,8 +470,8 @@ func (a *Client) DeleteLicense(params *DeleteLicenseParams, authInfo runtime.Cli
 		ID:                 "delete-license",
 		Method:             "DELETE",
 		PathPattern:        "/platform/license",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &DeleteLicenseReader{formats: a.formats},
@@ -316,14 +482,20 @@ func (a *Client) DeleteLicense(params *DeleteLicenseParams, authInfo runtime.Cli
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteLicenseOK), nil
-
+	success, ok := result.(*DeleteLicenseOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for delete-license: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-DeleteProxiesFilteredGroup deletes filtered group of proxies
+  DeleteProxiesFilteredGroup deletes filtered group of proxies
 
-Deletes a filtered group of proxies by ID.
+  Deletes a filtered group of proxies by ID.
 */
 func (a *Client) DeleteProxiesFilteredGroup(params *DeleteProxiesFilteredGroupParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteProxiesFilteredGroupOK, error) {
 	// TODO: Validate the params before sending
@@ -335,8 +507,8 @@ func (a *Client) DeleteProxiesFilteredGroup(params *DeleteProxiesFilteredGroupPa
 		ID:                 "delete-proxies-filtered-group",
 		Method:             "DELETE",
 		PathPattern:        "/platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &DeleteProxiesFilteredGroupReader{formats: a.formats},
@@ -347,14 +519,20 @@ func (a *Client) DeleteProxiesFilteredGroup(params *DeleteProxiesFilteredGroupPa
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteProxiesFilteredGroupOK), nil
-
+	success, ok := result.(*DeleteProxiesFilteredGroupOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for delete-proxies-filtered-group: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-DeleteRunner deletes runner
+  DeleteRunner deletes runner
 
-Delete a runner by id.
+  Delete a runner by id.
 */
 func (a *Client) DeleteRunner(params *DeleteRunnerParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteRunnerOK, error) {
 	// TODO: Validate the params before sending
@@ -366,8 +544,8 @@ func (a *Client) DeleteRunner(params *DeleteRunnerParams, authInfo runtime.Clien
 		ID:                 "delete-runner",
 		Method:             "DELETE",
 		PathPattern:        "/platform/infrastructure/runners/{runner_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &DeleteRunnerReader{formats: a.formats},
@@ -378,14 +556,20 @@ func (a *Client) DeleteRunner(params *DeleteRunnerParams, authInfo runtime.Clien
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteRunnerOK), nil
-
+	success, ok := result.(*DeleteRunnerOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for delete-runner: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetAllocator gets allocator
+  GetAllocator gets allocator
 
-Retrieves the allocator by the ID.
+  Retrieves the allocator by the ID.
 */
 func (a *Client) GetAllocator(params *GetAllocatorParams, authInfo runtime.ClientAuthInfoWriter) (*GetAllocatorOK, error) {
 	// TODO: Validate the params before sending
@@ -397,8 +581,8 @@ func (a *Client) GetAllocator(params *GetAllocatorParams, authInfo runtime.Clien
 		ID:                 "get-allocator",
 		Method:             "GET",
 		PathPattern:        "/platform/infrastructure/allocators/{allocator_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetAllocatorReader{formats: a.formats},
@@ -409,14 +593,20 @@ func (a *Client) GetAllocator(params *GetAllocatorParams, authInfo runtime.Clien
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetAllocatorOK), nil
-
+	success, ok := result.(*GetAllocatorOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-allocator: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetAllocatorMetadata gets allocator metadata
+  GetAllocatorMetadata gets allocator metadata
 
-Retrieves the allocator metadata.
+  Retrieves the allocator metadata.
 */
 func (a *Client) GetAllocatorMetadata(params *GetAllocatorMetadataParams, authInfo runtime.ClientAuthInfoWriter) (*GetAllocatorMetadataOK, error) {
 	// TODO: Validate the params before sending
@@ -428,8 +618,8 @@ func (a *Client) GetAllocatorMetadata(params *GetAllocatorMetadataParams, authIn
 		ID:                 "get-allocator-metadata",
 		Method:             "GET",
 		PathPattern:        "/platform/infrastructure/allocators/{allocator_id}/metadata",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetAllocatorMetadataReader{formats: a.formats},
@@ -440,14 +630,20 @@ func (a *Client) GetAllocatorMetadata(params *GetAllocatorMetadataParams, authIn
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetAllocatorMetadataOK), nil
-
+	success, ok := result.(*GetAllocatorMetadataOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-allocator-metadata: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetAllocatorSettings gets allocator settings
+  GetAllocatorSettings gets allocator settings
 
-Retrieves the allocator override settings.
+  Retrieves the allocator override settings.
 */
 func (a *Client) GetAllocatorSettings(params *GetAllocatorSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*GetAllocatorSettingsOK, error) {
 	// TODO: Validate the params before sending
@@ -459,8 +655,8 @@ func (a *Client) GetAllocatorSettings(params *GetAllocatorSettingsParams, authIn
 		ID:                 "get-allocator-settings",
 		Method:             "GET",
 		PathPattern:        "/platform/infrastructure/allocators/{allocator_id}/settings",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetAllocatorSettingsReader{formats: a.formats},
@@ -471,14 +667,20 @@ func (a *Client) GetAllocatorSettings(params *GetAllocatorSettingsParams, authIn
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetAllocatorSettingsOK), nil
-
+	success, ok := result.(*GetAllocatorSettingsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-allocator-settings: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetAllocators gets allocators
+  GetAllocators gets allocators
 
-Retrieves the information for all of the allocators in the platform.
+  Retrieves the information for all of the allocators in the platform.
 */
 func (a *Client) GetAllocators(params *GetAllocatorsParams, authInfo runtime.ClientAuthInfoWriter) (*GetAllocatorsOK, error) {
 	// TODO: Validate the params before sending
@@ -490,8 +692,8 @@ func (a *Client) GetAllocators(params *GetAllocatorsParams, authInfo runtime.Cli
 		ID:                 "get-allocators",
 		Method:             "GET",
 		PathPattern:        "/platform/infrastructure/allocators",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetAllocatorsReader{formats: a.formats},
@@ -502,14 +704,20 @@ func (a *Client) GetAllocators(params *GetAllocatorsParams, authInfo runtime.Cli
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetAllocatorsOK), nil
-
+	success, ok := result.(*GetAllocatorsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-allocators: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetBlueprinterRole gets role
+  GetBlueprinterRole gets role
 
-Retrieve a role.
+  Retrieve a role.
 */
 func (a *Client) GetBlueprinterRole(params *GetBlueprinterRoleParams, authInfo runtime.ClientAuthInfoWriter) (*GetBlueprinterRoleOK, error) {
 	// TODO: Validate the params before sending
@@ -521,8 +729,8 @@ func (a *Client) GetBlueprinterRole(params *GetBlueprinterRoleParams, authInfo r
 		ID:                 "get-blueprinter-role",
 		Method:             "GET",
 		PathPattern:        "/platform/infrastructure/blueprinter/roles/{blueprinter_role_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetBlueprinterRoleReader{formats: a.formats},
@@ -533,14 +741,20 @@ func (a *Client) GetBlueprinterRole(params *GetBlueprinterRoleParams, authInfo r
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetBlueprinterRoleOK), nil
-
+	success, ok := result.(*GetBlueprinterRoleOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-blueprinter-role: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetConfigStoreOption finds config store option by name
+  GetConfigStoreOption finds config store option by name
 
-Find Config Store Option by name.
+  Find Config Store Option by name.
 */
 func (a *Client) GetConfigStoreOption(params *GetConfigStoreOptionParams, authInfo runtime.ClientAuthInfoWriter) (*GetConfigStoreOptionOK, error) {
 	// TODO: Validate the params before sending
@@ -552,8 +766,8 @@ func (a *Client) GetConfigStoreOption(params *GetConfigStoreOptionParams, authIn
 		ID:                 "get-config-store-option",
 		Method:             "GET",
 		PathPattern:        "/platform/configuration/store/{config_option_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetConfigStoreOptionReader{formats: a.formats},
@@ -564,14 +778,20 @@ func (a *Client) GetConfigStoreOption(params *GetConfigStoreOptionParams, authIn
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetConfigStoreOptionOK), nil
-
+	success, ok := result.(*GetConfigStoreOptionOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-config-store-option: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetConstructor gets constructor
+  GetConstructor gets constructor
 
-Retrieves a constructor by id.
+  Retrieves a constructor by id.
 */
 func (a *Client) GetConstructor(params *GetConstructorParams, authInfo runtime.ClientAuthInfoWriter) (*GetConstructorOK, error) {
 	// TODO: Validate the params before sending
@@ -583,8 +803,8 @@ func (a *Client) GetConstructor(params *GetConstructorParams, authInfo runtime.C
 		ID:                 "get-constructor",
 		Method:             "GET",
 		PathPattern:        "/platform/infrastructure/constructors/{constructor_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetConstructorReader{formats: a.formats},
@@ -595,14 +815,20 @@ func (a *Client) GetConstructor(params *GetConstructorParams, authInfo runtime.C
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetConstructorOK), nil
-
+	success, ok := result.(*GetConstructorOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-constructor: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetConstructors gets constructors
+  GetConstructors gets constructors
 
-Retrieves an overview of all constructors in an ECE installation.
+  Retrieves an overview of all constructors in an ECE installation.
 */
 func (a *Client) GetConstructors(params *GetConstructorsParams, authInfo runtime.ClientAuthInfoWriter) (*GetConstructorsOK, error) {
 	// TODO: Validate the params before sending
@@ -614,8 +840,8 @@ func (a *Client) GetConstructors(params *GetConstructorsParams, authInfo runtime
 		ID:                 "get-constructors",
 		Method:             "GET",
 		PathPattern:        "/platform/infrastructure/constructors",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetConstructorsReader{formats: a.formats},
@@ -626,14 +852,20 @@ func (a *Client) GetConstructors(params *GetConstructorsParams, authInfo runtime
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetConstructorsOK), nil
-
+	success, ok := result.(*GetConstructorsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-constructors: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetLicense gets license
+  GetLicense gets license
 
-Retrieves the license.
+  Retrieves the license.
 */
 func (a *Client) GetLicense(params *GetLicenseParams, authInfo runtime.ClientAuthInfoWriter) (*GetLicenseOK, error) {
 	// TODO: Validate the params before sending
@@ -645,8 +877,8 @@ func (a *Client) GetLicense(params *GetLicenseParams, authInfo runtime.ClientAut
 		ID:                 "get-license",
 		Method:             "GET",
 		PathPattern:        "/platform/license",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetLicenseReader{formats: a.formats},
@@ -657,14 +889,20 @@ func (a *Client) GetLicense(params *GetLicenseParams, authInfo runtime.ClientAut
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetLicenseOK), nil
-
+	success, ok := result.(*GetLicenseOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-license: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetProxies gets proxies
+  GetProxies gets proxies
 
-Retrieves an overview of all proxies.
+  Retrieves an overview of all proxies.
 */
 func (a *Client) GetProxies(params *GetProxiesParams, authInfo runtime.ClientAuthInfoWriter) (*GetProxiesOK, error) {
 	// TODO: Validate the params before sending
@@ -676,8 +914,8 @@ func (a *Client) GetProxies(params *GetProxiesParams, authInfo runtime.ClientAut
 		ID:                 "get-proxies",
 		Method:             "GET",
 		PathPattern:        "/platform/infrastructure/proxies",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetProxiesReader{formats: a.formats},
@@ -688,14 +926,20 @@ func (a *Client) GetProxies(params *GetProxiesParams, authInfo runtime.ClientAut
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetProxiesOK), nil
-
+	success, ok := result.(*GetProxiesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-proxies: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetProxiesFilteredGroup gets filtered group of proxies
+  GetProxiesFilteredGroup gets filtered group of proxies
 
-Get data for a filtered group of proxies.
+  Get data for a filtered group of proxies.
 */
 func (a *Client) GetProxiesFilteredGroup(params *GetProxiesFilteredGroupParams, authInfo runtime.ClientAuthInfoWriter) (*GetProxiesFilteredGroupOK, error) {
 	// TODO: Validate the params before sending
@@ -707,8 +951,8 @@ func (a *Client) GetProxiesFilteredGroup(params *GetProxiesFilteredGroupParams, 
 		ID:                 "get-proxies-filtered-group",
 		Method:             "GET",
 		PathPattern:        "/platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetProxiesFilteredGroupReader{formats: a.formats},
@@ -719,14 +963,20 @@ func (a *Client) GetProxiesFilteredGroup(params *GetProxiesFilteredGroupParams, 
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetProxiesFilteredGroupOK), nil
-
+	success, ok := result.(*GetProxiesFilteredGroupOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-proxies-filtered-group: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetProxiesFilteredGroupHealth gets health for a filtered group of proxies
+  GetProxiesFilteredGroupHealth gets health for a filtered group of proxies
 
-Get the health status of a filtered group of proxies.
+  Get the health status of a filtered group of proxies.
 */
 func (a *Client) GetProxiesFilteredGroupHealth(params *GetProxiesFilteredGroupHealthParams, authInfo runtime.ClientAuthInfoWriter) (*GetProxiesFilteredGroupHealthOK, error) {
 	// TODO: Validate the params before sending
@@ -738,8 +988,8 @@ func (a *Client) GetProxiesFilteredGroupHealth(params *GetProxiesFilteredGroupHe
 		ID:                 "get-proxies-filtered-group-health",
 		Method:             "GET",
 		PathPattern:        "/platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}/health",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetProxiesFilteredGroupHealthReader{formats: a.formats},
@@ -750,14 +1000,20 @@ func (a *Client) GetProxiesFilteredGroupHealth(params *GetProxiesFilteredGroupHe
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetProxiesFilteredGroupHealthOK), nil
-
+	success, ok := result.(*GetProxiesFilteredGroupHealthOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-proxies-filtered-group-health: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetProxiesHealth gets proxy health
+  GetProxiesHealth gets proxy health
 
-Get the health status of all proxies.
+  Get the health status of all proxies.
 */
 func (a *Client) GetProxiesHealth(params *GetProxiesHealthParams, authInfo runtime.ClientAuthInfoWriter) (*GetProxiesHealthOK, error) {
 	// TODO: Validate the params before sending
@@ -769,8 +1025,8 @@ func (a *Client) GetProxiesHealth(params *GetProxiesHealthParams, authInfo runti
 		ID:                 "get-proxies-health",
 		Method:             "GET",
 		PathPattern:        "/platform/infrastructure/proxies/health",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetProxiesHealthReader{formats: a.formats},
@@ -781,14 +1037,20 @@ func (a *Client) GetProxiesHealth(params *GetProxiesHealthParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetProxiesHealthOK), nil
-
+	success, ok := result.(*GetProxiesHealthOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-proxies-health: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetProxiesSettings gets proxies settings
+  GetProxiesSettings gets proxies settings
 
-Retrieves the settings for all proxies.
+  Retrieves the settings for all proxies.
 */
 func (a *Client) GetProxiesSettings(params *GetProxiesSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*GetProxiesSettingsOK, error) {
 	// TODO: Validate the params before sending
@@ -800,8 +1062,8 @@ func (a *Client) GetProxiesSettings(params *GetProxiesSettingsParams, authInfo r
 		ID:                 "get-proxies-settings",
 		Method:             "GET",
 		PathPattern:        "/platform/infrastructure/proxies/settings",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetProxiesSettingsReader{formats: a.formats},
@@ -812,14 +1074,20 @@ func (a *Client) GetProxiesSettings(params *GetProxiesSettingsParams, authInfo r
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetProxiesSettingsOK), nil
-
+	success, ok := result.(*GetProxiesSettingsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-proxies-settings: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetProxy gets proxy
+  GetProxy gets proxy
 
-Retrieves a single proxy by ID.
+  Retrieves a single proxy by ID.
 */
 func (a *Client) GetProxy(params *GetProxyParams, authInfo runtime.ClientAuthInfoWriter) (*GetProxyOK, error) {
 	// TODO: Validate the params before sending
@@ -831,8 +1099,8 @@ func (a *Client) GetProxy(params *GetProxyParams, authInfo runtime.ClientAuthInf
 		ID:                 "get-proxy",
 		Method:             "GET",
 		PathPattern:        "/platform/infrastructure/proxies/{proxy_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetProxyReader{formats: a.formats},
@@ -843,14 +1111,20 @@ func (a *Client) GetProxy(params *GetProxyParams, authInfo runtime.ClientAuthInf
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetProxyOK), nil
-
+	success, ok := result.(*GetProxyOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-proxy: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetRunner gets runner
+  GetRunner gets runner
 
-Retrieves a runner by id.
+  Retrieves a runner by id.
 */
 func (a *Client) GetRunner(params *GetRunnerParams, authInfo runtime.ClientAuthInfoWriter) (*GetRunnerOK, error) {
 	// TODO: Validate the params before sending
@@ -862,8 +1136,8 @@ func (a *Client) GetRunner(params *GetRunnerParams, authInfo runtime.ClientAuthI
 		ID:                 "get-runner",
 		Method:             "GET",
 		PathPattern:        "/platform/infrastructure/runners/{runner_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetRunnerReader{formats: a.formats},
@@ -874,14 +1148,20 @@ func (a *Client) GetRunner(params *GetRunnerParams, authInfo runtime.ClientAuthI
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetRunnerOK), nil
-
+	success, ok := result.(*GetRunnerOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-runner: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetRunners gets runners
+  GetRunners gets runners
 
-Retrieves an overview of all runners.
+  Retrieves an overview of all runners.
 */
 func (a *Client) GetRunners(params *GetRunnersParams, authInfo runtime.ClientAuthInfoWriter) (*GetRunnersOK, error) {
 	// TODO: Validate the params before sending
@@ -893,8 +1173,8 @@ func (a *Client) GetRunners(params *GetRunnersParams, authInfo runtime.ClientAut
 		ID:                 "get-runners",
 		Method:             "GET",
 		PathPattern:        "/platform/infrastructure/runners",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetRunnersReader{formats: a.formats},
@@ -905,14 +1185,20 @@ func (a *Client) GetRunners(params *GetRunnersParams, authInfo runtime.ClientAut
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetRunnersOK), nil
-
+	success, ok := result.(*GetRunnersOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-runners: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-ListBlueprinterRoles lists roles
+  ListBlueprinterRoles lists roles
 
-Retrieve all persisted roles.
+  Retrieve all persisted roles.
 */
 func (a *Client) ListBlueprinterRoles(params *ListBlueprinterRolesParams, authInfo runtime.ClientAuthInfoWriter) (*ListBlueprinterRolesOK, error) {
 	// TODO: Validate the params before sending
@@ -924,8 +1210,8 @@ func (a *Client) ListBlueprinterRoles(params *ListBlueprinterRolesParams, authIn
 		ID:                 "list-blueprinter-roles",
 		Method:             "GET",
 		PathPattern:        "/platform/infrastructure/blueprinter/roles",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ListBlueprinterRolesReader{formats: a.formats},
@@ -936,14 +1222,20 @@ func (a *Client) ListBlueprinterRoles(params *ListBlueprinterRolesParams, authIn
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ListBlueprinterRolesOK), nil
-
+	success, ok := result.(*ListBlueprinterRolesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for list-blueprinter-roles: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-ListConfigStoreOption lists config store option
+  ListConfigStoreOption lists config store option
 
-List all existing Config Store Option.
+  List all existing Config Store Option.
 */
 func (a *Client) ListConfigStoreOption(params *ListConfigStoreOptionParams, authInfo runtime.ClientAuthInfoWriter) (*ListConfigStoreOptionOK, error) {
 	// TODO: Validate the params before sending
@@ -955,8 +1247,8 @@ func (a *Client) ListConfigStoreOption(params *ListConfigStoreOptionParams, auth
 		ID:                 "list-config-store-option",
 		Method:             "GET",
 		PathPattern:        "/platform/configuration/store",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ListConfigStoreOptionReader{formats: a.formats},
@@ -967,14 +1259,20 @@ func (a *Client) ListConfigStoreOption(params *ListConfigStoreOptionParams, auth
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ListConfigStoreOptionOK), nil
-
+	success, ok := result.(*ListConfigStoreOptionOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for list-config-store-option: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-MoveClusters moves clusters
+  MoveClusters moves clusters
 
-Moves the clusters to a different allocator.
+  Moves the clusters to a different allocator.
 */
 func (a *Client) MoveClusters(params *MoveClustersParams, authInfo runtime.ClientAuthInfoWriter) (*MoveClustersAccepted, error) {
 	// TODO: Validate the params before sending
@@ -986,8 +1284,8 @@ func (a *Client) MoveClusters(params *MoveClustersParams, authInfo runtime.Clien
 		ID:                 "move-clusters",
 		Method:             "POST",
 		PathPattern:        "/platform/infrastructure/allocators/{allocator_id}/clusters/_move",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &MoveClustersReader{formats: a.formats},
@@ -998,14 +1296,20 @@ func (a *Client) MoveClusters(params *MoveClustersParams, authInfo runtime.Clien
 	if err != nil {
 		return nil, err
 	}
-	return result.(*MoveClustersAccepted), nil
-
+	success, ok := result.(*MoveClustersAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for move-clusters: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-MoveClustersByType moves clusters by type
+  MoveClustersByType moves clusters by type
 
-Moves the clusters, by type, to a different allocator.
+  Moves the clusters, by type, to a different allocator.
 */
 func (a *Client) MoveClustersByType(params *MoveClustersByTypeParams, authInfo runtime.ClientAuthInfoWriter) (*MoveClustersByTypeAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1017,8 +1321,8 @@ func (a *Client) MoveClustersByType(params *MoveClustersByTypeParams, authInfo r
 		ID:                 "move-clusters-by-type",
 		Method:             "POST",
 		PathPattern:        "/platform/infrastructure/allocators/{allocator_id}/clusters/{cluster_type}/_move",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &MoveClustersByTypeReader{formats: a.formats},
@@ -1029,14 +1333,20 @@ func (a *Client) MoveClustersByType(params *MoveClustersByTypeParams, authInfo r
 	if err != nil {
 		return nil, err
 	}
-	return result.(*MoveClustersByTypeAccepted), nil
-
+	success, ok := result.(*MoveClustersByTypeAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for move-clusters-by-type: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-PutConfigStoreOption updates config store option
+  PutConfigStoreOption updates config store option
 
-Update existing Config Store Option.
+  Update existing Config Store Option.
 */
 func (a *Client) PutConfigStoreOption(params *PutConfigStoreOptionParams, authInfo runtime.ClientAuthInfoWriter) (*PutConfigStoreOptionOK, error) {
 	// TODO: Validate the params before sending
@@ -1048,8 +1358,8 @@ func (a *Client) PutConfigStoreOption(params *PutConfigStoreOptionParams, authIn
 		ID:                 "put-config-store-option",
 		Method:             "PUT",
 		PathPattern:        "/platform/configuration/store/{config_option_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &PutConfigStoreOptionReader{formats: a.formats},
@@ -1060,14 +1370,20 @@ func (a *Client) PutConfigStoreOption(params *PutConfigStoreOptionParams, authIn
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PutConfigStoreOptionOK), nil
-
+	success, ok := result.(*PutConfigStoreOptionOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for put-config-store-option: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-ResyncAllocator resynchronizes allocator
+  ResyncAllocator resynchronizes allocator
 
-Immediately synchronizes the allocator information in the back-end search index and caches.
+  Immediately synchronizes the allocator information in the back-end search index and caches.
 */
 func (a *Client) ResyncAllocator(params *ResyncAllocatorParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncAllocatorOK, error) {
 	// TODO: Validate the params before sending
@@ -1079,8 +1395,8 @@ func (a *Client) ResyncAllocator(params *ResyncAllocatorParams, authInfo runtime
 		ID:                 "resync-allocator",
 		Method:             "POST",
 		PathPattern:        "/platform/infrastructure/allocators/{allocator_id}/_resync",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ResyncAllocatorReader{formats: a.formats},
@@ -1091,14 +1407,20 @@ func (a *Client) ResyncAllocator(params *ResyncAllocatorParams, authInfo runtime
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ResyncAllocatorOK), nil
-
+	success, ok := result.(*ResyncAllocatorOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for resync-allocator: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-ResyncAllocators resynchronizes allocators
+  ResyncAllocators resynchronizes allocators
 
-Asynchronously synchronizes all allocator information in the back-end search index.
+  Asynchronously synchronizes all allocator information in the back-end search index.
 */
 func (a *Client) ResyncAllocators(params *ResyncAllocatorsParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncAllocatorsAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1110,8 +1432,8 @@ func (a *Client) ResyncAllocators(params *ResyncAllocatorsParams, authInfo runti
 		ID:                 "resync-allocators",
 		Method:             "POST",
 		PathPattern:        "/platform/infrastructure/allocators/_resync",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ResyncAllocatorsReader{formats: a.formats},
@@ -1122,14 +1444,20 @@ func (a *Client) ResyncAllocators(params *ResyncAllocatorsParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ResyncAllocatorsAccepted), nil
-
+	success, ok := result.(*ResyncAllocatorsAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for resync-allocators: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-ResyncConstructor resynchronizes constructor
+  ResyncConstructor resynchronizes constructor
 
-Immediately resynchronizes the search index and cache for the selected constructor.
+  Immediately resynchronizes the search index and cache for the selected constructor.
 */
 func (a *Client) ResyncConstructor(params *ResyncConstructorParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncConstructorOK, error) {
 	// TODO: Validate the params before sending
@@ -1141,8 +1469,8 @@ func (a *Client) ResyncConstructor(params *ResyncConstructorParams, authInfo run
 		ID:                 "resync-constructor",
 		Method:             "POST",
 		PathPattern:        "/platform/infrastructure/constructors/{constructor_id}/_resync",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ResyncConstructorReader{formats: a.formats},
@@ -1153,14 +1481,20 @@ func (a *Client) ResyncConstructor(params *ResyncConstructorParams, authInfo run
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ResyncConstructorOK), nil
-
+	success, ok := result.(*ResyncConstructorOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for resync-constructor: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-ResyncConstructors resynchronizes constructors
+  ResyncConstructors resynchronizes constructors
 
-Asynchronously synchronizes all constructor information in the back-end search index.
+  Asynchronously synchronizes all constructor information in the back-end search index.
 */
 func (a *Client) ResyncConstructors(params *ResyncConstructorsParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncConstructorsAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1172,8 +1506,8 @@ func (a *Client) ResyncConstructors(params *ResyncConstructorsParams, authInfo r
 		ID:                 "resync-constructors",
 		Method:             "POST",
 		PathPattern:        "/platform/infrastructure/constructors/_resync",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ResyncConstructorsReader{formats: a.formats},
@@ -1184,14 +1518,20 @@ func (a *Client) ResyncConstructors(params *ResyncConstructorsParams, authInfo r
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ResyncConstructorsAccepted), nil
-
+	success, ok := result.(*ResyncConstructorsAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for resync-constructors: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-ResyncRunner resynchronizes runner
+  ResyncRunner resynchronizes runner
 
-Immediately resynchronizes the search index and cache for the selected runner.
+  Immediately resynchronizes the search index and cache for the selected runner.
 */
 func (a *Client) ResyncRunner(params *ResyncRunnerParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncRunnerOK, error) {
 	// TODO: Validate the params before sending
@@ -1203,8 +1543,8 @@ func (a *Client) ResyncRunner(params *ResyncRunnerParams, authInfo runtime.Clien
 		ID:                 "resync-runner",
 		Method:             "POST",
 		PathPattern:        "/platform/infrastructure/runners/{runner_id}/_resync",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ResyncRunnerReader{formats: a.formats},
@@ -1215,14 +1555,20 @@ func (a *Client) ResyncRunner(params *ResyncRunnerParams, authInfo runtime.Clien
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ResyncRunnerOK), nil
-
+	success, ok := result.(*ResyncRunnerOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for resync-runner: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-ResyncRunners resynchronizes runners
+  ResyncRunners resynchronizes runners
 
-Asynchronously synchronizes all runner information in the search index.
+  Asynchronously synchronizes all runner information in the search index.
 */
 func (a *Client) ResyncRunners(params *ResyncRunnersParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncRunnersAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1234,8 +1580,8 @@ func (a *Client) ResyncRunners(params *ResyncRunnersParams, authInfo runtime.Cli
 		ID:                 "resync-runners",
 		Method:             "POST",
 		PathPattern:        "/platform/infrastructure/runners/_resync",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ResyncRunnersReader{formats: a.formats},
@@ -1246,14 +1592,20 @@ func (a *Client) ResyncRunners(params *ResyncRunnersParams, authInfo runtime.Cli
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ResyncRunnersAccepted), nil
-
+	success, ok := result.(*ResyncRunnersAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for resync-runners: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-SearchAllocators searches allocators
+  SearchAllocators searches allocators
 
-Retrieves the information for all of the allocators in the platform that match the specified query.
+  Retrieves the information for all of the allocators in the platform that match the specified query.
 */
 func (a *Client) SearchAllocators(params *SearchAllocatorsParams, authInfo runtime.ClientAuthInfoWriter) (*SearchAllocatorsOK, error) {
 	// TODO: Validate the params before sending
@@ -1265,8 +1617,8 @@ func (a *Client) SearchAllocators(params *SearchAllocatorsParams, authInfo runti
 		ID:                 "search-allocators",
 		Method:             "POST",
 		PathPattern:        "/platform/infrastructure/allocators/_search",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &SearchAllocatorsReader{formats: a.formats},
@@ -1277,14 +1629,20 @@ func (a *Client) SearchAllocators(params *SearchAllocatorsParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*SearchAllocatorsOK), nil
-
+	success, ok := result.(*SearchAllocatorsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for search-allocators: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-SearchRunners searches runners
+  SearchRunners searches runners
 
-Retrieves runners that match a given query.
+  Retrieves runners that match a given query.
 */
 func (a *Client) SearchRunners(params *SearchRunnersParams, authInfo runtime.ClientAuthInfoWriter) (*SearchRunnersOK, error) {
 	// TODO: Validate the params before sending
@@ -1296,8 +1654,8 @@ func (a *Client) SearchRunners(params *SearchRunnersParams, authInfo runtime.Cli
 		ID:                 "search-runners",
 		Method:             "POST",
 		PathPattern:        "/platform/infrastructure/runners/_search",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &SearchRunnersReader{formats: a.formats},
@@ -1308,14 +1666,20 @@ func (a *Client) SearchRunners(params *SearchRunnersParams, authInfo runtime.Cli
 	if err != nil {
 		return nil, err
 	}
-	return result.(*SearchRunnersOK), nil
-
+	success, ok := result.(*SearchRunnersOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for search-runners: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-SetAllocatorMetadata sets allocator metadata
+  SetAllocatorMetadata sets allocator metadata
 
-Sets the allocator metadata.
+  Sets the allocator metadata.
 */
 func (a *Client) SetAllocatorMetadata(params *SetAllocatorMetadataParams, authInfo runtime.ClientAuthInfoWriter) (*SetAllocatorMetadataOK, error) {
 	// TODO: Validate the params before sending
@@ -1327,8 +1691,8 @@ func (a *Client) SetAllocatorMetadata(params *SetAllocatorMetadataParams, authIn
 		ID:                 "set-allocator-metadata",
 		Method:             "PUT",
 		PathPattern:        "/platform/infrastructure/allocators/{allocator_id}/metadata",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &SetAllocatorMetadataReader{formats: a.formats},
@@ -1339,14 +1703,20 @@ func (a *Client) SetAllocatorMetadata(params *SetAllocatorMetadataParams, authIn
 	if err != nil {
 		return nil, err
 	}
-	return result.(*SetAllocatorMetadataOK), nil
-
+	success, ok := result.(*SetAllocatorMetadataOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for set-allocator-metadata: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-SetAllocatorMetadataItem sets allocator metadata item
+  SetAllocatorMetadataItem sets allocator metadata item
 
-Adds or updates a single item in the allocator metadata.
+  Adds or updates a single item in the allocator metadata.
 */
 func (a *Client) SetAllocatorMetadataItem(params *SetAllocatorMetadataItemParams, authInfo runtime.ClientAuthInfoWriter) (*SetAllocatorMetadataItemOK, error) {
 	// TODO: Validate the params before sending
@@ -1358,8 +1728,8 @@ func (a *Client) SetAllocatorMetadataItem(params *SetAllocatorMetadataItemParams
 		ID:                 "set-allocator-metadata-item",
 		Method:             "PUT",
 		PathPattern:        "/platform/infrastructure/allocators/{allocator_id}/metadata/{key}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &SetAllocatorMetadataItemReader{formats: a.formats},
@@ -1370,14 +1740,20 @@ func (a *Client) SetAllocatorMetadataItem(params *SetAllocatorMetadataItemParams
 	if err != nil {
 		return nil, err
 	}
-	return result.(*SetAllocatorMetadataItemOK), nil
-
+	success, ok := result.(*SetAllocatorMetadataItemOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for set-allocator-metadata-item: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-SetAllocatorSettings sets allocator settings
+  SetAllocatorSettings sets allocator settings
 
-Overwrites the allocator settings with the specified settings. WARNING: Any unspecified fields are deleted.
+  Overwrites the allocator settings with the specified settings. WARNING: Any unspecified fields are deleted.
 */
 func (a *Client) SetAllocatorSettings(params *SetAllocatorSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*SetAllocatorSettingsOK, error) {
 	// TODO: Validate the params before sending
@@ -1389,8 +1765,8 @@ func (a *Client) SetAllocatorSettings(params *SetAllocatorSettingsParams, authIn
 		ID:                 "set-allocator-settings",
 		Method:             "PUT",
 		PathPattern:        "/platform/infrastructure/allocators/{allocator_id}/settings",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &SetAllocatorSettingsReader{formats: a.formats},
@@ -1401,14 +1777,20 @@ func (a *Client) SetAllocatorSettings(params *SetAllocatorSettingsParams, authIn
 	if err != nil {
 		return nil, err
 	}
-	return result.(*SetAllocatorSettingsOK), nil
-
+	success, ok := result.(*SetAllocatorSettingsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for set-allocator-settings: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-SetBlueprinterBlessings sets blessings
+  SetBlueprinterBlessings sets blessings
 
-Set blessings for a role.
+  Set blessings for a role.
 */
 func (a *Client) SetBlueprinterBlessings(params *SetBlueprinterBlessingsParams, authInfo runtime.ClientAuthInfoWriter) (*SetBlueprinterBlessingsOK, error) {
 	// TODO: Validate the params before sending
@@ -1420,8 +1802,8 @@ func (a *Client) SetBlueprinterBlessings(params *SetBlueprinterBlessingsParams, 
 		ID:                 "set-blueprinter-blessings",
 		Method:             "PUT",
 		PathPattern:        "/platform/infrastructure/blueprinter/roles/{blueprinter_role_id}/blessings",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &SetBlueprinterBlessingsReader{formats: a.formats},
@@ -1432,14 +1814,20 @@ func (a *Client) SetBlueprinterBlessings(params *SetBlueprinterBlessingsParams, 
 	if err != nil {
 		return nil, err
 	}
-	return result.(*SetBlueprinterBlessingsOK), nil
-
+	success, ok := result.(*SetBlueprinterBlessingsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for set-blueprinter-blessings: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-SetLicense adds or update license
+  SetLicense adds or update license
 
-Adds a new or updates an existing license.
+  Adds a new or updates an existing license.
 */
 func (a *Client) SetLicense(params *SetLicenseParams, authInfo runtime.ClientAuthInfoWriter) (*SetLicenseOK, error) {
 	// TODO: Validate the params before sending
@@ -1451,8 +1839,8 @@ func (a *Client) SetLicense(params *SetLicenseParams, authInfo runtime.ClientAut
 		ID:                 "set-license",
 		Method:             "PUT",
 		PathPattern:        "/platform/license",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &SetLicenseReader{formats: a.formats},
@@ -1463,14 +1851,20 @@ func (a *Client) SetLicense(params *SetLicenseParams, authInfo runtime.ClientAut
 	if err != nil {
 		return nil, err
 	}
-	return result.(*SetLicenseOK), nil
-
+	success, ok := result.(*SetLicenseOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for set-license: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-SetProxiesSettings sets proxy settings
+  SetProxiesSettings sets proxy settings
 
-Overwrites the proxy settings. All unspecified fields are deleted.
+  Overwrites the proxy settings. All unspecified fields are deleted.
 */
 func (a *Client) SetProxiesSettings(params *SetProxiesSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*SetProxiesSettingsOK, error) {
 	// TODO: Validate the params before sending
@@ -1482,8 +1876,8 @@ func (a *Client) SetProxiesSettings(params *SetProxiesSettingsParams, authInfo r
 		ID:                 "set-proxies-settings",
 		Method:             "PUT",
 		PathPattern:        "/platform/infrastructure/proxies/settings",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &SetProxiesSettingsReader{formats: a.formats},
@@ -1494,14 +1888,20 @@ func (a *Client) SetProxiesSettings(params *SetProxiesSettingsParams, authInfo r
 	if err != nil {
 		return nil, err
 	}
-	return result.(*SetProxiesSettingsOK), nil
-
+	success, ok := result.(*SetProxiesSettingsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for set-proxies-settings: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-SetRunnerRoles sets runner roles
+  SetRunnerRoles sets runner roles
 
-Set runner roles.
+  Set runner roles.
 */
 func (a *Client) SetRunnerRoles(params *SetRunnerRolesParams, authInfo runtime.ClientAuthInfoWriter) (*SetRunnerRolesOK, error) {
 	// TODO: Validate the params before sending
@@ -1513,8 +1913,8 @@ func (a *Client) SetRunnerRoles(params *SetRunnerRolesParams, authInfo runtime.C
 		ID:                 "set-runner-roles",
 		Method:             "PUT",
 		PathPattern:        "/platform/infrastructure/runners/{runner_id}/roles",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &SetRunnerRolesReader{formats: a.formats},
@@ -1525,14 +1925,20 @@ func (a *Client) SetRunnerRoles(params *SetRunnerRolesParams, authInfo runtime.C
 	if err != nil {
 		return nil, err
 	}
-	return result.(*SetRunnerRolesOK), nil
-
+	success, ok := result.(*SetRunnerRolesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for set-runner-roles: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-StartAllocatorMaintenanceMode starts maintenance mode
+  StartAllocatorMaintenanceMode starts maintenance mode
 
-Starts maintenance mode on the allocator.
+  Starts maintenance mode on the allocator.
 */
 func (a *Client) StartAllocatorMaintenanceMode(params *StartAllocatorMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StartAllocatorMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1544,8 +1950,8 @@ func (a *Client) StartAllocatorMaintenanceMode(params *StartAllocatorMaintenance
 		ID:                 "start-allocator-maintenance-mode",
 		Method:             "POST",
 		PathPattern:        "/platform/infrastructure/allocators/{allocator_id}/maintenance-mode/_start",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &StartAllocatorMaintenanceModeReader{formats: a.formats},
@@ -1556,14 +1962,20 @@ func (a *Client) StartAllocatorMaintenanceMode(params *StartAllocatorMaintenance
 	if err != nil {
 		return nil, err
 	}
-	return result.(*StartAllocatorMaintenanceModeAccepted), nil
-
+	success, ok := result.(*StartAllocatorMaintenanceModeAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for start-allocator-maintenance-mode: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-StartConstructorMaintenanceMode starts maintenance mode
+  StartConstructorMaintenanceMode starts maintenance mode
 
-Start maintenance mode of a constructor. It will stop constructing new plans while continuing with on-going ones.
+  Start maintenance mode of a constructor. It will stop constructing new plans while continuing with on-going ones.
 */
 func (a *Client) StartConstructorMaintenanceMode(params *StartConstructorMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StartConstructorMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1575,8 +1987,8 @@ func (a *Client) StartConstructorMaintenanceMode(params *StartConstructorMainten
 		ID:                 "start-constructor-maintenance-mode",
 		Method:             "POST",
 		PathPattern:        "/platform/infrastructure/constructors/{constructor_id}/maintenance-mode/_start",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &StartConstructorMaintenanceModeReader{formats: a.formats},
@@ -1587,14 +1999,20 @@ func (a *Client) StartConstructorMaintenanceMode(params *StartConstructorMainten
 	if err != nil {
 		return nil, err
 	}
-	return result.(*StartConstructorMaintenanceModeAccepted), nil
-
+	success, ok := result.(*StartConstructorMaintenanceModeAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for start-constructor-maintenance-mode: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-StopAllocatorMaintenanceMode stops maintenance mode
+  StopAllocatorMaintenanceMode stops maintenance mode
 
-Stops maintenance mode on the allocator.
+  Stops maintenance mode on the allocator.
 */
 func (a *Client) StopAllocatorMaintenanceMode(params *StopAllocatorMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StopAllocatorMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1606,8 +2024,8 @@ func (a *Client) StopAllocatorMaintenanceMode(params *StopAllocatorMaintenanceMo
 		ID:                 "stop-allocator-maintenance-mode",
 		Method:             "POST",
 		PathPattern:        "/platform/infrastructure/allocators/{allocator_id}/maintenance-mode/_stop",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &StopAllocatorMaintenanceModeReader{formats: a.formats},
@@ -1618,14 +2036,20 @@ func (a *Client) StopAllocatorMaintenanceMode(params *StopAllocatorMaintenanceMo
 	if err != nil {
 		return nil, err
 	}
-	return result.(*StopAllocatorMaintenanceModeAccepted), nil
-
+	success, ok := result.(*StopAllocatorMaintenanceModeAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for stop-allocator-maintenance-mode: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-StopConstructorMaintenanceMode stops maintenance mode
+  StopConstructorMaintenanceMode stops maintenance mode
 
-Stop maintenance mode of a constructor. It will resume the construction of submitted plans.
+  Stop maintenance mode of a constructor. It will resume the construction of submitted plans.
 */
 func (a *Client) StopConstructorMaintenanceMode(params *StopConstructorMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StopConstructorMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1637,8 +2061,8 @@ func (a *Client) StopConstructorMaintenanceMode(params *StopConstructorMaintenan
 		ID:                 "stop-constructor-maintenance-mode",
 		Method:             "POST",
 		PathPattern:        "/platform/infrastructure/constructors/{constructor_id}/maintenance-mode/_stop",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &StopConstructorMaintenanceModeReader{formats: a.formats},
@@ -1649,14 +2073,20 @@ func (a *Client) StopConstructorMaintenanceMode(params *StopConstructorMaintenan
 	if err != nil {
 		return nil, err
 	}
-	return result.(*StopConstructorMaintenanceModeAccepted), nil
-
+	success, ok := result.(*StopConstructorMaintenanceModeAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for stop-constructor-maintenance-mode: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-UpdateAllocatorSettings updates allocator settings
+  UpdateAllocatorSettings updates allocator settings
 
-Applies the settings as a patch. Only the fields that are referenced in the update are altered.
+  Applies the settings as a patch. Only the fields that are referenced in the update are altered.
 */
 func (a *Client) UpdateAllocatorSettings(params *UpdateAllocatorSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateAllocatorSettingsOK, error) {
 	// TODO: Validate the params before sending
@@ -1668,8 +2098,8 @@ func (a *Client) UpdateAllocatorSettings(params *UpdateAllocatorSettingsParams, 
 		ID:                 "update-allocator-settings",
 		Method:             "PATCH",
 		PathPattern:        "/platform/infrastructure/allocators/{allocator_id}/settings",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &UpdateAllocatorSettingsReader{formats: a.formats},
@@ -1680,14 +2110,20 @@ func (a *Client) UpdateAllocatorSettings(params *UpdateAllocatorSettingsParams, 
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpdateAllocatorSettingsOK), nil
-
+	success, ok := result.(*UpdateAllocatorSettingsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for update-allocator-settings: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-UpdateBlueprinterRole updates role
+  UpdateBlueprinterRole updates role
 
-Update a role.
+  Update a role.
 */
 func (a *Client) UpdateBlueprinterRole(params *UpdateBlueprinterRoleParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateBlueprinterRoleOK, error) {
 	// TODO: Validate the params before sending
@@ -1699,8 +2135,8 @@ func (a *Client) UpdateBlueprinterRole(params *UpdateBlueprinterRoleParams, auth
 		ID:                 "update-blueprinter-role",
 		Method:             "PUT",
 		PathPattern:        "/platform/infrastructure/blueprinter/roles/{blueprinter_role_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &UpdateBlueprinterRoleReader{formats: a.formats},
@@ -1711,14 +2147,20 @@ func (a *Client) UpdateBlueprinterRole(params *UpdateBlueprinterRoleParams, auth
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpdateBlueprinterRoleOK), nil
-
+	success, ok := result.(*UpdateBlueprinterRoleOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for update-blueprinter-role: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-UpdateProxiesFilteredGroup updates filtered group of proxies
+  UpdateProxiesFilteredGroup updates filtered group of proxies
 
-Update the settings for a filtered group of proxies.
+  Update the settings for a filtered group of proxies.
 */
 func (a *Client) UpdateProxiesFilteredGroup(params *UpdateProxiesFilteredGroupParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateProxiesFilteredGroupOK, error) {
 	// TODO: Validate the params before sending
@@ -1730,8 +2172,8 @@ func (a *Client) UpdateProxiesFilteredGroup(params *UpdateProxiesFilteredGroupPa
 		ID:                 "update-proxies-filtered-group",
 		Method:             "PUT",
 		PathPattern:        "/platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &UpdateProxiesFilteredGroupReader{formats: a.formats},
@@ -1742,14 +2184,20 @@ func (a *Client) UpdateProxiesFilteredGroup(params *UpdateProxiesFilteredGroupPa
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpdateProxiesFilteredGroupOK), nil
-
+	success, ok := result.(*UpdateProxiesFilteredGroupOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for update-proxies-filtered-group: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-UpdateProxiesSettings updates proxy settings
+  UpdateProxiesSettings updates proxy settings
 
-Applies the settings as a patch. Only the fields that are referenced in the update are changed.
+  Applies the settings as a patch. Only the fields that are referenced in the update are changed.
 */
 func (a *Client) UpdateProxiesSettings(params *UpdateProxiesSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateProxiesSettingsOK, error) {
 	// TODO: Validate the params before sending
@@ -1761,8 +2209,8 @@ func (a *Client) UpdateProxiesSettings(params *UpdateProxiesSettingsParams, auth
 		ID:                 "update-proxies-settings",
 		Method:             "PATCH",
 		PathPattern:        "/platform/infrastructure/proxies/settings",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &UpdateProxiesSettingsReader{formats: a.formats},
@@ -1773,8 +2221,14 @@ func (a *Client) UpdateProxiesSettings(params *UpdateProxiesSettingsParams, auth
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpdateProxiesSettingsOK), nil
-
+	success, ok := result.(*UpdateProxiesSettingsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for update-proxies-settings: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 // SetTransport changes the transport on the client

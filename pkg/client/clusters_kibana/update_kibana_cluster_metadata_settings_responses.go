@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // UpdateKibanaClusterMetadataSettingsReader is a Reader for the UpdateKibanaClusterMetadataSettings structure.
@@ -41,28 +41,24 @@ type UpdateKibanaClusterMetadataSettingsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *UpdateKibanaClusterMetadataSettingsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewUpdateKibanaClusterMetadataSettingsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 403:
 		result := NewUpdateKibanaClusterMetadataSettingsForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewUpdateKibanaClusterMetadataSettingsNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewUpdateKibanaClusterMetadataSettingsRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -100,6 +96,10 @@ type UpdateKibanaClusterMetadataSettingsOK struct {
 
 func (o *UpdateKibanaClusterMetadataSettingsOK) Error() string {
 	return fmt.Sprintf("[PATCH /clusters/kibana/{cluster_id}/metadata/settings][%d] updateKibanaClusterMetadataSettingsOK  %+v", 200, o.Payload)
+}
+
+func (o *UpdateKibanaClusterMetadataSettingsOK) GetPayload() *models.ClusterMetadataSettings {
+	return o.Payload
 }
 
 func (o *UpdateKibanaClusterMetadataSettingsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -140,6 +140,10 @@ func (o *UpdateKibanaClusterMetadataSettingsForbidden) Error() string {
 	return fmt.Sprintf("[PATCH /clusters/kibana/{cluster_id}/metadata/settings][%d] updateKibanaClusterMetadataSettingsForbidden  %+v", 403, o.Payload)
 }
 
+func (o *UpdateKibanaClusterMetadataSettingsForbidden) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *UpdateKibanaClusterMetadataSettingsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -169,6 +173,10 @@ func (o *UpdateKibanaClusterMetadataSettingsNotFound) Error() string {
 	return fmt.Sprintf("[PATCH /clusters/kibana/{cluster_id}/metadata/settings][%d] updateKibanaClusterMetadataSettingsNotFound  %+v", 404, o.Payload)
 }
 
+func (o *UpdateKibanaClusterMetadataSettingsNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *UpdateKibanaClusterMetadataSettingsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -196,6 +204,10 @@ type UpdateKibanaClusterMetadataSettingsRetryWith struct {
 
 func (o *UpdateKibanaClusterMetadataSettingsRetryWith) Error() string {
 	return fmt.Sprintf("[PATCH /clusters/kibana/{cluster_id}/metadata/settings][%d] updateKibanaClusterMetadataSettingsRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *UpdateKibanaClusterMetadataSettingsRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *UpdateKibanaClusterMetadataSettingsRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

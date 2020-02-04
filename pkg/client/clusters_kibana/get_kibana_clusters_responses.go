@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetKibanaClustersReader is a Reader for the GetKibanaClusters structure.
@@ -41,7 +41,6 @@ type GetKibanaClustersReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetKibanaClustersReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetKibanaClustersOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -69,6 +68,10 @@ type GetKibanaClustersOK struct {
 
 func (o *GetKibanaClustersOK) Error() string {
 	return fmt.Sprintf("[GET /clusters/kibana][%d] getKibanaClustersOK  %+v", 200, o.Payload)
+}
+
+func (o *GetKibanaClustersOK) GetPayload() *models.KibanaClustersInfo {
+	return o.Payload
 }
 
 func (o *GetKibanaClustersOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

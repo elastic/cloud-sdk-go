@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // DeleteEnrollmentTokenReader is a Reader for the DeleteEnrollmentToken structure.
@@ -41,21 +41,18 @@ type DeleteEnrollmentTokenReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteEnrollmentTokenReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewDeleteEnrollmentTokenOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewDeleteEnrollmentTokenNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewDeleteEnrollmentTokenRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -85,6 +82,10 @@ func (o *DeleteEnrollmentTokenOK) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/security/enrollment-tokens/{token}][%d] deleteEnrollmentTokenOK  %+v", 200, o.Payload)
 }
 
+func (o *DeleteEnrollmentTokenOK) GetPayload() models.EmptyResponse {
+	return o.Payload
+}
+
 func (o *DeleteEnrollmentTokenOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
@@ -110,6 +111,10 @@ type DeleteEnrollmentTokenNotFound struct {
 
 func (o *DeleteEnrollmentTokenNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/security/enrollment-tokens/{token}][%d] deleteEnrollmentTokenNotFound  %+v", 404, o.Payload)
+}
+
+func (o *DeleteEnrollmentTokenNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DeleteEnrollmentTokenNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +144,10 @@ type DeleteEnrollmentTokenRetryWith struct {
 
 func (o *DeleteEnrollmentTokenRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/security/enrollment-tokens/{token}][%d] deleteEnrollmentTokenRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *DeleteEnrollmentTokenRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DeleteEnrollmentTokenRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

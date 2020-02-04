@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // StopDeploymentResourceMaintenanceModeReader is a Reader for the StopDeploymentResourceMaintenanceMode structure.
@@ -41,35 +41,30 @@ type StopDeploymentResourceMaintenanceModeReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *StopDeploymentResourceMaintenanceModeReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 202:
 		result := NewStopDeploymentResourceMaintenanceModeAccepted()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 403:
 		result := NewStopDeploymentResourceMaintenanceModeForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewStopDeploymentResourceMaintenanceModeNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 422:
 		result := NewStopDeploymentResourceMaintenanceModeUnprocessableEntity()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewStopDeploymentResourceMaintenanceModeRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -99,6 +94,10 @@ func (o *StopDeploymentResourceMaintenanceModeAccepted) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_ids}/maintenance-mode/_stop][%d] stopDeploymentResourceMaintenanceModeAccepted  %+v", 202, o.Payload)
 }
 
+func (o *StopDeploymentResourceMaintenanceModeAccepted) GetPayload() models.DeploymentResourceCommandResponse {
+	return o.Payload
+}
+
 func (o *StopDeploymentResourceMaintenanceModeAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
@@ -124,6 +123,10 @@ type StopDeploymentResourceMaintenanceModeForbidden struct {
 
 func (o *StopDeploymentResourceMaintenanceModeForbidden) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_ids}/maintenance-mode/_stop][%d] stopDeploymentResourceMaintenanceModeForbidden  %+v", 403, o.Payload)
+}
+
+func (o *StopDeploymentResourceMaintenanceModeForbidden) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *StopDeploymentResourceMaintenanceModeForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -155,6 +158,10 @@ func (o *StopDeploymentResourceMaintenanceModeNotFound) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_ids}/maintenance-mode/_stop][%d] stopDeploymentResourceMaintenanceModeNotFound  %+v", 404, o.Payload)
 }
 
+func (o *StopDeploymentResourceMaintenanceModeNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *StopDeploymentResourceMaintenanceModeNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -184,6 +191,10 @@ func (o *StopDeploymentResourceMaintenanceModeUnprocessableEntity) Error() strin
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_ids}/maintenance-mode/_stop][%d] stopDeploymentResourceMaintenanceModeUnprocessableEntity  %+v", 422, o.Payload)
 }
 
+func (o *StopDeploymentResourceMaintenanceModeUnprocessableEntity) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *StopDeploymentResourceMaintenanceModeUnprocessableEntity) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -211,6 +222,10 @@ type StopDeploymentResourceMaintenanceModeRetryWith struct {
 
 func (o *StopDeploymentResourceMaintenanceModeRetryWith) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_ids}/maintenance-mode/_stop][%d] stopDeploymentResourceMaintenanceModeRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *StopDeploymentResourceMaintenanceModeRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *StopDeploymentResourceMaintenanceModeRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

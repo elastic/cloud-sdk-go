@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // CreateApmReader is a Reader for the CreateApm structure.
@@ -41,28 +41,24 @@ type CreateApmReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateApmReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewCreateApmOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 201:
 		result := NewCreateApmCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewCreateApmBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewCreateApmRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -90,6 +86,10 @@ type CreateApmOK struct {
 
 func (o *CreateApmOK) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm][%d] createApmOK  %+v", 200, o.Payload)
+}
+
+func (o *CreateApmOK) GetPayload() *models.ApmCrudResponse {
+	return o.Payload
 }
 
 func (o *CreateApmOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -121,6 +121,10 @@ func (o *CreateApmCreated) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm][%d] createApmCreated  %+v", 201, o.Payload)
 }
 
+func (o *CreateApmCreated) GetPayload() *models.ApmCrudResponse {
+	return o.Payload
+}
+
 func (o *CreateApmCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ApmCrudResponse)
@@ -150,6 +154,10 @@ func (o *CreateApmBadRequest) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm][%d] createApmBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *CreateApmBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *CreateApmBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -177,6 +185,10 @@ type CreateApmRetryWith struct {
 
 func (o *CreateApmRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm][%d] createApmRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *CreateApmRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *CreateApmRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

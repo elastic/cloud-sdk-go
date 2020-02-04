@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // CreateKibanaClusterReader is a Reader for the CreateKibanaCluster structure.
@@ -41,28 +41,24 @@ type CreateKibanaClusterReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateKibanaClusterReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewCreateKibanaClusterOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 201:
 		result := NewCreateKibanaClusterCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewCreateKibanaClusterBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewCreateKibanaClusterRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -90,6 +86,10 @@ type CreateKibanaClusterOK struct {
 
 func (o *CreateKibanaClusterOK) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana][%d] createKibanaClusterOK  %+v", 200, o.Payload)
+}
+
+func (o *CreateKibanaClusterOK) GetPayload() *models.ClusterCrudResponse {
+	return o.Payload
 }
 
 func (o *CreateKibanaClusterOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -121,6 +121,10 @@ func (o *CreateKibanaClusterCreated) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana][%d] createKibanaClusterCreated  %+v", 201, o.Payload)
 }
 
+func (o *CreateKibanaClusterCreated) GetPayload() *models.ClusterCrudResponse {
+	return o.Payload
+}
+
 func (o *CreateKibanaClusterCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ClusterCrudResponse)
@@ -150,6 +154,10 @@ func (o *CreateKibanaClusterBadRequest) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana][%d] createKibanaClusterBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *CreateKibanaClusterBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *CreateKibanaClusterBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -177,6 +185,10 @@ type CreateKibanaClusterRetryWith struct {
 
 func (o *CreateKibanaClusterRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana][%d] createKibanaClusterRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *CreateKibanaClusterRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *CreateKibanaClusterRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

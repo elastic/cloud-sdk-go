@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // ResyncAllocatorReader is a Reader for the ResyncAllocator structure.
@@ -41,21 +41,18 @@ type ResyncAllocatorReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *ResyncAllocatorReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewResyncAllocatorOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 449:
 		result := NewResyncAllocatorRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewResyncAllocatorInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -83,6 +80,10 @@ type ResyncAllocatorOK struct {
 
 func (o *ResyncAllocatorOK) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/allocators/{allocator_id}/_resync][%d] resyncAllocatorOK  %+v", 200, o.Payload)
+}
+
+func (o *ResyncAllocatorOK) GetPayload() models.EmptyResponse {
+	return o.Payload
 }
 
 func (o *ResyncAllocatorOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -114,6 +115,10 @@ type ResyncAllocatorRetryWith struct {
 
 func (o *ResyncAllocatorRetryWith) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/allocators/{allocator_id}/_resync][%d] resyncAllocatorRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *ResyncAllocatorRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *ResyncAllocatorRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -150,6 +155,10 @@ type ResyncAllocatorInternalServerError struct {
 
 func (o *ResyncAllocatorInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/allocators/{allocator_id}/_resync][%d] resyncAllocatorInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *ResyncAllocatorInternalServerError) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *ResyncAllocatorInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

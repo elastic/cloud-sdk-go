@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetProxiesFilteredGroupHealthReader is a Reader for the GetProxiesFilteredGroupHealth structure.
@@ -41,21 +41,18 @@ type GetProxiesFilteredGroupHealthReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetProxiesFilteredGroupHealthReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetProxiesFilteredGroupHealthOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 417:
 		result := NewGetProxiesFilteredGroupHealthExpectationFailed()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewGetProxiesFilteredGroupHealthRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -85,6 +82,10 @@ func (o *GetProxiesFilteredGroupHealthOK) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}/health][%d] getProxiesFilteredGroupHealthOK  %+v", 200, o.Payload)
 }
 
+func (o *GetProxiesFilteredGroupHealthOK) GetPayload() *models.ProxiesFilteredGroupHealth {
+	return o.Payload
+}
+
 func (o *GetProxiesFilteredGroupHealthOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ProxiesFilteredGroupHealth)
@@ -112,6 +113,10 @@ type GetProxiesFilteredGroupHealthExpectationFailed struct {
 
 func (o *GetProxiesFilteredGroupHealthExpectationFailed) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}/health][%d] getProxiesFilteredGroupHealthExpectationFailed  %+v", 417, o.Payload)
+}
+
+func (o *GetProxiesFilteredGroupHealthExpectationFailed) GetPayload() *models.ProxiesHealth {
+	return o.Payload
 }
 
 func (o *GetProxiesFilteredGroupHealthExpectationFailed) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -145,6 +150,10 @@ type GetProxiesFilteredGroupHealthRetryWith struct {
 
 func (o *GetProxiesFilteredGroupHealthRetryWith) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}/health][%d] getProxiesFilteredGroupHealthRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *GetProxiesFilteredGroupHealthRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *GetProxiesFilteredGroupHealthRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

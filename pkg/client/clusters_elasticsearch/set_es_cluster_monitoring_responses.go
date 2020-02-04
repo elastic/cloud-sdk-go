@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // SetEsClusterMonitoringReader is a Reader for the SetEsClusterMonitoring structure.
@@ -41,21 +41,18 @@ type SetEsClusterMonitoringReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *SetEsClusterMonitoringReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 202:
 		result := NewSetEsClusterMonitoringAccepted()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewSetEsClusterMonitoringNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewSetEsClusterMonitoringRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -85,6 +82,10 @@ func (o *SetEsClusterMonitoringAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/monitoring/{dest_cluster_id}][%d] setEsClusterMonitoringAccepted  %+v", 202, o.Payload)
 }
 
+func (o *SetEsClusterMonitoringAccepted) GetPayload() models.EmptyResponse {
+	return o.Payload
+}
+
 func (o *SetEsClusterMonitoringAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
@@ -110,6 +111,10 @@ type SetEsClusterMonitoringNotFound struct {
 
 func (o *SetEsClusterMonitoringNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/monitoring/{dest_cluster_id}][%d] setEsClusterMonitoringNotFound  %+v", 404, o.Payload)
+}
+
+func (o *SetEsClusterMonitoringNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *SetEsClusterMonitoringNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +144,10 @@ type SetEsClusterMonitoringRetryWith struct {
 
 func (o *SetEsClusterMonitoringRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/monitoring/{dest_cluster_id}][%d] setEsClusterMonitoringRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *SetEsClusterMonitoringRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *SetEsClusterMonitoringRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

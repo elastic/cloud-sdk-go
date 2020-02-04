@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // MoveKibanaClusterInstancesAdvancedReader is a Reader for the MoveKibanaClusterInstancesAdvanced structure.
@@ -41,35 +41,30 @@ type MoveKibanaClusterInstancesAdvancedReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *MoveKibanaClusterInstancesAdvancedReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 202:
 		result := NewMoveKibanaClusterInstancesAdvancedAccepted()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewMoveKibanaClusterInstancesAdvancedBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewMoveKibanaClusterInstancesAdvancedForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewMoveKibanaClusterInstancesAdvancedNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewMoveKibanaClusterInstancesAdvancedRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -97,6 +92,10 @@ type MoveKibanaClusterInstancesAdvancedAccepted struct {
 
 func (o *MoveKibanaClusterInstancesAdvancedAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/instances/_move][%d] moveKibanaClusterInstancesAdvancedAccepted  %+v", 202, o.Payload)
+}
+
+func (o *MoveKibanaClusterInstancesAdvancedAccepted) GetPayload() *models.ClusterCommandResponse {
+	return o.Payload
 }
 
 func (o *MoveKibanaClusterInstancesAdvancedAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -133,6 +132,10 @@ func (o *MoveKibanaClusterInstancesAdvancedBadRequest) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/instances/_move][%d] moveKibanaClusterInstancesAdvancedBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *MoveKibanaClusterInstancesAdvancedBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *MoveKibanaClusterInstancesAdvancedBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -167,6 +170,10 @@ type MoveKibanaClusterInstancesAdvancedForbidden struct {
 
 func (o *MoveKibanaClusterInstancesAdvancedForbidden) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/instances/_move][%d] moveKibanaClusterInstancesAdvancedForbidden  %+v", 403, o.Payload)
+}
+
+func (o *MoveKibanaClusterInstancesAdvancedForbidden) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *MoveKibanaClusterInstancesAdvancedForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -206,6 +213,10 @@ func (o *MoveKibanaClusterInstancesAdvancedNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/instances/_move][%d] moveKibanaClusterInstancesAdvancedNotFound  %+v", 404, o.Payload)
 }
 
+func (o *MoveKibanaClusterInstancesAdvancedNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *MoveKibanaClusterInstancesAdvancedNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -240,6 +251,10 @@ type MoveKibanaClusterInstancesAdvancedRetryWith struct {
 
 func (o *MoveKibanaClusterInstancesAdvancedRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/instances/_move][%d] moveKibanaClusterInstancesAdvancedRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *MoveKibanaClusterInstancesAdvancedRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *MoveKibanaClusterInstancesAdvancedRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

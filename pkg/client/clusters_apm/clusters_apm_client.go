@@ -23,13 +23,14 @@ package clusters_apm
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-openapi/runtime"
+	"fmt"
 
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new clusters apm API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -41,10 +42,77 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
-/*
-CancelApmPendingPlan cancels pending plan
+// ClientService is the interface for Client methods
+type ClientService interface {
+	CancelApmPendingPlan(params *CancelApmPendingPlanParams, authInfo runtime.ClientAuthInfoWriter) (*CancelApmPendingPlanOK, error)
 
-Cancels the pending plan of an APM cluster.
+	CreateApm(params *CreateApmParams, authInfo runtime.ClientAuthInfoWriter) (*CreateApmOK, *CreateApmCreated, error)
+
+	DeleteApm(params *DeleteApmParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteApmOK, error)
+
+	GetApmCluster(params *GetApmClusterParams, authInfo runtime.ClientAuthInfoWriter) (*GetApmClusterOK, error)
+
+	GetApmClusterPlanActivity(params *GetApmClusterPlanActivityParams, authInfo runtime.ClientAuthInfoWriter) (*GetApmClusterPlanActivityOK, error)
+
+	GetApmClusters(params *GetApmClustersParams, authInfo runtime.ClientAuthInfoWriter) (*GetApmClustersOK, error)
+
+	GetApmMetadataRaw(params *GetApmMetadataRawParams, authInfo runtime.ClientAuthInfoWriter) (*GetApmMetadataRawOK, error)
+
+	GetApmMetadataSettings(params *GetApmMetadataSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*GetApmMetadataSettingsOK, error)
+
+	GetApmPendingPlan(params *GetApmPendingPlanParams, authInfo runtime.ClientAuthInfoWriter) (*GetApmPendingPlanOK, error)
+
+	GetApmPlan(params *GetApmPlanParams, authInfo runtime.ClientAuthInfoWriter) (*GetApmPlanOK, error)
+
+	MoveApmInstances(params *MoveApmInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*MoveApmInstancesAccepted, error)
+
+	MoveApmInstancesAdvanced(params *MoveApmInstancesAdvancedParams, authInfo runtime.ClientAuthInfoWriter) (*MoveApmInstancesAdvancedAccepted, error)
+
+	ResetApmSecretToken(params *ResetApmSecretTokenParams, authInfo runtime.ClientAuthInfoWriter) (*ResetApmSecretTokenOK, error)
+
+	RestartApm(params *RestartApmParams, authInfo runtime.ClientAuthInfoWriter) (*RestartApmAccepted, error)
+
+	ResyncApmCluster(params *ResyncApmClusterParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncApmClusterOK, error)
+
+	ResyncApmClusters(params *ResyncApmClustersParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncApmClustersAccepted, error)
+
+	SearchApms(params *SearchApmsParams, authInfo runtime.ClientAuthInfoWriter) (*SearchApmsOK, error)
+
+	SetApmMetadataRaw(params *SetApmMetadataRawParams, authInfo runtime.ClientAuthInfoWriter) (*SetApmMetadataRawOK, error)
+
+	SetApmName(params *SetApmNameParams, authInfo runtime.ClientAuthInfoWriter) (*SetApmNameOK, error)
+
+	ShutdownApm(params *ShutdownApmParams, authInfo runtime.ClientAuthInfoWriter) (*ShutdownApmAccepted, error)
+
+	StartApmInstances(params *StartApmInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*StartApmInstancesAccepted, error)
+
+	StartApmInstancesAll(params *StartApmInstancesAllParams, authInfo runtime.ClientAuthInfoWriter) (*StartApmInstancesAllAccepted, error)
+
+	StartApmInstancesAllMaintenanceMode(params *StartApmInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StartApmInstancesAllMaintenanceModeAccepted, error)
+
+	StartApmMaintenanceMode(params *StartApmMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StartApmMaintenanceModeAccepted, error)
+
+	StopApmInstances(params *StopApmInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*StopApmInstancesAccepted, error)
+
+	StopApmInstancesAll(params *StopApmInstancesAllParams, authInfo runtime.ClientAuthInfoWriter) (*StopApmInstancesAllAccepted, error)
+
+	StopApmInstancesAllMaintenanceMode(params *StopApmInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StopApmInstancesAllMaintenanceModeAccepted, error)
+
+	StopApmMaintenanceMode(params *StopApmMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StopApmMaintenanceModeAccepted, error)
+
+	UpdateApmMetadataSettings(params *UpdateApmMetadataSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateApmMetadataSettingsOK, error)
+
+	UpdateApmPlan(params *UpdateApmPlanParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateApmPlanOK, *UpdateApmPlanAccepted, error)
+
+	UpgradeApm(params *UpgradeApmParams, authInfo runtime.ClientAuthInfoWriter) (*UpgradeApmAccepted, error)
+
+	SetTransport(transport runtime.ClientTransport)
+}
+
+/*
+  CancelApmPendingPlan cancels pending plan
+
+  Cancels the pending plan of an APM cluster.
 */
 func (a *Client) CancelApmPendingPlan(params *CancelApmPendingPlanParams, authInfo runtime.ClientAuthInfoWriter) (*CancelApmPendingPlanOK, error) {
 	// TODO: Validate the params before sending
@@ -56,8 +124,8 @@ func (a *Client) CancelApmPendingPlan(params *CancelApmPendingPlanParams, authIn
 		ID:                 "cancel-apm-pending-plan",
 		Method:             "DELETE",
 		PathPattern:        "/clusters/apm/{cluster_id}/plan/pending",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &CancelApmPendingPlanReader{formats: a.formats},
@@ -68,14 +136,20 @@ func (a *Client) CancelApmPendingPlan(params *CancelApmPendingPlanParams, authIn
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CancelApmPendingPlanOK), nil
-
+	success, ok := result.(*CancelApmPendingPlanOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for cancel-apm-pending-plan: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-CreateApm creates cluster
+  CreateApm creates cluster
 
-Creates an APM cluster for a given Elasticsearch cluster.
+  Creates an APM cluster for a given Elasticsearch cluster.
 */
 func (a *Client) CreateApm(params *CreateApmParams, authInfo runtime.ClientAuthInfoWriter) (*CreateApmOK, *CreateApmCreated, error) {
 	// TODO: Validate the params before sending
@@ -87,8 +161,8 @@ func (a *Client) CreateApm(params *CreateApmParams, authInfo runtime.ClientAuthI
 		ID:                 "create-apm",
 		Method:             "POST",
 		PathPattern:        "/clusters/apm",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &CreateApmReader{formats: a.formats},
@@ -105,14 +179,15 @@ func (a *Client) CreateApm(params *CreateApmParams, authInfo runtime.ClientAuthI
 	case *CreateApmCreated:
 		return nil, value, nil
 	}
-	return nil, nil, nil
-
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for clusters_apm: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-DeleteApm deletes cluster
+  DeleteApm deletes cluster
 
-Deletes an APM cluster.
+  Deletes an APM cluster.
 Requires that you have already successfully issued `_shutdown` command against the cluster.
 */
 func (a *Client) DeleteApm(params *DeleteApmParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteApmOK, error) {
@@ -125,8 +200,8 @@ func (a *Client) DeleteApm(params *DeleteApmParams, authInfo runtime.ClientAuthI
 		ID:                 "delete-apm",
 		Method:             "DELETE",
 		PathPattern:        "/clusters/apm/{cluster_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &DeleteApmReader{formats: a.formats},
@@ -137,14 +212,20 @@ func (a *Client) DeleteApm(params *DeleteApmParams, authInfo runtime.ClientAuthI
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteApmOK), nil
-
+	success, ok := result.(*DeleteApmOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for delete-apm: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetApmCluster gets cluster
+  GetApmCluster gets cluster
 
-Retrieves cluster information for a APM cluster.
+  Retrieves cluster information for a APM cluster.
 */
 func (a *Client) GetApmCluster(params *GetApmClusterParams, authInfo runtime.ClientAuthInfoWriter) (*GetApmClusterOK, error) {
 	// TODO: Validate the params before sending
@@ -156,8 +237,8 @@ func (a *Client) GetApmCluster(params *GetApmClusterParams, authInfo runtime.Cli
 		ID:                 "get-apm-cluster",
 		Method:             "GET",
 		PathPattern:        "/clusters/apm/{cluster_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetApmClusterReader{formats: a.formats},
@@ -168,14 +249,20 @@ func (a *Client) GetApmCluster(params *GetApmClusterParams, authInfo runtime.Cli
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetApmClusterOK), nil
-
+	success, ok := result.(*GetApmClusterOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-apm-cluster: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetApmClusterPlanActivity gets plan activity
+  GetApmClusterPlanActivity gets plan activity
 
-Retrieves the current and historical plan information for a APM cluster.
+  Retrieves the current and historical plan information for a APM cluster.
 */
 func (a *Client) GetApmClusterPlanActivity(params *GetApmClusterPlanActivityParams, authInfo runtime.ClientAuthInfoWriter) (*GetApmClusterPlanActivityOK, error) {
 	// TODO: Validate the params before sending
@@ -187,8 +274,8 @@ func (a *Client) GetApmClusterPlanActivity(params *GetApmClusterPlanActivityPara
 		ID:                 "get-apm-cluster-plan-activity",
 		Method:             "GET",
 		PathPattern:        "/clusters/apm/{cluster_id}/plan/activity",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetApmClusterPlanActivityReader{formats: a.formats},
@@ -199,14 +286,20 @@ func (a *Client) GetApmClusterPlanActivity(params *GetApmClusterPlanActivityPara
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetApmClusterPlanActivityOK), nil
-
+	success, ok := result.(*GetApmClusterPlanActivityOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-apm-cluster-plan-activity: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetApmClusters gets clusters
+  GetApmClusters gets clusters
 
-Retrieves cluster information for all APM clusters.
+  Retrieves cluster information for all APM clusters.
 */
 func (a *Client) GetApmClusters(params *GetApmClustersParams, authInfo runtime.ClientAuthInfoWriter) (*GetApmClustersOK, error) {
 	// TODO: Validate the params before sending
@@ -218,8 +311,8 @@ func (a *Client) GetApmClusters(params *GetApmClustersParams, authInfo runtime.C
 		ID:                 "get-apm-clusters",
 		Method:             "GET",
 		PathPattern:        "/clusters/apm",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetApmClustersReader{formats: a.formats},
@@ -230,14 +323,20 @@ func (a *Client) GetApmClusters(params *GetApmClustersParams, authInfo runtime.C
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetApmClustersOK), nil
-
+	success, ok := result.(*GetApmClustersOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-apm-clusters: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetApmMetadataRaw gets cluster metadata
+  GetApmMetadataRaw gets cluster metadata
 
-Advanced use only. Retrieves the internal metadata, in free-form JSON, for the APM instance.
+  Advanced use only. Retrieves the internal metadata, in free-form JSON, for the APM instance.
 */
 func (a *Client) GetApmMetadataRaw(params *GetApmMetadataRawParams, authInfo runtime.ClientAuthInfoWriter) (*GetApmMetadataRawOK, error) {
 	// TODO: Validate the params before sending
@@ -249,8 +348,8 @@ func (a *Client) GetApmMetadataRaw(params *GetApmMetadataRawParams, authInfo run
 		ID:                 "get-apm-metadata-raw",
 		Method:             "GET",
 		PathPattern:        "/clusters/apm/{cluster_id}/metadata/raw",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetApmMetadataRawReader{formats: a.formats},
@@ -261,14 +360,20 @@ func (a *Client) GetApmMetadataRaw(params *GetApmMetadataRawParams, authInfo run
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetApmMetadataRawOK), nil
-
+	success, ok := result.(*GetApmMetadataRawOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-apm-metadata-raw: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetApmMetadataSettings gets cluster metadata settings
+  GetApmMetadataSettings gets cluster metadata settings
 
-Retrieves a structured version of the cluster metadata as a collection of top-level settings. If a particular setting isn't returned, then the free-form JSON endpoint (`/metadata/raw`) must be used.
+  Retrieves a structured version of the cluster metadata as a collection of top-level settings. If a particular setting isn't returned, then the free-form JSON endpoint (`/metadata/raw`) must be used.
 */
 func (a *Client) GetApmMetadataSettings(params *GetApmMetadataSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*GetApmMetadataSettingsOK, error) {
 	// TODO: Validate the params before sending
@@ -280,8 +385,8 @@ func (a *Client) GetApmMetadataSettings(params *GetApmMetadataSettingsParams, au
 		ID:                 "get-apm-metadata-settings",
 		Method:             "GET",
 		PathPattern:        "/clusters/apm/{cluster_id}/metadata/settings",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetApmMetadataSettingsReader{formats: a.formats},
@@ -292,14 +397,20 @@ func (a *Client) GetApmMetadataSettings(params *GetApmMetadataSettingsParams, au
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetApmMetadataSettingsOK), nil
-
+	success, ok := result.(*GetApmMetadataSettingsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-apm-metadata-settings: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetApmPendingPlan gets pending plan
+  GetApmPendingPlan gets pending plan
 
-Retrieves the pending plan of an APM cluster.
+  Retrieves the pending plan of an APM cluster.
 */
 func (a *Client) GetApmPendingPlan(params *GetApmPendingPlanParams, authInfo runtime.ClientAuthInfoWriter) (*GetApmPendingPlanOK, error) {
 	// TODO: Validate the params before sending
@@ -311,8 +422,8 @@ func (a *Client) GetApmPendingPlan(params *GetApmPendingPlanParams, authInfo run
 		ID:                 "get-apm-pending-plan",
 		Method:             "GET",
 		PathPattern:        "/clusters/apm/{cluster_id}/plan/pending",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetApmPendingPlanReader{formats: a.formats},
@@ -323,14 +434,20 @@ func (a *Client) GetApmPendingPlan(params *GetApmPendingPlanParams, authInfo run
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetApmPendingPlanOK), nil
-
+	success, ok := result.(*GetApmPendingPlanOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-apm-pending-plan: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetApmPlan gets plan
+  GetApmPlan gets plan
 
-Retrieves the active plan of an APM cluster. Transient settings are not show by this endpoint. To view the transient settings that have been applied with a specific plan, use the activity endpoint.
+  Retrieves the active plan of an APM cluster. Transient settings are not show by this endpoint. To view the transient settings that have been applied with a specific plan, use the activity endpoint.
 */
 func (a *Client) GetApmPlan(params *GetApmPlanParams, authInfo runtime.ClientAuthInfoWriter) (*GetApmPlanOK, error) {
 	// TODO: Validate the params before sending
@@ -342,8 +459,8 @@ func (a *Client) GetApmPlan(params *GetApmPlanParams, authInfo runtime.ClientAut
 		ID:                 "get-apm-plan",
 		Method:             "GET",
 		PathPattern:        "/clusters/apm/{cluster_id}/plan",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetApmPlanReader{formats: a.formats},
@@ -354,14 +471,20 @@ func (a *Client) GetApmPlan(params *GetApmPlanParams, authInfo runtime.ClientAut
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetApmPlanOK), nil
-
+	success, ok := result.(*GetApmPlanOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-apm-plan: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-MoveApmInstances moves instances
+  MoveApmInstances moves instances
 
-Moves one or more instances belonging to a Apm cluster.
+  Moves one or more instances belonging to a Apm cluster.
 */
 func (a *Client) MoveApmInstances(params *MoveApmInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*MoveApmInstancesAccepted, error) {
 	// TODO: Validate the params before sending
@@ -373,8 +496,8 @@ func (a *Client) MoveApmInstances(params *MoveApmInstancesParams, authInfo runti
 		ID:                 "move-apm-instances",
 		Method:             "POST",
 		PathPattern:        "/clusters/apm/{cluster_id}/instances/{instance_ids}/_move",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &MoveApmInstancesReader{formats: a.formats},
@@ -385,14 +508,20 @@ func (a *Client) MoveApmInstances(params *MoveApmInstancesParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*MoveApmInstancesAccepted), nil
-
+	success, ok := result.(*MoveApmInstancesAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for move-apm-instances: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-MoveApmInstancesAdvanced moves instances advanced
+  MoveApmInstancesAdvanced moves instances advanced
 
-Moves instances belonging to a Apm cluster, with custom configuration posted in the body.
+  Moves instances belonging to a Apm cluster, with custom configuration posted in the body.
 */
 func (a *Client) MoveApmInstancesAdvanced(params *MoveApmInstancesAdvancedParams, authInfo runtime.ClientAuthInfoWriter) (*MoveApmInstancesAdvancedAccepted, error) {
 	// TODO: Validate the params before sending
@@ -404,8 +533,8 @@ func (a *Client) MoveApmInstancesAdvanced(params *MoveApmInstancesAdvancedParams
 		ID:                 "move-apm-instances-advanced",
 		Method:             "POST",
 		PathPattern:        "/clusters/apm/{cluster_id}/instances/_move",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &MoveApmInstancesAdvancedReader{formats: a.formats},
@@ -416,14 +545,20 @@ func (a *Client) MoveApmInstancesAdvanced(params *MoveApmInstancesAdvancedParams
 	if err != nil {
 		return nil, err
 	}
-	return result.(*MoveApmInstancesAdvancedAccepted), nil
-
+	success, ok := result.(*MoveApmInstancesAdvancedAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for move-apm-instances-advanced: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-ResetApmSecretToken resets token
+  ResetApmSecretToken resets token
 
-Resets the secret token for a given APM cluster.
+  Resets the secret token for a given APM cluster.
 */
 func (a *Client) ResetApmSecretToken(params *ResetApmSecretTokenParams, authInfo runtime.ClientAuthInfoWriter) (*ResetApmSecretTokenOK, error) {
 	// TODO: Validate the params before sending
@@ -435,8 +570,8 @@ func (a *Client) ResetApmSecretToken(params *ResetApmSecretTokenParams, authInfo
 		ID:                 "reset-apm-secret-token",
 		Method:             "POST",
 		PathPattern:        "/clusters/apm/{cluster_id}/_reset-token",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ResetApmSecretTokenReader{formats: a.formats},
@@ -447,14 +582,20 @@ func (a *Client) ResetApmSecretToken(params *ResetApmSecretTokenParams, authInfo
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ResetApmSecretTokenOK), nil
-
+	success, ok := result.(*ResetApmSecretTokenOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for reset-apm-secret-token: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-RestartApm restarts cluster
+  RestartApm restarts cluster
 
-Restarts a Apm cluster. If a cluster is active: this command re-applies the existing plan but applies a "cluster_reboot", which issues a Apm restart command and waits for it to complete. If a cluster is inactive: this command starts it up with the most recent successful plan.
+  Restarts a Apm cluster. If a cluster is active: this command re-applies the existing plan but applies a "cluster_reboot", which issues a Apm restart command and waits for it to complete. If a cluster is inactive: this command starts it up with the most recent successful plan.
 */
 func (a *Client) RestartApm(params *RestartApmParams, authInfo runtime.ClientAuthInfoWriter) (*RestartApmAccepted, error) {
 	// TODO: Validate the params before sending
@@ -466,8 +607,8 @@ func (a *Client) RestartApm(params *RestartApmParams, authInfo runtime.ClientAut
 		ID:                 "restart-apm",
 		Method:             "POST",
 		PathPattern:        "/clusters/apm/{cluster_id}/_restart",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &RestartApmReader{formats: a.formats},
@@ -478,14 +619,20 @@ func (a *Client) RestartApm(params *RestartApmParams, authInfo runtime.ClientAut
 	if err != nil {
 		return nil, err
 	}
-	return result.(*RestartApmAccepted), nil
-
+	success, ok := result.(*RestartApmAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for restart-apm: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-ResyncApmCluster resynchronizes cluster
+  ResyncApmCluster resynchronizes cluster
 
-Immediately resynchronizes the search index and cache for the selected APM cluster.
+  Immediately resynchronizes the search index and cache for the selected APM cluster.
 */
 func (a *Client) ResyncApmCluster(params *ResyncApmClusterParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncApmClusterOK, error) {
 	// TODO: Validate the params before sending
@@ -497,8 +644,8 @@ func (a *Client) ResyncApmCluster(params *ResyncApmClusterParams, authInfo runti
 		ID:                 "resync-apm-cluster",
 		Method:             "POST",
 		PathPattern:        "/clusters/apm/{cluster_id}/_resync",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ResyncApmClusterReader{formats: a.formats},
@@ -509,14 +656,20 @@ func (a *Client) ResyncApmCluster(params *ResyncApmClusterParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ResyncApmClusterOK), nil
-
+	success, ok := result.(*ResyncApmClusterOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for resync-apm-cluster: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-ResyncApmClusters resynchronizes clusters
+  ResyncApmClusters resynchronizes clusters
 
-Asynchronously resynchronizes the search index for all APM clusters.
+  Asynchronously resynchronizes the search index for all APM clusters.
 */
 func (a *Client) ResyncApmClusters(params *ResyncApmClustersParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncApmClustersAccepted, error) {
 	// TODO: Validate the params before sending
@@ -528,8 +681,8 @@ func (a *Client) ResyncApmClusters(params *ResyncApmClustersParams, authInfo run
 		ID:                 "resync-apm-clusters",
 		Method:             "POST",
 		PathPattern:        "/clusters/apm/_resync",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ResyncApmClustersReader{formats: a.formats},
@@ -540,14 +693,20 @@ func (a *Client) ResyncApmClusters(params *ResyncApmClustersParams, authInfo run
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ResyncApmClustersAccepted), nil
-
+	success, ok := result.(*ResyncApmClustersAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for resync-apm-clusters: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-SearchApms searches clusters
+  SearchApms searches clusters
 
-Retrieves cluster information for all Apm clusters that match a given query.
+  Retrieves cluster information for all Apm clusters that match a given query.
 */
 func (a *Client) SearchApms(params *SearchApmsParams, authInfo runtime.ClientAuthInfoWriter) (*SearchApmsOK, error) {
 	// TODO: Validate the params before sending
@@ -559,8 +718,8 @@ func (a *Client) SearchApms(params *SearchApmsParams, authInfo runtime.ClientAut
 		ID:                 "search-apms",
 		Method:             "POST",
 		PathPattern:        "/clusters/apm/_search",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &SearchApmsReader{formats: a.formats},
@@ -571,14 +730,20 @@ func (a *Client) SearchApms(params *SearchApmsParams, authInfo runtime.ClientAut
 	if err != nil {
 		return nil, err
 	}
-	return result.(*SearchApmsOK), nil
-
+	success, ok := result.(*SearchApmsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for search-apms: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-SetApmMetadataRaw sets cluster metadata
+  SetApmMetadataRaw sets cluster metadata
 
-Advanced use only. Sets the internal metadata, in free-form JSON, for the APM instance.
+  Advanced use only. Sets the internal metadata, in free-form JSON, for the APM instance.
 Only use the parameters to set the modified JSON that is returned from the get version of the metadata.
 */
 func (a *Client) SetApmMetadataRaw(params *SetApmMetadataRawParams, authInfo runtime.ClientAuthInfoWriter) (*SetApmMetadataRawOK, error) {
@@ -591,8 +756,8 @@ func (a *Client) SetApmMetadataRaw(params *SetApmMetadataRawParams, authInfo run
 		ID:                 "set-apm-metadata-raw",
 		Method:             "POST",
 		PathPattern:        "/clusters/apm/{cluster_id}/metadata/raw",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &SetApmMetadataRawReader{formats: a.formats},
@@ -603,14 +768,20 @@ func (a *Client) SetApmMetadataRaw(params *SetApmMetadataRawParams, authInfo run
 	if err != nil {
 		return nil, err
 	}
-	return result.(*SetApmMetadataRawOK), nil
-
+	success, ok := result.(*SetApmMetadataRawOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for set-apm-metadata-raw: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-SetApmName sets cluster name
+  SetApmName sets cluster name
 
-Assigns a name to the APM instance.
+  Assigns a name to the APM instance.
 */
 func (a *Client) SetApmName(params *SetApmNameParams, authInfo runtime.ClientAuthInfoWriter) (*SetApmNameOK, error) {
 	// TODO: Validate the params before sending
@@ -622,8 +793,8 @@ func (a *Client) SetApmName(params *SetApmNameParams, authInfo runtime.ClientAut
 		ID:                 "set-apm-name",
 		Method:             "PUT",
 		PathPattern:        "/clusters/apm/{cluster_id}/metadata/name/{new_name}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &SetApmNameReader{formats: a.formats},
@@ -634,14 +805,20 @@ func (a *Client) SetApmName(params *SetApmNameParams, authInfo runtime.ClientAut
 	if err != nil {
 		return nil, err
 	}
-	return result.(*SetApmNameOK), nil
-
+	success, ok := result.(*SetApmNameOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for set-apm-name: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-ShutdownApm shuts down cluster
+  ShutdownApm shuts down cluster
 
-Shuts down a running cluster and removes all nodes belonging to the cluster. The cluster definition is retained. Warning: this will lose all cluster data that is not saved in a snapshot repository.
+  Shuts down a running cluster and removes all nodes belonging to the cluster. The cluster definition is retained. Warning: this will lose all cluster data that is not saved in a snapshot repository.
 */
 func (a *Client) ShutdownApm(params *ShutdownApmParams, authInfo runtime.ClientAuthInfoWriter) (*ShutdownApmAccepted, error) {
 	// TODO: Validate the params before sending
@@ -653,8 +830,8 @@ func (a *Client) ShutdownApm(params *ShutdownApmParams, authInfo runtime.ClientA
 		ID:                 "shutdown-apm",
 		Method:             "POST",
 		PathPattern:        "/clusters/apm/{cluster_id}/_shutdown",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ShutdownApmReader{formats: a.formats},
@@ -665,14 +842,20 @@ func (a *Client) ShutdownApm(params *ShutdownApmParams, authInfo runtime.ClientA
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ShutdownApmAccepted), nil
-
+	success, ok := result.(*ShutdownApmAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for shutdown-apm: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-StartApmInstances starts instances
+  StartApmInstances starts instances
 
-Starts the instances belonging to a Apm cluster.
+  Starts the instances belonging to a Apm cluster.
 */
 func (a *Client) StartApmInstances(params *StartApmInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*StartApmInstancesAccepted, error) {
 	// TODO: Validate the params before sending
@@ -684,8 +867,8 @@ func (a *Client) StartApmInstances(params *StartApmInstancesParams, authInfo run
 		ID:                 "start-apm-instances",
 		Method:             "POST",
 		PathPattern:        "/clusters/apm/{cluster_id}/instances/{instance_ids}/_start",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &StartApmInstancesReader{formats: a.formats},
@@ -696,14 +879,20 @@ func (a *Client) StartApmInstances(params *StartApmInstancesParams, authInfo run
 	if err != nil {
 		return nil, err
 	}
-	return result.(*StartApmInstancesAccepted), nil
-
+	success, ok := result.(*StartApmInstancesAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for start-apm-instances: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-StartApmInstancesAll starts all instances
+  StartApmInstancesAll starts all instances
 
-Starts all the instances belonging to a Apm cluster.
+  Starts all the instances belonging to a Apm cluster.
 */
 func (a *Client) StartApmInstancesAll(params *StartApmInstancesAllParams, authInfo runtime.ClientAuthInfoWriter) (*StartApmInstancesAllAccepted, error) {
 	// TODO: Validate the params before sending
@@ -715,8 +904,8 @@ func (a *Client) StartApmInstancesAll(params *StartApmInstancesAllParams, authIn
 		ID:                 "start-apm-instances-all",
 		Method:             "POST",
 		PathPattern:        "/clusters/apm/{cluster_id}/instances/_start",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &StartApmInstancesAllReader{formats: a.formats},
@@ -727,14 +916,20 @@ func (a *Client) StartApmInstancesAll(params *StartApmInstancesAllParams, authIn
 	if err != nil {
 		return nil, err
 	}
-	return result.(*StartApmInstancesAllAccepted), nil
-
+	success, ok := result.(*StartApmInstancesAllAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for start-apm-instances-all: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-StartApmInstancesAllMaintenanceMode starts maintenance mode all instances
+  StartApmInstancesAllMaintenanceMode starts maintenance mode all instances
 
-Starts maintenance mode of all instances belonging to a Apm cluster.
+  Starts maintenance mode of all instances belonging to a Apm cluster.
 */
 func (a *Client) StartApmInstancesAllMaintenanceMode(params *StartApmInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StartApmInstancesAllMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
@@ -746,8 +941,8 @@ func (a *Client) StartApmInstancesAllMaintenanceMode(params *StartApmInstancesAl
 		ID:                 "start-apm-instances-all-maintenance-mode",
 		Method:             "POST",
 		PathPattern:        "/clusters/apm/{cluster_id}/instances/maintenance-mode/_start",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &StartApmInstancesAllMaintenanceModeReader{formats: a.formats},
@@ -758,14 +953,20 @@ func (a *Client) StartApmInstancesAllMaintenanceMode(params *StartApmInstancesAl
 	if err != nil {
 		return nil, err
 	}
-	return result.(*StartApmInstancesAllMaintenanceModeAccepted), nil
-
+	success, ok := result.(*StartApmInstancesAllMaintenanceModeAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for start-apm-instances-all-maintenance-mode: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-StartApmMaintenanceMode starts maintenance mode
+  StartApmMaintenanceMode starts maintenance mode
 
-Starts maintenance mode of instances belonging to a Apm cluster.
+  Starts maintenance mode of instances belonging to a Apm cluster.
 */
 func (a *Client) StartApmMaintenanceMode(params *StartApmMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StartApmMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
@@ -777,8 +978,8 @@ func (a *Client) StartApmMaintenanceMode(params *StartApmMaintenanceModeParams, 
 		ID:                 "start-apm-maintenance-mode",
 		Method:             "POST",
 		PathPattern:        "/clusters/apm/{cluster_id}/instances/{instance_ids}/maintenance-mode/_start",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &StartApmMaintenanceModeReader{formats: a.formats},
@@ -789,14 +990,20 @@ func (a *Client) StartApmMaintenanceMode(params *StartApmMaintenanceModeParams, 
 	if err != nil {
 		return nil, err
 	}
-	return result.(*StartApmMaintenanceModeAccepted), nil
-
+	success, ok := result.(*StartApmMaintenanceModeAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for start-apm-maintenance-mode: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-StopApmInstances stops instances
+  StopApmInstances stops instances
 
-Stops the instances belonging to a Apm cluster.
+  Stops the instances belonging to a Apm cluster.
 */
 func (a *Client) StopApmInstances(params *StopApmInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*StopApmInstancesAccepted, error) {
 	// TODO: Validate the params before sending
@@ -808,8 +1015,8 @@ func (a *Client) StopApmInstances(params *StopApmInstancesParams, authInfo runti
 		ID:                 "stop-apm-instances",
 		Method:             "POST",
 		PathPattern:        "/clusters/apm/{cluster_id}/instances/{instance_ids}/_stop",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &StopApmInstancesReader{formats: a.formats},
@@ -820,14 +1027,20 @@ func (a *Client) StopApmInstances(params *StopApmInstancesParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*StopApmInstancesAccepted), nil
-
+	success, ok := result.(*StopApmInstancesAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for stop-apm-instances: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-StopApmInstancesAll stops all instances
+  StopApmInstancesAll stops all instances
 
-Stops all the instances belonging to a Apm cluster.
+  Stops all the instances belonging to a Apm cluster.
 */
 func (a *Client) StopApmInstancesAll(params *StopApmInstancesAllParams, authInfo runtime.ClientAuthInfoWriter) (*StopApmInstancesAllAccepted, error) {
 	// TODO: Validate the params before sending
@@ -839,8 +1052,8 @@ func (a *Client) StopApmInstancesAll(params *StopApmInstancesAllParams, authInfo
 		ID:                 "stop-apm-instances-all",
 		Method:             "POST",
 		PathPattern:        "/clusters/apm/{cluster_id}/instances/_stop",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &StopApmInstancesAllReader{formats: a.formats},
@@ -851,14 +1064,20 @@ func (a *Client) StopApmInstancesAll(params *StopApmInstancesAllParams, authInfo
 	if err != nil {
 		return nil, err
 	}
-	return result.(*StopApmInstancesAllAccepted), nil
-
+	success, ok := result.(*StopApmInstancesAllAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for stop-apm-instances-all: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-StopApmInstancesAllMaintenanceMode stops maintenance mode all instances
+  StopApmInstancesAllMaintenanceMode stops maintenance mode all instances
 
-Stops maintenance mode of all instances belonging to a Apm cluster.
+  Stops maintenance mode of all instances belonging to a Apm cluster.
 */
 func (a *Client) StopApmInstancesAllMaintenanceMode(params *StopApmInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StopApmInstancesAllMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
@@ -870,8 +1089,8 @@ func (a *Client) StopApmInstancesAllMaintenanceMode(params *StopApmInstancesAllM
 		ID:                 "stop-apm-instances-all-maintenance-mode",
 		Method:             "POST",
 		PathPattern:        "/clusters/apm/{cluster_id}/instances/maintenance-mode/_stop",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &StopApmInstancesAllMaintenanceModeReader{formats: a.formats},
@@ -882,14 +1101,20 @@ func (a *Client) StopApmInstancesAllMaintenanceMode(params *StopApmInstancesAllM
 	if err != nil {
 		return nil, err
 	}
-	return result.(*StopApmInstancesAllMaintenanceModeAccepted), nil
-
+	success, ok := result.(*StopApmInstancesAllMaintenanceModeAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for stop-apm-instances-all-maintenance-mode: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-StopApmMaintenanceMode stops maintenance mode
+  StopApmMaintenanceMode stops maintenance mode
 
-Stops maintenance mode of instances belonging to a Apm cluster.
+  Stops maintenance mode of instances belonging to a Apm cluster.
 */
 func (a *Client) StopApmMaintenanceMode(params *StopApmMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StopApmMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
@@ -901,8 +1126,8 @@ func (a *Client) StopApmMaintenanceMode(params *StopApmMaintenanceModeParams, au
 		ID:                 "stop-apm-maintenance-mode",
 		Method:             "POST",
 		PathPattern:        "/clusters/apm/{cluster_id}/instances/{instance_ids}/maintenance-mode/_stop",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &StopApmMaintenanceModeReader{formats: a.formats},
@@ -913,14 +1138,20 @@ func (a *Client) StopApmMaintenanceMode(params *StopApmMaintenanceModeParams, au
 	if err != nil {
 		return nil, err
 	}
-	return result.(*StopApmMaintenanceModeAccepted), nil
-
+	success, ok := result.(*StopApmMaintenanceModeAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for stop-apm-maintenance-mode: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-UpdateApmMetadataSettings updates cluster metadata settings
+  UpdateApmMetadataSettings updates cluster metadata settings
 
-All changes in the specified object are applied to the metadata object. Omitting existing fields causes the same values to be reapplied.Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.
+  All changes in the specified object are applied to the metadata object. Omitting existing fields causes the same values to be reapplied.Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.
 */
 func (a *Client) UpdateApmMetadataSettings(params *UpdateApmMetadataSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateApmMetadataSettingsOK, error) {
 	// TODO: Validate the params before sending
@@ -932,8 +1163,8 @@ func (a *Client) UpdateApmMetadataSettings(params *UpdateApmMetadataSettingsPara
 		ID:                 "update-apm-metadata-settings",
 		Method:             "PATCH",
 		PathPattern:        "/clusters/apm/{cluster_id}/metadata/settings",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &UpdateApmMetadataSettingsReader{formats: a.formats},
@@ -944,14 +1175,20 @@ func (a *Client) UpdateApmMetadataSettings(params *UpdateApmMetadataSettingsPara
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpdateApmMetadataSettingsOK), nil
-
+	success, ok := result.(*UpdateApmMetadataSettingsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for update-apm-metadata-settings: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-UpdateApmPlan updates plan
+  UpdateApmPlan updates plan
 
-Updates the configuration of an existing Apm cluster.
+  Updates the configuration of an existing Apm cluster.
 */
 func (a *Client) UpdateApmPlan(params *UpdateApmPlanParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateApmPlanOK, *UpdateApmPlanAccepted, error) {
 	// TODO: Validate the params before sending
@@ -963,8 +1200,8 @@ func (a *Client) UpdateApmPlan(params *UpdateApmPlanParams, authInfo runtime.Cli
 		ID:                 "update-apm-plan",
 		Method:             "POST",
 		PathPattern:        "/clusters/apm/{cluster_id}/plan",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &UpdateApmPlanReader{formats: a.formats},
@@ -981,14 +1218,15 @@ func (a *Client) UpdateApmPlan(params *UpdateApmPlanParams, authInfo runtime.Cli
 	case *UpdateApmPlanAccepted:
 		return nil, value, nil
 	}
-	return nil, nil, nil
-
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for clusters_apm: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-UpgradeApm upgrades cluster
+  UpgradeApm upgrades cluster
 
-Upgrades a running cluster.
+  Upgrades a running cluster.
 */
 func (a *Client) UpgradeApm(params *UpgradeApmParams, authInfo runtime.ClientAuthInfoWriter) (*UpgradeApmAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1000,8 +1238,8 @@ func (a *Client) UpgradeApm(params *UpgradeApmParams, authInfo runtime.ClientAut
 		ID:                 "upgrade-apm",
 		Method:             "POST",
 		PathPattern:        "/clusters/apm/{cluster_id}/_upgrade",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &UpgradeApmReader{formats: a.formats},
@@ -1012,8 +1250,14 @@ func (a *Client) UpgradeApm(params *UpgradeApmParams, authInfo runtime.ClientAut
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpgradeApmAccepted), nil
-
+	success, ok := result.(*UpgradeApmAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for upgrade-apm: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 // SetTransport changes the transport on the client

@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // DeleteVersionStackReader is a Reader for the DeleteVersionStack structure.
@@ -41,21 +41,18 @@ type DeleteVersionStackReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteVersionStackReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewDeleteVersionStackOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewDeleteVersionStackNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewDeleteVersionStackRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -83,6 +80,10 @@ type DeleteVersionStackOK struct {
 
 func (o *DeleteVersionStackOK) Error() string {
 	return fmt.Sprintf("[DELETE /stack/versions/{version}][%d] deleteVersionStackOK  %+v", 200, o.Payload)
+}
+
+func (o *DeleteVersionStackOK) GetPayload() models.EmptyResponse {
+	return o.Payload
 }
 
 func (o *DeleteVersionStackOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -114,6 +115,10 @@ type DeleteVersionStackNotFound struct {
 
 func (o *DeleteVersionStackNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /stack/versions/{version}][%d] deleteVersionStackNotFound  %+v", 404, o.Payload)
+}
+
+func (o *DeleteVersionStackNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DeleteVersionStackNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -150,6 +155,10 @@ type DeleteVersionStackRetryWith struct {
 
 func (o *DeleteVersionStackRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /stack/versions/{version}][%d] deleteVersionStackRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *DeleteVersionStackRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DeleteVersionStackRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

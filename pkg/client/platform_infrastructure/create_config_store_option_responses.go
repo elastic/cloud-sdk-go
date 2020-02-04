@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // CreateConfigStoreOptionReader is a Reader for the CreateConfigStoreOption structure.
@@ -41,14 +41,12 @@ type CreateConfigStoreOptionReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateConfigStoreOptionReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 201:
 		result := NewCreateConfigStoreOptionCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewCreateConfigStoreOptionBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -86,6 +84,10 @@ type CreateConfigStoreOptionCreated struct {
 
 func (o *CreateConfigStoreOptionCreated) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/store/{config_option_id}][%d] createConfigStoreOptionCreated  %+v", 201, o.Payload)
+}
+
+func (o *CreateConfigStoreOptionCreated) GetPayload() *models.ConfigStoreOption {
+	return o.Payload
 }
 
 func (o *CreateConfigStoreOptionCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -128,6 +130,10 @@ type CreateConfigStoreOptionBadRequest struct {
 
 func (o *CreateConfigStoreOptionBadRequest) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/store/{config_option_id}][%d] createConfigStoreOptionBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *CreateConfigStoreOptionBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *CreateConfigStoreOptionBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

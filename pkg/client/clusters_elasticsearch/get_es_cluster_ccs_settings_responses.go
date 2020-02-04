@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetEsClusterCcsSettingsReader is a Reader for the GetEsClusterCcsSettings structure.
@@ -41,14 +41,12 @@ type GetEsClusterCcsSettingsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetEsClusterCcsSettingsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetEsClusterCcsSettingsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewGetEsClusterCcsSettingsNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -78,6 +76,10 @@ func (o *GetEsClusterCcsSettingsOK) Error() string {
 	return fmt.Sprintf("[GET /clusters/elasticsearch/{cluster_id}/ccs/settings][%d] getEsClusterCcsSettingsOK  %+v", 200, o.Payload)
 }
 
+func (o *GetEsClusterCcsSettingsOK) GetPayload() *models.CrossClusterSearchSettings {
+	return o.Payload
+}
+
 func (o *GetEsClusterCcsSettingsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.CrossClusterSearchSettings)
@@ -105,6 +107,10 @@ type GetEsClusterCcsSettingsNotFound struct {
 
 func (o *GetEsClusterCcsSettingsNotFound) Error() string {
 	return fmt.Sprintf("[GET /clusters/elasticsearch/{cluster_id}/ccs/settings][%d] getEsClusterCcsSettingsNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetEsClusterCcsSettingsNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *GetEsClusterCcsSettingsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

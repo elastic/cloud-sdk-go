@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // SetKibanaClusterMetadataRawReader is a Reader for the SetKibanaClusterMetadataRaw structure.
@@ -41,21 +41,18 @@ type SetKibanaClusterMetadataRawReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *SetKibanaClusterMetadataRawReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewSetKibanaClusterMetadataRawOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewSetKibanaClusterMetadataRawNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewSetKibanaClusterMetadataRawRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -95,6 +92,10 @@ func (o *SetKibanaClusterMetadataRawOK) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/metadata/raw][%d] setKibanaClusterMetadataRawOK  %+v", 200, o.Payload)
 }
 
+func (o *SetKibanaClusterMetadataRawOK) GetPayload() interface{} {
+	return o.Payload
+}
+
 func (o *SetKibanaClusterMetadataRawOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-resource-created
@@ -131,6 +132,10 @@ func (o *SetKibanaClusterMetadataRawNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/metadata/raw][%d] setKibanaClusterMetadataRawNotFound  %+v", 404, o.Payload)
 }
 
+func (o *SetKibanaClusterMetadataRawNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *SetKibanaClusterMetadataRawNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -158,6 +163,10 @@ type SetKibanaClusterMetadataRawRetryWith struct {
 
 func (o *SetKibanaClusterMetadataRawRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/metadata/raw][%d] setKibanaClusterMetadataRawRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *SetKibanaClusterMetadataRawRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *SetKibanaClusterMetadataRawRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

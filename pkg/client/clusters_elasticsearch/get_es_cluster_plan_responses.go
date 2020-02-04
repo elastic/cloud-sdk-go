@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetEsClusterPlanReader is a Reader for the GetEsClusterPlan structure.
@@ -41,21 +41,18 @@ type GetEsClusterPlanReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetEsClusterPlanReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetEsClusterPlanOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewGetEsClusterPlanNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 412:
 		result := NewGetEsClusterPlanPreconditionFailed()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -93,6 +90,10 @@ type GetEsClusterPlanOK struct {
 
 func (o *GetEsClusterPlanOK) Error() string {
 	return fmt.Sprintf("[GET /clusters/elasticsearch/{cluster_id}/plan][%d] getEsClusterPlanOK  %+v", 200, o.Payload)
+}
+
+func (o *GetEsClusterPlanOK) GetPayload() *models.ElasticsearchClusterPlan {
+	return o.Payload
 }
 
 func (o *GetEsClusterPlanOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -137,6 +138,10 @@ func (o *GetEsClusterPlanNotFound) Error() string {
 	return fmt.Sprintf("[GET /clusters/elasticsearch/{cluster_id}/plan][%d] getEsClusterPlanNotFound  %+v", 404, o.Payload)
 }
 
+func (o *GetEsClusterPlanNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *GetEsClusterPlanNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -171,6 +176,10 @@ type GetEsClusterPlanPreconditionFailed struct {
 
 func (o *GetEsClusterPlanPreconditionFailed) Error() string {
 	return fmt.Sprintf("[GET /clusters/elasticsearch/{cluster_id}/plan][%d] getEsClusterPlanPreconditionFailed  %+v", 412, o.Payload)
+}
+
+func (o *GetEsClusterPlanPreconditionFailed) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *GetEsClusterPlanPreconditionFailed) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // CreateSecurityDeploymentReader is a Reader for the CreateSecurityDeployment structure.
@@ -41,21 +41,18 @@ type CreateSecurityDeploymentReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateSecurityDeploymentReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 201:
 		result := NewCreateSecurityDeploymentCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 409:
 		result := NewCreateSecurityDeploymentConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewCreateSecurityDeploymentRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -93,6 +90,10 @@ type CreateSecurityDeploymentCreated struct {
 
 func (o *CreateSecurityDeploymentCreated) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/deployment][%d] createSecurityDeploymentCreated  %+v", 201, o.Payload)
+}
+
+func (o *CreateSecurityDeploymentCreated) GetPayload() *models.IDResponse {
+	return o.Payload
 }
 
 func (o *CreateSecurityDeploymentCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -138,6 +139,10 @@ func (o *CreateSecurityDeploymentConflict) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/deployment][%d] createSecurityDeploymentConflict  %+v", 409, o.Payload)
 }
 
+func (o *CreateSecurityDeploymentConflict) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *CreateSecurityDeploymentConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -172,6 +177,10 @@ type CreateSecurityDeploymentRetryWith struct {
 
 func (o *CreateSecurityDeploymentRetryWith) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/deployment][%d] createSecurityDeploymentRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *CreateSecurityDeploymentRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *CreateSecurityDeploymentRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

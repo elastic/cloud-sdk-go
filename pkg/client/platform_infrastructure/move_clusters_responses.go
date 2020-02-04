@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // MoveClustersReader is a Reader for the MoveClusters structure.
@@ -41,28 +41,24 @@ type MoveClustersReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *MoveClustersReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 202:
 		result := NewMoveClustersAccepted()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewMoveClustersBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewMoveClustersForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewMoveClustersRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -90,6 +86,10 @@ type MoveClustersAccepted struct {
 
 func (o *MoveClustersAccepted) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/allocators/{allocator_id}/clusters/_move][%d] moveClustersAccepted  %+v", 202, o.Payload)
+}
+
+func (o *MoveClustersAccepted) GetPayload() *models.MoveClustersCommandResponse {
+	return o.Payload
 }
 
 func (o *MoveClustersAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -124,6 +124,10 @@ type MoveClustersBadRequest struct {
 
 func (o *MoveClustersBadRequest) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/allocators/{allocator_id}/clusters/_move][%d] moveClustersBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *MoveClustersBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *MoveClustersBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -162,6 +166,10 @@ func (o *MoveClustersForbidden) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/allocators/{allocator_id}/clusters/_move][%d] moveClustersForbidden  %+v", 403, o.Payload)
 }
 
+func (o *MoveClustersForbidden) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *MoveClustersForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -196,6 +204,10 @@ type MoveClustersRetryWith struct {
 
 func (o *MoveClustersRetryWith) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/allocators/{allocator_id}/clusters/_move][%d] moveClustersRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *MoveClustersRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *MoveClustersRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

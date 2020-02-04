@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // SetApmNameReader is a Reader for the SetApmName structure.
@@ -41,21 +41,18 @@ type SetApmNameReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *SetApmNameReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewSetApmNameOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewSetApmNameNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewSetApmNameRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -85,6 +82,10 @@ func (o *SetApmNameOK) Error() string {
 	return fmt.Sprintf("[PUT /clusters/apm/{cluster_id}/metadata/name/{new_name}][%d] setApmNameOK  %+v", 200, o.Payload)
 }
 
+func (o *SetApmNameOK) GetPayload() models.EmptyResponse {
+	return o.Payload
+}
+
 func (o *SetApmNameOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
@@ -110,6 +111,10 @@ type SetApmNameNotFound struct {
 
 func (o *SetApmNameNotFound) Error() string {
 	return fmt.Sprintf("[PUT /clusters/apm/{cluster_id}/metadata/name/{new_name}][%d] setApmNameNotFound  %+v", 404, o.Payload)
+}
+
+func (o *SetApmNameNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *SetApmNameNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +144,10 @@ type SetApmNameRetryWith struct {
 
 func (o *SetApmNameRetryWith) Error() string {
 	return fmt.Sprintf("[PUT /clusters/apm/{cluster_id}/metadata/name/{new_name}][%d] setApmNameRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *SetApmNameRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *SetApmNameRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

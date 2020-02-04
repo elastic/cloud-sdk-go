@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // SearchApmsReader is a Reader for the SearchApms structure.
@@ -41,14 +41,12 @@ type SearchApmsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *SearchApmsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewSearchApmsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewSearchApmsBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -78,6 +76,10 @@ func (o *SearchApmsOK) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/_search][%d] searchApmsOK  %+v", 200, o.Payload)
 }
 
+func (o *SearchApmsOK) GetPayload() *models.ApmsInfo {
+	return o.Payload
+}
+
 func (o *SearchApmsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ApmsInfo)
@@ -105,6 +107,10 @@ type SearchApmsBadRequest struct {
 
 func (o *SearchApmsBadRequest) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/_search][%d] searchApmsBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *SearchApmsBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *SearchApmsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

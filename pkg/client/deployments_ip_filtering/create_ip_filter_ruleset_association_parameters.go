@@ -33,7 +33,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // NewCreateIPFilterRulesetAssociationParams creates a new CreateIPFilterRulesetAssociationParams object

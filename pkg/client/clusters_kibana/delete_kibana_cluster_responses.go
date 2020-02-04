@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // DeleteKibanaClusterReader is a Reader for the DeleteKibanaCluster structure.
@@ -41,28 +41,24 @@ type DeleteKibanaClusterReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteKibanaClusterReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewDeleteKibanaClusterOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewDeleteKibanaClusterNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 412:
 		result := NewDeleteKibanaClusterPreconditionFailed()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewDeleteKibanaClusterRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -92,6 +88,10 @@ func (o *DeleteKibanaClusterOK) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/kibana/{cluster_id}][%d] deleteKibanaClusterOK  %+v", 200, o.Payload)
 }
 
+func (o *DeleteKibanaClusterOK) GetPayload() models.EmptyResponse {
+	return o.Payload
+}
+
 func (o *DeleteKibanaClusterOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
@@ -117,6 +117,10 @@ type DeleteKibanaClusterNotFound struct {
 
 func (o *DeleteKibanaClusterNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/kibana/{cluster_id}][%d] deleteKibanaClusterNotFound  %+v", 404, o.Payload)
+}
+
+func (o *DeleteKibanaClusterNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DeleteKibanaClusterNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -148,6 +152,10 @@ func (o *DeleteKibanaClusterPreconditionFailed) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/kibana/{cluster_id}][%d] deleteKibanaClusterPreconditionFailed  %+v", 412, o.Payload)
 }
 
+func (o *DeleteKibanaClusterPreconditionFailed) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *DeleteKibanaClusterPreconditionFailed) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -175,6 +183,10 @@ type DeleteKibanaClusterRetryWith struct {
 
 func (o *DeleteKibanaClusterRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/kibana/{cluster_id}][%d] deleteKibanaClusterRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *DeleteKibanaClusterRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DeleteKibanaClusterRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

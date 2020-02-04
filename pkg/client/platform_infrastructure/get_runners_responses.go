@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetRunnersReader is a Reader for the GetRunners structure.
@@ -41,7 +41,6 @@ type GetRunnersReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetRunnersReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetRunnersOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -69,6 +68,10 @@ type GetRunnersOK struct {
 
 func (o *GetRunnersOK) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/runners][%d] getRunnersOK  %+v", 200, o.Payload)
+}
+
+func (o *GetRunnersOK) GetPayload() *models.RunnerOverview {
+	return o.Payload
 }
 
 func (o *GetRunnersOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

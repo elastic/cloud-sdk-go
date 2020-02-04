@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // CreateInstanceConfigurationReader is a Reader for the CreateInstanceConfiguration structure.
@@ -41,28 +41,24 @@ type CreateInstanceConfigurationReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateInstanceConfigurationReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 201:
 		result := NewCreateInstanceConfigurationCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewCreateInstanceConfigurationBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewCreateInstanceConfigurationForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewCreateInstanceConfigurationRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -90,6 +86,10 @@ type CreateInstanceConfigurationCreated struct {
 
 func (o *CreateInstanceConfigurationCreated) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/instances][%d] createInstanceConfigurationCreated  %+v", 201, o.Payload)
+}
+
+func (o *CreateInstanceConfigurationCreated) GetPayload() *models.IDResponse {
+	return o.Payload
 }
 
 func (o *CreateInstanceConfigurationCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -121,6 +121,10 @@ func (o *CreateInstanceConfigurationBadRequest) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/instances][%d] createInstanceConfigurationBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *CreateInstanceConfigurationBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *CreateInstanceConfigurationBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -150,6 +154,10 @@ func (o *CreateInstanceConfigurationForbidden) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/instances][%d] createInstanceConfigurationForbidden  %+v", 403, o.Payload)
 }
 
+func (o *CreateInstanceConfigurationForbidden) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *CreateInstanceConfigurationForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -177,6 +185,10 @@ type CreateInstanceConfigurationRetryWith struct {
 
 func (o *CreateInstanceConfigurationRetryWith) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/instances][%d] createInstanceConfigurationRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *CreateInstanceConfigurationRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *CreateInstanceConfigurationRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

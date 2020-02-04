@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetDeploymentReader is a Reader for the GetDeployment structure.
@@ -41,28 +41,24 @@ type GetDeploymentReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetDeploymentReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetDeploymentOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 401:
 		result := NewGetDeploymentUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewGetDeploymentNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewGetDeploymentInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -100,6 +96,10 @@ type GetDeploymentOK struct {
 
 func (o *GetDeploymentOK) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}][%d] getDeploymentOK  %+v", 200, o.Payload)
+}
+
+func (o *GetDeploymentOK) GetPayload() *models.DeploymentGetResponse {
+	return o.Payload
 }
 
 func (o *GetDeploymentOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -140,6 +140,10 @@ func (o *GetDeploymentUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}][%d] getDeploymentUnauthorized  %+v", 401, o.Payload)
 }
 
+func (o *GetDeploymentUnauthorized) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *GetDeploymentUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -169,6 +173,10 @@ func (o *GetDeploymentNotFound) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}][%d] getDeploymentNotFound  %+v", 404, o.Payload)
 }
 
+func (o *GetDeploymentNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *GetDeploymentNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -196,6 +204,10 @@ type GetDeploymentInternalServerError struct {
 
 func (o *GetDeploymentInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}][%d] getDeploymentInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetDeploymentInternalServerError) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *GetDeploymentInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

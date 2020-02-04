@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetKibanaClusterReader is a Reader for the GetKibanaCluster structure.
@@ -41,14 +41,12 @@ type GetKibanaClusterReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetKibanaClusterReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetKibanaClusterOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewGetKibanaClusterNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -76,6 +74,10 @@ type GetKibanaClusterOK struct {
 
 func (o *GetKibanaClusterOK) Error() string {
 	return fmt.Sprintf("[GET /clusters/kibana/{cluster_id}][%d] getKibanaClusterOK  %+v", 200, o.Payload)
+}
+
+func (o *GetKibanaClusterOK) GetPayload() *models.KibanaClusterInfo {
+	return o.Payload
 }
 
 func (o *GetKibanaClusterOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -109,6 +111,10 @@ type GetKibanaClusterNotFound struct {
 
 func (o *GetKibanaClusterNotFound) Error() string {
 	return fmt.Sprintf("[GET /clusters/kibana/{cluster_id}][%d] getKibanaClusterNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetKibanaClusterNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *GetKibanaClusterNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

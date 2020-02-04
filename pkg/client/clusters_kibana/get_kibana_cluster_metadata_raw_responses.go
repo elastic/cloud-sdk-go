@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetKibanaClusterMetadataRawReader is a Reader for the GetKibanaClusterMetadataRaw structure.
@@ -41,14 +41,12 @@ type GetKibanaClusterMetadataRawReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetKibanaClusterMetadataRawReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetKibanaClusterMetadataRawOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewGetKibanaClusterMetadataRawNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -78,6 +76,10 @@ func (o *GetKibanaClusterMetadataRawOK) Error() string {
 	return fmt.Sprintf("[GET /clusters/kibana/{cluster_id}/metadata/raw][%d] getKibanaClusterMetadataRawOK  %+v", 200, o.Payload)
 }
 
+func (o *GetKibanaClusterMetadataRawOK) GetPayload() interface{} {
+	return o.Payload
+}
+
 func (o *GetKibanaClusterMetadataRawOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
@@ -103,6 +105,10 @@ type GetKibanaClusterMetadataRawNotFound struct {
 
 func (o *GetKibanaClusterMetadataRawNotFound) Error() string {
 	return fmt.Sprintf("[GET /clusters/kibana/{cluster_id}/metadata/raw][%d] getKibanaClusterMetadataRawNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetKibanaClusterMetadataRawNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *GetKibanaClusterMetadataRawNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

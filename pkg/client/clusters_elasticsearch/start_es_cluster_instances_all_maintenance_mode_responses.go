@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // StartEsClusterInstancesAllMaintenanceModeReader is a Reader for the StartEsClusterInstancesAllMaintenanceMode structure.
@@ -41,28 +41,24 @@ type StartEsClusterInstancesAllMaintenanceModeReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *StartEsClusterInstancesAllMaintenanceModeReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 202:
 		result := NewStartEsClusterInstancesAllMaintenanceModeAccepted()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 403:
 		result := NewStartEsClusterInstancesAllMaintenanceModeForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewStartEsClusterInstancesAllMaintenanceModeNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewStartEsClusterInstancesAllMaintenanceModeRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -90,6 +86,10 @@ type StartEsClusterInstancesAllMaintenanceModeAccepted struct {
 
 func (o *StartEsClusterInstancesAllMaintenanceModeAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/instances/maintenance-mode/_start][%d] startEsClusterInstancesAllMaintenanceModeAccepted  %+v", 202, o.Payload)
+}
+
+func (o *StartEsClusterInstancesAllMaintenanceModeAccepted) GetPayload() *models.ClusterCommandResponse {
+	return o.Payload
 }
 
 func (o *StartEsClusterInstancesAllMaintenanceModeAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -123,6 +123,10 @@ type StartEsClusterInstancesAllMaintenanceModeForbidden struct {
 
 func (o *StartEsClusterInstancesAllMaintenanceModeForbidden) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/instances/maintenance-mode/_start][%d] startEsClusterInstancesAllMaintenanceModeForbidden  %+v", 403, o.Payload)
+}
+
+func (o *StartEsClusterInstancesAllMaintenanceModeForbidden) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *StartEsClusterInstancesAllMaintenanceModeForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -161,6 +165,10 @@ func (o *StartEsClusterInstancesAllMaintenanceModeNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/instances/maintenance-mode/_start][%d] startEsClusterInstancesAllMaintenanceModeNotFound  %+v", 404, o.Payload)
 }
 
+func (o *StartEsClusterInstancesAllMaintenanceModeNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *StartEsClusterInstancesAllMaintenanceModeNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -195,6 +203,10 @@ type StartEsClusterInstancesAllMaintenanceModeRetryWith struct {
 
 func (o *StartEsClusterInstancesAllMaintenanceModeRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/instances/maintenance-mode/_start][%d] startEsClusterInstancesAllMaintenanceModeRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *StartEsClusterInstancesAllMaintenanceModeRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *StartEsClusterInstancesAllMaintenanceModeRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

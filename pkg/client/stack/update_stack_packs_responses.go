@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // UpdateStackPacksReader is a Reader for the UpdateStackPacks structure.
@@ -41,14 +41,12 @@ type UpdateStackPacksReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *UpdateStackPacksReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewUpdateStackPacksOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewUpdateStackPacksBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -76,6 +74,10 @@ type UpdateStackPacksOK struct {
 
 func (o *UpdateStackPacksOK) Error() string {
 	return fmt.Sprintf("[POST /stack/versions][%d] updateStackPacksOK  %+v", 200, o.Payload)
+}
+
+func (o *UpdateStackPacksOK) GetPayload() *models.StackVersionArchiveProcessingResult {
+	return o.Payload
 }
 
 func (o *UpdateStackPacksOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -110,6 +112,10 @@ type UpdateStackPacksBadRequest struct {
 
 func (o *UpdateStackPacksBadRequest) Error() string {
 	return fmt.Sprintf("[POST /stack/versions][%d] updateStackPacksBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *UpdateStackPacksBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *UpdateStackPacksBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

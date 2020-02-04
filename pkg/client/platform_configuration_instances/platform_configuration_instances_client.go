@@ -23,13 +23,14 @@ package platform_configuration_instances
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-openapi/runtime"
+	"fmt"
 
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new platform configuration instances API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -41,10 +42,25 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
-/*
-CreateInstanceConfiguration creates instance configuration
+// ClientService is the interface for Client methods
+type ClientService interface {
+	CreateInstanceConfiguration(params *CreateInstanceConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*CreateInstanceConfigurationCreated, error)
 
-Create instance configuration and return the auto-generated ID.
+	DeleteInstanceConfiguration(params *DeleteInstanceConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteInstanceConfigurationOK, error)
+
+	GetInstanceConfiguration(params *GetInstanceConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*GetInstanceConfigurationOK, error)
+
+	GetInstanceConfigurations(params *GetInstanceConfigurationsParams, authInfo runtime.ClientAuthInfoWriter) (*GetInstanceConfigurationsOK, error)
+
+	SetInstanceConfiguration(params *SetInstanceConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*SetInstanceConfigurationOK, *SetInstanceConfigurationCreated, error)
+
+	SetTransport(transport runtime.ClientTransport)
+}
+
+/*
+  CreateInstanceConfiguration creates instance configuration
+
+  Create instance configuration and return the auto-generated ID.
 */
 func (a *Client) CreateInstanceConfiguration(params *CreateInstanceConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*CreateInstanceConfigurationCreated, error) {
 	// TODO: Validate the params before sending
@@ -56,8 +72,8 @@ func (a *Client) CreateInstanceConfiguration(params *CreateInstanceConfiguration
 		ID:                 "create-instance-configuration",
 		Method:             "POST",
 		PathPattern:        "/platform/configuration/instances",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &CreateInstanceConfigurationReader{formats: a.formats},
@@ -68,14 +84,20 @@ func (a *Client) CreateInstanceConfiguration(params *CreateInstanceConfiguration
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateInstanceConfigurationCreated), nil
-
+	success, ok := result.(*CreateInstanceConfigurationCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for create-instance-configuration: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-DeleteInstanceConfiguration deletes a instance configuration
+  DeleteInstanceConfiguration deletes a instance configuration
 
-Delete the instance configuration with the given id.
+  Delete the instance configuration with the given id.
 */
 func (a *Client) DeleteInstanceConfiguration(params *DeleteInstanceConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteInstanceConfigurationOK, error) {
 	// TODO: Validate the params before sending
@@ -87,8 +109,8 @@ func (a *Client) DeleteInstanceConfiguration(params *DeleteInstanceConfiguration
 		ID:                 "delete-instance-configuration",
 		Method:             "DELETE",
 		PathPattern:        "/platform/configuration/instances/{id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &DeleteInstanceConfigurationReader{formats: a.formats},
@@ -99,14 +121,20 @@ func (a *Client) DeleteInstanceConfiguration(params *DeleteInstanceConfiguration
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteInstanceConfigurationOK), nil
-
+	success, ok := result.(*DeleteInstanceConfigurationOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for delete-instance-configuration: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetInstanceConfiguration gets instance configuration
+  GetInstanceConfiguration gets instance configuration
 
-Get instance configuration by id.
+  Get instance configuration by id.
 */
 func (a *Client) GetInstanceConfiguration(params *GetInstanceConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*GetInstanceConfigurationOK, error) {
 	// TODO: Validate the params before sending
@@ -118,8 +146,8 @@ func (a *Client) GetInstanceConfiguration(params *GetInstanceConfigurationParams
 		ID:                 "get-instance-configuration",
 		Method:             "GET",
 		PathPattern:        "/platform/configuration/instances/{id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetInstanceConfigurationReader{formats: a.formats},
@@ -130,14 +158,20 @@ func (a *Client) GetInstanceConfiguration(params *GetInstanceConfigurationParams
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetInstanceConfigurationOK), nil
-
+	success, ok := result.(*GetInstanceConfigurationOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-instance-configuration: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetInstanceConfigurations gets instance configurations
+  GetInstanceConfigurations gets instance configurations
 
-Get instance configurations.
+  Get instance configurations.
 */
 func (a *Client) GetInstanceConfigurations(params *GetInstanceConfigurationsParams, authInfo runtime.ClientAuthInfoWriter) (*GetInstanceConfigurationsOK, error) {
 	// TODO: Validate the params before sending
@@ -149,8 +183,8 @@ func (a *Client) GetInstanceConfigurations(params *GetInstanceConfigurationsPara
 		ID:                 "get-instance-configurations",
 		Method:             "GET",
 		PathPattern:        "/platform/configuration/instances",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetInstanceConfigurationsReader{formats: a.formats},
@@ -161,14 +195,20 @@ func (a *Client) GetInstanceConfigurations(params *GetInstanceConfigurationsPara
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetInstanceConfigurationsOK), nil
-
+	success, ok := result.(*GetInstanceConfigurationsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-instance-configurations: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-SetInstanceConfiguration sets instance configuration
+  SetInstanceConfiguration sets instance configuration
 
-Creates or updates an instance configuration.
+  Creates or updates an instance configuration.
 */
 func (a *Client) SetInstanceConfiguration(params *SetInstanceConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*SetInstanceConfigurationOK, *SetInstanceConfigurationCreated, error) {
 	// TODO: Validate the params before sending
@@ -180,8 +220,8 @@ func (a *Client) SetInstanceConfiguration(params *SetInstanceConfigurationParams
 		ID:                 "set-instance-configuration",
 		Method:             "PUT",
 		PathPattern:        "/platform/configuration/instances/{id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &SetInstanceConfigurationReader{formats: a.formats},
@@ -198,8 +238,9 @@ func (a *Client) SetInstanceConfiguration(params *SetInstanceConfigurationParams
 	case *SetInstanceConfigurationCreated:
 		return nil, value, nil
 	}
-	return nil, nil, nil
-
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for platform_configuration_instances: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 // SetTransport changes the transport on the client

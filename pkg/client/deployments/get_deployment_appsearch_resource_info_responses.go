@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetDeploymentAppsearchResourceInfoReader is a Reader for the GetDeploymentAppsearchResourceInfo structure.
@@ -41,28 +41,24 @@ type GetDeploymentAppsearchResourceInfoReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetDeploymentAppsearchResourceInfoReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetDeploymentAppsearchResourceInfoOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 401:
 		result := NewGetDeploymentAppsearchResourceInfoUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewGetDeploymentAppsearchResourceInfoNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewGetDeploymentAppsearchResourceInfoInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -90,6 +86,10 @@ type GetDeploymentAppsearchResourceInfoOK struct {
 
 func (o *GetDeploymentAppsearchResourceInfoOK) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/appsearch/{ref_id}][%d] getDeploymentAppsearchResourceInfoOK  %+v", 200, o.Payload)
+}
+
+func (o *GetDeploymentAppsearchResourceInfoOK) GetPayload() *models.AppSearchResourceInfo {
+	return o.Payload
 }
 
 func (o *GetDeploymentAppsearchResourceInfoOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -121,6 +121,10 @@ func (o *GetDeploymentAppsearchResourceInfoUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/appsearch/{ref_id}][%d] getDeploymentAppsearchResourceInfoUnauthorized  %+v", 401, o.Payload)
 }
 
+func (o *GetDeploymentAppsearchResourceInfoUnauthorized) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *GetDeploymentAppsearchResourceInfoUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -150,6 +154,10 @@ func (o *GetDeploymentAppsearchResourceInfoNotFound) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/appsearch/{ref_id}][%d] getDeploymentAppsearchResourceInfoNotFound  %+v", 404, o.Payload)
 }
 
+func (o *GetDeploymentAppsearchResourceInfoNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *GetDeploymentAppsearchResourceInfoNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -177,6 +185,10 @@ type GetDeploymentAppsearchResourceInfoInternalServerError struct {
 
 func (o *GetDeploymentAppsearchResourceInfoInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/appsearch/{ref_id}][%d] getDeploymentAppsearchResourceInfoInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetDeploymentAppsearchResourceInfoInternalServerError) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *GetDeploymentAppsearchResourceInfoInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

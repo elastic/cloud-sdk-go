@@ -23,13 +23,14 @@ package stack
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-openapi/runtime"
+	"fmt"
 
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new stack API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -41,10 +42,27 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
-/*
-DeleteVersionStack deletes stack version
+// ClientService is the interface for Client methods
+type ClientService interface {
+	DeleteVersionStack(params *DeleteVersionStackParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteVersionStackOK, error)
 
-Uses the `deleted` flag, which removes only that version of the Elastic Stack from the list of available versions. To restore the version, send an update request. For more information, see the PUT request.
+	GetInstanceTypes(params *GetInstanceTypesParams, authInfo runtime.ClientAuthInfoWriter) (*GetInstanceTypesOK, error)
+
+	GetVersionStack(params *GetVersionStackParams, authInfo runtime.ClientAuthInfoWriter) (*GetVersionStackOK, error)
+
+	GetVersionStacks(params *GetVersionStacksParams, authInfo runtime.ClientAuthInfoWriter) (*GetVersionStacksOK, error)
+
+	UpdateStackPacks(params *UpdateStackPacksParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateStackPacksOK, error)
+
+	UpdateVersionStack(params *UpdateVersionStackParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateVersionStackOK, error)
+
+	SetTransport(transport runtime.ClientTransport)
+}
+
+/*
+  DeleteVersionStack deletes stack version
+
+  Uses the `deleted` flag, which removes only that version of the Elastic Stack from the list of available versions. To restore the version, send an update request. For more information, see the PUT request.
 */
 func (a *Client) DeleteVersionStack(params *DeleteVersionStackParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteVersionStackOK, error) {
 	// TODO: Validate the params before sending
@@ -56,8 +74,8 @@ func (a *Client) DeleteVersionStack(params *DeleteVersionStackParams, authInfo r
 		ID:                 "delete-version-stack",
 		Method:             "DELETE",
 		PathPattern:        "/stack/versions/{version}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &DeleteVersionStackReader{formats: a.formats},
@@ -68,14 +86,20 @@ func (a *Client) DeleteVersionStack(params *DeleteVersionStackParams, authInfo r
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteVersionStackOK), nil
-
+	success, ok := result.(*DeleteVersionStackOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for delete-version-stack: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetInstanceTypes gets instance types
+  GetInstanceTypes gets instance types
 
-Retrieves a list of all instance types.
+  Retrieves a list of all instance types.
 */
 func (a *Client) GetInstanceTypes(params *GetInstanceTypesParams, authInfo runtime.ClientAuthInfoWriter) (*GetInstanceTypesOK, error) {
 	// TODO: Validate the params before sending
@@ -87,8 +111,8 @@ func (a *Client) GetInstanceTypes(params *GetInstanceTypesParams, authInfo runti
 		ID:                 "get-instance-types",
 		Method:             "GET",
 		PathPattern:        "/stack/instance-types",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetInstanceTypesReader{formats: a.formats},
@@ -99,14 +123,20 @@ func (a *Client) GetInstanceTypes(params *GetInstanceTypesParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetInstanceTypesOK), nil
-
+	success, ok := result.(*GetInstanceTypesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-instance-types: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetVersionStack gets stack version
+  GetVersionStack gets stack version
 
-Retrieves the Elastic Stack version and template.
+  Retrieves the Elastic Stack version and template.
 */
 func (a *Client) GetVersionStack(params *GetVersionStackParams, authInfo runtime.ClientAuthInfoWriter) (*GetVersionStackOK, error) {
 	// TODO: Validate the params before sending
@@ -118,8 +148,8 @@ func (a *Client) GetVersionStack(params *GetVersionStackParams, authInfo runtime
 		ID:                 "get-version-stack",
 		Method:             "GET",
 		PathPattern:        "/stack/versions/{version}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetVersionStackReader{formats: a.formats},
@@ -130,14 +160,20 @@ func (a *Client) GetVersionStack(params *GetVersionStackParams, authInfo runtime
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetVersionStackOK), nil
-
+	success, ok := result.(*GetVersionStackOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-version-stack: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetVersionStacks gets stack versions
+  GetVersionStacks gets stack versions
 
-By default, retrieves only the available Elastic Stack versions. To retrieve all of the Elastic Stack versions, use the `show_deleted parameter`.
+  By default, retrieves only the available Elastic Stack versions. To retrieve all of the Elastic Stack versions, use the `show_deleted parameter`.
 */
 func (a *Client) GetVersionStacks(params *GetVersionStacksParams, authInfo runtime.ClientAuthInfoWriter) (*GetVersionStacksOK, error) {
 	// TODO: Validate the params before sending
@@ -149,8 +185,8 @@ func (a *Client) GetVersionStacks(params *GetVersionStacksParams, authInfo runti
 		ID:                 "get-version-stacks",
 		Method:             "GET",
 		PathPattern:        "/stack/versions",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetVersionStacksReader{formats: a.formats},
@@ -161,14 +197,20 @@ func (a *Client) GetVersionStacks(params *GetVersionStacksParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetVersionStacksOK), nil
-
+	success, ok := result.(*GetVersionStacksOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-version-stacks: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-UpdateStackPacks uploads stack pack
+  UpdateStackPacks uploads stack pack
 
-Creates or updates an Elastic Stack pack and template.
+  Creates or updates an Elastic Stack pack and template.
 The endpoint supports `multipart/form-data` requests, as well as `application/zip` and `application/octet-stream` requests with a binary body. The maximum size of the payload is 1Mb.
 When the archive contains an Elastic Stack configuration that is available through the API, the configuration and template are overwritten.
 */
@@ -182,7 +224,7 @@ func (a *Client) UpdateStackPacks(params *UpdateStackPacksParams, authInfo runti
 		ID:                 "update-stack-packs",
 		Method:             "POST",
 		PathPattern:        "/stack/versions",
-		ProducesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"multipart/form-data"},
 		Schemes:            []string{"https"},
 		Params:             params,
@@ -194,14 +236,20 @@ func (a *Client) UpdateStackPacks(params *UpdateStackPacksParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpdateStackPacksOK), nil
-
+	success, ok := result.(*UpdateStackPacksOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for update-stack-packs: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-UpdateVersionStack updates stack version
+  UpdateVersionStack updates stack version
 
-Updates the Elastic Stack version configuration.
+  Updates the Elastic Stack version configuration.
 */
 func (a *Client) UpdateVersionStack(params *UpdateVersionStackParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateVersionStackOK, error) {
 	// TODO: Validate the params before sending
@@ -213,8 +261,8 @@ func (a *Client) UpdateVersionStack(params *UpdateVersionStackParams, authInfo r
 		ID:                 "update-version-stack",
 		Method:             "PUT",
 		PathPattern:        "/stack/versions/{version}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &UpdateVersionStackReader{formats: a.formats},
@@ -225,8 +273,14 @@ func (a *Client) UpdateVersionStack(params *UpdateVersionStackParams, authInfo r
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpdateVersionStackOK), nil
-
+	success, ok := result.(*UpdateVersionStackOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for update-version-stack: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 // SetTransport changes the transport on the client

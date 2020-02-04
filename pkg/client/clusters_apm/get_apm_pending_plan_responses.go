@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetApmPendingPlanReader is a Reader for the GetApmPendingPlan structure.
@@ -41,21 +41,18 @@ type GetApmPendingPlanReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetApmPendingPlanReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetApmPendingPlanOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewGetApmPendingPlanNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 412:
 		result := NewGetApmPendingPlanPreconditionFailed()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -93,6 +90,10 @@ type GetApmPendingPlanOK struct {
 
 func (o *GetApmPendingPlanOK) Error() string {
 	return fmt.Sprintf("[GET /clusters/apm/{cluster_id}/plan/pending][%d] getApmPendingPlanOK  %+v", 200, o.Payload)
+}
+
+func (o *GetApmPendingPlanOK) GetPayload() *models.ApmPlan {
+	return o.Payload
 }
 
 func (o *GetApmPendingPlanOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -133,6 +134,10 @@ func (o *GetApmPendingPlanNotFound) Error() string {
 	return fmt.Sprintf("[GET /clusters/apm/{cluster_id}/plan/pending][%d] getApmPendingPlanNotFound  %+v", 404, o.Payload)
 }
 
+func (o *GetApmPendingPlanNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *GetApmPendingPlanNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -160,6 +165,10 @@ type GetApmPendingPlanPreconditionFailed struct {
 
 func (o *GetApmPendingPlanPreconditionFailed) Error() string {
 	return fmt.Sprintf("[GET /clusters/apm/{cluster_id}/plan/pending][%d] getApmPendingPlanPreconditionFailed  %+v", 412, o.Payload)
+}
+
+func (o *GetApmPendingPlanPreconditionFailed) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *GetApmPendingPlanPreconditionFailed) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

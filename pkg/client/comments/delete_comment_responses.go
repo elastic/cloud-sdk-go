@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // DeleteCommentReader is a Reader for the DeleteComment structure.
@@ -41,28 +41,24 @@ type DeleteCommentReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteCommentReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewDeleteCommentOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 401:
 		result := NewDeleteCommentUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewDeleteCommentNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewDeleteCommentConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -100,6 +96,10 @@ type DeleteCommentOK struct {
 
 func (o *DeleteCommentOK) Error() string {
 	return fmt.Sprintf("[DELETE /comments/{resource_type}/{resource_id}/{comment_id}][%d] deleteCommentOK  %+v", 200, o.Payload)
+}
+
+func (o *DeleteCommentOK) GetPayload() models.EmptyResponse {
+	return o.Payload
 }
 
 func (o *DeleteCommentOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -143,6 +143,10 @@ func (o *DeleteCommentUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /comments/{resource_type}/{resource_id}/{comment_id}][%d] deleteCommentUnauthorized  %+v", 401, o.Payload)
 }
 
+func (o *DeleteCommentUnauthorized) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *DeleteCommentUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -179,6 +183,10 @@ func (o *DeleteCommentNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /comments/{resource_type}/{resource_id}/{comment_id}][%d] deleteCommentNotFound  %+v", 404, o.Payload)
 }
 
+func (o *DeleteCommentNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *DeleteCommentNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -213,6 +221,10 @@ type DeleteCommentConflict struct {
 
 func (o *DeleteCommentConflict) Error() string {
 	return fmt.Sprintf("[DELETE /comments/{resource_type}/{resource_id}/{comment_id}][%d] deleteCommentConflict  %+v", 409, o.Payload)
+}
+
+func (o *DeleteCommentConflict) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DeleteCommentConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

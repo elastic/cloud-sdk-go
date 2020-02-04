@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // CreateAPIKeyReader is a Reader for the CreateAPIKey structure.
@@ -41,21 +41,18 @@ type CreateAPIKeyReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateAPIKeyReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 201:
 		result := NewCreateAPIKeyCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewCreateAPIKeyBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewCreateAPIKeyRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -83,6 +80,10 @@ type CreateAPIKeyCreated struct {
 
 func (o *CreateAPIKeyCreated) Error() string {
 	return fmt.Sprintf("[POST /users/auth/keys][%d] createApiKeyCreated  %+v", 201, o.Payload)
+}
+
+func (o *CreateAPIKeyCreated) GetPayload() *models.APIKeyResponse {
+	return o.Payload
 }
 
 func (o *CreateAPIKeyCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -116,6 +117,10 @@ type CreateAPIKeyBadRequest struct {
 
 func (o *CreateAPIKeyBadRequest) Error() string {
 	return fmt.Sprintf("[POST /users/auth/keys][%d] createApiKeyBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *CreateAPIKeyBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *CreateAPIKeyBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -152,6 +157,10 @@ type CreateAPIKeyRetryWith struct {
 
 func (o *CreateAPIKeyRetryWith) Error() string {
 	return fmt.Sprintf("[POST /users/auth/keys][%d] createApiKeyRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *CreateAPIKeyRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *CreateAPIKeyRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

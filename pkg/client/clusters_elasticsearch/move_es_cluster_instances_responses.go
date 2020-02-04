@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // MoveEsClusterInstancesReader is a Reader for the MoveEsClusterInstances structure.
@@ -41,35 +41,30 @@ type MoveEsClusterInstancesReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *MoveEsClusterInstancesReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 202:
 		result := NewMoveEsClusterInstancesAccepted()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewMoveEsClusterInstancesBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewMoveEsClusterInstancesForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewMoveEsClusterInstancesNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewMoveEsClusterInstancesRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -97,6 +92,10 @@ type MoveEsClusterInstancesAccepted struct {
 
 func (o *MoveEsClusterInstancesAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/instances/{instance_ids}/_move][%d] moveEsClusterInstancesAccepted  %+v", 202, o.Payload)
+}
+
+func (o *MoveEsClusterInstancesAccepted) GetPayload() *models.ClusterCommandResponse {
+	return o.Payload
 }
 
 func (o *MoveEsClusterInstancesAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -133,6 +132,10 @@ func (o *MoveEsClusterInstancesBadRequest) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/instances/{instance_ids}/_move][%d] moveEsClusterInstancesBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *MoveEsClusterInstancesBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *MoveEsClusterInstancesBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -167,6 +170,10 @@ type MoveEsClusterInstancesForbidden struct {
 
 func (o *MoveEsClusterInstancesForbidden) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/instances/{instance_ids}/_move][%d] moveEsClusterInstancesForbidden  %+v", 403, o.Payload)
+}
+
+func (o *MoveEsClusterInstancesForbidden) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *MoveEsClusterInstancesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -206,6 +213,10 @@ func (o *MoveEsClusterInstancesNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/instances/{instance_ids}/_move][%d] moveEsClusterInstancesNotFound  %+v", 404, o.Payload)
 }
 
+func (o *MoveEsClusterInstancesNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *MoveEsClusterInstancesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -240,6 +251,10 @@ type MoveEsClusterInstancesRetryWith struct {
 
 func (o *MoveEsClusterInstancesRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/instances/{instance_ids}/_move][%d] moveEsClusterInstancesRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *MoveEsClusterInstancesRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *MoveEsClusterInstancesRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

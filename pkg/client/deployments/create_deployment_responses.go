@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // CreateDeploymentReader is a Reader for the CreateDeployment structure.
@@ -41,28 +41,24 @@ type CreateDeploymentReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateDeploymentReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 201:
 		result := NewCreateDeploymentCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 202:
 		result := NewCreateDeploymentAccepted()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewCreateDeploymentBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewCreateDeploymentUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -90,6 +86,10 @@ type CreateDeploymentCreated struct {
 
 func (o *CreateDeploymentCreated) Error() string {
 	return fmt.Sprintf("[POST /deployments][%d] createDeploymentCreated  %+v", 201, o.Payload)
+}
+
+func (o *CreateDeploymentCreated) GetPayload() *models.DeploymentCreateResponse {
+	return o.Payload
 }
 
 func (o *CreateDeploymentCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -121,6 +121,10 @@ func (o *CreateDeploymentAccepted) Error() string {
 	return fmt.Sprintf("[POST /deployments][%d] createDeploymentAccepted  %+v", 202, o.Payload)
 }
 
+func (o *CreateDeploymentAccepted) GetPayload() *models.DeploymentCreateResponse {
+	return o.Payload
+}
+
 func (o *CreateDeploymentAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.DeploymentCreateResponse)
@@ -150,6 +154,10 @@ func (o *CreateDeploymentBadRequest) Error() string {
 	return fmt.Sprintf("[POST /deployments][%d] createDeploymentBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *CreateDeploymentBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *CreateDeploymentBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -177,6 +185,10 @@ type CreateDeploymentUnauthorized struct {
 
 func (o *CreateDeploymentUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /deployments][%d] createDeploymentUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *CreateDeploymentUnauthorized) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *CreateDeploymentUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

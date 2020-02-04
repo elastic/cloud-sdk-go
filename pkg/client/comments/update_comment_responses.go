@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // UpdateCommentReader is a Reader for the UpdateComment structure.
@@ -41,28 +41,24 @@ type UpdateCommentReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *UpdateCommentReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewUpdateCommentOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 401:
 		result := NewUpdateCommentUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewUpdateCommentNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewUpdateCommentConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -100,6 +96,10 @@ type UpdateCommentOK struct {
 
 func (o *UpdateCommentOK) Error() string {
 	return fmt.Sprintf("[PUT /comments/{resource_type}/{resource_id}/{comment_id}][%d] updateCommentOK  %+v", 200, o.Payload)
+}
+
+func (o *UpdateCommentOK) GetPayload() *models.Comment {
+	return o.Payload
 }
 
 func (o *UpdateCommentOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -145,6 +145,10 @@ func (o *UpdateCommentUnauthorized) Error() string {
 	return fmt.Sprintf("[PUT /comments/{resource_type}/{resource_id}/{comment_id}][%d] updateCommentUnauthorized  %+v", 401, o.Payload)
 }
 
+func (o *UpdateCommentUnauthorized) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *UpdateCommentUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -181,6 +185,10 @@ func (o *UpdateCommentNotFound) Error() string {
 	return fmt.Sprintf("[PUT /comments/{resource_type}/{resource_id}/{comment_id}][%d] updateCommentNotFound  %+v", 404, o.Payload)
 }
 
+func (o *UpdateCommentNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *UpdateCommentNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -215,6 +223,10 @@ type UpdateCommentConflict struct {
 
 func (o *UpdateCommentConflict) Error() string {
 	return fmt.Sprintf("[PUT /comments/{resource_type}/{resource_id}/{comment_id}][%d] updateCommentConflict  %+v", 409, o.Payload)
+}
+
+func (o *UpdateCommentConflict) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *UpdateCommentConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

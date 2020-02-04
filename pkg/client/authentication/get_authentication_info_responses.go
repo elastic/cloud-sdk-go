@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetAuthenticationInfoReader is a Reader for the GetAuthenticationInfo structure.
@@ -41,7 +41,6 @@ type GetAuthenticationInfoReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetAuthenticationInfoReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetAuthenticationInfoOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -69,6 +68,10 @@ type GetAuthenticationInfoOK struct {
 
 func (o *GetAuthenticationInfoOK) Error() string {
 	return fmt.Sprintf("[GET /users/auth][%d] getAuthenticationInfoOK  %+v", 200, o.Payload)
+}
+
+func (o *GetAuthenticationInfoOK) GetPayload() *models.AuthenticationInfo {
+	return o.Payload
 }
 
 func (o *GetAuthenticationInfoOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

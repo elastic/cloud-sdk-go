@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // SetLicenseReader is a Reader for the SetLicense structure.
@@ -41,21 +41,18 @@ type SetLicenseReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *SetLicenseReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewSetLicenseOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewSetLicenseBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewSetLicenseRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -83,6 +80,10 @@ type SetLicenseOK struct {
 
 func (o *SetLicenseOK) Error() string {
 	return fmt.Sprintf("[PUT /platform/license][%d] setLicenseOK  %+v", 200, o.Payload)
+}
+
+func (o *SetLicenseOK) GetPayload() models.EmptyResponse {
+	return o.Payload
 }
 
 func (o *SetLicenseOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -114,6 +115,10 @@ type SetLicenseBadRequest struct {
 
 func (o *SetLicenseBadRequest) Error() string {
 	return fmt.Sprintf("[PUT /platform/license][%d] setLicenseBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *SetLicenseBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *SetLicenseBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -150,6 +155,10 @@ type SetLicenseRetryWith struct {
 
 func (o *SetLicenseRetryWith) Error() string {
 	return fmt.Sprintf("[PUT /platform/license][%d] setLicenseRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *SetLicenseRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *SetLicenseRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // CreateUserReader is a Reader for the CreateUser structure.
@@ -41,35 +41,30 @@ type CreateUserReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateUserReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewCreateUserOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewCreateUserBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewCreateUserForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewCreateUserConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewCreateUserRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -97,6 +92,10 @@ type CreateUserOK struct {
 
 func (o *CreateUserOK) Error() string {
 	return fmt.Sprintf("[POST /users][%d] createUserOK  %+v", 200, o.Payload)
+}
+
+func (o *CreateUserOK) GetPayload() *models.User {
+	return o.Payload
 }
 
 func (o *CreateUserOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -128,6 +127,10 @@ func (o *CreateUserBadRequest) Error() string {
 	return fmt.Sprintf("[POST /users][%d] createUserBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *CreateUserBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *CreateUserBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -155,6 +158,10 @@ type CreateUserForbidden struct {
 
 func (o *CreateUserForbidden) Error() string {
 	return fmt.Sprintf("[POST /users][%d] createUserForbidden  %+v", 403, o.Payload)
+}
+
+func (o *CreateUserForbidden) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *CreateUserForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -186,6 +193,10 @@ func (o *CreateUserConflict) Error() string {
 	return fmt.Sprintf("[POST /users][%d] createUserConflict  %+v", 409, o.Payload)
 }
 
+func (o *CreateUserConflict) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *CreateUserConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -213,6 +224,10 @@ type CreateUserRetryWith struct {
 
 func (o *CreateUserRetryWith) Error() string {
 	return fmt.Sprintf("[POST /users][%d] createUserRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *CreateUserRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *CreateUserRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // StartConstructorMaintenanceModeReader is a Reader for the StartConstructorMaintenanceMode structure.
@@ -41,28 +41,24 @@ type StartConstructorMaintenanceModeReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *StartConstructorMaintenanceModeReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 202:
 		result := NewStartConstructorMaintenanceModeAccepted()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 403:
 		result := NewStartConstructorMaintenanceModeForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewStartConstructorMaintenanceModeNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewStartConstructorMaintenanceModeRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -90,6 +86,10 @@ type StartConstructorMaintenanceModeAccepted struct {
 
 func (o *StartConstructorMaintenanceModeAccepted) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/constructors/{constructor_id}/maintenance-mode/_start][%d] startConstructorMaintenanceModeAccepted  %+v", 202, o.Payload)
+}
+
+func (o *StartConstructorMaintenanceModeAccepted) GetPayload() models.EmptyResponse {
+	return o.Payload
 }
 
 func (o *StartConstructorMaintenanceModeAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -121,6 +121,10 @@ type StartConstructorMaintenanceModeForbidden struct {
 
 func (o *StartConstructorMaintenanceModeForbidden) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/constructors/{constructor_id}/maintenance-mode/_start][%d] startConstructorMaintenanceModeForbidden  %+v", 403, o.Payload)
+}
+
+func (o *StartConstructorMaintenanceModeForbidden) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *StartConstructorMaintenanceModeForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -159,6 +163,10 @@ func (o *StartConstructorMaintenanceModeNotFound) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/constructors/{constructor_id}/maintenance-mode/_start][%d] startConstructorMaintenanceModeNotFound  %+v", 404, o.Payload)
 }
 
+func (o *StartConstructorMaintenanceModeNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *StartConstructorMaintenanceModeNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -193,6 +201,10 @@ type StartConstructorMaintenanceModeRetryWith struct {
 
 func (o *StartConstructorMaintenanceModeRetryWith) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/constructors/{constructor_id}/maintenance-mode/_start][%d] startConstructorMaintenanceModeRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *StartConstructorMaintenanceModeRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *StartConstructorMaintenanceModeRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

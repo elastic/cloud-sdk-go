@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // UpdateKibanaClusterPlanReader is a Reader for the UpdateKibanaClusterPlan structure.
@@ -41,35 +41,30 @@ type UpdateKibanaClusterPlanReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *UpdateKibanaClusterPlanReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewUpdateKibanaClusterPlanOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 202:
 		result := NewUpdateKibanaClusterPlanAccepted()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewUpdateKibanaClusterPlanBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewUpdateKibanaClusterPlanNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewUpdateKibanaClusterPlanRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -97,6 +92,10 @@ type UpdateKibanaClusterPlanOK struct {
 
 func (o *UpdateKibanaClusterPlanOK) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/plan][%d] updateKibanaClusterPlanOK  %+v", 200, o.Payload)
+}
+
+func (o *UpdateKibanaClusterPlanOK) GetPayload() *models.ClusterCrudResponse {
+	return o.Payload
 }
 
 func (o *UpdateKibanaClusterPlanOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -128,6 +127,10 @@ func (o *UpdateKibanaClusterPlanAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/plan][%d] updateKibanaClusterPlanAccepted  %+v", 202, o.Payload)
 }
 
+func (o *UpdateKibanaClusterPlanAccepted) GetPayload() *models.ClusterCrudResponse {
+	return o.Payload
+}
+
 func (o *UpdateKibanaClusterPlanAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ClusterCrudResponse)
@@ -155,6 +158,10 @@ type UpdateKibanaClusterPlanBadRequest struct {
 
 func (o *UpdateKibanaClusterPlanBadRequest) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/plan][%d] updateKibanaClusterPlanBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *UpdateKibanaClusterPlanBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *UpdateKibanaClusterPlanBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -186,6 +193,10 @@ func (o *UpdateKibanaClusterPlanNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/plan][%d] updateKibanaClusterPlanNotFound  %+v", 404, o.Payload)
 }
 
+func (o *UpdateKibanaClusterPlanNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *UpdateKibanaClusterPlanNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -213,6 +224,10 @@ type UpdateKibanaClusterPlanRetryWith struct {
 
 func (o *UpdateKibanaClusterPlanRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/plan][%d] updateKibanaClusterPlanRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *UpdateKibanaClusterPlanRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *UpdateKibanaClusterPlanRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

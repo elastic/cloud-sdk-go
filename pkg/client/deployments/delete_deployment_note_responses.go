@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // DeleteDeploymentNoteReader is a Reader for the DeleteDeploymentNote structure.
@@ -41,21 +41,18 @@ type DeleteDeploymentNoteReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteDeploymentNoteReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewDeleteDeploymentNoteOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewDeleteDeploymentNoteNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewDeleteDeploymentNoteRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -93,6 +90,10 @@ type DeleteDeploymentNoteOK struct {
 
 func (o *DeleteDeploymentNoteOK) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/{deployment_id}/notes/{note_id}][%d] deleteDeploymentNoteOK  %+v", 200, o.Payload)
+}
+
+func (o *DeleteDeploymentNoteOK) GetPayload() *models.Notes {
+	return o.Payload
 }
 
 func (o *DeleteDeploymentNoteOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -138,6 +139,10 @@ func (o *DeleteDeploymentNoteNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/{deployment_id}/notes/{note_id}][%d] deleteDeploymentNoteNotFound  %+v", 404, o.Payload)
 }
 
+func (o *DeleteDeploymentNoteNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *DeleteDeploymentNoteNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -172,6 +177,10 @@ type DeleteDeploymentNoteRetryWith struct {
 
 func (o *DeleteDeploymentNoteRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/{deployment_id}/notes/{note_id}][%d] deleteDeploymentNoteRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *DeleteDeploymentNoteRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DeleteDeploymentNoteRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

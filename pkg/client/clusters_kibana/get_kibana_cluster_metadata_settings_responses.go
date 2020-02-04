@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetKibanaClusterMetadataSettingsReader is a Reader for the GetKibanaClusterMetadataSettings structure.
@@ -41,14 +41,12 @@ type GetKibanaClusterMetadataSettingsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetKibanaClusterMetadataSettingsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetKibanaClusterMetadataSettingsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewGetKibanaClusterMetadataSettingsNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -88,6 +86,10 @@ func (o *GetKibanaClusterMetadataSettingsOK) Error() string {
 	return fmt.Sprintf("[GET /clusters/kibana/{cluster_id}/metadata/settings][%d] getKibanaClusterMetadataSettingsOK  %+v", 200, o.Payload)
 }
 
+func (o *GetKibanaClusterMetadataSettingsOK) GetPayload() *models.ClusterMetadataSettings {
+	return o.Payload
+}
+
 func (o *GetKibanaClusterMetadataSettingsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-resource-created
@@ -124,6 +126,10 @@ type GetKibanaClusterMetadataSettingsNotFound struct {
 
 func (o *GetKibanaClusterMetadataSettingsNotFound) Error() string {
 	return fmt.Sprintf("[GET /clusters/kibana/{cluster_id}/metadata/settings][%d] getKibanaClusterMetadataSettingsNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetKibanaClusterMetadataSettingsNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *GetKibanaClusterMetadataSettingsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

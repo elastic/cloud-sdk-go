@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetCommentReader is a Reader for the GetComment structure.
@@ -41,14 +41,12 @@ type GetCommentReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetCommentReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetCommentOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewGetCommentNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -86,6 +84,10 @@ type GetCommentOK struct {
 
 func (o *GetCommentOK) Error() string {
 	return fmt.Sprintf("[GET /comments/{resource_type}/{resource_id}/{comment_id}][%d] getCommentOK  %+v", 200, o.Payload)
+}
+
+func (o *GetCommentOK) GetPayload() *models.Comment {
+	return o.Payload
 }
 
 func (o *GetCommentOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -128,6 +130,10 @@ type GetCommentNotFound struct {
 
 func (o *GetCommentNotFound) Error() string {
 	return fmt.Sprintf("[GET /comments/{resource_type}/{resource_id}/{comment_id}][%d] getCommentNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetCommentNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *GetCommentNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // DeleteDeploymentStatelessResourceReader is a Reader for the DeleteDeploymentStatelessResource structure.
@@ -41,35 +41,30 @@ type DeleteDeploymentStatelessResourceReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteDeploymentStatelessResourceReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewDeleteDeploymentStatelessResourceOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewDeleteDeploymentStatelessResourceBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewDeleteDeploymentStatelessResourceNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewDeleteDeploymentStatelessResourceRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewDeleteDeploymentStatelessResourceInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -97,6 +92,10 @@ type DeleteDeploymentStatelessResourceOK struct {
 
 func (o *DeleteDeploymentStatelessResourceOK) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}][%d] deleteDeploymentStatelessResourceOK  %+v", 200, o.Payload)
+}
+
+func (o *DeleteDeploymentStatelessResourceOK) GetPayload() *models.DeploymentResourceCrudResponse {
+	return o.Payload
 }
 
 func (o *DeleteDeploymentStatelessResourceOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -130,6 +129,10 @@ type DeleteDeploymentStatelessResourceBadRequest struct {
 
 func (o *DeleteDeploymentStatelessResourceBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}][%d] deleteDeploymentStatelessResourceBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DeleteDeploymentStatelessResourceBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DeleteDeploymentStatelessResourceBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -168,6 +171,10 @@ func (o *DeleteDeploymentStatelessResourceNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}][%d] deleteDeploymentStatelessResourceNotFound  %+v", 404, o.Payload)
 }
 
+func (o *DeleteDeploymentStatelessResourceNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *DeleteDeploymentStatelessResourceNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -204,6 +211,10 @@ func (o *DeleteDeploymentStatelessResourceRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}][%d] deleteDeploymentStatelessResourceRetryWith  %+v", 449, o.Payload)
 }
 
+func (o *DeleteDeploymentStatelessResourceRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *DeleteDeploymentStatelessResourceRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -238,6 +249,10 @@ type DeleteDeploymentStatelessResourceInternalServerError struct {
 
 func (o *DeleteDeploymentStatelessResourceInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}][%d] deleteDeploymentStatelessResourceInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *DeleteDeploymentStatelessResourceInternalServerError) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DeleteDeploymentStatelessResourceInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

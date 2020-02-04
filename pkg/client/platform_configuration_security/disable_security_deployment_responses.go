@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // DisableSecurityDeploymentReader is a Reader for the DisableSecurityDeployment structure.
@@ -41,28 +41,24 @@ type DisableSecurityDeploymentReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DisableSecurityDeploymentReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewDisableSecurityDeploymentOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewDisableSecurityDeploymentNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewDisableSecurityDeploymentConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewDisableSecurityDeploymentRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -100,6 +96,10 @@ type DisableSecurityDeploymentOK struct {
 
 func (o *DisableSecurityDeploymentOK) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/deployment/_disable][%d] disableSecurityDeploymentOK  %+v", 200, o.Payload)
+}
+
+func (o *DisableSecurityDeploymentOK) GetPayload() models.EmptyResponse {
+	return o.Payload
 }
 
 func (o *DisableSecurityDeploymentOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -142,6 +142,10 @@ func (o *DisableSecurityDeploymentNotFound) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/deployment/_disable][%d] disableSecurityDeploymentNotFound  %+v", 404, o.Payload)
 }
 
+func (o *DisableSecurityDeploymentNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *DisableSecurityDeploymentNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -178,6 +182,10 @@ func (o *DisableSecurityDeploymentConflict) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/deployment/_disable][%d] disableSecurityDeploymentConflict  %+v", 409, o.Payload)
 }
 
+func (o *DisableSecurityDeploymentConflict) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *DisableSecurityDeploymentConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -212,6 +220,10 @@ type DisableSecurityDeploymentRetryWith struct {
 
 func (o *DisableSecurityDeploymentRetryWith) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/deployment/_disable][%d] disableSecurityDeploymentRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *DisableSecurityDeploymentRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DisableSecurityDeploymentRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

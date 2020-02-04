@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // DeleteUserReader is a Reader for the DeleteUser structure.
@@ -41,28 +41,24 @@ type DeleteUserReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteUserReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewDeleteUserOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 403:
 		result := NewDeleteUserForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewDeleteUserNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewDeleteUserRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -92,6 +88,10 @@ func (o *DeleteUserOK) Error() string {
 	return fmt.Sprintf("[DELETE /users/{user_name}][%d] deleteUserOK  %+v", 200, o.Payload)
 }
 
+func (o *DeleteUserOK) GetPayload() models.EmptyResponse {
+	return o.Payload
+}
+
 func (o *DeleteUserOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
@@ -117,6 +117,10 @@ type DeleteUserForbidden struct {
 
 func (o *DeleteUserForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /users/{user_name}][%d] deleteUserForbidden  %+v", 403, o.Payload)
+}
+
+func (o *DeleteUserForbidden) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DeleteUserForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -148,6 +152,10 @@ func (o *DeleteUserNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /users/{user_name}][%d] deleteUserNotFound  %+v", 404, o.Payload)
 }
 
+func (o *DeleteUserNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *DeleteUserNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -175,6 +183,10 @@ type DeleteUserRetryWith struct {
 
 func (o *DeleteUserRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /users/{user_name}][%d] deleteUserRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *DeleteUserRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DeleteUserRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

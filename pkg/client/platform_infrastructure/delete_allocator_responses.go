@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // DeleteAllocatorReader is a Reader for the DeleteAllocator structure.
@@ -41,28 +41,24 @@ type DeleteAllocatorReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteAllocatorReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewDeleteAllocatorOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewDeleteAllocatorBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewDeleteAllocatorNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewDeleteAllocatorRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -90,6 +86,10 @@ type DeleteAllocatorOK struct {
 
 func (o *DeleteAllocatorOK) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/allocators/{allocator_id}][%d] deleteAllocatorOK  %+v", 200, o.Payload)
+}
+
+func (o *DeleteAllocatorOK) GetPayload() models.EmptyResponse {
+	return o.Payload
 }
 
 func (o *DeleteAllocatorOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -122,6 +122,10 @@ type DeleteAllocatorBadRequest struct {
 
 func (o *DeleteAllocatorBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/allocators/{allocator_id}][%d] deleteAllocatorBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DeleteAllocatorBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DeleteAllocatorBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -160,6 +164,10 @@ func (o *DeleteAllocatorNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/allocators/{allocator_id}][%d] deleteAllocatorNotFound  %+v", 404, o.Payload)
 }
 
+func (o *DeleteAllocatorNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *DeleteAllocatorNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -194,6 +202,10 @@ type DeleteAllocatorRetryWith struct {
 
 func (o *DeleteAllocatorRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/allocators/{allocator_id}][%d] deleteAllocatorRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *DeleteAllocatorRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DeleteAllocatorRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // ShutdownKibanaClusterReader is a Reader for the ShutdownKibanaCluster structure.
@@ -41,21 +41,18 @@ type ShutdownKibanaClusterReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *ShutdownKibanaClusterReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 202:
 		result := NewShutdownKibanaClusterAccepted()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewShutdownKibanaClusterNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewShutdownKibanaClusterRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -83,6 +80,10 @@ type ShutdownKibanaClusterAccepted struct {
 
 func (o *ShutdownKibanaClusterAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/_shutdown][%d] shutdownKibanaClusterAccepted  %+v", 202, o.Payload)
+}
+
+func (o *ShutdownKibanaClusterAccepted) GetPayload() *models.ClusterCommandResponse {
+	return o.Payload
 }
 
 func (o *ShutdownKibanaClusterAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -116,6 +117,10 @@ type ShutdownKibanaClusterNotFound struct {
 
 func (o *ShutdownKibanaClusterNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/_shutdown][%d] shutdownKibanaClusterNotFound  %+v", 404, o.Payload)
+}
+
+func (o *ShutdownKibanaClusterNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *ShutdownKibanaClusterNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -152,6 +157,10 @@ type ShutdownKibanaClusterRetryWith struct {
 
 func (o *ShutdownKibanaClusterRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/_shutdown][%d] shutdownKibanaClusterRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *ShutdownKibanaClusterRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *ShutdownKibanaClusterRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

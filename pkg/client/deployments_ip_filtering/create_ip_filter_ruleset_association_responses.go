@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // CreateIPFilterRulesetAssociationReader is a Reader for the CreateIPFilterRulesetAssociation structure.
@@ -41,28 +41,24 @@ type CreateIPFilterRulesetAssociationReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateIPFilterRulesetAssociationReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 201:
 		result := NewCreateIPFilterRulesetAssociationCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewCreateIPFilterRulesetAssociationNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewCreateIPFilterRulesetAssociationRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewCreateIPFilterRulesetAssociationInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -92,6 +88,10 @@ func (o *CreateIPFilterRulesetAssociationCreated) Error() string {
 	return fmt.Sprintf("[POST /deployments/ip-filtering/rulesets/{ruleset_id}/associations][%d] createIpFilterRulesetAssociationCreated  %+v", 201, o.Payload)
 }
 
+func (o *CreateIPFilterRulesetAssociationCreated) GetPayload() models.EmptyResponse {
+	return o.Payload
+}
+
 func (o *CreateIPFilterRulesetAssociationCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
@@ -117,6 +117,10 @@ type CreateIPFilterRulesetAssociationNotFound struct {
 
 func (o *CreateIPFilterRulesetAssociationNotFound) Error() string {
 	return fmt.Sprintf("[POST /deployments/ip-filtering/rulesets/{ruleset_id}/associations][%d] createIpFilterRulesetAssociationNotFound  %+v", 404, o.Payload)
+}
+
+func (o *CreateIPFilterRulesetAssociationNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *CreateIPFilterRulesetAssociationNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -148,6 +152,10 @@ func (o *CreateIPFilterRulesetAssociationRetryWith) Error() string {
 	return fmt.Sprintf("[POST /deployments/ip-filtering/rulesets/{ruleset_id}/associations][%d] createIpFilterRulesetAssociationRetryWith  %+v", 449, o.Payload)
 }
 
+func (o *CreateIPFilterRulesetAssociationRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *CreateIPFilterRulesetAssociationRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -175,6 +183,10 @@ type CreateIPFilterRulesetAssociationInternalServerError struct {
 
 func (o *CreateIPFilterRulesetAssociationInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /deployments/ip-filtering/rulesets/{ruleset_id}/associations][%d] createIpFilterRulesetAssociationInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *CreateIPFilterRulesetAssociationInternalServerError) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *CreateIPFilterRulesetAssociationInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

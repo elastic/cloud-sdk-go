@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // UpdateActiveDirectoryConfigurationReader is a Reader for the UpdateActiveDirectoryConfiguration structure.
@@ -41,35 +41,30 @@ type UpdateActiveDirectoryConfigurationReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *UpdateActiveDirectoryConfigurationReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewUpdateActiveDirectoryConfigurationOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewUpdateActiveDirectoryConfigurationBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewUpdateActiveDirectoryConfigurationNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewUpdateActiveDirectoryConfigurationConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewUpdateActiveDirectoryConfigurationRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -107,6 +102,10 @@ type UpdateActiveDirectoryConfigurationOK struct {
 
 func (o *UpdateActiveDirectoryConfigurationOK) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/security/realms/active-directory/{realm_id}][%d] updateActiveDirectoryConfigurationOK  %+v", 200, o.Payload)
+}
+
+func (o *UpdateActiveDirectoryConfigurationOK) GetPayload() models.EmptyResponse {
+	return o.Payload
 }
 
 func (o *UpdateActiveDirectoryConfigurationOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -157,6 +156,10 @@ func (o *UpdateActiveDirectoryConfigurationBadRequest) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/security/realms/active-directory/{realm_id}][%d] updateActiveDirectoryConfigurationBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *UpdateActiveDirectoryConfigurationBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *UpdateActiveDirectoryConfigurationBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -191,6 +194,10 @@ type UpdateActiveDirectoryConfigurationNotFound struct {
 
 func (o *UpdateActiveDirectoryConfigurationNotFound) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/security/realms/active-directory/{realm_id}][%d] updateActiveDirectoryConfigurationNotFound  %+v", 404, o.Payload)
+}
+
+func (o *UpdateActiveDirectoryConfigurationNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *UpdateActiveDirectoryConfigurationNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -229,6 +236,10 @@ func (o *UpdateActiveDirectoryConfigurationConflict) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/security/realms/active-directory/{realm_id}][%d] updateActiveDirectoryConfigurationConflict  %+v", 409, o.Payload)
 }
 
+func (o *UpdateActiveDirectoryConfigurationConflict) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *UpdateActiveDirectoryConfigurationConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -263,6 +274,10 @@ type UpdateActiveDirectoryConfigurationRetryWith struct {
 
 func (o *UpdateActiveDirectoryConfigurationRetryWith) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/security/realms/active-directory/{realm_id}][%d] updateActiveDirectoryConfigurationRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *UpdateActiveDirectoryConfigurationRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *UpdateActiveDirectoryConfigurationRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

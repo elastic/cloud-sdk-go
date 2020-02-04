@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // CancelEsClusterMonitoringReader is a Reader for the CancelEsClusterMonitoring structure.
@@ -41,21 +41,18 @@ type CancelEsClusterMonitoringReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CancelEsClusterMonitoringReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 202:
 		result := NewCancelEsClusterMonitoringAccepted()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewCancelEsClusterMonitoringNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewCancelEsClusterMonitoringRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -85,6 +82,10 @@ func (o *CancelEsClusterMonitoringAccepted) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/elasticsearch/{cluster_id}/monitoring][%d] cancelEsClusterMonitoringAccepted  %+v", 202, o.Payload)
 }
 
+func (o *CancelEsClusterMonitoringAccepted) GetPayload() models.EmptyResponse {
+	return o.Payload
+}
+
 func (o *CancelEsClusterMonitoringAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
@@ -110,6 +111,10 @@ type CancelEsClusterMonitoringNotFound struct {
 
 func (o *CancelEsClusterMonitoringNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/elasticsearch/{cluster_id}/monitoring][%d] cancelEsClusterMonitoringNotFound  %+v", 404, o.Payload)
+}
+
+func (o *CancelEsClusterMonitoringNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *CancelEsClusterMonitoringNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +144,10 @@ type CancelEsClusterMonitoringRetryWith struct {
 
 func (o *CancelEsClusterMonitoringRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/elasticsearch/{cluster_id}/monitoring][%d] cancelEsClusterMonitoringRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *CancelEsClusterMonitoringRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *CancelEsClusterMonitoringRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

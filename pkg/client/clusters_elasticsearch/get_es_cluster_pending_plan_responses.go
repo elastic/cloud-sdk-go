@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetEsClusterPendingPlanReader is a Reader for the GetEsClusterPendingPlan structure.
@@ -41,21 +41,18 @@ type GetEsClusterPendingPlanReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetEsClusterPendingPlanReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetEsClusterPendingPlanOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewGetEsClusterPendingPlanNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 412:
 		result := NewGetEsClusterPendingPlanPreconditionFailed()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -93,6 +90,10 @@ type GetEsClusterPendingPlanOK struct {
 
 func (o *GetEsClusterPendingPlanOK) Error() string {
 	return fmt.Sprintf("[GET /clusters/elasticsearch/{cluster_id}/plan/pending][%d] getEsClusterPendingPlanOK  %+v", 200, o.Payload)
+}
+
+func (o *GetEsClusterPendingPlanOK) GetPayload() *models.ElasticsearchClusterPlan {
+	return o.Payload
 }
 
 func (o *GetEsClusterPendingPlanOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -137,6 +138,10 @@ func (o *GetEsClusterPendingPlanNotFound) Error() string {
 	return fmt.Sprintf("[GET /clusters/elasticsearch/{cluster_id}/plan/pending][%d] getEsClusterPendingPlanNotFound  %+v", 404, o.Payload)
 }
 
+func (o *GetEsClusterPendingPlanNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *GetEsClusterPendingPlanNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -171,6 +176,10 @@ type GetEsClusterPendingPlanPreconditionFailed struct {
 
 func (o *GetEsClusterPendingPlanPreconditionFailed) Error() string {
 	return fmt.Sprintf("[GET /clusters/elasticsearch/{cluster_id}/plan/pending][%d] getEsClusterPendingPlanPreconditionFailed  %+v", 412, o.Payload)
+}
+
+func (o *GetEsClusterPendingPlanPreconditionFailed) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *GetEsClusterPendingPlanPreconditionFailed) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // MoveApmInstancesAdvancedReader is a Reader for the MoveApmInstancesAdvanced structure.
@@ -41,35 +41,30 @@ type MoveApmInstancesAdvancedReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *MoveApmInstancesAdvancedReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 202:
 		result := NewMoveApmInstancesAdvancedAccepted()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewMoveApmInstancesAdvancedBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewMoveApmInstancesAdvancedForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewMoveApmInstancesAdvancedNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewMoveApmInstancesAdvancedRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -97,6 +92,10 @@ type MoveApmInstancesAdvancedAccepted struct {
 
 func (o *MoveApmInstancesAdvancedAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/instances/_move][%d] moveApmInstancesAdvancedAccepted  %+v", 202, o.Payload)
+}
+
+func (o *MoveApmInstancesAdvancedAccepted) GetPayload() *models.ClusterCommandResponse {
+	return o.Payload
 }
 
 func (o *MoveApmInstancesAdvancedAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -131,6 +130,10 @@ type MoveApmInstancesAdvancedBadRequest struct {
 
 func (o *MoveApmInstancesAdvancedBadRequest) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/instances/_move][%d] moveApmInstancesAdvancedBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *MoveApmInstancesAdvancedBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *MoveApmInstancesAdvancedBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -169,6 +172,10 @@ func (o *MoveApmInstancesAdvancedForbidden) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/instances/_move][%d] moveApmInstancesAdvancedForbidden  %+v", 403, o.Payload)
 }
 
+func (o *MoveApmInstancesAdvancedForbidden) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *MoveApmInstancesAdvancedForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -205,6 +212,10 @@ func (o *MoveApmInstancesAdvancedNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/instances/_move][%d] moveApmInstancesAdvancedNotFound  %+v", 404, o.Payload)
 }
 
+func (o *MoveApmInstancesAdvancedNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *MoveApmInstancesAdvancedNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -239,6 +250,10 @@ type MoveApmInstancesAdvancedRetryWith struct {
 
 func (o *MoveApmInstancesAdvancedRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/instances/_move][%d] moveApmInstancesAdvancedRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *MoveApmInstancesAdvancedRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *MoveApmInstancesAdvancedRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // CreateProxiesFilteredGroupReader is a Reader for the CreateProxiesFilteredGroup structure.
@@ -41,21 +41,18 @@ type CreateProxiesFilteredGroupReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateProxiesFilteredGroupReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewCreateProxiesFilteredGroupOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewCreateProxiesFilteredGroupBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewCreateProxiesFilteredGroupRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -93,6 +90,10 @@ type CreateProxiesFilteredGroupOK struct {
 
 func (o *CreateProxiesFilteredGroupOK) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/proxies/filtered-groups][%d] createProxiesFilteredGroupOK  %+v", 200, o.Payload)
+}
+
+func (o *CreateProxiesFilteredGroupOK) GetPayload() *models.ProxiesFilteredGroup {
+	return o.Payload
 }
 
 func (o *CreateProxiesFilteredGroupOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -138,6 +139,10 @@ func (o *CreateProxiesFilteredGroupBadRequest) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/proxies/filtered-groups][%d] createProxiesFilteredGroupBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *CreateProxiesFilteredGroupBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *CreateProxiesFilteredGroupBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -172,6 +177,10 @@ type CreateProxiesFilteredGroupRetryWith struct {
 
 func (o *CreateProxiesFilteredGroupRetryWith) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/proxies/filtered-groups][%d] createProxiesFilteredGroupRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *CreateProxiesFilteredGroupRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *CreateProxiesFilteredGroupRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

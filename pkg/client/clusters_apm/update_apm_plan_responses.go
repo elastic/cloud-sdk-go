@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // UpdateApmPlanReader is a Reader for the UpdateApmPlan structure.
@@ -41,35 +41,30 @@ type UpdateApmPlanReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *UpdateApmPlanReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewUpdateApmPlanOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 202:
 		result := NewUpdateApmPlanAccepted()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewUpdateApmPlanBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewUpdateApmPlanNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewUpdateApmPlanRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -97,6 +92,10 @@ type UpdateApmPlanOK struct {
 
 func (o *UpdateApmPlanOK) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/plan][%d] updateApmPlanOK  %+v", 200, o.Payload)
+}
+
+func (o *UpdateApmPlanOK) GetPayload() *models.ApmCrudResponse {
+	return o.Payload
 }
 
 func (o *UpdateApmPlanOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -128,6 +127,10 @@ func (o *UpdateApmPlanAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/plan][%d] updateApmPlanAccepted  %+v", 202, o.Payload)
 }
 
+func (o *UpdateApmPlanAccepted) GetPayload() *models.ApmCrudResponse {
+	return o.Payload
+}
+
 func (o *UpdateApmPlanAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ApmCrudResponse)
@@ -155,6 +158,10 @@ type UpdateApmPlanBadRequest struct {
 
 func (o *UpdateApmPlanBadRequest) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/plan][%d] updateApmPlanBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *UpdateApmPlanBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *UpdateApmPlanBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -186,6 +193,10 @@ func (o *UpdateApmPlanNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/plan][%d] updateApmPlanNotFound  %+v", 404, o.Payload)
 }
 
+func (o *UpdateApmPlanNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *UpdateApmPlanNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -213,6 +224,10 @@ type UpdateApmPlanRetryWith struct {
 
 func (o *UpdateApmPlanRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/plan][%d] updateApmPlanRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *UpdateApmPlanRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *UpdateApmPlanRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

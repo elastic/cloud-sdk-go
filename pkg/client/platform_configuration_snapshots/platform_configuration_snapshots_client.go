@@ -23,13 +23,14 @@ package platform_configuration_snapshots
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-openapi/runtime"
+	"fmt"
 
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new platform configuration snapshots API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -41,10 +42,23 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
-/*
-DeleteSnapshotRepository deletes snapshot repository
+// ClientService is the interface for Client methods
+type ClientService interface {
+	DeleteSnapshotRepository(params *DeleteSnapshotRepositoryParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteSnapshotRepositoryOK, *DeleteSnapshotRepositoryAccepted, error)
 
-Deletes the snapshot repository configuration.
+	GetSnapshotRepositories(params *GetSnapshotRepositoriesParams, authInfo runtime.ClientAuthInfoWriter) (*GetSnapshotRepositoriesOK, error)
+
+	GetSnapshotRepository(params *GetSnapshotRepositoryParams, authInfo runtime.ClientAuthInfoWriter) (*GetSnapshotRepositoryOK, error)
+
+	SetSnapshotRepository(params *SetSnapshotRepositoryParams, authInfo runtime.ClientAuthInfoWriter) (*SetSnapshotRepositoryOK, error)
+
+	SetTransport(transport runtime.ClientTransport)
+}
+
+/*
+  DeleteSnapshotRepository deletes snapshot repository
+
+  Deletes the snapshot repository configuration.
 */
 func (a *Client) DeleteSnapshotRepository(params *DeleteSnapshotRepositoryParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteSnapshotRepositoryOK, *DeleteSnapshotRepositoryAccepted, error) {
 	// TODO: Validate the params before sending
@@ -56,8 +70,8 @@ func (a *Client) DeleteSnapshotRepository(params *DeleteSnapshotRepositoryParams
 		ID:                 "delete-snapshot-repository",
 		Method:             "DELETE",
 		PathPattern:        "/platform/configuration/snapshots/repositories/{repository_name}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &DeleteSnapshotRepositoryReader{formats: a.formats},
@@ -74,14 +88,15 @@ func (a *Client) DeleteSnapshotRepository(params *DeleteSnapshotRepositoryParams
 	case *DeleteSnapshotRepositoryAccepted:
 		return nil, value, nil
 	}
-	return nil, nil, nil
-
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for platform_configuration_snapshots: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetSnapshotRepositories gets snapshot repositories
+  GetSnapshotRepositories gets snapshot repositories
 
-Retrieves a list of available snapshot repository configurations. To access the configuration contents, you must have privileged permissions.
+  Retrieves a list of available snapshot repository configurations. To access the configuration contents, you must have privileged permissions.
 */
 func (a *Client) GetSnapshotRepositories(params *GetSnapshotRepositoriesParams, authInfo runtime.ClientAuthInfoWriter) (*GetSnapshotRepositoriesOK, error) {
 	// TODO: Validate the params before sending
@@ -93,8 +108,8 @@ func (a *Client) GetSnapshotRepositories(params *GetSnapshotRepositoriesParams, 
 		ID:                 "get-snapshot-repositories",
 		Method:             "GET",
 		PathPattern:        "/platform/configuration/snapshots/repositories",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetSnapshotRepositoriesReader{formats: a.formats},
@@ -105,14 +120,20 @@ func (a *Client) GetSnapshotRepositories(params *GetSnapshotRepositoriesParams, 
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetSnapshotRepositoriesOK), nil
-
+	success, ok := result.(*GetSnapshotRepositoriesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-snapshot-repositories: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetSnapshotRepository gets snapshot repository
+  GetSnapshotRepository gets snapshot repository
 
-Retrieves the snapshot repository configuration. To access the configuration contents, you must have privileged permissions.
+  Retrieves the snapshot repository configuration. To access the configuration contents, you must have privileged permissions.
 */
 func (a *Client) GetSnapshotRepository(params *GetSnapshotRepositoryParams, authInfo runtime.ClientAuthInfoWriter) (*GetSnapshotRepositoryOK, error) {
 	// TODO: Validate the params before sending
@@ -124,8 +145,8 @@ func (a *Client) GetSnapshotRepository(params *GetSnapshotRepositoryParams, auth
 		ID:                 "get-snapshot-repository",
 		Method:             "GET",
 		PathPattern:        "/platform/configuration/snapshots/repositories/{repository_name}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetSnapshotRepositoryReader{formats: a.formats},
@@ -136,14 +157,20 @@ func (a *Client) GetSnapshotRepository(params *GetSnapshotRepositoryParams, auth
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetSnapshotRepositoryOK), nil
-
+	success, ok := result.(*GetSnapshotRepositoryOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-snapshot-repository: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-SetSnapshotRepository sets snapshot repository
+  SetSnapshotRepository sets snapshot repository
 
-Creates or updates the snapshot repository configuration.
+  Creates or updates the snapshot repository configuration.
 */
 func (a *Client) SetSnapshotRepository(params *SetSnapshotRepositoryParams, authInfo runtime.ClientAuthInfoWriter) (*SetSnapshotRepositoryOK, error) {
 	// TODO: Validate the params before sending
@@ -155,8 +182,8 @@ func (a *Client) SetSnapshotRepository(params *SetSnapshotRepositoryParams, auth
 		ID:                 "set-snapshot-repository",
 		Method:             "PUT",
 		PathPattern:        "/platform/configuration/snapshots/repositories/{repository_name}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &SetSnapshotRepositoryReader{formats: a.formats},
@@ -167,8 +194,14 @@ func (a *Client) SetSnapshotRepository(params *SetSnapshotRepositoryParams, auth
 	if err != nil {
 		return nil, err
 	}
-	return result.(*SetSnapshotRepositoryOK), nil
-
+	success, ok := result.(*SetSnapshotRepositoryOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for set-snapshot-repository: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 // SetTransport changes the transport on the client

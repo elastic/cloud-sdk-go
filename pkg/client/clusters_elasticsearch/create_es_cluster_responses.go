@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // CreateEsClusterReader is a Reader for the CreateEsCluster structure.
@@ -41,28 +41,24 @@ type CreateEsClusterReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateEsClusterReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewCreateEsClusterOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 201:
 		result := NewCreateEsClusterCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewCreateEsClusterBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewCreateEsClusterRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -92,6 +88,10 @@ func (o *CreateEsClusterOK) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch][%d] createEsClusterOK  %+v", 200, o.Payload)
 }
 
+func (o *CreateEsClusterOK) GetPayload() *models.ClusterCrudResponse {
+	return o.Payload
+}
+
 func (o *CreateEsClusterOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ClusterCrudResponse)
@@ -119,6 +119,10 @@ type CreateEsClusterCreated struct {
 
 func (o *CreateEsClusterCreated) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch][%d] createEsClusterCreated  %+v", 201, o.Payload)
+}
+
+func (o *CreateEsClusterCreated) GetPayload() *models.ClusterCrudResponse {
+	return o.Payload
 }
 
 func (o *CreateEsClusterCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -155,6 +159,10 @@ func (o *CreateEsClusterBadRequest) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch][%d] createEsClusterBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *CreateEsClusterBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *CreateEsClusterBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -189,6 +197,10 @@ type CreateEsClusterRetryWith struct {
 
 func (o *CreateEsClusterRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch][%d] createEsClusterRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *CreateEsClusterRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *CreateEsClusterRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

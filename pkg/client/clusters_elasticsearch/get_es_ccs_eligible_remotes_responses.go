@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetEsCcsEligibleRemotesReader is a Reader for the GetEsCcsEligibleRemotes structure.
@@ -41,14 +41,12 @@ type GetEsCcsEligibleRemotesReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetEsCcsEligibleRemotesReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetEsCcsEligibleRemotesOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewGetEsCcsEligibleRemotesBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -78,6 +76,10 @@ func (o *GetEsCcsEligibleRemotesOK) Error() string {
 	return fmt.Sprintf("[GET /clusters/elasticsearch/ccs/eligible_remotes][%d] getEsCcsEligibleRemotesOK  %+v", 200, o.Payload)
 }
 
+func (o *GetEsCcsEligibleRemotesOK) GetPayload() *models.ElasticsearchClustersInfo {
+	return o.Payload
+}
+
 func (o *GetEsCcsEligibleRemotesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ElasticsearchClustersInfo)
@@ -105,6 +107,10 @@ type GetEsCcsEligibleRemotesBadRequest struct {
 
 func (o *GetEsCcsEligibleRemotesBadRequest) Error() string {
 	return fmt.Sprintf("[GET /clusters/elasticsearch/ccs/eligible_remotes][%d] getEsCcsEligibleRemotesBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *GetEsCcsEligibleRemotesBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *GetEsCcsEligibleRemotesBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

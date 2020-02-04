@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // CancelDeploymentResourcePendingPlanReader is a Reader for the CancelDeploymentResourcePendingPlan structure.
@@ -41,35 +41,30 @@ type CancelDeploymentResourcePendingPlanReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CancelDeploymentResourcePendingPlanReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewCancelDeploymentResourcePendingPlanOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewCancelDeploymentResourcePendingPlanBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewCancelDeploymentResourcePendingPlanNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewCancelDeploymentResourcePendingPlanRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewCancelDeploymentResourcePendingPlanInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -97,6 +92,10 @@ type CancelDeploymentResourcePendingPlanOK struct {
 
 func (o *CancelDeploymentResourcePendingPlanOK) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/{deployment_id}/{resource_kind}/{ref_id}/plan/pending][%d] cancelDeploymentResourcePendingPlanOK  %+v", 200, o.Payload)
+}
+
+func (o *CancelDeploymentResourcePendingPlanOK) GetPayload() *models.DeploymentResourceCrudResponse {
+	return o.Payload
 }
 
 func (o *CancelDeploymentResourcePendingPlanOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -130,6 +129,10 @@ type CancelDeploymentResourcePendingPlanBadRequest struct {
 
 func (o *CancelDeploymentResourcePendingPlanBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/{deployment_id}/{resource_kind}/{ref_id}/plan/pending][%d] cancelDeploymentResourcePendingPlanBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *CancelDeploymentResourcePendingPlanBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *CancelDeploymentResourcePendingPlanBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -168,6 +171,10 @@ func (o *CancelDeploymentResourcePendingPlanNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/{deployment_id}/{resource_kind}/{ref_id}/plan/pending][%d] cancelDeploymentResourcePendingPlanNotFound  %+v", 404, o.Payload)
 }
 
+func (o *CancelDeploymentResourcePendingPlanNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *CancelDeploymentResourcePendingPlanNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -204,6 +211,10 @@ func (o *CancelDeploymentResourcePendingPlanRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/{deployment_id}/{resource_kind}/{ref_id}/plan/pending][%d] cancelDeploymentResourcePendingPlanRetryWith  %+v", 449, o.Payload)
 }
 
+func (o *CancelDeploymentResourcePendingPlanRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *CancelDeploymentResourcePendingPlanRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -238,6 +249,10 @@ type CancelDeploymentResourcePendingPlanInternalServerError struct {
 
 func (o *CancelDeploymentResourcePendingPlanInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/{deployment_id}/{resource_kind}/{ref_id}/plan/pending][%d] cancelDeploymentResourcePendingPlanInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *CancelDeploymentResourcePendingPlanInternalServerError) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *CancelDeploymentResourcePendingPlanInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

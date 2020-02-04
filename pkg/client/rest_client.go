@@ -23,10 +23,10 @@ package client
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-openapi/runtime"
 	httptransport "github.com/go-openapi/runtime/client"
 
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 
 	"github.com/elastic/cloud-sdk-go/pkg/client/authentication"
 	"github.com/elastic/cloud-sdk-go/pkg/client/clusters"
@@ -88,39 +88,22 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Rest {
 
 	cli := new(Rest)
 	cli.Transport = transport
-
 	cli.Authentication = authentication.New(transport, formats)
-
 	cli.Clusters = clusters.New(transport, formats)
-
 	cli.ClustersApm = clusters_apm.New(transport, formats)
-
 	cli.ClustersElasticsearch = clusters_elasticsearch.New(transport, formats)
-
 	cli.ClustersKibana = clusters_kibana.New(transport, formats)
-
 	cli.Comments = comments.New(transport, formats)
-
 	cli.Deployments = deployments.New(transport, formats)
-
 	cli.DeploymentsIPFiltering = deployments_ip_filtering.New(transport, formats)
-
 	cli.Platform = platform.New(transport, formats)
-
 	cli.PlatformConfigurationInstances = platform_configuration_instances.New(transport, formats)
-
 	cli.PlatformConfigurationSecurity = platform_configuration_security.New(transport, formats)
-
 	cli.PlatformConfigurationSnapshots = platform_configuration_snapshots.New(transport, formats)
-
 	cli.PlatformConfigurationTemplates = platform_configuration_templates.New(transport, formats)
-
 	cli.PlatformInfrastructure = platform_infrastructure.New(transport, formats)
-
 	cli.Stack = stack.New(transport, formats)
-
 	cli.Users = users.New(transport, formats)
-
 	return cli
 }
 
@@ -165,37 +148,37 @@ func (cfg *TransportConfig) WithSchemes(schemes []string) *TransportConfig {
 
 // Rest is a client for rest
 type Rest struct {
-	Authentication *authentication.Client
+	Authentication authentication.ClientService
 
-	Clusters *clusters.Client
+	Clusters clusters.ClientService
 
-	ClustersApm *clusters_apm.Client
+	ClustersApm clusters_apm.ClientService
 
-	ClustersElasticsearch *clusters_elasticsearch.Client
+	ClustersElasticsearch clusters_elasticsearch.ClientService
 
-	ClustersKibana *clusters_kibana.Client
+	ClustersKibana clusters_kibana.ClientService
 
-	Comments *comments.Client
+	Comments comments.ClientService
 
-	Deployments *deployments.Client
+	Deployments deployments.ClientService
 
-	DeploymentsIPFiltering *deployments_ip_filtering.Client
+	DeploymentsIPFiltering deployments_ip_filtering.ClientService
 
-	Platform *platform.Client
+	Platform platform.ClientService
 
-	PlatformConfigurationInstances *platform_configuration_instances.Client
+	PlatformConfigurationInstances platform_configuration_instances.ClientService
 
-	PlatformConfigurationSecurity *platform_configuration_security.Client
+	PlatformConfigurationSecurity platform_configuration_security.ClientService
 
-	PlatformConfigurationSnapshots *platform_configuration_snapshots.Client
+	PlatformConfigurationSnapshots platform_configuration_snapshots.ClientService
 
-	PlatformConfigurationTemplates *platform_configuration_templates.Client
+	PlatformConfigurationTemplates platform_configuration_templates.ClientService
 
-	PlatformInfrastructure *platform_infrastructure.Client
+	PlatformInfrastructure platform_infrastructure.ClientService
 
-	Stack *stack.Client
+	Stack stack.ClientService
 
-	Users *users.Client
+	Users users.ClientService
 
 	Transport runtime.ClientTransport
 }
@@ -203,37 +186,20 @@ type Rest struct {
 // SetTransport changes the transport on the client and all its subresources
 func (c *Rest) SetTransport(transport runtime.ClientTransport) {
 	c.Transport = transport
-
 	c.Authentication.SetTransport(transport)
-
 	c.Clusters.SetTransport(transport)
-
 	c.ClustersApm.SetTransport(transport)
-
 	c.ClustersElasticsearch.SetTransport(transport)
-
 	c.ClustersKibana.SetTransport(transport)
-
 	c.Comments.SetTransport(transport)
-
 	c.Deployments.SetTransport(transport)
-
 	c.DeploymentsIPFiltering.SetTransport(transport)
-
 	c.Platform.SetTransport(transport)
-
 	c.PlatformConfigurationInstances.SetTransport(transport)
-
 	c.PlatformConfigurationSecurity.SetTransport(transport)
-
 	c.PlatformConfigurationSnapshots.SetTransport(transport)
-
 	c.PlatformConfigurationTemplates.SetTransport(transport)
-
 	c.PlatformInfrastructure.SetTransport(transport)
-
 	c.Stack.SetTransport(transport)
-
 	c.Users.SetTransport(transport)
-
 }

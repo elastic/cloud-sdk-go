@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // UpdateIPFilterRulesetReader is a Reader for the UpdateIPFilterRuleset structure.
@@ -41,28 +41,24 @@ type UpdateIPFilterRulesetReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *UpdateIPFilterRulesetReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewUpdateIPFilterRulesetOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewUpdateIPFilterRulesetBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewUpdateIPFilterRulesetRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewUpdateIPFilterRulesetInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -90,6 +86,10 @@ type UpdateIPFilterRulesetOK struct {
 
 func (o *UpdateIPFilterRulesetOK) Error() string {
 	return fmt.Sprintf("[PUT /deployments/ip-filtering/rulesets/{ruleset_id}][%d] updateIpFilterRulesetOK  %+v", 200, o.Payload)
+}
+
+func (o *UpdateIPFilterRulesetOK) GetPayload() *models.RuleSetResponse {
+	return o.Payload
 }
 
 func (o *UpdateIPFilterRulesetOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -121,6 +121,10 @@ func (o *UpdateIPFilterRulesetBadRequest) Error() string {
 	return fmt.Sprintf("[PUT /deployments/ip-filtering/rulesets/{ruleset_id}][%d] updateIpFilterRulesetBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *UpdateIPFilterRulesetBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *UpdateIPFilterRulesetBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -150,6 +154,10 @@ func (o *UpdateIPFilterRulesetRetryWith) Error() string {
 	return fmt.Sprintf("[PUT /deployments/ip-filtering/rulesets/{ruleset_id}][%d] updateIpFilterRulesetRetryWith  %+v", 449, o.Payload)
 }
 
+func (o *UpdateIPFilterRulesetRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *UpdateIPFilterRulesetRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -177,6 +185,10 @@ type UpdateIPFilterRulesetInternalServerError struct {
 
 func (o *UpdateIPFilterRulesetInternalServerError) Error() string {
 	return fmt.Sprintf("[PUT /deployments/ip-filtering/rulesets/{ruleset_id}][%d] updateIpFilterRulesetInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *UpdateIPFilterRulesetInternalServerError) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *UpdateIPFilterRulesetInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

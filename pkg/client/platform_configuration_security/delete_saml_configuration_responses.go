@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // DeleteSamlConfigurationReader is a Reader for the DeleteSamlConfiguration structure.
@@ -41,28 +41,24 @@ type DeleteSamlConfigurationReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteSamlConfigurationReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewDeleteSamlConfigurationOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewDeleteSamlConfigurationNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewDeleteSamlConfigurationConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewDeleteSamlConfigurationRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -90,6 +86,10 @@ type DeleteSamlConfigurationOK struct {
 
 func (o *DeleteSamlConfigurationOK) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/security/realms/saml/{realm_id}][%d] deleteSamlConfigurationOK  %+v", 200, o.Payload)
+}
+
+func (o *DeleteSamlConfigurationOK) GetPayload() models.EmptyResponse {
+	return o.Payload
 }
 
 func (o *DeleteSamlConfigurationOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -121,6 +121,10 @@ type DeleteSamlConfigurationNotFound struct {
 
 func (o *DeleteSamlConfigurationNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/security/realms/saml/{realm_id}][%d] deleteSamlConfigurationNotFound  %+v", 404, o.Payload)
+}
+
+func (o *DeleteSamlConfigurationNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DeleteSamlConfigurationNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -159,6 +163,10 @@ func (o *DeleteSamlConfigurationConflict) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/security/realms/saml/{realm_id}][%d] deleteSamlConfigurationConflict  %+v", 409, o.Payload)
 }
 
+func (o *DeleteSamlConfigurationConflict) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *DeleteSamlConfigurationConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -193,6 +201,10 @@ type DeleteSamlConfigurationRetryWith struct {
 
 func (o *DeleteSamlConfigurationRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/security/realms/saml/{realm_id}][%d] deleteSamlConfigurationRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *DeleteSamlConfigurationRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DeleteSamlConfigurationRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

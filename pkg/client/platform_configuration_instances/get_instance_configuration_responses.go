@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetInstanceConfigurationReader is a Reader for the GetInstanceConfiguration structure.
@@ -41,14 +41,12 @@ type GetInstanceConfigurationReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetInstanceConfigurationReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetInstanceConfigurationOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewGetInstanceConfigurationNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -78,6 +76,10 @@ func (o *GetInstanceConfigurationOK) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/instances/{id}][%d] getInstanceConfigurationOK  %+v", 200, o.Payload)
 }
 
+func (o *GetInstanceConfigurationOK) GetPayload() *models.InstanceConfiguration {
+	return o.Payload
+}
+
 func (o *GetInstanceConfigurationOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.InstanceConfiguration)
@@ -105,6 +107,10 @@ type GetInstanceConfigurationNotFound struct {
 
 func (o *GetInstanceConfigurationNotFound) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/instances/{id}][%d] getInstanceConfigurationNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetInstanceConfigurationNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *GetInstanceConfigurationNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

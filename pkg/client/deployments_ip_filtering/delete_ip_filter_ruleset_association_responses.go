@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // DeleteIPFilterRulesetAssociationReader is a Reader for the DeleteIPFilterRulesetAssociation structure.
@@ -41,21 +41,18 @@ type DeleteIPFilterRulesetAssociationReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteIPFilterRulesetAssociationReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewDeleteIPFilterRulesetAssociationOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 449:
 		result := NewDeleteIPFilterRulesetAssociationRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewDeleteIPFilterRulesetAssociationInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -85,6 +82,10 @@ func (o *DeleteIPFilterRulesetAssociationOK) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/ip-filtering/rulesets/{ruleset_id}/associations/{association_type}/{associated_entity_id}][%d] deleteIpFilterRulesetAssociationOK  %+v", 200, o.Payload)
 }
 
+func (o *DeleteIPFilterRulesetAssociationOK) GetPayload() models.EmptyResponse {
+	return o.Payload
+}
+
 func (o *DeleteIPFilterRulesetAssociationOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
@@ -110,6 +111,10 @@ type DeleteIPFilterRulesetAssociationRetryWith struct {
 
 func (o *DeleteIPFilterRulesetAssociationRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/ip-filtering/rulesets/{ruleset_id}/associations/{association_type}/{associated_entity_id}][%d] deleteIpFilterRulesetAssociationRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *DeleteIPFilterRulesetAssociationRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DeleteIPFilterRulesetAssociationRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -139,6 +144,10 @@ type DeleteIPFilterRulesetAssociationInternalServerError struct {
 
 func (o *DeleteIPFilterRulesetAssociationInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/ip-filtering/rulesets/{ruleset_id}/associations/{association_type}/{associated_entity_id}][%d] deleteIpFilterRulesetAssociationInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *DeleteIPFilterRulesetAssociationInternalServerError) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DeleteIPFilterRulesetAssociationInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

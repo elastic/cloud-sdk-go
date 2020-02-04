@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // SetTLSCertificateReader is a Reader for the SetTLSCertificate structure.
@@ -41,14 +41,12 @@ type SetTLSCertificateReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *SetTLSCertificateReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 202:
 		result := NewSetTLSCertificateAccepted()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 449:
 		result := NewSetTLSCertificateRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -78,6 +76,10 @@ func (o *SetTLSCertificateAccepted) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/tls/{service_name}][%d] setTlsCertificateAccepted  %+v", 202, o.Payload)
 }
 
+func (o *SetTLSCertificateAccepted) GetPayload() models.EmptyResponse {
+	return o.Payload
+}
+
 func (o *SetTLSCertificateAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
@@ -103,6 +105,10 @@ type SetTLSCertificateRetryWith struct {
 
 func (o *SetTLSCertificateRetryWith) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/tls/{service_name}][%d] setTlsCertificateRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *SetTLSCertificateRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *SetTLSCertificateRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

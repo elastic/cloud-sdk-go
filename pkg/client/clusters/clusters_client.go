@@ -23,13 +23,14 @@ package clusters
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-openapi/runtime"
+	"fmt"
 
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new clusters API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -41,10 +42,17 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
-/*
-SearchClusters searches clusters
+// ClientService is the interface for Client methods
+type ClientService interface {
+	SearchClusters(params *SearchClustersParams, authInfo runtime.ClientAuthInfoWriter) (*SearchClustersOK, error)
 
-Retrieves the information for all of the instances that match the specified query.
+	SetTransport(transport runtime.ClientTransport)
+}
+
+/*
+  SearchClusters searches clusters
+
+  Retrieves the information for all of the instances that match the specified query.
 */
 func (a *Client) SearchClusters(params *SearchClustersParams, authInfo runtime.ClientAuthInfoWriter) (*SearchClustersOK, error) {
 	// TODO: Validate the params before sending
@@ -56,8 +64,8 @@ func (a *Client) SearchClusters(params *SearchClustersParams, authInfo runtime.C
 		ID:                 "search-clusters",
 		Method:             "POST",
 		PathPattern:        "/clusters/_search",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &SearchClustersReader{formats: a.formats},
@@ -68,8 +76,14 @@ func (a *Client) SearchClusters(params *SearchClustersParams, authInfo runtime.C
 	if err != nil {
 		return nil, err
 	}
-	return result.(*SearchClustersOK), nil
-
+	success, ok := result.(*SearchClustersOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for search-clusters: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 // SetTransport changes the transport on the client

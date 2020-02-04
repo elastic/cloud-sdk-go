@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetInstanceConfigurationsReader is a Reader for the GetInstanceConfigurations structure.
@@ -41,7 +41,6 @@ type GetInstanceConfigurationsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetInstanceConfigurationsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetInstanceConfigurationsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -69,6 +68,10 @@ type GetInstanceConfigurationsOK struct {
 
 func (o *GetInstanceConfigurationsOK) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/instances][%d] getInstanceConfigurationsOK  %+v", 200, o.Payload)
+}
+
+func (o *GetInstanceConfigurationsOK) GetPayload() []*models.InstanceConfiguration {
+	return o.Payload
 }
 
 func (o *GetInstanceConfigurationsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

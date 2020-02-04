@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // RestartKibanaClusterReader is a Reader for the RestartKibanaCluster structure.
@@ -41,28 +41,24 @@ type RestartKibanaClusterReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *RestartKibanaClusterReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 202:
 		result := NewRestartKibanaClusterAccepted()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewRestartKibanaClusterNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 412:
 		result := NewRestartKibanaClusterPreconditionFailed()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewRestartKibanaClusterRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -90,6 +86,10 @@ type RestartKibanaClusterAccepted struct {
 
 func (o *RestartKibanaClusterAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/_restart][%d] restartKibanaClusterAccepted  %+v", 202, o.Payload)
+}
+
+func (o *RestartKibanaClusterAccepted) GetPayload() *models.ClusterCommandResponse {
+	return o.Payload
 }
 
 func (o *RestartKibanaClusterAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -123,6 +123,10 @@ type RestartKibanaClusterNotFound struct {
 
 func (o *RestartKibanaClusterNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/_restart][%d] restartKibanaClusterNotFound  %+v", 404, o.Payload)
+}
+
+func (o *RestartKibanaClusterNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *RestartKibanaClusterNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -161,6 +165,10 @@ func (o *RestartKibanaClusterPreconditionFailed) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/_restart][%d] restartKibanaClusterPreconditionFailed  %+v", 412, o.Payload)
 }
 
+func (o *RestartKibanaClusterPreconditionFailed) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *RestartKibanaClusterPreconditionFailed) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -195,6 +203,10 @@ type RestartKibanaClusterRetryWith struct {
 
 func (o *RestartKibanaClusterRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/_restart][%d] restartKibanaClusterRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *RestartKibanaClusterRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *RestartKibanaClusterRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

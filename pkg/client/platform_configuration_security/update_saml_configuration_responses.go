@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // UpdateSamlConfigurationReader is a Reader for the UpdateSamlConfiguration structure.
@@ -41,35 +41,30 @@ type UpdateSamlConfigurationReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *UpdateSamlConfigurationReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewUpdateSamlConfigurationOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewUpdateSamlConfigurationBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewUpdateSamlConfigurationNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewUpdateSamlConfigurationConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewUpdateSamlConfigurationRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -107,6 +102,10 @@ type UpdateSamlConfigurationOK struct {
 
 func (o *UpdateSamlConfigurationOK) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/security/realms/saml/{realm_id}][%d] updateSamlConfigurationOK  %+v", 200, o.Payload)
+}
+
+func (o *UpdateSamlConfigurationOK) GetPayload() models.EmptyResponse {
+	return o.Payload
 }
 
 func (o *UpdateSamlConfigurationOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -156,6 +155,10 @@ func (o *UpdateSamlConfigurationBadRequest) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/security/realms/saml/{realm_id}][%d] updateSamlConfigurationBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *UpdateSamlConfigurationBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *UpdateSamlConfigurationBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -190,6 +193,10 @@ type UpdateSamlConfigurationNotFound struct {
 
 func (o *UpdateSamlConfigurationNotFound) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/security/realms/saml/{realm_id}][%d] updateSamlConfigurationNotFound  %+v", 404, o.Payload)
+}
+
+func (o *UpdateSamlConfigurationNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *UpdateSamlConfigurationNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -228,6 +235,10 @@ func (o *UpdateSamlConfigurationConflict) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/security/realms/saml/{realm_id}][%d] updateSamlConfigurationConflict  %+v", 409, o.Payload)
 }
 
+func (o *UpdateSamlConfigurationConflict) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *UpdateSamlConfigurationConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -262,6 +273,10 @@ type UpdateSamlConfigurationRetryWith struct {
 
 func (o *UpdateSamlConfigurationRetryWith) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/security/realms/saml/{realm_id}][%d] updateSamlConfigurationRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *UpdateSamlConfigurationRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *UpdateSamlConfigurationRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

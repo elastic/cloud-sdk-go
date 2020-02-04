@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // UpgradeApmReader is a Reader for the UpgradeApm structure.
@@ -41,21 +41,18 @@ type UpgradeApmReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *UpgradeApmReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 202:
 		result := NewUpgradeApmAccepted()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewUpgradeApmNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewUpgradeApmRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -83,6 +80,10 @@ type UpgradeApmAccepted struct {
 
 func (o *UpgradeApmAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/_upgrade][%d] upgradeApmAccepted  %+v", 202, o.Payload)
+}
+
+func (o *UpgradeApmAccepted) GetPayload() *models.ClusterUpgradeInfo {
+	return o.Payload
 }
 
 func (o *UpgradeApmAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -116,6 +117,10 @@ type UpgradeApmNotFound struct {
 
 func (o *UpgradeApmNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/_upgrade][%d] upgradeApmNotFound  %+v", 404, o.Payload)
+}
+
+func (o *UpgradeApmNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *UpgradeApmNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -152,6 +157,10 @@ type UpgradeApmRetryWith struct {
 
 func (o *UpgradeApmRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/_upgrade][%d] upgradeApmRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *UpgradeApmRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *UpgradeApmRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

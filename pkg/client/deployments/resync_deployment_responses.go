@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // ResyncDeploymentReader is a Reader for the ResyncDeployment structure.
@@ -41,21 +41,18 @@ type ResyncDeploymentReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *ResyncDeploymentReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewResyncDeploymentOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 449:
 		result := NewResyncDeploymentRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewResyncDeploymentInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -83,6 +80,10 @@ type ResyncDeploymentOK struct {
 
 func (o *ResyncDeploymentOK) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/_resync][%d] resyncDeploymentOK  %+v", 200, o.Payload)
+}
+
+func (o *ResyncDeploymentOK) GetPayload() *models.IndexSynchronizationResults {
+	return o.Payload
 }
 
 func (o *ResyncDeploymentOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -114,6 +115,10 @@ func (o *ResyncDeploymentRetryWith) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/_resync][%d] resyncDeploymentRetryWith  %+v", 449, o.Payload)
 }
 
+func (o *ResyncDeploymentRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *ResyncDeploymentRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -141,6 +146,10 @@ type ResyncDeploymentInternalServerError struct {
 
 func (o *ResyncDeploymentInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/_resync][%d] resyncDeploymentInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *ResyncDeploymentInternalServerError) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *ResyncDeploymentInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

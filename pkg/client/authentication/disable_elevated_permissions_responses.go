@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // DisableElevatedPermissionsReader is a Reader for the DisableElevatedPermissions structure.
@@ -41,28 +41,24 @@ type DisableElevatedPermissionsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DisableElevatedPermissionsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewDisableElevatedPermissionsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 401:
 		result := NewDisableElevatedPermissionsUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 501:
 		result := NewDisableElevatedPermissionsNotImplemented()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 502:
 		result := NewDisableElevatedPermissionsBadGateway()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -90,6 +86,10 @@ type DisableElevatedPermissionsOK struct {
 
 func (o *DisableElevatedPermissionsOK) Error() string {
 	return fmt.Sprintf("[DELETE /users/auth/_elevate][%d] disableElevatedPermissionsOK  %+v", 200, o.Payload)
+}
+
+func (o *DisableElevatedPermissionsOK) GetPayload() *models.TokenResponse {
+	return o.Payload
 }
 
 func (o *DisableElevatedPermissionsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -123,6 +123,10 @@ type DisableElevatedPermissionsUnauthorized struct {
 
 func (o *DisableElevatedPermissionsUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /users/auth/_elevate][%d] disableElevatedPermissionsUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *DisableElevatedPermissionsUnauthorized) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DisableElevatedPermissionsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -161,6 +165,10 @@ func (o *DisableElevatedPermissionsNotImplemented) Error() string {
 	return fmt.Sprintf("[DELETE /users/auth/_elevate][%d] disableElevatedPermissionsNotImplemented  %+v", 501, o.Payload)
 }
 
+func (o *DisableElevatedPermissionsNotImplemented) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *DisableElevatedPermissionsNotImplemented) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -195,6 +203,10 @@ type DisableElevatedPermissionsBadGateway struct {
 
 func (o *DisableElevatedPermissionsBadGateway) Error() string {
 	return fmt.Sprintf("[DELETE /users/auth/_elevate][%d] disableElevatedPermissionsBadGateway  %+v", 502, o.Payload)
+}
+
+func (o *DisableElevatedPermissionsBadGateway) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DisableElevatedPermissionsBadGateway) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

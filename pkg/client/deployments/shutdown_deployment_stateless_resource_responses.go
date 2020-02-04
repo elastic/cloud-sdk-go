@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // ShutdownDeploymentStatelessResourceReader is a Reader for the ShutdownDeploymentStatelessResource structure.
@@ -41,28 +41,24 @@ type ShutdownDeploymentStatelessResourceReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *ShutdownDeploymentStatelessResourceReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewShutdownDeploymentStatelessResourceOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewShutdownDeploymentStatelessResourceNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewShutdownDeploymentStatelessResourceRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewShutdownDeploymentStatelessResourceInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -90,6 +86,10 @@ type ShutdownDeploymentStatelessResourceOK struct {
 
 func (o *ShutdownDeploymentStatelessResourceOK) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_shutdown][%d] shutdownDeploymentStatelessResourceOK  %+v", 200, o.Payload)
+}
+
+func (o *ShutdownDeploymentStatelessResourceOK) GetPayload() models.DeploymentResourceCommandResponse {
+	return o.Payload
 }
 
 func (o *ShutdownDeploymentStatelessResourceOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -121,6 +121,10 @@ type ShutdownDeploymentStatelessResourceNotFound struct {
 
 func (o *ShutdownDeploymentStatelessResourceNotFound) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_shutdown][%d] shutdownDeploymentStatelessResourceNotFound  %+v", 404, o.Payload)
+}
+
+func (o *ShutdownDeploymentStatelessResourceNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *ShutdownDeploymentStatelessResourceNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -159,6 +163,10 @@ func (o *ShutdownDeploymentStatelessResourceRetryWith) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_shutdown][%d] shutdownDeploymentStatelessResourceRetryWith  %+v", 449, o.Payload)
 }
 
+func (o *ShutdownDeploymentStatelessResourceRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *ShutdownDeploymentStatelessResourceRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -193,6 +201,10 @@ type ShutdownDeploymentStatelessResourceInternalServerError struct {
 
 func (o *ShutdownDeploymentStatelessResourceInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_shutdown][%d] shutdownDeploymentStatelessResourceInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *ShutdownDeploymentStatelessResourceInternalServerError) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *ShutdownDeploymentStatelessResourceInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

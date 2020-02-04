@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // ResyncConstructorReader is a Reader for the ResyncConstructor structure.
@@ -41,21 +41,18 @@ type ResyncConstructorReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *ResyncConstructorReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewResyncConstructorOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 449:
 		result := NewResyncConstructorRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewResyncConstructorInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -83,6 +80,10 @@ type ResyncConstructorOK struct {
 
 func (o *ResyncConstructorOK) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/constructors/{constructor_id}/_resync][%d] resyncConstructorOK  %+v", 200, o.Payload)
+}
+
+func (o *ResyncConstructorOK) GetPayload() models.EmptyResponse {
+	return o.Payload
 }
 
 func (o *ResyncConstructorOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -114,6 +115,10 @@ type ResyncConstructorRetryWith struct {
 
 func (o *ResyncConstructorRetryWith) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/constructors/{constructor_id}/_resync][%d] resyncConstructorRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *ResyncConstructorRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *ResyncConstructorRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -150,6 +155,10 @@ type ResyncConstructorInternalServerError struct {
 
 func (o *ResyncConstructorInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/constructors/{constructor_id}/_resync][%d] resyncConstructorInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *ResyncConstructorInternalServerError) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *ResyncConstructorInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

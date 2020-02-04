@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetLicenseReader is a Reader for the GetLicense structure.
@@ -41,14 +41,12 @@ type GetLicenseReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetLicenseReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetLicenseOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewGetLicenseNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -76,6 +74,10 @@ type GetLicenseOK struct {
 
 func (o *GetLicenseOK) Error() string {
 	return fmt.Sprintf("[GET /platform/license][%d] getLicenseOK  %+v", 200, o.Payload)
+}
+
+func (o *GetLicenseOK) GetPayload() *models.LicenseObject {
+	return o.Payload
 }
 
 func (o *GetLicenseOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -109,6 +111,10 @@ type GetLicenseNotFound struct {
 
 func (o *GetLicenseNotFound) Error() string {
 	return fmt.Sprintf("[GET /platform/license][%d] getLicenseNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetLicenseNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *GetLicenseNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // SnapshotEsClusterReader is a Reader for the SnapshotEsCluster structure.
@@ -41,42 +41,36 @@ type SnapshotEsClusterReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *SnapshotEsClusterReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 202:
 		result := NewSnapshotEsClusterAccepted()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 401:
 		result := NewSnapshotEsClusterUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewSnapshotEsClusterNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewSnapshotEsClusterConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewSnapshotEsClusterRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewSnapshotEsClusterInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -104,6 +98,10 @@ type SnapshotEsClusterAccepted struct {
 
 func (o *SnapshotEsClusterAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/_snapshot][%d] snapshotEsClusterAccepted  %+v", 202, o.Payload)
+}
+
+func (o *SnapshotEsClusterAccepted) GetPayload() *models.ClusterSnapshotResponse {
+	return o.Payload
 }
 
 func (o *SnapshotEsClusterAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -137,6 +135,10 @@ type SnapshotEsClusterUnauthorized struct {
 
 func (o *SnapshotEsClusterUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/_snapshot][%d] snapshotEsClusterUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *SnapshotEsClusterUnauthorized) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *SnapshotEsClusterUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -176,6 +178,10 @@ func (o *SnapshotEsClusterNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/_snapshot][%d] snapshotEsClusterNotFound  %+v", 404, o.Payload)
 }
 
+func (o *SnapshotEsClusterNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *SnapshotEsClusterNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -210,6 +216,10 @@ type SnapshotEsClusterConflict struct {
 
 func (o *SnapshotEsClusterConflict) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/_snapshot][%d] snapshotEsClusterConflict  %+v", 409, o.Payload)
+}
+
+func (o *SnapshotEsClusterConflict) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *SnapshotEsClusterConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -248,6 +258,10 @@ func (o *SnapshotEsClusterRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/_snapshot][%d] snapshotEsClusterRetryWith  %+v", 449, o.Payload)
 }
 
+func (o *SnapshotEsClusterRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *SnapshotEsClusterRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -283,6 +297,10 @@ type SnapshotEsClusterInternalServerError struct {
 
 func (o *SnapshotEsClusterInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/_snapshot][%d] snapshotEsClusterInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *SnapshotEsClusterInternalServerError) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *SnapshotEsClusterInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

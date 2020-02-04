@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // DeleteRunnerReader is a Reader for the DeleteRunner structure.
@@ -41,28 +41,24 @@ type DeleteRunnerReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteRunnerReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewDeleteRunnerOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewDeleteRunnerBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewDeleteRunnerNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewDeleteRunnerRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -90,6 +86,10 @@ type DeleteRunnerOK struct {
 
 func (o *DeleteRunnerOK) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/runners/{runner_id}][%d] deleteRunnerOK  %+v", 200, o.Payload)
+}
+
+func (o *DeleteRunnerOK) GetPayload() models.EmptyResponse {
+	return o.Payload
 }
 
 func (o *DeleteRunnerOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -121,6 +121,10 @@ type DeleteRunnerBadRequest struct {
 
 func (o *DeleteRunnerBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/runners/{runner_id}][%d] deleteRunnerBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DeleteRunnerBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DeleteRunnerBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -159,6 +163,10 @@ func (o *DeleteRunnerNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/runners/{runner_id}][%d] deleteRunnerNotFound  %+v", 404, o.Payload)
 }
 
+func (o *DeleteRunnerNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *DeleteRunnerNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -193,6 +201,10 @@ type DeleteRunnerRetryWith struct {
 
 func (o *DeleteRunnerRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/runners/{runner_id}][%d] deleteRunnerRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *DeleteRunnerRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DeleteRunnerRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

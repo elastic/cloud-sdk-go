@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // ReorderSecurityRealmsReader is a Reader for the ReorderSecurityRealms structure.
@@ -41,21 +41,18 @@ type ReorderSecurityRealmsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *ReorderSecurityRealmsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewReorderSecurityRealmsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewReorderSecurityRealmsBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewReorderSecurityRealmsRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -83,6 +80,10 @@ type ReorderSecurityRealmsOK struct {
 
 func (o *ReorderSecurityRealmsOK) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/realms/_reorder][%d] reorderSecurityRealmsOK  %+v", 200, o.Payload)
+}
+
+func (o *ReorderSecurityRealmsOK) GetPayload() models.EmptyResponse {
+	return o.Payload
 }
 
 func (o *ReorderSecurityRealmsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -115,6 +116,10 @@ type ReorderSecurityRealmsBadRequest struct {
 
 func (o *ReorderSecurityRealmsBadRequest) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/realms/_reorder][%d] reorderSecurityRealmsBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *ReorderSecurityRealmsBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *ReorderSecurityRealmsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -151,6 +156,10 @@ type ReorderSecurityRealmsRetryWith struct {
 
 func (o *ReorderSecurityRealmsRetryWith) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/realms/_reorder][%d] reorderSecurityRealmsRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *ReorderSecurityRealmsRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *ReorderSecurityRealmsRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

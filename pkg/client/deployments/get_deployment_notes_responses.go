@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetDeploymentNotesReader is a Reader for the GetDeploymentNotes structure.
@@ -41,14 +41,12 @@ type GetDeploymentNotesReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetDeploymentNotesReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetDeploymentNotesOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewGetDeploymentNotesNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -86,6 +84,10 @@ type GetDeploymentNotesOK struct {
 
 func (o *GetDeploymentNotesOK) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/notes][%d] getDeploymentNotesOK  %+v", 200, o.Payload)
+}
+
+func (o *GetDeploymentNotesOK) GetPayload() *models.Notes {
+	return o.Payload
 }
 
 func (o *GetDeploymentNotesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -128,6 +130,10 @@ type GetDeploymentNotesNotFound struct {
 
 func (o *GetDeploymentNotesNotFound) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/notes][%d] getDeploymentNotesNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetDeploymentNotesNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *GetDeploymentNotesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // ResyncApmClustersReader is a Reader for the ResyncApmClusters structure.
@@ -41,14 +41,12 @@ type ResyncApmClustersReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *ResyncApmClustersReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 202:
 		result := NewResyncApmClustersAccepted()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 449:
 		result := NewResyncApmClustersRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -76,6 +74,10 @@ type ResyncApmClustersAccepted struct {
 
 func (o *ResyncApmClustersAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/_resync][%d] resyncApmClustersAccepted  %+v", 202, o.Payload)
+}
+
+func (o *ResyncApmClustersAccepted) GetPayload() *models.ModelVersionIndexSynchronizationResults {
+	return o.Payload
 }
 
 func (o *ResyncApmClustersAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -109,6 +111,10 @@ type ResyncApmClustersRetryWith struct {
 
 func (o *ResyncApmClustersRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/_resync][%d] resyncApmClustersRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *ResyncApmClustersRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *ResyncApmClustersRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

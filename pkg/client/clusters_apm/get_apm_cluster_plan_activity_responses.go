@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetApmClusterPlanActivityReader is a Reader for the GetApmClusterPlanActivity structure.
@@ -41,14 +41,12 @@ type GetApmClusterPlanActivityReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetApmClusterPlanActivityReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetApmClusterPlanActivityOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewGetApmClusterPlanActivityNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -76,6 +74,10 @@ type GetApmClusterPlanActivityOK struct {
 
 func (o *GetApmClusterPlanActivityOK) Error() string {
 	return fmt.Sprintf("[GET /clusters/apm/{cluster_id}/plan/activity][%d] getApmClusterPlanActivityOK  %+v", 200, o.Payload)
+}
+
+func (o *GetApmClusterPlanActivityOK) GetPayload() *models.ApmPlansInfo {
+	return o.Payload
 }
 
 func (o *GetApmClusterPlanActivityOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -109,6 +111,10 @@ type GetApmClusterPlanActivityNotFound struct {
 
 func (o *GetApmClusterPlanActivityNotFound) Error() string {
 	return fmt.Sprintf("[GET /clusters/apm/{cluster_id}/plan/activity][%d] getApmClusterPlanActivityNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetApmClusterPlanActivityNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *GetApmClusterPlanActivityNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

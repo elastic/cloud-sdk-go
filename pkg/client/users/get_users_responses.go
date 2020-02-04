@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetUsersReader is a Reader for the GetUsers structure.
@@ -41,14 +41,12 @@ type GetUsersReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetUsersReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetUsersOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 403:
 		result := NewGetUsersForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -78,6 +76,10 @@ func (o *GetUsersOK) Error() string {
 	return fmt.Sprintf("[GET /users][%d] getUsersOK  %+v", 200, o.Payload)
 }
 
+func (o *GetUsersOK) GetPayload() *models.UserList {
+	return o.Payload
+}
+
 func (o *GetUsersOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.UserList)
@@ -105,6 +107,10 @@ type GetUsersForbidden struct {
 
 func (o *GetUsersForbidden) Error() string {
 	return fmt.Sprintf("[GET /users][%d] getUsersForbidden  %+v", 403, o.Payload)
+}
+
+func (o *GetUsersForbidden) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *GetUsersForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

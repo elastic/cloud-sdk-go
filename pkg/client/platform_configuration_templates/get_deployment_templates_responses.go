@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetDeploymentTemplatesReader is a Reader for the GetDeploymentTemplates structure.
@@ -41,7 +41,6 @@ type GetDeploymentTemplatesReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetDeploymentTemplatesReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetDeploymentTemplatesOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -69,6 +68,10 @@ type GetDeploymentTemplatesOK struct {
 
 func (o *GetDeploymentTemplatesOK) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/templates/deployments][%d] getDeploymentTemplatesOK  %+v", 200, o.Payload)
+}
+
+func (o *GetDeploymentTemplatesOK) GetPayload() []*models.DeploymentTemplateInfo {
+	return o.Payload
 }
 
 func (o *GetDeploymentTemplatesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

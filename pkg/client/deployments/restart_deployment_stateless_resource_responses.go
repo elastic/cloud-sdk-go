@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // RestartDeploymentStatelessResourceReader is a Reader for the RestartDeploymentStatelessResource structure.
@@ -41,35 +41,30 @@ type RestartDeploymentStatelessResourceReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *RestartDeploymentStatelessResourceReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 202:
 		result := NewRestartDeploymentStatelessResourceAccepted()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewRestartDeploymentStatelessResourceNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 422:
 		result := NewRestartDeploymentStatelessResourceUnprocessableEntity()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewRestartDeploymentStatelessResourceRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewRestartDeploymentStatelessResourceInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -97,6 +92,10 @@ type RestartDeploymentStatelessResourceAccepted struct {
 
 func (o *RestartDeploymentStatelessResourceAccepted) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_restart][%d] restartDeploymentStatelessResourceAccepted  %+v", 202, o.Payload)
+}
+
+func (o *RestartDeploymentStatelessResourceAccepted) GetPayload() models.DeploymentResourceCommandResponse {
+	return o.Payload
 }
 
 func (o *RestartDeploymentStatelessResourceAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -128,6 +127,10 @@ type RestartDeploymentStatelessResourceNotFound struct {
 
 func (o *RestartDeploymentStatelessResourceNotFound) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_restart][%d] restartDeploymentStatelessResourceNotFound  %+v", 404, o.Payload)
+}
+
+func (o *RestartDeploymentStatelessResourceNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *RestartDeploymentStatelessResourceNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -166,6 +169,10 @@ func (o *RestartDeploymentStatelessResourceUnprocessableEntity) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_restart][%d] restartDeploymentStatelessResourceUnprocessableEntity  %+v", 422, o.Payload)
 }
 
+func (o *RestartDeploymentStatelessResourceUnprocessableEntity) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *RestartDeploymentStatelessResourceUnprocessableEntity) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -202,6 +209,10 @@ func (o *RestartDeploymentStatelessResourceRetryWith) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_restart][%d] restartDeploymentStatelessResourceRetryWith  %+v", 449, o.Payload)
 }
 
+func (o *RestartDeploymentStatelessResourceRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *RestartDeploymentStatelessResourceRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -236,6 +247,10 @@ type RestartDeploymentStatelessResourceInternalServerError struct {
 
 func (o *RestartDeploymentStatelessResourceInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_restart][%d] restartDeploymentStatelessResourceInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *RestartDeploymentStatelessResourceInternalServerError) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *RestartDeploymentStatelessResourceInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // ResyncKibanaClustersReader is a Reader for the ResyncKibanaClusters structure.
@@ -41,14 +41,12 @@ type ResyncKibanaClustersReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *ResyncKibanaClustersReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 202:
 		result := NewResyncKibanaClustersAccepted()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 449:
 		result := NewResyncKibanaClustersRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -76,6 +74,10 @@ type ResyncKibanaClustersAccepted struct {
 
 func (o *ResyncKibanaClustersAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/_resync][%d] resyncKibanaClustersAccepted  %+v", 202, o.Payload)
+}
+
+func (o *ResyncKibanaClustersAccepted) GetPayload() *models.ModelVersionIndexSynchronizationResults {
+	return o.Payload
 }
 
 func (o *ResyncKibanaClustersAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -109,6 +111,10 @@ type ResyncKibanaClustersRetryWith struct {
 
 func (o *ResyncKibanaClustersRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/_resync][%d] resyncKibanaClustersRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *ResyncKibanaClustersRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *ResyncKibanaClustersRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

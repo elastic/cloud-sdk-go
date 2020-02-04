@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // MethodsReader is a Reader for the Methods structure.
@@ -41,7 +41,6 @@ type MethodsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *MethodsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewMethodsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -69,6 +68,10 @@ type MethodsOK struct {
 
 func (o *MethodsOK) Error() string {
 	return fmt.Sprintf("[GET /users/auth/methods][%d] methodsOK  %+v", 200, o.Payload)
+}
+
+func (o *MethodsOK) GetPayload() *models.AvailableAuthenticationMethods {
+	return o.Payload
 }
 
 func (o *MethodsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

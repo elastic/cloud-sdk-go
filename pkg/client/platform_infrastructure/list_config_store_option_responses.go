@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // ListConfigStoreOptionReader is a Reader for the ListConfigStoreOption structure.
@@ -41,7 +41,6 @@ type ListConfigStoreOptionReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *ListConfigStoreOptionReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewListConfigStoreOptionOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -69,6 +68,10 @@ type ListConfigStoreOptionOK struct {
 
 func (o *ListConfigStoreOptionOK) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/store][%d] listConfigStoreOptionOK  %+v", 200, o.Payload)
+}
+
+func (o *ListConfigStoreOptionOK) GetPayload() *models.ConfigStoreOptionList {
+	return o.Payload
 }
 
 func (o *ListConfigStoreOptionOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

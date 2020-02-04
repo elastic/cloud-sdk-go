@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetSecurityDeploymentReader is a Reader for the GetSecurityDeployment structure.
@@ -41,14 +41,12 @@ type GetSecurityDeploymentReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetSecurityDeploymentReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetSecurityDeploymentOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewGetSecurityDeploymentNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -86,6 +84,10 @@ type GetSecurityDeploymentOK struct {
 
 func (o *GetSecurityDeploymentOK) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/security/deployment][%d] getSecurityDeploymentOK  %+v", 200, o.Payload)
+}
+
+func (o *GetSecurityDeploymentOK) GetPayload() *models.SecurityDeployment {
+	return o.Payload
 }
 
 func (o *GetSecurityDeploymentOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -128,6 +130,10 @@ type GetSecurityDeploymentNotFound struct {
 
 func (o *GetSecurityDeploymentNotFound) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/security/deployment][%d] getSecurityDeploymentNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetSecurityDeploymentNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *GetSecurityDeploymentNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

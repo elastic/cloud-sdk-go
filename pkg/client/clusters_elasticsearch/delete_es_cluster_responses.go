@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // DeleteEsClusterReader is a Reader for the DeleteEsCluster structure.
@@ -41,28 +41,24 @@ type DeleteEsClusterReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteEsClusterReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewDeleteEsClusterOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewDeleteEsClusterNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 412:
 		result := NewDeleteEsClusterPreconditionFailed()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewDeleteEsClusterRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -90,6 +86,10 @@ type DeleteEsClusterOK struct {
 
 func (o *DeleteEsClusterOK) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/elasticsearch/{cluster_id}][%d] deleteEsClusterOK  %+v", 200, o.Payload)
+}
+
+func (o *DeleteEsClusterOK) GetPayload() models.EmptyResponse {
+	return o.Payload
 }
 
 func (o *DeleteEsClusterOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -121,6 +121,10 @@ type DeleteEsClusterNotFound struct {
 
 func (o *DeleteEsClusterNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/elasticsearch/{cluster_id}][%d] deleteEsClusterNotFound  %+v", 404, o.Payload)
+}
+
+func (o *DeleteEsClusterNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DeleteEsClusterNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -159,6 +163,10 @@ func (o *DeleteEsClusterPreconditionFailed) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/elasticsearch/{cluster_id}][%d] deleteEsClusterPreconditionFailed  %+v", 412, o.Payload)
 }
 
+func (o *DeleteEsClusterPreconditionFailed) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *DeleteEsClusterPreconditionFailed) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -193,6 +201,10 @@ type DeleteEsClusterRetryWith struct {
 
 func (o *DeleteEsClusterRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/elasticsearch/{cluster_id}][%d] deleteEsClusterRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *DeleteEsClusterRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DeleteEsClusterRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

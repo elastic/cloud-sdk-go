@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // CancelKibanaClusterPendingPlanReader is a Reader for the CancelKibanaClusterPendingPlan structure.
@@ -41,28 +41,24 @@ type CancelKibanaClusterPendingPlanReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CancelKibanaClusterPendingPlanReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewCancelKibanaClusterPendingPlanOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewCancelKibanaClusterPendingPlanNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 412:
 		result := NewCancelKibanaClusterPendingPlanPreconditionFailed()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewCancelKibanaClusterPendingPlanRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -92,6 +88,10 @@ func (o *CancelKibanaClusterPendingPlanOK) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/kibana/{cluster_id}/plan/pending][%d] cancelKibanaClusterPendingPlanOK  %+v", 200, o.Payload)
 }
 
+func (o *CancelKibanaClusterPendingPlanOK) GetPayload() models.EmptyResponse {
+	return o.Payload
+}
+
 func (o *CancelKibanaClusterPendingPlanOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
@@ -117,6 +117,10 @@ type CancelKibanaClusterPendingPlanNotFound struct {
 
 func (o *CancelKibanaClusterPendingPlanNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/kibana/{cluster_id}/plan/pending][%d] cancelKibanaClusterPendingPlanNotFound  %+v", 404, o.Payload)
+}
+
+func (o *CancelKibanaClusterPendingPlanNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *CancelKibanaClusterPendingPlanNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -148,6 +152,10 @@ func (o *CancelKibanaClusterPendingPlanPreconditionFailed) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/kibana/{cluster_id}/plan/pending][%d] cancelKibanaClusterPendingPlanPreconditionFailed  %+v", 412, o.Payload)
 }
 
+func (o *CancelKibanaClusterPendingPlanPreconditionFailed) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *CancelKibanaClusterPendingPlanPreconditionFailed) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -175,6 +183,10 @@ type CancelKibanaClusterPendingPlanRetryWith struct {
 
 func (o *CancelKibanaClusterPendingPlanRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/kibana/{cluster_id}/plan/pending][%d] cancelKibanaClusterPendingPlanRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *CancelKibanaClusterPendingPlanRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *CancelKibanaClusterPendingPlanRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

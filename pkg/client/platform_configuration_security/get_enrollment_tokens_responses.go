@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetEnrollmentTokensReader is a Reader for the GetEnrollmentTokens structure.
@@ -41,14 +41,12 @@ type GetEnrollmentTokensReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetEnrollmentTokensReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetEnrollmentTokensOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 449:
 		result := NewGetEnrollmentTokensRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -78,6 +76,10 @@ func (o *GetEnrollmentTokensOK) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/security/enrollment-tokens][%d] getEnrollmentTokensOK  %+v", 200, o.Payload)
 }
 
+func (o *GetEnrollmentTokensOK) GetPayload() *models.ListEnrollmentTokenReply {
+	return o.Payload
+}
+
 func (o *GetEnrollmentTokensOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ListEnrollmentTokenReply)
@@ -105,6 +107,10 @@ type GetEnrollmentTokensRetryWith struct {
 
 func (o *GetEnrollmentTokensRetryWith) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/security/enrollment-tokens][%d] getEnrollmentTokensRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *GetEnrollmentTokensRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *GetEnrollmentTokensRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
