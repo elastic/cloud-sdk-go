@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetConfigStoreOptionReader is a Reader for the GetConfigStoreOption structure.
@@ -41,14 +41,12 @@ type GetConfigStoreOptionReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetConfigStoreOptionReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetConfigStoreOptionOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewGetConfigStoreOptionNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -86,6 +84,10 @@ type GetConfigStoreOptionOK struct {
 
 func (o *GetConfigStoreOptionOK) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/store/{config_option_id}][%d] getConfigStoreOptionOK  %+v", 200, o.Payload)
+}
+
+func (o *GetConfigStoreOptionOK) GetPayload() *models.ConfigStoreOption {
+	return o.Payload
 }
 
 func (o *GetConfigStoreOptionOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -128,6 +130,10 @@ type GetConfigStoreOptionNotFound struct {
 
 func (o *GetConfigStoreOptionNotFound) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/store/{config_option_id}][%d] getConfigStoreOptionNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetConfigStoreOptionNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *GetConfigStoreOptionNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

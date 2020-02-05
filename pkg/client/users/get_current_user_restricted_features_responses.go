@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetCurrentUserRestrictedFeaturesReader is a Reader for the GetCurrentUserRestrictedFeatures structure.
@@ -41,7 +41,6 @@ type GetCurrentUserRestrictedFeaturesReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetCurrentUserRestrictedFeaturesReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetCurrentUserRestrictedFeaturesOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -69,6 +68,10 @@ type GetCurrentUserRestrictedFeaturesOK struct {
 
 func (o *GetCurrentUserRestrictedFeaturesOK) Error() string {
 	return fmt.Sprintf("[GET /users/feature-controls][%d] getCurrentUserRestrictedFeaturesOK  %+v", 200, o.Payload)
+}
+
+func (o *GetCurrentUserRestrictedFeaturesOK) GetPayload() *models.UserFeatures {
+	return o.Payload
 }
 
 func (o *GetCurrentUserRestrictedFeaturesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

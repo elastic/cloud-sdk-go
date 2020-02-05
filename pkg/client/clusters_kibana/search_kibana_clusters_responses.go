@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // SearchKibanaClustersReader is a Reader for the SearchKibanaClusters structure.
@@ -41,14 +41,12 @@ type SearchKibanaClustersReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *SearchKibanaClustersReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewSearchKibanaClustersOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewSearchKibanaClustersBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -78,6 +76,10 @@ func (o *SearchKibanaClustersOK) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/_search][%d] searchKibanaClustersOK  %+v", 200, o.Payload)
 }
 
+func (o *SearchKibanaClustersOK) GetPayload() *models.KibanaClustersInfo {
+	return o.Payload
+}
+
 func (o *SearchKibanaClustersOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.KibanaClustersInfo)
@@ -105,6 +107,10 @@ type SearchKibanaClustersBadRequest struct {
 
 func (o *SearchKibanaClustersBadRequest) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/_search][%d] searchKibanaClustersBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *SearchKibanaClustersBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *SearchKibanaClustersBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

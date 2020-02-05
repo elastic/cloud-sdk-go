@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetProxiesHealthReader is a Reader for the GetProxiesHealth structure.
@@ -41,21 +41,18 @@ type GetProxiesHealthReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetProxiesHealthReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetProxiesHealthOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 417:
 		result := NewGetProxiesHealthExpectationFailed()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewGetProxiesHealthRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -85,6 +82,10 @@ func (o *GetProxiesHealthOK) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/proxies/health][%d] getProxiesHealthOK  %+v", 200, o.Payload)
 }
 
+func (o *GetProxiesHealthOK) GetPayload() *models.ProxiesHealth {
+	return o.Payload
+}
+
 func (o *GetProxiesHealthOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ProxiesHealth)
@@ -112,6 +113,10 @@ type GetProxiesHealthExpectationFailed struct {
 
 func (o *GetProxiesHealthExpectationFailed) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/proxies/health][%d] getProxiesHealthExpectationFailed  %+v", 417, o.Payload)
+}
+
+func (o *GetProxiesHealthExpectationFailed) GetPayload() *models.ProxiesHealth {
+	return o.Payload
 }
 
 func (o *GetProxiesHealthExpectationFailed) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -145,6 +150,10 @@ type GetProxiesHealthRetryWith struct {
 
 func (o *GetProxiesHealthRetryWith) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/proxies/health][%d] getProxiesHealthRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *GetProxiesHealthRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *GetProxiesHealthRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

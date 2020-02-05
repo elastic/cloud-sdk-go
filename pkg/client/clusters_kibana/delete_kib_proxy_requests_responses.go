@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // DeleteKibProxyRequestsReader is a Reader for the DeleteKibProxyRequests structure.
@@ -41,14 +41,12 @@ type DeleteKibProxyRequestsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteKibProxyRequestsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewDeleteKibProxyRequestsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewDeleteKibProxyRequestsNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -97,6 +95,10 @@ type DeleteKibProxyRequestsNotFound struct {
 
 func (o *DeleteKibProxyRequestsNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/kibana/{cluster_id}/proxy/{kibana_path}][%d] deleteKibProxyRequestsNotFound  %+v", 404, o.Payload)
+}
+
+func (o *DeleteKibProxyRequestsNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DeleteKibProxyRequestsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

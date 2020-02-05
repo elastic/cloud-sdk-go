@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // PutConfigStoreOptionReader is a Reader for the PutConfigStoreOption structure.
@@ -41,21 +41,18 @@ type PutConfigStoreOptionReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PutConfigStoreOptionReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewPutConfigStoreOptionOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewPutConfigStoreOptionNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewPutConfigStoreOptionConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -93,6 +90,10 @@ type PutConfigStoreOptionOK struct {
 
 func (o *PutConfigStoreOptionOK) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/store/{config_option_id}][%d] putConfigStoreOptionOK  %+v", 200, o.Payload)
+}
+
+func (o *PutConfigStoreOptionOK) GetPayload() *models.ConfigStoreOption {
+	return o.Payload
 }
 
 func (o *PutConfigStoreOptionOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -137,6 +138,10 @@ func (o *PutConfigStoreOptionNotFound) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/store/{config_option_id}][%d] putConfigStoreOptionNotFound  %+v", 404, o.Payload)
 }
 
+func (o *PutConfigStoreOptionNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *PutConfigStoreOptionNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -171,6 +176,10 @@ type PutConfigStoreOptionConflict struct {
 
 func (o *PutConfigStoreOptionConflict) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/store/{config_option_id}][%d] putConfigStoreOptionConflict  %+v", 409, o.Payload)
+}
+
+func (o *PutConfigStoreOptionConflict) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *PutConfigStoreOptionConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

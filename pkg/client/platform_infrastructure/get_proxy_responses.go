@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetProxyReader is a Reader for the GetProxy structure.
@@ -41,14 +41,12 @@ type GetProxyReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetProxyReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetProxyOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewGetProxyNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -76,6 +74,10 @@ type GetProxyOK struct {
 
 func (o *GetProxyOK) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/proxies/{proxy_id}][%d] getProxyOK  %+v", 200, o.Payload)
+}
+
+func (o *GetProxyOK) GetPayload() *models.ProxyInfo {
+	return o.Payload
 }
 
 func (o *GetProxyOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -109,6 +111,10 @@ type GetProxyNotFound struct {
 
 func (o *GetProxyNotFound) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/proxies/{proxy_id}][%d] getProxyNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetProxyNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *GetProxyNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

@@ -23,13 +23,14 @@ package deployments_ip_filtering
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-openapi/runtime"
+	"fmt"
 
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new deployments ip filtering API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -41,10 +42,33 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
-/*
-CreateIPFilterRuleset creates a ruleset
+// ClientService is the interface for Client methods
+type ClientService interface {
+	CreateIPFilterRuleset(params *CreateIPFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter) (*CreateIPFilterRulesetCreated, error)
 
-Creates a ruleset that combines a set of rules.
+	CreateIPFilterRulesetAssociation(params *CreateIPFilterRulesetAssociationParams, authInfo runtime.ClientAuthInfoWriter) (*CreateIPFilterRulesetAssociationCreated, error)
+
+	DeleteIPFilterRuleset(params *DeleteIPFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteIPFilterRulesetOK, error)
+
+	DeleteIPFilterRulesetAssociation(params *DeleteIPFilterRulesetAssociationParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteIPFilterRulesetAssociationOK, error)
+
+	GetIPFilterDeploymentRulesetAssociations(params *GetIPFilterDeploymentRulesetAssociationsParams, authInfo runtime.ClientAuthInfoWriter) (*GetIPFilterDeploymentRulesetAssociationsOK, error)
+
+	GetIPFilterRuleset(params *GetIPFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter) (*GetIPFilterRulesetOK, error)
+
+	GetIPFilterRulesetDeploymentAssociations(params *GetIPFilterRulesetDeploymentAssociationsParams, authInfo runtime.ClientAuthInfoWriter) (*GetIPFilterRulesetDeploymentAssociationsOK, error)
+
+	GetIPFilterRulesets(params *GetIPFilterRulesetsParams, authInfo runtime.ClientAuthInfoWriter) (*GetIPFilterRulesetsOK, error)
+
+	UpdateIPFilterRuleset(params *UpdateIPFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateIPFilterRulesetOK, error)
+
+	SetTransport(transport runtime.ClientTransport)
+}
+
+/*
+  CreateIPFilterRuleset creates a ruleset
+
+  Creates a ruleset that combines a set of rules.
 */
 func (a *Client) CreateIPFilterRuleset(params *CreateIPFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter) (*CreateIPFilterRulesetCreated, error) {
 	// TODO: Validate the params before sending
@@ -56,8 +80,8 @@ func (a *Client) CreateIPFilterRuleset(params *CreateIPFilterRulesetParams, auth
 		ID:                 "create-ip-filter-ruleset",
 		Method:             "POST",
 		PathPattern:        "/deployments/ip-filtering/rulesets",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &CreateIPFilterRulesetReader{formats: a.formats},
@@ -68,14 +92,20 @@ func (a *Client) CreateIPFilterRuleset(params *CreateIPFilterRulesetParams, auth
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateIPFilterRulesetCreated), nil
-
+	success, ok := result.(*CreateIPFilterRulesetCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for create-ip-filter-ruleset: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-CreateIPFilterRulesetAssociation creates ruleset association
+  CreateIPFilterRulesetAssociation creates ruleset association
 
-Applies the ruleset to the specified deployment.
+  Applies the ruleset to the specified deployment.
 */
 func (a *Client) CreateIPFilterRulesetAssociation(params *CreateIPFilterRulesetAssociationParams, authInfo runtime.ClientAuthInfoWriter) (*CreateIPFilterRulesetAssociationCreated, error) {
 	// TODO: Validate the params before sending
@@ -87,8 +117,8 @@ func (a *Client) CreateIPFilterRulesetAssociation(params *CreateIPFilterRulesetA
 		ID:                 "create-ip-filter-ruleset-association",
 		Method:             "POST",
 		PathPattern:        "/deployments/ip-filtering/rulesets/{ruleset_id}/associations",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &CreateIPFilterRulesetAssociationReader{formats: a.formats},
@@ -99,14 +129,20 @@ func (a *Client) CreateIPFilterRulesetAssociation(params *CreateIPFilterRulesetA
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateIPFilterRulesetAssociationCreated), nil
-
+	success, ok := result.(*CreateIPFilterRulesetAssociationCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for create-ip-filter-ruleset-association: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-DeleteIPFilterRuleset deletes a ruleset
+  DeleteIPFilterRuleset deletes a ruleset
 
-Deletes the ruleset by ID.
+  Deletes the ruleset by ID.
 */
 func (a *Client) DeleteIPFilterRuleset(params *DeleteIPFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteIPFilterRulesetOK, error) {
 	// TODO: Validate the params before sending
@@ -118,8 +154,8 @@ func (a *Client) DeleteIPFilterRuleset(params *DeleteIPFilterRulesetParams, auth
 		ID:                 "delete-ip-filter-ruleset",
 		Method:             "DELETE",
 		PathPattern:        "/deployments/ip-filtering/rulesets/{ruleset_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &DeleteIPFilterRulesetReader{formats: a.formats},
@@ -130,14 +166,20 @@ func (a *Client) DeleteIPFilterRuleset(params *DeleteIPFilterRulesetParams, auth
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteIPFilterRulesetOK), nil
-
+	success, ok := result.(*DeleteIPFilterRulesetOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for delete-ip-filter-ruleset: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-DeleteIPFilterRulesetAssociation deletes ruleset association
+  DeleteIPFilterRulesetAssociation deletes ruleset association
 
-Deletes the traffic rules in the ruleset from the deployment.
+  Deletes the traffic rules in the ruleset from the deployment.
 */
 func (a *Client) DeleteIPFilterRulesetAssociation(params *DeleteIPFilterRulesetAssociationParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteIPFilterRulesetAssociationOK, error) {
 	// TODO: Validate the params before sending
@@ -149,8 +191,8 @@ func (a *Client) DeleteIPFilterRulesetAssociation(params *DeleteIPFilterRulesetA
 		ID:                 "delete-ip-filter-ruleset-association",
 		Method:             "DELETE",
 		PathPattern:        "/deployments/ip-filtering/rulesets/{ruleset_id}/associations/{association_type}/{associated_entity_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &DeleteIPFilterRulesetAssociationReader{formats: a.formats},
@@ -161,14 +203,20 @@ func (a *Client) DeleteIPFilterRulesetAssociation(params *DeleteIPFilterRulesetA
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteIPFilterRulesetAssociationOK), nil
-
+	success, ok := result.(*DeleteIPFilterRulesetAssociationOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for delete-ip-filter-ruleset-association: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetIPFilterDeploymentRulesetAssociations gets associated rulesets
+  GetIPFilterDeploymentRulesetAssociations gets associated rulesets
 
-Retrieves the rulesets associated with a deployment.
+  Retrieves the rulesets associated with a deployment.
 */
 func (a *Client) GetIPFilterDeploymentRulesetAssociations(params *GetIPFilterDeploymentRulesetAssociationsParams, authInfo runtime.ClientAuthInfoWriter) (*GetIPFilterDeploymentRulesetAssociationsOK, error) {
 	// TODO: Validate the params before sending
@@ -180,8 +228,8 @@ func (a *Client) GetIPFilterDeploymentRulesetAssociations(params *GetIPFilterDep
 		ID:                 "get-ip-filter-deployment-ruleset-associations",
 		Method:             "GET",
 		PathPattern:        "/deployments/ip-filtering/associations/{association_type}/{associated_entity_id}/rulesets",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetIPFilterDeploymentRulesetAssociationsReader{formats: a.formats},
@@ -192,14 +240,20 @@ func (a *Client) GetIPFilterDeploymentRulesetAssociations(params *GetIPFilterDep
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetIPFilterDeploymentRulesetAssociationsOK), nil
-
+	success, ok := result.(*GetIPFilterDeploymentRulesetAssociationsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-ip-filter-deployment-ruleset-associations: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetIPFilterRuleset gets a ruleset
+  GetIPFilterRuleset gets a ruleset
 
-Retrieves the ruleset by ID.
+  Retrieves the ruleset by ID.
 */
 func (a *Client) GetIPFilterRuleset(params *GetIPFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter) (*GetIPFilterRulesetOK, error) {
 	// TODO: Validate the params before sending
@@ -211,8 +265,8 @@ func (a *Client) GetIPFilterRuleset(params *GetIPFilterRulesetParams, authInfo r
 		ID:                 "get-ip-filter-ruleset",
 		Method:             "GET",
 		PathPattern:        "/deployments/ip-filtering/rulesets/{ruleset_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetIPFilterRulesetReader{formats: a.formats},
@@ -223,14 +277,20 @@ func (a *Client) GetIPFilterRuleset(params *GetIPFilterRulesetParams, authInfo r
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetIPFilterRulesetOK), nil
-
+	success, ok := result.(*GetIPFilterRulesetOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-ip-filter-ruleset: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetIPFilterRulesetDeploymentAssociations gets associated deployments
+  GetIPFilterRulesetDeploymentAssociations gets associated deployments
 
-Retrieves a list of deployments that are associated to the specified ruleset.
+  Retrieves a list of deployments that are associated to the specified ruleset.
 */
 func (a *Client) GetIPFilterRulesetDeploymentAssociations(params *GetIPFilterRulesetDeploymentAssociationsParams, authInfo runtime.ClientAuthInfoWriter) (*GetIPFilterRulesetDeploymentAssociationsOK, error) {
 	// TODO: Validate the params before sending
@@ -242,8 +302,8 @@ func (a *Client) GetIPFilterRulesetDeploymentAssociations(params *GetIPFilterRul
 		ID:                 "get-ip-filter-ruleset-deployment-associations",
 		Method:             "GET",
 		PathPattern:        "/deployments/ip-filtering/rulesets/{ruleset_id}/associations",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetIPFilterRulesetDeploymentAssociationsReader{formats: a.formats},
@@ -254,14 +314,20 @@ func (a *Client) GetIPFilterRulesetDeploymentAssociations(params *GetIPFilterRul
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetIPFilterRulesetDeploymentAssociationsOK), nil
-
+	success, ok := result.(*GetIPFilterRulesetDeploymentAssociationsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-ip-filter-ruleset-deployment-associations: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetIPFilterRulesets gets all rulesets
+  GetIPFilterRulesets gets all rulesets
 
-Retrieves all of the user rulesets.
+  Retrieves all of the user rulesets.
 */
 func (a *Client) GetIPFilterRulesets(params *GetIPFilterRulesetsParams, authInfo runtime.ClientAuthInfoWriter) (*GetIPFilterRulesetsOK, error) {
 	// TODO: Validate the params before sending
@@ -273,8 +339,8 @@ func (a *Client) GetIPFilterRulesets(params *GetIPFilterRulesetsParams, authInfo
 		ID:                 "get-ip-filter-rulesets",
 		Method:             "GET",
 		PathPattern:        "/deployments/ip-filtering/rulesets",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetIPFilterRulesetsReader{formats: a.formats},
@@ -285,14 +351,20 @@ func (a *Client) GetIPFilterRulesets(params *GetIPFilterRulesetsParams, authInfo
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetIPFilterRulesetsOK), nil
-
+	success, ok := result.(*GetIPFilterRulesetsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-ip-filter-rulesets: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-UpdateIPFilterRuleset updates a ruleset
+  UpdateIPFilterRuleset updates a ruleset
 
-Updates the ruleset with the definition.
+  Updates the ruleset with the definition.
 */
 func (a *Client) UpdateIPFilterRuleset(params *UpdateIPFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateIPFilterRulesetOK, error) {
 	// TODO: Validate the params before sending
@@ -304,8 +376,8 @@ func (a *Client) UpdateIPFilterRuleset(params *UpdateIPFilterRulesetParams, auth
 		ID:                 "update-ip-filter-ruleset",
 		Method:             "PUT",
 		PathPattern:        "/deployments/ip-filtering/rulesets/{ruleset_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &UpdateIPFilterRulesetReader{formats: a.formats},
@@ -316,8 +388,14 @@ func (a *Client) UpdateIPFilterRuleset(params *UpdateIPFilterRulesetParams, auth
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpdateIPFilterRulesetOK), nil
-
+	success, ok := result.(*UpdateIPFilterRulesetOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for update-ip-filter-ruleset: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 // SetTransport changes the transport on the client

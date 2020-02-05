@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // DeleteApmReader is a Reader for the DeleteApm structure.
@@ -41,28 +41,24 @@ type DeleteApmReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteApmReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewDeleteApmOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewDeleteApmNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 412:
 		result := NewDeleteApmPreconditionFailed()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewDeleteApmRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -92,6 +88,10 @@ func (o *DeleteApmOK) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/apm/{cluster_id}][%d] deleteApmOK  %+v", 200, o.Payload)
 }
 
+func (o *DeleteApmOK) GetPayload() models.EmptyResponse {
+	return o.Payload
+}
+
 func (o *DeleteApmOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
@@ -117,6 +117,10 @@ type DeleteApmNotFound struct {
 
 func (o *DeleteApmNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/apm/{cluster_id}][%d] deleteApmNotFound  %+v", 404, o.Payload)
+}
+
+func (o *DeleteApmNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DeleteApmNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -148,6 +152,10 @@ func (o *DeleteApmPreconditionFailed) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/apm/{cluster_id}][%d] deleteApmPreconditionFailed  %+v", 412, o.Payload)
 }
 
+func (o *DeleteApmPreconditionFailed) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *DeleteApmPreconditionFailed) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -175,6 +183,10 @@ type DeleteApmRetryWith struct {
 
 func (o *DeleteApmRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/apm/{cluster_id}][%d] deleteApmRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *DeleteApmRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DeleteApmRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

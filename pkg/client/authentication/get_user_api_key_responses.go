@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetUserAPIKeyReader is a Reader for the GetUserAPIKey structure.
@@ -41,14 +41,12 @@ type GetUserAPIKeyReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetUserAPIKeyReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetUserAPIKeyOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewGetUserAPIKeyNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -76,6 +74,10 @@ type GetUserAPIKeyOK struct {
 
 func (o *GetUserAPIKeyOK) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/auth/keys/{api_key_id}][%d] getUserApiKeyOK  %+v", 200, o.Payload)
+}
+
+func (o *GetUserAPIKeyOK) GetPayload() *models.APIKeyResponse {
+	return o.Payload
 }
 
 func (o *GetUserAPIKeyOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -109,6 +111,10 @@ type GetUserAPIKeyNotFound struct {
 
 func (o *GetUserAPIKeyNotFound) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/auth/keys/{api_key_id}][%d] getUserApiKeyNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetUserAPIKeyNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *GetUserAPIKeyNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

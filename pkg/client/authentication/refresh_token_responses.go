@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // RefreshTokenReader is a Reader for the RefreshToken structure.
@@ -41,28 +41,24 @@ type RefreshTokenReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *RefreshTokenReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewRefreshTokenOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 401:
 		result := NewRefreshTokenUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 501:
 		result := NewRefreshTokenNotImplemented()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 502:
 		result := NewRefreshTokenBadGateway()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -90,6 +86,10 @@ type RefreshTokenOK struct {
 
 func (o *RefreshTokenOK) Error() string {
 	return fmt.Sprintf("[POST /users/auth/_refresh][%d] refreshTokenOK  %+v", 200, o.Payload)
+}
+
+func (o *RefreshTokenOK) GetPayload() *models.TokenResponse {
+	return o.Payload
 }
 
 func (o *RefreshTokenOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -123,6 +123,10 @@ type RefreshTokenUnauthorized struct {
 
 func (o *RefreshTokenUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /users/auth/_refresh][%d] refreshTokenUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *RefreshTokenUnauthorized) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *RefreshTokenUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -161,6 +165,10 @@ func (o *RefreshTokenNotImplemented) Error() string {
 	return fmt.Sprintf("[POST /users/auth/_refresh][%d] refreshTokenNotImplemented  %+v", 501, o.Payload)
 }
 
+func (o *RefreshTokenNotImplemented) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *RefreshTokenNotImplemented) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -195,6 +203,10 @@ type RefreshTokenBadGateway struct {
 
 func (o *RefreshTokenBadGateway) Error() string {
 	return fmt.Sprintf("[POST /users/auth/_refresh][%d] refreshTokenBadGateway  %+v", 502, o.Payload)
+}
+
+func (o *RefreshTokenBadGateway) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *RefreshTokenBadGateway) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

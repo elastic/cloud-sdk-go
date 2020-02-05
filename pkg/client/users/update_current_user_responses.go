@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // UpdateCurrentUserReader is a Reader for the UpdateCurrentUser structure.
@@ -41,28 +41,24 @@ type UpdateCurrentUserReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *UpdateCurrentUserReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewUpdateCurrentUserOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewUpdateCurrentUserBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewUpdateCurrentUserNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewUpdateCurrentUserInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -90,6 +86,10 @@ type UpdateCurrentUserOK struct {
 
 func (o *UpdateCurrentUserOK) Error() string {
 	return fmt.Sprintf("[PATCH /user][%d] updateCurrentUserOK  %+v", 200, o.Payload)
+}
+
+func (o *UpdateCurrentUserOK) GetPayload() *models.User {
+	return o.Payload
 }
 
 func (o *UpdateCurrentUserOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -121,6 +121,10 @@ func (o *UpdateCurrentUserBadRequest) Error() string {
 	return fmt.Sprintf("[PATCH /user][%d] updateCurrentUserBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *UpdateCurrentUserBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *UpdateCurrentUserBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -150,6 +154,10 @@ func (o *UpdateCurrentUserNotFound) Error() string {
 	return fmt.Sprintf("[PATCH /user][%d] updateCurrentUserNotFound  %+v", 404, o.Payload)
 }
 
+func (o *UpdateCurrentUserNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *UpdateCurrentUserNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -177,6 +185,10 @@ type UpdateCurrentUserInternalServerError struct {
 
 func (o *UpdateCurrentUserInternalServerError) Error() string {
 	return fmt.Sprintf("[PATCH /user][%d] updateCurrentUserInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *UpdateCurrentUserInternalServerError) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *UpdateCurrentUserInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

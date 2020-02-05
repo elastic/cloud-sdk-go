@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetEsClusterPlanActivityReader is a Reader for the GetEsClusterPlanActivity structure.
@@ -41,14 +41,12 @@ type GetEsClusterPlanActivityReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetEsClusterPlanActivityReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetEsClusterPlanActivityOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewGetEsClusterPlanActivityNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -76,6 +74,10 @@ type GetEsClusterPlanActivityOK struct {
 
 func (o *GetEsClusterPlanActivityOK) Error() string {
 	return fmt.Sprintf("[GET /clusters/elasticsearch/{cluster_id}/plan/activity][%d] getEsClusterPlanActivityOK  %+v", 200, o.Payload)
+}
+
+func (o *GetEsClusterPlanActivityOK) GetPayload() *models.ElasticsearchClusterPlansInfo {
+	return o.Payload
 }
 
 func (o *GetEsClusterPlanActivityOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -109,6 +111,10 @@ type GetEsClusterPlanActivityNotFound struct {
 
 func (o *GetEsClusterPlanActivityNotFound) Error() string {
 	return fmt.Sprintf("[GET /clusters/elasticsearch/{cluster_id}/plan/activity][%d] getEsClusterPlanActivityNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetEsClusterPlanActivityNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *GetEsClusterPlanActivityNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

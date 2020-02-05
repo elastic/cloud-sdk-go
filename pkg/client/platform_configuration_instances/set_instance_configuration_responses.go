@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // SetInstanceConfigurationReader is a Reader for the SetInstanceConfiguration structure.
@@ -41,42 +41,36 @@ type SetInstanceConfigurationReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *SetInstanceConfigurationReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewSetInstanceConfigurationOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 201:
 		result := NewSetInstanceConfigurationCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewSetInstanceConfigurationBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewSetInstanceConfigurationForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewSetInstanceConfigurationNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewSetInstanceConfigurationRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -104,6 +98,10 @@ type SetInstanceConfigurationOK struct {
 
 func (o *SetInstanceConfigurationOK) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/instances/{id}][%d] setInstanceConfigurationOK  %+v", 200, o.Payload)
+}
+
+func (o *SetInstanceConfigurationOK) GetPayload() *models.IDResponse {
+	return o.Payload
 }
 
 func (o *SetInstanceConfigurationOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -135,6 +133,10 @@ func (o *SetInstanceConfigurationCreated) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/instances/{id}][%d] setInstanceConfigurationCreated  %+v", 201, o.Payload)
 }
 
+func (o *SetInstanceConfigurationCreated) GetPayload() *models.IDResponse {
+	return o.Payload
+}
+
 func (o *SetInstanceConfigurationCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.IDResponse)
@@ -162,6 +164,10 @@ type SetInstanceConfigurationBadRequest struct {
 
 func (o *SetInstanceConfigurationBadRequest) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/instances/{id}][%d] setInstanceConfigurationBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *SetInstanceConfigurationBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *SetInstanceConfigurationBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -193,6 +199,10 @@ func (o *SetInstanceConfigurationForbidden) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/instances/{id}][%d] setInstanceConfigurationForbidden  %+v", 403, o.Payload)
 }
 
+func (o *SetInstanceConfigurationForbidden) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *SetInstanceConfigurationForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -222,6 +232,10 @@ func (o *SetInstanceConfigurationNotFound) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/instances/{id}][%d] setInstanceConfigurationNotFound  %+v", 404, o.Payload)
 }
 
+func (o *SetInstanceConfigurationNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *SetInstanceConfigurationNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -249,6 +263,10 @@ type SetInstanceConfigurationRetryWith struct {
 
 func (o *SetInstanceConfigurationRetryWith) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/instances/{id}][%d] setInstanceConfigurationRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *SetInstanceConfigurationRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *SetInstanceConfigurationRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

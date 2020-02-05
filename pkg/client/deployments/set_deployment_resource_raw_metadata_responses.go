@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // SetDeploymentResourceRawMetadataReader is a Reader for the SetDeploymentResourceRawMetadata structure.
@@ -41,35 +41,30 @@ type SetDeploymentResourceRawMetadataReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *SetDeploymentResourceRawMetadataReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewSetDeploymentResourceRawMetadataOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewSetDeploymentResourceRawMetadataBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewSetDeploymentResourceRawMetadataNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewSetDeploymentResourceRawMetadataRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewSetDeploymentResourceRawMetadataInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -107,6 +102,10 @@ type SetDeploymentResourceRawMetadataOK struct {
 
 func (o *SetDeploymentResourceRawMetadataOK) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/metadata/raw][%d] setDeploymentResourceRawMetadataOK  %+v", 200, o.Payload)
+}
+
+func (o *SetDeploymentResourceRawMetadataOK) GetPayload() string {
+	return o.Payload
 }
 
 func (o *SetDeploymentResourceRawMetadataOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -149,6 +148,10 @@ func (o *SetDeploymentResourceRawMetadataBadRequest) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/metadata/raw][%d] setDeploymentResourceRawMetadataBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *SetDeploymentResourceRawMetadataBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *SetDeploymentResourceRawMetadataBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -183,6 +186,10 @@ type SetDeploymentResourceRawMetadataNotFound struct {
 
 func (o *SetDeploymentResourceRawMetadataNotFound) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/metadata/raw][%d] setDeploymentResourceRawMetadataNotFound  %+v", 404, o.Payload)
+}
+
+func (o *SetDeploymentResourceRawMetadataNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *SetDeploymentResourceRawMetadataNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -221,6 +228,10 @@ func (o *SetDeploymentResourceRawMetadataRetryWith) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/metadata/raw][%d] setDeploymentResourceRawMetadataRetryWith  %+v", 449, o.Payload)
 }
 
+func (o *SetDeploymentResourceRawMetadataRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *SetDeploymentResourceRawMetadataRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -255,6 +266,10 @@ type SetDeploymentResourceRawMetadataInternalServerError struct {
 
 func (o *SetDeploymentResourceRawMetadataInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/metadata/raw][%d] setDeploymentResourceRawMetadataInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *SetDeploymentResourceRawMetadataInternalServerError) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *SetDeploymentResourceRawMetadataInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

@@ -23,13 +23,14 @@ package platform_configuration_templates
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-openapi/runtime"
+	"fmt"
 
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new platform configuration templates API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -41,10 +42,25 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
-/*
-CreateDeploymentTemplate creates deployment template
+// ClientService is the interface for Client methods
+type ClientService interface {
+	CreateDeploymentTemplate(params *CreateDeploymentTemplateParams, authInfo runtime.ClientAuthInfoWriter) (*CreateDeploymentTemplateCreated, error)
 
-Creates a deployment template.
+	DeleteDeploymentTemplate(params *DeleteDeploymentTemplateParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteDeploymentTemplateOK, error)
+
+	GetDeploymentTemplate(params *GetDeploymentTemplateParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentTemplateOK, error)
+
+	GetDeploymentTemplates(params *GetDeploymentTemplatesParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentTemplatesOK, error)
+
+	SetDeploymentTemplate(params *SetDeploymentTemplateParams, authInfo runtime.ClientAuthInfoWriter) (*SetDeploymentTemplateOK, *SetDeploymentTemplateCreated, error)
+
+	SetTransport(transport runtime.ClientTransport)
+}
+
+/*
+  CreateDeploymentTemplate creates deployment template
+
+  Creates a deployment template.
 */
 func (a *Client) CreateDeploymentTemplate(params *CreateDeploymentTemplateParams, authInfo runtime.ClientAuthInfoWriter) (*CreateDeploymentTemplateCreated, error) {
 	// TODO: Validate the params before sending
@@ -56,8 +72,8 @@ func (a *Client) CreateDeploymentTemplate(params *CreateDeploymentTemplateParams
 		ID:                 "create-deployment-template",
 		Method:             "POST",
 		PathPattern:        "/platform/configuration/templates/deployments",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &CreateDeploymentTemplateReader{formats: a.formats},
@@ -68,14 +84,20 @@ func (a *Client) CreateDeploymentTemplate(params *CreateDeploymentTemplateParams
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateDeploymentTemplateCreated), nil
-
+	success, ok := result.(*CreateDeploymentTemplateCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for create-deployment-template: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-DeleteDeploymentTemplate deletes deployment template
+  DeleteDeploymentTemplate deletes deployment template
 
-Deletes a deployment template by id.
+  Deletes a deployment template by id.
 */
 func (a *Client) DeleteDeploymentTemplate(params *DeleteDeploymentTemplateParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteDeploymentTemplateOK, error) {
 	// TODO: Validate the params before sending
@@ -87,8 +109,8 @@ func (a *Client) DeleteDeploymentTemplate(params *DeleteDeploymentTemplateParams
 		ID:                 "delete-deployment-template",
 		Method:             "DELETE",
 		PathPattern:        "/platform/configuration/templates/deployments/{template_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &DeleteDeploymentTemplateReader{formats: a.formats},
@@ -99,14 +121,20 @@ func (a *Client) DeleteDeploymentTemplate(params *DeleteDeploymentTemplateParams
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteDeploymentTemplateOK), nil
-
+	success, ok := result.(*DeleteDeploymentTemplateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for delete-deployment-template: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetDeploymentTemplate gets deployment template
+  GetDeploymentTemplate gets deployment template
 
-Retrieves a deployment template by id.
+  Retrieves a deployment template by id.
 */
 func (a *Client) GetDeploymentTemplate(params *GetDeploymentTemplateParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentTemplateOK, error) {
 	// TODO: Validate the params before sending
@@ -118,8 +146,8 @@ func (a *Client) GetDeploymentTemplate(params *GetDeploymentTemplateParams, auth
 		ID:                 "get-deployment-template",
 		Method:             "GET",
 		PathPattern:        "/platform/configuration/templates/deployments/{template_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetDeploymentTemplateReader{formats: a.formats},
@@ -130,14 +158,20 @@ func (a *Client) GetDeploymentTemplate(params *GetDeploymentTemplateParams, auth
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetDeploymentTemplateOK), nil
-
+	success, ok := result.(*GetDeploymentTemplateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-deployment-template: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetDeploymentTemplates gets deployment templates
+  GetDeploymentTemplates gets deployment templates
 
-Retrieves all deployment templates.
+  Retrieves all deployment templates.
 */
 func (a *Client) GetDeploymentTemplates(params *GetDeploymentTemplatesParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentTemplatesOK, error) {
 	// TODO: Validate the params before sending
@@ -149,8 +183,8 @@ func (a *Client) GetDeploymentTemplates(params *GetDeploymentTemplatesParams, au
 		ID:                 "get-deployment-templates",
 		Method:             "GET",
 		PathPattern:        "/platform/configuration/templates/deployments",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetDeploymentTemplatesReader{formats: a.formats},
@@ -161,14 +195,20 @@ func (a *Client) GetDeploymentTemplates(params *GetDeploymentTemplatesParams, au
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetDeploymentTemplatesOK), nil
-
+	success, ok := result.(*GetDeploymentTemplatesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-deployment-templates: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-SetDeploymentTemplate sets deployment template
+  SetDeploymentTemplate sets deployment template
 
-Creates or updates a deployment template.
+  Creates or updates a deployment template.
 */
 func (a *Client) SetDeploymentTemplate(params *SetDeploymentTemplateParams, authInfo runtime.ClientAuthInfoWriter) (*SetDeploymentTemplateOK, *SetDeploymentTemplateCreated, error) {
 	// TODO: Validate the params before sending
@@ -180,8 +220,8 @@ func (a *Client) SetDeploymentTemplate(params *SetDeploymentTemplateParams, auth
 		ID:                 "set-deployment-template",
 		Method:             "PUT",
 		PathPattern:        "/platform/configuration/templates/deployments/{template_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &SetDeploymentTemplateReader{formats: a.formats},
@@ -198,8 +238,9 @@ func (a *Client) SetDeploymentTemplate(params *SetDeploymentTemplateParams, auth
 	case *SetDeploymentTemplateCreated:
 		return nil, value, nil
 	}
-	return nil, nil, nil
-
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for platform_configuration_templates: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 // SetTransport changes the transport on the client

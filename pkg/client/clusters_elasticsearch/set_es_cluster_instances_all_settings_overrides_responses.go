@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // SetEsClusterInstancesAllSettingsOverridesReader is a Reader for the SetEsClusterInstancesAllSettingsOverrides structure.
@@ -41,21 +41,18 @@ type SetEsClusterInstancesAllSettingsOverridesReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *SetEsClusterInstancesAllSettingsOverridesReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewSetEsClusterInstancesAllSettingsOverridesOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewSetEsClusterInstancesAllSettingsOverridesNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewSetEsClusterInstancesAllSettingsOverridesRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -83,6 +80,10 @@ type SetEsClusterInstancesAllSettingsOverridesOK struct {
 
 func (o *SetEsClusterInstancesAllSettingsOverridesOK) Error() string {
 	return fmt.Sprintf("[PUT /clusters/elasticsearch/{cluster_id}/instances/settings][%d] setEsClusterInstancesAllSettingsOverridesOK  %+v", 200, o.Payload)
+}
+
+func (o *SetEsClusterInstancesAllSettingsOverridesOK) GetPayload() *models.ElasticsearchClusterInstanceSettingsOverrides {
+	return o.Payload
 }
 
 func (o *SetEsClusterInstancesAllSettingsOverridesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -116,6 +117,10 @@ type SetEsClusterInstancesAllSettingsOverridesNotFound struct {
 
 func (o *SetEsClusterInstancesAllSettingsOverridesNotFound) Error() string {
 	return fmt.Sprintf("[PUT /clusters/elasticsearch/{cluster_id}/instances/settings][%d] setEsClusterInstancesAllSettingsOverridesNotFound  %+v", 404, o.Payload)
+}
+
+func (o *SetEsClusterInstancesAllSettingsOverridesNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *SetEsClusterInstancesAllSettingsOverridesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -152,6 +157,10 @@ type SetEsClusterInstancesAllSettingsOverridesRetryWith struct {
 
 func (o *SetEsClusterInstancesAllSettingsOverridesRetryWith) Error() string {
 	return fmt.Sprintf("[PUT /clusters/elasticsearch/{cluster_id}/instances/settings][%d] setEsClusterInstancesAllSettingsOverridesRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *SetEsClusterInstancesAllSettingsOverridesRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *SetEsClusterInstancesAllSettingsOverridesRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

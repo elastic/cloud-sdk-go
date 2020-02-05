@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetAllocatorsReader is a Reader for the GetAllocators structure.
@@ -41,7 +41,6 @@ type GetAllocatorsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetAllocatorsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetAllocatorsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -69,6 +68,10 @@ type GetAllocatorsOK struct {
 
 func (o *GetAllocatorsOK) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/allocators][%d] getAllocatorsOK  %+v", 200, o.Payload)
+}
+
+func (o *GetAllocatorsOK) GetPayload() *models.AllocatorOverview {
+	return o.Payload
 }
 
 func (o *GetAllocatorsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

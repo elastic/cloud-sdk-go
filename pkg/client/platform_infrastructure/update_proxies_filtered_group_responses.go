@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // UpdateProxiesFilteredGroupReader is a Reader for the UpdateProxiesFilteredGroup structure.
@@ -41,28 +41,24 @@ type UpdateProxiesFilteredGroupReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *UpdateProxiesFilteredGroupReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewUpdateProxiesFilteredGroupOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewUpdateProxiesFilteredGroupBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewUpdateProxiesFilteredGroupConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewUpdateProxiesFilteredGroupRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -100,6 +96,10 @@ type UpdateProxiesFilteredGroupOK struct {
 
 func (o *UpdateProxiesFilteredGroupOK) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}][%d] updateProxiesFilteredGroupOK  %+v", 200, o.Payload)
+}
+
+func (o *UpdateProxiesFilteredGroupOK) GetPayload() *models.ProxiesFilteredGroup {
+	return o.Payload
 }
 
 func (o *UpdateProxiesFilteredGroupOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -144,6 +144,10 @@ func (o *UpdateProxiesFilteredGroupBadRequest) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}][%d] updateProxiesFilteredGroupBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *UpdateProxiesFilteredGroupBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *UpdateProxiesFilteredGroupBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -180,6 +184,10 @@ func (o *UpdateProxiesFilteredGroupConflict) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}][%d] updateProxiesFilteredGroupConflict  %+v", 409, o.Payload)
 }
 
+func (o *UpdateProxiesFilteredGroupConflict) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *UpdateProxiesFilteredGroupConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -214,6 +222,10 @@ type UpdateProxiesFilteredGroupRetryWith struct {
 
 func (o *UpdateProxiesFilteredGroupRetryWith) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}][%d] updateProxiesFilteredGroupRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *UpdateProxiesFilteredGroupRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *UpdateProxiesFilteredGroupRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

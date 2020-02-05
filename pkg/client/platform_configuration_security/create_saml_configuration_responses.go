@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // CreateSamlConfigurationReader is a Reader for the CreateSamlConfiguration structure.
@@ -41,21 +41,18 @@ type CreateSamlConfigurationReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateSamlConfigurationReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 201:
 		result := NewCreateSamlConfigurationCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewCreateSamlConfigurationBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewCreateSamlConfigurationRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -93,6 +90,10 @@ type CreateSamlConfigurationCreated struct {
 
 func (o *CreateSamlConfigurationCreated) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/realms/saml][%d] createSamlConfigurationCreated  %+v", 201, o.Payload)
+}
+
+func (o *CreateSamlConfigurationCreated) GetPayload() models.EmptyResponse {
+	return o.Payload
 }
 
 func (o *CreateSamlConfigurationCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -142,6 +143,10 @@ func (o *CreateSamlConfigurationBadRequest) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/realms/saml][%d] createSamlConfigurationBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *CreateSamlConfigurationBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *CreateSamlConfigurationBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -176,6 +181,10 @@ type CreateSamlConfigurationRetryWith struct {
 
 func (o *CreateSamlConfigurationRetryWith) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/realms/saml][%d] createSamlConfigurationRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *CreateSamlConfigurationRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *CreateSamlConfigurationRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

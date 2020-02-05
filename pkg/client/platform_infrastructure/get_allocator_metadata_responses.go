@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetAllocatorMetadataReader is a Reader for the GetAllocatorMetadata structure.
@@ -41,14 +41,12 @@ type GetAllocatorMetadataReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetAllocatorMetadataReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetAllocatorMetadataOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewGetAllocatorMetadataNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -86,6 +84,10 @@ type GetAllocatorMetadataOK struct {
 
 func (o *GetAllocatorMetadataOK) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/allocators/{allocator_id}/metadata][%d] getAllocatorMetadataOK  %+v", 200, o.Payload)
+}
+
+func (o *GetAllocatorMetadataOK) GetPayload() []*models.MetadataItem {
+	return o.Payload
 }
 
 func (o *GetAllocatorMetadataOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -126,6 +128,10 @@ type GetAllocatorMetadataNotFound struct {
 
 func (o *GetAllocatorMetadataNotFound) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/allocators/{allocator_id}/metadata][%d] getAllocatorMetadataNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetAllocatorMetadataNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *GetAllocatorMetadataNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

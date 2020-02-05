@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // SetAllocatorMetadataReader is a Reader for the SetAllocatorMetadata structure.
@@ -41,28 +41,24 @@ type SetAllocatorMetadataReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *SetAllocatorMetadataReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewSetAllocatorMetadataOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewSetAllocatorMetadataBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewSetAllocatorMetadataNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewSetAllocatorMetadataRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -90,6 +86,10 @@ type SetAllocatorMetadataOK struct {
 
 func (o *SetAllocatorMetadataOK) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/allocators/{allocator_id}/metadata][%d] setAllocatorMetadataOK  %+v", 200, o.Payload)
+}
+
+func (o *SetAllocatorMetadataOK) GetPayload() []*models.MetadataItem {
+	return o.Payload
 }
 
 func (o *SetAllocatorMetadataOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -121,6 +121,10 @@ type SetAllocatorMetadataBadRequest struct {
 
 func (o *SetAllocatorMetadataBadRequest) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/allocators/{allocator_id}/metadata][%d] setAllocatorMetadataBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *SetAllocatorMetadataBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *SetAllocatorMetadataBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -159,6 +163,10 @@ func (o *SetAllocatorMetadataNotFound) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/allocators/{allocator_id}/metadata][%d] setAllocatorMetadataNotFound  %+v", 404, o.Payload)
 }
 
+func (o *SetAllocatorMetadataNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *SetAllocatorMetadataNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -193,6 +201,10 @@ type SetAllocatorMetadataRetryWith struct {
 
 func (o *SetAllocatorMetadataRetryWith) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/allocators/{allocator_id}/metadata][%d] setAllocatorMetadataRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *SetAllocatorMetadataRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *SetAllocatorMetadataRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

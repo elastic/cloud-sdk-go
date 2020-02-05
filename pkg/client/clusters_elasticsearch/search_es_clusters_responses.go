@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // SearchEsClustersReader is a Reader for the SearchEsClusters structure.
@@ -41,14 +41,12 @@ type SearchEsClustersReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *SearchEsClustersReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewSearchEsClustersOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewSearchEsClustersBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -78,6 +76,10 @@ func (o *SearchEsClustersOK) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/_search][%d] searchEsClustersOK  %+v", 200, o.Payload)
 }
 
+func (o *SearchEsClustersOK) GetPayload() *models.ElasticsearchClustersInfo {
+	return o.Payload
+}
+
 func (o *SearchEsClustersOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ElasticsearchClustersInfo)
@@ -105,6 +107,10 @@ type SearchEsClustersBadRequest struct {
 
 func (o *SearchEsClustersBadRequest) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/_search][%d] searchEsClustersBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *SearchEsClustersBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *SearchEsClustersBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetSamlConfigurationReader is a Reader for the GetSamlConfiguration structure.
@@ -41,14 +41,12 @@ type GetSamlConfigurationReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetSamlConfigurationReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetSamlConfigurationOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewGetSamlConfigurationNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -86,6 +84,10 @@ type GetSamlConfigurationOK struct {
 
 func (o *GetSamlConfigurationOK) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/security/realms/saml/{realm_id}][%d] getSamlConfigurationOK  %+v", 200, o.Payload)
+}
+
+func (o *GetSamlConfigurationOK) GetPayload() *models.SamlSettings {
+	return o.Payload
 }
 
 func (o *GetSamlConfigurationOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -128,6 +130,10 @@ type GetSamlConfigurationNotFound struct {
 
 func (o *GetSamlConfigurationNotFound) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/security/realms/saml/{realm_id}][%d] getSamlConfigurationNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetSamlConfigurationNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *GetSamlConfigurationNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetApmClusterReader is a Reader for the GetApmCluster structure.
@@ -41,14 +41,12 @@ type GetApmClusterReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetApmClusterReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetApmClusterOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewGetApmClusterNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -76,6 +74,10 @@ type GetApmClusterOK struct {
 
 func (o *GetApmClusterOK) Error() string {
 	return fmt.Sprintf("[GET /clusters/apm/{cluster_id}][%d] getApmClusterOK  %+v", 200, o.Payload)
+}
+
+func (o *GetApmClusterOK) GetPayload() *models.ApmInfo {
+	return o.Payload
 }
 
 func (o *GetApmClusterOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -109,6 +111,10 @@ type GetApmClusterNotFound struct {
 
 func (o *GetApmClusterNotFound) Error() string {
 	return fmt.Sprintf("[GET /clusters/apm/{cluster_id}][%d] getApmClusterNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetApmClusterNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *GetApmClusterNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

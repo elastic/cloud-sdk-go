@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // DeleteProxiesFilteredGroupReader is a Reader for the DeleteProxiesFilteredGroup structure.
@@ -41,28 +41,24 @@ type DeleteProxiesFilteredGroupReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteProxiesFilteredGroupReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewDeleteProxiesFilteredGroupOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewDeleteProxiesFilteredGroupNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewDeleteProxiesFilteredGroupConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewDeleteProxiesFilteredGroupRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -90,6 +86,10 @@ type DeleteProxiesFilteredGroupOK struct {
 
 func (o *DeleteProxiesFilteredGroupOK) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}][%d] deleteProxiesFilteredGroupOK  %+v", 200, o.Payload)
+}
+
+func (o *DeleteProxiesFilteredGroupOK) GetPayload() models.EmptyResponse {
+	return o.Payload
 }
 
 func (o *DeleteProxiesFilteredGroupOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -121,6 +121,10 @@ type DeleteProxiesFilteredGroupNotFound struct {
 
 func (o *DeleteProxiesFilteredGroupNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}][%d] deleteProxiesFilteredGroupNotFound  %+v", 404, o.Payload)
+}
+
+func (o *DeleteProxiesFilteredGroupNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DeleteProxiesFilteredGroupNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -159,6 +163,10 @@ func (o *DeleteProxiesFilteredGroupConflict) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}][%d] deleteProxiesFilteredGroupConflict  %+v", 409, o.Payload)
 }
 
+func (o *DeleteProxiesFilteredGroupConflict) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *DeleteProxiesFilteredGroupConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -193,6 +201,10 @@ type DeleteProxiesFilteredGroupRetryWith struct {
 
 func (o *DeleteProxiesFilteredGroupRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}][%d] deleteProxiesFilteredGroupRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *DeleteProxiesFilteredGroupRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DeleteProxiesFilteredGroupRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

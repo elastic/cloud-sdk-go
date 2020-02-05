@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // SetRunnerRolesReader is a Reader for the SetRunnerRoles structure.
@@ -41,28 +41,24 @@ type SetRunnerRolesReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *SetRunnerRolesReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewSetRunnerRolesOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewSetRunnerRolesBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewSetRunnerRolesNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewSetRunnerRolesRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -90,6 +86,10 @@ type SetRunnerRolesOK struct {
 
 func (o *SetRunnerRolesOK) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/runners/{runner_id}/roles][%d] setRunnerRolesOK  %+v", 200, o.Payload)
+}
+
+func (o *SetRunnerRolesOK) GetPayload() *models.RunnerRolesInfo {
+	return o.Payload
 }
 
 func (o *SetRunnerRolesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -123,6 +123,10 @@ type SetRunnerRolesBadRequest struct {
 
 func (o *SetRunnerRolesBadRequest) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/runners/{runner_id}/roles][%d] setRunnerRolesBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *SetRunnerRolesBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *SetRunnerRolesBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -161,6 +165,10 @@ func (o *SetRunnerRolesNotFound) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/runners/{runner_id}/roles][%d] setRunnerRolesNotFound  %+v", 404, o.Payload)
 }
 
+func (o *SetRunnerRolesNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *SetRunnerRolesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -195,6 +203,10 @@ type SetRunnerRolesRetryWith struct {
 
 func (o *SetRunnerRolesRetryWith) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/runners/{runner_id}/roles][%d] setRunnerRolesRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *SetRunnerRolesRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *SetRunnerRolesRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

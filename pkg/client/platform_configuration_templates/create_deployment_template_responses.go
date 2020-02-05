@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // CreateDeploymentTemplateReader is a Reader for the CreateDeploymentTemplate structure.
@@ -41,21 +41,18 @@ type CreateDeploymentTemplateReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateDeploymentTemplateReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 201:
 		result := NewCreateDeploymentTemplateCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewCreateDeploymentTemplateBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewCreateDeploymentTemplateRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -83,6 +80,10 @@ type CreateDeploymentTemplateCreated struct {
 
 func (o *CreateDeploymentTemplateCreated) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/templates/deployments][%d] createDeploymentTemplateCreated  %+v", 201, o.Payload)
+}
+
+func (o *CreateDeploymentTemplateCreated) GetPayload() *models.IDResponse {
+	return o.Payload
 }
 
 func (o *CreateDeploymentTemplateCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -116,6 +117,10 @@ type CreateDeploymentTemplateBadRequest struct {
 
 func (o *CreateDeploymentTemplateBadRequest) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/templates/deployments][%d] createDeploymentTemplateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *CreateDeploymentTemplateBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *CreateDeploymentTemplateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -152,6 +157,10 @@ type CreateDeploymentTemplateRetryWith struct {
 
 func (o *CreateDeploymentTemplateRetryWith) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/templates/deployments][%d] createDeploymentTemplateRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *CreateDeploymentTemplateRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *CreateDeploymentTemplateRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

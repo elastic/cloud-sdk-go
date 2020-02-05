@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetInstanceTypesReader is a Reader for the GetInstanceTypes structure.
@@ -41,7 +41,6 @@ type GetInstanceTypesReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetInstanceTypesReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetInstanceTypesOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -69,6 +68,10 @@ type GetInstanceTypesOK struct {
 
 func (o *GetInstanceTypesOK) Error() string {
 	return fmt.Sprintf("[GET /stack/instance-types][%d] getInstanceTypesOK  %+v", 200, o.Payload)
+}
+
+func (o *GetInstanceTypesOK) GetPayload() []*models.InstanceTypeResource {
+	return o.Payload
 }
 
 func (o *GetInstanceTypesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

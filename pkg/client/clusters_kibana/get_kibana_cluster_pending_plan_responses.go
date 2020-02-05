@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetKibanaClusterPendingPlanReader is a Reader for the GetKibanaClusterPendingPlan structure.
@@ -41,21 +41,18 @@ type GetKibanaClusterPendingPlanReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetKibanaClusterPendingPlanReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetKibanaClusterPendingPlanOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewGetKibanaClusterPendingPlanNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 412:
 		result := NewGetKibanaClusterPendingPlanPreconditionFailed()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -93,6 +90,10 @@ type GetKibanaClusterPendingPlanOK struct {
 
 func (o *GetKibanaClusterPendingPlanOK) Error() string {
 	return fmt.Sprintf("[GET /clusters/kibana/{cluster_id}/plan/pending][%d] getKibanaClusterPendingPlanOK  %+v", 200, o.Payload)
+}
+
+func (o *GetKibanaClusterPendingPlanOK) GetPayload() *models.KibanaClusterPlan {
+	return o.Payload
 }
 
 func (o *GetKibanaClusterPendingPlanOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -133,6 +134,10 @@ func (o *GetKibanaClusterPendingPlanNotFound) Error() string {
 	return fmt.Sprintf("[GET /clusters/kibana/{cluster_id}/plan/pending][%d] getKibanaClusterPendingPlanNotFound  %+v", 404, o.Payload)
 }
 
+func (o *GetKibanaClusterPendingPlanNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *GetKibanaClusterPendingPlanNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -160,6 +165,10 @@ type GetKibanaClusterPendingPlanPreconditionFailed struct {
 
 func (o *GetKibanaClusterPendingPlanPreconditionFailed) Error() string {
 	return fmt.Sprintf("[GET /clusters/kibana/{cluster_id}/plan/pending][%d] getKibanaClusterPendingPlanPreconditionFailed  %+v", 412, o.Payload)
+}
+
+func (o *GetKibanaClusterPendingPlanPreconditionFailed) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *GetKibanaClusterPendingPlanPreconditionFailed) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

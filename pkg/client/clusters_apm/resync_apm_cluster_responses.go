@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // ResyncApmClusterReader is a Reader for the ResyncApmCluster structure.
@@ -41,21 +41,18 @@ type ResyncApmClusterReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *ResyncApmClusterReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewResyncApmClusterOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 449:
 		result := NewResyncApmClusterRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewResyncApmClusterInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -83,6 +80,10 @@ type ResyncApmClusterOK struct {
 
 func (o *ResyncApmClusterOK) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/_resync][%d] resyncApmClusterOK  %+v", 200, o.Payload)
+}
+
+func (o *ResyncApmClusterOK) GetPayload() models.EmptyResponse {
+	return o.Payload
 }
 
 func (o *ResyncApmClusterOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -114,6 +115,10 @@ type ResyncApmClusterRetryWith struct {
 
 func (o *ResyncApmClusterRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/_resync][%d] resyncApmClusterRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *ResyncApmClusterRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *ResyncApmClusterRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -150,6 +155,10 @@ type ResyncApmClusterInternalServerError struct {
 
 func (o *ResyncApmClusterInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/_resync][%d] resyncApmClusterInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *ResyncApmClusterInternalServerError) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *ResyncApmClusterInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

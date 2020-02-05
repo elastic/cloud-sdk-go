@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // RestoreDeploymentReader is a Reader for the RestoreDeployment structure.
@@ -41,28 +41,24 @@ type RestoreDeploymentReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *RestoreDeploymentReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewRestoreDeploymentOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewRestoreDeploymentBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewRestoreDeploymentUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewRestoreDeploymentNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -90,6 +86,10 @@ type RestoreDeploymentOK struct {
 
 func (o *RestoreDeploymentOK) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/_restore][%d] restoreDeploymentOK  %+v", 200, o.Payload)
+}
+
+func (o *RestoreDeploymentOK) GetPayload() *models.DeploymentRestoreResponse {
+	return o.Payload
 }
 
 func (o *RestoreDeploymentOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -121,6 +121,10 @@ func (o *RestoreDeploymentBadRequest) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/_restore][%d] restoreDeploymentBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *RestoreDeploymentBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *RestoreDeploymentBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -150,6 +154,10 @@ func (o *RestoreDeploymentUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/_restore][%d] restoreDeploymentUnauthorized  %+v", 401, o.Payload)
 }
 
+func (o *RestoreDeploymentUnauthorized) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *RestoreDeploymentUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -177,6 +185,10 @@ type RestoreDeploymentNotFound struct {
 
 func (o *RestoreDeploymentNotFound) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/_restore][%d] restoreDeploymentNotFound  %+v", 404, o.Payload)
+}
+
+func (o *RestoreDeploymentNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *RestoreDeploymentNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

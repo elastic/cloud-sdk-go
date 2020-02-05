@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetEsClusterKeystoreReader is a Reader for the GetEsClusterKeystore structure.
@@ -41,21 +41,18 @@ type GetEsClusterKeystoreReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetEsClusterKeystoreReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetEsClusterKeystoreOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewGetEsClusterKeystoreNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewGetEsClusterKeystoreRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -83,6 +80,10 @@ type GetEsClusterKeystoreOK struct {
 
 func (o *GetEsClusterKeystoreOK) Error() string {
 	return fmt.Sprintf("[GET /clusters/elasticsearch/{cluster_id}/keystore][%d] getEsClusterKeystoreOK  %+v", 200, o.Payload)
+}
+
+func (o *GetEsClusterKeystoreOK) GetPayload() *models.KeystoreContents {
+	return o.Payload
 }
 
 func (o *GetEsClusterKeystoreOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -114,6 +115,10 @@ func (o *GetEsClusterKeystoreNotFound) Error() string {
 	return fmt.Sprintf("[GET /clusters/elasticsearch/{cluster_id}/keystore][%d] getEsClusterKeystoreNotFound  %+v", 404, o.Payload)
 }
 
+func (o *GetEsClusterKeystoreNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *GetEsClusterKeystoreNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -141,6 +146,10 @@ type GetEsClusterKeystoreRetryWith struct {
 
 func (o *GetEsClusterKeystoreRetryWith) Error() string {
 	return fmt.Sprintf("[GET /clusters/elasticsearch/{cluster_id}/keystore][%d] getEsClusterKeystoreRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *GetEsClusterKeystoreRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *GetEsClusterKeystoreRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

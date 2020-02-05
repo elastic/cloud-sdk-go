@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // DeleteIPFilterRulesetReader is a Reader for the DeleteIPFilterRuleset structure.
@@ -41,28 +41,24 @@ type DeleteIPFilterRulesetReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteIPFilterRulesetReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewDeleteIPFilterRulesetOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewDeleteIPFilterRulesetNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewDeleteIPFilterRulesetRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewDeleteIPFilterRulesetInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -92,6 +88,10 @@ func (o *DeleteIPFilterRulesetOK) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/ip-filtering/rulesets/{ruleset_id}][%d] deleteIpFilterRulesetOK  %+v", 200, o.Payload)
 }
 
+func (o *DeleteIPFilterRulesetOK) GetPayload() models.EmptyResponse {
+	return o.Payload
+}
+
 func (o *DeleteIPFilterRulesetOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
@@ -117,6 +117,10 @@ type DeleteIPFilterRulesetNotFound struct {
 
 func (o *DeleteIPFilterRulesetNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/ip-filtering/rulesets/{ruleset_id}][%d] deleteIpFilterRulesetNotFound  %+v", 404, o.Payload)
+}
+
+func (o *DeleteIPFilterRulesetNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DeleteIPFilterRulesetNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -148,6 +152,10 @@ func (o *DeleteIPFilterRulesetRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/ip-filtering/rulesets/{ruleset_id}][%d] deleteIpFilterRulesetRetryWith  %+v", 449, o.Payload)
 }
 
+func (o *DeleteIPFilterRulesetRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *DeleteIPFilterRulesetRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -175,6 +183,10 @@ type DeleteIPFilterRulesetInternalServerError struct {
 
 func (o *DeleteIPFilterRulesetInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/ip-filtering/rulesets/{ruleset_id}][%d] deleteIpFilterRulesetInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *DeleteIPFilterRulesetInternalServerError) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DeleteIPFilterRulesetInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // RestartApmReader is a Reader for the RestartApm structure.
@@ -41,28 +41,24 @@ type RestartApmReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *RestartApmReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 202:
 		result := NewRestartApmAccepted()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewRestartApmNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 412:
 		result := NewRestartApmPreconditionFailed()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewRestartApmRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -90,6 +86,10 @@ type RestartApmAccepted struct {
 
 func (o *RestartApmAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/_restart][%d] restartApmAccepted  %+v", 202, o.Payload)
+}
+
+func (o *RestartApmAccepted) GetPayload() *models.ClusterCommandResponse {
+	return o.Payload
 }
 
 func (o *RestartApmAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -123,6 +123,10 @@ type RestartApmNotFound struct {
 
 func (o *RestartApmNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/_restart][%d] restartApmNotFound  %+v", 404, o.Payload)
+}
+
+func (o *RestartApmNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *RestartApmNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -161,6 +165,10 @@ func (o *RestartApmPreconditionFailed) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/_restart][%d] restartApmPreconditionFailed  %+v", 412, o.Payload)
 }
 
+func (o *RestartApmPreconditionFailed) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *RestartApmPreconditionFailed) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -195,6 +203,10 @@ type RestartApmRetryWith struct {
 
 func (o *RestartApmRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/_restart][%d] restartApmRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *RestartApmRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *RestartApmRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

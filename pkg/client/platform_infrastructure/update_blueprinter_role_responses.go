@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // UpdateBlueprinterRoleReader is a Reader for the UpdateBlueprinterRole structure.
@@ -41,28 +41,24 @@ type UpdateBlueprinterRoleReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *UpdateBlueprinterRoleReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewUpdateBlueprinterRoleOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewUpdateBlueprinterRoleBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewUpdateBlueprinterRoleNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewUpdateBlueprinterRoleConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -90,6 +86,10 @@ type UpdateBlueprinterRoleOK struct {
 
 func (o *UpdateBlueprinterRoleOK) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/blueprinter/roles/{blueprinter_role_id}][%d] updateBlueprinterRoleOK  %+v", 200, o.Payload)
+}
+
+func (o *UpdateBlueprinterRoleOK) GetPayload() *models.RoleAggregate {
+	return o.Payload
 }
 
 func (o *UpdateBlueprinterRoleOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -123,6 +123,10 @@ type UpdateBlueprinterRoleBadRequest struct {
 
 func (o *UpdateBlueprinterRoleBadRequest) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/blueprinter/roles/{blueprinter_role_id}][%d] updateBlueprinterRoleBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *UpdateBlueprinterRoleBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *UpdateBlueprinterRoleBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -161,6 +165,10 @@ func (o *UpdateBlueprinterRoleNotFound) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/blueprinter/roles/{blueprinter_role_id}][%d] updateBlueprinterRoleNotFound  %+v", 404, o.Payload)
 }
 
+func (o *UpdateBlueprinterRoleNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *UpdateBlueprinterRoleNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -195,6 +203,10 @@ type UpdateBlueprinterRoleConflict struct {
 
 func (o *UpdateBlueprinterRoleConflict) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/blueprinter/roles/{blueprinter_role_id}][%d] updateBlueprinterRoleConflict  %+v", 409, o.Payload)
+}
+
+func (o *UpdateBlueprinterRoleConflict) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *UpdateBlueprinterRoleConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

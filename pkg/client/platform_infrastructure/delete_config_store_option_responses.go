@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // DeleteConfigStoreOptionReader is a Reader for the DeleteConfigStoreOption structure.
@@ -41,14 +41,12 @@ type DeleteConfigStoreOptionReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteConfigStoreOptionReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewDeleteConfigStoreOptionOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewDeleteConfigStoreOptionNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -86,6 +84,10 @@ type DeleteConfigStoreOptionOK struct {
 
 func (o *DeleteConfigStoreOptionOK) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/store/{config_option_id}][%d] deleteConfigStoreOptionOK  %+v", 200, o.Payload)
+}
+
+func (o *DeleteConfigStoreOptionOK) GetPayload() models.EmptyResponse {
+	return o.Payload
 }
 
 func (o *DeleteConfigStoreOptionOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -126,6 +128,10 @@ type DeleteConfigStoreOptionNotFound struct {
 
 func (o *DeleteConfigStoreOptionNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/store/{config_option_id}][%d] deleteConfigStoreOptionNotFound  %+v", 404, o.Payload)
+}
+
+func (o *DeleteConfigStoreOptionNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DeleteConfigStoreOptionNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

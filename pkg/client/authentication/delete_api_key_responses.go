@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // DeleteAPIKeyReader is a Reader for the DeleteAPIKey structure.
@@ -41,21 +41,18 @@ type DeleteAPIKeyReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteAPIKeyReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewDeleteAPIKeyOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewDeleteAPIKeyNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewDeleteAPIKeyRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -83,6 +80,10 @@ type DeleteAPIKeyOK struct {
 
 func (o *DeleteAPIKeyOK) Error() string {
 	return fmt.Sprintf("[DELETE /users/auth/keys/{api_key_id}][%d] deleteApiKeyOK  %+v", 200, o.Payload)
+}
+
+func (o *DeleteAPIKeyOK) GetPayload() models.EmptyResponse {
+	return o.Payload
 }
 
 func (o *DeleteAPIKeyOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -114,6 +115,10 @@ type DeleteAPIKeyNotFound struct {
 
 func (o *DeleteAPIKeyNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /users/auth/keys/{api_key_id}][%d] deleteApiKeyNotFound  %+v", 404, o.Payload)
+}
+
+func (o *DeleteAPIKeyNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DeleteAPIKeyNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -150,6 +155,10 @@ type DeleteAPIKeyRetryWith struct {
 
 func (o *DeleteAPIKeyRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /users/auth/keys/{api_key_id}][%d] deleteApiKeyRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *DeleteAPIKeyRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DeleteAPIKeyRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

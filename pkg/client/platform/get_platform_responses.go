@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetPlatformReader is a Reader for the GetPlatform structure.
@@ -41,7 +41,6 @@ type GetPlatformReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetPlatformReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetPlatformOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -69,6 +68,10 @@ type GetPlatformOK struct {
 
 func (o *GetPlatformOK) Error() string {
 	return fmt.Sprintf("[GET /platform][%d] getPlatformOK  %+v", 200, o.Payload)
+}
+
+func (o *GetPlatformOK) GetPayload() *models.PlatformInfo {
+	return o.Payload
 }
 
 func (o *GetPlatformOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

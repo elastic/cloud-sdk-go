@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // CancelEsClusterPendingPlanReader is a Reader for the CancelEsClusterPendingPlan structure.
@@ -41,28 +41,24 @@ type CancelEsClusterPendingPlanReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CancelEsClusterPendingPlanReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewCancelEsClusterPendingPlanOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewCancelEsClusterPendingPlanNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 412:
 		result := NewCancelEsClusterPendingPlanPreconditionFailed()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewCancelEsClusterPendingPlanRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -90,6 +86,10 @@ type CancelEsClusterPendingPlanOK struct {
 
 func (o *CancelEsClusterPendingPlanOK) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/elasticsearch/{cluster_id}/plan/pending][%d] cancelEsClusterPendingPlanOK  %+v", 200, o.Payload)
+}
+
+func (o *CancelEsClusterPendingPlanOK) GetPayload() models.EmptyResponse {
+	return o.Payload
 }
 
 func (o *CancelEsClusterPendingPlanOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -121,6 +121,10 @@ type CancelEsClusterPendingPlanNotFound struct {
 
 func (o *CancelEsClusterPendingPlanNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/elasticsearch/{cluster_id}/plan/pending][%d] cancelEsClusterPendingPlanNotFound  %+v", 404, o.Payload)
+}
+
+func (o *CancelEsClusterPendingPlanNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *CancelEsClusterPendingPlanNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -159,6 +163,10 @@ func (o *CancelEsClusterPendingPlanPreconditionFailed) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/elasticsearch/{cluster_id}/plan/pending][%d] cancelEsClusterPendingPlanPreconditionFailed  %+v", 412, o.Payload)
 }
 
+func (o *CancelEsClusterPendingPlanPreconditionFailed) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *CancelEsClusterPendingPlanPreconditionFailed) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -193,6 +201,10 @@ type CancelEsClusterPendingPlanRetryWith struct {
 
 func (o *CancelEsClusterPendingPlanRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/elasticsearch/{cluster_id}/plan/pending][%d] cancelEsClusterPendingPlanRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *CancelEsClusterPendingPlanRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *CancelEsClusterPendingPlanRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

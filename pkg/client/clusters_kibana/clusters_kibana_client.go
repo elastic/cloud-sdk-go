@@ -23,13 +23,14 @@ package clusters_kibana
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-openapi/runtime"
+	"fmt"
 
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new clusters kibana API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -41,10 +42,83 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
-/*
-CancelKibanaClusterPendingPlan cancels pending plan
+// ClientService is the interface for Client methods
+type ClientService interface {
+	CancelKibanaClusterPendingPlan(params *CancelKibanaClusterPendingPlanParams, authInfo runtime.ClientAuthInfoWriter) (*CancelKibanaClusterPendingPlanOK, error)
 
-Cancels the pending plan of the Kibana instance.
+	CreateKibanaCluster(params *CreateKibanaClusterParams, authInfo runtime.ClientAuthInfoWriter) (*CreateKibanaClusterOK, *CreateKibanaClusterCreated, error)
+
+	DeleteKibProxyRequests(params *DeleteKibProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteKibProxyRequestsOK, error)
+
+	DeleteKibanaCluster(params *DeleteKibanaClusterParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteKibanaClusterOK, error)
+
+	GetKibProxyRequests(params *GetKibProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter) (*GetKibProxyRequestsOK, error)
+
+	GetKibanaCluster(params *GetKibanaClusterParams, authInfo runtime.ClientAuthInfoWriter) (*GetKibanaClusterOK, error)
+
+	GetKibanaClusterMetadataRaw(params *GetKibanaClusterMetadataRawParams, authInfo runtime.ClientAuthInfoWriter) (*GetKibanaClusterMetadataRawOK, error)
+
+	GetKibanaClusterMetadataSettings(params *GetKibanaClusterMetadataSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*GetKibanaClusterMetadataSettingsOK, error)
+
+	GetKibanaClusterPendingPlan(params *GetKibanaClusterPendingPlanParams, authInfo runtime.ClientAuthInfoWriter) (*GetKibanaClusterPendingPlanOK, error)
+
+	GetKibanaClusterPlan(params *GetKibanaClusterPlanParams, authInfo runtime.ClientAuthInfoWriter) (*GetKibanaClusterPlanOK, error)
+
+	GetKibanaClusterPlanActivity(params *GetKibanaClusterPlanActivityParams, authInfo runtime.ClientAuthInfoWriter) (*GetKibanaClusterPlanActivityOK, error)
+
+	GetKibanaClusters(params *GetKibanaClustersParams, authInfo runtime.ClientAuthInfoWriter) (*GetKibanaClustersOK, error)
+
+	MoveKibanaClusterInstances(params *MoveKibanaClusterInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*MoveKibanaClusterInstancesAccepted, error)
+
+	MoveKibanaClusterInstancesAdvanced(params *MoveKibanaClusterInstancesAdvancedParams, authInfo runtime.ClientAuthInfoWriter) (*MoveKibanaClusterInstancesAdvancedAccepted, error)
+
+	PostKibProxyRequests(params *PostKibProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter) (*PostKibProxyRequestsOK, error)
+
+	PutKibProxyRequests(params *PutKibProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter) (*PutKibProxyRequestsOK, error)
+
+	RestartKibanaCluster(params *RestartKibanaClusterParams, authInfo runtime.ClientAuthInfoWriter) (*RestartKibanaClusterAccepted, error)
+
+	ResyncKibanaCluster(params *ResyncKibanaClusterParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncKibanaClusterOK, error)
+
+	ResyncKibanaClusters(params *ResyncKibanaClustersParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncKibanaClustersAccepted, error)
+
+	SearchKibanaClusters(params *SearchKibanaClustersParams, authInfo runtime.ClientAuthInfoWriter) (*SearchKibanaClustersOK, error)
+
+	SetKibanaClusterMetadataRaw(params *SetKibanaClusterMetadataRawParams, authInfo runtime.ClientAuthInfoWriter) (*SetKibanaClusterMetadataRawOK, error)
+
+	SetKibanaClusterName(params *SetKibanaClusterNameParams, authInfo runtime.ClientAuthInfoWriter) (*SetKibanaClusterNameOK, error)
+
+	ShutdownKibanaCluster(params *ShutdownKibanaClusterParams, authInfo runtime.ClientAuthInfoWriter) (*ShutdownKibanaClusterAccepted, error)
+
+	StartKibanaClusterInstances(params *StartKibanaClusterInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*StartKibanaClusterInstancesAccepted, error)
+
+	StartKibanaClusterInstancesAll(params *StartKibanaClusterInstancesAllParams, authInfo runtime.ClientAuthInfoWriter) (*StartKibanaClusterInstancesAllAccepted, error)
+
+	StartKibanaClusterInstancesAllMaintenanceMode(params *StartKibanaClusterInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StartKibanaClusterInstancesAllMaintenanceModeAccepted, error)
+
+	StartKibanaClusterMaintenanceMode(params *StartKibanaClusterMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StartKibanaClusterMaintenanceModeAccepted, error)
+
+	StopKibanaClusterInstances(params *StopKibanaClusterInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*StopKibanaClusterInstancesAccepted, error)
+
+	StopKibanaClusterInstancesAll(params *StopKibanaClusterInstancesAllParams, authInfo runtime.ClientAuthInfoWriter) (*StopKibanaClusterInstancesAllAccepted, error)
+
+	StopKibanaClusterInstancesAllMaintenanceMode(params *StopKibanaClusterInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StopKibanaClusterInstancesAllMaintenanceModeAccepted, error)
+
+	StopKibanaClusterMaintenanceMode(params *StopKibanaClusterMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StopKibanaClusterMaintenanceModeAccepted, error)
+
+	UpdateKibanaClusterMetadataSettings(params *UpdateKibanaClusterMetadataSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateKibanaClusterMetadataSettingsOK, error)
+
+	UpdateKibanaClusterPlan(params *UpdateKibanaClusterPlanParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateKibanaClusterPlanOK, *UpdateKibanaClusterPlanAccepted, error)
+
+	UpgradeKibanaCluster(params *UpgradeKibanaClusterParams, authInfo runtime.ClientAuthInfoWriter) (*UpgradeKibanaClusterAccepted, error)
+
+	SetTransport(transport runtime.ClientTransport)
+}
+
+/*
+  CancelKibanaClusterPendingPlan cancels pending plan
+
+  Cancels the pending plan of the Kibana instance.
 */
 func (a *Client) CancelKibanaClusterPendingPlan(params *CancelKibanaClusterPendingPlanParams, authInfo runtime.ClientAuthInfoWriter) (*CancelKibanaClusterPendingPlanOK, error) {
 	// TODO: Validate the params before sending
@@ -56,8 +130,8 @@ func (a *Client) CancelKibanaClusterPendingPlan(params *CancelKibanaClusterPendi
 		ID:                 "cancel-kibana-cluster-pending-plan",
 		Method:             "DELETE",
 		PathPattern:        "/clusters/kibana/{cluster_id}/plan/pending",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &CancelKibanaClusterPendingPlanReader{formats: a.formats},
@@ -68,14 +142,20 @@ func (a *Client) CancelKibanaClusterPendingPlan(params *CancelKibanaClusterPendi
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CancelKibanaClusterPendingPlanOK), nil
-
+	success, ok := result.(*CancelKibanaClusterPendingPlanOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for cancel-kibana-cluster-pending-plan: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-CreateKibanaCluster creates cluster
+  CreateKibanaCluster creates cluster
 
-Creates a Kibana instance for the Elasticsearch cluster.
+  Creates a Kibana instance for the Elasticsearch cluster.
 */
 func (a *Client) CreateKibanaCluster(params *CreateKibanaClusterParams, authInfo runtime.ClientAuthInfoWriter) (*CreateKibanaClusterOK, *CreateKibanaClusterCreated, error) {
 	// TODO: Validate the params before sending
@@ -87,8 +167,8 @@ func (a *Client) CreateKibanaCluster(params *CreateKibanaClusterParams, authInfo
 		ID:                 "create-kibana-cluster",
 		Method:             "POST",
 		PathPattern:        "/clusters/kibana",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &CreateKibanaClusterReader{formats: a.formats},
@@ -105,14 +185,15 @@ func (a *Client) CreateKibanaCluster(params *CreateKibanaClusterParams, authInfo
 	case *CreateKibanaClusterCreated:
 		return nil, value, nil
 	}
-	return nil, nil, nil
-
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for clusters_kibana: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-DeleteKibProxyRequests proxies HTTP d e l e t e request
+  DeleteKibProxyRequests proxies HTTP d e l e t e request
 
-Proxies the HTTP DELETE request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.
+  Proxies the HTTP DELETE request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.
 */
 func (a *Client) DeleteKibProxyRequests(params *DeleteKibProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteKibProxyRequestsOK, error) {
 	// TODO: Validate the params before sending
@@ -124,8 +205,8 @@ func (a *Client) DeleteKibProxyRequests(params *DeleteKibProxyRequestsParams, au
 		ID:                 "delete-kib-proxy-requests",
 		Method:             "DELETE",
 		PathPattern:        "/clusters/kibana/{cluster_id}/proxy/{kibana_path}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &DeleteKibProxyRequestsReader{formats: a.formats},
@@ -136,14 +217,20 @@ func (a *Client) DeleteKibProxyRequests(params *DeleteKibProxyRequestsParams, au
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteKibProxyRequestsOK), nil
-
+	success, ok := result.(*DeleteKibProxyRequestsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for delete-kib-proxy-requests: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-DeleteKibanaCluster deletes cluster
+  DeleteKibanaCluster deletes cluster
 
-Deletes the Kibana instance.
+  Deletes the Kibana instance.
 Before you delete the Kibana instance, you must first successfully issue a `_shutdown` command.
 */
 func (a *Client) DeleteKibanaCluster(params *DeleteKibanaClusterParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteKibanaClusterOK, error) {
@@ -156,8 +243,8 @@ func (a *Client) DeleteKibanaCluster(params *DeleteKibanaClusterParams, authInfo
 		ID:                 "delete-kibana-cluster",
 		Method:             "DELETE",
 		PathPattern:        "/clusters/kibana/{cluster_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &DeleteKibanaClusterReader{formats: a.formats},
@@ -168,14 +255,20 @@ func (a *Client) DeleteKibanaCluster(params *DeleteKibanaClusterParams, authInfo
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteKibanaClusterOK), nil
-
+	success, ok := result.(*DeleteKibanaClusterOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for delete-kibana-cluster: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetKibProxyRequests proxies HTTP g e t request
+  GetKibProxyRequests proxies HTTP g e t request
 
-Proxies the HTTP GET request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.
+  Proxies the HTTP GET request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.
 */
 func (a *Client) GetKibProxyRequests(params *GetKibProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter) (*GetKibProxyRequestsOK, error) {
 	// TODO: Validate the params before sending
@@ -187,8 +280,8 @@ func (a *Client) GetKibProxyRequests(params *GetKibProxyRequestsParams, authInfo
 		ID:                 "get-kib-proxy-requests",
 		Method:             "GET",
 		PathPattern:        "/clusters/kibana/{cluster_id}/proxy/{kibana_path}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetKibProxyRequestsReader{formats: a.formats},
@@ -199,14 +292,20 @@ func (a *Client) GetKibProxyRequests(params *GetKibProxyRequestsParams, authInfo
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetKibProxyRequestsOK), nil
-
+	success, ok := result.(*GetKibProxyRequestsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-kib-proxy-requests: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetKibanaCluster gets cluster
+  GetKibanaCluster gets cluster
 
-Retrieves the Kibana instance information.
+  Retrieves the Kibana instance information.
 */
 func (a *Client) GetKibanaCluster(params *GetKibanaClusterParams, authInfo runtime.ClientAuthInfoWriter) (*GetKibanaClusterOK, error) {
 	// TODO: Validate the params before sending
@@ -218,8 +317,8 @@ func (a *Client) GetKibanaCluster(params *GetKibanaClusterParams, authInfo runti
 		ID:                 "get-kibana-cluster",
 		Method:             "GET",
 		PathPattern:        "/clusters/kibana/{cluster_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetKibanaClusterReader{formats: a.formats},
@@ -230,14 +329,20 @@ func (a *Client) GetKibanaCluster(params *GetKibanaClusterParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetKibanaClusterOK), nil
-
+	success, ok := result.(*GetKibanaClusterOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-kibana-cluster: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetKibanaClusterMetadataRaw gets cluster metadata
+  GetKibanaClusterMetadataRaw gets cluster metadata
 
-Advanced use only. Retrieves the internal metadata, in free-form JSON, for the Kibana instance.
+  Advanced use only. Retrieves the internal metadata, in free-form JSON, for the Kibana instance.
 */
 func (a *Client) GetKibanaClusterMetadataRaw(params *GetKibanaClusterMetadataRawParams, authInfo runtime.ClientAuthInfoWriter) (*GetKibanaClusterMetadataRawOK, error) {
 	// TODO: Validate the params before sending
@@ -249,8 +354,8 @@ func (a *Client) GetKibanaClusterMetadataRaw(params *GetKibanaClusterMetadataRaw
 		ID:                 "get-kibana-cluster-metadata-raw",
 		Method:             "GET",
 		PathPattern:        "/clusters/kibana/{cluster_id}/metadata/raw",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetKibanaClusterMetadataRawReader{formats: a.formats},
@@ -261,14 +366,20 @@ func (a *Client) GetKibanaClusterMetadataRaw(params *GetKibanaClusterMetadataRaw
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetKibanaClusterMetadataRawOK), nil
-
+	success, ok := result.(*GetKibanaClusterMetadataRawOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-kibana-cluster-metadata-raw: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetKibanaClusterMetadataSettings gets cluster metadata settings
+  GetKibanaClusterMetadataSettings gets cluster metadata settings
 
-Retrieves a structured version of the cluster metadata as a collection of top-level settings. If a particular setting isn't returned, then the free-form JSON endpoint (`/metadata/raw`) must be used.
+  Retrieves a structured version of the cluster metadata as a collection of top-level settings. If a particular setting isn't returned, then the free-form JSON endpoint (`/metadata/raw`) must be used.
 */
 func (a *Client) GetKibanaClusterMetadataSettings(params *GetKibanaClusterMetadataSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*GetKibanaClusterMetadataSettingsOK, error) {
 	// TODO: Validate the params before sending
@@ -280,8 +391,8 @@ func (a *Client) GetKibanaClusterMetadataSettings(params *GetKibanaClusterMetada
 		ID:                 "get-kibana-cluster-metadata-settings",
 		Method:             "GET",
 		PathPattern:        "/clusters/kibana/{cluster_id}/metadata/settings",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetKibanaClusterMetadataSettingsReader{formats: a.formats},
@@ -292,14 +403,20 @@ func (a *Client) GetKibanaClusterMetadataSettings(params *GetKibanaClusterMetada
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetKibanaClusterMetadataSettingsOK), nil
-
+	success, ok := result.(*GetKibanaClusterMetadataSettingsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-kibana-cluster-metadata-settings: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetKibanaClusterPendingPlan gets pending plan
+  GetKibanaClusterPendingPlan gets pending plan
 
-Retrieves the pending plan of the Kibana instance.
+  Retrieves the pending plan of the Kibana instance.
 */
 func (a *Client) GetKibanaClusterPendingPlan(params *GetKibanaClusterPendingPlanParams, authInfo runtime.ClientAuthInfoWriter) (*GetKibanaClusterPendingPlanOK, error) {
 	// TODO: Validate the params before sending
@@ -311,8 +428,8 @@ func (a *Client) GetKibanaClusterPendingPlan(params *GetKibanaClusterPendingPlan
 		ID:                 "get-kibana-cluster-pending-plan",
 		Method:             "GET",
 		PathPattern:        "/clusters/kibana/{cluster_id}/plan/pending",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetKibanaClusterPendingPlanReader{formats: a.formats},
@@ -323,14 +440,20 @@ func (a *Client) GetKibanaClusterPendingPlan(params *GetKibanaClusterPendingPlan
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetKibanaClusterPendingPlanOK), nil
-
+	success, ok := result.(*GetKibanaClusterPendingPlanOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-kibana-cluster-pending-plan: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetKibanaClusterPlan gets plan
+  GetKibanaClusterPlan gets plan
 
-Retrieves the active plan of the Kibana instance. Transient settings are not show by this endpoint. To view the transient settings that have been applied with a specific plan, use the activity endpoint.
+  Retrieves the active plan of the Kibana instance. Transient settings are not show by this endpoint. To view the transient settings that have been applied with a specific plan, use the activity endpoint.
 */
 func (a *Client) GetKibanaClusterPlan(params *GetKibanaClusterPlanParams, authInfo runtime.ClientAuthInfoWriter) (*GetKibanaClusterPlanOK, error) {
 	// TODO: Validate the params before sending
@@ -342,8 +465,8 @@ func (a *Client) GetKibanaClusterPlan(params *GetKibanaClusterPlanParams, authIn
 		ID:                 "get-kibana-cluster-plan",
 		Method:             "GET",
 		PathPattern:        "/clusters/kibana/{cluster_id}/plan",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetKibanaClusterPlanReader{formats: a.formats},
@@ -354,14 +477,20 @@ func (a *Client) GetKibanaClusterPlan(params *GetKibanaClusterPlanParams, authIn
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetKibanaClusterPlanOK), nil
-
+	success, ok := result.(*GetKibanaClusterPlanOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-kibana-cluster-plan: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetKibanaClusterPlanActivity gets plan activity
+  GetKibanaClusterPlanActivity gets plan activity
 
-Retrieves the active and historical plan information for the Kibana instance.
+  Retrieves the active and historical plan information for the Kibana instance.
 */
 func (a *Client) GetKibanaClusterPlanActivity(params *GetKibanaClusterPlanActivityParams, authInfo runtime.ClientAuthInfoWriter) (*GetKibanaClusterPlanActivityOK, error) {
 	// TODO: Validate the params before sending
@@ -373,8 +502,8 @@ func (a *Client) GetKibanaClusterPlanActivity(params *GetKibanaClusterPlanActivi
 		ID:                 "get-kibana-cluster-plan-activity",
 		Method:             "GET",
 		PathPattern:        "/clusters/kibana/{cluster_id}/plan/activity",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetKibanaClusterPlanActivityReader{formats: a.formats},
@@ -385,14 +514,20 @@ func (a *Client) GetKibanaClusterPlanActivity(params *GetKibanaClusterPlanActivi
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetKibanaClusterPlanActivityOK), nil
-
+	success, ok := result.(*GetKibanaClusterPlanActivityOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-kibana-cluster-plan-activity: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetKibanaClusters gets clusters
+  GetKibanaClusters gets clusters
 
-Retrieves the information for all Kibana instances.
+  Retrieves the information for all Kibana instances.
 */
 func (a *Client) GetKibanaClusters(params *GetKibanaClustersParams, authInfo runtime.ClientAuthInfoWriter) (*GetKibanaClustersOK, error) {
 	// TODO: Validate the params before sending
@@ -404,8 +539,8 @@ func (a *Client) GetKibanaClusters(params *GetKibanaClustersParams, authInfo run
 		ID:                 "get-kibana-clusters",
 		Method:             "GET",
 		PathPattern:        "/clusters/kibana",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetKibanaClustersReader{formats: a.formats},
@@ -416,14 +551,20 @@ func (a *Client) GetKibanaClusters(params *GetKibanaClustersParams, authInfo run
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetKibanaClustersOK), nil
-
+	success, ok := result.(*GetKibanaClustersOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-kibana-clusters: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-MoveKibanaClusterInstances moves instances
+  MoveKibanaClusterInstances moves instances
 
-Moves one or more Kibana instances.
+  Moves one or more Kibana instances.
 */
 func (a *Client) MoveKibanaClusterInstances(params *MoveKibanaClusterInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*MoveKibanaClusterInstancesAccepted, error) {
 	// TODO: Validate the params before sending
@@ -435,8 +576,8 @@ func (a *Client) MoveKibanaClusterInstances(params *MoveKibanaClusterInstancesPa
 		ID:                 "move-kibana-cluster-instances",
 		Method:             "POST",
 		PathPattern:        "/clusters/kibana/{cluster_id}/instances/{instance_ids}/_move",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &MoveKibanaClusterInstancesReader{formats: a.formats},
@@ -447,14 +588,20 @@ func (a *Client) MoveKibanaClusterInstances(params *MoveKibanaClusterInstancesPa
 	if err != nil {
 		return nil, err
 	}
-	return result.(*MoveKibanaClusterInstancesAccepted), nil
-
+	success, ok := result.(*MoveKibanaClusterInstancesAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for move-kibana-cluster-instances: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-MoveKibanaClusterInstancesAdvanced moves instances advanced
+  MoveKibanaClusterInstancesAdvanced moves instances advanced
 
-Moves one or more Kibana instances. The custom configuration settings are posted in the body.
+  Moves one or more Kibana instances. The custom configuration settings are posted in the body.
 */
 func (a *Client) MoveKibanaClusterInstancesAdvanced(params *MoveKibanaClusterInstancesAdvancedParams, authInfo runtime.ClientAuthInfoWriter) (*MoveKibanaClusterInstancesAdvancedAccepted, error) {
 	// TODO: Validate the params before sending
@@ -466,8 +613,8 @@ func (a *Client) MoveKibanaClusterInstancesAdvanced(params *MoveKibanaClusterIns
 		ID:                 "move-kibana-cluster-instances-advanced",
 		Method:             "POST",
 		PathPattern:        "/clusters/kibana/{cluster_id}/instances/_move",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &MoveKibanaClusterInstancesAdvancedReader{formats: a.formats},
@@ -478,14 +625,20 @@ func (a *Client) MoveKibanaClusterInstancesAdvanced(params *MoveKibanaClusterIns
 	if err != nil {
 		return nil, err
 	}
-	return result.(*MoveKibanaClusterInstancesAdvancedAccepted), nil
-
+	success, ok := result.(*MoveKibanaClusterInstancesAdvancedAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for move-kibana-cluster-instances-advanced: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-PostKibProxyRequests proxies HTTP p o s t request
+  PostKibProxyRequests proxies HTTP p o s t request
 
-Proxies the HTTP POST request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.
+  Proxies the HTTP POST request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.
 */
 func (a *Client) PostKibProxyRequests(params *PostKibProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter) (*PostKibProxyRequestsOK, error) {
 	// TODO: Validate the params before sending
@@ -497,8 +650,8 @@ func (a *Client) PostKibProxyRequests(params *PostKibProxyRequestsParams, authIn
 		ID:                 "post-kib-proxy-requests",
 		Method:             "POST",
 		PathPattern:        "/clusters/kibana/{cluster_id}/proxy/{kibana_path}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &PostKibProxyRequestsReader{formats: a.formats},
@@ -509,14 +662,20 @@ func (a *Client) PostKibProxyRequests(params *PostKibProxyRequestsParams, authIn
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostKibProxyRequestsOK), nil
-
+	success, ok := result.(*PostKibProxyRequestsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for post-kib-proxy-requests: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-PutKibProxyRequests proxies HTTP p u t request
+  PutKibProxyRequests proxies HTTP p u t request
 
-Proxies the HTTP PUT request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.
+  Proxies the HTTP PUT request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.
 */
 func (a *Client) PutKibProxyRequests(params *PutKibProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter) (*PutKibProxyRequestsOK, error) {
 	// TODO: Validate the params before sending
@@ -528,8 +687,8 @@ func (a *Client) PutKibProxyRequests(params *PutKibProxyRequestsParams, authInfo
 		ID:                 "put-kib-proxy-requests",
 		Method:             "PUT",
 		PathPattern:        "/clusters/kibana/{cluster_id}/proxy/{kibana_path}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &PutKibProxyRequestsReader{formats: a.formats},
@@ -540,14 +699,20 @@ func (a *Client) PutKibProxyRequests(params *PutKibProxyRequestsParams, authInfo
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PutKibProxyRequestsOK), nil
-
+	success, ok := result.(*PutKibProxyRequestsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for put-kib-proxy-requests: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-RestartKibanaCluster restarts cluster
+  RestartKibanaCluster restarts cluster
 
-Restarts the Kibana instance. When you restart an active instance, the existing plan is used and a `cluster_reboot` is applied. A `cluster_reboot` issues a Kibana restart command, then waits for the command to complete. When you restart an inactive instance, the most recent successful plan is applied.
+  Restarts the Kibana instance. When you restart an active instance, the existing plan is used and a `cluster_reboot` is applied. A `cluster_reboot` issues a Kibana restart command, then waits for the command to complete. When you restart an inactive instance, the most recent successful plan is applied.
 */
 func (a *Client) RestartKibanaCluster(params *RestartKibanaClusterParams, authInfo runtime.ClientAuthInfoWriter) (*RestartKibanaClusterAccepted, error) {
 	// TODO: Validate the params before sending
@@ -559,8 +724,8 @@ func (a *Client) RestartKibanaCluster(params *RestartKibanaClusterParams, authIn
 		ID:                 "restart-kibana-cluster",
 		Method:             "POST",
 		PathPattern:        "/clusters/kibana/{cluster_id}/_restart",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &RestartKibanaClusterReader{formats: a.formats},
@@ -571,14 +736,20 @@ func (a *Client) RestartKibanaCluster(params *RestartKibanaClusterParams, authIn
 	if err != nil {
 		return nil, err
 	}
-	return result.(*RestartKibanaClusterAccepted), nil
-
+	success, ok := result.(*RestartKibanaClusterAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for restart-kibana-cluster: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-ResyncKibanaCluster resynchronizes cluster
+  ResyncKibanaCluster resynchronizes cluster
 
-Immediately resynchronizes the search index and cache for the selected Kibana instance.
+  Immediately resynchronizes the search index and cache for the selected Kibana instance.
 */
 func (a *Client) ResyncKibanaCluster(params *ResyncKibanaClusterParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncKibanaClusterOK, error) {
 	// TODO: Validate the params before sending
@@ -590,8 +761,8 @@ func (a *Client) ResyncKibanaCluster(params *ResyncKibanaClusterParams, authInfo
 		ID:                 "resync-kibana-cluster",
 		Method:             "POST",
 		PathPattern:        "/clusters/kibana/{cluster_id}/_resync",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ResyncKibanaClusterReader{formats: a.formats},
@@ -602,14 +773,20 @@ func (a *Client) ResyncKibanaCluster(params *ResyncKibanaClusterParams, authInfo
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ResyncKibanaClusterOK), nil
-
+	success, ok := result.(*ResyncKibanaClusterOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for resync-kibana-cluster: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-ResyncKibanaClusters resynchronizes clusters
+  ResyncKibanaClusters resynchronizes clusters
 
-Asynchronously resynchronizes the search index for all Kibana instances.
+  Asynchronously resynchronizes the search index for all Kibana instances.
 */
 func (a *Client) ResyncKibanaClusters(params *ResyncKibanaClustersParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncKibanaClustersAccepted, error) {
 	// TODO: Validate the params before sending
@@ -621,8 +798,8 @@ func (a *Client) ResyncKibanaClusters(params *ResyncKibanaClustersParams, authIn
 		ID:                 "resync-kibana-clusters",
 		Method:             "POST",
 		PathPattern:        "/clusters/kibana/_resync",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ResyncKibanaClustersReader{formats: a.formats},
@@ -633,14 +810,20 @@ func (a *Client) ResyncKibanaClusters(params *ResyncKibanaClustersParams, authIn
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ResyncKibanaClustersAccepted), nil
-
+	success, ok := result.(*ResyncKibanaClustersAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for resync-kibana-clusters: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-SearchKibanaClusters searches clusters
+  SearchKibanaClusters searches clusters
 
-Retrieves the information for all of the Kibana instances that match the specified query.
+  Retrieves the information for all of the Kibana instances that match the specified query.
 */
 func (a *Client) SearchKibanaClusters(params *SearchKibanaClustersParams, authInfo runtime.ClientAuthInfoWriter) (*SearchKibanaClustersOK, error) {
 	// TODO: Validate the params before sending
@@ -652,8 +835,8 @@ func (a *Client) SearchKibanaClusters(params *SearchKibanaClustersParams, authIn
 		ID:                 "search-kibana-clusters",
 		Method:             "POST",
 		PathPattern:        "/clusters/kibana/_search",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &SearchKibanaClustersReader{formats: a.formats},
@@ -664,14 +847,20 @@ func (a *Client) SearchKibanaClusters(params *SearchKibanaClustersParams, authIn
 	if err != nil {
 		return nil, err
 	}
-	return result.(*SearchKibanaClustersOK), nil
-
+	success, ok := result.(*SearchKibanaClustersOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for search-kibana-clusters: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-SetKibanaClusterMetadataRaw sets cluster metadata
+  SetKibanaClusterMetadataRaw sets cluster metadata
 
-Advanced use only. Sets the internal metadata, in free-form JSON, for the Kibana instance.
+  Advanced use only. Sets the internal metadata, in free-form JSON, for the Kibana instance.
 Only use the parameter to set the modified JSON that is returned from the get version of the metadata.
 */
 func (a *Client) SetKibanaClusterMetadataRaw(params *SetKibanaClusterMetadataRawParams, authInfo runtime.ClientAuthInfoWriter) (*SetKibanaClusterMetadataRawOK, error) {
@@ -684,8 +873,8 @@ func (a *Client) SetKibanaClusterMetadataRaw(params *SetKibanaClusterMetadataRaw
 		ID:                 "set-kibana-cluster-metadata-raw",
 		Method:             "POST",
 		PathPattern:        "/clusters/kibana/{cluster_id}/metadata/raw",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &SetKibanaClusterMetadataRawReader{formats: a.formats},
@@ -696,14 +885,20 @@ func (a *Client) SetKibanaClusterMetadataRaw(params *SetKibanaClusterMetadataRaw
 	if err != nil {
 		return nil, err
 	}
-	return result.(*SetKibanaClusterMetadataRawOK), nil
-
+	success, ok := result.(*SetKibanaClusterMetadataRawOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for set-kibana-cluster-metadata-raw: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-SetKibanaClusterName sets cluster name
+  SetKibanaClusterName sets cluster name
 
-Assigns a name to the Kibana instance.
+  Assigns a name to the Kibana instance.
 */
 func (a *Client) SetKibanaClusterName(params *SetKibanaClusterNameParams, authInfo runtime.ClientAuthInfoWriter) (*SetKibanaClusterNameOK, error) {
 	// TODO: Validate the params before sending
@@ -715,8 +910,8 @@ func (a *Client) SetKibanaClusterName(params *SetKibanaClusterNameParams, authIn
 		ID:                 "set-kibana-cluster-name",
 		Method:             "PUT",
 		PathPattern:        "/clusters/kibana/{cluster_id}/metadata/name/{new_name}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &SetKibanaClusterNameReader{formats: a.formats},
@@ -727,14 +922,20 @@ func (a *Client) SetKibanaClusterName(params *SetKibanaClusterNameParams, authIn
 	if err != nil {
 		return nil, err
 	}
-	return result.(*SetKibanaClusterNameOK), nil
-
+	success, ok := result.(*SetKibanaClusterNameOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for set-kibana-cluster-name: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-ShutdownKibanaCluster shuts down cluster
+  ShutdownKibanaCluster shuts down cluster
 
-Shuts down the active Kibana instance and removes all of the instance nodes. The instance definition is retained. WARNING: To avoid data loss, save the snapshot repository before you shut down the instance.
+  Shuts down the active Kibana instance and removes all of the instance nodes. The instance definition is retained. WARNING: To avoid data loss, save the snapshot repository before you shut down the instance.
 */
 func (a *Client) ShutdownKibanaCluster(params *ShutdownKibanaClusterParams, authInfo runtime.ClientAuthInfoWriter) (*ShutdownKibanaClusterAccepted, error) {
 	// TODO: Validate the params before sending
@@ -746,8 +947,8 @@ func (a *Client) ShutdownKibanaCluster(params *ShutdownKibanaClusterParams, auth
 		ID:                 "shutdown-kibana-cluster",
 		Method:             "POST",
 		PathPattern:        "/clusters/kibana/{cluster_id}/_shutdown",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ShutdownKibanaClusterReader{formats: a.formats},
@@ -758,14 +959,20 @@ func (a *Client) ShutdownKibanaCluster(params *ShutdownKibanaClusterParams, auth
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ShutdownKibanaClusterAccepted), nil
-
+	success, ok := result.(*ShutdownKibanaClusterAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for shutdown-kibana-cluster: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-StartKibanaClusterInstances starts instances
+  StartKibanaClusterInstances starts instances
 
-Starts the specified Kibana instances.
+  Starts the specified Kibana instances.
 */
 func (a *Client) StartKibanaClusterInstances(params *StartKibanaClusterInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*StartKibanaClusterInstancesAccepted, error) {
 	// TODO: Validate the params before sending
@@ -777,8 +984,8 @@ func (a *Client) StartKibanaClusterInstances(params *StartKibanaClusterInstances
 		ID:                 "start-kibana-cluster-instances",
 		Method:             "POST",
 		PathPattern:        "/clusters/kibana/{cluster_id}/instances/{instance_ids}/_start",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &StartKibanaClusterInstancesReader{formats: a.formats},
@@ -789,14 +996,20 @@ func (a *Client) StartKibanaClusterInstances(params *StartKibanaClusterInstances
 	if err != nil {
 		return nil, err
 	}
-	return result.(*StartKibanaClusterInstancesAccepted), nil
-
+	success, ok := result.(*StartKibanaClusterInstancesAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for start-kibana-cluster-instances: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-StartKibanaClusterInstancesAll starts all instances
+  StartKibanaClusterInstancesAll starts all instances
 
-Starts all of the Kibana instances.
+  Starts all of the Kibana instances.
 */
 func (a *Client) StartKibanaClusterInstancesAll(params *StartKibanaClusterInstancesAllParams, authInfo runtime.ClientAuthInfoWriter) (*StartKibanaClusterInstancesAllAccepted, error) {
 	// TODO: Validate the params before sending
@@ -808,8 +1021,8 @@ func (a *Client) StartKibanaClusterInstancesAll(params *StartKibanaClusterInstan
 		ID:                 "start-kibana-cluster-instances-all",
 		Method:             "POST",
 		PathPattern:        "/clusters/kibana/{cluster_id}/instances/_start",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &StartKibanaClusterInstancesAllReader{formats: a.formats},
@@ -820,14 +1033,20 @@ func (a *Client) StartKibanaClusterInstancesAll(params *StartKibanaClusterInstan
 	if err != nil {
 		return nil, err
 	}
-	return result.(*StartKibanaClusterInstancesAllAccepted), nil
-
+	success, ok := result.(*StartKibanaClusterInstancesAllAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for start-kibana-cluster-instances-all: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-StartKibanaClusterInstancesAllMaintenanceMode starts maintenance mode all instances
+  StartKibanaClusterInstancesAllMaintenanceMode starts maintenance mode all instances
 
-Starts maintenance mode on all of the Kibana instances.
+  Starts maintenance mode on all of the Kibana instances.
 */
 func (a *Client) StartKibanaClusterInstancesAllMaintenanceMode(params *StartKibanaClusterInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StartKibanaClusterInstancesAllMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
@@ -839,8 +1058,8 @@ func (a *Client) StartKibanaClusterInstancesAllMaintenanceMode(params *StartKiba
 		ID:                 "start-kibana-cluster-instances-all-maintenance-mode",
 		Method:             "POST",
 		PathPattern:        "/clusters/kibana/{cluster_id}/instances/maintenance-mode/_start",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &StartKibanaClusterInstancesAllMaintenanceModeReader{formats: a.formats},
@@ -851,14 +1070,20 @@ func (a *Client) StartKibanaClusterInstancesAllMaintenanceMode(params *StartKiba
 	if err != nil {
 		return nil, err
 	}
-	return result.(*StartKibanaClusterInstancesAllMaintenanceModeAccepted), nil
-
+	success, ok := result.(*StartKibanaClusterInstancesAllMaintenanceModeAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for start-kibana-cluster-instances-all-maintenance-mode: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-StartKibanaClusterMaintenanceMode starts maintenance mode
+  StartKibanaClusterMaintenanceMode starts maintenance mode
 
-Starts maintenance mode on the specified Kibana instances.
+  Starts maintenance mode on the specified Kibana instances.
 */
 func (a *Client) StartKibanaClusterMaintenanceMode(params *StartKibanaClusterMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StartKibanaClusterMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
@@ -870,8 +1095,8 @@ func (a *Client) StartKibanaClusterMaintenanceMode(params *StartKibanaClusterMai
 		ID:                 "start-kibana-cluster-maintenance-mode",
 		Method:             "POST",
 		PathPattern:        "/clusters/kibana/{cluster_id}/instances/{instance_ids}/maintenance-mode/_start",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &StartKibanaClusterMaintenanceModeReader{formats: a.formats},
@@ -882,14 +1107,20 @@ func (a *Client) StartKibanaClusterMaintenanceMode(params *StartKibanaClusterMai
 	if err != nil {
 		return nil, err
 	}
-	return result.(*StartKibanaClusterMaintenanceModeAccepted), nil
-
+	success, ok := result.(*StartKibanaClusterMaintenanceModeAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for start-kibana-cluster-maintenance-mode: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-StopKibanaClusterInstances stops instances
+  StopKibanaClusterInstances stops instances
 
-Stops the specified Kibana instances.
+  Stops the specified Kibana instances.
 */
 func (a *Client) StopKibanaClusterInstances(params *StopKibanaClusterInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*StopKibanaClusterInstancesAccepted, error) {
 	// TODO: Validate the params before sending
@@ -901,8 +1132,8 @@ func (a *Client) StopKibanaClusterInstances(params *StopKibanaClusterInstancesPa
 		ID:                 "stop-kibana-cluster-instances",
 		Method:             "POST",
 		PathPattern:        "/clusters/kibana/{cluster_id}/instances/{instance_ids}/_stop",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &StopKibanaClusterInstancesReader{formats: a.formats},
@@ -913,14 +1144,20 @@ func (a *Client) StopKibanaClusterInstances(params *StopKibanaClusterInstancesPa
 	if err != nil {
 		return nil, err
 	}
-	return result.(*StopKibanaClusterInstancesAccepted), nil
-
+	success, ok := result.(*StopKibanaClusterInstancesAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for stop-kibana-cluster-instances: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-StopKibanaClusterInstancesAll stops all instances
+  StopKibanaClusterInstancesAll stops all instances
 
-Stops all of the Kibana instances.
+  Stops all of the Kibana instances.
 */
 func (a *Client) StopKibanaClusterInstancesAll(params *StopKibanaClusterInstancesAllParams, authInfo runtime.ClientAuthInfoWriter) (*StopKibanaClusterInstancesAllAccepted, error) {
 	// TODO: Validate the params before sending
@@ -932,8 +1169,8 @@ func (a *Client) StopKibanaClusterInstancesAll(params *StopKibanaClusterInstance
 		ID:                 "stop-kibana-cluster-instances-all",
 		Method:             "POST",
 		PathPattern:        "/clusters/kibana/{cluster_id}/instances/_stop",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &StopKibanaClusterInstancesAllReader{formats: a.formats},
@@ -944,14 +1181,20 @@ func (a *Client) StopKibanaClusterInstancesAll(params *StopKibanaClusterInstance
 	if err != nil {
 		return nil, err
 	}
-	return result.(*StopKibanaClusterInstancesAllAccepted), nil
-
+	success, ok := result.(*StopKibanaClusterInstancesAllAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for stop-kibana-cluster-instances-all: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-StopKibanaClusterInstancesAllMaintenanceMode stops maintenance mode all instances
+  StopKibanaClusterInstancesAllMaintenanceMode stops maintenance mode all instances
 
-Stops maintenance mode on all of the Kibana instances.
+  Stops maintenance mode on all of the Kibana instances.
 */
 func (a *Client) StopKibanaClusterInstancesAllMaintenanceMode(params *StopKibanaClusterInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StopKibanaClusterInstancesAllMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
@@ -963,8 +1206,8 @@ func (a *Client) StopKibanaClusterInstancesAllMaintenanceMode(params *StopKibana
 		ID:                 "stop-kibana-cluster-instances-all-maintenance-mode",
 		Method:             "POST",
 		PathPattern:        "/clusters/kibana/{cluster_id}/instances/maintenance-mode/_stop",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &StopKibanaClusterInstancesAllMaintenanceModeReader{formats: a.formats},
@@ -975,14 +1218,20 @@ func (a *Client) StopKibanaClusterInstancesAllMaintenanceMode(params *StopKibana
 	if err != nil {
 		return nil, err
 	}
-	return result.(*StopKibanaClusterInstancesAllMaintenanceModeAccepted), nil
-
+	success, ok := result.(*StopKibanaClusterInstancesAllMaintenanceModeAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for stop-kibana-cluster-instances-all-maintenance-mode: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-StopKibanaClusterMaintenanceMode stops maintenance mode
+  StopKibanaClusterMaintenanceMode stops maintenance mode
 
-Stops maintenance mode on the specified Kibana instances.
+  Stops maintenance mode on the specified Kibana instances.
 */
 func (a *Client) StopKibanaClusterMaintenanceMode(params *StopKibanaClusterMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StopKibanaClusterMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
@@ -994,8 +1243,8 @@ func (a *Client) StopKibanaClusterMaintenanceMode(params *StopKibanaClusterMaint
 		ID:                 "stop-kibana-cluster-maintenance-mode",
 		Method:             "POST",
 		PathPattern:        "/clusters/kibana/{cluster_id}/instances/{instance_ids}/maintenance-mode/_stop",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &StopKibanaClusterMaintenanceModeReader{formats: a.formats},
@@ -1006,14 +1255,20 @@ func (a *Client) StopKibanaClusterMaintenanceMode(params *StopKibanaClusterMaint
 	if err != nil {
 		return nil, err
 	}
-	return result.(*StopKibanaClusterMaintenanceModeAccepted), nil
-
+	success, ok := result.(*StopKibanaClusterMaintenanceModeAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for stop-kibana-cluster-maintenance-mode: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-UpdateKibanaClusterMetadataSettings updates cluster metadata settings
+  UpdateKibanaClusterMetadataSettings updates cluster metadata settings
 
-All changes in the specified object are applied to the metadata object. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.
+  All changes in the specified object are applied to the metadata object. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.
 */
 func (a *Client) UpdateKibanaClusterMetadataSettings(params *UpdateKibanaClusterMetadataSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateKibanaClusterMetadataSettingsOK, error) {
 	// TODO: Validate the params before sending
@@ -1025,8 +1280,8 @@ func (a *Client) UpdateKibanaClusterMetadataSettings(params *UpdateKibanaCluster
 		ID:                 "update-kibana-cluster-metadata-settings",
 		Method:             "PATCH",
 		PathPattern:        "/clusters/kibana/{cluster_id}/metadata/settings",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &UpdateKibanaClusterMetadataSettingsReader{formats: a.formats},
@@ -1037,14 +1292,20 @@ func (a *Client) UpdateKibanaClusterMetadataSettings(params *UpdateKibanaCluster
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpdateKibanaClusterMetadataSettingsOK), nil
-
+	success, ok := result.(*UpdateKibanaClusterMetadataSettingsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for update-kibana-cluster-metadata-settings: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-UpdateKibanaClusterPlan updates plan
+  UpdateKibanaClusterPlan updates plan
 
-Updates the configuration of the Kibana instance.
+  Updates the configuration of the Kibana instance.
 */
 func (a *Client) UpdateKibanaClusterPlan(params *UpdateKibanaClusterPlanParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateKibanaClusterPlanOK, *UpdateKibanaClusterPlanAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1056,8 +1317,8 @@ func (a *Client) UpdateKibanaClusterPlan(params *UpdateKibanaClusterPlanParams, 
 		ID:                 "update-kibana-cluster-plan",
 		Method:             "POST",
 		PathPattern:        "/clusters/kibana/{cluster_id}/plan",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &UpdateKibanaClusterPlanReader{formats: a.formats},
@@ -1074,14 +1335,15 @@ func (a *Client) UpdateKibanaClusterPlan(params *UpdateKibanaClusterPlanParams, 
 	case *UpdateKibanaClusterPlanAccepted:
 		return nil, value, nil
 	}
-	return nil, nil, nil
-
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for clusters_kibana: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-UpgradeKibanaCluster upgrades cluster
+  UpgradeKibanaCluster upgrades cluster
 
-Upgrades an active Kibana instance.
+  Upgrades an active Kibana instance.
 */
 func (a *Client) UpgradeKibanaCluster(params *UpgradeKibanaClusterParams, authInfo runtime.ClientAuthInfoWriter) (*UpgradeKibanaClusterAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1093,8 +1355,8 @@ func (a *Client) UpgradeKibanaCluster(params *UpgradeKibanaClusterParams, authIn
 		ID:                 "upgrade-kibana-cluster",
 		Method:             "POST",
 		PathPattern:        "/clusters/kibana/{cluster_id}/_upgrade",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &UpgradeKibanaClusterReader{formats: a.formats},
@@ -1105,8 +1367,14 @@ func (a *Client) UpgradeKibanaCluster(params *UpgradeKibanaClusterParams, authIn
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpgradeKibanaClusterAccepted), nil
-
+	success, ok := result.(*UpgradeKibanaClusterAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for upgrade-kibana-cluster: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 // SetTransport changes the transport on the client

@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetEsClustersReader is a Reader for the GetEsClusters structure.
@@ -41,7 +41,6 @@ type GetEsClustersReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetEsClustersReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetEsClustersOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -69,6 +68,10 @@ type GetEsClustersOK struct {
 
 func (o *GetEsClustersOK) Error() string {
 	return fmt.Sprintf("[GET /clusters/elasticsearch][%d] getEsClustersOK  %+v", 200, o.Payload)
+}
+
+func (o *GetEsClustersOK) GetPayload() *models.ElasticsearchClustersInfo {
+	return o.Payload
 }
 
 func (o *GetEsClustersOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

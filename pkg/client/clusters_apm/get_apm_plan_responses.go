@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetApmPlanReader is a Reader for the GetApmPlan structure.
@@ -41,21 +41,18 @@ type GetApmPlanReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetApmPlanReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetApmPlanOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewGetApmPlanNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 412:
 		result := NewGetApmPlanPreconditionFailed()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -93,6 +90,10 @@ type GetApmPlanOK struct {
 
 func (o *GetApmPlanOK) Error() string {
 	return fmt.Sprintf("[GET /clusters/apm/{cluster_id}/plan][%d] getApmPlanOK  %+v", 200, o.Payload)
+}
+
+func (o *GetApmPlanOK) GetPayload() *models.ApmPlan {
+	return o.Payload
 }
 
 func (o *GetApmPlanOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -133,6 +134,10 @@ func (o *GetApmPlanNotFound) Error() string {
 	return fmt.Sprintf("[GET /clusters/apm/{cluster_id}/plan][%d] getApmPlanNotFound  %+v", 404, o.Payload)
 }
 
+func (o *GetApmPlanNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *GetApmPlanNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -160,6 +165,10 @@ type GetApmPlanPreconditionFailed struct {
 
 func (o *GetApmPlanPreconditionFailed) Error() string {
 	return fmt.Sprintf("[GET /clusters/apm/{cluster_id}/plan][%d] getApmPlanPreconditionFailed  %+v", 412, o.Payload)
+}
+
+func (o *GetApmPlanPreconditionFailed) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *GetApmPlanPreconditionFailed) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

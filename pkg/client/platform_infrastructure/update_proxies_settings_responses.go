@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // UpdateProxiesSettingsReader is a Reader for the UpdateProxiesSettings structure.
@@ -41,21 +41,18 @@ type UpdateProxiesSettingsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *UpdateProxiesSettingsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewUpdateProxiesSettingsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 409:
 		result := NewUpdateProxiesSettingsConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewUpdateProxiesSettingsRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -93,6 +90,10 @@ type UpdateProxiesSettingsOK struct {
 
 func (o *UpdateProxiesSettingsOK) Error() string {
 	return fmt.Sprintf("[PATCH /platform/infrastructure/proxies/settings][%d] updateProxiesSettingsOK  %+v", 200, o.Payload)
+}
+
+func (o *UpdateProxiesSettingsOK) GetPayload() *models.ProxiesSettings {
+	return o.Payload
 }
 
 func (o *UpdateProxiesSettingsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -137,6 +138,10 @@ func (o *UpdateProxiesSettingsConflict) Error() string {
 	return fmt.Sprintf("[PATCH /platform/infrastructure/proxies/settings][%d] updateProxiesSettingsConflict  %+v", 409, o.Payload)
 }
 
+func (o *UpdateProxiesSettingsConflict) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *UpdateProxiesSettingsConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -171,6 +176,10 @@ type UpdateProxiesSettingsRetryWith struct {
 
 func (o *UpdateProxiesSettingsRetryWith) Error() string {
 	return fmt.Sprintf("[PATCH /platform/infrastructure/proxies/settings][%d] updateProxiesSettingsRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *UpdateProxiesSettingsRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *UpdateProxiesSettingsRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

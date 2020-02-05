@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // ShutdownEsClusterReader is a Reader for the ShutdownEsCluster structure.
@@ -41,21 +41,18 @@ type ShutdownEsClusterReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *ShutdownEsClusterReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 202:
 		result := NewShutdownEsClusterAccepted()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewShutdownEsClusterNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewShutdownEsClusterRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -83,6 +80,10 @@ type ShutdownEsClusterAccepted struct {
 
 func (o *ShutdownEsClusterAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/_shutdown][%d] shutdownEsClusterAccepted  %+v", 202, o.Payload)
+}
+
+func (o *ShutdownEsClusterAccepted) GetPayload() *models.ClusterCommandResponse {
+	return o.Payload
 }
 
 func (o *ShutdownEsClusterAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -116,6 +117,10 @@ type ShutdownEsClusterNotFound struct {
 
 func (o *ShutdownEsClusterNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/_shutdown][%d] shutdownEsClusterNotFound  %+v", 404, o.Payload)
+}
+
+func (o *ShutdownEsClusterNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *ShutdownEsClusterNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -152,6 +157,10 @@ type ShutdownEsClusterRetryWith struct {
 
 func (o *ShutdownEsClusterRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/_shutdown][%d] shutdownEsClusterRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *ShutdownEsClusterRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *ShutdownEsClusterRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // MigrateEsClusterPlanReader is a Reader for the MigrateEsClusterPlan structure.
@@ -41,42 +41,36 @@ type MigrateEsClusterPlanReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *MigrateEsClusterPlanReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewMigrateEsClusterPlanOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 202:
 		result := NewMigrateEsClusterPlanAccepted()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewMigrateEsClusterPlanBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewMigrateEsClusterPlanNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 412:
 		result := NewMigrateEsClusterPlanPreconditionFailed()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewMigrateEsClusterPlanRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -106,6 +100,10 @@ func (o *MigrateEsClusterPlanOK) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/plan/_migrate][%d] migrateEsClusterPlanOK  %+v", 200, o.Payload)
 }
 
+func (o *MigrateEsClusterPlanOK) GetPayload() *models.ClusterPlanMigrationResponse {
+	return o.Payload
+}
+
 func (o *MigrateEsClusterPlanOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ClusterPlanMigrationResponse)
@@ -133,6 +131,10 @@ type MigrateEsClusterPlanAccepted struct {
 
 func (o *MigrateEsClusterPlanAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/plan/_migrate][%d] migrateEsClusterPlanAccepted  %+v", 202, o.Payload)
+}
+
+func (o *MigrateEsClusterPlanAccepted) GetPayload() *models.ClusterPlanMigrationResponse {
+	return o.Payload
 }
 
 func (o *MigrateEsClusterPlanAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -166,6 +168,10 @@ type MigrateEsClusterPlanBadRequest struct {
 
 func (o *MigrateEsClusterPlanBadRequest) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/plan/_migrate][%d] migrateEsClusterPlanBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *MigrateEsClusterPlanBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *MigrateEsClusterPlanBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -204,6 +210,10 @@ func (o *MigrateEsClusterPlanNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/plan/_migrate][%d] migrateEsClusterPlanNotFound  %+v", 404, o.Payload)
 }
 
+func (o *MigrateEsClusterPlanNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *MigrateEsClusterPlanNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -240,6 +250,10 @@ func (o *MigrateEsClusterPlanPreconditionFailed) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/plan/_migrate][%d] migrateEsClusterPlanPreconditionFailed  %+v", 412, o.Payload)
 }
 
+func (o *MigrateEsClusterPlanPreconditionFailed) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *MigrateEsClusterPlanPreconditionFailed) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -274,6 +288,10 @@ type MigrateEsClusterPlanRetryWith struct {
 
 func (o *MigrateEsClusterPlanRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/plan/_migrate][%d] migrateEsClusterPlanRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *MigrateEsClusterPlanRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *MigrateEsClusterPlanRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

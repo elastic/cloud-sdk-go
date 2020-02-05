@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // SetBlueprinterBlessingsReader is a Reader for the SetBlueprinterBlessings structure.
@@ -41,21 +41,18 @@ type SetBlueprinterBlessingsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *SetBlueprinterBlessingsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewSetBlueprinterBlessingsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewSetBlueprinterBlessingsNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewSetBlueprinterBlessingsConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -83,6 +80,10 @@ type SetBlueprinterBlessingsOK struct {
 
 func (o *SetBlueprinterBlessingsOK) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/blueprinter/roles/{blueprinter_role_id}/blessings][%d] setBlueprinterBlessingsOK  %+v", 200, o.Payload)
+}
+
+func (o *SetBlueprinterBlessingsOK) GetPayload() *models.RoleAggregate {
+	return o.Payload
 }
 
 func (o *SetBlueprinterBlessingsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -116,6 +117,10 @@ type SetBlueprinterBlessingsNotFound struct {
 
 func (o *SetBlueprinterBlessingsNotFound) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/blueprinter/roles/{blueprinter_role_id}/blessings][%d] setBlueprinterBlessingsNotFound  %+v", 404, o.Payload)
+}
+
+func (o *SetBlueprinterBlessingsNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *SetBlueprinterBlessingsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -152,6 +157,10 @@ type SetBlueprinterBlessingsConflict struct {
 
 func (o *SetBlueprinterBlessingsConflict) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/blueprinter/roles/{blueprinter_role_id}/blessings][%d] setBlueprinterBlessingsConflict  %+v", 409, o.Payload)
+}
+
+func (o *SetBlueprinterBlessingsConflict) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *SetBlueprinterBlessingsConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

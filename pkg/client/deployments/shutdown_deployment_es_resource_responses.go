@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // ShutdownDeploymentEsResourceReader is a Reader for the ShutdownDeploymentEsResource structure.
@@ -41,28 +41,24 @@ type ShutdownDeploymentEsResourceReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *ShutdownDeploymentEsResourceReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewShutdownDeploymentEsResourceOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 401:
 		result := NewShutdownDeploymentEsResourceUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewShutdownDeploymentEsResourceNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewShutdownDeploymentEsResourceInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -92,6 +88,10 @@ func (o *ShutdownDeploymentEsResourceOK) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_shutdown][%d] shutdownDeploymentEsResourceOK  %+v", 200, o.Payload)
 }
 
+func (o *ShutdownDeploymentEsResourceOK) GetPayload() models.DeploymentResourceCommandResponse {
+	return o.Payload
+}
+
 func (o *ShutdownDeploymentEsResourceOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
@@ -117,6 +117,10 @@ type ShutdownDeploymentEsResourceUnauthorized struct {
 
 func (o *ShutdownDeploymentEsResourceUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_shutdown][%d] shutdownDeploymentEsResourceUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *ShutdownDeploymentEsResourceUnauthorized) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *ShutdownDeploymentEsResourceUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -148,6 +152,10 @@ func (o *ShutdownDeploymentEsResourceNotFound) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_shutdown][%d] shutdownDeploymentEsResourceNotFound  %+v", 404, o.Payload)
 }
 
+func (o *ShutdownDeploymentEsResourceNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *ShutdownDeploymentEsResourceNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -175,6 +183,10 @@ type ShutdownDeploymentEsResourceInternalServerError struct {
 
 func (o *ShutdownDeploymentEsResourceInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_shutdown][%d] shutdownDeploymentEsResourceInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *ShutdownDeploymentEsResourceInternalServerError) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *ShutdownDeploymentEsResourceInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

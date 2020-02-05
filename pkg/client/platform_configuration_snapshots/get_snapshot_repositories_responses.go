@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetSnapshotRepositoriesReader is a Reader for the GetSnapshotRepositories structure.
@@ -41,7 +41,6 @@ type GetSnapshotRepositoriesReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetSnapshotRepositoriesReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetSnapshotRepositoriesOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -69,6 +68,10 @@ type GetSnapshotRepositoriesOK struct {
 
 func (o *GetSnapshotRepositoriesOK) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/snapshots/repositories][%d] getSnapshotRepositoriesOK  %+v", 200, o.Payload)
+}
+
+func (o *GetSnapshotRepositoriesOK) GetPayload() *models.RepositoryConfigs {
+	return o.Payload
 }
 
 func (o *GetSnapshotRepositoriesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

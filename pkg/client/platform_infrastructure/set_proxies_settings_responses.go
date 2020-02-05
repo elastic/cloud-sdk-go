@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // SetProxiesSettingsReader is a Reader for the SetProxiesSettings structure.
@@ -41,21 +41,18 @@ type SetProxiesSettingsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *SetProxiesSettingsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewSetProxiesSettingsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 409:
 		result := NewSetProxiesSettingsConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewSetProxiesSettingsRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -93,6 +90,10 @@ type SetProxiesSettingsOK struct {
 
 func (o *SetProxiesSettingsOK) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/proxies/settings][%d] setProxiesSettingsOK  %+v", 200, o.Payload)
+}
+
+func (o *SetProxiesSettingsOK) GetPayload() *models.ProxiesSettings {
+	return o.Payload
 }
 
 func (o *SetProxiesSettingsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -137,6 +138,10 @@ func (o *SetProxiesSettingsConflict) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/proxies/settings][%d] setProxiesSettingsConflict  %+v", 409, o.Payload)
 }
 
+func (o *SetProxiesSettingsConflict) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *SetProxiesSettingsConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -171,6 +176,10 @@ type SetProxiesSettingsRetryWith struct {
 
 func (o *SetProxiesSettingsRetryWith) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/proxies/settings][%d] setProxiesSettingsRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *SetProxiesSettingsRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *SetProxiesSettingsRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

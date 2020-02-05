@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetUserReader is a Reader for the GetUser structure.
@@ -41,21 +41,18 @@ type GetUserReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetUserReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetUserOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 403:
 		result := NewGetUserForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewGetUserNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -83,6 +80,10 @@ type GetUserOK struct {
 
 func (o *GetUserOK) Error() string {
 	return fmt.Sprintf("[GET /users/{user_name}][%d] getUserOK  %+v", 200, o.Payload)
+}
+
+func (o *GetUserOK) GetPayload() *models.User {
+	return o.Payload
 }
 
 func (o *GetUserOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -114,6 +115,10 @@ func (o *GetUserForbidden) Error() string {
 	return fmt.Sprintf("[GET /users/{user_name}][%d] getUserForbidden  %+v", 403, o.Payload)
 }
 
+func (o *GetUserForbidden) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *GetUserForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -141,6 +146,10 @@ type GetUserNotFound struct {
 
 func (o *GetUserNotFound) Error() string {
 	return fmt.Sprintf("[GET /users/{user_name}][%d] getUserNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetUserNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *GetUserNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

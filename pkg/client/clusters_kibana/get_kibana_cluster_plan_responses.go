@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetKibanaClusterPlanReader is a Reader for the GetKibanaClusterPlan structure.
@@ -41,21 +41,18 @@ type GetKibanaClusterPlanReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetKibanaClusterPlanReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetKibanaClusterPlanOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewGetKibanaClusterPlanNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 412:
 		result := NewGetKibanaClusterPlanPreconditionFailed()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -93,6 +90,10 @@ type GetKibanaClusterPlanOK struct {
 
 func (o *GetKibanaClusterPlanOK) Error() string {
 	return fmt.Sprintf("[GET /clusters/kibana/{cluster_id}/plan][%d] getKibanaClusterPlanOK  %+v", 200, o.Payload)
+}
+
+func (o *GetKibanaClusterPlanOK) GetPayload() *models.KibanaClusterPlan {
+	return o.Payload
 }
 
 func (o *GetKibanaClusterPlanOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -133,6 +134,10 @@ func (o *GetKibanaClusterPlanNotFound) Error() string {
 	return fmt.Sprintf("[GET /clusters/kibana/{cluster_id}/plan][%d] getKibanaClusterPlanNotFound  %+v", 404, o.Payload)
 }
 
+func (o *GetKibanaClusterPlanNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *GetKibanaClusterPlanNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -160,6 +165,10 @@ type GetKibanaClusterPlanPreconditionFailed struct {
 
 func (o *GetKibanaClusterPlanPreconditionFailed) Error() string {
 	return fmt.Sprintf("[GET /clusters/kibana/{cluster_id}/plan][%d] getKibanaClusterPlanPreconditionFailed  %+v", 412, o.Payload)
+}
+
+func (o *GetKibanaClusterPlanPreconditionFailed) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *GetKibanaClusterPlanPreconditionFailed) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

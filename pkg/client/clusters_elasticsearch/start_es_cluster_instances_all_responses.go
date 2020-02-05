@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // StartEsClusterInstancesAllReader is a Reader for the StartEsClusterInstancesAll structure.
@@ -41,28 +41,24 @@ type StartEsClusterInstancesAllReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *StartEsClusterInstancesAllReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 202:
 		result := NewStartEsClusterInstancesAllAccepted()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 403:
 		result := NewStartEsClusterInstancesAllForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewStartEsClusterInstancesAllNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewStartEsClusterInstancesAllRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -90,6 +86,10 @@ type StartEsClusterInstancesAllAccepted struct {
 
 func (o *StartEsClusterInstancesAllAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/instances/_start][%d] startEsClusterInstancesAllAccepted  %+v", 202, o.Payload)
+}
+
+func (o *StartEsClusterInstancesAllAccepted) GetPayload() *models.ClusterCommandResponse {
+	return o.Payload
 }
 
 func (o *StartEsClusterInstancesAllAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -123,6 +123,10 @@ type StartEsClusterInstancesAllForbidden struct {
 
 func (o *StartEsClusterInstancesAllForbidden) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/instances/_start][%d] startEsClusterInstancesAllForbidden  %+v", 403, o.Payload)
+}
+
+func (o *StartEsClusterInstancesAllForbidden) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *StartEsClusterInstancesAllForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -161,6 +165,10 @@ func (o *StartEsClusterInstancesAllNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/instances/_start][%d] startEsClusterInstancesAllNotFound  %+v", 404, o.Payload)
 }
 
+func (o *StartEsClusterInstancesAllNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *StartEsClusterInstancesAllNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -195,6 +203,10 @@ type StartEsClusterInstancesAllRetryWith struct {
 
 func (o *StartEsClusterInstancesAllRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/instances/_start][%d] startEsClusterInstancesAllRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *StartEsClusterInstancesAllRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *StartEsClusterInstancesAllRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

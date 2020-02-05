@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // CancelApmPendingPlanReader is a Reader for the CancelApmPendingPlan structure.
@@ -41,28 +41,24 @@ type CancelApmPendingPlanReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CancelApmPendingPlanReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewCancelApmPendingPlanOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewCancelApmPendingPlanNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 412:
 		result := NewCancelApmPendingPlanPreconditionFailed()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewCancelApmPendingPlanRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -90,6 +86,10 @@ type CancelApmPendingPlanOK struct {
 
 func (o *CancelApmPendingPlanOK) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/apm/{cluster_id}/plan/pending][%d] cancelApmPendingPlanOK  %+v", 200, o.Payload)
+}
+
+func (o *CancelApmPendingPlanOK) GetPayload() *models.ApmCrudResponse {
+	return o.Payload
 }
 
 func (o *CancelApmPendingPlanOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -121,6 +121,10 @@ func (o *CancelApmPendingPlanNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/apm/{cluster_id}/plan/pending][%d] cancelApmPendingPlanNotFound  %+v", 404, o.Payload)
 }
 
+func (o *CancelApmPendingPlanNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *CancelApmPendingPlanNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -150,6 +154,10 @@ func (o *CancelApmPendingPlanPreconditionFailed) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/apm/{cluster_id}/plan/pending][%d] cancelApmPendingPlanPreconditionFailed  %+v", 412, o.Payload)
 }
 
+func (o *CancelApmPendingPlanPreconditionFailed) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *CancelApmPendingPlanPreconditionFailed) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -177,6 +185,10 @@ type CancelApmPendingPlanRetryWith struct {
 
 func (o *CancelApmPendingPlanRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/apm/{cluster_id}/plan/pending][%d] cancelApmPendingPlanRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *CancelApmPendingPlanRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *CancelApmPendingPlanRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

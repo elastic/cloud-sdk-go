@@ -23,13 +23,14 @@ package users
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-openapi/runtime"
+	"fmt"
 
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new users API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -41,10 +42,31 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
-/*
-CreateUser creates a new user
+// ClientService is the interface for Client methods
+type ClientService interface {
+	CreateUser(params *CreateUserParams, authInfo runtime.ClientAuthInfoWriter) (*CreateUserOK, error)
 
-Creates a new user.
+	DeleteUser(params *DeleteUserParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteUserOK, error)
+
+	GetCurrentUser(params *GetCurrentUserParams, authInfo runtime.ClientAuthInfoWriter) (*GetCurrentUserOK, error)
+
+	GetCurrentUserRestrictedFeatures(params *GetCurrentUserRestrictedFeaturesParams, authInfo runtime.ClientAuthInfoWriter) (*GetCurrentUserRestrictedFeaturesOK, error)
+
+	GetUser(params *GetUserParams, authInfo runtime.ClientAuthInfoWriter) (*GetUserOK, error)
+
+	GetUsers(params *GetUsersParams, authInfo runtime.ClientAuthInfoWriter) (*GetUsersOK, error)
+
+	UpdateCurrentUser(params *UpdateCurrentUserParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateCurrentUserOK, error)
+
+	UpdateUser(params *UpdateUserParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateUserOK, error)
+
+	SetTransport(transport runtime.ClientTransport)
+}
+
+/*
+  CreateUser creates a new user
+
+  Creates a new user.
 */
 func (a *Client) CreateUser(params *CreateUserParams, authInfo runtime.ClientAuthInfoWriter) (*CreateUserOK, error) {
 	// TODO: Validate the params before sending
@@ -56,8 +78,8 @@ func (a *Client) CreateUser(params *CreateUserParams, authInfo runtime.ClientAut
 		ID:                 "create-user",
 		Method:             "POST",
 		PathPattern:        "/users",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &CreateUserReader{formats: a.formats},
@@ -68,14 +90,20 @@ func (a *Client) CreateUser(params *CreateUserParams, authInfo runtime.ClientAut
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateUserOK), nil
-
+	success, ok := result.(*CreateUserOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for create-user: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-DeleteUser deletes an existing user
+  DeleteUser deletes an existing user
 
-Deletes an existing user.
+  Deletes an existing user.
 */
 func (a *Client) DeleteUser(params *DeleteUserParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteUserOK, error) {
 	// TODO: Validate the params before sending
@@ -87,8 +115,8 @@ func (a *Client) DeleteUser(params *DeleteUserParams, authInfo runtime.ClientAut
 		ID:                 "delete-user",
 		Method:             "DELETE",
 		PathPattern:        "/users/{user_name}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &DeleteUserReader{formats: a.formats},
@@ -99,14 +127,20 @@ func (a *Client) DeleteUser(params *DeleteUserParams, authInfo runtime.ClientAut
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteUserOK), nil
-
+	success, ok := result.(*DeleteUserOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for delete-user: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetCurrentUser fetches current user information
+  GetCurrentUser fetches current user information
 
-Fetch current user information.
+  Fetch current user information.
 */
 func (a *Client) GetCurrentUser(params *GetCurrentUserParams, authInfo runtime.ClientAuthInfoWriter) (*GetCurrentUserOK, error) {
 	// TODO: Validate the params before sending
@@ -118,8 +152,8 @@ func (a *Client) GetCurrentUser(params *GetCurrentUserParams, authInfo runtime.C
 		ID:                 "get-current-user",
 		Method:             "GET",
 		PathPattern:        "/user",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetCurrentUserReader{formats: a.formats},
@@ -130,14 +164,20 @@ func (a *Client) GetCurrentUser(params *GetCurrentUserParams, authInfo runtime.C
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetCurrentUserOK), nil
-
+	success, ok := result.(*GetCurrentUserOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-current-user: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetCurrentUserRestrictedFeatures gets features
+  GetCurrentUserRestrictedFeatures gets features
 
-Gets the restricted features current user has access.
+  Gets the restricted features current user has access.
 */
 func (a *Client) GetCurrentUserRestrictedFeatures(params *GetCurrentUserRestrictedFeaturesParams, authInfo runtime.ClientAuthInfoWriter) (*GetCurrentUserRestrictedFeaturesOK, error) {
 	// TODO: Validate the params before sending
@@ -149,8 +189,8 @@ func (a *Client) GetCurrentUserRestrictedFeatures(params *GetCurrentUserRestrict
 		ID:                 "get-current-user-restricted-features",
 		Method:             "GET",
 		PathPattern:        "/users/feature-controls",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetCurrentUserRestrictedFeaturesReader{formats: a.formats},
@@ -161,14 +201,20 @@ func (a *Client) GetCurrentUserRestrictedFeatures(params *GetCurrentUserRestrict
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetCurrentUserRestrictedFeaturesOK), nil
-
+	success, ok := result.(*GetCurrentUserRestrictedFeaturesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-current-user-restricted-features: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetUser fetches a single user
+  GetUser fetches a single user
 
-Fetches a single user.
+  Fetches a single user.
 */
 func (a *Client) GetUser(params *GetUserParams, authInfo runtime.ClientAuthInfoWriter) (*GetUserOK, error) {
 	// TODO: Validate the params before sending
@@ -180,8 +226,8 @@ func (a *Client) GetUser(params *GetUserParams, authInfo runtime.ClientAuthInfoW
 		ID:                 "get-user",
 		Method:             "GET",
 		PathPattern:        "/users/{user_name}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetUserReader{formats: a.formats},
@@ -192,14 +238,20 @@ func (a *Client) GetUser(params *GetUserParams, authInfo runtime.ClientAuthInfoW
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetUserOK), nil
-
+	success, ok := result.(*GetUserOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-user: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetUsers fetches all users
+  GetUsers fetches all users
 
-Fetches all available users.
+  Fetches all available users.
 */
 func (a *Client) GetUsers(params *GetUsersParams, authInfo runtime.ClientAuthInfoWriter) (*GetUsersOK, error) {
 	// TODO: Validate the params before sending
@@ -211,8 +263,8 @@ func (a *Client) GetUsers(params *GetUsersParams, authInfo runtime.ClientAuthInf
 		ID:                 "get-users",
 		Method:             "GET",
 		PathPattern:        "/users",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetUsersReader{formats: a.formats},
@@ -223,14 +275,20 @@ func (a *Client) GetUsers(params *GetUsersParams, authInfo runtime.ClientAuthInf
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetUsersOK), nil
-
+	success, ok := result.(*GetUsersOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-users: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-UpdateCurrentUser updates the current user
+  UpdateCurrentUser updates the current user
 
-Updates the current user.
+  Updates the current user.
 */
 func (a *Client) UpdateCurrentUser(params *UpdateCurrentUserParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateCurrentUserOK, error) {
 	// TODO: Validate the params before sending
@@ -242,8 +300,8 @@ func (a *Client) UpdateCurrentUser(params *UpdateCurrentUserParams, authInfo run
 		ID:                 "update-current-user",
 		Method:             "PATCH",
 		PathPattern:        "/user",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &UpdateCurrentUserReader{formats: a.formats},
@@ -254,14 +312,20 @@ func (a *Client) UpdateCurrentUser(params *UpdateCurrentUserParams, authInfo run
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpdateCurrentUserOK), nil
-
+	success, ok := result.(*UpdateCurrentUserOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for update-current-user: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-UpdateUser updates an existing user
+  UpdateUser updates an existing user
 
-Updates an existing user.
+  Updates an existing user.
 */
 func (a *Client) UpdateUser(params *UpdateUserParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateUserOK, error) {
 	// TODO: Validate the params before sending
@@ -273,8 +337,8 @@ func (a *Client) UpdateUser(params *UpdateUserParams, authInfo runtime.ClientAut
 		ID:                 "update-user",
 		Method:             "PATCH",
 		PathPattern:        "/users/{user_name}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &UpdateUserReader{formats: a.formats},
@@ -285,8 +349,14 @@ func (a *Client) UpdateUser(params *UpdateUserParams, authInfo runtime.ClientAut
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpdateUserOK), nil
-
+	success, ok := result.(*UpdateUserOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for update-user: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 // SetTransport changes the transport on the client

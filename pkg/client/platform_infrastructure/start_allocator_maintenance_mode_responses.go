@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // StartAllocatorMaintenanceModeReader is a Reader for the StartAllocatorMaintenanceMode structure.
@@ -41,28 +41,24 @@ type StartAllocatorMaintenanceModeReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *StartAllocatorMaintenanceModeReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 202:
 		result := NewStartAllocatorMaintenanceModeAccepted()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 403:
 		result := NewStartAllocatorMaintenanceModeForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewStartAllocatorMaintenanceModeNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewStartAllocatorMaintenanceModeRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -90,6 +86,10 @@ type StartAllocatorMaintenanceModeAccepted struct {
 
 func (o *StartAllocatorMaintenanceModeAccepted) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/allocators/{allocator_id}/maintenance-mode/_start][%d] startAllocatorMaintenanceModeAccepted  %+v", 202, o.Payload)
+}
+
+func (o *StartAllocatorMaintenanceModeAccepted) GetPayload() models.EmptyResponse {
+	return o.Payload
 }
 
 func (o *StartAllocatorMaintenanceModeAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -121,6 +121,10 @@ type StartAllocatorMaintenanceModeForbidden struct {
 
 func (o *StartAllocatorMaintenanceModeForbidden) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/allocators/{allocator_id}/maintenance-mode/_start][%d] startAllocatorMaintenanceModeForbidden  %+v", 403, o.Payload)
+}
+
+func (o *StartAllocatorMaintenanceModeForbidden) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *StartAllocatorMaintenanceModeForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -159,6 +163,10 @@ func (o *StartAllocatorMaintenanceModeNotFound) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/allocators/{allocator_id}/maintenance-mode/_start][%d] startAllocatorMaintenanceModeNotFound  %+v", 404, o.Payload)
 }
 
+func (o *StartAllocatorMaintenanceModeNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *StartAllocatorMaintenanceModeNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -193,6 +201,10 @@ type StartAllocatorMaintenanceModeRetryWith struct {
 
 func (o *StartAllocatorMaintenanceModeRetryWith) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/allocators/{allocator_id}/maintenance-mode/_start][%d] startAllocatorMaintenanceModeRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *StartAllocatorMaintenanceModeRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *StartAllocatorMaintenanceModeRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // ResyncEsClustersReader is a Reader for the ResyncEsClusters structure.
@@ -41,14 +41,12 @@ type ResyncEsClustersReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *ResyncEsClustersReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 202:
 		result := NewResyncEsClustersAccepted()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 449:
 		result := NewResyncEsClustersRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -76,6 +74,10 @@ type ResyncEsClustersAccepted struct {
 
 func (o *ResyncEsClustersAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/_resync][%d] resyncEsClustersAccepted  %+v", 202, o.Payload)
+}
+
+func (o *ResyncEsClustersAccepted) GetPayload() *models.ModelVersionIndexSynchronizationResults {
+	return o.Payload
 }
 
 func (o *ResyncEsClustersAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -109,6 +111,10 @@ type ResyncEsClustersRetryWith struct {
 
 func (o *ResyncEsClustersRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/_resync][%d] resyncEsClustersRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *ResyncEsClustersRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *ResyncEsClustersRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

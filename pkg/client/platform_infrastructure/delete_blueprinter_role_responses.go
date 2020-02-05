@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // DeleteBlueprinterRoleReader is a Reader for the DeleteBlueprinterRole structure.
@@ -41,28 +41,24 @@ type DeleteBlueprinterRoleReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteBlueprinterRoleReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewDeleteBlueprinterRoleOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewDeleteBlueprinterRoleBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewDeleteBlueprinterRoleNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewDeleteBlueprinterRoleConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -90,6 +86,10 @@ type DeleteBlueprinterRoleOK struct {
 
 func (o *DeleteBlueprinterRoleOK) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/blueprinter/roles/{blueprinter_role_id}][%d] deleteBlueprinterRoleOK  %+v", 200, o.Payload)
+}
+
+func (o *DeleteBlueprinterRoleOK) GetPayload() models.EmptyResponse {
+	return o.Payload
 }
 
 func (o *DeleteBlueprinterRoleOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -121,6 +121,10 @@ type DeleteBlueprinterRoleBadRequest struct {
 
 func (o *DeleteBlueprinterRoleBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/blueprinter/roles/{blueprinter_role_id}][%d] deleteBlueprinterRoleBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *DeleteBlueprinterRoleBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DeleteBlueprinterRoleBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -159,6 +163,10 @@ func (o *DeleteBlueprinterRoleNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/blueprinter/roles/{blueprinter_role_id}][%d] deleteBlueprinterRoleNotFound  %+v", 404, o.Payload)
 }
 
+func (o *DeleteBlueprinterRoleNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *DeleteBlueprinterRoleNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -193,6 +201,10 @@ type DeleteBlueprinterRoleConflict struct {
 
 func (o *DeleteBlueprinterRoleConflict) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/blueprinter/roles/{blueprinter_role_id}][%d] deleteBlueprinterRoleConflict  %+v", 409, o.Payload)
+}
+
+func (o *DeleteBlueprinterRoleConflict) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DeleteBlueprinterRoleConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

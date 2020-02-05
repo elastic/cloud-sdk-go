@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // DeleteAllocatorMetadataItemReader is a Reader for the DeleteAllocatorMetadataItem structure.
@@ -41,21 +41,18 @@ type DeleteAllocatorMetadataItemReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteAllocatorMetadataItemReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewDeleteAllocatorMetadataItemOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewDeleteAllocatorMetadataItemNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewDeleteAllocatorMetadataItemRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -83,6 +80,10 @@ type DeleteAllocatorMetadataItemOK struct {
 
 func (o *DeleteAllocatorMetadataItemOK) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/allocators/{allocator_id}/metadata/{key}][%d] deleteAllocatorMetadataItemOK  %+v", 200, o.Payload)
+}
+
+func (o *DeleteAllocatorMetadataItemOK) GetPayload() []*models.MetadataItem {
+	return o.Payload
 }
 
 func (o *DeleteAllocatorMetadataItemOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -114,6 +115,10 @@ type DeleteAllocatorMetadataItemNotFound struct {
 
 func (o *DeleteAllocatorMetadataItemNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/allocators/{allocator_id}/metadata/{key}][%d] deleteAllocatorMetadataItemNotFound  %+v", 404, o.Payload)
+}
+
+func (o *DeleteAllocatorMetadataItemNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DeleteAllocatorMetadataItemNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -150,6 +155,10 @@ type DeleteAllocatorMetadataItemRetryWith struct {
 
 func (o *DeleteAllocatorMetadataItemRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/allocators/{allocator_id}/metadata/{key}][%d] deleteAllocatorMetadataItemRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *DeleteAllocatorMetadataItemRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DeleteAllocatorMetadataItemRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

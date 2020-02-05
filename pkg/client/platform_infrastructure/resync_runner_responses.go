@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // ResyncRunnerReader is a Reader for the ResyncRunner structure.
@@ -41,21 +41,18 @@ type ResyncRunnerReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *ResyncRunnerReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewResyncRunnerOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 449:
 		result := NewResyncRunnerRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewResyncRunnerInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -83,6 +80,10 @@ type ResyncRunnerOK struct {
 
 func (o *ResyncRunnerOK) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/runners/{runner_id}/_resync][%d] resyncRunnerOK  %+v", 200, o.Payload)
+}
+
+func (o *ResyncRunnerOK) GetPayload() models.EmptyResponse {
+	return o.Payload
 }
 
 func (o *ResyncRunnerOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -114,6 +115,10 @@ type ResyncRunnerRetryWith struct {
 
 func (o *ResyncRunnerRetryWith) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/runners/{runner_id}/_resync][%d] resyncRunnerRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *ResyncRunnerRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *ResyncRunnerRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -150,6 +155,10 @@ type ResyncRunnerInternalServerError struct {
 
 func (o *ResyncRunnerInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/runners/{runner_id}/_resync][%d] resyncRunnerInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *ResyncRunnerInternalServerError) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *ResyncRunnerInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // CreateLdapConfigurationReader is a Reader for the CreateLdapConfiguration structure.
@@ -41,21 +41,18 @@ type CreateLdapConfigurationReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateLdapConfigurationReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 201:
 		result := NewCreateLdapConfigurationCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewCreateLdapConfigurationBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewCreateLdapConfigurationRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -93,6 +90,10 @@ type CreateLdapConfigurationCreated struct {
 
 func (o *CreateLdapConfigurationCreated) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/realms/ldap][%d] createLdapConfigurationCreated  %+v", 201, o.Payload)
+}
+
+func (o *CreateLdapConfigurationCreated) GetPayload() models.EmptyResponse {
+	return o.Payload
 }
 
 func (o *CreateLdapConfigurationCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -143,6 +144,10 @@ func (o *CreateLdapConfigurationBadRequest) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/realms/ldap][%d] createLdapConfigurationBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *CreateLdapConfigurationBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *CreateLdapConfigurationBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -177,6 +182,10 @@ type CreateLdapConfigurationRetryWith struct {
 
 func (o *CreateLdapConfigurationRetryWith) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/realms/ldap][%d] createLdapConfigurationRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *CreateLdapConfigurationRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *CreateLdapConfigurationRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

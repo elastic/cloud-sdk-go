@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // ShutdownDeploymentReader is a Reader for the ShutdownDeployment structure.
@@ -41,28 +41,24 @@ type ShutdownDeploymentReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *ShutdownDeploymentReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewShutdownDeploymentOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewShutdownDeploymentBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewShutdownDeploymentUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewShutdownDeploymentNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -90,6 +86,10 @@ type ShutdownDeploymentOK struct {
 
 func (o *ShutdownDeploymentOK) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/_shutdown][%d] shutdownDeploymentOK  %+v", 200, o.Payload)
+}
+
+func (o *ShutdownDeploymentOK) GetPayload() *models.DeploymentShutdownResponse {
+	return o.Payload
 }
 
 func (o *ShutdownDeploymentOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -121,6 +121,10 @@ func (o *ShutdownDeploymentBadRequest) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/_shutdown][%d] shutdownDeploymentBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *ShutdownDeploymentBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *ShutdownDeploymentBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -150,6 +154,10 @@ func (o *ShutdownDeploymentUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/_shutdown][%d] shutdownDeploymentUnauthorized  %+v", 401, o.Payload)
 }
 
+func (o *ShutdownDeploymentUnauthorized) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *ShutdownDeploymentUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -177,6 +185,10 @@ type ShutdownDeploymentNotFound struct {
 
 func (o *ShutdownDeploymentNotFound) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/_shutdown][%d] shutdownDeploymentNotFound  %+v", 404, o.Payload)
+}
+
+func (o *ShutdownDeploymentNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *ShutdownDeploymentNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

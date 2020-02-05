@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GenerateEsClusterDiagnosticsReader is a Reader for the GenerateEsClusterDiagnostics structure.
@@ -41,14 +41,12 @@ type GenerateEsClusterDiagnosticsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GenerateEsClusterDiagnosticsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGenerateEsClusterDiagnosticsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewGenerateEsClusterDiagnosticsNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -78,6 +76,10 @@ func (o *GenerateEsClusterDiagnosticsOK) Error() string {
 	return fmt.Sprintf("[GET /clusters/elasticsearch/{cluster_id}/support/_generate-diagnostics][%d] generateEsClusterDiagnosticsOK  %+v", 200, o.Payload)
 }
 
+func (o *GenerateEsClusterDiagnosticsOK) GetPayload() strfmt.Base64 {
+	return o.Payload
+}
+
 func (o *GenerateEsClusterDiagnosticsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
@@ -103,6 +105,10 @@ type GenerateEsClusterDiagnosticsNotFound struct {
 
 func (o *GenerateEsClusterDiagnosticsNotFound) Error() string {
 	return fmt.Sprintf("[GET /clusters/elasticsearch/{cluster_id}/support/_generate-diagnostics][%d] generateEsClusterDiagnosticsNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GenerateEsClusterDiagnosticsNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *GenerateEsClusterDiagnosticsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // CreateCommentReader is a Reader for the CreateComment structure.
@@ -41,28 +41,24 @@ type CreateCommentReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateCommentReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 201:
 		result := NewCreateCommentCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 401:
 		result := NewCreateCommentUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewCreateCommentNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewCreateCommentConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -100,6 +96,10 @@ type CreateCommentCreated struct {
 
 func (o *CreateCommentCreated) Error() string {
 	return fmt.Sprintf("[POST /comments/{resource_type}/{resource_id}][%d] createCommentCreated  %+v", 201, o.Payload)
+}
+
+func (o *CreateCommentCreated) GetPayload() *models.Comment {
+	return o.Payload
 }
 
 func (o *CreateCommentCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -144,6 +144,10 @@ func (o *CreateCommentUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /comments/{resource_type}/{resource_id}][%d] createCommentUnauthorized  %+v", 401, o.Payload)
 }
 
+func (o *CreateCommentUnauthorized) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *CreateCommentUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -180,6 +184,10 @@ func (o *CreateCommentNotFound) Error() string {
 	return fmt.Sprintf("[POST /comments/{resource_type}/{resource_id}][%d] createCommentNotFound  %+v", 404, o.Payload)
 }
 
+func (o *CreateCommentNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *CreateCommentNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -214,6 +222,10 @@ type CreateCommentConflict struct {
 
 func (o *CreateCommentConflict) Error() string {
 	return fmt.Sprintf("[POST /comments/{resource_type}/{resource_id}][%d] createCommentConflict  %+v", 409, o.Payload)
+}
+
+func (o *CreateCommentConflict) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *CreateCommentConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

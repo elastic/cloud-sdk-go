@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // CreateEnrollmentTokenReader is a Reader for the CreateEnrollmentToken structure.
@@ -41,28 +41,24 @@ type CreateEnrollmentTokenReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateEnrollmentTokenReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewCreateEnrollmentTokenOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewCreateEnrollmentTokenBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewCreateEnrollmentTokenForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewCreateEnrollmentTokenRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -90,6 +86,10 @@ type CreateEnrollmentTokenOK struct {
 
 func (o *CreateEnrollmentTokenOK) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/enrollment-tokens][%d] createEnrollmentTokenOK  %+v", 200, o.Payload)
+}
+
+func (o *CreateEnrollmentTokenOK) GetPayload() *models.RequestEnrollmentTokenReply {
+	return o.Payload
 }
 
 func (o *CreateEnrollmentTokenOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -121,6 +121,10 @@ func (o *CreateEnrollmentTokenBadRequest) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/enrollment-tokens][%d] createEnrollmentTokenBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *CreateEnrollmentTokenBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *CreateEnrollmentTokenBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -150,6 +154,10 @@ func (o *CreateEnrollmentTokenForbidden) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/enrollment-tokens][%d] createEnrollmentTokenForbidden  %+v", 403, o.Payload)
 }
 
+func (o *CreateEnrollmentTokenForbidden) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *CreateEnrollmentTokenForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -177,6 +185,10 @@ type CreateEnrollmentTokenRetryWith struct {
 
 func (o *CreateEnrollmentTokenRetryWith) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/enrollment-tokens][%d] createEnrollmentTokenRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *CreateEnrollmentTokenRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *CreateEnrollmentTokenRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

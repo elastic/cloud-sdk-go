@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetProxiesSettingsReader is a Reader for the GetProxiesSettings structure.
@@ -41,7 +41,6 @@ type GetProxiesSettingsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetProxiesSettingsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetProxiesSettingsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -79,6 +78,10 @@ type GetProxiesSettingsOK struct {
 
 func (o *GetProxiesSettingsOK) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/proxies/settings][%d] getProxiesSettingsOK  %+v", 200, o.Payload)
+}
+
+func (o *GetProxiesSettingsOK) GetPayload() *models.ProxiesSettings {
+	return o.Payload
 }
 
 func (o *GetProxiesSettingsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

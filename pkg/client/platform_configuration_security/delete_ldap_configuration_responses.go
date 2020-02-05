@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // DeleteLdapConfigurationReader is a Reader for the DeleteLdapConfiguration structure.
@@ -41,28 +41,24 @@ type DeleteLdapConfigurationReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteLdapConfigurationReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewDeleteLdapConfigurationOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewDeleteLdapConfigurationNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewDeleteLdapConfigurationConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewDeleteLdapConfigurationRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -90,6 +86,10 @@ type DeleteLdapConfigurationOK struct {
 
 func (o *DeleteLdapConfigurationOK) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/security/realms/ldap/{realm_id}][%d] deleteLdapConfigurationOK  %+v", 200, o.Payload)
+}
+
+func (o *DeleteLdapConfigurationOK) GetPayload() models.EmptyResponse {
+	return o.Payload
 }
 
 func (o *DeleteLdapConfigurationOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -121,6 +121,10 @@ type DeleteLdapConfigurationNotFound struct {
 
 func (o *DeleteLdapConfigurationNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/security/realms/ldap/{realm_id}][%d] deleteLdapConfigurationNotFound  %+v", 404, o.Payload)
+}
+
+func (o *DeleteLdapConfigurationNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DeleteLdapConfigurationNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -159,6 +163,10 @@ func (o *DeleteLdapConfigurationConflict) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/security/realms/ldap/{realm_id}][%d] deleteLdapConfigurationConflict  %+v", 409, o.Payload)
 }
 
+func (o *DeleteLdapConfigurationConflict) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *DeleteLdapConfigurationConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -193,6 +201,10 @@ type DeleteLdapConfigurationRetryWith struct {
 
 func (o *DeleteLdapConfigurationRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/security/realms/ldap/{realm_id}][%d] deleteLdapConfigurationRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *DeleteLdapConfigurationRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DeleteLdapConfigurationRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

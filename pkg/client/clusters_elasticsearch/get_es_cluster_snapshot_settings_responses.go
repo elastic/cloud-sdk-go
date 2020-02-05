@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetEsClusterSnapshotSettingsReader is a Reader for the GetEsClusterSnapshotSettings structure.
@@ -41,14 +41,12 @@ type GetEsClusterSnapshotSettingsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetEsClusterSnapshotSettingsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetEsClusterSnapshotSettingsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewGetEsClusterSnapshotSettingsNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -88,6 +86,10 @@ func (o *GetEsClusterSnapshotSettingsOK) Error() string {
 	return fmt.Sprintf("[GET /clusters/elasticsearch/{cluster_id}/snapshot/settings][%d] getEsClusterSnapshotSettingsOK  %+v", 200, o.Payload)
 }
 
+func (o *GetEsClusterSnapshotSettingsOK) GetPayload() *models.ClusterSnapshotSettings {
+	return o.Payload
+}
+
 func (o *GetEsClusterSnapshotSettingsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-resource-created
@@ -124,6 +126,10 @@ type GetEsClusterSnapshotSettingsNotFound struct {
 
 func (o *GetEsClusterSnapshotSettingsNotFound) Error() string {
 	return fmt.Sprintf("[GET /clusters/elasticsearch/{cluster_id}/snapshot/settings][%d] getEsClusterSnapshotSettingsNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetEsClusterSnapshotSettingsNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *GetEsClusterSnapshotSettingsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

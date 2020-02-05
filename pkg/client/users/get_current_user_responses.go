@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetCurrentUserReader is a Reader for the GetCurrentUser structure.
@@ -41,21 +41,18 @@ type GetCurrentUserReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetCurrentUserReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetCurrentUserOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewGetCurrentUserNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewGetCurrentUserInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -83,6 +80,10 @@ type GetCurrentUserOK struct {
 
 func (o *GetCurrentUserOK) Error() string {
 	return fmt.Sprintf("[GET /user][%d] getCurrentUserOK  %+v", 200, o.Payload)
+}
+
+func (o *GetCurrentUserOK) GetPayload() *models.User {
+	return o.Payload
 }
 
 func (o *GetCurrentUserOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -114,6 +115,10 @@ func (o *GetCurrentUserNotFound) Error() string {
 	return fmt.Sprintf("[GET /user][%d] getCurrentUserNotFound  %+v", 404, o.Payload)
 }
 
+func (o *GetCurrentUserNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *GetCurrentUserNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -141,6 +146,10 @@ type GetCurrentUserInternalServerError struct {
 
 func (o *GetCurrentUserInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /user][%d] getCurrentUserInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetCurrentUserInternalServerError) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *GetCurrentUserInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

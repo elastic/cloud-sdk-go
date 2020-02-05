@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // StopKibanaClusterInstancesAllReader is a Reader for the StopKibanaClusterInstancesAll structure.
@@ -41,28 +41,24 @@ type StopKibanaClusterInstancesAllReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *StopKibanaClusterInstancesAllReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 202:
 		result := NewStopKibanaClusterInstancesAllAccepted()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 403:
 		result := NewStopKibanaClusterInstancesAllForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewStopKibanaClusterInstancesAllNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewStopKibanaClusterInstancesAllRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -90,6 +86,10 @@ type StopKibanaClusterInstancesAllAccepted struct {
 
 func (o *StopKibanaClusterInstancesAllAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/instances/_stop][%d] stopKibanaClusterInstancesAllAccepted  %+v", 202, o.Payload)
+}
+
+func (o *StopKibanaClusterInstancesAllAccepted) GetPayload() *models.ClusterCommandResponse {
+	return o.Payload
 }
 
 func (o *StopKibanaClusterInstancesAllAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -123,6 +123,10 @@ type StopKibanaClusterInstancesAllForbidden struct {
 
 func (o *StopKibanaClusterInstancesAllForbidden) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/instances/_stop][%d] stopKibanaClusterInstancesAllForbidden  %+v", 403, o.Payload)
+}
+
+func (o *StopKibanaClusterInstancesAllForbidden) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *StopKibanaClusterInstancesAllForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -161,6 +165,10 @@ func (o *StopKibanaClusterInstancesAllNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/instances/_stop][%d] stopKibanaClusterInstancesAllNotFound  %+v", 404, o.Payload)
 }
 
+func (o *StopKibanaClusterInstancesAllNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *StopKibanaClusterInstancesAllNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -195,6 +203,10 @@ type StopKibanaClusterInstancesAllRetryWith struct {
 
 func (o *StopKibanaClusterInstancesAllRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/instances/_stop][%d] stopKibanaClusterInstancesAllRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *StopKibanaClusterInstancesAllRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *StopKibanaClusterInstancesAllRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

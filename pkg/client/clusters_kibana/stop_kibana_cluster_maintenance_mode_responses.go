@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // StopKibanaClusterMaintenanceModeReader is a Reader for the StopKibanaClusterMaintenanceMode structure.
@@ -41,28 +41,24 @@ type StopKibanaClusterMaintenanceModeReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *StopKibanaClusterMaintenanceModeReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 202:
 		result := NewStopKibanaClusterMaintenanceModeAccepted()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 403:
 		result := NewStopKibanaClusterMaintenanceModeForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewStopKibanaClusterMaintenanceModeNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewStopKibanaClusterMaintenanceModeRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -90,6 +86,10 @@ type StopKibanaClusterMaintenanceModeAccepted struct {
 
 func (o *StopKibanaClusterMaintenanceModeAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/instances/{instance_ids}/maintenance-mode/_stop][%d] stopKibanaClusterMaintenanceModeAccepted  %+v", 202, o.Payload)
+}
+
+func (o *StopKibanaClusterMaintenanceModeAccepted) GetPayload() *models.ClusterCommandResponse {
+	return o.Payload
 }
 
 func (o *StopKibanaClusterMaintenanceModeAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -123,6 +123,10 @@ type StopKibanaClusterMaintenanceModeForbidden struct {
 
 func (o *StopKibanaClusterMaintenanceModeForbidden) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/instances/{instance_ids}/maintenance-mode/_stop][%d] stopKibanaClusterMaintenanceModeForbidden  %+v", 403, o.Payload)
+}
+
+func (o *StopKibanaClusterMaintenanceModeForbidden) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *StopKibanaClusterMaintenanceModeForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -162,6 +166,10 @@ func (o *StopKibanaClusterMaintenanceModeNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/instances/{instance_ids}/maintenance-mode/_stop][%d] stopKibanaClusterMaintenanceModeNotFound  %+v", 404, o.Payload)
 }
 
+func (o *StopKibanaClusterMaintenanceModeNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *StopKibanaClusterMaintenanceModeNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -196,6 +204,10 @@ type StopKibanaClusterMaintenanceModeRetryWith struct {
 
 func (o *StopKibanaClusterMaintenanceModeRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/instances/{instance_ids}/maintenance-mode/_stop][%d] stopKibanaClusterMaintenanceModeRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *StopKibanaClusterMaintenanceModeRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *StopKibanaClusterMaintenanceModeRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

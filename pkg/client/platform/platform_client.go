@@ -23,13 +23,14 @@ package platform
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-openapi/runtime"
+	"fmt"
 
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new platform API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -41,10 +42,17 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
-/*
-GetPlatform gets platform
+// ClientService is the interface for Client methods
+type ClientService interface {
+	GetPlatform(params *GetPlatformParams, authInfo runtime.ClientAuthInfoWriter) (*GetPlatformOK, error)
 
-Retrieves information about the active platform.
+	SetTransport(transport runtime.ClientTransport)
+}
+
+/*
+  GetPlatform gets platform
+
+  Retrieves information about the active platform.
 */
 func (a *Client) GetPlatform(params *GetPlatformParams, authInfo runtime.ClientAuthInfoWriter) (*GetPlatformOK, error) {
 	// TODO: Validate the params before sending
@@ -56,8 +64,8 @@ func (a *Client) GetPlatform(params *GetPlatformParams, authInfo runtime.ClientA
 		ID:                 "get-platform",
 		Method:             "GET",
 		PathPattern:        "/platform",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetPlatformReader{formats: a.formats},
@@ -68,8 +76,14 @@ func (a *Client) GetPlatform(params *GetPlatformParams, authInfo runtime.ClientA
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetPlatformOK), nil
-
+	success, ok := result.(*GetPlatformOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-platform: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 // SetTransport changes the transport on the client

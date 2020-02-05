@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetEsClusterMetadataRawReader is a Reader for the GetEsClusterMetadataRaw structure.
@@ -41,14 +41,12 @@ type GetEsClusterMetadataRawReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetEsClusterMetadataRawReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetEsClusterMetadataRawOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewGetEsClusterMetadataRawNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -88,6 +86,10 @@ func (o *GetEsClusterMetadataRawOK) Error() string {
 	return fmt.Sprintf("[GET /clusters/elasticsearch/{cluster_id}/metadata/raw][%d] getEsClusterMetadataRawOK  %+v", 200, o.Payload)
 }
 
+func (o *GetEsClusterMetadataRawOK) GetPayload() interface{} {
+	return o.Payload
+}
+
 func (o *GetEsClusterMetadataRawOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-resource-created
@@ -122,6 +124,10 @@ type GetEsClusterMetadataRawNotFound struct {
 
 func (o *GetEsClusterMetadataRawNotFound) Error() string {
 	return fmt.Sprintf("[GET /clusters/elasticsearch/{cluster_id}/metadata/raw][%d] getEsClusterMetadataRawNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetEsClusterMetadataRawNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *GetEsClusterMetadataRawNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

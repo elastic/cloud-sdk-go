@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // RestoreDeploymentResourceReader is a Reader for the RestoreDeploymentResource structure.
@@ -41,28 +41,24 @@ type RestoreDeploymentResourceReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *RestoreDeploymentResourceReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewRestoreDeploymentResourceOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewRestoreDeploymentResourceBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewRestoreDeploymentResourceNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewRestoreDeploymentResourceRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -90,6 +86,10 @@ type RestoreDeploymentResourceOK struct {
 
 func (o *RestoreDeploymentResourceOK) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/_restore][%d] restoreDeploymentResourceOK  %+v", 200, o.Payload)
+}
+
+func (o *RestoreDeploymentResourceOK) GetPayload() *models.DeploymentResourceCrudResponse {
+	return o.Payload
 }
 
 func (o *RestoreDeploymentResourceOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -123,6 +123,10 @@ type RestoreDeploymentResourceBadRequest struct {
 
 func (o *RestoreDeploymentResourceBadRequest) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/_restore][%d] restoreDeploymentResourceBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *RestoreDeploymentResourceBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *RestoreDeploymentResourceBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -161,6 +165,10 @@ func (o *RestoreDeploymentResourceNotFound) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/_restore][%d] restoreDeploymentResourceNotFound  %+v", 404, o.Payload)
 }
 
+func (o *RestoreDeploymentResourceNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *RestoreDeploymentResourceNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -195,6 +203,10 @@ type RestoreDeploymentResourceRetryWith struct {
 
 func (o *RestoreDeploymentResourceRetryWith) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/_restore][%d] restoreDeploymentResourceRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *RestoreDeploymentResourceRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *RestoreDeploymentResourceRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

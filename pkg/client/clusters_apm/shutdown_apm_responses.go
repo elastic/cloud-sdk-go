@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // ShutdownApmReader is a Reader for the ShutdownApm structure.
@@ -41,21 +41,18 @@ type ShutdownApmReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *ShutdownApmReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 202:
 		result := NewShutdownApmAccepted()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewShutdownApmNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewShutdownApmRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -83,6 +80,10 @@ type ShutdownApmAccepted struct {
 
 func (o *ShutdownApmAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/_shutdown][%d] shutdownApmAccepted  %+v", 202, o.Payload)
+}
+
+func (o *ShutdownApmAccepted) GetPayload() *models.ClusterCommandResponse {
+	return o.Payload
 }
 
 func (o *ShutdownApmAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -116,6 +117,10 @@ type ShutdownApmNotFound struct {
 
 func (o *ShutdownApmNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/_shutdown][%d] shutdownApmNotFound  %+v", 404, o.Payload)
+}
+
+func (o *ShutdownApmNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *ShutdownApmNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -152,6 +157,10 @@ type ShutdownApmRetryWith struct {
 
 func (o *ShutdownApmRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/_shutdown][%d] shutdownApmRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *ShutdownApmRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *ShutdownApmRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

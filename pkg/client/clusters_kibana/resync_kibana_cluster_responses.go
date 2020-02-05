@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // ResyncKibanaClusterReader is a Reader for the ResyncKibanaCluster structure.
@@ -41,21 +41,18 @@ type ResyncKibanaClusterReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *ResyncKibanaClusterReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewResyncKibanaClusterOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 449:
 		result := NewResyncKibanaClusterRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewResyncKibanaClusterInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -83,6 +80,10 @@ type ResyncKibanaClusterOK struct {
 
 func (o *ResyncKibanaClusterOK) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/_resync][%d] resyncKibanaClusterOK  %+v", 200, o.Payload)
+}
+
+func (o *ResyncKibanaClusterOK) GetPayload() models.EmptyResponse {
+	return o.Payload
 }
 
 func (o *ResyncKibanaClusterOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -114,6 +115,10 @@ type ResyncKibanaClusterRetryWith struct {
 
 func (o *ResyncKibanaClusterRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/_resync][%d] resyncKibanaClusterRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *ResyncKibanaClusterRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *ResyncKibanaClusterRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -150,6 +155,10 @@ type ResyncKibanaClusterInternalServerError struct {
 
 func (o *ResyncKibanaClusterInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/_resync][%d] resyncKibanaClusterInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *ResyncKibanaClusterInternalServerError) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *ResyncKibanaClusterInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

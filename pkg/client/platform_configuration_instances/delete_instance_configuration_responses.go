@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // DeleteInstanceConfigurationReader is a Reader for the DeleteInstanceConfiguration structure.
@@ -41,28 +41,24 @@ type DeleteInstanceConfigurationReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteInstanceConfigurationReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewDeleteInstanceConfigurationOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 403:
 		result := NewDeleteInstanceConfigurationForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewDeleteInstanceConfigurationNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewDeleteInstanceConfigurationRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -92,6 +88,10 @@ func (o *DeleteInstanceConfigurationOK) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/instances/{id}][%d] deleteInstanceConfigurationOK  %+v", 200, o.Payload)
 }
 
+func (o *DeleteInstanceConfigurationOK) GetPayload() models.EmptyResponse {
+	return o.Payload
+}
+
 func (o *DeleteInstanceConfigurationOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
@@ -117,6 +117,10 @@ type DeleteInstanceConfigurationForbidden struct {
 
 func (o *DeleteInstanceConfigurationForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/instances/{id}][%d] deleteInstanceConfigurationForbidden  %+v", 403, o.Payload)
+}
+
+func (o *DeleteInstanceConfigurationForbidden) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DeleteInstanceConfigurationForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -148,6 +152,10 @@ func (o *DeleteInstanceConfigurationNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/instances/{id}][%d] deleteInstanceConfigurationNotFound  %+v", 404, o.Payload)
 }
 
+func (o *DeleteInstanceConfigurationNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *DeleteInstanceConfigurationNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -175,6 +183,10 @@ type DeleteInstanceConfigurationRetryWith struct {
 
 func (o *DeleteInstanceConfigurationRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/instances/{id}][%d] deleteInstanceConfigurationRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *DeleteInstanceConfigurationRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DeleteInstanceConfigurationRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

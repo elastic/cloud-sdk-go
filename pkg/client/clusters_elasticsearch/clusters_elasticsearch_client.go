@@ -23,13 +23,14 @@ package clusters_elasticsearch
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-openapi/runtime"
+	"fmt"
 
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new clusters elasticsearch API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -41,10 +42,119 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
-/*
-CancelEsClusterMonitoring cancels monitoring
+// ClientService is the interface for Client methods
+type ClientService interface {
+	CancelEsClusterMonitoring(params *CancelEsClusterMonitoringParams, authInfo runtime.ClientAuthInfoWriter) (*CancelEsClusterMonitoringAccepted, error)
 
-Deletes all monitoring destinations for the Elasticsearch cluster.
+	CancelEsClusterPendingPlan(params *CancelEsClusterPendingPlanParams, authInfo runtime.ClientAuthInfoWriter) (*CancelEsClusterPendingPlanOK, error)
+
+	CreateEsCluster(params *CreateEsClusterParams, authInfo runtime.ClientAuthInfoWriter) (*CreateEsClusterOK, *CreateEsClusterCreated, error)
+
+	DeleteEsCluster(params *DeleteEsClusterParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteEsClusterOK, error)
+
+	DeleteEsProxyRequests(params *DeleteEsProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteEsProxyRequestsOK, error)
+
+	GenerateEsClusterDiagnostics(params *GenerateEsClusterDiagnosticsParams, authInfo runtime.ClientAuthInfoWriter) (*GenerateEsClusterDiagnosticsOK, error)
+
+	GenerateEsClusterLogs(params *GenerateEsClusterLogsParams, authInfo runtime.ClientAuthInfoWriter) (*GenerateEsClusterLogsOK, error)
+
+	GetEsCcsEligibleRemotes(params *GetEsCcsEligibleRemotesParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsCcsEligibleRemotesOK, error)
+
+	GetEsCluster(params *GetEsClusterParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsClusterOK, error)
+
+	GetEsClusterCcs(params *GetEsClusterCcsParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsClusterCcsOK, error)
+
+	GetEsClusterCcsSettings(params *GetEsClusterCcsSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsClusterCcsSettingsOK, error)
+
+	GetEsClusterCurationSettings(params *GetEsClusterCurationSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsClusterCurationSettingsOK, error)
+
+	GetEsClusterKeystore(params *GetEsClusterKeystoreParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsClusterKeystoreOK, error)
+
+	GetEsClusterMetadataRaw(params *GetEsClusterMetadataRawParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsClusterMetadataRawOK, error)
+
+	GetEsClusterMetadataSettings(params *GetEsClusterMetadataSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsClusterMetadataSettingsOK, error)
+
+	GetEsClusterPendingPlan(params *GetEsClusterPendingPlanParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsClusterPendingPlanOK, error)
+
+	GetEsClusterPlan(params *GetEsClusterPlanParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsClusterPlanOK, error)
+
+	GetEsClusterPlanActivity(params *GetEsClusterPlanActivityParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsClusterPlanActivityOK, error)
+
+	GetEsClusterSnapshotSettings(params *GetEsClusterSnapshotSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsClusterSnapshotSettingsOK, error)
+
+	GetEsClusters(params *GetEsClustersParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsClustersOK, error)
+
+	GetEsProxyRequests(params *GetEsProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsProxyRequestsOK, error)
+
+	MigrateEsClusterPlan(params *MigrateEsClusterPlanParams, authInfo runtime.ClientAuthInfoWriter) (*MigrateEsClusterPlanOK, *MigrateEsClusterPlanAccepted, error)
+
+	MoveEsClusterInstances(params *MoveEsClusterInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*MoveEsClusterInstancesAccepted, error)
+
+	MoveEsClusterInstancesAdvanced(params *MoveEsClusterInstancesAdvancedParams, authInfo runtime.ClientAuthInfoWriter) (*MoveEsClusterInstancesAdvancedAccepted, error)
+
+	PostEsProxyRequests(params *PostEsProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter) (*PostEsProxyRequestsOK, error)
+
+	PutEsProxyRequests(params *PutEsProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter) (*PutEsProxyRequestsOK, error)
+
+	RestartEsCluster(params *RestartEsClusterParams, authInfo runtime.ClientAuthInfoWriter) (*RestartEsClusterAccepted, error)
+
+	ResyncEsCluster(params *ResyncEsClusterParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncEsClusterOK, error)
+
+	ResyncEsClusters(params *ResyncEsClustersParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncEsClustersAccepted, error)
+
+	SearchEsClusters(params *SearchEsClustersParams, authInfo runtime.ClientAuthInfoWriter) (*SearchEsClustersOK, error)
+
+	SetEsClusterCcsSettings(params *SetEsClusterCcsSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*SetEsClusterCcsSettingsAccepted, error)
+
+	SetEsClusterInstancesAllSettingsOverrides(params *SetEsClusterInstancesAllSettingsOverridesParams, authInfo runtime.ClientAuthInfoWriter) (*SetEsClusterInstancesAllSettingsOverridesOK, error)
+
+	SetEsClusterInstancesSettingsOverrides(params *SetEsClusterInstancesSettingsOverridesParams, authInfo runtime.ClientAuthInfoWriter) (*SetEsClusterInstancesSettingsOverridesOK, error)
+
+	SetEsClusterKeystore(params *SetEsClusterKeystoreParams, authInfo runtime.ClientAuthInfoWriter) (*SetEsClusterKeystoreAccepted, error)
+
+	SetEsClusterLegacySecuritySettings(params *SetEsClusterLegacySecuritySettingsParams, authInfo runtime.ClientAuthInfoWriter) (*SetEsClusterLegacySecuritySettingsOK, error)
+
+	SetEsClusterMetadataRaw(params *SetEsClusterMetadataRawParams, authInfo runtime.ClientAuthInfoWriter) (*SetEsClusterMetadataRawOK, error)
+
+	SetEsClusterMonitoring(params *SetEsClusterMonitoringParams, authInfo runtime.ClientAuthInfoWriter) (*SetEsClusterMonitoringAccepted, error)
+
+	SetEsClusterName(params *SetEsClusterNameParams, authInfo runtime.ClientAuthInfoWriter) (*SetEsClusterNameOK, error)
+
+	ShutdownEsCluster(params *ShutdownEsClusterParams, authInfo runtime.ClientAuthInfoWriter) (*ShutdownEsClusterAccepted, error)
+
+	SnapshotEsCluster(params *SnapshotEsClusterParams, authInfo runtime.ClientAuthInfoWriter) (*SnapshotEsClusterAccepted, error)
+
+	StartEsClusterInstances(params *StartEsClusterInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*StartEsClusterInstancesAccepted, error)
+
+	StartEsClusterInstancesAll(params *StartEsClusterInstancesAllParams, authInfo runtime.ClientAuthInfoWriter) (*StartEsClusterInstancesAllAccepted, error)
+
+	StartEsClusterInstancesAllMaintenanceMode(params *StartEsClusterInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StartEsClusterInstancesAllMaintenanceModeAccepted, error)
+
+	StartEsClusterMaintenanceMode(params *StartEsClusterMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StartEsClusterMaintenanceModeAccepted, error)
+
+	StopEsClusterInstances(params *StopEsClusterInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*StopEsClusterInstancesAccepted, error)
+
+	StopEsClusterInstancesAll(params *StopEsClusterInstancesAllParams, authInfo runtime.ClientAuthInfoWriter) (*StopEsClusterInstancesAllAccepted, error)
+
+	StopEsClusterInstancesAllMaintenanceMode(params *StopEsClusterInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StopEsClusterInstancesAllMaintenanceModeAccepted, error)
+
+	StopEsClusterMaintenanceMode(params *StopEsClusterMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StopEsClusterMaintenanceModeAccepted, error)
+
+	UpdateEsClusterCurationSettings(params *UpdateEsClusterCurationSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateEsClusterCurationSettingsOK, error)
+
+	UpdateEsClusterMetadataSettings(params *UpdateEsClusterMetadataSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateEsClusterMetadataSettingsOK, error)
+
+	UpdateEsClusterPlan(params *UpdateEsClusterPlanParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateEsClusterPlanOK, *UpdateEsClusterPlanAccepted, error)
+
+	UpdateEsClusterSnapshotSettings(params *UpdateEsClusterSnapshotSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateEsClusterSnapshotSettingsOK, error)
+
+	SetTransport(transport runtime.ClientTransport)
+}
+
+/*
+  CancelEsClusterMonitoring cancels monitoring
+
+  Deletes all monitoring destinations for the Elasticsearch cluster.
 */
 func (a *Client) CancelEsClusterMonitoring(params *CancelEsClusterMonitoringParams, authInfo runtime.ClientAuthInfoWriter) (*CancelEsClusterMonitoringAccepted, error) {
 	// TODO: Validate the params before sending
@@ -56,8 +166,8 @@ func (a *Client) CancelEsClusterMonitoring(params *CancelEsClusterMonitoringPara
 		ID:                 "cancel-es-cluster-monitoring",
 		Method:             "DELETE",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/monitoring",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &CancelEsClusterMonitoringReader{formats: a.formats},
@@ -68,14 +178,20 @@ func (a *Client) CancelEsClusterMonitoring(params *CancelEsClusterMonitoringPara
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CancelEsClusterMonitoringAccepted), nil
-
+	success, ok := result.(*CancelEsClusterMonitoringAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for cancel-es-cluster-monitoring: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-CancelEsClusterPendingPlan cancels pending plan
+  CancelEsClusterPendingPlan cancels pending plan
 
-Cancels the pending plan of the Elasticsearch cluster.
+  Cancels the pending plan of the Elasticsearch cluster.
 */
 func (a *Client) CancelEsClusterPendingPlan(params *CancelEsClusterPendingPlanParams, authInfo runtime.ClientAuthInfoWriter) (*CancelEsClusterPendingPlanOK, error) {
 	// TODO: Validate the params before sending
@@ -87,8 +203,8 @@ func (a *Client) CancelEsClusterPendingPlan(params *CancelEsClusterPendingPlanPa
 		ID:                 "cancel-es-cluster-pending-plan",
 		Method:             "DELETE",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/plan/pending",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &CancelEsClusterPendingPlanReader{formats: a.formats},
@@ -99,14 +215,20 @@ func (a *Client) CancelEsClusterPendingPlan(params *CancelEsClusterPendingPlanPa
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CancelEsClusterPendingPlanOK), nil
-
+	success, ok := result.(*CancelEsClusterPendingPlanOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for cancel-es-cluster-pending-plan: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-CreateEsCluster creates cluster
+  CreateEsCluster creates cluster
 
-Creates an Elasticsearch cluster.
+  Creates an Elasticsearch cluster.
 */
 func (a *Client) CreateEsCluster(params *CreateEsClusterParams, authInfo runtime.ClientAuthInfoWriter) (*CreateEsClusterOK, *CreateEsClusterCreated, error) {
 	// TODO: Validate the params before sending
@@ -118,8 +240,8 @@ func (a *Client) CreateEsCluster(params *CreateEsClusterParams, authInfo runtime
 		ID:                 "create-es-cluster",
 		Method:             "POST",
 		PathPattern:        "/clusters/elasticsearch",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &CreateEsClusterReader{formats: a.formats},
@@ -136,14 +258,15 @@ func (a *Client) CreateEsCluster(params *CreateEsClusterParams, authInfo runtime
 	case *CreateEsClusterCreated:
 		return nil, value, nil
 	}
-	return nil, nil, nil
-
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for clusters_elasticsearch: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-DeleteEsCluster deletes cluster
+  DeleteEsCluster deletes cluster
 
-Deletes the Elasticsearch cluster.
+  Deletes the Elasticsearch cluster.
 Before you delete the Elasticsearch cluster, you must first successfully issue a `_shutdown` command.
 */
 func (a *Client) DeleteEsCluster(params *DeleteEsClusterParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteEsClusterOK, error) {
@@ -156,8 +279,8 @@ func (a *Client) DeleteEsCluster(params *DeleteEsClusterParams, authInfo runtime
 		ID:                 "delete-es-cluster",
 		Method:             "DELETE",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &DeleteEsClusterReader{formats: a.formats},
@@ -168,14 +291,20 @@ func (a *Client) DeleteEsCluster(params *DeleteEsClusterParams, authInfo runtime
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteEsClusterOK), nil
-
+	success, ok := result.(*DeleteEsClusterOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for delete-es-cluster: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-DeleteEsProxyRequests proxies HTTP d e l e t e request to the cluster
+  DeleteEsProxyRequests proxies HTTP d e l e t e request to the cluster
 
-Proxies HTTP DELETE request to the cluster. Requires that HTTP header X-Management-Request be specified. This endpoint is for management use and does not provide high performance.
+  Proxies HTTP DELETE request to the cluster. Requires that HTTP header X-Management-Request be specified. This endpoint is for management use and does not provide high performance.
 */
 func (a *Client) DeleteEsProxyRequests(params *DeleteEsProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteEsProxyRequestsOK, error) {
 	// TODO: Validate the params before sending
@@ -187,8 +316,8 @@ func (a *Client) DeleteEsProxyRequests(params *DeleteEsProxyRequestsParams, auth
 		ID:                 "delete-es-proxy-requests",
 		Method:             "DELETE",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/proxy/{elasticsearch_path}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &DeleteEsProxyRequestsReader{formats: a.formats},
@@ -199,14 +328,20 @@ func (a *Client) DeleteEsProxyRequests(params *DeleteEsProxyRequestsParams, auth
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteEsProxyRequestsOK), nil
-
+	success, ok := result.(*DeleteEsProxyRequestsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for delete-es-proxy-requests: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GenerateEsClusterDiagnostics generates diagnostics
+  GenerateEsClusterDiagnostics generates diagnostics
 
-Retrieves a support diagnostic bundle from an active Elasticsearch cluster. To successfully retrieve a support diagnostic bundle, the cluster must be responsive.
+  Retrieves a support diagnostic bundle from an active Elasticsearch cluster. To successfully retrieve a support diagnostic bundle, the cluster must be responsive.
 */
 func (a *Client) GenerateEsClusterDiagnostics(params *GenerateEsClusterDiagnosticsParams, authInfo runtime.ClientAuthInfoWriter) (*GenerateEsClusterDiagnosticsOK, error) {
 	// TODO: Validate the params before sending
@@ -218,8 +353,8 @@ func (a *Client) GenerateEsClusterDiagnostics(params *GenerateEsClusterDiagnosti
 		ID:                 "generate-es-cluster-diagnostics",
 		Method:             "GET",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/support/_generate-diagnostics",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GenerateEsClusterDiagnosticsReader{formats: a.formats},
@@ -230,14 +365,20 @@ func (a *Client) GenerateEsClusterDiagnostics(params *GenerateEsClusterDiagnosti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GenerateEsClusterDiagnosticsOK), nil
-
+	success, ok := result.(*GenerateEsClusterDiagnosticsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for generate-es-cluster-diagnostics: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GenerateEsClusterLogs generates logs
+  GenerateEsClusterLogs generates logs
 
-Retrieves the log file for the Elasticsearch cluster.
+  Retrieves the log file for the Elasticsearch cluster.
 */
 func (a *Client) GenerateEsClusterLogs(params *GenerateEsClusterLogsParams, authInfo runtime.ClientAuthInfoWriter) (*GenerateEsClusterLogsOK, error) {
 	// TODO: Validate the params before sending
@@ -249,8 +390,8 @@ func (a *Client) GenerateEsClusterLogs(params *GenerateEsClusterLogsParams, auth
 		ID:                 "generate-es-cluster-logs",
 		Method:             "GET",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/support/_generate-logs",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GenerateEsClusterLogsReader{formats: a.formats},
@@ -261,14 +402,20 @@ func (a *Client) GenerateEsClusterLogs(params *GenerateEsClusterLogsParams, auth
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GenerateEsClusterLogsOK), nil
-
+	success, ok := result.(*GenerateEsClusterLogsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for generate-es-cluster-logs: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetEsCcsEligibleRemotes searches clusters that can be used as cross cluster search remotes
+  GetEsCcsEligibleRemotes searches clusters that can be used as cross cluster search remotes
 
-Retrieves the information for all of the Elasticsearch clusters that can selected as remotes in a given version.
+  Retrieves the information for all of the Elasticsearch clusters that can selected as remotes in a given version.
 */
 func (a *Client) GetEsCcsEligibleRemotes(params *GetEsCcsEligibleRemotesParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsCcsEligibleRemotesOK, error) {
 	// TODO: Validate the params before sending
@@ -280,8 +427,8 @@ func (a *Client) GetEsCcsEligibleRemotes(params *GetEsCcsEligibleRemotesParams, 
 		ID:                 "get-es-ccs-eligible-remotes",
 		Method:             "GET",
 		PathPattern:        "/clusters/elasticsearch/ccs/eligible_remotes",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetEsCcsEligibleRemotesReader{formats: a.formats},
@@ -292,14 +439,20 @@ func (a *Client) GetEsCcsEligibleRemotes(params *GetEsCcsEligibleRemotesParams, 
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetEsCcsEligibleRemotesOK), nil
-
+	success, ok := result.(*GetEsCcsEligibleRemotesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-es-ccs-eligible-remotes: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetEsCluster gets cluster
+  GetEsCluster gets cluster
 
-Retrieves the Elasticsearch cluster information.
+  Retrieves the Elasticsearch cluster information.
 */
 func (a *Client) GetEsCluster(params *GetEsClusterParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsClusterOK, error) {
 	// TODO: Validate the params before sending
@@ -311,8 +464,8 @@ func (a *Client) GetEsCluster(params *GetEsClusterParams, authInfo runtime.Clien
 		ID:                 "get-es-cluster",
 		Method:             "GET",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetEsClusterReader{formats: a.formats},
@@ -323,14 +476,20 @@ func (a *Client) GetEsCluster(params *GetEsClusterParams, authInfo runtime.Clien
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetEsClusterOK), nil
-
+	success, ok := result.(*GetEsClusterOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-es-cluster: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetEsClusterCcs gets cross cluster search clusters
+  GetEsClusterCcs gets cross cluster search clusters
 
-Returns the list of cross-cluster search clusters' IDs for the remote cluster.
+  Returns the list of cross-cluster search clusters' IDs for the remote cluster.
 */
 func (a *Client) GetEsClusterCcs(params *GetEsClusterCcsParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsClusterCcsOK, error) {
 	// TODO: Validate the params before sending
@@ -342,8 +501,8 @@ func (a *Client) GetEsClusterCcs(params *GetEsClusterCcsParams, authInfo runtime
 		ID:                 "get-es-cluster-ccs",
 		Method:             "GET",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/ccs",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetEsClusterCcsReader{formats: a.formats},
@@ -354,14 +513,20 @@ func (a *Client) GetEsClusterCcs(params *GetEsClusterCcsParams, authInfo runtime
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetEsClusterCcsOK), nil
-
+	success, ok := result.(*GetEsClusterCcsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-es-cluster-ccs: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetEsClusterCcsSettings gets remote clusters for cross cluster search
+  GetEsClusterCcsSettings gets remote clusters for cross cluster search
 
-Returns cross-cluster search configuration for the Elasticsearch cluster.
+  Returns cross-cluster search configuration for the Elasticsearch cluster.
 */
 func (a *Client) GetEsClusterCcsSettings(params *GetEsClusterCcsSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsClusterCcsSettingsOK, error) {
 	// TODO: Validate the params before sending
@@ -373,8 +538,8 @@ func (a *Client) GetEsClusterCcsSettings(params *GetEsClusterCcsSettingsParams, 
 		ID:                 "get-es-cluster-ccs-settings",
 		Method:             "GET",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/ccs/settings",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetEsClusterCcsSettingsReader{formats: a.formats},
@@ -385,14 +550,20 @@ func (a *Client) GetEsClusterCcsSettings(params *GetEsClusterCcsSettingsParams, 
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetEsClusterCcsSettingsOK), nil
-
+	success, ok := result.(*GetEsClusterCcsSettingsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-es-cluster-ccs-settings: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetEsClusterCurationSettings gets cluster curation settings
+  GetEsClusterCurationSettings gets cluster curation settings
 
-Retrieves cluster curation settings for an Elasticsearch cluster.
+  Retrieves cluster curation settings for an Elasticsearch cluster.
 */
 func (a *Client) GetEsClusterCurationSettings(params *GetEsClusterCurationSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsClusterCurationSettingsOK, error) {
 	// TODO: Validate the params before sending
@@ -404,8 +575,8 @@ func (a *Client) GetEsClusterCurationSettings(params *GetEsClusterCurationSettin
 		ID:                 "get-es-cluster-curation-settings",
 		Method:             "GET",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/curation/settings",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetEsClusterCurationSettingsReader{formats: a.formats},
@@ -416,14 +587,20 @@ func (a *Client) GetEsClusterCurationSettings(params *GetEsClusterCurationSettin
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetEsClusterCurationSettingsOK), nil
-
+	success, ok := result.(*GetEsClusterCurationSettingsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-es-cluster-curation-settings: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetEsClusterKeystore gets settings from this cluster s keystore
+  GetEsClusterKeystore gets settings from this cluster s keystore
 
-Returns the available keys in the keystore.
+  Returns the available keys in the keystore.
 */
 func (a *Client) GetEsClusterKeystore(params *GetEsClusterKeystoreParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsClusterKeystoreOK, error) {
 	// TODO: Validate the params before sending
@@ -435,8 +612,8 @@ func (a *Client) GetEsClusterKeystore(params *GetEsClusterKeystoreParams, authIn
 		ID:                 "get-es-cluster-keystore",
 		Method:             "GET",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/keystore",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetEsClusterKeystoreReader{formats: a.formats},
@@ -447,14 +624,20 @@ func (a *Client) GetEsClusterKeystore(params *GetEsClusterKeystoreParams, authIn
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetEsClusterKeystoreOK), nil
-
+	success, ok := result.(*GetEsClusterKeystoreOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-es-cluster-keystore: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetEsClusterMetadataRaw gets cluster metadata
+  GetEsClusterMetadataRaw gets cluster metadata
 
-Advanced use only. Retrieves the internal cluster metadata, in free-form JSON, for the Elasticsearch cluster.
+  Advanced use only. Retrieves the internal cluster metadata, in free-form JSON, for the Elasticsearch cluster.
 */
 func (a *Client) GetEsClusterMetadataRaw(params *GetEsClusterMetadataRawParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsClusterMetadataRawOK, error) {
 	// TODO: Validate the params before sending
@@ -466,8 +649,8 @@ func (a *Client) GetEsClusterMetadataRaw(params *GetEsClusterMetadataRawParams, 
 		ID:                 "get-es-cluster-metadata-raw",
 		Method:             "GET",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/metadata/raw",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetEsClusterMetadataRawReader{formats: a.formats},
@@ -478,14 +661,20 @@ func (a *Client) GetEsClusterMetadataRaw(params *GetEsClusterMetadataRawParams, 
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetEsClusterMetadataRawOK), nil
-
+	success, ok := result.(*GetEsClusterMetadataRawOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-es-cluster-metadata-raw: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetEsClusterMetadataSettings gets cluster metadata settings
+  GetEsClusterMetadataSettings gets cluster metadata settings
 
-Retrieves a structured version of the cluster metadata as a collection of top-level settings. If a particular setting isn't returned, then the free-form JSON endpoint (`/metadata/raw`) must be used.
+  Retrieves a structured version of the cluster metadata as a collection of top-level settings. If a particular setting isn't returned, then the free-form JSON endpoint (`/metadata/raw`) must be used.
 */
 func (a *Client) GetEsClusterMetadataSettings(params *GetEsClusterMetadataSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsClusterMetadataSettingsOK, error) {
 	// TODO: Validate the params before sending
@@ -497,8 +686,8 @@ func (a *Client) GetEsClusterMetadataSettings(params *GetEsClusterMetadataSettin
 		ID:                 "get-es-cluster-metadata-settings",
 		Method:             "GET",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/metadata/settings",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetEsClusterMetadataSettingsReader{formats: a.formats},
@@ -509,14 +698,20 @@ func (a *Client) GetEsClusterMetadataSettings(params *GetEsClusterMetadataSettin
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetEsClusterMetadataSettingsOK), nil
-
+	success, ok := result.(*GetEsClusterMetadataSettingsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-es-cluster-metadata-settings: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetEsClusterPendingPlan gets pending plan
+  GetEsClusterPendingPlan gets pending plan
 
-Retrieves the pending plan of the cluster.
+  Retrieves the pending plan of the cluster.
 */
 func (a *Client) GetEsClusterPendingPlan(params *GetEsClusterPendingPlanParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsClusterPendingPlanOK, error) {
 	// TODO: Validate the params before sending
@@ -528,8 +723,8 @@ func (a *Client) GetEsClusterPendingPlan(params *GetEsClusterPendingPlanParams, 
 		ID:                 "get-es-cluster-pending-plan",
 		Method:             "GET",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/plan/pending",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetEsClusterPendingPlanReader{formats: a.formats},
@@ -540,14 +735,20 @@ func (a *Client) GetEsClusterPendingPlan(params *GetEsClusterPendingPlanParams, 
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetEsClusterPendingPlanOK), nil
-
+	success, ok := result.(*GetEsClusterPendingPlanOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-es-cluster-pending-plan: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetEsClusterPlan gets plan
+  GetEsClusterPlan gets plan
 
-Retrieves the active plan of the Elasticsearch cluster. Transient settings are not show by this endpoint. To view the transient settings that have been applied with a specific plan, use the activity endpoint.
+  Retrieves the active plan of the Elasticsearch cluster. Transient settings are not show by this endpoint. To view the transient settings that have been applied with a specific plan, use the activity endpoint.
 */
 func (a *Client) GetEsClusterPlan(params *GetEsClusterPlanParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsClusterPlanOK, error) {
 	// TODO: Validate the params before sending
@@ -559,8 +760,8 @@ func (a *Client) GetEsClusterPlan(params *GetEsClusterPlanParams, authInfo runti
 		ID:                 "get-es-cluster-plan",
 		Method:             "GET",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/plan",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetEsClusterPlanReader{formats: a.formats},
@@ -571,14 +772,20 @@ func (a *Client) GetEsClusterPlan(params *GetEsClusterPlanParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetEsClusterPlanOK), nil
-
+	success, ok := result.(*GetEsClusterPlanOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-es-cluster-plan: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetEsClusterPlanActivity gets plan activity
+  GetEsClusterPlanActivity gets plan activity
 
-Retrieves the active and historical plan information for the Elasticsearch cluster.
+  Retrieves the active and historical plan information for the Elasticsearch cluster.
 */
 func (a *Client) GetEsClusterPlanActivity(params *GetEsClusterPlanActivityParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsClusterPlanActivityOK, error) {
 	// TODO: Validate the params before sending
@@ -590,8 +797,8 @@ func (a *Client) GetEsClusterPlanActivity(params *GetEsClusterPlanActivityParams
 		ID:                 "get-es-cluster-plan-activity",
 		Method:             "GET",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/plan/activity",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetEsClusterPlanActivityReader{formats: a.formats},
@@ -602,14 +809,20 @@ func (a *Client) GetEsClusterPlanActivity(params *GetEsClusterPlanActivityParams
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetEsClusterPlanActivityOK), nil
-
+	success, ok := result.(*GetEsClusterPlanActivityOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-es-cluster-plan-activity: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetEsClusterSnapshotSettings gets cluster snapshot settings
+  GetEsClusterSnapshotSettings gets cluster snapshot settings
 
-Gets cluster snapshot settings.
+  Gets cluster snapshot settings.
 */
 func (a *Client) GetEsClusterSnapshotSettings(params *GetEsClusterSnapshotSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsClusterSnapshotSettingsOK, error) {
 	// TODO: Validate the params before sending
@@ -621,8 +834,8 @@ func (a *Client) GetEsClusterSnapshotSettings(params *GetEsClusterSnapshotSettin
 		ID:                 "get-es-cluster-snapshot-settings",
 		Method:             "GET",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/snapshot/settings",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetEsClusterSnapshotSettingsReader{formats: a.formats},
@@ -633,14 +846,20 @@ func (a *Client) GetEsClusterSnapshotSettings(params *GetEsClusterSnapshotSettin
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetEsClusterSnapshotSettingsOK), nil
-
+	success, ok := result.(*GetEsClusterSnapshotSettingsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-es-cluster-snapshot-settings: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetEsClusters gets clusters
+  GetEsClusters gets clusters
 
-Retrieves the information for all Elasticsearch clusters.
+  Retrieves the information for all Elasticsearch clusters.
 */
 func (a *Client) GetEsClusters(params *GetEsClustersParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsClustersOK, error) {
 	// TODO: Validate the params before sending
@@ -652,8 +871,8 @@ func (a *Client) GetEsClusters(params *GetEsClustersParams, authInfo runtime.Cli
 		ID:                 "get-es-clusters",
 		Method:             "GET",
 		PathPattern:        "/clusters/elasticsearch",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetEsClustersReader{formats: a.formats},
@@ -664,14 +883,20 @@ func (a *Client) GetEsClusters(params *GetEsClustersParams, authInfo runtime.Cli
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetEsClustersOK), nil
-
+	success, ok := result.(*GetEsClustersOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-es-clusters: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetEsProxyRequests proxies HTTP g e t request to the cluster
+  GetEsProxyRequests proxies HTTP g e t request to the cluster
 
-Proxies HTTP GET request to the cluster. Requires that HTTP header X-Management-Request be specified. This endpoint is for management use and does not provide high performance.
+  Proxies HTTP GET request to the cluster. Requires that HTTP header X-Management-Request be specified. This endpoint is for management use and does not provide high performance.
 */
 func (a *Client) GetEsProxyRequests(params *GetEsProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsProxyRequestsOK, error) {
 	// TODO: Validate the params before sending
@@ -683,8 +908,8 @@ func (a *Client) GetEsProxyRequests(params *GetEsProxyRequestsParams, authInfo r
 		ID:                 "get-es-proxy-requests",
 		Method:             "GET",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/proxy/{elasticsearch_path}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetEsProxyRequestsReader{formats: a.formats},
@@ -695,14 +920,20 @@ func (a *Client) GetEsProxyRequests(params *GetEsProxyRequestsParams, authInfo r
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetEsProxyRequestsOK), nil
-
+	success, ok := result.(*GetEsProxyRequestsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-es-proxy-requests: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-MigrateEsClusterPlan migrates plan
+  MigrateEsClusterPlan migrates plan
 
-Migrates the configuration of the Elasticsearch cluster to a different template.
+  Migrates the configuration of the Elasticsearch cluster to a different template.
 */
 func (a *Client) MigrateEsClusterPlan(params *MigrateEsClusterPlanParams, authInfo runtime.ClientAuthInfoWriter) (*MigrateEsClusterPlanOK, *MigrateEsClusterPlanAccepted, error) {
 	// TODO: Validate the params before sending
@@ -714,8 +945,8 @@ func (a *Client) MigrateEsClusterPlan(params *MigrateEsClusterPlanParams, authIn
 		ID:                 "migrate-es-cluster-plan",
 		Method:             "POST",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/plan/_migrate",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &MigrateEsClusterPlanReader{formats: a.formats},
@@ -732,14 +963,15 @@ func (a *Client) MigrateEsClusterPlan(params *MigrateEsClusterPlanParams, authIn
 	case *MigrateEsClusterPlanAccepted:
 		return nil, value, nil
 	}
-	return nil, nil, nil
-
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for clusters_elasticsearch: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-MoveEsClusterInstances moves instances
+  MoveEsClusterInstances moves instances
 
-Moves one or more instances in the Elasticsearch cluster.
+  Moves one or more instances in the Elasticsearch cluster.
 */
 func (a *Client) MoveEsClusterInstances(params *MoveEsClusterInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*MoveEsClusterInstancesAccepted, error) {
 	// TODO: Validate the params before sending
@@ -751,8 +983,8 @@ func (a *Client) MoveEsClusterInstances(params *MoveEsClusterInstancesParams, au
 		ID:                 "move-es-cluster-instances",
 		Method:             "POST",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/instances/{instance_ids}/_move",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &MoveEsClusterInstancesReader{formats: a.formats},
@@ -763,14 +995,20 @@ func (a *Client) MoveEsClusterInstances(params *MoveEsClusterInstancesParams, au
 	if err != nil {
 		return nil, err
 	}
-	return result.(*MoveEsClusterInstancesAccepted), nil
-
+	success, ok := result.(*MoveEsClusterInstancesAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for move-es-cluster-instances: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-MoveEsClusterInstancesAdvanced moves instances advanced
+  MoveEsClusterInstancesAdvanced moves instances advanced
 
-Moves one or more instances in the Elasticsearch cluster. The custom configuration settings are posted in the body.
+  Moves one or more instances in the Elasticsearch cluster. The custom configuration settings are posted in the body.
 */
 func (a *Client) MoveEsClusterInstancesAdvanced(params *MoveEsClusterInstancesAdvancedParams, authInfo runtime.ClientAuthInfoWriter) (*MoveEsClusterInstancesAdvancedAccepted, error) {
 	// TODO: Validate the params before sending
@@ -782,8 +1020,8 @@ func (a *Client) MoveEsClusterInstancesAdvanced(params *MoveEsClusterInstancesAd
 		ID:                 "move-es-cluster-instances-advanced",
 		Method:             "POST",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/instances/_move",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &MoveEsClusterInstancesAdvancedReader{formats: a.formats},
@@ -794,14 +1032,20 @@ func (a *Client) MoveEsClusterInstancesAdvanced(params *MoveEsClusterInstancesAd
 	if err != nil {
 		return nil, err
 	}
-	return result.(*MoveEsClusterInstancesAdvancedAccepted), nil
-
+	success, ok := result.(*MoveEsClusterInstancesAdvancedAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for move-es-cluster-instances-advanced: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-PostEsProxyRequests proxies HTTP p o s t request to the cluster
+  PostEsProxyRequests proxies HTTP p o s t request to the cluster
 
-Proxies HTTP POST request to the cluster. Requires that HTTP header X-Management-Request be specified. This endpoint is for management use and does not provide high performance.
+  Proxies HTTP POST request to the cluster. Requires that HTTP header X-Management-Request be specified. This endpoint is for management use and does not provide high performance.
 */
 func (a *Client) PostEsProxyRequests(params *PostEsProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter) (*PostEsProxyRequestsOK, error) {
 	// TODO: Validate the params before sending
@@ -813,8 +1057,8 @@ func (a *Client) PostEsProxyRequests(params *PostEsProxyRequestsParams, authInfo
 		ID:                 "post-es-proxy-requests",
 		Method:             "POST",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/proxy/{elasticsearch_path}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &PostEsProxyRequestsReader{formats: a.formats},
@@ -825,14 +1069,20 @@ func (a *Client) PostEsProxyRequests(params *PostEsProxyRequestsParams, authInfo
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PostEsProxyRequestsOK), nil
-
+	success, ok := result.(*PostEsProxyRequestsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for post-es-proxy-requests: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-PutEsProxyRequests proxies HTTP p u t request to the cluster
+  PutEsProxyRequests proxies HTTP p u t request to the cluster
 
-Proxies HTTP PUT request to the cluster. Requires that HTTP header X-Management-Request be specified. This endpoint is for management use and does not provide high performance.
+  Proxies HTTP PUT request to the cluster. Requires that HTTP header X-Management-Request be specified. This endpoint is for management use and does not provide high performance.
 */
 func (a *Client) PutEsProxyRequests(params *PutEsProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter) (*PutEsProxyRequestsOK, error) {
 	// TODO: Validate the params before sending
@@ -844,8 +1094,8 @@ func (a *Client) PutEsProxyRequests(params *PutEsProxyRequestsParams, authInfo r
 		ID:                 "put-es-proxy-requests",
 		Method:             "PUT",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/proxy/{elasticsearch_path}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &PutEsProxyRequestsReader{formats: a.formats},
@@ -856,14 +1106,20 @@ func (a *Client) PutEsProxyRequests(params *PutEsProxyRequestsParams, authInfo r
 	if err != nil {
 		return nil, err
 	}
-	return result.(*PutEsProxyRequestsOK), nil
-
+	success, ok := result.(*PutEsProxyRequestsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for put-es-proxy-requests: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-RestartEsCluster restarts cluster
+  RestartEsCluster restarts cluster
 
-Restarts the Elasticsearch cluster. When you restart an active cluster, the existing plan is used and a `cluster_reboot` is applied. A `cluster_reboot` issues an Elasticsearch restart command, then waits for the command to complete. When you restart an inactive cluster, the most recent successful plan is applied.
+  Restarts the Elasticsearch cluster. When you restart an active cluster, the existing plan is used and a `cluster_reboot` is applied. A `cluster_reboot` issues an Elasticsearch restart command, then waits for the command to complete. When you restart an inactive cluster, the most recent successful plan is applied.
 */
 func (a *Client) RestartEsCluster(params *RestartEsClusterParams, authInfo runtime.ClientAuthInfoWriter) (*RestartEsClusterAccepted, error) {
 	// TODO: Validate the params before sending
@@ -875,8 +1131,8 @@ func (a *Client) RestartEsCluster(params *RestartEsClusterParams, authInfo runti
 		ID:                 "restart-es-cluster",
 		Method:             "POST",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/_restart",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &RestartEsClusterReader{formats: a.formats},
@@ -887,14 +1143,20 @@ func (a *Client) RestartEsCluster(params *RestartEsClusterParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*RestartEsClusterAccepted), nil
-
+	success, ok := result.(*RestartEsClusterAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for restart-es-cluster: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-ResyncEsCluster resynchronizes cluster
+  ResyncEsCluster resynchronizes cluster
 
-Immediately resynchronizes the search index and cache for the selected Elasticsearch cluster.
+  Immediately resynchronizes the search index and cache for the selected Elasticsearch cluster.
 */
 func (a *Client) ResyncEsCluster(params *ResyncEsClusterParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncEsClusterOK, error) {
 	// TODO: Validate the params before sending
@@ -906,8 +1168,8 @@ func (a *Client) ResyncEsCluster(params *ResyncEsClusterParams, authInfo runtime
 		ID:                 "resync-es-cluster",
 		Method:             "POST",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/_resync",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ResyncEsClusterReader{formats: a.formats},
@@ -918,14 +1180,20 @@ func (a *Client) ResyncEsCluster(params *ResyncEsClusterParams, authInfo runtime
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ResyncEsClusterOK), nil
-
+	success, ok := result.(*ResyncEsClusterOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for resync-es-cluster: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-ResyncEsClusters resynchronizes clusters
+  ResyncEsClusters resynchronizes clusters
 
-Asynchronously resynchronizes the search index for all Elasticsearch clusters.
+  Asynchronously resynchronizes the search index for all Elasticsearch clusters.
 */
 func (a *Client) ResyncEsClusters(params *ResyncEsClustersParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncEsClustersAccepted, error) {
 	// TODO: Validate the params before sending
@@ -937,8 +1205,8 @@ func (a *Client) ResyncEsClusters(params *ResyncEsClustersParams, authInfo runti
 		ID:                 "resync-es-clusters",
 		Method:             "POST",
 		PathPattern:        "/clusters/elasticsearch/_resync",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ResyncEsClustersReader{formats: a.formats},
@@ -949,14 +1217,20 @@ func (a *Client) ResyncEsClusters(params *ResyncEsClustersParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ResyncEsClustersAccepted), nil
-
+	success, ok := result.(*ResyncEsClustersAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for resync-es-clusters: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-SearchEsClusters searches clusters
+  SearchEsClusters searches clusters
 
-Retrieves the information for all of the Elasticsearch clusters that match the specified query.
+  Retrieves the information for all of the Elasticsearch clusters that match the specified query.
 */
 func (a *Client) SearchEsClusters(params *SearchEsClustersParams, authInfo runtime.ClientAuthInfoWriter) (*SearchEsClustersOK, error) {
 	// TODO: Validate the params before sending
@@ -968,8 +1242,8 @@ func (a *Client) SearchEsClusters(params *SearchEsClustersParams, authInfo runti
 		ID:                 "search-es-clusters",
 		Method:             "POST",
 		PathPattern:        "/clusters/elasticsearch/_search",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &SearchEsClustersReader{formats: a.formats},
@@ -980,14 +1254,20 @@ func (a *Client) SearchEsClusters(params *SearchEsClustersParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*SearchEsClustersOK), nil
-
+	success, ok := result.(*SearchEsClustersOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for search-es-clusters: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-SetEsClusterCcsSettings sets remote clusters for cross cluster search
+  SetEsClusterCcsSettings sets remote clusters for cross cluster search
 
-Overwrites or creates the cross-cluster search configuration for the Elasticsearch cluster.
+  Overwrites or creates the cross-cluster search configuration for the Elasticsearch cluster.
 */
 func (a *Client) SetEsClusterCcsSettings(params *SetEsClusterCcsSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*SetEsClusterCcsSettingsAccepted, error) {
 	// TODO: Validate the params before sending
@@ -999,8 +1279,8 @@ func (a *Client) SetEsClusterCcsSettings(params *SetEsClusterCcsSettingsParams, 
 		ID:                 "set-es-cluster-ccs-settings",
 		Method:             "PUT",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/ccs/settings",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &SetEsClusterCcsSettingsReader{formats: a.formats},
@@ -1011,14 +1291,20 @@ func (a *Client) SetEsClusterCcsSettings(params *SetEsClusterCcsSettingsParams, 
 	if err != nil {
 		return nil, err
 	}
-	return result.(*SetEsClusterCcsSettingsAccepted), nil
-
+	success, ok := result.(*SetEsClusterCcsSettingsAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for set-es-cluster-ccs-settings: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-SetEsClusterInstancesAllSettingsOverrides sets settings overrides all instances
+  SetEsClusterInstancesAllSettingsOverrides sets settings overrides all instances
 
-Overrides the settings for all of the instances in the Elasticsearch cluster.
+  Overrides the settings for all of the instances in the Elasticsearch cluster.
 */
 func (a *Client) SetEsClusterInstancesAllSettingsOverrides(params *SetEsClusterInstancesAllSettingsOverridesParams, authInfo runtime.ClientAuthInfoWriter) (*SetEsClusterInstancesAllSettingsOverridesOK, error) {
 	// TODO: Validate the params before sending
@@ -1030,8 +1316,8 @@ func (a *Client) SetEsClusterInstancesAllSettingsOverrides(params *SetEsClusterI
 		ID:                 "set-es-cluster-instances-all-settings-overrides",
 		Method:             "PUT",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/instances/settings",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &SetEsClusterInstancesAllSettingsOverridesReader{formats: a.formats},
@@ -1042,14 +1328,20 @@ func (a *Client) SetEsClusterInstancesAllSettingsOverrides(params *SetEsClusterI
 	if err != nil {
 		return nil, err
 	}
-	return result.(*SetEsClusterInstancesAllSettingsOverridesOK), nil
-
+	success, ok := result.(*SetEsClusterInstancesAllSettingsOverridesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for set-es-cluster-instances-all-settings-overrides: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-SetEsClusterInstancesSettingsOverrides sets settings overrides
+  SetEsClusterInstancesSettingsOverrides sets settings overrides
 
-Overrides the settings for the specified instances in the Elasticsearch cluster.
+  Overrides the settings for the specified instances in the Elasticsearch cluster.
 */
 func (a *Client) SetEsClusterInstancesSettingsOverrides(params *SetEsClusterInstancesSettingsOverridesParams, authInfo runtime.ClientAuthInfoWriter) (*SetEsClusterInstancesSettingsOverridesOK, error) {
 	// TODO: Validate the params before sending
@@ -1061,8 +1353,8 @@ func (a *Client) SetEsClusterInstancesSettingsOverrides(params *SetEsClusterInst
 		ID:                 "set-es-cluster-instances-settings-overrides",
 		Method:             "PUT",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/instances/{instance_ids}/settings",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &SetEsClusterInstancesSettingsOverridesReader{formats: a.formats},
@@ -1073,14 +1365,20 @@ func (a *Client) SetEsClusterInstancesSettingsOverrides(params *SetEsClusterInst
 	if err != nil {
 		return nil, err
 	}
-	return result.(*SetEsClusterInstancesSettingsOverridesOK), nil
-
+	success, ok := result.(*SetEsClusterInstancesSettingsOverridesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for set-es-cluster-instances-settings-overrides: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-SetEsClusterKeystore adds or remove settings from the cluster keystore
+  SetEsClusterKeystore adds or remove settings from the cluster keystore
 
-Adds the specified values to the Elasticsearch keystore, or removes the keys for the unspecified values.
+  Adds the specified values to the Elasticsearch keystore, or removes the keys for the unspecified values.
 */
 func (a *Client) SetEsClusterKeystore(params *SetEsClusterKeystoreParams, authInfo runtime.ClientAuthInfoWriter) (*SetEsClusterKeystoreAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1092,8 +1390,8 @@ func (a *Client) SetEsClusterKeystore(params *SetEsClusterKeystoreParams, authIn
 		ID:                 "set-es-cluster-keystore",
 		Method:             "PATCH",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/keystore",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &SetEsClusterKeystoreReader{formats: a.formats},
@@ -1104,14 +1402,20 @@ func (a *Client) SetEsClusterKeystore(params *SetEsClusterKeystoreParams, authIn
 	if err != nil {
 		return nil, err
 	}
-	return result.(*SetEsClusterKeystoreAccepted), nil
-
+	success, ok := result.(*SetEsClusterKeystoreAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for set-es-cluster-keystore: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-SetEsClusterLegacySecuritySettings sets legacy security settings
+  SetEsClusterLegacySecuritySettings sets legacy security settings
 
-Sets the legacy Shield security settings for a 2.x Elasticsearch cluster.
+  Sets the legacy Shield security settings for a 2.x Elasticsearch cluster.
 */
 func (a *Client) SetEsClusterLegacySecuritySettings(params *SetEsClusterLegacySecuritySettingsParams, authInfo runtime.ClientAuthInfoWriter) (*SetEsClusterLegacySecuritySettingsOK, error) {
 	// TODO: Validate the params before sending
@@ -1123,8 +1427,8 @@ func (a *Client) SetEsClusterLegacySecuritySettings(params *SetEsClusterLegacySe
 		ID:                 "set-es-cluster-legacy-security-settings",
 		Method:             "PUT",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/settings/security/legacy",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &SetEsClusterLegacySecuritySettingsReader{formats: a.formats},
@@ -1135,14 +1439,20 @@ func (a *Client) SetEsClusterLegacySecuritySettings(params *SetEsClusterLegacySe
 	if err != nil {
 		return nil, err
 	}
-	return result.(*SetEsClusterLegacySecuritySettingsOK), nil
-
+	success, ok := result.(*SetEsClusterLegacySecuritySettingsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for set-es-cluster-legacy-security-settings: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-SetEsClusterMetadataRaw sets cluster metadata
+  SetEsClusterMetadataRaw sets cluster metadata
 
-Advanced use only. Sets the internal metadata, in free-form JSON, for the Elasticsearch cluster.
+  Advanced use only. Sets the internal metadata, in free-form JSON, for the Elasticsearch cluster.
 Only use the parameter to set the modified JSON that is returned from the get version of the metadata.
 */
 func (a *Client) SetEsClusterMetadataRaw(params *SetEsClusterMetadataRawParams, authInfo runtime.ClientAuthInfoWriter) (*SetEsClusterMetadataRawOK, error) {
@@ -1155,8 +1465,8 @@ func (a *Client) SetEsClusterMetadataRaw(params *SetEsClusterMetadataRawParams, 
 		ID:                 "set-es-cluster-metadata-raw",
 		Method:             "POST",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/metadata/raw",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &SetEsClusterMetadataRawReader{formats: a.formats},
@@ -1167,14 +1477,20 @@ func (a *Client) SetEsClusterMetadataRaw(params *SetEsClusterMetadataRawParams, 
 	if err != nil {
 		return nil, err
 	}
-	return result.(*SetEsClusterMetadataRawOK), nil
-
+	success, ok := result.(*SetEsClusterMetadataRawOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for set-es-cluster-metadata-raw: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-SetEsClusterMonitoring sets monitoring
+  SetEsClusterMonitoring sets monitoring
 
-Overwrites or creates the monitoring destination for the Elasticsearch cluster.
+  Overwrites or creates the monitoring destination for the Elasticsearch cluster.
 */
 func (a *Client) SetEsClusterMonitoring(params *SetEsClusterMonitoringParams, authInfo runtime.ClientAuthInfoWriter) (*SetEsClusterMonitoringAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1186,8 +1502,8 @@ func (a *Client) SetEsClusterMonitoring(params *SetEsClusterMonitoringParams, au
 		ID:                 "set-es-cluster-monitoring",
 		Method:             "POST",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/monitoring/{dest_cluster_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &SetEsClusterMonitoringReader{formats: a.formats},
@@ -1198,14 +1514,20 @@ func (a *Client) SetEsClusterMonitoring(params *SetEsClusterMonitoringParams, au
 	if err != nil {
 		return nil, err
 	}
-	return result.(*SetEsClusterMonitoringAccepted), nil
-
+	success, ok := result.(*SetEsClusterMonitoringAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for set-es-cluster-monitoring: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-SetEsClusterName sets cluster name
+  SetEsClusterName sets cluster name
 
-Assigns a name to the Elasticsearch cluster.
+  Assigns a name to the Elasticsearch cluster.
 */
 func (a *Client) SetEsClusterName(params *SetEsClusterNameParams, authInfo runtime.ClientAuthInfoWriter) (*SetEsClusterNameOK, error) {
 	// TODO: Validate the params before sending
@@ -1217,8 +1539,8 @@ func (a *Client) SetEsClusterName(params *SetEsClusterNameParams, authInfo runti
 		ID:                 "set-es-cluster-name",
 		Method:             "PUT",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/metadata/name/{new_name}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &SetEsClusterNameReader{formats: a.formats},
@@ -1229,14 +1551,20 @@ func (a *Client) SetEsClusterName(params *SetEsClusterNameParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*SetEsClusterNameOK), nil
-
+	success, ok := result.(*SetEsClusterNameOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for set-es-cluster-name: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-ShutdownEsCluster shuts down cluster
+  ShutdownEsCluster shuts down cluster
 
-Shuts down the active Elasticsearch cluster and removes all of the cluster nodes. The cluster plan is retained. WARNING: To avoid data loss, save the data outside of the cluster before you shut the cluster down.
+  Shuts down the active Elasticsearch cluster and removes all of the cluster nodes. The cluster plan is retained. WARNING: To avoid data loss, save the data outside of the cluster before you shut the cluster down.
 */
 func (a *Client) ShutdownEsCluster(params *ShutdownEsClusterParams, authInfo runtime.ClientAuthInfoWriter) (*ShutdownEsClusterAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1248,8 +1576,8 @@ func (a *Client) ShutdownEsCluster(params *ShutdownEsClusterParams, authInfo run
 		ID:                 "shutdown-es-cluster",
 		Method:             "POST",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/_shutdown",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ShutdownEsClusterReader{formats: a.formats},
@@ -1260,14 +1588,20 @@ func (a *Client) ShutdownEsCluster(params *ShutdownEsClusterParams, authInfo run
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ShutdownEsClusterAccepted), nil
-
+	success, ok := result.(*ShutdownEsClusterAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for shutdown-es-cluster: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-SnapshotEsCluster takes snapshot
+  SnapshotEsCluster takes snapshot
 
-To create a snapshot of the specified Elasticsearch cluster, uses the configured snapshot repository.
+  To create a snapshot of the specified Elasticsearch cluster, uses the configured snapshot repository.
 */
 func (a *Client) SnapshotEsCluster(params *SnapshotEsClusterParams, authInfo runtime.ClientAuthInfoWriter) (*SnapshotEsClusterAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1279,8 +1613,8 @@ func (a *Client) SnapshotEsCluster(params *SnapshotEsClusterParams, authInfo run
 		ID:                 "snapshot-es-cluster",
 		Method:             "POST",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/_snapshot",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &SnapshotEsClusterReader{formats: a.formats},
@@ -1291,14 +1625,20 @@ func (a *Client) SnapshotEsCluster(params *SnapshotEsClusterParams, authInfo run
 	if err != nil {
 		return nil, err
 	}
-	return result.(*SnapshotEsClusterAccepted), nil
-
+	success, ok := result.(*SnapshotEsClusterAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for snapshot-es-cluster: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-StartEsClusterInstances starts instances
+  StartEsClusterInstances starts instances
 
-Starts the instances in the Elasticsearch cluster.
+  Starts the instances in the Elasticsearch cluster.
 */
 func (a *Client) StartEsClusterInstances(params *StartEsClusterInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*StartEsClusterInstancesAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1310,8 +1650,8 @@ func (a *Client) StartEsClusterInstances(params *StartEsClusterInstancesParams, 
 		ID:                 "start-es-cluster-instances",
 		Method:             "POST",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/instances/{instance_ids}/_start",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &StartEsClusterInstancesReader{formats: a.formats},
@@ -1322,14 +1662,20 @@ func (a *Client) StartEsClusterInstances(params *StartEsClusterInstancesParams, 
 	if err != nil {
 		return nil, err
 	}
-	return result.(*StartEsClusterInstancesAccepted), nil
-
+	success, ok := result.(*StartEsClusterInstancesAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for start-es-cluster-instances: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-StartEsClusterInstancesAll starts all instances
+  StartEsClusterInstancesAll starts all instances
 
-Starts all of the instances in the Elasticsearch cluster.
+  Starts all of the instances in the Elasticsearch cluster.
 */
 func (a *Client) StartEsClusterInstancesAll(params *StartEsClusterInstancesAllParams, authInfo runtime.ClientAuthInfoWriter) (*StartEsClusterInstancesAllAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1341,8 +1687,8 @@ func (a *Client) StartEsClusterInstancesAll(params *StartEsClusterInstancesAllPa
 		ID:                 "start-es-cluster-instances-all",
 		Method:             "POST",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/instances/_start",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &StartEsClusterInstancesAllReader{formats: a.formats},
@@ -1353,14 +1699,20 @@ func (a *Client) StartEsClusterInstancesAll(params *StartEsClusterInstancesAllPa
 	if err != nil {
 		return nil, err
 	}
-	return result.(*StartEsClusterInstancesAllAccepted), nil
-
+	success, ok := result.(*StartEsClusterInstancesAllAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for start-es-cluster-instances-all: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-StartEsClusterInstancesAllMaintenanceMode starts maintenance mode all instances
+  StartEsClusterInstancesAllMaintenanceMode starts maintenance mode all instances
 
-Starts maintenance mode on all of the instances in the Elasticsearch cluster.
+  Starts maintenance mode on all of the instances in the Elasticsearch cluster.
 */
 func (a *Client) StartEsClusterInstancesAllMaintenanceMode(params *StartEsClusterInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StartEsClusterInstancesAllMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1372,8 +1724,8 @@ func (a *Client) StartEsClusterInstancesAllMaintenanceMode(params *StartEsCluste
 		ID:                 "start-es-cluster-instances-all-maintenance-mode",
 		Method:             "POST",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/instances/maintenance-mode/_start",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &StartEsClusterInstancesAllMaintenanceModeReader{formats: a.formats},
@@ -1384,14 +1736,20 @@ func (a *Client) StartEsClusterInstancesAllMaintenanceMode(params *StartEsCluste
 	if err != nil {
 		return nil, err
 	}
-	return result.(*StartEsClusterInstancesAllMaintenanceModeAccepted), nil
-
+	success, ok := result.(*StartEsClusterInstancesAllMaintenanceModeAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for start-es-cluster-instances-all-maintenance-mode: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-StartEsClusterMaintenanceMode starts maintenance mode
+  StartEsClusterMaintenanceMode starts maintenance mode
 
-Starts maintenance mode on the specified instances in the Elasticsearch cluster.
+  Starts maintenance mode on the specified instances in the Elasticsearch cluster.
 */
 func (a *Client) StartEsClusterMaintenanceMode(params *StartEsClusterMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StartEsClusterMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1403,8 +1761,8 @@ func (a *Client) StartEsClusterMaintenanceMode(params *StartEsClusterMaintenance
 		ID:                 "start-es-cluster-maintenance-mode",
 		Method:             "POST",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/instances/{instance_ids}/maintenance-mode/_start",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &StartEsClusterMaintenanceModeReader{formats: a.formats},
@@ -1415,14 +1773,20 @@ func (a *Client) StartEsClusterMaintenanceMode(params *StartEsClusterMaintenance
 	if err != nil {
 		return nil, err
 	}
-	return result.(*StartEsClusterMaintenanceModeAccepted), nil
-
+	success, ok := result.(*StartEsClusterMaintenanceModeAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for start-es-cluster-maintenance-mode: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-StopEsClusterInstances stops instances
+  StopEsClusterInstances stops instances
 
-Stops the instances in the Elasticsearch cluster.
+  Stops the instances in the Elasticsearch cluster.
 */
 func (a *Client) StopEsClusterInstances(params *StopEsClusterInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*StopEsClusterInstancesAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1434,8 +1798,8 @@ func (a *Client) StopEsClusterInstances(params *StopEsClusterInstancesParams, au
 		ID:                 "stop-es-cluster-instances",
 		Method:             "POST",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/instances/{instance_ids}/_stop",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &StopEsClusterInstancesReader{formats: a.formats},
@@ -1446,14 +1810,20 @@ func (a *Client) StopEsClusterInstances(params *StopEsClusterInstancesParams, au
 	if err != nil {
 		return nil, err
 	}
-	return result.(*StopEsClusterInstancesAccepted), nil
-
+	success, ok := result.(*StopEsClusterInstancesAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for stop-es-cluster-instances: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-StopEsClusterInstancesAll stops all instances
+  StopEsClusterInstancesAll stops all instances
 
-Stops all of the instances in the Elasticsearch cluster..
+  Stops all of the instances in the Elasticsearch cluster..
 */
 func (a *Client) StopEsClusterInstancesAll(params *StopEsClusterInstancesAllParams, authInfo runtime.ClientAuthInfoWriter) (*StopEsClusterInstancesAllAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1465,8 +1835,8 @@ func (a *Client) StopEsClusterInstancesAll(params *StopEsClusterInstancesAllPara
 		ID:                 "stop-es-cluster-instances-all",
 		Method:             "POST",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/instances/_stop",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &StopEsClusterInstancesAllReader{formats: a.formats},
@@ -1477,14 +1847,20 @@ func (a *Client) StopEsClusterInstancesAll(params *StopEsClusterInstancesAllPara
 	if err != nil {
 		return nil, err
 	}
-	return result.(*StopEsClusterInstancesAllAccepted), nil
-
+	success, ok := result.(*StopEsClusterInstancesAllAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for stop-es-cluster-instances-all: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-StopEsClusterInstancesAllMaintenanceMode stops maintenance mode all instances
+  StopEsClusterInstancesAllMaintenanceMode stops maintenance mode all instances
 
-Stops maintenance mode on all of the instances in the Elasticsearch cluster.
+  Stops maintenance mode on all of the instances in the Elasticsearch cluster.
 */
 func (a *Client) StopEsClusterInstancesAllMaintenanceMode(params *StopEsClusterInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StopEsClusterInstancesAllMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1496,8 +1872,8 @@ func (a *Client) StopEsClusterInstancesAllMaintenanceMode(params *StopEsClusterI
 		ID:                 "stop-es-cluster-instances-all-maintenance-mode",
 		Method:             "POST",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/instances/maintenance-mode/_stop",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &StopEsClusterInstancesAllMaintenanceModeReader{formats: a.formats},
@@ -1508,14 +1884,20 @@ func (a *Client) StopEsClusterInstancesAllMaintenanceMode(params *StopEsClusterI
 	if err != nil {
 		return nil, err
 	}
-	return result.(*StopEsClusterInstancesAllMaintenanceModeAccepted), nil
-
+	success, ok := result.(*StopEsClusterInstancesAllMaintenanceModeAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for stop-es-cluster-instances-all-maintenance-mode: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-StopEsClusterMaintenanceMode stops maintenance mode
+  StopEsClusterMaintenanceMode stops maintenance mode
 
-Stops maintenance mode on the specified instances in the Elasticsearch cluster.
+  Stops maintenance mode on the specified instances in the Elasticsearch cluster.
 */
 func (a *Client) StopEsClusterMaintenanceMode(params *StopEsClusterMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StopEsClusterMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1527,8 +1909,8 @@ func (a *Client) StopEsClusterMaintenanceMode(params *StopEsClusterMaintenanceMo
 		ID:                 "stop-es-cluster-maintenance-mode",
 		Method:             "POST",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/instances/{instance_ids}/maintenance-mode/_stop",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &StopEsClusterMaintenanceModeReader{formats: a.formats},
@@ -1539,14 +1921,20 @@ func (a *Client) StopEsClusterMaintenanceMode(params *StopEsClusterMaintenanceMo
 	if err != nil {
 		return nil, err
 	}
-	return result.(*StopEsClusterMaintenanceModeAccepted), nil
-
+	success, ok := result.(*StopEsClusterMaintenanceModeAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for stop-es-cluster-maintenance-mode: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-UpdateEsClusterCurationSettings updates cluster curation settings
+  UpdateEsClusterCurationSettings updates cluster curation settings
 
-Overrides cluster curation settings for an Elasticsearch cluster.
+  Overrides cluster curation settings for an Elasticsearch cluster.
 */
 func (a *Client) UpdateEsClusterCurationSettings(params *UpdateEsClusterCurationSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateEsClusterCurationSettingsOK, error) {
 	// TODO: Validate the params before sending
@@ -1558,8 +1946,8 @@ func (a *Client) UpdateEsClusterCurationSettings(params *UpdateEsClusterCuration
 		ID:                 "update-es-cluster-curation-settings",
 		Method:             "PUT",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/curation/settings",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &UpdateEsClusterCurationSettingsReader{formats: a.formats},
@@ -1570,14 +1958,20 @@ func (a *Client) UpdateEsClusterCurationSettings(params *UpdateEsClusterCuration
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpdateEsClusterCurationSettingsOK), nil
-
+	success, ok := result.(*UpdateEsClusterCurationSettingsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for update-es-cluster-curation-settings: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-UpdateEsClusterMetadataSettings updates cluster metadata settings
+  UpdateEsClusterMetadataSettings updates cluster metadata settings
 
-All changes in the specified object are applied to the metadata object. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.
+  All changes in the specified object are applied to the metadata object. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.
 */
 func (a *Client) UpdateEsClusterMetadataSettings(params *UpdateEsClusterMetadataSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateEsClusterMetadataSettingsOK, error) {
 	// TODO: Validate the params before sending
@@ -1589,8 +1983,8 @@ func (a *Client) UpdateEsClusterMetadataSettings(params *UpdateEsClusterMetadata
 		ID:                 "update-es-cluster-metadata-settings",
 		Method:             "PATCH",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/metadata/settings",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &UpdateEsClusterMetadataSettingsReader{formats: a.formats},
@@ -1601,14 +1995,20 @@ func (a *Client) UpdateEsClusterMetadataSettings(params *UpdateEsClusterMetadata
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpdateEsClusterMetadataSettingsOK), nil
-
+	success, ok := result.(*UpdateEsClusterMetadataSettingsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for update-es-cluster-metadata-settings: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-UpdateEsClusterPlan updates plan
+  UpdateEsClusterPlan updates plan
 
-Updates the configuration of the Elasticsearch cluster.
+  Updates the configuration of the Elasticsearch cluster.
 */
 func (a *Client) UpdateEsClusterPlan(params *UpdateEsClusterPlanParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateEsClusterPlanOK, *UpdateEsClusterPlanAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1620,8 +2020,8 @@ func (a *Client) UpdateEsClusterPlan(params *UpdateEsClusterPlanParams, authInfo
 		ID:                 "update-es-cluster-plan",
 		Method:             "POST",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/plan",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &UpdateEsClusterPlanReader{formats: a.formats},
@@ -1638,14 +2038,15 @@ func (a *Client) UpdateEsClusterPlan(params *UpdateEsClusterPlanParams, authInfo
 	case *UpdateEsClusterPlanAccepted:
 		return nil, value, nil
 	}
-	return nil, nil, nil
-
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for clusters_elasticsearch: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-UpdateEsClusterSnapshotSettings updates cluster snapshot settings
+  UpdateEsClusterSnapshotSettings updates cluster snapshot settings
 
-Any changes in the PATCHed object will be applied to the snapshot settings object.  PATCHing existing fields will cause same values to be re-applied. PATCHing a value of 'null' will cause the field to be reverted to its default value or removed if no default value exists.
+  Any changes in the PATCHed object will be applied to the snapshot settings object.  PATCHing existing fields will cause same values to be re-applied. PATCHing a value of 'null' will cause the field to be reverted to its default value or removed if no default value exists.
 */
 func (a *Client) UpdateEsClusterSnapshotSettings(params *UpdateEsClusterSnapshotSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateEsClusterSnapshotSettingsOK, error) {
 	// TODO: Validate the params before sending
@@ -1657,8 +2058,8 @@ func (a *Client) UpdateEsClusterSnapshotSettings(params *UpdateEsClusterSnapshot
 		ID:                 "update-es-cluster-snapshot-settings",
 		Method:             "PATCH",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/snapshot/settings",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &UpdateEsClusterSnapshotSettingsReader{formats: a.formats},
@@ -1669,8 +2070,14 @@ func (a *Client) UpdateEsClusterSnapshotSettings(params *UpdateEsClusterSnapshot
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpdateEsClusterSnapshotSettingsOK), nil
-
+	success, ok := result.(*UpdateEsClusterSnapshotSettingsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for update-es-cluster-snapshot-settings: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 // SetTransport changes the transport on the client

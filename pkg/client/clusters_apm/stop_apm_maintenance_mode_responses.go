@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // StopApmMaintenanceModeReader is a Reader for the StopApmMaintenanceMode structure.
@@ -41,28 +41,24 @@ type StopApmMaintenanceModeReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *StopApmMaintenanceModeReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 202:
 		result := NewStopApmMaintenanceModeAccepted()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 403:
 		result := NewStopApmMaintenanceModeForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewStopApmMaintenanceModeNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewStopApmMaintenanceModeRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -90,6 +86,10 @@ type StopApmMaintenanceModeAccepted struct {
 
 func (o *StopApmMaintenanceModeAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/instances/{instance_ids}/maintenance-mode/_stop][%d] stopApmMaintenanceModeAccepted  %+v", 202, o.Payload)
+}
+
+func (o *StopApmMaintenanceModeAccepted) GetPayload() *models.ClusterCommandResponse {
+	return o.Payload
 }
 
 func (o *StopApmMaintenanceModeAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -123,6 +123,10 @@ type StopApmMaintenanceModeForbidden struct {
 
 func (o *StopApmMaintenanceModeForbidden) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/instances/{instance_ids}/maintenance-mode/_stop][%d] stopApmMaintenanceModeForbidden  %+v", 403, o.Payload)
+}
+
+func (o *StopApmMaintenanceModeForbidden) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *StopApmMaintenanceModeForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -162,6 +166,10 @@ func (o *StopApmMaintenanceModeNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/instances/{instance_ids}/maintenance-mode/_stop][%d] stopApmMaintenanceModeNotFound  %+v", 404, o.Payload)
 }
 
+func (o *StopApmMaintenanceModeNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *StopApmMaintenanceModeNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -196,6 +204,10 @@ type StopApmMaintenanceModeRetryWith struct {
 
 func (o *StopApmMaintenanceModeRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/instances/{instance_ids}/maintenance-mode/_stop][%d] stopApmMaintenanceModeRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *StopApmMaintenanceModeRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *StopApmMaintenanceModeRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

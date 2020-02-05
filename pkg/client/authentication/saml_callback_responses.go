@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // SamlCallbackReader is a Reader for the SamlCallback structure.
@@ -41,28 +41,24 @@ type SamlCallbackReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *SamlCallbackReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 302:
 		result := NewSamlCallbackFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewSamlCallbackUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 501:
 		result := NewSamlCallbackNotImplemented()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 502:
 		result := NewSamlCallbackBadGateway()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -90,6 +86,10 @@ type SamlCallbackFound struct {
 
 func (o *SamlCallbackFound) Error() string {
 	return fmt.Sprintf("[POST /users/auth/saml/_callback][%d] samlCallbackFound  %+v", 302, o.Payload)
+}
+
+func (o *SamlCallbackFound) GetPayload() models.EmptyResponse {
+	return o.Payload
 }
 
 func (o *SamlCallbackFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -121,6 +121,10 @@ type SamlCallbackUnauthorized struct {
 
 func (o *SamlCallbackUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /users/auth/saml/_callback][%d] samlCallbackUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *SamlCallbackUnauthorized) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *SamlCallbackUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -159,6 +163,10 @@ func (o *SamlCallbackNotImplemented) Error() string {
 	return fmt.Sprintf("[POST /users/auth/saml/_callback][%d] samlCallbackNotImplemented  %+v", 501, o.Payload)
 }
 
+func (o *SamlCallbackNotImplemented) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *SamlCallbackNotImplemented) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -193,6 +201,10 @@ type SamlCallbackBadGateway struct {
 
 func (o *SamlCallbackBadGateway) Error() string {
 	return fmt.Sprintf("[POST /users/auth/saml/_callback][%d] samlCallbackBadGateway  %+v", 502, o.Payload)
+}
+
+func (o *SamlCallbackBadGateway) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *SamlCallbackBadGateway) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

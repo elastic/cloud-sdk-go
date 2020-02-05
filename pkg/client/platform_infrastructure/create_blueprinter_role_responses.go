@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // CreateBlueprinterRoleReader is a Reader for the CreateBlueprinterRole structure.
@@ -41,14 +41,12 @@ type CreateBlueprinterRoleReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateBlueprinterRoleReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 201:
 		result := NewCreateBlueprinterRoleCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 409:
 		result := NewCreateBlueprinterRoleConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -76,6 +74,10 @@ type CreateBlueprinterRoleCreated struct {
 
 func (o *CreateBlueprinterRoleCreated) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/blueprinter/roles][%d] createBlueprinterRoleCreated  %+v", 201, o.Payload)
+}
+
+func (o *CreateBlueprinterRoleCreated) GetPayload() *models.RoleAggregate {
+	return o.Payload
 }
 
 func (o *CreateBlueprinterRoleCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -109,6 +111,10 @@ type CreateBlueprinterRoleConflict struct {
 
 func (o *CreateBlueprinterRoleConflict) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/blueprinter/roles][%d] createBlueprinterRoleConflict  %+v", 409, o.Payload)
+}
+
+func (o *CreateBlueprinterRoleConflict) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *CreateBlueprinterRoleConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

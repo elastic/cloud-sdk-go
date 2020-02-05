@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetDeploymentKibResourceInfoReader is a Reader for the GetDeploymentKibResourceInfo structure.
@@ -41,28 +41,24 @@ type GetDeploymentKibResourceInfoReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetDeploymentKibResourceInfoReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetDeploymentKibResourceInfoOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 401:
 		result := NewGetDeploymentKibResourceInfoUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewGetDeploymentKibResourceInfoNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewGetDeploymentKibResourceInfoInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -90,6 +86,10 @@ type GetDeploymentKibResourceInfoOK struct {
 
 func (o *GetDeploymentKibResourceInfoOK) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/kibana/{ref_id}][%d] getDeploymentKibResourceInfoOK  %+v", 200, o.Payload)
+}
+
+func (o *GetDeploymentKibResourceInfoOK) GetPayload() *models.KibanaResourceInfo {
+	return o.Payload
 }
 
 func (o *GetDeploymentKibResourceInfoOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -121,6 +121,10 @@ func (o *GetDeploymentKibResourceInfoUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/kibana/{ref_id}][%d] getDeploymentKibResourceInfoUnauthorized  %+v", 401, o.Payload)
 }
 
+func (o *GetDeploymentKibResourceInfoUnauthorized) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *GetDeploymentKibResourceInfoUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -150,6 +154,10 @@ func (o *GetDeploymentKibResourceInfoNotFound) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/kibana/{ref_id}][%d] getDeploymentKibResourceInfoNotFound  %+v", 404, o.Payload)
 }
 
+func (o *GetDeploymentKibResourceInfoNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *GetDeploymentKibResourceInfoNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -177,6 +185,10 @@ type GetDeploymentKibResourceInfoInternalServerError struct {
 
 func (o *GetDeploymentKibResourceInfoInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/kibana/{ref_id}][%d] getDeploymentKibResourceInfoInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetDeploymentKibResourceInfoInternalServerError) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *GetDeploymentKibResourceInfoInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

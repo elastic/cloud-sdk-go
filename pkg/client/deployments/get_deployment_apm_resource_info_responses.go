@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetDeploymentApmResourceInfoReader is a Reader for the GetDeploymentApmResourceInfo structure.
@@ -41,28 +41,24 @@ type GetDeploymentApmResourceInfoReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetDeploymentApmResourceInfoReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetDeploymentApmResourceInfoOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 401:
 		result := NewGetDeploymentApmResourceInfoUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewGetDeploymentApmResourceInfoNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewGetDeploymentApmResourceInfoInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -90,6 +86,10 @@ type GetDeploymentApmResourceInfoOK struct {
 
 func (o *GetDeploymentApmResourceInfoOK) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/apm/{ref_id}][%d] getDeploymentApmResourceInfoOK  %+v", 200, o.Payload)
+}
+
+func (o *GetDeploymentApmResourceInfoOK) GetPayload() *models.ApmResourceInfo {
+	return o.Payload
 }
 
 func (o *GetDeploymentApmResourceInfoOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -121,6 +121,10 @@ func (o *GetDeploymentApmResourceInfoUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/apm/{ref_id}][%d] getDeploymentApmResourceInfoUnauthorized  %+v", 401, o.Payload)
 }
 
+func (o *GetDeploymentApmResourceInfoUnauthorized) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *GetDeploymentApmResourceInfoUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -150,6 +154,10 @@ func (o *GetDeploymentApmResourceInfoNotFound) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/apm/{ref_id}][%d] getDeploymentApmResourceInfoNotFound  %+v", 404, o.Payload)
 }
 
+func (o *GetDeploymentApmResourceInfoNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *GetDeploymentApmResourceInfoNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -177,6 +185,10 @@ type GetDeploymentApmResourceInfoInternalServerError struct {
 
 func (o *GetDeploymentApmResourceInfoInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/apm/{ref_id}][%d] getDeploymentApmResourceInfoInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetDeploymentApmResourceInfoInternalServerError) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *GetDeploymentApmResourceInfoInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

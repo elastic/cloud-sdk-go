@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // LoginReader is a Reader for the Login structure.
@@ -41,35 +41,30 @@ type LoginReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *LoginReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewLoginOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 302:
 		result := NewLoginFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewLoginUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 501:
 		result := NewLoginNotImplemented()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 502:
 		result := NewLoginBadGateway()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -97,6 +92,10 @@ type LoginOK struct {
 
 func (o *LoginOK) Error() string {
 	return fmt.Sprintf("[POST /users/auth/_login][%d] loginOK  %+v", 200, o.Payload)
+}
+
+func (o *LoginOK) GetPayload() *models.TokenResponse {
+	return o.Payload
 }
 
 func (o *LoginOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -128,6 +127,10 @@ func (o *LoginFound) Error() string {
 	return fmt.Sprintf("[POST /users/auth/_login][%d] loginFound  %+v", 302, o.Payload)
 }
 
+func (o *LoginFound) GetPayload() models.EmptyResponse {
+	return o.Payload
+}
+
 func (o *LoginFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
@@ -157,6 +160,10 @@ type LoginUnauthorized struct {
 
 func (o *LoginUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /users/auth/_login][%d] loginUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *LoginUnauthorized) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *LoginUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -195,6 +202,10 @@ func (o *LoginNotImplemented) Error() string {
 	return fmt.Sprintf("[POST /users/auth/_login][%d] loginNotImplemented  %+v", 501, o.Payload)
 }
 
+func (o *LoginNotImplemented) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *LoginNotImplemented) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -229,6 +240,10 @@ type LoginBadGateway struct {
 
 func (o *LoginBadGateway) Error() string {
 	return fmt.Sprintf("[POST /users/auth/_login][%d] loginBadGateway  %+v", 502, o.Payload)
+}
+
+func (o *LoginBadGateway) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *LoginBadGateway) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

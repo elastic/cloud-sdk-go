@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // UpdateVersionStackReader is a Reader for the UpdateVersionStack structure.
@@ -41,14 +41,12 @@ type UpdateVersionStackReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *UpdateVersionStackReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewUpdateVersionStackOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewUpdateVersionStackNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -76,6 +74,10 @@ type UpdateVersionStackOK struct {
 
 func (o *UpdateVersionStackOK) Error() string {
 	return fmt.Sprintf("[PUT /stack/versions/{version}][%d] updateVersionStackOK  %+v", 200, o.Payload)
+}
+
+func (o *UpdateVersionStackOK) GetPayload() *models.StackVersionConfig {
+	return o.Payload
 }
 
 func (o *UpdateVersionStackOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -109,6 +111,10 @@ type UpdateVersionStackNotFound struct {
 
 func (o *UpdateVersionStackNotFound) Error() string {
 	return fmt.Sprintf("[PUT /stack/versions/{version}][%d] updateVersionStackNotFound  %+v", 404, o.Payload)
+}
+
+func (o *UpdateVersionStackNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *UpdateVersionStackNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

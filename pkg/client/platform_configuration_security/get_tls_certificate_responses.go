@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetTLSCertificateReader is a Reader for the GetTLSCertificate structure.
@@ -41,7 +41,6 @@ type GetTLSCertificateReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetTLSCertificateReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetTLSCertificateOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -69,6 +68,10 @@ type GetTLSCertificateOK struct {
 
 func (o *GetTLSCertificateOK) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/security/tls/{service_name}][%d] getTlsCertificateOK  %+v", 200, o.Payload)
+}
+
+func (o *GetTLSCertificateOK) GetPayload() *models.TLSPublicCertChain {
+	return o.Payload
 }
 
 func (o *GetTLSCertificateOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

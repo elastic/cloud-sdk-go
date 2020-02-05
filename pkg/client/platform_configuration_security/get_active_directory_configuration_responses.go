@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetActiveDirectoryConfigurationReader is a Reader for the GetActiveDirectoryConfiguration structure.
@@ -41,14 +41,12 @@ type GetActiveDirectoryConfigurationReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetActiveDirectoryConfigurationReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetActiveDirectoryConfigurationOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewGetActiveDirectoryConfigurationNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -86,6 +84,10 @@ type GetActiveDirectoryConfigurationOK struct {
 
 func (o *GetActiveDirectoryConfigurationOK) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/security/realms/active-directory/{realm_id}][%d] getActiveDirectoryConfigurationOK  %+v", 200, o.Payload)
+}
+
+func (o *GetActiveDirectoryConfigurationOK) GetPayload() *models.ActiveDirectorySettings {
+	return o.Payload
 }
 
 func (o *GetActiveDirectoryConfigurationOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -128,6 +130,10 @@ type GetActiveDirectoryConfigurationNotFound struct {
 
 func (o *GetActiveDirectoryConfigurationNotFound) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/security/realms/active-directory/{realm_id}][%d] getActiveDirectoryConfigurationNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetActiveDirectoryConfigurationNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *GetActiveDirectoryConfigurationNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

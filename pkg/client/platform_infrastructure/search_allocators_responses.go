@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // SearchAllocatorsReader is a Reader for the SearchAllocators structure.
@@ -41,14 +41,12 @@ type SearchAllocatorsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *SearchAllocatorsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewSearchAllocatorsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewSearchAllocatorsBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -78,6 +76,10 @@ func (o *SearchAllocatorsOK) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/allocators/_search][%d] searchAllocatorsOK  %+v", 200, o.Payload)
 }
 
+func (o *SearchAllocatorsOK) GetPayload() *models.AllocatorOverview {
+	return o.Payload
+}
+
 func (o *SearchAllocatorsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.AllocatorOverview)
@@ -105,6 +107,10 @@ type SearchAllocatorsBadRequest struct {
 
 func (o *SearchAllocatorsBadRequest) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/allocators/_search][%d] searchAllocatorsBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *SearchAllocatorsBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *SearchAllocatorsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

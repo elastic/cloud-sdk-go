@@ -23,13 +23,14 @@ package authentication
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-openapi/runtime"
+	"fmt"
 
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new authentication API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -41,10 +42,55 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
-/*
-CreateAPIKey creates API key
+// ClientService is the interface for Client methods
+type ClientService interface {
+	CreateAPIKey(params *CreateAPIKeyParams, authInfo runtime.ClientAuthInfoWriter) (*CreateAPIKeyCreated, error)
 
-Creates a new API key.
+	DeleteAPIKey(params *DeleteAPIKeyParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteAPIKeyOK, error)
+
+	DeleteAPIKeys(params *DeleteAPIKeysParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteAPIKeysOK, error)
+
+	DeleteUserAPIKey(params *DeleteUserAPIKeyParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteUserAPIKeyOK, error)
+
+	DeleteUserAPIKeys(params *DeleteUserAPIKeysParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteUserAPIKeysOK, error)
+
+	DeleteUsersAPIKeys(params *DeleteUsersAPIKeysParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteUsersAPIKeysOK, error)
+
+	DisableElevatedPermissions(params *DisableElevatedPermissionsParams, authInfo runtime.ClientAuthInfoWriter) (*DisableElevatedPermissionsOK, error)
+
+	EnableElevatedPermissions(params *EnableElevatedPermissionsParams, authInfo runtime.ClientAuthInfoWriter) (*EnableElevatedPermissionsOK, error)
+
+	GetAPIKey(params *GetAPIKeyParams, authInfo runtime.ClientAuthInfoWriter) (*GetAPIKeyOK, error)
+
+	GetAPIKeys(params *GetAPIKeysParams, authInfo runtime.ClientAuthInfoWriter) (*GetAPIKeysOK, error)
+
+	GetAuthenticationInfo(params *GetAuthenticationInfoParams, authInfo runtime.ClientAuthInfoWriter) (*GetAuthenticationInfoOK, error)
+
+	GetUserAPIKey(params *GetUserAPIKeyParams, authInfo runtime.ClientAuthInfoWriter) (*GetUserAPIKeyOK, error)
+
+	GetUserAPIKeys(params *GetUserAPIKeysParams, authInfo runtime.ClientAuthInfoWriter) (*GetUserAPIKeysOK, error)
+
+	GetUsersAPIKeys(params *GetUsersAPIKeysParams, authInfo runtime.ClientAuthInfoWriter) (*GetUsersAPIKeysOK, error)
+
+	Login(params *LoginParams, authInfo runtime.ClientAuthInfoWriter) (*LoginOK, error)
+
+	Methods(params *MethodsParams, authInfo runtime.ClientAuthInfoWriter) (*MethodsOK, error)
+
+	ReAuthenticate(params *ReAuthenticateParams, authInfo runtime.ClientAuthInfoWriter) (*ReAuthenticateOK, error)
+
+	RefreshToken(params *RefreshTokenParams, authInfo runtime.ClientAuthInfoWriter) (*RefreshTokenOK, error)
+
+	SamlCallback(params *SamlCallbackParams, authInfo runtime.ClientAuthInfoWriter) error
+
+	SamlInit(params *SamlInitParams, authInfo runtime.ClientAuthInfoWriter) error
+
+	SetTransport(transport runtime.ClientTransport)
+}
+
+/*
+  CreateAPIKey creates API key
+
+  Creates a new API key.
 */
 func (a *Client) CreateAPIKey(params *CreateAPIKeyParams, authInfo runtime.ClientAuthInfoWriter) (*CreateAPIKeyCreated, error) {
 	// TODO: Validate the params before sending
@@ -56,8 +102,8 @@ func (a *Client) CreateAPIKey(params *CreateAPIKeyParams, authInfo runtime.Clien
 		ID:                 "create-api-key",
 		Method:             "POST",
 		PathPattern:        "/users/auth/keys",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &CreateAPIKeyReader{formats: a.formats},
@@ -68,14 +114,20 @@ func (a *Client) CreateAPIKey(params *CreateAPIKeyParams, authInfo runtime.Clien
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateAPIKeyCreated), nil
-
+	success, ok := result.(*CreateAPIKeyCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for create-api-key: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-DeleteAPIKey deletes API key
+  DeleteAPIKey deletes API key
 
-Delete or invalidate the API key.
+  Delete or invalidate the API key.
 */
 func (a *Client) DeleteAPIKey(params *DeleteAPIKeyParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteAPIKeyOK, error) {
 	// TODO: Validate the params before sending
@@ -87,8 +139,8 @@ func (a *Client) DeleteAPIKey(params *DeleteAPIKeyParams, authInfo runtime.Clien
 		ID:                 "delete-api-key",
 		Method:             "DELETE",
 		PathPattern:        "/users/auth/keys/{api_key_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &DeleteAPIKeyReader{formats: a.formats},
@@ -99,14 +151,20 @@ func (a *Client) DeleteAPIKey(params *DeleteAPIKeyParams, authInfo runtime.Clien
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteAPIKeyOK), nil
-
+	success, ok := result.(*DeleteAPIKeyOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for delete-api-key: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-DeleteAPIKeys deletes API keys
+  DeleteAPIKeys deletes API keys
 
-Delete or invalidate API keys.
+  Delete or invalidate API keys.
 */
 func (a *Client) DeleteAPIKeys(params *DeleteAPIKeysParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteAPIKeysOK, error) {
 	// TODO: Validate the params before sending
@@ -118,8 +176,8 @@ func (a *Client) DeleteAPIKeys(params *DeleteAPIKeysParams, authInfo runtime.Cli
 		ID:                 "delete-api-keys",
 		Method:             "DELETE",
 		PathPattern:        "/users/auth/keys",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &DeleteAPIKeysReader{formats: a.formats},
@@ -130,14 +188,20 @@ func (a *Client) DeleteAPIKeys(params *DeleteAPIKeysParams, authInfo runtime.Cli
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteAPIKeysOK), nil
-
+	success, ok := result.(*DeleteAPIKeysOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for delete-api-keys: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-DeleteUserAPIKey deletes an API key for a user
+  DeleteUserAPIKey deletes an API key for a user
 
-Delete or invalidate an API key for a user.
+  Delete or invalidate an API key for a user.
 */
 func (a *Client) DeleteUserAPIKey(params *DeleteUserAPIKeyParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteUserAPIKeyOK, error) {
 	// TODO: Validate the params before sending
@@ -149,8 +213,8 @@ func (a *Client) DeleteUserAPIKey(params *DeleteUserAPIKeyParams, authInfo runti
 		ID:                 "delete-user-api-key",
 		Method:             "DELETE",
 		PathPattern:        "/users/{user_id}/auth/keys/{api_key_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &DeleteUserAPIKeyReader{formats: a.formats},
@@ -161,14 +225,20 @@ func (a *Client) DeleteUserAPIKey(params *DeleteUserAPIKeyParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteUserAPIKeyOK), nil
-
+	success, ok := result.(*DeleteUserAPIKeyOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for delete-user-api-key: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-DeleteUserAPIKeys deletes API keys for a user
+  DeleteUserAPIKeys deletes API keys for a user
 
-Delete or invalidate all of the API keys for a user.
+  Delete or invalidate all of the API keys for a user.
 */
 func (a *Client) DeleteUserAPIKeys(params *DeleteUserAPIKeysParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteUserAPIKeysOK, error) {
 	// TODO: Validate the params before sending
@@ -180,8 +250,8 @@ func (a *Client) DeleteUserAPIKeys(params *DeleteUserAPIKeysParams, authInfo run
 		ID:                 "delete-user-api-keys",
 		Method:             "DELETE",
 		PathPattern:        "/users/{user_id}/auth/keys",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &DeleteUserAPIKeysReader{formats: a.formats},
@@ -192,14 +262,20 @@ func (a *Client) DeleteUserAPIKeys(params *DeleteUserAPIKeysParams, authInfo run
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteUserAPIKeysOK), nil
-
+	success, ok := result.(*DeleteUserAPIKeysOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for delete-user-api-keys: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-DeleteUsersAPIKeys deletes API keys of multiple users
+  DeleteUsersAPIKeys deletes API keys of multiple users
 
-Delete or invalidate the API keys for multiple users.
+  Delete or invalidate the API keys for multiple users.
 */
 func (a *Client) DeleteUsersAPIKeys(params *DeleteUsersAPIKeysParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteUsersAPIKeysOK, error) {
 	// TODO: Validate the params before sending
@@ -211,8 +287,8 @@ func (a *Client) DeleteUsersAPIKeys(params *DeleteUsersAPIKeysParams, authInfo r
 		ID:                 "delete-users-api-keys",
 		Method:             "DELETE",
 		PathPattern:        "/users/auth/keys/_all",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &DeleteUsersAPIKeysReader{formats: a.formats},
@@ -223,14 +299,20 @@ func (a *Client) DeleteUsersAPIKeys(params *DeleteUsersAPIKeysParams, authInfo r
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteUsersAPIKeysOK), nil
-
+	success, ok := result.(*DeleteUsersAPIKeysOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for delete-users-api-keys: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-DisableElevatedPermissions disables elevated permissions
+  DisableElevatedPermissions disables elevated permissions
 
-Disables elevated permissions for the user.
+  Disables elevated permissions for the user.
 */
 func (a *Client) DisableElevatedPermissions(params *DisableElevatedPermissionsParams, authInfo runtime.ClientAuthInfoWriter) (*DisableElevatedPermissionsOK, error) {
 	// TODO: Validate the params before sending
@@ -242,8 +324,8 @@ func (a *Client) DisableElevatedPermissions(params *DisableElevatedPermissionsPa
 		ID:                 "disable-elevated-permissions",
 		Method:             "DELETE",
 		PathPattern:        "/users/auth/_elevate",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &DisableElevatedPermissionsReader{formats: a.formats},
@@ -254,14 +336,20 @@ func (a *Client) DisableElevatedPermissions(params *DisableElevatedPermissionsPa
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DisableElevatedPermissionsOK), nil
-
+	success, ok := result.(*DisableElevatedPermissionsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for disable-elevated-permissions: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-EnableElevatedPermissions enables elevated permissions
+  EnableElevatedPermissions enables elevated permissions
 
-Enables the elevated permissions for the current user. Elevated permissions allow the user to complete potentially destructive operations on clusters. Elevated permissions are available for a limited period of time and automatically expire if you do not renew them.
+  Enables the elevated permissions for the current user. Elevated permissions allow the user to complete potentially destructive operations on clusters. Elevated permissions are available for a limited period of time and automatically expire if you do not renew them.
 */
 func (a *Client) EnableElevatedPermissions(params *EnableElevatedPermissionsParams, authInfo runtime.ClientAuthInfoWriter) (*EnableElevatedPermissionsOK, error) {
 	// TODO: Validate the params before sending
@@ -273,8 +361,8 @@ func (a *Client) EnableElevatedPermissions(params *EnableElevatedPermissionsPara
 		ID:                 "enable-elevated-permissions",
 		Method:             "POST",
 		PathPattern:        "/users/auth/_elevate",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &EnableElevatedPermissionsReader{formats: a.formats},
@@ -285,14 +373,20 @@ func (a *Client) EnableElevatedPermissions(params *EnableElevatedPermissionsPara
 	if err != nil {
 		return nil, err
 	}
-	return result.(*EnableElevatedPermissionsOK), nil
-
+	success, ok := result.(*EnableElevatedPermissionsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for enable-elevated-permissions: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetAPIKey gets API key
+  GetAPIKey gets API key
 
-Retrieves the metadata for an API key.
+  Retrieves the metadata for an API key.
 */
 func (a *Client) GetAPIKey(params *GetAPIKeyParams, authInfo runtime.ClientAuthInfoWriter) (*GetAPIKeyOK, error) {
 	// TODO: Validate the params before sending
@@ -304,8 +398,8 @@ func (a *Client) GetAPIKey(params *GetAPIKeyParams, authInfo runtime.ClientAuthI
 		ID:                 "get-api-key",
 		Method:             "GET",
 		PathPattern:        "/users/auth/keys/{api_key_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetAPIKeyReader{formats: a.formats},
@@ -316,14 +410,20 @@ func (a *Client) GetAPIKey(params *GetAPIKeyParams, authInfo runtime.ClientAuthI
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetAPIKeyOK), nil
-
+	success, ok := result.(*GetAPIKeyOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-api-key: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetAPIKeys gets all API keys
+  GetAPIKeys gets all API keys
 
-Retrieves the metadata for all of the API keys that the user generated.
+  Retrieves the metadata for all of the API keys that the user generated.
 */
 func (a *Client) GetAPIKeys(params *GetAPIKeysParams, authInfo runtime.ClientAuthInfoWriter) (*GetAPIKeysOK, error) {
 	// TODO: Validate the params before sending
@@ -335,8 +435,8 @@ func (a *Client) GetAPIKeys(params *GetAPIKeysParams, authInfo runtime.ClientAut
 		ID:                 "get-api-keys",
 		Method:             "GET",
 		PathPattern:        "/users/auth/keys",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetAPIKeysReader{formats: a.formats},
@@ -347,14 +447,20 @@ func (a *Client) GetAPIKeys(params *GetAPIKeysParams, authInfo runtime.ClientAut
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetAPIKeysOK), nil
-
+	success, ok := result.(*GetAPIKeysOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-api-keys: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetAuthenticationInfo users authentication information
+  GetAuthenticationInfo users authentication information
 
-Provides authentication information about a user, including elevated permission status and TOTP device availability.
+  Provides authentication information about a user, including elevated permission status and TOTP device availability.
 */
 func (a *Client) GetAuthenticationInfo(params *GetAuthenticationInfoParams, authInfo runtime.ClientAuthInfoWriter) (*GetAuthenticationInfoOK, error) {
 	// TODO: Validate the params before sending
@@ -366,8 +472,8 @@ func (a *Client) GetAuthenticationInfo(params *GetAuthenticationInfoParams, auth
 		ID:                 "get-authentication-info",
 		Method:             "GET",
 		PathPattern:        "/users/auth",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetAuthenticationInfoReader{formats: a.formats},
@@ -378,14 +484,20 @@ func (a *Client) GetAuthenticationInfo(params *GetAuthenticationInfoParams, auth
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetAuthenticationInfoOK), nil
-
+	success, ok := result.(*GetAuthenticationInfoOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-authentication-info: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetUserAPIKey gets a user API key
+  GetUserAPIKey gets a user API key
 
-Retrieves the API key metadata for a user.
+  Retrieves the API key metadata for a user.
 */
 func (a *Client) GetUserAPIKey(params *GetUserAPIKeyParams, authInfo runtime.ClientAuthInfoWriter) (*GetUserAPIKeyOK, error) {
 	// TODO: Validate the params before sending
@@ -397,8 +509,8 @@ func (a *Client) GetUserAPIKey(params *GetUserAPIKeyParams, authInfo runtime.Cli
 		ID:                 "get-user-api-key",
 		Method:             "GET",
 		PathPattern:        "/users/{user_id}/auth/keys/{api_key_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetUserAPIKeyReader{formats: a.formats},
@@ -409,14 +521,20 @@ func (a *Client) GetUserAPIKey(params *GetUserAPIKeyParams, authInfo runtime.Cli
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetUserAPIKeyOK), nil
-
+	success, ok := result.(*GetUserAPIKeyOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-user-api-key: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetUserAPIKeys gets all API keys for a user
+  GetUserAPIKeys gets all API keys for a user
 
-Retrieves all of the API key metadata for a user.
+  Retrieves all of the API key metadata for a user.
 */
 func (a *Client) GetUserAPIKeys(params *GetUserAPIKeysParams, authInfo runtime.ClientAuthInfoWriter) (*GetUserAPIKeysOK, error) {
 	// TODO: Validate the params before sending
@@ -428,8 +546,8 @@ func (a *Client) GetUserAPIKeys(params *GetUserAPIKeysParams, authInfo runtime.C
 		ID:                 "get-user-api-keys",
 		Method:             "GET",
 		PathPattern:        "/users/{user_id}/auth/keys",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetUserAPIKeysReader{formats: a.formats},
@@ -440,14 +558,20 @@ func (a *Client) GetUserAPIKeys(params *GetUserAPIKeysParams, authInfo runtime.C
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetUserAPIKeysOK), nil
-
+	success, ok := result.(*GetUserAPIKeysOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-user-api-keys: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetUsersAPIKeys gets all API keys for all users
+  GetUsersAPIKeys gets all API keys for all users
 
-Retrieves the metadata for all of the API keys for all users.
+  Retrieves the metadata for all of the API keys for all users.
 */
 func (a *Client) GetUsersAPIKeys(params *GetUsersAPIKeysParams, authInfo runtime.ClientAuthInfoWriter) (*GetUsersAPIKeysOK, error) {
 	// TODO: Validate the params before sending
@@ -459,8 +583,8 @@ func (a *Client) GetUsersAPIKeys(params *GetUsersAPIKeysParams, authInfo runtime
 		ID:                 "get-users-api-keys",
 		Method:             "GET",
 		PathPattern:        "/users/auth/keys/_all",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetUsersAPIKeysReader{formats: a.formats},
@@ -471,14 +595,20 @@ func (a *Client) GetUsersAPIKeys(params *GetUsersAPIKeysParams, authInfo runtime
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetUsersAPIKeysOK), nil
-
+	success, ok := result.(*GetUsersAPIKeysOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-users-api-keys: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-Login logins to e c e
+  Login logins to e c e
 
-Authenticates against available users.
+  Authenticates against available users.
 */
 func (a *Client) Login(params *LoginParams, authInfo runtime.ClientAuthInfoWriter) (*LoginOK, error) {
 	// TODO: Validate the params before sending
@@ -490,8 +620,8 @@ func (a *Client) Login(params *LoginParams, authInfo runtime.ClientAuthInfoWrite
 		ID:                 "login",
 		Method:             "POST",
 		PathPattern:        "/users/auth/_login",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &LoginReader{formats: a.formats},
@@ -502,14 +632,20 @@ func (a *Client) Login(params *LoginParams, authInfo runtime.ClientAuthInfoWrite
 	if err != nil {
 		return nil, err
 	}
-	return result.(*LoginOK), nil
-
+	success, ok := result.(*LoginOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for login: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-Methods availables authentication methods
+  Methods availables authentication methods
 
-Provides information about available authentication methods.
+  Provides information about available authentication methods.
 */
 func (a *Client) Methods(params *MethodsParams, authInfo runtime.ClientAuthInfoWriter) (*MethodsOK, error) {
 	// TODO: Validate the params before sending
@@ -521,8 +657,8 @@ func (a *Client) Methods(params *MethodsParams, authInfo runtime.ClientAuthInfoW
 		ID:                 "methods",
 		Method:             "GET",
 		PathPattern:        "/users/auth/methods",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &MethodsReader{formats: a.formats},
@@ -533,14 +669,20 @@ func (a *Client) Methods(params *MethodsParams, authInfo runtime.ClientAuthInfoW
 	if err != nil {
 		return nil, err
 	}
-	return result.(*MethodsOK), nil
-
+	success, ok := result.(*MethodsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for methods: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-ReAuthenticate res authenticate to generate a token
+  ReAuthenticate res authenticate to generate a token
 
-Re-authenticate.
+  Re-authenticate.
 */
 func (a *Client) ReAuthenticate(params *ReAuthenticateParams, authInfo runtime.ClientAuthInfoWriter) (*ReAuthenticateOK, error) {
 	// TODO: Validate the params before sending
@@ -552,8 +694,8 @@ func (a *Client) ReAuthenticate(params *ReAuthenticateParams, authInfo runtime.C
 		ID:                 "re-authenticate",
 		Method:             "POST",
 		PathPattern:        "/users/auth/reauthenticate",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ReAuthenticateReader{formats: a.formats},
@@ -564,14 +706,20 @@ func (a *Client) ReAuthenticate(params *ReAuthenticateParams, authInfo runtime.C
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ReAuthenticateOK), nil
-
+	success, ok := result.(*ReAuthenticateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for re-authenticate: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-RefreshToken refreshes authentication token
+  RefreshToken refreshes authentication token
 
-Issues a new authentication token.
+  Issues a new authentication token.
 */
 func (a *Client) RefreshToken(params *RefreshTokenParams, authInfo runtime.ClientAuthInfoWriter) (*RefreshTokenOK, error) {
 	// TODO: Validate the params before sending
@@ -583,8 +731,8 @@ func (a *Client) RefreshToken(params *RefreshTokenParams, authInfo runtime.Clien
 		ID:                 "refresh-token",
 		Method:             "POST",
 		PathPattern:        "/users/auth/_refresh",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &RefreshTokenReader{formats: a.formats},
@@ -595,14 +743,20 @@ func (a *Client) RefreshToken(params *RefreshTokenParams, authInfo runtime.Clien
 	if err != nil {
 		return nil, err
 	}
-	return result.(*RefreshTokenOK), nil
-
+	success, ok := result.(*RefreshTokenOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for refresh-token: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-SamlCallback s a m l callback
+  SamlCallback s a m l callback
 
-Accepts a callback request from an identity provider and authenticates the user.
+  Accepts a callback request from an identity provider and authenticates the user.
 */
 func (a *Client) SamlCallback(params *SamlCallbackParams, authInfo runtime.ClientAuthInfoWriter) error {
 	// TODO: Validate the params before sending
@@ -614,8 +768,8 @@ func (a *Client) SamlCallback(params *SamlCallbackParams, authInfo runtime.Clien
 		ID:                 "saml-callback",
 		Method:             "POST",
 		PathPattern:        "/users/auth/saml/_callback",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &SamlCallbackReader{formats: a.formats},
@@ -627,13 +781,12 @@ func (a *Client) SamlCallback(params *SamlCallbackParams, authInfo runtime.Clien
 		return err
 	}
 	return nil
-
 }
 
 /*
-SamlInit initiates s a m l protocol
+  SamlInit initiates s a m l protocol
 
-Calls the authentication cluster to initiate SAML Single Sign-on (Web Browser SSO profile) protocol and redirects the user to the identity provider for authentication. The authentication cluster must be configured prior to initiation.
+  Calls the authentication cluster to initiate SAML Single Sign-on (Web Browser SSO profile) protocol and redirects the user to the identity provider for authentication. The authentication cluster must be configured prior to initiation.
 */
 func (a *Client) SamlInit(params *SamlInitParams, authInfo runtime.ClientAuthInfoWriter) error {
 	// TODO: Validate the params before sending
@@ -645,8 +798,8 @@ func (a *Client) SamlInit(params *SamlInitParams, authInfo runtime.ClientAuthInf
 		ID:                 "saml-init",
 		Method:             "GET",
 		PathPattern:        "/users/auth/saml/_init",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &SamlInitReader{formats: a.formats},
@@ -658,7 +811,6 @@ func (a *Client) SamlInit(params *SamlInitParams, authInfo runtime.ClientAuthInf
 		return err
 	}
 	return nil
-
 }
 
 // SetTransport changes the transport on the client

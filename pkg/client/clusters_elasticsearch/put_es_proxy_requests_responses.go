@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // PutEsProxyRequestsReader is a Reader for the PutEsProxyRequests structure.
@@ -41,14 +41,12 @@ type PutEsProxyRequestsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *PutEsProxyRequestsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewPutEsProxyRequestsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewPutEsProxyRequestsNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -97,6 +95,10 @@ type PutEsProxyRequestsNotFound struct {
 
 func (o *PutEsProxyRequestsNotFound) Error() string {
 	return fmt.Sprintf("[PUT /clusters/elasticsearch/{cluster_id}/proxy/{elasticsearch_path}][%d] putEsProxyRequestsNotFound  %+v", 404, o.Payload)
+}
+
+func (o *PutEsProxyRequestsNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *PutEsProxyRequestsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

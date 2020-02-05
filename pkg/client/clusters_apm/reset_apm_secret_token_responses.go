@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // ResetApmSecretTokenReader is a Reader for the ResetApmSecretToken structure.
@@ -41,28 +41,24 @@ type ResetApmSecretTokenReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *ResetApmSecretTokenReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewResetApmSecretTokenOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewResetApmSecretTokenNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 412:
 		result := NewResetApmSecretTokenPreconditionFailed()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewResetApmSecretTokenRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -90,6 +86,10 @@ type ResetApmSecretTokenOK struct {
 
 func (o *ResetApmSecretTokenOK) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/_reset-token][%d] resetApmSecretTokenOK  %+v", 200, o.Payload)
+}
+
+func (o *ResetApmSecretTokenOK) GetPayload() *models.ApmCrudResponse {
+	return o.Payload
 }
 
 func (o *ResetApmSecretTokenOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -121,6 +121,10 @@ func (o *ResetApmSecretTokenNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/_reset-token][%d] resetApmSecretTokenNotFound  %+v", 404, o.Payload)
 }
 
+func (o *ResetApmSecretTokenNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *ResetApmSecretTokenNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -150,6 +154,10 @@ func (o *ResetApmSecretTokenPreconditionFailed) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/_reset-token][%d] resetApmSecretTokenPreconditionFailed  %+v", 412, o.Payload)
 }
 
+func (o *ResetApmSecretTokenPreconditionFailed) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *ResetApmSecretTokenPreconditionFailed) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -177,6 +185,10 @@ type ResetApmSecretTokenRetryWith struct {
 
 func (o *ResetApmSecretTokenRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/_reset-token][%d] resetApmSecretTokenRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *ResetApmSecretTokenRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *ResetApmSecretTokenRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

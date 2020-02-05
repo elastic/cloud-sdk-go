@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetIPFilterRulesetDeploymentAssociationsReader is a Reader for the GetIPFilterRulesetDeploymentAssociations structure.
@@ -41,14 +41,12 @@ type GetIPFilterRulesetDeploymentAssociationsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetIPFilterRulesetDeploymentAssociationsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetIPFilterRulesetDeploymentAssociationsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 500:
 		result := NewGetIPFilterRulesetDeploymentAssociationsInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -78,6 +76,10 @@ func (o *GetIPFilterRulesetDeploymentAssociationsOK) Error() string {
 	return fmt.Sprintf("[GET /deployments/ip-filtering/rulesets/{ruleset_id}/associations][%d] getIpFilterRulesetDeploymentAssociationsOK  %+v", 200, o.Payload)
 }
 
+func (o *GetIPFilterRulesetDeploymentAssociationsOK) GetPayload() *models.RulesetAssociations {
+	return o.Payload
+}
+
 func (o *GetIPFilterRulesetDeploymentAssociationsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RulesetAssociations)
@@ -105,6 +107,10 @@ type GetIPFilterRulesetDeploymentAssociationsInternalServerError struct {
 
 func (o *GetIPFilterRulesetDeploymentAssociationsInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /deployments/ip-filtering/rulesets/{ruleset_id}/associations][%d] getIpFilterRulesetDeploymentAssociationsInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetIPFilterRulesetDeploymentAssociationsInternalServerError) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *GetIPFilterRulesetDeploymentAssociationsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

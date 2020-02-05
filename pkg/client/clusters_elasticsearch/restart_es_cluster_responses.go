@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // RestartEsClusterReader is a Reader for the RestartEsCluster structure.
@@ -41,35 +41,30 @@ type RestartEsClusterReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *RestartEsClusterReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 202:
 		result := NewRestartEsClusterAccepted()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewRestartEsClusterBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewRestartEsClusterNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 412:
 		result := NewRestartEsClusterPreconditionFailed()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewRestartEsClusterRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -97,6 +92,10 @@ type RestartEsClusterAccepted struct {
 
 func (o *RestartEsClusterAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/_restart][%d] restartEsClusterAccepted  %+v", 202, o.Payload)
+}
+
+func (o *RestartEsClusterAccepted) GetPayload() *models.ClusterCommandResponse {
+	return o.Payload
 }
 
 func (o *RestartEsClusterAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -130,6 +129,10 @@ type RestartEsClusterBadRequest struct {
 
 func (o *RestartEsClusterBadRequest) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/_restart][%d] restartEsClusterBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *RestartEsClusterBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *RestartEsClusterBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -168,6 +171,10 @@ func (o *RestartEsClusterNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/_restart][%d] restartEsClusterNotFound  %+v", 404, o.Payload)
 }
 
+func (o *RestartEsClusterNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *RestartEsClusterNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -204,6 +211,10 @@ func (o *RestartEsClusterPreconditionFailed) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/_restart][%d] restartEsClusterPreconditionFailed  %+v", 412, o.Payload)
 }
 
+func (o *RestartEsClusterPreconditionFailed) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *RestartEsClusterPreconditionFailed) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -238,6 +249,10 @@ type RestartEsClusterRetryWith struct {
 
 func (o *RestartEsClusterRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/_restart][%d] restartEsClusterRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *RestartEsClusterRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *RestartEsClusterRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

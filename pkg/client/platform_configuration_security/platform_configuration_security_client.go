@@ -23,13 +23,14 @@ package platform_configuration_security
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-openapi/runtime"
+	"fmt"
 
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new platform configuration security API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -41,10 +42,61 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
-/*
-CreateActiveDirectoryConfiguration creates active directory configuration
+// ClientService is the interface for Client methods
+type ClientService interface {
+	CreateActiveDirectoryConfiguration(params *CreateActiveDirectoryConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*CreateActiveDirectoryConfigurationCreated, error)
 
-Creates a new Active Directory configuration.
+	CreateEnrollmentToken(params *CreateEnrollmentTokenParams, authInfo runtime.ClientAuthInfoWriter) (*CreateEnrollmentTokenOK, error)
+
+	CreateLdapConfiguration(params *CreateLdapConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*CreateLdapConfigurationCreated, error)
+
+	CreateSamlConfiguration(params *CreateSamlConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*CreateSamlConfigurationCreated, error)
+
+	CreateSecurityDeployment(params *CreateSecurityDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*CreateSecurityDeploymentCreated, error)
+
+	DeleteActiveDirectoryConfiguration(params *DeleteActiveDirectoryConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteActiveDirectoryConfigurationOK, error)
+
+	DeleteEnrollmentToken(params *DeleteEnrollmentTokenParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteEnrollmentTokenOK, error)
+
+	DeleteLdapConfiguration(params *DeleteLdapConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteLdapConfigurationOK, error)
+
+	DeleteSamlConfiguration(params *DeleteSamlConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteSamlConfigurationOK, error)
+
+	DisableSecurityDeployment(params *DisableSecurityDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*DisableSecurityDeploymentOK, error)
+
+	EnableSecurityDeployment(params *EnableSecurityDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*EnableSecurityDeploymentOK, error)
+
+	GetActiveDirectoryConfiguration(params *GetActiveDirectoryConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*GetActiveDirectoryConfigurationOK, error)
+
+	GetEnrollmentTokens(params *GetEnrollmentTokensParams, authInfo runtime.ClientAuthInfoWriter) (*GetEnrollmentTokensOK, error)
+
+	GetLdapConfiguration(params *GetLdapConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*GetLdapConfigurationOK, error)
+
+	GetSamlConfiguration(params *GetSamlConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*GetSamlConfigurationOK, error)
+
+	GetSecurityDeployment(params *GetSecurityDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*GetSecurityDeploymentOK, error)
+
+	GetSecurityRealmConfigurations(params *GetSecurityRealmConfigurationsParams, authInfo runtime.ClientAuthInfoWriter) (*GetSecurityRealmConfigurationsOK, error)
+
+	GetTLSCertificate(params *GetTLSCertificateParams, authInfo runtime.ClientAuthInfoWriter) (*GetTLSCertificateOK, error)
+
+	ReorderSecurityRealms(params *ReorderSecurityRealmsParams, authInfo runtime.ClientAuthInfoWriter) (*ReorderSecurityRealmsOK, error)
+
+	SetTLSCertificate(params *SetTLSCertificateParams, authInfo runtime.ClientAuthInfoWriter) (*SetTLSCertificateAccepted, error)
+
+	UpdateActiveDirectoryConfiguration(params *UpdateActiveDirectoryConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateActiveDirectoryConfigurationOK, error)
+
+	UpdateLdapConfiguration(params *UpdateLdapConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateLdapConfigurationOK, error)
+
+	UpdateSamlConfiguration(params *UpdateSamlConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateSamlConfigurationOK, error)
+
+	SetTransport(transport runtime.ClientTransport)
+}
+
+/*
+  CreateActiveDirectoryConfiguration creates active directory configuration
+
+  Creates a new Active Directory configuration.
 */
 func (a *Client) CreateActiveDirectoryConfiguration(params *CreateActiveDirectoryConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*CreateActiveDirectoryConfigurationCreated, error) {
 	// TODO: Validate the params before sending
@@ -56,8 +108,8 @@ func (a *Client) CreateActiveDirectoryConfiguration(params *CreateActiveDirector
 		ID:                 "create-active-directory-configuration",
 		Method:             "POST",
 		PathPattern:        "/platform/configuration/security/realms/active-directory",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &CreateActiveDirectoryConfigurationReader{formats: a.formats},
@@ -68,14 +120,20 @@ func (a *Client) CreateActiveDirectoryConfiguration(params *CreateActiveDirector
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateActiveDirectoryConfigurationCreated), nil
-
+	success, ok := result.(*CreateActiveDirectoryConfigurationCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for create-active-directory-configuration: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-CreateEnrollmentToken creates enrollment token
+  CreateEnrollmentToken creates enrollment token
 
-Creates an enrollment token.
+  Creates an enrollment token.
 */
 func (a *Client) CreateEnrollmentToken(params *CreateEnrollmentTokenParams, authInfo runtime.ClientAuthInfoWriter) (*CreateEnrollmentTokenOK, error) {
 	// TODO: Validate the params before sending
@@ -87,8 +145,8 @@ func (a *Client) CreateEnrollmentToken(params *CreateEnrollmentTokenParams, auth
 		ID:                 "create-enrollment-token",
 		Method:             "POST",
 		PathPattern:        "/platform/configuration/security/enrollment-tokens",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &CreateEnrollmentTokenReader{formats: a.formats},
@@ -99,14 +157,20 @@ func (a *Client) CreateEnrollmentToken(params *CreateEnrollmentTokenParams, auth
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateEnrollmentTokenOK), nil
-
+	success, ok := result.(*CreateEnrollmentTokenOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for create-enrollment-token: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-CreateLdapConfiguration creates l d a p configuration
+  CreateLdapConfiguration creates l d a p configuration
 
-Creates a new LDAP configuration.
+  Creates a new LDAP configuration.
 */
 func (a *Client) CreateLdapConfiguration(params *CreateLdapConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*CreateLdapConfigurationCreated, error) {
 	// TODO: Validate the params before sending
@@ -118,8 +182,8 @@ func (a *Client) CreateLdapConfiguration(params *CreateLdapConfigurationParams, 
 		ID:                 "create-ldap-configuration",
 		Method:             "POST",
 		PathPattern:        "/platform/configuration/security/realms/ldap",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &CreateLdapConfigurationReader{formats: a.formats},
@@ -130,14 +194,20 @@ func (a *Client) CreateLdapConfiguration(params *CreateLdapConfigurationParams, 
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateLdapConfigurationCreated), nil
-
+	success, ok := result.(*CreateLdapConfigurationCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for create-ldap-configuration: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-CreateSamlConfiguration creates s a m l configuration
+  CreateSamlConfiguration creates s a m l configuration
 
-Creates a new SAML configuration.
+  Creates a new SAML configuration.
 */
 func (a *Client) CreateSamlConfiguration(params *CreateSamlConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*CreateSamlConfigurationCreated, error) {
 	// TODO: Validate the params before sending
@@ -149,8 +219,8 @@ func (a *Client) CreateSamlConfiguration(params *CreateSamlConfigurationParams, 
 		ID:                 "create-saml-configuration",
 		Method:             "POST",
 		PathPattern:        "/platform/configuration/security/realms/saml",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &CreateSamlConfigurationReader{formats: a.formats},
@@ -161,14 +231,20 @@ func (a *Client) CreateSamlConfiguration(params *CreateSamlConfigurationParams, 
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateSamlConfigurationCreated), nil
-
+	success, ok := result.(*CreateSamlConfigurationCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for create-saml-configuration: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-CreateSecurityDeployment creates security deployment
+  CreateSecurityDeployment creates security deployment
 
-Creates a new security deployment configuration.
+  Creates a new security deployment configuration.
 */
 func (a *Client) CreateSecurityDeployment(params *CreateSecurityDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*CreateSecurityDeploymentCreated, error) {
 	// TODO: Validate the params before sending
@@ -180,8 +256,8 @@ func (a *Client) CreateSecurityDeployment(params *CreateSecurityDeploymentParams
 		ID:                 "create-security-deployment",
 		Method:             "POST",
 		PathPattern:        "/platform/configuration/security/deployment",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &CreateSecurityDeploymentReader{formats: a.formats},
@@ -192,14 +268,20 @@ func (a *Client) CreateSecurityDeployment(params *CreateSecurityDeploymentParams
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateSecurityDeploymentCreated), nil
-
+	success, ok := result.(*CreateSecurityDeploymentCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for create-security-deployment: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-DeleteActiveDirectoryConfiguration deletes active directory configuration
+  DeleteActiveDirectoryConfiguration deletes active directory configuration
 
-Deletes a single Active Directory configuration.
+  Deletes a single Active Directory configuration.
 */
 func (a *Client) DeleteActiveDirectoryConfiguration(params *DeleteActiveDirectoryConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteActiveDirectoryConfigurationOK, error) {
 	// TODO: Validate the params before sending
@@ -211,8 +293,8 @@ func (a *Client) DeleteActiveDirectoryConfiguration(params *DeleteActiveDirector
 		ID:                 "delete-active-directory-configuration",
 		Method:             "DELETE",
 		PathPattern:        "/platform/configuration/security/realms/active-directory/{realm_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &DeleteActiveDirectoryConfigurationReader{formats: a.formats},
@@ -223,14 +305,20 @@ func (a *Client) DeleteActiveDirectoryConfiguration(params *DeleteActiveDirector
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteActiveDirectoryConfigurationOK), nil
-
+	success, ok := result.(*DeleteActiveDirectoryConfigurationOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for delete-active-directory-configuration: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-DeleteEnrollmentToken deletes enrollment token
+  DeleteEnrollmentToken deletes enrollment token
 
-Revokes and deletes the enrollment token.
+  Revokes and deletes the enrollment token.
 */
 func (a *Client) DeleteEnrollmentToken(params *DeleteEnrollmentTokenParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteEnrollmentTokenOK, error) {
 	// TODO: Validate the params before sending
@@ -242,8 +330,8 @@ func (a *Client) DeleteEnrollmentToken(params *DeleteEnrollmentTokenParams, auth
 		ID:                 "delete-enrollment-token",
 		Method:             "DELETE",
 		PathPattern:        "/platform/configuration/security/enrollment-tokens/{token}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &DeleteEnrollmentTokenReader{formats: a.formats},
@@ -254,14 +342,20 @@ func (a *Client) DeleteEnrollmentToken(params *DeleteEnrollmentTokenParams, auth
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteEnrollmentTokenOK), nil
-
+	success, ok := result.(*DeleteEnrollmentTokenOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for delete-enrollment-token: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-DeleteLdapConfiguration deletes l d a p configuration
+  DeleteLdapConfiguration deletes l d a p configuration
 
-Deletes a single LDAP configuration.
+  Deletes a single LDAP configuration.
 */
 func (a *Client) DeleteLdapConfiguration(params *DeleteLdapConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteLdapConfigurationOK, error) {
 	// TODO: Validate the params before sending
@@ -273,8 +367,8 @@ func (a *Client) DeleteLdapConfiguration(params *DeleteLdapConfigurationParams, 
 		ID:                 "delete-ldap-configuration",
 		Method:             "DELETE",
 		PathPattern:        "/platform/configuration/security/realms/ldap/{realm_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &DeleteLdapConfigurationReader{formats: a.formats},
@@ -285,14 +379,20 @@ func (a *Client) DeleteLdapConfiguration(params *DeleteLdapConfigurationParams, 
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteLdapConfigurationOK), nil
-
+	success, ok := result.(*DeleteLdapConfigurationOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for delete-ldap-configuration: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-DeleteSamlConfiguration deletes s a m l configuration
+  DeleteSamlConfiguration deletes s a m l configuration
 
-Deletes a single SAML configuration.
+  Deletes a single SAML configuration.
 */
 func (a *Client) DeleteSamlConfiguration(params *DeleteSamlConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteSamlConfigurationOK, error) {
 	// TODO: Validate the params before sending
@@ -304,8 +404,8 @@ func (a *Client) DeleteSamlConfiguration(params *DeleteSamlConfigurationParams, 
 		ID:                 "delete-saml-configuration",
 		Method:             "DELETE",
 		PathPattern:        "/platform/configuration/security/realms/saml/{realm_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &DeleteSamlConfigurationReader{formats: a.formats},
@@ -316,14 +416,20 @@ func (a *Client) DeleteSamlConfiguration(params *DeleteSamlConfigurationParams, 
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteSamlConfigurationOK), nil
-
+	success, ok := result.(*DeleteSamlConfigurationOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for delete-saml-configuration: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-DisableSecurityDeployment disables the security deployment
+  DisableSecurityDeployment disables the security deployment
 
-Disables the existing security deployment configuration.
+  Disables the existing security deployment configuration.
 */
 func (a *Client) DisableSecurityDeployment(params *DisableSecurityDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*DisableSecurityDeploymentOK, error) {
 	// TODO: Validate the params before sending
@@ -335,8 +441,8 @@ func (a *Client) DisableSecurityDeployment(params *DisableSecurityDeploymentPara
 		ID:                 "disable-security-deployment",
 		Method:             "POST",
 		PathPattern:        "/platform/configuration/security/deployment/_disable",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &DisableSecurityDeploymentReader{formats: a.formats},
@@ -347,14 +453,20 @@ func (a *Client) DisableSecurityDeployment(params *DisableSecurityDeploymentPara
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DisableSecurityDeploymentOK), nil
-
+	success, ok := result.(*DisableSecurityDeploymentOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for disable-security-deployment: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-EnableSecurityDeployment enables the security deployment
+  EnableSecurityDeployment enables the security deployment
 
-Enables the existing security deployment configuration.
+  Enables the existing security deployment configuration.
 */
 func (a *Client) EnableSecurityDeployment(params *EnableSecurityDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*EnableSecurityDeploymentOK, error) {
 	// TODO: Validate the params before sending
@@ -366,8 +478,8 @@ func (a *Client) EnableSecurityDeployment(params *EnableSecurityDeploymentParams
 		ID:                 "enable-security-deployment",
 		Method:             "POST",
 		PathPattern:        "/platform/configuration/security/deployment/_enable",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &EnableSecurityDeploymentReader{formats: a.formats},
@@ -378,14 +490,20 @@ func (a *Client) EnableSecurityDeployment(params *EnableSecurityDeploymentParams
 	if err != nil {
 		return nil, err
 	}
-	return result.(*EnableSecurityDeploymentOK), nil
-
+	success, ok := result.(*EnableSecurityDeploymentOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for enable-security-deployment: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetActiveDirectoryConfiguration gets active directory configuration
+  GetActiveDirectoryConfiguration gets active directory configuration
 
-Retrieves a single Active Directory security realm configuration.
+  Retrieves a single Active Directory security realm configuration.
 */
 func (a *Client) GetActiveDirectoryConfiguration(params *GetActiveDirectoryConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*GetActiveDirectoryConfigurationOK, error) {
 	// TODO: Validate the params before sending
@@ -397,8 +515,8 @@ func (a *Client) GetActiveDirectoryConfiguration(params *GetActiveDirectoryConfi
 		ID:                 "get-active-directory-configuration",
 		Method:             "GET",
 		PathPattern:        "/platform/configuration/security/realms/active-directory/{realm_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetActiveDirectoryConfigurationReader{formats: a.formats},
@@ -409,14 +527,20 @@ func (a *Client) GetActiveDirectoryConfiguration(params *GetActiveDirectoryConfi
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetActiveDirectoryConfigurationOK), nil
-
+	success, ok := result.(*GetActiveDirectoryConfigurationOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-active-directory-configuration: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetEnrollmentTokens gets enrollment tokens
+  GetEnrollmentTokens gets enrollment tokens
 
-Retrieves a list of active enrollment tokens.
+  Retrieves a list of active enrollment tokens.
 */
 func (a *Client) GetEnrollmentTokens(params *GetEnrollmentTokensParams, authInfo runtime.ClientAuthInfoWriter) (*GetEnrollmentTokensOK, error) {
 	// TODO: Validate the params before sending
@@ -428,8 +552,8 @@ func (a *Client) GetEnrollmentTokens(params *GetEnrollmentTokensParams, authInfo
 		ID:                 "get-enrollment-tokens",
 		Method:             "GET",
 		PathPattern:        "/platform/configuration/security/enrollment-tokens",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetEnrollmentTokensReader{formats: a.formats},
@@ -440,14 +564,20 @@ func (a *Client) GetEnrollmentTokens(params *GetEnrollmentTokensParams, authInfo
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetEnrollmentTokensOK), nil
-
+	success, ok := result.(*GetEnrollmentTokensOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-enrollment-tokens: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetLdapConfiguration gets l d a p configuration
+  GetLdapConfiguration gets l d a p configuration
 
-Retrieves a single LDAP security realm configuration.
+  Retrieves a single LDAP security realm configuration.
 */
 func (a *Client) GetLdapConfiguration(params *GetLdapConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*GetLdapConfigurationOK, error) {
 	// TODO: Validate the params before sending
@@ -459,8 +589,8 @@ func (a *Client) GetLdapConfiguration(params *GetLdapConfigurationParams, authIn
 		ID:                 "get-ldap-configuration",
 		Method:             "GET",
 		PathPattern:        "/platform/configuration/security/realms/ldap/{realm_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetLdapConfigurationReader{formats: a.formats},
@@ -471,14 +601,20 @@ func (a *Client) GetLdapConfiguration(params *GetLdapConfigurationParams, authIn
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetLdapConfigurationOK), nil
-
+	success, ok := result.(*GetLdapConfigurationOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-ldap-configuration: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetSamlConfiguration gets s a m l configuration
+  GetSamlConfiguration gets s a m l configuration
 
-Retrieves a single SAML security realm configuration.
+  Retrieves a single SAML security realm configuration.
 */
 func (a *Client) GetSamlConfiguration(params *GetSamlConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*GetSamlConfigurationOK, error) {
 	// TODO: Validate the params before sending
@@ -490,8 +626,8 @@ func (a *Client) GetSamlConfiguration(params *GetSamlConfigurationParams, authIn
 		ID:                 "get-saml-configuration",
 		Method:             "GET",
 		PathPattern:        "/platform/configuration/security/realms/saml/{realm_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetSamlConfigurationReader{formats: a.formats},
@@ -502,14 +638,20 @@ func (a *Client) GetSamlConfiguration(params *GetSamlConfigurationParams, authIn
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetSamlConfigurationOK), nil
-
+	success, ok := result.(*GetSamlConfigurationOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-saml-configuration: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetSecurityDeployment gets current security deployment
+  GetSecurityDeployment gets current security deployment
 
-Retrieves the current security deployment.
+  Retrieves the current security deployment.
 */
 func (a *Client) GetSecurityDeployment(params *GetSecurityDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*GetSecurityDeploymentOK, error) {
 	// TODO: Validate the params before sending
@@ -521,8 +663,8 @@ func (a *Client) GetSecurityDeployment(params *GetSecurityDeploymentParams, auth
 		ID:                 "get-security-deployment",
 		Method:             "GET",
 		PathPattern:        "/platform/configuration/security/deployment",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetSecurityDeploymentReader{formats: a.formats},
@@ -533,14 +675,20 @@ func (a *Client) GetSecurityDeployment(params *GetSecurityDeploymentParams, auth
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetSecurityDeploymentOK), nil
-
+	success, ok := result.(*GetSecurityDeploymentOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-security-deployment: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetSecurityRealmConfigurations lists security realm configurations
+  GetSecurityRealmConfigurations lists security realm configurations
 
-Retrieves a list of security realm configurations.
+  Retrieves a list of security realm configurations.
 */
 func (a *Client) GetSecurityRealmConfigurations(params *GetSecurityRealmConfigurationsParams, authInfo runtime.ClientAuthInfoWriter) (*GetSecurityRealmConfigurationsOK, error) {
 	// TODO: Validate the params before sending
@@ -552,8 +700,8 @@ func (a *Client) GetSecurityRealmConfigurations(params *GetSecurityRealmConfigur
 		ID:                 "get-security-realm-configurations",
 		Method:             "GET",
 		PathPattern:        "/platform/configuration/security/realms",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetSecurityRealmConfigurationsReader{formats: a.formats},
@@ -564,14 +712,20 @@ func (a *Client) GetSecurityRealmConfigurations(params *GetSecurityRealmConfigur
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetSecurityRealmConfigurationsOK), nil
-
+	success, ok := result.(*GetSecurityRealmConfigurationsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-security-realm-configurations: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetTLSCertificate gets TLS certificate
+  GetTLSCertificate gets TLS certificate
 
-Retrieves a certificate in the TLS certificate chain.
+  Retrieves a certificate in the TLS certificate chain.
 */
 func (a *Client) GetTLSCertificate(params *GetTLSCertificateParams, authInfo runtime.ClientAuthInfoWriter) (*GetTLSCertificateOK, error) {
 	// TODO: Validate the params before sending
@@ -583,8 +737,8 @@ func (a *Client) GetTLSCertificate(params *GetTLSCertificateParams, authInfo run
 		ID:                 "get-tls-certificate",
 		Method:             "GET",
 		PathPattern:        "/platform/configuration/security/tls/{service_name}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetTLSCertificateReader{formats: a.formats},
@@ -595,14 +749,20 @@ func (a *Client) GetTLSCertificate(params *GetTLSCertificateParams, authInfo run
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetTLSCertificateOK), nil
-
+	success, ok := result.(*GetTLSCertificateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-tls-certificate: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-ReorderSecurityRealms reorders security realms
+  ReorderSecurityRealms reorders security realms
 
-Reorder security realms.
+  Reorder security realms.
 */
 func (a *Client) ReorderSecurityRealms(params *ReorderSecurityRealmsParams, authInfo runtime.ClientAuthInfoWriter) (*ReorderSecurityRealmsOK, error) {
 	// TODO: Validate the params before sending
@@ -614,8 +774,8 @@ func (a *Client) ReorderSecurityRealms(params *ReorderSecurityRealmsParams, auth
 		ID:                 "reorder-security-realms",
 		Method:             "POST",
 		PathPattern:        "/platform/configuration/security/realms/_reorder",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ReorderSecurityRealmsReader{formats: a.formats},
@@ -626,14 +786,20 @@ func (a *Client) ReorderSecurityRealms(params *ReorderSecurityRealmsParams, auth
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ReorderSecurityRealmsOK), nil
-
+	success, ok := result.(*ReorderSecurityRealmsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for reorder-security-realms: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-SetTLSCertificate sets TLS certificate
+  SetTLSCertificate sets TLS certificate
 
-Creates or updates the TLS certificate chain.
+  Creates or updates the TLS certificate chain.
 */
 func (a *Client) SetTLSCertificate(params *SetTLSCertificateParams, authInfo runtime.ClientAuthInfoWriter) (*SetTLSCertificateAccepted, error) {
 	// TODO: Validate the params before sending
@@ -645,8 +811,8 @@ func (a *Client) SetTLSCertificate(params *SetTLSCertificateParams, authInfo run
 		ID:                 "set-tls-certificate",
 		Method:             "POST",
 		PathPattern:        "/platform/configuration/security/tls/{service_name}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &SetTLSCertificateReader{formats: a.formats},
@@ -657,14 +823,20 @@ func (a *Client) SetTLSCertificate(params *SetTLSCertificateParams, authInfo run
 	if err != nil {
 		return nil, err
 	}
-	return result.(*SetTLSCertificateAccepted), nil
-
+	success, ok := result.(*SetTLSCertificateAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for set-tls-certificate: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-UpdateActiveDirectoryConfiguration updates active directory configuration
+  UpdateActiveDirectoryConfiguration updates active directory configuration
 
-Updates an existing Active Directory configuration.
+  Updates an existing Active Directory configuration.
 */
 func (a *Client) UpdateActiveDirectoryConfiguration(params *UpdateActiveDirectoryConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateActiveDirectoryConfigurationOK, error) {
 	// TODO: Validate the params before sending
@@ -676,8 +848,8 @@ func (a *Client) UpdateActiveDirectoryConfiguration(params *UpdateActiveDirector
 		ID:                 "update-active-directory-configuration",
 		Method:             "PUT",
 		PathPattern:        "/platform/configuration/security/realms/active-directory/{realm_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &UpdateActiveDirectoryConfigurationReader{formats: a.formats},
@@ -688,14 +860,20 @@ func (a *Client) UpdateActiveDirectoryConfiguration(params *UpdateActiveDirector
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpdateActiveDirectoryConfigurationOK), nil
-
+	success, ok := result.(*UpdateActiveDirectoryConfigurationOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for update-active-directory-configuration: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-UpdateLdapConfiguration updates l d a p configuration
+  UpdateLdapConfiguration updates l d a p configuration
 
-Updates an existing LDAP configuration.
+  Updates an existing LDAP configuration.
 */
 func (a *Client) UpdateLdapConfiguration(params *UpdateLdapConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateLdapConfigurationOK, error) {
 	// TODO: Validate the params before sending
@@ -707,8 +885,8 @@ func (a *Client) UpdateLdapConfiguration(params *UpdateLdapConfigurationParams, 
 		ID:                 "update-ldap-configuration",
 		Method:             "PUT",
 		PathPattern:        "/platform/configuration/security/realms/ldap/{realm_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &UpdateLdapConfigurationReader{formats: a.formats},
@@ -719,14 +897,20 @@ func (a *Client) UpdateLdapConfiguration(params *UpdateLdapConfigurationParams, 
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpdateLdapConfigurationOK), nil
-
+	success, ok := result.(*UpdateLdapConfigurationOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for update-ldap-configuration: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-UpdateSamlConfiguration updates s a m l configuration
+  UpdateSamlConfiguration updates s a m l configuration
 
-Updates an existing SAML configuration.
+  Updates an existing SAML configuration.
 */
 func (a *Client) UpdateSamlConfiguration(params *UpdateSamlConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateSamlConfigurationOK, error) {
 	// TODO: Validate the params before sending
@@ -738,8 +922,8 @@ func (a *Client) UpdateSamlConfiguration(params *UpdateSamlConfigurationParams, 
 		ID:                 "update-saml-configuration",
 		Method:             "PUT",
 		PathPattern:        "/platform/configuration/security/realms/saml/{realm_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &UpdateSamlConfigurationReader{formats: a.formats},
@@ -750,8 +934,14 @@ func (a *Client) UpdateSamlConfiguration(params *UpdateSamlConfigurationParams, 
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpdateSamlConfigurationOK), nil
-
+	success, ok := result.(*UpdateSamlConfigurationOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for update-saml-configuration: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 // SetTransport changes the transport on the client

@@ -23,13 +23,14 @@ package deployments
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-openapi/runtime"
+	"fmt"
 
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
 )
 
 // New creates a new deployments API client.
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *Client {
+func New(transport runtime.ClientTransport, formats strfmt.Registry) ClientService {
 	return &Client{transport: transport, formats: formats}
 }
 
@@ -41,10 +42,87 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
-/*
-CancelDeploymentResourcePendingPlan cancels resource pending plan
+// ClientService is the interface for Client methods
+type ClientService interface {
+	CancelDeploymentResourcePendingPlan(params *CancelDeploymentResourcePendingPlanParams, authInfo runtime.ClientAuthInfoWriter) (*CancelDeploymentResourcePendingPlanOK, error)
 
-Cancels the pending plan of a Resource belonging to a given Deployment.
+	CreateDeployment(params *CreateDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*CreateDeploymentCreated, *CreateDeploymentAccepted, error)
+
+	CreateDeploymentNote(params *CreateDeploymentNoteParams, authInfo runtime.ClientAuthInfoWriter) (*CreateDeploymentNoteCreated, error)
+
+	DeleteDeployment(params *DeleteDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteDeploymentOK, error)
+
+	DeleteDeploymentNote(params *DeleteDeploymentNoteParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteDeploymentNoteOK, error)
+
+	DeleteDeploymentStatelessResource(params *DeleteDeploymentStatelessResourceParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteDeploymentStatelessResourceOK, error)
+
+	GetDeployment(params *GetDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentOK, error)
+
+	GetDeploymentApmResourceInfo(params *GetDeploymentApmResourceInfoParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentApmResourceInfoOK, error)
+
+	GetDeploymentAppsearchResourceInfo(params *GetDeploymentAppsearchResourceInfoParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentAppsearchResourceInfoOK, error)
+
+	GetDeploymentEsResourceInfo(params *GetDeploymentEsResourceInfoParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentEsResourceInfoOK, error)
+
+	GetDeploymentKibResourceInfo(params *GetDeploymentKibResourceInfoParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentKibResourceInfoOK, error)
+
+	GetDeploymentNote(params *GetDeploymentNoteParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentNoteOK, error)
+
+	GetDeploymentNotes(params *GetDeploymentNotesParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentNotesOK, error)
+
+	ListDeployments(params *ListDeploymentsParams, authInfo runtime.ClientAuthInfoWriter) (*ListDeploymentsOK, error)
+
+	RestartDeploymentEsResource(params *RestartDeploymentEsResourceParams, authInfo runtime.ClientAuthInfoWriter) (*RestartDeploymentEsResourceAccepted, error)
+
+	RestartDeploymentStatelessResource(params *RestartDeploymentStatelessResourceParams, authInfo runtime.ClientAuthInfoWriter) (*RestartDeploymentStatelessResourceAccepted, error)
+
+	RestoreDeployment(params *RestoreDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*RestoreDeploymentOK, error)
+
+	RestoreDeploymentResource(params *RestoreDeploymentResourceParams, authInfo runtime.ClientAuthInfoWriter) (*RestoreDeploymentResourceOK, error)
+
+	ResyncDeployment(params *ResyncDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncDeploymentOK, error)
+
+	ResyncDeployments(params *ResyncDeploymentsParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncDeploymentsOK, error)
+
+	SearchDeployments(params *SearchDeploymentsParams, authInfo runtime.ClientAuthInfoWriter) (*SearchDeploymentsOK, error)
+
+	SetDeploymentResourceRawMetadata(params *SetDeploymentResourceRawMetadataParams, authInfo runtime.ClientAuthInfoWriter) (*SetDeploymentResourceRawMetadataOK, error)
+
+	ShutdownDeployment(params *ShutdownDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*ShutdownDeploymentOK, error)
+
+	ShutdownDeploymentEsResource(params *ShutdownDeploymentEsResourceParams, authInfo runtime.ClientAuthInfoWriter) (*ShutdownDeploymentEsResourceOK, error)
+
+	ShutdownDeploymentStatelessResource(params *ShutdownDeploymentStatelessResourceParams, authInfo runtime.ClientAuthInfoWriter) (*ShutdownDeploymentStatelessResourceOK, error)
+
+	StartDeploymentResourceInstances(params *StartDeploymentResourceInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*StartDeploymentResourceInstancesAccepted, error)
+
+	StartDeploymentResourceInstancesAll(params *StartDeploymentResourceInstancesAllParams, authInfo runtime.ClientAuthInfoWriter) (*StartDeploymentResourceInstancesAllAccepted, error)
+
+	StartDeploymentResourceInstancesAllMaintenanceMode(params *StartDeploymentResourceInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StartDeploymentResourceInstancesAllMaintenanceModeAccepted, error)
+
+	StartDeploymentResourceMaintenanceMode(params *StartDeploymentResourceMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StartDeploymentResourceMaintenanceModeAccepted, error)
+
+	StopDeploymentResourceInstances(params *StopDeploymentResourceInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*StopDeploymentResourceInstancesAccepted, error)
+
+	StopDeploymentResourceInstancesAll(params *StopDeploymentResourceInstancesAllParams, authInfo runtime.ClientAuthInfoWriter) (*StopDeploymentResourceInstancesAllAccepted, error)
+
+	StopDeploymentResourceInstancesAllMaintenanceMode(params *StopDeploymentResourceInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StopDeploymentResourceInstancesAllMaintenanceModeAccepted, error)
+
+	StopDeploymentResourceMaintenanceMode(params *StopDeploymentResourceMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StopDeploymentResourceMaintenanceModeAccepted, error)
+
+	UpdateDeployment(params *UpdateDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateDeploymentOK, error)
+
+	UpdateDeploymentNote(params *UpdateDeploymentNoteParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateDeploymentNoteOK, error)
+
+	UpgradeDeploymentStatelessResource(params *UpgradeDeploymentStatelessResourceParams, authInfo runtime.ClientAuthInfoWriter) (*UpgradeDeploymentStatelessResourceAccepted, error)
+
+	SetTransport(transport runtime.ClientTransport)
+}
+
+/*
+  CancelDeploymentResourcePendingPlan cancels resource pending plan
+
+  Cancels the pending plan of a Resource belonging to a given Deployment.
 */
 func (a *Client) CancelDeploymentResourcePendingPlan(params *CancelDeploymentResourcePendingPlanParams, authInfo runtime.ClientAuthInfoWriter) (*CancelDeploymentResourcePendingPlanOK, error) {
 	// TODO: Validate the params before sending
@@ -56,8 +134,8 @@ func (a *Client) CancelDeploymentResourcePendingPlan(params *CancelDeploymentRes
 		ID:                 "cancel-deployment-resource-pending-plan",
 		Method:             "DELETE",
 		PathPattern:        "/deployments/{deployment_id}/{resource_kind}/{ref_id}/plan/pending",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &CancelDeploymentResourcePendingPlanReader{formats: a.formats},
@@ -68,14 +146,20 @@ func (a *Client) CancelDeploymentResourcePendingPlan(params *CancelDeploymentRes
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CancelDeploymentResourcePendingPlanOK), nil
-
+	success, ok := result.(*CancelDeploymentResourcePendingPlanOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for cancel-deployment-resource-pending-plan: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-CreateDeployment creates deployment
+  CreateDeployment creates deployment
 
-Creates a Deployment.
+  Creates a Deployment.
 */
 func (a *Client) CreateDeployment(params *CreateDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*CreateDeploymentCreated, *CreateDeploymentAccepted, error) {
 	// TODO: Validate the params before sending
@@ -87,8 +171,8 @@ func (a *Client) CreateDeployment(params *CreateDeploymentParams, authInfo runti
 		ID:                 "create-deployment",
 		Method:             "POST",
 		PathPattern:        "/deployments",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &CreateDeploymentReader{formats: a.formats},
@@ -105,14 +189,15 @@ func (a *Client) CreateDeployment(params *CreateDeploymentParams, authInfo runti
 	case *CreateDeploymentAccepted:
 		return nil, value, nil
 	}
-	return nil, nil, nil
-
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for deployments: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-CreateDeploymentNote creates deployment note
+  CreateDeploymentNote creates deployment note
 
-Create note for the running deployment.
+  Create note for the running deployment.
 */
 func (a *Client) CreateDeploymentNote(params *CreateDeploymentNoteParams, authInfo runtime.ClientAuthInfoWriter) (*CreateDeploymentNoteCreated, error) {
 	// TODO: Validate the params before sending
@@ -124,8 +209,8 @@ func (a *Client) CreateDeploymentNote(params *CreateDeploymentNoteParams, authIn
 		ID:                 "create-deployment-note",
 		Method:             "POST",
 		PathPattern:        "/deployments/{deployment_id}/notes",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &CreateDeploymentNoteReader{formats: a.formats},
@@ -136,14 +221,20 @@ func (a *Client) CreateDeploymentNote(params *CreateDeploymentNoteParams, authIn
 	if err != nil {
 		return nil, err
 	}
-	return result.(*CreateDeploymentNoteCreated), nil
-
+	success, ok := result.(*CreateDeploymentNoteCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for create-deployment-note: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-DeleteDeployment deletes deployment
+  DeleteDeployment deletes deployment
 
-Deletes a Deployment and all its resources.
+  Deletes a Deployment and all its resources.
 */
 func (a *Client) DeleteDeployment(params *DeleteDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteDeploymentOK, error) {
 	// TODO: Validate the params before sending
@@ -155,8 +246,8 @@ func (a *Client) DeleteDeployment(params *DeleteDeploymentParams, authInfo runti
 		ID:                 "delete-deployment",
 		Method:             "DELETE",
 		PathPattern:        "/deployments/{deployment_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &DeleteDeploymentReader{formats: a.formats},
@@ -167,14 +258,20 @@ func (a *Client) DeleteDeployment(params *DeleteDeploymentParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteDeploymentOK), nil
-
+	success, ok := result.(*DeleteDeploymentOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for delete-deployment: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-DeleteDeploymentNote deletes deployment note
+  DeleteDeploymentNote deletes deployment note
 
-Delete note for the running deployment.
+  Delete note for the running deployment.
 */
 func (a *Client) DeleteDeploymentNote(params *DeleteDeploymentNoteParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteDeploymentNoteOK, error) {
 	// TODO: Validate the params before sending
@@ -186,8 +283,8 @@ func (a *Client) DeleteDeploymentNote(params *DeleteDeploymentNoteParams, authIn
 		ID:                 "delete-deployment-note",
 		Method:             "DELETE",
 		PathPattern:        "/deployments/{deployment_id}/notes/{note_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &DeleteDeploymentNoteReader{formats: a.formats},
@@ -198,14 +295,20 @@ func (a *Client) DeleteDeploymentNote(params *DeleteDeploymentNoteParams, authIn
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteDeploymentNoteOK), nil
-
+	success, ok := result.(*DeleteDeploymentNoteOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for delete-deployment-note: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-DeleteDeploymentStatelessResource deletes stateless resource from deployment
+  DeleteDeploymentStatelessResource deletes stateless resource from deployment
 
-Delete Stateless Resource belonging to a given Deployment. Deployment must be shutdown already.
+  Delete Stateless Resource belonging to a given Deployment. Deployment must be shutdown already.
 */
 func (a *Client) DeleteDeploymentStatelessResource(params *DeleteDeploymentStatelessResourceParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteDeploymentStatelessResourceOK, error) {
 	// TODO: Validate the params before sending
@@ -217,8 +320,8 @@ func (a *Client) DeleteDeploymentStatelessResource(params *DeleteDeploymentState
 		ID:                 "delete-deployment-stateless-resource",
 		Method:             "DELETE",
 		PathPattern:        "/deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &DeleteDeploymentStatelessResourceReader{formats: a.formats},
@@ -229,14 +332,20 @@ func (a *Client) DeleteDeploymentStatelessResource(params *DeleteDeploymentState
 	if err != nil {
 		return nil, err
 	}
-	return result.(*DeleteDeploymentStatelessResourceOK), nil
-
+	success, ok := result.(*DeleteDeploymentStatelessResourceOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for delete-deployment-stateless-resource: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetDeployment gets deployment
+  GetDeployment gets deployment
 
-Retrieves information about a Deployment.
+  Retrieves information about a Deployment.
 */
 func (a *Client) GetDeployment(params *GetDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentOK, error) {
 	// TODO: Validate the params before sending
@@ -248,8 +357,8 @@ func (a *Client) GetDeployment(params *GetDeploymentParams, authInfo runtime.Cli
 		ID:                 "get-deployment",
 		Method:             "GET",
 		PathPattern:        "/deployments/{deployment_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetDeploymentReader{formats: a.formats},
@@ -260,14 +369,20 @@ func (a *Client) GetDeployment(params *GetDeploymentParams, authInfo runtime.Cli
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetDeploymentOK), nil
-
+	success, ok := result.(*GetDeploymentOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-deployment: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetDeploymentApmResourceInfo gets deployment a p m resource info
+  GetDeploymentApmResourceInfo gets deployment a p m resource info
 
-Get info about an APM Resource belonging to a given Deployment.
+  Get info about an APM Resource belonging to a given Deployment.
 */
 func (a *Client) GetDeploymentApmResourceInfo(params *GetDeploymentApmResourceInfoParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentApmResourceInfoOK, error) {
 	// TODO: Validate the params before sending
@@ -279,8 +394,8 @@ func (a *Client) GetDeploymentApmResourceInfo(params *GetDeploymentApmResourceIn
 		ID:                 "get-deployment-apm-resource-info",
 		Method:             "GET",
 		PathPattern:        "/deployments/{deployment_id}/apm/{ref_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetDeploymentApmResourceInfoReader{formats: a.formats},
@@ -291,14 +406,20 @@ func (a *Client) GetDeploymentApmResourceInfo(params *GetDeploymentApmResourceIn
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetDeploymentApmResourceInfoOK), nil
-
+	success, ok := result.(*GetDeploymentApmResourceInfoOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-deployment-apm-resource-info: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetDeploymentAppsearchResourceInfo gets deployment app search resource info
+  GetDeploymentAppsearchResourceInfo gets deployment app search resource info
 
-Get info about an App Search Resource belonging to a given Deployment.
+  Get info about an App Search Resource belonging to a given Deployment.
 */
 func (a *Client) GetDeploymentAppsearchResourceInfo(params *GetDeploymentAppsearchResourceInfoParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentAppsearchResourceInfoOK, error) {
 	// TODO: Validate the params before sending
@@ -310,8 +431,8 @@ func (a *Client) GetDeploymentAppsearchResourceInfo(params *GetDeploymentAppsear
 		ID:                 "get-deployment-appsearch-resource-info",
 		Method:             "GET",
 		PathPattern:        "/deployments/{deployment_id}/appsearch/{ref_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetDeploymentAppsearchResourceInfoReader{formats: a.formats},
@@ -322,14 +443,20 @@ func (a *Client) GetDeploymentAppsearchResourceInfo(params *GetDeploymentAppsear
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetDeploymentAppsearchResourceInfoOK), nil
-
+	success, ok := result.(*GetDeploymentAppsearchResourceInfoOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-deployment-appsearch-resource-info: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetDeploymentEsResourceInfo gets deployment elasticsearch resource info
+  GetDeploymentEsResourceInfo gets deployment elasticsearch resource info
 
-Get info about an Elasticsearch Resource belonging to a given Deployment.
+  Get info about an Elasticsearch Resource belonging to a given Deployment.
 */
 func (a *Client) GetDeploymentEsResourceInfo(params *GetDeploymentEsResourceInfoParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentEsResourceInfoOK, error) {
 	// TODO: Validate the params before sending
@@ -341,8 +468,8 @@ func (a *Client) GetDeploymentEsResourceInfo(params *GetDeploymentEsResourceInfo
 		ID:                 "get-deployment-es-resource-info",
 		Method:             "GET",
 		PathPattern:        "/deployments/{deployment_id}/elasticsearch/{ref_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetDeploymentEsResourceInfoReader{formats: a.formats},
@@ -353,14 +480,20 @@ func (a *Client) GetDeploymentEsResourceInfo(params *GetDeploymentEsResourceInfo
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetDeploymentEsResourceInfoOK), nil
-
+	success, ok := result.(*GetDeploymentEsResourceInfoOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-deployment-es-resource-info: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetDeploymentKibResourceInfo gets deployment kibana resource info
+  GetDeploymentKibResourceInfo gets deployment kibana resource info
 
-Get info about an Kibana Resource belonging to a given Deployment.
+  Get info about an Kibana Resource belonging to a given Deployment.
 */
 func (a *Client) GetDeploymentKibResourceInfo(params *GetDeploymentKibResourceInfoParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentKibResourceInfoOK, error) {
 	// TODO: Validate the params before sending
@@ -372,8 +505,8 @@ func (a *Client) GetDeploymentKibResourceInfo(params *GetDeploymentKibResourceIn
 		ID:                 "get-deployment-kib-resource-info",
 		Method:             "GET",
 		PathPattern:        "/deployments/{deployment_id}/kibana/{ref_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetDeploymentKibResourceInfoReader{formats: a.formats},
@@ -384,14 +517,20 @@ func (a *Client) GetDeploymentKibResourceInfo(params *GetDeploymentKibResourceIn
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetDeploymentKibResourceInfoOK), nil
-
+	success, ok := result.(*GetDeploymentKibResourceInfoOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-deployment-kib-resource-info: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetDeploymentNote gets a deployment note
+  GetDeploymentNote gets a deployment note
 
-Gets a deployment note.
+  Gets a deployment note.
 */
 func (a *Client) GetDeploymentNote(params *GetDeploymentNoteParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentNoteOK, error) {
 	// TODO: Validate the params before sending
@@ -403,8 +542,8 @@ func (a *Client) GetDeploymentNote(params *GetDeploymentNoteParams, authInfo run
 		ID:                 "get-deployment-note",
 		Method:             "GET",
 		PathPattern:        "/deployments/{deployment_id}/notes/{note_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetDeploymentNoteReader{formats: a.formats},
@@ -415,14 +554,20 @@ func (a *Client) GetDeploymentNote(params *GetDeploymentNoteParams, authInfo run
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetDeploymentNoteOK), nil
-
+	success, ok := result.(*GetDeploymentNoteOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-deployment-note: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-GetDeploymentNotes gets deployment notes
+  GetDeploymentNotes gets deployment notes
 
-Get deployment notes.
+  Get deployment notes.
 */
 func (a *Client) GetDeploymentNotes(params *GetDeploymentNotesParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentNotesOK, error) {
 	// TODO: Validate the params before sending
@@ -434,8 +579,8 @@ func (a *Client) GetDeploymentNotes(params *GetDeploymentNotesParams, authInfo r
 		ID:                 "get-deployment-notes",
 		Method:             "GET",
 		PathPattern:        "/deployments/{deployment_id}/notes",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetDeploymentNotesReader{formats: a.formats},
@@ -446,14 +591,20 @@ func (a *Client) GetDeploymentNotes(params *GetDeploymentNotesParams, authInfo r
 	if err != nil {
 		return nil, err
 	}
-	return result.(*GetDeploymentNotesOK), nil
-
+	success, ok := result.(*GetDeploymentNotesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-deployment-notes: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-ListDeployments lists deployments
+  ListDeployments lists deployments
 
-List Deployments.
+  List Deployments.
 */
 func (a *Client) ListDeployments(params *ListDeploymentsParams, authInfo runtime.ClientAuthInfoWriter) (*ListDeploymentsOK, error) {
 	// TODO: Validate the params before sending
@@ -465,8 +616,8 @@ func (a *Client) ListDeployments(params *ListDeploymentsParams, authInfo runtime
 		ID:                 "list-deployments",
 		Method:             "GET",
 		PathPattern:        "/deployments",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ListDeploymentsReader{formats: a.formats},
@@ -477,14 +628,20 @@ func (a *Client) ListDeployments(params *ListDeploymentsParams, authInfo runtime
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ListDeploymentsOK), nil
-
+	success, ok := result.(*ListDeploymentsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for list-deployments: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-RestartDeploymentEsResource restarts deployment elasticsearch resource
+  RestartDeploymentEsResource restarts deployment elasticsearch resource
 
-Restarts an Elasticsearch Resource. If a Resource is active: this command re-applies the existing plan but applies a "cluster_reboot", which issues a restart command and waits for it to complete. If a Resource is inactive: this command starts it up with the most recent successful plan.
+  Restarts an Elasticsearch Resource. If a Resource is active: this command re-applies the existing plan but applies a "cluster_reboot", which issues a restart command and waits for it to complete. If a Resource is inactive: this command starts it up with the most recent successful plan.
 */
 func (a *Client) RestartDeploymentEsResource(params *RestartDeploymentEsResourceParams, authInfo runtime.ClientAuthInfoWriter) (*RestartDeploymentEsResourceAccepted, error) {
 	// TODO: Validate the params before sending
@@ -496,8 +653,8 @@ func (a *Client) RestartDeploymentEsResource(params *RestartDeploymentEsResource
 		ID:                 "restart-deployment-es-resource",
 		Method:             "POST",
 		PathPattern:        "/deployments/{deployment_id}/elasticsearch/{ref_id}/_restart",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &RestartDeploymentEsResourceReader{formats: a.formats},
@@ -508,14 +665,20 @@ func (a *Client) RestartDeploymentEsResource(params *RestartDeploymentEsResource
 	if err != nil {
 		return nil, err
 	}
-	return result.(*RestartDeploymentEsResourceAccepted), nil
-
+	success, ok := result.(*RestartDeploymentEsResourceAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for restart-deployment-es-resource: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-RestartDeploymentStatelessResource restarts deployment stateless resource
+  RestartDeploymentStatelessResource restarts deployment stateless resource
 
-Restarts an Stateless Resource. If a Resource is active: this command re-applies the existing plan but applies a "cluster_reboot", which issues a restart command and waits for it to complete. If a Resource is inactive: this command starts it up with the most recent successful plan.
+  Restarts an Stateless Resource. If a Resource is active: this command re-applies the existing plan but applies a "cluster_reboot", which issues a restart command and waits for it to complete. If a Resource is inactive: this command starts it up with the most recent successful plan.
 */
 func (a *Client) RestartDeploymentStatelessResource(params *RestartDeploymentStatelessResourceParams, authInfo runtime.ClientAuthInfoWriter) (*RestartDeploymentStatelessResourceAccepted, error) {
 	// TODO: Validate the params before sending
@@ -527,8 +690,8 @@ func (a *Client) RestartDeploymentStatelessResource(params *RestartDeploymentSta
 		ID:                 "restart-deployment-stateless-resource",
 		Method:             "POST",
 		PathPattern:        "/deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_restart",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &RestartDeploymentStatelessResourceReader{formats: a.formats},
@@ -539,14 +702,20 @@ func (a *Client) RestartDeploymentStatelessResource(params *RestartDeploymentSta
 	if err != nil {
 		return nil, err
 	}
-	return result.(*RestartDeploymentStatelessResourceAccepted), nil
-
+	success, ok := result.(*RestartDeploymentStatelessResourceAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for restart-deployment-stateless-resource: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-RestoreDeployment restores a shutdown deployment
+  RestoreDeployment restores a shutdown deployment
 
-Restores all resources in a Deployment.
+  Restores all resources in a Deployment.
 */
 func (a *Client) RestoreDeployment(params *RestoreDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*RestoreDeploymentOK, error) {
 	// TODO: Validate the params before sending
@@ -558,8 +727,8 @@ func (a *Client) RestoreDeployment(params *RestoreDeploymentParams, authInfo run
 		ID:                 "restore-deployment",
 		Method:             "POST",
 		PathPattern:        "/deployments/{deployment_id}/_restore",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &RestoreDeploymentReader{formats: a.formats},
@@ -570,14 +739,20 @@ func (a *Client) RestoreDeployment(params *RestoreDeploymentParams, authInfo run
 	if err != nil {
 		return nil, err
 	}
-	return result.(*RestoreDeploymentOK), nil
-
+	success, ok := result.(*RestoreDeploymentOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for restore-deployment: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-RestoreDeploymentResource restores a shutdown resource
+  RestoreDeploymentResource restores a shutdown resource
 
-Restores a shutdown resource belonging to a given Deployment.
+  Restores a shutdown resource belonging to a given Deployment.
 */
 func (a *Client) RestoreDeploymentResource(params *RestoreDeploymentResourceParams, authInfo runtime.ClientAuthInfoWriter) (*RestoreDeploymentResourceOK, error) {
 	// TODO: Validate the params before sending
@@ -589,8 +764,8 @@ func (a *Client) RestoreDeploymentResource(params *RestoreDeploymentResourcePara
 		ID:                 "restore-deployment-resource",
 		Method:             "POST",
 		PathPattern:        "/deployments/{deployment_id}/{resource_kind}/{ref_id}/_restore",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &RestoreDeploymentResourceReader{formats: a.formats},
@@ -601,14 +776,20 @@ func (a *Client) RestoreDeploymentResource(params *RestoreDeploymentResourcePara
 	if err != nil {
 		return nil, err
 	}
-	return result.(*RestoreDeploymentResourceOK), nil
-
+	success, ok := result.(*RestoreDeploymentResourceOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for restore-deployment-resource: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-ResyncDeployment resynchronizes deployment
+  ResyncDeployment resynchronizes deployment
 
-Immediately resynchronizes the search index for the selected deployment.
+  Immediately resynchronizes the search index for the selected deployment.
 */
 func (a *Client) ResyncDeployment(params *ResyncDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncDeploymentOK, error) {
 	// TODO: Validate the params before sending
@@ -620,8 +801,8 @@ func (a *Client) ResyncDeployment(params *ResyncDeploymentParams, authInfo runti
 		ID:                 "resync-deployment",
 		Method:             "POST",
 		PathPattern:        "/deployments/{deployment_id}/_resync",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ResyncDeploymentReader{formats: a.formats},
@@ -632,14 +813,20 @@ func (a *Client) ResyncDeployment(params *ResyncDeploymentParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ResyncDeploymentOK), nil
-
+	success, ok := result.(*ResyncDeploymentOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for resync-deployment: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-ResyncDeployments resynchronizes deployments
+  ResyncDeployments resynchronizes deployments
 
-Resynchronizes the search index for all the deployments.
+  Resynchronizes the search index for all the deployments.
 */
 func (a *Client) ResyncDeployments(params *ResyncDeploymentsParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncDeploymentsOK, error) {
 	// TODO: Validate the params before sending
@@ -651,8 +838,8 @@ func (a *Client) ResyncDeployments(params *ResyncDeploymentsParams, authInfo run
 		ID:                 "resync-deployments",
 		Method:             "POST",
 		PathPattern:        "/deployments/_resync",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ResyncDeploymentsReader{formats: a.formats},
@@ -663,14 +850,20 @@ func (a *Client) ResyncDeployments(params *ResyncDeploymentsParams, authInfo run
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ResyncDeploymentsOK), nil
-
+	success, ok := result.(*ResyncDeploymentsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for resync-deployments: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-SearchDeployments searches deployments
+  SearchDeployments searches deployments
 
-Retrieves the information for all of the Deployments that match the specified query.
+  Retrieves the information for all of the Deployments that match the specified query.
 */
 func (a *Client) SearchDeployments(params *SearchDeploymentsParams, authInfo runtime.ClientAuthInfoWriter) (*SearchDeploymentsOK, error) {
 	// TODO: Validate the params before sending
@@ -682,8 +875,8 @@ func (a *Client) SearchDeployments(params *SearchDeploymentsParams, authInfo run
 		ID:                 "search-deployments",
 		Method:             "POST",
 		PathPattern:        "/deployments/_search",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &SearchDeploymentsReader{formats: a.formats},
@@ -694,14 +887,20 @@ func (a *Client) SearchDeployments(params *SearchDeploymentsParams, authInfo run
 	if err != nil {
 		return nil, err
 	}
-	return result.(*SearchDeploymentsOK), nil
-
+	success, ok := result.(*SearchDeploymentsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for search-deployments: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-SetDeploymentResourceRawMetadata sets a deployment s resource metadata
+  SetDeploymentResourceRawMetadata sets a deployment s resource metadata
 
-Advanced use only. Sets the internal metadata, in free-form JSON, for the resource.
+  Advanced use only. Sets the internal metadata, in free-form JSON, for the resource.
 Only use the parameter to set the modified JSON that is returned from the get version of the metadata.
 */
 func (a *Client) SetDeploymentResourceRawMetadata(params *SetDeploymentResourceRawMetadataParams, authInfo runtime.ClientAuthInfoWriter) (*SetDeploymentResourceRawMetadataOK, error) {
@@ -714,8 +913,8 @@ func (a *Client) SetDeploymentResourceRawMetadata(params *SetDeploymentResourceR
 		ID:                 "set-deployment-resource-raw-metadata",
 		Method:             "POST",
 		PathPattern:        "/deployments/{deployment_id}/{resource_kind}/{ref_id}/metadata/raw",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &SetDeploymentResourceRawMetadataReader{formats: a.formats},
@@ -726,14 +925,20 @@ func (a *Client) SetDeploymentResourceRawMetadata(params *SetDeploymentResourceR
 	if err != nil {
 		return nil, err
 	}
-	return result.(*SetDeploymentResourceRawMetadataOK), nil
-
+	success, ok := result.(*SetDeploymentResourceRawMetadataOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for set-deployment-resource-raw-metadata: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-ShutdownDeployment shuts down deployment
+  ShutdownDeployment shuts down deployment
 
-Shuts down all resources in a Deployment.
+  Shuts down all resources in a Deployment.
 */
 func (a *Client) ShutdownDeployment(params *ShutdownDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*ShutdownDeploymentOK, error) {
 	// TODO: Validate the params before sending
@@ -745,8 +950,8 @@ func (a *Client) ShutdownDeployment(params *ShutdownDeploymentParams, authInfo r
 		ID:                 "shutdown-deployment",
 		Method:             "POST",
 		PathPattern:        "/deployments/{deployment_id}/_shutdown",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ShutdownDeploymentReader{formats: a.formats},
@@ -757,14 +962,20 @@ func (a *Client) ShutdownDeployment(params *ShutdownDeploymentParams, authInfo r
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ShutdownDeploymentOK), nil
-
+	success, ok := result.(*ShutdownDeploymentOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for shutdown-deployment: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-ShutdownDeploymentEsResource shutdowns deployment elasticsearch resource
+  ShutdownDeploymentEsResource shutdowns deployment elasticsearch resource
 
-Shutdown Elasticsearch Resource belonging to a given Deployment.
+  Shutdown Elasticsearch Resource belonging to a given Deployment.
 */
 func (a *Client) ShutdownDeploymentEsResource(params *ShutdownDeploymentEsResourceParams, authInfo runtime.ClientAuthInfoWriter) (*ShutdownDeploymentEsResourceOK, error) {
 	// TODO: Validate the params before sending
@@ -776,8 +987,8 @@ func (a *Client) ShutdownDeploymentEsResource(params *ShutdownDeploymentEsResour
 		ID:                 "shutdown-deployment-es-resource",
 		Method:             "POST",
 		PathPattern:        "/deployments/{deployment_id}/elasticsearch/{ref_id}/_shutdown",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ShutdownDeploymentEsResourceReader{formats: a.formats},
@@ -788,14 +999,20 @@ func (a *Client) ShutdownDeploymentEsResource(params *ShutdownDeploymentEsResour
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ShutdownDeploymentEsResourceOK), nil
-
+	success, ok := result.(*ShutdownDeploymentEsResourceOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for shutdown-deployment-es-resource: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-ShutdownDeploymentStatelessResource shutdowns deployment stateless resource
+  ShutdownDeploymentStatelessResource shutdowns deployment stateless resource
 
-Shutdown Stateless Resource belonging to a given Deployment.
+  Shutdown Stateless Resource belonging to a given Deployment.
 */
 func (a *Client) ShutdownDeploymentStatelessResource(params *ShutdownDeploymentStatelessResourceParams, authInfo runtime.ClientAuthInfoWriter) (*ShutdownDeploymentStatelessResourceOK, error) {
 	// TODO: Validate the params before sending
@@ -807,8 +1024,8 @@ func (a *Client) ShutdownDeploymentStatelessResource(params *ShutdownDeploymentS
 		ID:                 "shutdown-deployment-stateless-resource",
 		Method:             "POST",
 		PathPattern:        "/deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_shutdown",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &ShutdownDeploymentStatelessResourceReader{formats: a.formats},
@@ -819,14 +1036,20 @@ func (a *Client) ShutdownDeploymentStatelessResource(params *ShutdownDeploymentS
 	if err != nil {
 		return nil, err
 	}
-	return result.(*ShutdownDeploymentStatelessResourceOK), nil
-
+	success, ok := result.(*ShutdownDeploymentStatelessResourceOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for shutdown-deployment-stateless-resource: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-StartDeploymentResourceInstances starts instances
+  StartDeploymentResourceInstances starts instances
 
-Starts instances belonging to a Deployment Resource.
+  Starts instances belonging to a Deployment Resource.
 */
 func (a *Client) StartDeploymentResourceInstances(params *StartDeploymentResourceInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*StartDeploymentResourceInstancesAccepted, error) {
 	// TODO: Validate the params before sending
@@ -838,8 +1061,8 @@ func (a *Client) StartDeploymentResourceInstances(params *StartDeploymentResourc
 		ID:                 "start-deployment-resource-instances",
 		Method:             "POST",
 		PathPattern:        "/deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_ids}/_start",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &StartDeploymentResourceInstancesReader{formats: a.formats},
@@ -850,14 +1073,20 @@ func (a *Client) StartDeploymentResourceInstances(params *StartDeploymentResourc
 	if err != nil {
 		return nil, err
 	}
-	return result.(*StartDeploymentResourceInstancesAccepted), nil
-
+	success, ok := result.(*StartDeploymentResourceInstancesAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for start-deployment-resource-instances: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-StartDeploymentResourceInstancesAll starts all instances
+  StartDeploymentResourceInstancesAll starts all instances
 
-Starts all instances belonging to a Deployment Resource.
+  Starts all instances belonging to a Deployment Resource.
 */
 func (a *Client) StartDeploymentResourceInstancesAll(params *StartDeploymentResourceInstancesAllParams, authInfo runtime.ClientAuthInfoWriter) (*StartDeploymentResourceInstancesAllAccepted, error) {
 	// TODO: Validate the params before sending
@@ -869,8 +1098,8 @@ func (a *Client) StartDeploymentResourceInstancesAll(params *StartDeploymentReso
 		ID:                 "start-deployment-resource-instances-all",
 		Method:             "POST",
 		PathPattern:        "/deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/_start",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &StartDeploymentResourceInstancesAllReader{formats: a.formats},
@@ -881,14 +1110,20 @@ func (a *Client) StartDeploymentResourceInstancesAll(params *StartDeploymentReso
 	if err != nil {
 		return nil, err
 	}
-	return result.(*StartDeploymentResourceInstancesAllAccepted), nil
-
+	success, ok := result.(*StartDeploymentResourceInstancesAllAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for start-deployment-resource-instances-all: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-StartDeploymentResourceInstancesAllMaintenanceMode starts maintenance mode all instances
+  StartDeploymentResourceInstancesAllMaintenanceMode starts maintenance mode all instances
 
-Starts maintenance mode of all instances belonging to a Resource.
+  Starts maintenance mode of all instances belonging to a Resource.
 */
 func (a *Client) StartDeploymentResourceInstancesAllMaintenanceMode(params *StartDeploymentResourceInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StartDeploymentResourceInstancesAllMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
@@ -900,8 +1135,8 @@ func (a *Client) StartDeploymentResourceInstancesAllMaintenanceMode(params *Star
 		ID:                 "start-deployment-resource-instances-all-maintenance-mode",
 		Method:             "POST",
 		PathPattern:        "/deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/maintenance-mode/_start",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &StartDeploymentResourceInstancesAllMaintenanceModeReader{formats: a.formats},
@@ -912,14 +1147,20 @@ func (a *Client) StartDeploymentResourceInstancesAllMaintenanceMode(params *Star
 	if err != nil {
 		return nil, err
 	}
-	return result.(*StartDeploymentResourceInstancesAllMaintenanceModeAccepted), nil
-
+	success, ok := result.(*StartDeploymentResourceInstancesAllMaintenanceModeAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for start-deployment-resource-instances-all-maintenance-mode: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-StartDeploymentResourceMaintenanceMode starts maintenance mode
+  StartDeploymentResourceMaintenanceMode starts maintenance mode
 
-Starts maintenance mode of instances belonging to a Deployment Resource.
+  Starts maintenance mode of instances belonging to a Deployment Resource.
 */
 func (a *Client) StartDeploymentResourceMaintenanceMode(params *StartDeploymentResourceMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StartDeploymentResourceMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
@@ -931,8 +1172,8 @@ func (a *Client) StartDeploymentResourceMaintenanceMode(params *StartDeploymentR
 		ID:                 "start-deployment-resource-maintenance-mode",
 		Method:             "POST",
 		PathPattern:        "/deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_ids}/maintenance-mode/_start",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &StartDeploymentResourceMaintenanceModeReader{formats: a.formats},
@@ -943,14 +1184,20 @@ func (a *Client) StartDeploymentResourceMaintenanceMode(params *StartDeploymentR
 	if err != nil {
 		return nil, err
 	}
-	return result.(*StartDeploymentResourceMaintenanceModeAccepted), nil
-
+	success, ok := result.(*StartDeploymentResourceMaintenanceModeAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for start-deployment-resource-maintenance-mode: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-StopDeploymentResourceInstances stops of instances
+  StopDeploymentResourceInstances stops of instances
 
-Stops instances belonging to a Deployment Resource.
+  Stops instances belonging to a Deployment Resource.
 */
 func (a *Client) StopDeploymentResourceInstances(params *StopDeploymentResourceInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*StopDeploymentResourceInstancesAccepted, error) {
 	// TODO: Validate the params before sending
@@ -962,8 +1209,8 @@ func (a *Client) StopDeploymentResourceInstances(params *StopDeploymentResourceI
 		ID:                 "stop-deployment-resource-instances",
 		Method:             "POST",
 		PathPattern:        "/deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_ids}/_stop",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &StopDeploymentResourceInstancesReader{formats: a.formats},
@@ -974,14 +1221,20 @@ func (a *Client) StopDeploymentResourceInstances(params *StopDeploymentResourceI
 	if err != nil {
 		return nil, err
 	}
-	return result.(*StopDeploymentResourceInstancesAccepted), nil
-
+	success, ok := result.(*StopDeploymentResourceInstancesAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for stop-deployment-resource-instances: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-StopDeploymentResourceInstancesAll stops all instances
+  StopDeploymentResourceInstancesAll stops all instances
 
-Stops all instances belonging to a Deployment Resource.
+  Stops all instances belonging to a Deployment Resource.
 */
 func (a *Client) StopDeploymentResourceInstancesAll(params *StopDeploymentResourceInstancesAllParams, authInfo runtime.ClientAuthInfoWriter) (*StopDeploymentResourceInstancesAllAccepted, error) {
 	// TODO: Validate the params before sending
@@ -993,8 +1246,8 @@ func (a *Client) StopDeploymentResourceInstancesAll(params *StopDeploymentResour
 		ID:                 "stop-deployment-resource-instances-all",
 		Method:             "POST",
 		PathPattern:        "/deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/_stop",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &StopDeploymentResourceInstancesAllReader{formats: a.formats},
@@ -1005,14 +1258,20 @@ func (a *Client) StopDeploymentResourceInstancesAll(params *StopDeploymentResour
 	if err != nil {
 		return nil, err
 	}
-	return result.(*StopDeploymentResourceInstancesAllAccepted), nil
-
+	success, ok := result.(*StopDeploymentResourceInstancesAllAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for stop-deployment-resource-instances-all: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-StopDeploymentResourceInstancesAllMaintenanceMode stops maintenance mode all instances
+  StopDeploymentResourceInstancesAllMaintenanceMode stops maintenance mode all instances
 
-Stops maintenance mode of all instances belonging to a Deployment Resource.
+  Stops maintenance mode of all instances belonging to a Deployment Resource.
 */
 func (a *Client) StopDeploymentResourceInstancesAllMaintenanceMode(params *StopDeploymentResourceInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StopDeploymentResourceInstancesAllMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1024,8 +1283,8 @@ func (a *Client) StopDeploymentResourceInstancesAllMaintenanceMode(params *StopD
 		ID:                 "stop-deployment-resource-instances-all-maintenance-mode",
 		Method:             "POST",
 		PathPattern:        "/deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/maintenance-mode/_stop",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &StopDeploymentResourceInstancesAllMaintenanceModeReader{formats: a.formats},
@@ -1036,14 +1295,20 @@ func (a *Client) StopDeploymentResourceInstancesAllMaintenanceMode(params *StopD
 	if err != nil {
 		return nil, err
 	}
-	return result.(*StopDeploymentResourceInstancesAllMaintenanceModeAccepted), nil
-
+	success, ok := result.(*StopDeploymentResourceInstancesAllMaintenanceModeAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for stop-deployment-resource-instances-all-maintenance-mode: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-StopDeploymentResourceMaintenanceMode stops maintenance mode
+  StopDeploymentResourceMaintenanceMode stops maintenance mode
 
-Stops maintenance mode of instances belonging to a Deployment Resource.
+  Stops maintenance mode of instances belonging to a Deployment Resource.
 */
 func (a *Client) StopDeploymentResourceMaintenanceMode(params *StopDeploymentResourceMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StopDeploymentResourceMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1055,8 +1320,8 @@ func (a *Client) StopDeploymentResourceMaintenanceMode(params *StopDeploymentRes
 		ID:                 "stop-deployment-resource-maintenance-mode",
 		Method:             "POST",
 		PathPattern:        "/deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_ids}/maintenance-mode/_stop",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &StopDeploymentResourceMaintenanceModeReader{formats: a.formats},
@@ -1067,14 +1332,20 @@ func (a *Client) StopDeploymentResourceMaintenanceMode(params *StopDeploymentRes
 	if err != nil {
 		return nil, err
 	}
-	return result.(*StopDeploymentResourceMaintenanceModeAccepted), nil
-
+	success, ok := result.(*StopDeploymentResourceMaintenanceModeAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for stop-deployment-resource-maintenance-mode: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-UpdateDeployment updates deployment
+  UpdateDeployment updates deployment
 
-Updates a Deployment.
+  Updates a Deployment.
 */
 func (a *Client) UpdateDeployment(params *UpdateDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateDeploymentOK, error) {
 	// TODO: Validate the params before sending
@@ -1086,8 +1357,8 @@ func (a *Client) UpdateDeployment(params *UpdateDeploymentParams, authInfo runti
 		ID:                 "update-deployment",
 		Method:             "PUT",
 		PathPattern:        "/deployments/{deployment_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &UpdateDeploymentReader{formats: a.formats},
@@ -1098,14 +1369,20 @@ func (a *Client) UpdateDeployment(params *UpdateDeploymentParams, authInfo runti
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpdateDeploymentOK), nil
-
+	success, ok := result.(*UpdateDeploymentOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for update-deployment: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-UpdateDeploymentNote updates deployment note
+  UpdateDeploymentNote updates deployment note
 
-Update note for the running deployment.
+  Update note for the running deployment.
 */
 func (a *Client) UpdateDeploymentNote(params *UpdateDeploymentNoteParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateDeploymentNoteOK, error) {
 	// TODO: Validate the params before sending
@@ -1117,8 +1394,8 @@ func (a *Client) UpdateDeploymentNote(params *UpdateDeploymentNoteParams, authIn
 		ID:                 "update-deployment-note",
 		Method:             "PUT",
 		PathPattern:        "/deployments/{deployment_id}/notes/{note_id}",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &UpdateDeploymentNoteReader{formats: a.formats},
@@ -1129,14 +1406,20 @@ func (a *Client) UpdateDeploymentNote(params *UpdateDeploymentNoteParams, authIn
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpdateDeploymentNoteOK), nil
-
+	success, ok := result.(*UpdateDeploymentNoteOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for update-deployment-note: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 /*
-UpgradeDeploymentStatelessResource upgrades kibana a p m app search inside deployment
+  UpgradeDeploymentStatelessResource upgrades kibana a p m app search inside deployment
 
-Upgrades a running cluster.
+  Upgrades a running cluster.
 */
 func (a *Client) UpgradeDeploymentStatelessResource(params *UpgradeDeploymentStatelessResourceParams, authInfo runtime.ClientAuthInfoWriter) (*UpgradeDeploymentStatelessResourceAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1148,8 +1431,8 @@ func (a *Client) UpgradeDeploymentStatelessResource(params *UpgradeDeploymentSta
 		ID:                 "upgrade-deployment-stateless-resource",
 		Method:             "POST",
 		PathPattern:        "/deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_upgrade",
-		ProducesMediaTypes: []string{""},
-		ConsumesMediaTypes: []string{""},
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &UpgradeDeploymentStatelessResourceReader{formats: a.formats},
@@ -1160,8 +1443,14 @@ func (a *Client) UpgradeDeploymentStatelessResource(params *UpgradeDeploymentSta
 	if err != nil {
 		return nil, err
 	}
-	return result.(*UpgradeDeploymentStatelessResourceAccepted), nil
-
+	success, ok := result.(*UpgradeDeploymentStatelessResourceAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for upgrade-deployment-stateless-resource: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
 }
 
 // SetTransport changes the transport on the client

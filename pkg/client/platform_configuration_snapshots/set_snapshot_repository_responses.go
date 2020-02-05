@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // SetSnapshotRepositoryReader is a Reader for the SetSnapshotRepository structure.
@@ -41,14 +41,12 @@ type SetSnapshotRepositoryReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *SetSnapshotRepositoryReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewSetSnapshotRepositoryOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 449:
 		result := NewSetSnapshotRepositoryRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -78,6 +76,10 @@ func (o *SetSnapshotRepositoryOK) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/snapshots/repositories/{repository_name}][%d] setSnapshotRepositoryOK  %+v", 200, o.Payload)
 }
 
+func (o *SetSnapshotRepositoryOK) GetPayload() *models.RepositoryConfig {
+	return o.Payload
+}
+
 func (o *SetSnapshotRepositoryOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.RepositoryConfig)
@@ -105,6 +107,10 @@ type SetSnapshotRepositoryRetryWith struct {
 
 func (o *SetSnapshotRepositoryRetryWith) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/snapshots/repositories/{repository_name}][%d] setSnapshotRepositoryRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *SetSnapshotRepositoryRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *SetSnapshotRepositoryRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

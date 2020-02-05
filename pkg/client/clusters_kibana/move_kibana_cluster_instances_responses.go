@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // MoveKibanaClusterInstancesReader is a Reader for the MoveKibanaClusterInstances structure.
@@ -41,35 +41,30 @@ type MoveKibanaClusterInstancesReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *MoveKibanaClusterInstancesReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 202:
 		result := NewMoveKibanaClusterInstancesAccepted()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewMoveKibanaClusterInstancesBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewMoveKibanaClusterInstancesForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewMoveKibanaClusterInstancesNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewMoveKibanaClusterInstancesRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -97,6 +92,10 @@ type MoveKibanaClusterInstancesAccepted struct {
 
 func (o *MoveKibanaClusterInstancesAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/instances/{instance_ids}/_move][%d] moveKibanaClusterInstancesAccepted  %+v", 202, o.Payload)
+}
+
+func (o *MoveKibanaClusterInstancesAccepted) GetPayload() *models.ClusterCommandResponse {
+	return o.Payload
 }
 
 func (o *MoveKibanaClusterInstancesAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -133,6 +132,10 @@ func (o *MoveKibanaClusterInstancesBadRequest) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/instances/{instance_ids}/_move][%d] moveKibanaClusterInstancesBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *MoveKibanaClusterInstancesBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *MoveKibanaClusterInstancesBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -167,6 +170,10 @@ type MoveKibanaClusterInstancesForbidden struct {
 
 func (o *MoveKibanaClusterInstancesForbidden) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/instances/{instance_ids}/_move][%d] moveKibanaClusterInstancesForbidden  %+v", 403, o.Payload)
+}
+
+func (o *MoveKibanaClusterInstancesForbidden) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *MoveKibanaClusterInstancesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -206,6 +213,10 @@ func (o *MoveKibanaClusterInstancesNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/instances/{instance_ids}/_move][%d] moveKibanaClusterInstancesNotFound  %+v", 404, o.Payload)
 }
 
+func (o *MoveKibanaClusterInstancesNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *MoveKibanaClusterInstancesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -240,6 +251,10 @@ type MoveKibanaClusterInstancesRetryWith struct {
 
 func (o *MoveKibanaClusterInstancesRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/instances/{instance_ids}/_move][%d] moveKibanaClusterInstancesRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *MoveKibanaClusterInstancesRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *MoveKibanaClusterInstancesRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // RestartDeploymentEsResourceReader is a Reader for the RestartDeploymentEsResource structure.
@@ -41,28 +41,24 @@ type RestartDeploymentEsResourceReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *RestartDeploymentEsResourceReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 202:
 		result := NewRestartDeploymentEsResourceAccepted()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewRestartDeploymentEsResourceNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 422:
 		result := NewRestartDeploymentEsResourceUnprocessableEntity()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewRestartDeploymentEsResourceRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -92,6 +88,10 @@ func (o *RestartDeploymentEsResourceAccepted) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_restart][%d] restartDeploymentEsResourceAccepted  %+v", 202, o.Payload)
 }
 
+func (o *RestartDeploymentEsResourceAccepted) GetPayload() models.DeploymentResourceCommandResponse {
+	return o.Payload
+}
+
 func (o *RestartDeploymentEsResourceAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
@@ -117,6 +117,10 @@ type RestartDeploymentEsResourceNotFound struct {
 
 func (o *RestartDeploymentEsResourceNotFound) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_restart][%d] restartDeploymentEsResourceNotFound  %+v", 404, o.Payload)
+}
+
+func (o *RestartDeploymentEsResourceNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *RestartDeploymentEsResourceNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -148,6 +152,10 @@ func (o *RestartDeploymentEsResourceUnprocessableEntity) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_restart][%d] restartDeploymentEsResourceUnprocessableEntity  %+v", 422, o.Payload)
 }
 
+func (o *RestartDeploymentEsResourceUnprocessableEntity) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *RestartDeploymentEsResourceUnprocessableEntity) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -175,6 +183,10 @@ type RestartDeploymentEsResourceRetryWith struct {
 
 func (o *RestartDeploymentEsResourceRetryWith) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_restart][%d] restartDeploymentEsResourceRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *RestartDeploymentEsResourceRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *RestartDeploymentEsResourceRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

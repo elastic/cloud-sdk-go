@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // SetApmMetadataRawReader is a Reader for the SetApmMetadataRaw structure.
@@ -41,21 +41,18 @@ type SetApmMetadataRawReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *SetApmMetadataRawReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewSetApmMetadataRawOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewSetApmMetadataRawNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewSetApmMetadataRawRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -95,6 +92,10 @@ func (o *SetApmMetadataRawOK) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/metadata/raw][%d] setApmMetadataRawOK  %+v", 200, o.Payload)
 }
 
+func (o *SetApmMetadataRawOK) GetPayload() interface{} {
+	return o.Payload
+}
+
 func (o *SetApmMetadataRawOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-resource-created
@@ -131,6 +132,10 @@ func (o *SetApmMetadataRawNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/metadata/raw][%d] setApmMetadataRawNotFound  %+v", 404, o.Payload)
 }
 
+func (o *SetApmMetadataRawNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *SetApmMetadataRawNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -158,6 +163,10 @@ type SetApmMetadataRawRetryWith struct {
 
 func (o *SetApmMetadataRawRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/metadata/raw][%d] setApmMetadataRawRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *SetApmMetadataRawRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *SetApmMetadataRawRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

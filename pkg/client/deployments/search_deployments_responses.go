@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // SearchDeploymentsReader is a Reader for the SearchDeployments structure.
@@ -41,14 +41,12 @@ type SearchDeploymentsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *SearchDeploymentsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewSearchDeploymentsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 401:
 		result := NewSearchDeploymentsUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -78,6 +76,10 @@ func (o *SearchDeploymentsOK) Error() string {
 	return fmt.Sprintf("[POST /deployments/_search][%d] searchDeploymentsOK  %+v", 200, o.Payload)
 }
 
+func (o *SearchDeploymentsOK) GetPayload() *models.DeploymentsSearchResponse {
+	return o.Payload
+}
+
 func (o *SearchDeploymentsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.DeploymentsSearchResponse)
@@ -105,6 +107,10 @@ type SearchDeploymentsUnauthorized struct {
 
 func (o *SearchDeploymentsUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /deployments/_search][%d] searchDeploymentsUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *SearchDeploymentsUnauthorized) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *SearchDeploymentsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

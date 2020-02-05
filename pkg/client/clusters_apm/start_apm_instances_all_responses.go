@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // StartApmInstancesAllReader is a Reader for the StartApmInstancesAll structure.
@@ -41,28 +41,24 @@ type StartApmInstancesAllReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *StartApmInstancesAllReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 202:
 		result := NewStartApmInstancesAllAccepted()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 403:
 		result := NewStartApmInstancesAllForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewStartApmInstancesAllNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewStartApmInstancesAllRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -90,6 +86,10 @@ type StartApmInstancesAllAccepted struct {
 
 func (o *StartApmInstancesAllAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/instances/_start][%d] startApmInstancesAllAccepted  %+v", 202, o.Payload)
+}
+
+func (o *StartApmInstancesAllAccepted) GetPayload() *models.ClusterCommandResponse {
+	return o.Payload
 }
 
 func (o *StartApmInstancesAllAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -123,6 +123,10 @@ type StartApmInstancesAllForbidden struct {
 
 func (o *StartApmInstancesAllForbidden) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/instances/_start][%d] startApmInstancesAllForbidden  %+v", 403, o.Payload)
+}
+
+func (o *StartApmInstancesAllForbidden) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *StartApmInstancesAllForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -161,6 +165,10 @@ func (o *StartApmInstancesAllNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/instances/_start][%d] startApmInstancesAllNotFound  %+v", 404, o.Payload)
 }
 
+func (o *StartApmInstancesAllNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *StartApmInstancesAllNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -195,6 +203,10 @@ type StartApmInstancesAllRetryWith struct {
 
 func (o *StartApmInstancesAllRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/instances/_start][%d] startApmInstancesAllRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *StartApmInstancesAllRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *StartApmInstancesAllRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

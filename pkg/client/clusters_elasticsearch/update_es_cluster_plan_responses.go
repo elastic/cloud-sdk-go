@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // UpdateEsClusterPlanReader is a Reader for the UpdateEsClusterPlan structure.
@@ -41,42 +41,36 @@ type UpdateEsClusterPlanReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *UpdateEsClusterPlanReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewUpdateEsClusterPlanOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 202:
 		result := NewUpdateEsClusterPlanAccepted()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewUpdateEsClusterPlanBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewUpdateEsClusterPlanNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 412:
 		result := NewUpdateEsClusterPlanPreconditionFailed()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewUpdateEsClusterPlanRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -106,6 +100,10 @@ func (o *UpdateEsClusterPlanOK) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/plan][%d] updateEsClusterPlanOK  %+v", 200, o.Payload)
 }
 
+func (o *UpdateEsClusterPlanOK) GetPayload() *models.ClusterCrudResponse {
+	return o.Payload
+}
+
 func (o *UpdateEsClusterPlanOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ClusterCrudResponse)
@@ -133,6 +131,10 @@ type UpdateEsClusterPlanAccepted struct {
 
 func (o *UpdateEsClusterPlanAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/plan][%d] updateEsClusterPlanAccepted  %+v", 202, o.Payload)
+}
+
+func (o *UpdateEsClusterPlanAccepted) GetPayload() *models.ClusterCrudResponse {
+	return o.Payload
 }
 
 func (o *UpdateEsClusterPlanAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -167,6 +169,10 @@ type UpdateEsClusterPlanBadRequest struct {
 
 func (o *UpdateEsClusterPlanBadRequest) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/plan][%d] updateEsClusterPlanBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *UpdateEsClusterPlanBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *UpdateEsClusterPlanBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -205,6 +211,10 @@ func (o *UpdateEsClusterPlanNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/plan][%d] updateEsClusterPlanNotFound  %+v", 404, o.Payload)
 }
 
+func (o *UpdateEsClusterPlanNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *UpdateEsClusterPlanNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -241,6 +251,10 @@ func (o *UpdateEsClusterPlanPreconditionFailed) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/plan][%d] updateEsClusterPlanPreconditionFailed  %+v", 412, o.Payload)
 }
 
+func (o *UpdateEsClusterPlanPreconditionFailed) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *UpdateEsClusterPlanPreconditionFailed) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -275,6 +289,10 @@ type UpdateEsClusterPlanRetryWith struct {
 
 func (o *UpdateEsClusterPlanRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/plan][%d] updateEsClusterPlanRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *UpdateEsClusterPlanRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *UpdateEsClusterPlanRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

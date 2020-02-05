@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // UpdateEsClusterCurationSettingsReader is a Reader for the UpdateEsClusterCurationSettings structure.
@@ -41,28 +41,24 @@ type UpdateEsClusterCurationSettingsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *UpdateEsClusterCurationSettingsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewUpdateEsClusterCurationSettingsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 403:
 		result := NewUpdateEsClusterCurationSettingsForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewUpdateEsClusterCurationSettingsNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewUpdateEsClusterCurationSettingsRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -100,6 +96,10 @@ type UpdateEsClusterCurationSettingsOK struct {
 
 func (o *UpdateEsClusterCurationSettingsOK) Error() string {
 	return fmt.Sprintf("[PUT /clusters/elasticsearch/{cluster_id}/curation/settings][%d] updateEsClusterCurationSettingsOK  %+v", 200, o.Payload)
+}
+
+func (o *UpdateEsClusterCurationSettingsOK) GetPayload() *models.ClusterCurationSettings {
+	return o.Payload
 }
 
 func (o *UpdateEsClusterCurationSettingsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -140,6 +140,10 @@ func (o *UpdateEsClusterCurationSettingsForbidden) Error() string {
 	return fmt.Sprintf("[PUT /clusters/elasticsearch/{cluster_id}/curation/settings][%d] updateEsClusterCurationSettingsForbidden  %+v", 403, o.Payload)
 }
 
+func (o *UpdateEsClusterCurationSettingsForbidden) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *UpdateEsClusterCurationSettingsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -169,6 +173,10 @@ func (o *UpdateEsClusterCurationSettingsNotFound) Error() string {
 	return fmt.Sprintf("[PUT /clusters/elasticsearch/{cluster_id}/curation/settings][%d] updateEsClusterCurationSettingsNotFound  %+v", 404, o.Payload)
 }
 
+func (o *UpdateEsClusterCurationSettingsNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *UpdateEsClusterCurationSettingsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -196,6 +204,10 @@ type UpdateEsClusterCurationSettingsRetryWith struct {
 
 func (o *UpdateEsClusterCurationSettingsRetryWith) Error() string {
 	return fmt.Sprintf("[PUT /clusters/elasticsearch/{cluster_id}/curation/settings][%d] updateEsClusterCurationSettingsRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *UpdateEsClusterCurationSettingsRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *UpdateEsClusterCurationSettingsRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

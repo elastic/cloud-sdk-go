@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // DeleteDeploymentReader is a Reader for the DeleteDeployment structure.
@@ -41,28 +41,24 @@ type DeleteDeploymentReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteDeploymentReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewDeleteDeploymentOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewDeleteDeploymentBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewDeleteDeploymentUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewDeleteDeploymentNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -90,6 +86,10 @@ type DeleteDeploymentOK struct {
 
 func (o *DeleteDeploymentOK) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/{deployment_id}][%d] deleteDeploymentOK  %+v", 200, o.Payload)
+}
+
+func (o *DeleteDeploymentOK) GetPayload() *models.DeploymentDeleteResponse {
+	return o.Payload
 }
 
 func (o *DeleteDeploymentOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -121,6 +121,10 @@ func (o *DeleteDeploymentBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/{deployment_id}][%d] deleteDeploymentBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *DeleteDeploymentBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *DeleteDeploymentBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -150,6 +154,10 @@ func (o *DeleteDeploymentUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/{deployment_id}][%d] deleteDeploymentUnauthorized  %+v", 401, o.Payload)
 }
 
+func (o *DeleteDeploymentUnauthorized) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *DeleteDeploymentUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -177,6 +185,10 @@ type DeleteDeploymentNotFound struct {
 
 func (o *DeleteDeploymentNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/{deployment_id}][%d] deleteDeploymentNotFound  %+v", 404, o.Payload)
+}
+
+func (o *DeleteDeploymentNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DeleteDeploymentNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // DeleteDeploymentTemplateReader is a Reader for the DeleteDeploymentTemplate structure.
@@ -41,21 +41,18 @@ type DeleteDeploymentTemplateReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteDeploymentTemplateReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewDeleteDeploymentTemplateOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewDeleteDeploymentTemplateNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewDeleteDeploymentTemplateRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -83,6 +80,10 @@ type DeleteDeploymentTemplateOK struct {
 
 func (o *DeleteDeploymentTemplateOK) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/templates/deployments/{template_id}][%d] deleteDeploymentTemplateOK  %+v", 200, o.Payload)
+}
+
+func (o *DeleteDeploymentTemplateOK) GetPayload() models.EmptyResponse {
+	return o.Payload
 }
 
 func (o *DeleteDeploymentTemplateOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -114,6 +115,10 @@ type DeleteDeploymentTemplateNotFound struct {
 
 func (o *DeleteDeploymentTemplateNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/templates/deployments/{template_id}][%d] deleteDeploymentTemplateNotFound  %+v", 404, o.Payload)
+}
+
+func (o *DeleteDeploymentTemplateNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DeleteDeploymentTemplateNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -150,6 +155,10 @@ type DeleteDeploymentTemplateRetryWith struct {
 
 func (o *DeleteDeploymentTemplateRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/templates/deployments/{template_id}][%d] deleteDeploymentTemplateRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *DeleteDeploymentTemplateRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DeleteDeploymentTemplateRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

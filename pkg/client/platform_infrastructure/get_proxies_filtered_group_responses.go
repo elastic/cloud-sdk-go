@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetProxiesFilteredGroupReader is a Reader for the GetProxiesFilteredGroup structure.
@@ -41,14 +41,12 @@ type GetProxiesFilteredGroupReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetProxiesFilteredGroupReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetProxiesFilteredGroupOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewGetProxiesFilteredGroupNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -86,6 +84,10 @@ type GetProxiesFilteredGroupOK struct {
 
 func (o *GetProxiesFilteredGroupOK) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}][%d] getProxiesFilteredGroupOK  %+v", 200, o.Payload)
+}
+
+func (o *GetProxiesFilteredGroupOK) GetPayload() *models.ProxiesFilteredGroup {
+	return o.Payload
 }
 
 func (o *GetProxiesFilteredGroupOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -128,6 +130,10 @@ type GetProxiesFilteredGroupNotFound struct {
 
 func (o *GetProxiesFilteredGroupNotFound) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}][%d] getProxiesFilteredGroupNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetProxiesFilteredGroupNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *GetProxiesFilteredGroupNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

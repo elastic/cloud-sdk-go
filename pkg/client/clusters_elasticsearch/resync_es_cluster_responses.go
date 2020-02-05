@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // ResyncEsClusterReader is a Reader for the ResyncEsCluster structure.
@@ -41,21 +41,18 @@ type ResyncEsClusterReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *ResyncEsClusterReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewResyncEsClusterOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 449:
 		result := NewResyncEsClusterRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewResyncEsClusterInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -83,6 +80,10 @@ type ResyncEsClusterOK struct {
 
 func (o *ResyncEsClusterOK) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/_resync][%d] resyncEsClusterOK  %+v", 200, o.Payload)
+}
+
+func (o *ResyncEsClusterOK) GetPayload() models.EmptyResponse {
+	return o.Payload
 }
 
 func (o *ResyncEsClusterOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -114,6 +115,10 @@ type ResyncEsClusterRetryWith struct {
 
 func (o *ResyncEsClusterRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/_resync][%d] resyncEsClusterRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *ResyncEsClusterRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *ResyncEsClusterRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -150,6 +155,10 @@ type ResyncEsClusterInternalServerError struct {
 
 func (o *ResyncEsClusterInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/_resync][%d] resyncEsClusterInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *ResyncEsClusterInternalServerError) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *ResyncEsClusterInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

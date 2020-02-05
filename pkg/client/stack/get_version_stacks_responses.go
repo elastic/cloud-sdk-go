@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetVersionStacksReader is a Reader for the GetVersionStacks structure.
@@ -41,7 +41,6 @@ type GetVersionStacksReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetVersionStacksReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetVersionStacksOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -69,6 +68,10 @@ type GetVersionStacksOK struct {
 
 func (o *GetVersionStacksOK) Error() string {
 	return fmt.Sprintf("[GET /stack/versions][%d] getVersionStacksOK  %+v", 200, o.Payload)
+}
+
+func (o *GetVersionStacksOK) GetPayload() *models.StackVersionConfigs {
+	return o.Payload
 }
 
 func (o *GetVersionStacksOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

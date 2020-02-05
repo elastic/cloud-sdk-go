@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetApmClustersReader is a Reader for the GetApmClusters structure.
@@ -41,7 +41,6 @@ type GetApmClustersReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetApmClustersReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetApmClustersOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -69,6 +68,10 @@ type GetApmClustersOK struct {
 
 func (o *GetApmClustersOK) Error() string {
 	return fmt.Sprintf("[GET /clusters/apm][%d] getApmClustersOK  %+v", 200, o.Payload)
+}
+
+func (o *GetApmClustersOK) GetPayload() *models.ApmsInfo {
+	return o.Payload
 }
 
 func (o *GetApmClustersOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

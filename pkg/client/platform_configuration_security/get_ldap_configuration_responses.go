@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetLdapConfigurationReader is a Reader for the GetLdapConfiguration structure.
@@ -41,14 +41,12 @@ type GetLdapConfigurationReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetLdapConfigurationReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetLdapConfigurationOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewGetLdapConfigurationNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -86,6 +84,10 @@ type GetLdapConfigurationOK struct {
 
 func (o *GetLdapConfigurationOK) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/security/realms/ldap/{realm_id}][%d] getLdapConfigurationOK  %+v", 200, o.Payload)
+}
+
+func (o *GetLdapConfigurationOK) GetPayload() *models.LdapSettings {
+	return o.Payload
 }
 
 func (o *GetLdapConfigurationOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -128,6 +130,10 @@ type GetLdapConfigurationNotFound struct {
 
 func (o *GetLdapConfigurationNotFound) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/security/realms/ldap/{realm_id}][%d] getLdapConfigurationNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetLdapConfigurationNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *GetLdapConfigurationNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

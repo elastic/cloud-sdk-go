@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetIPFilterRulesetReader is a Reader for the GetIPFilterRuleset structure.
@@ -41,21 +41,18 @@ type GetIPFilterRulesetReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetIPFilterRulesetReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetIPFilterRulesetOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewGetIPFilterRulesetNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 500:
 		result := NewGetIPFilterRulesetInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -93,6 +90,10 @@ type GetIPFilterRulesetOK struct {
 
 func (o *GetIPFilterRulesetOK) Error() string {
 	return fmt.Sprintf("[GET /deployments/ip-filtering/rulesets/{ruleset_id}][%d] getIpFilterRulesetOK  %+v", 200, o.Payload)
+}
+
+func (o *GetIPFilterRulesetOK) GetPayload() *models.IPFilterRuleset {
+	return o.Payload
 }
 
 func (o *GetIPFilterRulesetOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -133,6 +134,10 @@ func (o *GetIPFilterRulesetNotFound) Error() string {
 	return fmt.Sprintf("[GET /deployments/ip-filtering/rulesets/{ruleset_id}][%d] getIpFilterRulesetNotFound  %+v", 404, o.Payload)
 }
 
+func (o *GetIPFilterRulesetNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *GetIPFilterRulesetNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -160,6 +165,10 @@ type GetIPFilterRulesetInternalServerError struct {
 
 func (o *GetIPFilterRulesetInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /deployments/ip-filtering/rulesets/{ruleset_id}][%d] getIpFilterRulesetInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetIPFilterRulesetInternalServerError) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *GetIPFilterRulesetInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

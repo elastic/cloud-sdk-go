@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // ResyncConstructorsReader is a Reader for the ResyncConstructors structure.
@@ -41,14 +41,12 @@ type ResyncConstructorsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *ResyncConstructorsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 202:
 		result := NewResyncConstructorsAccepted()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 449:
 		result := NewResyncConstructorsRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -76,6 +74,10 @@ type ResyncConstructorsAccepted struct {
 
 func (o *ResyncConstructorsAccepted) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/constructors/_resync][%d] resyncConstructorsAccepted  %+v", 202, o.Payload)
+}
+
+func (o *ResyncConstructorsAccepted) GetPayload() *models.ModelVersionIndexSynchronizationResults {
+	return o.Payload
 }
 
 func (o *ResyncConstructorsAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -109,6 +111,10 @@ type ResyncConstructorsRetryWith struct {
 
 func (o *ResyncConstructorsRetryWith) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/constructors/_resync][%d] resyncConstructorsRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *ResyncConstructorsRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *ResyncConstructorsRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

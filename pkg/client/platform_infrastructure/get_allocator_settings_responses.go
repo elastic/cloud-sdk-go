@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetAllocatorSettingsReader is a Reader for the GetAllocatorSettings structure.
@@ -41,14 +41,12 @@ type GetAllocatorSettingsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetAllocatorSettingsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetAllocatorSettingsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewGetAllocatorSettingsNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -86,6 +84,10 @@ type GetAllocatorSettingsOK struct {
 
 func (o *GetAllocatorSettingsOK) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/allocators/{allocator_id}/settings][%d] getAllocatorSettingsOK  %+v", 200, o.Payload)
+}
+
+func (o *GetAllocatorSettingsOK) GetPayload() *models.AllocatorSettings {
+	return o.Payload
 }
 
 func (o *GetAllocatorSettingsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -128,6 +130,10 @@ type GetAllocatorSettingsNotFound struct {
 
 func (o *GetAllocatorSettingsNotFound) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/allocators/{allocator_id}/settings][%d] getAllocatorSettingsNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetAllocatorSettingsNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *GetAllocatorSettingsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

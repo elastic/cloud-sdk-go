@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // MoveApmInstancesReader is a Reader for the MoveApmInstances structure.
@@ -41,35 +41,30 @@ type MoveApmInstancesReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *MoveApmInstancesReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 202:
 		result := NewMoveApmInstancesAccepted()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewMoveApmInstancesBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewMoveApmInstancesForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewMoveApmInstancesNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewMoveApmInstancesRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -97,6 +92,10 @@ type MoveApmInstancesAccepted struct {
 
 func (o *MoveApmInstancesAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/instances/{instance_ids}/_move][%d] moveApmInstancesAccepted  %+v", 202, o.Payload)
+}
+
+func (o *MoveApmInstancesAccepted) GetPayload() *models.ClusterCommandResponse {
+	return o.Payload
 }
 
 func (o *MoveApmInstancesAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -133,6 +132,10 @@ func (o *MoveApmInstancesBadRequest) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/instances/{instance_ids}/_move][%d] moveApmInstancesBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *MoveApmInstancesBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *MoveApmInstancesBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -167,6 +170,10 @@ type MoveApmInstancesForbidden struct {
 
 func (o *MoveApmInstancesForbidden) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/instances/{instance_ids}/_move][%d] moveApmInstancesForbidden  %+v", 403, o.Payload)
+}
+
+func (o *MoveApmInstancesForbidden) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *MoveApmInstancesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -206,6 +213,10 @@ func (o *MoveApmInstancesNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/instances/{instance_ids}/_move][%d] moveApmInstancesNotFound  %+v", 404, o.Payload)
 }
 
+func (o *MoveApmInstancesNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *MoveApmInstancesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -240,6 +251,10 @@ type MoveApmInstancesRetryWith struct {
 
 func (o *MoveApmInstancesRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/instances/{instance_ids}/_move][%d] moveApmInstancesRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *MoveApmInstancesRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *MoveApmInstancesRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

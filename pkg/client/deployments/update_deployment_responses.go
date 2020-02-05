@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // UpdateDeploymentReader is a Reader for the UpdateDeployment structure.
@@ -41,28 +41,24 @@ type UpdateDeploymentReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *UpdateDeploymentReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewUpdateDeploymentOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewUpdateDeploymentBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 401:
 		result := NewUpdateDeploymentUnauthorized()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewUpdateDeploymentNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -100,6 +96,10 @@ type UpdateDeploymentOK struct {
 
 func (o *UpdateDeploymentOK) Error() string {
 	return fmt.Sprintf("[PUT /deployments/{deployment_id}][%d] updateDeploymentOK  %+v", 200, o.Payload)
+}
+
+func (o *UpdateDeploymentOK) GetPayload() *models.DeploymentUpdateResponse {
+	return o.Payload
 }
 
 func (o *UpdateDeploymentOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -140,6 +140,10 @@ func (o *UpdateDeploymentBadRequest) Error() string {
 	return fmt.Sprintf("[PUT /deployments/{deployment_id}][%d] updateDeploymentBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *UpdateDeploymentBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *UpdateDeploymentBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -169,6 +173,10 @@ func (o *UpdateDeploymentUnauthorized) Error() string {
 	return fmt.Sprintf("[PUT /deployments/{deployment_id}][%d] updateDeploymentUnauthorized  %+v", 401, o.Payload)
 }
 
+func (o *UpdateDeploymentUnauthorized) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *UpdateDeploymentUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -196,6 +204,10 @@ type UpdateDeploymentNotFound struct {
 
 func (o *UpdateDeploymentNotFound) Error() string {
 	return fmt.Sprintf("[PUT /deployments/{deployment_id}][%d] updateDeploymentNotFound  %+v", 404, o.Payload)
+}
+
+func (o *UpdateDeploymentNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *UpdateDeploymentNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

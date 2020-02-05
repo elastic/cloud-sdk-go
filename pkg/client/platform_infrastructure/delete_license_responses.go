@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // DeleteLicenseReader is a Reader for the DeleteLicense structure.
@@ -41,21 +41,18 @@ type DeleteLicenseReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteLicenseReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewDeleteLicenseOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewDeleteLicenseNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewDeleteLicenseRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -83,6 +80,10 @@ type DeleteLicenseOK struct {
 
 func (o *DeleteLicenseOK) Error() string {
 	return fmt.Sprintf("[DELETE /platform/license][%d] deleteLicenseOK  %+v", 200, o.Payload)
+}
+
+func (o *DeleteLicenseOK) GetPayload() models.EmptyResponse {
+	return o.Payload
 }
 
 func (o *DeleteLicenseOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -114,6 +115,10 @@ type DeleteLicenseNotFound struct {
 
 func (o *DeleteLicenseNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /platform/license][%d] deleteLicenseNotFound  %+v", 404, o.Payload)
+}
+
+func (o *DeleteLicenseNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DeleteLicenseNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -150,6 +155,10 @@ type DeleteLicenseRetryWith struct {
 
 func (o *DeleteLicenseRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /platform/license][%d] deleteLicenseRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *DeleteLicenseRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DeleteLicenseRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

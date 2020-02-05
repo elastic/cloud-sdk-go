@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // UpdateLdapConfigurationReader is a Reader for the UpdateLdapConfiguration structure.
@@ -41,35 +41,30 @@ type UpdateLdapConfigurationReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *UpdateLdapConfigurationReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewUpdateLdapConfigurationOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewUpdateLdapConfigurationBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewUpdateLdapConfigurationNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewUpdateLdapConfigurationConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewUpdateLdapConfigurationRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -107,6 +102,10 @@ type UpdateLdapConfigurationOK struct {
 
 func (o *UpdateLdapConfigurationOK) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/security/realms/ldap/{realm_id}][%d] updateLdapConfigurationOK  %+v", 200, o.Payload)
+}
+
+func (o *UpdateLdapConfigurationOK) GetPayload() models.EmptyResponse {
+	return o.Payload
 }
 
 func (o *UpdateLdapConfigurationOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -157,6 +156,10 @@ func (o *UpdateLdapConfigurationBadRequest) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/security/realms/ldap/{realm_id}][%d] updateLdapConfigurationBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *UpdateLdapConfigurationBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *UpdateLdapConfigurationBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -191,6 +194,10 @@ type UpdateLdapConfigurationNotFound struct {
 
 func (o *UpdateLdapConfigurationNotFound) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/security/realms/ldap/{realm_id}][%d] updateLdapConfigurationNotFound  %+v", 404, o.Payload)
+}
+
+func (o *UpdateLdapConfigurationNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *UpdateLdapConfigurationNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -229,6 +236,10 @@ func (o *UpdateLdapConfigurationConflict) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/security/realms/ldap/{realm_id}][%d] updateLdapConfigurationConflict  %+v", 409, o.Payload)
 }
 
+func (o *UpdateLdapConfigurationConflict) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *UpdateLdapConfigurationConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -263,6 +274,10 @@ type UpdateLdapConfigurationRetryWith struct {
 
 func (o *UpdateLdapConfigurationRetryWith) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/security/realms/ldap/{realm_id}][%d] updateLdapConfigurationRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *UpdateLdapConfigurationRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *UpdateLdapConfigurationRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // SetEsClusterLegacySecuritySettingsReader is a Reader for the SetEsClusterLegacySecuritySettings structure.
@@ -41,21 +41,18 @@ type SetEsClusterLegacySecuritySettingsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *SetEsClusterLegacySecuritySettingsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewSetEsClusterLegacySecuritySettingsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewSetEsClusterLegacySecuritySettingsNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewSetEsClusterLegacySecuritySettingsRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -83,6 +80,10 @@ type SetEsClusterLegacySecuritySettingsOK struct {
 
 func (o *SetEsClusterLegacySecuritySettingsOK) Error() string {
 	return fmt.Sprintf("[PUT /clusters/elasticsearch/{cluster_id}/settings/security/legacy][%d] setEsClusterLegacySecuritySettingsOK  %+v", 200, o.Payload)
+}
+
+func (o *SetEsClusterLegacySecuritySettingsOK) GetPayload() *models.LegacySecuritySettings {
+	return o.Payload
 }
 
 func (o *SetEsClusterLegacySecuritySettingsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -116,6 +117,10 @@ type SetEsClusterLegacySecuritySettingsNotFound struct {
 
 func (o *SetEsClusterLegacySecuritySettingsNotFound) Error() string {
 	return fmt.Sprintf("[PUT /clusters/elasticsearch/{cluster_id}/settings/security/legacy][%d] setEsClusterLegacySecuritySettingsNotFound  %+v", 404, o.Payload)
+}
+
+func (o *SetEsClusterLegacySecuritySettingsNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *SetEsClusterLegacySecuritySettingsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -152,6 +157,10 @@ type SetEsClusterLegacySecuritySettingsRetryWith struct {
 
 func (o *SetEsClusterLegacySecuritySettingsRetryWith) Error() string {
 	return fmt.Sprintf("[PUT /clusters/elasticsearch/{cluster_id}/settings/security/legacy][%d] setEsClusterLegacySecuritySettingsRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *SetEsClusterLegacySecuritySettingsRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *SetEsClusterLegacySecuritySettingsRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetDeploymentTemplateReader is a Reader for the GetDeploymentTemplate structure.
@@ -41,14 +41,12 @@ type GetDeploymentTemplateReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetDeploymentTemplateReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetDeploymentTemplateOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewGetDeploymentTemplateNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -76,6 +74,10 @@ type GetDeploymentTemplateOK struct {
 
 func (o *GetDeploymentTemplateOK) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/templates/deployments/{template_id}][%d] getDeploymentTemplateOK  %+v", 200, o.Payload)
+}
+
+func (o *GetDeploymentTemplateOK) GetPayload() *models.DeploymentTemplateInfo {
+	return o.Payload
 }
 
 func (o *GetDeploymentTemplateOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -109,6 +111,10 @@ type GetDeploymentTemplateNotFound struct {
 
 func (o *GetDeploymentTemplateNotFound) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/templates/deployments/{template_id}][%d] getDeploymentTemplateNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetDeploymentTemplateNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *GetDeploymentTemplateNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

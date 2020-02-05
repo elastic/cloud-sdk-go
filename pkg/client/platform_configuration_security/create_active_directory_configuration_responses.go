@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // CreateActiveDirectoryConfigurationReader is a Reader for the CreateActiveDirectoryConfiguration structure.
@@ -41,21 +41,18 @@ type CreateActiveDirectoryConfigurationReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateActiveDirectoryConfigurationReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 201:
 		result := NewCreateActiveDirectoryConfigurationCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewCreateActiveDirectoryConfigurationBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewCreateActiveDirectoryConfigurationRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -93,6 +90,10 @@ type CreateActiveDirectoryConfigurationCreated struct {
 
 func (o *CreateActiveDirectoryConfigurationCreated) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/realms/active-directory][%d] createActiveDirectoryConfigurationCreated  %+v", 201, o.Payload)
+}
+
+func (o *CreateActiveDirectoryConfigurationCreated) GetPayload() models.EmptyResponse {
+	return o.Payload
 }
 
 func (o *CreateActiveDirectoryConfigurationCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -143,6 +144,10 @@ func (o *CreateActiveDirectoryConfigurationBadRequest) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/realms/active-directory][%d] createActiveDirectoryConfigurationBadRequest  %+v", 400, o.Payload)
 }
 
+func (o *CreateActiveDirectoryConfigurationBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *CreateActiveDirectoryConfigurationBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -177,6 +182,10 @@ type CreateActiveDirectoryConfigurationRetryWith struct {
 
 func (o *CreateActiveDirectoryConfigurationRetryWith) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/realms/active-directory][%d] createActiveDirectoryConfigurationRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *CreateActiveDirectoryConfigurationRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *CreateActiveDirectoryConfigurationRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

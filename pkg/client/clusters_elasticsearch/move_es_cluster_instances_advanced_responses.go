@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // MoveEsClusterInstancesAdvancedReader is a Reader for the MoveEsClusterInstancesAdvanced structure.
@@ -41,35 +41,30 @@ type MoveEsClusterInstancesAdvancedReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *MoveEsClusterInstancesAdvancedReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 202:
 		result := NewMoveEsClusterInstancesAdvancedAccepted()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewMoveEsClusterInstancesAdvancedBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 403:
 		result := NewMoveEsClusterInstancesAdvancedForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewMoveEsClusterInstancesAdvancedNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewMoveEsClusterInstancesAdvancedRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -97,6 +92,10 @@ type MoveEsClusterInstancesAdvancedAccepted struct {
 
 func (o *MoveEsClusterInstancesAdvancedAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/instances/_move][%d] moveEsClusterInstancesAdvancedAccepted  %+v", 202, o.Payload)
+}
+
+func (o *MoveEsClusterInstancesAdvancedAccepted) GetPayload() *models.ClusterCommandResponse {
+	return o.Payload
 }
 
 func (o *MoveEsClusterInstancesAdvancedAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -131,6 +130,10 @@ type MoveEsClusterInstancesAdvancedBadRequest struct {
 
 func (o *MoveEsClusterInstancesAdvancedBadRequest) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/instances/_move][%d] moveEsClusterInstancesAdvancedBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *MoveEsClusterInstancesAdvancedBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *MoveEsClusterInstancesAdvancedBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -169,6 +172,10 @@ func (o *MoveEsClusterInstancesAdvancedForbidden) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/instances/_move][%d] moveEsClusterInstancesAdvancedForbidden  %+v", 403, o.Payload)
 }
 
+func (o *MoveEsClusterInstancesAdvancedForbidden) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *MoveEsClusterInstancesAdvancedForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -205,6 +212,10 @@ func (o *MoveEsClusterInstancesAdvancedNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/instances/_move][%d] moveEsClusterInstancesAdvancedNotFound  %+v", 404, o.Payload)
 }
 
+func (o *MoveEsClusterInstancesAdvancedNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *MoveEsClusterInstancesAdvancedNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -239,6 +250,10 @@ type MoveEsClusterInstancesAdvancedRetryWith struct {
 
 func (o *MoveEsClusterInstancesAdvancedRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/instances/_move][%d] moveEsClusterInstancesAdvancedRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *MoveEsClusterInstancesAdvancedRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *MoveEsClusterInstancesAdvancedRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

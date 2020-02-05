@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // UpdateEsClusterMetadataSettingsReader is a Reader for the UpdateEsClusterMetadataSettings structure.
@@ -41,28 +41,24 @@ type UpdateEsClusterMetadataSettingsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *UpdateEsClusterMetadataSettingsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewUpdateEsClusterMetadataSettingsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 403:
 		result := NewUpdateEsClusterMetadataSettingsForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 404:
 		result := NewUpdateEsClusterMetadataSettingsNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewUpdateEsClusterMetadataSettingsRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -100,6 +96,10 @@ type UpdateEsClusterMetadataSettingsOK struct {
 
 func (o *UpdateEsClusterMetadataSettingsOK) Error() string {
 	return fmt.Sprintf("[PATCH /clusters/elasticsearch/{cluster_id}/metadata/settings][%d] updateEsClusterMetadataSettingsOK  %+v", 200, o.Payload)
+}
+
+func (o *UpdateEsClusterMetadataSettingsOK) GetPayload() *models.ClusterMetadataSettings {
+	return o.Payload
 }
 
 func (o *UpdateEsClusterMetadataSettingsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -140,6 +140,10 @@ func (o *UpdateEsClusterMetadataSettingsForbidden) Error() string {
 	return fmt.Sprintf("[PATCH /clusters/elasticsearch/{cluster_id}/metadata/settings][%d] updateEsClusterMetadataSettingsForbidden  %+v", 403, o.Payload)
 }
 
+func (o *UpdateEsClusterMetadataSettingsForbidden) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *UpdateEsClusterMetadataSettingsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -169,6 +173,10 @@ func (o *UpdateEsClusterMetadataSettingsNotFound) Error() string {
 	return fmt.Sprintf("[PATCH /clusters/elasticsearch/{cluster_id}/metadata/settings][%d] updateEsClusterMetadataSettingsNotFound  %+v", 404, o.Payload)
 }
 
+func (o *UpdateEsClusterMetadataSettingsNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *UpdateEsClusterMetadataSettingsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
@@ -196,6 +204,10 @@ type UpdateEsClusterMetadataSettingsRetryWith struct {
 
 func (o *UpdateEsClusterMetadataSettingsRetryWith) Error() string {
 	return fmt.Sprintf("[PATCH /clusters/elasticsearch/{cluster_id}/metadata/settings][%d] updateEsClusterMetadataSettingsRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *UpdateEsClusterMetadataSettingsRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *UpdateEsClusterMetadataSettingsRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

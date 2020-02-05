@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // DeleteEsProxyRequestsReader is a Reader for the DeleteEsProxyRequests structure.
@@ -41,14 +41,12 @@ type DeleteEsProxyRequestsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteEsProxyRequestsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewDeleteEsProxyRequestsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewDeleteEsProxyRequestsNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -97,6 +95,10 @@ type DeleteEsProxyRequestsNotFound struct {
 
 func (o *DeleteEsProxyRequestsNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/elasticsearch/{cluster_id}/proxy/{elasticsearch_path}][%d] deleteEsProxyRequestsNotFound  %+v", 404, o.Payload)
+}
+
+func (o *DeleteEsProxyRequestsNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DeleteEsProxyRequestsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // ReAuthenticateReader is a Reader for the ReAuthenticate structure.
@@ -41,21 +41,18 @@ type ReAuthenticateReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *ReAuthenticateReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewReAuthenticateOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewReAuthenticateBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewReAuthenticateRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -83,6 +80,10 @@ type ReAuthenticateOK struct {
 
 func (o *ReAuthenticateOK) Error() string {
 	return fmt.Sprintf("[POST /users/auth/reauthenticate][%d] reAuthenticateOK  %+v", 200, o.Payload)
+}
+
+func (o *ReAuthenticateOK) GetPayload() *models.ReAuthenticationResponse {
+	return o.Payload
 }
 
 func (o *ReAuthenticateOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -116,6 +117,10 @@ type ReAuthenticateBadRequest struct {
 
 func (o *ReAuthenticateBadRequest) Error() string {
 	return fmt.Sprintf("[POST /users/auth/reauthenticate][%d] reAuthenticateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *ReAuthenticateBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *ReAuthenticateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -152,6 +157,10 @@ type ReAuthenticateRetryWith struct {
 
 func (o *ReAuthenticateRetryWith) Error() string {
 	return fmt.Sprintf("[POST /users/auth/reauthenticate][%d] reAuthenticateRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *ReAuthenticateRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *ReAuthenticateRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

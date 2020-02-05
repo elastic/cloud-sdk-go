@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // ListCommentReader is a Reader for the ListComment structure.
@@ -41,7 +41,6 @@ type ListCommentReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *ListCommentReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewListCommentOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -69,6 +68,10 @@ type ListCommentOK struct {
 
 func (o *ListCommentOK) Error() string {
 	return fmt.Sprintf("[GET /comments/{resource_type}/{resource_id}][%d] listCommentOK  %+v", 200, o.Payload)
+}
+
+func (o *ListCommentOK) GetPayload() *models.CommentsWithMetas {
+	return o.Payload
 }
 
 func (o *ListCommentOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

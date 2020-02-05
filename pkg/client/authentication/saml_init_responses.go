@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // SamlInitReader is a Reader for the SamlInit structure.
@@ -41,21 +41,18 @@ type SamlInitReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *SamlInitReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 302:
 		result := NewSamlInitFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 501:
 		result := NewSamlInitNotImplemented()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 502:
 		result := NewSamlInitBadGateway()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -83,6 +80,10 @@ type SamlInitFound struct {
 
 func (o *SamlInitFound) Error() string {
 	return fmt.Sprintf("[GET /users/auth/saml/_init][%d] samlInitFound  %+v", 302, o.Payload)
+}
+
+func (o *SamlInitFound) GetPayload() models.EmptyResponse {
+	return o.Payload
 }
 
 func (o *SamlInitFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -114,6 +115,10 @@ type SamlInitNotImplemented struct {
 
 func (o *SamlInitNotImplemented) Error() string {
 	return fmt.Sprintf("[GET /users/auth/saml/_init][%d] samlInitNotImplemented  %+v", 501, o.Payload)
+}
+
+func (o *SamlInitNotImplemented) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *SamlInitNotImplemented) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -150,6 +155,10 @@ type SamlInitBadGateway struct {
 
 func (o *SamlInitBadGateway) Error() string {
 	return fmt.Sprintf("[GET /users/auth/saml/_init][%d] samlInitBadGateway  %+v", 502, o.Payload)
+}
+
+func (o *SamlInitBadGateway) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *SamlInitBadGateway) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

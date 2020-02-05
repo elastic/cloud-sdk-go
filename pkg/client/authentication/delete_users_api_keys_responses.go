@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // DeleteUsersAPIKeysReader is a Reader for the DeleteUsersAPIKeys structure.
@@ -41,14 +41,12 @@ type DeleteUsersAPIKeysReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteUsersAPIKeysReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewDeleteUsersAPIKeysOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 449:
 		result := NewDeleteUsersAPIKeysRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -76,6 +74,10 @@ type DeleteUsersAPIKeysOK struct {
 
 func (o *DeleteUsersAPIKeysOK) Error() string {
 	return fmt.Sprintf("[DELETE /users/auth/keys/_all][%d] deleteUsersApiKeysOK  %+v", 200, o.Payload)
+}
+
+func (o *DeleteUsersAPIKeysOK) GetPayload() models.EmptyResponse {
+	return o.Payload
 }
 
 func (o *DeleteUsersAPIKeysOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -107,6 +109,10 @@ type DeleteUsersAPIKeysRetryWith struct {
 
 func (o *DeleteUsersAPIKeysRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /users/auth/keys/_all][%d] deleteUsersApiKeysRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *DeleteUsersAPIKeysRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DeleteUsersAPIKeysRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

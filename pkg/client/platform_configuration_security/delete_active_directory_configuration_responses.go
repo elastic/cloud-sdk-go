@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // DeleteActiveDirectoryConfigurationReader is a Reader for the DeleteActiveDirectoryConfiguration structure.
@@ -41,28 +41,24 @@ type DeleteActiveDirectoryConfigurationReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteActiveDirectoryConfigurationReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewDeleteActiveDirectoryConfigurationOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewDeleteActiveDirectoryConfigurationNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 409:
 		result := NewDeleteActiveDirectoryConfigurationConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewDeleteActiveDirectoryConfigurationRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -90,6 +86,10 @@ type DeleteActiveDirectoryConfigurationOK struct {
 
 func (o *DeleteActiveDirectoryConfigurationOK) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/security/realms/active-directory/{realm_id}][%d] deleteActiveDirectoryConfigurationOK  %+v", 200, o.Payload)
+}
+
+func (o *DeleteActiveDirectoryConfigurationOK) GetPayload() models.EmptyResponse {
+	return o.Payload
 }
 
 func (o *DeleteActiveDirectoryConfigurationOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -121,6 +121,10 @@ type DeleteActiveDirectoryConfigurationNotFound struct {
 
 func (o *DeleteActiveDirectoryConfigurationNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/security/realms/active-directory/{realm_id}][%d] deleteActiveDirectoryConfigurationNotFound  %+v", 404, o.Payload)
+}
+
+func (o *DeleteActiveDirectoryConfigurationNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DeleteActiveDirectoryConfigurationNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -159,6 +163,10 @@ func (o *DeleteActiveDirectoryConfigurationConflict) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/security/realms/active-directory/{realm_id}][%d] deleteActiveDirectoryConfigurationConflict  %+v", 409, o.Payload)
 }
 
+func (o *DeleteActiveDirectoryConfigurationConflict) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
 func (o *DeleteActiveDirectoryConfigurationConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
@@ -193,6 +201,10 @@ type DeleteActiveDirectoryConfigurationRetryWith struct {
 
 func (o *DeleteActiveDirectoryConfigurationRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/security/realms/active-directory/{realm_id}][%d] deleteActiveDirectoryConfigurationRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *DeleteActiveDirectoryConfigurationRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DeleteActiveDirectoryConfigurationRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

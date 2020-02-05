@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetEsClusterCurationSettingsReader is a Reader for the GetEsClusterCurationSettings structure.
@@ -41,14 +41,12 @@ type GetEsClusterCurationSettingsReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetEsClusterCurationSettingsReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetEsClusterCurationSettingsOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewGetEsClusterCurationSettingsNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -88,6 +86,10 @@ func (o *GetEsClusterCurationSettingsOK) Error() string {
 	return fmt.Sprintf("[GET /clusters/elasticsearch/{cluster_id}/curation/settings][%d] getEsClusterCurationSettingsOK  %+v", 200, o.Payload)
 }
 
+func (o *GetEsClusterCurationSettingsOK) GetPayload() *models.ClusterCurationSettings {
+	return o.Payload
+}
+
 func (o *GetEsClusterCurationSettingsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-resource-created
@@ -124,6 +126,10 @@ type GetEsClusterCurationSettingsNotFound struct {
 
 func (o *GetEsClusterCurationSettingsNotFound) Error() string {
 	return fmt.Sprintf("[GET /clusters/elasticsearch/{cluster_id}/curation/settings][%d] getEsClusterCurationSettingsNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetEsClusterCurationSettingsNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *GetEsClusterCurationSettingsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

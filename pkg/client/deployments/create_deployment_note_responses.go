@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // CreateDeploymentNoteReader is a Reader for the CreateDeploymentNote structure.
@@ -41,21 +41,18 @@ type CreateDeploymentNoteReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateDeploymentNoteReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 201:
 		result := NewCreateDeploymentNoteCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewCreateDeploymentNoteNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewCreateDeploymentNoteRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -83,6 +80,10 @@ type CreateDeploymentNoteCreated struct {
 
 func (o *CreateDeploymentNoteCreated) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/notes][%d] createDeploymentNoteCreated  %+v", 201, o.Payload)
+}
+
+func (o *CreateDeploymentNoteCreated) GetPayload() *models.Notes {
+	return o.Payload
 }
 
 func (o *CreateDeploymentNoteCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -116,6 +117,10 @@ type CreateDeploymentNoteNotFound struct {
 
 func (o *CreateDeploymentNoteNotFound) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/notes][%d] createDeploymentNoteNotFound  %+v", 404, o.Payload)
+}
+
+func (o *CreateDeploymentNoteNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *CreateDeploymentNoteNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -152,6 +157,10 @@ type CreateDeploymentNoteRetryWith struct {
 
 func (o *CreateDeploymentNoteRetryWith) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/notes][%d] createDeploymentNoteRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *CreateDeploymentNoteRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *CreateDeploymentNoteRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

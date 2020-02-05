@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // DeleteUserAPIKeyReader is a Reader for the DeleteUserAPIKey structure.
@@ -41,21 +41,18 @@ type DeleteUserAPIKeyReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *DeleteUserAPIKeyReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewDeleteUserAPIKeyOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewDeleteUserAPIKeyNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-
 	case 449:
 		result := NewDeleteUserAPIKeyRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -83,6 +80,10 @@ type DeleteUserAPIKeyOK struct {
 
 func (o *DeleteUserAPIKeyOK) Error() string {
 	return fmt.Sprintf("[DELETE /users/{user_id}/auth/keys/{api_key_id}][%d] deleteUserApiKeyOK  %+v", 200, o.Payload)
+}
+
+func (o *DeleteUserAPIKeyOK) GetPayload() models.EmptyResponse {
+	return o.Payload
 }
 
 func (o *DeleteUserAPIKeyOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -114,6 +115,10 @@ type DeleteUserAPIKeyNotFound struct {
 
 func (o *DeleteUserAPIKeyNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /users/{user_id}/auth/keys/{api_key_id}][%d] deleteUserApiKeyNotFound  %+v", 404, o.Payload)
+}
+
+func (o *DeleteUserAPIKeyNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DeleteUserAPIKeyNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -150,6 +155,10 @@ type DeleteUserAPIKeyRetryWith struct {
 
 func (o *DeleteUserAPIKeyRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /users/{user_id}/auth/keys/{api_key_id}][%d] deleteUserApiKeyRetryWith  %+v", 449, o.Payload)
+}
+
+func (o *DeleteUserAPIKeyRetryWith) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *DeleteUserAPIKeyRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // SearchRunnersReader is a Reader for the SearchRunners structure.
@@ -41,14 +41,12 @@ type SearchRunnersReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *SearchRunnersReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewSearchRunnersOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 400:
 		result := NewSearchRunnersBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -76,6 +74,10 @@ type SearchRunnersOK struct {
 
 func (o *SearchRunnersOK) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/runners/_search][%d] searchRunnersOK  %+v", 200, o.Payload)
+}
+
+func (o *SearchRunnersOK) GetPayload() *models.RunnerOverview {
+	return o.Payload
 }
 
 func (o *SearchRunnersOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -109,6 +111,10 @@ type SearchRunnersBadRequest struct {
 
 func (o *SearchRunnersBadRequest) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/runners/_search][%d] searchRunnersBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *SearchRunnersBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *SearchRunnersBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

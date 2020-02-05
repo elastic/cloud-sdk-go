@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // GetRunnerReader is a Reader for the GetRunner structure.
@@ -41,14 +41,12 @@ type GetRunnerReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *GetRunnerReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewGetRunnerOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return result, nil
-
 	case 404:
 		result := NewGetRunnerNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -76,6 +74,10 @@ type GetRunnerOK struct {
 
 func (o *GetRunnerOK) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/runners/{runner_id}][%d] getRunnerOK  %+v", 200, o.Payload)
+}
+
+func (o *GetRunnerOK) GetPayload() *models.RunnerInfo {
+	return o.Payload
 }
 
 func (o *GetRunnerOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -109,6 +111,10 @@ type GetRunnerNotFound struct {
 
 func (o *GetRunnerNotFound) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/runners/{runner_id}][%d] getRunnerNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetRunnerNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
 }
 
 func (o *GetRunnerNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {

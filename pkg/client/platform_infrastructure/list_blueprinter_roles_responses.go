@@ -30,7 +30,7 @@ import (
 
 	strfmt "github.com/go-openapi/strfmt"
 
-	models "github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // ListBlueprinterRolesReader is a Reader for the ListBlueprinterRoles structure.
@@ -41,7 +41,6 @@ type ListBlueprinterRolesReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *ListBlueprinterRolesReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-
 	case 200:
 		result := NewListBlueprinterRolesOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -69,6 +68,10 @@ type ListBlueprinterRolesOK struct {
 
 func (o *ListBlueprinterRolesOK) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/blueprinter/roles][%d] listBlueprinterRolesOK  %+v", 200, o.Payload)
+}
+
+func (o *ListBlueprinterRolesOK) GetPayload() *models.RoleAggregates {
+	return o.Payload
 }
 
 func (o *ListBlueprinterRolesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
