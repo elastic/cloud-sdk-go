@@ -4,4 +4,3 @@ reports/
 .DS_Store
 *.iml
 bin
-.version*
