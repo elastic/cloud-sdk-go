@@ -39,29 +39,39 @@ func (m *mockCloser) Close() error {
 
 // -----------------------------------------------------------------------------
 
-func TestCloser_CloseResource(t *testing.T) {
-	testCases := []struct {
-		desc    string
-		closer  io.Closer
-		wantErr bool
-	}{
-		{
-			desc:    "closer nil",
-			closer:  nil,
-			wantErr: false,
-		},
-		{
-			desc:    "closer error",
-			closer:  &mockCloser{raiseError: true},
-			wantErr: true,
-		},
-		{
-			desc:    "success",
-			closer:  &mockCloser{raiseError: false},
-			wantErr: false,
-		},
+var closerLoggerTestCases = []struct {
+	desc    string
+	closer  io.Closer
+	wantErr bool
+}{
+	{
+		desc:    "closer nil",
+		closer:  nil,
+		wantErr: false,
+	},
+	{
+		desc:    "closer error",
+		closer:  &mockCloser{raiseError: true},
+		wantErr: true,
+	},
+	{
+		desc:    "success",
+		closer:  &mockCloser{raiseError: false},
+		wantErr: false,
+	},
+}
+
+func TestCloser_CloseResource_NilLogger(t *testing.T) {
+	for _, tC := range closerLoggerTestCases {
+		t.Run(tC.desc, func(t *testing.T) {
+			CloseResource(tC.closer, nil)
+			// Nothing to expect
+		})
 	}
-	for _, tC := range testCases {
+}
+
+func TestCloser_CloseResource(t *testing.T) {
+	for _, tC := range closerLoggerTestCases {
 		t.Run(tC.desc, func(t *testing.T) {
 			CloseResource(tC.closer, func(err error) {
 				if tC.wantErr != (err != nil) {
