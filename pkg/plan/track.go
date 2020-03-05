@@ -171,6 +171,14 @@ func buildTrackerResponse(params TrackParams, pending bool, start time.Time) Tra
 //
 // If none of the above are found, it returns the last step ID with the trackpayload.
 func GetStepName(log []*models.ClusterPlanStepInfo) (string, error) {
+	// Obtain the last step in the plan log and if its status is "error",
+	// return the plan step log ID with the detailed error message.
+	if stepLog, _ := lastLog(log); stepLog != nil {
+		if *stepLog.Status == errorStatus {
+			return *stepLog.StepID, StepErrorOrUnknownError(stepLog)
+		}
+	}
+
 	for _, step := range log {
 		if *step.Status == errorStatus {
 			return *step.StepID, StepErrorOrUnknownError(step)
@@ -206,4 +214,12 @@ func StepErrorOrUnknownError(step *models.ClusterPlanStepInfo) error {
 	}
 
 	return errors.New(*step.InfoLog[len(step.InfoLog)-1].Message)
+}
+
+func lastLog(log []*models.ClusterPlanStepInfo) (*models.ClusterPlanStepInfo, error) {
+	if len(log) == 0 {
+		return nil, errors.New("invalid plan step info")
+	}
+
+	return log[len(log)-1], nil
 }

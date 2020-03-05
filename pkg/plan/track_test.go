@@ -36,7 +36,10 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-const planStepLogErrorMessage = "Unexpected error during step: [perform-snapshot]: [no.found.constructor.models.TimeoutException: Timeout]"
+const (
+	planStepLogErrorMessage  = "Unexpected error during step: [perform-snapshot]: [no.found.constructor.models.TimeoutException: Timeout]"
+	planFinishedErrorMessage = "[ClusterFailure:NoAvailableInstanceFound]: Could not find an available instance while attempting: [suspend-snapshotting]... Please validate the cluster is in a healthy status and retry."
+)
 
 func newStringPointer(s string) *string { return &s }
 
@@ -108,6 +111,23 @@ func TestGetStepName(t *testing.T) {
 			},
 			want: "step3",
 			err:  errors.New(planStepLogErrorMessage),
+		},
+		{
+			name: "Get the last step when it is an error, ignores the previous error step",
+			args: args{
+				log: []*models.ClusterPlanStepInfo{
+					newPlanStep("step1", "success"),
+					newPlanStep("step2", "success"),
+					newPlanStepWithDetailsAndError("step3", []*models.ClusterPlanStepLogMessageInfo{{
+						Message: newStringPointer(planStepLogErrorMessage),
+					}}),
+					newPlanStepWithDetailsAndError(planCompleted, []*models.ClusterPlanStepLogMessageInfo{{
+						Message: newStringPointer(planFinishedErrorMessage),
+					}}),
+				},
+			},
+			want: "plan-completed",
+			err:  errors.New(planFinishedErrorMessage),
 		},
 	}
 	for _, tt := range tests {
