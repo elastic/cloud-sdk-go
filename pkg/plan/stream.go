@@ -21,47 +21,24 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"strings"
-)
 
-const (
-	// streamFormat with green color
-	streamFinishFormat = "\x1b[92;mCluster [%s][%s]: finished running all the plan steps\x1b[0m (Total plan duration: %s)\n"
-	// streamFormatOnError with red color
-	streamFinishErrFormat = "\x1b[91;1mCluster [%s][%s]: caught error: \"%s\"\x1b[0m (Total plan duration: %s)\n"
-
-	// These formats are used when the plan has not yet finished.
-	streamFormat    = "Cluster [%s][%s]: running step \"%s\" (Plan duration %s)...\n"
-	streamErrFormat = "Cluster [%s][%s]: running step \"%s\" caught error: \"%s\" (Plan duration %s)...\n"
+	"github.com/hashicorp/go-multierror"
 )
 
 // Stream prints a text formatted line on each TrackResponse received by the
 // channel, unless the sender closes the channel when it has finished, calling
-// this function will block execution forever.
+// this function will block execution until the received channel is closed.
 func Stream(channel <-chan TrackResponse, device io.Writer) error {
-	var lastStep string
+	var lastStreamed = make(map[string]string)
 	return StreamFunc(channel, func(res TrackResponse) {
-		kind := strings.Title(res.Kind)
-		if res.Finished {
-			if res.Err != nil && res.Err != ErrPlanFinished {
-				fmt.Fprintf(device, streamFinishErrFormat,
-					res.ID, kind, res.Err, res.Duration,
-				)
-				return
-			}
-			fmt.Fprintf(device, streamFinishFormat, res.ID, kind, res.Duration)
-			return
+		if _, ok := lastStreamed[res.ID]; !ok {
+			lastStreamed[res.ID] = ""
 		}
 
-		if res.Err != nil {
-			fmt.Fprintf(device, streamErrFormat,
-				res.ID, kind, res.Step, res.Err, res.Duration,
-			)
-			return
-		}
-		if res.Step != lastStep {
-			fmt.Fprintf(device, streamFormat, res.ID, kind, res.Step, res.Duration.String())
-			lastStep = res.Step
+		res.runningStep = res.Step != lastStreamed[res.ID]
+		if msg := res.String(); msg != "" {
+			lastStreamed[res.ID] = res.Step
+			fmt.Fprint(device, msg)
 		}
 	})
 }
@@ -84,19 +61,21 @@ func StreamJSON(channel <-chan TrackResponse, device io.Writer, pretty bool) err
 	if pretty {
 		encoder.SetIndent("", "  ")
 	}
-	var lastStep string
+
+	var lastStreamed = make(map[string]string)
 	return StreamFunc(channel, func(res TrackResponse) {
+		if _, ok := lastStreamed[res.ID]; !ok {
+			lastStreamed[res.ID] = ""
+		}
 		if res.Err != nil {
 			res.Err = &MarshableError{res.Err.Error()}
-			lastStep = res.Step
-			// nolint
-			encoder.Encode(res)
+			lastStreamed[res.ID] = res.Step
+			_ = encoder.Encode(res)
 		}
 
-		if res.Step != lastStep {
-			lastStep = res.Step
-			// nolint
-			encoder.Encode(res)
+		if res.Step != lastStreamed[res.ID] {
+			lastStreamed[res.ID] = res.Step
+			_ = encoder.Encode(res)
 		}
 	})
 }
@@ -107,12 +86,25 @@ func StreamJSON(channel <-chan TrackResponse, device io.Writer, pretty bool) err
 // this function will block execution forever. If the plan failed, it returns
 // the error that made the plan fail.
 func StreamFunc(channel <-chan TrackResponse, function func(TrackResponse)) error {
-	var err error
+	var err = new(multierror.Error)
 	for res := range channel {
 		function(res)
 		if res.Err != nil && res.Finished && res.Err != ErrPlanFinished {
-			err = fmt.Errorf("cluster [%s][%s] %s", res.ID, res.Kind, res.Err.Error())
+			err = multierror.Append(err, res.Error())
 		}
 	}
-	return err
+
+	return compatibleError(err)
+}
+
+// compatibleError is a small utility to ensure that the otuput of StreamFunc
+// remains the same as long as the TrackResponse is kept the same.
+func compatibleError(e *multierror.Error) error {
+	if e != nil {
+		if e.Len() == 1 {
+			return e.Errors[0]
+		}
+	}
+
+	return e.ErrorOrNil()
 }

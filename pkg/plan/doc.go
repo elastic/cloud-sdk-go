@@ -15,11 +15,41 @@
 // specific language governing permissions and limitations
 // under the License.
 
-// Package plan provides an API to interact with a cluster's pending plan.
-// It's mainly structured in two primitives: Track and Stream.
+// Package plan provides an API to interact with a deployment's pending plan.
+// It's mainly structured in two primitives: TrackChanges and Stream.
 //
-// To track a pending plan there's there's a few things to consider other
-// than the cluster ID and the cluster's kind (elasticsearch or kibana).
+// There's a couple of ways to track a deployment's change, by Deployment ID
+// or by Resource ID and Kind (elasticsearch, kibana, apm, appsearch, etc).
+//
+// Although the plan package is ready for external consumption, if your goal is
+// track and stream the changes to a device in either Text or JSON, please take
+// a look at github.com/elastic/cloud-sdk-go/pkg/plan/planutil.
+//
+//  channel, err := plan.TrackChange(plan.TrackChangeParams{
+// 	API:              &api.API{}, // A real API instance needs to be used.
+// 	DeploymentID:     "2e9c997ff4d0bfc273da17f549e45e76",
+//  // ResourceID:    "6779ce55fc0646309ef812d007bb2526",
+//  // Kind:          "elasticsearch",
+// 	Config: plan.TrackFrequencyConfig{
+// 		MaxRetries:    2, // # of API failures to accept. 2-4 recommended.
+// 		PollFrequency: time.Second * 5, // 2-10s recommended.
+// 	},
+//  })
+//  if err != nil {
+//	return err
+//  }
+//
+//  // Alternatively, plan.StreamJSON(channel, os.Stdout, false) can be used to
+//  // print JSON formatted updates to an io.Writer.
+//  if err := plan.Stream(channel, os.Stdout); err != nik {
+//	 return err
+//  }
+//
+// Legacy Documentation
+//
+// The plan.Track function has been marked as deprecated and will be removed in
+// a future version, please refrain from using it or migrate to a new version
+// before the code is removed. See below.
 //
 //	channel, err := plan.Track(plan.TrackParams{
 //		API:           params.API,

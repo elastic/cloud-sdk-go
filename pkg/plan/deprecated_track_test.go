@@ -28,12 +28,12 @@ import (
 	"testing"
 	"time"
 
-	"github.com/go-openapi/strfmt"
 	multierror "github.com/hashicorp/go-multierror"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
+	planmock "github.com/elastic/cloud-sdk-go/pkg/plan/mock"
 )
 
 const (
@@ -42,107 +42,6 @@ const (
 )
 
 func newStringPointer(s string) *string { return &s }
-
-func newPlanStep(name, status string) *models.ClusterPlanStepInfo {
-	started := strfmt.DateTime(time.Now())
-	return &models.ClusterPlanStepInfo{
-		StepID:  &name,
-		Started: &started,
-		Status:  &status,
-	}
-}
-
-func newPlanStepWithDetailsAndError(name string, details []*models.ClusterPlanStepLogMessageInfo) *models.ClusterPlanStepInfo {
-	step := newPlanStep(name, "error")
-	step.InfoLog = details
-	return step
-}
-
-func newPlanFinishedResponse() mock.Response {
-	return mock.Response{Response: http.Response{
-		Body:       mock.NewStringBody(""),
-		StatusCode: 404,
-	}}
-}
-
-func TestGetStepName(t *testing.T) {
-	type args struct {
-		log []*models.ClusterPlanStepInfo
-	}
-	tests := []struct {
-		name string
-		args args
-		want string
-		err  error
-	}{
-		{
-			name: "Get logs that have an pending item",
-			args: args{
-				log: []*models.ClusterPlanStepInfo{
-					newPlanStep("step1", "success"),
-					newPlanStep("step2", "pending"),
-				},
-			},
-			want: "step2",
-			err:  nil,
-		},
-		{
-			name: "Get logs for a plan that has finished",
-			args: args{
-				log: []*models.ClusterPlanStepInfo{
-					newPlanStep("step1", "success"),
-					newPlanStep("step2", "success"),
-					newPlanStep(planCompleted, "success"),
-				},
-			},
-			want: planCompleted,
-			err:  ErrPlanFinished,
-		},
-		{
-			name: "Get logs for a plan that has errored",
-			args: args{
-				log: []*models.ClusterPlanStepInfo{
-					newPlanStep("step1", "success"),
-					newPlanStep("step2", "success"),
-					newPlanStepWithDetailsAndError("step3", []*models.ClusterPlanStepLogMessageInfo{{
-						Message: newStringPointer(planStepLogErrorMessage),
-					}}),
-				},
-			},
-			want: "step3",
-			err:  errors.New(planStepLogErrorMessage),
-		},
-		{
-			name: "Get the last step when it is an error, ignores the previous error step",
-			args: args{
-				log: []*models.ClusterPlanStepInfo{
-					newPlanStep("step1", "success"),
-					newPlanStep("step2", "success"),
-					newPlanStepWithDetailsAndError("step3", []*models.ClusterPlanStepLogMessageInfo{{
-						Message: newStringPointer(planStepLogErrorMessage),
-					}}),
-					newPlanStepWithDetailsAndError(planCompleted, []*models.ClusterPlanStepLogMessageInfo{{
-						Message: newStringPointer(planFinishedErrorMessage),
-					}}),
-				},
-			},
-			want: "plan-completed",
-			err:  errors.New(planFinishedErrorMessage),
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			got, err := GetStepName(tt.args.log)
-			if !reflect.DeepEqual(err, tt.err) {
-				t.Errorf("GetStepName() error = %v, wantErr %v", err, tt.err)
-				return
-			}
-			if got != tt.want {
-				t.Errorf("GetStepName() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
 
 func newPollerBody(t *testing.T, pending, current *models.ElasticsearchClusterPlanInfo) io.ReadCloser {
 	payload := &models.ElasticsearchClusterPlansInfo{Pending: pending, Current: current}
@@ -259,8 +158,8 @@ func TestTrack(t *testing.T) {
 							// Pending plan
 							Body: newPollerBody(t,
 								&models.ElasticsearchClusterPlanInfo{PlanAttemptLog: []*models.ClusterPlanStepInfo{
-									newPlanStep("step1", "success"),
-									newPlanStep("step2", "pending"),
+									planmock.NewPlanStep("step1", "success"),
+									planmock.NewPlanStep("step2", "pending"),
 								}},
 								nil,
 							),
@@ -273,9 +172,9 @@ func TestTrack(t *testing.T) {
 							Body: newPollerBody(t,
 								nil,
 								&models.ElasticsearchClusterPlanInfo{PlanAttemptLog: []*models.ClusterPlanStepInfo{
-									newPlanStep("step1", "success"),
-									newPlanStep("step2", "success"),
-									newPlanStep(planCompleted, "success"),
+									planmock.NewPlanStep("step1", "success"),
+									planmock.NewPlanStep("step2", "success"),
+									planmock.NewPlanStep(planCompleted, "success"),
 								}},
 							),
 							StatusCode: 200,
@@ -310,8 +209,8 @@ func TestTrack(t *testing.T) {
 							// Pending plan
 							Body: newKibanaPollerBody(t,
 								&models.KibanaClusterPlanInfo{PlanAttemptLog: []*models.ClusterPlanStepInfo{
-									newPlanStep("step1", "success"),
-									newPlanStep("step2", "pending"),
+									planmock.NewPlanStep("step1", "success"),
+									planmock.NewPlanStep("step2", "pending"),
 								}},
 								nil,
 							),
@@ -324,9 +223,9 @@ func TestTrack(t *testing.T) {
 							Body: newKibanaPollerBody(t,
 								nil,
 								&models.KibanaClusterPlanInfo{PlanAttemptLog: []*models.ClusterPlanStepInfo{
-									newPlanStep("step1", "success"),
-									newPlanStep("step2", "success"),
-									newPlanStep(planCompleted, "success"),
+									planmock.NewPlanStep("step1", "success"),
+									planmock.NewPlanStep("step2", "success"),
+									planmock.NewPlanStep(planCompleted, "success"),
 								}},
 							),
 							StatusCode: 200,
@@ -361,8 +260,8 @@ func TestTrack(t *testing.T) {
 							// Pending plan
 							Body: newApmPollerBody(t,
 								&models.ApmPlanInfo{PlanAttemptLog: []*models.ClusterPlanStepInfo{
-									newPlanStep("step1", "success"),
-									newPlanStep("step2", "pending"),
+									planmock.NewPlanStep("step1", "success"),
+									planmock.NewPlanStep("step2", "pending"),
 								}},
 								nil,
 							),
@@ -375,9 +274,9 @@ func TestTrack(t *testing.T) {
 							Body: newApmPollerBody(t,
 								nil,
 								&models.ApmPlanInfo{PlanAttemptLog: []*models.ClusterPlanStepInfo{
-									newPlanStep("step1", "success"),
-									newPlanStep("step2", "success"),
-									newPlanStep(planCompleted, "success"),
+									planmock.NewPlanStep("step1", "success"),
+									planmock.NewPlanStep("step2", "success"),
+									planmock.NewPlanStep(planCompleted, "success"),
 								}},
 							),
 							StatusCode: 200,
@@ -412,8 +311,8 @@ func TestTrack(t *testing.T) {
 							// Pending plan
 							Body: newPollerBody(t,
 								&models.ElasticsearchClusterPlanInfo{PlanAttemptLog: []*models.ClusterPlanStepInfo{
-									newPlanStep("step1", "success"),
-									newPlanStep("step2", "pending"),
+									planmock.NewPlanStep("step1", "success"),
+									planmock.NewPlanStep("step2", "pending"),
 								}},
 								nil,
 							),
@@ -423,9 +322,9 @@ func TestTrack(t *testing.T) {
 						mock.Response{Response: http.Response{
 							Body: newPollerBody(t,
 								&models.ElasticsearchClusterPlanInfo{PlanAttemptLog: []*models.ClusterPlanStepInfo{
-									newPlanStep("step1", "success"),
-									newPlanStep("step2", "success"),
-									newPlanStep("step3", "pending"),
+									planmock.NewPlanStep("step1", "success"),
+									planmock.NewPlanStep("step2", "success"),
+									planmock.NewPlanStep("step3", "pending"),
 								}},
 								nil,
 							),
@@ -438,10 +337,10 @@ func TestTrack(t *testing.T) {
 							Body: newPollerBody(t,
 								nil,
 								&models.ElasticsearchClusterPlanInfo{PlanAttemptLog: []*models.ClusterPlanStepInfo{
-									newPlanStep("step1", "success"),
-									newPlanStep("step2", "success"),
-									newPlanStep("step3", "success"),
-									newPlanStep(planCompleted, "success"),
+									planmock.NewPlanStep("step1", "success"),
+									planmock.NewPlanStep("step2", "success"),
+									planmock.NewPlanStep("step3", "success"),
+									planmock.NewPlanStep(planCompleted, "success"),
 								}},
 							),
 							StatusCode: 200,
@@ -481,8 +380,8 @@ func TestTrack(t *testing.T) {
 							// Pending plan
 							Body: newPollerBody(t,
 								&models.ElasticsearchClusterPlanInfo{PlanAttemptLog: []*models.ClusterPlanStepInfo{
-									newPlanStep("step1", "success"),
-									newPlanStep("step2", "pending"),
+									planmock.NewPlanStep("step1", "success"),
+									planmock.NewPlanStep("step2", "pending"),
 								}},
 								nil,
 							),
@@ -492,9 +391,9 @@ func TestTrack(t *testing.T) {
 						mock.Response{Response: http.Response{
 							Body: newPollerBody(t,
 								&models.ElasticsearchClusterPlanInfo{PlanAttemptLog: []*models.ClusterPlanStepInfo{
-									newPlanStep("step1", "success"),
-									newPlanStep("step2", "success"),
-									newPlanStep("step3", "pending"),
+									planmock.NewPlanStep("step1", "success"),
+									planmock.NewPlanStep("step2", "success"),
+									planmock.NewPlanStep("step3", "pending"),
 								}},
 								nil,
 							),
@@ -505,9 +404,9 @@ func TestTrack(t *testing.T) {
 							StatusCode: 200,
 							Body: newPollerBody(t,
 								&models.ElasticsearchClusterPlanInfo{PlanAttemptLog: []*models.ClusterPlanStepInfo{
-									newPlanStep("step1", "success"),
-									newPlanStep("step2", "success"),
-									newPlanStepWithDetailsAndError("step3", []*models.ClusterPlanStepLogMessageInfo{
+									planmock.NewPlanStep("step1", "success"),
+									planmock.NewPlanStep("step2", "success"),
+									planmock.NewPlanStepWithDetailsAndError("step3", []*models.ClusterPlanStepLogMessageInfo{
 										{Message: newStringPointer("stuff we don't want to see")},
 										{Message: newStringPointer(planStepLogErrorMessage)},
 									}),
@@ -522,9 +421,9 @@ func TestTrack(t *testing.T) {
 							Body: newPollerBody(t,
 								nil,
 								&models.ElasticsearchClusterPlanInfo{PlanAttemptLog: []*models.ClusterPlanStepInfo{
-									newPlanStep("step1", "success"),
-									newPlanStep("step2", "success"),
-									newPlanStepWithDetailsAndError("next-step", []*models.ClusterPlanStepLogMessageInfo{
+									planmock.NewPlanStep("step1", "success"),
+									planmock.NewPlanStep("step2", "success"),
+									planmock.NewPlanStepWithDetailsAndError("next-step", []*models.ClusterPlanStepLogMessageInfo{
 										{Message: newStringPointer("stuff we don't want to see")},
 										{Message: newStringPointer(planStepLogErrorMessage)},
 									}),
@@ -573,8 +472,8 @@ func TestTrack(t *testing.T) {
 							// Pending plan
 							Body: newPollerBody(t,
 								&models.ElasticsearchClusterPlanInfo{PlanAttemptLog: []*models.ClusterPlanStepInfo{
-									newPlanStep("step1", "success"),
-									newPlanStep("step2", "pending"),
+									planmock.NewPlanStep("step1", "success"),
+									planmock.NewPlanStep("step2", "pending"),
 								}},
 								nil,
 							),
@@ -584,9 +483,9 @@ func TestTrack(t *testing.T) {
 						mock.Response{Response: http.Response{
 							Body: newPollerBody(t,
 								&models.ElasticsearchClusterPlanInfo{PlanAttemptLog: []*models.ClusterPlanStepInfo{
-									newPlanStep("step1", "success"),
-									newPlanStep("step2", "success"),
-									newPlanStep("step3", "pending"),
+									planmock.NewPlanStep("step1", "success"),
+									planmock.NewPlanStep("step2", "success"),
+									planmock.NewPlanStep("step3", "pending"),
 								}},
 								nil,
 							),
@@ -599,13 +498,13 @@ func TestTrack(t *testing.T) {
 							Body: newPollerBody(t,
 								nil,
 								&models.ElasticsearchClusterPlanInfo{PlanAttemptLog: []*models.ClusterPlanStepInfo{
-									newPlanStep("step1", "success"),
-									newPlanStep("step2", "success"),
-									newPlanStepWithDetailsAndError("step3", []*models.ClusterPlanStepLogMessageInfo{
+									planmock.NewPlanStep("step1", "success"),
+									planmock.NewPlanStep("step2", "success"),
+									planmock.NewPlanStepWithDetailsAndError("step3", []*models.ClusterPlanStepLogMessageInfo{
 										{Message: newStringPointer("stuff we don't want to see")},
 										{Message: newStringPointer(planStepLogErrorMessage)},
 									}),
-									newPlanStep(planCompleted, "success"),
+									planmock.NewPlanStep(planCompleted, "success"),
 								}},
 							),
 							StatusCode: 200,
@@ -646,8 +545,8 @@ func TestTrack(t *testing.T) {
 							// Pending plan
 							Body: newKibanaPollerBody(t,
 								&models.KibanaClusterPlanInfo{PlanAttemptLog: []*models.ClusterPlanStepInfo{
-									newPlanStep("step1", "success"),
-									newPlanStep("step2", "pending"),
+									planmock.NewPlanStep("step1", "success"),
+									planmock.NewPlanStep("step2", "pending"),
 								}},
 								nil,
 							),
@@ -662,9 +561,9 @@ func TestTrack(t *testing.T) {
 							Body: newKibanaPollerBody(t,
 								nil,
 								&models.KibanaClusterPlanInfo{PlanAttemptLog: []*models.ClusterPlanStepInfo{
-									newPlanStep("step1", "success"),
-									newPlanStep("step2", "success"),
-									newPlanStep(planCompleted, "success"),
+									planmock.NewPlanStep("step1", "success"),
+									planmock.NewPlanStep("step2", "success"),
+									planmock.NewPlanStep(planCompleted, "success"),
 								}},
 							),
 							StatusCode: 200,
@@ -700,8 +599,8 @@ func TestTrack(t *testing.T) {
 							// Pending plan
 							Body: newKibanaPollerBody(t,
 								&models.KibanaClusterPlanInfo{PlanAttemptLog: []*models.ClusterPlanStepInfo{
-									newPlanStep("step1", "success"),
-									newPlanStep("step2", "pending"),
+									planmock.NewPlanStep("step1", "success"),
+									planmock.NewPlanStep("step2", "pending"),
 								}},
 								nil,
 							),
@@ -719,9 +618,9 @@ func TestTrack(t *testing.T) {
 							Body: newKibanaPollerBody(t,
 								nil,
 								&models.KibanaClusterPlanInfo{PlanAttemptLog: []*models.ClusterPlanStepInfo{
-									newPlanStep("step1", "success"),
-									newPlanStep("step2", "success"),
-									newPlanStep(planCompleted, "success"),
+									planmock.NewPlanStep("step1", "success"),
+									planmock.NewPlanStep("step2", "success"),
+									planmock.NewPlanStep(planCompleted, "success"),
 								}},
 							),
 							StatusCode: 200,
