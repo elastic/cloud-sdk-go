@@ -92,27 +92,27 @@ for the start deployment resource maintenance mode operation typically these are
 type StartDeploymentResourceMaintenanceModeParams struct {
 
 	/*DeploymentID
-	  Identifier for the Deployment
+	  Identifier for the Deployment.
 
 	*/
 	DeploymentID string
 	/*IgnoreMissing
-	  If true and the instance does not exist then quietly proceed to the next instance, otherwise treated as an error
+	  If true and the instance does not exist then quietly proceed to the next instance, otherwise treated as an error.
 
 	*/
 	IgnoreMissing *bool
 	/*InstanceIds
-	  Comma-delimited list of instance identifiers of the Resource
+	  A comma-separated list of instance identifiers.
 
 	*/
 	InstanceIds []string
 	/*RefID
-	  User-specified RefId for the Resource
+	  User-specified RefId for the Resource.
 
 	*/
 	RefID string
 	/*ResourceKind
-	  The kind of resource (one of elasticsearch, kibana or apm)
+	  The kind of resource (one of elasticsearch, kibana or apm).
 
 	*/
 	ResourceKind string

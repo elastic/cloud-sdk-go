@@ -47,12 +47,6 @@ func (o *GetDeploymentKibResourceInfoReader) ReadResponse(response runtime.Clien
 			return nil, err
 		}
 		return result, nil
-	case 401:
-		result := NewGetDeploymentKibResourceInfoUnauthorized()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	case 404:
 		result := NewGetDeploymentKibResourceInfoNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -78,7 +72,7 @@ func NewGetDeploymentKibResourceInfoOK() *GetDeploymentKibResourceInfoOK {
 
 /*GetDeploymentKibResourceInfoOK handles this case with default header values.
 
-Standard response
+Standard response.
 */
 type GetDeploymentKibResourceInfoOK struct {
 	Payload *models.KibanaResourceInfo
@@ -104,39 +98,6 @@ func (o *GetDeploymentKibResourceInfoOK) readResponse(response runtime.ClientRes
 	return nil
 }
 
-// NewGetDeploymentKibResourceInfoUnauthorized creates a GetDeploymentKibResourceInfoUnauthorized with default headers values
-func NewGetDeploymentKibResourceInfoUnauthorized() *GetDeploymentKibResourceInfoUnauthorized {
-	return &GetDeploymentKibResourceInfoUnauthorized{}
-}
-
-/*GetDeploymentKibResourceInfoUnauthorized handles this case with default header values.
-
-You are not authorized to perform this action
-*/
-type GetDeploymentKibResourceInfoUnauthorized struct {
-	Payload *models.BasicFailedReply
-}
-
-func (o *GetDeploymentKibResourceInfoUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /deployments/{deployment_id}/kibana/{ref_id}][%d] getDeploymentKibResourceInfoUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *GetDeploymentKibResourceInfoUnauthorized) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *GetDeploymentKibResourceInfoUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
 // NewGetDeploymentKibResourceInfoNotFound creates a GetDeploymentKibResourceInfoNotFound with default headers values
 func NewGetDeploymentKibResourceInfoNotFound() *GetDeploymentKibResourceInfoNotFound {
 	return &GetDeploymentKibResourceInfoNotFound{}
@@ -144,9 +105,13 @@ func NewGetDeploymentKibResourceInfoNotFound() *GetDeploymentKibResourceInfoNotF
 
 /*GetDeploymentKibResourceInfoNotFound handles this case with default header values.
 
-The Deployment specified by {deployment_id} cannot be found
+The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
 */
 type GetDeploymentKibResourceInfoNotFound struct {
+	/*The error codes associated with the response
+	 */
+	XCloudErrorCodes string
+
 	Payload *models.BasicFailedReply
 }
 
@@ -159,6 +124,9 @@ func (o *GetDeploymentKibResourceInfoNotFound) GetPayload() *models.BasicFailedR
 }
 
 func (o *GetDeploymentKibResourceInfoNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response header x-cloud-error-codes
+	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -177,9 +145,13 @@ func NewGetDeploymentKibResourceInfoInternalServerError() *GetDeploymentKibResou
 
 /*GetDeploymentKibResourceInfoInternalServerError handles this case with default header values.
 
-We have failed you.
+We have failed you. (code: `deployments.deployment_resource_no_longer_exists`)
 */
 type GetDeploymentKibResourceInfoInternalServerError struct {
+	/*The error codes associated with the response
+	 */
+	XCloudErrorCodes string
+
 	Payload *models.BasicFailedReply
 }
 
@@ -192,6 +164,9 @@ func (o *GetDeploymentKibResourceInfoInternalServerError) GetPayload() *models.B
 }
 
 func (o *GetDeploymentKibResourceInfoInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response header x-cloud-error-codes
+	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
 
 	o.Payload = new(models.BasicFailedReply)
 

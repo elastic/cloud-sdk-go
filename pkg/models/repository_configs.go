@@ -28,6 +28,7 @@ import (
 	"github.com/go-openapi/errors"
 	strfmt "github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // RepositoryConfigs A list of snapshot repository configurations.
@@ -35,6 +36,7 @@ import (
 type RepositoryConfigs struct {
 
 	// List of snapshot configurations
+	// Required: true
 	Configs []*RepositoryConfig `json:"configs"`
 }
 
@@ -54,8 +56,8 @@ func (m *RepositoryConfigs) Validate(formats strfmt.Registry) error {
 
 func (m *RepositoryConfigs) validateConfigs(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.Configs) { // not required
-		return nil
+	if err := validate.Required("configs", "body", m.Configs); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.Configs); i++ {

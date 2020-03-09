@@ -28,6 +28,7 @@ import (
 	"github.com/go-openapi/errors"
 	strfmt "github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // CrossClusterSearchInfo The cross-cluster search settings and status for the Elasticsearch cluster.
@@ -35,15 +36,21 @@ import (
 type CrossClusterSearchInfo struct {
 
 	// Flag signaling health issues when at least one remote has an incompatible version with this cluster
-	Healthy *bool `json:"healthy,omitempty"`
+	// Required: true
+	Healthy *bool `json:"healthy"`
 
 	// The list of remote clusters this cluster can access using cross-cluster search
+	// Required: true
 	RemoteClusters []*RemoteClusterInfo `json:"remote_clusters"`
 }
 
 // Validate validates this cross cluster search info
 func (m *CrossClusterSearchInfo) Validate(formats strfmt.Registry) error {
 	var res []error
+
+	if err := m.validateHealthy(formats); err != nil {
+		res = append(res, err)
+	}
 
 	if err := m.validateRemoteClusters(formats); err != nil {
 		res = append(res, err)
@@ -55,10 +62,19 @@ func (m *CrossClusterSearchInfo) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *CrossClusterSearchInfo) validateHealthy(formats strfmt.Registry) error {
+
+	if err := validate.Required("healthy", "body", m.Healthy); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (m *CrossClusterSearchInfo) validateRemoteClusters(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.RemoteClusters) { // not required
-		return nil
+	if err := validate.Required("remote_clusters", "body", m.RemoteClusters); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.RemoteClusters); i++ {

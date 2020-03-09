@@ -23,8 +23,10 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"github.com/go-openapi/errors"
 	strfmt "github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // ConstructorHealthStatus The health status of the constructor.
@@ -32,14 +34,47 @@ import (
 type ConstructorHealthStatus struct {
 
 	// Whether the constructor is connected
-	Connected *bool `json:"connected,omitempty"`
+	// Required: true
+	Connected *bool `json:"connected"`
 
 	// Whether the constructor is in maintenance mode
-	MaintenanceMode *bool `json:"maintenance_mode,omitempty"`
+	// Required: true
+	MaintenanceMode *bool `json:"maintenance_mode"`
 }
 
 // Validate validates this constructor health status
 func (m *ConstructorHealthStatus) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateConnected(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateMaintenanceMode(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ConstructorHealthStatus) validateConnected(formats strfmt.Registry) error {
+
+	if err := validate.Required("connected", "body", m.Connected); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *ConstructorHealthStatus) validateMaintenanceMode(formats strfmt.Registry) error {
+
+	if err := validate.Required("maintenance_mode", "body", m.MaintenanceMode); err != nil {
+		return err
+	}
+
 	return nil
 }
 

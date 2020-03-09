@@ -72,7 +72,7 @@ func NewResyncDeploymentsOK() *ResyncDeploymentsOK {
 
 /*ResyncDeploymentsOK handles this case with default header values.
 
-The deployments resync operation executed successfully
+The deployments resync operation executed successfully.
 */
 type ResyncDeploymentsOK struct {
 	Payload *models.IndexSynchronizationResults
@@ -105,9 +105,13 @@ func NewResyncDeploymentsRetryWith() *ResyncDeploymentsRetryWith {
 
 /*ResyncDeploymentsRetryWith handles this case with default header values.
 
-elevated permissions are required. (code: '"root.unauthorized.rbac.elevated_permissions_required"')
+Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type ResyncDeploymentsRetryWith struct {
+	/*The error codes associated with the response
+	 */
+	XCloudErrorCodes string
+
 	Payload *models.BasicFailedReply
 }
 
@@ -120,6 +124,9 @@ func (o *ResyncDeploymentsRetryWith) GetPayload() *models.BasicFailedReply {
 }
 
 func (o *ResyncDeploymentsRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response header x-cloud-error-codes
+	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -138,9 +145,13 @@ func NewResyncDeploymentsInternalServerError() *ResyncDeploymentsInternalServerE
 
 /*ResyncDeploymentsInternalServerError handles this case with default header values.
 
-The deployments resync operation failed (code: 'deployments.resync_failed')
+The deployments resync operation failed. (code: `deployments.resync_failed`)
 */
 type ResyncDeploymentsInternalServerError struct {
+	/*The error codes associated with the response
+	 */
+	XCloudErrorCodes string
+
 	Payload *models.BasicFailedReply
 }
 
@@ -153,6 +164,9 @@ func (o *ResyncDeploymentsInternalServerError) GetPayload() *models.BasicFailedR
 }
 
 func (o *ResyncDeploymentsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response header x-cloud-error-codes
+	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
 
 	o.Payload = new(models.BasicFailedReply)
 

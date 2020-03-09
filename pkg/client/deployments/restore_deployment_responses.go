@@ -78,7 +78,7 @@ func NewRestoreDeploymentOK() *RestoreDeploymentOK {
 
 /*RestoreDeploymentOK handles this case with default header values.
 
-The request was valid and the resources of the deployment were restored
+The request was valid and the resources of the deployment were restored.
 */
 type RestoreDeploymentOK struct {
 	Payload *models.DeploymentRestoreResponse
@@ -111,7 +111,7 @@ func NewRestoreDeploymentBadRequest() *RestoreDeploymentBadRequest {
 
 /*RestoreDeploymentBadRequest handles this case with default header values.
 
-There are Elasticsearch resources in the deployment which are not shut down
+There are Elasticsearch resources in the deployment which are not shut down.
 */
 type RestoreDeploymentBadRequest struct {
 	Payload *models.BasicFailedReply
@@ -144,7 +144,7 @@ func NewRestoreDeploymentUnauthorized() *RestoreDeploymentUnauthorized {
 
 /*RestoreDeploymentUnauthorized handles this case with default header values.
 
-You are not authorized to perform this action
+You are not authorized to perform this action.
 */
 type RestoreDeploymentUnauthorized struct {
 	Payload *models.BasicFailedReply
@@ -177,9 +177,13 @@ func NewRestoreDeploymentNotFound() *RestoreDeploymentNotFound {
 
 /*RestoreDeploymentNotFound handles this case with default header values.
 
-The Deployment specified by {deployment_id} cannot be found
+The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
 */
 type RestoreDeploymentNotFound struct {
+	/*The error codes associated with the response
+	 */
+	XCloudErrorCodes string
+
 	Payload *models.BasicFailedReply
 }
 
@@ -192,6 +196,9 @@ func (o *RestoreDeploymentNotFound) GetPayload() *models.BasicFailedReply {
 }
 
 func (o *RestoreDeploymentNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response header x-cloud-error-codes
+	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
 
 	o.Payload = new(models.BasicFailedReply)
 

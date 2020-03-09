@@ -47,12 +47,6 @@ func (o *GetDeploymentEsResourceInfoReader) ReadResponse(response runtime.Client
 			return nil, err
 		}
 		return result, nil
-	case 401:
-		result := NewGetDeploymentEsResourceInfoUnauthorized()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	case 404:
 		result := NewGetDeploymentEsResourceInfoNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -78,7 +72,7 @@ func NewGetDeploymentEsResourceInfoOK() *GetDeploymentEsResourceInfoOK {
 
 /*GetDeploymentEsResourceInfoOK handles this case with default header values.
 
-Standard response
+Standard response.
 */
 type GetDeploymentEsResourceInfoOK struct {
 	Payload *models.ElasticsearchResourceInfo
@@ -104,39 +98,6 @@ func (o *GetDeploymentEsResourceInfoOK) readResponse(response runtime.ClientResp
 	return nil
 }
 
-// NewGetDeploymentEsResourceInfoUnauthorized creates a GetDeploymentEsResourceInfoUnauthorized with default headers values
-func NewGetDeploymentEsResourceInfoUnauthorized() *GetDeploymentEsResourceInfoUnauthorized {
-	return &GetDeploymentEsResourceInfoUnauthorized{}
-}
-
-/*GetDeploymentEsResourceInfoUnauthorized handles this case with default header values.
-
-You are not authorized to perform this action
-*/
-type GetDeploymentEsResourceInfoUnauthorized struct {
-	Payload *models.BasicFailedReply
-}
-
-func (o *GetDeploymentEsResourceInfoUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /deployments/{deployment_id}/elasticsearch/{ref_id}][%d] getDeploymentEsResourceInfoUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *GetDeploymentEsResourceInfoUnauthorized) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *GetDeploymentEsResourceInfoUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
 // NewGetDeploymentEsResourceInfoNotFound creates a GetDeploymentEsResourceInfoNotFound with default headers values
 func NewGetDeploymentEsResourceInfoNotFound() *GetDeploymentEsResourceInfoNotFound {
 	return &GetDeploymentEsResourceInfoNotFound{}
@@ -144,9 +105,13 @@ func NewGetDeploymentEsResourceInfoNotFound() *GetDeploymentEsResourceInfoNotFou
 
 /*GetDeploymentEsResourceInfoNotFound handles this case with default header values.
 
-The Deployment specified by {deployment_id} cannot be found
+The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
 */
 type GetDeploymentEsResourceInfoNotFound struct {
+	/*The error codes associated with the response
+	 */
+	XCloudErrorCodes string
+
 	Payload *models.BasicFailedReply
 }
 
@@ -159,6 +124,9 @@ func (o *GetDeploymentEsResourceInfoNotFound) GetPayload() *models.BasicFailedRe
 }
 
 func (o *GetDeploymentEsResourceInfoNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response header x-cloud-error-codes
+	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -177,9 +145,13 @@ func NewGetDeploymentEsResourceInfoInternalServerError() *GetDeploymentEsResourc
 
 /*GetDeploymentEsResourceInfoInternalServerError handles this case with default header values.
 
-We have failed you.
+We have failed you. (code: `deployments.deployment_resource_no_longer_exists`)
 */
 type GetDeploymentEsResourceInfoInternalServerError struct {
+	/*The error codes associated with the response
+	 */
+	XCloudErrorCodes string
+
 	Payload *models.BasicFailedReply
 }
 
@@ -192,6 +164,9 @@ func (o *GetDeploymentEsResourceInfoInternalServerError) GetPayload() *models.Ba
 }
 
 func (o *GetDeploymentEsResourceInfoInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response header x-cloud-error-codes
+	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
 
 	o.Payload = new(models.BasicFailedReply)
 

@@ -47,12 +47,6 @@ func (o *ShutdownDeploymentEsResourceReader) ReadResponse(response runtime.Clien
 			return nil, err
 		}
 		return result, nil
-	case 401:
-		result := NewShutdownDeploymentEsResourceUnauthorized()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	case 404:
 		result := NewShutdownDeploymentEsResourceNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -78,7 +72,7 @@ func NewShutdownDeploymentEsResourceOK() *ShutdownDeploymentEsResourceOK {
 
 /*ShutdownDeploymentEsResourceOK handles this case with default header values.
 
-Standard response
+Standard response.
 */
 type ShutdownDeploymentEsResourceOK struct {
 	Payload models.DeploymentResourceCommandResponse
@@ -102,39 +96,6 @@ func (o *ShutdownDeploymentEsResourceOK) readResponse(response runtime.ClientRes
 	return nil
 }
 
-// NewShutdownDeploymentEsResourceUnauthorized creates a ShutdownDeploymentEsResourceUnauthorized with default headers values
-func NewShutdownDeploymentEsResourceUnauthorized() *ShutdownDeploymentEsResourceUnauthorized {
-	return &ShutdownDeploymentEsResourceUnauthorized{}
-}
-
-/*ShutdownDeploymentEsResourceUnauthorized handles this case with default header values.
-
-You are not authorized to perform this action
-*/
-type ShutdownDeploymentEsResourceUnauthorized struct {
-	Payload *models.BasicFailedReply
-}
-
-func (o *ShutdownDeploymentEsResourceUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_shutdown][%d] shutdownDeploymentEsResourceUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *ShutdownDeploymentEsResourceUnauthorized) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *ShutdownDeploymentEsResourceUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
 // NewShutdownDeploymentEsResourceNotFound creates a ShutdownDeploymentEsResourceNotFound with default headers values
 func NewShutdownDeploymentEsResourceNotFound() *ShutdownDeploymentEsResourceNotFound {
 	return &ShutdownDeploymentEsResourceNotFound{}
@@ -142,9 +103,14 @@ func NewShutdownDeploymentEsResourceNotFound() *ShutdownDeploymentEsResourceNotF
 
 /*ShutdownDeploymentEsResourceNotFound handles this case with default header values.
 
-The Deployment specified by {deployment_id} cannot be found
-*/
+* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+* The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)
+ */
 type ShutdownDeploymentEsResourceNotFound struct {
+	/*The error codes associated with the response
+	 */
+	XCloudErrorCodes string
+
 	Payload *models.BasicFailedReply
 }
 
@@ -157,6 +123,9 @@ func (o *ShutdownDeploymentEsResourceNotFound) GetPayload() *models.BasicFailedR
 }
 
 func (o *ShutdownDeploymentEsResourceNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response header x-cloud-error-codes
+	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -175,9 +144,13 @@ func NewShutdownDeploymentEsResourceInternalServerError() *ShutdownDeploymentEsR
 
 /*ShutdownDeploymentEsResourceInternalServerError handles this case with default header values.
 
-We have failed you.
+A Resource that was previously stored no longer exists. (code: `deployments.deployment_resource_no_longer_exists`)
 */
 type ShutdownDeploymentEsResourceInternalServerError struct {
+	/*The error codes associated with the response
+	 */
+	XCloudErrorCodes string
+
 	Payload *models.BasicFailedReply
 }
 
@@ -190,6 +163,9 @@ func (o *ShutdownDeploymentEsResourceInternalServerError) GetPayload() *models.B
 }
 
 func (o *ShutdownDeploymentEsResourceInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response header x-cloud-error-codes
+	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
 
 	o.Payload = new(models.BasicFailedReply)
 

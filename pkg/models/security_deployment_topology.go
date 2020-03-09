@@ -35,7 +35,7 @@ type SecurityDeploymentTopology struct {
 	// The security deployment topology size
 	Size *TopologySize `json:"size,omitempty"`
 
-	// The default number of zones in which data nodes will be placed
+	// The number of zones in which data nodes will be placed
 	ZoneCount int32 `json:"zone_count,omitempty"`
 }
 

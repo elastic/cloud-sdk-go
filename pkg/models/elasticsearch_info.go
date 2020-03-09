@@ -34,7 +34,8 @@ import (
 type ElasticsearchInfo struct {
 
 	// blocking issues
-	BlockingIssues *ElasticsearchClusterBlockingIssues `json:"blocking_issues,omitempty"`
+	// Required: true
+	BlockingIssues *ElasticsearchClusterBlockingIssues `json:"blocking_issues"`
 
 	// Whether the Elasticsearch cluster is healthy (check the sub-objects for more details if not)
 	// Required: true
@@ -77,8 +78,8 @@ func (m *ElasticsearchInfo) Validate(formats strfmt.Registry) error {
 
 func (m *ElasticsearchInfo) validateBlockingIssues(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.BlockingIssues) { // not required
-		return nil
+	if err := validate.Required("blocking_issues", "body", m.BlockingIssues); err != nil {
+		return err
 	}
 
 	if m.BlockingIssues != nil {

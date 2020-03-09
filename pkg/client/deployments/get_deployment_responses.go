@@ -59,12 +59,6 @@ func (o *GetDeploymentReader) ReadResponse(response runtime.ClientResponse, cons
 			return nil, err
 		}
 		return nil, result
-	case 500:
-		result := NewGetDeploymentInternalServerError()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
@@ -130,7 +124,7 @@ func NewGetDeploymentUnauthorized() *GetDeploymentUnauthorized {
 
 /*GetDeploymentUnauthorized handles this case with default header values.
 
-You are not authorized to perform this action
+You are not authorized to perform this action.
 */
 type GetDeploymentUnauthorized struct {
 	Payload *models.BasicFailedReply
@@ -163,9 +157,13 @@ func NewGetDeploymentNotFound() *GetDeploymentNotFound {
 
 /*GetDeploymentNotFound handles this case with default header values.
 
-The Deployment specified by {deployment_id} cannot be found
+The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
 */
 type GetDeploymentNotFound struct {
+	/*The error codes associated with the response
+	 */
+	XCloudErrorCodes string
+
 	Payload *models.BasicFailedReply
 }
 
@@ -179,38 +177,8 @@ func (o *GetDeploymentNotFound) GetPayload() *models.BasicFailedReply {
 
 func (o *GetDeploymentNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewGetDeploymentInternalServerError creates a GetDeploymentInternalServerError with default headers values
-func NewGetDeploymentInternalServerError() *GetDeploymentInternalServerError {
-	return &GetDeploymentInternalServerError{}
-}
-
-/*GetDeploymentInternalServerError handles this case with default header values.
-
-We have failed you.
-*/
-type GetDeploymentInternalServerError struct {
-	Payload *models.BasicFailedReply
-}
-
-func (o *GetDeploymentInternalServerError) Error() string {
-	return fmt.Sprintf("[GET /deployments/{deployment_id}][%d] getDeploymentInternalServerError  %+v", 500, o.Payload)
-}
-
-func (o *GetDeploymentInternalServerError) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *GetDeploymentInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+	// response header x-cloud-error-codes
+	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
 
 	o.Payload = new(models.BasicFailedReply)
 

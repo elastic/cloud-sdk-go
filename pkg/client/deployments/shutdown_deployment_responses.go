@@ -78,7 +78,7 @@ func NewShutdownDeploymentOK() *ShutdownDeploymentOK {
 
 /*ShutdownDeploymentOK handles this case with default header values.
 
-The request was valid and the resources of the deployment were shutdown
+The request was valid and the resources of the deployment were shutdown.
 */
 type ShutdownDeploymentOK struct {
 	Payload *models.DeploymentShutdownResponse
@@ -111,7 +111,7 @@ func NewShutdownDeploymentBadRequest() *ShutdownDeploymentBadRequest {
 
 /*ShutdownDeploymentBadRequest handles this case with default header values.
 
-The deployment request had errors
+The deployment request had errors.
 */
 type ShutdownDeploymentBadRequest struct {
 	Payload *models.BasicFailedReply
@@ -144,7 +144,7 @@ func NewShutdownDeploymentUnauthorized() *ShutdownDeploymentUnauthorized {
 
 /*ShutdownDeploymentUnauthorized handles this case with default header values.
 
-You are not authorized to perform this action
+You are not authorized to perform this action.
 */
 type ShutdownDeploymentUnauthorized struct {
 	Payload *models.BasicFailedReply
@@ -177,9 +177,13 @@ func NewShutdownDeploymentNotFound() *ShutdownDeploymentNotFound {
 
 /*ShutdownDeploymentNotFound handles this case with default header values.
 
-The Deployment specified by {deployment_id} cannot be found
+The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
 */
 type ShutdownDeploymentNotFound struct {
+	/*The error codes associated with the response
+	 */
+	XCloudErrorCodes string
+
 	Payload *models.BasicFailedReply
 }
 
@@ -192,6 +196,9 @@ func (o *ShutdownDeploymentNotFound) GetPayload() *models.BasicFailedReply {
 }
 
 func (o *ShutdownDeploymentNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response header x-cloud-error-codes
+	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
 
 	o.Payload = new(models.BasicFailedReply)
 

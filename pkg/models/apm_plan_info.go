@@ -40,9 +40,8 @@ type ApmPlanInfo struct {
 	AttemptEndTime strfmt.DateTime `json:"attempt_end_time,omitempty"`
 
 	// When this plan attempt (ie to apply the plan to the APM) started (ISO format in UTC)
-	// Required: true
 	// Format: date-time
-	AttemptStartTime *strfmt.DateTime `json:"attempt_start_time"`
+	AttemptStartTime strfmt.DateTime `json:"attempt_start_time,omitempty"`
 
 	// Either the plan ended successfully, or is not yet completed (and no errors have occurred)
 	// Required: true
@@ -122,8 +121,8 @@ func (m *ApmPlanInfo) validateAttemptEndTime(formats strfmt.Registry) error {
 
 func (m *ApmPlanInfo) validateAttemptStartTime(formats strfmt.Registry) error {
 
-	if err := validate.Required("attempt_start_time", "body", m.AttemptStartTime); err != nil {
-		return err
+	if swag.IsZero(m.AttemptStartTime) { // not required
+		return nil
 	}
 
 	if err := validate.FormatOf("attempt_start_time", "body", "date-time", m.AttemptStartTime.String(), formats); err != nil {

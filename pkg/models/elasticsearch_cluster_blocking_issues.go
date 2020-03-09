@@ -28,6 +28,7 @@ import (
 	"github.com/go-openapi/errors"
 	strfmt "github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // ElasticsearchClusterBlockingIssues Issues that prevent the Elasticsearch cluster or index from correctly operating.
@@ -35,12 +36,15 @@ import (
 type ElasticsearchClusterBlockingIssues struct {
 
 	// A list of issues that affect availability of entire cluster
+	// Required: true
 	ClusterLevel []*ElasticsearchClusterBlockingIssueElement `json:"cluster_level"`
 
 	// Whether the cluster has issues (false) or not (true)
-	Healthy *bool `json:"healthy,omitempty"`
+	// Required: true
+	Healthy *bool `json:"healthy"`
 
 	// A list of issues that affect availability of the cluster's indices
+	// Required: true
 	IndexLevel []*ElasticsearchClusterBlockingIssueElement `json:"index_level"`
 }
 
@@ -49,6 +53,10 @@ func (m *ElasticsearchClusterBlockingIssues) Validate(formats strfmt.Registry) e
 	var res []error
 
 	if err := m.validateClusterLevel(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateHealthy(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -64,8 +72,8 @@ func (m *ElasticsearchClusterBlockingIssues) Validate(formats strfmt.Registry) e
 
 func (m *ElasticsearchClusterBlockingIssues) validateClusterLevel(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.ClusterLevel) { // not required
-		return nil
+	if err := validate.Required("cluster_level", "body", m.ClusterLevel); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.ClusterLevel); i++ {
@@ -87,10 +95,19 @@ func (m *ElasticsearchClusterBlockingIssues) validateClusterLevel(formats strfmt
 	return nil
 }
 
+func (m *ElasticsearchClusterBlockingIssues) validateHealthy(formats strfmt.Registry) error {
+
+	if err := validate.Required("healthy", "body", m.Healthy); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (m *ElasticsearchClusterBlockingIssues) validateIndexLevel(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.IndexLevel) { // not required
-		return nil
+	if err := validate.Required("index_level", "body", m.IndexLevel); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.IndexLevel); i++ {

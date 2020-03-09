@@ -59,14 +59,14 @@ func (o *StartDeploymentResourceMaintenanceModeReader) ReadResponse(response run
 			return nil, err
 		}
 		return nil, result
-	case 422:
-		result := NewStartDeploymentResourceMaintenanceModeUnprocessableEntity()
+	case 449:
+		result := NewStartDeploymentResourceMaintenanceModeRetryWith()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewStartDeploymentResourceMaintenanceModeRetryWith()
+	case 500:
+		result := NewStartDeploymentResourceMaintenanceModeInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -84,7 +84,7 @@ func NewStartDeploymentResourceMaintenanceModeAccepted() *StartDeploymentResourc
 
 /*StartDeploymentResourceMaintenanceModeAccepted handles this case with default header values.
 
-The stop maintenance command was issued successfully
+The start maintenance command was issued successfully.
 */
 type StartDeploymentResourceMaintenanceModeAccepted struct {
 	Payload models.DeploymentResourceCommandResponse
@@ -115,9 +115,13 @@ func NewStartDeploymentResourceMaintenanceModeForbidden() *StartDeploymentResour
 
 /*StartDeploymentResourceMaintenanceModeForbidden handles this case with default header values.
 
-The start maintenance mode command was prohibited for the given Resource.
+The start maintenance mode command was prohibited for the given Resource. (code: `deployments.instance_update_prohibited_error`)
 */
 type StartDeploymentResourceMaintenanceModeForbidden struct {
+	/*The error codes associated with the response
+	 */
+	XCloudErrorCodes string
+
 	Payload *models.BasicFailedReply
 }
 
@@ -130,6 +134,9 @@ func (o *StartDeploymentResourceMaintenanceModeForbidden) GetPayload() *models.B
 }
 
 func (o *StartDeploymentResourceMaintenanceModeForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response header x-cloud-error-codes
+	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -148,9 +155,15 @@ func NewStartDeploymentResourceMaintenanceModeNotFound() *StartDeploymentResourc
 
 /*StartDeploymentResourceMaintenanceModeNotFound handles this case with default header values.
 
-The Resource specified by {ref_id} cannot be found
-*/
+* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+* The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)
+* One or more instances of the given resource type are missing. (code: `deployments.instances_missing_on_update_error`)
+ */
 type StartDeploymentResourceMaintenanceModeNotFound struct {
+	/*The error codes associated with the response
+	 */
+	XCloudErrorCodes string
+
 	Payload *models.BasicFailedReply
 }
 
@@ -164,38 +177,8 @@ func (o *StartDeploymentResourceMaintenanceModeNotFound) GetPayload() *models.Ba
 
 func (o *StartDeploymentResourceMaintenanceModeNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewStartDeploymentResourceMaintenanceModeUnprocessableEntity creates a StartDeploymentResourceMaintenanceModeUnprocessableEntity with default headers values
-func NewStartDeploymentResourceMaintenanceModeUnprocessableEntity() *StartDeploymentResourceMaintenanceModeUnprocessableEntity {
-	return &StartDeploymentResourceMaintenanceModeUnprocessableEntity{}
-}
-
-/*StartDeploymentResourceMaintenanceModeUnprocessableEntity handles this case with default header values.
-
-The command sent to a Resource found the Resource in an illegal state, the error message gives more details
-*/
-type StartDeploymentResourceMaintenanceModeUnprocessableEntity struct {
-	Payload *models.BasicFailedReply
-}
-
-func (o *StartDeploymentResourceMaintenanceModeUnprocessableEntity) Error() string {
-	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_ids}/maintenance-mode/_start][%d] startDeploymentResourceMaintenanceModeUnprocessableEntity  %+v", 422, o.Payload)
-}
-
-func (o *StartDeploymentResourceMaintenanceModeUnprocessableEntity) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *StartDeploymentResourceMaintenanceModeUnprocessableEntity) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+	// response header x-cloud-error-codes
+	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -214,9 +197,13 @@ func NewStartDeploymentResourceMaintenanceModeRetryWith() *StartDeploymentResour
 
 /*StartDeploymentResourceMaintenanceModeRetryWith handles this case with default header values.
 
-elevated permissions are required. (code: '"root.unauthorized.rbac.elevated_permissions_required"')
+Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type StartDeploymentResourceMaintenanceModeRetryWith struct {
+	/*The error codes associated with the response
+	 */
+	XCloudErrorCodes string
+
 	Payload *models.BasicFailedReply
 }
 
@@ -229,6 +216,49 @@ func (o *StartDeploymentResourceMaintenanceModeRetryWith) GetPayload() *models.B
 }
 
 func (o *StartDeploymentResourceMaintenanceModeRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response header x-cloud-error-codes
+	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+
+	o.Payload = new(models.BasicFailedReply)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewStartDeploymentResourceMaintenanceModeInternalServerError creates a StartDeploymentResourceMaintenanceModeInternalServerError with default headers values
+func NewStartDeploymentResourceMaintenanceModeInternalServerError() *StartDeploymentResourceMaintenanceModeInternalServerError {
+	return &StartDeploymentResourceMaintenanceModeInternalServerError{}
+}
+
+/*StartDeploymentResourceMaintenanceModeInternalServerError handles this case with default header values.
+
+A Resource that was previously stored no longer exists. (code: `deployments.deployment_resource_no_longer_exists`)
+*/
+type StartDeploymentResourceMaintenanceModeInternalServerError struct {
+	/*The error codes associated with the response
+	 */
+	XCloudErrorCodes string
+
+	Payload *models.BasicFailedReply
+}
+
+func (o *StartDeploymentResourceMaintenanceModeInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_ids}/maintenance-mode/_start][%d] startDeploymentResourceMaintenanceModeInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *StartDeploymentResourceMaintenanceModeInternalServerError) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
+func (o *StartDeploymentResourceMaintenanceModeInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response header x-cloud-error-codes
+	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
 
 	o.Payload = new(models.BasicFailedReply)
 

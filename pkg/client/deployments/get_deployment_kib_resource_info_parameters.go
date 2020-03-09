@@ -140,7 +140,7 @@ for the get deployment kib resource info operation typically these are written t
 type GetDeploymentKibResourceInfoParams struct {
 
 	/*ConvertLegacyPlans
-	  If showing plans, whether to leave pre-2.0.0 plans in their legacy format (the default), or whether to update them to 2.0.x+ format (if 'true')
+	  If showing plans, whether to leave pre-2.0.0 plans in their legacy format (the default), or whether to update them to 2.0.x+ format (if 'true').
 
 	*/
 	ConvertLegacyPlans *bool
@@ -155,27 +155,27 @@ type GetDeploymentKibResourceInfoParams struct {
 	*/
 	RefID string
 	/*ShowMetadata
-	  Whether to include the full cluster metadata in the response - can be large per cluster and also include credentials
+	  Whether to include the full cluster metadata in the response - can be large per cluster and also include credentials.
 
 	*/
 	ShowMetadata *bool
 	/*ShowPlanDefaults
-	  If showing plans, whether to show values that are left at their default value (less readable but more informative)
+	  If showing plans, whether to show values that are left at their default value (less readable but more informative).
 
 	*/
 	ShowPlanDefaults *bool
 	/*ShowPlanHistory
-	  Whether to include with the current and pending plan information the plan history- can be very large per cluster
+	  Whether to include with the current and pending plan information the plan history- can be very large per cluster.
 
 	*/
 	ShowPlanHistory *bool
 	/*ShowPlanLogs
-	  Whether to include with the current and pending plan information the attempt log - can be very large per cluster
+	  Whether to include with the current and pending plan information the attempt log - can be very large per cluster.
 
 	*/
 	ShowPlanLogs *bool
 	/*ShowPlans
-	  Whether to include the full current and pending plan information in the response - can be large per cluster
+	  Whether to include the full current and pending plan information in the response - can be large per cluster.
 
 	*/
 	ShowPlans *bool

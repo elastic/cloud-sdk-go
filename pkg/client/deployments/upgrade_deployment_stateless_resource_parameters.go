@@ -92,12 +92,12 @@ for the upgrade deployment stateless resource operation typically these are writ
 type UpgradeDeploymentStatelessResourceParams struct {
 
 	/*DeploymentID
-	  Identifier for the Deployment
+	  Identifier for the Deployment.
 
 	*/
 	DeploymentID string
 	/*RefID
-	  User-specified RefId for the Resource
+	  User-specified RefId for the Resource.
 
 	*/
 	RefID string

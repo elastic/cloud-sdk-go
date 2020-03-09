@@ -23,10 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"github.com/go-openapi/errors"
 	strfmt "github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
-	"github.com/go-openapi/validate"
 )
 
 // ClusterMetadataCPUResourcesSettings Specifies the CPU resource settings for the Elasticsearch cluster.
@@ -34,47 +32,14 @@ import (
 type ClusterMetadataCPUResourcesSettings struct {
 
 	// Indicates if the the CPU boost flag for a cluster is enabled or not
-	// Required: true
-	Boost *bool `json:"boost"`
+	Boost *bool `json:"boost,omitempty"`
 
 	// Indicates if the the CPU hard limit flag for a cluster is enabled or not
-	// Required: true
-	HardLimit *bool `json:"hard_limit"`
+	HardLimit *bool `json:"hard_limit,omitempty"`
 }
 
 // Validate validates this cluster metadata Cpu resources settings
 func (m *ClusterMetadataCPUResourcesSettings) Validate(formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.validateBoost(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateHardLimit(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *ClusterMetadataCPUResourcesSettings) validateBoost(formats strfmt.Registry) error {
-
-	if err := validate.Required("boost", "body", m.Boost); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *ClusterMetadataCPUResourcesSettings) validateHardLimit(formats strfmt.Registry) error {
-
-	if err := validate.Required("hard_limit", "body", m.HardLimit); err != nil {
-		return err
-	}
-
 	return nil
 }
 

@@ -79,7 +79,7 @@ type ActiveDirectorySettings struct {
 	// The order that the security realm is evaluated
 	Order int32 `json:"order,omitempty"`
 
-	// Advanced configuration options in YAML format. Any settings defined here will override any configuration set via the API.
+	// Advanced configuration options in YAML format. Any settings defined here will override any configuration set via the API. Note that all keys should omit the 'xpack.security.authc.realms.active_directory.{realm_id}' prefix. For example, when the realm ID is set to 'ad1', the advanced configuration 'xpack.security.authc.realms.active_directory.ad1.ssl.verification_mode: full' should be added as 'ssl.verification_mode: full'.
 	OverrideYaml string `json:"override_yaml,omitempty"`
 
 	// The role mapping rules associated with the security realm

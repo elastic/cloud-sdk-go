@@ -39,9 +39,11 @@ import (
 // with the default values initialized.
 func NewGetDeploymentTemplateParams() *GetDeploymentTemplateParams {
 	var (
+		formatDefault                     = string("cluster")
 		showInstanceConfigurationsDefault = bool(false)
 	)
 	return &GetDeploymentTemplateParams{
+		Format:                     &formatDefault,
 		ShowInstanceConfigurations: &showInstanceConfigurationsDefault,
 
 		timeout: cr.DefaultTimeout,
@@ -52,9 +54,11 @@ func NewGetDeploymentTemplateParams() *GetDeploymentTemplateParams {
 // with the default values initialized, and the ability to set a timeout on a request
 func NewGetDeploymentTemplateParamsWithTimeout(timeout time.Duration) *GetDeploymentTemplateParams {
 	var (
+		formatDefault                     = string("cluster")
 		showInstanceConfigurationsDefault = bool(false)
 	)
 	return &GetDeploymentTemplateParams{
+		Format:                     &formatDefault,
 		ShowInstanceConfigurations: &showInstanceConfigurationsDefault,
 
 		timeout: timeout,
@@ -65,9 +69,11 @@ func NewGetDeploymentTemplateParamsWithTimeout(timeout time.Duration) *GetDeploy
 // with the default values initialized, and the ability to set a context for a request
 func NewGetDeploymentTemplateParamsWithContext(ctx context.Context) *GetDeploymentTemplateParams {
 	var (
+		formatDefault                     = string("cluster")
 		showInstanceConfigurationsDefault = bool(false)
 	)
 	return &GetDeploymentTemplateParams{
+		Format:                     &formatDefault,
 		ShowInstanceConfigurations: &showInstanceConfigurationsDefault,
 
 		Context: ctx,
@@ -78,9 +84,11 @@ func NewGetDeploymentTemplateParamsWithContext(ctx context.Context) *GetDeployme
 // with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewGetDeploymentTemplateParamsWithHTTPClient(client *http.Client) *GetDeploymentTemplateParams {
 	var (
+		formatDefault                     = string("cluster")
 		showInstanceConfigurationsDefault = bool(false)
 	)
 	return &GetDeploymentTemplateParams{
+		Format:                     &formatDefault,
 		ShowInstanceConfigurations: &showInstanceConfigurationsDefault,
 		HTTPClient:                 client,
 	}
@@ -91,6 +99,11 @@ for the get deployment template operation typically these are written to a http.
 */
 type GetDeploymentTemplateParams struct {
 
+	/*Format
+	  If 'cluster' is specified populates cluster_template in the response, if 'deployment' is specified populates deployment_template in the response
+
+	*/
+	Format *string
 	/*ShowInstanceConfigurations
 	  If true, will return details for each instance configuration referenced by the template.
 
@@ -145,6 +158,17 @@ func (o *GetDeploymentTemplateParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithFormat adds the format to the get deployment template params
+func (o *GetDeploymentTemplateParams) WithFormat(format *string) *GetDeploymentTemplateParams {
+	o.SetFormat(format)
+	return o
+}
+
+// SetFormat adds the format to the get deployment template params
+func (o *GetDeploymentTemplateParams) SetFormat(format *string) {
+	o.Format = format
+}
+
 // WithShowInstanceConfigurations adds the showInstanceConfigurations to the get deployment template params
 func (o *GetDeploymentTemplateParams) WithShowInstanceConfigurations(showInstanceConfigurations *bool) *GetDeploymentTemplateParams {
 	o.SetShowInstanceConfigurations(showInstanceConfigurations)
@@ -185,6 +209,22 @@ func (o *GetDeploymentTemplateParams) WriteToRequest(r runtime.ClientRequest, re
 		return err
 	}
 	var res []error
+
+	if o.Format != nil {
+
+		// query param format
+		var qrFormat string
+		if o.Format != nil {
+			qrFormat = *o.Format
+		}
+		qFormat := qrFormat
+		if qFormat != "" {
+			if err := r.SetQueryParam("format", qFormat); err != nil {
+				return err
+			}
+		}
+
+	}
 
 	if o.ShowInstanceConfigurations != nil {
 

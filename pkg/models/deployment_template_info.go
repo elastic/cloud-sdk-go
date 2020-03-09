@@ -38,6 +38,9 @@ type DeploymentTemplateInfo struct {
 	// The body of the cluster template to use for creating a cluster.
 	ClusterTemplate *DeploymentTemplateDefinitionRequest `json:"cluster_template,omitempty"`
 
+	// The body of the deployment template to use for creating a deployment.
+	DeploymentTemplate *DeploymentCreateRequest `json:"deployment_template,omitempty"`
+
 	// An optional description for the template.
 	Description string `json:"description,omitempty"`
 
@@ -78,6 +81,10 @@ func (m *DeploymentTemplateInfo) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateDeploymentTemplate(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateInstanceConfigurations(formats); err != nil {
 		res = append(res, err)
 	}
@@ -110,6 +117,24 @@ func (m *DeploymentTemplateInfo) validateClusterTemplate(formats strfmt.Registry
 		if err := m.ClusterTemplate.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("cluster_template")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *DeploymentTemplateInfo) validateDeploymentTemplate(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.DeploymentTemplate) { // not required
+		return nil
+	}
+
+	if m.DeploymentTemplate != nil {
+		if err := m.DeploymentTemplate.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("deployment_template")
 			}
 			return err
 		}

@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"strconv"
+
 	"github.com/go-openapi/errors"
 	strfmt "github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -33,6 +35,10 @@ import (
 // swagger:model AvailableAuthenticationMethods
 type AvailableAuthenticationMethods struct {
 
+	// Indicates that OpenID single sign-on authentication is available.
+	// Required: true
+	Openid *bool `json:"openid"`
+
 	// Indicates that username and password authentication is available.
 	// Required: true
 	Password *bool `json:"password"`
@@ -40,11 +46,19 @@ type AvailableAuthenticationMethods struct {
 	// Indicates that SAML single sign-on authentication is available.
 	// Required: true
 	Saml *bool `json:"saml"`
+
+	// Lists details for the available single sign-on methods.
+	// Required: true
+	SsoMethods []*SsoAuthenticationMethodInfo `json:"sso_methods"`
 }
 
 // Validate validates this available authentication methods
 func (m *AvailableAuthenticationMethods) Validate(formats strfmt.Registry) error {
 	var res []error
+
+	if err := m.validateOpenid(formats); err != nil {
+		res = append(res, err)
+	}
 
 	if err := m.validatePassword(formats); err != nil {
 		res = append(res, err)
@@ -54,9 +68,22 @@ func (m *AvailableAuthenticationMethods) Validate(formats strfmt.Registry) error
 		res = append(res, err)
 	}
 
+	if err := m.validateSsoMethods(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *AvailableAuthenticationMethods) validateOpenid(formats strfmt.Registry) error {
+
+	if err := validate.Required("openid", "body", m.Openid); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -73,6 +100,31 @@ func (m *AvailableAuthenticationMethods) validateSaml(formats strfmt.Registry) e
 
 	if err := validate.Required("saml", "body", m.Saml); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *AvailableAuthenticationMethods) validateSsoMethods(formats strfmt.Registry) error {
+
+	if err := validate.Required("sso_methods", "body", m.SsoMethods); err != nil {
+		return err
+	}
+
+	for i := 0; i < len(m.SsoMethods); i++ {
+		if swag.IsZero(m.SsoMethods[i]) { // not required
+			continue
+		}
+
+		if m.SsoMethods[i] != nil {
+			if err := m.SsoMethods[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("sso_methods" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil

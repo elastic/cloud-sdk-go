@@ -83,6 +83,11 @@ type DeleteEsProxyRequestsParams struct {
 
 	*/
 	XManagementRequest string
+	/*Body
+	  The JSON payload to proxy to the Elasticsearch cluster
+
+	*/
+	Body string
 	/*ClusterID
 	  Identifier for the Elasticsearch cluster
 
@@ -143,6 +148,17 @@ func (o *DeleteEsProxyRequestsParams) SetXManagementRequest(xManagementRequest s
 	o.XManagementRequest = xManagementRequest
 }
 
+// WithBody adds the body to the delete es proxy requests params
+func (o *DeleteEsProxyRequestsParams) WithBody(body string) *DeleteEsProxyRequestsParams {
+	o.SetBody(body)
+	return o
+}
+
+// SetBody adds the body to the delete es proxy requests params
+func (o *DeleteEsProxyRequestsParams) SetBody(body string) {
+	o.Body = body
+}
+
 // WithClusterID adds the clusterID to the delete es proxy requests params
 func (o *DeleteEsProxyRequestsParams) WithClusterID(clusterID string) *DeleteEsProxyRequestsParams {
 	o.SetClusterID(clusterID)
@@ -175,6 +191,10 @@ func (o *DeleteEsProxyRequestsParams) WriteToRequest(r runtime.ClientRequest, re
 
 	// header param X-Management-Request
 	if err := r.SetHeaderParam("X-Management-Request", o.XManagementRequest); err != nil {
+		return err
+	}
+
+	if err := r.SetBodyParam(o.Body); err != nil {
 		return err
 	}
 

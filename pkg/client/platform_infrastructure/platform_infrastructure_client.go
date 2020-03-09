@@ -52,7 +52,11 @@ type ClientService interface {
 
 	CreateProxiesFilteredGroup(params *CreateProxiesFilteredGroupParams, authInfo runtime.ClientAuthInfoWriter) (*CreateProxiesFilteredGroupOK, error)
 
+	DeleteAdminconsoleLoggingSettings(params *DeleteAdminconsoleLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteAdminconsoleLoggingSettingsOK, error)
+
 	DeleteAllocator(params *DeleteAllocatorParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteAllocatorOK, error)
+
+	DeleteAllocatorLoggingSettings(params *DeleteAllocatorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteAllocatorLoggingSettingsOK, error)
 
 	DeleteAllocatorMetadataItem(params *DeleteAllocatorMetadataItemParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteAllocatorMetadataItemOK, error)
 
@@ -60,13 +64,23 @@ type ClientService interface {
 
 	DeleteConfigStoreOption(params *DeleteConfigStoreOptionParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteConfigStoreOptionOK, error)
 
+	DeleteConstructorLoggingSettings(params *DeleteConstructorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteConstructorLoggingSettingsOK, error)
+
 	DeleteLicense(params *DeleteLicenseParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteLicenseOK, error)
 
 	DeleteProxiesFilteredGroup(params *DeleteProxiesFilteredGroupParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteProxiesFilteredGroupOK, error)
 
 	DeleteRunner(params *DeleteRunnerParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteRunnerOK, error)
 
+	DeleteRunnerLoggingSettings(params *DeleteRunnerLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteRunnerLoggingSettingsOK, error)
+
+	GetAdminconsoleLoggingSettings(params *GetAdminconsoleLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*GetAdminconsoleLoggingSettingsOK, error)
+
+	GetAdminconsoles(params *GetAdminconsolesParams, authInfo runtime.ClientAuthInfoWriter) (*GetAdminconsolesOK, error)
+
 	GetAllocator(params *GetAllocatorParams, authInfo runtime.ClientAuthInfoWriter) (*GetAllocatorOK, error)
+
+	GetAllocatorLoggingSettings(params *GetAllocatorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*GetAllocatorLoggingSettingsOK, error)
 
 	GetAllocatorMetadata(params *GetAllocatorMetadataParams, authInfo runtime.ClientAuthInfoWriter) (*GetAllocatorMetadataOK, error)
 
@@ -79,6 +93,8 @@ type ClientService interface {
 	GetConfigStoreOption(params *GetConfigStoreOptionParams, authInfo runtime.ClientAuthInfoWriter) (*GetConfigStoreOptionOK, error)
 
 	GetConstructor(params *GetConstructorParams, authInfo runtime.ClientAuthInfoWriter) (*GetConstructorOK, error)
+
+	GetConstructorLoggingSettings(params *GetConstructorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*GetConstructorLoggingSettingsOK, error)
 
 	GetConstructors(params *GetConstructorsParams, authInfo runtime.ClientAuthInfoWriter) (*GetConstructorsOK, error)
 
@@ -97,6 +113,8 @@ type ClientService interface {
 	GetProxy(params *GetProxyParams, authInfo runtime.ClientAuthInfoWriter) (*GetProxyOK, error)
 
 	GetRunner(params *GetRunnerParams, authInfo runtime.ClientAuthInfoWriter) (*GetRunnerOK, error)
+
+	GetRunnerLoggingSettings(params *GetRunnerLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*GetRunnerLoggingSettingsOK, error)
 
 	GetRunners(params *GetRunnersParams, authInfo runtime.ClientAuthInfoWriter) (*GetRunnersOK, error)
 
@@ -126,6 +144,10 @@ type ClientService interface {
 
 	SearchRunners(params *SearchRunnersParams, authInfo runtime.ClientAuthInfoWriter) (*SearchRunnersOK, error)
 
+	SetAdminconsoleLoggingSettings(params *SetAdminconsoleLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*SetAdminconsoleLoggingSettingsOK, error)
+
+	SetAllocatorLoggingSettings(params *SetAllocatorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*SetAllocatorLoggingSettingsOK, error)
+
 	SetAllocatorMetadata(params *SetAllocatorMetadataParams, authInfo runtime.ClientAuthInfoWriter) (*SetAllocatorMetadataOK, error)
 
 	SetAllocatorMetadataItem(params *SetAllocatorMetadataItemParams, authInfo runtime.ClientAuthInfoWriter) (*SetAllocatorMetadataItemOK, error)
@@ -134,9 +156,13 @@ type ClientService interface {
 
 	SetBlueprinterBlessings(params *SetBlueprinterBlessingsParams, authInfo runtime.ClientAuthInfoWriter) (*SetBlueprinterBlessingsOK, error)
 
+	SetConstructorLoggingSettings(params *SetConstructorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*SetConstructorLoggingSettingsOK, error)
+
 	SetLicense(params *SetLicenseParams, authInfo runtime.ClientAuthInfoWriter) (*SetLicenseOK, error)
 
 	SetProxiesSettings(params *SetProxiesSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*SetProxiesSettingsOK, error)
+
+	SetRunnerLoggingSettings(params *SetRunnerLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*SetRunnerLoggingSettingsOK, error)
 
 	SetRunnerRoles(params *SetRunnerRolesParams, authInfo runtime.ClientAuthInfoWriter) (*SetRunnerRolesOK, error)
 
@@ -148,13 +174,21 @@ type ClientService interface {
 
 	StopConstructorMaintenanceMode(params *StopConstructorMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StopConstructorMaintenanceModeAccepted, error)
 
+	UpdateAdminconsoleLoggingSettings(params *UpdateAdminconsoleLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateAdminconsoleLoggingSettingsOK, error)
+
+	UpdateAllocatorLoggingSettings(params *UpdateAllocatorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateAllocatorLoggingSettingsOK, error)
+
 	UpdateAllocatorSettings(params *UpdateAllocatorSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateAllocatorSettingsOK, error)
 
 	UpdateBlueprinterRole(params *UpdateBlueprinterRoleParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateBlueprinterRoleOK, error)
 
+	UpdateConstructorLoggingSettings(params *UpdateConstructorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateConstructorLoggingSettingsOK, error)
+
 	UpdateProxiesFilteredGroup(params *UpdateProxiesFilteredGroupParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateProxiesFilteredGroupOK, error)
 
 	UpdateProxiesSettings(params *UpdateProxiesSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateProxiesSettingsOK, error)
+
+	UpdateRunnerLoggingSettings(params *UpdateRunnerLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateRunnerLoggingSettingsOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -308,6 +342,43 @@ func (a *Client) CreateProxiesFilteredGroup(params *CreateProxiesFilteredGroupPa
 }
 
 /*
+  DeleteAdminconsoleLoggingSettings deletes adminconsole logging settings
+
+  Reset the default logging settings for this adminconsole instance.
+*/
+func (a *Client) DeleteAdminconsoleLoggingSettings(params *DeleteAdminconsoleLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteAdminconsoleLoggingSettingsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteAdminconsoleLoggingSettingsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "delete-adminconsole-logging-settings",
+		Method:             "DELETE",
+		PathPattern:        "/platform/infrastructure/adminconsoles/{adminconsole_id}/logging_settings",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeleteAdminconsoleLoggingSettingsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DeleteAdminconsoleLoggingSettingsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for delete-adminconsole-logging-settings: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
   DeleteAllocator deletes allocator
 
   Deletes the allocator.
@@ -341,6 +412,43 @@ func (a *Client) DeleteAllocator(params *DeleteAllocatorParams, authInfo runtime
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for delete-allocator: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DeleteAllocatorLoggingSettings deletes allocator logging settings
+
+  Reset the default logging settings for this allocator instance.
+*/
+func (a *Client) DeleteAllocatorLoggingSettings(params *DeleteAllocatorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteAllocatorLoggingSettingsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteAllocatorLoggingSettingsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "delete-allocator-logging-settings",
+		Method:             "DELETE",
+		PathPattern:        "/platform/infrastructure/allocators/{allocator_id}/logging_settings",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeleteAllocatorLoggingSettingsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DeleteAllocatorLoggingSettingsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for delete-allocator-logging-settings: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -456,6 +564,43 @@ func (a *Client) DeleteConfigStoreOption(params *DeleteConfigStoreOptionParams, 
 }
 
 /*
+  DeleteConstructorLoggingSettings deletes constructor logging settings
+
+  Reset the default logging settings for this constructor instance.
+*/
+func (a *Client) DeleteConstructorLoggingSettings(params *DeleteConstructorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteConstructorLoggingSettingsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteConstructorLoggingSettingsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "delete-constructor-logging-settings",
+		Method:             "DELETE",
+		PathPattern:        "/platform/infrastructure/constructors/{constructor_id}/logging_settings",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeleteConstructorLoggingSettingsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DeleteConstructorLoggingSettingsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for delete-constructor-logging-settings: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
   DeleteLicense deletes license
 
   Deletes the license.
@@ -567,6 +712,117 @@ func (a *Client) DeleteRunner(params *DeleteRunnerParams, authInfo runtime.Clien
 }
 
 /*
+  DeleteRunnerLoggingSettings deletes runner logging settings
+
+  Reset the default logging settings for this runner instance.
+*/
+func (a *Client) DeleteRunnerLoggingSettings(params *DeleteRunnerLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteRunnerLoggingSettingsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteRunnerLoggingSettingsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "delete-runner-logging-settings",
+		Method:             "DELETE",
+		PathPattern:        "/platform/infrastructure/runners/{runner_id}/logging_settings",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeleteRunnerLoggingSettingsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DeleteRunnerLoggingSettingsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for delete-runner-logging-settings: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  GetAdminconsoleLoggingSettings gets adminconsole logging settings
+
+  Get the logging settings for this adminconsole instance.
+*/
+func (a *Client) GetAdminconsoleLoggingSettings(params *GetAdminconsoleLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*GetAdminconsoleLoggingSettingsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetAdminconsoleLoggingSettingsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "get-adminconsole-logging-settings",
+		Method:             "GET",
+		PathPattern:        "/platform/infrastructure/adminconsoles/{adminconsole_id}/logging_settings",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetAdminconsoleLoggingSettingsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetAdminconsoleLoggingSettingsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-adminconsole-logging-settings: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  GetAdminconsoles gets adminconsoles
+
+  Retrieves an overview of all adminconsoles.
+*/
+func (a *Client) GetAdminconsoles(params *GetAdminconsolesParams, authInfo runtime.ClientAuthInfoWriter) (*GetAdminconsolesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetAdminconsolesParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "get-adminconsoles",
+		Method:             "GET",
+		PathPattern:        "/platform/infrastructure/adminconsoles",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetAdminconsolesReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetAdminconsolesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-adminconsoles: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
   GetAllocator gets allocator
 
   Retrieves the allocator by the ID.
@@ -600,6 +856,43 @@ func (a *Client) GetAllocator(params *GetAllocatorParams, authInfo runtime.Clien
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for get-allocator: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  GetAllocatorLoggingSettings gets allocator logging settings
+
+  Get the logging settings for this allocator instance.
+*/
+func (a *Client) GetAllocatorLoggingSettings(params *GetAllocatorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*GetAllocatorLoggingSettingsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetAllocatorLoggingSettingsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "get-allocator-logging-settings",
+		Method:             "GET",
+		PathPattern:        "/platform/infrastructure/allocators/{allocator_id}/logging_settings",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetAllocatorLoggingSettingsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetAllocatorLoggingSettingsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-allocator-logging-settings: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -822,6 +1115,43 @@ func (a *Client) GetConstructor(params *GetConstructorParams, authInfo runtime.C
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for get-constructor: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  GetConstructorLoggingSettings gets constructor logging settings
+
+  Get the logging settings for this constructor instance.
+*/
+func (a *Client) GetConstructorLoggingSettings(params *GetConstructorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*GetConstructorLoggingSettingsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetConstructorLoggingSettingsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "get-constructor-logging-settings",
+		Method:             "GET",
+		PathPattern:        "/platform/infrastructure/constructors/{constructor_id}/logging_settings",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetConstructorLoggingSettingsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetConstructorLoggingSettingsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-constructor-logging-settings: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -1155,6 +1485,43 @@ func (a *Client) GetRunner(params *GetRunnerParams, authInfo runtime.ClientAuthI
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for get-runner: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  GetRunnerLoggingSettings gets runner logging settings
+
+  Get the logging settings for this runner instance.
+*/
+func (a *Client) GetRunnerLoggingSettings(params *GetRunnerLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*GetRunnerLoggingSettingsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetRunnerLoggingSettingsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "get-runner-logging-settings",
+		Method:             "GET",
+		PathPattern:        "/platform/infrastructure/runners/{runner_id}/logging_settings",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetRunnerLoggingSettingsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetRunnerLoggingSettingsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-runner-logging-settings: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -1677,6 +2044,80 @@ func (a *Client) SearchRunners(params *SearchRunnersParams, authInfo runtime.Cli
 }
 
 /*
+  SetAdminconsoleLoggingSettings sets adminconsole logging settings
+
+  Set the logging settings for this adminconsole instance.
+*/
+func (a *Client) SetAdminconsoleLoggingSettings(params *SetAdminconsoleLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*SetAdminconsoleLoggingSettingsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSetAdminconsoleLoggingSettingsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "set-adminconsole-logging-settings",
+		Method:             "PUT",
+		PathPattern:        "/platform/infrastructure/adminconsoles/{adminconsole_id}/logging_settings",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &SetAdminconsoleLoggingSettingsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*SetAdminconsoleLoggingSettingsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for set-adminconsole-logging-settings: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  SetAllocatorLoggingSettings sets allocator logging settings
+
+  Set the logging settings for this allocator instance.
+*/
+func (a *Client) SetAllocatorLoggingSettings(params *SetAllocatorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*SetAllocatorLoggingSettingsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSetAllocatorLoggingSettingsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "set-allocator-logging-settings",
+		Method:             "PUT",
+		PathPattern:        "/platform/infrastructure/allocators/{allocator_id}/logging_settings",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &SetAllocatorLoggingSettingsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*SetAllocatorLoggingSettingsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for set-allocator-logging-settings: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
   SetAllocatorMetadata sets allocator metadata
 
   Sets the allocator metadata.
@@ -1825,6 +2266,43 @@ func (a *Client) SetBlueprinterBlessings(params *SetBlueprinterBlessingsParams, 
 }
 
 /*
+  SetConstructorLoggingSettings sets constructor logging settings
+
+  Set the logging settings for this constructor instance.
+*/
+func (a *Client) SetConstructorLoggingSettings(params *SetConstructorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*SetConstructorLoggingSettingsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSetConstructorLoggingSettingsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "set-constructor-logging-settings",
+		Method:             "PUT",
+		PathPattern:        "/platform/infrastructure/constructors/{constructor_id}/logging_settings",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &SetConstructorLoggingSettingsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*SetConstructorLoggingSettingsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for set-constructor-logging-settings: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
   SetLicense adds or update license
 
   Adds a new or updates an existing license.
@@ -1895,6 +2373,43 @@ func (a *Client) SetProxiesSettings(params *SetProxiesSettingsParams, authInfo r
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for set-proxies-settings: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  SetRunnerLoggingSettings sets runner logging settings
+
+  Set the logging settings for this runner instance.
+*/
+func (a *Client) SetRunnerLoggingSettings(params *SetRunnerLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*SetRunnerLoggingSettingsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSetRunnerLoggingSettingsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "set-runner-logging-settings",
+		Method:             "PUT",
+		PathPattern:        "/platform/infrastructure/runners/{runner_id}/logging_settings",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &SetRunnerLoggingSettingsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*SetRunnerLoggingSettingsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for set-runner-logging-settings: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -2084,6 +2599,80 @@ func (a *Client) StopConstructorMaintenanceMode(params *StopConstructorMaintenan
 }
 
 /*
+  UpdateAdminconsoleLoggingSettings updates adminconsole logging settings
+
+  All changes in the specified object are applied to the logging settings for this adminconsole instance. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.
+*/
+func (a *Client) UpdateAdminconsoleLoggingSettings(params *UpdateAdminconsoleLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateAdminconsoleLoggingSettingsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdateAdminconsoleLoggingSettingsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "update-adminconsole-logging-settings",
+		Method:             "PATCH",
+		PathPattern:        "/platform/infrastructure/adminconsoles/{adminconsole_id}/logging_settings",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &UpdateAdminconsoleLoggingSettingsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*UpdateAdminconsoleLoggingSettingsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for update-adminconsole-logging-settings: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  UpdateAllocatorLoggingSettings updates allocator logging settings
+
+  All changes in the specified object are applied to the logging settings for this allocator instance. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.
+*/
+func (a *Client) UpdateAllocatorLoggingSettings(params *UpdateAllocatorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateAllocatorLoggingSettingsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdateAllocatorLoggingSettingsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "update-allocator-logging-settings",
+		Method:             "PATCH",
+		PathPattern:        "/platform/infrastructure/allocators/{allocator_id}/logging_settings",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &UpdateAllocatorLoggingSettingsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*UpdateAllocatorLoggingSettingsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for update-allocator-logging-settings: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
   UpdateAllocatorSettings updates allocator settings
 
   Applies the settings as a patch. Only the fields that are referenced in the update are altered.
@@ -2158,6 +2747,43 @@ func (a *Client) UpdateBlueprinterRole(params *UpdateBlueprinterRoleParams, auth
 }
 
 /*
+  UpdateConstructorLoggingSettings updates constructor logging settings
+
+  All changes in the specified object are applied to the logging settings for this constructor instance. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.
+*/
+func (a *Client) UpdateConstructorLoggingSettings(params *UpdateConstructorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateConstructorLoggingSettingsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdateConstructorLoggingSettingsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "update-constructor-logging-settings",
+		Method:             "PATCH",
+		PathPattern:        "/platform/infrastructure/constructors/{constructor_id}/logging_settings",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &UpdateConstructorLoggingSettingsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*UpdateConstructorLoggingSettingsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for update-constructor-logging-settings: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
   UpdateProxiesFilteredGroup updates filtered group of proxies
 
   Update the settings for a filtered group of proxies.
@@ -2228,6 +2854,43 @@ func (a *Client) UpdateProxiesSettings(params *UpdateProxiesSettingsParams, auth
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for update-proxies-settings: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  UpdateRunnerLoggingSettings updates runner logging settings
+
+  All changes in the specified object are applied to the logging settings for this runner instance. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.
+*/
+func (a *Client) UpdateRunnerLoggingSettings(params *UpdateRunnerLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateRunnerLoggingSettingsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUpdateRunnerLoggingSettingsParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "update-runner-logging-settings",
+		Method:             "PATCH",
+		PathPattern:        "/platform/infrastructure/runners/{runner_id}/logging_settings",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &UpdateRunnerLoggingSettingsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*UpdateRunnerLoggingSettingsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for update-runner-logging-settings: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

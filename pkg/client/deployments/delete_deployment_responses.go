@@ -78,7 +78,7 @@ func NewDeleteDeploymentOK() *DeleteDeploymentOK {
 
 /*DeleteDeploymentOK handles this case with default header values.
 
-The request was valid and the deployment was deleted
+The request was valid and the deployment was deleted.
 */
 type DeleteDeploymentOK struct {
 	Payload *models.DeploymentDeleteResponse
@@ -111,7 +111,7 @@ func NewDeleteDeploymentBadRequest() *DeleteDeploymentBadRequest {
 
 /*DeleteDeploymentBadRequest handles this case with default header values.
 
-The Deployment resources have not been shutdown yet
+The Deployment resources have not been shutdown yet.
 */
 type DeleteDeploymentBadRequest struct {
 	Payload *models.BasicFailedReply
@@ -144,7 +144,7 @@ func NewDeleteDeploymentUnauthorized() *DeleteDeploymentUnauthorized {
 
 /*DeleteDeploymentUnauthorized handles this case with default header values.
 
-You are not authorized to perform this action
+You are not authorized to perform this action.
 */
 type DeleteDeploymentUnauthorized struct {
 	Payload *models.BasicFailedReply
@@ -177,9 +177,13 @@ func NewDeleteDeploymentNotFound() *DeleteDeploymentNotFound {
 
 /*DeleteDeploymentNotFound handles this case with default header values.
 
-The Deployment specified by {deployment_id} cannot be found
+The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
 */
 type DeleteDeploymentNotFound struct {
+	/*The error codes associated with the response
+	 */
+	XCloudErrorCodes string
+
 	Payload *models.BasicFailedReply
 }
 
@@ -192,6 +196,9 @@ func (o *DeleteDeploymentNotFound) GetPayload() *models.BasicFailedReply {
 }
 
 func (o *DeleteDeploymentNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response header x-cloud-error-codes
+	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
 
 	o.Payload = new(models.BasicFailedReply)
 

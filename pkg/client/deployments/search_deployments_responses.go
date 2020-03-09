@@ -47,12 +47,6 @@ func (o *SearchDeploymentsReader) ReadResponse(response runtime.ClientResponse, 
 			return nil, err
 		}
 		return result, nil
-	case 401:
-		result := NewSearchDeploymentsUnauthorized()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
@@ -66,9 +60,19 @@ func NewSearchDeploymentsOK() *SearchDeploymentsOK {
 
 /*SearchDeploymentsOK handles this case with default header values.
 
-The list of deployments that match the specified query and belong to the authenticated user
+The list of deployments that match the specified query and belong to the authenticated user.
 */
 type SearchDeploymentsOK struct {
+	/*The date-time when the resource was created (ISO format relative to UTC)
+	 */
+	XCloudResourceCreated string
+	/*The date-time when the resource was last modified (ISO format relative to UTC)
+	 */
+	XCloudResourceLastModified string
+	/*The resource version, which is used to avoid update conflicts with concurrent operations
+	 */
+	XCloudResourceVersion string
+
 	Payload *models.DeploymentsSearchResponse
 }
 
@@ -82,40 +86,16 @@ func (o *SearchDeploymentsOK) GetPayload() *models.DeploymentsSearchResponse {
 
 func (o *SearchDeploymentsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
+	// response header x-cloud-resource-created
+	o.XCloudResourceCreated = response.GetHeader("x-cloud-resource-created")
+
+	// response header x-cloud-resource-last-modified
+	o.XCloudResourceLastModified = response.GetHeader("x-cloud-resource-last-modified")
+
+	// response header x-cloud-resource-version
+	o.XCloudResourceVersion = response.GetHeader("x-cloud-resource-version")
+
 	o.Payload = new(models.DeploymentsSearchResponse)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewSearchDeploymentsUnauthorized creates a SearchDeploymentsUnauthorized with default headers values
-func NewSearchDeploymentsUnauthorized() *SearchDeploymentsUnauthorized {
-	return &SearchDeploymentsUnauthorized{}
-}
-
-/*SearchDeploymentsUnauthorized handles this case with default header values.
-
-You are not authorized to perform this action
-*/
-type SearchDeploymentsUnauthorized struct {
-	Payload *models.BasicFailedReply
-}
-
-func (o *SearchDeploymentsUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /deployments/_search][%d] searchDeploymentsUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *SearchDeploymentsUnauthorized) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *SearchDeploymentsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.BasicFailedReply)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

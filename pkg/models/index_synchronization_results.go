@@ -23,8 +23,10 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"github.com/go-openapi/errors"
 	strfmt "github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // IndexSynchronizationResults Results from synchronizing indices
@@ -32,17 +34,64 @@ import (
 type IndexSynchronizationResults struct {
 
 	// The ids of documents created in the index by index version
+	// Required: true
 	Created []string `json:"created"`
 
 	// The ids of documents deleted from the index by index version
+	// Required: true
 	Deleted []string `json:"deleted"`
 
 	// The ids of documents updated in the index by index version
+	// Required: true
 	Updated []string `json:"updated"`
 }
 
 // Validate validates this index synchronization results
 func (m *IndexSynchronizationResults) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateCreated(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateDeleted(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateUpdated(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *IndexSynchronizationResults) validateCreated(formats strfmt.Registry) error {
+
+	if err := validate.Required("created", "body", m.Created); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *IndexSynchronizationResults) validateDeleted(formats strfmt.Registry) error {
+
+	if err := validate.Required("deleted", "body", m.Deleted); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *IndexSynchronizationResults) validateUpdated(formats strfmt.Registry) error {
+
+	if err := validate.Required("updated", "body", m.Updated); err != nil {
+		return err
+	}
+
 	return nil
 }
 

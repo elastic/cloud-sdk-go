@@ -100,22 +100,22 @@ for the shutdown deployment es resource operation typically these are written to
 type ShutdownDeploymentEsResourceParams struct {
 
 	/*DeploymentID
-	  Identifier for the Deployment
+	  Identifier for the Deployment.
 
 	*/
 	DeploymentID string
 	/*Hide
-	  Hide cluster on shutdown. Hidden clusters are not listed by default
+	  Hide cluster on shutdown. Hidden clusters are not listed by default.
 
 	*/
 	Hide *bool
 	/*RefID
-	  User-specified RefId for the Resource
+	  User-specified RefId for the Resource.
 
 	*/
 	RefID string
 	/*SkipSnapshot
-	  If true, will skip taking a snapshot of the cluster before shutting the cluster down (if even possible)
+	  If true, will skip taking a snapshot of the cluster before shutting the cluster down (if even possible).
 
 	*/
 	SkipSnapshot *bool

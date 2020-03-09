@@ -65,6 +65,12 @@ func (o *RestartDeploymentEsResourceReader) ReadResponse(response runtime.Client
 			return nil, err
 		}
 		return nil, result
+	case 500:
+		result := NewRestartDeploymentEsResourceInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
@@ -78,7 +84,7 @@ func NewRestartDeploymentEsResourceAccepted() *RestartDeploymentEsResourceAccept
 
 /*RestartDeploymentEsResourceAccepted handles this case with default header values.
 
-The restart command was issued successfully
+The restart command was issued successfully.
 */
 type RestartDeploymentEsResourceAccepted struct {
 	Payload models.DeploymentResourceCommandResponse
@@ -109,9 +115,14 @@ func NewRestartDeploymentEsResourceNotFound() *RestartDeploymentEsResourceNotFou
 
 /*RestartDeploymentEsResourceNotFound handles this case with default header values.
 
-The Resource specified by {ref_id} cannot be found
-*/
+* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+* The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)
+ */
 type RestartDeploymentEsResourceNotFound struct {
+	/*The error codes associated with the response
+	 */
+	XCloudErrorCodes string
+
 	Payload *models.BasicFailedReply
 }
 
@@ -124,6 +135,9 @@ func (o *RestartDeploymentEsResourceNotFound) GetPayload() *models.BasicFailedRe
 }
 
 func (o *RestartDeploymentEsResourceNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response header x-cloud-error-codes
+	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -142,9 +156,13 @@ func NewRestartDeploymentEsResourceUnprocessableEntity() *RestartDeploymentEsRes
 
 /*RestartDeploymentEsResourceUnprocessableEntity handles this case with default header values.
 
-The command sent to a Resource found the Resource in an illegal state, the error message gives more details
+The command sent to a Resource found the Resource in an illegal state, the error message gives more details. (code: `deployments.deployment_resource_plan_change_error`)
 */
 type RestartDeploymentEsResourceUnprocessableEntity struct {
+	/*The error codes associated with the response
+	 */
+	XCloudErrorCodes string
+
 	Payload *models.BasicFailedReply
 }
 
@@ -157,6 +175,9 @@ func (o *RestartDeploymentEsResourceUnprocessableEntity) GetPayload() *models.Ba
 }
 
 func (o *RestartDeploymentEsResourceUnprocessableEntity) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response header x-cloud-error-codes
+	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -175,9 +196,13 @@ func NewRestartDeploymentEsResourceRetryWith() *RestartDeploymentEsResourceRetry
 
 /*RestartDeploymentEsResourceRetryWith handles this case with default header values.
 
-elevated permissions are required. (code: '"root.unauthorized.rbac.elevated_permissions_required"')
+Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type RestartDeploymentEsResourceRetryWith struct {
+	/*The error codes associated with the response
+	 */
+	XCloudErrorCodes string
+
 	Payload *models.BasicFailedReply
 }
 
@@ -190,6 +215,49 @@ func (o *RestartDeploymentEsResourceRetryWith) GetPayload() *models.BasicFailedR
 }
 
 func (o *RestartDeploymentEsResourceRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response header x-cloud-error-codes
+	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+
+	o.Payload = new(models.BasicFailedReply)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewRestartDeploymentEsResourceInternalServerError creates a RestartDeploymentEsResourceInternalServerError with default headers values
+func NewRestartDeploymentEsResourceInternalServerError() *RestartDeploymentEsResourceInternalServerError {
+	return &RestartDeploymentEsResourceInternalServerError{}
+}
+
+/*RestartDeploymentEsResourceInternalServerError handles this case with default header values.
+
+A Resource that was previously stored no longer exists. (code: `deployments.deployment_resource_no_longer_exists`)
+*/
+type RestartDeploymentEsResourceInternalServerError struct {
+	/*The error codes associated with the response
+	 */
+	XCloudErrorCodes string
+
+	Payload *models.BasicFailedReply
+}
+
+func (o *RestartDeploymentEsResourceInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_restart][%d] restartDeploymentEsResourceInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *RestartDeploymentEsResourceInternalServerError) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
+func (o *RestartDeploymentEsResourceInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response header x-cloud-error-codes
+	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
 
 	o.Payload = new(models.BasicFailedReply)
 

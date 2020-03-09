@@ -26,6 +26,7 @@ import (
 	"github.com/go-openapi/errors"
 	strfmt "github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // ConstructorInfo Information about the constructor.
@@ -33,15 +34,21 @@ import (
 type ConstructorInfo struct {
 
 	// Identifier for this constructor
-	ConstructorID string `json:"constructor_id,omitempty"`
+	// Required: true
+	ConstructorID *string `json:"constructor_id"`
 
 	// status
-	Status *ConstructorHealthStatus `json:"status,omitempty"`
+	// Required: true
+	Status *ConstructorHealthStatus `json:"status"`
 }
 
 // Validate validates this constructor info
 func (m *ConstructorInfo) Validate(formats strfmt.Registry) error {
 	var res []error
+
+	if err := m.validateConstructorID(formats); err != nil {
+		res = append(res, err)
+	}
 
 	if err := m.validateStatus(formats); err != nil {
 		res = append(res, err)
@@ -53,10 +60,19 @@ func (m *ConstructorInfo) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *ConstructorInfo) validateConstructorID(formats strfmt.Registry) error {
+
+	if err := validate.Required("constructor_id", "body", m.ConstructorID); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (m *ConstructorInfo) validateStatus(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.Status) { // not required
-		return nil
+	if err := validate.Required("status", "body", m.Status); err != nil {
+		return err
 	}
 
 	if m.Status != nil {

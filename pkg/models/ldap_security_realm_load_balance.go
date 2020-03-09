@@ -39,9 +39,8 @@ type LdapSecurityRealmLoadBalance struct {
 	CacheTTL string `json:"cache_ttl,omitempty"`
 
 	// The behavior to use when there are multiple LDAP URLs defined
-	// Required: true
 	// Enum: [failover dns_failover round_robin dns_round_robin]
-	Type *string `json:"type"`
+	Type string `json:"type,omitempty"`
 }
 
 // Validate validates this ldap security realm load balance
@@ -95,12 +94,12 @@ func (m *LdapSecurityRealmLoadBalance) validateTypeEnum(path, location string, v
 
 func (m *LdapSecurityRealmLoadBalance) validateType(formats strfmt.Registry) error {
 
-	if err := validate.Required("type", "body", m.Type); err != nil {
-		return err
+	if swag.IsZero(m.Type) { // not required
+		return nil
 	}
 
 	// value enum
-	if err := m.validateTypeEnum("type", "body", *m.Type); err != nil {
+	if err := m.validateTypeEnum("type", "body", m.Type); err != nil {
 		return err
 	}
 

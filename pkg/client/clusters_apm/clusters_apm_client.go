@@ -112,7 +112,7 @@ type ClientService interface {
 /*
   CancelApmPendingPlan cancels pending plan
 
-  Cancels the pending plan of an APM cluster.
+  DEPRECATED (Scheduled to be removed in the next major version): Cancels the pending plan of an APM cluster.
 */
 func (a *Client) CancelApmPendingPlan(params *CancelApmPendingPlanParams, authInfo runtime.ClientAuthInfoWriter) (*CancelApmPendingPlanOK, error) {
 	// TODO: Validate the params before sending
@@ -149,7 +149,7 @@ func (a *Client) CancelApmPendingPlan(params *CancelApmPendingPlanParams, authIn
 /*
   CreateApm creates cluster
 
-  Creates an APM cluster for a given Elasticsearch cluster.
+  DEPRECATED (Scheduled to be removed in the next major version): Creates an APM cluster for a given Elasticsearch cluster.
 */
 func (a *Client) CreateApm(params *CreateApmParams, authInfo runtime.ClientAuthInfoWriter) (*CreateApmOK, *CreateApmCreated, error) {
 	// TODO: Validate the params before sending
@@ -187,7 +187,7 @@ func (a *Client) CreateApm(params *CreateApmParams, authInfo runtime.ClientAuthI
 /*
   DeleteApm deletes cluster
 
-  Deletes an APM cluster.
+  DEPRECATED (Scheduled to be removed in the next major version): Deletes an APM cluster.
 Requires that you have already successfully issued `_shutdown` command against the cluster.
 */
 func (a *Client) DeleteApm(params *DeleteApmParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteApmOK, error) {
@@ -225,7 +225,7 @@ func (a *Client) DeleteApm(params *DeleteApmParams, authInfo runtime.ClientAuthI
 /*
   GetApmCluster gets cluster
 
-  Retrieves cluster information for a APM cluster.
+  DEPRECATED (Scheduled to be removed in the next major version): Retrieves cluster information for a APM cluster.
 */
 func (a *Client) GetApmCluster(params *GetApmClusterParams, authInfo runtime.ClientAuthInfoWriter) (*GetApmClusterOK, error) {
 	// TODO: Validate the params before sending
@@ -262,7 +262,7 @@ func (a *Client) GetApmCluster(params *GetApmClusterParams, authInfo runtime.Cli
 /*
   GetApmClusterPlanActivity gets plan activity
 
-  Retrieves the current and historical plan information for a APM cluster.
+  DEPRECATED (Scheduled to be removed in the next major version): Retrieves the current and historical plan information for a APM cluster.
 */
 func (a *Client) GetApmClusterPlanActivity(params *GetApmClusterPlanActivityParams, authInfo runtime.ClientAuthInfoWriter) (*GetApmClusterPlanActivityOK, error) {
 	// TODO: Validate the params before sending
@@ -299,7 +299,7 @@ func (a *Client) GetApmClusterPlanActivity(params *GetApmClusterPlanActivityPara
 /*
   GetApmClusters gets clusters
 
-  Retrieves cluster information for all APM clusters.
+  DEPRECATED (Scheduled to be removed in the next major version): Retrieves cluster information for all APM clusters.
 */
 func (a *Client) GetApmClusters(params *GetApmClustersParams, authInfo runtime.ClientAuthInfoWriter) (*GetApmClustersOK, error) {
 	// TODO: Validate the params before sending
@@ -336,7 +336,7 @@ func (a *Client) GetApmClusters(params *GetApmClustersParams, authInfo runtime.C
 /*
   GetApmMetadataRaw gets cluster metadata
 
-  Advanced use only. Retrieves the internal metadata, in free-form JSON, for the APM instance.
+  DEPRECATED (Scheduled to be removed in the next major version): Advanced use only. Retrieves the internal metadata, in free-form JSON, for the APM instance.
 */
 func (a *Client) GetApmMetadataRaw(params *GetApmMetadataRawParams, authInfo runtime.ClientAuthInfoWriter) (*GetApmMetadataRawOK, error) {
 	// TODO: Validate the params before sending
@@ -373,7 +373,7 @@ func (a *Client) GetApmMetadataRaw(params *GetApmMetadataRawParams, authInfo run
 /*
   GetApmMetadataSettings gets cluster metadata settings
 
-  Retrieves a structured version of the cluster metadata as a collection of top-level settings. If a particular setting isn't returned, then the free-form JSON endpoint (`/metadata/raw`) must be used.
+  DEPRECATED (Scheduled to be removed in the next major version): Retrieves a structured version of the cluster metadata as a collection of top-level settings. If a particular setting isn't returned, then the free-form JSON endpoint (`/metadata/raw`) must be used.
 */
 func (a *Client) GetApmMetadataSettings(params *GetApmMetadataSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*GetApmMetadataSettingsOK, error) {
 	// TODO: Validate the params before sending
@@ -410,7 +410,7 @@ func (a *Client) GetApmMetadataSettings(params *GetApmMetadataSettingsParams, au
 /*
   GetApmPendingPlan gets pending plan
 
-  Retrieves the pending plan of an APM cluster.
+  DEPRECATED (Scheduled to be removed in the next major version): Retrieves the pending plan of an APM cluster.
 */
 func (a *Client) GetApmPendingPlan(params *GetApmPendingPlanParams, authInfo runtime.ClientAuthInfoWriter) (*GetApmPendingPlanOK, error) {
 	// TODO: Validate the params before sending
@@ -447,7 +447,7 @@ func (a *Client) GetApmPendingPlan(params *GetApmPendingPlanParams, authInfo run
 /*
   GetApmPlan gets plan
 
-  Retrieves the active plan of an APM cluster. Transient settings are not show by this endpoint. To view the transient settings that have been applied with a specific plan, use the activity endpoint.
+  DEPRECATED (Scheduled to be removed in the next major version): Retrieves the active plan of an APM cluster. Transient settings are not show by this endpoint. To view the transient settings that have been applied with a specific plan, use the activity endpoint.
 */
 func (a *Client) GetApmPlan(params *GetApmPlanParams, authInfo runtime.ClientAuthInfoWriter) (*GetApmPlanOK, error) {
 	// TODO: Validate the params before sending
@@ -484,7 +484,7 @@ func (a *Client) GetApmPlan(params *GetApmPlanParams, authInfo runtime.ClientAut
 /*
   MoveApmInstances moves instances
 
-  Moves one or more instances belonging to a Apm cluster.
+  DEPRECATED (Scheduled to be removed in the next major version): Moves one or more instances belonging to a Apm cluster.
 */
 func (a *Client) MoveApmInstances(params *MoveApmInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*MoveApmInstancesAccepted, error) {
 	// TODO: Validate the params before sending
@@ -521,7 +521,7 @@ func (a *Client) MoveApmInstances(params *MoveApmInstancesParams, authInfo runti
 /*
   MoveApmInstancesAdvanced moves instances advanced
 
-  Moves instances belonging to a Apm cluster, with custom configuration posted in the body.
+  DEPRECATED (Scheduled to be removed in the next major version): Moves instances belonging to a Apm cluster, with custom configuration posted in the body.
 */
 func (a *Client) MoveApmInstancesAdvanced(params *MoveApmInstancesAdvancedParams, authInfo runtime.ClientAuthInfoWriter) (*MoveApmInstancesAdvancedAccepted, error) {
 	// TODO: Validate the params before sending
@@ -558,7 +558,7 @@ func (a *Client) MoveApmInstancesAdvanced(params *MoveApmInstancesAdvancedParams
 /*
   ResetApmSecretToken resets token
 
-  Resets the secret token for a given APM cluster.
+  DEPRECATED (Scheduled to be removed in the next major version): Resets the secret token for a given APM cluster.
 */
 func (a *Client) ResetApmSecretToken(params *ResetApmSecretTokenParams, authInfo runtime.ClientAuthInfoWriter) (*ResetApmSecretTokenOK, error) {
 	// TODO: Validate the params before sending
@@ -595,7 +595,7 @@ func (a *Client) ResetApmSecretToken(params *ResetApmSecretTokenParams, authInfo
 /*
   RestartApm restarts cluster
 
-  Restarts a Apm cluster. If a cluster is active: this command re-applies the existing plan but applies a "cluster_reboot", which issues a Apm restart command and waits for it to complete. If a cluster is inactive: this command starts it up with the most recent successful plan.
+  DEPRECATED (Scheduled to be removed in the next major version): Restarts a Apm cluster. If a cluster is active: this command re-applies the existing plan but applies a "cluster_reboot", which issues a Apm restart command and waits for it to complete. If a cluster is inactive: this command starts it up with the most recent successful plan.
 */
 func (a *Client) RestartApm(params *RestartApmParams, authInfo runtime.ClientAuthInfoWriter) (*RestartApmAccepted, error) {
 	// TODO: Validate the params before sending
@@ -632,7 +632,7 @@ func (a *Client) RestartApm(params *RestartApmParams, authInfo runtime.ClientAut
 /*
   ResyncApmCluster resynchronizes cluster
 
-  Immediately resynchronizes the search index and cache for the selected APM cluster.
+  DEPRECATED (Scheduled to be removed in the next major version): Immediately resynchronizes the search index and cache for the selected APM cluster.
 */
 func (a *Client) ResyncApmCluster(params *ResyncApmClusterParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncApmClusterOK, error) {
 	// TODO: Validate the params before sending
@@ -669,7 +669,7 @@ func (a *Client) ResyncApmCluster(params *ResyncApmClusterParams, authInfo runti
 /*
   ResyncApmClusters resynchronizes clusters
 
-  Asynchronously resynchronizes the search index for all APM clusters.
+  DEPRECATED (Scheduled to be removed in the next major version): Asynchronously resynchronizes the search index for all APM clusters.
 */
 func (a *Client) ResyncApmClusters(params *ResyncApmClustersParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncApmClustersAccepted, error) {
 	// TODO: Validate the params before sending
@@ -706,7 +706,7 @@ func (a *Client) ResyncApmClusters(params *ResyncApmClustersParams, authInfo run
 /*
   SearchApms searches clusters
 
-  Retrieves cluster information for all Apm clusters that match a given query.
+  DEPRECATED (Scheduled to be removed in the next major version): Retrieves cluster information for all Apm clusters that match a given query.
 */
 func (a *Client) SearchApms(params *SearchApmsParams, authInfo runtime.ClientAuthInfoWriter) (*SearchApmsOK, error) {
 	// TODO: Validate the params before sending
@@ -743,7 +743,7 @@ func (a *Client) SearchApms(params *SearchApmsParams, authInfo runtime.ClientAut
 /*
   SetApmMetadataRaw sets cluster metadata
 
-  Advanced use only. Sets the internal metadata, in free-form JSON, for the APM instance.
+  DEPRECATED (Scheduled to be removed in the next major version): Advanced use only. Sets the internal metadata, in free-form JSON, for the APM instance.
 Only use the parameters to set the modified JSON that is returned from the get version of the metadata.
 */
 func (a *Client) SetApmMetadataRaw(params *SetApmMetadataRawParams, authInfo runtime.ClientAuthInfoWriter) (*SetApmMetadataRawOK, error) {
@@ -781,7 +781,7 @@ func (a *Client) SetApmMetadataRaw(params *SetApmMetadataRawParams, authInfo run
 /*
   SetApmName sets cluster name
 
-  Assigns a name to the APM instance.
+  DEPRECATED (Scheduled to be removed in the next major version): Assigns a name to the APM instance.
 */
 func (a *Client) SetApmName(params *SetApmNameParams, authInfo runtime.ClientAuthInfoWriter) (*SetApmNameOK, error) {
 	// TODO: Validate the params before sending
@@ -818,7 +818,7 @@ func (a *Client) SetApmName(params *SetApmNameParams, authInfo runtime.ClientAut
 /*
   ShutdownApm shuts down cluster
 
-  Shuts down a running cluster and removes all nodes belonging to the cluster. The cluster definition is retained. Warning: this will lose all cluster data that is not saved in a snapshot repository.
+  DEPRECATED (Scheduled to be removed in the next major version): Shuts down a running cluster and removes all nodes belonging to the cluster. The cluster definition is retained. Warning: this will lose all cluster data that is not saved in a snapshot repository.
 */
 func (a *Client) ShutdownApm(params *ShutdownApmParams, authInfo runtime.ClientAuthInfoWriter) (*ShutdownApmAccepted, error) {
 	// TODO: Validate the params before sending
@@ -855,7 +855,7 @@ func (a *Client) ShutdownApm(params *ShutdownApmParams, authInfo runtime.ClientA
 /*
   StartApmInstances starts instances
 
-  Starts the instances belonging to a Apm cluster.
+  DEPRECATED (Scheduled to be removed in the next major version): Starts the instances belonging to a Apm cluster.
 */
 func (a *Client) StartApmInstances(params *StartApmInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*StartApmInstancesAccepted, error) {
 	// TODO: Validate the params before sending
@@ -892,7 +892,7 @@ func (a *Client) StartApmInstances(params *StartApmInstancesParams, authInfo run
 /*
   StartApmInstancesAll starts all instances
 
-  Starts all the instances belonging to a Apm cluster.
+  DEPRECATED (Scheduled to be removed in the next major version): Starts all the instances belonging to a Apm cluster.
 */
 func (a *Client) StartApmInstancesAll(params *StartApmInstancesAllParams, authInfo runtime.ClientAuthInfoWriter) (*StartApmInstancesAllAccepted, error) {
 	// TODO: Validate the params before sending
@@ -929,7 +929,7 @@ func (a *Client) StartApmInstancesAll(params *StartApmInstancesAllParams, authIn
 /*
   StartApmInstancesAllMaintenanceMode starts maintenance mode all instances
 
-  Starts maintenance mode of all instances belonging to a Apm cluster.
+  DEPRECATED (Scheduled to be removed in the next major version): Starts maintenance mode of all instances belonging to a Apm cluster.
 */
 func (a *Client) StartApmInstancesAllMaintenanceMode(params *StartApmInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StartApmInstancesAllMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
@@ -966,7 +966,7 @@ func (a *Client) StartApmInstancesAllMaintenanceMode(params *StartApmInstancesAl
 /*
   StartApmMaintenanceMode starts maintenance mode
 
-  Starts maintenance mode of instances belonging to a Apm cluster.
+  DEPRECATED (Scheduled to be removed in the next major version): Starts maintenance mode of instances belonging to a Apm cluster.
 */
 func (a *Client) StartApmMaintenanceMode(params *StartApmMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StartApmMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1003,7 +1003,7 @@ func (a *Client) StartApmMaintenanceMode(params *StartApmMaintenanceModeParams, 
 /*
   StopApmInstances stops instances
 
-  Stops the instances belonging to a Apm cluster.
+  DEPRECATED (Scheduled to be removed in the next major version): Stops the instances belonging to a Apm cluster.
 */
 func (a *Client) StopApmInstances(params *StopApmInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*StopApmInstancesAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1040,7 +1040,7 @@ func (a *Client) StopApmInstances(params *StopApmInstancesParams, authInfo runti
 /*
   StopApmInstancesAll stops all instances
 
-  Stops all the instances belonging to a Apm cluster.
+  DEPRECATED (Scheduled to be removed in the next major version): Stops all the instances belonging to a Apm cluster.
 */
 func (a *Client) StopApmInstancesAll(params *StopApmInstancesAllParams, authInfo runtime.ClientAuthInfoWriter) (*StopApmInstancesAllAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1077,7 +1077,7 @@ func (a *Client) StopApmInstancesAll(params *StopApmInstancesAllParams, authInfo
 /*
   StopApmInstancesAllMaintenanceMode stops maintenance mode all instances
 
-  Stops maintenance mode of all instances belonging to a Apm cluster.
+  DEPRECATED (Scheduled to be removed in the next major version): Stops maintenance mode of all instances belonging to a Apm cluster.
 */
 func (a *Client) StopApmInstancesAllMaintenanceMode(params *StopApmInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StopApmInstancesAllMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1114,7 +1114,7 @@ func (a *Client) StopApmInstancesAllMaintenanceMode(params *StopApmInstancesAllM
 /*
   StopApmMaintenanceMode stops maintenance mode
 
-  Stops maintenance mode of instances belonging to a Apm cluster.
+  DEPRECATED (Scheduled to be removed in the next major version): Stops maintenance mode of instances belonging to a Apm cluster.
 */
 func (a *Client) StopApmMaintenanceMode(params *StopApmMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StopApmMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1151,7 +1151,7 @@ func (a *Client) StopApmMaintenanceMode(params *StopApmMaintenanceModeParams, au
 /*
   UpdateApmMetadataSettings updates cluster metadata settings
 
-  All changes in the specified object are applied to the metadata object. Omitting existing fields causes the same values to be reapplied.Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.
+  DEPRECATED (Scheduled to be removed in the next major version): All changes in the specified object are applied to the metadata object. Omitting existing fields causes the same values to be reapplied.Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.
 */
 func (a *Client) UpdateApmMetadataSettings(params *UpdateApmMetadataSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateApmMetadataSettingsOK, error) {
 	// TODO: Validate the params before sending
@@ -1188,7 +1188,7 @@ func (a *Client) UpdateApmMetadataSettings(params *UpdateApmMetadataSettingsPara
 /*
   UpdateApmPlan updates plan
 
-  Updates the configuration of an existing Apm cluster.
+  DEPRECATED (Scheduled to be removed in the next major version): Updates the configuration of an existing Apm cluster.
 */
 func (a *Client) UpdateApmPlan(params *UpdateApmPlanParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateApmPlanOK, *UpdateApmPlanAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1226,7 +1226,7 @@ func (a *Client) UpdateApmPlan(params *UpdateApmPlanParams, authInfo runtime.Cli
 /*
   UpgradeApm upgrades cluster
 
-  Upgrades a running cluster.
+  DEPRECATED (Scheduled to be removed in the next major version): Upgrades a running cluster.
 */
 func (a *Client) UpgradeApm(params *UpgradeApmParams, authInfo runtime.ClientAuthInfoWriter) (*UpgradeApmAccepted, error) {
 	// TODO: Validate the params before sending

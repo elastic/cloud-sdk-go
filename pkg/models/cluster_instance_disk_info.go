@@ -41,7 +41,8 @@ type ClusterInstanceDiskInfo struct {
 	DiskSpaceUsed *int64 `json:"disk_space_used"`
 
 	// The storage multiplier originally defined to calculate disk space.
-	StorageMultiplier float64 `json:"storage_multiplier,omitempty"`
+	// Required: true
+	StorageMultiplier *float64 `json:"storage_multiplier"`
 }
 
 // Validate validates this cluster instance disk info
@@ -49,6 +50,10 @@ func (m *ClusterInstanceDiskInfo) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateDiskSpaceUsed(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateStorageMultiplier(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -61,6 +66,15 @@ func (m *ClusterInstanceDiskInfo) Validate(formats strfmt.Registry) error {
 func (m *ClusterInstanceDiskInfo) validateDiskSpaceUsed(formats strfmt.Registry) error {
 
 	if err := validate.Required("disk_space_used", "body", m.DiskSpaceUsed); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *ClusterInstanceDiskInfo) validateStorageMultiplier(formats strfmt.Registry) error {
+
+	if err := validate.Required("storage_multiplier", "body", m.StorageMultiplier); err != nil {
 		return err
 	}
 

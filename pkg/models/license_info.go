@@ -63,6 +63,9 @@ type LicenseInfo struct {
 	// Maximum RAM per allocator in MB. Empty for version >= 3
 	MaxRAMPerAllocatorMb int32 `json:"max_ram_per_allocator_mb,omitempty"`
 
+	// Maximum number of resource units, where each unit is 64GB. Only present for version > 3
+	MaxResourceUnits int32 `json:"max_resource_units,omitempty"`
+
 	// Operation mode
 	OperationMode string `json:"operation_mode,omitempty"`
 
