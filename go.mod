@@ -10,7 +10,7 @@ require (
 	github.com/go-openapi/spec v0.19.7
 	github.com/go-openapi/strfmt v0.19.4
 	github.com/go-openapi/swag v0.19.8
-	github.com/go-openapi/validate v0.19.6
+	github.com/go-openapi/validate v0.19.7
 	github.com/hashicorp/go-multierror v1.0.0
 	github.com/pkg/errors v0.9.1
 	github.com/pmezard/go-difflib v1.0.0
