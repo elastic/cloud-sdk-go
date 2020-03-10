@@ -46,14 +46,14 @@ func (res TrackResponse) Error() error {
 		return nil
 	}
 
-	if res.DeploymentID != "" {
-		return fmt.Errorf(
-			"deployment [%s] - [%s][%s]: caught error: \"%s\"",
-			res.DeploymentID, res.Kind, res.ID, res.Err.Error(),
-		)
+	if res.DeploymentID == "" {
+		return fmt.Errorf("cluster [%s][%s] %s", res.ID, res.Kind, res.Err.Error())
 	}
 
-	return fmt.Errorf("cluster [%s][%s] %s", res.ID, res.Kind, res.Err.Error())
+	return fmt.Errorf(
+		"deployment [%s] - [%s][%s]: caught error: \"%s\"",
+		res.DeploymentID, res.Kind, res.ID, res.Err.Error(),
+	)
 }
 
 func (res TrackResponse) String() string {
@@ -76,35 +76,38 @@ func formatFinishedStep(res TrackResponse, kind string) string {
 	}
 
 	if res.Err != nil && res.Err != ErrPlanFinished {
-		if res.DeploymentID != "" {
-			return fmt.Sprintf(streamFinishErrFormat,
-				res.DeploymentID, kind, res.ID, res.Err, res.Duration,
+		if res.DeploymentID == "" {
+			return fmt.Sprintf(legacyStreamFinishErrFormat,
+				res.ID, kind, res.Err, res.Duration,
 			)
 		}
-		return fmt.Sprintf(legacyStreamFinishErrFormat,
-			res.ID, kind, res.Err, res.Duration,
+
+		return fmt.Sprintf(streamFinishErrFormat,
+			res.DeploymentID, kind, res.ID, res.Err, res.Duration,
 		)
 	}
 
-	if res.DeploymentID != "" {
-		return fmt.Sprintf(streamFinishFormat,
-			res.DeploymentID, kind, res.ID, res.Duration,
-		)
+	if res.DeploymentID == "" {
+		return fmt.Sprintf(legacyStreamFinishFormat, res.ID, kind, res.Duration)
 	}
-	return fmt.Sprintf(legacyStreamFinishFormat, res.ID, kind, res.Duration)
+	return fmt.Sprintf(streamFinishFormat,
+		res.DeploymentID, kind, res.ID, res.Duration,
+	)
 }
 
 func formatErrStep(res TrackResponse, kind string) string {
 	if res.Err == nil {
 		return ""
 	}
-	if res.DeploymentID != "" {
-		return fmt.Sprintf(streamErrFormat, res.DeploymentID,
-			kind, res.ID, res.Step, res.Err, res.Duration,
+
+	if res.DeploymentID == "" {
+		return fmt.Sprintf(legacyStreamErrFormat,
+			res.ID, kind, res.Step, res.Err, res.Duration,
 		)
+
 	}
-	return fmt.Sprintf(legacyStreamErrFormat,
-		res.ID, kind, res.Step, res.Err, res.Duration,
+	return fmt.Sprintf(streamErrFormat, res.DeploymentID,
+		kind, res.ID, res.Step, res.Err, res.Duration,
 	)
 }
 
@@ -115,10 +118,10 @@ func formatRunningStep(res TrackResponse, kind string) string {
 		return ""
 	}
 
-	if res.DeploymentID != "" {
-		return fmt.Sprintf(streamFormat, res.DeploymentID,
-			kind, res.ID, res.Step, res.Duration,
-		)
+	if res.DeploymentID == "" {
+		return fmt.Sprintf(legacyStreamFormat, res.ID, kind, res.Step, res.Duration)
 	}
-	return fmt.Sprintf(legacyStreamFormat, res.ID, kind, res.Step, res.Duration)
+	return fmt.Sprintf(streamFormat, res.DeploymentID,
+		kind, res.ID, res.Step, res.Duration,
+	)
 }

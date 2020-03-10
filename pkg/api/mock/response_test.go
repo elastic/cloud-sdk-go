@@ -213,3 +213,98 @@ func TestNew500Response(t *testing.T) {
 		})
 	}
 }
+
+func TestNew200StructResponse(t *testing.T) {
+	type S struct {
+		Something string
+	}
+	structBody := NewStructBody(S{})
+	type args struct {
+		i interface{}
+	}
+	tests := []struct {
+		name string
+		args args
+		want Response
+	}{
+		{
+			name: "get a 200 response",
+			args: args{i: S{}},
+			want: Response{Response: http.Response{
+				StatusCode: 200,
+				Body:       structBody,
+			}},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := New200StructResponse(tt.args.i); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("New200StructResponse() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestNewStructResponse(t *testing.T) {
+	type S struct {
+		Something string
+	}
+	structBody := NewStructBody(S{})
+	type args struct {
+		i    interface{}
+		code int
+	}
+	tests := []struct {
+		name string
+		args args
+		want Response
+	}{
+		{
+			name: "get a 200 response",
+			args: args{i: S{}, code: 200},
+			want: Response{Response: http.Response{
+				StatusCode: 200,
+				Body:       structBody,
+			}},
+		},
+		{
+			name: "get a 201 response",
+			args: args{i: S{}, code: 201},
+			want: Response{Response: http.Response{
+				StatusCode: 201,
+				Body:       structBody,
+			}},
+		},
+		{
+			name: "get a 202 response",
+			args: args{i: S{}, code: 202},
+			want: Response{Response: http.Response{
+				StatusCode: 202,
+				Body:       structBody,
+			}},
+		},
+		{
+			name: "get a 404 response",
+			args: args{i: S{}, code: 404},
+			want: Response{Response: http.Response{
+				StatusCode: 404,
+				Body:       structBody,
+			}},
+		},
+		{
+			name: "get a 500 response",
+			args: args{i: S{}, code: 500},
+			want: Response{Response: http.Response{
+				StatusCode: 500,
+				Body:       structBody,
+			}},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := NewStructResponse(tt.args.i, tt.args.code); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("NewStructResponse() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

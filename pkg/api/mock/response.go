@@ -99,3 +99,17 @@ func populateBody(body io.ReadCloser) io.ReadCloser {
 	}
 	return body
 }
+
+// NewStructResponse takes in a  structure and creates a Response with the
+// specified StatusCode.
+func NewStructResponse(i interface{}, code int) Response {
+	return Response{Response: http.Response{
+		StatusCode: code,
+		Body:       NewStructBody(i),
+	}}
+}
+
+// New200StructResponse takes in a  structure and creates a 200 Response.
+func New200StructResponse(i interface{}) Response {
+	return NewStructResponse(i, 200)
+}

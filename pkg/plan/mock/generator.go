@@ -18,14 +18,9 @@
 package planmock
 
 import (
-	"math/rand"
-
-	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
-
-const letterBytes = "abcdefghijklmnopqrstuvwxyz1234567890"
 
 // GenerateConfig is a helper used to create a DeploymentGetResponse to be
 // used for tests. It provides a generic implementation so all deployment
@@ -59,18 +54,12 @@ type GeneratedResourceConfig struct {
 	HistoryLog []*models.ClusterPlanStepInfo
 }
 
-// MockifyStruct takes in a  structure and creates a mock.Response with a 200
-// StatusCode.
-func MockifyStruct(i interface{}) mock.Response {
-	return mock.New200Response(mock.NewStructBody(i))
-}
-
 // Generate creates a DeploymentGetResponse to mock the plan tracker. See the
 // configuration options in the GenerateConfig struct.
 func Generate(cfg GenerateConfig) *models.DeploymentGetResponse {
 	var id = cfg.ID
 	if id == "" {
-		id = randID()
+		id = ec.RandomResourceID()
 	}
 	return &models.DeploymentGetResponse{
 		ID: ec.String(id),
@@ -89,7 +78,7 @@ func generateApmResourceInfo(c []GeneratedResourceConfig) []*models.ApmResourceI
 		var info models.ApmResourceInfo
 		info.ID = &gen.ID
 		if gen.ID == "" {
-			info.ID = ec.String(randID())
+			info.ID = ec.String(ec.RandomResourceID())
 		}
 		info.RefID = &gen.RefID
 		if gen.RefID == "" {
@@ -114,7 +103,7 @@ func generateAppSearchResourceInfo(c []GeneratedResourceConfig) []*models.AppSea
 		var info models.AppSearchResourceInfo
 		info.ID = &gen.ID
 		if gen.ID == "" {
-			info.ID = ec.String(randID())
+			info.ID = ec.String(ec.RandomResourceID())
 		}
 		info.RefID = &gen.RefID
 		if gen.RefID == "" {
@@ -139,7 +128,7 @@ func generateKibanaResourceInfo(c []GeneratedResourceConfig) []*models.KibanaRes
 		var info models.KibanaResourceInfo
 		info.ID = &gen.ID
 		if gen.ID == "" {
-			info.ID = ec.String(randID())
+			info.ID = ec.String(ec.RandomResourceID())
 		}
 		info.RefID = &gen.RefID
 		if gen.RefID == "" {
@@ -164,7 +153,7 @@ func generateElasticsearchResourceInfo(c []GeneratedResourceConfig) []*models.El
 		var info models.ElasticsearchResourceInfo
 		info.ID = &gen.ID
 		if gen.ID == "" {
-			info.ID = ec.String(randID())
+			info.ID = ec.String(ec.RandomResourceID())
 		}
 		info.RefID = &gen.RefID
 		if gen.RefID == "" {
@@ -181,12 +170,4 @@ func generateElasticsearchResourceInfo(c []GeneratedResourceConfig) []*models.El
 	}
 
 	return resInfo
-}
-
-func randID() string {
-	b := make([]byte, 32)
-	for i := range b {
-		b[i] = letterBytes[rand.Int63()%int64(len(letterBytes))]
-	}
-	return string(b)
 }

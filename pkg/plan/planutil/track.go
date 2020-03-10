@@ -19,13 +19,17 @@ package planutil
 
 import (
 	"errors"
+	"fmt"
 	"io"
 	"io/ioutil"
 
 	"github.com/elastic/cloud-sdk-go/pkg/plan"
+	"github.com/elastic/cloud-sdk-go/pkg/util/slice"
 
 	"github.com/hashicorp/go-multierror"
 )
+
+var validFormats = []string{"json", "text"}
 
 // TrackChangeParams is consumed by TrackChange.
 type TrackChangeParams struct {
@@ -43,6 +47,12 @@ func (params TrackChangeParams) Validate() error {
 	if params.Format != "" && params.Writer == nil {
 		merr = multierror.Append(merr,
 			errors.New("planutil track change: writer needs to be specified when format is not empty"),
+		)
+	}
+
+	if !slice.HasString(validFormats, params.Format) && params.Format != "" {
+		merr = multierror.Append(merr,
+			fmt.Errorf("planutil track change: invalid format \"%s\"", params.Format),
 		)
 	}
 

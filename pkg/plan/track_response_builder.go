@@ -124,13 +124,13 @@ func parseResourceInfo(info interface{}, kind string, getCurrentPlan bool) (Trac
 //   2. Obtain the Current plan step log when getCurrentPlan is true.
 //   3. (if getCurrentPlan == true and the Current plan is empty) obtains the
 //       "Current" plan accessing the last item in the plan history slice.
-func getPlanStepInfo(wl interface{}, getCurrentPlan bool) ([]*models.ClusterPlanStepInfo, error) {
+func getPlanStepInfo(workload interface{}, getCurrentPlan bool) ([]*models.ClusterPlanStepInfo, error) {
 	var planName = pendingPlanPath
 	if getCurrentPlan {
 		planName = currentPlanPath
 	}
 
-	payloadValue := reflect.ValueOf(wl)
+	payloadValue := reflect.ValueOf(workload)
 	if !payloadValue.IsValid() {
 		return nil, errNoPendingPlan
 	}
@@ -153,7 +153,10 @@ func getPlanStepInfo(wl interface{}, getCurrentPlan bool) ([]*models.ClusterPlan
 		planLog = plan.Elem().FieldByName(planAttemptLog)
 	}
 
-	// When either "Pending" or "Current" are nil, and the current plan needs to
+	// When either "Pending" or "Current" are nil, and the current plan needs
+	// to be obtained as set by the "getCurrentPlan" bool. Another case is when
+	// the planLog is empty, for whichever case, the latest plan in the plan
+	// history trail is obtained.
 	var currentPlanIsNilAndPlanLogIsNil = plan.IsNil() && getCurrentPlan || planLog.IsNil()
 	if currentPlanIsNilAndPlanLogIsNil {
 		if history := reflectElemFieldPath(payloadValue, historyPlanPath); history.Len() > 0 {
@@ -186,16 +189,16 @@ func stringPFieldValue(v reflect.Value, field string) string {
 // path. Path is in the format of <Property>.<Property> as many times as
 // required to obtain the end field.
 func reflectElemFieldPath(v reflect.Value, p string) reflect.Value {
-	props := strings.Split(p, ".")
-	if len(props) == 1 {
+	properties := strings.Split(p, ".")
+	if len(properties) == 1 {
 		return v.Elem().FieldByName(p)
 	}
 
 	var fValue reflect.Value
-	for i := range props {
-		field := props[i]
+	for i := range properties {
+		field := properties[i]
 		if fValue = v.Elem().FieldByName(field); fValue.IsValid() {
-			return reflectElemFieldPath(fValue, strings.Join(props[i+1:], "."))
+			return reflectElemFieldPath(fValue, strings.Join(properties[i+1:], "."))
 		}
 	}
 
