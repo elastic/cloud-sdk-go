@@ -104,7 +104,6 @@ func formatErrStep(res TrackResponse, kind string) string {
 		return fmt.Sprintf(legacyStreamErrFormat,
 			res.ID, kind, res.Step, res.Err, res.Duration,
 		)
-
 	}
 	return fmt.Sprintf(streamErrFormat, res.DeploymentID,
 		kind, res.ID, res.Step, res.Err, res.Duration,

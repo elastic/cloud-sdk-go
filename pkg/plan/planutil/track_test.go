@@ -25,13 +25,14 @@ import (
 	"regexp"
 	"testing"
 
+	"github.com/hashicorp/go-multierror"
+
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/plan"
 	planmock "github.com/elastic/cloud-sdk-go/pkg/plan/mock"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
-	"github.com/hashicorp/go-multierror"
 )
 
 func TestTrackChange(t *testing.T) {
