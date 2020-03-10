@@ -28,6 +28,7 @@ import (
 	"github.com/go-openapi/errors"
 	strfmt "github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // PlatformServiceInfo The platform service information.
@@ -35,10 +36,12 @@ import (
 type PlatformServiceInfo struct {
 
 	// image
+	// Required: true
 	Image []*PlatformServiceImageInfo `json:"image"`
 
 	// Name of service
-	Type string `json:"type,omitempty"`
+	// Required: true
+	Type *string `json:"type"`
 }
 
 // Validate validates this platform service info
@@ -46,6 +49,10 @@ func (m *PlatformServiceInfo) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateImage(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateType(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -57,8 +64,8 @@ func (m *PlatformServiceInfo) Validate(formats strfmt.Registry) error {
 
 func (m *PlatformServiceInfo) validateImage(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.Image) { // not required
-		return nil
+	if err := validate.Required("image", "body", m.Image); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.Image); i++ {
@@ -75,6 +82,15 @@ func (m *PlatformServiceInfo) validateImage(formats strfmt.Registry) error {
 			}
 		}
 
+	}
+
+	return nil
+}
+
+func (m *PlatformServiceInfo) validateType(formats strfmt.Registry) error {
+
+	if err := validate.Required("type", "body", m.Type); err != nil {
+		return err
 	}
 
 	return nil

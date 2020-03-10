@@ -23,8 +23,10 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"github.com/go-openapi/errors"
 	strfmt "github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // ClusterCredentials The username and password for the new Elasticsearch cluster, which is returned from the Elasticsearch cluster `create` command.
@@ -32,14 +34,47 @@ import (
 type ClusterCredentials struct {
 
 	// The password of the newly created cluster
-	Password string `json:"password,omitempty"`
+	// Required: true
+	Password *string `json:"password"`
 
 	// The username of the newly created cluster
-	Username string `json:"username,omitempty"`
+	// Required: true
+	Username *string `json:"username"`
 }
 
 // Validate validates this cluster credentials
 func (m *ClusterCredentials) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validatePassword(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateUsername(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ClusterCredentials) validatePassword(formats strfmt.Registry) error {
+
+	if err := validate.Required("password", "body", m.Password); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *ClusterCredentials) validateUsername(formats strfmt.Registry) error {
+
+	if err := validate.Required("username", "body", m.Username); err != nil {
+		return err
+	}
+
 	return nil
 }
 

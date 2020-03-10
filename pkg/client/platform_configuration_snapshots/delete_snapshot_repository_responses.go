@@ -59,6 +59,12 @@ func (o *DeleteSnapshotRepositoryReader) ReadResponse(response runtime.ClientRes
 			return nil, err
 		}
 		return nil, result
+	case 500:
+		result := NewDeleteSnapshotRepositoryInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
@@ -149,6 +155,39 @@ func (o *DeleteSnapshotRepositoryRetryWith) GetPayload() *models.BasicFailedRepl
 }
 
 func (o *DeleteSnapshotRepositoryRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.BasicFailedReply)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeleteSnapshotRepositoryInternalServerError creates a DeleteSnapshotRepositoryInternalServerError with default headers values
+func NewDeleteSnapshotRepositoryInternalServerError() *DeleteSnapshotRepositoryInternalServerError {
+	return &DeleteSnapshotRepositoryInternalServerError{}
+}
+
+/*DeleteSnapshotRepositoryInternalServerError handles this case with default header values.
+
+Failed to delete references and disable snapshots in one or more referencing clusters.
+*/
+type DeleteSnapshotRepositoryInternalServerError struct {
+	Payload *models.BasicFailedReply
+}
+
+func (o *DeleteSnapshotRepositoryInternalServerError) Error() string {
+	return fmt.Sprintf("[DELETE /platform/configuration/snapshots/repositories/{repository_name}][%d] deleteSnapshotRepositoryInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *DeleteSnapshotRepositoryInternalServerError) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
+func (o *DeleteSnapshotRepositoryInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
 

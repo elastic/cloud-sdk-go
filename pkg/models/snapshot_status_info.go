@@ -56,7 +56,8 @@ type SnapshotStatusInfo struct {
 	LatestSuccessfulEndTime strfmt.DateTime `json:"latest_successful_end_time,omitempty"`
 
 	// Indicates whether the cluster has a relatively recent successful snapshot.
-	RecentSuccess *bool `json:"recent_success,omitempty"`
+	// Required: true
+	RecentSuccess *bool `json:"recent_success"`
 
 	// Scheduled time of next snapshot attempt
 	// Format: date-time
@@ -80,6 +81,10 @@ func (m *SnapshotStatusInfo) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateLatestSuccessfulEndTime(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateRecentSuccess(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -131,6 +136,15 @@ func (m *SnapshotStatusInfo) validateLatestSuccessfulEndTime(formats strfmt.Regi
 	}
 
 	if err := validate.FormatOf("latest_successful_end_time", "body", "date-time", m.LatestSuccessfulEndTime.String(), formats); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *SnapshotStatusInfo) validateRecentSuccess(formats strfmt.Registry) error {
+
+	if err := validate.Required("recent_success", "body", m.RecentSuccess); err != nil {
 		return err
 	}
 

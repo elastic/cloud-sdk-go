@@ -40,7 +40,7 @@ import (
 func NewRestartDeploymentEsResourceParams() *RestartDeploymentEsResourceParams {
 	var (
 		cancelPendingDefault     = bool(false)
-		groupAttributeDefault    = string("\\_\\_zone\\_\\_")
+		groupAttributeDefault    = string("__zone__")
 		restoreSnapshotDefault   = bool(true)
 		shardInitWaitTimeDefault = int64(600)
 		skipSnapshotDefault      = bool(true)
@@ -61,7 +61,7 @@ func NewRestartDeploymentEsResourceParams() *RestartDeploymentEsResourceParams {
 func NewRestartDeploymentEsResourceParamsWithTimeout(timeout time.Duration) *RestartDeploymentEsResourceParams {
 	var (
 		cancelPendingDefault     = bool(false)
-		groupAttributeDefault    = string("\\_\\_zone\\_\\_")
+		groupAttributeDefault    = string("__zone__")
 		restoreSnapshotDefault   = bool(true)
 		shardInitWaitTimeDefault = int64(600)
 		skipSnapshotDefault      = bool(true)
@@ -82,7 +82,7 @@ func NewRestartDeploymentEsResourceParamsWithTimeout(timeout time.Duration) *Res
 func NewRestartDeploymentEsResourceParamsWithContext(ctx context.Context) *RestartDeploymentEsResourceParams {
 	var (
 		cancelPendingDefault     = bool(false)
-		groupAttributeDefault    = string("\\_\\_zone\\_\\_")
+		groupAttributeDefault    = string("__zone__")
 		restoreSnapshotDefault   = bool(true)
 		shardInitWaitTimeDefault = int64(600)
 		skipSnapshotDefault      = bool(true)
@@ -103,7 +103,7 @@ func NewRestartDeploymentEsResourceParamsWithContext(ctx context.Context) *Resta
 func NewRestartDeploymentEsResourceParamsWithHTTPClient(client *http.Client) *RestartDeploymentEsResourceParams {
 	var (
 		cancelPendingDefault     = bool(false)
-		groupAttributeDefault    = string("\\_\\_zone\\_\\_")
+		groupAttributeDefault    = string("__zone__")
 		restoreSnapshotDefault   = bool(true)
 		shardInitWaitTimeDefault = int64(600)
 		skipSnapshotDefault      = bool(true)
@@ -124,27 +124,27 @@ for the restart deployment es resource operation typically these are written to 
 type RestartDeploymentEsResourceParams struct {
 
 	/*CancelPending
-	  If true, will cancel any pending plans before restarting (else will error)
+	  If true, cancels any pending plans before restarting. If false and there are pending plans, returns an error.
 
 	*/
 	CancelPending *bool
 	/*DeploymentID
-	  Identifier for the Deployment
+	  Identifier for the Deployment.
 
 	*/
 	DeploymentID string
 	/*GroupAttribute
-	  Indicates the property or properties used to divide the list of instances to restart in groups. Valid options are: '\_\_all\_\_' (restart all at once), '\_\_zone\_\_' by logical zone, '\_\_name\_\_' one instance at the time, or a comma-separated list of attributes of the instances
+	  Indicates the property or properties used to divide the list of instances to restart in groups. Valid options are: '\_\_all\_\_' (restart all at once), '\_\_zone\_\_' by logical zone, '\_\_name\_\_' one instance at a time, or a comma-separated list of attributes of the instances
 
 	*/
 	GroupAttribute *string
 	/*RefID
-	  User-specified RefId for the Resource
+	  User-specified RefId for the Resource.
 
 	*/
 	RefID string
 	/*RestoreSnapshot
-	  If restoring from shutdown and true (the default), then will restore the cluster from the last snapshot (if available)
+	  When set to true and restoring from shutdown, then will restore the cluster from the last snapshot (if available).
 
 	*/
 	RestoreSnapshot *bool
@@ -154,7 +154,7 @@ type RestartDeploymentEsResourceParams struct {
 	*/
 	ShardInitWaitTime *int64
 	/*SkipSnapshot
-	  If true, will not take a snapshot of the cluster before restarting
+	  If true, will not take a snapshot of the cluster before restarting.
 
 	*/
 	SkipSnapshot *bool

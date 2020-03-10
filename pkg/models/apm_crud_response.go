@@ -23,8 +23,10 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"github.com/go-openapi/errors"
 	strfmt "github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // ApmCrudResponse The response to an APM CRUD (create/update-plan) request.
@@ -38,11 +40,30 @@ type ApmCrudResponse struct {
 	Diagnostics interface{} `json:"diagnostics,omitempty"`
 
 	// The secret token for accessing the server
-	SecretToken string `json:"secret_token,omitempty"`
+	// Required: true
+	SecretToken *string `json:"secret_token"`
 }
 
 // Validate validates this apm crud response
 func (m *ApmCrudResponse) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateSecretToken(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ApmCrudResponse) validateSecretToken(formats strfmt.Registry) error {
+
+	if err := validate.Required("secret_token", "body", m.SecretToken); err != nil {
+		return err
+	}
+
 	return nil
 }
 

@@ -77,9 +77,9 @@ type ApmInfo struct {
 	Settings *ApmSettings `json:"settings,omitempty"`
 
 	// APM status
-	// Read Only: true
+	// Required: true
 	// Enum: [initializing stopping stopped rebooting restarting reconfiguring started]
-	Status string `json:"status,omitempty"`
+	Status *string `json:"status"`
 
 	// topology
 	// Required: true
@@ -336,12 +336,12 @@ func (m *ApmInfo) validateStatusEnum(path, location string, value string) error 
 
 func (m *ApmInfo) validateStatus(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.Status) { // not required
-		return nil
+	if err := validate.Required("status", "body", m.Status); err != nil {
+		return err
 	}
 
 	// value enum
-	if err := m.validateStatusEnum("status", "body", m.Status); err != nil {
+	if err := m.validateStatusEnum("status", "body", *m.Status); err != nil {
 		return err
 	}
 

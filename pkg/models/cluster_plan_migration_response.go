@@ -26,6 +26,7 @@ import (
 	"github.com/go-openapi/errors"
 	strfmt "github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // ClusterPlanMigrationResponse The response from migrating an Elasticsearch cluster plan to a new template.
@@ -33,7 +34,8 @@ import (
 type ClusterPlanMigrationResponse struct {
 
 	// The ID of the Elasticsearch cluster
-	ElasticsearchClusterID string `json:"elasticsearch_cluster_id,omitempty"`
+	// Required: true
+	ElasticsearchClusterID *string `json:"elasticsearch_cluster_id"`
 
 	// The cluster plan after applying the migration
 	Plan *ElasticsearchClusterPlan `json:"plan,omitempty"`
@@ -43,6 +45,10 @@ type ClusterPlanMigrationResponse struct {
 func (m *ClusterPlanMigrationResponse) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateElasticsearchClusterID(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validatePlan(formats); err != nil {
 		res = append(res, err)
 	}
@@ -50,6 +56,15 @@ func (m *ClusterPlanMigrationResponse) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *ClusterPlanMigrationResponse) validateElasticsearchClusterID(formats strfmt.Registry) error {
+
+	if err := validate.Required("elasticsearch_cluster_id", "body", m.ElasticsearchClusterID); err != nil {
+		return err
+	}
+
 	return nil
 }
 

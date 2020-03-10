@@ -118,7 +118,7 @@ type ClientService interface {
 /*
   CancelKibanaClusterPendingPlan cancels pending plan
 
-  Cancels the pending plan of the Kibana instance.
+  DEPRECATED (Scheduled to be removed in the next major version): Cancels the pending plan of the Kibana instance.
 */
 func (a *Client) CancelKibanaClusterPendingPlan(params *CancelKibanaClusterPendingPlanParams, authInfo runtime.ClientAuthInfoWriter) (*CancelKibanaClusterPendingPlanOK, error) {
 	// TODO: Validate the params before sending
@@ -155,7 +155,7 @@ func (a *Client) CancelKibanaClusterPendingPlan(params *CancelKibanaClusterPendi
 /*
   CreateKibanaCluster creates cluster
 
-  Creates a Kibana instance for the Elasticsearch cluster.
+  DEPRECATED (Scheduled to be removed in the next major version): Creates a Kibana instance for the Elasticsearch cluster.
 */
 func (a *Client) CreateKibanaCluster(params *CreateKibanaClusterParams, authInfo runtime.ClientAuthInfoWriter) (*CreateKibanaClusterOK, *CreateKibanaClusterCreated, error) {
 	// TODO: Validate the params before sending
@@ -193,7 +193,7 @@ func (a *Client) CreateKibanaCluster(params *CreateKibanaClusterParams, authInfo
 /*
   DeleteKibProxyRequests proxies HTTP d e l e t e request
 
-  Proxies the HTTP DELETE request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.
+  DEPRECATED (Scheduled to be removed in the next major version): Proxies the HTTP DELETE request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.
 */
 func (a *Client) DeleteKibProxyRequests(params *DeleteKibProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteKibProxyRequestsOK, error) {
 	// TODO: Validate the params before sending
@@ -230,7 +230,7 @@ func (a *Client) DeleteKibProxyRequests(params *DeleteKibProxyRequestsParams, au
 /*
   DeleteKibanaCluster deletes cluster
 
-  Deletes the Kibana instance.
+  DEPRECATED (Scheduled to be removed in the next major version): Deletes the Kibana instance.
 Before you delete the Kibana instance, you must first successfully issue a `_shutdown` command.
 */
 func (a *Client) DeleteKibanaCluster(params *DeleteKibanaClusterParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteKibanaClusterOK, error) {
@@ -268,7 +268,7 @@ func (a *Client) DeleteKibanaCluster(params *DeleteKibanaClusterParams, authInfo
 /*
   GetKibProxyRequests proxies HTTP g e t request
 
-  Proxies the HTTP GET request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.
+  DEPRECATED (Scheduled to be removed in the next major version): Proxies the HTTP GET request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.
 */
 func (a *Client) GetKibProxyRequests(params *GetKibProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter) (*GetKibProxyRequestsOK, error) {
 	// TODO: Validate the params before sending
@@ -305,7 +305,7 @@ func (a *Client) GetKibProxyRequests(params *GetKibProxyRequestsParams, authInfo
 /*
   GetKibanaCluster gets cluster
 
-  Retrieves the Kibana instance information.
+  DEPRECATED (Scheduled to be removed in the next major version): Retrieves the Kibana instance information.
 */
 func (a *Client) GetKibanaCluster(params *GetKibanaClusterParams, authInfo runtime.ClientAuthInfoWriter) (*GetKibanaClusterOK, error) {
 	// TODO: Validate the params before sending
@@ -342,7 +342,7 @@ func (a *Client) GetKibanaCluster(params *GetKibanaClusterParams, authInfo runti
 /*
   GetKibanaClusterMetadataRaw gets cluster metadata
 
-  Advanced use only. Retrieves the internal metadata, in free-form JSON, for the Kibana instance.
+  DEPRECATED (Scheduled to be removed in the next major version): Advanced use only. Retrieves the internal metadata, in free-form JSON, for the Kibana instance.
 */
 func (a *Client) GetKibanaClusterMetadataRaw(params *GetKibanaClusterMetadataRawParams, authInfo runtime.ClientAuthInfoWriter) (*GetKibanaClusterMetadataRawOK, error) {
 	// TODO: Validate the params before sending
@@ -379,7 +379,7 @@ func (a *Client) GetKibanaClusterMetadataRaw(params *GetKibanaClusterMetadataRaw
 /*
   GetKibanaClusterMetadataSettings gets cluster metadata settings
 
-  Retrieves a structured version of the cluster metadata as a collection of top-level settings. If a particular setting isn't returned, then the free-form JSON endpoint (`/metadata/raw`) must be used.
+  DEPRECATED (Scheduled to be removed in the next major version): Retrieves a structured version of the cluster metadata as a collection of top-level settings. If a particular setting isn't returned, then the free-form JSON endpoint (`/metadata/raw`) must be used.
 */
 func (a *Client) GetKibanaClusterMetadataSettings(params *GetKibanaClusterMetadataSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*GetKibanaClusterMetadataSettingsOK, error) {
 	// TODO: Validate the params before sending
@@ -416,7 +416,7 @@ func (a *Client) GetKibanaClusterMetadataSettings(params *GetKibanaClusterMetada
 /*
   GetKibanaClusterPendingPlan gets pending plan
 
-  Retrieves the pending plan of the Kibana instance.
+  DEPRECATED (Scheduled to be removed in the next major version): Retrieves the pending plan of the Kibana instance.
 */
 func (a *Client) GetKibanaClusterPendingPlan(params *GetKibanaClusterPendingPlanParams, authInfo runtime.ClientAuthInfoWriter) (*GetKibanaClusterPendingPlanOK, error) {
 	// TODO: Validate the params before sending
@@ -453,7 +453,7 @@ func (a *Client) GetKibanaClusterPendingPlan(params *GetKibanaClusterPendingPlan
 /*
   GetKibanaClusterPlan gets plan
 
-  Retrieves the active plan of the Kibana instance. Transient settings are not show by this endpoint. To view the transient settings that have been applied with a specific plan, use the activity endpoint.
+  DEPRECATED (Scheduled to be removed in the next major version): Retrieves the active plan of the Kibana instance. Transient settings are not show by this endpoint. To view the transient settings that have been applied with a specific plan, use the activity endpoint.
 */
 func (a *Client) GetKibanaClusterPlan(params *GetKibanaClusterPlanParams, authInfo runtime.ClientAuthInfoWriter) (*GetKibanaClusterPlanOK, error) {
 	// TODO: Validate the params before sending
@@ -490,7 +490,7 @@ func (a *Client) GetKibanaClusterPlan(params *GetKibanaClusterPlanParams, authIn
 /*
   GetKibanaClusterPlanActivity gets plan activity
 
-  Retrieves the active and historical plan information for the Kibana instance.
+  DEPRECATED (Scheduled to be removed in the next major version): Retrieves the active and historical plan information for the Kibana instance.
 */
 func (a *Client) GetKibanaClusterPlanActivity(params *GetKibanaClusterPlanActivityParams, authInfo runtime.ClientAuthInfoWriter) (*GetKibanaClusterPlanActivityOK, error) {
 	// TODO: Validate the params before sending
@@ -527,7 +527,7 @@ func (a *Client) GetKibanaClusterPlanActivity(params *GetKibanaClusterPlanActivi
 /*
   GetKibanaClusters gets clusters
 
-  Retrieves the information for all Kibana instances.
+  DEPRECATED (Scheduled to be removed in the next major version): Retrieves the information for all Kibana instances.
 */
 func (a *Client) GetKibanaClusters(params *GetKibanaClustersParams, authInfo runtime.ClientAuthInfoWriter) (*GetKibanaClustersOK, error) {
 	// TODO: Validate the params before sending
@@ -564,7 +564,7 @@ func (a *Client) GetKibanaClusters(params *GetKibanaClustersParams, authInfo run
 /*
   MoveKibanaClusterInstances moves instances
 
-  Moves one or more Kibana instances.
+  DEPRECATED (Scheduled to be removed in the next major version): Moves one or more Kibana instances.
 */
 func (a *Client) MoveKibanaClusterInstances(params *MoveKibanaClusterInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*MoveKibanaClusterInstancesAccepted, error) {
 	// TODO: Validate the params before sending
@@ -601,7 +601,7 @@ func (a *Client) MoveKibanaClusterInstances(params *MoveKibanaClusterInstancesPa
 /*
   MoveKibanaClusterInstancesAdvanced moves instances advanced
 
-  Moves one or more Kibana instances. The custom configuration settings are posted in the body.
+  DEPRECATED (Scheduled to be removed in the next major version): Moves one or more Kibana instances. The custom configuration settings are posted in the body.
 */
 func (a *Client) MoveKibanaClusterInstancesAdvanced(params *MoveKibanaClusterInstancesAdvancedParams, authInfo runtime.ClientAuthInfoWriter) (*MoveKibanaClusterInstancesAdvancedAccepted, error) {
 	// TODO: Validate the params before sending
@@ -638,7 +638,7 @@ func (a *Client) MoveKibanaClusterInstancesAdvanced(params *MoveKibanaClusterIns
 /*
   PostKibProxyRequests proxies HTTP p o s t request
 
-  Proxies the HTTP POST request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.
+  DEPRECATED (Scheduled to be removed in the next major version): Proxies the HTTP POST request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.
 */
 func (a *Client) PostKibProxyRequests(params *PostKibProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter) (*PostKibProxyRequestsOK, error) {
 	// TODO: Validate the params before sending
@@ -675,7 +675,7 @@ func (a *Client) PostKibProxyRequests(params *PostKibProxyRequestsParams, authIn
 /*
   PutKibProxyRequests proxies HTTP p u t request
 
-  Proxies the HTTP PUT request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.
+  DEPRECATED (Scheduled to be removed in the next major version): Proxies the HTTP PUT request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.
 */
 func (a *Client) PutKibProxyRequests(params *PutKibProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter) (*PutKibProxyRequestsOK, error) {
 	// TODO: Validate the params before sending
@@ -712,7 +712,7 @@ func (a *Client) PutKibProxyRequests(params *PutKibProxyRequestsParams, authInfo
 /*
   RestartKibanaCluster restarts cluster
 
-  Restarts the Kibana instance. When you restart an active instance, the existing plan is used and a `cluster_reboot` is applied. A `cluster_reboot` issues a Kibana restart command, then waits for the command to complete. When you restart an inactive instance, the most recent successful plan is applied.
+  DEPRECATED (Scheduled to be removed in the next major version): Restarts the Kibana instance. When you restart an active instance, the existing plan is used and a `cluster_reboot` is applied. A `cluster_reboot` issues a Kibana restart command, then waits for the command to complete. When you restart an inactive instance, the most recent successful plan is applied.
 */
 func (a *Client) RestartKibanaCluster(params *RestartKibanaClusterParams, authInfo runtime.ClientAuthInfoWriter) (*RestartKibanaClusterAccepted, error) {
 	// TODO: Validate the params before sending
@@ -749,7 +749,7 @@ func (a *Client) RestartKibanaCluster(params *RestartKibanaClusterParams, authIn
 /*
   ResyncKibanaCluster resynchronizes cluster
 
-  Immediately resynchronizes the search index and cache for the selected Kibana instance.
+  DEPRECATED (Scheduled to be removed in the next major version): Immediately resynchronizes the search index and cache for the selected Kibana instance.
 */
 func (a *Client) ResyncKibanaCluster(params *ResyncKibanaClusterParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncKibanaClusterOK, error) {
 	// TODO: Validate the params before sending
@@ -786,7 +786,7 @@ func (a *Client) ResyncKibanaCluster(params *ResyncKibanaClusterParams, authInfo
 /*
   ResyncKibanaClusters resynchronizes clusters
 
-  Asynchronously resynchronizes the search index for all Kibana instances.
+  DEPRECATED (Scheduled to be removed in the next major version): Asynchronously resynchronizes the search index for all Kibana instances.
 */
 func (a *Client) ResyncKibanaClusters(params *ResyncKibanaClustersParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncKibanaClustersAccepted, error) {
 	// TODO: Validate the params before sending
@@ -823,7 +823,7 @@ func (a *Client) ResyncKibanaClusters(params *ResyncKibanaClustersParams, authIn
 /*
   SearchKibanaClusters searches clusters
 
-  Retrieves the information for all of the Kibana instances that match the specified query.
+  DEPRECATED (Scheduled to be removed in the next major version): Retrieves the information for all of the Kibana instances that match the specified query.
 */
 func (a *Client) SearchKibanaClusters(params *SearchKibanaClustersParams, authInfo runtime.ClientAuthInfoWriter) (*SearchKibanaClustersOK, error) {
 	// TODO: Validate the params before sending
@@ -860,7 +860,7 @@ func (a *Client) SearchKibanaClusters(params *SearchKibanaClustersParams, authIn
 /*
   SetKibanaClusterMetadataRaw sets cluster metadata
 
-  Advanced use only. Sets the internal metadata, in free-form JSON, for the Kibana instance.
+  DEPRECATED (Scheduled to be removed in the next major version): Advanced use only. Sets the internal metadata, in free-form JSON, for the Kibana instance.
 Only use the parameter to set the modified JSON that is returned from the get version of the metadata.
 */
 func (a *Client) SetKibanaClusterMetadataRaw(params *SetKibanaClusterMetadataRawParams, authInfo runtime.ClientAuthInfoWriter) (*SetKibanaClusterMetadataRawOK, error) {
@@ -898,7 +898,7 @@ func (a *Client) SetKibanaClusterMetadataRaw(params *SetKibanaClusterMetadataRaw
 /*
   SetKibanaClusterName sets cluster name
 
-  Assigns a name to the Kibana instance.
+  DEPRECATED (Scheduled to be removed in the next major version): Assigns a name to the Kibana instance.
 */
 func (a *Client) SetKibanaClusterName(params *SetKibanaClusterNameParams, authInfo runtime.ClientAuthInfoWriter) (*SetKibanaClusterNameOK, error) {
 	// TODO: Validate the params before sending
@@ -935,7 +935,7 @@ func (a *Client) SetKibanaClusterName(params *SetKibanaClusterNameParams, authIn
 /*
   ShutdownKibanaCluster shuts down cluster
 
-  Shuts down the active Kibana instance and removes all of the instance nodes. The instance definition is retained. WARNING: To avoid data loss, save the snapshot repository before you shut down the instance.
+  DEPRECATED (Scheduled to be removed in the next major version): Shuts down the active Kibana instance and removes all of the instance nodes. The instance definition is retained. WARNING: To avoid data loss, save the snapshot repository before you shut down the instance.
 */
 func (a *Client) ShutdownKibanaCluster(params *ShutdownKibanaClusterParams, authInfo runtime.ClientAuthInfoWriter) (*ShutdownKibanaClusterAccepted, error) {
 	// TODO: Validate the params before sending
@@ -972,7 +972,7 @@ func (a *Client) ShutdownKibanaCluster(params *ShutdownKibanaClusterParams, auth
 /*
   StartKibanaClusterInstances starts instances
 
-  Starts the specified Kibana instances.
+  DEPRECATED (Scheduled to be removed in the next major version): Starts the specified Kibana instances.
 */
 func (a *Client) StartKibanaClusterInstances(params *StartKibanaClusterInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*StartKibanaClusterInstancesAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1009,7 +1009,7 @@ func (a *Client) StartKibanaClusterInstances(params *StartKibanaClusterInstances
 /*
   StartKibanaClusterInstancesAll starts all instances
 
-  Starts all of the Kibana instances.
+  DEPRECATED (Scheduled to be removed in the next major version): Starts all of the Kibana instances.
 */
 func (a *Client) StartKibanaClusterInstancesAll(params *StartKibanaClusterInstancesAllParams, authInfo runtime.ClientAuthInfoWriter) (*StartKibanaClusterInstancesAllAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1046,7 +1046,7 @@ func (a *Client) StartKibanaClusterInstancesAll(params *StartKibanaClusterInstan
 /*
   StartKibanaClusterInstancesAllMaintenanceMode starts maintenance mode all instances
 
-  Starts maintenance mode on all of the Kibana instances.
+  DEPRECATED (Scheduled to be removed in the next major version): Starts maintenance mode on all of the Kibana instances.
 */
 func (a *Client) StartKibanaClusterInstancesAllMaintenanceMode(params *StartKibanaClusterInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StartKibanaClusterInstancesAllMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1083,7 +1083,7 @@ func (a *Client) StartKibanaClusterInstancesAllMaintenanceMode(params *StartKiba
 /*
   StartKibanaClusterMaintenanceMode starts maintenance mode
 
-  Starts maintenance mode on the specified Kibana instances.
+  DEPRECATED (Scheduled to be removed in the next major version): Starts maintenance mode on the specified Kibana instances.
 */
 func (a *Client) StartKibanaClusterMaintenanceMode(params *StartKibanaClusterMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StartKibanaClusterMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1120,7 +1120,7 @@ func (a *Client) StartKibanaClusterMaintenanceMode(params *StartKibanaClusterMai
 /*
   StopKibanaClusterInstances stops instances
 
-  Stops the specified Kibana instances.
+  DEPRECATED (Scheduled to be removed in the next major version): Stops the specified Kibana instances.
 */
 func (a *Client) StopKibanaClusterInstances(params *StopKibanaClusterInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*StopKibanaClusterInstancesAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1157,7 +1157,7 @@ func (a *Client) StopKibanaClusterInstances(params *StopKibanaClusterInstancesPa
 /*
   StopKibanaClusterInstancesAll stops all instances
 
-  Stops all of the Kibana instances.
+  DEPRECATED (Scheduled to be removed in the next major version): Stops all of the Kibana instances.
 */
 func (a *Client) StopKibanaClusterInstancesAll(params *StopKibanaClusterInstancesAllParams, authInfo runtime.ClientAuthInfoWriter) (*StopKibanaClusterInstancesAllAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1194,7 +1194,7 @@ func (a *Client) StopKibanaClusterInstancesAll(params *StopKibanaClusterInstance
 /*
   StopKibanaClusterInstancesAllMaintenanceMode stops maintenance mode all instances
 
-  Stops maintenance mode on all of the Kibana instances.
+  DEPRECATED (Scheduled to be removed in the next major version): Stops maintenance mode on all of the Kibana instances.
 */
 func (a *Client) StopKibanaClusterInstancesAllMaintenanceMode(params *StopKibanaClusterInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StopKibanaClusterInstancesAllMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1231,7 +1231,7 @@ func (a *Client) StopKibanaClusterInstancesAllMaintenanceMode(params *StopKibana
 /*
   StopKibanaClusterMaintenanceMode stops maintenance mode
 
-  Stops maintenance mode on the specified Kibana instances.
+  DEPRECATED (Scheduled to be removed in the next major version): Stops maintenance mode on the specified Kibana instances.
 */
 func (a *Client) StopKibanaClusterMaintenanceMode(params *StopKibanaClusterMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StopKibanaClusterMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1268,7 +1268,7 @@ func (a *Client) StopKibanaClusterMaintenanceMode(params *StopKibanaClusterMaint
 /*
   UpdateKibanaClusterMetadataSettings updates cluster metadata settings
 
-  All changes in the specified object are applied to the metadata object. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.
+  DEPRECATED (Scheduled to be removed in the next major version): All changes in the specified object are applied to the metadata object. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.
 */
 func (a *Client) UpdateKibanaClusterMetadataSettings(params *UpdateKibanaClusterMetadataSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateKibanaClusterMetadataSettingsOK, error) {
 	// TODO: Validate the params before sending
@@ -1305,7 +1305,7 @@ func (a *Client) UpdateKibanaClusterMetadataSettings(params *UpdateKibanaCluster
 /*
   UpdateKibanaClusterPlan updates plan
 
-  Updates the configuration of the Kibana instance.
+  DEPRECATED (Scheduled to be removed in the next major version): Updates the configuration of the Kibana instance.
 */
 func (a *Client) UpdateKibanaClusterPlan(params *UpdateKibanaClusterPlanParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateKibanaClusterPlanOK, *UpdateKibanaClusterPlanAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1343,7 +1343,7 @@ func (a *Client) UpdateKibanaClusterPlan(params *UpdateKibanaClusterPlanParams, 
 /*
   UpgradeKibanaCluster upgrades cluster
 
-  Upgrades an active Kibana instance.
+  DEPRECATED (Scheduled to be removed in the next major version): Upgrades an active Kibana instance.
 */
 func (a *Client) UpgradeKibanaCluster(params *UpgradeKibanaClusterParams, authInfo runtime.ClientAuthInfoWriter) (*UpgradeKibanaClusterAccepted, error) {
 	// TODO: Validate the params before sending

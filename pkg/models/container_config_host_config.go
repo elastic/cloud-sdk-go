@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"strconv"
+
 	"github.com/go-openapi/errors"
 	strfmt "github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -49,7 +51,7 @@ type ContainerConfigHostConfig struct {
 
 	// Map of ports that should be exposed on the host.
 	// Required: true
-	PortBindings map[string]PortBinding `json:"port_bindings"`
+	PortBindings map[string][]PortBinding `json:"port_bindings"`
 
 	// List of environment variables on the form KEY=value
 	// Required: true
@@ -114,10 +116,16 @@ func (m *ContainerConfigHostConfig) validatePortBindings(formats strfmt.Registry
 		if err := validate.Required("port_bindings"+"."+k, "body", m.PortBindings[k]); err != nil {
 			return err
 		}
-		if val, ok := m.PortBindings[k]; ok {
-			if err := val.Validate(formats); err != nil {
+
+		for i := 0; i < len(m.PortBindings[k]); i++ {
+
+			if err := m.PortBindings[k][i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("port_bindings" + "." + k + "." + strconv.Itoa(i))
+				}
 				return err
 			}
+
 		}
 
 	}

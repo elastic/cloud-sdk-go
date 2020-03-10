@@ -78,7 +78,7 @@ func NewUpdateDeploymentOK() *UpdateDeploymentOK {
 
 /*UpdateDeploymentOK handles this case with default header values.
 
-The request was valid and the deployment was updated
+The request was valid and the deployment was updated.
 */
 type UpdateDeploymentOK struct {
 	/*The date-time when the resource was created (ISO format relative to UTC)
@@ -130,7 +130,7 @@ func NewUpdateDeploymentBadRequest() *UpdateDeploymentBadRequest {
 
 /*UpdateDeploymentBadRequest handles this case with default header values.
 
-The deployment request had errors
+The deployment request had errors.
 */
 type UpdateDeploymentBadRequest struct {
 	Payload *models.BasicFailedReply
@@ -163,7 +163,7 @@ func NewUpdateDeploymentUnauthorized() *UpdateDeploymentUnauthorized {
 
 /*UpdateDeploymentUnauthorized handles this case with default header values.
 
-You are not authorized to perform this action
+You are not authorized to perform this action.
 */
 type UpdateDeploymentUnauthorized struct {
 	Payload *models.BasicFailedReply
@@ -196,9 +196,13 @@ func NewUpdateDeploymentNotFound() *UpdateDeploymentNotFound {
 
 /*UpdateDeploymentNotFound handles this case with default header values.
 
-The Deployment specified by {deployment_id} cannot be found
+The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
 */
 type UpdateDeploymentNotFound struct {
+	/*The error codes associated with the response
+	 */
+	XCloudErrorCodes string
+
 	Payload *models.BasicFailedReply
 }
 
@@ -211,6 +215,9 @@ func (o *UpdateDeploymentNotFound) GetPayload() *models.BasicFailedReply {
 }
 
 func (o *UpdateDeploymentNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response header x-cloud-error-codes
+	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
 
 	o.Payload = new(models.BasicFailedReply)
 

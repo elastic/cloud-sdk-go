@@ -28,6 +28,7 @@ import (
 	"github.com/go-openapi/errors"
 	strfmt "github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // ConstructorOverview The overview information for the installed constructors.
@@ -35,6 +36,7 @@ import (
 type ConstructorOverview struct {
 
 	// constructors
+	// Required: true
 	Constructors []*ConstructorInfo `json:"constructors"`
 }
 
@@ -54,8 +56,8 @@ func (m *ConstructorOverview) Validate(formats strfmt.Registry) error {
 
 func (m *ConstructorOverview) validateConstructors(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.Constructors) { // not required
-		return nil
+	if err := validate.Required("constructors", "body", m.Constructors); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.Constructors); i++ {

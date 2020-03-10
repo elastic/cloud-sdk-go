@@ -23,8 +23,10 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"github.com/go-openapi/errors"
 	strfmt "github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // ClusterSnapshotResponse The response value after a snapshot is created.
@@ -32,11 +34,30 @@ import (
 type ClusterSnapshotResponse struct {
 
 	// The name of the newly created snapshot
-	Name string `json:"name,omitempty"`
+	// Required: true
+	Name *string `json:"name"`
 }
 
 // Validate validates this cluster snapshot response
 func (m *ClusterSnapshotResponse) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateName(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ClusterSnapshotResponse) validateName(formats strfmt.Registry) error {
+
+	if err := validate.Required("name", "body", m.Name); err != nil {
+		return err
+	}
+
 	return nil
 }
 

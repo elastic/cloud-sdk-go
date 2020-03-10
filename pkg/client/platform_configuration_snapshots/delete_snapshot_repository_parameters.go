@@ -30,6 +30,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
+	"github.com/go-openapi/swag"
 
 	strfmt "github.com/go-openapi/strfmt"
 )
@@ -37,8 +38,11 @@ import (
 // NewDeleteSnapshotRepositoryParams creates a new DeleteSnapshotRepositoryParams object
 // with the default values initialized.
 func NewDeleteSnapshotRepositoryParams() *DeleteSnapshotRepositoryParams {
-	var ()
+	var (
+		cleanupDeploymentsDefault = bool(false)
+	)
 	return &DeleteSnapshotRepositoryParams{
+		CleanupDeployments: &cleanupDeploymentsDefault,
 
 		timeout: cr.DefaultTimeout,
 	}
@@ -47,8 +51,11 @@ func NewDeleteSnapshotRepositoryParams() *DeleteSnapshotRepositoryParams {
 // NewDeleteSnapshotRepositoryParamsWithTimeout creates a new DeleteSnapshotRepositoryParams object
 // with the default values initialized, and the ability to set a timeout on a request
 func NewDeleteSnapshotRepositoryParamsWithTimeout(timeout time.Duration) *DeleteSnapshotRepositoryParams {
-	var ()
+	var (
+		cleanupDeploymentsDefault = bool(false)
+	)
 	return &DeleteSnapshotRepositoryParams{
+		CleanupDeployments: &cleanupDeploymentsDefault,
 
 		timeout: timeout,
 	}
@@ -57,8 +64,11 @@ func NewDeleteSnapshotRepositoryParamsWithTimeout(timeout time.Duration) *Delete
 // NewDeleteSnapshotRepositoryParamsWithContext creates a new DeleteSnapshotRepositoryParams object
 // with the default values initialized, and the ability to set a context for a request
 func NewDeleteSnapshotRepositoryParamsWithContext(ctx context.Context) *DeleteSnapshotRepositoryParams {
-	var ()
+	var (
+		cleanupDeploymentsDefault = bool(false)
+	)
 	return &DeleteSnapshotRepositoryParams{
+		CleanupDeployments: &cleanupDeploymentsDefault,
 
 		Context: ctx,
 	}
@@ -67,9 +77,12 @@ func NewDeleteSnapshotRepositoryParamsWithContext(ctx context.Context) *DeleteSn
 // NewDeleteSnapshotRepositoryParamsWithHTTPClient creates a new DeleteSnapshotRepositoryParams object
 // with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewDeleteSnapshotRepositoryParamsWithHTTPClient(client *http.Client) *DeleteSnapshotRepositoryParams {
-	var ()
+	var (
+		cleanupDeploymentsDefault = bool(false)
+	)
 	return &DeleteSnapshotRepositoryParams{
-		HTTPClient: client,
+		CleanupDeployments: &cleanupDeploymentsDefault,
+		HTTPClient:         client,
 	}
 }
 
@@ -78,6 +91,11 @@ for the delete snapshot repository operation typically these are written to a ht
 */
 type DeleteSnapshotRepositoryParams struct {
 
+	/*CleanupDeployments
+	  Removes references to this snapshot repository configuration and disables snapshots on the clusters that were referencing this configuration. If a request is made to delete a repository configuration that has already been deleted and this parameter is set to true and clusters still reference the configuration, then the request will have the side effects of removing references and disabling snapshots for clusters that reference the previously deleted configuration.
+
+	*/
+	CleanupDeployments *bool
 	/*RepositoryName
 	  The name of the snapshot repository configuration.
 
@@ -122,6 +140,17 @@ func (o *DeleteSnapshotRepositoryParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithCleanupDeployments adds the cleanupDeployments to the delete snapshot repository params
+func (o *DeleteSnapshotRepositoryParams) WithCleanupDeployments(cleanupDeployments *bool) *DeleteSnapshotRepositoryParams {
+	o.SetCleanupDeployments(cleanupDeployments)
+	return o
+}
+
+// SetCleanupDeployments adds the cleanupDeployments to the delete snapshot repository params
+func (o *DeleteSnapshotRepositoryParams) SetCleanupDeployments(cleanupDeployments *bool) {
+	o.CleanupDeployments = cleanupDeployments
+}
+
 // WithRepositoryName adds the repositoryName to the delete snapshot repository params
 func (o *DeleteSnapshotRepositoryParams) WithRepositoryName(repositoryName string) *DeleteSnapshotRepositoryParams {
 	o.SetRepositoryName(repositoryName)
@@ -140,6 +169,22 @@ func (o *DeleteSnapshotRepositoryParams) WriteToRequest(r runtime.ClientRequest,
 		return err
 	}
 	var res []error
+
+	if o.CleanupDeployments != nil {
+
+		// query param cleanup_deployments
+		var qrCleanupDeployments bool
+		if o.CleanupDeployments != nil {
+			qrCleanupDeployments = *o.CleanupDeployments
+		}
+		qCleanupDeployments := swag.FormatBool(qrCleanupDeployments)
+		if qCleanupDeployments != "" {
+			if err := r.SetQueryParam("cleanup_deployments", qCleanupDeployments); err != nil {
+				return err
+			}
+		}
+
+	}
 
 	// path param repository_name
 	if err := r.SetPathParam("repository_name", o.RepositoryName); err != nil {

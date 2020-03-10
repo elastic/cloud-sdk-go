@@ -100,7 +100,7 @@ for the shutdown deployment stateless resource operation typically these are wri
 type ShutdownDeploymentStatelessResourceParams struct {
 
 	/*DeploymentID
-	  Identifier for the Deployment
+	  Identifier for the Deployment.
 
 	*/
 	DeploymentID string
@@ -110,7 +110,7 @@ type ShutdownDeploymentStatelessResourceParams struct {
 	*/
 	Hide *bool
 	/*RefID
-	  User-specified RefId for the Resource
+	  User-specified RefId for the Resource.
 
 	*/
 	RefID string

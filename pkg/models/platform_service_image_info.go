@@ -23,8 +23,10 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"github.com/go-openapi/errors"
 	strfmt "github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // PlatformServiceImageInfo The docker image that is used to run a service.
@@ -32,20 +34,81 @@ import (
 type PlatformServiceImageInfo struct {
 
 	// Image hash code
-	Hash string `json:"hash,omitempty"`
+	// Required: true
+	Hash *string `json:"hash"`
 
 	// Id of runner that hosts the container
-	ID string `json:"id,omitempty"`
+	// Required: true
+	ID *string `json:"id"`
 
 	// Image tag
-	Tag string `json:"tag,omitempty"`
+	// Required: true
+	Tag *string `json:"tag"`
 
 	// Version of service
-	Version string `json:"version,omitempty"`
+	// Required: true
+	Version *string `json:"version"`
 }
 
 // Validate validates this platform service image info
 func (m *PlatformServiceImageInfo) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateHash(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateTag(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateVersion(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *PlatformServiceImageInfo) validateHash(formats strfmt.Registry) error {
+
+	if err := validate.Required("hash", "body", m.Hash); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *PlatformServiceImageInfo) validateID(formats strfmt.Registry) error {
+
+	if err := validate.Required("id", "body", m.ID); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *PlatformServiceImageInfo) validateTag(formats strfmt.Registry) error {
+
+	if err := validate.Required("tag", "body", m.Tag); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *PlatformServiceImageInfo) validateVersion(formats strfmt.Registry) error {
+
+	if err := validate.Required("version", "body", m.Version); err != nil {
+		return err
+	}
+
 	return nil
 }
 

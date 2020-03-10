@@ -79,7 +79,7 @@ for the resync deployment operation typically these are written to a http.Reques
 type ResyncDeploymentParams struct {
 
 	/*DeploymentID
-	  Identifier for the deployment
+	  Identifier for the Deployment
 
 	*/
 	DeploymentID string

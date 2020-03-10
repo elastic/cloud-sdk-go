@@ -92,17 +92,17 @@ for the restart deployment stateless resource operation typically these are writ
 type RestartDeploymentStatelessResourceParams struct {
 
 	/*CancelPending
-	  If true, will cancel any pending plans before restarting (else will error)
+	  If true, cancels any pending plans before restarting. If false and there are pending plans, returns an error.
 
 	*/
 	CancelPending *bool
 	/*DeploymentID
-	  Identifier for the Deployment
+	  Identifier for the Deployment.
 
 	*/
 	DeploymentID string
 	/*RefID
-	  User-specified RefId for the Resource
+	  User-specified RefId for the Resource.
 
 	*/
 	RefID string

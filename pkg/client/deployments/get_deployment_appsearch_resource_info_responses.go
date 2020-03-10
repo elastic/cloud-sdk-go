@@ -47,12 +47,6 @@ func (o *GetDeploymentAppsearchResourceInfoReader) ReadResponse(response runtime
 			return nil, err
 		}
 		return result, nil
-	case 401:
-		result := NewGetDeploymentAppsearchResourceInfoUnauthorized()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	case 404:
 		result := NewGetDeploymentAppsearchResourceInfoNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -78,7 +72,7 @@ func NewGetDeploymentAppsearchResourceInfoOK() *GetDeploymentAppsearchResourceIn
 
 /*GetDeploymentAppsearchResourceInfoOK handles this case with default header values.
 
-Standard response
+Standard response.
 */
 type GetDeploymentAppsearchResourceInfoOK struct {
 	Payload *models.AppSearchResourceInfo
@@ -104,39 +98,6 @@ func (o *GetDeploymentAppsearchResourceInfoOK) readResponse(response runtime.Cli
 	return nil
 }
 
-// NewGetDeploymentAppsearchResourceInfoUnauthorized creates a GetDeploymentAppsearchResourceInfoUnauthorized with default headers values
-func NewGetDeploymentAppsearchResourceInfoUnauthorized() *GetDeploymentAppsearchResourceInfoUnauthorized {
-	return &GetDeploymentAppsearchResourceInfoUnauthorized{}
-}
-
-/*GetDeploymentAppsearchResourceInfoUnauthorized handles this case with default header values.
-
-You are not authorized to perform this action
-*/
-type GetDeploymentAppsearchResourceInfoUnauthorized struct {
-	Payload *models.BasicFailedReply
-}
-
-func (o *GetDeploymentAppsearchResourceInfoUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /deployments/{deployment_id}/appsearch/{ref_id}][%d] getDeploymentAppsearchResourceInfoUnauthorized  %+v", 401, o.Payload)
-}
-
-func (o *GetDeploymentAppsearchResourceInfoUnauthorized) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *GetDeploymentAppsearchResourceInfoUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
 // NewGetDeploymentAppsearchResourceInfoNotFound creates a GetDeploymentAppsearchResourceInfoNotFound with default headers values
 func NewGetDeploymentAppsearchResourceInfoNotFound() *GetDeploymentAppsearchResourceInfoNotFound {
 	return &GetDeploymentAppsearchResourceInfoNotFound{}
@@ -144,9 +105,13 @@ func NewGetDeploymentAppsearchResourceInfoNotFound() *GetDeploymentAppsearchReso
 
 /*GetDeploymentAppsearchResourceInfoNotFound handles this case with default header values.
 
-The Deployment specified by {deployment_id} cannot be found
+The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
 */
 type GetDeploymentAppsearchResourceInfoNotFound struct {
+	/*The error codes associated with the response
+	 */
+	XCloudErrorCodes string
+
 	Payload *models.BasicFailedReply
 }
 
@@ -159,6 +124,9 @@ func (o *GetDeploymentAppsearchResourceInfoNotFound) GetPayload() *models.BasicF
 }
 
 func (o *GetDeploymentAppsearchResourceInfoNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response header x-cloud-error-codes
+	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -177,9 +145,13 @@ func NewGetDeploymentAppsearchResourceInfoInternalServerError() *GetDeploymentAp
 
 /*GetDeploymentAppsearchResourceInfoInternalServerError handles this case with default header values.
 
-We have failed you.
+We have failed you. (code: `deployments.deployment_resource_no_longer_exists`)
 */
 type GetDeploymentAppsearchResourceInfoInternalServerError struct {
+	/*The error codes associated with the response
+	 */
+	XCloudErrorCodes string
+
 	Payload *models.BasicFailedReply
 }
 
@@ -192,6 +164,9 @@ func (o *GetDeploymentAppsearchResourceInfoInternalServerError) GetPayload() *mo
 }
 
 func (o *GetDeploymentAppsearchResourceInfoInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response header x-cloud-error-codes
+	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
 
 	o.Payload = new(models.BasicFailedReply)
 

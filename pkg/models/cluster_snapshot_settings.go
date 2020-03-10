@@ -32,6 +32,9 @@ import (
 // swagger:model ClusterSnapshotSettings
 type ClusterSnapshotSettings struct {
 
+	// Cron expression indicating when should snapshots be taken. This can be enabled only if SLM is enabled for the deployment and 'interval' is not present
+	CronExpression string `json:"cron_expression,omitempty"`
+
 	// Indicates if Snapshotting is enabled
 	Enabled *bool `json:"enabled,omitempty"`
 
@@ -49,6 +52,10 @@ type ClusterSnapshotSettings struct {
 
 	// Cluster snapshot retention information
 	Retention *ClusterSnapshotRetention `json:"retention,omitempty"`
+
+	// When set to true, the deployment will have SLM enabled. Default value is true.
+	// Read Only: true
+	Slm *bool `json:"slm,omitempty"`
 
 	// List of temporary snapshot suspensions
 	Suspended []string `json:"suspended"`

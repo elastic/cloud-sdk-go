@@ -47,10 +47,17 @@ type AuthenticationInfo struct {
 	// Required: true
 	HasTotpDevice *bool `json:"has_totp_device"`
 
+	// The API to be used when refreshing the current user's JWT
+	// Required: true
+	RefreshTokenURL *string `json:"refresh_token_url"`
+
 	// The TOTP device source
 	// Required: true
 	// Enum: [native okta]
 	TotpDeviceSource *string `json:"totp_device_source"`
+
+	// URL for configuring an MFA TOTP device.  Does not apply when totp_device_source is 'native'.
+	TotpDeviceSourceEnableMfaHref string `json:"totp_device_source_enable_mfa_href,omitempty"`
 }
 
 // Validate validates this authentication info
@@ -66,6 +73,10 @@ func (m *AuthenticationInfo) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateHasTotpDevice(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateRefreshTokenURL(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -104,6 +115,15 @@ func (m *AuthenticationInfo) validateHasElevatedPermissions(formats strfmt.Regis
 func (m *AuthenticationInfo) validateHasTotpDevice(formats strfmt.Registry) error {
 
 	if err := validate.Required("has_totp_device", "body", m.HasTotpDevice); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *AuthenticationInfo) validateRefreshTokenURL(formats strfmt.Registry) error {
+
+	if err := validate.Required("refresh_token_url", "body", m.RefreshTokenURL); err != nil {
 		return err
 	}
 

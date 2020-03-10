@@ -81,6 +81,16 @@ func NewCreateDeploymentCreated() *CreateDeploymentCreated {
 The request was valid and a new deployment was created
 */
 type CreateDeploymentCreated struct {
+	/*The date-time when the resource was created (ISO format relative to UTC)
+	 */
+	XCloudResourceCreated string
+	/*The date-time when the resource was last modified (ISO format relative to UTC)
+	 */
+	XCloudResourceLastModified string
+	/*The resource version, which is used to avoid update conflicts with concurrent operations
+	 */
+	XCloudResourceVersion string
+
 	Payload *models.DeploymentCreateResponse
 }
 
@@ -93,6 +103,15 @@ func (o *CreateDeploymentCreated) GetPayload() *models.DeploymentCreateResponse 
 }
 
 func (o *CreateDeploymentCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response header x-cloud-resource-created
+	o.XCloudResourceCreated = response.GetHeader("x-cloud-resource-created")
+
+	// response header x-cloud-resource-last-modified
+	o.XCloudResourceLastModified = response.GetHeader("x-cloud-resource-last-modified")
+
+	// response header x-cloud-resource-version
+	o.XCloudResourceVersion = response.GetHeader("x-cloud-resource-version")
 
 	o.Payload = new(models.DeploymentCreateResponse)
 
@@ -111,7 +130,7 @@ func NewCreateDeploymentAccepted() *CreateDeploymentAccepted {
 
 /*CreateDeploymentAccepted handles this case with default header values.
 
-The request was valid
+The request was valid.
 */
 type CreateDeploymentAccepted struct {
 	Payload *models.DeploymentCreateResponse
@@ -144,7 +163,7 @@ func NewCreateDeploymentBadRequest() *CreateDeploymentBadRequest {
 
 /*CreateDeploymentBadRequest handles this case with default header values.
 
-The deployment request had errors
+The deployment request had errors.
 */
 type CreateDeploymentBadRequest struct {
 	Payload *models.BasicFailedReply
@@ -177,7 +196,7 @@ func NewCreateDeploymentUnauthorized() *CreateDeploymentUnauthorized {
 
 /*CreateDeploymentUnauthorized handles this case with default header values.
 
-You are not authorized to perform this action
+You are not authorized to perform this action.
 */
 type CreateDeploymentUnauthorized struct {
 	Payload *models.BasicFailedReply

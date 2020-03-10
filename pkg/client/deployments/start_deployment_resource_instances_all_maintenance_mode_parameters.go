@@ -79,17 +79,17 @@ for the start deployment resource instances all maintenance mode operation typic
 type StartDeploymentResourceInstancesAllMaintenanceModeParams struct {
 
 	/*DeploymentID
-	  Identifier for the Deployment
+	  Identifier for the Deployment.
 
 	*/
 	DeploymentID string
 	/*RefID
-	  User-specified RefId for the Resource
+	  User-specified RefId for the Resource.
 
 	*/
 	RefID string
 	/*ResourceKind
-	  The kind of resource (one of elasticsearch, kibana or apm)
+	  The kind of resource (one of elasticsearch, kibana or apm).
 
 	*/
 	ResourceKind string

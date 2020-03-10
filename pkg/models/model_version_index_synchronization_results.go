@@ -34,7 +34,8 @@ import (
 type ModelVersionIndexSynchronizationResults struct {
 
 	// The results of synchronizing indices organized by model version
-	Results map[string]IndexSynchronizationResults `json:"results,omitempty"`
+	// Required: true
+	Results map[string]IndexSynchronizationResults `json:"results"`
 }
 
 // Validate validates this model version index synchronization results
@@ -52,10 +53,6 @@ func (m *ModelVersionIndexSynchronizationResults) Validate(formats strfmt.Regist
 }
 
 func (m *ModelVersionIndexSynchronizationResults) validateResults(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Results) { // not required
-		return nil
-	}
 
 	for k := range m.Results {
 

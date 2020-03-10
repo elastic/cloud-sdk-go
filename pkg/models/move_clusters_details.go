@@ -28,6 +28,7 @@ import (
 	"github.com/go-openapi/errors"
 	strfmt "github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // MoveClustersDetails Information about the Elasticsearch clusters, multiple Kibana instances, and multiple APM Servers that are moved off of the allocator.
@@ -35,15 +36,19 @@ import (
 type MoveClustersDetails struct {
 
 	// Detailed information about the Apm clusters being moved.
+	// Required: true
 	ApmClusters []*MoveApmClusterDetails `json:"apm_clusters"`
 
 	// Detailed information about the App Search clusters being moved.
+	// Required: true
 	AppsearchClusters []*MoveAppSearchDetails `json:"appsearch_clusters"`
 
 	// Detailed information about the Elasticsearch clusters being moved.
+	// Required: true
 	ElasticsearchClusters []*MoveElasticsearchClusterDetails `json:"elasticsearch_clusters"`
 
 	// Detailed information about the Kibana clusters being moved.
+	// Required: true
 	KibanaClusters []*MoveKibanaClusterDetails `json:"kibana_clusters"`
 }
 
@@ -75,8 +80,8 @@ func (m *MoveClustersDetails) Validate(formats strfmt.Registry) error {
 
 func (m *MoveClustersDetails) validateApmClusters(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.ApmClusters) { // not required
-		return nil
+	if err := validate.Required("apm_clusters", "body", m.ApmClusters); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.ApmClusters); i++ {
@@ -100,8 +105,8 @@ func (m *MoveClustersDetails) validateApmClusters(formats strfmt.Registry) error
 
 func (m *MoveClustersDetails) validateAppsearchClusters(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.AppsearchClusters) { // not required
-		return nil
+	if err := validate.Required("appsearch_clusters", "body", m.AppsearchClusters); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.AppsearchClusters); i++ {
@@ -125,8 +130,8 @@ func (m *MoveClustersDetails) validateAppsearchClusters(formats strfmt.Registry)
 
 func (m *MoveClustersDetails) validateElasticsearchClusters(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.ElasticsearchClusters) { // not required
-		return nil
+	if err := validate.Required("elasticsearch_clusters", "body", m.ElasticsearchClusters); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.ElasticsearchClusters); i++ {
@@ -150,8 +155,8 @@ func (m *MoveClustersDetails) validateElasticsearchClusters(formats strfmt.Regis
 
 func (m *MoveClustersDetails) validateKibanaClusters(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.KibanaClusters) { // not required
-		return nil
+	if err := validate.Required("kibana_clusters", "body", m.KibanaClusters); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.KibanaClusters); i++ {

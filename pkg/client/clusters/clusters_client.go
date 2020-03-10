@@ -52,7 +52,7 @@ type ClientService interface {
 /*
   SearchClusters searches clusters
 
-  Retrieves the information for all of the instances that match the specified query.
+  DEPRECATED (Scheduled to be removed in the next major version): Retrieves the information for all of the instances that match the specified query.
 */
 func (a *Client) SearchClusters(params *SearchClustersParams, authInfo runtime.ClientAuthInfoWriter) (*SearchClustersOK, error) {
 	// TODO: Validate the params before sending

@@ -66,7 +66,7 @@ type SamlSettings struct {
 	// The order that the security realm is evaluated
 	Order int32 `json:"order,omitempty"`
 
-	// Advanced configuration options in YAML format. Any settings defined here will override any configuration set via the API.
+	// Advanced configuration options in YAML format. Any settings defined here will override any configuration set via the API. Note that all keys should omit 'xpack.security.authc.realms.{realm_type}.{realm_id}'.
 	OverrideYaml string `json:"override_yaml,omitempty"`
 
 	// The role mapping rules associated with the security realm
@@ -85,7 +85,7 @@ type SamlSettings struct {
 	// Required: true
 	Sp *SamlSpSettings `json:"sp"`
 
-	// The SSL trusted CA certificate bundle URL. The bundle should be a zip file containing a single keystore file 'keystore.ks' in the directory '/saml/:id/truststore', where :id is the value of the [id] field.
+	// The SSL trusted CA certificate bundle URL. The bundle should be a zip file containing a single keystore file 'keystore.ks' Note that all keys should omit the 'xpack.security.authc.realms.saml.{realm_id}' prefix. For example, when the realm ID is set to 'saml1', the advanced configuration 'xpack.security.authc.realms.saml.saml1.ssl.verification_mode: full' should be added as 'ssl.verification_mode: full'.
 	SslCertificateURL string `json:"ssl_certificate_url,omitempty"`
 
 	// The password to the SSL certificate bundle URL truststore

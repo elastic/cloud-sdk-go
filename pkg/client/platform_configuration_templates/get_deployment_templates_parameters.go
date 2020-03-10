@@ -39,10 +39,12 @@ import (
 // with the default values initialized.
 func NewGetDeploymentTemplatesParams() *GetDeploymentTemplatesParams {
 	var (
+		formatDefault                     = string("cluster")
 		showHiddenDefault                 = bool(false)
 		showInstanceConfigurationsDefault = bool(false)
 	)
 	return &GetDeploymentTemplatesParams{
+		Format:                     &formatDefault,
 		ShowHidden:                 &showHiddenDefault,
 		ShowInstanceConfigurations: &showInstanceConfigurationsDefault,
 
@@ -54,10 +56,12 @@ func NewGetDeploymentTemplatesParams() *GetDeploymentTemplatesParams {
 // with the default values initialized, and the ability to set a timeout on a request
 func NewGetDeploymentTemplatesParamsWithTimeout(timeout time.Duration) *GetDeploymentTemplatesParams {
 	var (
+		formatDefault                     = string("cluster")
 		showHiddenDefault                 = bool(false)
 		showInstanceConfigurationsDefault = bool(false)
 	)
 	return &GetDeploymentTemplatesParams{
+		Format:                     &formatDefault,
 		ShowHidden:                 &showHiddenDefault,
 		ShowInstanceConfigurations: &showInstanceConfigurationsDefault,
 
@@ -69,10 +73,12 @@ func NewGetDeploymentTemplatesParamsWithTimeout(timeout time.Duration) *GetDeplo
 // with the default values initialized, and the ability to set a context for a request
 func NewGetDeploymentTemplatesParamsWithContext(ctx context.Context) *GetDeploymentTemplatesParams {
 	var (
+		formatDefault                     = string("cluster")
 		showHiddenDefault                 = bool(false)
 		showInstanceConfigurationsDefault = bool(false)
 	)
 	return &GetDeploymentTemplatesParams{
+		Format:                     &formatDefault,
 		ShowHidden:                 &showHiddenDefault,
 		ShowInstanceConfigurations: &showInstanceConfigurationsDefault,
 
@@ -84,10 +90,12 @@ func NewGetDeploymentTemplatesParamsWithContext(ctx context.Context) *GetDeploym
 // with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewGetDeploymentTemplatesParamsWithHTTPClient(client *http.Client) *GetDeploymentTemplatesParams {
 	var (
+		formatDefault                     = string("cluster")
 		showHiddenDefault                 = bool(false)
 		showInstanceConfigurationsDefault = bool(false)
 	)
 	return &GetDeploymentTemplatesParams{
+		Format:                     &formatDefault,
 		ShowHidden:                 &showHiddenDefault,
 		ShowInstanceConfigurations: &showInstanceConfigurationsDefault,
 		HTTPClient:                 client,
@@ -99,6 +107,11 @@ for the get deployment templates operation typically these are written to a http
 */
 type GetDeploymentTemplatesParams struct {
 
+	/*Format
+	  If cluster is specified populates cluster_template in the response, if deployment is specified populates deployment_template in the response
+
+	*/
+	Format *string
 	/*Metadata
 	  An optional key/value pair in the form of (key:value) that will act as a filter and exclude any templates that do not have a matching metadata item associated.
 
@@ -158,6 +171,17 @@ func (o *GetDeploymentTemplatesParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithFormat adds the format to the get deployment templates params
+func (o *GetDeploymentTemplatesParams) WithFormat(format *string) *GetDeploymentTemplatesParams {
+	o.SetFormat(format)
+	return o
+}
+
+// SetFormat adds the format to the get deployment templates params
+func (o *GetDeploymentTemplatesParams) SetFormat(format *string) {
+	o.Format = format
+}
+
 // WithMetadata adds the metadata to the get deployment templates params
 func (o *GetDeploymentTemplatesParams) WithMetadata(metadata *string) *GetDeploymentTemplatesParams {
 	o.SetMetadata(metadata)
@@ -209,6 +233,22 @@ func (o *GetDeploymentTemplatesParams) WriteToRequest(r runtime.ClientRequest, r
 		return err
 	}
 	var res []error
+
+	if o.Format != nil {
+
+		// query param format
+		var qrFormat string
+		if o.Format != nil {
+			qrFormat = *o.Format
+		}
+		qFormat := qrFormat
+		if qFormat != "" {
+			if err := r.SetQueryParam("format", qFormat); err != nil {
+				return err
+			}
+		}
+
+	}
 
 	if o.Metadata != nil {
 

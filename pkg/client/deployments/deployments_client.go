@@ -48,13 +48,13 @@ type ClientService interface {
 
 	CreateDeployment(params *CreateDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*CreateDeploymentCreated, *CreateDeploymentAccepted, error)
 
-	CreateDeploymentNote(params *CreateDeploymentNoteParams, authInfo runtime.ClientAuthInfoWriter) (*CreateDeploymentNoteCreated, error)
-
 	DeleteDeployment(params *DeleteDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteDeploymentOK, error)
 
-	DeleteDeploymentNote(params *DeleteDeploymentNoteParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteDeploymentNoteOK, error)
-
 	DeleteDeploymentStatelessResource(params *DeleteDeploymentStatelessResourceParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteDeploymentStatelessResourceOK, error)
+
+	EnableDeploymentResourceIlm(params *EnableDeploymentResourceIlmParams, authInfo runtime.ClientAuthInfoWriter) (*EnableDeploymentResourceIlmOK, error)
+
+	EnableDeploymentResourceSlm(params *EnableDeploymentResourceSlmParams, authInfo runtime.ClientAuthInfoWriter) (*EnableDeploymentResourceSlmOK, error)
 
 	GetDeployment(params *GetDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentOK, error)
 
@@ -66,11 +66,9 @@ type ClientService interface {
 
 	GetDeploymentKibResourceInfo(params *GetDeploymentKibResourceInfoParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentKibResourceInfoOK, error)
 
-	GetDeploymentNote(params *GetDeploymentNoteParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentNoteOK, error)
-
-	GetDeploymentNotes(params *GetDeploymentNotesParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentNotesOK, error)
-
 	ListDeployments(params *ListDeploymentsParams, authInfo runtime.ClientAuthInfoWriter) (*ListDeploymentsOK, error)
+
+	ResetElasticsearchUserPassword(params *ResetElasticsearchUserPasswordParams, authInfo runtime.ClientAuthInfoWriter) (*ResetElasticsearchUserPasswordOK, error)
 
 	RestartDeploymentEsResource(params *RestartDeploymentEsResourceParams, authInfo runtime.ClientAuthInfoWriter) (*RestartDeploymentEsResourceAccepted, error)
 
@@ -111,8 +109,6 @@ type ClientService interface {
 	StopDeploymentResourceMaintenanceMode(params *StopDeploymentResourceMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StopDeploymentResourceMaintenanceModeAccepted, error)
 
 	UpdateDeployment(params *UpdateDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateDeploymentOK, error)
-
-	UpdateDeploymentNote(params *UpdateDeploymentNoteParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateDeploymentNoteOK, error)
 
 	UpgradeDeploymentStatelessResource(params *UpgradeDeploymentStatelessResourceParams, authInfo runtime.ClientAuthInfoWriter) (*UpgradeDeploymentStatelessResourceAccepted, error)
 
@@ -195,43 +191,6 @@ func (a *Client) CreateDeployment(params *CreateDeploymentParams, authInfo runti
 }
 
 /*
-  CreateDeploymentNote creates deployment note
-
-  Create note for the running deployment.
-*/
-func (a *Client) CreateDeploymentNote(params *CreateDeploymentNoteParams, authInfo runtime.ClientAuthInfoWriter) (*CreateDeploymentNoteCreated, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewCreateDeploymentNoteParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "create-deployment-note",
-		Method:             "POST",
-		PathPattern:        "/deployments/{deployment_id}/notes",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"https"},
-		Params:             params,
-		Reader:             &CreateDeploymentNoteReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*CreateDeploymentNoteCreated)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for create-deployment-note: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
   DeleteDeployment deletes deployment
 
   Deletes a Deployment and all its resources.
@@ -269,43 +228,6 @@ func (a *Client) DeleteDeployment(params *DeleteDeploymentParams, authInfo runti
 }
 
 /*
-  DeleteDeploymentNote deletes deployment note
-
-  Delete note for the running deployment.
-*/
-func (a *Client) DeleteDeploymentNote(params *DeleteDeploymentNoteParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteDeploymentNoteOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewDeleteDeploymentNoteParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "delete-deployment-note",
-		Method:             "DELETE",
-		PathPattern:        "/deployments/{deployment_id}/notes/{note_id}",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"https"},
-		Params:             params,
-		Reader:             &DeleteDeploymentNoteReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*DeleteDeploymentNoteOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for delete-deployment-note: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
   DeleteDeploymentStatelessResource deletes stateless resource from deployment
 
   Delete Stateless Resource belonging to a given Deployment. Deployment must be shutdown already.
@@ -339,6 +261,80 @@ func (a *Client) DeleteDeploymentStatelessResource(params *DeleteDeploymentState
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for delete-deployment-stateless-resource: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  EnableDeploymentResourceIlm migrates elasticsearch resource to use i l m
+
+  Migrates the specified Elasticsearch resource to use ILM.
+*/
+func (a *Client) EnableDeploymentResourceIlm(params *EnableDeploymentResourceIlmParams, authInfo runtime.ClientAuthInfoWriter) (*EnableDeploymentResourceIlmOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewEnableDeploymentResourceIlmParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "enable-deployment-resource-ilm",
+		Method:             "POST",
+		PathPattern:        "/deployments/{deployment_id}/elasticsearch/{ref_id}/_enable-ilm",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &EnableDeploymentResourceIlmReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*EnableDeploymentResourceIlmOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for enable-deployment-resource-ilm: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  EnableDeploymentResourceSlm migrates elasticsearch resource to use s l m
+
+  Migrates the specified Elasticsearch resource to use SLM.
+*/
+func (a *Client) EnableDeploymentResourceSlm(params *EnableDeploymentResourceSlmParams, authInfo runtime.ClientAuthInfoWriter) (*EnableDeploymentResourceSlmOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewEnableDeploymentResourceSlmParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "enable-deployment-resource-slm",
+		Method:             "POST",
+		PathPattern:        "/deployments/{deployment_id}/elasticsearch/{ref_id}/_enable-slm",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &EnableDeploymentResourceSlmReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*EnableDeploymentResourceSlmOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for enable-deployment-resource-slm: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -493,7 +489,7 @@ func (a *Client) GetDeploymentEsResourceInfo(params *GetDeploymentEsResourceInfo
 /*
   GetDeploymentKibResourceInfo gets deployment kibana resource info
 
-  Get info about an Kibana Resource belonging to a given Deployment.
+  Get info about a Kibana Resource belonging to a given Deployment.
 */
 func (a *Client) GetDeploymentKibResourceInfo(params *GetDeploymentKibResourceInfoParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentKibResourceInfoOK, error) {
 	// TODO: Validate the params before sending
@@ -524,80 +520,6 @@ func (a *Client) GetDeploymentKibResourceInfo(params *GetDeploymentKibResourceIn
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for get-deployment-kib-resource-info: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  GetDeploymentNote gets a deployment note
-
-  Gets a deployment note.
-*/
-func (a *Client) GetDeploymentNote(params *GetDeploymentNoteParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentNoteOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetDeploymentNoteParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "get-deployment-note",
-		Method:             "GET",
-		PathPattern:        "/deployments/{deployment_id}/notes/{note_id}",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"https"},
-		Params:             params,
-		Reader:             &GetDeploymentNoteReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*GetDeploymentNoteOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for get-deployment-note: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  GetDeploymentNotes gets deployment notes
-
-  Get deployment notes.
-*/
-func (a *Client) GetDeploymentNotes(params *GetDeploymentNotesParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentNotesOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetDeploymentNotesParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "get-deployment-notes",
-		Method:             "GET",
-		PathPattern:        "/deployments/{deployment_id}/notes",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"https"},
-		Params:             params,
-		Reader:             &GetDeploymentNotesReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*GetDeploymentNotesOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for get-deployment-notes: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -635,6 +557,43 @@ func (a *Client) ListDeployments(params *ListDeploymentsParams, authInfo runtime
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for list-deployments: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  ResetElasticsearchUserPassword resets elastic user password
+
+  Resets the password of the 'elastic' user.
+*/
+func (a *Client) ResetElasticsearchUserPassword(params *ResetElasticsearchUserPasswordParams, authInfo runtime.ClientAuthInfoWriter) (*ResetElasticsearchUserPasswordOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewResetElasticsearchUserPasswordParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "reset-elasticsearch-user-password",
+		Method:             "POST",
+		PathPattern:        "/deployments/{deployment_id}/elasticsearch/{ref_id}/_reset-password",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &ResetElasticsearchUserPasswordReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ResetElasticsearchUserPasswordOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for reset-elasticsearch-user-password: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -678,7 +637,7 @@ func (a *Client) RestartDeploymentEsResource(params *RestartDeploymentEsResource
 /*
   RestartDeploymentStatelessResource restarts deployment stateless resource
 
-  Restarts an Stateless Resource. If a Resource is active: this command re-applies the existing plan but applies a "cluster_reboot", which issues a restart command and waits for it to complete. If a Resource is inactive: this command starts it up with the most recent successful plan.
+  Restarts a Stateless Resource. If a Resource is active: this command re-applies the existing plan but applies a "cluster_reboot", which issues a restart command and waits for it to complete. If a Resource is inactive: this command starts it up with the most recent successful plan.
 */
 func (a *Client) RestartDeploymentStatelessResource(params *RestartDeploymentStatelessResourceParams, authInfo runtime.ClientAuthInfoWriter) (*RestartDeploymentStatelessResourceAccepted, error) {
 	// TODO: Validate the params before sending
@@ -863,7 +822,7 @@ func (a *Client) ResyncDeployments(params *ResyncDeploymentsParams, authInfo run
 /*
   SearchDeployments searches deployments
 
-  Retrieves the information for all of the Deployments that match the specified query.
+  Retrieves the information for all of the deployments that match the specified query.
 */
 func (a *Client) SearchDeployments(params *SearchDeploymentsParams, authInfo runtime.ClientAuthInfoWriter) (*SearchDeploymentsOK, error) {
 	// TODO: Validate the params before sending
@@ -1123,7 +1082,7 @@ func (a *Client) StartDeploymentResourceInstancesAll(params *StartDeploymentReso
 /*
   StartDeploymentResourceInstancesAllMaintenanceMode starts maintenance mode all instances
 
-  Starts maintenance mode of all instances belonging to a Resource.
+  Starts maintenance mode of all instances belonging to a Deployment Resource.
 */
 func (a *Client) StartDeploymentResourceInstancesAllMaintenanceMode(params *StartDeploymentResourceInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StartDeploymentResourceInstancesAllMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1195,7 +1154,7 @@ func (a *Client) StartDeploymentResourceMaintenanceMode(params *StartDeploymentR
 }
 
 /*
-  StopDeploymentResourceInstances stops of instances
+  StopDeploymentResourceInstances stops instances
 
   Stops instances belonging to a Deployment Resource.
 */
@@ -1308,7 +1267,7 @@ func (a *Client) StopDeploymentResourceInstancesAllMaintenanceMode(params *StopD
 /*
   StopDeploymentResourceMaintenanceMode stops maintenance mode
 
-  Stops maintenance mode of instances belonging to a Deployment Resource.
+  Stops maintenance mode of instances belonging to a Resource.
 */
 func (a *Client) StopDeploymentResourceMaintenanceMode(params *StopDeploymentResourceMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StopDeploymentResourceMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1376,43 +1335,6 @@ func (a *Client) UpdateDeployment(params *UpdateDeploymentParams, authInfo runti
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for update-deployment: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  UpdateDeploymentNote updates deployment note
-
-  Update note for the running deployment.
-*/
-func (a *Client) UpdateDeploymentNote(params *UpdateDeploymentNoteParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateDeploymentNoteOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewUpdateDeploymentNoteParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "update-deployment-note",
-		Method:             "PUT",
-		PathPattern:        "/deployments/{deployment_id}/notes/{note_id}",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"https"},
-		Params:             params,
-		Reader:             &UpdateDeploymentNoteReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*UpdateDeploymentNoteOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for update-deployment-note: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

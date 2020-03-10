@@ -36,19 +36,30 @@ import (
 type ClusterInstanceConfigurationInfo struct {
 
 	// The id of the configuration used to create the instance
-	ID string `json:"id,omitempty"`
+	// Required: true
+	ID *string `json:"id"`
 
 	// The name of the configuration used to create the instance
-	Name string `json:"name,omitempty"`
+	// Required: true
+	Name *string `json:"name"`
 
 	// The resource type of the instance configuration
+	// Required: true
 	// Enum: [memory storage]
-	Resource string `json:"resource,omitempty"`
+	Resource *string `json:"resource"`
 }
 
 // Validate validates this cluster instance configuration info
 func (m *ClusterInstanceConfigurationInfo) Validate(formats strfmt.Registry) error {
 	var res []error
+
+	if err := m.validateID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateName(formats); err != nil {
+		res = append(res, err)
+	}
 
 	if err := m.validateResource(formats); err != nil {
 		res = append(res, err)
@@ -57,6 +68,24 @@ func (m *ClusterInstanceConfigurationInfo) Validate(formats strfmt.Registry) err
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *ClusterInstanceConfigurationInfo) validateID(formats strfmt.Registry) error {
+
+	if err := validate.Required("id", "body", m.ID); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *ClusterInstanceConfigurationInfo) validateName(formats strfmt.Registry) error {
+
+	if err := validate.Required("name", "body", m.Name); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -91,12 +120,12 @@ func (m *ClusterInstanceConfigurationInfo) validateResourceEnum(path, location s
 
 func (m *ClusterInstanceConfigurationInfo) validateResource(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.Resource) { // not required
-		return nil
+	if err := validate.Required("resource", "body", m.Resource); err != nil {
+		return err
 	}
 
 	// value enum
-	if err := m.validateResourceEnum("resource", "body", m.Resource); err != nil {
+	if err := m.validateResourceEnum("resource", "body", *m.Resource); err != nil {
 		return err
 	}
 

@@ -66,7 +66,7 @@ func NewListDeploymentsOK() *ListDeploymentsOK {
 
 /*ListDeploymentsOK handles this case with default header values.
 
-The list of deployments that belong to the authenticated user
+The list of deployments that belong to the authenticated user.
 */
 type ListDeploymentsOK struct {
 	Payload *models.DeploymentsListResponse
@@ -99,7 +99,7 @@ func NewListDeploymentsUnauthorized() *ListDeploymentsUnauthorized {
 
 /*ListDeploymentsUnauthorized handles this case with default header values.
 
-You are not authorized to perform this action
+You are not authorized to perform this action.
 */
 type ListDeploymentsUnauthorized struct {
 	Payload *models.BasicFailedReply

@@ -47,6 +47,7 @@ type AllocatorInfo struct {
 	Capacity *AllocatorCapacity `json:"capacity"`
 
 	// List of features associated with this allocator. Note this is only present for backwards compatibility purposes and is scheduled for removal in the next major version release.
+	// Required: true
 	Features []string `json:"features"`
 
 	// Host IP of this allocator
@@ -73,7 +74,8 @@ type AllocatorInfo struct {
 	Settings *AllocatorSettings `json:"settings"`
 
 	// status
-	Status *AllocatorHealthStatus `json:"status,omitempty"`
+	// Required: true
+	Status *AllocatorHealthStatus `json:"status"`
 
 	// Identifier of the zone
 	// Required: true
@@ -93,6 +95,10 @@ func (m *AllocatorInfo) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateCapacity(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateFeatures(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -170,6 +176,15 @@ func (m *AllocatorInfo) validateCapacity(formats strfmt.Registry) error {
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *AllocatorInfo) validateFeatures(formats strfmt.Registry) error {
+
+	if err := validate.Required("features", "body", m.Features); err != nil {
+		return err
 	}
 
 	return nil
@@ -263,8 +278,8 @@ func (m *AllocatorInfo) validateSettings(formats strfmt.Registry) error {
 
 func (m *AllocatorInfo) validateStatus(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.Status) { // not required
-		return nil
+	if err := validate.Required("status", "body", m.Status); err != nil {
+		return err
 	}
 
 	if m.Status != nil {

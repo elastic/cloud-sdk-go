@@ -28,6 +28,7 @@ import (
 	"github.com/go-openapi/errors"
 	strfmt "github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // PlatformInfo Information about the platform.
@@ -35,23 +36,55 @@ import (
 type PlatformInfo struct {
 
 	// Indicates if the End User License Agreement been accepted
-	EulaAccepted *bool `json:"eula_accepted,omitempty"`
+	// Required: true
+	EulaAccepted *bool `json:"eula_accepted"`
 
 	// Is the phone-home service, which returns anonymized usage statistics to Elastic, enabled
-	PhoneHomeEnabled *bool `json:"phone_home_enabled,omitempty"`
+	// Required: true
+	PhoneHomeEnabled *bool `json:"phone_home_enabled"`
+
+	// Information on regions
+	// Required: true
+	Regions []*RegionInfo `json:"regions"`
 
 	// services
+	// Required: true
 	Services []*PlatformServiceInfo `json:"services"`
 
+	// Information on currently unreachable regions
+	// Required: true
+	UnreachableRegions []*UnreachableRegionInfo `json:"unreachable_regions"`
+
 	// Platform version
-	Version string `json:"version,omitempty"`
+	// Required: true
+	Version *string `json:"version"`
 }
 
 // Validate validates this platform info
 func (m *PlatformInfo) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateEulaAccepted(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validatePhoneHomeEnabled(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateRegions(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateServices(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateUnreachableRegions(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateVersion(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -61,10 +94,53 @@ func (m *PlatformInfo) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *PlatformInfo) validateEulaAccepted(formats strfmt.Registry) error {
+
+	if err := validate.Required("eula_accepted", "body", m.EulaAccepted); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *PlatformInfo) validatePhoneHomeEnabled(formats strfmt.Registry) error {
+
+	if err := validate.Required("phone_home_enabled", "body", m.PhoneHomeEnabled); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *PlatformInfo) validateRegions(formats strfmt.Registry) error {
+
+	if err := validate.Required("regions", "body", m.Regions); err != nil {
+		return err
+	}
+
+	for i := 0; i < len(m.Regions); i++ {
+		if swag.IsZero(m.Regions[i]) { // not required
+			continue
+		}
+
+		if m.Regions[i] != nil {
+			if err := m.Regions[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("regions" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
 func (m *PlatformInfo) validateServices(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.Services) { // not required
-		return nil
+	if err := validate.Required("services", "body", m.Services); err != nil {
+		return err
 	}
 
 	for i := 0; i < len(m.Services); i++ {
@@ -81,6 +157,40 @@ func (m *PlatformInfo) validateServices(formats strfmt.Registry) error {
 			}
 		}
 
+	}
+
+	return nil
+}
+
+func (m *PlatformInfo) validateUnreachableRegions(formats strfmt.Registry) error {
+
+	if err := validate.Required("unreachable_regions", "body", m.UnreachableRegions); err != nil {
+		return err
+	}
+
+	for i := 0; i < len(m.UnreachableRegions); i++ {
+		if swag.IsZero(m.UnreachableRegions[i]) { // not required
+			continue
+		}
+
+		if m.UnreachableRegions[i] != nil {
+			if err := m.UnreachableRegions[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("unreachable_regions" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *PlatformInfo) validateVersion(formats strfmt.Registry) error {
+
+	if err := validate.Required("version", "body", m.Version); err != nil {
+		return err
 	}
 
 	return nil

@@ -32,6 +32,9 @@ import (
 // swagger:model PlanStrategy
 type PlanStrategy struct {
 
+	// autodetect
+	Autodetect AutodetectStrategyConfig `json:"autodetect,omitempty"`
+
 	// grow and shrink
 	GrowAndShrink GrowShrinkStrategyConfig `json:"grow_and_shrink,omitempty"`
 

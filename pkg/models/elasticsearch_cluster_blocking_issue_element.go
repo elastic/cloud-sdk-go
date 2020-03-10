@@ -23,8 +23,10 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"github.com/go-openapi/errors"
 	strfmt "github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // ElasticsearchClusterBlockingIssueElement Information about an issue and the Elasticsearch instance it affects.
@@ -32,14 +34,47 @@ import (
 type ElasticsearchClusterBlockingIssueElement struct {
 
 	// Description of the issue
-	Description string `json:"description,omitempty"`
+	// Required: true
+	Description *string `json:"description"`
 
 	// A list of instances that are affected by the issue
+	// Required: true
 	Instances []string `json:"instances"`
 }
 
 // Validate validates this elasticsearch cluster blocking issue element
 func (m *ElasticsearchClusterBlockingIssueElement) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateDescription(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateInstances(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ElasticsearchClusterBlockingIssueElement) validateDescription(formats strfmt.Registry) error {
+
+	if err := validate.Required("description", "body", m.Description); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *ElasticsearchClusterBlockingIssueElement) validateInstances(formats strfmt.Registry) error {
+
+	if err := validate.Required("instances", "body", m.Instances); err != nil {
+		return err
+	}
+
 	return nil
 }
 

@@ -44,13 +44,132 @@ type Client struct {
 
 // ClientService is the interface for Client methods
 type ClientService interface {
+	DeleteExtraCertificate(params *DeleteExtraCertificateParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteExtraCertificateOK, error)
+
+	GetExtraCertificate(params *GetExtraCertificateParams, authInfo runtime.ClientAuthInfoWriter) (*GetExtraCertificateOK, error)
+
+	GetExtraCertificates(params *GetExtraCertificatesParams, authInfo runtime.ClientAuthInfoWriter) (*GetExtraCertificatesOK, error)
+
 	GetPlatform(params *GetPlatformParams, authInfo runtime.ClientAuthInfoWriter) (*GetPlatformOK, error)
+
+	SetExtraCertificate(params *SetExtraCertificateParams, authInfo runtime.ClientAuthInfoWriter) (*SetExtraCertificateOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
 
 /*
-  GetPlatform gets platform
+  DeleteExtraCertificate deletes extra certificate
+
+  Delete an extra certificate.
+*/
+func (a *Client) DeleteExtraCertificate(params *DeleteExtraCertificateParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteExtraCertificateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteExtraCertificateParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "delete-extra-certificate",
+		Method:             "DELETE",
+		PathPattern:        "/platform/configuration/security/extra_certs/{cert_id}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeleteExtraCertificateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DeleteExtraCertificateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for delete-extra-certificate: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  GetExtraCertificate reads extra certificate
+
+  Read an extra certificate.
+*/
+func (a *Client) GetExtraCertificate(params *GetExtraCertificateParams, authInfo runtime.ClientAuthInfoWriter) (*GetExtraCertificateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetExtraCertificateParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "get-extra-certificate",
+		Method:             "GET",
+		PathPattern:        "/platform/configuration/security/extra_certs/{cert_id}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetExtraCertificateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetExtraCertificateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-extra-certificate: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  GetExtraCertificates lists extra certificates
+
+  List all of the extra certificates.
+*/
+func (a *Client) GetExtraCertificates(params *GetExtraCertificatesParams, authInfo runtime.ClientAuthInfoWriter) (*GetExtraCertificatesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetExtraCertificatesParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "get-extra-certificates",
+		Method:             "GET",
+		PathPattern:        "/platform/configuration/security/extra_certs",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetExtraCertificatesReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetExtraCertificatesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-extra-certificates: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  GetPlatform gets platform info
 
   Retrieves information about the active platform.
 */
@@ -83,6 +202,43 @@ func (a *Client) GetPlatform(params *GetPlatformParams, authInfo runtime.ClientA
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for get-platform: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  SetExtraCertificate updates extra certificate
+
+  Add or update an extra certificate.
+*/
+func (a *Client) SetExtraCertificate(params *SetExtraCertificateParams, authInfo runtime.ClientAuthInfoWriter) (*SetExtraCertificateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSetExtraCertificateParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "set-extra-certificate",
+		Method:             "PUT",
+		PathPattern:        "/platform/configuration/security/extra_certs/{cert_id}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &SetExtraCertificateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*SetExtraCertificateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for set-extra-certificate: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
