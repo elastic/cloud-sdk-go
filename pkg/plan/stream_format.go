@@ -17,7 +17,7 @@
 
 package plan
 
-// Legacy cluster format
+// Legacy cluster format (DEPRECATED, will be removed in a future version)
 const (
 	// legacyStreamFormat with green color
 	legacyStreamFinishFormat = "\x1b[92;mCluster [%s][%s]: finished running all the plan steps\x1b[0m (Total plan duration: %s)\n"

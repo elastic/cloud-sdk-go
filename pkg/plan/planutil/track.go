@@ -38,7 +38,7 @@ type TrackChangeParams struct {
 	Format string
 }
 
-// Validate ensures the parameters are usable by the consuming  function.
+// Validate ensures the parameters are usable by the consuming function.
 // Note this doesn't validate plan.TrackChangeParams as it's already validated
 // when plan.TrackChange is called.
 func (params TrackChangeParams) Validate() error {
