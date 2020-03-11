@@ -48,6 +48,9 @@ type TransportConfig struct {
 
 	// Timeout for the Transport net.Dialer.
 	Timeout time.Duration
+
+	// UserAgent if specified, it sets the user agent on all outgoing requests.
+	UserAgent string
 }
 
 func newDefaultTransport(timeout time.Duration) *http.Transport {
@@ -71,7 +74,9 @@ func newDefaultTransport(timeout time.Duration) *http.Transport {
 
 // NewTransport constructs a new http.RoundTripper from its config. If rt is
 // *http.Transport then it will be wrapped with *ErrCatchTransport. See more
-// information on the GoDoc help for that type.
+// information on the GoDoc help for that type. Additionally, that transport is
+// wrapped in *UserAgentTransport to be able to configure a User-Agent for all
+// outgoing requests.
 func NewTransport(rt http.RoundTripper, cfg TransportConfig) http.RoundTripper {
 	if rt == nil {
 		// Change this to use the new .Clone() method once Go 1.13+ is
@@ -87,7 +92,7 @@ func NewTransport(rt http.RoundTripper, cfg TransportConfig) http.RoundTripper {
 		t.TLSClientConfig.InsecureSkipVerify = cfg.SkipTLSVerify
 		rt = t
 	case *DebugTransport:
-		return t
+		return NewUserAgentTransport(t, cfg.UserAgent)
 	default:
 		if cfg.ErrorDevice != nil {
 			fmt.Fprintf(cfg.ErrorDevice, transportCastErrFmt, rt)
@@ -95,8 +100,12 @@ func NewTransport(rt http.RoundTripper, cfg TransportConfig) http.RoundTripper {
 	}
 
 	if cfg.Verbose {
-		return NewDebugTransport(rt, cfg.Device)
+		return NewUserAgentTransport(
+			NewDebugTransport(rt, cfg.Device), cfg.UserAgent,
+		)
 	}
 
-	return NewErrCatchTransport(rt)
+	return NewUserAgentTransport(
+		NewErrCatchTransport(rt), cfg.UserAgent,
+	)
 }
