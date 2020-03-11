@@ -18,7 +18,7 @@
 // Package plan provides an API to interact with a deployment's pending plan.
 // It's mainly structured in two primitives: TrackChanges and Stream.
 //
-// There's a couple of ways to track a deployment's change, by Deployment ID
+// There are a couple of ways to track a deployment's change, by Deployment ID
 // or by Resource ID and Kind (elasticsearch, kibana, apm, appsearch, etc).
 //
 // Although the plan package is ready for external consumption, if your goal is
