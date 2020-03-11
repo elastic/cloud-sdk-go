@@ -29,7 +29,7 @@ import (
 
 // TrackChange iterates over a deployment's resources pending plans, sending
 // updates to the returned channel in the form of TrackResponse every frequency
-// configured in the parameter's TrackFrequencyConfig.
+// period configured in the parameter's TrackFrequencyConfig.
 // When all of deployment's resources pending plans have finished, the channel
 // is automatically closed by the goroutine that this function launches. It is
 // possible to iterate with a for loop and assume that the loop will exit after
