@@ -41,7 +41,7 @@ type GeneratedResourceConfig struct {
 	// If omitted, a random ID will be auto-generated.
 	ID string
 
-	// If omitted, it'll default to "main-<type>"
+	// If omitted, it'll default to "main-<kind>"
 	RefID string
 
 	// Current plan logs.
