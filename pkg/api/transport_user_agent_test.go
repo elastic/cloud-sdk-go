@@ -86,3 +86,36 @@ func TestUserAgentTransport_RoundTrip(t *testing.T) {
 		})
 	}
 }
+
+func TestNewUserAgentTransport(t *testing.T) {
+	type args struct {
+		rt    http.RoundTripper
+		agent string
+	}
+	tests := []struct {
+		name      string
+		args      args
+		wantAgent string
+	}{
+		{
+			name:      "new user agent with default settings",
+			wantAgent: DefaultUserAgent,
+		},
+		{
+			name:      "new user agent with a custom agent",
+			args:      args{agent: "someagent"},
+			wantAgent: "someagent",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := NewUserAgentTransport(tt.args.rt, tt.args.agent)
+			if got.agent != tt.wantAgent {
+				t.Errorf("NewUserAgentTransport() agent = %v, want %v", got.agent, tt.wantAgent)
+			}
+			if got.rt == nil {
+				t.Errorf("NewUserAgentTransport() rt is nil, something's not right")
+			}
+		})
+	}
+}
