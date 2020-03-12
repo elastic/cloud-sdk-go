@@ -52,6 +52,7 @@ func NewAPI(c Config) (*API, error) {
 		ErrorDevice:     c.ErrorDevice,
 		VerboseSettings: c.VerboseSettings,
 		Timeout:         c.Timeout,
+		UserAgent:       c.UserAgent,
 	})
 
 	// Sadly, all the client parameters take the DefaultTimeout from the runtime

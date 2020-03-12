@@ -49,6 +49,9 @@ type Config struct {
 
 	// Timeout for all of the API calls performed through the API structure.
 	Timeout time.Duration
+
+	// UserAgent if specified, it sets the user agent on all outgoing requests.
+	UserAgent string
 }
 
 // Validate returns an error if the config is invalid
@@ -71,6 +74,10 @@ func (c *Config) Validate() error {
 func (c *Config) fillDefaults() {
 	if c.Timeout.Nanoseconds() <= 0 {
 		c.Timeout = DefaultTimeout
+	}
+
+	if c.UserAgent == "" {
+		c.UserAgent = DefaultUserAgent
 	}
 }
 
