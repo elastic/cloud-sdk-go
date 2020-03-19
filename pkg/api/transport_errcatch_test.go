@@ -21,10 +21,13 @@ import (
 	"errors"
 	"net/http"
 	"net/http/httputil"
+	"net/url"
 	"reflect"
 	"testing"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
 // nolint
@@ -36,6 +39,13 @@ func TestErrCatchTransport_RoundTrip(t *testing.T) {
 	type fields struct {
 		rt http.RoundTripper
 	}
+
+	var textHeader = make(http.Header)
+	textHeader.Add("Content-Type", "text/html")
+
+	var jsonHeader = make(http.Header)
+	jsonHeader.Add("Content-Type", "application/json")
+
 	type args struct {
 		req *http.Request
 	}
@@ -69,6 +79,35 @@ func TestErrCatchTransport_RoundTrip(t *testing.T) {
 			})},
 			args: args{req: &http.Request{}},
 			err:  errors.New("errored out"),
+		},
+		{
+			name: "returns a 404 proxy content",
+			fields: fields{rt: mock.NewRoundTripper(mock.Response{
+				Response: http.Response{
+					StatusCode: 404,
+					Header:     textHeader,
+					Body:       mock.NewStringBody("<html><title>404: Not Found</title><body>404: Not Found</body></html>"),
+				},
+			})},
+			args: args{req: &http.Request{
+				Method: "GET",
+				URL: &url.URL{
+					Path: "/api/v1/path",
+				},
+			}},
+			want: &http.Response{
+				StatusCode: 404,
+				Header:     jsonHeader,
+				Body: mock.NewStructBody(models.BasicFailedReply{
+					Errors: []*models.BasicFailedReplyElement{
+						{
+							Code:    ec.String("404"),
+							Fields:  []string{"GET /api/v1/path"},
+							Message: ec.String("Not Found"),
+						},
+					},
+				}),
+			},
 		},
 	}
 	for _, tt := range tests {
