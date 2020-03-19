@@ -30,12 +30,11 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/client/clusters_elasticsearch"
 	"github.com/elastic/cloud-sdk-go/pkg/client/clusters_kibana"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 	"github.com/elastic/cloud-sdk-go/pkg/util/slice"
 )
 
-func newBool(b bool) *bool { return &b }
-
-// GetParams is used to obtain the plan activity logs of a cluster. If pending
+// GetParams (DEPRECATED) is used to obtain the plan activity logs of a cluster. If pending
 // is true, the pending plan logs are obtained, otherwise the current plan logs
 // are.
 type GetParams struct {
@@ -50,7 +49,7 @@ type GetParams struct {
 	retries    uint8
 }
 
-// Validate verifies that the parameters being sent are usable by the consuming
+// Validate (DEPRECATED) verifies that the parameters being sent are usable by the consuming
 // function.
 func (params GetParams) Validate() error {
 	var err = new(multierror.Error)
@@ -77,7 +76,7 @@ func (params GetParams) needsRetry() bool {
 	return params.retries < params.MaxRetries
 }
 
-// Get obtains a cluster's plan logs from a set of parameters.
+// Get (DEPRECATED) obtains a cluster's plan logs from a set of parameters.
 func Get(params GetParams) ([]*models.ClusterPlanStepInfo, error) {
 	if err := params.Validate(); err != nil {
 		return nil, err
@@ -90,21 +89,21 @@ func Get(params GetParams) ([]*models.ClusterPlanStepInfo, error) {
 		res, err = params.API.V1API.ClustersElasticsearch.GetEsClusterPlanActivity(
 			clusters_elasticsearch.NewGetEsClusterPlanActivityParams().
 				WithClusterID(params.ID).
-				WithShowPlanLogs(newBool(true)),
+				WithShowPlanLogs(ec.Bool(true)),
 			params.API.AuthWriter,
 		)
 	case "kibana":
 		res, err = params.V1API.ClustersKibana.GetKibanaClusterPlanActivity(
 			clusters_kibana.NewGetKibanaClusterPlanActivityParams().
 				WithClusterID(params.ID).
-				WithShowPlanLogs(newBool(true)),
+				WithShowPlanLogs(ec.Bool(true)),
 			params.API.AuthWriter,
 		)
 	case "apm":
 		res, err = params.V1API.ClustersApm.GetApmClusterPlanActivity(
 			clusters_apm.NewGetApmClusterPlanActivityParams().
 				WithClusterID(params.ID).
-				WithShowPlanLogs(newBool(true)),
+				WithShowPlanLogs(ec.Bool(true)),
 			params.API.AuthWriter,
 		)
 	default:
@@ -123,7 +122,7 @@ func Get(params GetParams) ([]*models.ClusterPlanStepInfo, error) {
 	return GetLogsFromPlanActivityResponse(res, params.Pending)
 }
 
-// GetLogsFromPlanActivityResponse takes in a response from `ClusterPlanActivity`
+// GetLogsFromPlanActivityResponse (DEPRECATED) takes in a response from `ClusterPlanActivity`
 // and returns the plan steps, either from the current or the pending plan.
 func GetLogsFromPlanActivityResponse(res interface{}, pending bool) ([]*models.ClusterPlanStepInfo, error) {
 	payload := reflect.ValueOf(res).Elem().FieldByName("Payload")
