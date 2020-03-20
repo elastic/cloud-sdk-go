@@ -18,8 +18,22 @@
 package api
 
 import (
+	"fmt"
+	"io"
 	"net/http"
 	"net/http/httputil"
+	"strconv"
+	"strings"
+
+	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
+)
+
+const (
+	contentType         = "Content-Type"
+	textHTMLContentType = "text/html"
+	jsonContentType     = "application/json"
 )
 
 // DefaultTransport can be used by clients which rely on the api.UnwrapError
@@ -55,9 +69,29 @@ func (e *ErrCatchTransport) RoundTrip(req *http.Request) (*http.Response, error)
 
 	res, err := e.rt.RoundTrip(req)
 	if res != nil {
-		// nolint
-		httputil.DumpResponse(res, res.Body != nil)
+		_, _ = httputil.DumpResponse(res, res.Body != nil)
+
+		// When the content type is "text/html", a bit of tweaking is required
+		// for the response to be marshaled to  JSON. Using the standard error
+		// definition and populating it with parts of the request so the error
+		// can be identified.
+		if strings.Contains(res.Header.Get(contentType), textHTMLContentType) {
+			res.Header.Set(contentType, jsonContentType)
+			res.Body = newProxyBody(req, res.StatusCode)
+		}
 	}
 
 	return res, err
+}
+
+func newProxyBody(req *http.Request, code int) io.ReadCloser {
+	return mock.NewStructBody(models.BasicFailedReply{
+		Errors: []*models.BasicFailedReplyElement{
+			{
+				Code:    ec.String(strconv.Itoa(code)),
+				Fields:  []string{fmt.Sprintf("%s %s", req.Method, req.URL.EscapedPath())},
+				Message: ec.String(http.StatusText(code)),
+			},
+		},
+	})
 }
