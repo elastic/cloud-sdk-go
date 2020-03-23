@@ -59,6 +59,8 @@ func (p *Prefixed) ErrorOrNil() error {
 	return nil
 }
 
+// Error returns the stored slice of error formatted using a set FormatFunc or
+// multierror.ListFormatFunc when no FormatFunc is specified.
 func (p *Prefixed) Error() string {
 	if len(p.Errors) == 0 {
 		return ""
