@@ -19,8 +19,14 @@ package cmdutil
 
 import (
 	"fmt"
+	"net"
+	"reflect"
+	"strings"
+	"time"
 
+	"github.com/mitchellh/mapstructure"
 	"github.com/spf13/cobra"
+	"github.com/spf13/pflag"
 )
 
 // IncompatibleFlags checks if both flags have been specified, and if so
@@ -33,4 +39,54 @@ func IncompatibleFlags(cmd *cobra.Command, first, second string) error {
 		)
 	}
 	return nil
+}
+
+// DecodeFlags decodes the set flags of a cobra.Command and unpacks all the
+// values to the specified pointer of the passed structure.
+func DecodeFlags(cmd *cobra.Command, dst interface{}) error {
+	var flagMap = make(map[string]interface{})
+	cmd.Flags().VisitAll(func(f *pflag.Flag) {
+		flagMap[f.Name] = parseValue(f.Value)
+	})
+
+	return mapstructure.WeakDecode(flagMap, dst)
+}
+
+func parseValue(val pflag.Value) interface{} {
+	// All types which encapsulate the pflag slice type have a GetSlice
+	// method, which obtains the slice as []string. Combined with the
+	// mapstructure call to WeakDecode, it'll decode the slice correctly.
+	t := val.Type()
+	sliceOrArray := strings.HasSuffix(t, "Slice") || strings.HasSuffix(t, "Array")
+	if sliceOrArray {
+		v := reflect.ValueOf(val).MethodByName("GetSlice")
+		interfaceValue := v.Call(nil)[0].Interface()
+		if t == "durationSlice" {
+			return parseDurationSlice(interfaceValue)
+		}
+		if t == "ipSlice" {
+			return parseIPSlice(interfaceValue)
+		}
+
+		return interfaceValue
+	}
+
+	return val
+}
+
+func parseDurationSlice(i interface{}) []time.Duration {
+	var durationSlice []time.Duration
+	for _, d := range i.([]string) {
+		dVal, _ := time.ParseDuration(d)
+		durationSlice = append(durationSlice, dVal)
+	}
+	return durationSlice
+}
+
+func parseIPSlice(i interface{}) []net.IP {
+	var ipSlice []net.IP
+	for _, ip := range i.([]string) {
+		ipSlice = append(ipSlice, net.ParseIP(ip))
+	}
+	return ipSlice
 }
