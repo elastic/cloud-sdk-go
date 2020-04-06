@@ -42,33 +42,45 @@ func IncompatibleFlags(cmd *cobra.Command, first, second string) error {
 }
 
 // DecodeFlags decodes the set flags of a cobra.Command and unpacks all the
-// values to the specified pointer of the passed structure.
-func DecodeFlags(cmd *cobra.Command, dst interface{}) error {
+// values to the specified pointer of the passed "output" structure.
+func DecodeFlags(cmd *cobra.Command, output interface{}) error {
 	var flagMap = make(map[string]interface{})
 	cmd.Flags().VisitAll(func(f *pflag.Flag) {
 		flagMap[f.Name] = parseValue(f.Value)
 	})
 
-	return mapstructure.WeakDecode(flagMap, dst)
+	return mapstructure.WeakDecode(flagMap, output)
 }
 
 func parseValue(val pflag.Value) interface{} {
 	// All types which encapsulate the pflag slice type have a GetSlice
 	// method, which obtains the slice as []string. Combined with the
 	// mapstructure call to WeakDecode, it'll decode the slice correctly.
-	t := val.Type()
-	sliceOrArray := strings.HasSuffix(t, "Slice") || strings.HasSuffix(t, "Array")
-	if sliceOrArray {
-		v := reflect.ValueOf(val).MethodByName("GetSlice")
-		interfaceValue := v.Call(nil)[0].Interface()
-		if t == "durationSlice" {
-			return parseDurationSlice(interfaceValue)
+	flagType := val.Type()
+	isSlice := strings.HasSuffix(flagType, "Slice")
+	isArray := strings.HasSuffix(flagType, "Array")
+	if isSlice || isArray {
+		// Reflects the ValueOf the pflag.Value and obtains "GetSlice" functio
+		// as reflect.Value type, which is then called with no arguments.
+		getSlice := reflect.ValueOf(val).MethodByName("GetSlice")
+
+		// Since Call returns a slice of reflect.Value, and the signature of
+		// "GetSlice" has a single return, the 0 index is accessed to obtain
+		// the actual result of the function call and is transformed into the
+		// underlying type through the Interface() call.
+		result := getSlice.Call(nil)[0].Interface()
+
+		// Since WeakDecode is used, the types are loosely matched with the
+		// flag type. Duration would be returned as a []int, and ipSlice as
+		// a slice of []byte since those are the underlying types.
+		if flagType == "durationSlice" {
+			return parseDurationSlice(result)
 		}
-		if t == "ipSlice" {
-			return parseIPSlice(interfaceValue)
+		if flagType == "ipSlice" {
+			return parseIPSlice(result)
 		}
 
-		return interfaceValue
+		return result
 	}
 
 	return val
