@@ -75,7 +75,7 @@ func parseValue(val pflag.Value) interface{} {
 }
 
 func parseDurationSlice(i interface{}) []time.Duration {
-	var durationSlice []time.Duration
+	var durationSlice = make([]time.Duration, 0)
 	for _, d := range i.([]string) {
 		dVal, _ := time.ParseDuration(d)
 		durationSlice = append(durationSlice, dVal)
@@ -84,7 +84,7 @@ func parseDurationSlice(i interface{}) []time.Duration {
 }
 
 func parseIPSlice(i interface{}) []net.IP {
-	var ipSlice []net.IP
+	var ipSlice = make([]net.IP, 0)
 	for _, ip := range i.([]string) {
 		ipSlice = append(ipSlice, net.ParseIP(ip))
 	}

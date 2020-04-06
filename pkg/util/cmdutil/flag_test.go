@@ -85,6 +85,7 @@ func TestDecodeFlags(t *testing.T) {
 	type nested struct {
 		Prop string `mapstructure:"some-prop"`
 	}
+	// nolint
 	type cfg struct {
 		// Standard types
 		SomeString   string        `mapstructure:"some-string"`
