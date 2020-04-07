@@ -12,10 +12,11 @@ require (
 	github.com/go-openapi/swag v0.19.8
 	github.com/go-openapi/validate v0.19.7
 	github.com/hashicorp/go-multierror v1.0.0
+	github.com/mitchellh/mapstructure v1.1.2
 	github.com/pkg/errors v0.9.1
 	github.com/pmezard/go-difflib v1.0.0
 	github.com/spf13/cobra v0.0.7
-	github.com/spf13/pflag v1.0.5 // indirect
+	github.com/spf13/pflag v1.0.5
 )
 
 replace sourcegraph.com/sourcegraph/go-diff v0.5.1 => github.com/sourcegraph/go-diff v0.5.1
