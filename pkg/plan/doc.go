@@ -41,7 +41,7 @@
 //
 //  // Alternatively, plan.StreamJSON(channel, os.Stdout, false) can be used to
 //  // print JSON formatted updates to an io.Writer.
-//  if err := plan.Stream(channel, os.Stdout); err != nik {
+//  if err := plan.Stream(channel, os.Stdout); err != nil {
 //	 return err
 //  }
 //
