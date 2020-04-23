@@ -49,14 +49,6 @@ type RegionInfo struct {
 	// Required: true
 	Coordinators *CoordinatorsSummary `json:"coordinators"`
 
-	// Information about Elasticsearch clusters
-	// Required: true
-	ElasticsearchClustersStatus *ElasticsearchClustersSummary `json:"elasticsearch_clusters_status"`
-
-	// Information about Kibana clusters
-	// Required: true
-	KibanaClustersStatus *KibanaClustersSummary `json:"kibana_clusters_status"`
-
 	// Information about proxies
 	// Required: true
 	Proxies *ProxiesSummary `json:"proxies"`
@@ -95,14 +87,6 @@ func (m *RegionInfo) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateCoordinators(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateElasticsearchClustersStatus(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateKibanaClustersStatus(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -196,42 +180,6 @@ func (m *RegionInfo) validateCoordinators(formats strfmt.Registry) error {
 		if err := m.Coordinators.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("coordinators")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *RegionInfo) validateElasticsearchClustersStatus(formats strfmt.Registry) error {
-
-	if err := validate.Required("elasticsearch_clusters_status", "body", m.ElasticsearchClustersStatus); err != nil {
-		return err
-	}
-
-	if m.ElasticsearchClustersStatus != nil {
-		if err := m.ElasticsearchClustersStatus.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("elasticsearch_clusters_status")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *RegionInfo) validateKibanaClustersStatus(formats strfmt.Registry) error {
-
-	if err := validate.Required("kibana_clusters_status", "body", m.KibanaClustersStatus); err != nil {
-		return err
-	}
-
-	if m.KibanaClustersStatus != nil {
-		if err := m.KibanaClustersStatus.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("kibana_clusters_status")
 			}
 			return err
 		}

@@ -68,7 +68,7 @@ type ClientService interface {
 /*
   CreateIPFilterRuleset creates a ruleset
 
-  Creates a ruleset that combines a set of rules.
+  DEPRECATED: Creates a ruleset that combines a set of rules. Deprecated in favor of traffic-filter endpoints.
 */
 func (a *Client) CreateIPFilterRuleset(params *CreateIPFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter) (*CreateIPFilterRulesetCreated, error) {
 	// TODO: Validate the params before sending
@@ -105,7 +105,7 @@ func (a *Client) CreateIPFilterRuleset(params *CreateIPFilterRulesetParams, auth
 /*
   CreateIPFilterRulesetAssociation creates ruleset association
 
-  Applies the ruleset to the specified deployment.
+  DEPRECATED: Applies the ruleset to the specified deployment.
 */
 func (a *Client) CreateIPFilterRulesetAssociation(params *CreateIPFilterRulesetAssociationParams, authInfo runtime.ClientAuthInfoWriter) (*CreateIPFilterRulesetAssociationCreated, error) {
 	// TODO: Validate the params before sending
@@ -142,7 +142,7 @@ func (a *Client) CreateIPFilterRulesetAssociation(params *CreateIPFilterRulesetA
 /*
   DeleteIPFilterRuleset deletes a ruleset
 
-  Deletes the ruleset by ID.
+  DEPRECATED: Deletes the ruleset by ID. Deprecated in favor of traffic-filter endpoints.
 */
 func (a *Client) DeleteIPFilterRuleset(params *DeleteIPFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteIPFilterRulesetOK, error) {
 	// TODO: Validate the params before sending
@@ -179,7 +179,7 @@ func (a *Client) DeleteIPFilterRuleset(params *DeleteIPFilterRulesetParams, auth
 /*
   DeleteIPFilterRulesetAssociation deletes ruleset association
 
-  Deletes the traffic rules in the ruleset from the deployment.
+  DEPRECATED: Deletes the traffic rules in the ruleset from the deployment.
 */
 func (a *Client) DeleteIPFilterRulesetAssociation(params *DeleteIPFilterRulesetAssociationParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteIPFilterRulesetAssociationOK, error) {
 	// TODO: Validate the params before sending
@@ -216,7 +216,7 @@ func (a *Client) DeleteIPFilterRulesetAssociation(params *DeleteIPFilterRulesetA
 /*
   GetIPFilterDeploymentRulesetAssociations gets associated rulesets
 
-  Retrieves the rulesets associated with a deployment.
+  DEPRECATED: Retrieves the rulesets associated with a deployment.
 */
 func (a *Client) GetIPFilterDeploymentRulesetAssociations(params *GetIPFilterDeploymentRulesetAssociationsParams, authInfo runtime.ClientAuthInfoWriter) (*GetIPFilterDeploymentRulesetAssociationsOK, error) {
 	// TODO: Validate the params before sending
@@ -253,7 +253,7 @@ func (a *Client) GetIPFilterDeploymentRulesetAssociations(params *GetIPFilterDep
 /*
   GetIPFilterRuleset gets a ruleset
 
-  Retrieves the ruleset by ID.
+  DEPRECATED: Retrieves the ruleset by ID. Deprecated in favor of traffic-filter endpoints.
 */
 func (a *Client) GetIPFilterRuleset(params *GetIPFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter) (*GetIPFilterRulesetOK, error) {
 	// TODO: Validate the params before sending
@@ -290,7 +290,7 @@ func (a *Client) GetIPFilterRuleset(params *GetIPFilterRulesetParams, authInfo r
 /*
   GetIPFilterRulesetDeploymentAssociations gets associated deployments
 
-  Retrieves a list of deployments that are associated to the specified ruleset.
+  DEPRECATED: Retrieves a list of deployments that are associated to the specified ruleset.
 */
 func (a *Client) GetIPFilterRulesetDeploymentAssociations(params *GetIPFilterRulesetDeploymentAssociationsParams, authInfo runtime.ClientAuthInfoWriter) (*GetIPFilterRulesetDeploymentAssociationsOK, error) {
 	// TODO: Validate the params before sending
@@ -327,7 +327,7 @@ func (a *Client) GetIPFilterRulesetDeploymentAssociations(params *GetIPFilterRul
 /*
   GetIPFilterRulesets gets all rulesets
 
-  Retrieves all of the user rulesets.
+  DEPRECATED: Retrieves all of the user rulesets. Deprecated in favor of traffic-filter endpoints.
 */
 func (a *Client) GetIPFilterRulesets(params *GetIPFilterRulesetsParams, authInfo runtime.ClientAuthInfoWriter) (*GetIPFilterRulesetsOK, error) {
 	// TODO: Validate the params before sending
@@ -364,7 +364,7 @@ func (a *Client) GetIPFilterRulesets(params *GetIPFilterRulesetsParams, authInfo
 /*
   UpdateIPFilterRuleset updates a ruleset
 
-  Updates the ruleset with the definition.
+  DEPRECATED: Updates the ruleset with the definition. Deprecated in favor of traffic-filter endpoints.
 */
 func (a *Client) UpdateIPFilterRuleset(params *UpdateIPFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateIPFilterRulesetOK, error) {
 	// TODO: Validate the params before sending

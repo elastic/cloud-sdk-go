@@ -29,20 +29,20 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// UserFeatures List feature names enabled for user
-// swagger:model UserFeatures
-type UserFeatures struct {
+// TrafficFilterSettings The configuration settings for the traffic filter.
+// swagger:model TrafficFilterSettings
+type TrafficFilterSettings struct {
 
-	// The list of feature controls
+	// IDs of the traffic filter rulesets
 	// Required: true
-	Features []string `json:"features"`
+	Rulesets []string `json:"rulesets"`
 }
 
-// Validate validates this user features
-func (m *UserFeatures) Validate(formats strfmt.Registry) error {
+// Validate validates this traffic filter settings
+func (m *TrafficFilterSettings) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateFeatures(formats); err != nil {
+	if err := m.validateRulesets(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -52,9 +52,9 @@ func (m *UserFeatures) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *UserFeatures) validateFeatures(formats strfmt.Registry) error {
+func (m *TrafficFilterSettings) validateRulesets(formats strfmt.Registry) error {
 
-	if err := validate.Required("features", "body", m.Features); err != nil {
+	if err := validate.Required("rulesets", "body", m.Rulesets); err != nil {
 		return err
 	}
 
@@ -62,7 +62,7 @@ func (m *UserFeatures) validateFeatures(formats strfmt.Registry) error {
 }
 
 // MarshalBinary interface implementation
-func (m *UserFeatures) MarshalBinary() ([]byte, error) {
+func (m *TrafficFilterSettings) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -70,8 +70,8 @@ func (m *UserFeatures) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *UserFeatures) UnmarshalBinary(b []byte) error {
-	var res UserFeatures
+func (m *TrafficFilterSettings) UnmarshalBinary(b []byte) error {
+	var res TrafficFilterSettings
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

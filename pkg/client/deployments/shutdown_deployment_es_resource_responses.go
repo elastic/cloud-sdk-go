@@ -47,6 +47,12 @@ func (o *ShutdownDeploymentEsResourceReader) ReadResponse(response runtime.Clien
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewShutdownDeploymentEsResourceBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	case 404:
 		result := NewShutdownDeploymentEsResourceNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -90,6 +96,46 @@ func (o *ShutdownDeploymentEsResourceOK) readResponse(response runtime.ClientRes
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewShutdownDeploymentEsResourceBadRequest creates a ShutdownDeploymentEsResourceBadRequest with default headers values
+func NewShutdownDeploymentEsResourceBadRequest() *ShutdownDeploymentEsResourceBadRequest {
+	return &ShutdownDeploymentEsResourceBadRequest{}
+}
+
+/*ShutdownDeploymentEsResourceBadRequest handles this case with default header values.
+
+Parameter is restricted and can only be set by a Platform administrator. (code: `deployments.restricted_parameter`)
+*/
+type ShutdownDeploymentEsResourceBadRequest struct {
+	/*The error codes associated with the response
+	 */
+	XCloudErrorCodes string
+
+	Payload *models.BasicFailedReply
+}
+
+func (o *ShutdownDeploymentEsResourceBadRequest) Error() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_shutdown][%d] shutdownDeploymentEsResourceBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *ShutdownDeploymentEsResourceBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
+func (o *ShutdownDeploymentEsResourceBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response header x-cloud-error-codes
+	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+
+	o.Payload = new(models.BasicFailedReply)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

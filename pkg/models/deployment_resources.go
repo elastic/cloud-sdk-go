@@ -47,6 +47,10 @@ type DeploymentResources struct {
 	// Required: true
 	Elasticsearch []*ElasticsearchResourceInfo `json:"elasticsearch"`
 
+	// List of Enterprise Search resources in your Deployment
+	// Required: true
+	EnterpriseSearch []*EnterpriseSearchResourceInfo `json:"enterprise_search"`
+
 	// List of Kibana resources in your Deployment
 	// Required: true
 	Kibana []*KibanaResourceInfo `json:"kibana"`
@@ -65,6 +69,10 @@ func (m *DeploymentResources) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateElasticsearch(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateEnterpriseSearch(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -143,6 +151,31 @@ func (m *DeploymentResources) validateElasticsearch(formats strfmt.Registry) err
 			if err := m.Elasticsearch[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("elasticsearch" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *DeploymentResources) validateEnterpriseSearch(formats strfmt.Registry) error {
+
+	if err := validate.Required("enterprise_search", "body", m.EnterpriseSearch); err != nil {
+		return err
+	}
+
+	for i := 0; i < len(m.EnterpriseSearch); i++ {
+		if swag.IsZero(m.EnterpriseSearch[i]) { // not required
+			continue
+		}
+
+		if m.EnterpriseSearch[i] != nil {
+			if err := m.EnterpriseSearch[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("enterprise_search" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

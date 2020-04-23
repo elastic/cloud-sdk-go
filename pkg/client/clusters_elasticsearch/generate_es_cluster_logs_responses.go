@@ -97,9 +97,13 @@ func NewGenerateEsClusterLogsNotFound() *GenerateEsClusterLogsNotFound {
 
 /*GenerateEsClusterLogsNotFound handles this case with default header values.
 
-The cluster specified by {cluster_id} cannot be found (code: 'clusters.cluster_not_found')
+The cluster specified by {cluster_id} cannot be found. (code: `clusters.cluster_not_found`)
 */
 type GenerateEsClusterLogsNotFound struct {
+	/*The error codes associated with the response
+	 */
+	XCloudErrorCodes string
+
 	Payload *models.BasicFailedReply
 }
 
@@ -112,6 +116,9 @@ func (o *GenerateEsClusterLogsNotFound) GetPayload() *models.BasicFailedReply {
 }
 
 func (o *GenerateEsClusterLogsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response header x-cloud-error-codes
+	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
 
 	o.Payload = new(models.BasicFailedReply)
 

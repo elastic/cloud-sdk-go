@@ -42,6 +42,9 @@ type DeploymentTemplateDefinitionRequest struct {
 	// The human readable name for the cluster (defaults to the generated cluster id if not specified)
 	ClusterName string `json:"cluster_name,omitempty"`
 
+	// enterprise search
+	EnterpriseSearch *CreateEnterpriseSearchRequest `json:"enterprise_search,omitempty"`
+
 	// kibana
 	Kibana *CreateKibanaInCreateElasticsearchRequest `json:"kibana,omitempty"`
 
@@ -62,6 +65,10 @@ func (m *DeploymentTemplateDefinitionRequest) Validate(formats strfmt.Registry) 
 	}
 
 	if err := m.validateAppsearch(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateEnterpriseSearch(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -111,6 +118,24 @@ func (m *DeploymentTemplateDefinitionRequest) validateAppsearch(formats strfmt.R
 		if err := m.Appsearch.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("appsearch")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *DeploymentTemplateDefinitionRequest) validateEnterpriseSearch(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.EnterpriseSearch) { // not required
+		return nil
+	}
+
+	if m.EnterpriseSearch != nil {
+		if err := m.EnterpriseSearch.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("enterprise_search")
 			}
 			return err
 		}

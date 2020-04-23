@@ -36,7 +36,7 @@ import (
 // swagger:model AppSearchInfo
 type AppSearchInfo struct {
 
-	// The id of the deployment to which this App Search belongs to.
+	// The id of the deployment that this App Search belongs to.
 	DeploymentID string `json:"deployment_id,omitempty"`
 
 	// elasticsearch cluster

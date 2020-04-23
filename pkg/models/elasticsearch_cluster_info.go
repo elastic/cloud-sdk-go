@@ -44,6 +44,10 @@ type ElasticsearchClusterInfo struct {
 	// Required: true
 	AssociatedAppsearchClusters []*AppSearchSubInfo `json:"associated_appsearch_clusters"`
 
+	// associated enterprise search clusters
+	// Required: true
+	AssociatedEnterpriseSearchClusters []*EnterpriseSearchSubInfo `json:"associated_enterprise_search_clusters"`
+
 	// associated kibana clusters
 	// Required: true
 	AssociatedKibanaClusters []*KibanaSubClusterInfo `json:"associated_kibana_clusters"`
@@ -59,7 +63,7 @@ type ElasticsearchClusterInfo struct {
 	// Required: true
 	ClusterName *string `json:"cluster_name"`
 
-	// The id of the deployment to which this Elasticsearch belongs to.
+	// The id of the deployment that this Elasticsearch belongs to.
 	DeploymentID string `json:"deployment_id,omitempty"`
 
 	// elasticsearch
@@ -127,6 +131,10 @@ func (m *ElasticsearchClusterInfo) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateAssociatedAppsearchClusters(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateAssociatedEnterpriseSearchClusters(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -244,6 +252,31 @@ func (m *ElasticsearchClusterInfo) validateAssociatedAppsearchClusters(formats s
 			if err := m.AssociatedAppsearchClusters[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("associated_appsearch_clusters" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *ElasticsearchClusterInfo) validateAssociatedEnterpriseSearchClusters(formats strfmt.Registry) error {
+
+	if err := validate.Required("associated_enterprise_search_clusters", "body", m.AssociatedEnterpriseSearchClusters); err != nil {
+		return err
+	}
+
+	for i := 0; i < len(m.AssociatedEnterpriseSearchClusters); i++ {
+		if swag.IsZero(m.AssociatedEnterpriseSearchClusters[i]) { // not required
+			continue
+		}
+
+		if m.AssociatedEnterpriseSearchClusters[i] != nil {
+			if err := m.AssociatedEnterpriseSearchClusters[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("associated_enterprise_search_clusters" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

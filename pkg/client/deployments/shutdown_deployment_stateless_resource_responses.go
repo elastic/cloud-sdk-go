@@ -47,6 +47,12 @@ func (o *ShutdownDeploymentStatelessResourceReader) ReadResponse(response runtim
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewShutdownDeploymentStatelessResourceBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	case 404:
 		result := NewShutdownDeploymentStatelessResourceNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -96,6 +102,46 @@ func (o *ShutdownDeploymentStatelessResourceOK) readResponse(response runtime.Cl
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewShutdownDeploymentStatelessResourceBadRequest creates a ShutdownDeploymentStatelessResourceBadRequest with default headers values
+func NewShutdownDeploymentStatelessResourceBadRequest() *ShutdownDeploymentStatelessResourceBadRequest {
+	return &ShutdownDeploymentStatelessResourceBadRequest{}
+}
+
+/*ShutdownDeploymentStatelessResourceBadRequest handles this case with default header values.
+
+Parameter is restricted and can only be set by a Platform administrator. (code: `deployments.restricted_parameter`)
+*/
+type ShutdownDeploymentStatelessResourceBadRequest struct {
+	/*The error codes associated with the response
+	 */
+	XCloudErrorCodes string
+
+	Payload *models.BasicFailedReply
+}
+
+func (o *ShutdownDeploymentStatelessResourceBadRequest) Error() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_shutdown][%d] shutdownDeploymentStatelessResourceBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *ShutdownDeploymentStatelessResourceBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
+func (o *ShutdownDeploymentStatelessResourceBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response header x-cloud-error-codes
+	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+
+	o.Payload = new(models.BasicFailedReply)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

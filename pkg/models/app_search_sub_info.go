@@ -37,7 +37,7 @@ type AppSearchSubInfo struct {
 	// Required: true
 	AppSearchID *string `json:"app_search_id"`
 
-	// Whether the associated App search is currently available
+	// Whether the associated App Search is currently available
 	// Required: true
 	Enabled *bool `json:"enabled"`
 

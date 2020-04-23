@@ -31,7 +31,7 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// RulesetAssociations The configuration settings for IP filtering.
+// RulesetAssociations The configuration settings for the traffic filter.
 // swagger:model RulesetAssociations
 type RulesetAssociations struct {
 
@@ -39,7 +39,7 @@ type RulesetAssociations struct {
 	// Required: true
 	Associations []*FilterAssociation `json:"associations"`
 
-	// Total number of associations. This includes associations user doesn't have permission to view.
+	// Total number of associations. This includes associations the user does not have permission to view.
 	// Required: true
 	TotalAssociations *int32 `json:"total_associations"`
 }

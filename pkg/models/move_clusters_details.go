@@ -47,6 +47,10 @@ type MoveClustersDetails struct {
 	// Required: true
 	ElasticsearchClusters []*MoveElasticsearchClusterDetails `json:"elasticsearch_clusters"`
 
+	// Detailed information about the Elastic Enterprise Search clusters being moved.
+	// Required: true
+	EnterpriseSearchClusters []*MoveEnterpriseSearchDetails `json:"enterprise_search_clusters"`
+
 	// Detailed information about the Kibana clusters being moved.
 	// Required: true
 	KibanaClusters []*MoveKibanaClusterDetails `json:"kibana_clusters"`
@@ -65,6 +69,10 @@ func (m *MoveClustersDetails) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateElasticsearchClusters(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateEnterpriseSearchClusters(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -143,6 +151,31 @@ func (m *MoveClustersDetails) validateElasticsearchClusters(formats strfmt.Regis
 			if err := m.ElasticsearchClusters[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("elasticsearch_clusters" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *MoveClustersDetails) validateEnterpriseSearchClusters(formats strfmt.Registry) error {
+
+	if err := validate.Required("enterprise_search_clusters", "body", m.EnterpriseSearchClusters); err != nil {
+		return err
+	}
+
+	for i := 0; i < len(m.EnterpriseSearchClusters); i++ {
+		if swag.IsZero(m.EnterpriseSearchClusters[i]) { // not required
+			continue
+		}
+
+		if m.EnterpriseSearchClusters[i] != nil {
+			if err := m.EnterpriseSearchClusters[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("enterprise_search_clusters" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
