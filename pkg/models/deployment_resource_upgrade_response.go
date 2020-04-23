@@ -23,8 +23,10 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"github.com/go-openapi/errors"
 	strfmt "github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // DeploymentResourceUpgradeResponse deployment resource upgrade response
@@ -32,14 +34,47 @@ import (
 type DeploymentResourceUpgradeResponse struct {
 
 	// resource id
-	ResourceID string `json:"resource_id,omitempty"`
+	// Required: true
+	ResourceID *string `json:"resource_id"`
 
 	// stack version
-	StackVersion string `json:"stack_version,omitempty"`
+	// Required: true
+	StackVersion *string `json:"stack_version"`
 }
 
 // Validate validates this deployment resource upgrade response
 func (m *DeploymentResourceUpgradeResponse) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateResourceID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateStackVersion(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *DeploymentResourceUpgradeResponse) validateResourceID(formats strfmt.Registry) error {
+
+	if err := validate.Required("resource_id", "body", m.ResourceID); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *DeploymentResourceUpgradeResponse) validateStackVersion(formats strfmt.Registry) error {
+
+	if err := validate.Required("stack_version", "body", m.StackVersion); err != nil {
+		return err
+	}
+
 	return nil
 }
 

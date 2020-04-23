@@ -36,7 +36,7 @@ import (
 // swagger:model ApmInfo
 type ApmInfo struct {
 
-	// The id of the deployment to which this APM Server belongs to.
+	// The id of the deployment that this APM Server belongs to.
 	DeploymentID string `json:"deployment_id,omitempty"`
 
 	// elasticsearch cluster

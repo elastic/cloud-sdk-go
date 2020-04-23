@@ -39,11 +39,9 @@ import (
 // with the default values initialized.
 func NewShutdownDeploymentEsResourceParams() *ShutdownDeploymentEsResourceParams {
 	var (
-		hideDefault         = bool(false)
 		skipSnapshotDefault = bool(false)
 	)
 	return &ShutdownDeploymentEsResourceParams{
-		Hide:         &hideDefault,
 		SkipSnapshot: &skipSnapshotDefault,
 
 		timeout: cr.DefaultTimeout,
@@ -54,11 +52,9 @@ func NewShutdownDeploymentEsResourceParams() *ShutdownDeploymentEsResourceParams
 // with the default values initialized, and the ability to set a timeout on a request
 func NewShutdownDeploymentEsResourceParamsWithTimeout(timeout time.Duration) *ShutdownDeploymentEsResourceParams {
 	var (
-		hideDefault         = bool(false)
 		skipSnapshotDefault = bool(false)
 	)
 	return &ShutdownDeploymentEsResourceParams{
-		Hide:         &hideDefault,
 		SkipSnapshot: &skipSnapshotDefault,
 
 		timeout: timeout,
@@ -69,11 +65,9 @@ func NewShutdownDeploymentEsResourceParamsWithTimeout(timeout time.Duration) *Sh
 // with the default values initialized, and the ability to set a context for a request
 func NewShutdownDeploymentEsResourceParamsWithContext(ctx context.Context) *ShutdownDeploymentEsResourceParams {
 	var (
-		hideDefault         = bool(false)
 		skipSnapshotDefault = bool(false)
 	)
 	return &ShutdownDeploymentEsResourceParams{
-		Hide:         &hideDefault,
 		SkipSnapshot: &skipSnapshotDefault,
 
 		Context: ctx,
@@ -84,11 +78,9 @@ func NewShutdownDeploymentEsResourceParamsWithContext(ctx context.Context) *Shut
 // with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewShutdownDeploymentEsResourceParamsWithHTTPClient(client *http.Client) *ShutdownDeploymentEsResourceParams {
 	var (
-		hideDefault         = bool(false)
 		skipSnapshotDefault = bool(false)
 	)
 	return &ShutdownDeploymentEsResourceParams{
-		Hide:         &hideDefault,
 		SkipSnapshot: &skipSnapshotDefault,
 		HTTPClient:   client,
 	}
@@ -105,7 +97,7 @@ type ShutdownDeploymentEsResourceParams struct {
 	*/
 	DeploymentID string
 	/*Hide
-	  Hide cluster on shutdown. Hidden clusters are not listed by default.
+	  Hide cluster on shutdown. Hidden clusters are not listed by default. Only applicable for Platform administrators.
 
 	*/
 	Hide *bool

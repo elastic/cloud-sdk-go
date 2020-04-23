@@ -41,6 +41,9 @@ type ClusterCommandResponse struct {
 	// If validating the command only, then the calculated Elasticsearch plan that would be applied.
 	CalculatedElasticsearchPlan *TransientElasticsearchPlanConfiguration `json:"calculated_elasticsearch_plan,omitempty"`
 
+	// If validating the command only, then the calculated Elastic Enterprise Search plan that would be applied.
+	CalculatedEnterpriseSearchPlan *TransientEnterpriseSearchPlanConfiguration `json:"calculated_enterprise_search_plan,omitempty"`
+
 	// If validating the command only, then the calculated Kibana plan that would be applied.
 	CalculatedKibanaPlan *TransientKibanaPlanConfiguration `json:"calculated_kibana_plan,omitempty"`
 }
@@ -58,6 +61,10 @@ func (m *ClusterCommandResponse) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateCalculatedElasticsearchPlan(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateCalculatedEnterpriseSearchPlan(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -117,6 +124,24 @@ func (m *ClusterCommandResponse) validateCalculatedElasticsearchPlan(formats str
 		if err := m.CalculatedElasticsearchPlan.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("calculated_elasticsearch_plan")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ClusterCommandResponse) validateCalculatedEnterpriseSearchPlan(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.CalculatedEnterpriseSearchPlan) { // not required
+		return nil
+	}
+
+	if m.CalculatedEnterpriseSearchPlan != nil {
+		if err := m.CalculatedEnterpriseSearchPlan.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("calculated_enterprise_search_plan")
 			}
 			return err
 		}

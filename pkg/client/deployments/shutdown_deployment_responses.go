@@ -111,9 +111,13 @@ func NewShutdownDeploymentBadRequest() *ShutdownDeploymentBadRequest {
 
 /*ShutdownDeploymentBadRequest handles this case with default header values.
 
-The deployment request had errors.
+Parameter is restricted and can only be set by a Platform administrator. (code: `deployments.restricted_parameter`)
 */
 type ShutdownDeploymentBadRequest struct {
+	/*The error codes associated with the response
+	 */
+	XCloudErrorCodes string
+
 	Payload *models.BasicFailedReply
 }
 
@@ -126,6 +130,9 @@ func (o *ShutdownDeploymentBadRequest) GetPayload() *models.BasicFailedReply {
 }
 
 func (o *ShutdownDeploymentBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response header x-cloud-error-codes
+	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
 
 	o.Payload = new(models.BasicFailedReply)
 

@@ -52,7 +52,7 @@ type IPFilterRuleset struct {
 	// Required: true
 	Rules []*IPFilterRule `json:"rules"`
 
-	// Total number of associations. This includes associations user doesn't have permission to view.Returned only when include_associations query parameter is true
+	// Total number of associations. This includes associations the user does not have permission to view.Returned only when include_associations query parameter is true
 	TotalAssociations int32 `json:"total_associations,omitempty"`
 }
 

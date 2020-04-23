@@ -50,8 +50,6 @@ type ClientService interface {
 
 	GetCurrentUser(params *GetCurrentUserParams, authInfo runtime.ClientAuthInfoWriter) (*GetCurrentUserOK, error)
 
-	GetCurrentUserRestrictedFeatures(params *GetCurrentUserRestrictedFeaturesParams, authInfo runtime.ClientAuthInfoWriter) (*GetCurrentUserRestrictedFeaturesOK, error)
-
 	GetUser(params *GetUserParams, authInfo runtime.ClientAuthInfoWriter) (*GetUserOK, error)
 
 	GetUsers(params *GetUsersParams, authInfo runtime.ClientAuthInfoWriter) (*GetUsersOK, error)
@@ -171,43 +169,6 @@ func (a *Client) GetCurrentUser(params *GetCurrentUserParams, authInfo runtime.C
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for get-current-user: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  GetCurrentUserRestrictedFeatures gets features
-
-  Gets the restricted features current user has access.
-*/
-func (a *Client) GetCurrentUserRestrictedFeatures(params *GetCurrentUserRestrictedFeaturesParams, authInfo runtime.ClientAuthInfoWriter) (*GetCurrentUserRestrictedFeaturesOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetCurrentUserRestrictedFeaturesParams()
-	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
-		ID:                 "get-current-user-restricted-features",
-		Method:             "GET",
-		PathPattern:        "/users/feature-controls",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"https"},
-		Params:             params,
-		Reader:             &GetCurrentUserRestrictedFeaturesReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	})
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*GetCurrentUserRestrictedFeaturesOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for get-current-user-restricted-features: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

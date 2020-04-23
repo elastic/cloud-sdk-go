@@ -39,11 +39,9 @@ import (
 // with the default values initialized.
 func NewShutdownDeploymentParams() *ShutdownDeploymentParams {
 	var (
-		hideDefault         = bool(false)
 		skipSnapshotDefault = bool(false)
 	)
 	return &ShutdownDeploymentParams{
-		Hide:         &hideDefault,
 		SkipSnapshot: &skipSnapshotDefault,
 
 		timeout: cr.DefaultTimeout,
@@ -54,11 +52,9 @@ func NewShutdownDeploymentParams() *ShutdownDeploymentParams {
 // with the default values initialized, and the ability to set a timeout on a request
 func NewShutdownDeploymentParamsWithTimeout(timeout time.Duration) *ShutdownDeploymentParams {
 	var (
-		hideDefault         = bool(false)
 		skipSnapshotDefault = bool(false)
 	)
 	return &ShutdownDeploymentParams{
-		Hide:         &hideDefault,
 		SkipSnapshot: &skipSnapshotDefault,
 
 		timeout: timeout,
@@ -69,11 +65,9 @@ func NewShutdownDeploymentParamsWithTimeout(timeout time.Duration) *ShutdownDepl
 // with the default values initialized, and the ability to set a context for a request
 func NewShutdownDeploymentParamsWithContext(ctx context.Context) *ShutdownDeploymentParams {
 	var (
-		hideDefault         = bool(false)
 		skipSnapshotDefault = bool(false)
 	)
 	return &ShutdownDeploymentParams{
-		Hide:         &hideDefault,
 		SkipSnapshot: &skipSnapshotDefault,
 
 		Context: ctx,
@@ -84,11 +78,9 @@ func NewShutdownDeploymentParamsWithContext(ctx context.Context) *ShutdownDeploy
 // with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewShutdownDeploymentParamsWithHTTPClient(client *http.Client) *ShutdownDeploymentParams {
 	var (
-		hideDefault         = bool(false)
 		skipSnapshotDefault = bool(false)
 	)
 	return &ShutdownDeploymentParams{
-		Hide:         &hideDefault,
 		SkipSnapshot: &skipSnapshotDefault,
 		HTTPClient:   client,
 	}
@@ -105,7 +97,7 @@ type ShutdownDeploymentParams struct {
 	*/
 	DeploymentID string
 	/*Hide
-	  Whether or not to hide the deployment and its resources
+	  Whether or not to hide the deployment and its resources.Only applicable for Platform administrators.
 
 	*/
 	Hide *bool

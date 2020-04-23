@@ -33,7 +33,7 @@ import (
 // swagger:model FilterAssociation
 type FilterAssociation struct {
 
-	// Type of the IP filter ruleset association, such as 'deployment', 'cluster'
+	// Type of the traffic filter ruleset association, such as 'deployment', 'cluster'
 	// Required: true
 	EntityType *string `json:"entity_type"`
 

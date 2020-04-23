@@ -39,11 +39,9 @@ import (
 // with the default values initialized.
 func NewShutdownDeploymentStatelessResourceParams() *ShutdownDeploymentStatelessResourceParams {
 	var (
-		hideDefault         = bool(false)
 		skipSnapshotDefault = bool(false)
 	)
 	return &ShutdownDeploymentStatelessResourceParams{
-		Hide:         &hideDefault,
 		SkipSnapshot: &skipSnapshotDefault,
 
 		timeout: cr.DefaultTimeout,
@@ -54,11 +52,9 @@ func NewShutdownDeploymentStatelessResourceParams() *ShutdownDeploymentStateless
 // with the default values initialized, and the ability to set a timeout on a request
 func NewShutdownDeploymentStatelessResourceParamsWithTimeout(timeout time.Duration) *ShutdownDeploymentStatelessResourceParams {
 	var (
-		hideDefault         = bool(false)
 		skipSnapshotDefault = bool(false)
 	)
 	return &ShutdownDeploymentStatelessResourceParams{
-		Hide:         &hideDefault,
 		SkipSnapshot: &skipSnapshotDefault,
 
 		timeout: timeout,
@@ -69,11 +65,9 @@ func NewShutdownDeploymentStatelessResourceParamsWithTimeout(timeout time.Durati
 // with the default values initialized, and the ability to set a context for a request
 func NewShutdownDeploymentStatelessResourceParamsWithContext(ctx context.Context) *ShutdownDeploymentStatelessResourceParams {
 	var (
-		hideDefault         = bool(false)
 		skipSnapshotDefault = bool(false)
 	)
 	return &ShutdownDeploymentStatelessResourceParams{
-		Hide:         &hideDefault,
 		SkipSnapshot: &skipSnapshotDefault,
 
 		Context: ctx,
@@ -84,11 +78,9 @@ func NewShutdownDeploymentStatelessResourceParamsWithContext(ctx context.Context
 // with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewShutdownDeploymentStatelessResourceParamsWithHTTPClient(client *http.Client) *ShutdownDeploymentStatelessResourceParams {
 	var (
-		hideDefault         = bool(false)
 		skipSnapshotDefault = bool(false)
 	)
 	return &ShutdownDeploymentStatelessResourceParams{
-		Hide:         &hideDefault,
 		SkipSnapshot: &skipSnapshotDefault,
 		HTTPClient:   client,
 	}
@@ -105,7 +97,7 @@ type ShutdownDeploymentStatelessResourceParams struct {
 	*/
 	DeploymentID string
 	/*Hide
-	  Hide cluster on shutdown. Hidden clusters are not listed by default
+	  Hide cluster on shutdown. Hidden clusters are not listed by default. Only applicable for Platform administrators.
 
 	*/
 	Hide *bool

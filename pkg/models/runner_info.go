@@ -61,6 +61,9 @@ type RunnerInfo struct {
 	// Required: true
 	PublicHostname *string `json:"public_hostname"`
 
+	// The region that this runner belongs to. Only populated in SaaS or federated ECE.
+	Region string `json:"region,omitempty"`
+
 	// Roles for the runner
 	// Required: true
 	Roles []*RunnerRoleInfo `json:"roles"`

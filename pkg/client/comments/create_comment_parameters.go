@@ -91,7 +91,7 @@ type CreateCommentParams struct {
 	*/
 	ResourceID string
 	/*ResourceType
-	  The kind of Resource that a Comment belongs to. Should be one of [elasticsearch, kibana, apm, appsearch, enterprisesearch, sitesearch, allocator, constructor, runner, proxy].
+	  The kind of Resource that a Comment belongs to. Should be one of [elasticsearch, kibana, apm, appsearch, enterprise_search, sitesearch, allocator, constructor, runner, proxy].
 
 	*/
 	ResourceType string

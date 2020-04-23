@@ -50,8 +50,8 @@ type StackVersionConfig struct {
 	// Required: true
 	Elasticsearch *StackVersionElasticsearchConfig `json:"elasticsearch"`
 
-	// enterprisesearch
-	Enterprisesearch *StackVersionEnterpriseSearchConfig `json:"enterprisesearch,omitempty"`
+	// enterprise search
+	EnterpriseSearch *StackVersionEnterpriseSearchConfig `json:"enterprise_search,omitempty"`
 
 	// kibana
 	// Required: true
@@ -98,7 +98,7 @@ func (m *StackVersionConfig) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateEnterprisesearch(formats); err != nil {
+	if err := m.validateEnterpriseSearch(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -182,16 +182,16 @@ func (m *StackVersionConfig) validateElasticsearch(formats strfmt.Registry) erro
 	return nil
 }
 
-func (m *StackVersionConfig) validateEnterprisesearch(formats strfmt.Registry) error {
+func (m *StackVersionConfig) validateEnterpriseSearch(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.Enterprisesearch) { // not required
+	if swag.IsZero(m.EnterpriseSearch) { // not required
 		return nil
 	}
 
-	if m.Enterprisesearch != nil {
-		if err := m.Enterprisesearch.Validate(formats); err != nil {
+	if m.EnterpriseSearch != nil {
+		if err := m.EnterpriseSearch.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("enterprisesearch")
+				return ve.ValidateName("enterprise_search")
 			}
 			return err
 		}
