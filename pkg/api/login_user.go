@@ -17,11 +17,27 @@
 
 package api
 
-import "github.com/elastic/cloud-sdk-go/pkg/api/apierror"
+import (
+	"io"
 
-// UnwrapError (DEPRECATED) unpacks an error message returned from a client API
-// call.
-// THIS METHOD IS DEPRECATED IN FAVOUR OF apierror.Unwrap().
-func UnwrapError(err error) error {
-	return apierror.Unwrap(err)
+	"github.com/elastic/cloud-sdk-go/pkg/auth"
+)
+
+// LoginUser logs in a user when its AuthWriter is of type *auth.UserLogin.
+// Additionally, calls the RefreshToken pethod in *auth.UserLogin launching a
+// background Go routine which will keep the JWT token always valid.
+func LoginUser(instance *API, writer io.Writer) error {
+	aw, ok := instance.AuthWriter.(*auth.UserLogin)
+	if !ok {
+		return nil
+	}
+
+	if err := aw.Login(instance.V1API); err != nil {
+		return err
+	}
+
+	return aw.RefreshToken(auth.RefreshTokenParams{
+		Client:      instance.V1API,
+		ErrorDevice: writer,
+	})
 }

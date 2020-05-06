@@ -25,22 +25,27 @@ import (
 	"strings"
 	"time"
 
-	multierror "github.com/hashicorp/go-multierror"
+	"github.com/elastic/cloud-sdk-go/pkg/auth"
+	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 )
 
 var (
-	errEmptyAuthWriter = errors.New("api: AuthWriter must not be empty")
+	errEmptyAuthWriter = errors.New("auth writer must not be empty")
 )
 
 // Config contains the API config
 type Config struct {
 	Client     *http.Client
-	AuthWriter AuthWriter
+	AuthWriter auth.Writer
 	Host       string
 	Region     string
 
 	// SkipTLSVerify will not perform any TLS/SSL verification.
 	SkipTLSVerify bool
+
+	// SkipLogin skips validating the user / password with the instanced API
+	// when AuthWriter equals *auth.UserLogin.
+	SkipLogin bool
 
 	// ErrorDevice is used to send errors to prevent cluttering the output.
 	ErrorDevice io.Writer
@@ -56,19 +61,19 @@ type Config struct {
 
 // Validate returns an error if the config is invalid
 func (c *Config) Validate() error {
-	var err = new(multierror.Error)
+	var merr = multierror.NewPrefixed("invalid api config")
 	if c.Client == nil {
-		err = multierror.Append(err, errors.New("api: client cannot be empty"))
+		merr = merr.Append(errors.New("client cannot be empty"))
 	}
 
 	if c.AuthWriter == nil {
-		err = multierror.Append(err, errEmptyAuthWriter)
+		merr = merr.Append(errEmptyAuthWriter)
 	}
 
-	err = multierror.Append(err, checkHost(c.Host))
-	err = multierror.Append(err, c.VerboseSettings.Validate())
+	merr = merr.Append(checkHost(c.Host))
+	merr = merr.Append(c.VerboseSettings.Validate())
 
-	return err.ErrorOrNil()
+	return merr.ErrorOrNil()
 }
 
 func (c *Config) fillDefaults() {
@@ -89,19 +94,19 @@ type VerboseSettings struct {
 
 // Validate ensures the settings are usable.
 func (settings VerboseSettings) Validate() error {
-	var err = new(multierror.Error)
+	var merr = multierror.NewPrefixed("invalid verbose settings")
 	if settings.Verbose && settings.Device == nil {
-		err = multierror.Append(err, errors.New(
-			"api: invalid verbose settings: output device cannot be empty when verbose is enabled",
+		merr = merr.Append(errors.New(
+			"output device cannot be empty when verbose is enabled",
 		))
 	}
 
-	return err.ErrorOrNil()
+	return merr.ErrorOrNil()
 }
 
 func checkHost(host string) error {
 	if host == "" {
-		return errors.New("api: host cannot be empty")
+		return errors.New("host cannot be empty")
 	}
 
 	if !strings.HasSuffix(host, "/") {

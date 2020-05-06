@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 
-package api
+package apierror
 
 import (
 	"context"
@@ -30,20 +30,10 @@ import (
 
 	"github.com/elastic/cloud-sdk-go/pkg/client/clusters_elasticsearch"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 )
 
 func newStringPointer(s string) *string { return &s }
-
-var basicFailedReplyError = `
-{
-  "errors": [
-    {
-      "code": "clusters.cluster_plan_state_error",
-      "fields": null,
-      "message": "There are running instances"
-    }
-  ]
-}`[1:]
 
 var anotherError = `
 {
@@ -72,7 +62,7 @@ type PrivateResp struct {
 
 func (e PrivateResp) Error() string { return "some error here" }
 
-func TestUnwrapError(t *testing.T) {
+func TestUnwrap(t *testing.T) {
 	var someEncapsulatedResp = &http.Response{
 		StatusCode: 200,
 		Body: ioutil.NopCloser(strings.NewReader(
@@ -89,26 +79,26 @@ func TestUnwrapError(t *testing.T) {
 		want error
 	}{
 		{
-			"Is able to parse a standard error",
-			args{
+			name: "Is able to parse a standard error",
+			args: args{
 				err: errors.New("new error"),
 			},
-			errors.New("new error"),
+			want: errors.New("new error"),
 		},
 		{
-			"Is able to parse a type that encapsulates BasicFailedReply in Payload property",
-			args{
+			name: "Is able to parse a type that encapsulates BasicFailedReply in Payload property",
+			args: args{
 				err: &testError{
 					Payload: &testErrorPayload{
 						A: "an error",
 					},
 				},
 			},
-			errors.New(anotherError),
+			want: errors.New(anotherError),
 		},
 		{
-			"Is able to parse a type that encapsulates another unknown type",
-			args{
+			name: "Is able to parse a type that encapsulates another unknown type",
+			args: args{
 				err: &clusters_elasticsearch.DeleteEsClusterRetryWith{
 					Payload: &models.BasicFailedReply{
 						Errors: []*models.BasicFailedReplyElement{
@@ -120,14 +110,13 @@ func TestUnwrapError(t *testing.T) {
 					},
 				},
 			},
-			errors.New(basicFailedReplyError),
+			want: multierror.NewPrefixed(
+				"api error", errors.New("clusters.cluster_plan_state_error: There are running instances"),
+			),
 		},
 		{
-			"Is able to parse a nil standard error",
-			args{
-				err: nil,
-			},
-			nil,
+			name: "Is able to parse a nil standard error",
+			args: args{err: nil},
 		},
 		{
 			name: "Can unpack a 449 error",
@@ -184,8 +173,8 @@ func TestUnwrapError(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := UnwrapError(tt.args.err); !reflect.DeepEqual(err, tt.want) {
-				t.Errorf("UnwrapError() error = %v, wantErr %v", err, tt.want)
+			if err := Unwrap(tt.args.err); !reflect.DeepEqual(err, tt.want) {
+				t.Errorf("Unwrap() error = %v, wantErr %v", err, tt.want)
 			}
 		})
 	}

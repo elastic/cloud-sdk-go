@@ -19,22 +19,28 @@ package auth
 
 import (
 	"errors"
-	"fmt"
 	"net/http"
 	"os"
 	"reflect"
 	"testing"
 	"time"
 
-	"github.com/hashicorp/go-multierror"
-
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 	"github.com/elastic/cloud-sdk-go/pkg/client"
-	"github.com/elastic/cloud-sdk-go/pkg/client/authentication"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	"github.com/elastic/cloud-sdk-go/pkg/sync"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
+
+var failedReply = &models.BasicFailedReply{
+	Errors: []*models.BasicFailedReplyElement{
+		{
+			Code:    ec.String("code"),
+			Message: ec.String("message"),
+		},
+	},
+}
 
 func TestNewUserLogin(t *testing.T) {
 	type args struct {
@@ -49,24 +55,24 @@ func TestNewUserLogin(t *testing.T) {
 	}{
 		{
 			name: "fails on empty username and password",
-			err: &multierror.Error{Errors: []error{
-				errors.New("auth: Username must not be empty"),
-				errors.New("auth: Password must not be empty"),
-			}},
+			err: multierror.NewPrefixed("auth",
+				errors.New("username must not be empty"),
+				errors.New("password must not be empty"),
+			),
 		},
 		{
 			name: "fails on empty username",
 			args: args{password: "some"},
-			err: &multierror.Error{Errors: []error{
-				errors.New("auth: Username must not be empty"),
-			}},
+			err: multierror.NewPrefixed("auth",
+				errors.New("username must not be empty"),
+			),
 		},
 		{
 			name: "fails on empty password",
 			args: args{username: "some"},
-			err: &multierror.Error{Errors: []error{
-				errors.New("auth: Password must not be empty"),
-			}},
+			err: multierror.NewPrefixed("auth",
+				errors.New("password must not be empty"),
+			),
 		},
 		{
 			name: "builds UserLogin with default holder",
@@ -125,12 +131,12 @@ func TestUserLogin_Login(t *testing.T) {
 				Holder:   new(GenericHolder),
 			},
 			args: args{rc: newMock(mock.Response{Response: http.Response{
-				Body:       mock.NewStructBody(models.BasicFailedReply{}),
+				Body:       mock.NewStructBody(failedReply),
 				StatusCode: 401,
 			}})},
-			err: fmt.Errorf(
-				"failed to login with user/password: %s",
-				&authentication.LoginUnauthorized{Payload: new(models.BasicFailedReply)},
+			err: multierror.NewPrefixed(
+				"failed to login with user/password",
+				errors.New("api error: code: message"),
 			),
 		},
 		{
@@ -243,12 +249,12 @@ func TestUserLogin_RefreshTokenOnce(t *testing.T) {
 				Holder:   new(GenericHolder),
 			},
 			args: args{rc: newMock(mock.Response{Response: http.Response{
-				Body:       mock.NewStructBody(models.BasicFailedReply{}),
+				Body:       mock.NewStructBody(failedReply),
 				StatusCode: 401,
 			}})},
-			err: fmt.Errorf(
-				"auth: failed to refresh the loaded token: %s",
-				&authentication.RefreshTokenUnauthorized{Payload: new(models.BasicFailedReply)},
+			err: multierror.NewPrefixed(
+				"failed to refresh the loaded token",
+				errors.New("api error: code: message"),
 			),
 		},
 		{
@@ -305,10 +311,10 @@ func TestUserLogin_RefreshToken(t *testing.T) {
 	}{
 		{
 			name: "returns an error on invalid params",
-			err: &multierror.Error{Errors: []error{
-				errors.New("refresh token: ErrorDevice cannot be nil"),
-				errors.New("refresh token: rest client cannot be nil"),
-			}},
+			err: multierror.NewPrefixed("auth",
+				errors.New("errorDevice cannot be nil"),
+				errors.New("rest client cannot be nil"),
+			),
 		},
 		{
 			name: "Refresh token",
@@ -345,7 +351,7 @@ func TestUserLogin_RefreshToken(t *testing.T) {
 				InterruptChannel: make(chan os.Signal, 1),
 				// Add 3 responses as the ceiling for the multiplier. all are the same just guarding against errors.
 				Client: newMock(mock.Response{Response: http.Response{
-					Body:       mock.NewStructBody(new(models.BasicFailedReply)),
+					Body:       mock.NewStructBody(failedReply),
 					StatusCode: 401,
 				}}, mock.Response{Response: http.Response{
 					Body:       mock.NewStructBody(models.TokenResponse{Token: ec.String("sometoken")}),
@@ -355,10 +361,10 @@ func TestUserLogin_RefreshToken(t *testing.T) {
 					StatusCode: 200,
 				}}),
 			}},
-			wantErrorDevice: fmt.Sprintf(
-				"auth: failed to refresh the loaded token: %s\n",
-				&authentication.RefreshTokenUnauthorized{Payload: new(models.BasicFailedReply)},
-			),
+			wantErrorDevice: multierror.NewPrefixed(
+				"failed to refresh the loaded token",
+				errors.New("api error: code: message"),
+			).Error() + "\n",
 		},
 	}
 	for _, tt := range tests {

@@ -24,10 +24,9 @@ import (
 	"reflect"
 	"testing"
 
-	multierror "github.com/hashicorp/go-multierror"
-
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 	"github.com/elastic/cloud-sdk-go/pkg/auth"
+	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	"github.com/elastic/cloud-sdk-go/pkg/output"
 )
 
@@ -42,11 +41,11 @@ func TestNewAPI(t *testing.T) {
 	}{
 		{
 			name: "fails due to empty parameters",
-			err: &multierror.Error{Errors: []error{
-				errors.New("api: client cannot be empty"),
+			err: multierror.NewPrefixed("invalid api config",
+				errors.New("client cannot be empty"),
 				errEmptyAuthWriter,
-				errors.New("api: host cannot be empty"),
-			}},
+				errors.New("host cannot be empty"),
+			),
 		},
 		{
 			name: "fails with invalid url",
@@ -58,10 +57,10 @@ func TestNewAPI(t *testing.T) {
 				},
 				Client: mock.NewClient(),
 			}},
-			err: &multierror.Error{Errors: []error{
+			err: multierror.NewPrefixed("invalid api config",
 				errEmptyAuthWriter,
 				&url.Error{Op: "parse", URL: "very.much.invalid/", Err: errors.New("invalid URI for request")},
-			}},
+			),
 		},
 		{
 			name: "succeeds with region",

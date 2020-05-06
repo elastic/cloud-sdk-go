@@ -18,11 +18,9 @@
 package api
 
 import (
-	"net/http"
-
-	"github.com/go-openapi/runtime"
 	runtimeclient "github.com/go-openapi/runtime/client"
 
+	"github.com/elastic/cloud-sdk-go/pkg/auth"
 	"github.com/elastic/cloud-sdk-go/pkg/client"
 )
 
@@ -30,15 +28,13 @@ import (
 // for the EC API
 type API struct {
 	V1API      *client.Rest
-	AuthWriter AuthWriter
+	AuthWriter auth.Writer
 }
 
 // AuthWriter wraps the runtime.ClientAuthInfoWriter interface adding a method
 // to Auth generic http.Request.
-type AuthWriter interface {
-	runtime.ClientAuthInfoWriter
-	AuthRequest(req *http.Request) *http.Request
-}
+// This type alias is used to maintain API compatibility.
+type AuthWriter auth.Writer
 
 // NewAPI initializes the API clients from an API config that it receives
 func NewAPI(c Config) (*API, error) {
@@ -68,8 +64,12 @@ func NewAPI(c Config) (*API, error) {
 		return nil, err
 	}
 
-	return &API{
-		V1API:      client.New(transport, nil),
-		AuthWriter: c.AuthWriter,
-	}, nil
+	var api = API{AuthWriter: c.AuthWriter, V1API: client.New(transport, nil)}
+	if !c.SkipLogin {
+		if err := LoginUser(&api, c.ErrorDevice); err != nil {
+			return nil, err
+		}
+	}
+
+	return &api, nil
 }

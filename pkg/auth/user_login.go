@@ -30,11 +30,12 @@ import (
 	"github.com/go-openapi/runtime"
 	httptransport "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-	"github.com/hashicorp/go-multierror"
 
+	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/client"
 	"github.com/elastic/cloud-sdk-go/pkg/client/authentication"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
@@ -70,12 +71,12 @@ func NewUserLogin(username, password string) (*UserLogin, error) {
 
 // Validate ensures the validity of the data container.
 func (t *UserLogin) Validate() error {
-	var merr = new(multierror.Error)
+	var merr = multierror.NewPrefixed("auth")
 	if t.Username == "" {
-		merr = multierror.Append(merr, errors.New("auth: Username must not be empty"))
+		merr = merr.Append(errors.New("username must not be empty"))
 	}
 	if t.Password == "" {
-		merr = multierror.Append(merr, errors.New("auth: Password must not be empty"))
+		merr = merr.Append(errors.New("password must not be empty"))
 	}
 	return merr.ErrorOrNil()
 }
@@ -92,16 +93,16 @@ type RefreshTokenParams struct {
 // Validate ensures that the parameters are valid.
 func (params *RefreshTokenParams) Validate() error {
 	params.fillValues()
-	var err = new(multierror.Error)
+	var merr = multierror.NewPrefixed("auth")
 	if params.ErrorDevice == nil {
-		err = multierror.Append(err, errors.New("refresh token: ErrorDevice cannot be nil"))
+		merr = merr.Append(errors.New("errorDevice cannot be nil"))
 	}
 
 	if params.Client == nil {
-		err = multierror.Append(err, errors.New("refresh token: rest client cannot be nil"))
+		merr = merr.Append(errors.New("rest client cannot be nil"))
 	}
 
-	return err.ErrorOrNil()
+	return merr.ErrorOrNil()
 }
 
 // fillValues sets the default values for the structure.
@@ -126,7 +127,7 @@ func (t *UserLogin) Login(c *client.Rest) error {
 		nil,
 	)
 	if err != nil {
-		return fmt.Errorf("failed to login with user/password: %s", err)
+		return multierror.NewPrefixed("failed to login with user/password", apierror.Unwrap(err))
 	}
 
 	return t.Holder.Update(*res.Payload.Token)
@@ -186,7 +187,7 @@ func (t *UserLogin) RefreshTokenOnce(c *client.Rest) error {
 		authentication.NewRefreshTokenParams(), t,
 	)
 	if err != nil {
-		return fmt.Errorf("auth: failed to refresh the loaded token: %s", err)
+		return multierror.NewPrefixed("failed to refresh the loaded token", apierror.Unwrap(err))
 	}
 
 	return t.Holder.Update(*res.Payload.Token)
