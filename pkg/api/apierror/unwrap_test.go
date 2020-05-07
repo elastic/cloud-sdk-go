@@ -80,36 +80,28 @@ func TestUnwrap(t *testing.T) {
 	}{
 		{
 			name: "Is able to parse a standard error",
-			args: args{
-				err: errors.New("new error"),
-			},
+			args: args{err: errors.New("new error")},
 			want: errors.New("new error"),
 		},
 		{
 			name: "Is able to parse a type that encapsulates BasicFailedReply in Payload property",
-			args: args{
-				err: &testError{
-					Payload: &testErrorPayload{
-						A: "an error",
-					},
-				},
-			},
+			args: args{err: &testError{Payload: &testErrorPayload{
+				A: "an error",
+			}}},
 			want: errors.New(anotherError),
 		},
 		{
 			name: "Is able to parse a type that encapsulates another unknown type",
-			args: args{
-				err: &clusters_elasticsearch.DeleteEsClusterRetryWith{
-					Payload: &models.BasicFailedReply{
-						Errors: []*models.BasicFailedReplyElement{
-							{
-								Code:    newStringPointer("clusters.cluster_plan_state_error"),
-								Message: newStringPointer("There are running instances"),
-							},
+			args: args{err: &clusters_elasticsearch.DeleteEsClusterRetryWith{
+				Payload: &models.BasicFailedReply{
+					Errors: []*models.BasicFailedReplyElement{
+						{
+							Code:    newStringPointer("clusters.cluster_plan_state_error"),
+							Message: newStringPointer("There are running instances"),
 						},
 					},
 				},
-			},
+			}},
 			want: multierror.NewPrefixed(
 				"api error", errors.New("clusters.cluster_plan_state_error: There are running instances"),
 			),
@@ -120,55 +112,65 @@ func TestUnwrap(t *testing.T) {
 		},
 		{
 			name: "Can unpack a 449 error",
-			args: args{
-				err: &runtime.APIError{
-					Code: 449,
-				},
-			},
-			want: errors.New("the requested operation requires elevated permissions"),
+			args: args{err: &runtime.APIError{Code: 449}},
+			want: ErrMissingElevatedPermissions,
 		},
 		{
 			name: "Can unpack a nested http.Response error",
 			args: args{
-				err: &runtime.APIError{
-					Response: privateResp,
-				},
+				err: &runtime.APIError{Response: privateResp},
 			},
 			want: errors.New(`{"somefield": "someerror"}`),
 		},
 		{
 			name: "Throws unknown error when the Response inside the APIError can't be unpacked",
-			args: args{
-				err: &runtime.APIError{
-					Code:          400,
-					OperationName: "unknown error",
-					Response:      struct{}{},
-				},
-			},
+			args: args{err: &runtime.APIError{
+				Code:          400,
+				OperationName: "unknown error",
+				Response:      struct{}{},
+			}},
 			want: errors.New("unknown error (status 400)"),
 		},
 		{
 			name: "Unpacks the error when it can be",
-			args: args{
-				err: &runtime.APIError{
-					Code:          400,
-					OperationName: "unknown error",
-					Response:      testErrorPayload{"b"},
-				},
-			},
-			want: errors.New(`{
-  "a": "b"
-}`),
+			args: args{err: &runtime.APIError{
+				Code:          400,
+				OperationName: "unknown error",
+				Response:      testErrorPayload{"b"},
+			}},
+			want: errors.New("{\n  \"a\": \"b\"\n}"),
 		},
 		{
 			name: "Returns operation timed out when a context.DeadlineExceeded is received",
 			args: args{err: context.DeadlineExceeded},
-			want: errors.New("operation timed out"),
+			want: ErrTimedOut,
 		},
 		{
 			name: "Returns the error message of a non pointer type",
 			args: args{err: ValueError{}},
 			want: ValueError{},
+		},
+		{
+			name: "Is able to parse a type that encapsulates a BasicFailedReply with fields",
+			args: args{err: &clusters_elasticsearch.DeleteEsClusterRetryWith{
+				Payload: &models.BasicFailedReply{
+					Errors: []*models.BasicFailedReplyElement{
+						{
+							Code:    newStringPointer("clusters.cluster_plan_state_error"),
+							Message: newStringPointer("There are running instances"),
+						},
+						{
+							Code:    newStringPointer("auth.invalid_password"),
+							Fields:  []string{"body.password"},
+							Message: newStringPointer("request password doesn't match the user's password"),
+						},
+					},
+				},
+			}},
+			want: multierror.NewPrefixed("api error",
+				errors.New("clusters.cluster_plan_state_error: There are running instances"),
+				errors.New("auth.invalid_password: request password doesn't match the user's password (body.password)"),
+			),
 		},
 	}
 	for _, tt := range tests {

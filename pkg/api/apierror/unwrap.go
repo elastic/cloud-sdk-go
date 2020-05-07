@@ -31,10 +31,31 @@ import (
 	"github.com/go-openapi/runtime"
 
 	"github.com/elastic/cloud-sdk-go/pkg/models"
-	"github.com/elastic/cloud-sdk-go/pkg/multierror"
+)
+
+var (
+	// ErrTimedOut is returned when the error is context.DeadlineExceeded.
+	ErrTimedOut = errors.New("operation timed out")
+
+	// ErrMissingElevatedPermissions is returned when the error code is 449.
+	ErrMissingElevatedPermissions = errors.New("the requested operation requires elevated permissions")
 )
 
 // Unwrap unpacks an error message returned from a client API call.
+// It checks for a few cases where the returned API error might not have been
+// properly casted to its error type. It covers the following cases in order:
+// * error is nil, in which case nil is returned.
+// * error is a context.DeadlineExceeded error, which equals a timeout.
+// * error is of type *runtime.APIError, meaning the returned API error wasn't
+//   defined in the Swagger spec from which the source code has been generated
+//   * HTTP code is 449, the authenticated user needs to elevate-permissions.
+//   * The type wraps *http.Response, the body is read and tries json.Unmarshal
+//     to *models.BasicFailedResponse and each of the BasicFailedReplyElement
+//     is then added to an instance ofmultierror.Prefixed and returned.
+//   * The error is unknown, returns "<OperationName> (status <StatusCode)".
+// * error is a correctly unpacked into BasicFailedReply object which needs to
+//   be unpacked from its container struct. If the error cannot be unpacked to
+//   a BasicFailedReply, then a stringified json.MarshalIndent error is formed.
 func Unwrap(err error) error {
 	if err == nil {
 		return nil
@@ -42,51 +63,95 @@ func Unwrap(err error) error {
 
 	if reflect.Ptr != reflect.ValueOf(err).Kind() {
 		if err == context.DeadlineExceeded {
-			return errors.New("operation timed out")
+			return ErrTimedOut
 		}
 		return err
 	}
-	if e, ok := err.(*runtime.APIError); ok {
-		if e.Code == 449 {
-			return errors.New("the requested operation requires elevated permissions")
-		}
 
-		var defaultError = fmt.Errorf("%s (status %d)", e.OperationName, e.Code)
-		if e.Response != nil {
-			if v := reflect.ValueOf(e.Response); v.IsValid() {
-				if resp := v.FieldByName("resp"); resp.IsValid() {
-					ptr := unsafe.Pointer(resp.Pointer())
-					res := (*http.Response)(ptr)
-					b, err := ioutil.ReadAll(res.Body)
-					if err != nil {
-						return fmt.Errorf(
-							"failed reading error body: %s", defaultError,
-						)
-					}
-					defer res.Body.Close()
-					return errors.New(string(b))
-				}
-			}
-		}
-
-		if res, _ := json.MarshalIndent(e.Response, "", "  "); !bytes.Equal(res, []byte("{}")) {
-			return errors.New(string(res))
-		}
-		return defaultError
+	if err := unwrapRuntimeAPIError(err); err != nil {
+		return err
 	}
 
-	payload := reflect.ValueOf(err).Elem().FieldByName("Payload")
-	if payload.IsValid() {
-		if r, ok := payload.Interface().(*models.BasicFailedReply); ok {
-			merr := multierror.NewPrefixed("api error")
-			for _, e := range r.Errors {
-				merr = merr.Append(fmt.Errorf("%s: %s", *e.Code, *e.Message))
-			}
-			return merr.ErrorOrNil()
-		}
-		res, _ := json.MarshalIndent(payload.Interface(), "", "  ")
-		return errors.New(string(res))
+	if err := unwrapBasicFailedReply(err); err != nil {
+		return err
 	}
 
 	return err
+}
+
+func unwrapBasicFailedReply(err error) error {
+	payload := reflect.ValueOf(err).Elem().FieldByName("Payload")
+	if !payload.IsValid() {
+		return nil
+	}
+
+	if r, ok := payload.Interface().(*models.BasicFailedReply); ok {
+		return newMultierror(r)
+	}
+
+	res, _ := json.MarshalIndent(payload.Interface(), "", "  ")
+	if err := unmarshalBasicFailedReply(res); err != nil {
+		return err
+	}
+	return errors.New(string(res))
+}
+
+func unwrapRuntimeAPIError(err error) error {
+	apiErr, ok := err.(*runtime.APIError)
+	if !ok {
+		return nil
+	}
+
+	if apiErr.Code == 449 {
+		return ErrMissingElevatedPermissions
+	}
+
+	if err := tryWrappedResponse(apiErr.Response); err != nil {
+		return err
+	}
+
+	if res, _ := json.MarshalIndent(apiErr.Response, "", "  "); !bytes.Equal(res, []byte("{}")) {
+		if err := unmarshalBasicFailedReply(res); err != nil {
+			return err
+		}
+		return errors.New(string(res))
+	}
+
+	return fmt.Errorf("%s (status %d)", apiErr.OperationName, apiErr.Code)
+}
+
+func tryWrappedResponse(apiError interface{}) error {
+	v := reflect.ValueOf(apiError)
+	if !v.IsValid() {
+		return nil
+	}
+
+	resp := v.FieldByName("resp")
+	if !resp.IsValid() {
+		return nil
+	}
+
+	ptr := unsafe.Pointer(resp.Pointer())
+	res := (*http.Response)(ptr)
+	b, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		return fmt.Errorf("failed reading error body")
+	}
+	defer res.Body.Close()
+
+	if err := unmarshalBasicFailedReply(b); err != nil {
+		return err
+	}
+
+	return errors.New(string(b))
+}
+
+func unmarshalBasicFailedReply(b []byte) error {
+	var basicFailedReply models.BasicFailedReply
+	if err := json.Unmarshal(b, &basicFailedReply); err == nil {
+		if err := newMultierror(&basicFailedReply); err != nil {
+			return err
+		}
+	}
+	return nil
 }

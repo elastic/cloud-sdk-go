@@ -15,12 +15,46 @@
 // specific language governing permissions and limitations
 // under the License.
 
-package api
+package apierror
 
-import "github.com/elastic/cloud-sdk-go/pkg/api/apierror"
+import (
+	"fmt"
+	"strings"
 
-// UnwrapError Deprecated: unpacks an error message returned from a client API
-// call. Deprecated: in favour of apierror.Unwrap().
-func UnwrapError(err error) error {
-	return apierror.Unwrap(err)
+	"github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/multierror"
+)
+
+func newMultierror(r *models.BasicFailedReply) error {
+	merr := multierror.NewPrefixed("api error")
+	for _, e := range r.Errors {
+		merr = merr.Append(
+			newError(e),
+		)
+	}
+
+	return merr.ErrorOrNil()
+}
+
+func newError(elem *models.BasicFailedReplyElement) error {
+	var code, message = "unknown", "unknown"
+	var fields string
+
+	if elem.Code != nil {
+		code = *elem.Code
+	}
+
+	if elem.Message != nil {
+		message = *elem.Message
+	}
+
+	if elem.Fields != nil {
+		fields = strings.Join(elem.Fields, ", ")
+	}
+
+	if fields != "" {
+		return fmt.Errorf("%s: %s (%s)", code, message, fields)
+	}
+
+	return fmt.Errorf("%s: %s", code, message)
 }

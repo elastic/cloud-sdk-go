@@ -90,6 +90,10 @@ func TestNewPrefixed(t *testing.T) {
 					errors.New("multierror error"),
 					errors.New("multierror error 2"),
 				}},
+				&Prefixed{Prefix: "some prefix here", Errors: []error{
+					errors.New("unprefixed error 1"),
+					errors.New("unprefixed error 2"),
+				}},
 			}},
 			want: &Prefixed{
 				Prefix: "some prefix here",
@@ -100,6 +104,8 @@ func TestNewPrefixed(t *testing.T) {
 					errors.New("a prefix: another error"),
 					errors.New("multierror error"),
 					errors.New("multierror error 2"),
+					errors.New("unprefixed error 1"),
+					errors.New("unprefixed error 2"),
 				},
 			},
 		},

@@ -39,13 +39,13 @@ type Prefixed struct {
 
 // NewPrefixed creates a new pointer to Prefixed w
 func NewPrefixed(prefix string, errs ...error) *Prefixed {
-	return &Prefixed{Prefix: prefix, Errors: unpackErrors(errs...)}
+	return &Prefixed{Prefix: prefix, Errors: unpackErrors(prefix, errs...)}
 }
 
 // Append appends a number of errors to the current instance of Prefixed. It'll
 // unwrap any wrapped errors in the form of *Prefixed or *multierror.Error.
 func (p *Prefixed) Append(errs ...error) *Prefixed {
-	p.Errors = append(p.Errors, unpackErrors(errs...)...)
+	p.Errors = append(p.Errors, unpackErrors(p.Prefix, errs...)...)
 	return p
 }
 
@@ -73,7 +73,7 @@ func (p *Prefixed) Error() string {
 	return fmt.Sprint(p.Prefix, ": ", p.FormatFunc(p.Errors))
 }
 
-func unpackErrors(errs ...error) []error {
+func unpackErrors(prefix string, errs ...error) []error {
 	var result = make([]error, 0, len(errs))
 	for _, err := range errs {
 		if err == nil {
@@ -81,6 +81,10 @@ func unpackErrors(errs ...error) []error {
 		}
 
 		if e, ok := err.(*Prefixed); ok {
+			if prefix == e.Prefix {
+				result = append(result, e.Errors...)
+				continue
+			}
 			result = append(result, prefixIndividualErrors(e)...)
 			continue
 		}
