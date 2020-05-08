@@ -23,9 +23,8 @@ import (
 	"reflect"
 	"testing"
 
-	multierror "github.com/hashicorp/go-multierror"
-
 	"github.com/elastic/cloud-sdk-go/pkg/auth"
+	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 )
 
 func TestConfig_Validate(t *testing.T) {
@@ -45,21 +44,21 @@ func TestConfig_Validate(t *testing.T) {
 		{
 			name:   "Validate fails due on empty config",
 			fields: Config{},
-			err: &multierror.Error{Errors: []error{
-				errors.New("api: client cannot be empty"),
+			err: multierror.NewPrefixed("invalid api config",
+				errors.New("client cannot be empty"),
 				errEmptyAuthWriter,
-				errors.New("api: host cannot be empty"),
-			}},
+				errors.New("host cannot be empty"),
+			),
 		},
 		{
 			name: "Validate fails due to missing Authenticator",
 			fields: Config{
 				Client: new(http.Client),
 			},
-			err: &multierror.Error{Errors: []error{
+			err: multierror.NewPrefixed("invalid api config",
 				errEmptyAuthWriter,
-				errors.New("api: host cannot be empty"),
-			}},
+				errors.New("host cannot be empty"),
+			),
 		},
 		{
 			name: "Validate fails due to verbose set but device empty",
@@ -67,11 +66,13 @@ func TestConfig_Validate(t *testing.T) {
 				Client:          new(http.Client),
 				VerboseSettings: VerboseSettings{Verbose: true},
 			},
-			err: &multierror.Error{Errors: []error{
+			err: multierror.NewPrefixed("invalid api config",
 				errEmptyAuthWriter,
-				errors.New("api: host cannot be empty"),
-				errors.New("api: invalid verbose settings: output device cannot be empty when verbose is enabled"),
-			}},
+				errors.New("host cannot be empty"),
+				multierror.NewPrefixed("invalid verbose settings",
+					errors.New("output device cannot be empty when verbose is enabled"),
+				),
+			),
 		},
 	}
 	for _, tt := range tests {
