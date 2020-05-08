@@ -15,17 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 
-package api
-
-import "github.com/elastic/cloud-sdk-go/pkg/api/apierror"
-
-// UnwrapError Deprecated: unpacks an error message returned from a client API
-// call. Deprecated: in favour of apierror.Unwrap().
-func UnwrapError(err error) error {
-	return apierror.Unwrap(err)
-}
-
-// ReturnErrOnly is used to strip the first return argument of a function call
-func ReturnErrOnly(_ interface{}, err error) error {
-	return apierror.Unwrap(err)
-}
+// Package noteapi contains curated functions which iteract with the
+// deployment notes API, exposing an API which its usage is preferred over
+// the direct client calls.
+package noteapi

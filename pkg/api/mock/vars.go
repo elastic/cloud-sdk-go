@@ -15,17 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 
-package api
+package mock
 
-import "github.com/elastic/cloud-sdk-go/pkg/api/apierror"
-
-// UnwrapError Deprecated: unpacks an error message returned from a client API
-// call. Deprecated: in favour of apierror.Unwrap().
-func UnwrapError(err error) error {
-	return apierror.Unwrap(err)
-}
-
-// ReturnErrOnly is used to strip the first return argument of a function call
-func ReturnErrOnly(_ interface{}, err error) error {
-	return apierror.Unwrap(err)
-}
+// ValidClusterID holds a valid cluster id value
+var ValidClusterID = "320b7b540dfc967a7a649c18e2fce4ed"

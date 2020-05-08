@@ -15,17 +15,22 @@
 // specific language governing permissions and limitations
 // under the License.
 
-package api
+package testutils
 
-import "github.com/elastic/cloud-sdk-go/pkg/api/apierror"
+import (
+	"testing"
 
-// UnwrapError Deprecated: unpacks an error message returned from a client API
-// call. Deprecated: in favour of apierror.Unwrap().
-func UnwrapError(err error) error {
-	return apierror.Unwrap(err)
-}
+	"github.com/go-openapi/strfmt"
+)
 
-// ReturnErrOnly is used to strip the first return argument of a function call
-func ReturnErrOnly(_ interface{}, err error) error {
-	return apierror.Unwrap(err)
+// ParseDate parses a string to date and if parsing generates an error,
+// it fails the given testing suite, otherwise it returns the
+// strfmt.Datetime parsed value
+func ParseDate(t *testing.T, date string) strfmt.DateTime {
+	dt, err := strfmt.ParseDateTime(date)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	return dt
 }

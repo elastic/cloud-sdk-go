@@ -15,17 +15,16 @@
 // specific language governing permissions and limitations
 // under the License.
 
-package api
+package apierror
 
-import "github.com/elastic/cloud-sdk-go/pkg/api/apierror"
+import (
+	"errors"
+)
 
-// UnwrapError Deprecated: unpacks an error message returned from a client API
-// call. Deprecated: in favour of apierror.Unwrap().
-func UnwrapError(err error) error {
-	return apierror.Unwrap(err)
-}
+var (
+	// ErrMissingAPI is thrown when the *api.API reference is null.
+	ErrMissingAPI = errors.New("api reference is required for the operation")
 
-// ReturnErrOnly is used to strip the first return argument of a function call
-func ReturnErrOnly(_ interface{}, err error) error {
-	return apierror.Unwrap(err)
-}
+	// ErrDeploymentID is the message returned when a provided cluster id is not of the expected length (32 chars).
+	ErrDeploymentID = errors.New("deployment id should have a length of 32 characters")
+)

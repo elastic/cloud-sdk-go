@@ -15,17 +15,26 @@
 // specific language governing permissions and limitations
 // under the License.
 
-package api
+package deputil
 
-import "github.com/elastic/cloud-sdk-go/pkg/api/apierror"
+const (
+	// Apm kind
+	Apm = "apm"
 
-// UnwrapError Deprecated: unpacks an error message returned from a client API
-// call. Deprecated: in favour of apierror.Unwrap().
-func UnwrapError(err error) error {
-	return apierror.Unwrap(err)
-}
+	// Appsearch kind
+	Appsearch = "appsearch"
 
-// ReturnErrOnly is used to strip the first return argument of a function call
-func ReturnErrOnly(_ interface{}, err error) error {
-	return apierror.Unwrap(err)
+	// Elasticsearch kind
+	Elasticsearch = "elasticsearch"
+
+	// Kibana kind
+	Kibana = "kibana"
+)
+
+// ValidTypes exposes a list of the valid Elastic Cloud workload Types.
+var ValidTypes = []string{
+	Elasticsearch,
+	Kibana,
+	Apm,
+	Appsearch,
 }

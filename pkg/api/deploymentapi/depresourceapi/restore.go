@@ -15,17 +15,34 @@
 // specific language governing permissions and limitations
 // under the License.
 
-package api
+package depresourceapi
 
-import "github.com/elastic/cloud-sdk-go/pkg/api/apierror"
+import (
+	"github.com/elastic/cloud-sdk-go/pkg/api"
+	"github.com/elastic/cloud-sdk-go/pkg/client/deployments"
+)
 
-// UnwrapError Deprecated: unpacks an error message returned from a client API
-// call. Deprecated: in favour of apierror.Unwrap().
-func UnwrapError(err error) error {
-	return apierror.Unwrap(err)
+// RestoreParams is consumed by Restore
+type RestoreParams struct {
+	Params
+
+	// Optional
+	RestoreSnapshot bool
 }
 
-// ReturnErrOnly is used to strip the first return argument of a function call
-func ReturnErrOnly(_ interface{}, err error) error {
-	return apierror.Unwrap(err)
+// Restore upgrades a stateless deployment resource like APM, Kibana
+// and App Search.
+func Restore(params RestoreParams) error {
+	if err := params.Validate(); err != nil {
+		return err
+	}
+
+	return api.ReturnErrOnly(params.V1API.Deployments.RestoreDeploymentResource(
+		deployments.NewRestoreDeploymentResourceParams().
+			WithRestoreSnapshot(&params.RestoreSnapshot).
+			WithResourceKind(params.Kind).
+			WithDeploymentID(params.DeploymentID).
+			WithRefID(params.RefID),
+		params.AuthWriter,
+	))
 }
