@@ -21,9 +21,8 @@ import (
 	"errors"
 	"time"
 
-	multierror "github.com/hashicorp/go-multierror"
-
 	"github.com/elastic/cloud-sdk-go/pkg/api"
+	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 )
 
 // TrackChangeParams is consumed by TrackChange. It can be used to track
@@ -66,47 +65,47 @@ type TrackFrequencyConfig struct {
 
 // Validate ensures the parameters are usable by the consuming function.
 func (params TrackChangeParams) Validate() error {
-	var merr = new(multierror.Error)
+	var merr = multierror.NewPrefixed("plan track change")
 	var emptyDeploymentID = params.DeploymentID == ""
 	var emptyResourceID = params.ResourceID == ""
 	var emptyKind = params.Kind == ""
 
 	if params.API == nil {
-		merr = multierror.Append(merr, errors.New("plan track change: API cannot be nil"))
+		merr = merr.Append(errors.New("API cannot be nil"))
 	}
 
 	if emptyDeploymentID && emptyResourceID {
-		merr = multierror.Append(merr,
-			errors.New("plan track change: one of DeploymentID or ResourceID must be specified"),
+		merr = merr.Append(
+			errors.New("one of DeploymentID or ResourceID must be specified"),
 		)
 	}
 
 	if !emptyDeploymentID && !emptyResourceID {
-		merr = multierror.Append(merr,
-			errors.New("plan track change: cannot specify both DeploymentID and ResourceID"),
+		merr = merr.Append(
+			errors.New("cannot specify both DeploymentID and ResourceID"),
 		)
 	}
 
 	if emptyDeploymentID && emptyKind {
-		merr = multierror.Append(merr,
-			errors.New("plan track change: Kind cannot be empty"),
+		merr = merr.Append(
+			errors.New("kind cannot be empty"),
 		)
 	}
 
-	merr = multierror.Append(merr, params.Config.Validate())
+	merr = merr.Append(params.Config.Validate())
 
 	return merr.ErrorOrNil()
 }
 
 // Validate ensures the parameters are usable by the consuming function.
 func (params *TrackFrequencyConfig) Validate() error {
-	var merr = new(multierror.Error)
+	var merr = multierror.NewPrefixed("plan track change")
 	if params.MaxRetries <= 0 {
-		merr = multierror.Append(merr, errors.New("plan track change: max retries must be at least 1"))
+		merr = merr.Append(errors.New("max retries must be at least 1"))
 	}
 
 	if params.PollFrequency.Nanoseconds() < 1 {
-		merr = multierror.Append(merr, errors.New("plan track change: poll frequency must be at least 1 nanosecond"))
+		merr = merr.Append(errors.New("poll frequency must be at least 1 nanosecond"))
 	}
 	return merr.ErrorOrNil()
 }

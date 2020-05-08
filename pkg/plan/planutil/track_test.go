@@ -25,11 +25,10 @@ import (
 	"regexp"
 	"testing"
 
-	"github.com/hashicorp/go-multierror"
-
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	"github.com/elastic/cloud-sdk-go/pkg/plan"
 	planmock "github.com/elastic/cloud-sdk-go/pkg/plan/mock"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
@@ -117,21 +116,21 @@ func TestTrackChange(t *testing.T) {
 		{
 			name: "returns error on parameter validation failure (downstream)",
 			args: args{params: TrackChangeParams{}},
-			err: &multierror.Error{Errors: []error{
-				errors.New("plan track change: API cannot be nil"),
-				errors.New("plan track change: one of DeploymentID or ResourceID must be specified"),
-				errors.New("plan track change: Kind cannot be empty"),
-			}},
+			err: multierror.NewPrefixed("plan track change",
+				errors.New("API cannot be nil"),
+				errors.New("one of DeploymentID or ResourceID must be specified"),
+				errors.New("kind cannot be empty"),
+			),
 		},
 		{
 			name: "returns error on parameter validation failure",
 			args: args{params: TrackChangeParams{
 				Format: "some",
 			}},
-			err: &multierror.Error{Errors: []error{
-				errors.New("planutil track change: writer needs to be specified when format is not empty"),
-				errors.New(`planutil track change: invalid format "some"`),
-			}},
+			err: multierror.NewPrefixed("plan track change",
+				errors.New("writer needs to be specified when format is not empty"),
+				errors.New(`invalid format "some"`),
+			),
 		},
 		{
 			name: "tracks a cluster with text format and error result",
