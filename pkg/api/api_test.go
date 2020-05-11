@@ -48,7 +48,7 @@ func TestNewAPI(t *testing.T) {
 			err: multierror.NewPrefixed("invalid api config",
 				errors.New("client cannot be empty"),
 				errEmptyAuthWriter,
-				errESSInvalidAuth,
+				errors.New("apikey is the only valid authentication mechanism when targeting the Elasticsearch Service"),
 			),
 		},
 		{

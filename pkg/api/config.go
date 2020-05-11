@@ -32,7 +32,7 @@ import (
 var (
 	errEmptyAuthWriter = errors.New("auth writer must not be empty")
 	errESSInvalidAuth  = errors.New(
-		"apikey is the only valid authentication mechanism when targetting the Elasticsearch Service",
+		"apikey is the only valid authentication mechanism when targeting the Elasticsearch Service",
 	)
 )
 
