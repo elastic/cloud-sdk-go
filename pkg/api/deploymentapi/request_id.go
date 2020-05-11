@@ -15,27 +15,16 @@
 // specific language governing permissions and limitations
 // under the License.
 
-package ec
+package deploymentapi
 
-import "math/rand"
+import "github.com/elastic/cloud-sdk-go/pkg/util/ec"
 
-const letterBytes = "abcdefghijklmnopqrstuvwxyz1234567890"
-
-// RandomResourceID generates a random string of 32 characters which emulates
-// a real Elastic Cloud resource ID.
-func RandomResourceID() string {
-	b := make([]byte, 32)
-	for i := range b {
-		b[i] = letterBytes[rand.Int63()%int64(len(letterBytes))]
+// RequestID creates a 64-character string when an empty s tring is provided,
+// or returns the provided string. It is aimed to be used as a helper when
+// creating a deployment to always provide a request ID.
+func RequestID(s string) string {
+	if s == "" {
+		return ec.RandomResourceLength(64)
 	}
-	return string(b)
-}
-
-// RandomResourceLength generates a random string of n characters.
-func RandomResourceLength(n int) string {
-	b := make([]byte, n)
-	for i := range b {
-		b[i] = letterBytes[rand.Int63()%int64(len(letterBytes))]
-	}
-	return string(b)
+	return s
 }

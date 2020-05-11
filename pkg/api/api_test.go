@@ -31,6 +31,10 @@ import (
 )
 
 func TestNewAPI(t *testing.T) {
+	dummyKey, err := auth.NewAPIKey("dummy")
+	if err != nil {
+		t.Fatal(err)
+	}
 	type args struct {
 		c Config
 	}
@@ -44,7 +48,7 @@ func TestNewAPI(t *testing.T) {
 			err: multierror.NewPrefixed("invalid api config",
 				errors.New("client cannot be empty"),
 				errEmptyAuthWriter,
-				errors.New("host cannot be empty"),
+				errors.New("apikey is the only valid authentication mechanism when targeting the Elasticsearch Service"),
 			),
 		},
 		{
@@ -67,7 +71,7 @@ func TestNewAPI(t *testing.T) {
 			args: args{c: Config{
 				Host:       "https://cloud.elastic.co",
 				Region:     "us-east-1",
-				AuthWriter: auth.APIKey("dummy"),
+				AuthWriter: dummyKey,
 				VerboseSettings: VerboseSettings{
 					Verbose: true,
 					Device:  output.NewDevice(new(bytes.Buffer)),
@@ -78,8 +82,19 @@ func TestNewAPI(t *testing.T) {
 		{
 			name: "succeeds without region",
 			args: args{c: Config{
-				Host:       "https://cloud.elastic.co",
-				AuthWriter: auth.APIKey("dummy"),
+				Host:       ESSEndpoint,
+				AuthWriter: dummyKey,
+				VerboseSettings: VerboseSettings{
+					Verbose: true,
+					Device:  output.NewDevice(new(bytes.Buffer)),
+				},
+				Client: mock.NewClient(),
+			}},
+		},
+		{
+			name: "succeeds without host",
+			args: args{c: Config{
+				AuthWriter: dummyKey,
 				VerboseSettings: VerboseSettings{
 					Verbose: true,
 					Device:  output.NewDevice(new(bytes.Buffer)),
