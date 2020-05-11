@@ -31,6 +31,9 @@ import (
 
 var (
 	errEmptyAuthWriter = errors.New("auth writer must not be empty")
+	errESSInvalidAuth  = errors.New(
+		"apikey is the only valid authentication mechanism when targetting the Elasticsearch Service",
+	)
 )
 
 // Config contains the API config
@@ -73,6 +76,12 @@ func (c *Config) Validate() error {
 	merr = merr.Append(checkHost(c.Host))
 	merr = merr.Append(c.VerboseSettings.Validate())
 
+	_, apikeyPtr := c.AuthWriter.(*auth.APIKey)
+	_, apikey := c.AuthWriter.(auth.APIKey)
+	if c.Host == ESSEndpoint && !(apikey || apikeyPtr) {
+		merr = merr.Append(errESSInvalidAuth)
+	}
+
 	return merr.ErrorOrNil()
 }
 
@@ -83,6 +92,10 @@ func (c *Config) fillDefaults() {
 
 	if c.UserAgent == "" {
 		c.UserAgent = DefaultUserAgent
+	}
+
+	if c.Host == "" {
+		c.Host = ESSEndpoint
 	}
 }
 
