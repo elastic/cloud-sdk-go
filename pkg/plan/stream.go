@@ -86,7 +86,7 @@ func StreamJSON(channel <-chan TrackResponse, device io.Writer, pretty bool) err
 // this function will block execution forever. If the plan failed, it returns
 // the error that made the plan fail.
 func StreamFunc(channel <-chan TrackResponse, function func(TrackResponse)) error {
-	var merr = multierror.NewPrefixed("found")
+	var merr = multierror.NewPrefixed("found deployment plan errors")
 	for res := range channel {
 		function(res)
 		if res.Err != nil && res.Finished && res.Err != ErrPlanFinished {
