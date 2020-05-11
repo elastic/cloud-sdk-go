@@ -23,10 +23,9 @@ import (
 	"io"
 	"io/ioutil"
 
+	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	"github.com/elastic/cloud-sdk-go/pkg/plan"
 	"github.com/elastic/cloud-sdk-go/pkg/util/slice"
-
-	"github.com/hashicorp/go-multierror"
 )
 
 var validFormats = []string{"json", "text"}
@@ -42,17 +41,16 @@ type TrackChangeParams struct {
 // Note this doesn't validate plan.TrackChangeParams as it's already validated
 // when plan.TrackChange is called.
 func (params TrackChangeParams) Validate() error {
-	var merr = new(multierror.Error)
-
+	var merr = multierror.NewPrefixed("plan track change")
 	if params.Format != "" && params.Writer == nil {
-		merr = multierror.Append(merr,
-			errors.New("planutil track change: writer needs to be specified when format is not empty"),
+		merr = merr.Append(
+			errors.New("writer needs to be specified when format is not empty"),
 		)
 	}
 
 	if !slice.HasString(validFormats, params.Format) && params.Format != "" {
-		merr = multierror.Append(merr,
-			fmt.Errorf("planutil track change: invalid format \"%s\"", params.Format),
+		merr = merr.Append(
+			fmt.Errorf("invalid format \"%s\"", params.Format),
 		)
 	}
 
@@ -68,7 +66,7 @@ func TrackChange(params TrackChangeParams) error {
 
 	channel, err := plan.TrackChange(params.TrackChangeParams)
 	if err != nil {
-		return err
+		return multierror.NewPrefixed("plan track change", err)
 	}
 
 	if params.Format == "json" {

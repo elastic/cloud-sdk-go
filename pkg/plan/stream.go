@@ -22,7 +22,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/hashicorp/go-multierror"
+	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 )
 
 // Stream prints a text formatted line on each TrackResponse received by the
@@ -86,22 +86,22 @@ func StreamJSON(channel <-chan TrackResponse, device io.Writer, pretty bool) err
 // this function will block execution forever. If the plan failed, it returns
 // the error that made the plan fail.
 func StreamFunc(channel <-chan TrackResponse, function func(TrackResponse)) error {
-	var err = new(multierror.Error)
+	var merr = multierror.NewPrefixed("found deployment plan errors")
 	for res := range channel {
 		function(res)
 		if res.Err != nil && res.Finished && res.Err != ErrPlanFinished {
-			err = multierror.Append(err, res.Error())
+			merr = merr.Append(res.Error())
 		}
 	}
 
-	return compatibleError(err)
+	return compatibleError(merr)
 }
 
 // compatibleError is a small utility to ensure that the otuput of StreamFunc
 // remains the same as long as the TrackResponse is kept the same.
-func compatibleError(e *multierror.Error) error {
+func compatibleError(e *multierror.Prefixed) error {
 	if e != nil {
-		if e.Len() == 1 {
+		if len(e.Errors) == 1 {
 			return e.Errors[0]
 		}
 	}

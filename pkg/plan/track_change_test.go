@@ -27,10 +27,9 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	planmock "github.com/elastic/cloud-sdk-go/pkg/plan/mock"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
-
-	multierror "github.com/hashicorp/go-multierror"
 )
 
 func TestTrackChange(t *testing.T) {
@@ -338,11 +337,11 @@ func TestTrackChange(t *testing.T) {
 		{
 			name: "errors out on parameter validation",
 			args: args{},
-			err: &multierror.Error{Errors: []error{
-				errors.New("plan track change: API cannot be nil"),
-				errors.New("plan track change: one of DeploymentID or ResourceID must be specified"),
-				errors.New("plan track change: Kind cannot be empty"),
-			}},
+			err: multierror.NewPrefixed("plan track change",
+				errors.New("API cannot be nil"),
+				errors.New("one of DeploymentID or ResourceID must be specified"),
+				errors.New("kind cannot be empty"),
+			),
 		},
 		{
 			name: "errors out when both DeploymentID and ResourceID are specified",
@@ -350,10 +349,10 @@ func TestTrackChange(t *testing.T) {
 				ResourceID:   "cde7b6b605424a54ce9d56316eab13a1",
 				DeploymentID: "cbb4bc6c09684c86aa5de54c05ea1d38",
 			}},
-			err: &multierror.Error{Errors: []error{
-				errors.New("plan track change: API cannot be nil"),
-				errors.New("plan track change: cannot specify both DeploymentID and ResourceID"),
-			}},
+			err: multierror.NewPrefixed("plan track change",
+				errors.New("API cannot be nil"),
+				errors.New("cannot specify both DeploymentID and ResourceID"),
+			),
 		},
 		{
 			name: "fails looking up the deploymentID",
