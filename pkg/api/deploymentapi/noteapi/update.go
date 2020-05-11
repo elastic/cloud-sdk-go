@@ -37,7 +37,7 @@ type UpdateParams struct {
 
 // Validate confirms the parmeters are valid
 func (params UpdateParams) Validate() error {
-	var merr = multierror.NewPrefixed("note update")
+	var merr = multierror.NewPrefixed("deployment note update")
 	if params.UserID == "" {
 		merr = merr.Append(errors.New(errEmptyUserID))
 	}

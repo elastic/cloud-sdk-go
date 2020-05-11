@@ -36,7 +36,7 @@ type AddParams struct {
 
 // Validate ensures the parameters are valid
 func (params AddParams) Validate() error {
-	var merr = multierror.NewPrefixed("note add")
+	var merr = multierror.NewPrefixed("deployment note add")
 	if params.UserID == "" {
 		merr = merr.Append(errors.New(errEmptyUserID))
 	}

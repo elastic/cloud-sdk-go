@@ -86,7 +86,7 @@ func (element *ElasticsearchTopologyElement) fillDefaults() {
 
 // Validate ensures the parameters are usable by the consuming function.
 func (element *ElasticsearchTopologyElement) Validate() error {
-	var merr = multierror.NewPrefixed("deployment topology")
+	var merr = multierror.NewPrefixed("elasticsearch topology")
 	if element.Name == "" {
 		merr = merr.Append(errors.New("name cannot be empty"))
 	}

@@ -75,7 +75,7 @@ func TestNewElasticsearchTopology(t *testing.T) {
 			args: args{topology: []string{
 				`{"zone_count": 2}`,
 			}},
-			err: multierror.NewPrefixed("deployment topology",
+			err: multierror.NewPrefixed("elasticsearch topology",
 				errors.New("name cannot be empty"),
 				errors.New("size cannot be empty"),
 			),

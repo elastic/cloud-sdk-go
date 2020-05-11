@@ -124,7 +124,7 @@ func TestUpdate(t *testing.T) {
 					Params: Params{},
 				},
 			},
-			wantErr: multierror.NewPrefixed("note update",
+			wantErr: multierror.NewPrefixed("deployment note update",
 				errors.New("user id cannot be empty"),
 				errors.New("note comment cannot be empty"),
 				errors.New("note id cannot be empty"),

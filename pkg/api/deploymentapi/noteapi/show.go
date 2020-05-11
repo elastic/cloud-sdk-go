@@ -34,7 +34,7 @@ type GetParams struct {
 
 // Validate confirms the parmeters are valid
 func (params GetParams) Validate() error {
-	var merr = multierror.NewPrefixed("note get")
+	var merr = multierror.NewPrefixed("deployment note get")
 	if params.NoteID == "" {
 		merr = merr.Append(errors.New(errEmptyNoteID))
 	}

@@ -42,7 +42,7 @@ func TestLatestStackVersion(t *testing.T) {
 	}{
 		{
 			name: "fails due to parameter validation",
-			err: multierror.NewPrefixed("deployment last stack",
+			err: multierror.NewPrefixed("deployment latest stack",
 				errors.New("api reference is required for the operation"),
 			),
 		},

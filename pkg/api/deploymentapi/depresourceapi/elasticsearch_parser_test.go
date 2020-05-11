@@ -221,7 +221,7 @@ func TestParseElasticsearchInput(t *testing.T) {
 					`{"name": ""}`,
 				},
 			}},
-			err: multierror.NewPrefixed("deployment topology",
+			err: multierror.NewPrefixed("elasticsearch topology",
 				errors.New("name cannot be empty"),
 				errors.New("size cannot be empty"),
 			),

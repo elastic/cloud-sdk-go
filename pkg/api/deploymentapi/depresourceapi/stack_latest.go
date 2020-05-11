@@ -44,7 +44,7 @@ type LatestStackVersionParams struct {
 
 // Validate ensures the parameters are usable by the consuming function.
 func (params LatestStackVersionParams) Validate() error {
-	var merr = multierror.NewPrefixed("deployment last stack")
+	var merr = multierror.NewPrefixed("deployment latest stack")
 	if params.API == nil {
 		merr = merr.Append(apierror.ErrMissingAPI)
 	}

@@ -92,8 +92,8 @@ func TestNewElasticsearch(t *testing.T) {
 				errors.New("api reference is required for the operation"),
 				errors.New("region cannot be empty"),
 				errors.New("version cannot be empty"),
-				errors.New("element[0]: deployment topology: name cannot be empty"),
-				errors.New("element[0]: deployment topology: size cannot be empty"),
+				errors.New("element[0]: elasticsearch topology: name cannot be empty"),
+				errors.New("element[0]: elasticsearch topology: size cannot be empty"),
 			),
 		},
 		{

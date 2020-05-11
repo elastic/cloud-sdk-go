@@ -117,7 +117,7 @@ func TestGet(t *testing.T) {
 		{
 			name: "Get note fails due to validation",
 			args: args{params: GetParams{}},
-			wantErr: multierror.NewPrefixed("note get",
+			wantErr: multierror.NewPrefixed("deployment note get",
 				errors.New("note id cannot be empty"),
 				multierror.NewPrefixed("deployment note",
 					errors.New("api reference is required for the operation"),

@@ -85,7 +85,7 @@ func TestAdd(t *testing.T) {
 		{
 			name: "Fails due to parameter validation (empty params)",
 			args: args{params: AddParams{}},
-			err: multierror.NewPrefixed("note add",
+			err: multierror.NewPrefixed("deployment note add",
 				errors.New("user id cannot be empty"),
 				errors.New("note comment cannot be empty"),
 				multierror.NewPrefixed("deployment note",
