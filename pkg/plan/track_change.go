@@ -21,7 +21,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/elastic/cloud-sdk-go/pkg/api"
+	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/client/deployments"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 	"github.com/elastic/cloud-sdk-go/pkg/util/slice"
@@ -126,7 +126,7 @@ func getDeploymentID(params TrackChangeParams) (string, error) {
 		params.AuthWriter,
 	)
 	if err != nil {
-		return "", api.UnwrapError(err)
+		return "", apierror.Unwrap(err)
 	}
 
 	if len(res.Payload.Deployments) > 0 {

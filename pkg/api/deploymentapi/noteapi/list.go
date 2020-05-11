@@ -15,17 +15,37 @@
 // specific language governing permissions and limitations
 // under the License.
 
-package api
+package noteapi
 
-import "github.com/elastic/cloud-sdk-go/pkg/api/apierror"
+import (
+	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
+	"github.com/elastic/cloud-sdk-go/pkg/client/deployments_notes"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
+)
 
-// UnwrapError Deprecated: unpacks an error message returned from a client API
-// call. Deprecated: in favour of apierror.Unwrap().
-func UnwrapError(err error) error {
-	return apierror.Unwrap(err)
+// ListParams is used by List
+type ListParams struct {
+	Params
 }
 
-// ReturnErrOnly is used to strip the first return argument of a function call
-func ReturnErrOnly(_ interface{}, err error) error {
-	return apierror.Unwrap(err)
+// List lists all of the notes for the deployment
+func List(params Params) (*models.Notes, error) {
+	if err := params.Validate(); err != nil {
+		return nil, err
+	}
+
+	if err := params.fillDefaults(); err != nil {
+		return nil, err
+	}
+
+	res, err := params.V1API.DeploymentsNotes.GetDeploymentNotes(
+		deployments_notes.NewGetDeploymentNotesParams().
+			WithDeploymentID(params.ID),
+		params.AuthWriter,
+	)
+	if err != nil {
+		return nil, apierror.Unwrap(err)
+	}
+
+	return res.Payload, nil
 }
