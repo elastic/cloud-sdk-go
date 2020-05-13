@@ -17,16 +17,21 @@
 
 package ec
 
-import "math/rand"
+import (
+	"math/rand"
+	"time"
+)
 
 const letterBytes = "abcdefghijklmnopqrstuvwxyz1234567890"
+
+var seededRand *rand.Rand = rand.New(rand.NewSource(time.Now().UnixNano()))
 
 // RandomResourceID generates a random string of 32 characters which emulates
 // a real Elastic Cloud resource ID.
 func RandomResourceID() string {
 	b := make([]byte, 32)
 	for i := range b {
-		b[i] = letterBytes[rand.Int63()%int64(len(letterBytes))]
+		b[i] = letterBytes[seededRand.Int63()%int64(len(letterBytes))]
 	}
 	return string(b)
 }
@@ -35,7 +40,7 @@ func RandomResourceID() string {
 func RandomResourceLength(n int) string {
 	b := make([]byte, n)
 	for i := range b {
-		b[i] = letterBytes[rand.Int63()%int64(len(letterBytes))]
+		b[i] = letterBytes[seededRand.Int63()%int64(len(letterBytes))]
 	}
 	return string(b)
 }
