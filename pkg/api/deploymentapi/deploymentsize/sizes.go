@@ -26,14 +26,14 @@ import (
 
 const minsize = 512
 
-// Parse converts the stringified size notation to an int32 Megabyte value.
-// The minimum size allowed is 512 Megabytes.
+// Parse converts the stringified gigabyte size notation to an int32 Megabyte
+// notation. The minimum size allowed is 0.5g Megabytes with 0.5g increments.
 func Parse(strSize string) (int32, error) {
-	re := regexp.MustCompile(`(?m)(.*\w)(g|m)`)
+	re := regexp.MustCompile(`(?m)(.*\w)(g)`)
 	matches := re.FindStringSubmatch(strings.ToLower(strSize))
 	if len(matches) < 2 {
 		fmt.Println(matches, "length", len(matches))
-		return 0, fmt.Errorf(`failed to convert "%s" to <size><g|m>`, strSize)
+		return 0, fmt.Errorf(`failed to convert "%s" to <size><g>`, strSize)
 	}
 
 	// Pops the first item out when the first match (all groups) are contained
@@ -42,23 +42,18 @@ func Parse(strSize string) (int32, error) {
 		matches = matches[1:]
 	}
 
-	var size int32
-	sizeBody, sizeUnit := matches[0], matches[1]
-
-	rawSize, err := strconv.ParseFloat(sizeBody, 32)
+	rawSize, err := strconv.ParseFloat(matches[0], 32)
 	if err != nil {
 		return 0, err
 	}
 
-	switch sizeUnit {
-	case "g":
-		size = int32(rawSize * 1024)
-	case "m":
-		size = int32(rawSize)
+	var size = int32(rawSize * 1024)
+	if size < minsize {
+		return 0, fmt.Errorf(`size "%s" is invalid: minimum size is %.1fg`, strSize, float32(float32(minsize)/1024))
 	}
 
-	if size < minsize {
-		return 0, fmt.Errorf(`size %d is invalid, minimum size is %d`, size, minsize)
+	if size%512 > 0 {
+		return 0, fmt.Errorf(`size "%s" is invalid: only increments of 0.5g are permitted`, strSize)
 	}
 
 	return size, nil
