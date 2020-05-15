@@ -20,19 +20,35 @@ package ec
 import "testing"
 
 func TestRandomResourceID(t *testing.T) {
+	someRandomString := RandomResourceID()
 	tests := []struct {
-		name   string
-		length int
+		name    string
+		length  int
+		mustnot string
 	}{
 		{
 			name:   "is of 32 characters length",
 			length: 32,
 		},
+		{
+			name:    "is actually random",
+			length:  32,
+			mustnot: someRandomString,
+		},
+		{
+			name:    "is actually random",
+			length:  32,
+			mustnot: someRandomString,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := RandomResourceID(); len(got) != tt.length {
+			got := RandomResourceID()
+			if len(got) != tt.length {
 				t.Errorf("RandomResourceID() = length %v, length is not %v", len(got), tt.length)
+			}
+			if got == tt.mustnot {
+				t.Errorf("RandomResourceID() = %v, equals %v, so it's not random", got, tt.mustnot)
 			}
 		})
 	}
