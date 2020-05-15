@@ -49,7 +49,7 @@ func Parse(strSize string) (int32, error) {
 
 	var size = int32(rawSize * 1024)
 	if size < minsize {
-		return 0, fmt.Errorf(`size "%s" is invalid: minimum size is %.1fg`, strSize, float32(float32(minsize)/1024))
+		return 0, fmt.Errorf(`size "%s" is invalid: minimum size is %.1fg`, strSize, float32(minsize)/1024)
 	}
 
 	if size%512 > 0 {
