@@ -76,7 +76,18 @@ func TestNewTransport(t *testing.T) {
 				},
 				rt: new(mockRT),
 			},
-			want: "transport: failed converting *api.mockRT to *http.Transport",
+			want: "http transport warning: failed converting *api.mockRT to *http.Transport\n",
+		},
+		{
+			name: "Receives no error when the UserAgentTransport",
+			args: args{
+				buf: new(bytes.Buffer),
+				cfg: TransportConfig{
+					VerboseSettings: VerboseSettings{Verbose: true},
+					SkipTLSVerify:   true,
+				},
+				rt: new(UserAgentTransport),
+			},
 		},
 	}
 	for _, tt := range tests {
