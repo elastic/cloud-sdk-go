@@ -35,7 +35,8 @@ type CreateParams struct {
 
 	RequestID string
 
-	// deployment Overrides
+	// PayloadOverrides are used as a definition of values which want to
+	// be overriden within the resources themselves.
 	Overrides *PayloadOverrides
 }
 

@@ -38,9 +38,9 @@ type UpdateParams struct {
 	SkipSnapshot      bool
 	HidePrunedOrphans bool
 
-	// Region is an optional value which if set and the the Request.Resources
-	// are missing a region, it populates that field with the value of Region.
-	Region string
+	// PayloadOverrides are used as a definition of values which want to
+	// be overriden within the resources themselves.
+	Overrides PayloadOverrides
 }
 
 // Validate ensures the parameters are usable by Update.
@@ -72,7 +72,7 @@ func Update(params UpdateParams) (*models.DeploymentUpdateResponse, error) {
 		return nil, err
 	}
 
-	setOverrides(params.Request, &PayloadOverrides{Region: params.Region})
+	setOverrides(params.Request, &params.Overrides)
 
 	res, err := params.V1API.Deployments.UpdateDeployment(
 		deployments.NewUpdateDeploymentParams().
