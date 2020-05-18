@@ -39,7 +39,7 @@ type UpdateParams struct {
 	HidePrunedOrphans bool
 
 	// PayloadOverrides are used as a definition of values which want to
-	// be overriden within the resources themselves.
+	// be overridden within the resources themselves.
 	Overrides PayloadOverrides
 }
 
