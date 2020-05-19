@@ -58,18 +58,14 @@ func newDefaultTransport(timeout time.Duration) *http.Transport {
 		timeout = DefaultTimeout
 	}
 
-	return &http.Transport{
-		Proxy: http.ProxyFromEnvironment,
-		DialContext: (&net.Dialer{
-			Timeout:   timeout,
-			KeepAlive: 30 * time.Second,
-			DualStack: true,
-		}).DialContext,
-		MaxIdleConns:          100,
-		IdleConnTimeout:       90 * time.Second,
-		TLSHandshakeTimeout:   10 * time.Second,
-		ExpectContinueTimeout: 1 * time.Second,
-	}
+	var transport = http.DefaultTransport.(*http.Transport).Clone()
+	transport.DialContext = (&net.Dialer{
+		Timeout:   timeout,
+		KeepAlive: 30 * time.Second,
+		DualStack: true,
+	}).DialContext
+
+	return transport
 }
 
 // NewTransport constructs a new http.RoundTripper from its config. If rt is
@@ -79,8 +75,6 @@ func newDefaultTransport(timeout time.Duration) *http.Transport {
 // outgoing requests.
 func NewTransport(rt http.RoundTripper, cfg TransportConfig) http.RoundTripper {
 	if rt == nil {
-		// Change this to use the new .Clone() method once Go 1.13+ is
-		// released. See https://github.com/golang/go/issues/26013.
 		rt = newDefaultTransport(cfg.Timeout)
 	}
 
