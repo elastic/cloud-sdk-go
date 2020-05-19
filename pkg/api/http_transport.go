@@ -26,7 +26,7 @@ import (
 	"time"
 )
 
-const transportCastErrFmt = "transport: failed converting %T to *http.Transport"
+const transportCastErrFmt = "http transport warning: failed converting %T to *http.Transport\n"
 
 var (
 	// DefaultTimeout is used when TransportConfig.Transport is not specified.
@@ -93,6 +93,8 @@ func NewTransport(rt http.RoundTripper, cfg TransportConfig) http.RoundTripper {
 		rt = t
 	case *DebugTransport:
 		return NewUserAgentTransport(t, cfg.UserAgent)
+	case *UserAgentTransport:
+		return t
 	default:
 		if cfg.ErrorDevice != nil {
 			fmt.Fprintf(cfg.ErrorDevice, transportCastErrFmt, rt)
