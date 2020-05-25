@@ -23,9 +23,15 @@ import (
 	"net/url"
 	"reflect"
 	"testing"
+
+	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 )
 
 func TestRoundTripper_RoundTrip(t *testing.T) {
+	validURL, err := url.Parse("https://cloud.elastic.co/somepath")
+	if err != nil {
+		t.Fatal(err)
+	}
 	type fields struct {
 		Responses []Response
 		iteration int32
@@ -55,7 +61,7 @@ func TestRoundTripper_RoundTrip(t *testing.T) {
 				},
 			}},
 			args: args{req: []*http.Request{
-				{},
+				{URL: validURL},
 			}},
 			want: []want{
 				{
@@ -79,7 +85,7 @@ func TestRoundTripper_RoundTrip(t *testing.T) {
 				},
 			}},
 			args: args{req: []*http.Request{
-				{Body: NewStringBody(`{"some":"body"}`)},
+				{URL: validURL, Body: NewStringBody(`{"some":"body"}`)},
 			}},
 			want: []want{
 				{
@@ -99,7 +105,7 @@ func TestRoundTripper_RoundTrip(t *testing.T) {
 				},
 			}},
 			args: args{req: []*http.Request{
-				{Body: NewStringBody(`{"some":"body"}`)},
+				{URL: validURL, Body: NewStringBody(`{"some":"body"}`)},
 			}},
 			want: []want{
 				{err: errors.New("some error")},
@@ -124,8 +130,8 @@ func TestRoundTripper_RoundTrip(t *testing.T) {
 				},
 			}},
 			args: args{req: []*http.Request{
-				{},
-				{},
+				{URL: validURL},
+				{URL: validURL},
 			}},
 			want: []want{
 				{
@@ -163,8 +169,8 @@ func TestRoundTripper_RoundTrip(t *testing.T) {
 				},
 			}},
 			args: args{req: []*http.Request{
-				{Body: NewStringBody(`{"some":"body"}`)},
-				{Body: NewStringBody(`{"some":"other body"}`)},
+				{URL: validURL, Body: NewStringBody(`{"some":"body"}`)},
+				{URL: validURL, Body: NewStringBody(`{"some":"other body"}`)},
 			}},
 			want: []want{
 				{
@@ -198,8 +204,8 @@ func TestRoundTripper_RoundTrip(t *testing.T) {
 				},
 			}},
 			args: args{req: []*http.Request{
-				{Body: NewStringBody(`{"some":"body"}`)},
-				{Body: NewStringBody(`{"some":"some body"}`)},
+				{URL: validURL, Body: NewStringBody(`{"some":"body"}`)},
+				{URL: validURL, Body: NewStringBody(`{"some":"some body"}`)},
 			}},
 			want: []want{
 				{
@@ -224,7 +230,7 @@ func TestRoundTripper_RoundTrip(t *testing.T) {
 				},
 			}},
 			args: args{req: []*http.Request{
-				{Body: NewStringBody(`{"some":"body"}`)},
+				{URL: validURL, Body: NewStringBody(`{"some":"body"}`)},
 				{
 					Body:   NewStringBody(`{"some":"some body"}`),
 					Method: "POST",
@@ -244,6 +250,90 @@ func TestRoundTripper_RoundTrip(t *testing.T) {
 					},
 				},
 				{err: errors.New("failed to obtain response in iteration 2: POST https://localhost/some/path")},
+			},
+		},
+		{
+			name: "Assert requests from multiple request mock with body",
+			fields: fields{Responses: []Response{
+				{
+					Response: http.Response{
+						Status:     http.StatusText(http.StatusOK),
+						StatusCode: http.StatusOK,
+						Body:       NewStringBody("something"),
+					},
+					Assert: &RequestAssertion{
+						Body: NewStringBody(`{"some":"body"}`),
+						Path: "/somepath",
+					},
+				},
+				{
+					Response: http.Response{
+						Status:     http.StatusText(http.StatusOK),
+						StatusCode: http.StatusOK,
+						Body:       NewStringBody("something something something"),
+					},
+					Assert: &RequestAssertion{
+						Body: NewStringBody(`{"some":"other body"}`),
+						Path: "/somepath",
+					},
+				},
+			}},
+			args: args{req: []*http.Request{
+				{URL: validURL, Body: NewStringBody(`{"some":"body"}`)},
+				{URL: validURL, Body: NewStringBody(`{"some":"other body"}`)},
+			}},
+			want: []want{
+				{want: &http.Response{
+					Status:     http.StatusText(http.StatusOK),
+					StatusCode: http.StatusOK,
+					Body:       NewStringBody("something"),
+				}},
+				{want: &http.Response{
+					Status:     http.StatusText(http.StatusOK),
+					StatusCode: http.StatusOK,
+					Body:       NewStringBody("something something something"),
+				}},
+			},
+		},
+		{
+			name: "Assert requests from multiple request mock with body returns an error",
+			fields: fields{Responses: []Response{
+				{
+					Response: http.Response{
+						Status:     http.StatusText(http.StatusOK),
+						StatusCode: http.StatusOK,
+						Body:       NewStringBody("something"),
+					},
+					Assert: &RequestAssertion{
+						Body: NewStringBody(`{"some":"nonmatch"}`),
+						Path: "/somepath",
+					},
+				},
+				{
+					Response: http.Response{
+						Status:     http.StatusText(http.StatusOK),
+						StatusCode: http.StatusOK,
+						Body:       NewStringBody("something something something"),
+					},
+					Assert: &RequestAssertion{
+						Body: NewStringBody(`{"some":"other body"}`),
+						Path: "/somepath",
+					},
+				},
+			}},
+			args: args{req: []*http.Request{
+				{URL: validURL, Body: NewStringBody(`{"some":"body"}`)},
+				{URL: validURL, Body: NewStringBody(`{"some":"other body"}`)},
+			}},
+			want: []want{
+				{err: multierror.NewPrefixed("request assertion",
+					errors.New(`got body {"some":"body"}, want {"some":"nonmatch"}`),
+				)},
+				{want: &http.Response{
+					Status:     http.StatusText(http.StatusOK),
+					StatusCode: http.StatusOK,
+					Body:       NewStringBody("something something something"),
+				}},
 			},
 		},
 	}

@@ -17,6 +17,7 @@ require (
 	github.com/pmezard/go-difflib v1.0.0
 	github.com/spf13/cobra v0.0.7
 	github.com/spf13/pflag v1.0.5
+	github.com/stretchr/testify v1.4.0
 )
 
 replace sourcegraph.com/sourcegraph/go-diff v0.5.1 => github.com/sourcegraph/go-diff v0.5.1

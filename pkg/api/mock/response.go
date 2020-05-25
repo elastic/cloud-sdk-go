@@ -31,6 +31,10 @@ import (
 type Response struct {
 	Response http.Response
 	Error    error
+
+	// If specified, it'll assert that the received request's fields match
+	// the assertion.
+	Assert *RequestAssertion
 }
 
 // NewStringBody creates an io.ReadCloser from a string.
