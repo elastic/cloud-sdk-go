@@ -19,7 +19,6 @@ package mock
 
 import (
 	"fmt"
-	"io/ioutil"
 	"net/http"
 	"sync"
 	"sync/atomic"
@@ -100,16 +99,15 @@ func (rt *RoundTripper) RoundTrip(req *http.Request) (*http.Response, error) {
 		)
 	}
 
-	// Consume and close the body.
-	if req.Body != nil {
-		//nolint
-		ioutil.ReadAll(req.Body)
-		defer req.Body.Close()
-	}
-
 	r := rt.Responses[iteration]
 	if r.Error != nil {
 		return nil, r.Error
+	}
+
+	if r.Assert != nil {
+		if err := AssertRequest(r.Assert, req); err != nil {
+			return nil, err
+		}
 	}
 
 	return &r.Response, nil
