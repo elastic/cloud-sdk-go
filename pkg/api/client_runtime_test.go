@@ -18,6 +18,7 @@
 package api
 
 import (
+	"bytes"
 	"errors"
 	"fmt"
 	"net/url"
@@ -201,6 +202,88 @@ func TestCloudClientRuntime_getRuntime(t *testing.T) {
 				t.Errorf("NewCloudClientRuntime() = %v, want %v",
 					got.BasePath, tt.want.BasePath,
 				)
+			}
+		})
+	}
+}
+
+func Test_overrideJSONProducer(t *testing.T) {
+	type args struct {
+		r       *runtimeclient.Runtime
+		opID    string
+		content string
+	}
+	tests := []struct {
+		name     string
+		args     args
+		want     string
+		callback bool
+	}{
+		{
+			name: "doesn't do anything when the operation ID doesn't match the expectation",
+			args: args{
+				r: &runtimeclient.Runtime{
+					Producers: map[string]runtime.Producer{
+						runtime.JSONMime: runtime.JSONProducer(),
+					},
+				},
+				opID:    "some-id",
+				content: `{"some":"content"}`,
+			},
+			want: `"{\"some\":\"content\"}"` + "\n",
+		},
+		{
+			name: "doesn't do anything when the operation ID doesn't match the expectation (callback: true)",
+			args: args{
+				r: &runtimeclient.Runtime{
+					Producers: map[string]runtime.Producer{
+						runtime.JSONMime: runtime.JSONProducer(),
+					},
+				},
+				opID:    "some-id",
+				content: `{"some":"content"}`,
+			},
+			callback: true,
+			want:     `"{\"some\":\"content\"}"` + "\n",
+		},
+		{
+			name: "changes the producer",
+			args: args{
+				r: &runtimeclient.Runtime{
+					Producers: map[string]runtime.Producer{
+						runtime.JSONMime: runtime.JSONProducer(),
+					},
+				},
+				opID:    "set-es-cluster-metadata-raw",
+				content: `{"some":"content"}`,
+			},
+			want: `{"some":"content"}`,
+		},
+		{
+			name: "resets the producer even when changed",
+			args: args{
+				r: &runtimeclient.Runtime{
+					Producers: map[string]runtime.Producer{
+						runtime.JSONMime: runtime.JSONProducer(),
+					},
+				},
+				opID:    "set-es-cluster-metadata-raw",
+				content: `{"some":"content"}`,
+			},
+			callback: true,
+			want:     `"{\"some\":\"content\"}"` + "\n",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if f := overrideJSONProducer(tt.args.r, tt.args.opID); tt.callback {
+				f()
+			}
+
+			var buf = new(bytes.Buffer)
+			tt.args.r.Producers[runtime.JSONMime].Produce(buf, tt.args.content)
+			if buf.String() != tt.want {
+				t.Errorf("overrideJSONProducer() = %v, want %v", buf.String(), tt.want)
 			}
 		})
 	}

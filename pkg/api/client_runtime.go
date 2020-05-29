@@ -33,6 +33,8 @@ const (
 	// RegionlessPrefix is used when no region is specified, assumed target is
 	// most likely an ECE installation or a non federated one.
 	RegionlessPrefix = "/api/v1"
+
+	rawMetadataTextProducer = "set-es-cluster-metadata-raw"
 )
 
 // NewCloudClientRuntime creates a CloudClientRuntime from the config. Using
@@ -76,7 +78,10 @@ type CloudClientRuntime struct {
 // which operation is being performed. Any API call to /deployments will use a
 // regionless runtime while all others will use a region (if specified).
 func (r *CloudClientRuntime) Submit(op *runtime.ClientOperation) (interface{}, error) {
-	return r.getRuntime(op).Submit(op)
+	rTime := r.getRuntime(op)
+
+	defer overrideJSONProducer(rTime, op.ID)()
+	return rTime.Submit(op)
 }
 
 func (r *CloudClientRuntime) getRuntime(op *runtime.ClientOperation) *runtimeclient.Runtime {
@@ -86,4 +91,20 @@ func (r *CloudClientRuntime) getRuntime(op *runtime.ClientOperation) *runtimecli
 		return r.runtime
 	}
 	return r.regionRuntime
+}
+
+// overrideJSONProducer will override the default JSON producer function for
+// a Text producer which won't to serialize the data to JSON, and just send
+// the body as is over the wire. This is useful in cases where a JSON body is
+// being sent as a Go string value, not doing this will cause the payload json
+// quotes to be escaped. See unit tests for examples.
+// It returns a function which can be used as a callback to reset the producer
+// to its original value.
+func overrideJSONProducer(r *runtimeclient.Runtime, opID string) func() {
+	if opID != rawMetadataTextProducer {
+		return func() {}
+	}
+
+	r.Producers[runtime.JSONMime] = runtime.TextProducer()
+	return func() { r.Producers[runtime.JSONMime] = runtime.JSONProducer() }
 }
