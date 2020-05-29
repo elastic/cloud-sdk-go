@@ -93,6 +93,13 @@ func (r *CloudClientRuntime) getRuntime(op *runtime.ClientOperation) *runtimecli
 	return r.regionRuntime
 }
 
+// overrideJSONProducer will override the default JSON producer fucntion for
+// a Text producer which won't to serialize the data to JSON, and just send
+// the body as is over the wire. This is useful in cases where a JSON body is
+// being sent as a Go string value, not doing this will cause the payload json
+// quotes to be escaped. See unit tests for examples.
+// It returns a function which can be used as a callback to reset the producer
+// to its original value.
 func overrideJSONProducer(r *runtimeclient.Runtime, opID string) func() {
 	if opID != rawMetadataTextProducer {
 		return func() {}
