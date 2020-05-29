@@ -33,6 +33,8 @@ const (
 	// RegionlessPrefix is used when no region is specified, assumed target is
 	// most likely an ECE installation or a non federated one.
 	RegionlessPrefix = "/api/v1"
+
+	rawMetadataTextProducer = "set-es-cluster-metadata-raw"
 )
 
 // NewCloudClientRuntime creates a CloudClientRuntime from the config. Using
@@ -76,7 +78,10 @@ type CloudClientRuntime struct {
 // which operation is being performed. Any API call to /deployments will use a
 // regionless runtime while all others will use a region (if specified).
 func (r *CloudClientRuntime) Submit(op *runtime.ClientOperation) (interface{}, error) {
-	return r.getRuntime(op).Submit(op)
+	rTime := r.getRuntime(op)
+
+	defer overrideJSONProducer(rTime, op.ID)()
+	return rTime.Submit(op)
 }
 
 func (r *CloudClientRuntime) getRuntime(op *runtime.ClientOperation) *runtimeclient.Runtime {
@@ -86,4 +91,13 @@ func (r *CloudClientRuntime) getRuntime(op *runtime.ClientOperation) *runtimecli
 		return r.runtime
 	}
 	return r.regionRuntime
+}
+
+func overrideJSONProducer(r *runtimeclient.Runtime, opID string) func() {
+	if opID != rawMetadataTextProducer {
+		return func() {}
+	}
+
+	r.Producers[runtime.JSONMime] = runtime.TextProducer()
+	return func() { r.Producers[runtime.JSONMime] = runtime.JSONProducer() }
 }
