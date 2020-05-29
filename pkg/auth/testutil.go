@@ -27,7 +27,7 @@ import (
 
 var (
 	defaultMockSchema = []string{"https"}
-	defaultMockHost   = "mock-host"
+	defaultMockHost   = "mock.elastic.co"
 	defaultMockPath   = "mock-path"
 )
 
