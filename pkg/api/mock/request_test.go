@@ -79,6 +79,39 @@ func TestAssertRequest(t *testing.T) {
 			},
 		},
 		{
+			name: "matches all fields and query",
+			args: args{
+				want: &RequestAssertion{
+					Body: NewStringBody(`{"some field":1}`),
+					Header: map[string][]string{
+						"Authorization": {"Apikey Someapikey"},
+						"Content-Type":  {"application/json"},
+					},
+					Method: "POST",
+					Host:   "somehost",
+					Path:   "/somepath/somesubpath",
+					Query: url.Values{
+						"cutoff":  []string{"14d"},
+						"timeout": []string{"120s"},
+					},
+				},
+				req: &http.Request{
+					Header: map[string][]string{
+						"Authorization": {"Apikey Someapikey"},
+						"Content-Type":  {"application/json"},
+					},
+					Body: NewStringBody(`{"some field":1}`),
+					URL: &url.URL{
+						Path:     "/somepath/somesubpath",
+						Host:     "somehost",
+						RawQuery: "cutoff=14d&timeout=120s",
+					},
+					Host:   "somehost",
+					Method: "POST",
+				},
+			},
+		},
+		{
 			name: "matches no fields, returns an error",
 			args: args{
 				want: &RequestAssertion{
