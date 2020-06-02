@@ -79,6 +79,39 @@ func TestAssertRequest(t *testing.T) {
 			},
 		},
 		{
+			name: "matches all fields and query",
+			args: args{
+				want: &RequestAssertion{
+					Body: NewStringBody(`{"some field":1}`),
+					Header: map[string][]string{
+						"Authorization": {"Apikey Someapikey"},
+						"Content-Type":  {"application/json"},
+					},
+					Method: "POST",
+					Host:   "somehost",
+					Path:   "/somepath/somesubpath",
+					Query: url.Values{
+						"cutoff":  []string{"14d"},
+						"timeout": []string{"120s"},
+					},
+				},
+				req: &http.Request{
+					Header: map[string][]string{
+						"Authorization": {"Apikey Someapikey"},
+						"Content-Type":  {"application/json"},
+					},
+					Body: NewStringBody(`{"some field":1}`),
+					URL: &url.URL{
+						Path:     "/somepath/somesubpath",
+						Host:     "somehost",
+						RawQuery: "cutoff=14d&timeout=120s",
+					},
+					Host:   "somehost",
+					Method: "POST",
+				},
+			},
+		},
+		{
 			name: "matches no fields, returns an error",
 			args: args{
 				want: &RequestAssertion{
@@ -97,8 +130,9 @@ func TestAssertRequest(t *testing.T) {
 					},
 					Body: NewStringBody(`{"some field":1}`),
 					URL: &url.URL{
-						Path: "/somepath/somesubpath",
-						Host: "somehost",
+						Path:     "/somepath/somesubpath",
+						Host:     "somehost",
+						RawQuery: "cutoff=14d&timeout=120s",
 					},
 					Host:   "somehost",
 					Method: "POST",
@@ -109,6 +143,7 @@ func TestAssertRequest(t *testing.T) {
 				errors.New(`headers do not match: map[Content-Type:[application/json]] != map[Authorization:[Apikey Someapikey] Content-Type:[application/json]]`),
 				errors.New(`methods do not match: GET != POST`),
 				errors.New(`paths do not match: /someotherpath/somesubpath != /somepath/somesubpath`),
+				errors.New("query does not match: map[] != map[cutoff:[14d] timeout:[120s]]"),
 				errors.New(`hosts do not match: someotherhost != somehost`),
 			),
 		},
