@@ -18,50 +18,53 @@
 package api
 
 import (
+	"fmt"
 	"io"
-
-	runtimeclient "github.com/go-openapi/runtime/client"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 	"github.com/elastic/cloud-sdk-go/pkg/auth"
-	"github.com/elastic/cloud-sdk-go/pkg/client"
 )
 
 var (
-	defaultMockSchema = []string{"https"}
-	defaultMockHost   = "mock-host"
-	defaultMockPath   = "mock-path"
+	defaultMockSchema = "https"
+	defaultMockHost   = "mock.elastic.co"
+
+	mockSchemaHost = fmt.Sprintf("%s://%s", defaultMockSchema, defaultMockHost)
 )
 
 // NewMock creates a new api.API from a list of Responses. Defaults to a dummy
 // APIKey for authentication, which is not checked
 func NewMock(res ...mock.Response) *API {
-	transport := runtimeclient.NewWithClient(
-		defaultMockHost,
-		defaultMockPath,
-		defaultMockSchema,
-		mock.NewClient(res...),
-	)
-	return &API{
-		V1API:      client.New(AddTypeConsumers(transport), nil),
+	api, err := NewAPI(Config{
+		Client:     mock.NewClient(res...),
+		Host:       mockSchemaHost,
 		AuthWriter: auth.APIKey("dummy"),
+	})
+
+	if err != nil {
+		panic(err)
 	}
+
+	return api
 }
 
 // NewDebugMock creates a new api.API from a list of Responses. Defaults to a
 // dummy APIKey for authentication, which is not checked. Additionally adds the
 // DebugTransport so that the responses go to the configured io.Writer.
 func NewDebugMock(o io.Writer, res ...mock.Response) *API {
-	c := mock.NewClient(res...)
-	c.Transport = NewDebugTransport(c.Transport, o)
-	transport := runtimeclient.NewWithClient(
-		defaultMockHost,
-		defaultMockPath,
-		defaultMockSchema,
-		c,
-	)
-	return &API{
-		V1API:      client.New(AddTypeConsumers(transport), nil),
+	api, err := NewAPI(Config{
+		Client:     mock.NewClient(res...),
+		Host:       mockSchemaHost,
 		AuthWriter: auth.APIKey("dummy"),
+		VerboseSettings: VerboseSettings{
+			Verbose: true,
+			Device:  o,
+		},
+	})
+
+	if err != nil {
+		panic(err)
 	}
+
+	return api
 }
