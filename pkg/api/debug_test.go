@@ -19,9 +19,15 @@ package api
 
 import (
 	"bytes"
+	"io"
 	"net/http"
+	"net/url"
 	"reflect"
+	"strings"
 	"testing"
+
+	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestNewDebugTransport(t *testing.T) {
@@ -33,6 +39,7 @@ func TestNewDebugTransport(t *testing.T) {
 	}
 	type args struct {
 		transport http.RoundTripper
+		obscure   bool
 	}
 	tests := []struct {
 		name string
@@ -63,8 +70,101 @@ func TestNewDebugTransport(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			o := &bytes.Buffer{}
-			if got := NewDebugTransport(tt.args.transport, o); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("NewDebugTransport() = %v, want %v", got, tt.want)
+			if got := NewDebugTransport(tt.args.transport, o, tt.args.obscure); !reflect.DeepEqual(got, tt.want) {
+				assert.Equal(t, tt.want, got)
+			}
+		})
+	}
+}
+
+func TestDebugTransport_handleVerboseRequest(t *testing.T) {
+	u, err := url.Parse("https://elastic.co")
+	if err != nil {
+		t.Fatal(err)
+	}
+	wantNonObscuredReq := `==================== Start of Request #0 ====================
+GET / HTTP/1.1
+Host: elastic.co
+User-Agent: cloud-sdk-go/2.5.0-ms36
+Authorization: Bearer SomeBearerValue
+Accept-Encoding: gzip
+
+
+====================  End of Request #0  ====================
+`
+	wantObscuredReq := `==================== Start of Request #0 ====================
+GET / HTTP/1.1
+Host: elastic.co
+User-Agent: cloud-sdk-go/2.5.0-ms36
+Authorization: [REDACTED]
+Accept-Encoding: gzip
+
+
+====================  End of Request #0  ====================
+`
+
+	type fields struct {
+		output              io.Writer
+		transport           http.RoundTripper
+		count               int64
+		redactAuthorization bool
+	}
+	type args struct {
+		req   *http.Request
+		count int64
+	}
+	tests := []struct {
+		name   string
+		fields fields
+		args   args
+		want   string
+	}{
+		{
+			name: "Prints the request as is",
+			fields: fields{
+				transport:           mock.NewRoundTripper(mock.New200Response(mock.NewStringBody(`{}`))),
+				output:              new(bytes.Buffer),
+				redactAuthorization: false,
+			},
+			args: args{req: &http.Request{
+				URL: u,
+				Header: http.Header{
+					"User-Agent":    []string{"cloud-sdk-go/2.5.0-ms36"},
+					"Authorization": []string{"Bearer SomeBearerValue"},
+				},
+			}},
+			want: wantNonObscuredReq,
+		},
+		{
+			name: "Prints the request obscuring the headers",
+			fields: fields{
+				transport:           mock.NewRoundTripper(mock.New200Response(mock.NewStringBody(`{}`))),
+				output:              new(bytes.Buffer),
+				redactAuthorization: true,
+			},
+			args: args{req: &http.Request{
+				URL: u,
+				Header: http.Header{
+					"User-Agent":    []string{"cloud-sdk-go/2.5.0-ms36"},
+					"Authorization": []string{"Bearer SomeBearerValue"},
+				},
+			}},
+			want: wantObscuredReq,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			transp := &DebugTransport{
+				output:     tt.fields.output,
+				transport:  tt.fields.transport,
+				count:      tt.fields.count,
+				redactAuth: tt.fields.redactAuthorization,
+			}
+			transp.handleVerboseRequest(tt.args.req, tt.args.count)
+			if buf, ok := transp.output.(*bytes.Buffer); ok {
+				if got := strings.ReplaceAll(buf.String(), "\r", ""); got != tt.want {
+					assert.EqualValues(t, tt.want, got)
+				}
 			}
 		})
 	}

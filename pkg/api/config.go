@@ -103,6 +103,10 @@ func (c *Config) fillDefaults() {
 type VerboseSettings struct {
 	Verbose bool
 	Device  io.Writer
+
+	// RedactAuth replaces the contents of the Authorization header with:
+	// "[REDACTED]".
+	RedactAuth bool
 }
 
 // Validate ensures the settings are usable.

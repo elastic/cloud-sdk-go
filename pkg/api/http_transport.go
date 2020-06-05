@@ -97,7 +97,7 @@ func NewTransport(rt http.RoundTripper, cfg TransportConfig) http.RoundTripper {
 
 	if cfg.Verbose {
 		return NewUserAgentTransport(
-			NewDebugTransport(rt, cfg.Device), cfg.UserAgent,
+			NewDebugTransport(rt, cfg.Device, cfg.RedactAuth), cfg.UserAgent,
 		)
 	}
 
