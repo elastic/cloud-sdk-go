@@ -25,9 +25,10 @@ import (
 	"time"
 
 	"github.com/asaskevich/govalidator"
-	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	"github.com/ghodss/yaml"
 	"github.com/pkg/errors"
+
+	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 )
 
 var (

@@ -20,10 +20,11 @@ package instanceconfig
 import (
 	"errors"
 
+	"github.com/go-openapi/strfmt"
+
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
-	"github.com/go-openapi/strfmt"
 )
 
 // ListParams is used to list all of the available instance configurations.

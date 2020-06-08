@@ -23,13 +23,14 @@ import (
 	"reflect"
 	"testing"
 
+	"github.com/go-openapi/strfmt"
+
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 	"github.com/elastic/cloud-sdk-go/pkg/client/platform_configuration_templates"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 	"github.com/elastic/cloud-sdk-go/pkg/util/testutils"
-	"github.com/go-openapi/strfmt"
 )
 
 var (

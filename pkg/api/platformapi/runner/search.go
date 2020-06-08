@@ -18,11 +18,12 @@
 package runner
 
 import (
+	"github.com/go-openapi/strfmt"
+
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/client/platform_infrastructure"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
-	"github.com/go-openapi/strfmt"
 )
 
 // SearchParams contains parameters used to search runner's data using Query DSL

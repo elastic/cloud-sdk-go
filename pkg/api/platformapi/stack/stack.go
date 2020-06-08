@@ -23,12 +23,13 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/go-openapi/runtime"
+
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/client/stack"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
-	"github.com/go-openapi/runtime"
 )
 
 // Get obtains a stackpack to the current installation

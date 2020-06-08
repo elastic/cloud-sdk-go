@@ -20,12 +20,13 @@ package deployment
 import (
 	"io"
 
+	"github.com/go-openapi/strfmt"
+	"github.com/pkg/errors"
+
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/output"
-	"github.com/go-openapi/strfmt"
-	"github.com/pkg/errors"
 )
 
 var folderErrorMessage = "folder must not be empty"
