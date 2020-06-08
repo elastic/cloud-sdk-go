@@ -26,9 +26,9 @@ import (
 
 const minsize = 512
 
-// Parse converts the stringified gigabyte size notation to an int32 Megabyte
+// ParseGb converts the stringified gigabyte size notation to an int32 Megabyte
 // notation. The minimum size allowed is 0.5g Megabytes with 0.5g increments.
-func Parse(strSize string) (int32, error) {
+func ParseGb(strSize string) (int32, error) {
 	re := regexp.MustCompile(`(?m)(.*\w)(g)`)
 	matches := re.FindStringSubmatch(strings.ToLower(strSize))
 	if len(matches) < 2 {

@@ -74,7 +74,7 @@ func TestParse(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := Parse(tt.args.strSize)
+			got, err := ParseGb(tt.args.strSize)
 			if !reflect.DeepEqual(err, tt.err) {
 				t.Errorf("Parse() error = %v, wantErr %v", err, tt.err)
 				return
