@@ -24,6 +24,13 @@ import (
 	"github.com/pmezard/go-difflib/difflib"
 )
 
+// Validator interface is mostly used for parameter structures that
+// need to check a set of conditions and act as a gate before running
+// expensive external calls
+type Validator interface {
+	Validate() error
+}
+
 // CompareStructs two structs and return the differences
 func CompareStructs(a, b interface{}) (equals bool, diff string, err error) {
 	var spewConfig = spew.ConfigState{
