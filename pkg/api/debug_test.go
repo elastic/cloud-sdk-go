@@ -26,8 +26,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 	"github.com/stretchr/testify/assert"
+
+	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 )
 
 func TestNewDebugTransport(t *testing.T) {
