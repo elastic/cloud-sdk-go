@@ -22,8 +22,6 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/client/platform_configuration_snapshots"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
-
-	"github.com/elastic/ecctl/pkg/util"
 )
 
 // Get obtains the specified snapshot repository configuration
@@ -82,7 +80,7 @@ func Set(params SetParams) error {
 		return err
 	}
 
-	return util.ReturnErrOnly(
+	return api.ReturnErrOnly(
 		params.V1API.PlatformConfigurationSnapshots.SetSnapshotRepository(
 			platform_configuration_snapshots.NewSetSnapshotRepositoryParams().
 				WithRepositoryName(params.Name).

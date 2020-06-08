@@ -22,8 +22,6 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/client/platform_infrastructure"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
-
-	"github.com/elastic/ecctl/pkg/util"
 )
 
 // ResyncParams is consumed by Resync
@@ -51,7 +49,7 @@ func Resync(params ResyncParams) error {
 		return err
 	}
 
-	return util.ReturnErrOnly(
+	return api.ReturnErrOnly(
 		params.API.V1API.PlatformInfrastructure.ResyncRunner(
 			platform_infrastructure.NewResyncRunnerParams().
 				WithRunnerID(params.ID),

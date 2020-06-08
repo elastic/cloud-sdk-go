@@ -31,8 +31,7 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
-
-	"github.com/elastic/ecctl/pkg/util"
+	"github.com/elastic/cloud-sdk-go/pkg/util/testutils"
 )
 
 func TestGet(t *testing.T) {
@@ -120,7 +119,7 @@ func TestGet(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := Get(tt.args.params)
 
-			if err := util.CheckErrType(err, tt.wantErr); err != nil {
+			if err := testutils.CheckErrType(err, tt.wantErr); err != nil {
 				t.Error(err)
 			}
 
@@ -179,7 +178,7 @@ func TestDelete(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			err := Delete(tt.args.params)
-			if err := util.CheckErrType(err, tt.wantErr); err != nil {
+			if err := testutils.CheckErrType(err, tt.wantErr); err != nil {
 				t.Error(err)
 			}
 		})
@@ -296,7 +295,7 @@ func TestList(t *testing.T) {
 			d.SetIndent("", "    ")
 			d.Encode(tt.want)
 
-			if err := util.CheckErrType(err, tt.wantErr); err != nil {
+			if err := testutils.CheckErrType(err, tt.wantErr); err != nil {
 				t.Error(err)
 			}
 
@@ -372,7 +371,7 @@ func TestSet(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			err := Set(tt.args.params)
-			if err := util.CheckErrType(err, tt.wantErr); err != nil {
+			if err := testutils.CheckErrType(err, tt.wantErr); err != nil {
 				t.Error(err)
 			}
 		})
