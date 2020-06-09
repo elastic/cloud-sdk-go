@@ -15,6 +15,6 @@
 // specific language governing permissions and limitations
 // under the License.
 
-// Package snaprepo contains the a set of functions to interact with the
+// Package snaprepoapi contains the a set of functions to interact with the
 // platform repositories
 package snaprepoapi
