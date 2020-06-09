@@ -25,12 +25,11 @@ import (
 
 	"github.com/go-openapi/runtime"
 	runtimeclient "github.com/go-openapi/runtime/client"
+
+	"github.com/elastic/cloud-sdk-go/pkg/client"
 )
 
 const (
-	// DefaultPrefix is used as the base prefix for the API.
-	DefaultPrefix = "/api/v1"
-
 	// RegionPrefix is for /platform operations which require a Region to be
 	// passed as of an API call context.Context. Previously used to create a
 	// global client per API instance, now used on a per-operation basis.
@@ -40,7 +39,10 @@ const (
 )
 
 // RegionlessPrefix is deprecated.
-var RegionlessPrefix = DefaultPrefix
+var RegionlessPrefix = client.DefaultBasePath
+
+// DefaultPrefix is used as the base prefix for the API.
+var DefaultPrefix = client.DefaultBasePath
 
 type newRuntimeFunc func(region string) *runtimeclient.Runtime
 
