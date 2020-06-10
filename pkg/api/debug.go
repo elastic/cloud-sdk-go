@@ -22,11 +22,12 @@ import (
 	"io"
 	"net/http"
 	"net/http/httputil"
+	"regexp"
 	"sync/atomic"
 )
 
 // NewDebugTransport factory for DebugTransport
-func NewDebugTransport(transport http.RoundTripper, o io.Writer) *DebugTransport {
+func NewDebugTransport(transport http.RoundTripper, o io.Writer, obscure bool) *DebugTransport {
 	if t, ok := transport.(*DebugTransport); ok {
 		return t
 	}
@@ -36,9 +37,10 @@ func NewDebugTransport(transport http.RoundTripper, o io.Writer) *DebugTransport
 	}
 
 	return &DebugTransport{
-		transport: transport,
-		output:    o,
-		count:     -1,
+		transport:  transport,
+		output:     o,
+		count:      -1,
+		redactAuth: obscure,
 	}
 }
 
@@ -48,7 +50,8 @@ type DebugTransport struct {
 	output    io.Writer
 	transport http.RoundTripper
 
-	count int64
+	count      int64
+	redactAuth bool
 }
 
 // RoundTrip wraps http.DefaultTransport.RoundTrip to keep track
@@ -71,8 +74,9 @@ func (t *DebugTransport) RoundTrip(rreq *http.Request) (*http.Response, error) {
 
 func (t *DebugTransport) handleVerboseRequest(req *http.Request, count int64) {
 	b, _ := httputil.DumpRequestOut(req, req.Body != nil)
+
 	fmt.Fprintf(t.output, "==================== Start of Request #%d ====================\n", count)
-	fmt.Fprintln(t.output, string(b))
+	fmt.Fprintln(t.output, redactAuth(string(b), t.redactAuth))
 	fmt.Fprintf(t.output, "====================  End of Request #%d  ====================\n", count)
 }
 
@@ -81,4 +85,14 @@ func (t *DebugTransport) handleVerboseResponse(res *http.Response, count int64) 
 	fmt.Fprintf(t.output, "==================== Start of Response #%d ====================\n", count)
 	fmt.Fprintln(t.output, string(b))
 	fmt.Fprintf(t.output, "====================  End of Response #%d  ====================\n", count)
+}
+
+func redactAuth(request string, obscure bool) string {
+	if !obscure {
+		return request
+	}
+
+	return regexp.MustCompile(`Authorization: .*\n`).ReplaceAllString(
+		request, "Authorization: [REDACTED]\r\n",
+	)
 }

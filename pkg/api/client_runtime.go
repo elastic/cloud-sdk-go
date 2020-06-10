@@ -18,24 +18,33 @@
 package api
 
 import (
+	"context"
 	"fmt"
 	"net/url"
 	"strings"
 
 	"github.com/go-openapi/runtime"
 	runtimeclient "github.com/go-openapi/runtime/client"
+
+	"github.com/elastic/cloud-sdk-go/pkg/client"
 )
 
 const (
-	// RegionPrefix is used when a Region is passed as part of the API config.
+	// RegionPrefix is for /platform operations which require a Region to be
+	// passed as of an API call context.Context. Previously used to create a
+	// global client per API instance, now used on a per-operation basis.
 	RegionPrefix = "/api/v1/regions/%s"
-
-	// RegionlessPrefix is used when no region is specified, assumed target is
-	// most likely an ECE installation or a non federated one.
-	RegionlessPrefix = "/api/v1"
 
 	rawMetadataTextProducer = "set-es-cluster-metadata-raw"
 )
+
+// RegionlessPrefix is deprecated.
+var RegionlessPrefix = client.DefaultBasePath
+
+// DefaultPrefix is used as the base prefix for the API.
+var DefaultPrefix = client.DefaultBasePath
+
+type newRuntimeFunc func(region string) *runtimeclient.Runtime
 
 // NewCloudClientRuntime creates a CloudClientRuntime from the config. Using
 // the configured region (if any) to instantiate two different client.Runtime.
@@ -46,32 +55,30 @@ func NewCloudClientRuntime(c Config) (*CloudClientRuntime, error) {
 		return nil, err
 	}
 
-	var basepath = RegionlessPrefix
-	if c.Region != "" {
-		basepath = fmt.Sprintf(RegionPrefix, c.Region)
-	}
-
-	// Additional consumers and producers that are needed for parts of the SDK
-	// to work correctly
-	rr := AddTypeConsumers(runtimeclient.NewWithClient(
-		u.Host, basepath, []string{u.Scheme}, c.Client,
-	))
-
-	r := AddTypeConsumers(runtimeclient.NewWithClient(
-		u.Host, RegionlessPrefix, []string{u.Scheme}, c.Client,
-	))
+	scheme := []string{u.Scheme}
 
 	return &CloudClientRuntime{
-		regionRuntime: rr,
-		runtime:       r,
+		newRegionRuntime: func(r string) *runtimeclient.Runtime {
+			return AddTypeConsumers(runtimeclient.NewWithClient(
+				u.Host, fmt.Sprintf(RegionPrefix, r), scheme, c.Client,
+			))
+		},
+		runtime: AddTypeConsumers(runtimeclient.NewWithClient(
+			u.Host, DefaultPrefix, scheme, c.Client,
+		)),
+
+		// Will be deprecated in the very near future.
+		region: c.Region,
 	}, nil
 }
 
 // CloudClientRuntime wraps runtimeclient.Runtime to allow operations to use a
 // transport depending on the operation which is being performed.
 type CloudClientRuntime struct {
-	regionRuntime *runtimeclient.Runtime
-	runtime       *runtimeclient.Runtime
+	newRegionRuntime newRuntimeFunc
+	runtime          *runtimeclient.Runtime
+
+	region string
 }
 
 // Submit calls either the regionRuntime or the regionless runtime depending on
@@ -81,6 +88,7 @@ func (r *CloudClientRuntime) Submit(op *runtime.ClientOperation) (interface{}, e
 	rTime := r.getRuntime(op)
 
 	defer overrideJSONProducer(rTime, op.ID)()
+
 	return rTime.Submit(op)
 }
 
@@ -90,7 +98,8 @@ func (r *CloudClientRuntime) getRuntime(op *runtime.ClientOperation) *runtimecli
 	if isDeployment && notDeploymentNotes {
 		return r.runtime
 	}
-	return r.regionRuntime
+
+	return r.newRegionRuntime(getRegion(op.Context, r.region))
 }
 
 // overrideJSONProducer will override the default JSON producer function for
@@ -107,4 +116,12 @@ func overrideJSONProducer(r *runtimeclient.Runtime, opID string) func() {
 
 	r.Producers[runtime.JSONMime] = runtime.TextProducer()
 	return func() { r.Producers[runtime.JSONMime] = runtime.JSONProducer() }
+}
+
+func getRegion(ctx context.Context, defaultRegion string) string {
+	if region, ok := GetContextRegion(ctx); ok {
+		return region
+	}
+
+	return defaultRegion
 }

@@ -39,29 +39,27 @@ func TestParse(t *testing.T) {
 			args: args{strSize: "0.5g"}, want: 512,
 		},
 		{
-			name: "parses a 0.75g (gigabyte notation)",
-			args: args{strSize: "0.75g"}, want: 768,
-		},
-		{
 			name: "parses a 8gb (gigabyte notation)",
 			args: args{strSize: "8gb"}, want: 8 * 1024,
 		},
 		{
-			name: "parses a 512mb (megabyte notation)",
-			args: args{strSize: "512mb"}, want: 512,
+			name: "trying to parse 512m returns a failure",
+			args: args{strSize: "512m"},
+			err:  errors.New(`failed to convert "512m" to <size><g>`),
 		},
 		{
-			name: "parses a 2048mb (megabyte notation)",
-			args: args{strSize: "2048mb"}, want: 2048,
+			name: "trying to parse 0.75g returns a failure",
+			args: args{strSize: "0.75g"},
+			err:  errors.New(`size "0.75g" is invalid: only increments of 0.5g are permitted`),
 		},
 		{
 			name: "empty string returns an error",
-			err:  errors.New(`failed to convert "" to <size><g|m>`),
+			err:  errors.New(`failed to convert "" to <size><g>`),
 		},
 		{
 			name: "unknown unit returns an error",
 			args: args{strSize: "9999w"},
-			err:  errors.New(`failed to convert "9999w" to <size><g|m>`),
+			err:  errors.New(`failed to convert "9999w" to <size><g>`),
 		},
 		{
 			name: "invalid  prefix unit returns an error",
@@ -71,12 +69,12 @@ func TestParse(t *testing.T) {
 		{
 			name: "invalid size 0.25g (too small)",
 			args: args{strSize: "0.25g"},
-			err:  errors.New("size 256 is invalid, minimum size is 512"),
+			err:  errors.New(`size "0.25g" is invalid: minimum size is 0.5g`),
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := Parse(tt.args.strSize)
+			got, err := ParseGb(tt.args.strSize)
 			if !reflect.DeepEqual(err, tt.err) {
 				t.Errorf("Parse() error = %v, wantErr %v", err, tt.err)
 				return
