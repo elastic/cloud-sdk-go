@@ -23,10 +23,13 @@ import (
 	"reflect"
 	"testing"
 
+	"github.com/stretchr/testify/assert"
+
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
@@ -80,38 +83,28 @@ func TestGetAllocatorMetadata(t *testing.T) {
 		err  error
 	}{
 		{
-			name: "Get metadata fails due to parameter validation failure (missing API)",
-			args: args{
-				params: MetadataGetParams{
-					ID: "i-09a0e797fb3af6864",
-				},
-			},
-			err: apierror.ErrMissingAPI,
-		},
-		{
-			name: "Get metadata fails due to parameter validation failure (missing ID)",
-			args: args{
-				params: MetadataGetParams{
-					API: new(api.API),
-				},
-			},
-			err: errors.New("allocator metadata: id cannot be empty"),
+			name: "Get metadata fails due to parameter validation failure",
+			err: multierror.NewPrefixed("invalid allocator metadata get params",
+				apierror.ErrMissingAPI,
+				errors.New("id cannot be empty"),
+				errors.New("region not specified and is required for this operation"),
+			),
 		},
 		{
 			name: "Get metadata fails due to API failure",
-			args: args{
-				params: MetadataGetParams{
-					ID:  "an id",
-					API: api.NewMock(mock.New500Response(mock.NewStringBody(`{"error": "some error"}`))),
-				},
-			},
+			args: args{params: MetadataGetParams{
+				ID:     "an id",
+				Region: "us-east-1",
+				API:    api.NewMock(mock.New500Response(mock.NewStringBody(`{"error": "some error"}`))),
+			}},
 			err: errors.New(`{"error": "some error"}`),
 		},
 		{
 			name: "Get metadata Succeeds",
 			args: args{
 				params: MetadataGetParams{
-					ID: "i-09a0e797fb3af6864",
+					ID:     "i-09a0e797fb3af6864",
+					Region: "us-east-1",
 					API: api.NewMock(mock.Response{Response: http.Response{
 						Body:       mock.NewStringBody(getAllocatorMetadataSuccess),
 						StatusCode: 200,
@@ -182,63 +175,43 @@ func TestSetAllocatorMetadataItem(t *testing.T) {
 		err  error
 	}{
 		{
-			name: "Set allocator metadata fails due to parameter validation (Missing API)",
-			args: args{
-				params: MetadataSetParams{
-					ID: "an ID",
-				},
-			},
-			err: apierror.ErrMissingAPI,
-		},
-		{
-			name: "Set allocator metadata fails due to parameter validation (Missing ID)",
-			args: args{
-				params: MetadataSetParams{
-					API: new(api.API),
-				},
-			},
-			err: errors.New("allocator metadata: id cannot be empty"),
-		},
-		{
-			name: "Set allocator metadata fails due to parameter validation (Missing key)",
-			args: args{
-				params: MetadataSetParams{
-					API: new(api.API),
-					ID:  "an ID",
-				},
-			},
-			err: errors.New("allocator metadata: key cannot be empty"),
-		},
-		{
-			name: "Set allocator metadata fails due to parameter validation (Missing key value)",
-			args: args{
-				params: MetadataSetParams{
-					API: new(api.API),
-					ID:  "an ID",
-					Key: "foo",
-				},
-			},
-			err: errors.New("allocator metadata: key value cannot be empty"),
+			name: "Set allocator metadata fails due to parameter validation",
+			err: multierror.NewPrefixed("invalid allocator metadata set params",
+				apierror.ErrMissingAPI,
+				errors.New("id cannot be empty"),
+				errors.New("key cannot be empty"),
+				errors.New("key value cannot be empty"),
+				errors.New("region not specified and is required for this operation"),
+			),
 		},
 		{
 			name: "Set allocator metadata succeeds",
-			args: args{
-				params: MetadataSetParams{
-					ID: "an ID",
-					API: api.NewMock(mock.Response{Response: http.Response{
+			args: args{params: MetadataSetParams{
+				ID:     "an ID",
+				Region: "us-east-1",
+				API: api.NewMock(mock.Response{
+					Response: http.Response{
 						Body:       mock.NewStringBody(""),
 						StatusCode: 200,
-					}}),
-					Key:   "foo",
-					Value: "bar",
-				},
-			},
+					},
+					Assert: &mock.RequestAssertion{
+						Header: api.DefaultWriteMockHeaders,
+						Method: "PUT",
+						Host:   api.DefaultMockHost,
+						Body:   mock.NewStringBody(`{"value":"bar"}` + "\n"),
+						Path:   "/api/v1/regions/us-east-1/platform/infrastructure/allocators/an ID/metadata/foo",
+					},
+				}),
+				Key:   "foo",
+				Value: "bar",
+			}},
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := SetAllocatorMetadataItem(tt.args.params); !reflect.DeepEqual(err, tt.err) {
-				t.Errorf("SetAllocatorMetadataItem() error = %v, wantErr %v", err, tt.err)
+			err := SetAllocatorMetadataItem(tt.args.params)
+			if !assert.Equal(t, tt.err, err) {
+				t.Error(err)
 			}
 		})
 	}
@@ -254,51 +227,40 @@ func TestDeleteAllocatorMetadataItem(t *testing.T) {
 		err  error
 	}{
 		{
-			name: "Delete allocator metadata fails due to parameter validation (Missing API)",
-			args: args{
-				params: MetadataDeleteParams{
-					ID: "an ID",
-				},
-			},
-			err: apierror.ErrMissingAPI,
-		},
-		{
-			name: "Set allocator metadata fails due to parameter validation (Missing ID)",
-			args: args{
-				params: MetadataDeleteParams{
-					API: new(api.API),
-				},
-			},
-			err: errors.New("allocator metadata: id cannot be empty"),
-		},
-		{
-			name: "Set allocator metadata fails due to parameter validation (Missing key)",
-			args: args{
-				params: MetadataDeleteParams{
-					API: new(api.API),
-					ID:  "an ID",
-				},
-			},
-			err: errors.New("allocator metadata: key cannot be empty"),
+			name: "Delete allocator metadata fails due to parameter validation",
+			err: multierror.NewPrefixed("invalid allocator metadata delete params",
+				apierror.ErrMissingAPI,
+				errors.New("id cannot be empty"),
+				errors.New("key cannot be empty"),
+				errors.New("region not specified and is required for this operation"),
+			),
 		},
 		{
 			name: "Set allocator metadata succeeds",
-			args: args{
-				params: MetadataDeleteParams{
-					ID: "an ID",
-					API: api.NewMock(mock.Response{Response: http.Response{
+			args: args{params: MetadataDeleteParams{
+				ID:     "an ID",
+				Region: "us-east-1",
+				Key:    "foo",
+				API: api.NewMock(mock.Response{
+					Response: http.Response{
 						Body:       mock.NewStringBody(""),
 						StatusCode: 200,
-					}}),
-					Key: "foo",
-				},
-			},
+					},
+					Assert: &mock.RequestAssertion{
+						Header: api.DefaultWriteMockHeaders,
+						Method: "DELETE",
+						Host:   api.DefaultMockHost,
+						Path:   "/api/v1/regions/us-east-1/platform/infrastructure/allocators/an ID/metadata/foo",
+					},
+				}),
+			}},
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := DeleteAllocatorMetadataItem(tt.args.params); !reflect.DeepEqual(err, tt.err) {
-				t.Errorf("SetAllocatorMetadataItem() error = %v, wantErr %v", err, tt.err)
+			err := DeleteAllocatorMetadataItem(tt.args.params)
+			if !assert.Equal(t, tt.err, err) {
+				t.Error(err)
 			}
 		})
 	}

@@ -24,8 +24,10 @@ import (
 	"testing"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
+	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
@@ -38,7 +40,7 @@ func TestSearch(t *testing.T) {
 		args    args
 		want    *models.AllocatorOverview
 		wantErr bool
-		error   error
+		err     error
 	}{
 		{
 			name: "fails if search request is invalid",
@@ -49,33 +51,35 @@ func TestSearch(t *testing.T) {
 					StatusCode: 200,
 				}}),
 			}},
-			want:    nil,
 			wantErr: true,
-			error:   nil,
 		},
 		{
 			name:    "fails if api reference is empty",
 			args:    args{params: SearchParams{}},
-			want:    nil,
 			wantErr: true,
-			error:   errors.New("api reference is required for the operation"),
+			err: multierror.NewPrefixed("invalid allocator search params",
+				apierror.ErrMissingAPI,
+				errors.New("region not specified and is required for this operation"),
+			),
 		},
 		{
 			name: "fails if search api call fails",
 			args: args{params: SearchParams{
+				Region:  "us-east-1",
 				Request: models.SearchRequest{Query: &models.QueryContainer{}},
 				API:     api.NewMock(mock.New404Response(mock.NewStringBody(`{"error": "some error"}`))),
 			}},
-			want:    nil,
 			wantErr: true,
-			error:   errors.New(`{"error": "some error"}`),
+			err:     errors.New(`{"error": "some error"}`),
 		},
 		{
 			name: "succeeds if search api call succeeds",
 			args: args{params: SearchParams{
+				Region:  "us-east-1",
 				Request: models.SearchRequest{Query: &models.QueryContainer{}},
-				API: api.NewMock(mock.Response{Response: http.Response{
-					Body: mock.NewStringBody(`{
+				API: api.NewMock(mock.Response{
+					Response: http.Response{
+						Body: mock.NewStringBody(`{
 						"zones": [
 						  {
 							"allocators": null,
@@ -91,8 +95,16 @@ func TestSearch(t *testing.T) {
 						  }
 						]
 					  }`),
-					StatusCode: 200,
-				}}),
+						StatusCode: 200,
+					},
+					Assert: &mock.RequestAssertion{
+						Header: api.DefaultWriteMockHeaders,
+						Method: "POST",
+						Host:   api.DefaultMockHost,
+						Body:   mock.NewStringBody(`{"query":{},"sort":null}` + "\n"),
+						Path:   "/api/v1/regions/platform/infrastructure/allocators/_search",
+					},
+				}),
 			}},
 			want: &models.AllocatorOverview{
 				Zones: []*models.AllocatorZoneInfo{
@@ -112,8 +124,8 @@ func TestSearch(t *testing.T) {
 				return
 			}
 
-			if tt.wantErr && tt.error != nil && !reflect.DeepEqual(err, tt.error) {
-				t.Errorf("Search() actual error = '%v', want error '%v'", err, tt.error)
+			if tt.wantErr && tt.err != nil && !reflect.DeepEqual(err, tt.err) {
+				t.Errorf("Search() actual error = '%v', want error '%v'", err, tt.err)
 			}
 
 			if !tt.wantErr && !reflect.DeepEqual(got, tt.want) {

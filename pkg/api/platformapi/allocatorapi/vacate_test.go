@@ -19,6 +19,7 @@ package allocatorapi
 
 import (
 	"bytes"
+	"context"
 	"errors"
 	"fmt"
 	"net/http"
@@ -27,12 +28,11 @@ import (
 	"testing"
 	"time"
 
-	multierror "github.com/hashicorp/go-multierror"
-
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 	"github.com/elastic/cloud-sdk-go/pkg/client/platform_infrastructure"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	"github.com/elastic/cloud-sdk-go/pkg/output"
 	"github.com/elastic/cloud-sdk-go/pkg/sync/pool"
 	"github.com/elastic/cloud-sdk-go/pkg/util"
@@ -579,9 +579,9 @@ func TestCheckVacateFailures(t *testing.T) {
 					},
 				},
 			},
-			err: &multierror.Error{Errors: []error{
+			err: multierror.NewPrefixed("vacate error",
 				errors.New("resource id [123456789][elasticsearch] failed vacating, reason: code: unknown, message: a message"),
-			}},
+			),
 		},
 		{
 			name: "Returns a kibana error on Kibana vacate failure",
@@ -600,9 +600,9 @@ func TestCheckVacateFailures(t *testing.T) {
 					},
 				},
 			},
-			err: &multierror.Error{Errors: []error{
+			err: multierror.NewPrefixed("vacate error",
 				errors.New("resource id [123456789][kibana] failed vacating, reason: code: unknown, message: a kibana error message"),
-			}},
+			),
 		},
 		{
 			name: "Returns an error on APM vacate failure",
@@ -621,9 +621,9 @@ func TestCheckVacateFailures(t *testing.T) {
 					},
 				},
 			},
-			err: &multierror.Error{Errors: []error{
+			err: multierror.NewPrefixed("vacate error",
 				errors.New("resource id [123456789][apm] failed vacating, reason: code: unknown, message: an apm error message"),
-			}},
+			),
 		},
 		{
 			name: "Returns an error on App Search vacate failure",
@@ -642,9 +642,9 @@ func TestCheckVacateFailures(t *testing.T) {
 					},
 				},
 			},
-			err: &multierror.Error{Errors: []error{
+			err: multierror.NewPrefixed("vacate error",
 				errors.New("resource id [123456789][appsearch] failed vacating, reason: code: unknown, message: an apm error message"),
-			}},
+			),
 		},
 		{
 			name: "Returns an elasticsearch & kibana error on multiple ES & Kibana vacate failures",
@@ -674,10 +674,10 @@ func TestCheckVacateFailures(t *testing.T) {
 					},
 				},
 			},
-			err: &multierror.Error{Errors: []error{
+			err: multierror.NewPrefixed("vacate error",
 				errors.New("resource id [123456789][elasticsearch] failed vacating, reason: code: unknown, message: a message"),
 				errors.New("resource id [123456789][kibana] failed vacating, reason: code: unknown, message: a kibana error message"),
-			}},
+			),
 		},
 		{
 			name: "Returns only the clusters specified in the ClusterFilter",
@@ -703,9 +703,9 @@ func TestCheckVacateFailures(t *testing.T) {
 					},
 				},
 			},
-			err: &multierror.Error{Errors: []error{
+			err: multierror.NewPrefixed("vacate error",
 				errors.New("resource id [1234567890][elasticsearch] failed vacating, reason: code: unknown, message: a message"),
-			}},
+			),
 		},
 	}
 	for _, tt := range tests {
@@ -718,18 +718,20 @@ func TestCheckVacateFailures(t *testing.T) {
 }
 
 func TestVacateCluster(t *testing.T) {
-	var errEmptyParams = `allocator : resource id [][]: parameter validation: 5 errors occurred:
+	var errEmptyParams = `allocator : resource id [][]: 6 errors occurred:
 	* api reference is required for the operation
-	* vacate cluster: invalid allocator ID 
-	* vacate cluster: invalid cluster ID 
-	* vacate cluster: invalid kind 
+	* invalid allocator ID 
+	* invalid cluster ID 
+	* invalid kind 
 	* output device cannot be nil
+	* region not specified and is required for this operation
 
 `
-	var errInvalidParams = `allocator someID: resource id [3ee11eb40eda22cac0cce259625c6734][somethingweird]: parameter validation: 3 errors occurred:
+	var errInvalidParams = `allocator someID: resource id [3ee11eb40eda22cac0cce259625c6734][somethingweird]: 4 errors occurred:
 	* api reference is required for the operation
-	* vacate cluster: invalid kind somethingweird
+	* invalid kind somethingweird
 	* output device cannot be nil
+	* region not specified and is required for this operation
 
 `
 	type args struct {
@@ -771,6 +773,7 @@ func TestVacateCluster(t *testing.T) {
 				buf: new(bytes.Buffer),
 				params: &VacateClusterParams{
 					ID:             "someID",
+					Region:         "us-east-1",
 					ClusterID:      "3ee11eb40eda22cac0cce259625c6734",
 					Kind:           "elasticsearch",
 					Output:         new(output.Device),
@@ -790,7 +793,7 @@ func TestVacateCluster(t *testing.T) {
 							newPlanStep("step2", "success"),
 							newPlanStep("plan-completed", "success"),
 						},
-					})),
+					}, "us-east-1")),
 				},
 			},
 			want: newOutputResponses(
@@ -804,6 +807,7 @@ func TestVacateCluster(t *testing.T) {
 				buf: new(bytes.Buffer),
 				params: &VacateClusterParams{
 					ID:             "someID",
+					Region:         "us-east-1",
 					ClusterID:      "3ee11eb40eda22cac0cce259625c6734",
 					Kind:           "elasticsearch",
 					Output:         new(output.Device),
@@ -811,7 +815,9 @@ func TestVacateCluster(t *testing.T) {
 					SkipTracking:   true,
 					MaxPollRetries: 1,
 					API: discardResponses(
-						newElasticsearchVacateMove(t, "someID", vacateCaseClusterConfig{}),
+						newElasticsearchVacateMove(t, "someID", vacateCaseClusterConfig{
+							ID: "3ee11eb40eda22cac0cce259625c6734",
+						}, "us-east-1"),
 					),
 				},
 			},
@@ -822,6 +828,7 @@ func TestVacateCluster(t *testing.T) {
 				buf: new(bytes.Buffer),
 				params: &VacateClusterParams{
 					ID:             "someID",
+					Region:         "us-east-1",
 					ClusterID:      "2ee11eb40eda22cac0cce259625c6734",
 					Kind:           "kibana",
 					Output:         new(output.Device),
@@ -847,7 +854,7 @@ func TestVacateCluster(t *testing.T) {
 							newPlanStep("step3", "success"),
 							newPlanStep("plan-completed", "success"),
 						},
-					})),
+					}, "us-east-1")),
 				},
 			},
 			want: newOutputResponses(
@@ -862,6 +869,7 @@ func TestVacateCluster(t *testing.T) {
 				buf: new(bytes.Buffer),
 				params: &VacateClusterParams{
 					ID:             "someID",
+					Region:         "us-east-1",
 					ClusterID:      "2ee11eb40eda22cac0cce259625c6734",
 					Kind:           "kibana",
 					Output:         new(output.Device),
@@ -869,7 +877,9 @@ func TestVacateCluster(t *testing.T) {
 					SkipTracking:   true,
 					MaxPollRetries: 1,
 					API: discardResponses(
-						newKibanaVacateMove(t, "someID", vacateCaseClusterConfig{}),
+						newKibanaVacateMove(t, "someID", vacateCaseClusterConfig{
+							ID: "2ee11eb40eda22cac0cce259625c6734",
+						}, "us-east-1"),
 					),
 				},
 			},
@@ -880,6 +890,7 @@ func TestVacateCluster(t *testing.T) {
 				buf: new(bytes.Buffer),
 				params: &VacateClusterParams{
 					ID:             "someID",
+					Region:         "us-east-1",
 					ClusterID:      "2ee11eb40eda22cac0cce259625c6734",
 					Kind:           "appsearch",
 					Output:         new(output.Device),
@@ -887,7 +898,9 @@ func TestVacateCluster(t *testing.T) {
 					SkipTracking:   true,
 					MaxPollRetries: 1,
 					API: discardResponses(
-						newKibanaVacateMove(t, "someID", vacateCaseClusterConfig{}),
+						newKibanaVacateMove(t, "someID", vacateCaseClusterConfig{
+							ID: "2ee11eb40eda22cac0cce259625c6734",
+						}, "us-east-1"),
 					),
 				},
 			},
@@ -898,6 +911,7 @@ func TestVacateCluster(t *testing.T) {
 				buf: new(bytes.Buffer),
 				params: &VacateClusterParams{
 					ID:             "someID",
+					Region:         "us-east-1",
 					ClusterID:      "2ee11eb40eda22cac0cce259625c6734",
 					Kind:           "kibana",
 					Output:         new(output.Device),
@@ -906,12 +920,12 @@ func TestVacateCluster(t *testing.T) {
 					API: discardResponses(newKibanaVacateMove(t, "someID", vacateCaseClusterConfig{
 						ID:   "2ee11eb40eda22cac0cce259625c6734",
 						fail: true,
-					})),
+					}, "us-east-1")),
 				},
 			},
-			err: newMultierror(
+			err: multierror.NewPrefixed("vacate error",
 				errors.New("resource id [2ee11eb40eda22cac0cce259625c6734][kibana] failed vacating, reason: code: a code, message: a message"),
-			),
+			).Error(),
 		},
 	}
 	for _, tt := range tests {
@@ -952,12 +966,13 @@ func Test_fillVacateClusterParams(t *testing.T) {
 				params: &VacateClusterParams{
 					API:       api.NewMock(mock.Response{Error: errors.New("unauthorized")}),
 					ID:        "allocator-1",
+					Region:    "us-east-1",
 					ClusterID: "3ee11eb40eda22cac0cce259625c6734",
 					Kind:      "elasticsearch",
 					Output:    output.NewDevice(new(bytes.Buffer)),
 				},
 			},
-			err: errors.New(`allocator allocator-1: resource id [3ee11eb40eda22cac0cce259625c6734][elasticsearch]: allocator health autodiscovery: Get https://mock.elastic.co/api/v1/regions/platform/infrastructure/allocators/allocator-1: unauthorized`),
+			err: errors.New(`allocator allocator-1: resource id [3ee11eb40eda22cac0cce259625c6734][elasticsearch]: allocator health autodiscovery: Get https://mock.elastic.co/api/v1/regions/us-east-1/platform/infrastructure/allocators/allocator-1: unauthorized`),
 		},
 		{
 			name: "sets defaults on parameters that aren't specified",
@@ -968,6 +983,7 @@ func Test_fillVacateClusterParams(t *testing.T) {
 						StatusCode: 200,
 					}}),
 					ID:        "allocator-1",
+					Region:    "us-east-1",
 					ClusterID: "3ee11eb40eda22cac0cce259625c6734",
 					Kind:      "elasticsearch",
 					Output:    output.NewDevice(new(bytes.Buffer)),
@@ -975,6 +991,7 @@ func Test_fillVacateClusterParams(t *testing.T) {
 			},
 			want: &VacateClusterParams{
 				ID:             "allocator-1",
+				Region:         "us-east-1",
 				ClusterID:      "3ee11eb40eda22cac0cce259625c6734",
 				Kind:           "elasticsearch",
 				Output:         output.NewDevice(new(bytes.Buffer)),
@@ -992,6 +1009,7 @@ func Test_fillVacateClusterParams(t *testing.T) {
 						StatusCode: 200,
 					}}),
 					ID:             "allocator-1",
+					Region:         "us-east-1",
 					ClusterID:      "3ee11eb40eda22cac0cce259625c6734",
 					Kind:           "elasticsearch",
 					Output:         output.NewDevice(new(bytes.Buffer)),
@@ -1003,6 +1021,7 @@ func Test_fillVacateClusterParams(t *testing.T) {
 			want: &VacateClusterParams{
 				ID:             "allocator-1",
 				ClusterID:      "3ee11eb40eda22cac0cce259625c6734",
+				Region:         "us-east-1",
 				Kind:           "elasticsearch",
 				Output:         output.NewDevice(new(bytes.Buffer)),
 				MaxPollRetries: 4,
@@ -1053,20 +1072,22 @@ func Test_newMoveClusterParams(t *testing.T) {
 			args: args{params: &VacateClusterParams{
 				API:       api.NewMock(mock.Response{Error: errors.New("unauthorized")}),
 				ID:        "allocator-1",
+				Region:    "us-east-1",
 				ClusterID: "3ee11eb40eda22cac0cce259625c6734",
 				Kind:      "elasticsearch",
 				Output:    output.NewDevice(new(bytes.Buffer)),
 			}},
-			err: errors.New(`allocator allocator-1: resource id [3ee11eb40eda22cac0cce259625c6734][elasticsearch]: validate_only: Post https://mock.elastic.co/api/v1/regions/platform/infrastructure/allocators/allocator-1/clusters/_move?force_update=false&validate_only=true: unauthorized`),
+			err: errors.New(`allocator allocator-1: resource id [3ee11eb40eda22cac0cce259625c6734][elasticsearch]: validate_only: Post https://mock.elastic.co/api/v1/regions/us-east-1/platform/infrastructure/allocators/allocator-1/clusters/_move?force_update=false&validate_only=true: unauthorized`),
 		},
 		{
-			name: "elasticsearch move succeeds to get parameters",
+			name: "elasticsearch move succeeds to get parameters on an elasticsearch resource",
 			args: args{params: &VacateClusterParams{
 				API: api.NewMock(mock.Response{Response: http.Response{
 					Body:       newElasticsearchMove(t, "3ee11eb40eda22cac0cce259625c6734", "allocator-1"),
 					StatusCode: 202,
 				}}),
 				ID:            "allocator-1",
+				Region:        "us-east-1",
 				ClusterID:     "3ee11eb40eda22cac0cce259625c6734",
 				Kind:          "elasticsearch",
 				Output:        output.NewDevice(new(bytes.Buffer)),
@@ -1076,6 +1097,7 @@ func Test_newMoveClusterParams(t *testing.T) {
 				WithAllocatorID("allocator-1").
 				WithClusterType(ec.String("elasticsearch")).
 				WithAllocatorDown(ec.Bool(false)).
+				WithContext(api.WithRegion(context.Background(), "us-east-1")).
 				WithBody(&models.MoveClustersRequest{
 					ElasticsearchClusters: []*models.MoveElasticsearchClusterConfiguration{
 						{
@@ -1094,13 +1116,14 @@ func Test_newMoveClusterParams(t *testing.T) {
 				}),
 		},
 		{
-			name: "elasticsearch move succeeds to get parameters",
+			name: "elasticsearch move succeeds to get parameters on an apm resource",
 			args: args{params: &VacateClusterParams{
 				API: api.NewMock(mock.Response{Response: http.Response{
 					Body:       newApmMove(t, "3ee11eb40eda22cac0cce259625c6734", "allocator-1"),
 					StatusCode: 202,
 				}}),
 				ID:            "allocator-1",
+				Region:        "us-east-1",
 				ClusterID:     "3ee11eb40eda22cac0cce259625c6734",
 				Kind:          util.Apm,
 				Output:        output.NewDevice(new(bytes.Buffer)),
@@ -1110,6 +1133,7 @@ func Test_newMoveClusterParams(t *testing.T) {
 				WithAllocatorID("allocator-1").
 				WithClusterType(ec.String(util.Apm)).
 				WithAllocatorDown(ec.Bool(false)).
+				WithContext(api.WithRegion(context.Background(), "us-east-1")).
 				WithBody(&models.MoveClustersRequest{
 					ApmClusters: []*models.MoveApmClusterConfiguration{
 						{

@@ -18,7 +18,7 @@
 package allocatorapi
 
 import (
-	"github.com/go-openapi/strfmt"
+	"context"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
@@ -28,22 +28,21 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
-// SearchParams contains parameters used to search allocator's data using Query DSL
-type SearchParams struct {
-	Request models.SearchRequest
+// ListParams is used to list allocators
+type ListParams struct {
 	*api.API
-	Region string
+	Query string
+	// Expected format is key:value slice. i.e. [key:val, key:value]
+	FilterTags string
+	ShowAll    bool
+	Region     string
 }
 
-// Validate validates SearchParams
-func (params SearchParams) Validate() error {
-	var merr = multierror.NewPrefixed("invalid allocator search params")
+// Validate ensures that the parameters are correct
+func (params ListParams) Validate() error {
+	var merr = multierror.NewPrefixed("invalid allocator list params")
 	if params.API == nil {
 		merr = merr.Append(apierror.ErrMissingAPI)
-	}
-
-	if err := params.Request.Validate(strfmt.Default); err != nil {
-		merr = merr.Append(err)
 	}
 
 	if err := ec.RequireRegionSet(params.Region); err != nil {
@@ -53,19 +52,31 @@ func (params SearchParams) Validate() error {
 	return merr.ErrorOrNil()
 }
 
-// Search searches all the allocators using Query DSL
-func Search(params SearchParams) (*models.AllocatorOverview, error) {
+// List obtains the full list of allocators
+func List(params ListParams) (*models.AllocatorOverview, error) {
 	if err := params.Validate(); err != nil {
 		return nil, err
 	}
 
-	res, err := params.API.V1API.PlatformInfrastructure.SearchAllocators(
-		platform_infrastructure.NewSearchAllocatorsParams().
-			WithBody(&params.Request),
+	res, err := params.API.V1API.PlatformInfrastructure.GetAllocators(
+		platform_infrastructure.NewGetAllocatorsParams().
+			WithContext(api.WithRegion(context.Background(), params.Region)).
+			WithQ(ec.String(params.Query)),
 		params.AuthWriter,
 	)
+
 	if err != nil {
 		return nil, api.UnwrapError(err)
 	}
+	if !params.ShowAll {
+		for _, z := range res.Payload.Zones {
+			z.Allocators = FilterConnectedOrWithInstances(z.Allocators)
+		}
+	}
+
+	for _, z := range res.Payload.Zones {
+		z.Allocators = FilterByTag(tagsToMap(params.FilterTags), z.Allocators)
+	}
+
 	return res.Payload, nil
 }

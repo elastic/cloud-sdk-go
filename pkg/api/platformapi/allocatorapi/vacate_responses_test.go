@@ -24,12 +24,12 @@ import (
 	"io"
 	"io/ioutil"
 	"net/http"
+	"net/url"
 	"strings"
 	"testing"
 	"time"
 
 	"github.com/go-openapi/strfmt"
-	multierror "github.com/hashicorp/go-multierror"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/deploymentapi/depresourceapi"
@@ -47,6 +47,7 @@ const planStepLogErrorMessage = "Unexpected error during step: [perform-snapshot
 type vacateCase struct {
 	topology     []vacateCaseClusters
 	skipTracking bool
+	region       string
 }
 
 type vacateCaseClusters struct {
@@ -376,11 +377,6 @@ func newOutputResponses(res ...string) string {
 	return responses.String()
 }
 
-func newMultierror(errs ...error) string {
-	var merr = multierror.Error{Errors: errs}
-	return merr.Error()
-}
-
 func newAllocator(t *testing.T, id, clusterID, kind string) io.ReadCloser {
 	res := models.AllocatorInfo{
 		AllocatorID: ec.String(id),
@@ -487,10 +483,24 @@ func newVacateTestCase(t *testing.T, tc vacateCase) *VacateParams {
 			appsearchMoves = append(appsearchMoves, topology.appsearch[ii].ID)
 		}
 
-		responses = append(responses, mock.Response{Response: http.Response{
-			Body:       newMulipleMoves(t, alloc, esmoves, kibanaMoves, apmMoves, appsearchMoves),
-			StatusCode: 202,
-		}})
+		responses = append(responses, mock.Response{
+			Response: http.Response{
+				Body:       newMulipleMoves(t, alloc, esmoves, kibanaMoves, apmMoves, appsearchMoves),
+				StatusCode: 202,
+			},
+			Assert: &mock.RequestAssertion{
+				Method: "POST",
+				Header: api.DefaultWriteMockHeaders,
+				Host:   api.DefaultMockHost,
+				Path: fmt.Sprintf(
+					"/api/v1/regions/%s/platform/infrastructure/allocators/%s/clusters/_move", tc.region, alloc,
+				),
+				Query: url.Values{
+					"force_update":  {"false"},
+					"validate_only": {"true"},
+				},
+			},
+		})
 	}
 
 	// This calls happen inside the pool.Pool for each cluster
@@ -499,22 +509,22 @@ func newVacateTestCase(t *testing.T, tc vacateCase) *VacateParams {
 		var alloc = topology.Allocator
 
 		for ii := range topology.elasticsearch {
-			_, r := newElasticsearchVacateMove(t, alloc, topology.elasticsearch[ii])
+			_, r := newElasticsearchVacateMove(t, alloc, topology.elasticsearch[ii], tc.region)
 			responses = append(responses, r...)
 		}
 
 		for ii := range topology.kibana {
-			_, r := newKibanaVacateMove(t, alloc, topology.kibana[ii])
+			_, r := newKibanaVacateMove(t, alloc, topology.kibana[ii], tc.region)
 			responses = append(responses, r...)
 		}
 
 		for ii := range topology.apm {
-			_, r := newAPMVacateMove(t, alloc, topology.apm[ii])
+			_, r := newAPMVacateMove(t, alloc, topology.apm[ii], tc.region)
 			responses = append(responses, r...)
 		}
 
 		for ii := range topology.appsearch {
-			_, r := newAppsearchVacateMove(t, alloc, topology.appsearch[ii])
+			_, r := newAppsearchVacateMove(t, alloc, topology.appsearch[ii], tc.region)
 			responses = append(responses, r...)
 		}
 	}
@@ -524,21 +534,47 @@ func newVacateTestCase(t *testing.T, tc vacateCase) *VacateParams {
 		Allocators:     allocators,
 		API:            api.NewMock(responses...),
 		OutputFormat:   "text",
+		Region:         tc.region,
 		Concurrency:    1,
 		MaxPollRetries: 1,
 		TrackFrequency: time.Nanosecond,
 	}
 }
 
-func newAPMVacateMove(t *testing.T, alloc string, move vacateCaseClusterConfig) (*api.API, []mock.Response) {
+func newAPMVacateMove(t *testing.T, alloc string, move vacateCaseClusterConfig, region string) (*api.API, []mock.Response) {
 	var responses = make([]mock.Response, 0, 4)
-	responses = append(responses, mock.Response{Response: http.Response{
-		Body:       newAllocator(t, alloc, move.ID, util.Apm),
-		StatusCode: 200,
-	}}, mock.Response{Response: http.Response{
-		Body:       newApmMove(t, move.ID, alloc),
-		StatusCode: 202,
-	}})
+	responses = append(responses, mock.Response{
+		Response: http.Response{
+			Body:       newAllocator(t, alloc, move.ID, util.Apm),
+			StatusCode: 200,
+		},
+		Assert: &mock.RequestAssertion{
+			Method: "GET",
+			Header: api.DefaultReadMockHeaders,
+			Host:   api.DefaultMockHost,
+			Path: fmt.Sprintf(
+				"/api/v1/regions/%s/platform/infrastructure/allocators/%s", region, alloc,
+			),
+		},
+	}, mock.Response{
+		Response: http.Response{
+			Body:       newApmMove(t, move.ID, alloc),
+			StatusCode: 202,
+		},
+		Assert: &mock.RequestAssertion{
+			Method: "POST",
+			Header: api.DefaultWriteMockHeaders,
+			Host:   api.DefaultMockHost,
+			Path: fmt.Sprintf(
+				"/api/v1/regions/%s/platform/infrastructure/allocators/%s/clusters/_move", region, alloc,
+			),
+			Query: url.Values{
+				"allocator_down": {"false"},
+				"force_update":   {"false"},
+				"validate_only":  {"true"},
+			},
+		},
+	})
 
 	if move.fail {
 		body := ioutil.NopCloser(strings.NewReader(newBody(t, &models.MoveClustersCommandResponse{
@@ -557,7 +593,8 @@ func newAPMVacateMove(t *testing.T, alloc string, move vacateCaseClusterConfig) 
 						},
 					},
 				}},
-			}})))
+			},
+		})))
 		// Return a response with a failed move
 		responses = append(responses, mock.Response{Response: http.Response{
 			Body:       body,
@@ -568,10 +605,32 @@ func newAPMVacateMove(t *testing.T, alloc string, move vacateCaseClusterConfig) 
 		return api.NewMock(responses...), responses
 	}
 
-	responses = append(responses, mock.Response{Response: http.Response{
-		Body:       newApmMove(t, move.ID, alloc),
-		StatusCode: 202,
-	}}, newDeploymentDiscovery())
+	responses = append(responses, mock.Response{
+		Response: http.Response{
+			Body:       newApmMove(t, move.ID, alloc),
+			StatusCode: 202,
+		},
+		Assert: &mock.RequestAssertion{
+			Method: "POST",
+			Header: api.DefaultWriteMockHeaders,
+			Host:   api.DefaultMockHost,
+			Path: fmt.Sprintf(
+				"/api/v1/regions/%s/platform/infrastructure/allocators/%s/clusters/apm/_move", region, alloc,
+			),
+			Body: mock.NewStringBody(
+				fmt.Sprintf(
+					`{"apm_clusters":[{"cluster_ids":["%s"],"plan_override":{"plan_configuration":{"move_allocators":[{"from":"%s","to":null}],"move_instances":null,"preferred_allocators":null}}}],"appsearch_clusters":null,"elasticsearch_clusters":null,"enterprise_search_clusters":null,"kibana_clusters":null}`+"\n",
+					move.ID, alloc,
+				),
+			),
+			Query: url.Values{
+				"allocator_down": {"false"},
+				"force_update":   {"false"},
+				"move_only":      {"true"},
+				"validate_only":  {"false"},
+			},
+		},
+	}, newDeploymentDiscovery())
 
 	// Define steps
 	for iii := range move.steps {
@@ -601,15 +660,40 @@ func newAPMVacateMove(t *testing.T, alloc string, move vacateCaseClusterConfig) 
 	return api.NewMock(responses...), responses
 }
 
-func newKibanaVacateMove(t *testing.T, alloc string, move vacateCaseClusterConfig) (*api.API, []mock.Response) {
+func newKibanaVacateMove(t *testing.T, alloc string, move vacateCaseClusterConfig, region string) (*api.API, []mock.Response) {
 	var responses = make([]mock.Response, 0, 4)
-	responses = append(responses, mock.Response{Response: http.Response{
-		Body:       newAllocator(t, alloc, move.ID, "kibana"),
-		StatusCode: 200,
-	}}, mock.Response{Response: http.Response{
-		Body:       newKibanaMove(t, move.ID, alloc),
-		StatusCode: 202,
-	}})
+	responses = append(responses, mock.Response{
+		Response: http.Response{
+			Body:       newAllocator(t, alloc, move.ID, "kibana"),
+			StatusCode: 200,
+		},
+		Assert: &mock.RequestAssertion{
+			Method: "GET",
+			Header: api.DefaultReadMockHeaders,
+			Host:   api.DefaultMockHost,
+			Path: fmt.Sprintf(
+				"/api/v1/regions/%s/platform/infrastructure/allocators/%s", region, alloc,
+			),
+		},
+	}, mock.Response{
+		Response: http.Response{
+			Body:       newKibanaMove(t, move.ID, alloc),
+			StatusCode: 202,
+		},
+		Assert: &mock.RequestAssertion{
+			Method: "POST",
+			Header: api.DefaultWriteMockHeaders,
+			Host:   api.DefaultMockHost,
+			Path: fmt.Sprintf(
+				"/api/v1/regions/%s/platform/infrastructure/allocators/%s/clusters/_move", region, alloc,
+			),
+			Query: url.Values{
+				"allocator_down": {"false"},
+				"force_update":   {"false"},
+				"validate_only":  {"true"},
+			},
+		},
+	})
 
 	if move.fail {
 		body := ioutil.NopCloser(strings.NewReader(newBody(t, &models.MoveClustersCommandResponse{
@@ -640,10 +724,32 @@ func newKibanaVacateMove(t *testing.T, alloc string, move vacateCaseClusterConfi
 		return api.NewMock(responses...), responses
 	}
 
-	responses = append(responses, mock.Response{Response: http.Response{
-		Body:       newKibanaMove(t, move.ID, alloc),
-		StatusCode: 202,
-	}}, newDeploymentDiscovery())
+	responses = append(responses, mock.Response{
+		Response: http.Response{
+			Body:       newKibanaMove(t, move.ID, alloc),
+			StatusCode: 202,
+		},
+		Assert: &mock.RequestAssertion{
+			Method: "POST",
+			Header: api.DefaultWriteMockHeaders,
+			Host:   api.DefaultMockHost,
+			Path: fmt.Sprintf(
+				"/api/v1/regions/%s/platform/infrastructure/allocators/%s/clusters/kibana/_move", region, alloc,
+			),
+			Body: mock.NewStringBody(
+				fmt.Sprintf(
+					`{"apm_clusters":null,"appsearch_clusters":null,"elasticsearch_clusters":null,"enterprise_search_clusters":null,"kibana_clusters":[{"cluster_ids":["%s"],"plan_override":{"plan_configuration":{"move_allocators":[{"from":"%s","to":null}],"move_instances":null,"preferred_allocators":null}}}]}`+"\n",
+					move.ID, alloc,
+				),
+			),
+			Query: url.Values{
+				"allocator_down": {"false"},
+				"force_update":   {"false"},
+				"move_only":      {"true"},
+				"validate_only":  {"false"},
+			},
+		},
+	}, newDeploymentDiscovery())
 
 	// Define steps
 	for iii := range move.steps {
@@ -672,15 +778,40 @@ func newKibanaVacateMove(t *testing.T, alloc string, move vacateCaseClusterConfi
 	return api.NewMock(responses...), responses
 }
 
-func newElasticsearchVacateMove(t *testing.T, alloc string, move vacateCaseClusterConfig) (*api.API, []mock.Response) {
+func newElasticsearchVacateMove(t *testing.T, alloc string, move vacateCaseClusterConfig, region string) (*api.API, []mock.Response) {
 	var responses = make([]mock.Response, 0, 4)
-	responses = append(responses, mock.Response{Response: http.Response{
-		Body:       newAllocator(t, alloc, move.ID, "elasticsearch"),
-		StatusCode: 200,
-	}}, mock.Response{Response: http.Response{
-		Body:       newElasticsearchMove(t, move.ID, alloc),
-		StatusCode: 202,
-	}})
+	responses = append(responses, mock.Response{
+		Response: http.Response{
+			Body:       newAllocator(t, alloc, move.ID, "elasticsearch"),
+			StatusCode: 200,
+		},
+		Assert: &mock.RequestAssertion{
+			Method: "GET",
+			Header: api.DefaultReadMockHeaders,
+			Host:   api.DefaultMockHost,
+			Path: fmt.Sprintf(
+				"/api/v1/regions/%s/platform/infrastructure/allocators/%s", region, alloc,
+			),
+		},
+	}, mock.Response{
+		Response: http.Response{
+			Body:       newElasticsearchMove(t, move.ID, alloc),
+			StatusCode: 202,
+		},
+		Assert: &mock.RequestAssertion{
+			Method: "POST",
+			Header: api.DefaultWriteMockHeaders,
+			Host:   api.DefaultMockHost,
+			Path: fmt.Sprintf(
+				"/api/v1/regions/%s/platform/infrastructure/allocators/%s/clusters/_move", region, alloc,
+			),
+			Query: url.Values{
+				"allocator_down": {"false"},
+				"force_update":   {"false"},
+				"validate_only":  {"true"},
+			},
+		},
+	})
 
 	if move.fail {
 		body := ioutil.NopCloser(strings.NewReader(newBody(t, &models.MoveClustersCommandResponse{
@@ -709,10 +840,32 @@ func newElasticsearchVacateMove(t *testing.T, alloc string, move vacateCaseClust
 	}
 
 	// do the actual cluster move from the calculated plan
-	responses = append(responses, mock.Response{Response: http.Response{
-		Body:       newElasticsearchMove(t, move.ID, alloc),
-		StatusCode: 202,
-	}}, newDeploymentDiscovery())
+	responses = append(responses, mock.Response{
+		Response: http.Response{
+			Body:       newElasticsearchMove(t, move.ID, alloc),
+			StatusCode: 202,
+		},
+		Assert: &mock.RequestAssertion{
+			Method: "POST",
+			Header: api.DefaultWriteMockHeaders,
+			Host:   api.DefaultMockHost,
+			Path: fmt.Sprintf(
+				"/api/v1/regions/%s/platform/infrastructure/allocators/%s/clusters/elasticsearch/_move", region, alloc,
+			),
+			Body: mock.NewStringBody(
+				fmt.Sprintf(
+					`{"apm_clusters":null,"appsearch_clusters":null,"elasticsearch_clusters":[{"cluster_ids":["%s"],"plan_override":{"plan_configuration":{"move_allocators":[{"from":"%s","to":null}],"move_instances":null,"preferred_allocators":null}}}],"enterprise_search_clusters":null,"kibana_clusters":null}`+"\n",
+					move.ID, alloc,
+				),
+			),
+			Query: url.Values{
+				"allocator_down": {"false"},
+				"force_update":   {"false"},
+				"move_only":      {"true"},
+				"validate_only":  {"false"},
+			},
+		},
+	}, newDeploymentDiscovery())
 
 	// Define steps
 	for iii := range move.steps {
@@ -742,15 +895,40 @@ func newElasticsearchVacateMove(t *testing.T, alloc string, move vacateCaseClust
 	return api.NewMock(responses...), responses
 }
 
-func newAppsearchVacateMove(t *testing.T, alloc string, move vacateCaseClusterConfig) (*api.API, []mock.Response) {
+func newAppsearchVacateMove(t *testing.T, alloc string, move vacateCaseClusterConfig, region string) (*api.API, []mock.Response) {
 	var responses = make([]mock.Response, 0, 4)
-	responses = append(responses, mock.Response{Response: http.Response{
-		Body:       newAllocator(t, alloc, move.ID, "appsearch"),
-		StatusCode: 200,
-	}}, mock.Response{Response: http.Response{
-		Body:       newAppsearchMove(t, move.ID, alloc),
-		StatusCode: 202,
-	}})
+	responses = append(responses, mock.Response{
+		Response: http.Response{
+			Body:       newAllocator(t, alloc, move.ID, "appsearch"),
+			StatusCode: 200,
+		},
+		Assert: &mock.RequestAssertion{
+			Method: "GET",
+			Header: api.DefaultReadMockHeaders,
+			Host:   api.DefaultMockHost,
+			Path: fmt.Sprintf(
+				"/api/v1/regions/%s/platform/infrastructure/allocators/%s", region, alloc,
+			),
+		},
+	}, mock.Response{
+		Response: http.Response{
+			Body:       newAppsearchMove(t, move.ID, alloc),
+			StatusCode: 202,
+		},
+		Assert: &mock.RequestAssertion{
+			Method: "POST",
+			Header: api.DefaultWriteMockHeaders,
+			Host:   api.DefaultMockHost,
+			Path: fmt.Sprintf(
+				"/api/v1/regions/%s/platform/infrastructure/allocators/%s/clusters/_move", region, alloc,
+			),
+			Query: url.Values{
+				"allocator_down": {"false"},
+				"force_update":   {"false"},
+				"validate_only":  {"true"},
+			},
+		},
+	})
 
 	if move.fail {
 		body := ioutil.NopCloser(strings.NewReader(newBody(t, &models.MoveClustersCommandResponse{
@@ -780,10 +958,33 @@ func newAppsearchVacateMove(t *testing.T, alloc string, move vacateCaseClusterCo
 		return api.NewMock(responses...), responses
 	}
 
-	responses = append(responses, mock.Response{Response: http.Response{
-		Body:       newAppsearchMove(t, move.ID, alloc),
-		StatusCode: 202,
-	}}, newDeploymentDiscovery())
+	responses = append(responses,
+		mock.Response{
+			Response: http.Response{
+				Body:       newAppsearchMove(t, move.ID, alloc),
+				StatusCode: 202,
+			},
+			Assert: &mock.RequestAssertion{
+				Method: "POST",
+				Header: api.DefaultWriteMockHeaders,
+				Host:   api.DefaultMockHost,
+				Path: fmt.Sprintf(
+					"/api/v1/regions/%s/platform/infrastructure/allocators/%s/clusters/appsearch/_move", region, alloc,
+				),
+				Body: mock.NewStringBody(
+					fmt.Sprintf(
+						`{"apm_clusters":null,"appsearch_clusters":[{"cluster_ids":["%s"],"plan_override":{"plan_configuration":{"move_allocators":[{"from":"%s","to":null}],"move_instances":null,"preferred_allocators":null}}}],"elasticsearch_clusters":null,"enterprise_search_clusters":null,"kibana_clusters":null}`+"\n",
+						move.ID, alloc,
+					),
+				),
+				Query: url.Values{
+					"allocator_down": {"false"},
+					"force_update":   {"false"},
+					"move_only":      {"true"},
+					"validate_only":  {"false"},
+				},
+			},
+		}, newDeploymentDiscovery())
 
 	// Define steps
 	for iii := range move.steps {

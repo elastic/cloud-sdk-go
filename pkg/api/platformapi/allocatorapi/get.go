@@ -18,7 +18,8 @@
 package allocatorapi
 
 import (
-	"github.com/go-openapi/strfmt"
+	"context"
+	"errors"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
@@ -28,22 +29,21 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
-// SearchParams contains parameters used to search allocator's data using Query DSL
-type SearchParams struct {
-	Request models.SearchRequest
+// GetParams is used to get an allocator
+type GetParams struct {
 	*api.API
+	ID     string
 	Region string
 }
 
-// Validate validates SearchParams
-func (params SearchParams) Validate() error {
-	var merr = multierror.NewPrefixed("invalid allocator search params")
+// Validate ensures that the parameters are correct
+func (params GetParams) Validate() error {
+	var merr = multierror.NewPrefixed("invalid allocator get params")
 	if params.API == nil {
 		merr = merr.Append(apierror.ErrMissingAPI)
 	}
-
-	if err := params.Request.Validate(strfmt.Default); err != nil {
-		merr = merr.Append(err)
+	if params.ID == "" {
+		merr = merr.Append(errors.New("id cannot be empty"))
 	}
 
 	if err := ec.RequireRegionSet(params.Region); err != nil {
@@ -53,19 +53,21 @@ func (params SearchParams) Validate() error {
 	return merr.ErrorOrNil()
 }
 
-// Search searches all the allocators using Query DSL
-func Search(params SearchParams) (*models.AllocatorOverview, error) {
+// Get obtains an allocator from an ID
+func Get(params GetParams) (*models.AllocatorInfo, error) {
 	if err := params.Validate(); err != nil {
 		return nil, err
 	}
 
-	res, err := params.API.V1API.PlatformInfrastructure.SearchAllocators(
-		platform_infrastructure.NewSearchAllocatorsParams().
-			WithBody(&params.Request),
+	res, err := params.API.V1API.PlatformInfrastructure.GetAllocator(
+		platform_infrastructure.NewGetAllocatorParams().
+			WithContext(api.WithRegion(context.Background(), params.Region)).
+			WithAllocatorID(params.ID),
 		params.AuthWriter,
 	)
 	if err != nil {
 		return nil, api.UnwrapError(err)
 	}
+
 	return res.Payload, nil
 }
