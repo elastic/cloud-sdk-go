@@ -18,36 +18,39 @@
 package stackapi
 
 import (
-	"fmt"
+	"context"
 	"sort"
 	"strconv"
 	"strings"
 
-	"github.com/go-openapi/runtime"
-
 	"github.com/elastic/cloud-sdk-go/pkg/api"
+	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/client/stack"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
-// Get obtains a stackpack to the current installation
-func Get(params GetParams) (*models.StackVersionConfig, error) {
-	if err := params.Validate(); err != nil {
-		return nil, err
+// ListParams is consumed by List
+type ListParams struct {
+	*api.API
+	Region  string
+	Deleted bool
+}
+
+// Validate ensures that the parameters are usable by the consuming
+// function
+func (params ListParams) Validate() error {
+	var merr = multierror.NewPrefixed("invalid stack list params")
+	if params.API == nil {
+		merr = merr.Append(apierror.ErrMissingAPI)
 	}
 
-	res, err := params.API.V1API.Stack.GetVersionStack(
-		stack.NewGetVersionStackParams().
-			WithVersion(params.Version),
-		params.AuthWriter,
-	)
-	if err != nil {
-		return nil, api.UnwrapError(err)
+	if err := ec.RequireRegionSet(params.Region); err != nil {
+		merr = merr.Append(err)
 	}
 
-	return res.Payload, nil
+	return merr.ErrorOrNil()
 }
 
 // List lists all stackpacks in the current installation
@@ -58,6 +61,7 @@ func List(params ListParams) (*models.StackVersionConfigs, error) {
 
 	res, err := params.API.V1API.Stack.GetVersionStacks(
 		stack.NewGetVersionStacksParams().
+			WithContext(api.WithRegion(context.Background(), params.Region)).
 			WithShowDeleted(ec.Bool(params.Deleted)),
 		params.AuthWriter,
 	)
@@ -71,50 +75,6 @@ func List(params ListParams) (*models.StackVersionConfigs, error) {
 	})
 
 	return res.Payload, nil
-}
-
-// Upload uploads a stackpack from a location
-func Upload(params UploadParams) error {
-	if err := params.Validate(); err != nil {
-		return err
-	}
-
-	res, err := params.V1API.Stack.UpdateStackPacks(
-		stack.NewUpdateStackPacksParams().
-			WithFile(runtime.NamedReader("StackPack", params.StackPack)),
-		params.AuthWriter,
-	)
-	if err != nil {
-		return api.UnwrapError(err)
-	}
-
-	var merr = multierror.NewPrefixed("stack upload")
-	for _, e := range res.Payload.Errors {
-		for _, ee := range e.Errors.Errors {
-			// ECE stack packs seem to have a __MACOSX packed file which is
-			// causing the command to return an error. Error thrown is:
-			// This version cannot be parsed: [__MACOSX] because:
-			// Unknown version string: [__MACOSX]
-			if !strings.Contains(*ee.Message, "__MACOSX") {
-				merr = merr.Append(fmt.Errorf("%s: %s", *ee.Code, *ee.Message))
-			}
-		}
-	}
-	return merr.ErrorOrNil()
-}
-
-// Delete deletes a stackpack
-func Delete(params DeleteParams) error {
-	if err := params.Validate(); err != nil {
-		return err
-	}
-	return api.ReturnErrOnly(
-		params.API.V1API.Stack.DeleteVersionStack(
-			stack.NewDeleteVersionStackParams().
-				WithVersion(params.Version),
-			params.AuthWriter,
-		),
-	)
 }
 
 func compareVersions(version1, version2 string) bool {

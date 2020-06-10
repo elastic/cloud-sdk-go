@@ -18,64 +18,32 @@
 package stackapi
 
 import (
+	"context"
 	"errors"
+	"fmt"
 	"io"
 	"strings"
 
-	"github.com/blang/semver"
+	"github.com/go-openapi/runtime"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
+	"github.com/elastic/cloud-sdk-go/pkg/client/stack"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
+	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
-
-// GetParams is consumed by Get
-type GetParams struct {
-	*api.API
-	Version string
-}
-
-// Validate ensures that the parameters are usable by the consuming
-// function
-func (params GetParams) Validate() error {
-	var merr = multierror.NewPrefixed("stack get")
-	if params.API == nil {
-		merr = merr.Append(apierror.ErrMissingAPI)
-	}
-
-	if _, e := semver.Parse(params.Version); e != nil {
-		merr = merr.Append(errors.New(strings.ToLower(e.Error())))
-	}
-
-	return merr.ErrorOrNil()
-}
-
-// ListParams is consumed by List
-type ListParams struct {
-	*api.API
-	Deleted bool
-}
-
-// Validate ensures that the parameters are usable by the consuming
-// function
-func (params ListParams) Validate() error {
-	if params.API == nil {
-		return apierror.ErrMissingAPI
-	}
-
-	return nil
-}
 
 // UploadParams is consumed by Upload
 type UploadParams struct {
 	*api.API
+	Region    string
 	StackPack io.Reader
 }
 
 // Validate ensures that the parameters are usable by the consuming
 // function
 func (params UploadParams) Validate() error {
-	var merr = multierror.NewPrefixed("stack upload")
+	var merr = multierror.NewPrefixed("invalid stack upload params")
 	if params.API == nil {
 		merr = merr.Append(apierror.ErrMissingAPI)
 	}
@@ -84,26 +52,40 @@ func (params UploadParams) Validate() error {
 		merr = merr.Append(errors.New("stackpack cannot be empty"))
 	}
 
+	if err := ec.RequireRegionSet(params.Region); err != nil {
+		merr = merr.Append(err)
+	}
+
 	return merr.ErrorOrNil()
 }
 
-// DeleteParams is consumed by Delete
-type DeleteParams struct {
-	*api.API
-	Version string
-}
-
-// Validate ensures that the parameters are usable by the consuming
-// function
-func (params DeleteParams) Validate() error {
-	var merr = multierror.NewPrefixed("stack delete")
-	if params.API == nil {
-		merr = merr.Append(apierror.ErrMissingAPI)
+// Upload uploads a stackpack from a location
+func Upload(params UploadParams) error {
+	if err := params.Validate(); err != nil {
+		return err
 	}
 
-	if _, e := semver.Parse(params.Version); e != nil {
-		merr = merr.Append(errors.New(strings.ToLower(e.Error())))
+	res, err := params.V1API.Stack.UpdateStackPacks(
+		stack.NewUpdateStackPacksParams().
+			WithContext(api.WithRegion(context.Background(), params.Region)).
+			WithFile(runtime.NamedReader("StackPack", params.StackPack)),
+		params.AuthWriter,
+	)
+	if err != nil {
+		return api.UnwrapError(err)
 	}
 
+	var merr = multierror.NewPrefixed("stack upload")
+	for _, e := range res.Payload.Errors {
+		for _, ee := range e.Errors.Errors {
+			// ECE stack packs seem to have a __MACOSX packed file which is
+			// causing the command to return an error. Error thrown is:
+			// This version cannot be parsed: [__MACOSX] because:
+			// Unknown version string: [__MACOSX]
+			if !strings.Contains(*ee.Message, "__MACOSX") {
+				merr = merr.Append(fmt.Errorf("%s: %s", *ee.Code, *ee.Message))
+			}
+		}
+	}
 	return merr.ErrorOrNil()
 }
