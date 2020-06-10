@@ -18,27 +18,56 @@
 package constructorapi
 
 import (
+	"context"
+
 	"github.com/elastic/cloud-sdk-go/pkg/api"
+	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/client/platform_infrastructure"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
+	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
 // ResyncParams is consumed by Resync
 type ResyncParams struct {
 	*api.API
-	ID string
+	ID     string
+	Region string
+}
+
+// ResyncAllParams is consumed by ResyncAll
+type ResyncAllParams struct {
+	*api.API
+	Region string
 }
 
 // Validate ensures the parameters are usable by the consuming function.
 func (params ResyncParams) Validate() error {
-	var merr = multierror.NewPrefixed("constructor resync")
+	var merr = multierror.NewPrefixed("invalid constructor resync params")
 	if params.API == nil {
-		merr = merr.Append(errAPICannotBeNil)
+		merr = merr.Append(apierror.ErrMissingAPI)
 	}
 
 	if params.ID == "" {
 		merr = merr.Append(errIDCannotBeEmpty)
+	}
+
+	if err := ec.RequireRegionSet(params.Region); err != nil {
+		merr = merr.Append(err)
+	}
+
+	return merr.ErrorOrNil()
+}
+
+// Validate ensures the parameters are usable by the consuming function.
+func (params ResyncAllParams) Validate() error {
+	var merr = multierror.NewPrefixed("invalid constructor resync all params")
+	if params.API == nil {
+		merr = merr.Append(apierror.ErrMissingAPI)
+	}
+
+	if err := ec.RequireRegionSet(params.Region); err != nil {
+		merr = merr.Append(err)
 	}
 
 	return merr.ErrorOrNil()
@@ -54,6 +83,7 @@ func Resync(params ResyncParams) error {
 	return api.ReturnErrOnly(
 		params.API.V1API.PlatformInfrastructure.ResyncConstructor(
 			platform_infrastructure.NewResyncConstructorParams().
+				WithContext(api.WithRegion(context.Background(), params.Region)).
 				WithConstructorID(params.ID),
 			params.API.AuthWriter,
 		),
@@ -61,13 +91,14 @@ func Resync(params ResyncParams) error {
 }
 
 // ResyncAll asynchronously resynchronizes the search index for all constructors.
-func ResyncAll(params Params) (*models.ModelVersionIndexSynchronizationResults, error) {
+func ResyncAll(params ResyncAllParams) (*models.ModelVersionIndexSynchronizationResults, error) {
 	if err := params.Validate(); err != nil {
 		return nil, err
 	}
 
 	res, err := params.API.V1API.PlatformInfrastructure.ResyncConstructors(
-		platform_infrastructure.NewResyncConstructorsParams(),
+		platform_infrastructure.NewResyncConstructorsParams().
+			WithContext(api.WithRegion(context.Background(), params.Region)),
 		params.API.AuthWriter,
 	)
 	if err != nil {
