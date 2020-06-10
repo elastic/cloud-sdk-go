@@ -26,10 +26,27 @@ import (
 )
 
 var (
-	defaultMockSchema = "https"
-	defaultMockHost   = "mock.elastic.co"
+	// DefaultWriteMockHeaders can be used for test assertions.
+	DefaultWriteMockHeaders = map[string][]string{
+		"Accept":        {"application/json"},
+		"Authorization": {"ApiKey dummy"},
+		"Content-Type":  {"application/json"},
+		"User-Agent":    {fmt.Sprint("cloud-sdk-go/", Version)},
+	}
 
-	mockSchemaHost = fmt.Sprintf("%s://%s", defaultMockSchema, defaultMockHost)
+	// DefaultReadMockHeaders can be used for test assertions.
+	DefaultReadMockHeaders = map[string][]string{
+		"Accept":        {"application/json"},
+		"Authorization": {"ApiKey dummy"},
+		"User-Agent":    {fmt.Sprint("cloud-sdk-go/", Version)},
+	}
+
+	// DefaultMockHost can be used for test assertions
+	DefaultMockHost = "mock.elastic.co"
+
+	defaultMockSchema = "https"
+
+	mockSchemaHost = fmt.Sprintf("%s://%s", defaultMockSchema, DefaultMockHost)
 )
 
 // NewMock creates a new api.API from a list of Responses. Defaults to a dummy
