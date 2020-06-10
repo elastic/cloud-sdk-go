@@ -18,20 +18,24 @@
 package stackapi
 
 import (
+	"context"
 	"errors"
-	"io"
 	"strings"
 
 	"github.com/blang/semver"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
+	"github.com/elastic/cloud-sdk-go/pkg/client/stack"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
+	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
 // GetParams is consumed by Get
 type GetParams struct {
 	*api.API
+	Region  string
 	Version string
 }
 
@@ -43,62 +47,8 @@ func (params GetParams) Validate() error {
 		merr = merr.Append(apierror.ErrMissingAPI)
 	}
 
-	if _, e := semver.Parse(params.Version); e != nil {
-		merr = merr.Append(errors.New(strings.ToLower(e.Error())))
-	}
-
-	return merr.ErrorOrNil()
-}
-
-// ListParams is consumed by List
-type ListParams struct {
-	*api.API
-	Deleted bool
-}
-
-// Validate ensures that the parameters are usable by the consuming
-// function
-func (params ListParams) Validate() error {
-	if params.API == nil {
-		return apierror.ErrMissingAPI
-	}
-
-	return nil
-}
-
-// UploadParams is consumed by Upload
-type UploadParams struct {
-	*api.API
-	StackPack io.Reader
-}
-
-// Validate ensures that the parameters are usable by the consuming
-// function
-func (params UploadParams) Validate() error {
-	var merr = multierror.NewPrefixed("stack upload")
-	if params.API == nil {
-		merr = merr.Append(apierror.ErrMissingAPI)
-	}
-
-	if params.StackPack == nil {
-		merr = merr.Append(errors.New("stackpack cannot be empty"))
-	}
-
-	return merr.ErrorOrNil()
-}
-
-// DeleteParams is consumed by Delete
-type DeleteParams struct {
-	*api.API
-	Version string
-}
-
-// Validate ensures that the parameters are usable by the consuming
-// function
-func (params DeleteParams) Validate() error {
-	var merr = multierror.NewPrefixed("stack delete")
-	if params.API == nil {
-		merr = merr.Append(apierror.ErrMissingAPI)
+	if err := ec.RequireRegionSet(params.Region); err != nil {
+		merr = merr.Append(err)
 	}
 
 	if _, e := semver.Parse(params.Version); e != nil {
@@ -106,4 +56,23 @@ func (params DeleteParams) Validate() error {
 	}
 
 	return merr.ErrorOrNil()
+}
+
+// Get obtains a stackpack to the current installation
+func Get(params GetParams) (*models.StackVersionConfig, error) {
+	if err := params.Validate(); err != nil {
+		return nil, err
+	}
+
+	res, err := params.API.V1API.Stack.GetVersionStack(
+		stack.NewGetVersionStackParams().
+			WithContext(api.WithRegion(context.Background(), params.Region)).
+			WithVersion(params.Version),
+		params.AuthWriter,
+	)
+	if err != nil {
+		return nil, api.UnwrapError(err)
+	}
+
+	return res.Payload, nil
 }
