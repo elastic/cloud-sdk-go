@@ -23,9 +23,8 @@ import (
 	"testing"
 	"time"
 
-	multierror "github.com/hashicorp/go-multierror"
-
 	"github.com/elastic/cloud-sdk-go/pkg/api"
+	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	"github.com/elastic/cloud-sdk-go/pkg/output"
 	"github.com/elastic/cloud-sdk-go/pkg/sync/pool"
 	"github.com/elastic/cloud-sdk-go/pkg/util"
@@ -38,6 +37,7 @@ func TestVacateParamsValidate(t *testing.T) {
 		PreferredAllocators []string
 		ClusterFilter       []string
 		KindFilter          string
+		Region              string
 		PoolTimeout         pool.Timeout
 		API                 *api.API
 		Output              *output.Device
@@ -58,6 +58,7 @@ func TestVacateParamsValidate(t *testing.T) {
 				Allocators:  []string{"an allocator"},
 				Concurrency: 1,
 				Output:      new(output.Device),
+				Region:      "us-east-1",
 			},
 			err: nil,
 		},
@@ -69,6 +70,7 @@ func TestVacateParamsValidate(t *testing.T) {
 				KindFilter:  "elasticsearch",
 				Concurrency: 1,
 				Output:      new(output.Device),
+				Region:      "us-east-1",
 			},
 			err: nil,
 		},
@@ -80,6 +82,7 @@ func TestVacateParamsValidate(t *testing.T) {
 				KindFilter:  "kibana",
 				Concurrency: 1,
 				Output:      new(output.Device),
+				Region:      "us-east-1",
 			},
 			err: nil,
 		},
@@ -91,20 +94,20 @@ func TestVacateParamsValidate(t *testing.T) {
 				KindFilter:  util.Apm,
 				Concurrency: 1,
 				Output:      new(output.Device),
+				Region:      "us-east-1",
 			},
 			err: nil,
 		},
 		{
 			name:   "Empty parameters are not accepted",
 			fields: fields{},
-			err: &multierror.Error{
-				Errors: []error{
-					errAPIMustNotBeNil,
-					errMustSpecifyAtLeast1Allocator,
-					errConcurrencyCannotBeZero,
-					errOutputDeviceCannotBeNil,
-				},
-			},
+			err: multierror.NewPrefixed("invalid allocator vacate params",
+				errAPIMustNotBeNil,
+				errMustSpecifyAtLeast1Allocator,
+				errConcurrencyCannotBeZero,
+				errOutputDeviceCannotBeNil,
+				errors.New("region not specified and is required for this operation"),
+			),
 		},
 		{
 			name: "Cluster filter is invalid",
@@ -114,12 +117,11 @@ func TestVacateParamsValidate(t *testing.T) {
 				ClusterFilter: []string{"something"},
 				Concurrency:   1,
 				Output:        new(output.Device),
+				Region:        "us-east-1",
 			},
-			err: &multierror.Error{
-				Errors: []error{
-					errors.New(`cluster filter: id "something" is invalid, must be 32 characters long`),
-				},
-			},
+			err: multierror.NewPrefixed("invalid allocator vacate params",
+				errors.New(`cluster filter: id "something" is invalid, must be 32 characters long`),
+			),
 		},
 		{
 			name: "Invalid combination of cluster filter and kind filter",
@@ -130,12 +132,11 @@ func TestVacateParamsValidate(t *testing.T) {
 				KindFilter:    "elasticsearch",
 				Concurrency:   1,
 				Output:        new(output.Device),
+				Region:        "us-east-1",
 			},
-			err: &multierror.Error{
-				Errors: []error{
-					errors.New(`only one of "clusters" or "kind" can be specified`),
-				},
-			},
+			err: multierror.NewPrefixed("invalid allocator vacate params",
+				errors.New(`only one of "clusters" or "kind" can be specified`),
+			),
 		},
 		{
 			name: "Invalid combination of allocatorDown and multiple allocators",
@@ -145,12 +146,11 @@ func TestVacateParamsValidate(t *testing.T) {
 				AllocatorDown: ec.Bool(true),
 				Concurrency:   1,
 				Output:        new(output.Device),
+				Region:        "us-east-1",
 			},
-			err: &multierror.Error{
-				Errors: []error{
-					errors.New(`cannot set the AllocatorDown when multiple allocators are specified`),
-				},
-			},
+			err: multierror.NewPrefixed("invalid allocator vacate params",
+				errors.New(`cannot set the AllocatorDown when multiple allocators are specified`),
+			),
 		},
 	}
 	for _, tt := range tests {
@@ -160,6 +160,7 @@ func TestVacateParamsValidate(t *testing.T) {
 				Allocators:          tt.fields.Allocators,
 				PreferredAllocators: tt.fields.PreferredAllocators,
 				ClusterFilter:       tt.fields.ClusterFilter,
+				Region:              tt.fields.Region,
 				KindFilter:          tt.fields.KindFilter,
 				Concurrency:         tt.fields.Concurrency,
 				Output:              tt.fields.Output,

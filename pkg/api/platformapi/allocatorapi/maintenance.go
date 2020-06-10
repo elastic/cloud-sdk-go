@@ -18,32 +18,31 @@
 package allocatorapi
 
 import (
-	"github.com/go-openapi/strfmt"
+	"context"
+	"errors"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/client/platform_infrastructure"
-	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
-// SearchParams contains parameters used to search allocator's data using Query DSL
-type SearchParams struct {
-	Request models.SearchRequest
+// MaintenanceParams is used to set / unset maintenance mode
+type MaintenanceParams struct {
 	*api.API
+	ID     string
 	Region string
 }
 
-// Validate validates SearchParams
-func (params SearchParams) Validate() error {
-	var merr = multierror.NewPrefixed("invalid allocator search params")
+// Validate ensures that the parameters are correct
+func (params MaintenanceParams) Validate() error {
+	var merr = multierror.NewPrefixed("invalid allocator maintenance params")
 	if params.API == nil {
 		merr = merr.Append(apierror.ErrMissingAPI)
 	}
-
-	if err := params.Request.Validate(strfmt.Default); err != nil {
-		merr = merr.Append(err)
+	if params.ID == "" {
+		merr = merr.Append(errors.New("id cannot be empty"))
 	}
 
 	if err := ec.RequireRegionSet(params.Region); err != nil {
@@ -53,19 +52,34 @@ func (params SearchParams) Validate() error {
 	return merr.ErrorOrNil()
 }
 
-// Search searches all the allocators using Query DSL
-func Search(params SearchParams) (*models.AllocatorOverview, error) {
+// StartMaintenance sets an allocator to maintenance mode
+func StartMaintenance(params MaintenanceParams) error {
 	if err := params.Validate(); err != nil {
-		return nil, err
+		return err
 	}
 
-	res, err := params.API.V1API.PlatformInfrastructure.SearchAllocators(
-		platform_infrastructure.NewSearchAllocatorsParams().
-			WithBody(&params.Request),
-		params.AuthWriter,
+	return api.ReturnErrOnly(
+		params.API.V1API.PlatformInfrastructure.StartAllocatorMaintenanceMode(
+			platform_infrastructure.NewStartAllocatorMaintenanceModeParams().
+				WithContext(api.WithRegion(context.Background(), params.Region)).
+				WithAllocatorID(params.ID),
+			params.AuthWriter,
+		),
 	)
-	if err != nil {
-		return nil, api.UnwrapError(err)
+}
+
+// StopMaintenance unsets an allocator to maintenance mode
+func StopMaintenance(params MaintenanceParams) error {
+	if err := params.Validate(); err != nil {
+		return err
 	}
-	return res.Payload, nil
+
+	return api.ReturnErrOnly(
+		params.API.V1API.PlatformInfrastructure.StopAllocatorMaintenanceMode(
+			platform_infrastructure.NewStopAllocatorMaintenanceModeParams().
+				WithContext(api.WithRegion(context.Background(), params.Region)).
+				WithAllocatorID(params.ID),
+			params.AuthWriter,
+		),
+	)
 }

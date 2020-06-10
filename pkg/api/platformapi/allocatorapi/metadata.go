@@ -18,35 +18,44 @@
 package allocatorapi
 
 import (
+	"context"
 	"errors"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/client/platform_infrastructure"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/multierror"
+	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
 // MetadataSetParams is is used to set a single allocator metadata key
 type MetadataSetParams struct {
 	*api.API
 	ID, Key, Value string
+	Region         string
 }
 
 // Validate ensures that the parameters are correct
 func (params MetadataSetParams) Validate() error {
+	var merr = multierror.NewPrefixed("invalid allocator metadata set params")
 	if params.API == nil {
-		return apierror.ErrMissingAPI
+		merr = merr.Append(apierror.ErrMissingAPI)
 	}
 	if params.ID == "" {
-		return errors.New("allocator metadata: id cannot be empty")
+		merr = merr.Append(errors.New("id cannot be empty"))
 	}
 	if params.Key == "" {
-		return errors.New("allocator metadata: key cannot be empty")
+		merr = merr.Append(errors.New("key cannot be empty"))
 	}
 	if params.Value == "" {
-		return errors.New("allocator metadata: key value cannot be empty")
+		merr = merr.Append(errors.New("key value cannot be empty"))
 	}
-	return nil
+	if err := ec.RequireRegionSet(params.Region); err != nil {
+		merr = merr.Append(err)
+	}
+
+	return merr.ErrorOrNil()
 }
 
 // SetAllocatorMetadataItem sets a single metadata item to a given allocators metadata
@@ -55,39 +64,41 @@ func SetAllocatorMetadataItem(params MetadataSetParams) error {
 		return err
 	}
 
-	_, err := params.API.V1API.PlatformInfrastructure.SetAllocatorMetadataItem(
-		platform_infrastructure.NewSetAllocatorMetadataItemParams().
-			WithAllocatorID(params.ID).
-			WithKey(params.Key).
-			WithBody(&models.MetadataItemValue{Value: &params.Value}),
-		params.AuthWriter,
+	return api.ReturnErrOnly(
+		params.API.V1API.PlatformInfrastructure.SetAllocatorMetadataItem(
+			platform_infrastructure.NewSetAllocatorMetadataItemParams().
+				WithContext(api.WithRegion(context.Background(), params.Region)).
+				WithAllocatorID(params.ID).
+				WithKey(params.Key).
+				WithBody(&models.MetadataItemValue{Value: &params.Value}),
+			params.AuthWriter,
+		),
 	)
-
-	if err != nil {
-		return api.UnwrapError(err)
-	}
-
-	return nil
 }
 
 // MetadataDeleteParams is used to delete a single metadata key
 type MetadataDeleteParams struct {
 	*api.API
 	ID, Key string
+	Region  string
 }
 
 // Validate ensures that the parameters are correct
 func (params MetadataDeleteParams) Validate() error {
+	var merr = multierror.NewPrefixed("invalid allocator metadata delete params")
 	if params.API == nil {
-		return apierror.ErrMissingAPI
+		merr = merr.Append(apierror.ErrMissingAPI)
 	}
 	if params.ID == "" {
-		return errors.New("allocator metadata: id cannot be empty")
+		merr = merr.Append(errors.New("id cannot be empty"))
 	}
 	if params.Key == "" {
-		return errors.New("allocator metadata: key cannot be empty")
+		merr = merr.Append(errors.New("key cannot be empty"))
 	}
-	return nil
+	if err := ec.RequireRegionSet(params.Region); err != nil {
+		merr = merr.Append(err)
+	}
+	return merr.ErrorOrNil()
 }
 
 // DeleteAllocatorMetadataItem delete a single metadata item to a given allocators metadata
@@ -96,35 +107,37 @@ func DeleteAllocatorMetadataItem(params MetadataDeleteParams) error {
 		return err
 	}
 
-	_, err := params.API.V1API.PlatformInfrastructure.DeleteAllocatorMetadataItem(
-		platform_infrastructure.NewDeleteAllocatorMetadataItemParams().
-			WithAllocatorID(params.ID).
-			WithKey(params.Key),
-		params.AuthWriter,
+	return api.ReturnErrOnly(
+		params.API.V1API.PlatformInfrastructure.DeleteAllocatorMetadataItem(
+			platform_infrastructure.NewDeleteAllocatorMetadataItemParams().
+				WithContext(api.WithRegion(context.Background(), params.Region)).
+				WithAllocatorID(params.ID).
+				WithKey(params.Key),
+			params.AuthWriter,
+		),
 	)
-
-	if err != nil {
-		return api.UnwrapError(err)
-	}
-
-	return nil
 }
 
 // MetadataGetParams is used to retrieve allocator metadata
 type MetadataGetParams struct {
 	*api.API
-	ID string
+	ID     string
+	Region string
 }
 
 // Validate ensures that the parameters are correct
 func (params MetadataGetParams) Validate() error {
+	var merr = multierror.NewPrefixed("invalid allocator metadata get params")
 	if params.API == nil {
-		return apierror.ErrMissingAPI
+		merr = merr.Append(apierror.ErrMissingAPI)
 	}
 	if params.ID == "" {
-		return errors.New("allocator metadata: id cannot be empty")
+		merr = merr.Append(errors.New("id cannot be empty"))
 	}
-	return nil
+	if err := ec.RequireRegionSet(params.Region); err != nil {
+		merr = merr.Append(err)
+	}
+	return merr.ErrorOrNil()
 }
 
 // GetAllocatorMetadata Retrieves the metadata for a given allocator
@@ -135,6 +148,7 @@ func GetAllocatorMetadata(params MetadataGetParams) ([]*models.MetadataItem, err
 
 	res, err := params.API.V1API.PlatformInfrastructure.GetAllocatorMetadata(
 		platform_infrastructure.NewGetAllocatorMetadataParams().
+			WithContext(api.WithRegion(context.Background(), params.Region)).
 			WithAllocatorID(params.ID),
 		params.AuthWriter,
 	)

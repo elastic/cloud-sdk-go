@@ -18,6 +18,7 @@
 package allocatorapi
 
 import (
+	"errors"
 	"net/http"
 	"os"
 	"regexp"
@@ -29,6 +30,7 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	"github.com/elastic/cloud-sdk-go/pkg/output"
 	sdkSync "github.com/elastic/cloud-sdk-go/pkg/sync"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
@@ -50,6 +52,7 @@ func TestVacate(t *testing.T) {
 			args: args{
 				buf: sdkSync.NewBuffer(),
 				params: newVacateTestCase(t, vacateCase{
+					region: "us-east-1",
 					topology: []vacateCaseClusters{
 						{
 							Allocator: "allocatorID",
@@ -83,6 +86,7 @@ func TestVacate(t *testing.T) {
 			args: args{
 				buf: sdkSync.NewBuffer(),
 				params: newVacateTestCase(t, vacateCase{
+					region: "us-east-1",
 					topology: []vacateCaseClusters{
 						{
 							Allocator: "allocatorID",
@@ -116,6 +120,7 @@ func TestVacate(t *testing.T) {
 			args: args{
 				buf: sdkSync.NewBuffer(),
 				params: newVacateTestCase(t, vacateCase{
+					region: "us-east-1",
 					topology: []vacateCaseClusters{
 						{
 							Allocator: "allocatorID",
@@ -149,6 +154,7 @@ func TestVacate(t *testing.T) {
 			args: args{
 				buf: sdkSync.NewBuffer(),
 				params: newVacateTestCase(t, vacateCase{
+					region:       "us-east-1",
 					skipTracking: true,
 					topology: []vacateCaseClusters{
 						{
@@ -179,6 +185,7 @@ func TestVacate(t *testing.T) {
 			args: args{
 				buf: sdkSync.NewBuffer(),
 				params: newVacateTestCase(t, vacateCase{
+					region: "us-east-1",
 					topology: []vacateCaseClusters{
 						{
 							Allocator: "allocatorID",
@@ -211,7 +218,7 @@ func TestVacate(t *testing.T) {
 			name: "Succeeds moving a multiple clusters from a single allocator",
 			args: args{
 				buf: sdkSync.NewBuffer(),
-				params: newVacateTestCase(t, vacateCase{topology: []vacateCaseClusters{
+				params: newVacateTestCase(t, vacateCase{region: "us-east-1", topology: []vacateCaseClusters{
 					{
 						Allocator: "allocatorID",
 						elasticsearch: []vacateCaseClusterConfig{
@@ -257,10 +264,10 @@ func TestVacate(t *testing.T) {
 			),
 		},
 		{
-			name: "Succeeds moving multiple clusters from a multiple allocators",
+			name: "Succeeds moving multiple clusters from multiple allocators",
 			args: args{
 				buf: sdkSync.NewBuffer(),
-				params: newVacateTestCase(t, vacateCase{topology: []vacateCaseClusters{
+				params: newVacateTestCase(t, vacateCase{region: "us-east-1", topology: []vacateCaseClusters{
 					{
 						Allocator: "allocatorID-1",
 						elasticsearch: []vacateCaseClusterConfig{
@@ -345,10 +352,10 @@ func TestVacate(t *testing.T) {
 			),
 		},
 		{
-			name: "Moving multiple clusters from a multiple allocators that contain track failures",
+			name: "Moving multiple clusters from multiple allocators that contain track failures",
 			args: args{
 				buf: sdkSync.NewBuffer(),
-				params: newVacateTestCase(t, vacateCase{topology: []vacateCaseClusters{
+				params: newVacateTestCase(t, vacateCase{region: "us-east-1", topology: []vacateCaseClusters{
 					{
 						Allocator: "allocatorID-1",
 						elasticsearch: []vacateCaseClusterConfig{
@@ -447,10 +454,10 @@ func TestVacate(t *testing.T) {
 `,
 		},
 		{
-			name: "Moving multiple clusters from a multiple allocators that fail to move",
+			name: "Moving multiple clusters from multiple allocators that fail to move",
 			args: args{
 				buf: sdkSync.NewBuffer(),
-				params: newVacateTestCase(t, vacateCase{topology: []vacateCaseClusters{
+				params: newVacateTestCase(t, vacateCase{region: "us-east-1", topology: []vacateCaseClusters{
 					{
 						Allocator: "allocatorID-1",
 						elasticsearch: []vacateCaseClusterConfig{
@@ -534,7 +541,7 @@ func TestVacate(t *testing.T) {
 				"Deployment [DISCOVERED_DEPLOYMENT_ID] - [Kibana][4ee11eb40eda22cac0cce259625c6734]: running step \"step2\" (Plan duration )...",
 				"\x1b[92;mDeployment [DISCOVERED_DEPLOYMENT_ID] - [Kibana][4ee11eb40eda22cac0cce259625c6734]: finished running all the plan steps\x1b[0m (Total plan duration )",
 			),
-			err: `2 errors occurred:
+			err: `vacate error: 2 errors occurred:
 	* resource id [3ee11eb40eda22cac0cce259625c6734][elasticsearch] failed vacating, reason: code: a code, message: a message
 	* deployment [DISCOVERED_DEPLOYMENT_ID] - [elasticsearch][5ee11eb40eda22cac0cce259625c6734]: caught error: "Unexpected error during step: [perform-snapshot]: [no.found.constructor.models.TimeoutException: Timeout]"
 
@@ -547,6 +554,7 @@ func TestVacate(t *testing.T) {
 				params: &VacateParams{
 					Allocators:     []string{"allocatorID"},
 					Concurrency:    1,
+					Region:         "us-east-1",
 					MaxPollRetries: 1,
 					TrackFrequency: time.Nanosecond,
 					API: api.NewMock(mock.Response{Response: http.Response{
@@ -555,10 +563,9 @@ func TestVacate(t *testing.T) {
 					}}),
 				},
 			},
-			err: `1 error occurred:
-	* resource id [3ee11eb40eda22cac0cce259625c6734][kibana] failed vacating, reason: code: some code, message: failed for reason
-
-`,
+			err: multierror.NewPrefixed("vacate error",
+				errors.New("allocator allocatorID: vacate error: resource id [3ee11eb40eda22cac0cce259625c6734][kibana] failed vacating, reason: code: some code, message: failed for reason"),
+			).Error(),
 		},
 	}
 	for _, tt := range tests {
@@ -597,7 +604,7 @@ func TestVacateInterrupt(t *testing.T) {
 		{
 			name: "Interrupts the vacate",
 			args: args{
-				params: newVacateTestCase(t, vacateCase{topology: []vacateCaseClusters{
+				params: newVacateTestCase(t, vacateCase{region: "us-east-1", topology: []vacateCaseClusters{
 					{
 						Allocator: "allocatorID",
 						elasticsearch: []vacateCaseClusterConfig{
@@ -666,10 +673,9 @@ func TestVacateInterrupt(t *testing.T) {
 				"Deployment [DISCOVERED_DEPLOYMENT_ID] - [Elasticsearch][3ee11eb40eda22cac0cce259625c6734]: running step \"step4\" (Plan duration )...",
 				"\x1b[92;mDeployment [DISCOVERED_DEPLOYMENT_ID] - [Elasticsearch][3ee11eb40eda22cac0cce259625c6734]: finished running all the plan steps\x1b[0m (Total plan duration )",
 			),
-			err: `1 error occurred:
-	* allocator allocatorID: resource id [2ee11eb40eda22cac0cce259625c6734][kibana]: was either cancelled or not processed, follow up accordingly
-
-`,
+			err: multierror.NewPrefixed("vacate error",
+				errors.New("allocator allocatorID: resource id [2ee11eb40eda22cac0cce259625c6734][kibana]: was either cancelled or not processed, follow up accordingly"),
+			).Error(),
 		},
 	}
 	for _, tt := range tests {

@@ -22,14 +22,14 @@ import (
 	"fmt"
 	"time"
 
-	multierror "github.com/hashicorp/go-multierror"
-
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	"github.com/elastic/cloud-sdk-go/pkg/output"
 	"github.com/elastic/cloud-sdk-go/pkg/sync/pool"
 	"github.com/elastic/cloud-sdk-go/pkg/util"
+	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 	"github.com/elastic/cloud-sdk-go/pkg/util/slice"
 )
 
@@ -48,6 +48,8 @@ var (
 //nolint
 type VacateParams struct {
 	*api.API
+
+	Region string
 
 	// List of allocators that will be marked to be vacated.
 	Allocators []string
@@ -103,41 +105,44 @@ type VacateParams struct {
 
 // Validate validates the parameters
 func (params VacateParams) Validate() error {
-	var err = new(multierror.Error)
-
+	var merr = multierror.NewPrefixed("invalid allocator vacate params")
 	if params.API == nil {
-		err = multierror.Append(err, errAPIMustNotBeNil)
+		merr = merr.Append(errAPIMustNotBeNil)
 	}
 
 	if len(params.Allocators) == 0 {
-		err = multierror.Append(err, errMustSpecifyAtLeast1Allocator)
+		merr = merr.Append(errMustSpecifyAtLeast1Allocator)
 	}
 
 	if len(params.ClusterFilter) > 0 && len(params.KindFilter) > 0 {
-		err = multierror.Append(err, errCannotFilterByIDAndKind)
+		merr = merr.Append(errCannotFilterByIDAndKind)
 	}
 
 	if params.Concurrency == 0 {
-		err = multierror.Append(err, errConcurrencyCannotBeZero)
+		merr = merr.Append(errConcurrencyCannotBeZero)
 	}
 
 	for i := range params.ClusterFilter {
 		if len(params.ClusterFilter[i]) != 32 {
-			err = multierror.Append(err, fmt.Errorf(
+			merr = merr.Append(fmt.Errorf(
 				"cluster filter: id \"%s\" is invalid, must be 32 characters long", params.ClusterFilter[i],
 			))
 		}
 	}
 
 	if params.Output == nil {
-		err = multierror.Append(err, errOutputDeviceCannotBeNil)
+		merr = merr.Append(errOutputDeviceCannotBeNil)
 	}
 
 	if params.AllocatorDown != nil && len(params.Allocators) > 1 {
-		err = multierror.Append(err, errCannotOverrideAllocatorDown)
+		merr = merr.Append(errCannotOverrideAllocatorDown)
 	}
 
-	return err.ErrorOrNil()
+	if err := ec.RequireRegionSet(params.Region); err != nil {
+		merr = merr.Append(err)
+	}
+
+	return merr.ErrorOrNil()
 }
 
 // VacateClusterParams is used by VacateCluster to move a cluster node
@@ -147,6 +152,7 @@ type VacateClusterParams struct {
 	ClusterFilter       []string
 	// Plan body overrides to place in all of the vacate clusters.
 	PlanOverrides
+	Region    string
 	ID        string
 	ClusterID string
 	Kind      string
@@ -162,34 +168,38 @@ type VacateClusterParams struct {
 
 // Validate validates the parameters
 func (params VacateClusterParams) Validate() error {
-	var err = new(multierror.Error)
+	var merr = multierror.NewPrefixed("invalid allocator vacate params")
 	if params.API == nil {
-		err = multierror.Append(err, apierror.ErrMissingAPI)
+		merr = merr.Append(apierror.ErrMissingAPI)
 	}
 
 	if params.ID == "" {
-		err = multierror.Append(err,
-			fmt.Errorf("vacate cluster: invalid allocator ID %s", params.ID),
+		merr = merr.Append(
+			fmt.Errorf("invalid allocator ID %s", params.ID),
 		)
 	}
 
 	if len(params.ClusterID) != 32 {
-		err = multierror.Append(err,
-			fmt.Errorf("vacate cluster: invalid cluster ID %s", params.ClusterID),
+		merr = merr.Append(
+			fmt.Errorf("invalid cluster ID %s", params.ClusterID),
 		)
 	}
 
 	if !slice.HasString(allowedClusterKinds, params.Kind) {
-		err = multierror.Append(err,
-			fmt.Errorf("vacate cluster: invalid kind %s", params.Kind),
+		merr = merr.Append(
+			fmt.Errorf("invalid kind %s", params.Kind),
 		)
 	}
 
 	if params.Output == nil {
-		err = multierror.Append(err, errOutputDeviceCannotBeNil)
+		merr = merr.Append(errOutputDeviceCannotBeNil)
 	}
 
-	return err.ErrorOrNil()
+	if err := ec.RequireRegionSet(params.Region); err != nil {
+		merr = merr.Append(err)
+	}
+
+	return merr.ErrorOrNil()
 }
 
 type addAllocatorMovesToPoolParams struct {
