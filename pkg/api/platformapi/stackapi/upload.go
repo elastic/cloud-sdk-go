@@ -24,12 +24,13 @@ import (
 	"io"
 	"strings"
 
+	"github.com/go-openapi/runtime"
+
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/client/stack"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
-	"github.com/go-openapi/runtime"
 )
 
 // UploadParams is consumed by Upload
