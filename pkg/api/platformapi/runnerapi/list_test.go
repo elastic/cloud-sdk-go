@@ -72,7 +72,7 @@ func TestList(t *testing.T) {
 			want: nil,
 			wantErr: &url.Error{
 				Op:  "Get",
-				URL: "https://mock.elastic.co/api/v1/platform/infrastructure/runners",
+				URL: "https://mock.elastic.co/api/v1/regions/platform/infrastructure/runners",
 				Err: errors.New("error"),
 			},
 		},

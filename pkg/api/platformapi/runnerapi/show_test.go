@@ -78,7 +78,7 @@ func TestShow(t *testing.T) {
 			want: nil,
 			wantErr: &url.Error{
 				Op:  "Get",
-				URL: "https://mock.elastic.co/api/v1/platform/infrastructure/runners/192.168.44.10",
+				URL: "https://mock.elastic.co/api/v1/regions/platform/infrastructure/runners/192.168.44.10",
 				Err: errors.New("error"),
 			},
 		},

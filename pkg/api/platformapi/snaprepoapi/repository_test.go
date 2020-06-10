@@ -91,7 +91,7 @@ func TestGet(t *testing.T) {
 			},
 			wantErr: &url.Error{
 				Op:  "Get",
-				URL: "https://mock.elastic.co/api/v1/platform/configuration/snapshots/repositories/my_snapshot_repo",
+				URL: "https://mock.elastic.co/api/v1/regions/platform/configuration/snapshots/repositories/my_snapshot_repo",
 				Err: errors.New("ERROR"),
 			},
 		},
@@ -283,7 +283,7 @@ func TestList(t *testing.T) {
 			},
 			wantErr: &url.Error{
 				Op:  "Get",
-				URL: "https://mock.elastic.co/api/v1/platform/configuration/snapshots/repositories",
+				URL: "https://mock.elastic.co/api/v1/regions/platform/configuration/snapshots/repositories",
 				Err: errors.New("ERROR"),
 			},
 		},

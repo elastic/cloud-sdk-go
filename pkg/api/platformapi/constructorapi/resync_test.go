@@ -77,7 +77,7 @@ func TestResync(t *testing.T) {
 			}},
 			wantErr: &url.Error{
 				Op:  "Post",
-				URL: "https://mock.elastic.co/api/v1/platform/infrastructure/constructors/2c221bd86b7f48959a59ee3128d5c5e8/_resync",
+				URL: "https://mock.elastic.co/api/v1/regions/platform/infrastructure/constructors/2c221bd86b7f48959a59ee3128d5c5e8/_resync",
 				Err: errors.New("error with API"),
 			},
 		},
@@ -136,7 +136,7 @@ func TestResyncAll(t *testing.T) {
 			}},
 			wantErr: &url.Error{
 				Op:  "Post",
-				URL: "https://mock.elastic.co/api/v1/platform/infrastructure/constructors/_resync?skip_matching_version=true",
+				URL: "https://mock.elastic.co/api/v1/regions/platform/infrastructure/constructors/_resync?skip_matching_version=true",
 				Err: errors.New("error with API"),
 			},
 		},

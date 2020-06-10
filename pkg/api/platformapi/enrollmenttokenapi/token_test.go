@@ -86,7 +86,7 @@ func TestCreate(t *testing.T) {
 			}},
 			err: &url.Error{
 				Op:  "Post",
-				URL: "https://mock.elastic.co/api/v1/platform/configuration/security/enrollment-tokens",
+				URL: "https://mock.elastic.co/api/v1/regions/platform/configuration/security/enrollment-tokens",
 				Err: errors.New("error"),
 			},
 		},
@@ -142,7 +142,7 @@ func TestDelete(t *testing.T) {
 			}},
 			err: &url.Error{
 				Op:  "Delete",
-				URL: "https://mock.elastic.co/api/v1/platform/configuration/security/enrollment-tokens/atoken",
+				URL: "https://mock.elastic.co/api/v1/regions/platform/configuration/security/enrollment-tokens/atoken",
 				Err: errors.New("error"),
 			},
 		},
@@ -209,7 +209,7 @@ func TestList(t *testing.T) {
 			}},
 			err: &url.Error{
 				Op:  "Get",
-				URL: "https://mock.elastic.co/api/v1/platform/configuration/security/enrollment-tokens",
+				URL: "https://mock.elastic.co/api/v1/regions/platform/configuration/security/enrollment-tokens",
 				Err: errors.New("error"),
 			},
 		},

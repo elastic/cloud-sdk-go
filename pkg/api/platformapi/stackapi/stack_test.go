@@ -143,7 +143,7 @@ func TestGet(t *testing.T) {
 			}},
 			err: &url.Error{
 				Op:  "Get",
-				URL: "https://mock.elastic.co/api/v1/stack/versions/6.0.0",
+				URL: "https://mock.elastic.co/api/v1/regions/stack/versions/6.0.0",
 				Err: errors.New(`{"error": "some error"}`),
 			},
 		},
@@ -306,7 +306,7 @@ func TestList(t *testing.T) {
 			}},
 			err: &url.Error{
 				Op:  "Get",
-				URL: "https://mock.elastic.co/api/v1/stack/versions?show_deleted=false&show_unusable=false",
+				URL: "https://mock.elastic.co/api/v1/regions/stack/versions?show_deleted=false&show_unusable=false",
 				Err: errors.New(`{"error": "some error"}`),
 			},
 		},
@@ -320,7 +320,7 @@ func TestList(t *testing.T) {
 			}},
 			err: &url.Error{
 				Op:  "Get",
-				URL: "https://mock.elastic.co/api/v1/stack/versions?show_deleted=true&show_unusable=false",
+				URL: "https://mock.elastic.co/api/v1/regions/stack/versions?show_deleted=true&show_unusable=false",
 				Err: errors.New(`{"error": "some error"}`),
 			},
 		},
@@ -376,7 +376,7 @@ func TestUpload(t *testing.T) {
 			}},
 			err: &url.Error{
 				Op:  "Post",
-				URL: "https://mock.elastic.co/api/v1/stack/versions",
+				URL: "https://mock.elastic.co/api/v1/regions/stack/versions",
 				Err: errors.New(`{"error": "some error"}`),
 			},
 		},
@@ -464,7 +464,7 @@ func TestDelete(t *testing.T) {
 			}},
 			err: &url.Error{
 				Op:  "Delete",
-				URL: "https://mock.elastic.co/api/v1/stack/versions/5.6.0",
+				URL: "https://mock.elastic.co/api/v1/regions/stack/versions/5.6.0",
 				Err: errors.New(`{"error": "some error"}`),
 			},
 		},

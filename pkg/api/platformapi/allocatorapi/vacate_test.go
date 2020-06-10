@@ -957,7 +957,7 @@ func Test_fillVacateClusterParams(t *testing.T) {
 					Output:    output.NewDevice(new(bytes.Buffer)),
 				},
 			},
-			err: errors.New(`allocator allocator-1: resource id [3ee11eb40eda22cac0cce259625c6734][elasticsearch]: allocator health autodiscovery: Get https://mock.elastic.co/api/v1/platform/infrastructure/allocators/allocator-1: unauthorized`),
+			err: errors.New(`allocator allocator-1: resource id [3ee11eb40eda22cac0cce259625c6734][elasticsearch]: allocator health autodiscovery: Get https://mock.elastic.co/api/v1/regions/platform/infrastructure/allocators/allocator-1: unauthorized`),
 		},
 		{
 			name: "sets defaults on parameters that aren't specified",
@@ -1057,7 +1057,7 @@ func Test_newMoveClusterParams(t *testing.T) {
 				Kind:      "elasticsearch",
 				Output:    output.NewDevice(new(bytes.Buffer)),
 			}},
-			err: errors.New(`allocator allocator-1: resource id [3ee11eb40eda22cac0cce259625c6734][elasticsearch]: validate_only: Post https://mock.elastic.co/api/v1/platform/infrastructure/allocators/allocator-1/clusters/_move?force_update=false&validate_only=true: unauthorized`),
+			err: errors.New(`allocator allocator-1: resource id [3ee11eb40eda22cac0cce259625c6734][elasticsearch]: validate_only: Post https://mock.elastic.co/api/v1/regions/platform/infrastructure/allocators/allocator-1/clusters/_move?force_update=false&validate_only=true: unauthorized`),
 		},
 		{
 			name: "elasticsearch move succeeds to get parameters",
