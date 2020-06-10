@@ -98,7 +98,7 @@ func TestGet(t *testing.T) {
 		{
 			name: "Get fails due to empty parameters",
 			args: args{params: GetParams{}},
-			err: multierror.NewPrefixed("stack get",
+			err: multierror.NewPrefixed("invalid stack get params",
 				errors.New("api reference is required for the operation"),
 				errors.New("region not specified and is required for this operation"),
 				errors.New("version string empty"),

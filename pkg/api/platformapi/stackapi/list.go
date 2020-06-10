@@ -41,7 +41,7 @@ type ListParams struct {
 // Validate ensures that the parameters are usable by the consuming
 // function
 func (params ListParams) Validate() error {
-	var merr = multierror.NewPrefixed("stack list")
+	var merr = multierror.NewPrefixed("invalid stack list params")
 	if params.API == nil {
 		merr = merr.Append(apierror.ErrMissingAPI)
 	}

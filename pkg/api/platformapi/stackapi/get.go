@@ -42,7 +42,7 @@ type GetParams struct {
 // Validate ensures that the parameters are usable by the consuming
 // function
 func (params GetParams) Validate() error {
-	var merr = multierror.NewPrefixed("stack get")
+	var merr = multierror.NewPrefixed("invalid stack get params")
 	if params.API == nil {
 		merr = merr.Append(apierror.ErrMissingAPI)
 	}

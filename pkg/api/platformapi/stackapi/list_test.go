@@ -183,7 +183,7 @@ func TestList(t *testing.T) {
 		{
 			name: "List fails due to validation",
 			args: args{params: ListParams{}},
-			err: multierror.NewPrefixed("stack list",
+			err: multierror.NewPrefixed("invalid stack list params",
 				errors.New("api reference is required for the operation"),
 				errors.New("region not specified and is required for this operation"),
 			),

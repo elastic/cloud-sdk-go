@@ -43,7 +43,7 @@ type UploadParams struct {
 // Validate ensures that the parameters are usable by the consuming
 // function
 func (params UploadParams) Validate() error {
-	var merr = multierror.NewPrefixed("stack upload")
+	var merr = multierror.NewPrefixed("invalid stack upload params")
 	if params.API == nil {
 		merr = merr.Append(apierror.ErrMissingAPI)
 	}

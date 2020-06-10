@@ -41,7 +41,7 @@ type DeleteParams struct {
 // Validate ensures that the parameters are usable by the consuming
 // function
 func (params DeleteParams) Validate() error {
-	var merr = multierror.NewPrefixed("stack delete")
+	var merr = multierror.NewPrefixed("invalid stack delete params")
 	if params.API == nil {
 		merr = merr.Append(apierror.ErrMissingAPI)
 	}

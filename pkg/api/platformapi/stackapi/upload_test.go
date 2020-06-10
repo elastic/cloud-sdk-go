@@ -75,7 +75,7 @@ func TestUpload(t *testing.T) {
 		{
 			name: "Upload fails due to empty parameters",
 			args: args{params: UploadParams{}},
-			err: multierror.NewPrefixed("stack upload",
+			err: multierror.NewPrefixed("invalid stack upload params",
 				errors.New("api reference is required for the operation"),
 				errors.New("stackpack cannot be empty"),
 				errors.New("region not specified and is required for this operation"),
