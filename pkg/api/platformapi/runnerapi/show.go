@@ -18,26 +18,37 @@
 package runnerapi
 
 import (
+	"context"
+
 	"github.com/elastic/cloud-sdk-go/pkg/api"
+	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/client/platform_infrastructure"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
+	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
 // ShowParams is the set of parameters required for
 type ShowParams struct {
-	Params
-	ID string
+	*api.API
+	Region string
+	ID     string
 }
 
 // Validate checks the parameters
 func (params ShowParams) Validate() error {
-	var merr = multierror.NewPrefixed("runner show")
+	var merr = multierror.NewPrefixed("invalid runner show params")
+	if params.API == nil {
+		merr = merr.Append(apierror.ErrMissingAPI)
+	}
+
 	if params.ID == "" {
 		merr = merr.Append(ErrIDCannotBeEmpty)
 	}
 
-	merr = merr.Append(params.Params.Validate())
+	if err := ec.RequireRegionSet(params.Region); err != nil {
+		merr = merr.Append(err)
+	}
 
 	return merr.ErrorOrNil()
 }
@@ -50,6 +61,7 @@ func Show(params ShowParams) (*models.RunnerInfo, error) {
 
 	res, err := params.API.V1API.PlatformInfrastructure.GetRunner(
 		platform_infrastructure.NewGetRunnerParams().
+			WithContext(api.WithRegion(context.Background(), params.Region)).
 			WithRunnerID(params.ID),
 		params.AuthWriter,
 	)

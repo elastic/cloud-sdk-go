@@ -19,24 +19,7 @@ package runnerapi
 
 import (
 	"errors"
-
-	"github.com/elastic/cloud-sdk-go/pkg/api"
-	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 )
 
 // ErrIDCannotBeEmpty is the message returned when an ID field is empty
 var ErrIDCannotBeEmpty = errors.New("id field cannot be empty")
-
-// Params is the generic set of parameters used for any runner call
-type Params struct {
-	*api.API
-}
-
-// Validate checks the parameters
-func (params Params) Validate() error {
-	if params.API == nil {
-		return apierror.ErrMissingAPI
-	}
-
-	return nil
-}

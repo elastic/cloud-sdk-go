@@ -18,26 +18,37 @@
 package runnerapi
 
 import (
+	"context"
+
 	"github.com/elastic/cloud-sdk-go/pkg/api"
+	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/client/platform_infrastructure"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
+	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
 // ResyncParams is consumed by Resync
 type ResyncParams struct {
-	Params
-	ID string
+	*api.API
+	Region string
+	ID     string
 }
 
 // Validate ensures the parameters are usable by the consuming function.
 func (params ResyncParams) Validate() error {
-	var merr = multierror.NewPrefixed("runner resync")
+	var merr = multierror.NewPrefixed("invalid runner resync params")
+	if params.API == nil {
+		merr = merr.Append(apierror.ErrMissingAPI)
+	}
+
 	if params.ID == "" {
 		merr = merr.Append(ErrIDCannotBeEmpty)
 	}
 
-	merr = merr.Append(params.Params.Validate())
+	if err := ec.RequireRegionSet(params.Region); err != nil {
+		merr = merr.Append(err)
+	}
 
 	return merr.ErrorOrNil()
 }
@@ -52,20 +63,42 @@ func Resync(params ResyncParams) error {
 	return api.ReturnErrOnly(
 		params.API.V1API.PlatformInfrastructure.ResyncRunner(
 			platform_infrastructure.NewResyncRunnerParams().
+				WithContext(api.WithRegion(context.Background(), params.Region)).
 				WithRunnerID(params.ID),
 			params.API.AuthWriter,
 		),
 	)
 }
 
+// ResyncAllParams is consumed by Resync
+type ResyncAllParams struct {
+	*api.API
+	Region string
+}
+
+// Validate ensures the parameters are usable by the consuming function.
+func (params ResyncAllParams) Validate() error {
+	var merr = multierror.NewPrefixed("invalid runner resync all params")
+	if params.API == nil {
+		merr = merr.Append(apierror.ErrMissingAPI)
+	}
+
+	if err := ec.RequireRegionSet(params.Region); err != nil {
+		merr = merr.Append(err)
+	}
+
+	return merr.ErrorOrNil()
+}
+
 // ResyncAll asynchronously resynchronizes the search index for all runners.
-func ResyncAll(params Params) (*models.ModelVersionIndexSynchronizationResults, error) {
+func ResyncAll(params ResyncAllParams) (*models.ModelVersionIndexSynchronizationResults, error) {
 	if err := params.Validate(); err != nil {
 		return nil, err
 	}
 
 	res, err := params.API.V1API.PlatformInfrastructure.ResyncRunners(
-		platform_infrastructure.NewResyncRunnersParams(),
+		platform_infrastructure.NewResyncRunnersParams().
+			WithContext(api.WithRegion(context.Background(), params.Region)),
 		params.API.AuthWriter,
 	)
 	if err != nil {

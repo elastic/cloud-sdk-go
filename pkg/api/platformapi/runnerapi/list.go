@@ -18,19 +18,45 @@
 package runnerapi
 
 import (
+	"context"
+
 	"github.com/elastic/cloud-sdk-go/pkg/api"
+	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/client/platform_infrastructure"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/multierror"
+	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
+// ListParams is the generic set of parameters used for any runner call
+type ListParams struct {
+	*api.API
+	Region string
+}
+
+// Validate checks the parameters
+func (params ListParams) Validate() error {
+	var merr = multierror.NewPrefixed("invalid runner list params")
+	if params.API == nil {
+		merr = merr.Append(apierror.ErrMissingAPI)
+	}
+
+	if err := ec.RequireRegionSet(params.Region); err != nil {
+		merr = merr.Append(err)
+	}
+
+	return merr.ErrorOrNil()
+}
+
 // List gets the list of runners
-func List(params Params) (*models.RunnerOverview, error) {
+func List(params ListParams) (*models.RunnerOverview, error) {
 	if err := params.Validate(); err != nil {
 		return nil, err
 	}
 
 	res, err := params.API.V1API.PlatformInfrastructure.GetRunners(
-		platform_infrastructure.NewGetRunnersParams(),
+		platform_infrastructure.NewGetRunnersParams().
+			WithContext(api.WithRegion(context.Background(), params.Region)),
 		params.AuthWriter,
 	)
 	if err != nil {
