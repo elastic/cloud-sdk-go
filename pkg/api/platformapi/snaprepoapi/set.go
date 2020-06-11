@@ -18,60 +18,59 @@
 package snaprepoapi
 
 import (
+	"context"
+	"errors"
+
 	"github.com/elastic/cloud-sdk-go/pkg/api"
+	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/client/platform_configuration_snapshots"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/multierror"
+	"github.com/elastic/cloud-sdk-go/pkg/util"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
-// Get obtains the specified snapshot repository configuration
-func Get(params GetParams) (*models.RepositoryConfig, error) {
-	if err := params.Validate(); err != nil {
-		return nil, err
-	}
+var (
+	errNameCannotBeEmpty = errors.New("name not specified and is required for this operation")
+	errConfigMustBeSet   = errors.New("config not specified and is required for this operation")
+)
 
-	repo, err := params.V1API.PlatformConfigurationSnapshots.GetSnapshotRepository(
-		platform_configuration_snapshots.NewGetSnapshotRepositoryParams().
-			WithRepositoryName(params.Name),
-		params.AuthWriter,
-	)
-	if err != nil {
-		return nil, api.UnwrapError(err)
-	}
-
-	return repo.Payload, nil
+// SetParams is used for the Set Call, which will create or update a snapshot
+// repository
+type SetParams struct {
+	*api.API
+	Region string
+	Name   string
+	Type   string
+	Config util.Validator
 }
 
-// List obtains all the configured platform snapshot repositories
-func List(params Params) (*models.RepositoryConfigs, error) {
-	if err := params.Validate(); err != nil {
-		return nil, err
+// Validate ensures that parameters are correct
+func (params SetParams) Validate() error {
+	var merr = multierror.NewPrefixed("invalid snapshot repository set params")
+	if params.API == nil {
+		merr = merr.Append(apierror.ErrMissingAPI)
 	}
 
-	repo, err := params.V1API.PlatformConfigurationSnapshots.GetSnapshotRepositories(
-		platform_configuration_snapshots.NewGetSnapshotRepositoriesParams(),
-		params.AuthWriter,
-	)
-	if err != nil {
-		return nil, api.UnwrapError(err)
+	if params.Name == "" {
+		merr = merr.Append(errNameCannotBeEmpty)
 	}
 
-	return repo.Payload, nil
-}
-
-// Delete removes a specified snapshot repository
-func Delete(params DeleteParams) error {
-	if err := params.Validate(); err != nil {
-		return err
+	if err := ec.RequireRegionSet(params.Region); err != nil {
+		merr = merr.Append(err)
 	}
 
-	_, _, err := params.V1API.PlatformConfigurationSnapshots.DeleteSnapshotRepository(
-		platform_configuration_snapshots.NewDeleteSnapshotRepositoryParams().
-			WithRepositoryName(params.Name),
-		params.AuthWriter,
-	)
+	if params.Config == nil {
+		merr = merr.Append(errConfigMustBeSet)
+	}
 
-	return api.UnwrapError(err)
+	if params.Config != nil {
+		if err := params.Config.Validate(); err != nil {
+			merr = merr.Append(err)
+		}
+	}
+
+	return merr.ErrorOrNil()
 }
 
 // Set adds or updates a snapshot repository from a config
@@ -83,6 +82,7 @@ func Set(params SetParams) error {
 	return api.ReturnErrOnly(
 		params.V1API.PlatformConfigurationSnapshots.SetSnapshotRepository(
 			platform_configuration_snapshots.NewSetSnapshotRepositoryParams().
+				WithContext(api.WithRegion(context.Background(), params.Region)).
 				WithRepositoryName(params.Name).
 				WithBody(&models.SnapshotRepositoryConfiguration{
 					Type:     ec.String(params.Type),
