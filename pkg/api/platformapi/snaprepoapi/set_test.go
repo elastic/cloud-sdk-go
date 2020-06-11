@@ -62,7 +62,7 @@ func TestSet(t *testing.T) {
 							Method: "PUT",
 							Host:   api.DefaultMockHost,
 							Path:   "/api/v1/regions/us-east-1/platform/configuration/snapshots/repositories/snapshot_repo_name",
-							Body:   mock.NewStringBody(`{"settings":{"region":"us-east-1","bucket":"mybucket","access_key":"myaccesskey","secret_key":"mysecretkey"},"type":"s3"}`),
+							Body:   mock.NewStringBody(`{"settings":{"region":"us-east-1","bucket":"mybucket","access_key":"myaccesskey","secret_key":"mysecretkey"},"type":"s3"}`+ "\n"),
 						},
 					}),
 				},
