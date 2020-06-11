@@ -18,95 +18,39 @@
 package constructorapi
 
 import (
-	"errors"
+	"context"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
+	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/client/platform_infrastructure"
-	"github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/multierror"
+	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
-
-var (
-	errAPICannotBeNil  = errors.New("api field cannot be nil")
-	errIDCannotBeEmpty = errors.New("id field cannot be empty")
-)
-
-// Params is the generic set of parameters used for any constructor call
-type Params struct {
-	*api.API
-}
-
-// Validate checks the parameters
-func (params Params) Validate() error {
-	if params.API == nil {
-		return errAPICannotBeNil
-	}
-
-	return nil
-}
-
-// GetParams is the set of parameters required for
-type GetParams struct {
-	Params
-	ID string
-}
-
-// Validate checks the parameters
-func (params GetParams) Validate() error {
-	if params.ID == "" {
-		return errIDCannotBeEmpty
-	}
-
-	return params.Params.Validate()
-}
 
 // MaintenanceParams is the set of parameters required for EnableMaintenace and
 // DisableMaintenance
 type MaintenanceParams struct {
-	Params
-	ID string
+	*api.API
+	ID     string
+	Region string
 }
 
 // Validate checks the parameters
 func (params MaintenanceParams) Validate() error {
+	var merr = multierror.NewPrefixed("invalid constructor maintenance params")
+	if params.API == nil {
+		merr = merr.Append(apierror.ErrMissingAPI)
+	}
+
 	if params.ID == "" {
-		return errIDCannotBeEmpty
+		merr = merr.Append(errIDCannotBeEmpty)
 	}
 
-	return params.Params.Validate()
-}
-
-// List gets the list of constuctors for a region
-func List(params Params) (*models.ConstructorOverview, error) {
-	if err := params.Validate(); err != nil {
-		return nil, err
+	if err := ec.RequireRegionSet(params.Region); err != nil {
+		merr = merr.Append(err)
 	}
 
-	constructors, err := params.API.V1API.PlatformInfrastructure.GetConstructors(
-		platform_infrastructure.NewGetConstructorsParams(),
-		params.AuthWriter,
-	)
-	if err != nil {
-		return nil, api.UnwrapError(err)
-	}
-
-	return constructors.Payload, nil
-}
-
-// Get returns information about a specific constructor
-func Get(params GetParams) (*models.ConstructorInfo, error) {
-	if err := params.Validate(); err != nil {
-		return nil, err
-	}
-
-	constructor, err := params.API.V1API.PlatformInfrastructure.GetConstructor(
-		platform_infrastructure.NewGetConstructorParams().WithConstructorID(params.ID),
-		params.AuthWriter,
-	)
-	if err != nil {
-		return nil, api.UnwrapError(err)
-	}
-
-	return constructor.Payload, nil
+	return merr.ErrorOrNil()
 }
 
 // EnableMaintenace sets the constructor to operational mode
@@ -116,8 +60,9 @@ func EnableMaintenace(params MaintenanceParams) error {
 	}
 
 	return api.ReturnErrOnly(
-		params.API.V1API.PlatformInfrastructure.StartConstructorMaintenanceMode(
+		params.V1API.PlatformInfrastructure.StartConstructorMaintenanceMode(
 			platform_infrastructure.NewStartConstructorMaintenanceModeParams().
+				WithContext(api.WithRegion(context.Background(), params.Region)).
 				WithConstructorID(params.ID),
 			params.AuthWriter,
 		),
@@ -133,6 +78,7 @@ func DisableMaintenance(params MaintenanceParams) error {
 	return api.ReturnErrOnly(
 		params.API.V1API.PlatformInfrastructure.StopConstructorMaintenanceMode(
 			platform_infrastructure.NewStopConstructorMaintenanceModeParams().
+				WithContext(api.WithRegion(context.Background(), params.Region)).
 				WithConstructorID(params.ID),
 			params.AuthWriter,
 		),
