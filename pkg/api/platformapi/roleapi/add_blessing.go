@@ -18,6 +18,7 @@
 package roleapi
 
 import (
+	"context"
 	"errors"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
@@ -25,6 +26,7 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/client/platform_infrastructure"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
+	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
 // AddBlessingParams is consumed by AddBlessing.
@@ -34,25 +36,30 @@ type AddBlessingParams struct {
 	Blessing *models.Blessing
 	RunnerID string
 	ID       string
+	Region   string
 }
 
 // Validate ensures the parameters are usable.
 func (params AddBlessingParams) Validate() error {
-	var merr = multierror.NewPrefixed("role add blessing")
+	var merr = multierror.NewPrefixed("invalid role add blessing params")
 	if params.API == nil {
 		merr = merr.Append(apierror.ErrMissingAPI)
 	}
 
 	if params.Blessing == nil {
-		merr = merr.Append(errors.New("blessing definition cannot be empty"))
+		merr = merr.Append(errors.New("blessing definition not specified and is required for this operation"))
 	}
 
 	if params.ID == "" {
-		merr = merr.Append(errors.New("id cannot be empty"))
+		merr = merr.Append(errors.New("id not specified and is required for this operation"))
 	}
 
 	if params.RunnerID == "" {
-		merr = merr.Append(errors.New("runner id cannot be empty"))
+		merr = merr.Append(errors.New("runner id not specified and is required for this operation"))
+	}
+
+	if err := ec.RequireRegionSet(params.Region); err != nil {
+		merr = merr.Append(err)
 	}
 
 	return merr.ErrorOrNil()
@@ -67,6 +74,7 @@ func AddBlessing(params AddBlessingParams) error {
 	return api.ReturnErrOnly(
 		params.V1API.PlatformInfrastructure.AddBlueprinterBlessing(
 			platform_infrastructure.NewAddBlueprinterBlessingParams().
+				WithContext(api.WithRegion(context.Background(), params.Region)).
 				WithBlueprinterRoleID(params.ID).
 				WithRunnerID(params.RunnerID).
 				WithBody(params.Blessing),
