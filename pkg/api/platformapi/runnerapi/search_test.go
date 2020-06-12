@@ -20,8 +20,9 @@ package runnerapi
 import (
 	"errors"
 	"net/http"
-	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
@@ -50,44 +51,51 @@ field in body is required`
 		params SearchParams
 	}
 	tests := []struct {
-		name    string
-		args    args
-		want    *models.RunnerOverview
-		wantErr bool
-		err     error
+		name string
+		args args
+		want *models.RunnerOverview
+		err  error
 	}{
 		{
 			name: "fails validation",
 			args: args{params: SearchParams{
 				Request: models.SearchRequest{Query: &models.QueryContainer{Exists: &models.ExistsQuery{Field: nil}}},
 			}},
-			wantErr: true,
-			err: multierror.NewPrefixed("runner search",
+
+			err: multierror.NewPrefixed("invalid runner search params",
 				errors.New("api reference is required for the operation"),
 				errors.New(searchReqErr),
+				errors.New("region not specified and is required for this operation"),
 			),
 		},
 		{
 			name: "fails if search api call fails",
 			args: args{params: SearchParams{
 				Request: models.SearchRequest{Query: &models.QueryContainer{}},
-				Params: Params{
-					API: api.NewMock(mock.New404Response(mock.NewStringBody(`{"error": "some error"}`))),
-				},
+				Region:  "us-east-1",
+				API:     api.NewMock(mock.New404Response(mock.NewStringBody(`{"error": "some error"}`))),
 			}},
-			wantErr: true,
-			err:     errors.New(`{"error": "some error"}`),
+
+			err: errors.New(`{"error": "some error"}`),
 		},
 		{
 			name: "succeeds if search api call succeeds",
 			args: args{params: SearchParams{
 				Request: models.SearchRequest{Query: &models.QueryContainer{}},
-				Params: Params{
-					API: api.NewMock(mock.Response{Response: http.Response{
+				Region:  "us-east-1",
+				API: api.NewMock(mock.Response{
+					Response: http.Response{
 						Body:       mock.NewStringBody(runnerSearchSuccess),
 						StatusCode: 200,
-					}}),
-				},
+					},
+					Assert: &mock.RequestAssertion{
+						Header: api.DefaultWriteMockHeaders,
+						Method: "POST",
+						Host:   api.DefaultMockHost,
+						Path:   "/api/v1/regions/us-east-1/platform/infrastructure/runners/_search",
+						Body:   mock.NewStringBody(`{"query":{},"sort":null}` + "\n"),
+					},
+				}),
 			}},
 			want: &models.RunnerOverview{
 				Runners: []*models.RunnerInfo{
@@ -100,23 +108,16 @@ field in body is required`
 					},
 				},
 			},
-			wantErr: false,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := Search(tt.args.params)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("Search() error = %v, wantErr %v", err, tt.wantErr)
-				return
+			if tt.err != nil && !assert.Equal(t, tt.err.Error(), err.Error()) {
+				t.Error(err)
 			}
-
-			if tt.wantErr && tt.err != nil && (err.Error() != tt.err.Error()) {
-				t.Errorf("Search() actual error = '%v', want error '%v'", err, tt.err)
-			}
-
-			if !tt.wantErr && !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("Search() = %v, want %v", got, tt.want)
+			if !assert.Equal(t, tt.want, got) {
+				t.Error(err)
 			}
 		})
 	}

@@ -19,6 +19,7 @@ package runnerapi
 
 import (
 	"context"
+	"errors"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
@@ -27,6 +28,8 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
+
+var errIDCannotBeEmpty = errors.New("id not specified and is required for the operation")
 
 // ResyncParams is consumed by Resync
 type ResyncParams struct {
@@ -43,7 +46,7 @@ func (params ResyncParams) Validate() error {
 	}
 
 	if params.ID == "" {
-		merr = merr.Append(ErrIDCannotBeEmpty)
+		merr = merr.Append(errIDCannotBeEmpty)
 	}
 
 	if err := ec.RequireRegionSet(params.Region); err != nil {

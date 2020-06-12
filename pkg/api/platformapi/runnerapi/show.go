@@ -43,7 +43,7 @@ func (params ShowParams) Validate() error {
 	}
 
 	if params.ID == "" {
-		merr = merr.Append(ErrIDCannotBeEmpty)
+		merr = merr.Append(errIDCannotBeEmpty)
 	}
 
 	if err := ec.RequireRegionSet(params.Region); err != nil {

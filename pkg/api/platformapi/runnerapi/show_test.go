@@ -21,8 +21,9 @@ import (
 	"errors"
 	"net/http"
 	"net/url"
-	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
@@ -42,22 +43,29 @@ func TestShow(t *testing.T) {
 		params ShowParams
 	}
 	tests := []struct {
-		name    string
-		args    args
-		want    *models.RunnerInfo
-		wantErr error
+		name string
+		args args
+		want *models.RunnerInfo
+		err  error
 	}{
 		{
 			name: "Show runner succeeds",
 			args: args{
 				params: ShowParams{
-					ID: "192.168.44.10",
-					Params: Params{
-						API: api.NewMock(mock.Response{Response: http.Response{
+					ID:     "192.168.44.10",
+					Region: "us-east-1",
+					API: api.NewMock(mock.Response{
+						Response: http.Response{
 							Body:       mock.NewStringBody(runnerShow),
 							StatusCode: 200,
-						}}),
-					},
+						},
+						Assert: &mock.RequestAssertion{
+							Header: api.DefaultReadMockHeaders,
+							Method: "GET",
+							Host:   api.DefaultMockHost,
+							Path:   "/api/v1/regions/us-east-1/platform/infrastructure/runners/192.168.44.10",
+						},
+					}),
 				},
 			},
 			want: &models.RunnerInfo{
@@ -69,16 +77,15 @@ func TestShow(t *testing.T) {
 			name: "Show runner fails",
 			args: args{
 				params: ShowParams{
-					ID: "192.168.44.10",
-					Params: Params{
-						API: api.NewMock(mock.Response{Error: errors.New("error")}),
-					},
+					ID:     "192.168.44.10",
+					Region: "us-east-1",
+					API:    api.NewMock(mock.Response{Error: errors.New("error")}),
 				},
 			},
 			want: nil,
-			wantErr: &url.Error{
+			err: &url.Error{
 				Op:  "Get",
-				URL: "https://mock.elastic.co/api/v1/regions/platform/infrastructure/runners/192.168.44.10",
+				URL: "https://mock.elastic.co/api/v1/regions/us-east-1/platform/infrastructure/runners/192.168.44.10",
 				Err: errors.New("error"),
 			},
 		},
@@ -88,21 +95,21 @@ func TestShow(t *testing.T) {
 				params: ShowParams{},
 			},
 			want: nil,
-			wantErr: multierror.NewPrefixed("runner show",
-				errors.New("id field cannot be empty"),
+			err: multierror.NewPrefixed("invalid runner show params",
 				errors.New("api reference is required for the operation"),
+				errors.New("id not specified and is required for the operation"),
+				errors.New("region not specified and is required for this operation"),
 			),
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := Show(tt.args.params)
-			if !reflect.DeepEqual(err, tt.wantErr) {
-				t.Errorf("List() error = %v, wantErr %v", err, tt.wantErr)
-				return
+			if !assert.Equal(t, tt.err, err) {
+				t.Error(err)
 			}
-			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("Show() = %v, want %v", got, tt.want)
+			if !assert.Equal(t, tt.want, got) {
+				t.Error(err)
 			}
 		})
 	}
