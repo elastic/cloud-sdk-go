@@ -18,50 +18,35 @@
 package enrollmenttokenapi
 
 import (
+	"context"
+
 	"github.com/elastic/cloud-sdk-go/pkg/api"
+	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/client/platform_configuration_security"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
-// Create creates the token for the specific roles
-func Create(params CreateParams) (*models.RequestEnrollmentTokenReply, error) {
-	if err := params.Validate(); err != nil {
-		return nil, err
-	}
-
-	var persistent = params.Duration.Seconds() <= 0
-	var tokenConfig = models.EnrollmentTokenRequest{
-		Persistent:        ec.Bool(persistent),
-		Roles:             params.Roles,
-		ValidityInSeconds: int32(params.Duration.Seconds()),
-	}
-
-	res, err := params.API.V1API.PlatformConfigurationSecurity.CreateEnrollmentToken(
-		platform_configuration_security.NewCreateEnrollmentTokenParams().WithBody(&tokenConfig),
-		params.AuthWriter,
-	)
-
-	if err != nil {
-		return nil, api.UnwrapError(err)
-	}
-
-	return res.Payload, nil
+// ListParams is consumed by List
+type ListParams struct {
+	*api.API
+	Region string
 }
 
-// Delete deletes a persistent token
-func Delete(params DeleteParams) error {
-	if err := params.Validate(); err != nil {
-		return err
+// Validate ensures that there's no errors prior to performing the List API
+// call.
+func (params ListParams) Validate() error {
+	var merr = multierror.NewPrefixed("invalid enrollment-token list params")
+	if params.API == nil {
+		merr = merr.Append(apierror.ErrMissingAPI)
 	}
 
-	return api.ReturnErrOnly(
-		params.API.V1API.PlatformConfigurationSecurity.DeleteEnrollmentToken(
-			platform_configuration_security.NewDeleteEnrollmentTokenParams().
-				WithToken(params.Token),
-			params.AuthWriter,
-		),
-	)
+	if err := ec.RequireRegionSet(params.Region); err != nil {
+		merr = merr.Append(err)
+	}
+
+	return merr.ErrorOrNil()
 }
 
 // List lists all persistent tokens
@@ -71,7 +56,8 @@ func List(params ListParams) (*models.ListEnrollmentTokenReply, error) {
 	}
 
 	res, err := params.API.V1API.PlatformConfigurationSecurity.GetEnrollmentTokens(
-		platform_configuration_security.NewGetEnrollmentTokensParams(),
+		platform_configuration_security.NewGetEnrollmentTokensParams().
+			WithContext(api.WithRegion(context.Background(), params.Region)),
 		params.AuthWriter,
 	)
 	if err != nil {
