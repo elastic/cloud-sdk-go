@@ -21,12 +21,14 @@ import (
 	"errors"
 	"net/http"
 	"net/url"
-	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
@@ -39,21 +41,30 @@ func TestList(t *testing.T) {
   }]
 }`
 	type args struct {
-		params Params
+		params ListParams
 	}
 	tests := []struct {
-		name    string
-		args    args
-		want    *models.RunnerOverview
-		wantErr error
+		name string
+		args args
+		want *models.RunnerOverview
+		err  error
 	}{
 		{
 			name: "Runner list succeeds",
-			args: args{params: Params{
-				API: api.NewMock(mock.Response{Response: http.Response{
-					Body:       mock.NewStringBody(runnerListSuccess),
-					StatusCode: 200,
-				}}),
+			args: args{params: ListParams{
+				Region: "us-east-1",
+				API: api.NewMock(mock.Response{
+					Response: http.Response{
+						Body:       mock.NewStringBody(runnerListSuccess),
+						StatusCode: 200,
+					},
+					Assert: &mock.RequestAssertion{
+						Header: api.DefaultReadMockHeaders,
+						Method: "GET",
+						Host:   api.DefaultMockHost,
+						Path:   "/api/v1/regions/us-east-1/platform/infrastructure/runners",
+					},
+				}),
 			}},
 			want: &models.RunnerOverview{
 				Runners: []*models.RunnerInfo{
@@ -66,34 +77,35 @@ func TestList(t *testing.T) {
 		},
 		{
 			name: "Runner list fails",
-			args: args{params: Params{
-				API: api.NewMock(mock.Response{Error: errors.New("error")}),
+			args: args{params: ListParams{
+				Region: "us-east-1",
+				API:    api.NewMock(mock.Response{Error: errors.New("error")}),
 			}},
 			want: nil,
-			wantErr: &url.Error{
+			err: &url.Error{
 				Op:  "Get",
-				URL: "https://mock.elastic.co/api/v1/regions/platform/infrastructure/runners",
+				URL: "https://mock.elastic.co/api/v1/regions/us-east-1/platform/infrastructure/runners",
 				Err: errors.New("error"),
 			},
 		},
 		{
-			name: "Runner list fails with an empty API",
-			args: args{params: Params{
-				API: nil,
-			}},
-			want:    nil,
-			wantErr: errors.New("api reference is required for the operation"),
+			name: "Runner list fails due to validation",
+			args: args{params: ListParams{}},
+			want: nil,
+			err: multierror.NewPrefixed("invalid runner list params",
+				errors.New("api reference is required for the operation"),
+				errors.New("region not specified and is required for this operation"),
+			),
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := List(tt.args.params)
-			if !reflect.DeepEqual(err, tt.wantErr) {
-				t.Errorf("List() error = %v, wantErr %v", err, tt.wantErr)
-				return
+			if !assert.Equal(t, tt.err, err) {
+				t.Error(err)
 			}
-			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("List() = %v, want %v", got, tt.want)
+			if !assert.Equal(t, tt.want, got) {
+				t.Error(err)
 			}
 		})
 	}

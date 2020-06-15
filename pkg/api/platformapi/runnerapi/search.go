@@ -18,27 +18,37 @@
 package runnerapi
 
 import (
+	"context"
+
 	"github.com/go-openapi/strfmt"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
+	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/client/platform_infrastructure"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
+	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
 // SearchParams contains parameters used to search runner's data using Query DSL
 type SearchParams struct {
-	Params
+	*api.API
+	Region  string
 	Request models.SearchRequest
 }
 
 // Validate is the implementation for the ecctl.Validator interface
 func (params SearchParams) Validate() error {
-	var merr = multierror.NewPrefixed("runner search")
-
-	merr = merr.Append(params.Params.Validate())
+	var merr = multierror.NewPrefixed("invalid runner search params")
+	if params.API == nil {
+		merr = merr.Append(apierror.ErrMissingAPI)
+	}
 
 	merr = merr.Append(params.Request.Validate(strfmt.Default))
+
+	if err := ec.RequireRegionSet(params.Region); err != nil {
+		merr = merr.Append(err)
+	}
 
 	return merr.ErrorOrNil()
 }
@@ -51,6 +61,7 @@ func Search(params SearchParams) (*models.RunnerOverview, error) {
 
 	res, err := params.API.V1API.PlatformInfrastructure.SearchRunners(
 		platform_infrastructure.NewSearchRunnersParams().
+			WithContext(api.WithRegion(context.Background(), params.Region)).
 			WithBody(&params.Request),
 		params.AuthWriter,
 	)
