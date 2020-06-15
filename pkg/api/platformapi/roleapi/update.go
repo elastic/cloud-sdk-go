@@ -18,6 +18,7 @@
 package roleapi
 
 import (
+	"context"
 	"errors"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
@@ -25,29 +26,35 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/client/platform_infrastructure"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
+	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
 // UpdateParams is consumed by Update.
 type UpdateParams struct {
 	*api.API
 
-	Role *models.Role
-	ID   string
+	Role   *models.Role
+	ID     string
+	Region string
 }
 
 // Validate ensures the parameters are usable.
 func (params UpdateParams) Validate() error {
-	var merr = multierror.NewPrefixed("role update")
+	var merr = multierror.NewPrefixed("invalid role update params")
 	if params.API == nil {
 		merr = merr.Append(apierror.ErrMissingAPI)
 	}
 
 	if params.Role == nil {
-		merr = merr.Append(errors.New("role definition cannot be empty"))
+		merr = merr.Append(errors.New("role definition not specified and is required for this operation"))
 	}
 
 	if params.ID == "" {
-		merr = merr.Append(errors.New("id cannot be empty"))
+		merr = merr.Append(errors.New("id not specified and is required for this operation"))
+	}
+
+	if err := ec.RequireRegionSet(params.Region); err != nil {
+		merr = merr.Append(err)
 	}
 
 	return merr.ErrorOrNil()
@@ -64,6 +71,7 @@ func Update(params UpdateParams) error {
 	return api.ReturnErrOnly(
 		params.V1API.PlatformInfrastructure.UpdateBlueprinterRole(
 			platform_infrastructure.NewUpdateBlueprinterRoleParams().
+				WithContext(api.WithRegion(context.Background(), params.Region)).
 				WithBlueprinterRoleID(params.ID).
 				WithBody(params.Role),
 			params.AuthWriter,

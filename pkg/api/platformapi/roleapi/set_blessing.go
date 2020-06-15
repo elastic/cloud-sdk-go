@@ -18,6 +18,7 @@
 package roleapi
 
 import (
+	"context"
 	"errors"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
@@ -25,6 +26,7 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/client/platform_infrastructure"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
+	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
 // SetBlessingsParams is consumed by SetBlessings.
@@ -33,21 +35,26 @@ type SetBlessingsParams struct {
 
 	Blessings *models.Blessings
 	ID        string
+	Region    string
 }
 
 // Validate ensures the parameters are usable.
 func (params SetBlessingsParams) Validate() error {
-	var merr = multierror.NewPrefixed("role set blessing")
+	var merr = multierror.NewPrefixed("invalid role set blessing params")
 	if params.API == nil {
 		merr = merr.Append(apierror.ErrMissingAPI)
 	}
 
 	if params.Blessings == nil {
-		merr = merr.Append(errors.New("blessing definitions cannot be empty"))
+		merr = merr.Append(errors.New("blessing definitions not specified and is required for this operation"))
 	}
 
 	if params.ID == "" {
-		merr = merr.Append(errors.New("id cannot be empty"))
+		merr = merr.Append(errors.New("id not specified and is required for this operation"))
+	}
+
+	if err := ec.RequireRegionSet(params.Region); err != nil {
+		merr = merr.Append(err)
 	}
 
 	return merr.ErrorOrNil()
@@ -64,6 +71,7 @@ func SetBlessings(params SetBlessingsParams) error {
 	return api.ReturnErrOnly(
 		params.V1API.PlatformInfrastructure.SetBlueprinterBlessings(
 			platform_infrastructure.NewSetBlueprinterBlessingsParams().
+				WithContext(api.WithRegion(context.Background(), params.Region)).
 				WithBlueprinterRoleID(params.ID).
 				WithBody(params.Blessings),
 			params.AuthWriter,

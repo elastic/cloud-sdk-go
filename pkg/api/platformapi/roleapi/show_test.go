@@ -19,11 +19,11 @@ package roleapi
 
 import (
 	"errors"
-	"reflect"
 	"testing"
 
+	"github.com/stretchr/testify/assert"
+
 	"github.com/elastic/cloud-sdk-go/pkg/api"
-	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
@@ -43,14 +43,16 @@ func TestShow(t *testing.T) {
 		{
 			name: "fails on parameter validation",
 			args: args{},
-			err: multierror.NewPrefixed("role show",
-				apierror.ErrMissingAPI,
-				errors.New("id cannot be empty"),
+			err: multierror.NewPrefixed("invalid role show params",
+				errors.New("api reference is required for the operation"),
+				errors.New("id not specified and is required for this operation"),
+				errors.New("region not specified and is required for this operation"),
 			),
 		},
 		{
 			name: "fails on api error",
 			args: args{params: ShowParams{
+				Region: "us-east-1",
 				API: api.NewMock(mock.New500Response(mock.NewStringBody(
 					`{"error": "failed getting role"}`,
 				))),
@@ -61,12 +63,21 @@ func TestShow(t *testing.T) {
 		{
 			name: "succeeds",
 			args: args{params: ShowParams{
-				ID: "one",
-				API: api.NewMock(mock.New200Response(mock.NewStructBody(
-					models.RoleAggregate{
-						ID: ec.String("one"),
+				ID:     "one",
+				Region: "us-east-1",
+				API: api.NewMock(mock.New200ResponseAssertion(
+					&mock.RequestAssertion{
+						Header: api.DefaultReadMockHeaders,
+						Method: "GET",
+						Host:   api.DefaultMockHost,
+						Path:   "/api/v1/regions/us-east-1/platform/infrastructure/blueprinter/roles/one",
 					},
-				))),
+					mock.NewStructBody(
+						models.RoleAggregate{
+							ID: ec.String("one"),
+						},
+					)),
+				),
 			}},
 			want: &models.RoleAggregate{
 				ID: ec.String("one"),
@@ -76,12 +87,11 @@ func TestShow(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := Show(tt.args.params)
-			if !reflect.DeepEqual(err, tt.err) {
-				t.Errorf("Show() error = %v, wantErr %v", err, tt.err)
-				return
+			if !assert.Equal(t, tt.err, err) {
+				t.Error(err)
 			}
-			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("Show() = %v, want %v", got, tt.want)
+			if !assert.Equal(t, tt.want, got) {
+				t.Error(err)
 			}
 		})
 	}

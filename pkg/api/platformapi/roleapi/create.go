@@ -18,6 +18,7 @@
 package roleapi
 
 import (
+	"context"
 	"errors"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
@@ -25,24 +26,30 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/client/platform_infrastructure"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
+	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
 // CreateParams is consumed by Create.
 type CreateParams struct {
 	*api.API
 
-	Role *models.RoleAggregateCreateData
+	Role   *models.RoleAggregateCreateData
+	Region string
 }
 
 // Validate ensures the parameters are usable
 func (params CreateParams) Validate() error {
-	var merr = multierror.NewPrefixed("role create")
+	var merr = multierror.NewPrefixed("invalid role create params")
 	if params.API == nil {
 		merr = merr.Append(apierror.ErrMissingAPI)
 	}
 
 	if params.Role == nil {
-		merr = merr.Append(errors.New("role definition cannot be empty"))
+		merr = merr.Append(errors.New("role definition not specified and is required for this operation"))
+	}
+
+	if err := ec.RequireRegionSet(params.Region); err != nil {
+		merr = merr.Append(err)
 	}
 
 	return merr.ErrorOrNil()
@@ -57,6 +64,7 @@ func Create(params CreateParams) error {
 	return api.ReturnErrOnly(
 		params.V1API.PlatformInfrastructure.CreateBlueprinterRole(
 			platform_infrastructure.NewCreateBlueprinterRoleParams().
+				WithContext(api.WithRegion(context.Background(), params.Region)).
 				WithBody(params.Role),
 			params.AuthWriter,
 		),

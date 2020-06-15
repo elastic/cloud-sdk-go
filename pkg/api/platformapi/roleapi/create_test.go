@@ -19,11 +19,11 @@ package roleapi
 
 import (
 	"errors"
-	"reflect"
 	"testing"
 
+	"github.com/stretchr/testify/assert"
+
 	"github.com/elastic/cloud-sdk-go/pkg/api"
-	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
@@ -41,14 +41,16 @@ func TestCreate(t *testing.T) {
 		{
 			name: "fails on parameter validation",
 			args: args{},
-			err: multierror.NewPrefixed("role create",
-				apierror.ErrMissingAPI,
-				errors.New("role definition cannot be empty"),
+			err: multierror.NewPrefixed("invalid role create params",
+				errors.New("api reference is required for the operation"),
+				errors.New("role definition not specified and is required for this operation"),
+				errors.New("region not specified and is required for this operation"),
 			),
 		},
 		{
 			name: "fails creating the role",
 			args: args{params: CreateParams{
+				Region: "us-east-1",
 				API: api.NewMock(mock.New500Response(mock.NewStringBody(
 					`{"error": "failed creating role"}`,
 				))),
@@ -59,15 +61,26 @@ func TestCreate(t *testing.T) {
 		{
 			name: "succeeds",
 			args: args{params: CreateParams{
-				API:  api.NewMock(mock.New201Response(mock.NewStringBody(""))),
+				Region: "us-east-1",
+				API: api.NewMock(mock.New201ResponseAssertion(
+					&mock.RequestAssertion{
+						Header: api.DefaultWriteMockHeaders,
+						Method: "POST",
+						Host:   api.DefaultMockHost,
+						Path:   "/api/v1/regions/us-east-1/platform/infrastructure/blueprinter/roles",
+						Body:   mock.NewStringBody(`{"role":null}` + "\n"),
+					},
+					mock.NewStringBody(""),
+				)),
 				Role: &models.RoleAggregateCreateData{},
 			}},
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := Create(tt.args.params); !reflect.DeepEqual(err, tt.err) {
-				t.Errorf("Create() error = %v, wantErr %v", err, tt.err)
+			err := Create(tt.args.params)
+			if !assert.Equal(t, tt.err, err) {
+				t.Error(err)
 			}
 		})
 	}

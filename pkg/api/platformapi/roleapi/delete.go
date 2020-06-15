@@ -18,29 +18,37 @@
 package roleapi
 
 import (
+	"context"
 	"errors"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/client/platform_infrastructure"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
+	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
 // DeleteParams is consumed by Delete.
 type DeleteParams struct {
 	*api.API
-	ID string
+
+	ID     string
+	Region string
 }
 
 // Validate ensures the parameters are usable.
 func (params DeleteParams) Validate() error {
-	var merr = multierror.NewPrefixed("role delete")
+	var merr = multierror.NewPrefixed("invalid role delete params")
 	if params.API == nil {
 		merr = merr.Append(apierror.ErrMissingAPI)
 	}
 
 	if params.ID == "" {
-		merr = merr.Append(errors.New("id cannot be empty"))
+		merr = merr.Append(errors.New("id not specified and is required for this operation"))
+	}
+
+	if err := ec.RequireRegionSet(params.Region); err != nil {
+		merr = merr.Append(err)
 	}
 
 	return merr.ErrorOrNil()
@@ -55,6 +63,7 @@ func Delete(params DeleteParams) error {
 	return api.ReturnErrOnly(
 		params.V1API.PlatformInfrastructure.DeleteBlueprinterRole(
 			platform_infrastructure.NewDeleteBlueprinterRoleParams().
+				WithContext(api.WithRegion(context.Background(), params.Region)).
 				WithBlueprinterRoleID(params.ID),
 			params.AuthWriter,
 		),
