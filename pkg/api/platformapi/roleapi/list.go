@@ -18,24 +18,34 @@
 package roleapi
 
 import (
+	"context"
+
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/client/platform_infrastructure"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/multierror"
+	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
 // ListParams is consumed by List.
 type ListParams struct {
 	*api.API
+	Region string
 }
 
 // Validate ensures the parameters are valid
 func (params ListParams) Validate() error {
+	var merr = multierror.NewPrefixed("invalid role list params")
 	if params.API == nil {
-		return apierror.ErrMissingAPI
+		merr = merr.Append(apierror.ErrMissingAPI)
 	}
 
-	return nil
+	if err := ec.RequireRegionSet(params.Region); err != nil {
+		merr = merr.Append(err)
+	}
+
+	return merr.ErrorOrNil()
 }
 
 // List returns the platform's roles
@@ -45,7 +55,8 @@ func List(params ListParams) (*models.RoleAggregates, error) {
 	}
 
 	res, err := params.V1API.PlatformInfrastructure.ListBlueprinterRoles(
-		platform_infrastructure.NewListBlueprinterRolesParams(),
+		platform_infrastructure.NewListBlueprinterRolesParams().
+			WithContext(api.WithRegion(context.Background(), params.Region)),
 		params.AuthWriter,
 	)
 

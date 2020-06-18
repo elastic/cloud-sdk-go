@@ -20,9 +20,21 @@ package mock
 import (
 	"io"
 	"net/http"
+	"net/url"
 	"reflect"
 	"testing"
 )
+
+var mockRequestAssertion = &RequestAssertion{
+	Header: map[string][]string{"Accept": {"application/json"}},
+	Method: "DELETE",
+	Host:   "mock.elastic.co",
+	Path:   "/api/v1",
+	Query: url.Values{
+		"some_value": []string{"false"},
+	},
+	Body: NewStringBody(`{}` + "\n"),
+}
 
 func TestNew200Response(t *testing.T) {
 	bodyBuffer := NewStringBody("200")
@@ -208,6 +220,271 @@ func TestNew500Response(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := New500Response(tt.args.body); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("New500Response() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestNew200ResponseAssertion(t *testing.T) {
+	bodyBuffer := NewStringBody("200")
+	type args struct {
+		assertion *RequestAssertion
+		body      io.ReadCloser
+	}
+	tests := []struct {
+		name string
+		args args
+		want Response
+	}{
+		{
+			name: "Returns statuscode 200",
+			args: args{},
+			want: Response{Response: http.Response{
+				StatusCode: 200,
+				Body:       NewStringBody(""),
+			}},
+		},
+		{
+			name: "Returns statuscode 200 with body",
+			args: args{
+				body: bodyBuffer,
+			},
+			want: Response{Response: http.Response{
+				StatusCode: 200,
+				Body:       bodyBuffer,
+			}},
+		},
+		{
+			name: "Returns statuscode 200 with body and request assertion",
+			args: args{
+				assertion: mockRequestAssertion,
+				body:      bodyBuffer,
+			},
+			want: Response{
+				Response: http.Response{
+					StatusCode: 200,
+					Body:       bodyBuffer,
+				},
+				Assert: mockRequestAssertion,
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := New200ResponseAssertion(tt.args.assertion, tt.args.body); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("New200Response() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestNew201ResponseAssertion(t *testing.T) {
+	bodyBuffer := NewStringBody("201")
+	type args struct {
+		assertion *RequestAssertion
+		body      io.ReadCloser
+	}
+	tests := []struct {
+		name string
+		args args
+		want Response
+	}{
+		{
+			name: "Returns statuscode 201",
+			args: args{},
+			want: Response{Response: http.Response{
+				StatusCode: 201,
+				Body:       NewStringBody(""),
+			}},
+		},
+		{
+			name: "Returns statuscode 201 with body",
+			args: args{
+				body: bodyBuffer,
+			},
+			want: Response{Response: http.Response{
+				StatusCode: 201,
+				Body:       bodyBuffer,
+			}},
+		},
+		{
+			name: "Returns statuscode 201 with body and request assertion",
+			args: args{
+				assertion: mockRequestAssertion,
+				body:      bodyBuffer,
+			},
+			want: Response{
+				Response: http.Response{
+					StatusCode: 201,
+					Body:       bodyBuffer,
+				},
+				Assert: mockRequestAssertion,
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := New201ResponseAssertion(tt.args.assertion, tt.args.body); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("New201Response() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestNew202ResponseAssertion(t *testing.T) {
+	bodyBuffer := NewStringBody("202")
+	type args struct {
+		assertion *RequestAssertion
+		body      io.ReadCloser
+	}
+	tests := []struct {
+		name string
+		args args
+		want Response
+	}{
+		{
+			name: "Returns statuscode 202",
+			args: args{},
+			want: Response{Response: http.Response{
+				StatusCode: 202,
+				Body:       NewStringBody(""),
+			}},
+		},
+		{
+			name: "Returns statuscode 202 with body",
+			args: args{
+				body: bodyBuffer,
+			},
+			want: Response{Response: http.Response{
+				StatusCode: 202,
+				Body:       bodyBuffer,
+			}},
+		},
+		{
+			name: "Returns statuscode 202 with body and request assertion",
+			args: args{
+				assertion: mockRequestAssertion,
+				body:      bodyBuffer,
+			},
+			want: Response{
+				Response: http.Response{
+					StatusCode: 202,
+					Body:       bodyBuffer,
+				},
+				Assert: mockRequestAssertion,
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := New202ResponseAssertion(tt.args.assertion, tt.args.body); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("New202Response() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestNew404ResponseAssertion(t *testing.T) {
+	bodyBuffer := NewStringBody("404")
+	type args struct {
+		assertion *RequestAssertion
+		body      io.ReadCloser
+	}
+	tests := []struct {
+		name string
+		args args
+		want Response
+	}{
+		{
+			name: "Returns statuscode 404",
+			args: args{},
+			want: Response{Response: http.Response{
+				StatusCode: 404,
+				Body:       NewStringBody(""),
+			}},
+		},
+		{
+			name: "Returns statuscode 404 with body",
+			args: args{
+				body: bodyBuffer,
+			},
+			want: Response{Response: http.Response{
+				StatusCode: 404,
+				Body:       bodyBuffer,
+			}},
+		},
+		{
+			name: "Returns statuscode 404 with body and request assertion",
+			args: args{
+				assertion: mockRequestAssertion,
+				body:      bodyBuffer,
+			},
+			want: Response{
+				Response: http.Response{
+					StatusCode: 404,
+					Body:       bodyBuffer,
+				},
+				Assert: mockRequestAssertion,
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := New404ResponseAssertion(tt.args.assertion, tt.args.body); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("New404Response() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestNew500ResponseAssertion(t *testing.T) {
+	bodyBuffer := NewStringBody("500")
+	type args struct {
+		assertion *RequestAssertion
+		body      io.ReadCloser
+	}
+	tests := []struct {
+		name string
+		args args
+		want Response
+	}{
+		{
+			name: "Returns statuscode 500",
+			args: args{},
+			want: Response{Response: http.Response{
+				StatusCode: 500,
+				Body:       NewStringBody(""),
+			}},
+		},
+		{
+			name: "Returns statuscode 500 with body",
+			args: args{
+				body: bodyBuffer,
+			},
+			want: Response{Response: http.Response{
+				StatusCode: 500,
+				Body:       bodyBuffer,
+			}},
+		},
+		{
+			name: "Returns statuscode 500 with body and request assertion",
+			args: args{
+				assertion: mockRequestAssertion,
+				body:      bodyBuffer,
+			},
+			want: Response{
+				Response: http.Response{
+					StatusCode: 500,
+					Body:       bodyBuffer,
+				},
+				Assert: mockRequestAssertion,
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := New500ResponseAssertion(tt.args.assertion, tt.args.body); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("New500Response() = %v, want %v", got, tt.want)
 			}
 		})

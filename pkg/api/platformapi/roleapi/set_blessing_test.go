@@ -19,11 +19,11 @@ package roleapi
 
 import (
 	"errors"
-	"reflect"
 	"testing"
 
+	"github.com/stretchr/testify/assert"
+
 	"github.com/elastic/cloud-sdk-go/pkg/api"
-	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
@@ -41,15 +41,17 @@ func TestSetBlessings(t *testing.T) {
 		{
 			name: "fails on parameter validation",
 			args: args{},
-			err: multierror.NewPrefixed("role set blessing",
-				apierror.ErrMissingAPI,
-				errors.New("blessing definitions cannot be empty"),
-				errors.New("id cannot be empty"),
+			err: multierror.NewPrefixed("invalid role set blessing params",
+				errors.New("api reference is required for the operation"),
+				errors.New("blessing definitions not specified and is required for this operation"),
+				errors.New("id not specified and is required for this operation"),
+				errors.New("region not specified and is required for this operation"),
 			),
 		},
 		{
 			name: "fails updating the role",
 			args: args{params: SetBlessingsParams{
+				Region: "us-east-1",
 				API: api.NewMock(mock.New500Response(mock.NewStringBody(
 					`{"error": "failed updating role"}`,
 				))),
@@ -61,7 +63,17 @@ func TestSetBlessings(t *testing.T) {
 		{
 			name: "succeeds",
 			args: args{params: SetBlessingsParams{
-				API:       api.NewMock(mock.New200Response(mock.NewStringBody(""))),
+				Region: "us-east-1",
+				API: api.NewMock(mock.New200ResponseAssertion(
+					&mock.RequestAssertion{
+						Header: api.DefaultWriteMockHeaders,
+						Method: "PUT",
+						Host:   api.DefaultMockHost,
+						Path:   "/api/v1/regions/us-east-1/platform/infrastructure/blueprinter/roles/one/blessings",
+						Body:   mock.NewStringBody(`{"runner_ids_to_blessing":null}` + "\n"),
+					},
+					mock.NewStringBody(""),
+				)),
 				Blessings: &models.Blessings{},
 				ID:        "one",
 			}},
@@ -69,8 +81,9 @@ func TestSetBlessings(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := SetBlessings(tt.args.params); !reflect.DeepEqual(err, tt.err) {
-				t.Errorf("SetBlessings() error = %v, wantErr %v", err, tt.err)
+			err := SetBlessings(tt.args.params)
+			if !assert.Equal(t, tt.err, err) {
+				t.Error(err)
 			}
 		})
 	}

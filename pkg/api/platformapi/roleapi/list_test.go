@@ -19,13 +19,14 @@ package roleapi
 
 import (
 	"errors"
-	"reflect"
 	"testing"
 
+	"github.com/stretchr/testify/assert"
+
 	"github.com/elastic/cloud-sdk-go/pkg/api"
-	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
@@ -42,11 +43,15 @@ func TestList(t *testing.T) {
 		{
 			name: "fails on parameter validation",
 			args: args{},
-			err:  apierror.ErrMissingAPI,
+			err: multierror.NewPrefixed("invalid role list params",
+				errors.New("api reference is required for the operation"),
+				errors.New("region not specified and is required for this operation"),
+			),
 		},
 		{
 			name: "fails on api error",
 			args: args{params: ListParams{
+				Region: "us-east-1",
 				API: api.NewMock(mock.New500Response(mock.NewStringBody(
 					`{"error": "failed listing roles"}`,
 				))),
@@ -56,13 +61,22 @@ func TestList(t *testing.T) {
 		{
 			name: "succeeds",
 			args: args{params: ListParams{
-				API: api.NewMock(mock.New200Response(mock.NewStructBody(
-					models.RoleAggregates{Values: []*models.RoleAggregate{
-						{ID: ec.String("one")},
-						{ID: ec.String("two")},
-						{ID: ec.String("three")},
-					}},
-				))),
+				Region: "us-east-1",
+				API: api.NewMock(mock.New200ResponseAssertion(
+					&mock.RequestAssertion{
+						Header: api.DefaultReadMockHeaders,
+						Method: "GET",
+						Host:   api.DefaultMockHost,
+						Path:   "/api/v1/regions/us-east-1/platform/infrastructure/blueprinter/roles",
+					},
+					mock.NewStructBody(
+						models.RoleAggregates{Values: []*models.RoleAggregate{
+							{ID: ec.String("one")},
+							{ID: ec.String("two")},
+							{ID: ec.String("three")},
+						}},
+					),
+				)),
 			}},
 			want: &models.RoleAggregates{Values: []*models.RoleAggregate{
 				{ID: ec.String("one")},
@@ -74,12 +88,11 @@ func TestList(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := List(tt.args.params)
-			if !reflect.DeepEqual(err, tt.err) {
-				t.Errorf("List() error = %v, wantErr %v", err, tt.err)
-				return
+			if !assert.Equal(t, tt.err, err) {
+				t.Error(err)
 			}
-			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("List() = %v, want %v", got, tt.want)
+			if !assert.Equal(t, tt.want, got) {
+				t.Error(err)
 			}
 		})
 	}

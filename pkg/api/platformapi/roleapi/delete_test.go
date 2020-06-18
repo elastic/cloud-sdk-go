@@ -19,11 +19,12 @@ package roleapi
 
 import (
 	"errors"
-	"reflect"
+	"net/url"
 	"testing"
 
+	"github.com/stretchr/testify/assert"
+
 	"github.com/elastic/cloud-sdk-go/pkg/api"
-	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 )
@@ -40,14 +41,16 @@ func TestDelete(t *testing.T) {
 		{
 			name: "fails on parameter validation",
 			args: args{},
-			err: multierror.NewPrefixed("role delete",
-				apierror.ErrMissingAPI,
-				errors.New("id cannot be empty"),
+			err: multierror.NewPrefixed("invalid role delete params",
+				errors.New("api reference is required for the operation"),
+				errors.New("id not specified and is required for this operation"),
+				errors.New("region not specified and is required for this operation"),
 			),
 		},
 		{
 			name: "fails creating the role",
 			args: args{params: DeleteParams{
+				Region: "us-east-1",
 				API: api.NewMock(mock.New500Response(mock.NewStringBody(
 					`{"error": "failed deleting role"}`,
 				))),
@@ -58,15 +61,28 @@ func TestDelete(t *testing.T) {
 		{
 			name: "succeeds",
 			args: args{params: DeleteParams{
-				API: api.NewMock(mock.New200Response(mock.NewStringBody(""))),
-				ID:  "some",
+				Region: "us-east-1",
+				API: api.NewMock(mock.New200ResponseAssertion(
+					&mock.RequestAssertion{
+						Header: api.DefaultWriteMockHeaders,
+						Method: "DELETE",
+						Host:   api.DefaultMockHost,
+						Path:   "/api/v1/regions/us-east-1/platform/infrastructure/blueprinter/roles/some",
+						Query: url.Values{
+							"skip_validations": []string{"false"},
+						},
+					},
+					mock.NewStringBody(""),
+				)),
+				ID: "some",
 			}},
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := Delete(tt.args.params); !reflect.DeepEqual(err, tt.err) {
-				t.Errorf("Delete() error = %v, wantErr %v", err, tt.err)
+			err := Delete(tt.args.params)
+			if !assert.Equal(t, tt.err, err) {
+				t.Error(err)
 			}
 		})
 	}
