@@ -56,6 +56,8 @@ type ClientService interface {
 
 	EnableDeploymentResourceSlm(params *EnableDeploymentResourceSlmParams, authInfo runtime.ClientAuthInfoWriter) (*EnableDeploymentResourceSlmOK, error)
 
+	GetAppsearchReadOnlyMode(params *GetAppsearchReadOnlyModeParams, authInfo runtime.ClientAuthInfoWriter) (*GetAppsearchReadOnlyModeOK, error)
+
 	GetDeployment(params *GetDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentOK, error)
 
 	GetDeploymentApmResourceInfo(params *GetDeploymentApmResourceInfoParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentApmResourceInfoOK, error)
@@ -65,6 +67,8 @@ type ClientService interface {
 	GetDeploymentEnterpriseSearchResourceInfo(params *GetDeploymentEnterpriseSearchResourceInfoParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentEnterpriseSearchResourceInfoOK, error)
 
 	GetDeploymentEsResourceInfo(params *GetDeploymentEsResourceInfoParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentEsResourceInfoOK, error)
+
+	GetDeploymentEsResourceKeystore(params *GetDeploymentEsResourceKeystoreParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentEsResourceKeystoreOK, error)
 
 	GetDeploymentKibResourceInfo(params *GetDeploymentKibResourceInfoParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentKibResourceInfoOK, error)
 
@@ -85,6 +89,10 @@ type ClientService interface {
 	ResyncDeployments(params *ResyncDeploymentsParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncDeploymentsOK, error)
 
 	SearchDeployments(params *SearchDeploymentsParams, authInfo runtime.ClientAuthInfoWriter) (*SearchDeploymentsOK, error)
+
+	SetAppsearchReadOnlyMode(params *SetAppsearchReadOnlyModeParams, authInfo runtime.ClientAuthInfoWriter) (*SetAppsearchReadOnlyModeOK, error)
+
+	SetDeploymentEsResourceKeystore(params *SetDeploymentEsResourceKeystoreParams, authInfo runtime.ClientAuthInfoWriter) (*SetDeploymentEsResourceKeystoreOK, error)
 
 	SetDeploymentResourceRawMetadata(params *SetDeploymentResourceRawMetadataParams, authInfo runtime.ClientAuthInfoWriter) (*SetDeploymentResourceRawMetadataOK, error)
 
@@ -341,6 +349,43 @@ func (a *Client) EnableDeploymentResourceSlm(params *EnableDeploymentResourceSlm
 }
 
 /*
+  GetAppsearchReadOnlyMode sets app search read only status
+
+  Enable/Disable read-only mode on the given App Search resource.
+*/
+func (a *Client) GetAppsearchReadOnlyMode(params *GetAppsearchReadOnlyModeParams, authInfo runtime.ClientAuthInfoWriter) (*GetAppsearchReadOnlyModeOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetAppsearchReadOnlyModeParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "get-appsearch-read-only-mode",
+		Method:             "GET",
+		PathPattern:        "/deployments/{deployment_id}/appsearch/{ref_id}/read_only_mode",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetAppsearchReadOnlyModeReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetAppsearchReadOnlyModeOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-appsearch-read-only-mode: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
   GetDeployment gets deployment
 
   Retrieves information about a Deployment.
@@ -522,6 +567,43 @@ func (a *Client) GetDeploymentEsResourceInfo(params *GetDeploymentEsResourceInfo
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for get-deployment-es-resource-info: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  GetDeploymentEsResourceKeystore gets the settings from the elasticsearch resource keystore
+
+  Adds the specified values to the Elasticsearch keystore, or removes the keys for the unspecified values.
+*/
+func (a *Client) GetDeploymentEsResourceKeystore(params *GetDeploymentEsResourceKeystoreParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentEsResourceKeystoreOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetDeploymentEsResourceKeystoreParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "get-deployment-es-resource-keystore",
+		Method:             "GET",
+		PathPattern:        "/deployments/{deployment_id}/elasticsearch/{ref_id}/keystore",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetDeploymentEsResourceKeystoreReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetDeploymentEsResourceKeystoreOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-deployment-es-resource-keystore: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -892,6 +974,80 @@ func (a *Client) SearchDeployments(params *SearchDeploymentsParams, authInfo run
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for search-deployments: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  SetAppsearchReadOnlyMode sets app search read only status
+
+  Enable/Disable read-only mode on the given App Search resource.
+*/
+func (a *Client) SetAppsearchReadOnlyMode(params *SetAppsearchReadOnlyModeParams, authInfo runtime.ClientAuthInfoWriter) (*SetAppsearchReadOnlyModeOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSetAppsearchReadOnlyModeParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "set-appsearch-read-only-mode",
+		Method:             "PUT",
+		PathPattern:        "/deployments/{deployment_id}/appsearch/{ref_id}/read_only_mode",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &SetAppsearchReadOnlyModeReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*SetAppsearchReadOnlyModeOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for set-appsearch-read-only-mode: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  SetDeploymentEsResourceKeystore adds or remove settings from the elasticsearch resource keystore
+
+  Fetches the current values of the keystore for the Elasticsearch resource.
+*/
+func (a *Client) SetDeploymentEsResourceKeystore(params *SetDeploymentEsResourceKeystoreParams, authInfo runtime.ClientAuthInfoWriter) (*SetDeploymentEsResourceKeystoreOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSetDeploymentEsResourceKeystoreParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "set-deployment-es-resource-keystore",
+		Method:             "PATCH",
+		PathPattern:        "/deployments/{deployment_id}/elasticsearch/{ref_id}/keystore",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &SetDeploymentEsResourceKeystoreReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*SetDeploymentEsResourceKeystoreOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for set-deployment-es-resource-keystore: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

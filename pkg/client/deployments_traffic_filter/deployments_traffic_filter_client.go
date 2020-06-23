@@ -44,7 +44,7 @@ type Client struct {
 
 // ClientService is the interface for Client methods
 type ClientService interface {
-	CreateTrafficFilterRuleset(params *CreateTrafficFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter) (*CreateTrafficFilterRulesetOK, error)
+	CreateTrafficFilterRuleset(params *CreateTrafficFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter) (*CreateTrafficFilterRulesetCreated, error)
 
 	CreateTrafficFilterRulesetAssociation(params *CreateTrafficFilterRulesetAssociationParams, authInfo runtime.ClientAuthInfoWriter) (*CreateTrafficFilterRulesetAssociationOK, error)
 
@@ -70,7 +70,7 @@ type ClientService interface {
 
   Creates a ruleset that consists of a set of rules.
 */
-func (a *Client) CreateTrafficFilterRuleset(params *CreateTrafficFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter) (*CreateTrafficFilterRulesetOK, error) {
+func (a *Client) CreateTrafficFilterRuleset(params *CreateTrafficFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter) (*CreateTrafficFilterRulesetCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateTrafficFilterRulesetParams()
@@ -92,7 +92,7 @@ func (a *Client) CreateTrafficFilterRuleset(params *CreateTrafficFilterRulesetPa
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*CreateTrafficFilterRulesetOK)
+	success, ok := result.(*CreateTrafficFilterRulesetCreated)
 	if ok {
 		return success, nil
 	}

@@ -43,6 +43,7 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/client/platform_configuration_security"
 	"github.com/elastic/cloud-sdk-go/pkg/client/platform_configuration_snapshots"
 	"github.com/elastic/cloud-sdk-go/pkg/client/platform_configuration_templates"
+	"github.com/elastic/cloud-sdk-go/pkg/client/platform_configuration_trust_relationships"
 	"github.com/elastic/cloud-sdk-go/pkg/client/platform_infrastructure"
 	"github.com/elastic/cloud-sdk-go/pkg/client/stack"
 	"github.com/elastic/cloud-sdk-go/pkg/client/telemetry"
@@ -106,6 +107,7 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Rest {
 	cli.PlatformConfigurationSecurity = platform_configuration_security.New(transport, formats)
 	cli.PlatformConfigurationSnapshots = platform_configuration_snapshots.New(transport, formats)
 	cli.PlatformConfigurationTemplates = platform_configuration_templates.New(transport, formats)
+	cli.PlatformConfigurationTrustRelationships = platform_configuration_trust_relationships.New(transport, formats)
 	cli.PlatformInfrastructure = platform_infrastructure.New(transport, formats)
 	cli.Stack = stack.New(transport, formats)
 	cli.Telemetry = telemetry.New(transport, formats)
@@ -184,6 +186,8 @@ type Rest struct {
 
 	PlatformConfigurationTemplates platform_configuration_templates.ClientService
 
+	PlatformConfigurationTrustRelationships platform_configuration_trust_relationships.ClientService
+
 	PlatformInfrastructure platform_infrastructure.ClientService
 
 	Stack stack.ClientService
@@ -213,6 +217,7 @@ func (c *Rest) SetTransport(transport runtime.ClientTransport) {
 	c.PlatformConfigurationSecurity.SetTransport(transport)
 	c.PlatformConfigurationSnapshots.SetTransport(transport)
 	c.PlatformConfigurationTemplates.SetTransport(transport)
+	c.PlatformConfigurationTrustRelationships.SetTransport(transport)
 	c.PlatformInfrastructure.SetTransport(transport)
 	c.Stack.SetTransport(transport)
 	c.Telemetry.SetTransport(transport)

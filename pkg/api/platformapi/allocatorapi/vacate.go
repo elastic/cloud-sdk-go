@@ -402,19 +402,19 @@ func newMoveClusterParams(params *VacateClusterParams) (*platform_infrastructure
 		WithBody(req)
 
 	if len(req.ElasticsearchClusters) > 0 {
-		moveParams.SetClusterType(ec.String(util.Elasticsearch))
+		moveParams.SetClusterType(util.Elasticsearch)
 	}
 
 	if len(req.KibanaClusters) > 0 {
-		moveParams.SetClusterType(ec.String(util.Kibana))
+		moveParams.SetClusterType(util.Kibana)
 	}
 
 	if len(req.ApmClusters) > 0 {
-		moveParams.SetClusterType(ec.String(util.Apm))
+		moveParams.SetClusterType(util.Apm)
 	}
 
 	if len(req.AppsearchClusters) > 0 {
-		moveParams.SetClusterType(ec.String(util.Appsearch))
+		moveParams.SetClusterType(util.Appsearch)
 	}
 
 	return moveParams, nil

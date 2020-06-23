@@ -63,9 +63,6 @@ type StackVersionConfig struct {
 	// The minimum version recommended to upgrade this version.
 	MinUpgradableFrom string `json:"min_upgradable_from,omitempty"`
 
-	// sitesearch
-	Sitesearch *StackVersionSiteSearchConfig `json:"sitesearch,omitempty"`
-
 	// template
 	// Required: true
 	Template *StackVersionTemplateInfo `json:"template"`
@@ -107,10 +104,6 @@ func (m *StackVersionConfig) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateMetadata(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateSitesearch(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -228,24 +221,6 @@ func (m *StackVersionConfig) validateMetadata(formats strfmt.Registry) error {
 		if err := m.Metadata.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("metadata")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *StackVersionConfig) validateSitesearch(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Sitesearch) { // not required
-		return nil
-	}
-
-	if m.Sitesearch != nil {
-		if err := m.Sitesearch.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("sitesearch")
 			}
 			return err
 		}

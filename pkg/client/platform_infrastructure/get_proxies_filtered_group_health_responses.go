@@ -108,20 +108,20 @@ func NewGetProxiesFilteredGroupHealthExpectationFailed() *GetProxiesFilteredGrou
 The health status is worse than the expected one.
 */
 type GetProxiesFilteredGroupHealthExpectationFailed struct {
-	Payload *models.ProxiesHealth
+	Payload *models.ProxiesFilteredGroupHealth
 }
 
 func (o *GetProxiesFilteredGroupHealthExpectationFailed) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}/health][%d] getProxiesFilteredGroupHealthExpectationFailed  %+v", 417, o.Payload)
 }
 
-func (o *GetProxiesFilteredGroupHealthExpectationFailed) GetPayload() *models.ProxiesHealth {
+func (o *GetProxiesFilteredGroupHealthExpectationFailed) GetPayload() *models.ProxiesFilteredGroupHealth {
 	return o.Payload
 }
 
 func (o *GetProxiesFilteredGroupHealthExpectationFailed) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.ProxiesHealth)
+	o.Payload = new(models.ProxiesFilteredGroupHealth)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
