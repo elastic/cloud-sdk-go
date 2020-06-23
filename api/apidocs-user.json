@@ -755,6 +755,151 @@
         }
       }
     },
+    "/deployments/{deployment_id}/appsearch/{ref_id}/read_only_mode" : {
+      "get" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Set AppSearch read-only status",
+        "description" : "Enable/Disable read-only mode on the given App Search resource.",
+        "operationId" : "get-appsearch-read-only-mode",
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "ref_id",
+          "in" : "path",
+          "description" : "User-specified RefId for the Resource.",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Standard response",
+            "schema" : {
+              "$ref" : "#/definitions/ReadOnlyResponse"
+            }
+          },
+          "404" : {
+            "description" : "The Resource specified by ref_id cannot be found. (code: `deployments.deployment_resource_not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.deployment_resource_not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "500" : {
+            "description" : "We have failed you. (code: `deployments.deployment_resource_no_longer_exists`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.deployment_resource_no_longer_exists" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "App Search - Read-only"
+        }
+      },
+      "put" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Set AppSearch read-only status",
+        "description" : "Enable/Disable read-only mode on the given App Search resource.",
+        "operationId" : "set-appsearch-read-only-mode",
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "ref_id",
+          "in" : "path",
+          "description" : "User-specified RefId for the Resource.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "read-only request body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/ReadOnlyRequest"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Standard response",
+            "schema" : {
+              "$ref" : "#/definitions/ReadOnlyResponse"
+            }
+          },
+          "404" : {
+            "description" : "The Resource specified by ref_id cannot be found. (code: `deployments.deployment_resource_not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.deployment_resource_not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "500" : {
+            "description" : "We have failed you. (code: `deployments.deployment_resource_no_longer_exists`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.deployment_resource_no_longer_exists" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "449" : {
+            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "App Search - Read-only"
+        }
+      }
+    },
     "/deployments/{deployment_id}/elasticsearch/{ref_id}" : {
       "get" : {
         "tags" : [ "Deployments" ],
@@ -1334,6 +1479,164 @@
         } ],
         "x-doc" : {
           "tag" : "Deployment - Commands"
+        }
+      }
+    },
+    "/deployments/{deployment_id}/elasticsearch/{ref_id}/keystore" : {
+      "get" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Get the settings from the Elasticsearch resource keystore",
+        "description" : "Adds the specified values to the Elasticsearch keystore, or removes the keys for the unspecified values.",
+        "operationId" : "get-deployment-es-resource-keystore",
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "ref_id",
+          "in" : "path",
+          "description" : "User-specified RefId for the Resource",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The new value for the keystore contents",
+            "schema" : {
+              "$ref" : "#/definitions/KeystoreContents"
+            }
+          },
+          "404" : {
+            "description" : "A resource with the given refId cannot be found in the deployment. (code: `deployments.deployment_resource_not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.deployment_resource_not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "500" : {
+            "description" : "We have failed you. (code: `deployments.metadata_internal_error`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.metadata_internal_error" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "449" : {
+            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployment Resources - CRUD"
+        }
+      },
+      "patch" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Add or remove settings from the Elasticsearch resource keystore",
+        "description" : "Fetches the current values of the keystore for the Elasticsearch resource.",
+        "operationId" : "set-deployment-es-resource-keystore",
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "ref_id",
+          "in" : "path",
+          "description" : "User-specified RefId for the Resource",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "The new settings that will be applied to the keystore of the Elasticsearch resource.",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/KeystoreContents"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The new value for the keystore contents",
+            "schema" : {
+              "$ref" : "#/definitions/KeystoreContents"
+            }
+          },
+          "404" : {
+            "description" : "A resource with the given refId cannot be found in the deployment. (code: `deployments.deployment_resource_not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.deployment_resource_not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "500" : {
+            "description" : "We have failed you. (code: `deployments.metadata_internal_error`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.metadata_internal_error" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "449" : {
+            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployment Resources - CRUD"
         }
       }
     },
@@ -4035,7 +4338,7 @@
     },
     "ClusterMetadataPortInfo" : {
       "type" : "object",
-      "required" : [ "http", "https" ],
+      "required" : [ "http", "https", "transport_passthrough" ],
       "properties" : {
         "http" : {
           "type" : "integer",
@@ -4046,6 +4349,11 @@
           "type" : "integer",
           "format" : "int32",
           "description" : "Port where the cluster listens for HTTPS traffic"
+        },
+        "transport_passthrough" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Port where the cluster listens for transport traffic using TLS"
         }
       },
       "description" : "Information about the ports that allow communication between the Elasticsearch cluster and various protocols."
@@ -4374,8 +4682,12 @@
       "type" : "object",
       "properties" : {
         "ip_filtering_settings" : {
-          "description" : "The set of rulesets applies to this deployment.",
+          "description" : "DEPRECATED (Scheduled to be removed in the next major version): The set of rulesets applies to this deployment.",
           "$ref" : "#/definitions/IpFilteringSettings"
+        },
+        "traffic_filter_settings" : {
+          "description" : "The traffic filter rulesets to apply to this deployment.",
+          "$ref" : "#/definitions/TrafficFilterSettings"
         }
       },
       "description" : "Additional configuration for the new deployment object."
@@ -4456,6 +4768,13 @@
         "secret_token" : {
           "type" : "string",
           "description" : "Secret token for using a created resource. Only provided on initial create and absent otherwise."
+        },
+        "warnings" : {
+          "type" : "array",
+          "description" : "List of warnings generated from validating resource updates",
+          "items" : {
+            "$ref" : "#/definitions/ReplyWarning"
+          }
         }
       },
       "description" : "Data for a deployment resource"
@@ -4579,8 +4898,12 @@
       "type" : "object",
       "properties" : {
         "ip_filtering_settings" : {
-          "description" : "The set of rulesets applies to this deployment.",
+          "description" : "DEPRECATED The set of IP filtering rulesets applies to this deployment.",
           "$ref" : "#/definitions/IpFilteringSettings"
+        },
+        "traffic_filter_settings" : {
+          "description" : "The traffic filter rulesets for this deployment.",
+          "$ref" : "#/definitions/TrafficFilterSettings"
         }
       },
       "description" : "Additional configuration about the current deployment object."
@@ -5093,8 +5416,12 @@
           "description" : "Threshold starting from which the number of instances in the cluster results in the introduction of dedicated masters. If the cluster is downscaled to a number of nodes below this one, dedicated masters will be removed. Limit is inclusive."
         },
         "ip_filtering" : {
-          "description" : "The set of rulesets to apply for all the resources in this cluster. When specified the same rulesets will be applied to Kibana and APM clusters as well",
+          "description" : "DEPRECATED (Scheduled to be removed in the next major version): The set of rulesets to apply for all the resources in this cluster. When specified the same rulesets will be applied to Kibana and APM clusters as well",
           "$ref" : "#/definitions/IpFilteringSettings"
+        },
+        "traffic_filter" : {
+          "description" : "The rulesets to apply to all resources in this cluster. When specified the same rulesets will be applied to Kibana and APM clusters as well",
+          "$ref" : "#/definitions/TrafficFilterSettings"
         },
         "ccs" : {
           "$ref" : "#/definitions/CrossClusterSearchSettings"
@@ -5238,14 +5565,18 @@
     },
     "ElasticsearchElasticUserPasswordResetResponse" : {
       "type" : "object",
-      "required" : [ "password" ],
+      "required" : [ "password", "username" ],
       "properties" : {
+        "username" : {
+          "type" : "string",
+          "description" : "The username for the newly-reset password for the given Elasticsearch cluster"
+        },
         "password" : {
           "type" : "string",
           "description" : "The newly-reset password for the given Elasticsearch cluster"
         }
       },
-      "description" : "Envelope holding the newly-reset password for a cluster's `elasticsearch` user"
+      "description" : "Envelope holding the newly-reset password for a cluster's user"
     },
     "ElasticsearchInfo" : {
       "type" : "object",
@@ -5402,7 +5733,7 @@
         "timeout" : {
           "type" : "integer",
           "format" : "int64",
-          "description" : "The total timeout in seconds after which the plan is cancelled even if it is not complete. Defaults to 4x the max memory capacity per node (in MB). NOTES: (eg a 3 zone cluster with 2 nodes of 2048 each would have a timeout of 4*2048=8192 seconds)"
+          "description" : "The total timeout in seconds after which the plan is cancelled even if it is not complete. Defaults to 4x the max memory capacity per node (in MB). NOTES: A 3 zone cluster with 2 nodes of 2048 each would have a timeout of 4*2048=8192 seconds. Timeout does not include time required to run rollback actions."
         },
         "calm_wait_time" : {
           "type" : "integer",
@@ -6151,6 +6482,34 @@
       },
       "description" : "The configuration settings for IP filtering."
     },
+    "KeystoreContents" : {
+      "type" : "object",
+      "required" : [ "secrets" ],
+      "properties" : {
+        "secrets" : {
+          "type" : "object",
+          "description" : "List of secrets",
+          "additionalProperties" : {
+            "$ref" : "#/definitions/KeystoreSecret"
+          }
+        }
+      },
+      "description" : "The contents of the Elasticsearch keystore."
+    },
+    "KeystoreSecret" : {
+      "type" : "object",
+      "properties" : {
+        "value" : {
+          "type" : "object",
+          "description" : "Value of this setting. This can either be a string or a JSON object that is stored as a JSON string in the keystore. NOTE: When the keystore secret is unspecified, it is removed."
+        },
+        "as_file" : {
+          "type" : "boolean",
+          "description" : "Stores the keystore secret as a file. The default is false, which stores the keystore secret as string when value is a plain string, or true when value is an object."
+        }
+      },
+      "description" : "The value that you configure for the Elasticsearch keystore secret."
+    },
     "Kibana" : {
       "type" : "object",
       "required" : [ "backend_plan", "display_name", "elasticsearch_cluster_ref_id", "ref_id" ],
@@ -6778,6 +7137,28 @@
       },
       "description" : "The query that matches documents with fields that contain terms within a specified range."
     },
+    "ReadOnlyRequest" : {
+      "type" : "object",
+      "required" : [ "enabled" ],
+      "properties" : {
+        "enabled" : {
+          "type" : "boolean",
+          "description" : "Enabled or disabled read-only mode"
+        }
+      },
+      "description" : "Read-only mode request payload"
+    },
+    "ReadOnlyResponse" : {
+      "type" : "object",
+      "required" : [ "enabled" ],
+      "properties" : {
+        "enabled" : {
+          "type" : "boolean",
+          "description" : "Whether read-only mode is enabled or disabled"
+        }
+      },
+      "description" : "Read-only mode response"
+    },
     "RemoteClusterInfo" : {
       "type" : "object",
       "required" : [ "compatible", "id" ],
@@ -6811,6 +7192,20 @@
         }
       },
       "description" : "The Elasticsearch cluster to connect to for cross-cluster search."
+    },
+    "ReplyWarning" : {
+      "type" : "object",
+      "required" : [ "code" ],
+      "properties" : {
+        "code" : {
+          "type" : "string",
+          "description" : "A structured code representing the error type that occurred"
+        },
+        "message" : {
+          "type" : "string",
+          "description" : "A human readable message describing the warning that occurred"
+        }
+      }
     },
     "RestoreSnapshotApiConfiguration" : {
       "type" : "object",
@@ -7357,6 +7752,20 @@
         }
       },
       "description" : "Measured by the amount of a resource. The final cluster size is calculated using multipliers from the topology instance configuration."
+    },
+    "TrafficFilterSettings" : {
+      "type" : "object",
+      "required" : [ "rulesets" ],
+      "properties" : {
+        "rulesets" : {
+          "type" : "array",
+          "description" : "IDs of the traffic filter rulesets",
+          "items" : {
+            "type" : "string"
+          }
+        }
+      },
+      "description" : "The configuration settings for the traffic filter."
     },
     "TransientApmPlanConfiguration" : {
       "type" : "object",

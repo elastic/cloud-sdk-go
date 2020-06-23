@@ -53,12 +53,6 @@ func (o *UpdateUserReader) ReadResponse(response runtime.ClientResponse, consume
 			return nil, err
 		}
 		return nil, result
-	case 403:
-		result := NewUpdateUserForbidden()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	case 404:
 		result := NewUpdateUserNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -117,9 +111,17 @@ func NewUpdateUserBadRequest() *UpdateUserBadRequest {
 
 /*UpdateUserBadRequest handles this case with default header values.
 
-Invalid request
-*/
+* Some of the provided roles are invalid. (code: `user.roles.invalid`)
+* Some of the provided roles are forbidden. (code: `user.roles.forbidden`)
+* Trying to set a restricted field. (code: `user.restricted_field`)
+* External users cannot be modified. (code: `user.cannot_modify_external`)
+* Built-in users cannot be modified. (code: `user.cannot_modify`)
+ */
 type UpdateUserBadRequest struct {
+	/*The error codes associated with the response
+	 */
+	XCloudErrorCodes string
+
 	Payload *models.BasicFailedReply
 }
 
@@ -133,38 +135,8 @@ func (o *UpdateUserBadRequest) GetPayload() *models.BasicFailedReply {
 
 func (o *UpdateUserBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewUpdateUserForbidden creates a UpdateUserForbidden with default headers values
-func NewUpdateUserForbidden() *UpdateUserForbidden {
-	return &UpdateUserForbidden{}
-}
-
-/*UpdateUserForbidden handles this case with default header values.
-
-Invalid permissions
-*/
-type UpdateUserForbidden struct {
-	Payload *models.BasicFailedReply
-}
-
-func (o *UpdateUserForbidden) Error() string {
-	return fmt.Sprintf("[PATCH /users/{user_name}][%d] updateUserForbidden  %+v", 403, o.Payload)
-}
-
-func (o *UpdateUserForbidden) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *UpdateUserForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+	// response header x-cloud-error-codes
+	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -183,9 +155,13 @@ func NewUpdateUserNotFound() *UpdateUserNotFound {
 
 /*UpdateUserNotFound handles this case with default header values.
 
-User not found
+User not found. (code: `user.not_found`)
 */
 type UpdateUserNotFound struct {
+	/*The error codes associated with the response
+	 */
+	XCloudErrorCodes string
+
 	Payload *models.BasicFailedReply
 }
 
@@ -198,6 +174,9 @@ func (o *UpdateUserNotFound) GetPayload() *models.BasicFailedReply {
 }
 
 func (o *UpdateUserNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response header x-cloud-error-codes
+	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -216,9 +195,13 @@ func NewUpdateUserRetryWith() *UpdateUserRetryWith {
 
 /*UpdateUserRetryWith handles this case with default header values.
 
-Elevated permissions are required. (code: 'root.unauthorized.rbac.elevated_permissions_required')
+Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type UpdateUserRetryWith struct {
+	/*The error codes associated with the response
+	 */
+	XCloudErrorCodes string
+
 	Payload *models.BasicFailedReply
 }
 
@@ -231,6 +214,9 @@ func (o *UpdateUserRetryWith) GetPayload() *models.BasicFailedReply {
 }
 
 func (o *UpdateUserRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response header x-cloud-error-codes
+	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
 
 	o.Payload = new(models.BasicFailedReply)
 

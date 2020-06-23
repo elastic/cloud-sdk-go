@@ -107,14 +107,14 @@ type UpdateStackPacksBadRequest struct {
 	 */
 	XCloudErrorCodes string
 
-	Payload *models.BasicFailedReply
+	Payload *models.StackVersionArchiveProcessingResult
 }
 
 func (o *UpdateStackPacksBadRequest) Error() string {
 	return fmt.Sprintf("[POST /stack/versions][%d] updateStackPacksBadRequest  %+v", 400, o.Payload)
 }
 
-func (o *UpdateStackPacksBadRequest) GetPayload() *models.BasicFailedReply {
+func (o *UpdateStackPacksBadRequest) GetPayload() *models.StackVersionArchiveProcessingResult {
 	return o.Payload
 }
 
@@ -123,7 +123,7 @@ func (o *UpdateStackPacksBadRequest) readResponse(response runtime.ClientRespons
 	// response header x-cloud-error-codes
 	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
 
-	o.Payload = new(models.BasicFailedReply)
+	o.Payload = new(models.StackVersionArchiveProcessingResult)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

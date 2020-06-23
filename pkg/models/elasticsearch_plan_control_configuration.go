@@ -85,7 +85,7 @@ type ElasticsearchPlanControlConfiguration struct {
 	// If false, the cluster is checked for issues that should be resolved before migration (eg contains old Lucene segments), if true this is bypassed
 	SkipUpgradeChecker *bool `json:"skip_upgrade_checker,omitempty"`
 
-	// The total timeout in seconds after which the plan is cancelled even if it is not complete. Defaults to 4x the max memory capacity per node (in MB). NOTES: (eg a 3 zone cluster with 2 nodes of 2048 each would have a timeout of 4*2048=8192 seconds)
+	// The total timeout in seconds after which the plan is cancelled even if it is not complete. Defaults to 4x the max memory capacity per node (in MB). NOTES: A 3 zone cluster with 2 nodes of 2048 each would have a timeout of 4*2048=8192 seconds. Timeout does not include time required to run rollback actions.
 	Timeout int64 `json:"timeout,omitempty"`
 }
 

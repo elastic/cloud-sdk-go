@@ -46,8 +46,9 @@ type TrafficFilterRulesetRequest struct {
 	// Required: true
 	Name *string `json:"name"`
 
-	// If present, the ruleset can be attached only to deployments in the specific region
-	Region string `json:"region,omitempty"`
+	// The ruleset can be attached only to deployments in the specific region
+	// Required: true
+	Region *string `json:"region"`
 
 	// List of rules
 	// Required: true
@@ -67,6 +68,10 @@ func (m *TrafficFilterRulesetRequest) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateName(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateRegion(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -96,6 +101,15 @@ func (m *TrafficFilterRulesetRequest) validateIncludeByDefault(formats strfmt.Re
 func (m *TrafficFilterRulesetRequest) validateName(formats strfmt.Registry) error {
 
 	if err := validate.Required("name", "body", m.Name); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *TrafficFilterRulesetRequest) validateRegion(formats strfmt.Registry) error {
+
+	if err := validate.Required("region", "body", m.Region); err != nil {
 		return err
 	}
 

@@ -96,6 +96,11 @@ type GetTrafficFilterRulesetsParams struct {
 
 	*/
 	IncludeAssociations *bool
+	/*Region
+	  If provided limits the rulesets to that region only.
+
+	*/
+	Region *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -146,6 +151,17 @@ func (o *GetTrafficFilterRulesetsParams) SetIncludeAssociations(includeAssociati
 	o.IncludeAssociations = includeAssociations
 }
 
+// WithRegion adds the region to the get traffic filter rulesets params
+func (o *GetTrafficFilterRulesetsParams) WithRegion(region *string) *GetTrafficFilterRulesetsParams {
+	o.SetRegion(region)
+	return o
+}
+
+// SetRegion adds the region to the get traffic filter rulesets params
+func (o *GetTrafficFilterRulesetsParams) SetRegion(region *string) {
+	o.Region = region
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *GetTrafficFilterRulesetsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -164,6 +180,22 @@ func (o *GetTrafficFilterRulesetsParams) WriteToRequest(r runtime.ClientRequest,
 		qIncludeAssociations := swag.FormatBool(qrIncludeAssociations)
 		if qIncludeAssociations != "" {
 			if err := r.SetQueryParam("include_associations", qIncludeAssociations); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.Region != nil {
+
+		// query param region
+		var qrRegion string
+		if o.Region != nil {
+			qrRegion = *o.Region
+		}
+		qRegion := qrRegion
+		if qRegion != "" {
+			if err := r.SetQueryParam("region", qRegion); err != nil {
 				return err
 			}
 		}

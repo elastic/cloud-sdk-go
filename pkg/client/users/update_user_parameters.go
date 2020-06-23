@@ -32,8 +32,6 @@ import (
 	cr "github.com/go-openapi/runtime/client"
 
 	strfmt "github.com/go-openapi/strfmt"
-
-	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // NewUpdateUserParams creates a new UpdateUserParams object
@@ -81,10 +79,10 @@ for the update user operation typically these are written to a http.Request
 type UpdateUserParams struct {
 
 	/*Body
-	  The user to update
+	  All changes in the specified object are applied to the user. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.
 
 	*/
-	Body *models.User
+	Body string
 	/*UserName
 	  Identifier for the user
 
@@ -130,13 +128,13 @@ func (o *UpdateUserParams) SetHTTPClient(client *http.Client) {
 }
 
 // WithBody adds the body to the update user params
-func (o *UpdateUserParams) WithBody(body *models.User) *UpdateUserParams {
+func (o *UpdateUserParams) WithBody(body string) *UpdateUserParams {
 	o.SetBody(body)
 	return o
 }
 
 // SetBody adds the body to the update user params
-func (o *UpdateUserParams) SetBody(body *models.User) {
+func (o *UpdateUserParams) SetBody(body string) {
 	o.Body = body
 }
 
@@ -159,10 +157,8 @@ func (o *UpdateUserParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Re
 	}
 	var res []error
 
-	if o.Body != nil {
-		if err := r.SetBodyParam(o.Body); err != nil {
-			return err
-		}
+	if err := r.SetBodyParam(o.Body); err != nil {
+		return err
 	}
 
 	// path param user_name

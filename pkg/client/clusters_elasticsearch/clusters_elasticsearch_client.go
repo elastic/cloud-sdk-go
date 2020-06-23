@@ -48,7 +48,7 @@ type ClientService interface {
 
 	CancelEsClusterPendingPlan(params *CancelEsClusterPendingPlanParams, authInfo runtime.ClientAuthInfoWriter) (*CancelEsClusterPendingPlanOK, error)
 
-	CreateEsCluster(params *CreateEsClusterParams, authInfo runtime.ClientAuthInfoWriter) (*CreateEsClusterOK, *CreateEsClusterCreated, error)
+	CreateEsCluster(params *CreateEsClusterParams, authInfo runtime.ClientAuthInfoWriter) (*CreateEsClusterOK, *CreateEsClusterCreated, *CreateEsClusterAccepted, error)
 
 	DeleteEsCluster(params *DeleteEsClusterParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteEsClusterOK, error)
 
@@ -230,7 +230,7 @@ func (a *Client) CancelEsClusterPendingPlan(params *CancelEsClusterPendingPlanPa
 
   DEPRECATED (Scheduled to be removed in the next major version): Creates an Elasticsearch cluster.
 */
-func (a *Client) CreateEsCluster(params *CreateEsClusterParams, authInfo runtime.ClientAuthInfoWriter) (*CreateEsClusterOK, *CreateEsClusterCreated, error) {
+func (a *Client) CreateEsCluster(params *CreateEsClusterParams, authInfo runtime.ClientAuthInfoWriter) (*CreateEsClusterOK, *CreateEsClusterCreated, *CreateEsClusterAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateEsClusterParams()
@@ -250,13 +250,15 @@ func (a *Client) CreateEsCluster(params *CreateEsClusterParams, authInfo runtime
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return nil, nil, err
+		return nil, nil, nil, err
 	}
 	switch value := result.(type) {
 	case *CreateEsClusterOK:
-		return value, nil, nil
+		return value, nil, nil, nil
 	case *CreateEsClusterCreated:
-		return nil, value, nil
+		return nil, value, nil, nil
+	case *CreateEsClusterAccepted:
+		return nil, nil, value, nil
 	}
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for clusters_elasticsearch: API contract not enforced by server. Client expected to get an error, but got: %T", result)

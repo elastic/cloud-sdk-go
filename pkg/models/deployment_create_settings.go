@@ -32,8 +32,11 @@ import (
 // swagger:model DeploymentCreateSettings
 type DeploymentCreateSettings struct {
 
-	// The set of rulesets applies to this deployment.
+	// DEPRECATED (Scheduled to be removed in the next major version): The set of rulesets applies to this deployment.
 	IPFilteringSettings *IPFilteringSettings `json:"ip_filtering_settings,omitempty"`
+
+	// The traffic filter rulesets to apply to this deployment.
+	TrafficFilterSettings *TrafficFilterSettings `json:"traffic_filter_settings,omitempty"`
 }
 
 // Validate validates this deployment create settings
@@ -41,6 +44,10 @@ func (m *DeploymentCreateSettings) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateIPFilteringSettings(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateTrafficFilterSettings(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -60,6 +67,24 @@ func (m *DeploymentCreateSettings) validateIPFilteringSettings(formats strfmt.Re
 		if err := m.IPFilteringSettings.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ip_filtering_settings")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *DeploymentCreateSettings) validateTrafficFilterSettings(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.TrafficFilterSettings) { // not required
+		return nil
+	}
+
+	if m.TrafficFilterSettings != nil {
+		if err := m.TrafficFilterSettings.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("traffic_filter_settings")
 			}
 			return err
 		}
