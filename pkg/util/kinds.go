@@ -27,6 +27,9 @@ const (
 	// Elasticsearch kind
 	Elasticsearch = "elasticsearch"
 
+	// EnterpriseSearch kind
+	EnterpriseSearch = "enterprise_search"
+
 	// Kibana kind
 	Kibana = "kibana"
 )

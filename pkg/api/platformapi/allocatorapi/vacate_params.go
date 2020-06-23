@@ -41,7 +41,13 @@ var (
 	errOutputDeviceCannotBeNil      = errors.New("output device cannot be nil")
 	errCannotOverrideAllocatorDown  = errors.New("cannot set the AllocatorDown when multiple allocators are specified")
 
-	allowedClusterKinds = []string{util.Apm, util.Elasticsearch, util.Kibana, util.Appsearch}
+	allowedClusterKinds = []string{
+		util.Apm,
+		util.Appsearch,
+		util.Elasticsearch,
+		util.EnterpriseSearch,
+		util.Kibana,
+	}
 )
 
 // VacateParams used to vacate N allocators or clusters.

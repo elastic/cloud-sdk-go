@@ -29,10 +29,11 @@ type GenerateConfig struct {
 	// If omitted, a random ID will be auto-generated.
 	ID string
 
-	Elasticsearch []GeneratedResourceConfig
-	Kibana        []GeneratedResourceConfig
-	Apm           []GeneratedResourceConfig
-	Appsearch     []GeneratedResourceConfig
+	Elasticsearch    []GeneratedResourceConfig
+	EnterpriseSearch []GeneratedResourceConfig
+	Kibana           []GeneratedResourceConfig
+	Apm              []GeneratedResourceConfig
+	Appsearch        []GeneratedResourceConfig
 }
 
 // GeneratedResourceConfig is used to construct a deployment resource plan
@@ -64,10 +65,11 @@ func Generate(cfg GenerateConfig) *models.DeploymentGetResponse {
 	return &models.DeploymentGetResponse{
 		ID: ec.String(id),
 		Resources: &models.DeploymentResources{
-			Apm:           generateApmResourceInfo(cfg.Apm),
-			Kibana:        generateKibanaResourceInfo(cfg.Kibana),
-			Elasticsearch: generateElasticsearchResourceInfo(cfg.Elasticsearch),
-			Appsearch:     generateAppSearchResourceInfo(cfg.Appsearch),
+			Apm:              generateApmResourceInfo(cfg.Apm),
+			Kibana:           generateKibanaResourceInfo(cfg.Kibana),
+			Elasticsearch:    generateElasticsearchResourceInfo(cfg.Elasticsearch),
+			Appsearch:        generateAppSearchResourceInfo(cfg.Appsearch),
+			EnterpriseSearch: generateEnterpriseSearchResourceInfo(cfg.EnterpriseSearch),
 		},
 	}
 }
@@ -114,6 +116,31 @@ func generateAppSearchResourceInfo(c []GeneratedResourceConfig) []*models.AppSea
 			Pending: &models.AppSearchPlanInfo{PlanAttemptLog: gen.PendingLog},
 			Current: &models.AppSearchPlanInfo{PlanAttemptLog: gen.CurrentLog},
 			History: []*models.AppSearchPlanInfo{{PlanAttemptLog: gen.HistoryLog}},
+		}}
+
+		resInfo = append(resInfo, &info)
+	}
+
+	return resInfo
+}
+
+func generateEnterpriseSearchResourceInfo(c []GeneratedResourceConfig) []*models.EnterpriseSearchResourceInfo {
+	var resInfo = make([]*models.EnterpriseSearchResourceInfo, 0, len(c))
+	for _, gen := range c {
+		var info models.EnterpriseSearchResourceInfo
+		info.ID = &gen.ID
+		if gen.ID == "" {
+			info.ID = ec.String(ec.RandomResourceID())
+		}
+		info.RefID = &gen.RefID
+		if gen.RefID == "" {
+			info.RefID = ec.String("main-enterprise_search")
+		}
+
+		info.Info = &models.EnterpriseSearchInfo{PlanInfo: &models.EnterpriseSearchPlansInfo{
+			Pending: &models.EnterpriseSearchPlanInfo{PlanAttemptLog: gen.PendingLog},
+			Current: &models.EnterpriseSearchPlanInfo{PlanAttemptLog: gen.CurrentLog},
+			History: []*models.EnterpriseSearchPlanInfo{{PlanAttemptLog: gen.HistoryLog}},
 		}}
 
 		resInfo = append(resInfo, &info)

@@ -215,6 +215,71 @@ func TestVacate(t *testing.T) {
 			),
 		},
 		{
+			name: "Succeeds moving a single Enterprise Search cluster from a single allocator (without tracking)",
+			args: args{
+				buf: sdkSync.NewBuffer(),
+				params: newVacateTestCase(t, vacateCase{
+					region:       "us-east-1",
+					skipTracking: true,
+					topology: []vacateCaseClusters{
+						{
+							Allocator: "allocatorID",
+							EnterpriseSearch: []vacateCaseClusterConfig{
+								{
+									ID: "3ee11eb40eda22cac0cce259625c6734",
+									steps: [][]*models.ClusterPlanStepInfo{
+										{
+											newPlanStep("step1", "success"),
+											newPlanStep("step2", "pending"),
+										},
+									},
+									plan: []*models.ClusterPlanStepInfo{
+										newPlanStep("step1", "success"),
+										newPlanStep("step2", "success"),
+										newPlanStep("plan-completed", "success"),
+									},
+								},
+							},
+						},
+					},
+				}),
+			},
+		},
+		{
+			name: "Succeeds moving a single Enterprise Search cluster from a single allocator",
+			args: args{
+				buf: sdkSync.NewBuffer(),
+				params: newVacateTestCase(t, vacateCase{
+					region: "us-east-1",
+					topology: []vacateCaseClusters{
+						{
+							Allocator: "allocatorID",
+							EnterpriseSearch: []vacateCaseClusterConfig{
+								{
+									ID: "3ee11eb40eda22cac0cce259625c6734",
+									steps: [][]*models.ClusterPlanStepInfo{
+										{
+											newPlanStep("step1", "success"),
+											newPlanStep("step2", "pending"),
+										},
+									},
+									plan: []*models.ClusterPlanStepInfo{
+										newPlanStep("step1", "success"),
+										newPlanStep("step2", "success"),
+										newPlanStep("plan-completed", "success"),
+									},
+								},
+							},
+						},
+					},
+				}),
+			},
+			want: newOutputResponses(
+				"Deployment [DISCOVERED_DEPLOYMENT_ID] - [Enterprise Search][3ee11eb40eda22cac0cce259625c6734]: running step \"step2\" (Plan duration )...",
+				"\x1b[92;mDeployment [DISCOVERED_DEPLOYMENT_ID] - [Enterprise Search][3ee11eb40eda22cac0cce259625c6734]: finished running all the plan steps\x1b[0m (Total plan duration )",
+			),
+		},
+		{
 			name: "Succeeds moving a multiple clusters from a single allocator",
 			args: args{
 				buf: sdkSync.NewBuffer(),
