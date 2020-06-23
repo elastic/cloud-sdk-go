@@ -18,62 +18,44 @@
 package proxyapi
 
 import (
+	"context"
 	"errors"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/client/platform_infrastructure"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/multierror"
+	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
 var (
-	errIDCannotBeEmpty = errors.New("proxy id cannot be empty")
+	errIDCannotBeEmpty = errors.New("proxy id is not specified and is required for the operation")
 )
-
-// Params is the generic set of parameters used for any proxy call
-type Params struct {
-	*api.API
-}
-
-// Validate checks the parameters
-func (params Params) Validate() error {
-	if params.API == nil {
-		return apierror.ErrMissingAPI
-	}
-
-	return nil
-}
 
 // GetParams is the set of parameters required for retrieving a proxy
 type GetParams struct {
-	Params
-	ID string
+	*api.API
+	ID     string
+	Region string
 }
 
 // Validate checks the parameters
 func (params GetParams) Validate() error {
+	var merr = multierror.NewPrefixed("invalid proxy params")
 	if params.ID == "" {
-		return errIDCannotBeEmpty
+		merr = merr.Append(errIDCannotBeEmpty)
 	}
 
-	return params.Params.Validate()
-}
-
-// List gets the list of proxies for a region
-func List(params Params) (*models.ProxyOverview, error) {
-	if err := params.Validate(); err != nil {
-		return nil, err
+	if params.API == nil {
+		merr = merr.Append(apierror.ErrMissingAPI)
 	}
 
-	proxies, err := params.API.V1API.PlatformInfrastructure.GetProxies(
-		platform_infrastructure.NewGetProxiesParams(),
-		params.AuthWriter,
-	)
-	if err != nil {
-		return nil, api.UnwrapError(err)
+	if err := ec.RequireRegionSet(params.Region); err != nil {
+		merr = merr.Append(err)
 	}
 
-	return proxies.Payload, nil
+	return merr.ErrorOrNil()
 }
 
 // Get returns information about a specific proxy
@@ -84,6 +66,7 @@ func Get(params GetParams) (*models.ProxyInfo, error) {
 
 	proxy, err := params.API.V1API.PlatformInfrastructure.GetProxy(
 		platform_infrastructure.NewGetProxyParams().
+			WithContext(api.WithRegion(context.Background(), params.Region)).
 			WithProxyID(params.ID),
 		params.AuthWriter,
 	)
