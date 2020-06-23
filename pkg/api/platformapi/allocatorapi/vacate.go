@@ -562,6 +562,7 @@ func CheckVacateFailures(failures *models.MoveClustersDetails, filter []string) 
 // ComputeVacateRequest filters the tentative cluster that would be moved and
 // filters those by ID if it's specified, also setting any preferred allocators
 // if that is sent. Any cluster plan overrides will be set in this function.
+// nolint due to complexity
 func ComputeVacateRequest(pr *models.MoveClustersDetails, clusters, to []string, overrides PlanOverrides) *models.MoveClustersRequest {
 	var req models.MoveClustersRequest
 	for _, c := range pr.ElasticsearchClusters {
