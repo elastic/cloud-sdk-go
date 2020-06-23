@@ -58,30 +58,28 @@ func TestUpdate(t *testing.T) {
 		{
 			name: "Proxies filtered group update succeeds",
 			args: args{params: UpdateParams{
-				CreateParams: CreateParams{
-					Region: "us-east-1",
-					API: api.NewMock(mock.Response{
-						Response: http.Response{
-							StatusCode: http.StatusOK,
-							Status:     http.StatusText(http.StatusOK),
-							Body:       ioutil.NopCloser(strings.NewReader(proxiesFilteredGroup)),
-						},
-						Assert: &mock.RequestAssertion{
-							Header: api.DefaultWriteMockHeaders,
-							Method: "PUT",
-							Host:   api.DefaultMockHost,
-							Path:   "/api/v1/regions/us-east-1/platform/infrastructure/proxies/filtered-groups/test2",
-							Body:   mock.NewStringBody(`{"expected_proxies_count":15,"filters":[{"key":"proxyType","value":"main-nextgen"}],"id":"test2"}` + "\n"),
-							Query:  url.Values{"version": []string{"1"}},
-						},
-					}),
-					ID: "test2",
-					Filters: map[string]string{
-						"proxyType": "main-nextgen",
+				Region: "us-east-1",
+				API: api.NewMock(mock.Response{
+					Response: http.Response{
+						StatusCode: http.StatusOK,
+						Status:     http.StatusText(http.StatusOK),
+						Body:       ioutil.NopCloser(strings.NewReader(proxiesFilteredGroup)),
 					},
-					ExpectedProxiesCount: 15,
+					Assert: &mock.RequestAssertion{
+						Header: api.DefaultWriteMockHeaders,
+						Method: "PUT",
+						Host:   api.DefaultMockHost,
+						Path:   "/api/v1/regions/us-east-1/platform/infrastructure/proxies/filtered-groups/test2",
+						Body:   mock.NewStringBody(`{"expected_proxies_count":15,"filters":[{"key":"proxyType","value":"main-nextgen"}],"id":"test2"}` + "\n"),
+						Query:  url.Values{"version": []string{"1"}},
+					},
+				}),
+				ID: "test2",
+				Filters: map[string]string{
+					"proxyType": "main-nextgen",
 				},
-				Version: 1,
+				ExpectedProxiesCount: 15,
+				Version:              1,
 			}},
 			want: &models.ProxiesFilteredGroup{
 				ExpectedProxiesCount: ec.Int32(15),
@@ -97,23 +95,20 @@ func TestUpdate(t *testing.T) {
 		{
 			name: "Proxies filtered group update fails with 403 Forbidden",
 			args: args{params: UpdateParams{
-				CreateParams: CreateParams{
-					Region: "us-east-1",
-					API: api.NewMock(mock.Response{Response: http.Response{
-						StatusCode: http.StatusForbidden,
-						Status:     http.StatusText(http.StatusForbidden),
-						Body:       mock.NewStringBody(`{"error": "some error"}`),
-					}}),
-					ID: "test2",
-					Filters: map[string]string{
-						"proxyType": "main-nextgen",
-					},
-
-					ExpectedProxiesCount: 15,
+				Region: "us-east-1",
+				API: api.NewMock(mock.Response{Response: http.Response{
+					StatusCode: http.StatusForbidden,
+					Status:     http.StatusText(http.StatusForbidden),
+					Body:       mock.NewStringBody(`{"error": "some error"}`),
+				}}),
+				ID: "test2",
+				Filters: map[string]string{
+					"proxyType": "main-nextgen",
 				},
-				Version: 1,
-			},
-			},
+
+				ExpectedProxiesCount: 15,
+				Version:              1,
+			}},
 			err: errors.New(`{"error": "some error"}`),
 		},
 		{

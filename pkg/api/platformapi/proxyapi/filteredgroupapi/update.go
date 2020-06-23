@@ -22,23 +22,48 @@ import (
 	"errors"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
+	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/client/platform_infrastructure"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
+	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
 var errVersionCannotBeLesserThanZero = errors.New("version cannot be less than 0")
 
 // UpdateParams is the set of parameters required for updating proxies filtered group
 type UpdateParams struct {
-	CreateParams
-	Version int64
+	*api.API
+
+	ID                   string
+	Region               string
+	Filters              map[string]string
+	ExpectedProxiesCount int32
+	Version              int64
 }
 
 // Validate parameters for Update function
 func (params UpdateParams) Validate() error {
 	var merr = multierror.NewPrefixed("invalid filtered group params")
-	merr = merr.Append(params.CreateParams.Validate())
+	if params.ID == "" {
+		merr = merr.Append(errIDCannotBeEmpty)
+	}
+
+	if params.API == nil {
+		merr = merr.Append(apierror.ErrMissingAPI)
+	}
+
+	if err := ec.RequireRegionSet(params.Region); err != nil {
+		merr = merr.Append(err)
+	}
+
+	if len(params.Filters) < 1 {
+		merr = merr.Append(errFiltersCannotBeEmpty)
+	}
+
+	if params.ExpectedProxiesCount < 1 {
+		merr = merr.Append(errExpectedProxiesCount)
+	}
 
 	if params.Version < 0 {
 		merr = merr.Append(errVersionCannotBeLesserThanZero)
@@ -64,7 +89,9 @@ func Update(params UpdateParams) (*models.ProxiesFilteredGroup, error) {
 	proxy, err := params.API.V1API.PlatformInfrastructure.UpdateProxiesFilteredGroup(
 		platform_infrastructure.NewUpdateProxiesFilteredGroupParams().
 			WithContext(api.WithRegion(context.Background(), params.Region)).
-			WithBody(body).WithVersion(&params.Version).WithProxiesFilteredGroupID(params.ID),
+			WithBody(body).
+			WithVersion(&params.Version).
+			WithProxiesFilteredGroupID(params.ID),
 		params.AuthWriter,
 	)
 	if err != nil {
