@@ -18,23 +18,34 @@
 package platformapi
 
 import (
+	"context"
+
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/client/platform"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/multierror"
+	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
 // GetInfoParams params is consumed by GetInfo
 type GetInfoParams struct {
 	*api.API
+	Region string
 }
 
 // Validate ensures that the parameters are consumable by GetInfo.
 func (params GetInfoParams) Validate() error {
+	var merr = multierror.NewPrefixed("invalid platform get params")
 	if params.API == nil {
-		return apierror.ErrMissingAPI
+		merr = merr.Append(apierror.ErrMissingAPI)
 	}
-	return nil
+
+	if err := ec.RequireRegionSet(params.Region); err != nil {
+		merr = merr.Append(err)
+	}
+
+	return merr.ErrorOrNil()
 }
 
 // GetInfo obtains information about the platform
@@ -44,7 +55,8 @@ func GetInfo(params GetInfoParams) (*models.PlatformInfo, error) {
 	}
 
 	res, err := params.V1API.Platform.GetPlatform(
-		platform.NewGetPlatformParams(),
+		platform.NewGetPlatformParams().
+			WithContext(api.WithRegion(context.Background(), params.Region)),
 		params.AuthWriter,
 	)
 	if err != nil {

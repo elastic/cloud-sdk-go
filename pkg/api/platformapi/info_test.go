@@ -24,8 +24,10 @@ import (
 	"testing"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
+	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
@@ -41,31 +43,36 @@ func TestGetInfo(t *testing.T) {
 	}{
 		{
 			name: "Succeeds",
-			args: args{params: GetInfoParams{API: api.NewMock(mock.Response{
-				Response: http.Response{
-					Status:     http.StatusText(http.StatusOK),
-					StatusCode: http.StatusOK,
-					Body: mock.NewStructBody(models.PlatformInfo{
-						EulaAccepted:     ec.Bool(false),
-						PhoneHomeEnabled: ec.Bool(false),
-					}),
-				},
-			})}},
+			args: args{params: GetInfoParams{
+				Region: "us-east-1",
+				API: api.NewMock(mock.Response{
+					Response: http.Response{
+						Status:     http.StatusText(http.StatusOK),
+						StatusCode: http.StatusOK,
+						Body: mock.NewStructBody(models.PlatformInfo{
+							EulaAccepted:     ec.Bool(false),
+							PhoneHomeEnabled: ec.Bool(false),
+						}),
+					},
+					Assert: &mock.RequestAssertion{
+						Header: api.DefaultReadMockHeaders,
+						Method: "GET",
+						Host:   api.DefaultMockHost,
+						Path:   "/api/v1/regions/us-east-1/platform",
+					},
+				}),
+			}},
 			want: &models.PlatformInfo{
 				EulaAccepted:     ec.Bool(false),
 				PhoneHomeEnabled: ec.Bool(false),
 			},
 		},
 		{
-			name: "fails due to API error",
-			args: args{params: GetInfoParams{
-				API: api.NewMock(mock.New404Response(mock.NewStringBody(`{"error": "some error"}`))),
-			}},
-			err: errors.New(`{"error": "some error"}`),
-		},
-		{
 			name: "fails due to parameter validation",
-			err:  errors.New("api reference is required for the operation"),
+			err: multierror.NewPrefixed("invalid platform get params",
+				apierror.ErrMissingAPI,
+				errors.New("region not specified and is required for this operation"),
+			),
 		},
 	}
 	for _, tt := range tests {
