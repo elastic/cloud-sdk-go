@@ -240,6 +240,18 @@ func addAllocatorMovesToPool(params addAllocatorMovesToPoolParams) ([]pool.Valid
 		vacates = append(vacates, newVacateClusterParams(params, *move.ClusterID, kind))
 	}
 
+	for _, move := range params.Moves.EnterpriseSearchClusters {
+		if len(filter) > 0 && !slice.HasString(filter, *move.ClusterID) {
+			continue
+		}
+
+		var kind = util.EnterpriseSearch
+		if kindFilter != "" && kind != kindFilter {
+			break
+		}
+		vacates = append(vacates, newVacateClusterParams(params, *move.ClusterID, kind))
+	}
+
 	if leftover, _ := params.Pool.Add(vacates...); len(leftover) > 0 {
 		leftovers = append(leftovers, leftover...)
 	}
@@ -417,6 +429,10 @@ func newMoveClusterParams(params *VacateClusterParams) (*platform_infrastructure
 		moveParams.SetClusterType(ec.String(util.Appsearch))
 	}
 
+	if len(req.EnterpriseSearchClusters) > 0 {
+		moveParams.SetClusterType(ec.String(util.EnterpriseSearch))
+	}
+
 	return moveParams, nil
 }
 
@@ -522,12 +538,31 @@ func CheckVacateFailures(failures *models.MoveClustersDetails, filter []string) 
 		}
 	}
 
+	for _, failure := range failures.EnterpriseSearchClusters {
+		if len(filter) > 0 && !slice.HasString(filter, *failure.ClusterID) {
+			continue
+		}
+
+		var ferr error
+		if len(failure.Errors) > 0 {
+			var err = failure.Errors[0]
+			ferr = fmt.Errorf("code: %s, message: %s", *err.Code, *err.Message)
+		}
+
+		if !strings.Contains(ferr.Error(), PlanPendingMessage) {
+			merr = merr.Append(
+				fmt.Errorf("resource id [%s][enterprise_search] failed vacating, reason: %s", *failure.ClusterID, ferr),
+			)
+		}
+	}
+
 	return merr.ErrorOrNil()
 }
 
 // ComputeVacateRequest filters the tentative cluster that would be moved and
 // filters those by ID if it's specified, also setting any preferred allocators
 // if that is sent. Any cluster plan overrides will be set in this function.
+// nolint due to complexity
 func ComputeVacateRequest(pr *models.MoveClustersDetails, clusters, to []string, overrides PlanOverrides) *models.MoveClustersRequest {
 	var req models.MoveClustersRequest
 	for _, c := range pr.ElasticsearchClusters {
@@ -592,6 +627,20 @@ func ComputeVacateRequest(pr *models.MoveClustersDetails, clusters, to []string,
 		c.CalculatedPlan.PlanConfiguration.PreferredAllocators = to
 		req.AppsearchClusters = append(req.AppsearchClusters,
 			&models.MoveAppSearchConfiguration{
+				ClusterIds:   []string{*c.ClusterID},
+				PlanOverride: c.CalculatedPlan,
+			},
+		)
+	}
+
+	for _, c := range pr.EnterpriseSearchClusters {
+		if len(clusters) > 0 && !slice.HasString(clusters, *c.ClusterID) {
+			continue
+		}
+
+		c.CalculatedPlan.PlanConfiguration.PreferredAllocators = to
+		req.EnterpriseSearchClusters = append(req.EnterpriseSearchClusters,
+			&models.MoveEnterpriseSearchConfiguration{
 				ClusterIds:   []string{*c.ClusterID},
 				PlanOverride: c.CalculatedPlan,
 			},

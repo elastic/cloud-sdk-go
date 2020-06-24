@@ -99,6 +99,30 @@ func TestVacateParamsValidate(t *testing.T) {
 			err: nil,
 		},
 		{
+			name: "Accepts a correct set of parameters with an appsearch kind filter",
+			fields: fields{
+				API:         new(api.API),
+				Allocators:  []string{"an allocator"},
+				KindFilter:  util.Appsearch,
+				Concurrency: 1,
+				Output:      new(output.Device),
+				Region:      "us-east-1",
+			},
+			err: nil,
+		},
+		{
+			name: "Accepts a correct set of parameters with an enterprise_search kind filter",
+			fields: fields{
+				API:         new(api.API),
+				Allocators:  []string{"an allocator"},
+				KindFilter:  util.EnterpriseSearch,
+				Concurrency: 1,
+				Output:      new(output.Device),
+				Region:      "us-east-1",
+			},
+			err: nil,
+		},
+		{
 			name:   "Empty parameters are not accepted",
 			fields: fields{},
 			err: multierror.NewPrefixed("invalid allocator vacate params",

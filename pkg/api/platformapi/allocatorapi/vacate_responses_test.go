@@ -61,6 +61,8 @@ type vacateCaseClusters struct {
 	apm []vacateCaseClusterConfig
 	// App Search clusters that will be simulated
 	appsearch []vacateCaseClusterConfig
+	// EnterpriseSearch clusters
+	EnterpriseSearch []vacateCaseClusterConfig
 }
 
 type vacateCaseClusterConfig struct {
@@ -181,6 +183,25 @@ func newAppsearchMove(t *testing.T, clusterID, allocator string) io.ReadCloser {
 	)))
 }
 
+func newEnterpriseSearchMove(t *testing.T, clusterID, allocator string) io.ReadCloser {
+	return ioutil.NopCloser(strings.NewReader(newBody(t,
+		models.MoveClustersCommandResponse{
+			Moves: &models.MoveClustersDetails{
+				EnterpriseSearchClusters: []*models.MoveEnterpriseSearchDetails{{
+					ClusterID: ec.String(clusterID),
+					CalculatedPlan: &models.TransientEnterpriseSearchPlanConfiguration{
+						PlanConfiguration: &models.EnterpriseSearchPlanControlConfiguration{
+							MoveAllocators: []*models.AllocatorMoveRequest{
+								{From: ec.String(allocator)},
+							},
+						},
+					},
+				}},
+			},
+		},
+	)))
+}
+
 func newKibanaMoveFailure(t *testing.T, clusterID, allocator string) io.ReadCloser {
 	return ioutil.NopCloser(strings.NewReader(newBody(t,
 		models.MoveClustersCommandResponse{
@@ -210,7 +231,7 @@ func newKibanaMoveFailure(t *testing.T, clusterID, allocator string) io.ReadClos
 	)))
 }
 
-func newMulipleMoves(t *testing.T, allocator string, es, kibana, apm, appsearch []string) io.ReadCloser {
+func newMulipleMoves(t *testing.T, allocator string, es, kibana, apm, appsearch, ess []string) io.ReadCloser {
 	var res = models.MoveClustersCommandResponse{Moves: &models.MoveClustersDetails{}}
 	for _, id := range es {
 		res.Moves.ElasticsearchClusters = append(res.Moves.ElasticsearchClusters,
@@ -270,6 +291,21 @@ func newMulipleMoves(t *testing.T, allocator string, es, kibana, apm, appsearch 
 			},
 		)
 	}
+
+	for _, id := range ess {
+		res.Moves.EnterpriseSearchClusters = append(res.Moves.EnterpriseSearchClusters,
+			&models.MoveEnterpriseSearchDetails{
+				ClusterID: ec.String(id),
+				CalculatedPlan: &models.TransientEnterpriseSearchPlanConfiguration{
+					PlanConfiguration: &models.EnterpriseSearchPlanControlConfiguration{
+						MoveAllocators: []*models.AllocatorMoveRequest{
+							{From: ec.String(allocator)},
+						},
+					},
+				},
+			},
+		)
+	}
 	return ioutil.NopCloser(strings.NewReader(newBody(t, res)))
 }
 
@@ -318,6 +354,24 @@ func newAppSearchPollerBody(t *testing.T, id string, pending, current *models.Ap
 					ID:    &id,
 					RefID: ec.String(depresourceapi.DefaultAppSearchRefID),
 					Info: &models.AppSearchInfo{PlanInfo: &models.AppSearchPlansInfo{
+						Current: current, Pending: pending,
+					}},
+				},
+			},
+		},
+	}
+	return newPayloadFromStruct(t, payload)
+}
+
+func newEnterpriseSearchPollerBody(t *testing.T, id string, pending, current *models.EnterpriseSearchPlanInfo) io.ReadCloser {
+	payload := models.DeploymentGetResponse{
+		ID: ec.String("DISCOVERED_DEPLOYMENT_ID"),
+		Resources: &models.DeploymentResources{
+			EnterpriseSearch: []*models.EnterpriseSearchResourceInfo{
+				{
+					ID:    &id,
+					RefID: ec.String("main-enterprise_search"),
+					Info: &models.EnterpriseSearchInfo{PlanInfo: &models.EnterpriseSearchPlansInfo{
 						Current: current, Pending: pending,
 					}},
 				},
@@ -468,6 +522,7 @@ func newVacateTestCase(t *testing.T, tc vacateCase) *VacateParams {
 		var kibanaMoves []string
 		var apmMoves []string
 		var appsearchMoves []string
+		var essMoves []string
 
 		// Get all moves
 		for ii := range topology.elasticsearch {
@@ -482,10 +537,13 @@ func newVacateTestCase(t *testing.T, tc vacateCase) *VacateParams {
 		for ii := range topology.appsearch {
 			appsearchMoves = append(appsearchMoves, topology.appsearch[ii].ID)
 		}
+		for ii := range topology.EnterpriseSearch {
+			essMoves = append(essMoves, topology.EnterpriseSearch[ii].ID)
+		}
 
 		responses = append(responses, mock.Response{
 			Response: http.Response{
-				Body:       newMulipleMoves(t, alloc, esmoves, kibanaMoves, apmMoves, appsearchMoves),
+				Body:       newMulipleMoves(t, alloc, esmoves, kibanaMoves, apmMoves, appsearchMoves, essMoves),
 				StatusCode: 202,
 			},
 			Assert: &mock.RequestAssertion{
@@ -525,6 +583,11 @@ func newVacateTestCase(t *testing.T, tc vacateCase) *VacateParams {
 
 		for ii := range topology.appsearch {
 			_, r := newAppsearchVacateMove(t, alloc, topology.appsearch[ii], tc.region)
+			responses = append(responses, r...)
+		}
+
+		for ii := range topology.EnterpriseSearch {
+			_, r := newEnterpriseSearchVacateMove(t, alloc, topology.EnterpriseSearch[ii], tc.region)
 			responses = append(responses, r...)
 		}
 	}
@@ -1009,6 +1072,117 @@ func newAppsearchVacateMove(t *testing.T, alloc string, move vacateCaseClusterCo
 				&models.AppSearchPlanInfo{PlanAttemptLog: move.plan},
 			),
 		}},
+	)
+
+	return api.NewMock(responses...), responses
+}
+
+func newEnterpriseSearchVacateMove(t *testing.T, alloc string, move vacateCaseClusterConfig, region string) (*api.API, []mock.Response) {
+	var responses = make([]mock.Response, 0, 4)
+	responses = append(responses, mock.Response{
+		Response: http.Response{
+			Body:       newAllocator(t, alloc, move.ID, util.EnterpriseSearch),
+			StatusCode: 200,
+		},
+		Assert: &mock.RequestAssertion{
+			Method: "GET",
+			Header: api.DefaultReadMockHeaders,
+			Host:   api.DefaultMockHost,
+			Path: fmt.Sprintf(
+				"/api/v1/regions/%s/platform/infrastructure/allocators/%s", region, alloc,
+			),
+		},
+	}, mock.Response{
+		Response: http.Response{
+			Body:       newEnterpriseSearchMove(t, move.ID, alloc),
+			StatusCode: 202,
+		},
+		Assert: &mock.RequestAssertion{
+			Method: "POST",
+			Header: api.DefaultWriteMockHeaders,
+			Host:   api.DefaultMockHost,
+			Path: fmt.Sprintf(
+				"/api/v1/regions/%s/platform/infrastructure/allocators/%s/clusters/_move", region, alloc,
+			),
+			Query: url.Values{
+				"allocator_down": {"false"},
+				"force_update":   {"false"},
+				"validate_only":  {"true"},
+			},
+		},
+	})
+
+	if move.fail {
+		body := ioutil.NopCloser(strings.NewReader(newBody(t, &models.MoveClustersCommandResponse{
+			Failures: &models.MoveClustersDetails{
+				EnterpriseSearchClusters: []*models.MoveEnterpriseSearchDetails{{
+					ClusterID: ec.String(move.ID),
+					CalculatedPlan: &models.TransientEnterpriseSearchPlanConfiguration{
+						PlanConfiguration: &models.EnterpriseSearchPlanControlConfiguration{
+							MoveAllocators: []*models.AllocatorMoveRequest{{From: ec.String(alloc)}},
+						},
+					},
+					Errors: []*models.BasicFailedReplyElement{
+						{
+							Code:    ec.String("a code"),
+							Message: ec.String("a message"),
+						},
+					},
+				}},
+			}})))
+		// Return a response with a failed move
+		responses = append(responses, mock.Response{Response: http.Response{
+			Body:       body,
+			StatusCode: 202,
+		}})
+		// No extra responses should be given back for this cluster
+		// when a move failures happens.
+		return api.NewMock(responses...), responses
+	}
+
+	responses = append(responses,
+		mock.Response{
+			Response: http.Response{
+				Body:       newEnterpriseSearchMove(t, move.ID, alloc),
+				StatusCode: 202,
+			},
+			Assert: &mock.RequestAssertion{
+				Method: "POST",
+				Header: api.DefaultWriteMockHeaders,
+				Host:   api.DefaultMockHost,
+				Path: fmt.Sprintf(
+					"/api/v1/regions/%s/platform/infrastructure/allocators/%s/clusters/enterprise_search/_move", region, alloc,
+				),
+				Body: mock.NewStringBody(
+					fmt.Sprintf(
+						`{"apm_clusters":null,"appsearch_clusters":null,"elasticsearch_clusters":null,"enterprise_search_clusters":[{"cluster_ids":["%s"],"plan_override":{"plan_configuration":{"move_allocators":[{"from":"%s","to":null}],"move_instances":null,"preferred_allocators":null}}}],"kibana_clusters":null}`+"\n",
+						move.ID, alloc,
+					),
+				),
+				Query: url.Values{
+					"allocator_down": {"false"},
+					"force_update":   {"false"},
+					"move_only":      {"true"},
+					"validate_only":  {"false"},
+				},
+			},
+		}, newDeploymentDiscovery())
+
+	// Define steps
+	for iii := range move.steps {
+		var step = move.steps[iii]
+		responses = append(responses, mock.New200Response(newEnterpriseSearchPollerBody(t, move.ID,
+			&models.EnterpriseSearchPlanInfo{PlanAttemptLog: step}, nil,
+		)))
+	}
+
+	// Plan finished
+	responses = append(responses,
+		testutils.PlanNotFound,
+		testutils.PlanNotFound,
+		mock.New200Response(newEnterpriseSearchPollerBody(t, move.ID,
+			nil, &models.EnterpriseSearchPlanInfo{PlanAttemptLog: move.plan},
+		)),
 	)
 
 	return api.NewMock(responses...), responses
