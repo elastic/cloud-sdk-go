@@ -31,7 +31,7 @@ const deploymentsViewerRole = "ece_deployment_viewer"
 
 // ValidateRoles ensures the parameters are usable by the consuming function.
 func ValidateRoles(roles []string) error {
-	var merr = multierror.NewPrefixed("user")
+	var merr = multierror.NewPrefixed("invalid user params")
 	if len(roles) > 1 && slice.HasString(roles, platformAdminRole) {
 		merr = merr.Append(errors.Errorf("%v cannot be used in conjunction with other roles", platformAdminRole))
 	}

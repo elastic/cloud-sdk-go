@@ -24,12 +24,11 @@ import (
 	"testing"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
+	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
-
-	"github.com/elastic/ecctl/pkg/util"
 )
 
 func TestCreateParams_Validate(t *testing.T) {
@@ -44,11 +43,11 @@ func TestCreateParams_Validate(t *testing.T) {
 			params: CreateParams{
 				Email: "hi",
 			},
-			err: multierror.NewPrefixed("user",
+			err: multierror.NewPrefixed("invalid user params",
 				errors.New("api reference is required for command"),
-				errors.New("create requires a username"),
-				errors.New("create requires a password with a minimum of 8 characters"),
-				errors.New("create requires at least 1 role"),
+				errors.New("username is not specified and is required for this operation"),
+				errors.New("a password with a minimum of 8 characters is required for this operation"),
+				errors.New("a minimum of 1 role is required for this operation"),
 				errors.New("user: hi is not a valid email address format"),
 			),
 			wantErr: true,
@@ -62,7 +61,7 @@ func TestCreateParams_Validate(t *testing.T) {
 				Roles:    []string{platformAdminRole},
 			},
 			err: multierror.NewPrefixed("user",
-				errors.New("create requires a password with a minimum of 8 characters"),
+				errors.New("a password with a minimum of 8 characters is required for this operation"),
 			),
 			wantErr: true,
 		},
@@ -157,7 +156,7 @@ func TestCreate(t *testing.T) {
 			},
 			wantErr: true,
 			err: multierror.NewPrefixed("user",
-				util.ErrAPIReq,
+				apierror.ErrMissingAPI,
 			),
 		},
 		{

@@ -24,10 +24,9 @@ import (
 	"testing"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
+	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
-
-	"github.com/elastic/ecctl/pkg/util"
 )
 
 func TestDelete(t *testing.T) {
@@ -45,8 +44,8 @@ func TestDelete(t *testing.T) {
 			args:    args{},
 			wantErr: true,
 			err: multierror.NewPrefixed("user",
-				util.ErrAPIReq,
-				errors.New("delete requires a username"),
+				apierror.ErrMissingAPI,
+				errors.New("username is not specified and is required for this operation"),
 			),
 		},
 		{

@@ -23,10 +23,9 @@ import (
 	"testing"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
+	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
-
-	"github.com/elastic/ecctl/pkg/util"
 )
 
 func TestDeleteKey(t *testing.T) {
@@ -41,9 +40,9 @@ func TestDeleteKey(t *testing.T) {
 		{
 			name: "fails due to parameter validation",
 			args: args{},
-			err: multierror.NewPrefixed("user auth",
-				util.ErrAPIReq,
-				errors.New("delete key requires a key id"),
+			err: multierror.NewPrefixed("invalid user auth params",
+				apierror.ErrMissingAPI,
+				errors.New("key id is not specified and is required for this operation"),
 			),
 		},
 		{

@@ -36,11 +36,11 @@ type CreateKeyParams struct {
 
 // Validate ensures the parameters are usable by the consuming function.
 func (params CreateKeyParams) Validate() error {
-	var merr = multierror.NewPrefixed("user auth")
+	var merr = multierror.NewPrefixed("invalid user auth params")
 	merr = merr.Append(params.ReAuthenticateParams.Validate())
 
 	if params.Description == "" {
-		merr = merr.Append(errors.New("create key requires a key description"))
+		merr = merr.Append(errors.New("key description is not specified and is required for this operation"))
 	}
 
 	return merr.ErrorOrNil()

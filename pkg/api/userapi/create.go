@@ -21,12 +21,11 @@ import (
 	"errors"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
+	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/client/users"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
-
-	"github.com/elastic/ecctl/pkg/util"
 )
 
 const minPasswordLength = 8
@@ -42,25 +41,25 @@ type CreateParams struct {
 
 // Validate ensures the parameters are usable by the consuming function.
 func (params CreateParams) Validate() error {
-	var merr = multierror.NewPrefixed("user")
+	var merr = multierror.NewPrefixed("invalid user params")
 	if params.API == nil {
-		merr = merr.Append(util.ErrAPIReq)
+		merr = merr.Append(apierror.ErrMissingAPI)
 	}
 
 	if params.UserName == "" {
-		merr = merr.Append(errors.New("create requires a username"))
+		merr = merr.Append(errors.New("username is not specified and is required for this operation"))
 	}
 
 	if len(params.Password) < minPasswordLength {
-		merr = merr.Append(errors.New("create requires a password with a minimum of 8 characters"))
+		merr = merr.Append(errors.New("a password with a minimum of 8 characters is required for this operation"))
 	}
 
 	if len(params.Roles) == 0 {
-		merr = merr.Append(errors.New("create requires at least 1 role"))
+		merr = merr.Append(errors.New("a minimum of 1 role is required for this operation"))
 	}
 
 	if params.Email != "" {
-		if err := util.ValidateEmail("user", params.Email); err != nil {
+		if err := util.email.Validate("user", params.Email); err != nil {
 			merr = merr.Append(err)
 		}
 	}

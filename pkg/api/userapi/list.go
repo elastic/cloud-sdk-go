@@ -19,10 +19,9 @@ package userapi
 
 import (
 	"github.com/elastic/cloud-sdk-go/pkg/api"
+	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/client/users"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
-
-	"github.com/elastic/ecctl/pkg/util"
 )
 
 // ListParams is consumed by List
@@ -33,7 +32,7 @@ type ListParams struct {
 // Validate ensures the parameters are usable by the consuming function.
 func (params ListParams) Validate() error {
 	if params.API == nil {
-		return util.ErrAPIReq
+		return apierror.ErrMissingAPI
 	}
 
 	return nil

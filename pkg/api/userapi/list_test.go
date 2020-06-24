@@ -24,11 +24,10 @@ import (
 	"testing"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
+	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
-
-	"github.com/elastic/ecctl/pkg/util"
 )
 
 func TestList(t *testing.T) {
@@ -56,7 +55,7 @@ func TestList(t *testing.T) {
 			name:    "List fails due to parameter validation failure (missing API)",
 			args:    args{},
 			wantErr: true,
-			err:     util.ErrAPIReq,
+			err:     apierror.ErrMissingAPI,
 		},
 		{
 			name: "List fails due to API failure",

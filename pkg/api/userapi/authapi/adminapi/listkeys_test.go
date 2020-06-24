@@ -23,12 +23,11 @@ import (
 	"testing"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
+	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
-
-	"github.com/elastic/ecctl/pkg/util"
 )
 
 func TestListKeys(t *testing.T) {
@@ -59,8 +58,8 @@ func TestListKeys(t *testing.T) {
 			name: "fails due to parameter validation",
 			args: args{},
 			err: multierror.NewPrefixed("user auth admin",
-				util.ErrAPIReq,
-				errors.New("list keys requires a user ID or all bool set"),
+				apierror.ErrMissingAPI,
+				errors.New("one of user id or the all bool set to true must be specified for this operation"),
 			),
 		},
 		{
@@ -69,8 +68,8 @@ func TestListKeys(t *testing.T) {
 				All: true, UserID: "someid",
 			}},
 			err: multierror.NewPrefixed("user auth admin",
-				util.ErrAPIReq,
-				errors.New("list keys requires a user ID or the all bool set, not both"),
+				apierror.ErrMissingAPI,
+				errors.New("user id must not be specified if the all bool is set to true"),
 			),
 		},
 		{

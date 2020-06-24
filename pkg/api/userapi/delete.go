@@ -21,10 +21,9 @@ import (
 	"errors"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
+	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/client/users"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
-
-	"github.com/elastic/ecctl/pkg/util"
 )
 
 // DeleteParams is consumed by Delete
@@ -36,13 +35,13 @@ type DeleteParams struct {
 
 // Validate ensures the parameters are usable by the consuming function.
 func (params DeleteParams) Validate() error {
-	var merr = multierror.NewPrefixed("user")
+	var merr = multierror.NewPrefixed("invalid user params")
 	if params.API == nil {
-		merr = merr.Append(util.ErrAPIReq)
+		merr = merr.Append(apierror.ErrMissingAPI)
 	}
 
 	if params.UserName == "" {
-		merr = merr.Append(errors.New("delete requires a username"))
+		merr = merr.Append(errors.New("username is not specified and is required for this operation"))
 	}
 
 	return merr.ErrorOrNil()
@@ -54,7 +53,7 @@ func Delete(params DeleteParams) error {
 		return err
 	}
 
-	return util.ReturnErrOnly(params.V1API.Users.DeleteUser(
+	return api.ReturnErrOnly(params.V1API.Users.DeleteUser(
 		users.NewDeleteUserParams().
 			WithUserName(params.UserName),
 		params.AuthWriter,

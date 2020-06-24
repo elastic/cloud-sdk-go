@@ -24,12 +24,11 @@ import (
 	"testing"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
+	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
-
-	"github.com/elastic/ecctl/pkg/util"
 )
 
 func TestEnableParams_Validate(t *testing.T) {
@@ -43,7 +42,7 @@ func TestEnableParams_Validate(t *testing.T) {
 			name:   "validate should return all possible errors",
 			params: EnableParams{},
 			err: multierror.NewPrefixed("user",
-				errors.New("enable requires a username"),
+				errors.New("username is not specified and is required for this operation"),
 				errors.New("api reference is required for command"),
 			),
 			wantErr: true,
@@ -55,7 +54,7 @@ func TestEnableParams_Validate(t *testing.T) {
 				Enabled: true,
 			},
 			err: multierror.NewPrefixed("user",
-				errors.New("enable requires a username"),
+				errors.New("username is not specified and is required for this operation"),
 			),
 			wantErr: true,
 		},
@@ -129,8 +128,8 @@ func TestEnable(t *testing.T) {
 			},
 			wantErr: true,
 			err: multierror.NewPrefixed("user",
-				errors.New("enable requires a username"),
-				util.ErrAPIReq,
+				errors.New("username is not specified and is required for this operation"),
+				apierror.ErrMissingAPI,
 			),
 		},
 		{

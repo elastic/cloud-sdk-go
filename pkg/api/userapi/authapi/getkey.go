@@ -21,11 +21,10 @@ import (
 	"errors"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
+	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/client/authentication"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
-
-	"github.com/elastic/ecctl/pkg/util"
 )
 
 // GetKeyParams is consumed by GetKey
@@ -37,13 +36,13 @@ type GetKeyParams struct {
 
 // Validate ensures the parameters are usable by the consuming function.
 func (params GetKeyParams) Validate() error {
-	var merr = multierror.NewPrefixed("user auth")
+	var merr = multierror.NewPrefixed("invalid user auth params")
 	if params.API == nil {
-		merr = merr.Append(util.ErrAPIReq)
+		merr = merr.Append(apierror.ErrMissingAPI)
 	}
 
 	if params.ID == "" {
-		merr = merr.Append(errors.New("get key requires a key id"))
+		merr = merr.Append(errors.New("key id is not specified and is required for this operation"))
 	}
 
 	return merr.ErrorOrNil()

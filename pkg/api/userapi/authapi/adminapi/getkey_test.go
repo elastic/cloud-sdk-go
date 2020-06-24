@@ -23,12 +23,11 @@ import (
 	"testing"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
+	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
-
-	"github.com/elastic/ecctl/pkg/util"
 )
 
 func TestGetKey(t *testing.T) {
@@ -45,9 +44,9 @@ func TestGetKey(t *testing.T) {
 			name: "fails due to parameter validation",
 			args: args{},
 			err: multierror.NewPrefixed("user auth admin",
-				util.ErrAPIReq,
-				errors.New("get key requires a key id"),
-				errors.New("get key requires a user id"),
+				apierror.ErrMissingAPI,
+				errors.New("key id is not specified and is required for this operation"),
+				errors.New("user id is not specified and is required for this operation"),
 			),
 		},
 		{

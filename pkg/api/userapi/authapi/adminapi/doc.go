@@ -17,4 +17,4 @@
 
 // Package userauthadminapi contains the logic required to manage a user's
 // authentication settings, such as API keys.
-package userauthadmin
+package userauthadminapi

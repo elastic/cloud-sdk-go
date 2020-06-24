@@ -23,12 +23,11 @@ import (
 	"testing"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
+	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
-
-	"github.com/elastic/ecctl/pkg/util"
 )
 
 func TestCreateKey(t *testing.T) {
@@ -57,10 +56,10 @@ func TestCreateKey(t *testing.T) {
 		{
 			name: "fails due to parameter validation",
 			args: args{},
-			err: multierror.NewPrefixed("user auth",
-				util.ErrAPIReq,
-				errors.New("reauthenticate requires a password"),
-				errors.New("create key requires a key description"),
+			err: multierror.NewPrefixed("invalid user auth params",
+				apierror.ErrMissingAPI,
+				errors.New("password is not specified and is required for this operation"),
+				errors.New("key description is not specified and is required for this operation"),
 			),
 		},
 		{

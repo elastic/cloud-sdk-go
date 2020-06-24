@@ -21,10 +21,9 @@ import (
 	"errors"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
+	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/client/authentication"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
-
-	"github.com/elastic/ecctl/pkg/util"
 )
 
 // DeleteKeyParams is consumed by DeleteKey
@@ -39,15 +38,15 @@ type DeleteKeyParams struct {
 func (params DeleteKeyParams) Validate() error {
 	var merr = multierror.NewPrefixed("user auth admin")
 	if params.API == nil {
-		merr = merr.Append(util.ErrAPIReq)
+		merr = merr.Append(apierror.ErrMissingAPI)
 	}
 
 	if params.ID == "" {
-		merr = merr.Append(errors.New("delete key requires a key id"))
+		merr = merr.Append(errors.New("key id is not specified and is required for this operation"))
 	}
 
 	if params.UserID == "" {
-		merr = merr.Append(errors.New("delete key requires a user id"))
+		merr = merr.Append(errors.New("user id is not specified and is required for this operation"))
 	}
 
 	return merr.ErrorOrNil()
@@ -59,7 +58,7 @@ func DeleteKey(params DeleteKeyParams) error {
 		return err
 	}
 
-	return util.ReturnErrOnly(params.V1API.Authentication.DeleteUserAPIKey(
+	return api.ReturnErrOnly(params.V1API.Authentication.DeleteUserAPIKey(
 		authentication.NewDeleteUserAPIKeyParams().
 			WithAPIKeyID(params.ID).
 			WithUserID(params.UserID),

@@ -21,11 +21,10 @@ import (
 	"errors"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
+	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/client/authentication"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
-
-	"github.com/elastic/ecctl/pkg/util"
 )
 
 // ListKeysParams is consumed by ListKeys
@@ -40,15 +39,15 @@ type ListKeysParams struct {
 func (params ListKeysParams) Validate() error {
 	var merr = multierror.NewPrefixed("user auth admin")
 	if params.API == nil {
-		merr = merr.Append(util.ErrAPIReq)
+		merr = merr.Append(apierror.ErrMissingAPI)
 	}
 
 	if allAndUserIDSpecified := params.All && params.UserID != ""; allAndUserIDSpecified {
-		merr = merr.Append(errors.New("list keys requires a user ID or the all bool set, not both"))
+		merr = merr.Append(errors.New("user id must not be specified if the all bool is set to true"))
 	}
 
 	if noAllOrUserIDSpecified := !params.All && params.UserID == ""; noAllOrUserIDSpecified {
-		merr = merr.Append(errors.New("list keys requires a user ID or all bool set"))
+		merr = merr.Append(errors.New("one of user id or the all bool set to true must be specified for this operation"))
 	}
 
 	return merr.ErrorOrNil()
