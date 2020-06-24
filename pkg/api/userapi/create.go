@@ -26,6 +26,7 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
+	"github.com/elastic/cloud-sdk-go/pkg/util/email"
 )
 
 const minPasswordLength = 8
@@ -59,7 +60,7 @@ func (params CreateParams) Validate() error {
 	}
 
 	if params.Email != "" {
-		if err := util.email.Validate("user", params.Email); err != nil {
+		if err := email.Validate(params.Email); err != nil {
 			merr = merr.Append(err)
 		}
 	}

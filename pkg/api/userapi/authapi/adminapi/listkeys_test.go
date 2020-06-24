@@ -57,7 +57,7 @@ func TestListKeys(t *testing.T) {
 		{
 			name: "fails due to parameter validation",
 			args: args{},
-			err: multierror.NewPrefixed("user auth admin",
+			err: multierror.NewPrefixed("invalid user auth admin params",
 				apierror.ErrMissingAPI,
 				errors.New("one of user id or the all bool set to true must be specified for this operation"),
 			),
@@ -67,7 +67,7 @@ func TestListKeys(t *testing.T) {
 			args: args{params: ListKeysParams{
 				All: true, UserID: "someid",
 			}},
-			err: multierror.NewPrefixed("user auth admin",
+			err: multierror.NewPrefixed("invalid user auth admin params",
 				apierror.ErrMissingAPI,
 				errors.New("user id must not be specified if the all bool is set to true"),
 			),

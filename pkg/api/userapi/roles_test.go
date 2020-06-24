@@ -35,7 +35,7 @@ func TestValidateRoles(t *testing.T) {
 		{
 			name: "validate should return an error when ece_platform_admin is used along other roles",
 			arg:  []string{platformAdminRole, platformViewerRole},
-			err: multierror.NewPrefixed("user",
+			err: multierror.NewPrefixed("invalid user params",
 				errors.New("ece_platform_admin cannot be used in conjunction with other roles"),
 			),
 			wantErr: true,
@@ -43,7 +43,7 @@ func TestValidateRoles(t *testing.T) {
 		{
 			name: "validate should return an error when ece_platform_admin is used along other roles",
 			arg:  []string{deploymentsManagerRole, deploymentsViewerRole},
-			err: multierror.NewPrefixed("user",
+			err: multierror.NewPrefixed("invalid user params",
 				errors.New("only one of ece_deployment_manager or ece_deployment_viewer can be chosen"),
 			),
 			wantErr: true,

@@ -43,7 +43,7 @@ func TestDelete(t *testing.T) {
 			name:    "Delete fails due to parameter validation failure",
 			args:    args{},
 			wantErr: true,
-			err: multierror.NewPrefixed("user",
+			err: multierror.NewPrefixed("invalid user params",
 				apierror.ErrMissingAPI,
 				errors.New("username is not specified and is required for this operation"),
 			),

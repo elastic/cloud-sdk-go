@@ -37,7 +37,7 @@ type GetKeyParams struct {
 
 // Validate ensures the parameters are usable by the consuming function.
 func (params GetKeyParams) Validate() error {
-	var merr = multierror.NewPrefixed("user auth admin")
+	var merr = multierror.NewPrefixed("invalid user auth admin params")
 	if params.API == nil {
 		merr = merr.Append(apierror.ErrMissingAPI)
 	}

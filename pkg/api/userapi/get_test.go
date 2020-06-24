@@ -41,8 +41,8 @@ func TestGetParams_Validate(t *testing.T) {
 		{
 			name:   "validate should return all possible errors",
 			params: GetParams{},
-			err: multierror.NewPrefixed("user",
-				errors.New("api reference is required for command"),
+			err: multierror.NewPrefixed("invalid user params",
+				errors.New("api reference is required for the operation"),
 				errors.New("username is not specified and is required for this operation"),
 			),
 			wantErr: true,
@@ -96,7 +96,7 @@ func TestGet(t *testing.T) {
 			name:    "Get fails due to parameter validation failure",
 			args:    args{},
 			wantErr: true,
-			err: multierror.NewPrefixed("user",
+			err: multierror.NewPrefixed("invalid user params",
 				apierror.ErrMissingAPI,
 				errors.New("username is not specified and is required for this operation"),
 			),
@@ -158,7 +158,7 @@ func TestGetCurrentParams_Validate(t *testing.T) {
 		{
 			name:    "validate should return all possible errors",
 			params:  GetCurrentParams{},
-			err:     errors.New("api reference is required for command"),
+			err:     errors.New("api reference is required for the operation"),
 			wantErr: true,
 		},
 		{
@@ -208,7 +208,7 @@ func TestGetCurrent(t *testing.T) {
 			name:    "Get fails due to parameter validation failure",
 			args:    args{},
 			wantErr: true,
-			err:     errors.New("api reference is required for command"),
+			err:     errors.New("api reference is required for the operation"),
 		},
 		{
 			name: "Get fails due to API failure",

@@ -43,7 +43,7 @@ func TestGetKey(t *testing.T) {
 		{
 			name: "fails due to parameter validation",
 			args: args{},
-			err: multierror.NewPrefixed("user auth admin",
+			err: multierror.NewPrefixed("invalid user auth admin params",
 				apierror.ErrMissingAPI,
 				errors.New("key id is not specified and is required for this operation"),
 				errors.New("user id is not specified and is required for this operation"),
