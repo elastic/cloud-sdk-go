@@ -41,8 +41,8 @@ type CreateTrafficFilterRulesetReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateTrafficFilterRulesetReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
-	case 201:
-		result := NewCreateTrafficFilterRulesetCreated()
+	case 200:
+		result := NewCreateTrafficFilterRulesetOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -59,28 +59,28 @@ func (o *CreateTrafficFilterRulesetReader) ReadResponse(response runtime.ClientR
 	}
 }
 
-// NewCreateTrafficFilterRulesetCreated creates a CreateTrafficFilterRulesetCreated with default headers values
-func NewCreateTrafficFilterRulesetCreated() *CreateTrafficFilterRulesetCreated {
-	return &CreateTrafficFilterRulesetCreated{}
+// NewCreateTrafficFilterRulesetOK creates a CreateTrafficFilterRulesetOK with default headers values
+func NewCreateTrafficFilterRulesetOK() *CreateTrafficFilterRulesetOK {
+	return &CreateTrafficFilterRulesetOK{}
 }
 
-/*CreateTrafficFilterRulesetCreated handles this case with default header values.
+/*CreateTrafficFilterRulesetOK handles this case with default header values.
 
 The ruleset definition is valid and the creation has started.
 */
-type CreateTrafficFilterRulesetCreated struct {
+type CreateTrafficFilterRulesetOK struct {
 	Payload *models.TrafficFilterRulesetResponse
 }
 
-func (o *CreateTrafficFilterRulesetCreated) Error() string {
-	return fmt.Sprintf("[POST /deployments/traffic-filter/rulesets][%d] createTrafficFilterRulesetCreated  %+v", 201, o.Payload)
+func (o *CreateTrafficFilterRulesetOK) Error() string {
+	return fmt.Sprintf("[POST /deployments/traffic-filter/rulesets][%d] createTrafficFilterRulesetOK  %+v", 200, o.Payload)
 }
 
-func (o *CreateTrafficFilterRulesetCreated) GetPayload() *models.TrafficFilterRulesetResponse {
+func (o *CreateTrafficFilterRulesetOK) GetPayload() *models.TrafficFilterRulesetResponse {
 	return o.Payload
 }
 
-func (o *CreateTrafficFilterRulesetCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *CreateTrafficFilterRulesetOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.TrafficFilterRulesetResponse)
 

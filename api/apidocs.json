@@ -39,8 +39,6 @@
   }, {
     "name" : "PlatformConfigurationTemplates"
   }, {
-    "name" : "PlatformConfigurationTrustRelationships"
-  }, {
     "name" : "PlatformInfrastructure"
   }, {
     "name" : "Stack"
@@ -74,14 +72,7 @@
             }
           },
           "400" : {
-            "description" : "The search request failed. (code: `search.invalid_request`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "search.invalid_request" ]
-              }
-            },
+            "description" : "The search request failed.",
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
@@ -2346,12 +2337,6 @@
           },
           "201" : {
             "description" : "The cluster definition was valid and the cluster creation has started",
-            "schema" : {
-              "$ref" : "#/definitions/ClusterCrudResponse"
-            }
-          },
-          "202" : {
-            "description" : "The cluster definition was valid and the cluster creation has already started",
             "schema" : {
               "$ref" : "#/definitions/ClusterCrudResponse"
             }
@@ -8151,7 +8136,7 @@
         "parameters" : [ {
           "name" : "resource_type",
           "in" : "path",
-          "description" : "The kind of Resource that a Comment belongs to. Should be one of [elasticsearch, kibana, apm, appsearch, enterprise_search, allocator, constructor, runner, proxy].",
+          "description" : "The kind of Resource that a Comment belongs to. Should be one of [elasticsearch, kibana, apm, appsearch, enterprise_search, sitesearch, allocator, constructor, runner, proxy].",
           "required" : true,
           "type" : "string"
         }, {
@@ -8186,7 +8171,7 @@
         "parameters" : [ {
           "name" : "resource_type",
           "in" : "path",
-          "description" : "The kind of Resource that a Comment belongs to. Should be one of [elasticsearch, kibana, apm, appsearch, enterprise_search, allocator, constructor, runner, proxy].",
+          "description" : "The kind of Resource that a Comment belongs to. Should be one of [elasticsearch, kibana, apm, appsearch, enterprise_search, sitesearch, allocator, constructor, runner, proxy].",
           "required" : true,
           "type" : "string"
         }, {
@@ -8284,7 +8269,7 @@
         "parameters" : [ {
           "name" : "resource_type",
           "in" : "path",
-          "description" : "The kind of Resource that a Comment belongs to. Should be one of [elasticsearch, kibana, apm, appsearch, enterprise_search, allocator, constructor, runner, proxy].",
+          "description" : "The kind of Resource that a Comment belongs to. Should be one of [elasticsearch, kibana, apm, appsearch, enterprise_search, sitesearch, allocator, constructor, runner, proxy].",
           "required" : true,
           "type" : "string"
         }, {
@@ -8352,7 +8337,7 @@
         "parameters" : [ {
           "name" : "resource_type",
           "in" : "path",
-          "description" : "The kind of Resource that a Comment belongs to. Should be one of [elasticsearch, kibana, apm, appsearch, enterprise_search, allocator, constructor, runner, proxy].",
+          "description" : "The kind of Resource that a Comment belongs to. Should be one of [elasticsearch, kibana, apm, appsearch, enterprise_search, sitesearch, allocator, constructor, runner, proxy].",
           "required" : true,
           "type" : "string"
         }, {
@@ -8460,7 +8445,7 @@
         "parameters" : [ {
           "name" : "resource_type",
           "in" : "path",
-          "description" : "The kind of Resource that a Comment belongs to. Should be one of [elasticsearch, kibana, apm, appsearch, enterprise_search, allocator, constructor, runner, proxy].",
+          "description" : "The kind of Resource that a Comment belongs to. Should be one of [elasticsearch, kibana, apm, appsearch, enterprise_search, sitesearch, allocator, constructor, runner, proxy].",
           "required" : true,
           "type" : "string"
         }, {
@@ -9283,12 +9268,6 @@
           "required" : false,
           "type" : "boolean",
           "default" : false
-        }, {
-          "name" : "region",
-          "in" : "query",
-          "description" : "If provided limits the rulesets to that region only.",
-          "required" : false,
-          "type" : "string"
         } ],
         "responses" : {
           "200" : {
@@ -9335,7 +9314,7 @@
           }
         } ],
         "responses" : {
-          "201" : {
+          "200" : {
             "description" : "The ruleset definition is valid and the creation has started.",
             "schema" : {
               "$ref" : "#/definitions/TrafficFilterRulesetResponse"
@@ -10427,151 +10406,6 @@
         }
       }
     },
-    "/deployments/{deployment_id}/appsearch/{ref_id}/read_only_mode" : {
-      "get" : {
-        "tags" : [ "Deployments" ],
-        "summary" : "Set AppSearch read-only status",
-        "description" : "Enable/Disable read-only mode on the given App Search resource.",
-        "operationId" : "get-appsearch-read-only-mode",
-        "parameters" : [ {
-          "name" : "deployment_id",
-          "in" : "path",
-          "description" : "Identifier for the Deployment.",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "ref_id",
-          "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
-          "required" : true,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Standard response",
-            "schema" : {
-              "$ref" : "#/definitions/ReadOnlyResponse"
-            }
-          },
-          "404" : {
-            "description" : "The Resource specified by ref_id cannot be found. (code: `deployments.deployment_resource_not_found`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "deployments.deployment_resource_not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "500" : {
-            "description" : "We have failed you. (code: `deployments.deployment_resource_no_longer_exists`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "deployments.deployment_resource_no_longer_exists" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          }
-        },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
-        "x-doc" : {
-          "tag" : "App Search - Read-only"
-        }
-      },
-      "put" : {
-        "tags" : [ "Deployments" ],
-        "summary" : "Set AppSearch read-only status",
-        "description" : "Enable/Disable read-only mode on the given App Search resource.",
-        "operationId" : "set-appsearch-read-only-mode",
-        "parameters" : [ {
-          "name" : "deployment_id",
-          "in" : "path",
-          "description" : "Identifier for the Deployment.",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "ref_id",
-          "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "in" : "body",
-          "name" : "body",
-          "description" : "read-only request body",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/definitions/ReadOnlyRequest"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Standard response",
-            "schema" : {
-              "$ref" : "#/definitions/ReadOnlyResponse"
-            }
-          },
-          "404" : {
-            "description" : "The Resource specified by ref_id cannot be found. (code: `deployments.deployment_resource_not_found`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "deployments.deployment_resource_not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "500" : {
-            "description" : "We have failed you. (code: `deployments.deployment_resource_no_longer_exists`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "deployments.deployment_resource_no_longer_exists" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          }
-        },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
-        "x-doc" : {
-          "tag" : "App Search - Read-only"
-        }
-      }
-    },
     "/deployments/{deployment_id}/elasticsearch/{ref_id}" : {
       "get" : {
         "tags" : [ "Deployments" ],
@@ -11151,164 +10985,6 @@
         } ],
         "x-doc" : {
           "tag" : "Deployment - Commands"
-        }
-      }
-    },
-    "/deployments/{deployment_id}/elasticsearch/{ref_id}/keystore" : {
-      "get" : {
-        "tags" : [ "Deployments" ],
-        "summary" : "Get the settings from the Elasticsearch resource keystore",
-        "description" : "Adds the specified values to the Elasticsearch keystore, or removes the keys for the unspecified values.",
-        "operationId" : "get-deployment-es-resource-keystore",
-        "parameters" : [ {
-          "name" : "deployment_id",
-          "in" : "path",
-          "description" : "Identifier for the Deployment",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "ref_id",
-          "in" : "path",
-          "description" : "User-specified RefId for the Resource",
-          "required" : true,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "The new value for the keystore contents",
-            "schema" : {
-              "$ref" : "#/definitions/KeystoreContents"
-            }
-          },
-          "404" : {
-            "description" : "A resource with the given refId cannot be found in the deployment. (code: `deployments.deployment_resource_not_found`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "deployments.deployment_resource_not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "500" : {
-            "description" : "We have failed you. (code: `deployments.metadata_internal_error`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "deployments.metadata_internal_error" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          }
-        },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
-        "x-doc" : {
-          "tag" : "Deployment Resources - CRUD"
-        }
-      },
-      "patch" : {
-        "tags" : [ "Deployments" ],
-        "summary" : "Add or remove settings from the Elasticsearch resource keystore",
-        "description" : "Fetches the current values of the keystore for the Elasticsearch resource.",
-        "operationId" : "set-deployment-es-resource-keystore",
-        "parameters" : [ {
-          "name" : "deployment_id",
-          "in" : "path",
-          "description" : "Identifier for the Deployment",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "ref_id",
-          "in" : "path",
-          "description" : "User-specified RefId for the Resource",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "in" : "body",
-          "name" : "body",
-          "description" : "The new settings that will be applied to the keystore of the Elasticsearch resource.",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/definitions/KeystoreContents"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "The new value for the keystore contents",
-            "schema" : {
-              "$ref" : "#/definitions/KeystoreContents"
-            }
-          },
-          "404" : {
-            "description" : "A resource with the given refId cannot be found in the deployment. (code: `deployments.deployment_resource_not_found`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "deployments.deployment_resource_not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "500" : {
-            "description" : "We have failed you. (code: `deployments.metadata_internal_error`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "deployments.metadata_internal_error" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          }
-        },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
-        "x-doc" : {
-          "tag" : "Deployment Resources - CRUD"
         }
       }
     },
@@ -16384,302 +16060,6 @@
         }
       }
     },
-    "/platform/configuration/trust-relationships" : {
-      "get" : {
-        "tags" : [ "PlatformConfigurationTrustRelationships" ],
-        "summary" : "List trust relationships",
-        "description" : "List trust relationships.",
-        "operationId" : "get-trust-relationships",
-        "parameters" : [ {
-          "name" : "include_certificate",
-          "in" : "query",
-          "description" : "Whether to include the public CA certificates in the response.",
-          "required" : false,
-          "type" : "boolean",
-          "default" : false
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "The list of trust relationships.",
-            "schema" : {
-              "$ref" : "#/definitions/TrustRelationshipsListResponse"
-            }
-          },
-          "401" : {
-            "description" : "You are not authorized to perform this action.",
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          }
-        },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
-        "x-doc" : {
-          "tag" : "Platform - Configuration - Trust relationships"
-        }
-      },
-      "post" : {
-        "tags" : [ "PlatformConfigurationTrustRelationships" ],
-        "summary" : "Create trust relationship",
-        "description" : "Creates a trust relationship.",
-        "operationId" : "create-trust-relationship",
-        "parameters" : [ {
-          "in" : "body",
-          "name" : "body",
-          "description" : "The trust relationship definition",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/definitions/TrustRelationshipCreateRequest"
-          }
-        } ],
-        "responses" : {
-          "201" : {
-            "description" : "The request was valid and a new trust relationship was created",
-            "headers" : {
-              "x-cloud-resource-version" : {
-                "type" : "string",
-                "description" : "The resource version, which is used to avoid update conflicts with concurrent operations"
-              },
-              "x-cloud-resource-created" : {
-                "type" : "string",
-                "description" : "The date-time when the resource was created (ISO format relative to UTC)"
-              },
-              "x-cloud-resource-last-modified" : {
-                "type" : "string",
-                "description" : "The date-time when the resource was last modified (ISO format relative to UTC)"
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/TrustRelationshipCreateResponse"
-            }
-          },
-          "400" : {
-            "description" : "The trust relationship request had errors.",
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "401" : {
-            "description" : "You are not authorized to perform this action.",
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          }
-        },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
-        "x-doc" : {
-          "tag" : "Platform - Configuration - Trust relationships"
-        }
-      }
-    },
-    "/platform/configuration/trust-relationships/{trust_relationship_id}" : {
-      "get" : {
-        "tags" : [ "PlatformConfigurationTrustRelationships" ],
-        "summary" : "Get trust relationship",
-        "description" : "Retrieves information about a trust relationship. `local` can be used as the ID to obtain the local trust relationship.",
-        "operationId" : "get-trust-relationship",
-        "parameters" : [ {
-          "name" : "trust_relationship_id",
-          "in" : "path",
-          "description" : "Identifier for the trust relationship",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "include_certificate",
-          "in" : "query",
-          "description" : "Whether to include the public CA certificates in the response.",
-          "required" : false,
-          "type" : "boolean",
-          "default" : false
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "The trust relationship info response",
-            "headers" : {
-              "x-cloud-resource-version" : {
-                "type" : "string",
-                "description" : "The resource version, which is used to avoid update conflicts with concurrent operations"
-              },
-              "x-cloud-resource-created" : {
-                "type" : "string",
-                "description" : "The date-time when the resource was created (ISO format relative to UTC)"
-              },
-              "x-cloud-resource-last-modified" : {
-                "type" : "string",
-                "description" : "The date-time when the resource was last modified (ISO format relative to UTC)"
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/TrustRelationshipGetResponse"
-            }
-          },
-          "401" : {
-            "description" : "You are not authorized to perform this action.",
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "404" : {
-            "description" : "The trust relationship specified by {trust_relationship_id} cannot be found. (code: `trust_relationships.not_found`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "trust_relationships.not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          }
-        },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
-        "x-doc" : {
-          "tag" : "Platform - Configuration - Trust relationships"
-        }
-      },
-      "put" : {
-        "tags" : [ "PlatformConfigurationTrustRelationships" ],
-        "summary" : "Update trust relationship",
-        "description" : "Updates a trust relationship.",
-        "operationId" : "update-trust-relationship",
-        "parameters" : [ {
-          "name" : "trust_relationship_id",
-          "in" : "path",
-          "description" : "Identifier for the trust relationship",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "in" : "body",
-          "name" : "body",
-          "description" : "The trust relationship definition",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/definitions/TrustRelationshipUpdateRequest"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "The request was valid and the trust relationship was updated.",
-            "headers" : {
-              "x-cloud-resource-version" : {
-                "type" : "string",
-                "description" : "The resource version, which is used to avoid update conflicts with concurrent operations"
-              },
-              "x-cloud-resource-created" : {
-                "type" : "string",
-                "description" : "The date-time when the resource was created (ISO format relative to UTC)"
-              },
-              "x-cloud-resource-last-modified" : {
-                "type" : "string",
-                "description" : "The date-time when the resource was last modified (ISO format relative to UTC)"
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/TrustRelationshipUpdateResponse"
-            }
-          },
-          "400" : {
-            "description" : "The trust relationship request had errors.",
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "401" : {
-            "description" : "You are not authorized to perform this action.",
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "404" : {
-            "description" : "The trust relationship specified by {trust_relationship_id} cannot be found. (code: `trust_relationships.not_found`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "trust_relationships.not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          }
-        },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
-        "x-doc" : {
-          "tag" : "Platform - Configuration - Trust relationships"
-        }
-      },
-      "delete" : {
-        "tags" : [ "PlatformConfigurationTrustRelationships" ],
-        "summary" : "Delete trust relationship",
-        "description" : "Deletes a trust relationship.",
-        "operationId" : "delete-trust-relationship",
-        "parameters" : [ {
-          "name" : "trust_relationship_id",
-          "in" : "path",
-          "description" : "Identifier for the trust relationship",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "version",
-          "in" : "query",
-          "description" : "If specified then checks for conflicts against the version stored in the persistent store (returned in 'x-cloud-resource-version' of the GET request)",
-          "required" : false,
-          "type" : "integer"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "The request was valid and the trust relationship was deleted.",
-            "schema" : {
-              "$ref" : "#/definitions/EmptyResponse"
-            }
-          },
-          "401" : {
-            "description" : "You are not authorized to perform this action.",
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "404" : {
-            "description" : "The trust relationship specified by {trust_relationship_id} cannot be found. (code: `trust_relationships.not_found`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "trust_relationships.not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          }
-        },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
-        "x-doc" : {
-          "tag" : "Platform - Configuration - Trust relationships"
-        }
-      }
-    },
     "/platform/infrastructure/adminconsoles" : {
       "get" : {
         "tags" : [ "PlatformInfrastructure" ],
@@ -17404,9 +16784,9 @@
           "name" : "cluster_type",
           "in" : "path",
           "description" : "The cluster types to move off of the allocator. NOTE: When unspecified, all clusters are moved.",
-          "required" : true,
+          "required" : false,
           "type" : "string",
-          "enum" : [ "apm", "appsearch", "elasticsearch", "enterprise_search", "kibana" ]
+          "enum" : [ "apm", "appsearch", "elasticsearch", "enterprise_search", "kibana", "sitesearch" ]
         }, {
           "name" : "force_update",
           "in" : "query",
@@ -19759,7 +19139,7 @@
           "417" : {
             "description" : "The health status is worse than the expected one.",
             "schema" : {
-              "$ref" : "#/definitions/ProxiesFilteredGroupHealth"
+              "$ref" : "#/definitions/ProxiesHealth"
             }
           },
           "449" : {
@@ -20943,7 +20323,7 @@
               }
             },
             "schema" : {
-              "$ref" : "#/definitions/StackVersionArchiveProcessingResult"
+              "$ref" : "#/definitions/BasicFailedReply"
             }
           }
         },
@@ -21121,14 +20501,13 @@
             }
           },
           "404" : {
-            "description" : "User not found. (code: `user.not_found`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "user.not_found" ]
-              }
-            },
+            "description" : "User not found",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "500" : {
+            "description" : "Current configuration is invalid for this endpoint",
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
@@ -21151,10 +20530,10 @@
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
-          "description" : "All changes in the specified object are applied to the current user. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.",
+          "description" : "The user properties to update",
           "required" : true,
           "schema" : {
-            "type" : "string"
+            "$ref" : "#/definitions/User"
           }
         } ],
         "responses" : {
@@ -21165,27 +20544,19 @@
             }
           },
           "400" : {
-            "description" : "* Some of the provided roles are invalid. (code: `user.roles.invalid`)\n* Some of the provided roles are forbidden. (code: `user.roles.forbidden`)\n* Trying to set a restricted field. (code: `user.restricted_field`)\n* External users cannot be modified. (code: `user.cannot_modify_external`)\n* Built-in users cannot be modified. (code: `user.cannot_modify`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "user.roles.invalid", "user.roles.forbidden", "user.restricted_field", "user.cannot_modify_external", "user.cannot_modify" ]
-              }
-            },
+            "description" : "Invalid request",
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
           },
           "404" : {
-            "description" : "User not found. (code: `user.not_found`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "user.not_found" ]
-              }
-            },
+            "description" : "User not found",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "500" : {
+            "description" : "Current configuration is invalid for this endpoint",
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
@@ -21212,14 +20583,19 @@
           "in" : "query",
           "description" : "True if disabled users should be included in the response",
           "required" : false,
-          "type" : "boolean",
-          "default" : false
+          "type" : "boolean"
         } ],
         "responses" : {
           "200" : {
             "description" : "Users successfully fetched",
             "schema" : {
               "$ref" : "#/definitions/UserList"
+            }
+          },
+          "403" : {
+            "description" : "Invalid permissions",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
             }
           }
         },
@@ -21254,40 +20630,25 @@
             }
           },
           "400" : {
-            "description" : "* The provided user name is invalid. Check that it is not empty and it does not contain special characters. (code: `user.user_name.invalid`)\n* Some of the provided roles are invalid. (code: `user.roles.invalid`)\n* Some of the provided roles are forbidden. (code: `user.roles.forbidden`)\n* Trying to set a restricted field. (code: `user.restricted_field`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "user.user_name.invalid", "user.roles.invalid", "user.roles.forbidden", "user.restricted_field" ]
-              }
-            },
+            "description" : "Invalid request. (code: 'user.bad_request')",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "403" : {
+            "description" : "Invalid permissions",
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
           },
           "409" : {
-            "description" : "The username is already in use. (code: `user.user_name.conflict`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "user.user_name.conflict" ]
-              }
-            },
+            "description" : "User name already in use. (code: 'user.user_name.conflict')",
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
           },
           "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
+            "description" : "Elevated permissions are required. (code: 'root.unauthorized.rbac.elevated_permissions_required')",
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
@@ -21940,7 +21301,7 @@
       "post" : {
         "tags" : [ "Authentication" ],
         "summary" : "Re-authenticate to generate a token",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Re-authenticate.",
+        "description" : "Re-authenticate.",
         "operationId" : "re-authenticate",
         "parameters" : [ {
           "in" : "body",
@@ -22358,15 +21719,14 @@
               "$ref" : "#/definitions/User"
             }
           },
+          "403" : {
+            "description" : "Invalid permissions",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
           "404" : {
-            "description" : "User not found. (code: `user.not_found`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "user.not_found" ]
-              }
-            },
+            "description" : "User not found",
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
@@ -22400,41 +21760,20 @@
               "$ref" : "#/definitions/EmptyResponse"
             }
           },
-          "400" : {
-            "description" : "* The user cannot be deleted. (code: `user.restricted_deletion`)\n* External users cannot be modified. (code: `user.cannot_modify_external`)\n* Built-in users cannot be modified. (code: `user.cannot_modify`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "user.restricted_deletion", "user.cannot_modify_external", "user.cannot_modify" ]
-              }
-            },
+          "403" : {
+            "description" : "Invalid permissions",
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
           },
           "404" : {
-            "description" : "User not found. (code: `user.not_found`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "user.not_found" ]
-              }
-            },
+            "description" : "User not found",
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
           },
           "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
+            "description" : "Elevated permissions are required. (code: 'root.unauthorized.rbac.elevated_permissions_required')",
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
@@ -22463,10 +21802,10 @@
         }, {
           "in" : "body",
           "name" : "body",
-          "description" : "All changes in the specified object are applied to the user. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.",
+          "description" : "The user to update",
           "required" : true,
           "schema" : {
-            "type" : "string"
+            "$ref" : "#/definitions/User"
           }
         } ],
         "responses" : {
@@ -22477,40 +21816,25 @@
             }
           },
           "400" : {
-            "description" : "* Some of the provided roles are invalid. (code: `user.roles.invalid`)\n* Some of the provided roles are forbidden. (code: `user.roles.forbidden`)\n* Trying to set a restricted field. (code: `user.restricted_field`)\n* External users cannot be modified. (code: `user.cannot_modify_external`)\n* Built-in users cannot be modified. (code: `user.cannot_modify`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "user.roles.invalid", "user.roles.forbidden", "user.restricted_field", "user.cannot_modify_external", "user.cannot_modify" ]
-              }
-            },
+            "description" : "Invalid request",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "403" : {
+            "description" : "Invalid permissions",
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
           },
           "404" : {
-            "description" : "User not found. (code: `user.not_found`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "user.not_found" ]
-              }
-            },
+            "description" : "User not found",
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
           },
           "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
+            "description" : "Elevated permissions are required. (code: 'root.unauthorized.rbac.elevated_permissions_required')",
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
@@ -22864,11 +22188,6 @@
         "maintenance_mode" : {
           "type" : "boolean",
           "description" : "Whether the allocator is in maintenance mode (meaning that new workload won't be assigned to it)"
-        },
-        "maintenance_mode_timestamp" : {
-          "type" : "string",
-          "format" : "date-time",
-          "description" : "Timestamp when allocator last entered or exited maintenance mode"
         }
       },
       "description" : "The health status of the allocator."
@@ -23016,7 +22335,7 @@
     },
     "AllocatorsZoneSummary" : {
       "type" : "object",
-      "required" : [ "connected_allocators", "connected_capacity", "disconnected_allocators", "in_maintenance_allocators", "instances", "max_available_capacity", "total_allocators", "zone_id" ],
+      "required" : [ "connected_allocators", "connected_capacity", "instances", "max_available_capacity", "total_allocators", "zone_id" ],
       "properties" : {
         "zone_id" : {
           "type" : "string",
@@ -23031,16 +22350,6 @@
           "type" : "integer",
           "format" : "int32",
           "description" : "Number of connected allocators"
-        },
-        "disconnected_allocators" : {
-          "type" : "integer",
-          "format" : "int32",
-          "description" : "Number of disconnected allocators"
-        },
-        "in_maintenance_allocators" : {
-          "type" : "integer",
-          "format" : "int32",
-          "description" : "Number of connected allocators in maintenance"
         },
         "connected_capacity" : {
           "type" : "integer",
@@ -24484,7 +23793,7 @@
     },
     "ClusterMetadataPortInfo" : {
       "type" : "object",
-      "required" : [ "http", "https", "transport_passthrough" ],
+      "required" : [ "http", "https" ],
       "properties" : {
         "http" : {
           "type" : "integer",
@@ -24495,11 +23804,6 @@
           "type" : "integer",
           "format" : "int32",
           "description" : "Port where the cluster listens for HTTPS traffic"
-        },
-        "transport_passthrough" : {
-          "type" : "integer",
-          "format" : "int32",
-          "description" : "Port where the cluster listens for transport traffic using TLS"
         }
       },
       "description" : "Information about the ports that allow communication between the Elasticsearch cluster and various protocols."
@@ -25357,7 +24661,7 @@
     },
     "CreateApiKeyRequest" : {
       "type" : "object",
-      "required" : [ "description" ],
+      "required" : [ "authentication_token", "description" ],
       "properties" : {
         "description" : {
           "type" : "string",
@@ -25365,7 +24669,7 @@
         },
         "authentication_token" : {
           "type" : "string",
-          "description" : "Deprecated. The security token from reauthenticate API"
+          "description" : "The security token from reauthenticate API"
         }
       },
       "description" : "The request payload that creates the API keys."
@@ -25707,12 +25011,8 @@
       "type" : "object",
       "properties" : {
         "ip_filtering_settings" : {
-          "description" : "DEPRECATED (Scheduled to be removed in the next major version): The set of rulesets applies to this deployment.",
+          "description" : "The set of rulesets applies to this deployment.",
           "$ref" : "#/definitions/IpFilteringSettings"
-        },
-        "traffic_filter_settings" : {
-          "description" : "The traffic filter rulesets to apply to this deployment.",
-          "$ref" : "#/definitions/TrafficFilterSettings"
         }
       },
       "description" : "Additional configuration for the new deployment object."
@@ -25807,11 +25107,6 @@
           "type" : "string",
           "format" : "date-time",
           "description" : "The most recent time the cluster metadata was changed (ISO format in UTC)"
-        },
-        "last_resource_plan_modified" : {
-          "type" : "string",
-          "format" : "date-time",
-          "description" : "The most recent time the resource's plan was changed (ISO format in UTC)"
         }
       },
       "description" : "Additional information about the current deployment object."
@@ -25851,13 +25146,6 @@
         "secret_token" : {
           "type" : "string",
           "description" : "Secret token for using a created resource. Only provided on initial create and absent otherwise."
-        },
-        "warnings" : {
-          "type" : "array",
-          "description" : "List of warnings generated from validating resource updates",
-          "items" : {
-            "$ref" : "#/definitions/ReplyWarning"
-          }
         }
       },
       "description" : "Data for a deployment resource"
@@ -25985,12 +25273,8 @@
       "type" : "object",
       "properties" : {
         "ip_filtering_settings" : {
-          "description" : "DEPRECATED The set of IP filtering rulesets applies to this deployment.",
+          "description" : "The set of rulesets applies to this deployment.",
           "$ref" : "#/definitions/IpFilteringSettings"
-        },
-        "traffic_filter_settings" : {
-          "description" : "The traffic filter rulesets for this deployment.",
-          "$ref" : "#/definitions/TrafficFilterSettings"
         }
       },
       "description" : "Additional configuration about the current deployment object."
@@ -26677,12 +25961,8 @@
           "description" : "Threshold starting from which the number of instances in the cluster results in the introduction of dedicated masters. If the cluster is downscaled to a number of nodes below this one, dedicated masters will be removed. Limit is inclusive."
         },
         "ip_filtering" : {
-          "description" : "DEPRECATED (Scheduled to be removed in the next major version): The set of rulesets to apply for all the resources in this cluster. When specified the same rulesets will be applied to Kibana and APM clusters as well",
+          "description" : "The set of rulesets to apply for all the resources in this cluster. When specified the same rulesets will be applied to Kibana and APM clusters as well",
           "$ref" : "#/definitions/IpFilteringSettings"
-        },
-        "traffic_filter" : {
-          "description" : "The rulesets to apply to all resources in this cluster. When specified the same rulesets will be applied to Kibana and APM clusters as well",
-          "$ref" : "#/definitions/TrafficFilterSettings"
         },
         "ccs" : {
           "$ref" : "#/definitions/CrossClusterSearchSettings"
@@ -26867,18 +26147,14 @@
     },
     "ElasticsearchElasticUserPasswordResetResponse" : {
       "type" : "object",
-      "required" : [ "password", "username" ],
+      "required" : [ "password" ],
       "properties" : {
-        "username" : {
-          "type" : "string",
-          "description" : "The username for the newly-reset password for the given Elasticsearch cluster"
-        },
         "password" : {
           "type" : "string",
           "description" : "The newly-reset password for the given Elasticsearch cluster"
         }
       },
-      "description" : "Envelope holding the newly-reset password for a cluster's user"
+      "description" : "Envelope holding the newly-reset password for a cluster's `elasticsearch` user"
     },
     "ElasticsearchInfo" : {
       "type" : "object",
@@ -27035,7 +26311,7 @@
         "timeout" : {
           "type" : "integer",
           "format" : "int64",
-          "description" : "The total timeout in seconds after which the plan is cancelled even if it is not complete. Defaults to 4x the max memory capacity per node (in MB). NOTES: A 3 zone cluster with 2 nodes of 2048 each would have a timeout of 4*2048=8192 seconds. Timeout does not include time required to run rollback actions."
+          "description" : "The total timeout in seconds after which the plan is cancelled even if it is not complete. Defaults to 4x the max memory capacity per node (in MB). NOTES: (eg a 3 zone cluster with 2 nodes of 2048 each would have a timeout of 4*2048=8192 seconds)"
         },
         "calm_wait_time" : {
           "type" : "integer",
@@ -30243,28 +29519,6 @@
       },
       "description" : "The re-authentication response body"
     },
-    "ReadOnlyRequest" : {
-      "type" : "object",
-      "required" : [ "enabled" ],
-      "properties" : {
-        "enabled" : {
-          "type" : "boolean",
-          "description" : "Enabled or disabled read-only mode"
-        }
-      },
-      "description" : "Read-only mode request payload"
-    },
-    "ReadOnlyResponse" : {
-      "type" : "object",
-      "required" : [ "enabled" ],
-      "properties" : {
-        "enabled" : {
-          "type" : "boolean",
-          "description" : "Whether read-only mode is enabled or disabled"
-        }
-      },
-      "description" : "Read-only mode response"
-    },
     "RegionInfo" : {
       "type" : "object",
       "required" : [ "allocators", "constructors", "container_sets_status", "coordinators", "proxies", "region_id", "resources", "runners", "zookeeper_states" ],
@@ -30341,20 +29595,6 @@
         }
       },
       "description" : "The Elasticsearch cluster to connect to for cross-cluster search."
-    },
-    "ReplyWarning" : {
-      "type" : "object",
-      "required" : [ "code" ],
-      "properties" : {
-        "code" : {
-          "type" : "string",
-          "description" : "A structured code representing the error type that occurred"
-        },
-        "message" : {
-          "type" : "string",
-          "description" : "A human readable message describing the warning that occurred"
-        }
-      }
     },
     "RepositoryConfig" : {
       "type" : "object",
@@ -31379,6 +30619,9 @@
         "enterprise_search" : {
           "$ref" : "#/definitions/StackVersionEnterpriseSearchConfig"
         },
+        "sitesearch" : {
+          "$ref" : "#/definitions/StackVersionSiteSearchConfig"
+        },
         "metadata" : {
           "$ref" : "#/definitions/StackVersionMetadata"
         },
@@ -31428,6 +30671,9 @@
         },
         "enterprise_search" : {
           "$ref" : "#/definitions/StackVersionEnterpriseSearchConfig"
+        },
+        "sitesearch" : {
+          "$ref" : "#/definitions/StackVersionSiteSearchConfig"
         },
         "metadata" : {
           "$ref" : "#/definitions/StackVersionMetadata"
@@ -31657,6 +30903,49 @@
       },
       "description" : "The configuration for an Elastic Stack node type."
     },
+    "StackVersionSiteSearchConfig" : {
+      "type" : "object",
+      "required" : [ "blacklist", "docker_image" ],
+      "properties" : {
+        "version" : {
+          "type" : "string",
+          "description" : "Version of SiteSearch"
+        },
+        "docker_image" : {
+          "type" : "string",
+          "description" : "Docker image for the SiteSearch"
+        },
+        "blacklist" : {
+          "type" : "array",
+          "description" : "List of configuration options that cannot be overridden by user settings",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "settings" : {
+          "type" : "object",
+          "description" : "Settings that are applied to all nodes of this type"
+        },
+        "capacity_constraints" : {
+          "$ref" : "#/definitions/StackVersionInstanceCapacityConstraint"
+        },
+        "compatible_node_types" : {
+          "type" : "array",
+          "description" : "Node types that are compatible with this one",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "node_types" : {
+          "type" : "array",
+          "description" : "Node types that are supported by this stack version",
+          "items" : {
+            "$ref" : "#/definitions/StackVersionNodeType"
+          }
+        }
+      },
+      "description" : "SiteSearch related configuration of an Elastic Stack version"
+    },
     "StackVersionTemplateFileHash" : {
       "type" : "object",
       "required" : [ "hash", "path" ],
@@ -31821,7 +31110,7 @@
     },
     "TrafficFilterRulesetInfo" : {
       "type" : "object",
-      "required" : [ "id", "include_by_default", "name", "region", "rules", "type" ],
+      "required" : [ "id", "include_by_default", "name", "rules", "type" ],
       "properties" : {
         "id" : {
           "type" : "string",
@@ -31845,7 +31134,7 @@
         },
         "region" : {
           "type" : "string",
-          "description" : "The ruleset can be attached only to deployments in the specific region"
+          "description" : "If present, the ruleset can be attached only to deployments in the specific region"
         },
         "rules" : {
           "type" : "array",
@@ -31871,7 +31160,7 @@
     },
     "TrafficFilterRulesetRequest" : {
       "type" : "object",
-      "required" : [ "include_by_default", "name", "region", "rules", "type" ],
+      "required" : [ "include_by_default", "name", "rules", "type" ],
       "properties" : {
         "name" : {
           "type" : "string",
@@ -31891,7 +31180,7 @@
         },
         "region" : {
           "type" : "string",
-          "description" : "The ruleset can be attached only to deployments in the specific region"
+          "description" : "If present, the ruleset can be attached only to deployments in the specific region"
         },
         "rules" : {
           "type" : "array",
@@ -32008,134 +31297,6 @@
         }
       },
       "description" : "Defines the configuration parameters that control how the plan is applied. For example, the Elasticsearch cluster topology and Kibana instance settings."
-    },
-    "TrustRelationshipCreateRequest" : {
-      "type" : "object",
-      "required" : [ "name", "public_ca_cert" ],
-      "properties" : {
-        "name" : {
-          "type" : "string",
-          "description" : "A name for the trust relationship"
-        },
-        "trust_by_default" : {
-          "type" : "boolean",
-          "description" : "If this relationship is trusted by default by all deployments in the current environment, defaults to `false`"
-        },
-        "public_ca_cert" : {
-          "type" : "string",
-          "description" : "The public CA certificate of the environment to trust"
-        }
-      },
-      "description" : "A request for creating a trust relationship with another environment"
-    },
-    "TrustRelationshipCreateResponse" : {
-      "type" : "object",
-      "required" : [ "id", "local", "name", "trust_by_default" ],
-      "properties" : {
-        "id" : {
-          "type" : "string",
-          "description" : "The id of the trust relationship"
-        },
-        "name" : {
-          "type" : "string",
-          "description" : "The name of the trust relationship"
-        },
-        "trust_by_default" : {
-          "type" : "boolean",
-          "description" : "If this relationship is trusted by default by all deployments in the current environment, defaults to `false`"
-        },
-        "local" : {
-          "type" : "boolean",
-          "description" : "If this is the trust relationship for the local environment"
-        }
-      },
-      "description" : "A response returned from the trust relationship create endpoint"
-    },
-    "TrustRelationshipGetResponse" : {
-      "type" : "object",
-      "required" : [ "id", "last_modified", "local", "name", "trust_by_default" ],
-      "properties" : {
-        "id" : {
-          "type" : "string",
-          "description" : "The id of the trust relationship"
-        },
-        "name" : {
-          "type" : "string",
-          "description" : "The name of the trust relationship"
-        },
-        "trust_by_default" : {
-          "type" : "boolean",
-          "description" : "If this relationship is trusted by default by all deployments in the current environment, defaults to `false`"
-        },
-        "public_ca_cert" : {
-          "type" : "string",
-          "description" : "The public CA certificate of the environment to trust"
-        },
-        "local" : {
-          "type" : "boolean",
-          "description" : "If this is the trust relationship for the local environment"
-        },
-        "last_modified" : {
-          "type" : "string",
-          "format" : "date-time",
-          "description" : "The most recent time the trust relationship was changed (ISO format in UTC)"
-        }
-      }
-    },
-    "TrustRelationshipUpdateRequest" : {
-      "type" : "object",
-      "properties" : {
-        "name" : {
-          "type" : "string",
-          "description" : "A name for the trust relationship"
-        },
-        "trust_by_default" : {
-          "type" : "boolean",
-          "description" : "If this relationship is trusted by default by all deployments in the current environment, defaults to `false`"
-        },
-        "public_ca_cert" : {
-          "type" : "string",
-          "description" : "The public CA certificate of the environment to trust"
-        }
-      },
-      "description" : "A request for updating a trust relationship with another environment"
-    },
-    "TrustRelationshipUpdateResponse" : {
-      "type" : "object",
-      "required" : [ "id", "local", "name", "trust_by_default" ],
-      "properties" : {
-        "id" : {
-          "type" : "string",
-          "description" : "The id of the trust relationship"
-        },
-        "name" : {
-          "type" : "string",
-          "description" : "The name of the trust relationship"
-        },
-        "trust_by_default" : {
-          "type" : "boolean",
-          "description" : "If this relationship is trusted by default by all deployments in the current environment, defaults to `false`"
-        },
-        "local" : {
-          "type" : "boolean",
-          "description" : "If this is the trust relationship for the local environment"
-        }
-      },
-      "description" : "A response returned from the trust relationship update endpoint"
-    },
-    "TrustRelationshipsListResponse" : {
-      "type" : "object",
-      "required" : [ "trust_relationships" ],
-      "properties" : {
-        "trust_relationships" : {
-          "type" : "array",
-          "description" : "The trust relationships",
-          "items" : {
-            "$ref" : "#/definitions/TrustRelationshipGetResponse"
-          }
-        }
-      },
-      "description" : "Contains a list of trust relationships"
     },
     "UnreachableRegionInfo" : {
       "type" : "object",

@@ -99,13 +99,9 @@ func NewSearchClustersBadRequest() *SearchClustersBadRequest {
 
 /*SearchClustersBadRequest handles this case with default header values.
 
-The search request failed. (code: `search.invalid_request`)
+The search request failed.
 */
 type SearchClustersBadRequest struct {
-	/*The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
 	Payload *models.BasicFailedReply
 }
 
@@ -118,9 +114,6 @@ func (o *SearchClustersBadRequest) GetPayload() *models.BasicFailedReply {
 }
 
 func (o *SearchClustersBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
 
 	o.Payload = new(models.BasicFailedReply)
 
