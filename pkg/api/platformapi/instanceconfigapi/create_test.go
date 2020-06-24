@@ -146,7 +146,7 @@ func TestCreate(t *testing.T) {
 			name: "Create fails on parameter validation failure",
 			err: multierror.NewPrefixed("invalid instance config create params",
 				apierror.ErrMissingAPI,
-				errors.New("request needs to have a config set"),
+				errors.New("config not specified and is required for the operation"),
 				errors.New("region not specified and is required for this operation"),
 			),
 		},

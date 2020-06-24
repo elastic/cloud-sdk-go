@@ -30,7 +30,7 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
-var folderErrorMessage = "folder must not be empty"
+var folderErrorMessage = "folder not specified and is required for the operation"
 
 // PullToFolderParams is the parameter for deployment template pull to folder sub-command
 type PullToFolderParams struct {

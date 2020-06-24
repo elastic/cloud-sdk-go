@@ -34,9 +34,9 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 )
 
-func TestPullToFolder(t *testing.T) {
+func TestPullToDirectory(t *testing.T) {
 	type args struct {
-		params PullToFolderParams
+		params PullToDirectoryParams
 	}
 	tests := []struct {
 		name string
@@ -48,16 +48,16 @@ func TestPullToFolder(t *testing.T) {
 			name: "fails due to param validation",
 			err: multierror.NewPrefixed("invalid instance config pull params",
 				apierror.ErrMissingAPI,
-				errors.New("folder must not be empty"),
+				errors.New("folder not specified and is required for the operation"),
 				errors.New("region not specified and is required for this operation"),
 			),
 		},
 		{
 			name: "fails listing the configs due to API error",
-			args: args{params: PullToFolderParams{
-				Region: "us-east-1",
-				Folder: "some",
-				API:    api.NewMock(mock.Response{Error: errors.New("error")}),
+			args: args{params: PullToDirectoryParams{
+				Region:    "us-east-1",
+				Directory: "some",
+				API:       api.NewMock(mock.Response{Error: errors.New("error")}),
 			}},
 			err: &url.Error{
 				Op:  "Get",
@@ -67,9 +67,9 @@ func TestPullToFolder(t *testing.T) {
 		},
 		{
 			name: "pulls instance configs successfully",
-			args: args{params: PullToFolderParams{
-				Region: "us-east-1",
-				Folder: "some-folder",
+			args: args{params: PullToDirectoryParams{
+				Region:    "us-east-1",
+				Directory: "some-folder",
 				API: api.NewMock(mock.Response{
 					Response: http.Response{
 						Body:       mock.NewStringBody(listInstanceConfigsSuccess),
@@ -135,12 +135,12 @@ func TestPullToFolder(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			err := PullToFolder(tt.args.params)
+			err := PullToDirectory(tt.args.params)
 			if !assert.Equal(t, tt.err, err) {
 				t.Error(err)
 			}
 
-			if p := tt.args.params.Folder; p != "" {
+			if p := tt.args.params.Directory; p != "" {
 				matches, err := filepath.Glob(filepath.Join(p, "*.json"))
 				if err != nil {
 					t.Fatal(err)

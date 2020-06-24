@@ -89,7 +89,7 @@ func TestDelete(t *testing.T) {
 			name: "Delete fails on parameter validation failure",
 			err: multierror.NewPrefixed("invalid instance config delete params",
 				apierror.ErrMissingAPI,
-				errors.New("id must not be empty"),
+				errors.New("id not specified and is required for the operation"),
 				errors.New("region not specified and is required for this operation"),
 			),
 		},

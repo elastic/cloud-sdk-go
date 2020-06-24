@@ -30,22 +30,23 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
-// PullToFolderParams is used to store all available instance configurations in a local folder.
-type PullToFolderParams struct {
+// PullToDirectoryParams is used to store all available instance configurations
+// in a local directory.
+type PullToDirectoryParams struct {
 	*api.API
-	Folder string
-	Region string
+	Directory string
+	Region    string
 }
 
 // Validate ensures that the parameters are correct.
-func (params PullToFolderParams) Validate() error {
+func (params PullToDirectoryParams) Validate() error {
 	var merr = multierror.NewPrefixed("invalid instance config pull params")
 	if params.API == nil {
 		merr = merr.Append(apierror.ErrMissingAPI)
 	}
 
-	if params.Folder == "" {
-		merr = merr.Append(errors.New("folder must not be empty"))
+	if params.Directory == "" {
+		merr = merr.Append(errors.New("folder not specified and is required for the operation"))
 	}
 
 	if err := ec.RequireRegionSet(params.Region); err != nil {
@@ -55,8 +56,8 @@ func (params PullToFolderParams) Validate() error {
 	return merr.ErrorOrNil()
 }
 
-// PullToFolder downloads instance configs and save them in a local folder
-func PullToFolder(params PullToFolderParams) error {
+// PullToDirectory downloads instance configs and save them in a local folder
+func PullToDirectory(params PullToDirectoryParams) error {
 	if err := params.Validate(); err != nil {
 		return err
 	}
@@ -66,14 +67,14 @@ func PullToFolder(params PullToFolderParams) error {
 		return err
 	}
 
-	return writeInstanceConfigToFolder(params.Folder, res)
+	return writeInstanceConfigToDirectory(params.Directory, res)
 }
 
-// writeInstanceConfigToFolder this will write all the instance configs to a folder
+// writeInstanceConfigToDirectory this will write all the instance configs to a folder
 // following this structure:
 //   folder/
 //   folder/id.json
-func writeInstanceConfigToFolder(folder string, instanceConfigs []*models.InstanceConfiguration) error {
+func writeInstanceConfigToDirectory(folder string, instanceConfigs []*models.InstanceConfiguration) error {
 	p := folder
 	if filepath.Ext(p) != "" {
 		p = filepath.Dir(folder)

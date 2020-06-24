@@ -135,7 +135,7 @@ func TestGet(t *testing.T) {
 			args: args{},
 			err: multierror.NewPrefixed("invalid instance config get params",
 				apierror.ErrMissingAPI,
-				errors.New("id must not be empty"),
+				errors.New("id not specified and is required for the operation"),
 				errors.New("region not specified and is required for this operation"),
 			),
 		},

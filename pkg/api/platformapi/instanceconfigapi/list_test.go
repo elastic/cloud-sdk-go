@@ -46,10 +46,18 @@ func TestList(t *testing.T) {
 			args: args{
 				params: ListParams{
 					Region: "us-east-1",
-					API: api.NewMock(mock.Response{Response: http.Response{
-						Body:       mock.NewStringBody(listInstanceConfigsSuccess),
-						StatusCode: 200,
-					}}),
+					API: api.NewMock(mock.Response{
+						Response: http.Response{
+							Body:       mock.NewStringBody(listInstanceConfigsSuccess),
+							StatusCode: 200,
+						},
+						Assert: &mock.RequestAssertion{
+							Header: api.DefaultReadMockHeaders,
+							Method: "GET",
+							Host:   api.DefaultMockHost,
+							Path:   "/api/v1/regions/us-east-1/platform/configuration/instances",
+						},
+					}),
 				},
 			},
 			want: []*models.InstanceConfiguration{

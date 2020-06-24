@@ -44,7 +44,7 @@ func (params GetParams) Validate() error {
 	}
 
 	if params.ID == "" {
-		merr = merr.Append(errors.New("id must not be empty"))
+		merr = merr.Append(errors.New("id not specified and is required for the operation"))
 	}
 
 	if err := ec.RequireRegionSet(params.Region); err != nil {

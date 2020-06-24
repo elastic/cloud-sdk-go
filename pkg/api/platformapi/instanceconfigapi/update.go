@@ -45,11 +45,11 @@ func (params UpdateParams) Validate() error {
 	}
 
 	if params.Config == nil {
-		merr = merr.Append(errors.New("request needs to have a config set"))
+		merr = merr.Append(errors.New("config not specified and is required for the operation"))
 	}
 
 	if params.ID == "" {
-		merr = merr.Append(errors.New("id must not be empty"))
+		merr = merr.Append(errors.New("id not specified and is required for the operation"))
 	}
 
 	if err := ec.RequireRegionSet(params.Region); err != nil {
