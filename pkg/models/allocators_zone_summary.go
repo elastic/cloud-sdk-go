@@ -41,14 +41,6 @@ type AllocatorsZoneSummary struct {
 	// Required: true
 	ConnectedCapacity *int32 `json:"connected_capacity"`
 
-	// Number of disconnected allocators
-	// Required: true
-	DisconnectedAllocators *int32 `json:"disconnected_allocators"`
-
-	// Number of connected allocators in maintenance
-	// Required: true
-	InMaintenanceAllocators *int32 `json:"in_maintenance_allocators"`
-
 	// Number of instances across all allocators in the region
 	// Required: true
 	Instances *int32 `json:"instances"`
@@ -75,14 +67,6 @@ func (m *AllocatorsZoneSummary) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateConnectedCapacity(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateDisconnectedAllocators(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateInMaintenanceAllocators(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -120,24 +104,6 @@ func (m *AllocatorsZoneSummary) validateConnectedAllocators(formats strfmt.Regis
 func (m *AllocatorsZoneSummary) validateConnectedCapacity(formats strfmt.Registry) error {
 
 	if err := validate.Required("connected_capacity", "body", m.ConnectedCapacity); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *AllocatorsZoneSummary) validateDisconnectedAllocators(formats strfmt.Registry) error {
-
-	if err := validate.Required("disconnected_allocators", "body", m.DisconnectedAllocators); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *AllocatorsZoneSummary) validateInMaintenanceAllocators(formats strfmt.Registry) error {
-
-	if err := validate.Required("in_maintenance_allocators", "body", m.InMaintenanceAllocators); err != nil {
 		return err
 	}
 

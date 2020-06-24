@@ -53,6 +53,12 @@ func (o *GetCurrentUserReader) ReadResponse(response runtime.ClientResponse, con
 			return nil, err
 		}
 		return nil, result
+	case 500:
+		result := NewGetCurrentUserInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
@@ -99,13 +105,9 @@ func NewGetCurrentUserNotFound() *GetCurrentUserNotFound {
 
 /*GetCurrentUserNotFound handles this case with default header values.
 
-User not found. (code: `user.not_found`)
+User not found
 */
 type GetCurrentUserNotFound struct {
-	/*The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
 	Payload *models.BasicFailedReply
 }
 
@@ -119,8 +121,38 @@ func (o *GetCurrentUserNotFound) GetPayload() *models.BasicFailedReply {
 
 func (o *GetCurrentUserNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	o.Payload = new(models.BasicFailedReply)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetCurrentUserInternalServerError creates a GetCurrentUserInternalServerError with default headers values
+func NewGetCurrentUserInternalServerError() *GetCurrentUserInternalServerError {
+	return &GetCurrentUserInternalServerError{}
+}
+
+/*GetCurrentUserInternalServerError handles this case with default header values.
+
+Current configuration is invalid for this endpoint
+*/
+type GetCurrentUserInternalServerError struct {
+	Payload *models.BasicFailedReply
+}
+
+func (o *GetCurrentUserInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /user][%d] getCurrentUserInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetCurrentUserInternalServerError) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
+func (o *GetCurrentUserInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
 
