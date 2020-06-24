@@ -682,7 +682,7 @@ func (a *Client) Methods(params *MethodsParams, authInfo runtime.ClientAuthInfoW
 /*
   ReAuthenticate res authenticate to generate a token
 
-  DEPRECATED (Scheduled to be removed in the next major version): Re-authenticate.
+  Re-authenticate.
 */
 func (a *Client) ReAuthenticate(params *ReAuthenticateParams, authInfo runtime.ClientAuthInfoWriter) (*ReAuthenticateOK, error) {
 	// TODO: Validate the params before sending

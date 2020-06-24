@@ -41,7 +41,7 @@ type ElasticsearchClusterSettings struct {
 	// Threshold starting from which the number of instances in the cluster results in the introduction of dedicated masters. If the cluster is downscaled to a number of nodes below this one, dedicated masters will be removed. Limit is inclusive.
 	DedicatedMastersThreshold int32 `json:"dedicated_masters_threshold,omitempty"`
 
-	// DEPRECATED (Scheduled to be removed in the next major version): The set of rulesets to apply for all the resources in this cluster. When specified the same rulesets will be applied to Kibana and APM clusters as well
+	// The set of rulesets to apply for all the resources in this cluster. When specified the same rulesets will be applied to Kibana and APM clusters as well
 	IPFiltering *IPFilteringSettings `json:"ip_filtering,omitempty"`
 
 	// metadata
@@ -52,9 +52,6 @@ type ElasticsearchClusterSettings struct {
 
 	// snapshot
 	Snapshot *ClusterSnapshotSettings `json:"snapshot,omitempty"`
-
-	// The rulesets to apply to all resources in this cluster. When specified the same rulesets will be applied to Kibana and APM clusters as well
-	TrafficFilter *TrafficFilterSettings `json:"traffic_filter,omitempty"`
 }
 
 // Validate validates this elasticsearch cluster settings
@@ -82,10 +79,6 @@ func (m *ElasticsearchClusterSettings) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateSnapshot(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateTrafficFilter(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -195,24 +188,6 @@ func (m *ElasticsearchClusterSettings) validateSnapshot(formats strfmt.Registry)
 		if err := m.Snapshot.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("snapshot")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *ElasticsearchClusterSettings) validateTrafficFilter(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.TrafficFilter) { // not required
-		return nil
-	}
-
-	if m.TrafficFilter != nil {
-		if err := m.TrafficFilter.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("traffic_filter")
 			}
 			return err
 		}

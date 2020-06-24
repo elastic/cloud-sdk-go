@@ -59,6 +59,12 @@ func (o *UpdateCurrentUserReader) ReadResponse(response runtime.ClientResponse, 
 			return nil, err
 		}
 		return nil, result
+	case 500:
+		result := NewUpdateCurrentUserInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
@@ -105,17 +111,9 @@ func NewUpdateCurrentUserBadRequest() *UpdateCurrentUserBadRequest {
 
 /*UpdateCurrentUserBadRequest handles this case with default header values.
 
-* Some of the provided roles are invalid. (code: `user.roles.invalid`)
-* Some of the provided roles are forbidden. (code: `user.roles.forbidden`)
-* Trying to set a restricted field. (code: `user.restricted_field`)
-* External users cannot be modified. (code: `user.cannot_modify_external`)
-* Built-in users cannot be modified. (code: `user.cannot_modify`)
- */
+Invalid request
+*/
 type UpdateCurrentUserBadRequest struct {
-	/*The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
 	Payload *models.BasicFailedReply
 }
 
@@ -128,9 +126,6 @@ func (o *UpdateCurrentUserBadRequest) GetPayload() *models.BasicFailedReply {
 }
 
 func (o *UpdateCurrentUserBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -149,13 +144,9 @@ func NewUpdateCurrentUserNotFound() *UpdateCurrentUserNotFound {
 
 /*UpdateCurrentUserNotFound handles this case with default header values.
 
-User not found. (code: `user.not_found`)
+User not found
 */
 type UpdateCurrentUserNotFound struct {
-	/*The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
 	Payload *models.BasicFailedReply
 }
 
@@ -169,8 +160,38 @@ func (o *UpdateCurrentUserNotFound) GetPayload() *models.BasicFailedReply {
 
 func (o *UpdateCurrentUserNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	o.Payload = new(models.BasicFailedReply)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewUpdateCurrentUserInternalServerError creates a UpdateCurrentUserInternalServerError with default headers values
+func NewUpdateCurrentUserInternalServerError() *UpdateCurrentUserInternalServerError {
+	return &UpdateCurrentUserInternalServerError{}
+}
+
+/*UpdateCurrentUserInternalServerError handles this case with default header values.
+
+Current configuration is invalid for this endpoint
+*/
+type UpdateCurrentUserInternalServerError struct {
+	Payload *models.BasicFailedReply
+}
+
+func (o *UpdateCurrentUserInternalServerError) Error() string {
+	return fmt.Sprintf("[PATCH /user][%d] updateCurrentUserInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *UpdateCurrentUserInternalServerError) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
+func (o *UpdateCurrentUserInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
 

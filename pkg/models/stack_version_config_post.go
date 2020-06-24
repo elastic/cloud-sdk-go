@@ -52,6 +52,9 @@ type StackVersionConfigPost struct {
 
 	// metadata
 	Metadata *StackVersionMetadata `json:"metadata,omitempty"`
+
+	// sitesearch
+	Sitesearch *StackVersionSiteSearchConfig `json:"sitesearch,omitempty"`
 }
 
 // Validate validates this stack version config post
@@ -79,6 +82,10 @@ func (m *StackVersionConfigPost) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateMetadata(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateSitesearch(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -188,6 +195,24 @@ func (m *StackVersionConfigPost) validateMetadata(formats strfmt.Registry) error
 		if err := m.Metadata.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("metadata")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *StackVersionConfigPost) validateSitesearch(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Sitesearch) { // not required
+		return nil
+	}
+
+	if m.Sitesearch != nil {
+		if err := m.Sitesearch.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("sitesearch")
 			}
 			return err
 		}

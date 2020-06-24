@@ -53,12 +53,6 @@ func (o *CreateEsClusterReader) ReadResponse(response runtime.ClientResponse, co
 			return nil, err
 		}
 		return result, nil
-	case 202:
-		result := NewCreateEsClusterAccepted()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return result, nil
 	case 400:
 		result := NewCreateEsClusterBadRequest()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -132,39 +126,6 @@ func (o *CreateEsClusterCreated) GetPayload() *models.ClusterCrudResponse {
 }
 
 func (o *CreateEsClusterCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.ClusterCrudResponse)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewCreateEsClusterAccepted creates a CreateEsClusterAccepted with default headers values
-func NewCreateEsClusterAccepted() *CreateEsClusterAccepted {
-	return &CreateEsClusterAccepted{}
-}
-
-/*CreateEsClusterAccepted handles this case with default header values.
-
-The cluster definition was valid and the cluster creation has already started
-*/
-type CreateEsClusterAccepted struct {
-	Payload *models.ClusterCrudResponse
-}
-
-func (o *CreateEsClusterAccepted) Error() string {
-	return fmt.Sprintf("[POST /clusters/elasticsearch][%d] createEsClusterAccepted  %+v", 202, o.Payload)
-}
-
-func (o *CreateEsClusterAccepted) GetPayload() *models.ClusterCrudResponse {
-	return o.Payload
-}
-
-func (o *CreateEsClusterAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ClusterCrudResponse)
 

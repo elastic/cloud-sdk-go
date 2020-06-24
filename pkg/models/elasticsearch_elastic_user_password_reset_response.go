@@ -29,17 +29,13 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// ElasticsearchElasticUserPasswordResetResponse Envelope holding the newly-reset password for a cluster's user
+// ElasticsearchElasticUserPasswordResetResponse Envelope holding the newly-reset password for a cluster's `elasticsearch` user
 // swagger:model ElasticsearchElasticUserPasswordResetResponse
 type ElasticsearchElasticUserPasswordResetResponse struct {
 
 	// The newly-reset password for the given Elasticsearch cluster
 	// Required: true
 	Password *string `json:"password"`
-
-	// The username for the newly-reset password for the given Elasticsearch cluster
-	// Required: true
-	Username *string `json:"username"`
 }
 
 // Validate validates this elasticsearch elastic user password reset response
@@ -47,10 +43,6 @@ func (m *ElasticsearchElasticUserPasswordResetResponse) Validate(formats strfmt.
 	var res []error
 
 	if err := m.validatePassword(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateUsername(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -63,15 +55,6 @@ func (m *ElasticsearchElasticUserPasswordResetResponse) Validate(formats strfmt.
 func (m *ElasticsearchElasticUserPasswordResetResponse) validatePassword(formats strfmt.Registry) error {
 
 	if err := validate.Required("password", "body", m.Password); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *ElasticsearchElasticUserPasswordResetResponse) validateUsername(formats strfmt.Registry) error {
-
-	if err := validate.Required("username", "body", m.Username); err != nil {
 		return err
 	}
 

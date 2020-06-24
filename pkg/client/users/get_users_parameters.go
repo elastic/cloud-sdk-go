@@ -38,11 +38,8 @@ import (
 // NewGetUsersParams creates a new GetUsersParams object
 // with the default values initialized.
 func NewGetUsersParams() *GetUsersParams {
-	var (
-		includeDisabledDefault = bool(false)
-	)
+	var ()
 	return &GetUsersParams{
-		IncludeDisabled: &includeDisabledDefault,
 
 		timeout: cr.DefaultTimeout,
 	}
@@ -51,11 +48,8 @@ func NewGetUsersParams() *GetUsersParams {
 // NewGetUsersParamsWithTimeout creates a new GetUsersParams object
 // with the default values initialized, and the ability to set a timeout on a request
 func NewGetUsersParamsWithTimeout(timeout time.Duration) *GetUsersParams {
-	var (
-		includeDisabledDefault = bool(false)
-	)
+	var ()
 	return &GetUsersParams{
-		IncludeDisabled: &includeDisabledDefault,
 
 		timeout: timeout,
 	}
@@ -64,11 +58,8 @@ func NewGetUsersParamsWithTimeout(timeout time.Duration) *GetUsersParams {
 // NewGetUsersParamsWithContext creates a new GetUsersParams object
 // with the default values initialized, and the ability to set a context for a request
 func NewGetUsersParamsWithContext(ctx context.Context) *GetUsersParams {
-	var (
-		includeDisabledDefault = bool(false)
-	)
+	var ()
 	return &GetUsersParams{
-		IncludeDisabled: &includeDisabledDefault,
 
 		Context: ctx,
 	}
@@ -77,12 +68,9 @@ func NewGetUsersParamsWithContext(ctx context.Context) *GetUsersParams {
 // NewGetUsersParamsWithHTTPClient creates a new GetUsersParams object
 // with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewGetUsersParamsWithHTTPClient(client *http.Client) *GetUsersParams {
-	var (
-		includeDisabledDefault = bool(false)
-	)
+	var ()
 	return &GetUsersParams{
-		IncludeDisabled: &includeDisabledDefault,
-		HTTPClient:      client,
+		HTTPClient: client,
 	}
 }
 

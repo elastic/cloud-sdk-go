@@ -40,10 +40,6 @@ type ClusterMetadataPortInfo struct {
 	// Port where the cluster listens for HTTPS traffic
 	// Required: true
 	HTTPS *int32 `json:"https"`
-
-	// Port where the cluster listens for transport traffic using TLS
-	// Required: true
-	TransportPassthrough *int32 `json:"transport_passthrough"`
 }
 
 // Validate validates this cluster metadata port info
@@ -55,10 +51,6 @@ func (m *ClusterMetadataPortInfo) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateHTTPS(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateTransportPassthrough(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -80,15 +72,6 @@ func (m *ClusterMetadataPortInfo) validateHTTP(formats strfmt.Registry) error {
 func (m *ClusterMetadataPortInfo) validateHTTPS(formats strfmt.Registry) error {
 
 	if err := validate.Required("https", "body", m.HTTPS); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *ClusterMetadataPortInfo) validateTransportPassthrough(formats strfmt.Registry) error {
-
-	if err := validate.Required("transport_passthrough", "body", m.TransportPassthrough); err != nil {
 		return err
 	}
 

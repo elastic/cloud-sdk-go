@@ -32,6 +32,8 @@ import (
 	cr "github.com/go-openapi/runtime/client"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // NewUpdateCurrentUserParams creates a new UpdateCurrentUserParams object
@@ -79,10 +81,10 @@ for the update current user operation typically these are written to a http.Requ
 type UpdateCurrentUserParams struct {
 
 	/*Body
-	  All changes in the specified object are applied to the current user. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.
+	  The user properties to update
 
 	*/
-	Body string
+	Body *models.User
 
 	timeout    time.Duration
 	Context    context.Context
@@ -123,13 +125,13 @@ func (o *UpdateCurrentUserParams) SetHTTPClient(client *http.Client) {
 }
 
 // WithBody adds the body to the update current user params
-func (o *UpdateCurrentUserParams) WithBody(body string) *UpdateCurrentUserParams {
+func (o *UpdateCurrentUserParams) WithBody(body *models.User) *UpdateCurrentUserParams {
 	o.SetBody(body)
 	return o
 }
 
 // SetBody adds the body to the update current user params
-func (o *UpdateCurrentUserParams) SetBody(body string) {
+func (o *UpdateCurrentUserParams) SetBody(body *models.User) {
 	o.Body = body
 }
 
@@ -141,8 +143,10 @@ func (o *UpdateCurrentUserParams) WriteToRequest(r runtime.ClientRequest, reg st
 	}
 	var res []error
 
-	if err := r.SetBodyParam(o.Body); err != nil {
-		return err
+	if o.Body != nil {
+		if err := r.SetBodyParam(o.Body); err != nil {
+			return err
+		}
 	}
 
 	if len(res) > 0 {

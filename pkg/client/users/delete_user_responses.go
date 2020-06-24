@@ -47,8 +47,8 @@ func (o *DeleteUserReader) ReadResponse(response runtime.ClientResponse, consume
 			return nil, err
 		}
 		return result, nil
-	case 400:
-		result := NewDeleteUserBadRequest()
+	case 403:
+		result := NewDeleteUserForbidden()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -102,37 +102,28 @@ func (o *DeleteUserOK) readResponse(response runtime.ClientResponse, consumer ru
 	return nil
 }
 
-// NewDeleteUserBadRequest creates a DeleteUserBadRequest with default headers values
-func NewDeleteUserBadRequest() *DeleteUserBadRequest {
-	return &DeleteUserBadRequest{}
+// NewDeleteUserForbidden creates a DeleteUserForbidden with default headers values
+func NewDeleteUserForbidden() *DeleteUserForbidden {
+	return &DeleteUserForbidden{}
 }
 
-/*DeleteUserBadRequest handles this case with default header values.
+/*DeleteUserForbidden handles this case with default header values.
 
-* The user cannot be deleted. (code: `user.restricted_deletion`)
-* External users cannot be modified. (code: `user.cannot_modify_external`)
-* Built-in users cannot be modified. (code: `user.cannot_modify`)
- */
-type DeleteUserBadRequest struct {
-	/*The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
+Invalid permissions
+*/
+type DeleteUserForbidden struct {
 	Payload *models.BasicFailedReply
 }
 
-func (o *DeleteUserBadRequest) Error() string {
-	return fmt.Sprintf("[DELETE /users/{user_name}][%d] deleteUserBadRequest  %+v", 400, o.Payload)
+func (o *DeleteUserForbidden) Error() string {
+	return fmt.Sprintf("[DELETE /users/{user_name}][%d] deleteUserForbidden  %+v", 403, o.Payload)
 }
 
-func (o *DeleteUserBadRequest) GetPayload() *models.BasicFailedReply {
+func (o *DeleteUserForbidden) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
-func (o *DeleteUserBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+func (o *DeleteUserForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -151,13 +142,9 @@ func NewDeleteUserNotFound() *DeleteUserNotFound {
 
 /*DeleteUserNotFound handles this case with default header values.
 
-User not found. (code: `user.not_found`)
+User not found
 */
 type DeleteUserNotFound struct {
-	/*The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
 	Payload *models.BasicFailedReply
 }
 
@@ -170,9 +157,6 @@ func (o *DeleteUserNotFound) GetPayload() *models.BasicFailedReply {
 }
 
 func (o *DeleteUserNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -191,13 +175,9 @@ func NewDeleteUserRetryWith() *DeleteUserRetryWith {
 
 /*DeleteUserRetryWith handles this case with default header values.
 
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
+Elevated permissions are required. (code: 'root.unauthorized.rbac.elevated_permissions_required')
 */
 type DeleteUserRetryWith struct {
-	/*The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
 	Payload *models.BasicFailedReply
 }
 
@@ -210,9 +190,6 @@ func (o *DeleteUserRetryWith) GetPayload() *models.BasicFailedReply {
 }
 
 func (o *DeleteUserRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
 
 	o.Payload = new(models.BasicFailedReply)
 
