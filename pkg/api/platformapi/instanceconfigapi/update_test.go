@@ -20,8 +20,9 @@ package instanceconfigapi
 import (
 	"errors"
 	"net/http"
-	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
@@ -117,8 +118,8 @@ func TestUpdate(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := Update(tt.args.params); !reflect.DeepEqual(err, tt.err) {
-				t.Errorf("Update() error = %v, wantErr %v", err, tt.err)
+			if err := Update(tt.args.params); !assert.Equal(t, tt.err, err) {
+				t.Error(err)
 			}
 		})
 	}
