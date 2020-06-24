@@ -430,7 +430,7 @@ func newMoveClusterParams(params *VacateClusterParams) (*platform_infrastructure
 	}
 
 	if len(req.EnterpriseSearchClusters) > 0 {
-		moveParams.SetClusterType(util.EnterpriseSearch)
+		moveParams.SetClusterType(ec.String(util.EnterpriseSearch))
 	}
 
 	return moveParams, nil
