@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 
-package configurationtemplateapi
+package instanceconfigapi
 
 import (
 	"encoding/json"
@@ -30,25 +30,23 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
-var folderErrorMessage = "folder not specified and is required for the operation"
-
-// PullToFolderParams is the parameter for deployment template pull to folder sub-command
-type PullToFolderParams struct {
+// PullToDirectoryParams is used to store all available instance configurations
+// in a local directory.
+type PullToDirectoryParams struct {
 	*api.API
-	Folder             string
-	Region             string
-	ShowInstanceConfig bool
+	Directory string
+	Region    string
 }
 
-// Validate is the implementation for the ecctl.Validator interface
-func (params PullToFolderParams) Validate() error {
-	var merr = multierror.NewPrefixed("invalid deployment template pull params")
+// Validate ensures that the parameters are correct.
+func (params PullToDirectoryParams) Validate() error {
+	var merr = multierror.NewPrefixed("invalid instance config pull params")
 	if params.API == nil {
 		merr = merr.Append(apierror.ErrMissingAPI)
 	}
 
-	if params.Folder == "" {
-		merr = merr.Append(errors.New(folderErrorMessage))
+	if params.Directory == "" {
+		merr = merr.Append(errors.New("folder not specified and is required for the operation"))
 	}
 
 	if err := ec.RequireRegionSet(params.Region); err != nil {
@@ -58,29 +56,25 @@ func (params PullToFolderParams) Validate() error {
 	return merr.ErrorOrNil()
 }
 
-// PullToFolder downloads deployment templates and save them in a local folder
-func PullToFolder(params PullToFolderParams) error {
+// PullToDirectory downloads instance configs and save them in a local folder
+func PullToDirectory(params PullToDirectoryParams) error {
 	if err := params.Validate(); err != nil {
 		return err
 	}
 
-	res, err := ListTemplates(ListTemplateParams{
-		API:                params.API,
-		Region:             params.Region,
-		ShowInstanceConfig: params.ShowInstanceConfig,
-	})
+	res, err := List(ListParams{API: params.API, Region: params.Region})
 	if err != nil {
 		return err
 	}
 
-	return writeDeploymentTemplateToFolder(params.Folder, res)
+	return writeInstanceConfigToDirectory(params.Directory, res)
 }
 
-// writeDeploymentTemplateToFolder this will write all the deployment template to a folder
+// writeInstanceConfigToDirectory this will write all the instance configs to a folder
 // following this structure:
 //   folder/
 //   folder/id.json
-func writeDeploymentTemplateToFolder(folder string, templates []*models.DeploymentTemplateInfo) error {
+func writeInstanceConfigToDirectory(folder string, instanceConfigs []*models.InstanceConfiguration) error {
 	p := folder
 	if filepath.Ext(p) != "" {
 		p = filepath.Dir(folder)
@@ -90,10 +84,8 @@ func writeDeploymentTemplateToFolder(folder string, templates []*models.Deployme
 		return err
 	}
 
-	var merr = multierror.NewPrefixed("failed persisting deployment templates")
-	for _, template := range templates {
-		template.Source = nil
-
+	var merr = multierror.NewPrefixed("failed persisting instance configurations")
+	for _, template := range instanceConfigs {
 		f, err := os.Create(filepath.Join(folder, template.ID+".json"))
 		if err != nil {
 			merr = merr.Append(err)

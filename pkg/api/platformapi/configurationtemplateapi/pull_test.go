@@ -64,7 +64,7 @@ func TestPullToFolder(t *testing.T) {
 			name: "fails due to param validation",
 			err: multierror.NewPrefixed("invalid deployment template pull params",
 				apierror.ErrMissingAPI,
-				errors.New("folder must not be empty"),
+				errors.New("folder not specified and is required for the operation"),
 				errors.New("region not specified and is required for this operation"),
 			),
 		},

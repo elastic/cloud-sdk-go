@@ -19,9 +19,10 @@ package instanceconfigapi
 
 import (
 	"io"
-	"reflect"
 	"strings"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
@@ -65,13 +66,10 @@ func TestNewConfig(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := NewConfig(tt.args.source)
-			if !reflect.DeepEqual(err, tt.err) {
-				t.Errorf("NewConfig() error = %+v, wantErr %+v", err, tt.err)
-				return
+			if !assert.Equal(t, tt.err, err) {
+				t.Error(err)
 			}
-			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("NewConfig() = %v, want %v", got, tt.want)
-			}
+			assert.Equal(t, tt.want, got)
 		})
 	}
 }
