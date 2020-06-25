@@ -20,8 +20,9 @@ package userapi
 import (
 	"errors"
 	"net/http"
-	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
@@ -30,74 +31,6 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
-
-func TestEnableParams_Validate(t *testing.T) {
-	tests := []struct {
-		name    string
-		params  EnableParams
-		wantErr bool
-		err     error
-	}{
-		{
-			name:   "validate should return all possible errors",
-			params: EnableParams{},
-			err: multierror.NewPrefixed("invalid user params",
-				errors.New("username is not specified and is required for this operation"),
-				errors.New("api reference is required for the operation"),
-			),
-			wantErr: true,
-		},
-		{
-			name: "validate should return an error if username is empty",
-			params: EnableParams{
-				API:     &api.API{},
-				Enabled: true,
-			},
-			err: multierror.NewPrefixed("invalid user params",
-				errors.New("username is not specified and is required for this operation"),
-			),
-			wantErr: true,
-		},
-		{
-			name: "validate should return an error when api is missing",
-			params: EnableParams{
-				UserName: "tiburcio",
-				Enabled:  false,
-			},
-			err: multierror.NewPrefixed("invalid user params",
-				errors.New("api reference is required for the operation"),
-			),
-			wantErr: true,
-		},
-		{
-			name: "validate should pass if all params are properly set",
-			params: EnableParams{
-				UserName: "tiburcio",
-				API:      &api.API{},
-				Enabled:  true,
-			},
-			wantErr: false,
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			err := tt.params.Validate()
-
-			if (err != nil) != tt.wantErr {
-				t.Errorf("Validate() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-
-			if tt.wantErr && tt.err == nil {
-				t.Errorf("Validate() expected errors = '%v' but no errors returned", tt.err)
-			}
-
-			if tt.wantErr && err.Error() != tt.err.Error() {
-				t.Errorf("Validate() expected errors = '%v' but got %v", tt.err, err)
-			}
-		})
-	}
-}
 
 func TestEnable(t *testing.T) {
 	const successResponse = `{
@@ -149,10 +82,19 @@ func TestEnable(t *testing.T) {
 			args: args{
 				params: EnableParams{
 					UserName: "tiburcio",
-					API: api.NewMock(mock.Response{Response: http.Response{
-						Body:       mock.NewStringBody(successResponse),
-						StatusCode: 200,
-					}}),
+					API: api.NewMock(mock.Response{
+						Response: http.Response{
+							Body:       mock.NewStringBody(successResponse),
+							StatusCode: 200,
+						},
+						Assert: &mock.RequestAssertion{
+							Header: api.DefaultWriteMockHeaders,
+							Method: "PATCH",
+							Host:   api.DefaultMockHost,
+							Path:   "/api/v1/regions/users/tiburcio",
+							Body:   mock.NewStringBody(`{"security":{"enabled":false},"user_name":"tiburcio"}` + "\n"),
+						},
+					}),
 				},
 			},
 			want: &models.User{
@@ -168,21 +110,11 @@ func TestEnable(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := Enable(tt.args.params)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("Validate() error = %v, wantErr %v", err, tt.wantErr)
-				return
+			if !assert.Equal(t, tt.err, err) {
+				t.Error(err)
 			}
-
-			if tt.wantErr && tt.err == nil {
-				t.Errorf("Validate() expected errors = '%v' but no errors returned", tt.err)
-			}
-
-			if tt.wantErr && err.Error() != tt.err.Error() {
-				t.Errorf("Validate() expected errors = '%v' but got %v", tt.err, err)
-			}
-
-			if !tt.wantErr && !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("Enable() = %v, want %v", got, tt.want)
+			if !assert.Equal(t, tt.want, got) {
+				t.Error(err)
 			}
 		})
 	}

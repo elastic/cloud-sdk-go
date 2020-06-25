@@ -20,8 +20,9 @@ package userapi
 import (
 	"errors"
 	"net/http"
-	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
@@ -30,105 +31,6 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
-
-func TestUpdateParams_Validate(t *testing.T) {
-	tests := []struct {
-		name    string
-		params  UpdateParams
-		wantErr bool
-		err     error
-	}{
-		{
-			name:   "validate should return all possible errors",
-			params: UpdateParams{},
-			err: multierror.NewPrefixed("invalid user params",
-				errors.New("update requires a username"),
-				errors.New("api reference is required for the operation"),
-			),
-			wantErr: true,
-		},
-		{
-			name: "validate should return an error if email is formatted incorrectly",
-			params: UpdateParams{
-				UserName: "fulgencio",
-				API:      &api.API{},
-				Email:    "hi",
-			},
-			err: multierror.NewPrefixed("invalid user params",
-				errors.New("hi is not a valid email address format"),
-			),
-			wantErr: true,
-		},
-		{
-			name: "validate should return an error when entered password is too short",
-			params: UpdateParams{
-				UserName: "fulgencio",
-				API:      &api.API{},
-				Password: []byte("pass"),
-				Roles:    []string{platformAdminRole},
-			},
-			err: multierror.NewPrefixed("invalid user params",
-				errors.New("update requires a password with a minimum of 8 characters"),
-			),
-			wantErr: true,
-		},
-		{
-			name: "validate should return an error when ece_platform_admin is used along other roles",
-			params: UpdateParams{
-				UserName: "fulgencio",
-				API:      &api.API{},
-				Password: []byte("supersecretpass"),
-				Roles:    []string{platformAdminRole, platformViewerRole},
-			},
-			err: multierror.NewPrefixed("invalid user params",
-				errors.New("ece_platform_admin cannot be used in conjunction with other roles"),
-			),
-			wantErr: true,
-		},
-		{
-			name: "validate should return an error when ece_platform_admin is used along other roles",
-			params: UpdateParams{
-				UserName: "fulgencio",
-				API:      &api.API{},
-				Password: []byte("supersecretpass"),
-				Roles:    []string{deploymentsManagerRole, deploymentsViewerRole},
-			},
-			err: multierror.NewPrefixed("invalid user params",
-				errors.New("only one of ece_deployment_manager or ece_deployment_viewer can be chosen"),
-			),
-			wantErr: true,
-		},
-		{
-			name: "validate should pass if all params are properly set",
-			params: UpdateParams{
-				UserName: "fulgencio",
-				API:      &api.API{},
-				Email:    "hi@example.com",
-				Password: []byte("supersecretpass"),
-				Roles:    []string{platformViewerRole, deploymentsManagerRole},
-			},
-			wantErr: false,
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			err := tt.params.Validate()
-
-			if (err != nil) != tt.wantErr {
-				t.Errorf("Validate() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-
-			if tt.wantErr && tt.err == nil {
-				t.Errorf("Validate() expected errors = '%v' but no errors returned", tt.err)
-			}
-
-			if tt.wantErr && err.Error() != tt.err.Error() {
-				t.Errorf("Validate() expected errors = '%v' but got %v", tt.err, err)
-			}
-		})
-	}
-}
 
 func TestUpdate(t *testing.T) {
 	const successResponse = `{
@@ -153,7 +55,7 @@ func TestUpdate(t *testing.T) {
 		err     error
 	}{
 		{
-			name: "Update fails due to parameter validation failure (missing API)",
+			name: "Update fails due to parameter validation failure",
 			args: args{
 				params: UpdateParams{},
 			},
@@ -183,10 +85,19 @@ func TestUpdate(t *testing.T) {
 					UserName: "fulgencio",
 					Password: []byte("supersecretpass"),
 					Roles:    []string{"ece_deployment_viewer"},
-					API: api.NewMock(mock.Response{Response: http.Response{
-						Body:       mock.NewStringBody(successResponse),
-						StatusCode: 200,
-					}}),
+					API: api.NewMock(mock.Response{
+						Response: http.Response{
+							Body:       mock.NewStringBody(successResponse),
+							StatusCode: 200,
+						},
+						Assert: &mock.RequestAssertion{
+							Header: api.DefaultWriteMockHeaders,
+							Method: "PATCH",
+							Host:   api.DefaultMockHost,
+							Path:   "/api/v1/regions/users/fulgencio",
+							Body:   mock.NewStringBody(`{"security":{"password":"supersecretpass","roles":["ece_deployment_viewer"]},"user_name":"fulgencio"}` + "\n"),
+						},
+					}),
 				},
 			},
 			want: &models.User{
@@ -202,21 +113,11 @@ func TestUpdate(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := Update(tt.args.params)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("Validate() error = %v, wantErr %v", err, tt.wantErr)
-				return
+			if !assert.Equal(t, tt.err, err) {
+				t.Error(err)
 			}
-
-			if tt.wantErr && tt.err == nil {
-				t.Errorf("Validate() expected errors = '%v' but no errors returned", tt.err)
-			}
-
-			if tt.wantErr && err.Error() != tt.err.Error() {
-				t.Errorf("Validate() expected errors = '%v' but got %v", tt.err, err)
-			}
-
-			if !tt.wantErr && !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("Update() = %v, want %v", got, tt.want)
+			if !assert.Equal(t, tt.want, got) {
+				t.Error(err)
 			}
 		})
 	}
@@ -273,10 +174,19 @@ func TestUpdateCurrent(t *testing.T) {
 					UserName: "xochitl",
 					Password: []byte("supersecretpass"),
 					Roles:    []string{"ece_deployment_viewer"},
-					API: api.NewMock(mock.Response{Response: http.Response{
-						Body:       mock.NewStringBody(successResponse),
-						StatusCode: 200,
-					}}),
+					API: api.NewMock(mock.Response{
+						Response: http.Response{
+							Body:       mock.NewStringBody(successResponse),
+							StatusCode: 200,
+						},
+						Assert: &mock.RequestAssertion{
+							Header: api.DefaultWriteMockHeaders,
+							Method: "PATCH",
+							Host:   api.DefaultMockHost,
+							Path:   "/api/v1/regions/user",
+							Body:   mock.NewStringBody(`{"security":{"password":"supersecretpass","roles":["ece_deployment_viewer"]},"user_name":"xochitl"}` + "\n"),
+						},
+					}),
 				},
 			},
 			want: &models.User{
@@ -291,21 +201,11 @@ func TestUpdateCurrent(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := UpdateCurrent(tt.args.params)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("Validate() error = %v, wantErr %v", err, tt.wantErr)
-				return
+			if !assert.Equal(t, tt.err, err) {
+				t.Error(err)
 			}
-
-			if tt.wantErr && tt.err == nil {
-				t.Errorf("Validate() expected errors = '%v' but no errors returned", tt.err)
-			}
-
-			if tt.wantErr && err.Error() != tt.err.Error() {
-				t.Errorf("Validate() expected errors = '%v' but got %v", tt.err, err)
-			}
-
-			if !tt.wantErr && !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("Update() = %v, want %v", got, tt.want)
+			if !assert.Equal(t, tt.want, got) {
+				t.Error(err)
 			}
 		})
 	}

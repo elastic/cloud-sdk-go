@@ -19,8 +19,9 @@ package userauthapi
 
 import (
 	"errors"
-	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
@@ -71,10 +72,18 @@ func TestGetKey(t *testing.T) {
 			name: "succeeds",
 			args: args{params: GetKeyParams{
 				API: api.NewMock(
-					mock.New200Response(mock.NewStructBody(models.APIKeyResponse{
-						Key: "somekeyvalue",
-						ID:  ec.String("somekey"),
-					})),
+					mock.New200ResponseAssertion(
+						&mock.RequestAssertion{
+							Header: api.DefaultReadMockHeaders,
+							Method: "GET",
+							Host:   api.DefaultMockHost,
+							Path:   "/api/v1/regions/users/auth/keys/somekey",
+						},
+						mock.NewStructBody(models.APIKeyResponse{
+							Key: "somekeyvalue",
+							ID:  ec.String("somekey"),
+						}),
+					),
 				),
 				ID: "somekey",
 			}},
@@ -87,12 +96,11 @@ func TestGetKey(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := GetKey(tt.args.params)
-			if !reflect.DeepEqual(err, tt.err) {
-				t.Errorf("GetKey() error = %v, wantErr %v", err, tt.err)
-				return
+			if !assert.Equal(t, tt.err, err) {
+				t.Error(err)
 			}
-			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("GetKey() = %v, want %v", got, tt.want)
+			if !assert.Equal(t, tt.want, got) {
+				t.Error(err)
 			}
 		})
 	}

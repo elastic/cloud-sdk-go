@@ -19,8 +19,9 @@ package userauthapi
 
 import (
 	"errors"
-	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
@@ -98,8 +99,26 @@ func TestCreateKey(t *testing.T) {
 				ReAuthenticateParams: ReAuthenticateParams{
 					Password: []byte("somepass"),
 					API: api.NewMock(
-						mock.New200Response(mock.NewStructBody(securityTokenResponse)),
-						mock.New201Response(mock.NewStructBody(createdAPIKey)),
+						mock.New200ResponseAssertion(
+							&mock.RequestAssertion{
+								Header: api.DefaultWriteMockHeaders,
+								Method: "POST",
+								Host:   api.DefaultMockHost,
+								Path:   "/api/v1/regions/users/auth/reauthenticate",
+								Body:   mock.NewStringBody(`{"password":"somepass"}` + "\n"),
+							},
+							mock.NewStructBody(securityTokenResponse),
+						),
+						mock.New201ResponseAssertion(
+							&mock.RequestAssertion{
+								Header: api.DefaultWriteMockHeaders,
+								Method: "POST",
+								Host:   api.DefaultMockHost,
+								Path:   "/api/v1/regions/users/auth/keys",
+								Body:   mock.NewStringBody(`{"authentication_token":"uzcyenzalonopalMyxBx","description":"some description"}` + "\n"),
+							},
+							mock.NewStructBody(createdAPIKey),
+						),
 					),
 				},
 			}},
@@ -109,12 +128,11 @@ func TestCreateKey(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := CreateKey(tt.args.params)
-			if !reflect.DeepEqual(err, tt.err) {
-				t.Errorf("CreateKey() error = %v, wantErr %v", err, tt.err)
-				return
+			if !assert.Equal(t, tt.err, err) {
+				t.Error(err)
 			}
-			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("CreateKey() = %v, want %v", got, tt.want)
+			if !assert.Equal(t, tt.want, got) {
+				t.Error(err)
 			}
 		})
 	}

@@ -19,8 +19,9 @@ package userauthapi
 
 import (
 	"errors"
-	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
@@ -61,7 +62,15 @@ func TestDeleteKey(t *testing.T) {
 			name: "succeeds",
 			args: args{params: DeleteKeyParams{
 				API: api.NewMock(
-					mock.New200Response(mock.NewStringBody("")),
+					mock.New200ResponseAssertion(
+						&mock.RequestAssertion{
+							Header: api.DefaultWriteMockHeaders,
+							Method: "DELETE",
+							Host:   api.DefaultMockHost,
+							Path:   "/api/v1/regions/users/auth/keys/somekey",
+						},
+						mock.NewStringBody(""),
+					),
 				),
 				ID: "somekey",
 			}},
@@ -69,8 +78,9 @@ func TestDeleteKey(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := DeleteKey(tt.args.params); !reflect.DeepEqual(err, tt.err) {
-				t.Errorf("DeleteKey() error = %v, wantErr %v", err, tt.err)
+			err := DeleteKey(tt.args.params)
+			if !assert.Equal(t, tt.err, err) {
+				t.Error(err)
 			}
 		})
 	}

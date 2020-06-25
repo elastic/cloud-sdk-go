@@ -18,9 +18,10 @@
 package userapi
 
 import (
+	"github.com/pkg/errors"
+
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	"github.com/elastic/cloud-sdk-go/pkg/util/slice"
-	"github.com/pkg/errors"
 )
 
 // Available user roles

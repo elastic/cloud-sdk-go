@@ -20,8 +20,9 @@ package userapi
 import (
 	"errors"
 	"net/http"
-	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
@@ -66,11 +67,19 @@ func TestDelete(t *testing.T) {
 			name: "Delete succeeds",
 			args: args{
 				params: DeleteParams{
-					UserName: "user bob",
-					API: api.NewMock(mock.Response{Response: http.Response{
-						Body:       mock.NewStringBody(""),
-						StatusCode: 200,
-					}}),
+					UserName: "userbob",
+					API: api.NewMock(mock.Response{
+						Response: http.Response{
+							Body:       mock.NewStringBody(""),
+							StatusCode: 200,
+						},
+						Assert: &mock.RequestAssertion{
+							Header: api.DefaultWriteMockHeaders,
+							Method: "DELETE",
+							Host:   api.DefaultMockHost,
+							Path:   "/api/v1/regions/users/userbob",
+						},
+					}),
 				},
 			},
 		},
@@ -78,13 +87,8 @@ func TestDelete(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			err := Delete(tt.args.params)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("Delete() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-
-			if tt.wantErr && tt.err != nil && !reflect.DeepEqual(err, tt.err) {
-				t.Errorf("Delete() actual error = '%v', want error '%v'", err, tt.err)
+			if !assert.Equal(t, tt.err, err) {
+				t.Error(err)
 			}
 		})
 	}

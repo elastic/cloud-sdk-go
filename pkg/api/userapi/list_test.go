@@ -20,8 +20,9 @@ package userapi
 import (
 	"errors"
 	"net/http"
-	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
@@ -71,10 +72,18 @@ func TestList(t *testing.T) {
 			name: "List succeeds",
 			args: args{
 				params: ListParams{
-					API: api.NewMock(mock.Response{Response: http.Response{
-						Body:       mock.NewStringBody(listUsersResponse),
-						StatusCode: 200,
-					}}),
+					API: api.NewMock(mock.Response{
+						Response: http.Response{
+							Body:       mock.NewStringBody(listUsersResponse),
+							StatusCode: 200,
+						},
+						Assert: &mock.RequestAssertion{
+							Header: api.DefaultReadMockHeaders,
+							Method: "GET",
+							Host:   api.DefaultMockHost,
+							Path:   "/api/v1/regions/users",
+						},
+					}),
 				},
 			},
 			want: &models.UserList{
@@ -94,17 +103,11 @@ func TestList(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := List(tt.args.params)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("List() error = %v, wantErr %v", err, tt.wantErr)
-				return
+			if !assert.Equal(t, tt.err, err) {
+				t.Error(err)
 			}
-
-			if tt.wantErr && tt.err != nil && !reflect.DeepEqual(err, tt.err) {
-				t.Errorf("List() actual error = '%v', want error '%v'", err, tt.err)
-			}
-
-			if !tt.wantErr && !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("List() = %v, want %v", got, tt.want)
+			if !assert.Equal(t, tt.want, got) {
+				t.Error(err)
 			}
 		})
 	}

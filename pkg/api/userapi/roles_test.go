@@ -19,8 +19,9 @@ package userapi
 
 import (
 	"errors"
-	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 )
@@ -57,18 +58,8 @@ func TestValidateRoles(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			err := ValidateRoles(tt.arg)
-
-			if (err != nil) != tt.wantErr {
-				t.Errorf("Validate() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-
-			if tt.wantErr && tt.err == nil {
-				t.Errorf("Validate() expected errors = '%v' but no errors returned", tt.err)
-			}
-
-			if tt.wantErr && err.Error() != tt.err.Error() {
-				t.Errorf("Validate() expected errors = '%v' but got %v", tt.err, err)
+			if err != nil && !assert.Equal(t, tt.err.Error(), err.Error()) {
+				t.Error(err)
 			}
 		})
 	}
@@ -95,7 +86,7 @@ func TestHasBothDeploymentRoles(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			got := hasBothDeploymentRoles(tt.arg)
 
-			if !reflect.DeepEqual(got, tt.want) {
+			if !assert.Equal(t, tt.want, got) {
 				t.Errorf("Create() = %v, want %v", got, tt.want)
 			}
 		})

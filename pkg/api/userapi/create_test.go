@@ -20,108 +20,16 @@ package userapi
 import (
 	"errors"
 	"net/http"
-	"reflect"
 	"testing"
 
+	"github.com/stretchr/testify/assert"
+
 	"github.com/elastic/cloud-sdk-go/pkg/api"
-	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
-
-func TestCreateParams_Validate(t *testing.T) {
-	tests := []struct {
-		name    string
-		params  CreateParams
-		wantErr bool
-		err     error
-	}{
-		{
-			name: "validate should return all possible errors",
-			params: CreateParams{
-				Email: "hi",
-			},
-			err: multierror.NewPrefixed("invalid user params",
-				errors.New("api reference is required for the operation"),
-				errors.New("username is not specified and is required for this operation"),
-				errors.New("a password with a minimum of 8 characters is required for this operation"),
-				errors.New("a minimum of 1 role is required for this operation"),
-				errors.New("hi is not a valid email address format"),
-			),
-			wantErr: true,
-		},
-		{
-			name: "validate should return an error when entered password is too short",
-			params: CreateParams{
-				API:      &api.API{},
-				UserName: "bob",
-				Password: []byte("pass"),
-				Roles:    []string{platformAdminRole},
-			},
-			err: multierror.NewPrefixed("invalid user params",
-				errors.New("a password with a minimum of 8 characters is required for this operation"),
-			),
-			wantErr: true,
-		},
-		{
-			name: "validate should return an error when ece_platform_admin is used along other roles",
-			params: CreateParams{
-				API:      &api.API{},
-				UserName: "bob",
-				Password: []byte("supersecretpass"),
-				Roles:    []string{platformAdminRole, platformViewerRole},
-			},
-			err: multierror.NewPrefixed("invalid user params",
-				errors.New("ece_platform_admin cannot be used in conjunction with other roles"),
-			),
-			wantErr: true,
-		},
-		{
-			name: "validate should return an error when ece_platform_admin is used along other roles",
-			params: CreateParams{
-				API:      &api.API{},
-				UserName: "bob",
-				Password: []byte("supersecretpass"),
-				Roles:    []string{deploymentsManagerRole, deploymentsViewerRole},
-			},
-			err: multierror.NewPrefixed("invalid user params",
-				errors.New("only one of ece_deployment_manager or ece_deployment_viewer can be chosen"),
-			),
-			wantErr: true,
-		},
-		{
-			name: "validate should pass if all params are properly set",
-			params: CreateParams{
-				API:      &api.API{},
-				UserName: "bob",
-				Email:    "hi@example.com",
-				Password: []byte("supersecretpass"),
-				Roles:    []string{platformViewerRole, deploymentsManagerRole},
-			},
-			wantErr: false,
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			err := tt.params.Validate()
-
-			if (err != nil) != tt.wantErr {
-				t.Errorf("Validate() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-
-			if tt.wantErr && tt.err == nil {
-				t.Errorf("Validate() expected errors = '%v' but no errors returned", tt.err)
-			}
-
-			if tt.wantErr && err.Error() != tt.err.Error() {
-				t.Errorf("Validate() expected errors = '%v' but got %v", tt.err, err)
-			}
-		})
-	}
-}
 
 func TestCreate(t *testing.T) {
 	successResponse := `{
@@ -149,14 +57,16 @@ func TestCreate(t *testing.T) {
 			name: "Create fails due to parameter validation failure (missing API)",
 			args: args{
 				params: CreateParams{
-					UserName: "bob",
-					Password: []byte("supersecretpass"),
-					Roles:    []string{"ece_platform_admin"},
+					Email: "hi",
 				},
 			},
 			wantErr: true,
 			err: multierror.NewPrefixed("invalid user params",
-				apierror.ErrMissingAPI,
+				errors.New("api reference is required for the operation"),
+				errors.New("username is not specified and is required for this operation"),
+				errors.New("a password with a minimum of 8 characters is required for this operation"),
+				errors.New("a minimum of 1 role is required for this operation"),
+				errors.New("hi is not a valid email address format"),
 			),
 		},
 		{
@@ -179,10 +89,19 @@ func TestCreate(t *testing.T) {
 					UserName: "bob",
 					Password: []byte("supersecretpass"),
 					Roles:    []string{"ece_deployment_viewer"},
-					API: api.NewMock(mock.Response{Response: http.Response{
-						Body:       mock.NewStringBody(successResponse),
-						StatusCode: 200,
-					}}),
+					API: api.NewMock(mock.Response{
+						Response: http.Response{
+							Body:       mock.NewStringBody(successResponse),
+							StatusCode: 200,
+						},
+						Assert: &mock.RequestAssertion{
+							Header: api.DefaultWriteMockHeaders,
+							Method: "POST",
+							Host:   api.DefaultMockHost,
+							Path:   "/api/v1/regions/users",
+							Body:   mock.NewStringBody(`{"security":{"enabled":true,"password":"supersecretpass","roles":["ece_deployment_viewer"]},"user_name":"bob"}` + "\n"),
+						},
+					}),
 				},
 			},
 			want: &models.User{
@@ -198,21 +117,11 @@ func TestCreate(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := Create(tt.args.params)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("Validate() error = %v, wantErr %v", err, tt.wantErr)
-				return
+			if err != nil && !assert.Equal(t, tt.err.Error(), err.Error()) {
+				t.Error(err)
 			}
-
-			if tt.wantErr && tt.err == nil {
-				t.Errorf("Validate() expected errors = '%v' but no errors returned", tt.err)
-			}
-
-			if tt.wantErr && err.Error() != tt.err.Error() {
-				t.Errorf("Validate() expected errors = '%v' but got %v", tt.err, err)
-			}
-
-			if !tt.wantErr && !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("Create() = %v, want %v", got, tt.want)
+			if !assert.Equal(t, tt.want, got) {
+				t.Error(err)
 			}
 		})
 	}

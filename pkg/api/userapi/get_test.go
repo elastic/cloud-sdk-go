@@ -20,8 +20,9 @@ package userapi
 import (
 	"errors"
 	"net/http"
-	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
@@ -30,51 +31,6 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
-
-func TestGetParams_Validate(t *testing.T) {
-	tests := []struct {
-		name    string
-		params  GetParams
-		wantErr bool
-		err     error
-	}{
-		{
-			name:   "validate should return all possible errors",
-			params: GetParams{},
-			err: multierror.NewPrefixed("invalid user params",
-				errors.New("api reference is required for the operation"),
-				errors.New("username is not specified and is required for this operation"),
-			),
-			wantErr: true,
-		},
-		{
-			name: "validate should pass if all params are properly set",
-			params: GetParams{
-				API:      &api.API{},
-				UserName: "hermenelgilda",
-			},
-			wantErr: false,
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			err := tt.params.Validate()
-
-			if (err != nil) != tt.wantErr {
-				t.Errorf("Validate() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-
-			if tt.wantErr && tt.err == nil {
-				t.Errorf("Validate() expected errors = '%v' but no errors returned", tt.err)
-			}
-
-			if tt.wantErr && err.Error() != tt.err.Error() {
-				t.Errorf("Validate() expected errors = '%v' but got %v", tt.err, err)
-			}
-		})
-	}
-}
 
 func TestGet(t *testing.T) {
 	const getUserResponse = `{
@@ -117,10 +73,18 @@ func TestGet(t *testing.T) {
 			args: args{
 				params: GetParams{
 					UserName: "admin",
-					API: api.NewMock(mock.Response{Response: http.Response{
-						Body:       mock.NewStringBody(getUserResponse),
-						StatusCode: 200,
-					}}),
+					API: api.NewMock(mock.Response{
+						Response: http.Response{
+							Body:       mock.NewStringBody(getUserResponse),
+							StatusCode: 200,
+						},
+						Assert: &mock.RequestAssertion{
+							Header: api.DefaultReadMockHeaders,
+							Method: "GET",
+							Host:   api.DefaultMockHost,
+							Path:   "/api/v1/regions/users/admin",
+						},
+					}),
 				},
 			},
 			want: &models.User{
@@ -132,57 +96,11 @@ func TestGet(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := Get(tt.args.params)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("Get() error = %v, wantErr %v", err, tt.wantErr)
-				return
+			if !assert.Equal(t, tt.err, err) {
+				t.Error(err)
 			}
-
-			if tt.wantErr && tt.err != nil && err.Error() != tt.err.Error() {
-				t.Errorf("Get() actual error = '%v', want error '%v'", err, tt.err)
-			}
-
-			if !tt.wantErr && !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("Get() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
-
-func TestGetCurrentParams_Validate(t *testing.T) {
-	tests := []struct {
-		name    string
-		params  GetCurrentParams
-		wantErr bool
-		err     error
-	}{
-		{
-			name:    "validate should return all possible errors",
-			params:  GetCurrentParams{},
-			err:     errors.New("api reference is required for the operation"),
-			wantErr: true,
-		},
-		{
-			name: "validate should pass if all params are properly set",
-			params: GetCurrentParams{
-				API: &api.API{},
-			},
-			wantErr: false,
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			err := tt.params.Validate()
-			if (err != nil) != tt.wantErr {
-				t.Errorf("Validate() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-
-			if tt.wantErr && tt.err == nil {
-				t.Errorf("Validate() expected errors = '%v' but no errors returned", tt.err)
-			}
-
-			if tt.wantErr && err.Error() != tt.err.Error() {
-				t.Errorf("Validate() expected errors = '%v' but got %v", tt.err, err)
+			if !assert.Equal(t, tt.want, got) {
+				t.Error(err)
 			}
 		})
 	}
@@ -224,10 +142,18 @@ func TestGetCurrent(t *testing.T) {
 			name: "Get succeeds",
 			args: args{
 				params: GetCurrentParams{
-					API: api.NewMock(mock.Response{Response: http.Response{
-						Body:       mock.NewStringBody(getCurrentResponse),
-						StatusCode: 200,
-					}}),
+					API: api.NewMock(mock.Response{
+						Response: http.Response{
+							Body:       mock.NewStringBody(getCurrentResponse),
+							StatusCode: 200,
+						},
+						Assert: &mock.RequestAssertion{
+							Header: api.DefaultReadMockHeaders,
+							Method: "GET",
+							Host:   api.DefaultMockHost,
+							Path:   "/api/v1/regions/user",
+						},
+					}),
 				},
 			},
 			want: &models.User{
@@ -239,17 +165,11 @@ func TestGetCurrent(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := GetCurrent(tt.args.params)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("GetCurrent() error = %v, wantErr %v", err, tt.wantErr)
-				return
+			if !assert.Equal(t, tt.err, err) {
+				t.Error(err)
 			}
-
-			if tt.wantErr && tt.err != nil && err.Error() != tt.err.Error() {
-				t.Errorf("GetCurrent() actual error = '%v', want error '%v'", err, tt.err)
-			}
-
-			if !tt.wantErr && !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("GetCurrent() = %v, want %v", got, tt.want)
+			if !assert.Equal(t, tt.want, got) {
+				t.Error(err)
 			}
 		})
 	}
