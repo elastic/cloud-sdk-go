@@ -27,6 +27,9 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
+var planStepLogErrorMessage = "Unexpected error during step: [perform-snapshot]: [no.found.constructor.models.TimeoutException: Timeout]"
+var planFinishedErrorMessage = "[ClusterFailure:NoAvailableInstanceFound]: Could not find an available instance while attempting: [suspend-snapshotting]... Please validate the cluster is in a healthy status and retry."
+
 func sendTrackResponses(responses []TrackResponse, c chan<- TrackResponse) {
 	for _, res := range responses {
 		c <- res
