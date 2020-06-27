@@ -28,6 +28,7 @@ import (
 
 	"github.com/go-openapi/runtime"
 	runtimeclient "github.com/go-openapi/runtime/client"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestNewCloudClientRuntime(t *testing.T) {
@@ -54,13 +55,12 @@ func TestNewCloudClientRuntime(t *testing.T) {
 		{
 			name: "when region is specified the structure has two different runtimes",
 			args: args{c: Config{
-				Host:   "https://cloud.elastic.co",
-				Region: "us-east-1",
+				Host: "https://cloud.elastic.co",
 			}},
 			want: &CloudClientRuntime{
 				runtime: AddTypeConsumers(runtimeclient.NewWithClient(
 					"cloud.elastic.co",
-					RegionlessPrefix,
+					DefaultBasePath,
 					[]string{"https"}, nil,
 				)),
 			},
@@ -73,7 +73,7 @@ func TestNewCloudClientRuntime(t *testing.T) {
 			want: &CloudClientRuntime{
 				runtime: &runtimeclient.Runtime{
 					Host:     "cloud.elastic.co",
-					BasePath: RegionlessPrefix,
+					BasePath: DefaultBasePath,
 				},
 			},
 		},
@@ -104,19 +104,18 @@ func TestNewCloudClientRuntime(t *testing.T) {
 func TestCloudClientRuntime_getRuntime(t *testing.T) {
 	var mocknewRuntimeFunc = func(r string) *runtimeclient.Runtime {
 		return AddTypeConsumers(runtimeclient.NewWithClient(
-			"cloud.elastic.co", fmt.Sprintf(RegionPrefix, r),
+			"cloud.elastic.co", fmt.Sprintf(RegionBasePath, r),
 			[]string{"https"}, nil,
 		))
 	}
 	var regionless = AddTypeConsumers(runtimeclient.NewWithClient(
 		"cloud.elastic.co",
-		RegionlessPrefix,
+		DefaultBasePath,
 		[]string{"https"}, nil,
 	))
 	type fields struct {
 		newRegionRuntime newRuntimeFunc
 		runtime          *runtimeclient.Runtime
-		region           string
 	}
 	type args struct {
 		op *runtime.ClientOperation
@@ -126,11 +125,11 @@ func TestCloudClientRuntime_getRuntime(t *testing.T) {
 		fields fields
 		args   args
 		want   *runtimeclient.Runtime
+		err    error
 	}{
 		{
 			name: "/deployment operation uses the regionless path",
 			fields: fields{
-				region:           "us-east-1",
 				newRegionRuntime: mocknewRuntimeFunc,
 				runtime:          regionless,
 			},
@@ -142,31 +141,32 @@ func TestCloudClientRuntime_getRuntime(t *testing.T) {
 		{
 			name: "/deployment/someid/notes operation uses the region path",
 			fields: fields{
-				region:           "us-east-1",
 				newRegionRuntime: mocknewRuntimeFunc,
 				runtime:          regionless,
 			},
 			args: args{op: &runtime.ClientOperation{
 				PathPattern: "/deployments/someid/notes",
+				Context:     WithRegion(context.Background(), "us-central-1"),
 			}},
-			want: &runtimeclient.Runtime{BasePath: "/api/v1/regions/us-east-1"},
+			want: &runtimeclient.Runtime{
+				BasePath: "/api/v1/regions/us-central-1",
+			},
 		},
 		{
 			name: "/platform operation uses the regioned path",
 			fields: fields{
-				region:           "us-east-1",
 				newRegionRuntime: mocknewRuntimeFunc,
 				runtime:          regionless,
 			},
 			args: args{op: &runtime.ClientOperation{
 				PathPattern: "/platform",
+				Context:     WithRegion(context.Background(), "us-central-1"),
 			}},
-			want: &runtimeclient.Runtime{BasePath: "/api/v1/regions/us-east-1"},
+			want: &runtimeclient.Runtime{BasePath: "/api/v1/regions/us-central-1"},
 		},
 		{
-			name: "/platform operation uses the regioned path",
+			name: "/platform operation returns an error when region not specified",
 			fields: fields{
-				region:           "us-east-1",
 				newRegionRuntime: mocknewRuntimeFunc,
 				runtime:          regionless,
 			},
@@ -174,12 +174,23 @@ func TestCloudClientRuntime_getRuntime(t *testing.T) {
 				PathPattern: "/platform",
 				Context:     context.Background(),
 			}},
-			want: &runtimeclient.Runtime{BasePath: "/api/v1/regions/us-east-1"},
+			err: errors.New("the requested operation requires a region but none has been set"),
+		},
+		{
+			name: "/unknown operation returns an error when region not specified",
+			fields: fields{
+				newRegionRuntime: mocknewRuntimeFunc,
+				runtime:          regionless,
+			},
+			args: args{op: &runtime.ClientOperation{
+				PathPattern: "/unknown",
+				Context:     context.Background(),
+			}},
+			err: errors.New("the requested operation requires a region but none has been set"),
 		},
 		{
 			name: "/platform operation uses the regioned path obtained from the region context",
 			fields: fields{
-				region:           "us-east-1",
 				newRegionRuntime: mocknewRuntimeFunc,
 				runtime:          regionless,
 			},
@@ -192,7 +203,6 @@ func TestCloudClientRuntime_getRuntime(t *testing.T) {
 		{
 			name: "/platform operation uses a different regioned path obtained from the region context",
 			fields: fields{
-				region:           "us-east-1",
 				newRegionRuntime: mocknewRuntimeFunc,
 				runtime:          regionless,
 			},
@@ -202,15 +212,34 @@ func TestCloudClientRuntime_getRuntime(t *testing.T) {
 			}},
 			want: &runtimeclient.Runtime{BasePath: "/api/v1/regions/us-east-2"},
 		},
+		{
+			name: "/platform operation returns an error when empty region is used",
+			fields: fields{
+				newRegionRuntime: mocknewRuntimeFunc,
+				runtime:          regionless,
+			},
+			args: args{op: &runtime.ClientOperation{
+				PathPattern: "/platform",
+				Context:     WithRegion(context.Background(), ""),
+			}},
+			err: errors.New("the requested operation requires a region but none has been set"),
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			r := &CloudClientRuntime{
 				newRegionRuntime: tt.fields.newRegionRuntime,
 				runtime:          tt.fields.runtime,
-				region:           tt.fields.region,
 			}
-			got := r.getRuntime(tt.args.op)
+			got, err := r.getRuntime(tt.args.op)
+			if !assert.Equal(t, tt.err, err) {
+				t.Error(err)
+			}
+
+			if got == nil {
+				return
+			}
+
 			if tt.want.BasePath != got.BasePath {
 				t.Errorf("NewCloudClientRuntime() = %v, want %v",
 					got.BasePath, tt.want.BasePath,

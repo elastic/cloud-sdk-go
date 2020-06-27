@@ -64,6 +64,7 @@ func ParseElasticsearchInput(params ParseElasticsearchInputParams) (*models.Elas
 		Writer:  params.Writer,
 		API:     params.API,
 		Version: params.Version,
+		Region:  params.Region,
 	})
 	if err != nil {
 		return nil, err

@@ -18,6 +18,8 @@
 package allocatorapi
 
 import (
+	"context"
+
 	"github.com/go-openapi/strfmt"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
@@ -61,6 +63,7 @@ func Search(params SearchParams) (*models.AllocatorOverview, error) {
 
 	res, err := params.API.V1API.PlatformInfrastructure.SearchAllocators(
 		platform_infrastructure.NewSearchAllocatorsParams().
+			WithContext(api.WithRegion(context.Background(), params.Region)).
 			WithBody(&params.Request),
 		params.AuthWriter,
 	)

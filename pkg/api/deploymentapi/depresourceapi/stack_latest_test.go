@@ -44,6 +44,7 @@ func TestLatestStackVersion(t *testing.T) {
 			name: "fails due to parameter validation",
 			err: multierror.NewPrefixed("deployment latest stack",
 				errors.New("api reference is required for the operation"),
+				errors.New("region not specified and is required for this operation"),
 			),
 		},
 		{
@@ -51,12 +52,14 @@ func TestLatestStackVersion(t *testing.T) {
 			args: args{params: LatestStackVersionParams{
 				API:     api.NewMock(),
 				Version: "7.4.2",
+				Region:  "some-region",
 			}},
 			want: "7.4.2",
 		},
 		{
 			name: "obtains the latest version from the API",
 			args: args{params: LatestStackVersionParams{
+				Region: "some-region",
 				API: api.NewMock(mock.New200Response(mock.NewStructBody(models.StackVersionConfigs{
 					Stacks: []*models.StackVersionConfig{
 						{Version: "6.4.2"},
@@ -71,6 +74,7 @@ func TestLatestStackVersion(t *testing.T) {
 			name: "obtains the latest version from the API and prints to the writer",
 			args: args{params: LatestStackVersionParams{
 				Writer: new(bytes.Buffer),
+				Region: "some-region",
 				API: api.NewMock(mock.New200Response(mock.NewStructBody(models.StackVersionConfigs{
 					Stacks: []*models.StackVersionConfig{
 						{Version: "6.4.2"},
@@ -85,6 +89,7 @@ func TestLatestStackVersion(t *testing.T) {
 		{
 			name: "obtains an error when the list is empty",
 			args: args{params: LatestStackVersionParams{
+				Region: "some-region",
 				API: api.NewMock(mock.New200Response(mock.NewStructBody(models.StackVersionConfigs{
 					Stacks: []*models.StackVersionConfig{},
 				}))),
@@ -94,7 +99,8 @@ func TestLatestStackVersion(t *testing.T) {
 		{
 			name: "returns an error when the API call fails",
 			args: args{params: LatestStackVersionParams{
-				API: api.NewMock(mock.New500Response(mock.NewStructBody(errors.New("error")))),
+				Region: "some-region",
+				API:    api.NewMock(mock.New500Response(mock.NewStructBody(errors.New("error")))),
 			}},
 			err: errors.New("version discovery: failed to obtain stack list, please specify a version"),
 		},

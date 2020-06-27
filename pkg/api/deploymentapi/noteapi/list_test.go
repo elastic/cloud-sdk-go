@@ -50,17 +50,7 @@ func TestList(t *testing.T) {
 			}
 		]
 }`
-	const getResponse = `{
-  "healthy": true,
-  "id": "e3dac8bf3dc64c528c295a94d0f19a77",
-  "resources": {
-    "elasticsearch": [{
-      "id": "418017cd1c7f402cbb7a981b2004ceeb",
-      "ref_id": "main-elasticsearch",
-      "region": "ece-region"
-    }]
-  }
-}`
+
 	type args struct {
 		params Params
 	}
@@ -72,21 +62,16 @@ func TestList(t *testing.T) {
 	}{
 		{
 			name: "List notes succeeds",
-			args: args{
-				params: Params{
-					ID: "e3dac8bf3dc64c528c295a94d0f19a77",
-					API: api.NewMock(
-						mock.Response{Response: http.Response{
-							Body:       mock.NewStringBody(getResponse),
-							StatusCode: 200,
-						}},
-						mock.Response{Response: http.Response{
-							Body:       mock.NewStringBody(listNotesPayload),
-							StatusCode: 200,
-						}},
-					),
-				},
-			},
+			args: args{params: Params{
+				Region: "us-east-1",
+				ID:     "e3dac8bf3dc64c528c295a94d0f19a77",
+				API: api.NewMock(
+					mock.Response{Response: http.Response{
+						Body:       mock.NewStringBody(listNotesPayload),
+						StatusCode: 200,
+					}},
+				),
+			}},
 			want: &models.Notes{
 				Notes: []*models.Note{
 					{
@@ -104,29 +89,12 @@ func TestList(t *testing.T) {
 			},
 		},
 		{
-			name: "List notes fails when an error is received (fails to get deployment)",
-			args: args{
-				params: Params{
-					ID:  "a2c4f423c1014941b75a48292264dd25",
-					API: api.NewMock(mock.SampleInternalError()),
-				},
-			},
-			wantErr: mock.MultierrorInternalError,
-		},
-		{
 			name: "List notes fails when an api error is received",
-			args: args{
-				params: Params{
-					ID: "a2c4f423c1014941b75a48292264dd25",
-					API: api.NewMock(
-						mock.Response{Response: http.Response{
-							Body:       mock.NewStringBody(getResponse),
-							StatusCode: 200,
-						}},
-						mock.SampleInternalError(),
-					),
-				},
-			},
+			args: args{params: Params{
+				Region: "us-east-1",
+				ID:     "a2c4f423c1014941b75a48292264dd25",
+				API:    api.NewMock(mock.SampleInternalError()),
+			}},
 			wantErr: mock.MultierrorInternalError,
 		},
 		{
@@ -135,6 +103,7 @@ func TestList(t *testing.T) {
 			wantErr: multierror.NewPrefixed("deployment note",
 				errors.New("api reference is required for the operation"),
 				errors.New(`id "" is invalid`),
+				errors.New("region not specified and is required for this operation"),
 			),
 		},
 	}

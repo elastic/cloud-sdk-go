@@ -21,14 +21,12 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"sort"
-	"strconv"
-	"strings"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
-	"github.com/elastic/cloud-sdk-go/pkg/client/stack"
+	"github.com/elastic/cloud-sdk-go/pkg/api/platformapi/stackapi"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
+	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
 // LatestStackVersionParams is consumed by LatestStackVersion.
@@ -37,6 +35,9 @@ type LatestStackVersionParams struct {
 
 	// When specified, the consuming function will return that version.
 	Version string
+
+	// Region is required
+	Region string
 
 	// If spceified, it's the io.Writer where info messages are written to.
 	Writer io.Writer
@@ -47,6 +48,10 @@ func (params LatestStackVersionParams) Validate() error {
 	var merr = multierror.NewPrefixed("deployment latest stack")
 	if params.API == nil {
 		merr = merr.Append(apierror.ErrMissingAPI)
+	}
+
+	if err := ec.RequireRegionSet(params.Region); err != nil {
+		merr = merr.Append(err)
 	}
 
 	return merr.ErrorOrNil()
@@ -64,19 +69,15 @@ func LatestStackVersion(params LatestStackVersionParams) (string, error) {
 		return params.Version, nil
 	}
 
-	r, err := params.V1API.Stack.GetVersionStacks(
-		stack.NewGetVersionStacksParams(),
-		nil,
-	)
+	r, err := stackapi.List(stackapi.ListParams{
+		API:    params.API,
+		Region: params.Region,
+	})
 	if err != nil {
 		return "", errors.New("version discovery: failed to obtain stack list, please specify a version")
 	}
 
-	var stacks = r.Payload.Stacks
-	sort.Slice(stacks, func(i, j int) bool {
-		return compareVersions(stacks[i].Version, stacks[j].Version)
-	})
-
+	var stacks = r.Stacks
 	// This check is probably a bit over the top, but you never know.
 	if len(stacks) == 0 {
 		return "", errors.New("version discovery: stack list is seemingly empty, something is terribly wrong")
@@ -88,27 +89,4 @@ func LatestStackVersion(params LatestStackVersionParams) (string, error) {
 	}
 
 	return version, nil
-}
-
-func compareVersions(version1, version2 string) bool {
-	v1 := strings.Split(version1, ".")
-	major1 := v1[0]
-	minor1 := v1[1]
-	patch1 := v1[2]
-	p1, err1 := strconv.Atoi(patch1)
-
-	v2 := strings.Split(version2, ".")
-	major2 := v2[0]
-	minor2 := v2[1]
-	patch2 := v2[2]
-	p2, err2 := strconv.Atoi(patch2)
-
-	var patchComp = patch1 > patch2
-	if err1 == nil && err2 == nil {
-		patchComp = p1 > p2
-	}
-
-	return major1 > major2 ||
-		(major1 == major2 && minor1 > minor2) ||
-		(major1 == major2 && minor1 == minor2 && patchComp)
 }
