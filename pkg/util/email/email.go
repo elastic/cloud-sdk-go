@@ -18,10 +18,9 @@
 package email
 
 import (
+	"errors"
+	"fmt"
 	"regexp"
-
-	// Not using recommended package "errors" for the need of Errorf()
-	"github.com/pkg/errors"
 )
 
 // Validate validates that a string is in a valid email format
@@ -33,7 +32,7 @@ func Validate(email string) error {
 	}
 
 	if !emailRegexp.MatchString(email) {
-		return errors.Errorf("%v is not a valid email address format", email)
+		return fmt.Errorf("%v is not a valid email address format", email)
 	}
 
 	return nil

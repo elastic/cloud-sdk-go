@@ -48,18 +48,16 @@ func TestEnable(t *testing.T) {
 		params EnableParams
 	}
 	tests := []struct {
-		name    string
-		args    args
-		want    *models.User
-		wantErr bool
-		err     error
+		name string
+		args args
+		want *models.User
+		err  error
 	}{
 		{
 			name: "Enable fails due to parameter validation failure (missing API)",
 			args: args{
 				params: EnableParams{},
 			},
-			wantErr: true,
 			err: multierror.NewPrefixed("invalid user params",
 				errors.New("username is not specified and is required for this operation"),
 				apierror.ErrMissingAPI,
@@ -74,8 +72,7 @@ func TestEnable(t *testing.T) {
 					API:      api.NewMock(mock.SampleNotFoundError()),
 				},
 			},
-			wantErr: true,
-			err:     mock.MultierrorNotFound,
+			err: mock.MultierrorNotFound,
 		},
 		{
 			name: "Enable succeeds",
