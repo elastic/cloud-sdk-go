@@ -21,6 +21,8 @@ import (
 	"bytes"
 	"net/http"
 	"testing"
+
+	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 )
 
 type mockRT struct{}
@@ -64,6 +66,13 @@ func TestNewTransport(t *testing.T) {
 					SkipTLSVerify:   true,
 				},
 				rt: new(DebugTransport),
+			},
+		},
+		{
+			name: "mock.RoundTripper is returned",
+			args: args{
+				buf: new(bytes.Buffer),
+				rt:  new(mock.RoundTripper),
 			},
 		},
 		{

@@ -24,6 +24,8 @@ import (
 	"net"
 	"net/http"
 	"time"
+
+	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 )
 
 const transportCastErrFmt = "http transport warning: failed converting %T to *http.Transport\n"
@@ -89,6 +91,8 @@ func NewTransport(rt http.RoundTripper, cfg TransportConfig) http.RoundTripper {
 		return NewUserAgentTransport(t, cfg.UserAgent)
 	case *UserAgentTransport:
 		return t
+	case *mock.RoundTripper:
+		return NewUserAgentTransport(t, cfg.UserAgent)
 	default:
 		if cfg.ErrorDevice != nil {
 			fmt.Fprintf(cfg.ErrorDevice, transportCastErrFmt, rt)
