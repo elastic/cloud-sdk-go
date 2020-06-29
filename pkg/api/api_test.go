@@ -67,20 +67,7 @@ func TestNewAPI(t *testing.T) {
 			),
 		},
 		{
-			name: "succeeds with region",
-			args: args{c: Config{
-				Host:       "https://cloud.elastic.co",
-				Region:     "us-east-1",
-				AuthWriter: dummyKey,
-				VerboseSettings: VerboseSettings{
-					Verbose: true,
-					Device:  output.NewDevice(new(bytes.Buffer)),
-				},
-				Client: mock.NewClient(),
-			}},
-		},
-		{
-			name: "succeeds without region",
+			name: "succeeds",
 			args: args{c: Config{
 				Host:       ESSEndpoint,
 				AuthWriter: dummyKey,

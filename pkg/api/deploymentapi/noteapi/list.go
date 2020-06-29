@@ -18,6 +18,9 @@
 package noteapi
 
 import (
+	"context"
+
+	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/client/deployments_notes"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
@@ -34,12 +37,9 @@ func List(params Params) (*models.Notes, error) {
 		return nil, err
 	}
 
-	if err := params.fillDefaults(); err != nil {
-		return nil, err
-	}
-
 	res, err := params.V1API.DeploymentsNotes.GetDeploymentNotes(
 		deployments_notes.NewGetDeploymentNotesParams().
+			WithContext(api.WithRegion(context.Background(), params.Region)).
 			WithDeploymentID(params.ID),
 		params.AuthWriter,
 	)

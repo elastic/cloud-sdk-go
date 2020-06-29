@@ -20,9 +20,9 @@ package noteapi
 import (
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
-	"github.com/elastic/cloud-sdk-go/pkg/api/deploymentapi"
 	"github.com/elastic/cloud-sdk-go/pkg/api/deploymentapi/deputil"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
+	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
 var (
@@ -34,7 +34,8 @@ var (
 // Params is used on Get and Update Notes
 type Params struct {
 	*api.API
-	ID string
+	ID     string
+	Region string
 }
 
 // Validate ensures that the parameters are usable by the consuming function.
@@ -48,20 +49,9 @@ func (params Params) Validate() error {
 		merr = merr.Append(deputil.NewInvalidDeploymentIDError(params.ID))
 	}
 
-	return merr.ErrorOrNil()
-}
-
-// Use different resource kinds when this is supported by the API.
-// For the time being, the notes endpoint only allows elasticsearch IDs.
-func (params *Params) fillDefaults() error {
-	esID, err := deploymentapi.GetElasticsearchID(deploymentapi.GetParams{
-		API:          params.API,
-		DeploymentID: params.ID,
-	})
-	if err != nil {
-		return err
+	if err := ec.RequireRegionSet(params.Region); err != nil {
+		merr = merr.Append(err)
 	}
 
-	params.ID = esID
-	return err
+	return merr.ErrorOrNil()
 }

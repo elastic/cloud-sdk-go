@@ -41,6 +41,9 @@ func GetContextRegion(ctx context.Context) (string, bool) {
 	if ctx == nil {
 		return "", false
 	}
-	region, ok := ctx.Value(regionKey).(string)
-	return region, ok
+
+	// This notation is requiredd in case the context doesn't contain the key
+	// so it doesn't panic.
+	region, _ := ctx.Value(regionKey).(string)
+	return region, region != ""
 }

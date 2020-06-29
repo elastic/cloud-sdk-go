@@ -19,23 +19,14 @@ package plan
 
 import (
 	"errors"
-	"net/http"
 	"reflect"
 	"testing"
 
-	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 	planmock "github.com/elastic/cloud-sdk-go/pkg/plan/mock"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
-
-func newPlanFinishedResponse() mock.Response {
-	return mock.Response{Response: http.Response{
-		Body:       mock.NewStringBody(""),
-		StatusCode: 404,
-	}}
-}
 
 func TestGetStepName(t *testing.T) {
 	type args struct {

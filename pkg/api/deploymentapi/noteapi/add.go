@@ -18,6 +18,7 @@
 package noteapi
 
 import (
+	"context"
 	"errors"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
@@ -56,12 +57,9 @@ func Add(params AddParams) error {
 		return err
 	}
 
-	if err := params.fillDefaults(); err != nil {
-		return err
-	}
-
 	return api.ReturnErrOnly(params.V1API.DeploymentsNotes.CreateDeploymentNote(
 		deployments_notes.NewCreateDeploymentNoteParams().
+			WithContext(api.WithRegion(context.Background(), params.Region)).
 			WithDeploymentID(params.ID).
 			WithBody(&models.Note{
 				Message: ec.String(params.Message),
