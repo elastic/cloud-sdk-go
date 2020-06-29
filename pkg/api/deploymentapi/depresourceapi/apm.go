@@ -20,8 +20,7 @@ package depresourceapi
 import (
 	"fmt"
 
-	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
-	"github.com/elastic/cloud-sdk-go/pkg/client/platform_configuration_templates"
+	"github.com/elastic/cloud-sdk-go/pkg/api/platformapi/configurationtemplateapi"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
@@ -48,22 +47,22 @@ func NewApm(params NewStateless) (*models.ApmPayload, error) {
 
 	// Obtain the deployment template so we can create the apm topology from
 	// the specified sizes. The sizing overrides are done in newApmPayload.
-	res, err := params.V1API.PlatformConfigurationTemplates.GetDeploymentTemplate(
-		platform_configuration_templates.NewGetDeploymentTemplateParams().
-			WithTemplateID(params.TemplateID).
-			WithShowInstanceConfigurations(ec.Bool(true)),
-		params.AuthWriter,
-	)
+	res, err := configurationtemplateapi.GetTemplate(configurationtemplateapi.GetTemplateParams{
+		API:                params.API,
+		ID:                 params.TemplateID,
+		Region:             params.Region,
+		ShowInstanceConfig: true,
+	})
 	if err != nil {
-		return nil, apierror.Unwrap(err)
+		return nil, err
 	}
 
-	if res.Payload.ClusterTemplate.Apm == nil {
+	if res.ClusterTemplate.Apm == nil {
 		return nil, fmt.Errorf("deployment: the %s template is not configured for APM. Please use another template if you wish to start APM instances",
 			params.TemplateID)
 	}
 
-	var clusterTopology = res.Payload.ClusterTemplate.Apm.Plan.ClusterTopology
+	var clusterTopology = res.ClusterTemplate.Apm.Plan.ClusterTopology
 	var topology = models.ApmTopologyElement{Size: new(models.TopologySize)}
 	if len(clusterTopology) > 0 {
 		topology = *clusterTopology[0]

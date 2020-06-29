@@ -39,17 +39,6 @@ func TestGet(t *testing.T) {
 		"user_id": "root",
 		"timestamp": "2018-04-13T07:11:54.999Z"
 	}`
-	const getResponse = `{
-  "healthy": true,
-  "id": "e3dac8bf3dc64c528c295a94d0f19a77",
-  "resources": {
-    "elasticsearch": [{
-      "id": "418017cd1c7f402cbb7a981b2004ceeb",
-      "ref_id": "main-elasticsearch",
-      "region": "ece-region"
-    }]
-  }
-}`
 
 	type args struct {
 		params GetParams
@@ -65,17 +54,14 @@ func TestGet(t *testing.T) {
 			args: args{params: GetParams{
 				NoteID: "1",
 				Params: Params{
-					ID: "e3dac8bf3dc64c528c295a94d0f19a77",
+					Region: "us-east-1",
+					ID:     "e3dac8bf3dc64c528c295a94d0f19a77",
 					API: api.NewMock(mock.Response{Response: http.Response{
-						Body:       mock.NewStringBody(getResponse),
+						Body:       mock.NewStringBody(simpleNote),
 						StatusCode: 200,
-					}},
-						mock.Response{Response: http.Response{
-							Body:       mock.NewStringBody(simpleNote),
-							StatusCode: 200,
-						}},
-					),
-				}}},
+					}}),
+				},
+			}},
 			want: &models.Note{
 				ID:        "1",
 				Message:   ec.String("a message"),
@@ -84,34 +70,15 @@ func TestGet(t *testing.T) {
 			},
 		},
 		{
-			name: "Get note fails due to api error (fails to get deployment)",
-			args: args{
-				params: GetParams{
-					NoteID: "1",
-					Params: Params{
-						ID:  "a2c4f423c1014941b75a48292264dd25",
-						API: api.NewMock(mock.SampleInternalError()),
-					}},
-			},
-			wantErr: mock.MultierrorInternalError,
-		},
-		{
 			name: "Get note fails due to api error",
-			args: args{
-				params: GetParams{
-					NoteID: "1",
-					Params: Params{
-						ID: "a2c4f423c1014941b75a48292264dd25",
-						API: api.NewMock(
-							mock.Response{Response: http.Response{
-								Body:       mock.NewStringBody(getResponse),
-								StatusCode: 200,
-							}},
-							mock.SampleInternalError(),
-						),
-					},
+			args: args{params: GetParams{
+				NoteID: "1",
+				Params: Params{
+					Region: "us-east-1",
+					ID:     "a2c4f423c1014941b75a48292264dd25",
+					API:    api.NewMock(mock.SampleInternalError()),
 				},
-			},
+			}},
 			wantErr: mock.MultierrorInternalError,
 		},
 		{
@@ -122,6 +89,7 @@ func TestGet(t *testing.T) {
 				multierror.NewPrefixed("deployment note",
 					errors.New("api reference is required for the operation"),
 					errors.New(`id "" is invalid`),
+					errors.New("region not specified and is required for this operation"),
 				),
 			),
 		},

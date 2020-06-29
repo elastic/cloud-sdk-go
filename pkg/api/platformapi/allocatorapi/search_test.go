@@ -102,7 +102,7 @@ func TestSearch(t *testing.T) {
 						Method: "POST",
 						Host:   api.DefaultMockHost,
 						Body:   mock.NewStringBody(`{"query":{},"sort":null}` + "\n"),
-						Path:   "/api/v1/regions/platform/infrastructure/allocators/_search",
+						Path:   "/api/v1/regions/us-east-1/platform/infrastructure/allocators/_search",
 					},
 				}),
 			}},

@@ -57,7 +57,7 @@ func (res TrackResponse) Error() error {
 }
 
 func (res TrackResponse) String() string {
-	kind := strings.Title(res.Kind)
+	kind := strings.Title(strings.Replace(res.Kind, "_", " ", 1))
 
 	if msg := formatFinishedStep(res, kind); msg != "" {
 		return msg

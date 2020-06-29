@@ -15,56 +15,54 @@
 // specific language governing permissions and limitations
 // under the License.
 
-package noteapi
+package instanceconfigapi
 
 import (
 	"context"
-	"errors"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
-	"github.com/elastic/cloud-sdk-go/pkg/client/deployments_notes"
+	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
+	"github.com/elastic/cloud-sdk-go/pkg/client/platform_configuration_instances"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
-// AddParams is consumed by Add.
-type AddParams struct {
-	Params
-	Message string
-	UserID  string
+// ListParams is used to list all of the available instance configurations.
+type ListParams struct {
+	*api.API
+	Region string
 }
 
-// Validate ensures the parameters are valid
-func (params AddParams) Validate() error {
-	var merr = multierror.NewPrefixed("deployment note add")
-	if params.UserID == "" {
-		merr = merr.Append(errors.New(errEmptyUserID))
+// Validate ensures that the parameters are correct.
+func (params ListParams) Validate() error {
+	var merr = multierror.NewPrefixed("invalid instance config list params")
+	if params.API == nil {
+		merr = merr.Append(apierror.ErrMissingAPI)
 	}
 
-	if params.Message == "" {
-		merr = merr.Append(errors.New(errEmptyNoteMessage))
+	if err := ec.RequireRegionSet(params.Region); err != nil {
+		merr = merr.Append(err)
 	}
-
-	merr = merr.Append(params.Params.Validate())
 
 	return merr.ErrorOrNil()
 }
 
-// Add posts a new message to the specified deployment
-func Add(params AddParams) error {
+// List returns an array of all instance configurations
+func List(params ListParams) ([]*models.InstanceConfiguration, error) {
 	if err := params.Validate(); err != nil {
-		return err
+		return nil, err
 	}
 
-	return api.ReturnErrOnly(params.V1API.DeploymentsNotes.CreateDeploymentNote(
-		deployments_notes.NewCreateDeploymentNoteParams().
-			WithContext(api.WithRegion(context.Background(), params.Region)).
-			WithDeploymentID(params.ID).
-			WithBody(&models.Note{
-				Message: ec.String(params.Message),
-				UserID:  params.UserID,
-			}),
+	res, err := params.API.V1API.PlatformConfigurationInstances.GetInstanceConfigurations(
+		platform_configuration_instances.NewGetInstanceConfigurationsParams().
+			WithContext(api.WithRegion(context.Background(), params.Region)),
 		params.AuthWriter,
-	))
+	)
+
+	if err != nil {
+		return nil, api.UnwrapError(err)
+	}
+
+	return res.Payload, nil
 }

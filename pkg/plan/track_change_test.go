@@ -87,6 +87,17 @@ func TestTrackChange(t *testing.T) {
 				),
 			},
 		},
+		EnterpriseSearch: []planmock.GeneratedResourceConfig{
+			{
+				ID: "6de9b2b605424a54ce9d56316eab13a6",
+				PendingLog: planmock.NewPlanStepLog(
+					planmock.NewPlanStep("step-1", "success"),
+					planmock.NewPlanStep("step-2", "success"),
+					planmock.NewPlanStep("step-3", "success"),
+					planmock.NewPlanStep("step-4", "pending"),
+				),
+			},
+		},
 		Elasticsearch: []planmock.GeneratedResourceConfig{
 			{
 				ID: "cde7b6b605424a54ce9d56316eab13a1",
@@ -126,6 +137,18 @@ func TestTrackChange(t *testing.T) {
 			},
 		},
 		Appsearch: []planmock.GeneratedResourceConfig{
+			{
+				ID: "6de9b2b605424a54ce9d56316eab13a6",
+				PendingLog: planmock.NewPlanStepLog(
+					planmock.NewPlanStep("step-1", "success"),
+					planmock.NewPlanStep("step-2", "success"),
+					planmock.NewPlanStep("step-3", "success"),
+					planmock.NewPlanStep("step-4", "success"),
+					planmock.NewPlanStep("step-5", "pending"),
+				),
+			},
+		},
+		EnterpriseSearch: []planmock.GeneratedResourceConfig{
 			{
 				ID: "6de9b2b605424a54ce9d56316eab13a6",
 				PendingLog: planmock.NewPlanStepLog(
@@ -255,6 +278,19 @@ func TestTrackChange(t *testing.T) {
 				),
 			},
 		},
+		EnterpriseSearch: []planmock.GeneratedResourceConfig{
+			{
+				ID: "6de9b2b605424a54ce9d56316eab13a6",
+				CurrentLog: planmock.NewPlanStepLog(
+					planmock.NewPlanStep("step-1", "success"),
+					planmock.NewPlanStep("step-2", "success"),
+					planmock.NewPlanStep("step-3", "success"),
+					planmock.NewPlanStep("step-4", "success"),
+					planmock.NewPlanStep("step-5", "success"),
+					planmock.NewPlanStep(planCompleted, "success"),
+				),
+			},
+		},
 		Elasticsearch: []planmock.GeneratedResourceConfig{
 			{
 				ID: "cde7b6b605424a54ce9d56316eab13a1",
@@ -298,6 +334,19 @@ func TestTrackChange(t *testing.T) {
 			},
 		},
 		Appsearch: []planmock.GeneratedResourceConfig{
+			{
+				ID: "6de9b2b605424a54ce9d56316eab13a6",
+				CurrentLog: planmock.NewPlanStepLog(
+					planmock.NewPlanStep("step-1", "success"),
+					planmock.NewPlanStep("step-2", "success"),
+					planmock.NewPlanStep("step-3", "success"),
+					planmock.NewPlanStep("step-4", "success"),
+					planmock.NewPlanStep("step-5", "success"),
+					planmock.NewPlanStep(planCompleted, "success"),
+				),
+			},
+		},
+		EnterpriseSearch: []planmock.GeneratedResourceConfig{
 			{
 				ID: "6de9b2b605424a54ce9d56316eab13a6",
 				CurrentLog: planmock.NewPlanStepLog(
@@ -490,14 +539,17 @@ func TestTrackChange(t *testing.T) {
 				{ID: "4de9b2b605424a54ce9d56316eab13a8", Kind: "kibana", Step: "step-4", DeploymentID: "cbb4bc6c09684c86aa5de54c05ea1d38", RefID: "main-kibana"},
 				{ID: "5de9b2b605424a54ce9d56316eab13a5", Kind: "apm", Step: "step-4", DeploymentID: "cbb4bc6c09684c86aa5de54c05ea1d38", RefID: "main-apm"},
 				{ID: "6de9b2b605424a54ce9d56316eab13a6", Kind: "appsearch", Step: "step-4", DeploymentID: "cbb4bc6c09684c86aa5de54c05ea1d38", RefID: "main-appsearch"},
+				{ID: "6de9b2b605424a54ce9d56316eab13a6", Kind: "enterprise_search", Step: "step-4", DeploymentID: "cbb4bc6c09684c86aa5de54c05ea1d38", RefID: "main-enterprise_search"},
 				{ID: "cde7b6b605424a54ce9d56316eab13a1", Kind: "elasticsearch", Step: "step-5", DeploymentID: "cbb4bc6c09684c86aa5de54c05ea1d38", RefID: "main-elasticsearch"},
 				{ID: "4de9b2b605424a54ce9d56316eab13a8", Kind: "kibana", Step: "step-5", DeploymentID: "cbb4bc6c09684c86aa5de54c05ea1d38", RefID: "main-kibana"},
 				{ID: "5de9b2b605424a54ce9d56316eab13a5", Kind: "apm", Step: "step-5", DeploymentID: "cbb4bc6c09684c86aa5de54c05ea1d38", RefID: "main-apm"},
 				{ID: "6de9b2b605424a54ce9d56316eab13a6", Kind: "appsearch", Step: "step-5", DeploymentID: "cbb4bc6c09684c86aa5de54c05ea1d38", RefID: "main-appsearch"},
+				{ID: "6de9b2b605424a54ce9d56316eab13a6", Kind: "enterprise_search", Step: "step-5", DeploymentID: "cbb4bc6c09684c86aa5de54c05ea1d38", RefID: "main-enterprise_search"},
 				{ID: "cde7b6b605424a54ce9d56316eab13a1", Kind: "elasticsearch", DeploymentID: "cbb4bc6c09684c86aa5de54c05ea1d38", RefID: "main-elasticsearch", Step: "plan-completed", Finished: true, Err: ErrPlanFinished},
 				{ID: "4de9b2b605424a54ce9d56316eab13a8", Kind: "kibana", DeploymentID: "cbb4bc6c09684c86aa5de54c05ea1d38", RefID: "main-kibana", Step: "plan-completed", Finished: true, Err: ErrPlanFinished},
 				{ID: "5de9b2b605424a54ce9d56316eab13a5", Kind: "apm", DeploymentID: "cbb4bc6c09684c86aa5de54c05ea1d38", RefID: "main-apm", Step: "plan-completed", Finished: true, Err: ErrPlanFinished},
 				{ID: "6de9b2b605424a54ce9d56316eab13a6", Kind: "appsearch", DeploymentID: "cbb4bc6c09684c86aa5de54c05ea1d38", RefID: "main-appsearch", Step: "plan-completed", Finished: true, Err: ErrPlanFinished},
+				{ID: "6de9b2b605424a54ce9d56316eab13a6", Kind: "enterprise_search", DeploymentID: "cbb4bc6c09684c86aa5de54c05ea1d38", RefID: "main-enterprise_search", Step: "plan-completed", Finished: true, Err: ErrPlanFinished},
 			},
 		},
 		{
@@ -545,14 +597,17 @@ func TestTrackChange(t *testing.T) {
 				{ID: "4de9b2b605424a54ce9d56316eab13a8", Kind: "kibana", Step: "step-4", DeploymentID: "cbb4bc6c09684c86aa5de54c05ea1d38", RefID: "main-kibana"},
 				{ID: "5de9b2b605424a54ce9d56316eab13a5", Kind: "apm", Step: "step-4", DeploymentID: "cbb4bc6c09684c86aa5de54c05ea1d38", RefID: "main-apm"},
 				{ID: "6de9b2b605424a54ce9d56316eab13a6", Kind: "appsearch", Step: "step-4", DeploymentID: "cbb4bc6c09684c86aa5de54c05ea1d38", RefID: "main-appsearch"},
+				{ID: "6de9b2b605424a54ce9d56316eab13a6", Kind: "enterprise_search", Step: "step-4", DeploymentID: "cbb4bc6c09684c86aa5de54c05ea1d38", RefID: "main-enterprise_search"},
 				{ID: "cde7b6b605424a54ce9d56316eab13a1", Kind: "elasticsearch", Step: "step-5", DeploymentID: "cbb4bc6c09684c86aa5de54c05ea1d38", RefID: "main-elasticsearch"},
 				{ID: "4de9b2b605424a54ce9d56316eab13a8", Kind: "kibana", Step: "step-5", DeploymentID: "cbb4bc6c09684c86aa5de54c05ea1d38", RefID: "main-kibana"},
 				{ID: "5de9b2b605424a54ce9d56316eab13a5", Kind: "apm", Step: "step-5", DeploymentID: "cbb4bc6c09684c86aa5de54c05ea1d38", RefID: "main-apm"},
 				{ID: "6de9b2b605424a54ce9d56316eab13a6", Kind: "appsearch", Step: "step-5", DeploymentID: "cbb4bc6c09684c86aa5de54c05ea1d38", RefID: "main-appsearch"},
+				{ID: "6de9b2b605424a54ce9d56316eab13a6", Kind: "enterprise_search", Step: "step-5", DeploymentID: "cbb4bc6c09684c86aa5de54c05ea1d38", RefID: "main-enterprise_search"},
 				{ID: "cde7b6b605424a54ce9d56316eab13a1", Kind: "elasticsearch", DeploymentID: "cbb4bc6c09684c86aa5de54c05ea1d38", RefID: "main-elasticsearch", Step: "plan-completed", Finished: true, Err: ErrPlanFinished},
 				{ID: "4de9b2b605424a54ce9d56316eab13a8", Kind: "kibana", DeploymentID: "cbb4bc6c09684c86aa5de54c05ea1d38", RefID: "main-kibana", Step: "plan-completed", Finished: true, Err: ErrPlanFinished},
 				{ID: "5de9b2b605424a54ce9d56316eab13a5", Kind: "apm", DeploymentID: "cbb4bc6c09684c86aa5de54c05ea1d38", RefID: "main-apm", Step: "plan-completed", Finished: true, Err: ErrPlanFinished},
 				{ID: "6de9b2b605424a54ce9d56316eab13a6", Kind: "appsearch", DeploymentID: "cbb4bc6c09684c86aa5de54c05ea1d38", RefID: "main-appsearch", Step: "plan-completed", Finished: true, Err: ErrPlanFinished},
+				{ID: "6de9b2b605424a54ce9d56316eab13a6", Kind: "enterprise_search", DeploymentID: "cbb4bc6c09684c86aa5de54c05ea1d38", RefID: "main-enterprise_search", Step: "plan-completed", Finished: true, Err: ErrPlanFinished},
 			},
 		},
 		{

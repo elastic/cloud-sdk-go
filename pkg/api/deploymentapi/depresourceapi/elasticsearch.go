@@ -23,7 +23,7 @@ import (
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
-	"github.com/elastic/cloud-sdk-go/pkg/client/platform_configuration_templates"
+	"github.com/elastic/cloud-sdk-go/pkg/api/platformapi/configurationtemplateapi"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
@@ -120,20 +120,20 @@ func NewElasticsearch(params NewElasticsearchParams) (*models.ElasticsearchPaylo
 		return nil, err
 	}
 
-	res, err := params.V1API.PlatformConfigurationTemplates.GetDeploymentTemplate(
-		platform_configuration_templates.NewGetDeploymentTemplateParams().
-			WithTemplateID(params.TemplateID).
-			WithShowInstanceConfigurations(ec.Bool(true)),
-		params.AuthWriter,
-	)
+	res, err := configurationtemplateapi.GetTemplate(configurationtemplateapi.GetTemplateParams{
+		API:                params.API,
+		ID:                 params.TemplateID,
+		Region:             params.Region,
+		ShowInstanceConfig: true,
+	})
 	if err != nil {
-		return nil, apierror.Unwrap(err)
+		return nil, err
 	}
 
 	var payload = newElasticsearchPayload(params)
 	payload.Plan.ClusterTopology, err = BuildElasticsearchTopology(
 		BuildElasticsearchTopologyParams{
-			ClusterTopology: res.Payload.ClusterTemplate.Plan.ClusterTopology,
+			ClusterTopology: res.ClusterTemplate.Plan.ClusterTopology,
 			TemplateID:      params.TemplateID,
 			Topology:        params.Topology,
 		},

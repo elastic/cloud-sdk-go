@@ -31,6 +31,7 @@ func TestGenerate(t *testing.T) {
 	var esID = ec.RandomResourceID()
 	var kibanaID = ec.RandomResourceID()
 	var appsearchID = ec.RandomResourceID()
+	var enterpriseSearchID = ec.RandomResourceID()
 	var ApmCurrentLog = []*models.ClusterPlanStepInfo{
 		{Stage: ec.String("completed")},
 	}
@@ -43,6 +44,9 @@ func TestGenerate(t *testing.T) {
 	var AppsearchCurrentLog = []*models.ClusterPlanStepInfo{
 		{Stage: ec.String("completed")},
 	}
+	var EnterpriseSearchCurrentLog = []*models.ClusterPlanStepInfo{
+		{Stage: ec.String("completed")},
+	}
 	var ApmPendingLog = []*models.ClusterPlanStepInfo{
 		{Stage: ec.String("in_progress")},
 	}
@@ -53,6 +57,9 @@ func TestGenerate(t *testing.T) {
 		{Stage: ec.String("in_progress")},
 	}
 	var AppsearchPendingLog = []*models.ClusterPlanStepInfo{
+		{Stage: ec.String("in_progress")},
+	}
+	var EnterpriseSearchPendingLog = []*models.ClusterPlanStepInfo{
 		{Stage: ec.String("in_progress")},
 	}
 	type args struct {
@@ -95,6 +102,13 @@ func TestGenerate(t *testing.T) {
 						PendingLog: AppsearchPendingLog,
 					},
 				},
+				EnterpriseSearch: []GeneratedResourceConfig{
+					{
+						ID:         enterpriseSearchID,
+						CurrentLog: EnterpriseSearchCurrentLog,
+						PendingLog: EnterpriseSearchPendingLog,
+					},
+				},
 			}},
 			want: &models.DeploymentGetResponse{
 				ID: ec.String(deploymentID),
@@ -125,6 +139,13 @@ func TestGenerate(t *testing.T) {
 							ID:         appsearchID,
 							CurrentLog: AppsearchCurrentLog,
 							PendingLog: AppsearchPendingLog,
+						},
+					}),
+					EnterpriseSearch: generateEnterpriseSearchResourceInfo([]GeneratedResourceConfig{
+						{
+							ID:         enterpriseSearchID,
+							CurrentLog: EnterpriseSearchCurrentLog,
+							PendingLog: EnterpriseSearchPendingLog,
 						},
 					}),
 				},

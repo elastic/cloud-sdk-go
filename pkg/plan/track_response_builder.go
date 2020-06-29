@@ -26,6 +26,7 @@ import (
 	"github.com/go-openapi/strfmt"
 
 	"github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/util"
 )
 
 const (
@@ -53,7 +54,7 @@ var (
 func buildTrackResponse(res *models.DeploymentResources, getCurrentPlan bool) []TrackResponse {
 	var pending = make([]TrackResponse, 0)
 	for _, info := range res.Elasticsearch {
-		p, err := parseResourceInfo(info, "elasticsearch", getCurrentPlan)
+		p, err := parseResourceInfo(info, util.Elasticsearch, getCurrentPlan)
 		if err != nil {
 			continue
 		}
@@ -61,7 +62,7 @@ func buildTrackResponse(res *models.DeploymentResources, getCurrentPlan bool) []
 	}
 
 	for _, info := range res.Kibana {
-		p, err := parseResourceInfo(info, "kibana", getCurrentPlan)
+		p, err := parseResourceInfo(info, util.Kibana, getCurrentPlan)
 		if err != nil {
 			continue
 		}
@@ -69,7 +70,7 @@ func buildTrackResponse(res *models.DeploymentResources, getCurrentPlan bool) []
 	}
 
 	for _, info := range res.Apm {
-		p, err := parseResourceInfo(info, "apm", getCurrentPlan)
+		p, err := parseResourceInfo(info, util.Apm, getCurrentPlan)
 		if err != nil {
 			continue
 		}
@@ -77,7 +78,15 @@ func buildTrackResponse(res *models.DeploymentResources, getCurrentPlan bool) []
 	}
 
 	for _, info := range res.Appsearch {
-		p, err := parseResourceInfo(info, "appsearch", getCurrentPlan)
+		p, err := parseResourceInfo(info, util.Appsearch, getCurrentPlan)
+		if err != nil {
+			continue
+		}
+		pending = append(pending, p)
+	}
+
+	for _, info := range res.EnterpriseSearch {
+		p, err := parseResourceInfo(info, util.EnterpriseSearch, getCurrentPlan)
 		if err != nil {
 			continue
 		}

@@ -15,37 +15,36 @@
 // specific language governing permissions and limitations
 // under the License.
 
-package allocatorapi
+package instanceconfigapi
 
 import (
 	"context"
-
-	"github.com/go-openapi/strfmt"
+	"errors"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
-	"github.com/elastic/cloud-sdk-go/pkg/client/platform_infrastructure"
+	"github.com/elastic/cloud-sdk-go/pkg/client/platform_configuration_instances"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
-// SearchParams contains parameters used to search allocator's data using Query DSL
-type SearchParams struct {
-	Request models.SearchRequest
+// CreateParams is used to create a new instance configuration.
+type CreateParams struct {
 	*api.API
+	Config *models.InstanceConfiguration
 	Region string
 }
 
-// Validate validates SearchParams
-func (params SearchParams) Validate() error {
-	var merr = multierror.NewPrefixed("invalid allocator search params")
+// Validate ensures that the parameters are correct.
+func (params CreateParams) Validate() error {
+	var merr = multierror.NewPrefixed("invalid instance config create params")
 	if params.API == nil {
 		merr = merr.Append(apierror.ErrMissingAPI)
 	}
 
-	if err := params.Request.Validate(strfmt.Default); err != nil {
-		merr = merr.Append(err)
+	if params.Config == nil {
+		merr = merr.Append(errors.New("config not specified and is required for the operation"))
 	}
 
 	if err := ec.RequireRegionSet(params.Region); err != nil {
@@ -55,20 +54,34 @@ func (params SearchParams) Validate() error {
 	return merr.ErrorOrNil()
 }
 
-// Search searches all the allocators using Query DSL
-func Search(params SearchParams) (*models.AllocatorOverview, error) {
+// Create creates a new instance configuration.
+func Create(params CreateParams) (*models.IDResponse, error) {
 	if err := params.Validate(); err != nil {
 		return nil, err
 	}
 
-	res, err := params.API.V1API.PlatformInfrastructure.SearchAllocators(
-		platform_infrastructure.NewSearchAllocatorsParams().
+	if params.Config.ID != "" {
+		if err := Update(UpdateParams{
+			API:    params.API,
+			ID:     params.Config.ID,
+			Config: params.Config,
+			Region: params.Region,
+		}); err != nil {
+			return nil, api.UnwrapError(err)
+		}
+		return &models.IDResponse{ID: ec.String(params.Config.ID)}, nil
+	}
+
+	res, err := params.API.V1API.PlatformConfigurationInstances.CreateInstanceConfiguration(
+		platform_configuration_instances.NewCreateInstanceConfigurationParams().
 			WithContext(api.WithRegion(context.Background(), params.Region)).
-			WithBody(&params.Request),
+			WithInstance(params.Config),
 		params.AuthWriter,
 	)
+
 	if err != nil {
 		return nil, api.UnwrapError(err)
 	}
+
 	return res.Payload, nil
 }

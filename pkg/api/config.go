@@ -42,14 +42,6 @@ type Config struct {
 	AuthWriter auth.Writer
 	Host       string
 
-	// Deprecated: used to build the legacy /platform path interpolation as the
-	// API basepath. This parameter will be removed on a major version. The
-	// preferred way to specify a region is now on each operation.
-	// If using the auto-generated client directly, a context constructor can
-	// be called as `api.WithRegion(context.Background(), "us-east-1")` and
-	// specified as the operation Context.
-	Region string
-
 	// SkipTLSVerify will not perform any TLS/SSL verification.
 	SkipTLSVerify bool
 

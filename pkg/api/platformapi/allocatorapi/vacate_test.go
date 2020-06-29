@@ -906,6 +906,90 @@ func TestVacateCluster(t *testing.T) {
 			},
 		},
 		{
+			name: "Succeeds with a enterprise_search instance",
+			args: args{
+				buf: new(bytes.Buffer),
+				params: &VacateClusterParams{
+					ID:             "someID",
+					Region:         "us-east-1",
+					ClusterID:      "2ee11eb40eda22cac0cce259625c6734",
+					Kind:           "enterprise_search",
+					Output:         new(output.Device),
+					TrackFrequency: time.Nanosecond,
+					OutputFormat:   "text",
+					MaxPollRetries: 1,
+					API: discardResponses(newEnterpriseSearchVacateMove(t, "someID", vacateCaseClusterConfig{
+						ID: "2ee11eb40eda22cac0cce259625c6734",
+						steps: [][]*models.ClusterPlanStepInfo{
+							{
+								newPlanStep("step1", "success"),
+								newPlanStep("step2", "pending"),
+							},
+							{
+								newPlanStep("step1", "success"),
+								newPlanStep("step2", "success"),
+								newPlanStep("step3", "pending"),
+							},
+						},
+						plan: []*models.ClusterPlanStepInfo{
+							newPlanStep("step1", "success"),
+							newPlanStep("step2", "success"),
+							newPlanStep("step3", "success"),
+							newPlanStep("plan-completed", "success"),
+						},
+					}, "us-east-1")),
+				},
+			},
+			want: newOutputResponses(
+				"Deployment [DISCOVERED_DEPLOYMENT_ID] - [Enterprise Search][2ee11eb40eda22cac0cce259625c6734]: running step \"step2\" (Plan duration )...",
+				"Deployment [DISCOVERED_DEPLOYMENT_ID] - [Enterprise Search][2ee11eb40eda22cac0cce259625c6734]: running step \"step3\" (Plan duration )...",
+				"\x1b[92;mDeployment [DISCOVERED_DEPLOYMENT_ID] - [Enterprise Search][2ee11eb40eda22cac0cce259625c6734]: finished running all the plan steps\x1b[0m (Total plan duration )",
+			),
+		},
+		{
+			name: "Succeeds with an enterprise_search instance with no tracking",
+			args: args{
+				buf: new(bytes.Buffer),
+				params: &VacateClusterParams{
+					ID:             "someID",
+					Region:         "us-east-1",
+					ClusterID:      "2ee11eb40eda22cac0cce259625c6734",
+					Kind:           "enterprise_search",
+					Output:         new(output.Device),
+					TrackFrequency: time.Nanosecond,
+					SkipTracking:   true,
+					MaxPollRetries: 1,
+					API: discardResponses(
+						newEnterpriseSearchVacateMove(t, "someID", vacateCaseClusterConfig{
+							ID: "2ee11eb40eda22cac0cce259625c6734",
+						}, "us-east-1"),
+					),
+				},
+			},
+		},
+		{
+			name: "Moving enterprise_search instance fails",
+			args: args{
+				buf: new(bytes.Buffer),
+				params: &VacateClusterParams{
+					ID:             "someID",
+					Region:         "us-east-1",
+					ClusterID:      "2ee11eb40eda22cac0cce259625c6734",
+					Kind:           "enterprise_search",
+					Output:         new(output.Device),
+					TrackFrequency: time.Nanosecond,
+					MaxPollRetries: 1,
+					API: discardResponses(newEnterpriseSearchVacateMove(t, "someID", vacateCaseClusterConfig{
+						ID:   "2ee11eb40eda22cac0cce259625c6734",
+						fail: true,
+					}, "us-east-1")),
+				},
+			},
+			err: multierror.NewPrefixed("vacate error",
+				errors.New("resource id [2ee11eb40eda22cac0cce259625c6734][enterprise_search] failed vacating, reason: code: a code, message: a message"),
+			).Error(),
+		},
+		{
 			name: "Moving kibana instance fails",
 			args: args{
 				buf: new(bytes.Buffer),

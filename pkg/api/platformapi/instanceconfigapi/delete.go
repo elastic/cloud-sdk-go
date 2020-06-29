@@ -15,38 +15,35 @@
 // specific language governing permissions and limitations
 // under the License.
 
-package noteapi
+package instanceconfigapi
 
 import (
+	"context"
+	"errors"
+
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
-	"github.com/elastic/cloud-sdk-go/pkg/api/deploymentapi/deputil"
+	"github.com/elastic/cloud-sdk-go/pkg/client/platform_configuration_instances"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
-var (
-	errEmptyNoteMessage = "note comment cannot be empty"
-	errEmptyUserID      = "user id cannot be empty"
-	errEmptyNoteID      = "note id cannot be empty"
-)
-
-// Params is used on Get and Update Notes
-type Params struct {
+// DeleteParams is used to delete an instance configuration from its ID.
+type DeleteParams struct {
 	*api.API
 	ID     string
 	Region string
 }
 
-// Validate ensures that the parameters are usable by the consuming function.
-func (params Params) Validate() error {
-	var merr = multierror.NewPrefixed("deployment note")
+// Validate ensures that the parameters are correct.
+func (params DeleteParams) Validate() error {
+	var merr = multierror.NewPrefixed("invalid instance config delete params")
 	if params.API == nil {
 		merr = merr.Append(apierror.ErrMissingAPI)
 	}
 
-	if len(params.ID) != 32 {
-		merr = merr.Append(deputil.NewInvalidDeploymentIDError(params.ID))
+	if params.ID == "" {
+		merr = merr.Append(errors.New("id not specified and is required for the operation"))
 	}
 
 	if err := ec.RequireRegionSet(params.Region); err != nil {
@@ -54,4 +51,20 @@ func (params Params) Validate() error {
 	}
 
 	return merr.ErrorOrNil()
+}
+
+// Delete deletes an already existing instance configuration.
+func Delete(params DeleteParams) error {
+	if err := params.Validate(); err != nil {
+		return err
+	}
+
+	return api.ReturnErrOnly(
+		params.API.V1API.PlatformConfigurationInstances.DeleteInstanceConfiguration(
+			platform_configuration_instances.NewDeleteInstanceConfigurationParams().
+				WithContext(api.WithRegion(context.Background(), params.Region)).
+				WithID(params.ID),
+			params.AuthWriter,
+		),
+	)
 }

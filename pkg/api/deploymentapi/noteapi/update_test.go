@@ -40,17 +40,7 @@ func TestUpdate(t *testing.T) {
 		"timestamp": "2018-04-13T07:11:54.999Z",
 		"version": 2
 	}`
-	const getResponse = `{
-  "healthy": true,
-  "id": "e3dac8bf3dc64c528c295a94d0f19a77",
-  "resources": {
-    "elasticsearch": [{
-      "id": "418017cd1c7f402cbb7a981b2004ceeb",
-      "ref_id": "main-elasticsearch",
-      "region": "ece-region"
-    }]
-  }
-}`
+
 	type args struct {
 		params UpdateParams
 	}
@@ -67,15 +57,12 @@ func TestUpdate(t *testing.T) {
 				Message: "a modified message",
 				NoteID:  "1",
 				Params: Params{
-					ID: "e3dac8bf3dc64c528c295a94d0f19a77",
+					Region: "us-east-1",
+					ID:     "e3dac8bf3dc64c528c295a94d0f19a77",
 					API: api.NewMock(mock.Response{Response: http.Response{
-						Body:       mock.NewStringBody(getResponse),
+						Body:       mock.NewStringBody(simpleNoteModified),
 						StatusCode: 200,
-					}},
-						mock.Response{Response: http.Response{
-							Body:       mock.NewStringBody(simpleNoteModified),
-							StatusCode: 200,
-						}}),
+					}}),
 				},
 			}},
 			want: &models.Note{
@@ -86,44 +73,21 @@ func TestUpdate(t *testing.T) {
 			},
 		},
 		{
-			name: "Update note fails due to api error (fails to get deployment)",
-			args: args{params: UpdateParams{
-				UserID:  "epifanio",
-				Message: "a modified message",
-				NoteID:  "1",
-				Params: Params{
-					ID:  "a2c4f423c1014941b75a48292264dd25",
-					API: api.NewMock(mock.SampleInternalError()),
-				},
-			}},
-			wantErr: mock.MultierrorInternalError,
-		},
-		{
 			name: "Update note fails due to api error",
 			args: args{params: UpdateParams{
 				UserID:  "epifanio",
 				Message: "a modified message",
 				NoteID:  "1",
 				Params: Params{
-					ID: "a2c4f423c1014941b75a48292264dd25",
-					API: api.NewMock(
-						mock.Response{Response: http.Response{
-							Body:       mock.NewStringBody(getResponse),
-							StatusCode: 200,
-						}},
-						mock.SampleInternalError(),
-					),
+					Region: "us-east-1",
+					ID:     "a2c4f423c1014941b75a48292264dd25",
+					API:    api.NewMock(mock.SampleInternalError()),
 				},
 			}},
 			wantErr: mock.MultierrorInternalError,
 		},
 		{
-			name: "Update note fails due to empty message ",
-			args: args{
-				params: UpdateParams{
-					Params: Params{},
-				},
-			},
+			name: "Update note fails due to empty params",
 			wantErr: multierror.NewPrefixed("deployment note update",
 				errors.New("user id cannot be empty"),
 				errors.New("note comment cannot be empty"),
@@ -131,6 +95,7 @@ func TestUpdate(t *testing.T) {
 				multierror.NewPrefixed("deployment note",
 					errors.New("api reference is required for the operation"),
 					errors.New(`id "" is invalid`),
+					errors.New("region not specified and is required for this operation"),
 				),
 			),
 		},

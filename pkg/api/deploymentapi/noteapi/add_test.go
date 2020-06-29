@@ -29,18 +29,6 @@ import (
 )
 
 func TestAdd(t *testing.T) {
-	const getResponse = `{
-  "healthy": true,
-  "id": "e3dac8bf3dc64c528c295a94d0f19a77",
-  "resources": {
-    "elasticsearch": [{
-      "id": "418017cd1c7f402cbb7a981b2004ceeb",
-      "ref_id": "main-elasticsearch",
-      "region": "ece-region"
-    }]
-  }
-}`
-
 	type args struct {
 		params AddParams
 	}
@@ -53,11 +41,8 @@ func TestAdd(t *testing.T) {
 			name: "Succeeds posting a deployment note",
 			args: args{params: AddParams{
 				Params: Params{
+					Region: "us-east-1",
 					API: api.NewMock(
-						mock.Response{Response: http.Response{
-							Body:       mock.NewStringBody(getResponse),
-							StatusCode: 200,
-						}},
 						mock.Response{Response: http.Response{
 							StatusCode: http.StatusCreated,
 							Status:     http.StatusText(http.StatusCreated),
@@ -74,8 +59,9 @@ func TestAdd(t *testing.T) {
 			name: "Fails posting note (Fails to get deployment)",
 			args: args{params: AddParams{
 				Params: Params{
-					API: api.NewMock(mock.SampleInternalError()),
-					ID:  mock.ValidClusterID,
+					Region: "us-east-1",
+					API:    api.NewMock(mock.SampleInternalError()),
+					ID:     mock.ValidClusterID,
 				},
 				UserID:  "someid",
 				Message: "note message",
@@ -91,6 +77,7 @@ func TestAdd(t *testing.T) {
 				multierror.NewPrefixed("deployment note",
 					errors.New("api reference is required for the operation"),
 					errors.New(`id "" is invalid`),
+					errors.New("region not specified and is required for this operation"),
 				),
 			),
 		},
