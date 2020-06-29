@@ -78,7 +78,7 @@ func TestListKeys(t *testing.T) {
 							Header: api.DefaultReadMockHeaders,
 							Method: "GET",
 							Host:   api.DefaultMockHost,
-							Path:   "/api/v1/regions/users/auth/keys",
+							Path:   "/api/v1/users/auth/keys",
 						},
 						mock.NewStructBody(listKeysSomeIDUser),
 					),

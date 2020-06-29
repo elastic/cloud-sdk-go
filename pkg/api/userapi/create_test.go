@@ -98,7 +98,7 @@ func TestCreate(t *testing.T) {
 							Header: api.DefaultWriteMockHeaders,
 							Method: "POST",
 							Host:   api.DefaultMockHost,
-							Path:   "/api/v1/regions/users",
+							Path:   "/api/v1/users",
 							Body:   mock.NewStringBody(`{"security":{"enabled":true,"password":"supersecretpass","roles":["ece_deployment_viewer"]},"user_name":"bob"}` + "\n"),
 						},
 					}),

@@ -77,7 +77,7 @@ func TestDelete(t *testing.T) {
 							Header: api.DefaultWriteMockHeaders,
 							Method: "DELETE",
 							Host:   api.DefaultMockHost,
-							Path:   "/api/v1/regions/users/userbob",
+							Path:   "/api/v1/users/userbob",
 						},
 					}),
 				},

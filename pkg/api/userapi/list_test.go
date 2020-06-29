@@ -81,7 +81,7 @@ func TestList(t *testing.T) {
 							Header: api.DefaultReadMockHeaders,
 							Method: "GET",
 							Host:   api.DefaultMockHost,
-							Path:   "/api/v1/regions/users",
+							Path:   "/api/v1/users",
 						},
 					}),
 				},

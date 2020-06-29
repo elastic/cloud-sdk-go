@@ -72,7 +72,7 @@ func TestGetKey(t *testing.T) {
 							Header: api.DefaultReadMockHeaders,
 							Method: "GET",
 							Host:   api.DefaultMockHost,
-							Path:   "/api/v1/regions/users/someid/auth/keys/somekey",
+							Path:   "/api/v1/users/someid/auth/keys/somekey",
 						},
 						mock.NewStructBody(models.APIKeyResponse{
 							Key: "somekeyvalue",

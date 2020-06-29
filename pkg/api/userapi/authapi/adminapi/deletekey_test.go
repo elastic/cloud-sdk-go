@@ -69,7 +69,7 @@ func TestDeleteKey(t *testing.T) {
 							Header: api.DefaultWriteMockHeaders,
 							Method: "DELETE",
 							Host:   api.DefaultMockHost,
-							Path:   "/api/v1/regions/users/someid/auth/keys/somekey",
+							Path:   "/api/v1/users/someid/auth/keys/somekey",
 						},
 						mock.NewStringBody("")),
 				),
