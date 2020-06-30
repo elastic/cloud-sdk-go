@@ -51,6 +51,7 @@ func NewKibana(params NewStateless) (*models.KibanaPayload, error) {
 		API:                params.API,
 		ID:                 params.TemplateID,
 		Region:             params.Region,
+		Format:             "cluster",
 		ShowInstanceConfig: true,
 	})
 	if err != nil {

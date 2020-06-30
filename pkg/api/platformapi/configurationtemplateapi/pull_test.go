@@ -73,6 +73,7 @@ func TestPullToFolder(t *testing.T) {
 			args: args{params: PullToFolderParams{
 				Region: "us-east-1",
 				Folder: "some",
+				Format: "cluster",
 				API:    api.NewMock(mock.Response{Error: errors.New("error")}),
 			}},
 			err: &url.Error{
@@ -86,6 +87,7 @@ func TestPullToFolder(t *testing.T) {
 			args: args{params: PullToFolderParams{
 				Region: "us-east-1",
 				Folder: "some",
+				Format: "cluster",
 				API:    api.NewMock(mock.Response{Error: errors.New("error")}),
 			}},
 			err: &url.Error{
@@ -99,6 +101,7 @@ func TestPullToFolder(t *testing.T) {
 			args: args{params: PullToFolderParams{
 				Region: "us-east-1",
 				Folder: "some-folder",
+				Format: "cluster",
 				API: api.NewMock(mock.Response{
 					Response: http.Response{
 						Body:       mock.NewStructBody(templateListSuccess),
