@@ -27,7 +27,6 @@ import (
 	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
-	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
@@ -59,6 +58,7 @@ func TestListTemplates(t *testing.T) {
 			name: "Platform deployment templates list succeeds",
 			args: ListTemplateParams{
 				Region: "us-east-1",
+				Format: "cluster",
 				API: api.NewMock(mock.Response{
 					Response: http.Response{
 						Body:       mock.NewStringBody(templateListSuccess),
@@ -93,9 +93,48 @@ func TestListTemplates(t *testing.T) {
 			},
 		},
 		{
+			name: "Platform deployment templates list with format deployment succeeds",
+			args: ListTemplateParams{
+				Region: "us-east-1",
+				Format: "deployment",
+				API: api.NewMock(mock.Response{
+					Response: http.Response{
+						Body:       mock.NewStringBody(templateListSuccess),
+						StatusCode: 200,
+					},
+					Assert: &mock.RequestAssertion{
+						Header: api.DefaultReadMockHeaders,
+						Method: "GET",
+						Host:   api.DefaultMockHost,
+						Query: url.Values{
+							"format":                       {"deployment"},
+							"show_hidden":                  {"false"},
+							"show_instance_configurations": {"false"},
+						},
+						Path: "/api/v1/regions/us-east-1/platform/configuration/templates/deployments",
+					},
+				}),
+			},
+			want: []*models.DeploymentTemplateInfo{
+				{
+					ID:          "84e0bd6d69bb44e294809d89cea88a7e",
+					Description: "Test default Elasticsearch trial template",
+					Name:        ec.String("(Trial) Default Elasticsearch"),
+					SystemOwned: ec.Bool(false),
+				},
+				{
+					ID:          "0efbab9c368849a59fc5622ec750ba47",
+					Description: "Test default Elasticsearch template",
+					Name:        ec.String("Default Elasticsearch"),
+					SystemOwned: ec.Bool(true),
+				},
+			},
+		},
+		{
 			name: "Platform deployment templates list fails",
 			args: ListTemplateParams{
 				Region: "us-east-1",
+				Format: "cluster",
 				API:    api.NewMock(mock.Response{Error: errors.New("error")}),
 			},
 			err: &url.Error{
@@ -107,7 +146,8 @@ func TestListTemplates(t *testing.T) {
 		{
 			name: "Platform deployment templates fails with empty params",
 			err: multierror.NewPrefixed("invalid deployment template list params",
-				apierror.ErrMissingAPI,
+				errors.New("api reference is required for the operation"),
+				errors.New("template format not specified and is required for this operation"),
 				errors.New("region not specified and is required for this operation"),
 			),
 		},

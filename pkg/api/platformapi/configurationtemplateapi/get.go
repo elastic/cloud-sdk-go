@@ -30,14 +30,24 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
-var errInvalidTemplateID = errors.New("invalid template ID")
+var (
+	errInvalidTemplateID     = errors.New("template ID not specified and is required for this operation")
+	errInvalidTemplateFormat = errors.New("template format not specified and is required for this operation")
+)
 
 // GetTemplateParams is the parameter of template show sub-command
 type GetTemplateParams struct {
 	*api.API
-	ID                 string
-	Region             string
+
+	ID     string
+	Region string
+
+	// If true, will return details for each instance configuration referenced by the template.
 	ShowInstanceConfig bool
+
+	// If cluster is specified populates cluster_template in the response,
+	// if deployment is specified populates deployment_template in the response
+	Format string
 }
 
 // Validate is the implementation for the ecctl.Validator interface
@@ -49,6 +59,10 @@ func (params GetTemplateParams) Validate() error {
 
 	if strings.TrimSpace(params.ID) == "" {
 		merr = merr.Append(errInvalidTemplateID)
+	}
+
+	if strings.TrimSpace(params.Format) == "" {
+		merr = merr.Append(errInvalidTemplateFormat)
 	}
 
 	if err := ec.RequireRegionSet(params.Region); err != nil {
@@ -68,6 +82,7 @@ func GetTemplate(params GetTemplateParams) (*models.DeploymentTemplateInfo, erro
 		platform_configuration_templates.NewGetDeploymentTemplateParams().
 			WithContext(api.WithRegion(context.Background(), params.Region)).
 			WithShowInstanceConfigurations(ec.Bool(params.ShowInstanceConfig)).
+			WithFormat(ec.String(params.Format)).
 			WithTemplateID(params.ID),
 		params.AuthWriter,
 	)
