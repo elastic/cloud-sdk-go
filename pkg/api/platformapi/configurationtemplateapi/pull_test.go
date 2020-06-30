@@ -29,7 +29,6 @@ import (
 	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
-	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
@@ -63,8 +62,9 @@ func TestPullToFolder(t *testing.T) {
 		{
 			name: "fails due to param validation",
 			err: multierror.NewPrefixed("invalid deployment template pull params",
-				apierror.ErrMissingAPI,
+				errors.New("api reference is required for the operation"),
 				errors.New("folder not specified and is required for the operation"),
+				errors.New("template format not specified and is required for this operation"),
 				errors.New("region not specified and is required for this operation"),
 			),
 		},
