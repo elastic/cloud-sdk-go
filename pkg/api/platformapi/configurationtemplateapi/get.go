@@ -30,6 +30,8 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
+const defaultTemplateFormat = "cluster"
+
 var (
 	errInvalidTemplateID     = errors.New("template ID not specified and is required for this operation")
 	errInvalidTemplateFormat = errors.New("template format not specified and is required for this operation")
@@ -72,8 +74,16 @@ func (params GetTemplateParams) Validate() error {
 	return merr.ErrorOrNil()
 }
 
+func (params *GetTemplateParams) fillDefaults() {
+	if strings.TrimSpace(params.Format) == "" {
+		params.Format = defaultTemplateFormat
+	}
+}
+
 // GetTemplate obtains information about a specific platform deployment template
 func GetTemplate(params GetTemplateParams) (*models.DeploymentTemplateInfo, error) {
+	params.fillDefaults()
+
 	if err := params.Validate(); err != nil {
 		return nil, err
 	}

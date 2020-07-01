@@ -233,7 +233,6 @@ func TestGetTemplate(t *testing.T) {
 			err: multierror.NewPrefixed("invalid deployment template get params",
 				errors.New("api reference is required for the operation"),
 				errors.New("template ID not specified and is required for this operation"),
-				errors.New("template format not specified and is required for this operation"),
 				errors.New("region not specified and is required for this operation"),
 			),
 		},

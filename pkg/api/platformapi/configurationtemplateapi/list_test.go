@@ -147,7 +147,6 @@ func TestListTemplates(t *testing.T) {
 			name: "Platform deployment templates fails with empty params",
 			err: multierror.NewPrefixed("invalid deployment template list params",
 				errors.New("api reference is required for the operation"),
-				errors.New("template format not specified and is required for this operation"),
 				errors.New("region not specified and is required for this operation"),
 			),
 		},

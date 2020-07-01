@@ -22,7 +22,6 @@ import (
 	"errors"
 	"os"
 	"path/filepath"
-	"strings"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
@@ -51,10 +50,6 @@ func (params PullToFolderParams) Validate() error {
 
 	if params.Folder == "" {
 		merr = merr.Append(errors.New(folderErrorMessage))
-	}
-
-	if strings.TrimSpace(params.Format) == "" {
-		merr = merr.Append(errInvalidTemplateFormat)
 	}
 
 	if err := ec.RequireRegionSet(params.Region); err != nil {

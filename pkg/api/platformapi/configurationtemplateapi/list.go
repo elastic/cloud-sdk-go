@@ -68,8 +68,16 @@ func (params ListTemplateParams) Validate() error {
 	return merr.ErrorOrNil()
 }
 
+func (params *ListTemplateParams) fillDefaults() {
+	if strings.TrimSpace(params.Format) == "" {
+		params.Format = defaultTemplateFormat
+	}
+}
+
 // ListTemplates obtains all the configured platform deployment templates
 func ListTemplates(params ListTemplateParams) ([]*models.DeploymentTemplateInfo, error) {
+	params.fillDefaults()
+
 	if err := params.Validate(); err != nil {
 		return nil, err
 	}

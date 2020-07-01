@@ -64,7 +64,6 @@ func TestPullToFolder(t *testing.T) {
 			err: multierror.NewPrefixed("invalid deployment template pull params",
 				errors.New("api reference is required for the operation"),
 				errors.New("folder not specified and is required for the operation"),
-				errors.New("template format not specified and is required for this operation"),
 				errors.New("region not specified and is required for this operation"),
 			),
 		},
