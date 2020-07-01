@@ -73,7 +73,7 @@ func TestDeleteTemplate(t *testing.T) {
 			name: "Platform deployment template delete fails with an empty params",
 			err: multierror.NewPrefixed("invalid deployment template delete params",
 				apierror.ErrMissingAPI,
-				errors.New("invalid template ID"),
+				errors.New("template ID not specified and is required for this operation"),
 				errors.New("region not specified and is required for this operation"),
 			),
 		},

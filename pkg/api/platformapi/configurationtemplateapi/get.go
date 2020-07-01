@@ -30,18 +30,30 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
-var errInvalidTemplateID = errors.New("invalid template ID")
+const defaultTemplateFormat = "cluster"
+
+var (
+	errInvalidTemplateID     = errors.New("template ID not specified and is required for this operation")
+	errInvalidTemplateFormat = errors.New("template format not specified and is required for this operation")
+)
 
 // GetTemplateParams is the parameter of template show sub-command
 type GetTemplateParams struct {
 	*api.API
-	ID                 string
-	Region             string
+
+	ID     string
+	Region string
+
+	// If true, will return details for each instance configuration referenced by the template.
 	ShowInstanceConfig bool
+
+	// If cluster is specified populates cluster_template in the response,
+	// if deployment is specified populates deployment_template in the response
+	Format string
 }
 
 // Validate is the implementation for the ecctl.Validator interface
-func (params GetTemplateParams) Validate() error {
+func (params *GetTemplateParams) Validate() error {
 	var merr = multierror.NewPrefixed("invalid deployment template get params")
 	if params.API == nil {
 		merr = merr.Append(apierror.ErrMissingAPI)
@@ -51,6 +63,10 @@ func (params GetTemplateParams) Validate() error {
 		merr = merr.Append(errInvalidTemplateID)
 	}
 
+	if strings.TrimSpace(params.Format) == "" {
+		merr = merr.Append(errInvalidTemplateFormat)
+	}
+
 	if err := ec.RequireRegionSet(params.Region); err != nil {
 		merr = merr.Append(err)
 	}
@@ -58,8 +74,16 @@ func (params GetTemplateParams) Validate() error {
 	return merr.ErrorOrNil()
 }
 
+func (params *GetTemplateParams) fillDefaults() {
+	if strings.TrimSpace(params.Format) == "" {
+		params.Format = defaultTemplateFormat
+	}
+}
+
 // GetTemplate obtains information about a specific platform deployment template
 func GetTemplate(params GetTemplateParams) (*models.DeploymentTemplateInfo, error) {
+	params.fillDefaults()
+
 	if err := params.Validate(); err != nil {
 		return nil, err
 	}
@@ -68,6 +92,7 @@ func GetTemplate(params GetTemplateParams) (*models.DeploymentTemplateInfo, erro
 		platform_configuration_templates.NewGetDeploymentTemplateParams().
 			WithContext(api.WithRegion(context.Background(), params.Region)).
 			WithShowInstanceConfigurations(ec.Bool(params.ShowInstanceConfig)).
+			WithFormat(ec.String(params.Format)).
 			WithTemplateID(params.ID),
 		params.AuthWriter,
 	)

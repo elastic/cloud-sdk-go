@@ -19,6 +19,7 @@ package configurationtemplateapi
 
 import (
 	"context"
+	"strings"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
@@ -43,13 +44,21 @@ type ListTemplateParams struct {
 	// An optional key/value pair in the form of (key:value) that will act as a filter and exclude any templates
 	// that do not have a matching metadata item associated.
 	Metadata string
+
+	// If cluster is specified populates cluster_template in the response,
+	// if deployment is specified populates deployment_template in the response
+	Format string
 }
 
 // Validate is the implementation for the ecctl.Validator interface
-func (params ListTemplateParams) Validate() error {
+func (params *ListTemplateParams) Validate() error {
 	var merr = multierror.NewPrefixed("invalid deployment template list params")
 	if params.API == nil {
 		merr = merr.Append(apierror.ErrMissingAPI)
+	}
+
+	if strings.TrimSpace(params.Format) == "" {
+		merr = merr.Append(errInvalidTemplateFormat)
 	}
 
 	if err := ec.RequireRegionSet(params.Region); err != nil {
@@ -59,8 +68,16 @@ func (params ListTemplateParams) Validate() error {
 	return merr.ErrorOrNil()
 }
 
+func (params *ListTemplateParams) fillDefaults() {
+	if strings.TrimSpace(params.Format) == "" {
+		params.Format = defaultTemplateFormat
+	}
+}
+
 // ListTemplates obtains all the configured platform deployment templates
 func ListTemplates(params ListTemplateParams) ([]*models.DeploymentTemplateInfo, error) {
+	params.fillDefaults()
+
 	if err := params.Validate(); err != nil {
 		return nil, err
 	}
@@ -70,6 +87,7 @@ func ListTemplates(params ListTemplateParams) ([]*models.DeploymentTemplateInfo,
 			WithContext(api.WithRegion(context.Background(), params.Region)).
 			WithStackVersion(ec.String(params.StackVersion)).
 			WithMetadata(ec.String(params.Metadata)).
+			WithFormat(ec.String(params.Format)).
 			WithShowInstanceConfigurations(ec.Bool(params.ShowInstanceConfig)),
 		params.AuthWriter,
 	)

@@ -26,7 +26,6 @@ import (
 	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
-	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
@@ -41,7 +40,7 @@ var (
 func TestGetTemplate(t *testing.T) {
 	var sourceDate = testutils.ParseDate(t, "2018-04-19T18:16:57.297Z")
 
-	var templateGetSuccess = `
+	var templateFormatCluster = `
 	{
   "name": "(Trial) Default Elasticsearch",
   "source": {
@@ -78,6 +77,29 @@ func TestGetTemplate(t *testing.T) {
 	},
 	"system_owned": false
 }`
+
+	var templateFormatDeployment = `
+	{
+  "name": "(Trial) Default Elasticsearch",
+  "source": {
+	"user_id": "1",
+	"facilitator": "adminconsole",
+	"date": "2018-04-19T18:16:57.297Z",
+	"admin_id": "admin",
+	"action": "deployments.create-template",
+	"remote_addresses": ["52.205.1.231"]
+  },
+  "description": "Test default Elasticsearch trial template",
+  "id": "` + validTemplateID + `",
+  "metadata": [{
+	"key": "trial",
+	"value": "true"
+	}],
+	"deployment_template": {
+        "resources": {}
+    },
+	"system_owned": false
+}`
 	tests := []struct {
 		name string
 		args GetTemplateParams
@@ -87,10 +109,11 @@ func TestGetTemplate(t *testing.T) {
 		{
 			name: "Platform deployment template show succeeds",
 			args: GetTemplateParams{
-				ID: validTemplateID,
+				ID:     validTemplateID,
+				Format: "cluster",
 				API: api.NewMock(mock.Response{
 					Response: http.Response{
-						Body:       mock.NewStringBody(templateGetSuccess),
+						Body:       mock.NewStringBody(templateFormatCluster),
 						StatusCode: 200,
 					},
 					Assert: &mock.RequestAssertion{
@@ -146,23 +169,70 @@ func TestGetTemplate(t *testing.T) {
 			},
 		},
 		{
+			name: "Platform deployment template show with format deployment succeeds",
+			args: GetTemplateParams{
+				ID:     validTemplateID,
+				Format: "deployment",
+				API: api.NewMock(mock.Response{
+					Response: http.Response{
+						Body:       mock.NewStringBody(templateFormatDeployment),
+						StatusCode: 200,
+					},
+					Assert: &mock.RequestAssertion{
+						Header: api.DefaultReadMockHeaders,
+						Method: "GET",
+						Host:   api.DefaultMockHost,
+						Query: url.Values{
+							"format":                       {"deployment"},
+							"show_instance_configurations": {"false"},
+						},
+						Path: "/api/v1/regions/us-east-1/platform/configuration/templates/deployments/84e0bd6d69bb44e294809d89cea88a7e",
+					},
+				}),
+				Region: "us-east-1",
+			},
+			want: &models.DeploymentTemplateInfo{
+				Name:        ec.String("(Trial) Default Elasticsearch"),
+				ID:          validTemplateID,
+				Description: "Test default Elasticsearch trial template",
+				SystemOwned: ec.Bool(false),
+				Metadata: []*models.MetadataItem{{
+
+					Value: ec.String("true"),
+					Key:   ec.String("trial"),
+				}},
+				Source: &models.ChangeSourceInfo{
+					UserID:          "1",
+					Facilitator:     ec.String("adminconsole"),
+					Date:            &sourceDate,
+					AdminID:         "admin",
+					Action:          ec.String("deployments.create-template"),
+					RemoteAddresses: []string{"52.205.1.231"},
+				},
+				DeploymentTemplate: &models.DeploymentCreateRequest{
+					Resources: &models.DeploymentCreateResources{},
+				},
+			},
+		},
+		{
 			name: "Platform deployment template show fails due to API error",
 			args: GetTemplateParams{
 				ID:     validTemplateID,
+				Format: "deployment",
 				Region: "us-east-1",
 				API:    api.NewMock(mock.Response{Error: errors.New("error")}),
 			},
 			err: &url.Error{
 				Op:  "Get",
-				URL: `https://mock.elastic.co/api/v1/regions/us-east-1/platform/configuration/templates/deployments/84e0bd6d69bb44e294809d89cea88a7e?format=cluster&show_instance_configurations=false`,
+				URL: `https://mock.elastic.co/api/v1/regions/us-east-1/platform/configuration/templates/deployments/84e0bd6d69bb44e294809d89cea88a7e?format=deployment&show_instance_configurations=false`,
 				Err: errors.New("error"),
 			},
 		},
 		{
 			name: "Platform deployment template show fails due to parameter validation",
 			err: multierror.NewPrefixed("invalid deployment template get params",
-				apierror.ErrMissingAPI,
-				errors.New("invalid template ID"),
+				errors.New("api reference is required for the operation"),
+				errors.New("template ID not specified and is required for this operation"),
 				errors.New("region not specified and is required for this operation"),
 			),
 		},

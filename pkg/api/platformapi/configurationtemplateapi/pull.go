@@ -37,6 +37,7 @@ type PullToFolderParams struct {
 	*api.API
 	Folder             string
 	Region             string
+	Format             string
 	ShowInstanceConfig bool
 }
 
@@ -68,6 +69,7 @@ func PullToFolder(params PullToFolderParams) error {
 		API:                params.API,
 		Region:             params.Region,
 		ShowInstanceConfig: params.ShowInstanceConfig,
+		Format:             params.Format,
 	})
 	if err != nil {
 		return err

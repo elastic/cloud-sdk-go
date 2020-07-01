@@ -124,6 +124,7 @@ func NewElasticsearch(params NewElasticsearchParams) (*models.ElasticsearchPaylo
 		API:                params.API,
 		ID:                 params.TemplateID,
 		Region:             params.Region,
+		Format:             "cluster",
 		ShowInstanceConfig: true,
 	})
 	if err != nil {
