@@ -51,7 +51,7 @@ type ListTemplateParams struct {
 }
 
 // Validate is the implementation for the ecctl.Validator interface
-func (params ListTemplateParams) Validate() error {
+func (params *ListTemplateParams) Validate() error {
 	var merr = multierror.NewPrefixed("invalid deployment template list params")
 	if params.API == nil {
 		merr = merr.Append(apierror.ErrMissingAPI)
