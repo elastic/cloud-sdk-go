@@ -1,0 +1,66 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "",
+    "version" : "1",
+    "title" : "Elastic Cloud API",
+    "termsOfService" : ""
+  },
+  "host" : "api.elastic-cloud.com",
+  "basePath" : "/api/v1/",
+  "tags" : [ {
+    "name" : "Deployments"
+  }, {
+    "name" : "Stack"
+  } ],
+  "schemes" : [ "https" ],
+  "paths" : {
+    "/deployments/_search" : {
+      "post" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Search Deployments",
+        "description" : "Retrieves the information for all of the deployments that match the specified query.",
+        "operationId" : "search-deployments",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "(Optional) The search request to execute. NOTE: When not specified, all of the deployments are matched.",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/SearchRequest"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The list of deployments that match the specified query and belong to the authenticated user.",
+            "headers" : {
+              "x-cloud-resource-version" : {
+                "type" : "string",
+                "description" : "The resource version, which is used to avoid update conflicts with concurrent operations"
+              },
+              "x-cloud-resource-created" : {
+                "type" : "string",
+                "description" : "The date-time when the resource was created (ISO format relative to UTC)"
+              },
+              "x-cloud-resource-last-modified" : {
+                "type" : "string",
+                "description" : "The date-time when the resource was last modified (ISO format relative to UTC)"
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/DeploymentsSearchResponse"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployment - Commands"
+        }
+      }
+    }
+  }
+}

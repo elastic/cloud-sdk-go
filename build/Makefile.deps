@@ -11,6 +11,7 @@ VERSION_GOLINT:=v0.0.0-20191125180803-fdd1cda4f05f
 VERSION_GOLICENSER:=v0.3.0
 VERSION_GOLANGCILINT:=v1.23.8
 VERSION_SWAGGER:=v0.22.0
+VERSION_GOTESTSUM:=v0.4.2
 
 deps: $(GOBIN)/gobin $(GOBIN)/golint $(GOBIN)/go-licenser $(GOBIN)/golangci-lint $(GOBIN)/swagger
 
@@ -60,6 +61,19 @@ $(VERSION_DIR)/.version-swagger-$(VERSION_SWAGGER): | $(VERSION_DIR)
 $(GOBIN)/swagger: $(GOBIN)/gobin $(VERSION_DIR)/.version-swagger-$(VERSION_SWAGGER) | $(GOBIN)
 	@ echo "-> Installing swagger..."
 	@ $(GOBIN)/gobin github.com/go-swagger/go-swagger/cmd/swagger@$(VERSION_SWAGGER)
+
+$(VERSION_DIR)/.version-gotestsum-$(VERSION_GOTESTSUM):
+	@ rm -f $(VERSION_DIR)/.version-gotestsum-*
+	@ echo $(VERSION_GOTESTSUM) > $(VERSION_DIR)/.version-gotestsum-$(VERSION_GOTESTSUM)
+
+$(GOBIN)/gotestsum: $(GOBIN)/gobin $(VERSION_DIR)/.version-gotestsum-$(VERSION_GOTESTSUM) | $(GOBIN)
+	@ echo "-> Installing gotestsum..."
+	@ $(GOBIN)/gobin gotest.tools/gotestsum@$(VERSION_GOTESTSUM)
+
+$(GOBIN)/prism: $(GOBIN)/gobin
+	@ echo "-> Installing prism..."
+	@ curl -L https://raw.githack.com/stoplightio/prism/master/install | sh
+	@ cp /usr/local/bin/prism $(GOBIN)/prism
 
 ## Downloads the required go modules.
 .PHONY: mod
