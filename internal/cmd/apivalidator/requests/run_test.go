@@ -68,6 +68,7 @@ func TestRun(t *testing.T) {
 			}},
 			want: 5,
 			wantErr: multierror.NewPrefixed("api spec validation",
+				//nolint - error strings should not be capitalized or end with punctuation or a newline
 				errors.New("Post http://0.0.0.0:1234/deployments/_search: connection refused"),
 			),
 		},
@@ -79,7 +80,8 @@ func TestRun(t *testing.T) {
 				Port:   "1234",
 				Client: mock.NewClient(mock.Response{Error: errors.New("no such host")}),
 			}},
-			want:    2,
+			want: 2,
+			//nolint - error strings should not be capitalized or end with punctuation or a newline
 			wantErr: errors.New("Get https://example.co/hola: no such host"),
 		},
 	}
