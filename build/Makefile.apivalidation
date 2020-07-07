@@ -1,0 +1,36 @@
+export EXTERNAL_PORT ?= 4010
+PUBLISHED_PORT ?= $(EXTERNAL_PORT):4010
+API_LOCATION ?= https://api.elastic-cloud.com
+APISPEC_FILENAME ?= apidocs-user.json
+export APISPEC_LOCATION ?= api/$(APISPEC_FILENAME)
+PRISM_CONTAINER ?= stoplight/prism:3
+
+#### API validation test targets
+
+## Starts a validation proxy server to the ESS API.
+.PHONY: validation-proxy
+validation-proxy:
+	@ prism proxy $(APISPEC_LOCATION) $(API_LOCATION) --errors
+
+## Runs tests through a validation proxy to the ESS API in order to find discrepancies between an API specification and a target server.
+.PHONY: api-validation
+api-validation: apivalidation-deps build_apivalidator
+	@ cd build/apivalidation && $(GOBIN)/gotestsum --format standard-verbose -- -tags=apivalidation -timeout=10m ./...
+
+.PHONY: build_apivalidator
+build_apivalidator:
+	@ echo "-> Building apivalidator in bin/apivalidator..."
+	@ if [[ -f bin/apivalidator ]]; then rm -f bin/apivalidator; fi
+	@ go build -o bin/apivalidator ./internal/cmd/apivalidator/
+
+.PHONY: wait-on-proxy
+wait-on-proxy:
+	@ until nc -z -w 2 localhost $(EXTERNAL_PORT); do sleep 5; done
+
+.PHONY: apivalidation-deps
+apivalidation-deps: $(GOBIN)/gobin $(GOBIN)/gotestsum $(GOBIN)/prism
+
+.PHONY: run-apivalidation-tests
+run-api-validation-tests:
+	@ make validation-proxy & make wait-on-proxy && make api-validation
+	@ ps -ef | grep [p]rism | grep -v grep | awk '{print $2}' | xargs kill
