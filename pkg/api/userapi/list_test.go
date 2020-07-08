@@ -20,6 +20,7 @@ package userapi
 import (
 	"errors"
 	"net/http"
+	"net/url"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -72,6 +73,7 @@ func TestList(t *testing.T) {
 			name: "List succeeds",
 			args: args{
 				params: ListParams{
+					IncludeDisabled: true,
 					API: api.NewMock(mock.Response{
 						Response: http.Response{
 							Body:       mock.NewStringBody(listUsersResponse),
@@ -82,6 +84,9 @@ func TestList(t *testing.T) {
 							Method: "GET",
 							Host:   api.DefaultMockHost,
 							Path:   "/api/v1/users",
+							Query: url.Values{
+								"include_disabled": {"true"},
+							},
 						},
 					}),
 				},

@@ -27,6 +27,8 @@ import (
 // ListParams is consumed by List
 type ListParams struct {
 	*api.API
+
+	IncludeDisabled bool
 }
 
 // Validate ensures the parameters are usable by the consuming function.
@@ -45,7 +47,8 @@ func List(params ListParams) (*models.UserList, error) {
 	}
 
 	res, err := params.V1API.Users.GetUsers(
-		users.NewGetUsersParams(),
+		users.NewGetUsersParams().
+			WithIncludeDisabled(&params.IncludeDisabled),
 		params.AuthWriter,
 	)
 

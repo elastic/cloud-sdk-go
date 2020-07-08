@@ -3,6 +3,7 @@ module github.com/elastic/cloud-sdk-go
 go 1.13
 
 require (
+	github.com/Jeffail/gabs v1.4.0
 	github.com/asaskevich/govalidator v0.0.0-20200428143746-21a406dcc535
 	github.com/blang/semver v3.5.1+incompatible
 	github.com/davecgh/go-spew v1.1.1

@@ -302,6 +302,32 @@ func Test_overrideJSONProducer(t *testing.T) {
 			want: `{"some":"content"}`,
 		},
 		{
+			name: "changes the producer when using update-user",
+			args: args{
+				r: &runtimeclient.Runtime{
+					Producers: map[string]runtime.Producer{
+						runtime.JSONMime: runtime.JSONProducer(),
+					},
+				},
+				opID:    "update-user",
+				content: `{"some":"content"}`,
+			},
+			want: `{"some":"content"}`,
+		},
+		{
+			name: "changes the producer when using update-current-user",
+			args: args{
+				r: &runtimeclient.Runtime{
+					Producers: map[string]runtime.Producer{
+						runtime.JSONMime: runtime.JSONProducer(),
+					},
+				},
+				opID:    "update-current-user",
+				content: `{"some":"content"}`,
+			},
+			want: `{"some":"content"}`,
+		},
+		{
 			name: "resets the producer even when changed",
 			args: args{
 				r: &runtimeclient.Runtime{

@@ -47,12 +47,6 @@ func (o *GetUserReader) ReadResponse(response runtime.ClientResponse, consumer r
 			return nil, err
 		}
 		return result, nil
-	case 403:
-		result := NewGetUserForbidden()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	case 404:
 		result := NewGetUserNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -98,39 +92,6 @@ func (o *GetUserOK) readResponse(response runtime.ClientResponse, consumer runti
 	return nil
 }
 
-// NewGetUserForbidden creates a GetUserForbidden with default headers values
-func NewGetUserForbidden() *GetUserForbidden {
-	return &GetUserForbidden{}
-}
-
-/*GetUserForbidden handles this case with default header values.
-
-Invalid permissions
-*/
-type GetUserForbidden struct {
-	Payload *models.BasicFailedReply
-}
-
-func (o *GetUserForbidden) Error() string {
-	return fmt.Sprintf("[GET /users/{user_name}][%d] getUserForbidden  %+v", 403, o.Payload)
-}
-
-func (o *GetUserForbidden) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *GetUserForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
 // NewGetUserNotFound creates a GetUserNotFound with default headers values
 func NewGetUserNotFound() *GetUserNotFound {
 	return &GetUserNotFound{}
@@ -138,9 +99,13 @@ func NewGetUserNotFound() *GetUserNotFound {
 
 /*GetUserNotFound handles this case with default header values.
 
-User not found
+User not found. (code: `user.not_found`)
 */
 type GetUserNotFound struct {
+	/*The error codes associated with the response
+	 */
+	XCloudErrorCodes string
+
 	Payload *models.BasicFailedReply
 }
 
@@ -153,6 +118,9 @@ func (o *GetUserNotFound) GetPayload() *models.BasicFailedReply {
 }
 
 func (o *GetUserNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response header x-cloud-error-codes
+	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
 
 	o.Payload = new(models.BasicFailedReply)
 

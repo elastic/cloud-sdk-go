@@ -53,12 +53,6 @@ func (o *CreateUserReader) ReadResponse(response runtime.ClientResponse, consume
 			return nil, err
 		}
 		return nil, result
-	case 403:
-		result := NewCreateUserForbidden()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	case 409:
 		result := NewCreateUserConflict()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -117,9 +111,16 @@ func NewCreateUserBadRequest() *CreateUserBadRequest {
 
 /*CreateUserBadRequest handles this case with default header values.
 
-Invalid request. (code: 'user.bad_request')
-*/
+* The provided user name is invalid. Check that it is not empty and it does not contain special characters. (code: `user.user_name.invalid`)
+* Some of the provided roles are invalid. (code: `user.roles.invalid`)
+* Some of the provided roles are forbidden. (code: `user.roles.forbidden`)
+* Trying to set a restricted field. (code: `user.restricted_field`)
+ */
 type CreateUserBadRequest struct {
+	/*The error codes associated with the response
+	 */
+	XCloudErrorCodes string
+
 	Payload *models.BasicFailedReply
 }
 
@@ -133,38 +134,8 @@ func (o *CreateUserBadRequest) GetPayload() *models.BasicFailedReply {
 
 func (o *CreateUserBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewCreateUserForbidden creates a CreateUserForbidden with default headers values
-func NewCreateUserForbidden() *CreateUserForbidden {
-	return &CreateUserForbidden{}
-}
-
-/*CreateUserForbidden handles this case with default header values.
-
-Invalid permissions
-*/
-type CreateUserForbidden struct {
-	Payload *models.BasicFailedReply
-}
-
-func (o *CreateUserForbidden) Error() string {
-	return fmt.Sprintf("[POST /users][%d] createUserForbidden  %+v", 403, o.Payload)
-}
-
-func (o *CreateUserForbidden) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *CreateUserForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+	// response header x-cloud-error-codes
+	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -183,9 +154,13 @@ func NewCreateUserConflict() *CreateUserConflict {
 
 /*CreateUserConflict handles this case with default header values.
 
-User name already in use. (code: 'user.user_name.conflict')
+The username is already in use. (code: `user.user_name.conflict`)
 */
 type CreateUserConflict struct {
+	/*The error codes associated with the response
+	 */
+	XCloudErrorCodes string
+
 	Payload *models.BasicFailedReply
 }
 
@@ -198,6 +173,9 @@ func (o *CreateUserConflict) GetPayload() *models.BasicFailedReply {
 }
 
 func (o *CreateUserConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response header x-cloud-error-codes
+	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -216,9 +194,13 @@ func NewCreateUserRetryWith() *CreateUserRetryWith {
 
 /*CreateUserRetryWith handles this case with default header values.
 
-Elevated permissions are required. (code: 'root.unauthorized.rbac.elevated_permissions_required')
+Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type CreateUserRetryWith struct {
+	/*The error codes associated with the response
+	 */
+	XCloudErrorCodes string
+
 	Payload *models.BasicFailedReply
 }
 
@@ -231,6 +213,9 @@ func (o *CreateUserRetryWith) GetPayload() *models.BasicFailedReply {
 }
 
 func (o *CreateUserRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response header x-cloud-error-codes
+	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
 
 	o.Payload = new(models.BasicFailedReply)
 

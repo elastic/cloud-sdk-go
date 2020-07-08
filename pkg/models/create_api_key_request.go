@@ -33,9 +33,8 @@ import (
 // swagger:model CreateApiKeyRequest
 type CreateAPIKeyRequest struct {
 
-	// The security token from reauthenticate API
-	// Required: true
-	AuthenticationToken *string `json:"authentication_token"`
+	// Deprecated. The security token from reauthenticate API
+	AuthenticationToken string `json:"authentication_token,omitempty"`
 
 	// API key description. Useful if there are multiple keys
 	// Required: true
@@ -46,10 +45,6 @@ type CreateAPIKeyRequest struct {
 func (m *CreateAPIKeyRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateAuthenticationToken(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateDescription(formats); err != nil {
 		res = append(res, err)
 	}
@@ -57,15 +52,6 @@ func (m *CreateAPIKeyRequest) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *CreateAPIKeyRequest) validateAuthenticationToken(formats strfmt.Registry) error {
-
-	if err := validate.Required("authentication_token", "body", m.AuthenticationToken); err != nil {
-		return err
-	}
-
 	return nil
 }
 

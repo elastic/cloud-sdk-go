@@ -18,6 +18,7 @@
 package userapi
 
 import (
+	"encoding/json"
 	"errors"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
@@ -68,18 +69,25 @@ func Update(params UpdateParams) (*models.User, error) {
 		return nil, err
 	}
 
+	user := &models.User{
+		UserName: &params.UserName,
+		FullName: params.FullName,
+		Email:    params.Email,
+		Security: &models.UserSecurity{
+			Password: string(params.Password),
+			Roles:    params.Roles,
+		},
+	}
+
+	b, err := json.Marshal(user)
+	if err != nil {
+		return nil, err
+	}
+
 	res, err := params.V1API.Users.UpdateUser(
 		users.NewUpdateUserParams().
 			WithUserName(params.UserName).
-			WithBody(&models.User{
-				UserName: &params.UserName,
-				FullName: params.FullName,
-				Email:    params.Email,
-				Security: &models.UserSecurity{
-					Password: string(params.Password),
-					Roles:    params.Roles,
-				},
-			}),
+			WithBody(string(b)),
 		params.AuthWriter,
 	)
 
@@ -96,17 +104,24 @@ func UpdateCurrent(params UpdateParams) (*models.User, error) {
 		return nil, err
 	}
 
+	user := &models.User{
+		UserName: &params.UserName,
+		FullName: params.FullName,
+		Email:    params.Email,
+		Security: &models.UserSecurity{
+			Password: string(params.Password),
+			Roles:    params.Roles,
+		},
+	}
+
+	b, err := json.Marshal(user)
+	if err != nil {
+		return nil, err
+	}
+
 	res, err := params.V1API.Users.UpdateCurrentUser(
 		users.NewUpdateCurrentUserParams().
-			WithBody(&models.User{
-				UserName: &params.UserName,
-				FullName: params.FullName,
-				Email:    params.Email,
-				Security: &models.UserSecurity{
-					Password: string(params.Password),
-					Roles:    params.Roles,
-				},
-			}),
+			WithBody(string(b)),
 		params.AuthWriter,
 	)
 
