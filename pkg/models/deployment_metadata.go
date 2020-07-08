@@ -42,6 +42,10 @@ type DeploymentMetadata struct {
 	// Format: date-time
 	LastModified *strfmt.DateTime `json:"last_modified"`
 
+	// The most recent time the resource's plan was changed (ISO format in UTC)
+	// Format: date-time
+	LastResourcePlanModified strfmt.DateTime `json:"last_resource_plan_modified,omitempty"`
+
 	// The user id (referencing whatever user database is in use) of the deployment owner
 	OwnerID string `json:"owner_id,omitempty"`
 
@@ -61,6 +65,10 @@ func (m *DeploymentMetadata) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateLastResourcePlanModified(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
@@ -74,6 +82,19 @@ func (m *DeploymentMetadata) validateLastModified(formats strfmt.Registry) error
 	}
 
 	if err := validate.FormatOf("last_modified", "body", "date-time", m.LastModified.String(), formats); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *DeploymentMetadata) validateLastResourcePlanModified(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.LastResourcePlanModified) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("last_resource_plan_modified", "body", "date-time", m.LastResourcePlanModified.String(), formats); err != nil {
 		return err
 	}
 

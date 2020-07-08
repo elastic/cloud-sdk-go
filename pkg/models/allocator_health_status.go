@@ -44,6 +44,10 @@ type AllocatorHealthStatus struct {
 	// Whether the allocator is in maintenance mode (meaning that new workload won't be assigned to it)
 	// Required: true
 	MaintenanceMode *bool `json:"maintenance_mode"`
+
+	// Timestamp when allocator last entered or exited maintenance mode
+	// Format: date-time
+	MaintenanceModeTimestamp strfmt.DateTime `json:"maintenance_mode_timestamp,omitempty"`
 }
 
 // Validate validates this allocator health status
@@ -59,6 +63,10 @@ func (m *AllocatorHealthStatus) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateMaintenanceMode(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateMaintenanceModeTimestamp(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -89,6 +97,19 @@ func (m *AllocatorHealthStatus) validateHealthy(formats strfmt.Registry) error {
 func (m *AllocatorHealthStatus) validateMaintenanceMode(formats strfmt.Registry) error {
 
 	if err := validate.Required("maintenance_mode", "body", m.MaintenanceMode); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *AllocatorHealthStatus) validateMaintenanceModeTimestamp(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.MaintenanceModeTimestamp) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("maintenance_mode_timestamp", "body", "date-time", m.MaintenanceModeTimestamp.String(), formats); err != nil {
 		return err
 	}
 

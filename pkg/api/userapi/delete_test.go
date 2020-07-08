@@ -54,14 +54,11 @@ func TestDelete(t *testing.T) {
 			args: args{
 				params: DeleteParams{
 					UserName: "user bob",
-					API: api.NewMock(mock.Response{Response: http.Response{
-						Body:       mock.NewStringBody(`{"error": "some error"}`),
-						StatusCode: 400,
-					}}),
+					API:      api.NewMock(mock.SampleInternalError()),
 				},
 			},
 			wantErr: true,
-			err:     errors.New(`{"error": "some error"}`),
+			err:     mock.MultierrorInternalError,
 		},
 		{
 			name: "Delete succeeds",

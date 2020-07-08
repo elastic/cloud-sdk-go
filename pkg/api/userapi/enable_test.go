@@ -89,7 +89,7 @@ func TestEnable(t *testing.T) {
 							Method: "PATCH",
 							Host:   api.DefaultMockHost,
 							Path:   "/api/v1/users/tiburcio",
-							Body:   mock.NewStringBody(`{"security":{"enabled":false},"user_name":"tiburcio"}` + "\n"),
+							Body:   mock.NewStringBody(`{"security":{"enabled":false},"user_name":"tiburcio"}`),
 						},
 					}),
 				},

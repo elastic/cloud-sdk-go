@@ -18,6 +18,7 @@
 package userapi
 
 import (
+	"encoding/json"
 	"errors"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
@@ -55,15 +56,22 @@ func Enable(params EnableParams) (*models.User, error) {
 		return nil, err
 	}
 
+	user := &models.User{
+		UserName: &params.UserName,
+		Security: &models.UserSecurity{
+			Enabled: &params.Enabled,
+		},
+	}
+
+	b, err := json.Marshal(user)
+	if err != nil {
+		return nil, err
+	}
+
 	res, err := params.V1API.Users.UpdateUser(
 		users.NewUpdateUserParams().
 			WithUserName(params.UserName).
-			WithBody(&models.User{
-				UserName: &params.UserName,
-				Security: &models.UserSecurity{
-					Enabled: &params.Enabled,
-				},
-			}),
+			WithBody(string(b)),
 		params.AuthWriter,
 	)
 

@@ -128,7 +128,7 @@ type MoveClustersByTypeParams struct {
 	  The cluster types to move off of the allocator. NOTE: When unspecified, all clusters are moved.
 
 	*/
-	ClusterType *string
+	ClusterType string
 	/*ForceUpdate
 	  When true, cancels and overwrites pending plans, or treats instance as an error
 
@@ -217,13 +217,13 @@ func (o *MoveClustersByTypeParams) SetBody(body *models.MoveClustersRequest) {
 }
 
 // WithClusterType adds the clusterType to the move clusters by type params
-func (o *MoveClustersByTypeParams) WithClusterType(clusterType *string) *MoveClustersByTypeParams {
+func (o *MoveClustersByTypeParams) WithClusterType(clusterType string) *MoveClustersByTypeParams {
 	o.SetClusterType(clusterType)
 	return o
 }
 
 // SetClusterType adds the clusterType to the move clusters by type params
-func (o *MoveClustersByTypeParams) SetClusterType(clusterType *string) {
+func (o *MoveClustersByTypeParams) SetClusterType(clusterType string) {
 	o.ClusterType = clusterType
 }
 
@@ -295,13 +295,9 @@ func (o *MoveClustersByTypeParams) WriteToRequest(r runtime.ClientRequest, reg s
 		}
 	}
 
-	if o.ClusterType != nil {
-
-		// path param cluster_type
-		if err := r.SetPathParam("cluster_type", *o.ClusterType); err != nil {
-			return err
-		}
-
+	// path param cluster_type
+	if err := r.SetPathParam("cluster_type", o.ClusterType); err != nil {
+		return err
 	}
 
 	if o.ForceUpdate != nil {

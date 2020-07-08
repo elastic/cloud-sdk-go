@@ -60,7 +60,7 @@ func CreateKey(params CreateKeyParams) (*models.APIKeyResponse, error) {
 	res, err := params.V1API.Authentication.CreateAPIKey(
 		authentication.NewCreateAPIKeyParams().
 			WithBody(&models.CreateAPIKeyRequest{
-				AuthenticationToken: ec.String(token),
+				AuthenticationToken: token,
 				Description:         ec.String(params.Description),
 			}),
 		params.AuthWriter,

@@ -1179,7 +1179,7 @@ func Test_newMoveClusterParams(t *testing.T) {
 			}},
 			want: platform_infrastructure.NewMoveClustersByTypeParams().
 				WithAllocatorID("allocator-1").
-				WithClusterType(ec.String("elasticsearch")).
+				WithClusterType(util.Elasticsearch).
 				WithAllocatorDown(ec.Bool(false)).
 				WithContext(api.WithRegion(context.Background(), "us-east-1")).
 				WithBody(&models.MoveClustersRequest{
@@ -1215,7 +1215,7 @@ func Test_newMoveClusterParams(t *testing.T) {
 			}},
 			want: platform_infrastructure.NewMoveClustersByTypeParams().
 				WithAllocatorID("allocator-1").
-				WithClusterType(ec.String(util.Apm)).
+				WithClusterType(util.Apm).
 				WithAllocatorDown(ec.Bool(false)).
 				WithContext(api.WithRegion(context.Background(), "us-east-1")).
 				WithBody(&models.MoveClustersRequest{
