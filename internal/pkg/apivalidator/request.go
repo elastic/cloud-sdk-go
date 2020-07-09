@@ -103,9 +103,10 @@ func buildRequest(host, path, method string) *http.Request {
 
 	isPost := method == "POST"
 	isPut := method == "PUT"
+	isPatch := method == "PATCH"
 	isUsersAuthKeys := strings.Contains(path, "/users/auth/keys")
 
-	if isPost || isPut || isUsersAuthKeys {
+	if isPost || isPut || isPatch || isUsersAuthKeys {
 		r := strings.NewReader(`{}`)
 		return &http.Request{
 			Method: method,
