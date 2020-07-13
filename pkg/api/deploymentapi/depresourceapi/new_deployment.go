@@ -35,19 +35,21 @@ type InstanceParams struct {
 type NewParams struct {
 	*api.API
 
-	Name                  string
-	Version               string
-	DeploymentTemplateID  string
-	Region                string
-	ApmEnable             bool
-	AppsearchEnable       bool
-	Writer                io.Writer
-	Plugins               []string
-	TopologyElements      []string
-	ElasticsearchInstance InstanceParams
-	KibanaInstance        InstanceParams
-	ApmInstance           InstanceParams
-	AppsearchInstance     InstanceParams
+	Name                     string
+	Version                  string
+	DeploymentTemplateID     string
+	Region                   string
+	ApmEnable                bool
+	AppsearchEnable          bool
+	EnterpriseSearchEnable   bool
+	Writer                   io.Writer
+	Plugins                  []string
+	TopologyElements         []string
+	ElasticsearchInstance    InstanceParams
+	KibanaInstance           InstanceParams
+	ApmInstance              InstanceParams
+	AppsearchInstance        InstanceParams
+	EnterpriseSearchInstance InstanceParams
 }
 
 // New creates the payload for a deployment
@@ -123,6 +125,24 @@ func New(params NewParams) (*models.DeploymentCreateRequest, error) {
 		}
 
 		resources.Appsearch = []*models.AppSearchPayload{appsearchPayload}
+	}
+
+	if params.EnterpriseSearchEnable {
+		enterpriseSearchPayload, err := NewEnterpriseSearch(NewStateless{
+			ElasticsearchRefID: params.ElasticsearchInstance.RefID,
+			API:                params.API,
+			RefID:              params.EnterpriseSearchInstance.RefID,
+			Version:            params.Version,
+			Region:             params.Region,
+			TemplateID:         params.DeploymentTemplateID,
+			Size:               params.EnterpriseSearchInstance.Size,
+			ZoneCount:          params.EnterpriseSearchInstance.ZoneCount,
+		})
+		if err != nil {
+			return nil, err
+		}
+
+		resources.EnterpriseSearch = []*models.EnterpriseSearchPayload{enterpriseSearchPayload}
 	}
 
 	payload := models.DeploymentCreateRequest{

@@ -31,14 +31,14 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
-var kibanaTemplateResponse = models.DeploymentTemplateInfo{
-	ID: "default",
+var enterpriseSearchTemplateResponse = models.DeploymentTemplateInfo{
+	ID: "default.enterprise-search",
 	DeploymentTemplate: &models.DeploymentCreateRequest{
 		Resources: &models.DeploymentCreateResources{
-			Kibana: []*models.KibanaPayload{
+			EnterpriseSearch: []*models.EnterpriseSearchPayload{
 				{
-					Plan: &models.KibanaClusterPlan{
-						ClusterTopology: []*models.KibanaClusterTopologyElement{
+					Plan: &models.EnterpriseSearchPlan{
+						ClusterTopology: []*models.EnterpriseSearchTopologyElement{
 							{
 								Size: &models.TopologySize{
 									Resource: ec.String("memory"),
@@ -61,8 +61,8 @@ var kibanaTemplateResponse = models.DeploymentTemplateInfo{
 	},
 }
 
-var invalidTemplateResponse = models.DeploymentTemplateInfo{
-	ID: "invalid",
+var defaultESTemplateResponse = models.DeploymentTemplateInfo{
+	ID: "default",
 	DeploymentTemplate: &models.DeploymentCreateRequest{
 		Resources: &models.DeploymentCreateResources{
 			Elasticsearch: []*models.ElasticsearchPayload{
@@ -76,7 +76,7 @@ var invalidTemplateResponse = models.DeploymentTemplateInfo{
 	},
 }
 
-func TestNewKibana(t *testing.T) {
+func TestNewEnterpriseSearch(t *testing.T) {
 	var getResponse = models.DeploymentGetResponse{
 		Resources: &models.DeploymentResources{
 			Elasticsearch: []*models.ElasticsearchResourceInfo{{
@@ -102,7 +102,7 @@ func TestNewKibana(t *testing.T) {
 	tests := []struct {
 		name string
 		args args
-		want *models.KibanaPayload
+		want *models.EnterpriseSearchPayload
 		err  error
 	}{
 		{
@@ -143,7 +143,7 @@ func TestNewKibana(t *testing.T) {
 			err: errors.New("unable to obtain deployment template ID from existing deployment ID, please specify a one"),
 		},
 		{
-			name: "obtains the deployment info but fails getting the template ID info",
+			name: "obtains the deployment info but fails getting the template ID info from the API",
 			args: args{params: NewStateless{
 				DeploymentID: mock.ValidClusterID,
 				API: api.NewMock(
@@ -155,16 +155,16 @@ func TestNewKibana(t *testing.T) {
 			err: mock.MultierrorInternalError,
 		},
 		{
-			name: "obtains the deployment template but it's an invalid template for kibana",
+			name: "obtains the deployment template but it's an invalid template for enterprise search",
 			args: args{params: NewStateless{
 				DeploymentID: mock.ValidClusterID,
 				API: api.NewMock(
 					mock.New200Response(mock.NewStructBody(getResponse)),
-					mock.New200Response(mock.NewStructBody(invalidTemplateResponse)),
+					mock.New200Response(mock.NewStructBody(defaultESTemplateResponse)),
 				),
 				Region: "ece-region",
 			}},
-			err: errors.New("deployment: the an ID template is not configured for Kibana. Please use another template if you wish to start Kibana instances"),
+			err: errors.New("deployment: the an ID template is not configured for Enterprise Search. Please use another template if you wish to start Enterprise Search instances"),
 		},
 		{
 			name: "succeeds with no argument override",
@@ -172,17 +172,17 @@ func TestNewKibana(t *testing.T) {
 				DeploymentID: mock.ValidClusterID,
 				API: api.NewMock(
 					mock.New200Response(mock.NewStructBody(getResponse)),
-					mock.New200Response(mock.NewStructBody(kibanaTemplateResponse)),
+					mock.New200Response(mock.NewStructBody(enterpriseSearchTemplateResponse)),
 				),
 				Region: "ece-region",
 			}},
-			want: &models.KibanaPayload{
+			want: &models.EnterpriseSearchPayload{
 				ElasticsearchClusterRefID: ec.String("main-elasticsearch"),
 				Region:                    ec.String("ece-region"),
-				RefID:                     ec.String("main-kibana"),
-				Plan: &models.KibanaClusterPlan{
-					Kibana: &models.KibanaConfiguration{},
-					ClusterTopology: []*models.KibanaClusterTopologyElement{
+				RefID:                     ec.String("main-enterprise_search"),
+				Plan: &models.EnterpriseSearchPlan{
+					EnterpriseSearch: &models.EnterpriseSearchConfiguration{},
+					ClusterTopology: []*models.EnterpriseSearchTopologyElement{
 						{
 							Size: &models.TopologySize{
 								Resource: ec.String("memory"),
@@ -202,17 +202,17 @@ func TestNewKibana(t *testing.T) {
 				DeploymentID: mock.ValidClusterID,
 				API: api.NewMock(
 					mock.New200Response(mock.NewStructBody(getResponse)),
-					mock.New200Response(mock.NewStructBody(kibanaTemplateResponse)),
+					mock.New200Response(mock.NewStructBody(enterpriseSearchTemplateResponse)),
 				),
 				Region: "ece-region",
 			}},
-			want: &models.KibanaPayload{
+			want: &models.EnterpriseSearchPayload{
 				ElasticsearchClusterRefID: ec.String("main-elasticsearch"),
 				Region:                    ec.String("ece-region"),
-				RefID:                     ec.String("main-kibana"),
-				Plan: &models.KibanaClusterPlan{
-					Kibana: &models.KibanaConfiguration{},
-					ClusterTopology: []*models.KibanaClusterTopologyElement{
+				RefID:                     ec.String("main-enterprise_search"),
+				Plan: &models.EnterpriseSearchPlan{
+					EnterpriseSearch: &models.EnterpriseSearchConfiguration{},
+					ClusterTopology: []*models.EnterpriseSearchTopologyElement{
 						{
 							Size: &models.TopologySize{
 								Resource: ec.String("memory"),
@@ -227,9 +227,9 @@ func TestNewKibana(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := NewKibana(tt.args.params)
+			got, err := NewEnterpriseSearch(tt.args.params)
 			if !reflect.DeepEqual(err, tt.err) {
-				t.Errorf("NewKibana() error = %v, wantErr %v", err, tt.err)
+				t.Errorf("NewEnterpriseSearch() error = %v, wantErr %v", err, tt.err)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
@@ -237,7 +237,7 @@ func TestNewKibana(t *testing.T) {
 				w, _ := json.Marshal(tt.want)
 				println(string(g))
 				println(string(w))
-				t.Errorf("NewKibana() = %v, want %v", got, tt.want)
+				t.Errorf("NewEnterpriseSearch() = %v, want %v", got, tt.want)
 			}
 		})
 	}

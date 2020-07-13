@@ -64,9 +64,15 @@ var defaultESTopologies = []*models.ElasticsearchClusterTopologyElement{
 
 var elasticsearchTemplateResponse = models.DeploymentTemplateInfo{
 	ID: "default",
-	ClusterTemplate: &models.DeploymentTemplateDefinitionRequest{
-		Plan: &models.ElasticsearchClusterPlan{
-			ClusterTopology: defaultESTopologies,
+	DeploymentTemplate: &models.DeploymentCreateRequest{
+		Resources: &models.DeploymentCreateResources{
+			Elasticsearch: []*models.ElasticsearchPayload{
+				{
+					Plan: &models.ElasticsearchClusterPlan{
+						ClusterTopology: defaultESTopologies,
+					},
+				},
+			},
 		},
 	},
 }

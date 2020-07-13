@@ -30,70 +30,90 @@ import (
 
 var apmKibanaTemplateResponse = models.DeploymentTemplateInfo{
 	ID: "default",
-	ClusterTemplate: &models.DeploymentTemplateDefinitionRequest{
-		Apm: &models.CreateApmInCreateElasticsearchRequest{
-			Plan: &models.ApmPlan{
-				ClusterTopology: []*models.ApmTopologyElement{
-					{
-						Size: &models.TopologySize{
-							Resource: ec.String("memory"),
-							Value:    ec.Int32(1024),
+	DeploymentTemplate: &models.DeploymentCreateRequest{
+		Resources: &models.DeploymentCreateResources{
+			Apm: []*models.ApmPayload{
+				{
+					Plan: &models.ApmPlan{
+						ClusterTopology: []*models.ApmTopologyElement{
+							{
+								Size: &models.TopologySize{
+									Resource: ec.String("memory"),
+									Value:    ec.Int32(1024),
+								},
+								ZoneCount: 1,
+							},
 						},
-						ZoneCount: 1,
 					},
 				},
 			},
-		},
-		Kibana: &models.CreateKibanaInCreateElasticsearchRequest{
-			Plan: &models.KibanaClusterPlan{
-				ClusterTopology: []*models.KibanaClusterTopologyElement{
-					{
-						Size: &models.TopologySize{
-							Resource: ec.String("memory"),
-							Value:    ec.Int32(1024),
+			Kibana: []*models.KibanaPayload{
+				{
+					Plan: &models.KibanaClusterPlan{
+						ClusterTopology: []*models.KibanaClusterTopologyElement{
+							{
+								Size: &models.TopologySize{
+									Resource: ec.String("memory"),
+									Value:    ec.Int32(1024),
+								},
+								ZoneCount: 1,
+							},
 						},
-						ZoneCount: 1,
 					},
 				},
 			},
-		},
-		Plan: &models.ElasticsearchClusterPlan{
-			ClusterTopology: defaultESTopologies,
+			Elasticsearch: []*models.ElasticsearchPayload{
+				{
+					Plan: &models.ElasticsearchClusterPlan{
+						ClusterTopology: defaultESTopologies,
+					},
+				},
+			},
 		},
 	},
 }
 
 var appsearchKibanaTemplateResponse = models.DeploymentTemplateInfo{
 	ID: "default",
-	ClusterTemplate: &models.DeploymentTemplateDefinitionRequest{
-		Appsearch: &models.CreateAppSearchRequest{
-			Plan: &models.AppSearchPlan{
-				ClusterTopology: []*models.AppSearchTopologyElement{
-					{
-						Size: &models.TopologySize{
-							Resource: ec.String("memory"),
-							Value:    ec.Int32(1024),
+	DeploymentTemplate: &models.DeploymentCreateRequest{
+		Resources: &models.DeploymentCreateResources{
+			Appsearch: []*models.AppSearchPayload{
+				{
+					Plan: &models.AppSearchPlan{
+						ClusterTopology: []*models.AppSearchTopologyElement{
+							{
+								Size: &models.TopologySize{
+									Resource: ec.String("memory"),
+									Value:    ec.Int32(1024),
+								},
+								ZoneCount: 1,
+							},
 						},
-						ZoneCount: 1,
 					},
 				},
 			},
-		},
-		Kibana: &models.CreateKibanaInCreateElasticsearchRequest{
-			Plan: &models.KibanaClusterPlan{
-				ClusterTopology: []*models.KibanaClusterTopologyElement{
-					{
-						Size: &models.TopologySize{
-							Resource: ec.String("memory"),
-							Value:    ec.Int32(1024),
+			Kibana: []*models.KibanaPayload{
+				{
+					Plan: &models.KibanaClusterPlan{
+						ClusterTopology: []*models.KibanaClusterTopologyElement{
+							{
+								Size: &models.TopologySize{
+									Resource: ec.String("memory"),
+									Value:    ec.Int32(1024),
+								},
+								ZoneCount: 1,
+							},
 						},
-						ZoneCount: 1,
 					},
 				},
 			},
-		},
-		Plan: &models.ElasticsearchClusterPlan{
-			ClusterTopology: defaultESTopologies,
+			Elasticsearch: []*models.ElasticsearchPayload{
+				{
+					Plan: &models.ElasticsearchClusterPlan{
+						ClusterTopology: defaultESTopologies,
+					},
+				},
+			},
 		},
 	},
 }

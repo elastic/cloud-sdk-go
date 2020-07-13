@@ -124,7 +124,7 @@ func NewElasticsearch(params NewElasticsearchParams) (*models.ElasticsearchPaylo
 		API:                params.API,
 		ID:                 params.TemplateID,
 		Region:             params.Region,
-		Format:             "cluster",
+		Format:             "deployment",
 		ShowInstanceConfig: true,
 	})
 	if err != nil {
@@ -134,7 +134,7 @@ func NewElasticsearch(params NewElasticsearchParams) (*models.ElasticsearchPaylo
 	var payload = newElasticsearchPayload(params)
 	payload.Plan.ClusterTopology, err = BuildElasticsearchTopology(
 		BuildElasticsearchTopologyParams{
-			ClusterTopology: res.ClusterTemplate.Plan.ClusterTopology,
+			ClusterTopology: res.DeploymentTemplate.Resources.Elasticsearch[0].Plan.ClusterTopology,
 			TemplateID:      params.TemplateID,
 			Topology:        params.Topology,
 		},

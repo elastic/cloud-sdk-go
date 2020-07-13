@@ -33,31 +33,45 @@ import (
 
 var apmTemplateResponse = models.DeploymentTemplateInfo{
 	ID: "default",
-	ClusterTemplate: &models.DeploymentTemplateDefinitionRequest{
-		Apm: &models.CreateApmInCreateElasticsearchRequest{
-			Plan: &models.ApmPlan{
-				ClusterTopology: []*models.ApmTopologyElement{
-					{
-						Size: &models.TopologySize{
-							Resource: ec.String("memory"),
-							Value:    ec.Int32(1024),
+	DeploymentTemplate: &models.DeploymentCreateRequest{
+		Resources: &models.DeploymentCreateResources{
+			Apm: []*models.ApmPayload{
+				{
+					Plan: &models.ApmPlan{
+						ClusterTopology: []*models.ApmTopologyElement{
+							{
+								Size: &models.TopologySize{
+									Resource: ec.String("memory"),
+									Value:    ec.Int32(1024),
+								},
+								ZoneCount: 1,
+							},
 						},
-						ZoneCount: 1,
 					},
 				},
 			},
-		},
-		Plan: &models.ElasticsearchClusterPlan{
-			ClusterTopology: defaultESTopologies,
+			Elasticsearch: []*models.ElasticsearchPayload{
+				{
+					Plan: &models.ElasticsearchClusterPlan{
+						ClusterTopology: defaultESTopologies,
+					},
+				},
+			},
 		},
 	},
 }
 
 var crossClusterTemplateResponse = models.DeploymentTemplateInfo{
 	ID: "cross-cluster-search",
-	ClusterTemplate: &models.DeploymentTemplateDefinitionRequest{
-		Plan: &models.ElasticsearchClusterPlan{
-			ClusterTopology: defaultESTopologies,
+	DeploymentTemplate: &models.DeploymentCreateRequest{
+		Resources: &models.DeploymentCreateResources{
+			Elasticsearch: []*models.ElasticsearchPayload{
+				{
+					Plan: &models.ElasticsearchClusterPlan{
+						ClusterTopology: defaultESTopologies,
+					},
+				},
+			},
 		},
 	},
 }
