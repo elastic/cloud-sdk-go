@@ -151,7 +151,7 @@ func NewDisableElevatedPermissionsNotImplemented() *DisableElevatedPermissionsNo
 
 /*DisableElevatedPermissionsNotImplemented handles this case with default header values.
 
-You need to configure the authentication cluster. (code: `authc.no_authentication_cluster`)
+The administrator needs to configure the authentication cluster. (code: `authc.no_authentication_cluster`)
 */
 type DisableElevatedPermissionsNotImplemented struct {
 	/*The error codes associated with the response

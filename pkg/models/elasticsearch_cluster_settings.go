@@ -55,6 +55,9 @@ type ElasticsearchClusterSettings struct {
 
 	// The rulesets to apply to all resources in this cluster. When specified the same rulesets will be applied to Kibana and APM clusters as well
 	TrafficFilter *TrafficFilterSettings `json:"traffic_filter,omitempty"`
+
+	// Configuration of trust with other clusters
+	Trust *TrustSettings `json:"trust,omitempty"`
 }
 
 // Validate validates this elasticsearch cluster settings
@@ -86,6 +89,10 @@ func (m *ElasticsearchClusterSettings) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateTrafficFilter(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateTrust(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -213,6 +220,24 @@ func (m *ElasticsearchClusterSettings) validateTrafficFilter(formats strfmt.Regi
 		if err := m.TrafficFilter.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("traffic_filter")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ElasticsearchClusterSettings) validateTrust(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Trust) { // not required
+		return nil
+	}
+
+	if m.Trust != nil {
+		if err := m.Trust.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("trust")
 			}
 			return err
 		}

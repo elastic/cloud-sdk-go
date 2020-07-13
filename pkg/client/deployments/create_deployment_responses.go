@@ -41,6 +41,12 @@ type CreateDeploymentReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateDeploymentReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
+	case 200:
+		result := NewCreateDeploymentOK()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return result, nil
 	case 201:
 		result := NewCreateDeploymentCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -69,6 +75,39 @@ func (o *CreateDeploymentReader) ReadResponse(response runtime.ClientResponse, c
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
+}
+
+// NewCreateDeploymentOK creates a CreateDeploymentOK with default headers values
+func NewCreateDeploymentOK() *CreateDeploymentOK {
+	return &CreateDeploymentOK{}
+}
+
+/*CreateDeploymentOK handles this case with default header values.
+
+The request was valid (used when validate_only is true).
+*/
+type CreateDeploymentOK struct {
+	Payload *models.DeploymentCreateResponse
+}
+
+func (o *CreateDeploymentOK) Error() string {
+	return fmt.Sprintf("[POST /deployments][%d] createDeploymentOK  %+v", 200, o.Payload)
+}
+
+func (o *CreateDeploymentOK) GetPayload() *models.DeploymentCreateResponse {
+	return o.Payload
+}
+
+func (o *CreateDeploymentOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.DeploymentCreateResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
 }
 
 // NewCreateDeploymentCreated creates a CreateDeploymentCreated with default headers values
@@ -130,7 +169,7 @@ func NewCreateDeploymentAccepted() *CreateDeploymentAccepted {
 
 /*CreateDeploymentAccepted handles this case with default header values.
 
-The request was valid.
+The request was valid and deployment creation had already been started.
 */
 type CreateDeploymentAccepted struct {
 	Payload *models.DeploymentCreateResponse

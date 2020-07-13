@@ -1268,7 +1268,7 @@ func (a *Client) StopKibanaClusterMaintenanceMode(params *StopKibanaClusterMaint
 /*
   UpdateKibanaClusterMetadataSettings updates cluster metadata settings
 
-  DEPRECATED (Scheduled to be removed in the next major version): All changes in the specified object are applied to the metadata object. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.
+  DEPRECATED (Scheduled to be removed in the next major version): All changes in the specified object are applied to the metadata object according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.
 */
 func (a *Client) UpdateKibanaClusterMetadataSettings(params *UpdateKibanaClusterMetadataSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateKibanaClusterMetadataSettingsOK, error) {
 	// TODO: Validate the params before sending
