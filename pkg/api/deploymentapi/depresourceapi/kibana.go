@@ -20,7 +20,6 @@ package depresourceapi
 import (
 	"fmt"
 
-	"github.com/elastic/cloud-sdk-go/pkg/api/platformapi/configurationtemplateapi"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
@@ -39,34 +38,18 @@ func NewKibana(params NewStateless) (*models.KibanaPayload, error) {
 		return nil, err
 	}
 
-	// remove for flag based dep create
-
 	// When either not set, we obtain the values from the running deployment.
 	// Overriding either or both is done at the end of the if.
 	if err := getTemplateAndRefID(&params); err != nil {
 		return nil, err
 	}
 
-	//remove for flag based dep create
-
-	// Obtain the deployment template so we can create the kibana topology from
-	// the specified sizes. The sizing overrides are done in newKibanaPayload.
-	res, err := configurationtemplateapi.GetTemplate(configurationtemplateapi.GetTemplateParams{
-		API:                params.API,
-		ID:                 params.TemplateID,
-		Region:             params.Region,
-		Format:             "deployment",
-		ShowInstanceConfig: true,
-	})
-	if err != nil {
-		return nil, err
-	}
-	if res.DeploymentTemplate.Resources.Kibana == nil {
+	if params.DeploymentTemplateInfo.DeploymentTemplate.Resources.Kibana == nil {
 		return nil, fmt.Errorf("deployment: the %s template is not configured for Kibana. Please use another template if you wish to start Kibana instances",
 			params.TemplateID)
 	}
 
-	var clusterTopology = res.DeploymentTemplate.Resources.Kibana[0].Plan.ClusterTopology
+	var clusterTopology = params.DeploymentTemplateInfo.DeploymentTemplate.Resources.Kibana[0].Plan.ClusterTopology
 	var topology = models.KibanaClusterTopologyElement{Size: new(models.TopologySize)}
 	if len(clusterTopology) > 0 {
 		topology = *clusterTopology[0]

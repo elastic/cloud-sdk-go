@@ -18,11 +18,10 @@
 package depresourceapi
 
 import (
-	"encoding/json"
 	"errors"
-	"os"
-	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
@@ -91,11 +90,12 @@ func TestParseElasticsearchInput(t *testing.T) {
 		{
 			name: "returns the payload from a set of raw topology elements",
 			args: args{params: ParseElasticsearchInputParams{
+				API: api.NewMock(mock.New200Response(mock.NewStructBody(elasticsearchTemplateResponse))),
 				NewElasticsearchParams: NewElasticsearchParams{
-					API:     api.NewMock(mock.New200Response(mock.NewStructBody(elasticsearchTemplateResponse))),
-					Region:  "ece-region",
-					Version: "7.4.2",
-					Name:    "mycluster",
+					Region:                 "ece-region",
+					Version:                "7.4.2",
+					Name:                   "mycluster",
+					DeploymentTemplateInfo: &elasticsearchTemplateResponse,
 				},
 				TopologyElements: rawClusterTopology,
 			}},
@@ -117,19 +117,20 @@ func TestParseElasticsearchInput(t *testing.T) {
 		{
 			name: "returns the payload from a set of raw topology elements and auto-discovers version",
 			args: args{params: ParseElasticsearchInputParams{
+				API: api.NewMock(
+					mock.New200Response(mock.NewStructBody(models.StackVersionConfigs{
+						Stacks: []*models.StackVersionConfig{
+							{Version: "6.4.2"},
+							{Version: "7.4.2"},
+							{Version: "5.4.2"},
+						},
+					})),
+					mock.New200Response(mock.NewStructBody(elasticsearchTemplateResponse)),
+				),
 				NewElasticsearchParams: NewElasticsearchParams{
-					API: api.NewMock(
-						mock.New200Response(mock.NewStructBody(models.StackVersionConfigs{
-							Stacks: []*models.StackVersionConfig{
-								{Version: "6.4.2"},
-								{Version: "7.4.2"},
-								{Version: "5.4.2"},
-							},
-						})),
-						mock.New200Response(mock.NewStructBody(elasticsearchTemplateResponse)),
-					),
-					Region: "ece-region",
-					Name:   "mycluster",
+					Region:                 "ece-region",
+					Name:                   "mycluster",
+					DeploymentTemplateInfo: &elasticsearchTemplateResponse,
 				},
 				TopologyElements: rawClusterTopology,
 			}},
@@ -151,12 +152,13 @@ func TestParseElasticsearchInput(t *testing.T) {
 		{
 			name: "returns the payload from a set of raw topology elements and fails the version auto-discover",
 			args: args{params: ParseElasticsearchInputParams{
+				API: api.NewMock(
+					mock.New200Response(mock.NewStringBody("failed to get the version error")),
+				),
 				NewElasticsearchParams: NewElasticsearchParams{
-					API: api.NewMock(
-						mock.New200Response(mock.NewStringBody("failed to get the version error")),
-					),
-					Region: "ece-region",
-					Name:   "mycluster",
+					Region:                 "ece-region",
+					Name:                   "mycluster",
+					DeploymentTemplateInfo: &elasticsearchTemplateResponse,
 				},
 				TopologyElements: rawClusterTopology,
 			}},
@@ -165,19 +167,20 @@ func TestParseElasticsearchInput(t *testing.T) {
 		{
 			name: "returns the payload from size and zonecount elements and auto-discovers version",
 			args: args{params: ParseElasticsearchInputParams{
+				API: api.NewMock(
+					mock.New200Response(mock.NewStructBody(models.StackVersionConfigs{
+						Stacks: []*models.StackVersionConfig{
+							{Version: "6.4.2"},
+							{Version: "7.4.2"},
+							{Version: "5.4.2"},
+						},
+					})),
+					mock.New200Response(mock.NewStructBody(elasticsearchTemplateResponse)),
+				),
 				NewElasticsearchParams: NewElasticsearchParams{
-					API: api.NewMock(
-						mock.New200Response(mock.NewStructBody(models.StackVersionConfigs{
-							Stacks: []*models.StackVersionConfig{
-								{Version: "6.4.2"},
-								{Version: "7.4.2"},
-								{Version: "5.4.2"},
-							},
-						})),
-						mock.New200Response(mock.NewStructBody(elasticsearchTemplateResponse)),
-					),
-					Region: "ece-region",
-					Name:   "mycluster",
+					Region:                 "ece-region",
+					Name:                   "mycluster",
+					DeploymentTemplateInfo: &elasticsearchTemplateResponse,
 				},
 				Size:      2048,
 				ZoneCount: 3,
@@ -212,10 +215,11 @@ func TestParseElasticsearchInput(t *testing.T) {
 		{
 			name: "returns the payload from size and zonecount elements and auto-discovers version",
 			args: args{params: ParseElasticsearchInputParams{
+				API: api.NewMock(),
 				NewElasticsearchParams: NewElasticsearchParams{
-					API:    api.NewMock(),
-					Region: "ece-region",
-					Name:   "mycluster",
+					Region:                 "ece-region",
+					Name:                   "mycluster",
+					DeploymentTemplateInfo: &elasticsearchTemplateResponse,
 				},
 				TopologyElements: []string{
 					`{"name": ""}`,
@@ -230,15 +234,11 @@ func TestParseElasticsearchInput(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := ParseElasticsearchInput(tt.args.params)
-			if !reflect.DeepEqual(err, tt.err) {
-				t.Errorf("ParseElasticsearchInput() error = %v, wantErr %v", err, tt.err)
-				return
+			if !assert.Equal(t, tt.err, err) {
+				t.Error(err)
 			}
-			if !reflect.DeepEqual(got, tt.want) {
-				json.NewEncoder(os.Stdout).Encode(got)
-				println("WANT")
-				json.NewEncoder(os.Stdout).Encode(tt.want)
-				t.Errorf("ParseElasticsearchInput() = %v, want %v", got, tt.want)
+			if !assert.Equal(t, tt.want, got) {
+				t.Error(err)
 			}
 		})
 	}

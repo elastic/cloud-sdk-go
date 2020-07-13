@@ -19,11 +19,10 @@ package depresourceapi
 
 import (
 	"errors"
-	"reflect"
 	"testing"
 
-	"github.com/elastic/cloud-sdk-go/pkg/api"
-	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
+	"github.com/stretchr/testify/assert"
+
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
@@ -94,8 +93,8 @@ func TestNewElasticsearch(t *testing.T) {
 					{},
 				},
 			}},
-			err: multierror.NewPrefixed("deployment elasticsearch",
-				errors.New("api reference is required for the operation"),
+			err: multierror.NewPrefixed("invalid deployment resource params",
+				errors.New("deployment template info is not specified and is required for the operation"),
 				errors.New("region cannot be empty"),
 				errors.New("version cannot be empty"),
 				errors.New("element[0]: elasticsearch topology: name cannot be empty"),
@@ -103,21 +102,12 @@ func TestNewElasticsearch(t *testing.T) {
 			),
 		},
 		{
-			name: "fails due to API error",
-			args: args{params: NewElasticsearchParams{
-				API:     api.NewMock(mock.New500Response(mock.NewStringBody("error"))),
-				Region:  "ece-region",
-				Version: "7.4.2",
-			}},
-			err: errors.New("error"),
-		},
-		{
 			name: "fails due to unknown desired topology",
 			args: args{params: NewElasticsearchParams{
-				API:        api.NewMock(mock.New200Response(mock.NewStructBody(elasticsearchTemplateResponse))),
-				Region:     "ece-region",
-				Version:    "7.4.2",
-				TemplateID: "default",
+				Region:                 "ece-region",
+				Version:                "7.4.2",
+				TemplateID:             "default",
+				DeploymentTemplateInfo: &elasticsearchTemplateResponse,
 				Topology: []ElasticsearchTopologyElement{
 					{Name: "some", Size: 1024},
 				},
@@ -127,10 +117,10 @@ func TestNewElasticsearch(t *testing.T) {
 		{
 			name: "Returns the default topology",
 			args: args{params: NewElasticsearchParams{
-				API:        api.NewMock(mock.New200Response(mock.NewStructBody(elasticsearchTemplateResponse))),
-				Region:     "ece-region",
-				Version:    "7.4.2",
-				TemplateID: "default",
+				Region:                 "ece-region",
+				Version:                "7.4.2",
+				TemplateID:             "default",
+				DeploymentTemplateInfo: &elasticsearchTemplateResponse,
 			}},
 			want: &models.ElasticsearchPayload{
 				DisplayName: "",
@@ -162,10 +152,10 @@ func TestNewElasticsearch(t *testing.T) {
 		{
 			name: "Returns a custom topology",
 			args: args{params: NewElasticsearchParams{
-				API:        api.NewMock(mock.New200Response(mock.NewStructBody(elasticsearchTemplateResponse))),
-				Region:     "ece-region",
-				Version:    "7.4.2",
-				TemplateID: "default",
+				Region:                 "ece-region",
+				Version:                "7.4.2",
+				TemplateID:             "default",
+				DeploymentTemplateInfo: &elasticsearchTemplateResponse,
 				Topology: []ElasticsearchTopologyElement{
 					{Name: DataNode, Size: 8192, ZoneCount: 2},
 					{Name: MasterNode, Size: 1024, ZoneCount: 1},
@@ -225,12 +215,11 @@ func TestNewElasticsearch(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := NewElasticsearch(tt.args.params)
-			if !reflect.DeepEqual(err, tt.err) {
-				t.Errorf("NewElasticsearch() error = %v, wantErr %v", err, tt.err)
-				return
+			if !assert.Equal(t, tt.err, err) {
+				t.Error(err)
 			}
-			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("NewElasticsearch() = %v, want %v", got, tt.want)
+			if !assert.Equal(t, tt.want, got) {
+				t.Error(err)
 			}
 		})
 	}

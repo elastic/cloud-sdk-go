@@ -19,8 +19,9 @@ package depresourceapi
 
 import (
 	"errors"
-	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
@@ -118,15 +119,60 @@ var appsearchKibanaTemplateResponse = models.DeploymentTemplateInfo{
 	},
 }
 
+var enterpriseSearchKibanaTemplateResponse = models.DeploymentTemplateInfo{
+	ID: "default",
+	DeploymentTemplate: &models.DeploymentCreateRequest{
+		Resources: &models.DeploymentCreateResources{
+			EnterpriseSearch: []*models.EnterpriseSearchPayload{
+				{
+					Plan: &models.EnterpriseSearchPlan{
+						ClusterTopology: []*models.EnterpriseSearchTopologyElement{
+							{
+								Size: &models.TopologySize{
+									Resource: ec.String("memory"),
+									Value:    ec.Int32(1024),
+								},
+								ZoneCount: 1,
+							},
+						},
+					},
+				},
+			},
+			Kibana: []*models.KibanaPayload{
+				{
+					Plan: &models.KibanaClusterPlan{
+						ClusterTopology: []*models.KibanaClusterTopologyElement{
+							{
+								Size: &models.TopologySize{
+									Resource: ec.String("memory"),
+									Value:    ec.Int32(1024),
+								},
+								ZoneCount: 1,
+							},
+						},
+					},
+				},
+			},
+			Elasticsearch: []*models.ElasticsearchPayload{
+				{
+					Plan: &models.ElasticsearchClusterPlan{
+						ClusterTopology: defaultESTopologies,
+					},
+				},
+			},
+		},
+	},
+}
+
 func TestNew(t *testing.T) {
 	type args struct {
 		params NewParams
 	}
 	tests := []struct {
-		name    string
-		args    args
-		want    *models.DeploymentCreateRequest
-		wantErr error
+		name string
+		args args
+		want *models.DeploymentCreateRequest
+		err  error
 	}{
 		{
 			name: "Fails due to API error",
@@ -148,7 +194,7 @@ func TestNew(t *testing.T) {
 					mock.NewStringBody("error"),
 				)),
 			}},
-			wantErr: errors.New("error"),
+			err: errors.New("error"),
 		},
 		{
 			name: "Fails to create a deployment payload with ES and Kibana instances",
@@ -171,7 +217,7 @@ func TestNew(t *testing.T) {
 					mock.New200Response(mock.NewStructBody(defaultTemplateResponse)),
 				),
 			}},
-			wantErr: errors.New("deployment: the default template is not configured for Kibana. Please use another template if you wish to start Kibana instances"),
+			err: errors.New("deployment: the default template is not configured for Kibana. Please use another template if you wish to start Kibana instances"),
 		},
 		{
 			name: "Fails to create a deployment payload with ES, Kibana and APM instances",
@@ -201,7 +247,7 @@ func TestNew(t *testing.T) {
 					mock.New200Response(mock.NewStructBody(appsearchKibanaTemplateResponse)),
 				),
 			}},
-			wantErr: errors.New("deployment: the default template is not configured for APM. Please use another template if you wish to start APM instances"),
+			err: errors.New("deployment: the default template is not configured for APM. Please use another template if you wish to start APM instances"),
 		},
 		{
 			name: "Fails to create a deployment payload with ES, Kibana and App Search instances",
@@ -231,7 +277,7 @@ func TestNew(t *testing.T) {
 					mock.New200Response(mock.NewStructBody(apmKibanaTemplateResponse)),
 				),
 			}},
-			wantErr: errors.New("deployment: the default template is not configured for App Search. Please use another template if you wish to start App Search instances"),
+			err: errors.New("deployment: the default template is not configured for App Search. Please use another template if you wish to start App Search instances"),
 		},
 		{
 			name: "Succeeds to create a deployment payload with ES and Kibana instances",
@@ -483,16 +529,107 @@ func TestNew(t *testing.T) {
 				}},
 			}},
 		},
+		{
+			name: "Succeeds to create a deployment payload with ES, Kibana and EnterpriseSearch instances",
+			args: args{params: NewParams{
+				Version: "7.6.1",
+				Region:  "ece-region",
+				ElasticsearchInstance: InstanceParams{
+					RefID:     "main-elasticsearch",
+					Size:      1024,
+					ZoneCount: 1,
+				},
+				KibanaInstance: InstanceParams{
+					RefID:     "main-kibana",
+					Size:      1024,
+					ZoneCount: 1,
+				},
+				EnterpriseSearchInstance: InstanceParams{
+					RefID:     "main-enterprise_search",
+					Size:      1024,
+					ZoneCount: 1,
+				},
+				DeploymentTemplateID:   "default",
+				EnterpriseSearchEnable: true,
+				API: api.NewMock(
+					mock.New200Response(mock.NewStructBody(enterpriseSearchKibanaTemplateResponse)),
+					mock.New200Response(mock.NewStructBody(enterpriseSearchKibanaTemplateResponse)),
+					mock.New200Response(mock.NewStructBody(enterpriseSearchKibanaTemplateResponse)),
+				),
+			}},
+			want: &models.DeploymentCreateRequest{Resources: &models.DeploymentCreateResources{
+				Elasticsearch: []*models.ElasticsearchPayload{{
+					RefID:  ec.String("main-elasticsearch"),
+					Region: ec.String("ece-region"),
+					Plan: &models.ElasticsearchClusterPlan{
+						Elasticsearch: &models.ElasticsearchConfiguration{
+							Version: "7.6.1",
+						},
+						DeploymentTemplate: &models.DeploymentTemplateReference{
+							ID: ec.String("default"),
+						},
+						ClusterTopology: []*models.ElasticsearchClusterTopologyElement{{
+							ZoneCount:               1,
+							InstanceConfigurationID: "default.data",
+							Size: &models.TopologySize{
+								Resource: ec.String("memory"),
+								Value:    ec.Int32(1024),
+							},
+							NodeType: &models.ElasticsearchNodeType{
+								Data: ec.Bool(true),
+							},
+						}},
+					}},
+				},
+				Kibana: []*models.KibanaPayload{{
+					ElasticsearchClusterRefID: ec.String("main-elasticsearch"),
+					Region:                    ec.String("ece-region"),
+					RefID:                     ec.String("main-kibana"),
+					Plan: &models.KibanaClusterPlan{
+						Kibana: &models.KibanaConfiguration{
+							Version: "7.6.1",
+						},
+						ClusterTopology: []*models.KibanaClusterTopologyElement{
+							{
+								Size: &models.TopologySize{
+									Resource: ec.String("memory"),
+									Value:    ec.Int32(1024),
+								},
+								ZoneCount: 1,
+							},
+						},
+					},
+				}},
+				EnterpriseSearch: []*models.EnterpriseSearchPayload{{
+					ElasticsearchClusterRefID: ec.String("main-elasticsearch"),
+					Region:                    ec.String("ece-region"),
+					RefID:                     ec.String("main-enterprise_search"),
+					Plan: &models.EnterpriseSearchPlan{
+						EnterpriseSearch: &models.EnterpriseSearchConfiguration{
+							Version: "7.6.1",
+						},
+						ClusterTopology: []*models.EnterpriseSearchTopologyElement{
+							{
+								Size: &models.TopologySize{
+									Resource: ec.String("memory"),
+									Value:    ec.Int32(1024),
+								},
+								ZoneCount: 1,
+							},
+						},
+					},
+				}},
+			}},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := New(tt.args.params)
-			if !reflect.DeepEqual(err, tt.wantErr) {
-				t.Errorf("New() error = %v, wantErr %v", err, tt.wantErr)
-				return
+			if !assert.Equal(t, tt.err, err) {
+				t.Error(err)
 			}
-			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("New() = %v, want %v", got, tt.want)
+			if !assert.Equal(t, tt.want, got) {
+				t.Error(err)
 			}
 		})
 	}

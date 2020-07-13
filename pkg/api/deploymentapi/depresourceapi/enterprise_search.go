@@ -20,7 +20,6 @@ package depresourceapi
 import (
 	"fmt"
 
-	"github.com/elastic/cloud-sdk-go/pkg/api/platformapi/configurationtemplateapi"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
@@ -45,25 +44,12 @@ func NewEnterpriseSearch(params NewStateless) (*models.EnterpriseSearchPayload, 
 		return nil, err
 	}
 
-	// Obtain the deployment template so we can create the enterprise-search topology from
-	// the specified sizes. The sizing overrides are done in newEnterpriseSearchPayload.
-	res, err := configurationtemplateapi.GetTemplate(configurationtemplateapi.GetTemplateParams{
-		API:                params.API,
-		ID:                 params.TemplateID,
-		Region:             params.Region,
-		Format:             "deployment",
-		ShowInstanceConfig: true,
-	})
-	if err != nil {
-		return nil, err
-	}
-
-	if res.DeploymentTemplate.Resources.EnterpriseSearch == nil {
+	if params.DeploymentTemplateInfo.DeploymentTemplate.Resources.EnterpriseSearch == nil {
 		return nil, fmt.Errorf("deployment: the %s template is not configured for Enterprise Search. Please use another template if you wish to start Enterprise Search instances",
 			params.TemplateID)
 	}
 
-	var clusterTopology = res.DeploymentTemplate.Resources.EnterpriseSearch[0].Plan.ClusterTopology
+	var clusterTopology = params.DeploymentTemplateInfo.DeploymentTemplate.Resources.EnterpriseSearch[0].Plan.ClusterTopology
 	var topology = models.EnterpriseSearchTopologyElement{Size: new(models.TopologySize)}
 	if len(clusterTopology) > 0 {
 		topology = *clusterTopology[0]

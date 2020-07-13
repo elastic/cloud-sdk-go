@@ -18,10 +18,10 @@
 package depresourceapi
 
 import (
-	"encoding/json"
 	"errors"
-	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
@@ -108,8 +108,9 @@ func TestNewAppSearch(t *testing.T) {
 		{
 			name: "fails due to parameter validation",
 			args: args{params: NewStateless{DeploymentID: "invalidID"}},
-			err: multierror.NewPrefixed("deployment resource",
+			err: multierror.NewPrefixed("invalid deployment resource params",
 				apierror.ErrMissingAPI,
+				errors.New("deployment template info is not specified and is required for the operation"),
 				apierror.ErrDeploymentID,
 				errors.New("topology: region cannot be empty"),
 			),
@@ -117,9 +118,10 @@ func TestNewAppSearch(t *testing.T) {
 		{
 			name: "fails obtaining the deployment info",
 			args: args{params: NewStateless{
-				DeploymentID: mock.ValidClusterID,
-				API:          api.NewMock(mock.SampleInternalError()),
-				Region:       "ece-region",
+				DeploymentID:           mock.ValidClusterID,
+				API:                    api.NewMock(mock.SampleInternalError()),
+				Region:                 "ece-region",
+				DeploymentTemplateInfo: &models.DeploymentTemplateInfo{Name: ec.String("default")},
 			}},
 			err: mock.MultierrorInternalError,
 		},
@@ -138,7 +140,8 @@ func TestNewAppSearch(t *testing.T) {
 						},
 					})),
 				),
-				Region: "ece-region",
+				Region:                 "ece-region",
+				DeploymentTemplateInfo: &models.DeploymentTemplateInfo{Name: ec.String("default")},
 			}},
 			err: errors.New("unable to obtain deployment template ID from existing deployment ID, please specify a one"),
 		},
@@ -147,10 +150,10 @@ func TestNewAppSearch(t *testing.T) {
 			args: args{params: NewStateless{
 				DeploymentID: mock.ValidClusterID,
 				API: api.NewMock(
-					mock.New200Response(mock.NewStructBody(getResponse)),
 					mock.SampleInternalError(),
 				),
-				Region: "ece-region",
+				Region:                 "ece-region",
+				DeploymentTemplateInfo: &models.DeploymentTemplateInfo{Name: ec.String("default")},
 			}},
 			err: mock.MultierrorInternalError,
 		},
@@ -162,7 +165,8 @@ func TestNewAppSearch(t *testing.T) {
 					mock.New200Response(mock.NewStructBody(getResponse)),
 					mock.New200Response(mock.NewStructBody(defaultTemplateResponse)),
 				),
-				Region: "ece-region",
+				Region:                 "ece-region",
+				DeploymentTemplateInfo: &defaultTemplateResponse,
 			}},
 			err: errors.New("deployment: the an ID template is not configured for App Search. Please use another template if you wish to start App Search instances"),
 		},
@@ -171,10 +175,12 @@ func TestNewAppSearch(t *testing.T) {
 			args: args{params: NewStateless{
 				DeploymentID: mock.ValidClusterID,
 				API: api.NewMock(
-					mock.New200Response(mock.NewStructBody(getResponse)),
 					mock.New200Response(mock.NewStructBody(appsearchTemplateResponse)),
 				),
-				Region: "ece-region",
+				TemplateID:             "default",
+				Region:                 "ece-region",
+				ElasticsearchRefID:     "main-elasticsearch",
+				DeploymentTemplateInfo: &appsearchTemplateResponse,
 			}},
 			want: &models.AppSearchPayload{
 				ElasticsearchClusterRefID: ec.String("main-elasticsearch"),
@@ -204,7 +210,8 @@ func TestNewAppSearch(t *testing.T) {
 					mock.New200Response(mock.NewStructBody(getResponse)),
 					mock.New200Response(mock.NewStructBody(appsearchTemplateResponse)),
 				),
-				Region: "ece-region",
+				Region:                 "ece-region",
+				DeploymentTemplateInfo: &appsearchTemplateResponse,
 			}},
 			want: &models.AppSearchPayload{
 				ElasticsearchClusterRefID: ec.String("main-elasticsearch"),
@@ -228,16 +235,11 @@ func TestNewAppSearch(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := NewAppSearch(tt.args.params)
-			if !reflect.DeepEqual(err, tt.err) {
-				t.Errorf("NewAppSearch() error = %v, wantErr %v", err, tt.err)
-				return
+			if !assert.Equal(t, tt.err, err) {
+				t.Error(err)
 			}
-			if !reflect.DeepEqual(got, tt.want) {
-				g, _ := json.Marshal(got)
-				w, _ := json.Marshal(tt.want)
-				println(string(g))
-				println(string(w))
-				t.Errorf("NewAppSearch() = %v, want %v", got, tt.want)
+			if !assert.Equal(t, tt.want, got) {
+				t.Error(err)
 			}
 		})
 	}
