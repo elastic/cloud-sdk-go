@@ -108,7 +108,7 @@ func buildRequest(host, path, method string) *http.Request {
 	isDeploymentTemplates := strings.Contains(path, "deployments/templates")
 
 	if isDeploymentTemplates {
-		path = path + "?region=ece-region"
+		path += "?region=ece-region"
 	}
 
 	if isPost || isPut || isPatch || isUsersAuthKeys {
