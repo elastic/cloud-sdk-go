@@ -34,16 +34,17 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/client/clusters_elasticsearch"
 	"github.com/elastic/cloud-sdk-go/pkg/client/clusters_kibana"
 	"github.com/elastic/cloud-sdk-go/pkg/client/comments"
+	"github.com/elastic/cloud-sdk-go/pkg/client/deployment_templates"
 	"github.com/elastic/cloud-sdk-go/pkg/client/deployments"
 	"github.com/elastic/cloud-sdk-go/pkg/client/deployments_ip_filtering"
 	"github.com/elastic/cloud-sdk-go/pkg/client/deployments_notes"
 	"github.com/elastic/cloud-sdk-go/pkg/client/deployments_traffic_filter"
+	"github.com/elastic/cloud-sdk-go/pkg/client/extensions"
 	"github.com/elastic/cloud-sdk-go/pkg/client/platform"
 	"github.com/elastic/cloud-sdk-go/pkg/client/platform_configuration_instances"
 	"github.com/elastic/cloud-sdk-go/pkg/client/platform_configuration_security"
 	"github.com/elastic/cloud-sdk-go/pkg/client/platform_configuration_snapshots"
 	"github.com/elastic/cloud-sdk-go/pkg/client/platform_configuration_templates"
-	"github.com/elastic/cloud-sdk-go/pkg/client/platform_configuration_trust_relationships"
 	"github.com/elastic/cloud-sdk-go/pkg/client/platform_infrastructure"
 	"github.com/elastic/cloud-sdk-go/pkg/client/stack"
 	"github.com/elastic/cloud-sdk-go/pkg/client/telemetry"
@@ -98,16 +99,17 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Rest {
 	cli.ClustersElasticsearch = clusters_elasticsearch.New(transport, formats)
 	cli.ClustersKibana = clusters_kibana.New(transport, formats)
 	cli.Comments = comments.New(transport, formats)
+	cli.DeploymentTemplates = deployment_templates.New(transport, formats)
 	cli.Deployments = deployments.New(transport, formats)
 	cli.DeploymentsIPFiltering = deployments_ip_filtering.New(transport, formats)
 	cli.DeploymentsNotes = deployments_notes.New(transport, formats)
 	cli.DeploymentsTrafficFilter = deployments_traffic_filter.New(transport, formats)
+	cli.Extensions = extensions.New(transport, formats)
 	cli.Platform = platform.New(transport, formats)
 	cli.PlatformConfigurationInstances = platform_configuration_instances.New(transport, formats)
 	cli.PlatformConfigurationSecurity = platform_configuration_security.New(transport, formats)
 	cli.PlatformConfigurationSnapshots = platform_configuration_snapshots.New(transport, formats)
 	cli.PlatformConfigurationTemplates = platform_configuration_templates.New(transport, formats)
-	cli.PlatformConfigurationTrustRelationships = platform_configuration_trust_relationships.New(transport, formats)
 	cli.PlatformInfrastructure = platform_infrastructure.New(transport, formats)
 	cli.Stack = stack.New(transport, formats)
 	cli.Telemetry = telemetry.New(transport, formats)
@@ -168,6 +170,8 @@ type Rest struct {
 
 	Comments comments.ClientService
 
+	DeploymentTemplates deployment_templates.ClientService
+
 	Deployments deployments.ClientService
 
 	DeploymentsIPFiltering deployments_ip_filtering.ClientService
@@ -175,6 +179,8 @@ type Rest struct {
 	DeploymentsNotes deployments_notes.ClientService
 
 	DeploymentsTrafficFilter deployments_traffic_filter.ClientService
+
+	Extensions extensions.ClientService
 
 	Platform platform.ClientService
 
@@ -185,8 +191,6 @@ type Rest struct {
 	PlatformConfigurationSnapshots platform_configuration_snapshots.ClientService
 
 	PlatformConfigurationTemplates platform_configuration_templates.ClientService
-
-	PlatformConfigurationTrustRelationships platform_configuration_trust_relationships.ClientService
 
 	PlatformInfrastructure platform_infrastructure.ClientService
 
@@ -208,16 +212,17 @@ func (c *Rest) SetTransport(transport runtime.ClientTransport) {
 	c.ClustersElasticsearch.SetTransport(transport)
 	c.ClustersKibana.SetTransport(transport)
 	c.Comments.SetTransport(transport)
+	c.DeploymentTemplates.SetTransport(transport)
 	c.Deployments.SetTransport(transport)
 	c.DeploymentsIPFiltering.SetTransport(transport)
 	c.DeploymentsNotes.SetTransport(transport)
 	c.DeploymentsTrafficFilter.SetTransport(transport)
+	c.Extensions.SetTransport(transport)
 	c.Platform.SetTransport(transport)
 	c.PlatformConfigurationInstances.SetTransport(transport)
 	c.PlatformConfigurationSecurity.SetTransport(transport)
 	c.PlatformConfigurationSnapshots.SetTransport(transport)
 	c.PlatformConfigurationTemplates.SetTransport(transport)
-	c.PlatformConfigurationTrustRelationships.SetTransport(transport)
 	c.PlatformInfrastructure.SetTransport(transport)
 	c.Stack.SetTransport(transport)
 	c.Telemetry.SetTransport(transport)

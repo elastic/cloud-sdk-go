@@ -79,7 +79,7 @@ for the update current user operation typically these are written to a http.Requ
 type UpdateCurrentUserParams struct {
 
 	/*Body
-	  All changes in the specified object are applied to the current user. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.
+	  All changes in the specified object are applied to the current user according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.
 
 	*/
 	Body string

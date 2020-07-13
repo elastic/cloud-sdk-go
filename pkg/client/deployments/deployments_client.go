@@ -46,11 +46,13 @@ type Client struct {
 type ClientService interface {
 	CancelDeploymentResourcePendingPlan(params *CancelDeploymentResourcePendingPlanParams, authInfo runtime.ClientAuthInfoWriter) (*CancelDeploymentResourcePendingPlanOK, error)
 
-	CreateDeployment(params *CreateDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*CreateDeploymentCreated, *CreateDeploymentAccepted, error)
+	CreateDeployment(params *CreateDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*CreateDeploymentOK, *CreateDeploymentCreated, *CreateDeploymentAccepted, error)
 
 	DeleteDeployment(params *DeleteDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteDeploymentOK, error)
 
 	DeleteDeploymentStatelessResource(params *DeleteDeploymentStatelessResourceParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteDeploymentStatelessResourceOK, error)
+
+	DeploymentApmResetSecretToken(params *DeploymentApmResetSecretTokenParams, authInfo runtime.ClientAuthInfoWriter) (*DeploymentApmResetSecretTokenAccepted, error)
 
 	EnableDeploymentResourceIlm(params *EnableDeploymentResourceIlmParams, authInfo runtime.ClientAuthInfoWriter) (*EnableDeploymentResourceIlmOK, error)
 
@@ -69,6 +71,8 @@ type ClientService interface {
 	GetDeploymentEsResourceInfo(params *GetDeploymentEsResourceInfoParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentEsResourceInfoOK, error)
 
 	GetDeploymentEsResourceKeystore(params *GetDeploymentEsResourceKeystoreParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentEsResourceKeystoreOK, error)
+
+	GetDeploymentEsResourceRemoteClusters(params *GetDeploymentEsResourceRemoteClustersParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentEsResourceRemoteClustersOK, error)
 
 	GetDeploymentKibResourceInfo(params *GetDeploymentKibResourceInfoParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentKibResourceInfoOK, error)
 
@@ -93,6 +97,8 @@ type ClientService interface {
 	SetAppsearchReadOnlyMode(params *SetAppsearchReadOnlyModeParams, authInfo runtime.ClientAuthInfoWriter) (*SetAppsearchReadOnlyModeOK, error)
 
 	SetDeploymentEsResourceKeystore(params *SetDeploymentEsResourceKeystoreParams, authInfo runtime.ClientAuthInfoWriter) (*SetDeploymentEsResourceKeystoreOK, error)
+
+	SetDeploymentEsResourceRemoteClusters(params *SetDeploymentEsResourceRemoteClustersParams, authInfo runtime.ClientAuthInfoWriter) (*SetDeploymentEsResourceRemoteClustersAccepted, error)
 
 	SetDeploymentResourceRawMetadata(params *SetDeploymentResourceRawMetadataParams, authInfo runtime.ClientAuthInfoWriter) (*SetDeploymentResourceRawMetadataOK, error)
 
@@ -167,7 +173,7 @@ func (a *Client) CancelDeploymentResourcePendingPlan(params *CancelDeploymentRes
 
   Creates a Deployment.
 */
-func (a *Client) CreateDeployment(params *CreateDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*CreateDeploymentCreated, *CreateDeploymentAccepted, error) {
+func (a *Client) CreateDeployment(params *CreateDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*CreateDeploymentOK, *CreateDeploymentCreated, *CreateDeploymentAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateDeploymentParams()
@@ -187,13 +193,15 @@ func (a *Client) CreateDeployment(params *CreateDeploymentParams, authInfo runti
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return nil, nil, err
+		return nil, nil, nil, err
 	}
 	switch value := result.(type) {
+	case *CreateDeploymentOK:
+		return value, nil, nil, nil
 	case *CreateDeploymentCreated:
-		return value, nil, nil
+		return nil, value, nil, nil
 	case *CreateDeploymentAccepted:
-		return nil, value, nil
+		return nil, nil, value, nil
 	}
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for deployments: API contract not enforced by server. Client expected to get an error, but got: %T", result)
@@ -271,6 +279,43 @@ func (a *Client) DeleteDeploymentStatelessResource(params *DeleteDeploymentState
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for delete-deployment-stateless-resource: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DeploymentApmResetSecretToken resets the secret token for an a p m resource
+
+  Reset the token of an APM resource.
+*/
+func (a *Client) DeploymentApmResetSecretToken(params *DeploymentApmResetSecretTokenParams, authInfo runtime.ClientAuthInfoWriter) (*DeploymentApmResetSecretTokenAccepted, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeploymentApmResetSecretTokenParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "deployment-apm-reset-secret-token",
+		Method:             "POST",
+		PathPattern:        "/deployments/{deployment_id}/apm/{ref_id}/_reset-token",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeploymentApmResetSecretTokenReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DeploymentApmResetSecretTokenAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for deployment-apm-reset-secret-token: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -604,6 +649,43 @@ func (a *Client) GetDeploymentEsResourceKeystore(params *GetDeploymentEsResource
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for get-deployment-es-resource-keystore: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  GetDeploymentEsResourceRemoteClusters gets remote clusters
+
+  Returns the list of remote clusters for the elasticsearch resource.
+*/
+func (a *Client) GetDeploymentEsResourceRemoteClusters(params *GetDeploymentEsResourceRemoteClustersParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentEsResourceRemoteClustersOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetDeploymentEsResourceRemoteClustersParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "get-deployment-es-resource-remote-clusters",
+		Method:             "GET",
+		PathPattern:        "/deployments/{deployment_id}/elasticsearch/{ref_id}/remote-clusters",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetDeploymentEsResourceRemoteClustersReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetDeploymentEsResourceRemoteClustersOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-deployment-es-resource-remote-clusters: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -1048,6 +1130,43 @@ func (a *Client) SetDeploymentEsResourceKeystore(params *SetDeploymentEsResource
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for set-deployment-es-resource-keystore: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  SetDeploymentEsResourceRemoteClusters sets remote clusters
+
+  Overwrites or creates the remote clusters for the elasticsearch resource.
+*/
+func (a *Client) SetDeploymentEsResourceRemoteClusters(params *SetDeploymentEsResourceRemoteClustersParams, authInfo runtime.ClientAuthInfoWriter) (*SetDeploymentEsResourceRemoteClustersAccepted, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSetDeploymentEsResourceRemoteClustersParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "set-deployment-es-resource-remote-clusters",
+		Method:             "PUT",
+		PathPattern:        "/deployments/{deployment_id}/elasticsearch/{ref_id}/remote-clusters",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &SetDeploymentEsResourceRemoteClustersReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*SetDeploymentEsResourceRemoteClustersAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for set-deployment-es-resource-remote-clusters: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

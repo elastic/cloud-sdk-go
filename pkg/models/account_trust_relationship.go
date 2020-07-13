@@ -29,31 +29,31 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// TrustRelationshipCreateRequest A request for creating a trust relationship with another environment
-// swagger:model TrustRelationshipCreateRequest
-type TrustRelationshipCreateRequest struct {
+// AccountTrustRelationship The trust relationship with the clusters of one account.
+// swagger:model AccountTrustRelationship
+type AccountTrustRelationship struct {
 
-	// A name for the trust relationship
+	// the ID of the Account
 	// Required: true
-	Name *string `json:"name"`
+	AccountID *string `json:"account_id"`
 
-	// The public CA certificate of the environment to trust
+	// If true, all the clusters of this account will be trusted and the `trust_whitelist` is ignored.
 	// Required: true
-	PublicCaCert *string `json:"public_ca_cert"`
+	TrustAll *bool `json:"trust_all"`
 
-	// If this relationship is trusted by default by all deployments in the current environment, defaults to `false`
-	TrustByDefault *bool `json:"trust_by_default,omitempty"`
+	// The list of clusters to trust. Only used when `trust_all` is false.
+	TrustWhitelist []string `json:"trust_whitelist"`
 }
 
-// Validate validates this trust relationship create request
-func (m *TrustRelationshipCreateRequest) Validate(formats strfmt.Registry) error {
+// Validate validates this account trust relationship
+func (m *AccountTrustRelationship) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateName(formats); err != nil {
+	if err := m.validateAccountID(formats); err != nil {
 		res = append(res, err)
 	}
 
-	if err := m.validatePublicCaCert(formats); err != nil {
+	if err := m.validateTrustAll(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -63,18 +63,18 @@ func (m *TrustRelationshipCreateRequest) Validate(formats strfmt.Registry) error
 	return nil
 }
 
-func (m *TrustRelationshipCreateRequest) validateName(formats strfmt.Registry) error {
+func (m *AccountTrustRelationship) validateAccountID(formats strfmt.Registry) error {
 
-	if err := validate.Required("name", "body", m.Name); err != nil {
+	if err := validate.Required("account_id", "body", m.AccountID); err != nil {
 		return err
 	}
 
 	return nil
 }
 
-func (m *TrustRelationshipCreateRequest) validatePublicCaCert(formats strfmt.Registry) error {
+func (m *AccountTrustRelationship) validateTrustAll(formats strfmt.Registry) error {
 
-	if err := validate.Required("public_ca_cert", "body", m.PublicCaCert); err != nil {
+	if err := validate.Required("trust_all", "body", m.TrustAll); err != nil {
 		return err
 	}
 
@@ -82,7 +82,7 @@ func (m *TrustRelationshipCreateRequest) validatePublicCaCert(formats strfmt.Reg
 }
 
 // MarshalBinary interface implementation
-func (m *TrustRelationshipCreateRequest) MarshalBinary() ([]byte, error) {
+func (m *AccountTrustRelationship) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -90,8 +90,8 @@ func (m *TrustRelationshipCreateRequest) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *TrustRelationshipCreateRequest) UnmarshalBinary(b []byte) error {
-	var res TrustRelationshipCreateRequest
+func (m *AccountTrustRelationship) UnmarshalBinary(b []byte) error {
+	var res AccountTrustRelationship
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

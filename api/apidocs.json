@@ -21,6 +21,8 @@
   }, {
     "name" : "Comments"
   }, {
+    "name" : "DeploymentTemplates"
+  }, {
     "name" : "Deployments"
   }, {
     "name" : "DeploymentsIpFiltering"
@@ -28,6 +30,8 @@
     "name" : "DeploymentsNotes"
   }, {
     "name" : "DeploymentsTrafficFilter"
+  }, {
+    "name" : "Extensions"
   }, {
     "name" : "Platform"
   }, {
@@ -38,8 +42,6 @@
     "name" : "PlatformConfigurationSnapshots"
   }, {
     "name" : "PlatformConfigurationTemplates"
-  }, {
-    "name" : "PlatformConfigurationTrustRelationships"
   }, {
     "name" : "PlatformInfrastructure"
   }, {
@@ -1816,7 +1818,7 @@
       "patch" : {
         "tags" : [ "ClustersApm" ],
         "summary" : "Update cluster metadata settings",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): All changes in the specified object are applied to the metadata object. Omitting existing fields causes the same values to be reapplied.Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.",
+        "description" : "DEPRECATED (Scheduled to be removed in the next major version): All changes in the specified object are applied to the metadata object according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.",
         "operationId" : "update-apm-metadata-settings",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -4658,7 +4660,7 @@
       "patch" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Update cluster metadata settings",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): All changes in the specified object are applied to the metadata object. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.",
+        "description" : "DEPRECATED (Scheduled to be removed in the next major version): All changes in the specified object are applied to the metadata object according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.",
         "operationId" : "update-es-cluster-metadata-settings",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -5693,7 +5695,7 @@
       "patch" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Update cluster snapshot settings",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Any changes in the PATCHed object will be applied to the snapshot settings object.  PATCHing existing fields will cause same values to be re-applied. PATCHing a value of 'null' will cause the field to be reverted to its default value or removed if no default value exists.",
+        "description" : "DEPRECATED (Scheduled to be removed in the next major version): All changes in the specified object are applied to the snapshot settings according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.",
         "operationId" : "update-es-cluster-snapshot-settings",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -7539,7 +7541,7 @@
       "patch" : {
         "tags" : [ "ClustersKibana" ],
         "summary" : "Update cluster metadata settings",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): All changes in the specified object are applied to the metadata object. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.",
+        "description" : "DEPRECATED (Scheduled to be removed in the next major version): All changes in the specified object are applied to the metadata object according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.",
         "operationId" : "update-kibana-cluster-metadata-settings",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -8632,7 +8634,13 @@
             }
           },
           "202" : {
-            "description" : "The request was valid.",
+            "description" : "The request was valid and deployment creation had already been started.",
+            "schema" : {
+              "$ref" : "#/definitions/DeploymentCreateResponse"
+            }
+          },
+          "200" : {
+            "description" : "The request was valid (used when validate_only is true).",
             "schema" : {
               "$ref" : "#/definitions/DeploymentCreateResponse"
             }
@@ -8755,6 +8763,461 @@
         } ],
         "x-doc" : {
           "tag" : "Deployment - Commands"
+        }
+      }
+    },
+    "/deployments/extensions" : {
+      "get" : {
+        "tags" : [ "Extensions" ],
+        "summary" : "List Extensions",
+        "description" : "Retrieves all of the available extensions.",
+        "operationId" : "list-extensions",
+        "parameters" : [ {
+          "name" : "include_deployments",
+          "in" : "query",
+          "description" : "Include deployments referencing this extension.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The Extensions that are available",
+            "schema" : {
+              "$ref" : "#/definitions/Extensions"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployments - Extensions"
+        }
+      },
+      "post" : {
+        "tags" : [ "Extensions" ],
+        "summary" : "Create an extension",
+        "description" : "Creates the extension.\n The extensions API supports two types of usage patterns.\n A). Specify a `download_url`, http or https URL,  where the extension is currently hosted. This will result in extension being copied to elastic repository.\n B). Create only the extension metadata using the `POST` endpoint and then use `PUT` to upload the extension file. Leave the `download_url` unspecified in this case.\n",
+        "operationId" : "create-extension",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "the data that creates the extension",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/CreateExtensionRequest"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "The Extension that was just created.",
+            "headers" : {
+              "x-cloud-resource-version" : {
+                "type" : "string",
+                "description" : "The resource version, which is used to avoid update conflicts with concurrent operations"
+              },
+              "x-cloud-resource-created" : {
+                "type" : "string",
+                "description" : "The date-time when the resource was created (ISO format relative to UTC)"
+              },
+              "x-cloud-resource-last-modified" : {
+                "type" : "string",
+                "description" : "The date-time when the resource was last modified (ISO format relative to UTC)"
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/Extension"
+            }
+          },
+          "404" : {
+            "description" : "Your current session does not have a user id associated with it. (code: `extensions.no_user_id`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "extensions.no_user_id" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "400" : {
+            "description" : "Could not download the extension from the specified URL. (code: `extensions.request_execution_failed`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "extensions.request_execution_failed" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "409" : {
+            "description" : "An extension already exists with the generated id. Please try again. (code: `extensions.id_already_exists`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "extensions.id_already_exists" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployments - Extensions"
+        }
+      }
+    },
+    "/deployments/extensions/{extension_id}" : {
+      "get" : {
+        "tags" : [ "Extensions" ],
+        "summary" : "Get Extension",
+        "description" : "Retrieves an Extension.",
+        "operationId" : "get-extension",
+        "parameters" : [ {
+          "name" : "extension_id",
+          "in" : "path",
+          "description" : "Id of an Extension",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "include_deployments",
+          "in" : "query",
+          "description" : "Include deployments referencing this extension.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The Extension",
+            "headers" : {
+              "x-cloud-resource-version" : {
+                "type" : "string",
+                "description" : "The resource version, which is used to avoid update conflicts with concurrent operations"
+              },
+              "x-cloud-resource-created" : {
+                "type" : "string",
+                "description" : "The date-time when the resource was created (ISO format relative to UTC)"
+              },
+              "x-cloud-resource-last-modified" : {
+                "type" : "string",
+                "description" : "The date-time when the resource was last modified (ISO format relative to UTC)"
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/Extension"
+            }
+          },
+          "404" : {
+            "description" : "The Extension requested does not exist. (code: `extensions.not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "extensions.not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployments - Extensions"
+        }
+      },
+      "post" : {
+        "tags" : [ "Extensions" ],
+        "summary" : "Update Extension",
+        "description" : "Updates a Extension.",
+        "operationId" : "update-extension",
+        "parameters" : [ {
+          "name" : "extension_id",
+          "in" : "path",
+          "description" : "Id of an Extension",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "The Extension update data.",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/UpdateExtensionRequest"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Extension updated successfully.",
+            "headers" : {
+              "x-cloud-resource-version" : {
+                "type" : "string",
+                "description" : "The resource version, which is used to avoid update conflicts with concurrent operations"
+              },
+              "x-cloud-resource-created" : {
+                "type" : "string",
+                "description" : "The date-time when the resource was created (ISO format relative to UTC)"
+              },
+              "x-cloud-resource-last-modified" : {
+                "type" : "string",
+                "description" : "The date-time when the resource was last modified (ISO format relative to UTC)"
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/Extension"
+            }
+          },
+          "401" : {
+            "description" : "* The Extension does not belong to you. (code: `extensions.unauthorised`)\n* Your current session does not have a user id associated with it. (code: `extensions.no_user_id`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "extensions.unauthorised", "extensions.no_user_id" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "404" : {
+            "description" : "The Extension you want does not exist. (code: `extensions.not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "extensions.not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "400" : {
+            "description" : "Could not download the extension from the specified URL. (code: `extensions.request_execution_failed`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "extensions.request_execution_failed" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "409" : {
+            "description" : "The version you sent does not match the persisted version. (code: `extensions.version_conflict`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "extensions.version_conflict" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployments - Extensions"
+        }
+      },
+      "put" : {
+        "tags" : [ "Extensions" ],
+        "summary" : "Uploads the Extension",
+        "description" : "Uploads archive for an Extension.",
+        "operationId" : "upload-extension",
+        "consumes" : [ "multipart/form-data" ],
+        "parameters" : [ {
+          "name" : "extension_id",
+          "in" : "path",
+          "description" : "Id of an Extension",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "file",
+          "in" : "formData",
+          "description" : "Zip file that contains the extension",
+          "required" : true,
+          "type" : "file"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Archive uploaded successfully.",
+            "headers" : {
+              "x-cloud-resource-version" : {
+                "type" : "string",
+                "description" : "The resource version, which is used to avoid update conflicts with concurrent operations"
+              },
+              "x-cloud-resource-created" : {
+                "type" : "string",
+                "description" : "The date-time when the resource was created (ISO format relative to UTC)"
+              },
+              "x-cloud-resource-last-modified" : {
+                "type" : "string",
+                "description" : "The date-time when the resource was last modified (ISO format relative to UTC)"
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/Extension"
+            }
+          },
+          "401" : {
+            "description" : "* The Extension does not belong to you. (code: `extensions.unauthorised`)\n* Your current session does not have a user id associated with it. (code: `extensions.no_user_id`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "extensions.unauthorised", "extensions.no_user_id" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "404" : {
+            "description" : "The Extension you want does not exist. (code: `extensions.not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "extensions.not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "400" : {
+            "description" : "Could not accept the extensions file. (code: `extensions.request_execution_failed`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "extensions.request_execution_failed" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployments - Extensions"
+        }
+      },
+      "delete" : {
+        "tags" : [ "Extensions" ],
+        "summary" : "Delete Extension",
+        "description" : "Deletes a Extension.",
+        "operationId" : "delete-extension",
+        "parameters" : [ {
+          "name" : "extension_id",
+          "in" : "path",
+          "description" : "Id of an Extension",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Extension deleted successfully.",
+            "headers" : {
+              "x-cloud-resource-version" : {
+                "type" : "string",
+                "description" : "The resource version, which is used to avoid update conflicts with concurrent operations"
+              },
+              "x-cloud-resource-created" : {
+                "type" : "string",
+                "description" : "The date-time when the resource was created (ISO format relative to UTC)"
+              },
+              "x-cloud-resource-last-modified" : {
+                "type" : "string",
+                "description" : "The date-time when the resource was last modified (ISO format relative to UTC)"
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/EmptyResponse"
+            }
+          },
+          "401" : {
+            "description" : "* The Extension does not belong to you. (code: `extensions.unauthorised`)\n* Your current session does not have a user id associated with it. (code: `extensions.no_user_id`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "extensions.unauthorised", "extensions.no_user_id" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "404" : {
+            "description" : "The Extension requested does not exist. (code: `extensions.not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "extensions.not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "409" : {
+            "description" : "The version you sent does not match the persisted version. (code: `extensions.version_conflict`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "extensions.version_conflict" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployments - Extensions"
         }
       }
     },
@@ -9204,6 +9667,471 @@
         } ],
         "x-doc" : {
           "tag" : "Deployments - IP Filtering - CRUD"
+        }
+      }
+    },
+    "/deployments/templates" : {
+      "get" : {
+        "tags" : [ "DeploymentTemplates" ],
+        "summary" : "Get deployment templates",
+        "description" : "Retrieves all deployment templates.",
+        "operationId" : "get-deployment-templates-v2",
+        "parameters" : [ {
+          "name" : "metadata",
+          "in" : "query",
+          "description" : "An optional key/value pair in the form of (key:value) that will act as a filter and exclude any templates that do not have a matching metadata item associated.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "show_instance_configurations",
+          "in" : "query",
+          "description" : "If true, will return details for each instance configuration referenced by the template.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : true
+        }, {
+          "name" : "stack_version",
+          "in" : "query",
+          "description" : "If present, it will cause the returned deployment templates to be adapted to return only the elements allowed in that version.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "show_hidden",
+          "in" : "query",
+          "description" : "If true, templates flagged as hidden will be returned.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "region",
+          "in" : "query",
+          "description" : "Region of the deployment templates",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The deployment templates were returned successfully.",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/DeploymentTemplateInfoV2"
+              }
+            }
+          },
+          "401" : {
+            "description" : "The user is not authorized to access requested region. (code: `templates.region_not_allowed`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "templates.region_not_allowed" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "400" : {
+            "description" : "The requested region was not found. (code: `templates.region_not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "templates.region_not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployments - Templates"
+        }
+      },
+      "post" : {
+        "tags" : [ "DeploymentTemplates" ],
+        "summary" : "Create deployment template",
+        "description" : "Creates a deployment template.",
+        "operationId" : "create-deployment-template-v2",
+        "parameters" : [ {
+          "name" : "region",
+          "in" : "query",
+          "description" : "Region of the deployment template",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "The deployment template definition.",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/DeploymentTemplateRequestBody"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "The deployment definition was valid and the template has been created.",
+            "schema" : {
+              "$ref" : "#/definitions/IdResponse"
+            }
+          },
+          "400" : {
+            "description" : "The requested region is not supported. (code: `templates.region_not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "templates.region_not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "401" : {
+            "description" : "The user is not authorized to access requested region. (code: `templates.region_not_allowed`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "templates.region_not_allowed" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "449" : {
+            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployments - Templates"
+        }
+      }
+    },
+    "/deployments/templates/{template_id}" : {
+      "get" : {
+        "tags" : [ "DeploymentTemplates" ],
+        "summary" : "Get deployment template",
+        "description" : "Retrieves a deployment template by id.",
+        "operationId" : "get-deployment-template-v2",
+        "parameters" : [ {
+          "name" : "template_id",
+          "in" : "path",
+          "description" : "The identifier for the deployment template.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "show_instance_configurations",
+          "in" : "query",
+          "description" : "If true, will return details for each instance configuration referenced by the template.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : true
+        }, {
+          "name" : "stack_version",
+          "in" : "query",
+          "description" : "If present, it will cause the returned deployment template to be adapted to return only the elements allowed in that version.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "region",
+          "in" : "query",
+          "description" : "Region of the deployment template",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The deployment template was found and returned successfully.",
+            "schema" : {
+              "$ref" : "#/definitions/DeploymentTemplateInfoV2"
+            }
+          },
+          "404" : {
+            "description" : "The deployment template specified by {template_id} cannot be found. (code: `templates.template_not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "templates.template_not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "401" : {
+            "description" : "The user is not authorized to access requested region. (code: `templates.region_not_allowed`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "templates.region_not_allowed" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "400" : {
+            "description" : "The requested region is not supported. (code: `templates.region_not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "templates.region_not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployments - Templates"
+        }
+      },
+      "put" : {
+        "tags" : [ "DeploymentTemplates" ],
+        "summary" : "Set deployment template",
+        "description" : "Creates or updates a deployment template.",
+        "operationId" : "set-deployment-template-v2",
+        "parameters" : [ {
+          "name" : "template_id",
+          "in" : "path",
+          "description" : "The identifier for the deployment template.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "version",
+          "in" : "query",
+          "description" : "If specified, checks for conflicts against the version of the template (returned in 'x-cloud-resource-version' of the GET request)",
+          "required" : false,
+          "type" : "integer"
+        }, {
+          "name" : "create_only",
+          "in" : "query",
+          "description" : "If true, will fail if the deployment template already exists at the given id",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "region",
+          "in" : "query",
+          "description" : "Region of the deployment template",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "The deployment template definition.",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/DeploymentTemplateRequestBody"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The deployment definition was valid and the template has been updated.",
+            "schema" : {
+              "$ref" : "#/definitions/IdResponse"
+            }
+          },
+          "201" : {
+            "description" : "The deployment definition was valid and the template was created.",
+            "schema" : {
+              "$ref" : "#/definitions/IdResponse"
+            }
+          },
+          "400" : {
+            "description" : "The requested region is not supported. (code: `templates.region_not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "templates.region_not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "401" : {
+            "description" : "The user is not authorized to access requested region. (code: `templates.region_not_allowed`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "templates.region_not_allowed" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "404" : {
+            "description" : "The deployment template specified by {template_id} cannot be found. (code: `templates.template_not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "templates.template_not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "409" : {
+            "description" : "The version supplied in the request conflicted with the version found on the server. (code: `templates.version_conflict`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "templates.version_conflict" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "449" : {
+            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployments - Templates"
+        }
+      },
+      "delete" : {
+        "tags" : [ "DeploymentTemplates" ],
+        "summary" : "Delete deployment template",
+        "description" : "Deletes a deployment template by id.",
+        "operationId" : "delete-deployment-template-v2",
+        "parameters" : [ {
+          "name" : "template_id",
+          "in" : "path",
+          "description" : "The identifier for the deployment template.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "region",
+          "in" : "query",
+          "description" : "Region of the deployment template",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The deployment template was successfully deleted.",
+            "schema" : {
+              "$ref" : "#/definitions/EmptyResponse"
+            }
+          },
+          "404" : {
+            "description" : "The deployment template specified by {template_id} cannot be found. (code: `templates.template_not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "templates.template_not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "401" : {
+            "description" : "The user is not authorized to access requested region. (code: `templates.region_not_allowed`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "templates.region_not_allowed" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "400" : {
+            "description" : "The requested region is not supported. (code: `templates.region_not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "templates.region_not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "449" : {
+            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployments - Templates"
         }
       }
     },
@@ -10322,6 +11250,82 @@
         }
       }
     },
+    "/deployments/{deployment_id}/apm/{ref_id}/_reset-token" : {
+      "post" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Reset the secret token for an APM resource.",
+        "description" : "Reset the token of an APM resource.",
+        "operationId" : "deployment-apm-reset-secret-token",
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "ref_id",
+          "in" : "path",
+          "description" : "User-specified RefId for the Resource.",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "202" : {
+            "description" : "Response containing the new secret token, plan to apply it starts",
+            "schema" : {
+              "$ref" : "#/definitions/ApmCrudResponse"
+            }
+          },
+          "404" : {
+            "description" : "* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)\n* The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.deployment_not_found", "deployments.deployment_resource_not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "500" : {
+            "description" : "We have failed you. (code: `deployments.deployment_resource_no_longer_exists`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.deployment_resource_no_longer_exists" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "449" : {
+            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "APM routes"
+        }
+      }
+    },
     "/deployments/{deployment_id}/appsearch/{ref_id}" : {
       "get" : {
         "tags" : [ "Deployments" ],
@@ -10740,12 +11744,12 @@
             }
           },
           "404" : {
-            "description" : "The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)",
+            "description" : "* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)\n* The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)",
             "headers" : {
               "x-cloud-error-codes" : {
                 "type" : "string",
                 "description" : "The error codes associated with the response",
-                "enum" : [ "deployments.deployment_resource_not_found" ]
+                "enum" : [ "deployments.deployment_not_found", "deployments.deployment_resource_not_found" ]
               }
             },
             "schema" : {
@@ -10816,12 +11820,12 @@
             }
           },
           "404" : {
-            "description" : "The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)",
+            "description" : "* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)\n* The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)",
             "headers" : {
               "x-cloud-error-codes" : {
                 "type" : "string",
                 "description" : "The error codes associated with the response",
-                "enum" : [ "deployments.deployment_resource_not_found" ]
+                "enum" : [ "deployments.deployment_not_found", "deployments.deployment_resource_not_found" ]
               }
             },
             "schema" : {
@@ -11181,12 +12185,12 @@
             }
           },
           "404" : {
-            "description" : "A resource with the given refId cannot be found in the deployment. (code: `deployments.deployment_resource_not_found`)",
+            "description" : "* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)\n* The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)",
             "headers" : {
               "x-cloud-error-codes" : {
                 "type" : "string",
                 "description" : "The error codes associated with the response",
-                "enum" : [ "deployments.deployment_resource_not_found" ]
+                "enum" : [ "deployments.deployment_not_found", "deployments.deployment_resource_not_found" ]
               }
             },
             "schema" : {
@@ -11263,12 +12267,12 @@
             }
           },
           "404" : {
-            "description" : "A resource with the given refId cannot be found in the deployment. (code: `deployments.deployment_resource_not_found`)",
+            "description" : "* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)\n* The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)",
             "headers" : {
               "x-cloud-error-codes" : {
                 "type" : "string",
                 "description" : "The error codes associated with the response",
-                "enum" : [ "deployments.deployment_resource_not_found" ]
+                "enum" : [ "deployments.deployment_not_found", "deployments.deployment_resource_not_found" ]
               }
             },
             "schema" : {
@@ -11309,6 +12313,125 @@
         } ],
         "x-doc" : {
           "tag" : "Deployment Resources - CRUD"
+        }
+      }
+    },
+    "/deployments/{deployment_id}/elasticsearch/{ref_id}/remote-clusters" : {
+      "get" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Get remote clusters",
+        "description" : "Returns the list of remote clusters for the elasticsearch resource.",
+        "operationId" : "get-deployment-es-resource-remote-clusters",
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "ref_id",
+          "in" : "path",
+          "description" : "User-specified RefId for the Resource.",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "List of remote clusters for the resource",
+            "schema" : {
+              "$ref" : "#/definitions/RemoteResources"
+            }
+          },
+          "404" : {
+            "description" : "* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)\n* The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.deployment_not_found", "deployments.deployment_resource_not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployment - Remote Clusters"
+        }
+      },
+      "put" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Set remote clusters",
+        "description" : "Overwrites or creates the remote clusters for the elasticsearch resource.",
+        "operationId" : "set-deployment-es-resource-remote-clusters",
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "ref_id",
+          "in" : "path",
+          "description" : "User-specified RefId for the Resource.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "List of remote clusters for the resource",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/RemoteResources"
+          }
+        } ],
+        "responses" : {
+          "202" : {
+            "description" : "The Remote Clusters were updated",
+            "schema" : {
+              "$ref" : "#/definitions/EmptyResponse"
+            }
+          },
+          "404" : {
+            "description" : "* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)\n* The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.deployment_not_found", "deployments.deployment_resource_not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "449" : {
+            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployment - Remote Clusters"
         }
       }
     },
@@ -11944,12 +13067,12 @@
             }
           },
           "400" : {
-            "description" : "The resource is not shut down. (code: `deployments.resource_not_shutdown`)",
+            "description" : "* The Resource does not have a pending plan. (code: `deployments.resource_does_not_have_a_pending_plan`)\n* The resource is not shut down. (code: `deployments.resource_not_shutdown`)",
             "headers" : {
               "x-cloud-error-codes" : {
                 "type" : "string",
                 "description" : "The error codes associated with the response",
-                "enum" : [ "deployments.resource_not_shutdown" ]
+                "enum" : [ "deployments.resource_does_not_have_a_pending_plan", "deployments.resource_not_shutdown" ]
               }
             },
             "schema" : {
@@ -12870,12 +13993,12 @@
             }
           },
           "404" : {
-            "description" : "A resource with the given refId cannot be found in the deployment. (code: `deployments.deployment_resource_not_found`)",
+            "description" : "* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)\n* The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)",
             "headers" : {
               "x-cloud-error-codes" : {
                 "type" : "string",
                 "description" : "The error codes associated with the response",
-                "enum" : [ "deployments.deployment_resource_not_found" ]
+                "enum" : [ "deployments.deployment_not_found", "deployments.deployment_resource_not_found" ]
               }
             },
             "schema" : {
@@ -13075,19 +14198,6 @@
               "$ref" : "#/definitions/DeploymentResourceCrudResponse"
             }
           },
-          "404" : {
-            "description" : "A resource with the given refId cannot be found in the deployment. (code: `deployments.deployment_resource_not_found`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "deployments.deployment_resource_not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
           "400" : {
             "description" : "Resource has still instances. (code: `deployments.resource_has_instances`)",
             "headers" : {
@@ -13095,6 +14205,19 @@
                 "type" : "string",
                 "description" : "The error codes associated with the response",
                 "enum" : [ "deployments.resource_has_instances" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "404" : {
+            "description" : "* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)\n* The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.deployment_not_found", "deployments.deployment_resource_not_found" ]
               }
             },
             "schema" : {
@@ -13179,12 +14302,12 @@
             }
           },
           "404" : {
-            "description" : "The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)",
+            "description" : "* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)\n* The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)",
             "headers" : {
               "x-cloud-error-codes" : {
                 "type" : "string",
                 "description" : "The error codes associated with the response",
-                "enum" : [ "deployments.deployment_resource_not_found" ]
+                "enum" : [ "deployments.deployment_not_found", "deployments.deployment_resource_not_found" ]
               }
             },
             "schema" : {
@@ -13301,12 +14424,12 @@
             }
           },
           "404" : {
-            "description" : "The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)",
+            "description" : "* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)\n* The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)",
             "headers" : {
               "x-cloud-error-codes" : {
                 "type" : "string",
                 "description" : "The error codes associated with the response",
-                "enum" : [ "deployments.deployment_resource_not_found" ]
+                "enum" : [ "deployments.deployment_not_found", "deployments.deployment_resource_not_found" ]
               }
             },
             "schema" : {
@@ -13391,12 +14514,12 @@
             }
           },
           "404" : {
-            "description" : "The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)",
+            "description" : "* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)\n* The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)",
             "headers" : {
               "x-cloud-error-codes" : {
                 "type" : "string",
                 "description" : "The error codes associated with the response",
-                "enum" : [ "deployments.deployment_resource_not_found" ]
+                "enum" : [ "deployments.deployment_not_found", "deployments.deployment_resource_not_found" ]
               }
             },
             "schema" : {
@@ -13570,6 +14693,161 @@
         } ],
         "x-doc" : {
           "tag" : "Platform"
+        }
+      }
+    },
+    "/platform/configuration/api_base_url" : {
+      "get" : {
+        "tags" : [ "PlatformInfrastructure" ],
+        "summary" : "Get API base Url",
+        "description" : "Gets the API base Url configuration value.",
+        "operationId" : "get-api-base-url",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "The API base Url was successfully retrieved",
+            "headers" : {
+              "x-cloud-resource-version" : {
+                "type" : "string",
+                "description" : "The resource version, which is used to avoid update conflicts with concurrent operations"
+              },
+              "x-cloud-resource-created" : {
+                "type" : "string",
+                "description" : "The date-time when the resource was created (ISO format relative to UTC)"
+              },
+              "x-cloud-resource-last-modified" : {
+                "type" : "string",
+                "description" : "The date-time when the resource was last modified (ISO format relative to UTC)"
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/ApiBaseUrlData"
+            }
+          },
+          "404" : {
+            "description" : "There is no configured API base value but optimistic locking was sent. (code: `adminconsole.base_url.not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "adminconsole.base_url.not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "500" : {
+            "description" : "The persisted Url is malformed. (code: `adminconsole.base_url.invalid_persisted_data`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "adminconsole.base_url.invalid_persisted_data" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "API - Base Url"
+        }
+      },
+      "put" : {
+        "tags" : [ "PlatformInfrastructure" ],
+        "summary" : "Set API base Url",
+        "description" : "Saves the API base Url configuration value.",
+        "operationId" : "set-api-base-url",
+        "parameters" : [ {
+          "name" : "version",
+          "in" : "query",
+          "description" : "If specified, then checks for conflicts against the version stored in the persistent store (returned in 'x-cloud-resource-version' of the GET request). If not specified, will unconditionally upsert.",
+          "required" : false,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "Data containing the base Url to set",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/ApiBaseUrlData"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The API base Url was successfully saved.",
+            "headers" : {
+              "x-cloud-resource-version" : {
+                "type" : "string",
+                "description" : "The resource version, which is used to avoid update conflicts with concurrent operations"
+              },
+              "x-cloud-resource-created" : {
+                "type" : "string",
+                "description" : "The date-time when the resource was created (ISO format relative to UTC)"
+              },
+              "x-cloud-resource-last-modified" : {
+                "type" : "string",
+                "description" : "The date-time when the resource was last modified (ISO format relative to UTC)"
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/ApiBaseUrlData"
+            }
+          },
+          "400" : {
+            "description" : "The optimistic locking version format was wrong. (code: `adminconsole.base_url.bad_version_format`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "adminconsole.base_url.bad_version_format" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "404" : {
+            "description" : "There is no configured API base value but optimistic locking was sent. (code: `adminconsole.base_url.not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "adminconsole.base_url.not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "409" : {
+            "description" : "There was an optimistic locking version conflict. (code: `adminconsole.base_url.version_conflict`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "adminconsole.base_url.version_conflict" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "API - Base Url"
         }
       }
     },
@@ -16095,7 +17373,7 @@
           "apiKey" : [ ]
         } ],
         "x-doc" : {
-          "tag" : "Templates - Deployments"
+          "tag" : "Templates - Deployments - Legacy"
         }
       },
       "post" : {
@@ -16152,7 +17430,7 @@
           "apiKey" : [ ]
         } ],
         "x-doc" : {
-          "tag" : "Templates - Deployments"
+          "tag" : "Templates - Deployments - Legacy"
         }
       }
     },
@@ -16217,7 +17495,7 @@
           "apiKey" : [ ]
         } ],
         "x-doc" : {
-          "tag" : "Templates - Deployments"
+          "tag" : "Templates - Deployments - Legacy"
         }
       },
       "put" : {
@@ -16325,7 +17603,7 @@
           "apiKey" : [ ]
         } ],
         "x-doc" : {
-          "tag" : "Templates - Deployments"
+          "tag" : "Templates - Deployments - Legacy"
         }
       },
       "delete" : {
@@ -16380,303 +17658,7 @@
           "apiKey" : [ ]
         } ],
         "x-doc" : {
-          "tag" : "Templates - Deployments"
-        }
-      }
-    },
-    "/platform/configuration/trust-relationships" : {
-      "get" : {
-        "tags" : [ "PlatformConfigurationTrustRelationships" ],
-        "summary" : "List trust relationships",
-        "description" : "List trust relationships.",
-        "operationId" : "get-trust-relationships",
-        "parameters" : [ {
-          "name" : "include_certificate",
-          "in" : "query",
-          "description" : "Whether to include the public CA certificates in the response.",
-          "required" : false,
-          "type" : "boolean",
-          "default" : false
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "The list of trust relationships.",
-            "schema" : {
-              "$ref" : "#/definitions/TrustRelationshipsListResponse"
-            }
-          },
-          "401" : {
-            "description" : "You are not authorized to perform this action.",
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          }
-        },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
-        "x-doc" : {
-          "tag" : "Platform - Configuration - Trust relationships"
-        }
-      },
-      "post" : {
-        "tags" : [ "PlatformConfigurationTrustRelationships" ],
-        "summary" : "Create trust relationship",
-        "description" : "Creates a trust relationship.",
-        "operationId" : "create-trust-relationship",
-        "parameters" : [ {
-          "in" : "body",
-          "name" : "body",
-          "description" : "The trust relationship definition",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/definitions/TrustRelationshipCreateRequest"
-          }
-        } ],
-        "responses" : {
-          "201" : {
-            "description" : "The request was valid and a new trust relationship was created",
-            "headers" : {
-              "x-cloud-resource-version" : {
-                "type" : "string",
-                "description" : "The resource version, which is used to avoid update conflicts with concurrent operations"
-              },
-              "x-cloud-resource-created" : {
-                "type" : "string",
-                "description" : "The date-time when the resource was created (ISO format relative to UTC)"
-              },
-              "x-cloud-resource-last-modified" : {
-                "type" : "string",
-                "description" : "The date-time when the resource was last modified (ISO format relative to UTC)"
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/TrustRelationshipCreateResponse"
-            }
-          },
-          "400" : {
-            "description" : "The trust relationship request had errors.",
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "401" : {
-            "description" : "You are not authorized to perform this action.",
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          }
-        },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
-        "x-doc" : {
-          "tag" : "Platform - Configuration - Trust relationships"
-        }
-      }
-    },
-    "/platform/configuration/trust-relationships/{trust_relationship_id}" : {
-      "get" : {
-        "tags" : [ "PlatformConfigurationTrustRelationships" ],
-        "summary" : "Get trust relationship",
-        "description" : "Retrieves information about a trust relationship. `local` can be used as the ID to obtain the local trust relationship.",
-        "operationId" : "get-trust-relationship",
-        "parameters" : [ {
-          "name" : "trust_relationship_id",
-          "in" : "path",
-          "description" : "Identifier for the trust relationship",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "include_certificate",
-          "in" : "query",
-          "description" : "Whether to include the public CA certificates in the response.",
-          "required" : false,
-          "type" : "boolean",
-          "default" : false
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "The trust relationship info response",
-            "headers" : {
-              "x-cloud-resource-version" : {
-                "type" : "string",
-                "description" : "The resource version, which is used to avoid update conflicts with concurrent operations"
-              },
-              "x-cloud-resource-created" : {
-                "type" : "string",
-                "description" : "The date-time when the resource was created (ISO format relative to UTC)"
-              },
-              "x-cloud-resource-last-modified" : {
-                "type" : "string",
-                "description" : "The date-time when the resource was last modified (ISO format relative to UTC)"
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/TrustRelationshipGetResponse"
-            }
-          },
-          "401" : {
-            "description" : "You are not authorized to perform this action.",
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "404" : {
-            "description" : "The trust relationship specified by {trust_relationship_id} cannot be found. (code: `trust_relationships.not_found`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "trust_relationships.not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          }
-        },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
-        "x-doc" : {
-          "tag" : "Platform - Configuration - Trust relationships"
-        }
-      },
-      "put" : {
-        "tags" : [ "PlatformConfigurationTrustRelationships" ],
-        "summary" : "Update trust relationship",
-        "description" : "Updates a trust relationship.",
-        "operationId" : "update-trust-relationship",
-        "parameters" : [ {
-          "name" : "trust_relationship_id",
-          "in" : "path",
-          "description" : "Identifier for the trust relationship",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "in" : "body",
-          "name" : "body",
-          "description" : "The trust relationship definition",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/definitions/TrustRelationshipUpdateRequest"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "The request was valid and the trust relationship was updated.",
-            "headers" : {
-              "x-cloud-resource-version" : {
-                "type" : "string",
-                "description" : "The resource version, which is used to avoid update conflicts with concurrent operations"
-              },
-              "x-cloud-resource-created" : {
-                "type" : "string",
-                "description" : "The date-time when the resource was created (ISO format relative to UTC)"
-              },
-              "x-cloud-resource-last-modified" : {
-                "type" : "string",
-                "description" : "The date-time when the resource was last modified (ISO format relative to UTC)"
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/TrustRelationshipUpdateResponse"
-            }
-          },
-          "400" : {
-            "description" : "The trust relationship request had errors.",
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "401" : {
-            "description" : "You are not authorized to perform this action.",
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "404" : {
-            "description" : "The trust relationship specified by {trust_relationship_id} cannot be found. (code: `trust_relationships.not_found`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "trust_relationships.not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          }
-        },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
-        "x-doc" : {
-          "tag" : "Platform - Configuration - Trust relationships"
-        }
-      },
-      "delete" : {
-        "tags" : [ "PlatformConfigurationTrustRelationships" ],
-        "summary" : "Delete trust relationship",
-        "description" : "Deletes a trust relationship.",
-        "operationId" : "delete-trust-relationship",
-        "parameters" : [ {
-          "name" : "trust_relationship_id",
-          "in" : "path",
-          "description" : "Identifier for the trust relationship",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "version",
-          "in" : "query",
-          "description" : "If specified then checks for conflicts against the version stored in the persistent store (returned in 'x-cloud-resource-version' of the GET request)",
-          "required" : false,
-          "type" : "integer"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "The request was valid and the trust relationship was deleted.",
-            "schema" : {
-              "$ref" : "#/definitions/EmptyResponse"
-            }
-          },
-          "401" : {
-            "description" : "You are not authorized to perform this action.",
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "404" : {
-            "description" : "The trust relationship specified by {trust_relationship_id} cannot be found. (code: `trust_relationships.not_found`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "trust_relationships.not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          }
-        },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
-        "x-doc" : {
-          "tag" : "Platform - Configuration - Trust relationships"
+          "tag" : "Templates - Deployments - Legacy"
         }
       }
     },
@@ -16899,7 +17881,7 @@
       "patch" : {
         "tags" : [ "PlatformInfrastructure" ],
         "summary" : "Update adminconsole logging settings",
-        "description" : "All changes in the specified object are applied to the logging settings for this adminconsole instance. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.",
+        "description" : "All changes in the specified object are applied to the logging settings for this adminconsole instance according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.",
         "operationId" : "update-adminconsole-logging-settings",
         "parameters" : [ {
           "name" : "adminconsole_id",
@@ -17680,7 +18662,7 @@
       "patch" : {
         "tags" : [ "PlatformInfrastructure" ],
         "summary" : "Update allocator logging settings",
-        "description" : "All changes in the specified object are applied to the logging settings for this allocator instance. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.",
+        "description" : "All changes in the specified object are applied to the logging settings for this allocator instance according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.",
         "operationId" : "update-allocator-logging-settings",
         "parameters" : [ {
           "name" : "allocator_id",
@@ -19175,7 +20157,7 @@
       "patch" : {
         "tags" : [ "PlatformInfrastructure" ],
         "summary" : "Update constructor logging settings",
-        "description" : "All changes in the specified object are applied to the logging settings for this constructor instance. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.",
+        "description" : "All changes in the specified object are applied to the logging settings for this constructor instance according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.",
         "operationId" : "update-constructor-logging-settings",
         "parameters" : [ {
           "name" : "constructor_id",
@@ -20544,7 +21526,7 @@
       "patch" : {
         "tags" : [ "PlatformInfrastructure" ],
         "summary" : "Update runner logging settings",
-        "description" : "All changes in the specified object are applied to the logging settings for this runner instance. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.",
+        "description" : "All changes in the specified object are applied to the logging settings for this runner instance according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.",
         "operationId" : "update-runner-logging-settings",
         "parameters" : [ {
           "name" : "runner_id",
@@ -21151,7 +22133,7 @@
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
-          "description" : "All changes in the specified object are applied to the current user. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.",
+          "description" : "All changes in the specified object are applied to the current user according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.",
           "required" : true,
           "schema" : {
             "type" : "string"
@@ -21377,7 +22359,7 @@
             }
           },
           "501" : {
-            "description" : "You need to configure the authentication cluster. (code: `authc.no_authentication_cluster`)",
+            "description" : "The administrator needs to configure the authentication cluster. (code: `authc.no_authentication_cluster`)",
             "headers" : {
               "x-cloud-error-codes" : {
                 "type" : "string",
@@ -21439,7 +22421,7 @@
             }
           },
           "501" : {
-            "description" : "You need to configure the authentication cluster. (code: `authc.no_authentication_cluster`)",
+            "description" : "The administrator needs to configure the authentication cluster. (code: `authc.no_authentication_cluster`)",
             "headers" : {
               "x-cloud-error-codes" : {
                 "type" : "string",
@@ -21517,7 +22499,64 @@
             }
           },
           "501" : {
-            "description" : "You need to configure the authentication cluster. (code: `authc.no_authentication_cluster`)",
+            "description" : "The administrator needs to configure the authentication cluster. (code: `authc.no_authentication_cluster`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "authc.no_authentication_cluster" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "502" : {
+            "description" : "The authentication cluster failed to process the request. The response body contains details about the error. (code: `authc.authentication_cluster_error`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "authc.authentication_cluster_error" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Authentication"
+        }
+      }
+    },
+    "/users/auth/_logout" : {
+      "post" : {
+        "tags" : [ "Authentication" ],
+        "summary" : "Logout from ECE",
+        "description" : "Destroys the current session.",
+        "operationId" : "logout",
+        "parameters" : [ {
+          "name" : "Cookie",
+          "in" : "header",
+          "description" : "Cookie header containing the ec-sso-session-id session cookie.",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The current session was successfully destroyed.",
+            "schema" : {
+              "$ref" : "#/definitions/EmptyResponse"
+            }
+          },
+          "501" : {
+            "description" : "The administrator needs to configure the authentication cluster. (code: `authc.no_authentication_cluster`)",
             "headers" : {
               "x-cloud-error-codes" : {
                 "type" : "string",
@@ -21581,7 +22620,7 @@
             }
           },
           "501" : {
-            "description" : "You need to configure the authentication cluster. (code: `authc.no_authentication_cluster`)",
+            "description" : "The administrator needs to configure the authentication cluster. (code: `authc.no_authentication_cluster`)",
             "headers" : {
               "x-cloud-error-codes" : {
                 "type" : "string",
@@ -22035,7 +23074,7 @@
             }
           },
           "501" : {
-            "description" : "You need to configure the authentication cluster. (code: `authc.no_authentication_cluster`)",
+            "description" : "The administrator needs to configure the authentication cluster. (code: `authc.no_authentication_cluster`)",
             "headers" : {
               "x-cloud-error-codes" : {
                 "type" : "string",
@@ -22092,7 +23131,7 @@
             }
           },
           "501" : {
-            "description" : "You need to configure the authentication cluster. (code: `authc.no_authentication_cluster`)",
+            "description" : "The administrator needs to configure the authentication cluster. (code: `authc.no_authentication_cluster`)",
             "headers" : {
               "x-cloud-error-codes" : {
                 "type" : "string",
@@ -22463,7 +23502,7 @@
         }, {
           "in" : "body",
           "name" : "body",
-          "description" : "All changes in the specified object are applied to the user. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.",
+          "description" : "All changes in the specified object are applied to the user according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.",
           "required" : true,
           "schema" : {
             "type" : "string"
@@ -22538,6 +23577,28 @@
     }
   },
   "definitions" : {
+    "AccountTrustRelationship" : {
+      "type" : "object",
+      "required" : [ "account_id", "trust_all" ],
+      "properties" : {
+        "account_id" : {
+          "type" : "string",
+          "description" : "the ID of the Account"
+        },
+        "trust_all" : {
+          "type" : "boolean",
+          "description" : "If true, all the clusters of this account will be trusted and the `trust_whitelist` is ignored."
+        },
+        "trust_whitelist" : {
+          "type" : "array",
+          "description" : "The list of clusters to trust. Only used when `trust_all` is false.",
+          "items" : {
+            "type" : "string"
+          }
+        }
+      },
+      "description" : "The trust relationship with the clusters of one account."
+    },
     "ActiveDirectoryGroupSearch" : {
       "type" : "object",
       "properties" : {
@@ -23059,6 +24120,17 @@
         }
       },
       "description" : "Summary of the allocators for the specified zone."
+    },
+    "ApiBaseUrlData" : {
+      "type" : "object",
+      "required" : [ "value" ],
+      "properties" : {
+        "value" : {
+          "type" : "string",
+          "description" : "The configured base Url"
+        }
+      },
+      "description" : "Information about the API base Url"
     },
     "ApiKeyResponse" : {
       "type" : "object",
@@ -24292,6 +25364,10 @@
         "app_search" : {
           "description" : "The top level info object for App Search",
           "$ref" : "#/definitions/AppSearchInfo"
+        },
+        "enterprise_search" : {
+          "description" : "The top level info object for Enterprise Search",
+          "$ref" : "#/definitions/EnterpriseSearchInfo"
         }
       },
       "description" : "A container for information about an Elasticsearch cluster, Kibana instance, or APM Server."
@@ -25428,7 +26504,7 @@
           "$ref" : "#/definitions/ElasticsearchClusterPlan"
         },
         "settings" : {
-          "$ref" : "#/definitions/ElasticsearchClusterSettings"
+          "$ref" : "#/definitions/DeprecatedElasticsearchClusterSettings"
         },
         "kibana" : {
           "$ref" : "#/definitions/CreateKibanaInCreateElasticsearchRequest"
@@ -25437,7 +26513,7 @@
           "$ref" : "#/definitions/CreateApmInCreateElasticsearchRequest"
         }
       },
-      "description" : "The request body for creating an Elasticsearch cluster."
+      "description" : "The request body for creating an Elasticsearch cluster using the clusters API."
     },
     "CreateEnterpriseSearchRequest" : {
       "type" : "object",
@@ -25451,6 +26527,34 @@
           "$ref" : "#/definitions/EnterpriseSearchPlan"
         }
       }
+    },
+    "CreateExtensionRequest" : {
+      "type" : "object",
+      "required" : [ "extension_type", "name", "version" ],
+      "properties" : {
+        "name" : {
+          "type" : "string",
+          "description" : "The extension name. Only ASCII alphanumeric and [_.-] characters allowed"
+        },
+        "description" : {
+          "type" : "string",
+          "description" : "The extension description."
+        },
+        "download_url" : {
+          "type" : "string",
+          "description" : "The URL to download the extension archive."
+        },
+        "extension_type" : {
+          "type" : "string",
+          "description" : "The extension type.",
+          "enum" : [ "plugin", "bundle" ]
+        },
+        "version" : {
+          "type" : "string",
+          "description" : "The Elasticsearch version."
+        }
+      },
+      "description" : "The body of a request to create a new extension"
     },
     "CreateKibanaInCreateElasticsearchRequest" : {
       "type" : "object",
@@ -26105,6 +27209,64 @@
       },
       "description" : "The top-level object for a deployment template."
     },
+    "DeploymentTemplateInfoV2" : {
+      "type" : "object",
+      "required" : [ "deployment_template", "id", "instance_configurations", "name" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "The unique identifier for the template."
+        },
+        "name" : {
+          "type" : "string",
+          "description" : "A human readable name for the template."
+        },
+        "description" : {
+          "type" : "string",
+          "description" : "An optional description for the template."
+        },
+        "deployment_template" : {
+          "description" : "The body of the deployment template to use for creating a deployment.",
+          "$ref" : "#/definitions/DeploymentCreateRequest"
+        },
+        "system_owned" : {
+          "type" : "boolean",
+          "description" : "Whether or not if this is system owned template."
+        },
+        "source" : {
+          "description" : "Information describing the source that created or modified the template.",
+          "$ref" : "#/definitions/ChangeSourceInfo"
+        },
+        "metadata" : {
+          "type" : "array",
+          "description" : "Optional arbitrary metadata to associate with this template.",
+          "items" : {
+            "$ref" : "#/definitions/MetadataItem"
+          }
+        },
+        "instance_configurations" : {
+          "type" : "array",
+          "description" : "List of instance configurations used in the cluster template.",
+          "items" : {
+            "$ref" : "#/definitions/InstanceConfigurationInfo"
+          }
+        },
+        "order" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Determines the order in which this template should be returned when listed. Templates are returned in ascending order. If not specified, then the template willbe appended to the end of the list."
+        },
+        "hidden" : {
+          "type" : "boolean",
+          "description" : "Whether or not the deployment template is hidden by default."
+        },
+        "min_version" : {
+          "type" : "string",
+          "description" : "Minimum stack version required by this template, if any."
+        }
+      },
+      "description" : "Deployment template detailed information"
+    },
     "DeploymentTemplateReference" : {
       "type" : "object",
       "required" : [ "id" ],
@@ -26119,6 +27281,49 @@
         }
       },
       "description" : "Specifies the deployment template used to create the plan."
+    },
+    "DeploymentTemplateRequestBody" : {
+      "type" : "object",
+      "required" : [ "deployment_template", "name" ],
+      "properties" : {
+        "name" : {
+          "type" : "string",
+          "description" : "A human readable name for the template."
+        },
+        "description" : {
+          "type" : "string",
+          "description" : "An optional description for the template."
+        },
+        "deployment_template" : {
+          "description" : "The body of the deployment template to use for creating a deployment.",
+          "$ref" : "#/definitions/DeploymentCreateRequest"
+        },
+        "system_owned" : {
+          "type" : "boolean",
+          "description" : "Whether or not if this is system owned template."
+        },
+        "metadata" : {
+          "type" : "array",
+          "description" : "Optional arbitrary metadata to associate with this template.",
+          "items" : {
+            "$ref" : "#/definitions/MetadataItem"
+          }
+        },
+        "order" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Determines the order in which this template should be returned when listed. Templates are returned in ascending order. If not specified, then the template willbe appended to the end of the list."
+        },
+        "hidden" : {
+          "type" : "boolean",
+          "description" : "Whether or not the deployment template is hidden by default."
+        },
+        "min_version" : {
+          "type" : "string",
+          "description" : "Minimum stack version required by this template, if any."
+        }
+      },
+      "description" : "Request body to create or update a Deployment Template"
     },
     "DeploymentUpdateMetadata" : {
       "type" : "object",
@@ -26285,6 +27490,40 @@
         }
       },
       "description" : "Contains a list of Deployments as result of a search request."
+    },
+    "DeprecatedElasticsearchClusterSettings" : {
+      "type" : "object",
+      "properties" : {
+        "snapshot" : {
+          "$ref" : "#/definitions/ClusterSnapshotSettings"
+        },
+        "monitoring" : {
+          "$ref" : "#/definitions/ManagedMonitoringSettings"
+        },
+        "metadata" : {
+          "$ref" : "#/definitions/ClusterMetadataSettings"
+        },
+        "curation" : {
+          "$ref" : "#/definitions/ClusterCurationSettings"
+        },
+        "dedicated_masters_threshold" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Threshold starting from which the number of instances in the cluster results in the introduction of dedicated masters. If the cluster is downscaled to a number of nodes below this one, dedicated masters will be removed. Limit is inclusive."
+        },
+        "ip_filtering" : {
+          "description" : "DEPRECATED (Scheduled to be removed in the next major version): The set of rulesets to apply for all the resources in this cluster. When specified the same rulesets will be applied to Kibana and APM clusters as well",
+          "$ref" : "#/definitions/IpFilteringSettings"
+        },
+        "traffic_filter" : {
+          "description" : "The rulesets to apply to all resources in this cluster. When specified the same rulesets will be applied to Kibana and APM clusters as well",
+          "$ref" : "#/definitions/TrafficFilterSettings"
+        },
+        "ccs" : {
+          "$ref" : "#/definitions/CrossClusterSearchSettings"
+        }
+      },
+      "description" : "The settings for an Elasticsearch cluster."
     },
     "DiscreteSizes" : {
       "type" : "object",
@@ -26686,6 +27925,10 @@
         },
         "ccs" : {
           "$ref" : "#/definitions/CrossClusterSearchSettings"
+        },
+        "trust" : {
+          "description" : "Configuration of trust with other clusters",
+          "$ref" : "#/definitions/TrustSettings"
         }
       },
       "description" : "The settings for an Elasticsearch cluster."
@@ -27825,6 +29068,63 @@
       },
       "description" : "Matches documents that have at least one non-`null` value in the original field."
     },
+    "Extension" : {
+      "type" : "object",
+      "required" : [ "extension_type", "id", "name", "url", "version" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "The extension ID"
+        },
+        "name" : {
+          "type" : "string",
+          "description" : "The extension name."
+        },
+        "description" : {
+          "type" : "string",
+          "description" : "The extension description."
+        },
+        "url" : {
+          "type" : "string",
+          "description" : "The extension URL to be used in the plan."
+        },
+        "download_url" : {
+          "type" : "string",
+          "description" : "The download URL specified during extension creation."
+        },
+        "extension_type" : {
+          "type" : "string",
+          "description" : "The extension type.",
+          "enum" : [ "plugin", "bundle" ]
+        },
+        "version" : {
+          "type" : "string",
+          "description" : "The Elasticsearch version."
+        },
+        "deployments" : {
+          "type" : "array",
+          "description" : "The deployments using this extension.",
+          "items" : {
+            "type" : "string"
+          }
+        }
+      },
+      "description" : "An API extension. It represents clusters' plugins and bundles"
+    },
+    "Extensions" : {
+      "type" : "object",
+      "required" : [ "extensions" ],
+      "properties" : {
+        "extensions" : {
+          "type" : "array",
+          "description" : "The list of extensions.",
+          "items" : {
+            "$ref" : "#/definitions/Extension"
+          }
+        }
+      },
+      "description" : "A collection of extensions"
+    },
     "ExternalHyperlink" : {
       "type" : "object",
       "required" : [ "id", "label" ],
@@ -27983,6 +29283,45 @@
         "metadata" : {
           "type" : "object",
           "description" : "Optional arbitrary metadata to associate with this template."
+        }
+      },
+      "description" : "The configuration template for Elasticsearch instances, Kibana instances, and APM Servers."
+    },
+    "InstanceConfigurationInfo" : {
+      "type" : "object",
+      "required" : [ "discrete_sizes", "instance_type", "name" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "Unique identifier for the instance configuration"
+        },
+        "name" : {
+          "type" : "string",
+          "description" : "Display name for the instance configuration."
+        },
+        "description" : {
+          "type" : "string",
+          "description" : "Optional description for the instance configuration"
+        },
+        "instance_type" : {
+          "type" : "string",
+          "description" : "The type of instance (elasticsearch, kibana)"
+        },
+        "node_types" : {
+          "type" : "array",
+          "description" : "Node types (master, data) for the instance",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "discrete_sizes" : {
+          "description" : "Numerics representing possible instance sizes that the instance configuration supports.",
+          "$ref" : "#/definitions/DiscreteSizes"
+        },
+        "storage_multiplier" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Settings for the instance storage multiplier"
         }
       },
       "description" : "The configuration template for Elasticsearch instances, Kibana instances, and APM Servers."
@@ -30342,6 +31681,43 @@
       },
       "description" : "The Elasticsearch cluster to connect to for cross-cluster search."
     },
+    "RemoteResourceRef" : {
+      "type" : "object",
+      "required" : [ "alias", "deployment_id", "elasticsearch_ref_id" ],
+      "properties" : {
+        "deployment_id" : {
+          "type" : "string",
+          "description" : "The id of the deployment"
+        },
+        "elasticsearch_ref_id" : {
+          "type" : "string",
+          "description" : "The locally-unique user-specified id of an Elasticsearch Resource"
+        },
+        "alias" : {
+          "type" : "string",
+          "description" : "The alias for this remote cluster. Aliases must only contain letters, digits, dashes and underscores"
+        },
+        "skip_unavailable" : {
+          "type" : "boolean",
+          "description" : "If true, skip this cluster during search if it is disconnected. Default: false"
+        }
+      },
+      "description" : "The Elasticsearch resource used as a Remote Cluster."
+    },
+    "RemoteResources" : {
+      "type" : "object",
+      "required" : [ "resources" ],
+      "properties" : {
+        "resources" : {
+          "type" : "array",
+          "description" : "The remote resources",
+          "items" : {
+            "$ref" : "#/definitions/RemoteResourceRef"
+          }
+        }
+      },
+      "description" : "The list of resources used as remote clusters"
+    },
     "ReplyWarning" : {
       "type" : "object",
       "required" : [ "code" ],
@@ -32009,133 +33385,19 @@
       },
       "description" : "Defines the configuration parameters that control how the plan is applied. For example, the Elasticsearch cluster topology and Kibana instance settings."
     },
-    "TrustRelationshipCreateRequest" : {
+    "TrustSettings" : {
       "type" : "object",
-      "required" : [ "name", "public_ca_cert" ],
+      "required" : [ "accounts" ],
       "properties" : {
-        "name" : {
-          "type" : "string",
-          "description" : "A name for the trust relationship"
-        },
-        "trust_by_default" : {
-          "type" : "boolean",
-          "description" : "If this relationship is trusted by default by all deployments in the current environment, defaults to `false`"
-        },
-        "public_ca_cert" : {
-          "type" : "string",
-          "description" : "The public CA certificate of the environment to trust"
-        }
-      },
-      "description" : "A request for creating a trust relationship with another environment"
-    },
-    "TrustRelationshipCreateResponse" : {
-      "type" : "object",
-      "required" : [ "id", "local", "name", "trust_by_default" ],
-      "properties" : {
-        "id" : {
-          "type" : "string",
-          "description" : "The id of the trust relationship"
-        },
-        "name" : {
-          "type" : "string",
-          "description" : "The name of the trust relationship"
-        },
-        "trust_by_default" : {
-          "type" : "boolean",
-          "description" : "If this relationship is trusted by default by all deployments in the current environment, defaults to `false`"
-        },
-        "local" : {
-          "type" : "boolean",
-          "description" : "If this is the trust relationship for the local environment"
-        }
-      },
-      "description" : "A response returned from the trust relationship create endpoint"
-    },
-    "TrustRelationshipGetResponse" : {
-      "type" : "object",
-      "required" : [ "id", "last_modified", "local", "name", "trust_by_default" ],
-      "properties" : {
-        "id" : {
-          "type" : "string",
-          "description" : "The id of the trust relationship"
-        },
-        "name" : {
-          "type" : "string",
-          "description" : "The name of the trust relationship"
-        },
-        "trust_by_default" : {
-          "type" : "boolean",
-          "description" : "If this relationship is trusted by default by all deployments in the current environment, defaults to `false`"
-        },
-        "public_ca_cert" : {
-          "type" : "string",
-          "description" : "The public CA certificate of the environment to trust"
-        },
-        "local" : {
-          "type" : "boolean",
-          "description" : "If this is the trust relationship for the local environment"
-        },
-        "last_modified" : {
-          "type" : "string",
-          "format" : "date-time",
-          "description" : "The most recent time the trust relationship was changed (ISO format in UTC)"
-        }
-      }
-    },
-    "TrustRelationshipUpdateRequest" : {
-      "type" : "object",
-      "properties" : {
-        "name" : {
-          "type" : "string",
-          "description" : "A name for the trust relationship"
-        },
-        "trust_by_default" : {
-          "type" : "boolean",
-          "description" : "If this relationship is trusted by default by all deployments in the current environment, defaults to `false`"
-        },
-        "public_ca_cert" : {
-          "type" : "string",
-          "description" : "The public CA certificate of the environment to trust"
-        }
-      },
-      "description" : "A request for updating a trust relationship with another environment"
-    },
-    "TrustRelationshipUpdateResponse" : {
-      "type" : "object",
-      "required" : [ "id", "local", "name", "trust_by_default" ],
-      "properties" : {
-        "id" : {
-          "type" : "string",
-          "description" : "The id of the trust relationship"
-        },
-        "name" : {
-          "type" : "string",
-          "description" : "The name of the trust relationship"
-        },
-        "trust_by_default" : {
-          "type" : "boolean",
-          "description" : "If this relationship is trusted by default by all deployments in the current environment, defaults to `false`"
-        },
-        "local" : {
-          "type" : "boolean",
-          "description" : "If this is the trust relationship for the local environment"
-        }
-      },
-      "description" : "A response returned from the trust relationship update endpoint"
-    },
-    "TrustRelationshipsListResponse" : {
-      "type" : "object",
-      "required" : [ "trust_relationships" ],
-      "properties" : {
-        "trust_relationships" : {
+        "accounts" : {
           "type" : "array",
-          "description" : "The trust relationships",
+          "description" : "The list of trust relationships with different accounts",
           "items" : {
-            "$ref" : "#/definitions/TrustRelationshipGetResponse"
+            "$ref" : "#/definitions/AccountTrustRelationship"
           }
         }
       },
-      "description" : "Contains a list of trust relationships"
+      "description" : "Configuration of trust with other clusters."
     },
     "UnreachableRegionInfo" : {
       "type" : "object",
@@ -32147,6 +33409,34 @@
         }
       },
       "description" : "Information about an unreachable region."
+    },
+    "UpdateExtensionRequest" : {
+      "type" : "object",
+      "required" : [ "extension_type", "name", "version" ],
+      "properties" : {
+        "name" : {
+          "type" : "string",
+          "description" : "The extension name."
+        },
+        "description" : {
+          "type" : "string",
+          "description" : "The extension description."
+        },
+        "download_url" : {
+          "type" : "string",
+          "description" : "The URL to download the extension archive."
+        },
+        "extension_type" : {
+          "type" : "string",
+          "description" : "The extension type.",
+          "enum" : [ "plugin", "bundle" ]
+        },
+        "version" : {
+          "type" : "string",
+          "description" : "The Elasticsearch version."
+        }
+      },
+      "description" : "The body of a request to update an extension"
     },
     "Updates" : {
       "type" : "object",

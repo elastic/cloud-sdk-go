@@ -157,8 +157,9 @@ func NewDeleteDeploymentStatelessResourceNotFound() *DeleteDeploymentStatelessRe
 
 /*DeleteDeploymentStatelessResourceNotFound handles this case with default header values.
 
-A resource with the given refId cannot be found in the deployment. (code: `deployments.deployment_resource_not_found`)
-*/
+* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+* The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)
+ */
 type DeleteDeploymentStatelessResourceNotFound struct {
 	/*The error codes associated with the response
 	 */

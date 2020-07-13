@@ -31,20 +31,20 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// TrustRelationshipsListResponse Contains a list of trust relationships
-// swagger:model TrustRelationshipsListResponse
-type TrustRelationshipsListResponse struct {
+// RemoteResources The list of resources used as remote clusters
+// swagger:model RemoteResources
+type RemoteResources struct {
 
-	// The trust relationships
+	// The remote resources
 	// Required: true
-	TrustRelationships []*TrustRelationshipGetResponse `json:"trust_relationships"`
+	Resources []*RemoteResourceRef `json:"resources"`
 }
 
-// Validate validates this trust relationships list response
-func (m *TrustRelationshipsListResponse) Validate(formats strfmt.Registry) error {
+// Validate validates this remote resources
+func (m *RemoteResources) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateTrustRelationships(formats); err != nil {
+	if err := m.validateResources(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -54,21 +54,21 @@ func (m *TrustRelationshipsListResponse) Validate(formats strfmt.Registry) error
 	return nil
 }
 
-func (m *TrustRelationshipsListResponse) validateTrustRelationships(formats strfmt.Registry) error {
+func (m *RemoteResources) validateResources(formats strfmt.Registry) error {
 
-	if err := validate.Required("trust_relationships", "body", m.TrustRelationships); err != nil {
+	if err := validate.Required("resources", "body", m.Resources); err != nil {
 		return err
 	}
 
-	for i := 0; i < len(m.TrustRelationships); i++ {
-		if swag.IsZero(m.TrustRelationships[i]) { // not required
+	for i := 0; i < len(m.Resources); i++ {
+		if swag.IsZero(m.Resources[i]) { // not required
 			continue
 		}
 
-		if m.TrustRelationships[i] != nil {
-			if err := m.TrustRelationships[i].Validate(formats); err != nil {
+		if m.Resources[i] != nil {
+			if err := m.Resources[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("trust_relationships" + "." + strconv.Itoa(i))
+					return ve.ValidateName("resources" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -80,7 +80,7 @@ func (m *TrustRelationshipsListResponse) validateTrustRelationships(formats strf
 }
 
 // MarshalBinary interface implementation
-func (m *TrustRelationshipsListResponse) MarshalBinary() ([]byte, error) {
+func (m *RemoteResources) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -88,8 +88,8 @@ func (m *TrustRelationshipsListResponse) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *TrustRelationshipsListResponse) UnmarshalBinary(b []byte) error {
-	var res TrustRelationshipsListResponse
+func (m *RemoteResources) UnmarshalBinary(b []byte) error {
+	var res RemoteResources
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

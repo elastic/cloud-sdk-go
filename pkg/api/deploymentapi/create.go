@@ -69,7 +69,7 @@ func Create(params CreateParams) (*models.DeploymentCreateResponse, error) {
 		id = &params.RequestID
 	}
 
-	res, res2, err := params.V1API.Deployments.CreateDeployment(
+	_, res, res2, err := params.V1API.Deployments.CreateDeployment(
 		deployments.NewCreateDeploymentParams().
 			WithRequestID(id).
 			WithBody(params.Request),
