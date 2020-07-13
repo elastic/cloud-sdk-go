@@ -31,6 +31,6 @@ wait-on-proxy:
 apivalidation-deps: $(GOBIN)/gobin $(GOBIN)/gotestsum $(GOBIN)/prism
 
 .PHONY: run-apivalidation-tests
-run-api-validation-tests:
+run-apivalidation-tests:
 	@ make validation-proxy & make wait-on-proxy && make api-validation
 	@ ps -ef | grep [p]rism | grep -v grep | awk '{print $2}' | xargs kill
