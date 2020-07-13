@@ -68,7 +68,6 @@ func New(params NewParams) (*models.DeploymentCreateRequest, error) {
 
 	esPayload, err := ParseElasticsearchInput(ParseElasticsearchInputParams{
 		NewElasticsearchParams: NewElasticsearchParams{
-			//	API:                    params.API,
 			RefID:                  params.ElasticsearchInstance.RefID,
 			Version:                params.Version,
 			Plugins:                params.Plugins,
