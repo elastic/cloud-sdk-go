@@ -1973,7 +1973,7 @@ func (a *Client) UpdateEsClusterCurationSettings(params *UpdateEsClusterCuration
 /*
   UpdateEsClusterMetadataSettings updates cluster metadata settings
 
-  DEPRECATED (Scheduled to be removed in the next major version): All changes in the specified object are applied to the metadata object. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.
+  DEPRECATED (Scheduled to be removed in the next major version): All changes in the specified object are applied to the metadata object according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.
 */
 func (a *Client) UpdateEsClusterMetadataSettings(params *UpdateEsClusterMetadataSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateEsClusterMetadataSettingsOK, error) {
 	// TODO: Validate the params before sending
@@ -2048,7 +2048,7 @@ func (a *Client) UpdateEsClusterPlan(params *UpdateEsClusterPlanParams, authInfo
 /*
   UpdateEsClusterSnapshotSettings updates cluster snapshot settings
 
-  DEPRECATED (Scheduled to be removed in the next major version): Any changes in the PATCHed object will be applied to the snapshot settings object.  PATCHing existing fields will cause same values to be re-applied. PATCHing a value of 'null' will cause the field to be reverted to its default value or removed if no default value exists.
+  DEPRECATED (Scheduled to be removed in the next major version): All changes in the specified object are applied to the snapshot settings according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.
 */
 func (a *Client) UpdateEsClusterSnapshotSettings(params *UpdateEsClusterSnapshotSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateEsClusterSnapshotSettingsOK, error) {
 	// TODO: Validate the params before sending

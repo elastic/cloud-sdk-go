@@ -23,31 +23,64 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"strconv"
+
+	"github.com/go-openapi/errors"
 	strfmt "github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
-// TrustRelationshipUpdateRequest A request for updating a trust relationship with another environment
-// swagger:model TrustRelationshipUpdateRequest
-type TrustRelationshipUpdateRequest struct {
+// TrustSettings Configuration of trust with other clusters.
+// swagger:model TrustSettings
+type TrustSettings struct {
 
-	// A name for the trust relationship
-	Name string `json:"name,omitempty"`
-
-	// The public CA certificate of the environment to trust
-	PublicCaCert string `json:"public_ca_cert,omitempty"`
-
-	// If this relationship is trusted by default by all deployments in the current environment, defaults to `false`
-	TrustByDefault *bool `json:"trust_by_default,omitempty"`
+	// The list of trust relationships with different accounts
+	// Required: true
+	Accounts []*AccountTrustRelationship `json:"accounts"`
 }
 
-// Validate validates this trust relationship update request
-func (m *TrustRelationshipUpdateRequest) Validate(formats strfmt.Registry) error {
+// Validate validates this trust settings
+func (m *TrustSettings) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateAccounts(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *TrustSettings) validateAccounts(formats strfmt.Registry) error {
+
+	if err := validate.Required("accounts", "body", m.Accounts); err != nil {
+		return err
+	}
+
+	for i := 0; i < len(m.Accounts); i++ {
+		if swag.IsZero(m.Accounts[i]) { // not required
+			continue
+		}
+
+		if m.Accounts[i] != nil {
+			if err := m.Accounts[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("accounts" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
 	return nil
 }
 
 // MarshalBinary interface implementation
-func (m *TrustRelationshipUpdateRequest) MarshalBinary() ([]byte, error) {
+func (m *TrustSettings) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -55,8 +88,8 @@ func (m *TrustRelationshipUpdateRequest) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *TrustRelationshipUpdateRequest) UnmarshalBinary(b []byte) error {
-	var res TrustRelationshipUpdateRequest
+func (m *TrustSettings) UnmarshalBinary(b []byte) error {
+	var res TrustSettings
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

@@ -41,6 +41,9 @@ type ClusterInfo struct {
 	// The top-level object information for an Elasticsearch cluster.
 	Elasticsearch *ElasticsearchClusterInfo `json:"elasticsearch,omitempty"`
 
+	// The top level info object for Enterprise Search
+	EnterpriseSearch *EnterpriseSearchInfo `json:"enterprise_search,omitempty"`
+
 	// The top level info object for a Kibana cluster
 	Kibana *KibanaClusterInfo `json:"kibana,omitempty"`
 }
@@ -58,6 +61,10 @@ func (m *ClusterInfo) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateElasticsearch(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateEnterpriseSearch(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -117,6 +124,24 @@ func (m *ClusterInfo) validateElasticsearch(formats strfmt.Registry) error {
 		if err := m.Elasticsearch.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("elasticsearch")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ClusterInfo) validateEnterpriseSearch(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.EnterpriseSearch) { // not required
+		return nil
+	}
+
+	if m.EnterpriseSearch != nil {
+		if err := m.EnterpriseSearch.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("enterprise_search")
 			}
 			return err
 		}

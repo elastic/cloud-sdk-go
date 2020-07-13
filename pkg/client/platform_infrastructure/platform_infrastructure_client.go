@@ -88,6 +88,8 @@ type ClientService interface {
 
 	GetAllocators(params *GetAllocatorsParams, authInfo runtime.ClientAuthInfoWriter) (*GetAllocatorsOK, error)
 
+	GetAPIBaseURL(params *GetAPIBaseURLParams, authInfo runtime.ClientAuthInfoWriter) (*GetAPIBaseURLOK, error)
+
 	GetBlueprinterRole(params *GetBlueprinterRoleParams, authInfo runtime.ClientAuthInfoWriter) (*GetBlueprinterRoleOK, error)
 
 	GetConfigStoreOption(params *GetConfigStoreOptionParams, authInfo runtime.ClientAuthInfoWriter) (*GetConfigStoreOptionOK, error)
@@ -153,6 +155,8 @@ type ClientService interface {
 	SetAllocatorMetadataItem(params *SetAllocatorMetadataItemParams, authInfo runtime.ClientAuthInfoWriter) (*SetAllocatorMetadataItemOK, error)
 
 	SetAllocatorSettings(params *SetAllocatorSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*SetAllocatorSettingsOK, error)
+
+	SetAPIBaseURL(params *SetAPIBaseURLParams, authInfo runtime.ClientAuthInfoWriter) (*SetAPIBaseURLOK, error)
 
 	SetBlueprinterBlessings(params *SetBlueprinterBlessingsParams, authInfo runtime.ClientAuthInfoWriter) (*SetBlueprinterBlessingsOK, error)
 
@@ -1004,6 +1008,43 @@ func (a *Client) GetAllocators(params *GetAllocatorsParams, authInfo runtime.Cli
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for get-allocators: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  GetAPIBaseURL gets API base Url
+
+  Gets the API base Url configuration value.
+*/
+func (a *Client) GetAPIBaseURL(params *GetAPIBaseURLParams, authInfo runtime.ClientAuthInfoWriter) (*GetAPIBaseURLOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetAPIBaseURLParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "get-api-base-url",
+		Method:             "GET",
+		PathPattern:        "/platform/configuration/api_base_url",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetAPIBaseURLReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetAPIBaseURLOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-api-base-url: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -2229,6 +2270,43 @@ func (a *Client) SetAllocatorSettings(params *SetAllocatorSettingsParams, authIn
 }
 
 /*
+  SetAPIBaseURL sets API base Url
+
+  Saves the API base Url configuration value.
+*/
+func (a *Client) SetAPIBaseURL(params *SetAPIBaseURLParams, authInfo runtime.ClientAuthInfoWriter) (*SetAPIBaseURLOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSetAPIBaseURLParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "set-api-base-url",
+		Method:             "PUT",
+		PathPattern:        "/platform/configuration/api_base_url",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &SetAPIBaseURLReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*SetAPIBaseURLOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for set-api-base-url: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
   SetBlueprinterBlessings sets blessings
 
   Set blessings for a role.
@@ -2601,7 +2679,7 @@ func (a *Client) StopConstructorMaintenanceMode(params *StopConstructorMaintenan
 /*
   UpdateAdminconsoleLoggingSettings updates adminconsole logging settings
 
-  All changes in the specified object are applied to the logging settings for this adminconsole instance. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.
+  All changes in the specified object are applied to the logging settings for this adminconsole instance according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.
 */
 func (a *Client) UpdateAdminconsoleLoggingSettings(params *UpdateAdminconsoleLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateAdminconsoleLoggingSettingsOK, error) {
 	// TODO: Validate the params before sending
@@ -2638,7 +2716,7 @@ func (a *Client) UpdateAdminconsoleLoggingSettings(params *UpdateAdminconsoleLog
 /*
   UpdateAllocatorLoggingSettings updates allocator logging settings
 
-  All changes in the specified object are applied to the logging settings for this allocator instance. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.
+  All changes in the specified object are applied to the logging settings for this allocator instance according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.
 */
 func (a *Client) UpdateAllocatorLoggingSettings(params *UpdateAllocatorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateAllocatorLoggingSettingsOK, error) {
 	// TODO: Validate the params before sending
@@ -2749,7 +2827,7 @@ func (a *Client) UpdateBlueprinterRole(params *UpdateBlueprinterRoleParams, auth
 /*
   UpdateConstructorLoggingSettings updates constructor logging settings
 
-  All changes in the specified object are applied to the logging settings for this constructor instance. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.
+  All changes in the specified object are applied to the logging settings for this constructor instance according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.
 */
 func (a *Client) UpdateConstructorLoggingSettings(params *UpdateConstructorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateConstructorLoggingSettingsOK, error) {
 	// TODO: Validate the params before sending
@@ -2860,7 +2938,7 @@ func (a *Client) UpdateProxiesSettings(params *UpdateProxiesSettingsParams, auth
 /*
   UpdateRunnerLoggingSettings updates runner logging settings
 
-  All changes in the specified object are applied to the logging settings for this runner instance. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.
+  All changes in the specified object are applied to the logging settings for this runner instance according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.
 */
 func (a *Client) UpdateRunnerLoggingSettings(params *UpdateRunnerLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateRunnerLoggingSettingsOK, error) {
 	// TODO: Validate the params before sending

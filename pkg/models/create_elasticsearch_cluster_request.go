@@ -29,7 +29,7 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// CreateElasticsearchClusterRequest The request body for creating an Elasticsearch cluster.
+// CreateElasticsearchClusterRequest The request body for creating an Elasticsearch cluster using the clusters API.
 // swagger:model CreateElasticsearchClusterRequest
 type CreateElasticsearchClusterRequest struct {
 
@@ -47,7 +47,7 @@ type CreateElasticsearchClusterRequest struct {
 	Plan *ElasticsearchClusterPlan `json:"plan"`
 
 	// settings
-	Settings *ElasticsearchClusterSettings `json:"settings,omitempty"`
+	Settings *DeprecatedElasticsearchClusterSettings `json:"settings,omitempty"`
 }
 
 // Validate validates this create elasticsearch cluster request

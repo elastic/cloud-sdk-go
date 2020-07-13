@@ -111,8 +111,9 @@ func NewRestoreDeploymentResourceBadRequest() *RestoreDeploymentResourceBadReque
 
 /*RestoreDeploymentResourceBadRequest handles this case with default header values.
 
-The resource is not shut down. (code: `deployments.resource_not_shutdown`)
-*/
+* The Resource does not have a pending plan. (code: `deployments.resource_does_not_have_a_pending_plan`)
+* The resource is not shut down. (code: `deployments.resource_not_shutdown`)
+ */
 type RestoreDeploymentResourceBadRequest struct {
 	/*The error codes associated with the response
 	 */
