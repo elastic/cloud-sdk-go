@@ -105,6 +105,11 @@ func buildRequest(host, path, method string) *http.Request {
 	isPut := method == "PUT"
 	isPatch := method == "PATCH"
 	isUsersAuthKeys := strings.Contains(path, "/users/auth/keys")
+	isDeploymentTemplates := strings.Contains(path, "deployments/templates")
+
+	if isDeploymentTemplates {
+		path += "?region=ece-region"
+	}
 
 	if isPost || isPut || isPatch || isUsersAuthKeys {
 		r := strings.NewReader(`{}`)
