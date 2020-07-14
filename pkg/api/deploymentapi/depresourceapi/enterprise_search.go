@@ -25,15 +25,15 @@ import (
 )
 
 const (
-	// DefaultKibanaRefID is used when the RefID is not specified.
-	DefaultKibanaRefID = "main-kibana"
+	// DefaultEnterpriseSearchRefID is used when the RefID is not specified.
+	DefaultEnterpriseSearchRefID = "main-enterprise_search"
 )
 
-// NewKibana creates a *models.KibanaPayload from the parameters.
+// NewEnterpriseSearch creates a *models.EnterpriseSearchPayload from the parameters.
 // It relies on a simplified single dimension memory size and zone count to
-// construct the Kibana's topology.
-func NewKibana(params NewStateless) (*models.KibanaPayload, error) {
-	params.fillDefaults(DefaultKibanaRefID)
+// construct the EnterpriseSearch's topology.
+func NewEnterpriseSearch(params NewStateless) (*models.EnterpriseSearchPayload, error) {
+	params.fillDefaults(DefaultEnterpriseSearchRefID)
 	if err := params.Validate(); err != nil {
 		return nil, err
 	}
@@ -44,22 +44,22 @@ func NewKibana(params NewStateless) (*models.KibanaPayload, error) {
 		return nil, err
 	}
 
-	if len(params.DeploymentTemplateInfo.DeploymentTemplate.Resources.Kibana) == 0 {
-		return nil, fmt.Errorf("deployment: the %s template is not configured for Kibana. Please use another template if you wish to start Kibana instances",
+	if len(params.DeploymentTemplateInfo.DeploymentTemplate.Resources.EnterpriseSearch) == 0 {
+		return nil, fmt.Errorf("deployment: the %s template is not configured for Enterprise Search. Please use another template if you wish to start Enterprise Search instances",
 			params.TemplateID)
 	}
 
-	var clusterTopology = params.DeploymentTemplateInfo.DeploymentTemplate.Resources.Kibana[0].Plan.ClusterTopology
-	var topology = models.KibanaClusterTopologyElement{Size: new(models.TopologySize)}
+	var clusterTopology = params.DeploymentTemplateInfo.DeploymentTemplate.Resources.EnterpriseSearch[0].Plan.ClusterTopology
+	var topology = models.EnterpriseSearchTopologyElement{Size: new(models.TopologySize)}
 	if len(clusterTopology) > 0 {
 		topology = *clusterTopology[0]
 	}
-	var payload = newKibanaPayload(params, topology)
+	var payload = newEnterpriseSearchPayload(params, topology)
 
 	return &payload, nil
 }
 
-func newKibanaPayload(params NewStateless, topology models.KibanaClusterTopologyElement) models.KibanaPayload {
+func newEnterpriseSearchPayload(params NewStateless, topology models.EnterpriseSearchTopologyElement) models.EnterpriseSearchPayload {
 	if params.Size > 0 {
 		topology.Size.Value = ec.Int32(params.Size)
 	}
@@ -67,14 +67,14 @@ func newKibanaPayload(params NewStateless, topology models.KibanaClusterTopology
 		topology.ZoneCount = params.ZoneCount
 	}
 
-	return models.KibanaPayload{
+	return models.EnterpriseSearchPayload{
 		ElasticsearchClusterRefID: ec.String(params.ElasticsearchRefID),
 		DisplayName:               params.Name,
 		Region:                    ec.String(params.Region),
 		RefID:                     ec.String(params.RefID),
-		Plan: &models.KibanaClusterPlan{
-			Kibana:          &models.KibanaConfiguration{Version: params.Version},
-			ClusterTopology: []*models.KibanaClusterTopologyElement{&topology},
+		Plan: &models.EnterpriseSearchPlan{
+			EnterpriseSearch: &models.EnterpriseSearchConfiguration{Version: params.Version},
+			ClusterTopology:  []*models.EnterpriseSearchTopologyElement{&topology},
 		},
 	}
 }

@@ -22,12 +22,18 @@ import (
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 )
+
+var errMissingDeploymentTemplateInfo = errors.New("deployment template info is not specified and is required for the operation")
 
 // NewStateless is consumed by NewKibana.
 type NewStateless struct {
 	*api.API
+
+	// Required deployment template definition
+	*models.DeploymentTemplateInfo
 
 	// Optional DeploymentID.
 	DeploymentID string
@@ -58,9 +64,13 @@ type NewStateless struct {
 
 // Validate ensures the parameters are usable by the consuming function.
 func (params *NewStateless) Validate() error {
-	var merr = multierror.NewPrefixed("deployment resource")
+	var merr = multierror.NewPrefixed("invalid deployment resource params")
 	if params.API == nil {
 		merr = merr.Append(apierror.ErrMissingAPI)
+	}
+
+	if params.DeploymentTemplateInfo == nil {
+		merr = merr.Append(errMissingDeploymentTemplateInfo)
 	}
 
 	if params.DeploymentID != "" && len(params.DeploymentID) != 32 {

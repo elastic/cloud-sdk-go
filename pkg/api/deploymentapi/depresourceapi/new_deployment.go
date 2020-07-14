@@ -21,6 +21,7 @@ import (
 	"io"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
+	"github.com/elastic/cloud-sdk-go/pkg/api/platformapi/configurationtemplateapi"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
@@ -35,32 +36,46 @@ type InstanceParams struct {
 type NewParams struct {
 	*api.API
 
-	Name                  string
-	Version               string
-	DeploymentTemplateID  string
-	Region                string
-	ApmEnable             bool
-	AppsearchEnable       bool
-	Writer                io.Writer
-	Plugins               []string
-	TopologyElements      []string
-	ElasticsearchInstance InstanceParams
-	KibanaInstance        InstanceParams
-	ApmInstance           InstanceParams
-	AppsearchInstance     InstanceParams
+	Name                     string
+	Version                  string
+	DeploymentTemplateID     string
+	Region                   string
+	ApmEnable                bool
+	AppsearchEnable          bool
+	EnterpriseSearchEnable   bool
+	Writer                   io.Writer
+	Plugins                  []string
+	TopologyElements         []string
+	ElasticsearchInstance    InstanceParams
+	KibanaInstance           InstanceParams
+	ApmInstance              InstanceParams
+	AppsearchInstance        InstanceParams
+	EnterpriseSearchInstance InstanceParams
 }
 
 // New creates the payload for a deployment
 func New(params NewParams) (*models.DeploymentCreateRequest, error) {
+	res, err := configurationtemplateapi.GetTemplate(configurationtemplateapi.GetTemplateParams{
+		API:                params.API,
+		ID:                 params.DeploymentTemplateID,
+		Region:             params.Region,
+		Format:             "deployment",
+		ShowInstanceConfig: true,
+	})
+	if err != nil {
+		return nil, err
+	}
+
 	esPayload, err := ParseElasticsearchInput(ParseElasticsearchInputParams{
 		NewElasticsearchParams: NewElasticsearchParams{
-			API:        params.API,
-			RefID:      params.ElasticsearchInstance.RefID,
-			Version:    params.Version,
-			Plugins:    params.Plugins,
-			Region:     params.Region,
-			TemplateID: params.DeploymentTemplateID,
+			RefID:                  params.ElasticsearchInstance.RefID,
+			Version:                params.Version,
+			Plugins:                params.Plugins,
+			Region:                 params.Region,
+			TemplateID:             params.DeploymentTemplateID,
+			DeploymentTemplateInfo: res,
 		},
+		API:              params.API,
 		Size:             params.ElasticsearchInstance.Size,
 		ZoneCount:        params.ElasticsearchInstance.ZoneCount,
 		Writer:           params.Writer,
@@ -71,14 +86,15 @@ func New(params NewParams) (*models.DeploymentCreateRequest, error) {
 	}
 
 	kibanaPayload, err := NewKibana(NewStateless{
-		ElasticsearchRefID: params.ElasticsearchInstance.RefID,
-		API:                params.API,
-		RefID:              params.KibanaInstance.RefID,
-		Version:            params.Version,
-		Region:             params.Region,
-		TemplateID:         params.DeploymentTemplateID,
-		Size:               params.KibanaInstance.Size,
-		ZoneCount:          params.KibanaInstance.ZoneCount,
+		ElasticsearchRefID:     params.ElasticsearchInstance.RefID,
+		API:                    params.API,
+		RefID:                  params.KibanaInstance.RefID,
+		Version:                params.Version,
+		Region:                 params.Region,
+		TemplateID:             params.DeploymentTemplateID,
+		Size:                   params.KibanaInstance.Size,
+		ZoneCount:              params.KibanaInstance.ZoneCount,
+		DeploymentTemplateInfo: res,
 	})
 	if err != nil {
 		return nil, err
@@ -91,14 +107,15 @@ func New(params NewParams) (*models.DeploymentCreateRequest, error) {
 
 	if params.ApmEnable {
 		apmPayload, err := NewApm(NewStateless{
-			ElasticsearchRefID: params.ElasticsearchInstance.RefID,
-			API:                params.API,
-			RefID:              params.ApmInstance.RefID,
-			Version:            params.Version,
-			Region:             params.Region,
-			TemplateID:         params.DeploymentTemplateID,
-			Size:               params.ApmInstance.Size,
-			ZoneCount:          params.ApmInstance.ZoneCount,
+			ElasticsearchRefID:     params.ElasticsearchInstance.RefID,
+			API:                    params.API,
+			RefID:                  params.ApmInstance.RefID,
+			Version:                params.Version,
+			Region:                 params.Region,
+			TemplateID:             params.DeploymentTemplateID,
+			Size:                   params.ApmInstance.Size,
+			ZoneCount:              params.ApmInstance.ZoneCount,
+			DeploymentTemplateInfo: res,
 		})
 		if err != nil {
 			return nil, err
@@ -109,20 +126,40 @@ func New(params NewParams) (*models.DeploymentCreateRequest, error) {
 
 	if params.AppsearchEnable {
 		appsearchPayload, err := NewAppSearch(NewStateless{
-			ElasticsearchRefID: params.ElasticsearchInstance.RefID,
-			API:                params.API,
-			RefID:              params.AppsearchInstance.RefID,
-			Version:            params.Version,
-			Region:             params.Region,
-			TemplateID:         params.DeploymentTemplateID,
-			Size:               params.AppsearchInstance.Size,
-			ZoneCount:          params.AppsearchInstance.ZoneCount,
+			ElasticsearchRefID:     params.ElasticsearchInstance.RefID,
+			API:                    params.API,
+			RefID:                  params.AppsearchInstance.RefID,
+			Version:                params.Version,
+			Region:                 params.Region,
+			TemplateID:             params.DeploymentTemplateID,
+			Size:                   params.AppsearchInstance.Size,
+			ZoneCount:              params.AppsearchInstance.ZoneCount,
+			DeploymentTemplateInfo: res,
 		})
 		if err != nil {
 			return nil, err
 		}
 
 		resources.Appsearch = []*models.AppSearchPayload{appsearchPayload}
+	}
+
+	if params.EnterpriseSearchEnable {
+		enterpriseSearchPayload, err := NewEnterpriseSearch(NewStateless{
+			ElasticsearchRefID:     params.ElasticsearchInstance.RefID,
+			API:                    params.API,
+			RefID:                  params.EnterpriseSearchInstance.RefID,
+			Version:                params.Version,
+			Region:                 params.Region,
+			TemplateID:             params.DeploymentTemplateID,
+			Size:                   params.EnterpriseSearchInstance.Size,
+			ZoneCount:              params.EnterpriseSearchInstance.ZoneCount,
+			DeploymentTemplateInfo: res,
+		})
+		if err != nil {
+			return nil, err
+		}
+
+		resources.EnterpriseSearch = []*models.EnterpriseSearchPayload{enterpriseSearchPayload}
 	}
 
 	payload := models.DeploymentCreateRequest{

@@ -21,9 +21,6 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/elastic/cloud-sdk-go/pkg/api"
-	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
-	"github.com/elastic/cloud-sdk-go/pkg/api/platformapi/configurationtemplateapi"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
@@ -48,7 +45,8 @@ const (
 
 // NewElasticsearchParams is consumed by NewElasticsearch.
 type NewElasticsearchParams struct {
-	*api.API
+	// Required deployment template definition
+	*models.DeploymentTemplateInfo
 
 	// Optional region name. Defaults to
 	Region string
@@ -86,9 +84,10 @@ func (params *NewElasticsearchParams) fillDefaults() {
 
 // Validate ensures the parameters are usable by the consuming function.
 func (params *NewElasticsearchParams) Validate() error {
-	var merr = multierror.NewPrefixed("deployment elasticsearch")
-	if params.API == nil {
-		merr = merr.Append(apierror.ErrMissingAPI)
+	var merr = multierror.NewPrefixed("invalid deployment resource params")
+
+	if params.DeploymentTemplateInfo == nil {
+		merr = merr.Append(errMissingDeploymentTemplateInfo)
 	}
 
 	if params.Region == "" {
@@ -116,25 +115,21 @@ func (params *NewElasticsearchParams) Validate() error {
 // of ElasticsearchPayload works.
 func NewElasticsearch(params NewElasticsearchParams) (*models.ElasticsearchPayload, error) {
 	params.fillDefaults()
-	if err := params.Validate(); err != nil {
+
+	err := params.Validate()
+	if err != nil {
 		return nil, err
 	}
 
-	res, err := configurationtemplateapi.GetTemplate(configurationtemplateapi.GetTemplateParams{
-		API:                params.API,
-		ID:                 params.TemplateID,
-		Region:             params.Region,
-		Format:             "cluster",
-		ShowInstanceConfig: true,
-	})
-	if err != nil {
-		return nil, err
+	if len(params.DeploymentTemplateInfo.DeploymentTemplate.Resources.Elasticsearch) == 0 {
+		return nil, fmt.Errorf("deployment: the %s template is not configured for Elasticsearch. Please use another template if you wish to start Elasticsearch instances",
+			params.TemplateID)
 	}
 
 	var payload = newElasticsearchPayload(params)
 	payload.Plan.ClusterTopology, err = BuildElasticsearchTopology(
 		BuildElasticsearchTopologyParams{
-			ClusterTopology: res.ClusterTemplate.Plan.ClusterTopology,
+			ClusterTopology: params.DeploymentTemplateInfo.DeploymentTemplate.Resources.Elasticsearch[0].Plan.ClusterTopology,
 			TemplateID:      params.TemplateID,
 			Topology:        params.Topology,
 		},

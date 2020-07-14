@@ -31,14 +31,14 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
-var apmTemplateResponse = models.DeploymentTemplateInfo{
-	ID: "default",
+var enterpriseSearchTemplateResponse = models.DeploymentTemplateInfo{
+	ID: "default.enterprise-search",
 	DeploymentTemplate: &models.DeploymentCreateRequest{
 		Resources: &models.DeploymentCreateResources{
-			Apm: []*models.ApmPayload{
+			EnterpriseSearch: []*models.EnterpriseSearchPayload{
 				{
-					Plan: &models.ApmPlan{
-						ClusterTopology: []*models.ApmTopologyElement{
+					Plan: &models.EnterpriseSearchPlan{
+						ClusterTopology: []*models.EnterpriseSearchTopologyElement{
 							{
 								Size: &models.TopologySize{
 									Resource: ec.String("memory"),
@@ -61,8 +61,8 @@ var apmTemplateResponse = models.DeploymentTemplateInfo{
 	},
 }
 
-var crossClusterTemplateResponse = models.DeploymentTemplateInfo{
-	ID: "cross-cluster-search",
+var defaultESTemplateResponse = models.DeploymentTemplateInfo{
+	ID: "default",
 	DeploymentTemplate: &models.DeploymentCreateRequest{
 		Resources: &models.DeploymentCreateResources{
 			Elasticsearch: []*models.ElasticsearchPayload{
@@ -76,7 +76,7 @@ var crossClusterTemplateResponse = models.DeploymentTemplateInfo{
 	},
 }
 
-func TestNewApm(t *testing.T) {
+func TestNewEnterpriseSearch(t *testing.T) {
 	var getResponse = models.DeploymentGetResponse{
 		Resources: &models.DeploymentResources{
 			Elasticsearch: []*models.ElasticsearchResourceInfo{{
@@ -102,7 +102,7 @@ func TestNewApm(t *testing.T) {
 	tests := []struct {
 		name string
 		args args
-		want *models.ApmPayload
+		want *models.EnterpriseSearchPayload
 		err  error
 	}{
 		{
@@ -158,37 +158,37 @@ func TestNewApm(t *testing.T) {
 			err: mock.MultierrorInternalError,
 		},
 		{
-			name: "obtains the deployment template when no template ID is defined but it's an invalid template for apm",
+			name: "obtains the deployment template but it's an invalid template for enterprise search",
 			args: args{params: NewStateless{
 				DeploymentID: mock.ValidClusterID,
 				API: api.NewMock(
 					mock.New200Response(mock.NewStructBody(getResponse)),
-					mock.New200Response(mock.NewStructBody(crossClusterTemplateResponse)),
+					mock.New200Response(mock.NewStructBody(defaultESTemplateResponse)),
 				),
 				Region:                 "ece-region",
-				DeploymentTemplateInfo: &crossClusterTemplateResponse,
+				DeploymentTemplateInfo: &defaultESTemplateResponse,
 			}},
-			err: errors.New("deployment: the an ID template is not configured for APM. Please use another template if you wish to start APM instances"),
+			err: errors.New("deployment: the an ID template is not configured for Enterprise Search. Please use another template if you wish to start Enterprise Search instances"),
 		},
 		{
 			name: "succeeds with no argument override",
 			args: args{params: NewStateless{
 				DeploymentID: mock.ValidClusterID,
 				API: api.NewMock(
-					mock.New200Response(mock.NewStructBody(apmTemplateResponse)),
+					mock.New200Response(mock.NewStructBody(enterpriseSearchTemplateResponse)),
 				),
 				TemplateID:             "default",
 				Region:                 "ece-region",
 				ElasticsearchRefID:     "main-elasticsearch",
-				DeploymentTemplateInfo: &apmTemplateResponse,
+				DeploymentTemplateInfo: &enterpriseSearchTemplateResponse,
 			}},
-			want: &models.ApmPayload{
+			want: &models.EnterpriseSearchPayload{
 				ElasticsearchClusterRefID: ec.String("main-elasticsearch"),
 				Region:                    ec.String("ece-region"),
-				RefID:                     ec.String("main-apm"),
-				Plan: &models.ApmPlan{
-					Apm: &models.ApmConfiguration{},
-					ClusterTopology: []*models.ApmTopologyElement{
+				RefID:                     ec.String("main-enterprise_search"),
+				Plan: &models.EnterpriseSearchPlan{
+					EnterpriseSearch: &models.EnterpriseSearchConfiguration{},
+					ClusterTopology: []*models.EnterpriseSearchTopologyElement{
 						{
 							Size: &models.TopologySize{
 								Resource: ec.String("memory"),
@@ -208,18 +208,18 @@ func TestNewApm(t *testing.T) {
 				DeploymentID: mock.ValidClusterID,
 				API: api.NewMock(
 					mock.New200Response(mock.NewStructBody(getResponse)),
-					mock.New200Response(mock.NewStructBody(apmTemplateResponse)),
+					mock.New200Response(mock.NewStructBody(enterpriseSearchTemplateResponse)),
 				),
 				Region:                 "ece-region",
-				DeploymentTemplateInfo: &apmTemplateResponse,
+				DeploymentTemplateInfo: &enterpriseSearchTemplateResponse,
 			}},
-			want: &models.ApmPayload{
+			want: &models.EnterpriseSearchPayload{
 				ElasticsearchClusterRefID: ec.String("main-elasticsearch"),
 				Region:                    ec.String("ece-region"),
-				RefID:                     ec.String("main-apm"),
-				Plan: &models.ApmPlan{
-					Apm: &models.ApmConfiguration{},
-					ClusterTopology: []*models.ApmTopologyElement{
+				RefID:                     ec.String("main-enterprise_search"),
+				Plan: &models.EnterpriseSearchPlan{
+					EnterpriseSearch: &models.EnterpriseSearchConfiguration{},
+					ClusterTopology: []*models.EnterpriseSearchTopologyElement{
 						{
 							Size: &models.TopologySize{
 								Resource: ec.String("memory"),
@@ -234,7 +234,7 @@ func TestNewApm(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := NewApm(tt.args.params)
+			got, err := NewEnterpriseSearch(tt.args.params)
 			if !assert.Equal(t, tt.err, err) {
 				t.Error(err)
 			}

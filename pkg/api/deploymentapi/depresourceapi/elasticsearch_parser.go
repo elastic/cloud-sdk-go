@@ -20,11 +20,15 @@ package depresourceapi
 import (
 	"io"
 
+	"github.com/elastic/cloud-sdk-go/pkg/api"
+	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 )
 
 // ParseElasticsearchInputParams is consumed by ParseElasticsearchInput.
 type ParseElasticsearchInputParams struct {
+	*api.API
 	NewElasticsearchParams
 
 	Payload          *models.ElasticsearchPayload
@@ -33,9 +37,19 @@ type ParseElasticsearchInputParams struct {
 	Writer           io.Writer
 }
 
-// ParseElasticsearchInput handles all the parameters as optional, providing
-// a nicer API when it's used. The bulk of what it does is:
-// * If a Payload is already specifide, it returns it.
+// Validate ensures the parameters are usable by the consuming function.
+func (params *ParseElasticsearchInputParams) Validate() error {
+	var merr = multierror.NewPrefixed("invalid deployment resource params")
+	if params.API == nil {
+		merr = merr.Append(apierror.ErrMissingAPI)
+	}
+
+	return merr.ErrorOrNil()
+}
+
+// ParseElasticsearchInput handles all but the API parameters as optional,
+// providing a nicer API when it's used. The bulk of what it does is:
+// * If a Payload is already specified, it returns it.
 // * Tries to create an []ElasticsearchTopologyElement from a raw []string.
 // * If the previous step returns an empty slice, it uses a default slice which
 //   might override the values when Size or ZoneCount are set in the params.
@@ -45,6 +59,10 @@ type ParseElasticsearchInputParams struct {
 func ParseElasticsearchInput(params ParseElasticsearchInputParams) (*models.ElasticsearchPayload, error) {
 	if params.Payload != nil {
 		return params.Payload, nil
+	}
+
+	if err := params.Validate(); err != nil {
+		return nil, err
 	}
 
 	topology, err := NewElasticsearchTopology(params.TopologyElements)
