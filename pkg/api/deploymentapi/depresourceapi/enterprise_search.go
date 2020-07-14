@@ -44,7 +44,7 @@ func NewEnterpriseSearch(params NewStateless) (*models.EnterpriseSearchPayload, 
 		return nil, err
 	}
 
-	if params.DeploymentTemplateInfo.DeploymentTemplate.Resources.EnterpriseSearch == nil {
+	if len(params.DeploymentTemplateInfo.DeploymentTemplate.Resources.EnterpriseSearch) == 0 {
 		return nil, fmt.Errorf("deployment: the %s template is not configured for Enterprise Search. Please use another template if you wish to start Enterprise Search instances",
 			params.TemplateID)
 	}

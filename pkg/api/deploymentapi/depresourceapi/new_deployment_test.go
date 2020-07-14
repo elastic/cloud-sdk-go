@@ -214,7 +214,6 @@ func TestNew(t *testing.T) {
 				DeploymentTemplateID: "default",
 				API: api.NewMock(
 					mock.New200Response(mock.NewStructBody(defaultTemplateResponse)),
-					mock.New200Response(mock.NewStructBody(defaultTemplateResponse)),
 				),
 			}},
 			err: errors.New("deployment: the default template is not configured for Kibana. Please use another template if you wish to start Kibana instances"),
@@ -242,8 +241,6 @@ func TestNew(t *testing.T) {
 				DeploymentTemplateID: "default",
 				ApmEnable:            true,
 				API: api.NewMock(
-					mock.New200Response(mock.NewStructBody(appsearchKibanaTemplateResponse)),
-					mock.New200Response(mock.NewStructBody(appsearchKibanaTemplateResponse)),
 					mock.New200Response(mock.NewStructBody(appsearchKibanaTemplateResponse)),
 				),
 			}},
@@ -273,8 +270,6 @@ func TestNew(t *testing.T) {
 				AppsearchEnable:      true,
 				API: api.NewMock(
 					mock.New200Response(mock.NewStructBody(apmKibanaTemplateResponse)),
-					mock.New200Response(mock.NewStructBody(apmKibanaTemplateResponse)),
-					mock.New200Response(mock.NewStructBody(apmKibanaTemplateResponse)),
 				),
 			}},
 			err: errors.New("deployment: the default template is not configured for App Search. Please use another template if you wish to start App Search instances"),
@@ -296,7 +291,6 @@ func TestNew(t *testing.T) {
 				},
 				DeploymentTemplateID: "default",
 				API: api.NewMock(
-					mock.New200Response(mock.NewStructBody(kibanaTemplateResponse)),
 					mock.New200Response(mock.NewStructBody(kibanaTemplateResponse)),
 				),
 			}},
@@ -368,8 +362,6 @@ func TestNew(t *testing.T) {
 				DeploymentTemplateID: "default",
 				ApmEnable:            true,
 				API: api.NewMock(
-					mock.New200Response(mock.NewStructBody(apmKibanaTemplateResponse)),
-					mock.New200Response(mock.NewStructBody(apmKibanaTemplateResponse)),
 					mock.New200Response(mock.NewStructBody(apmKibanaTemplateResponse)),
 				),
 			}},
@@ -461,8 +453,6 @@ func TestNew(t *testing.T) {
 				AppsearchEnable:      true,
 				API: api.NewMock(
 					mock.New200Response(mock.NewStructBody(appsearchKibanaTemplateResponse)),
-					mock.New200Response(mock.NewStructBody(appsearchKibanaTemplateResponse)),
-					mock.New200Response(mock.NewStructBody(appsearchKibanaTemplateResponse)),
 				),
 			}},
 			want: &models.DeploymentCreateRequest{Resources: &models.DeploymentCreateResources{
@@ -552,8 +542,6 @@ func TestNew(t *testing.T) {
 				DeploymentTemplateID:   "default",
 				EnterpriseSearchEnable: true,
 				API: api.NewMock(
-					mock.New200Response(mock.NewStructBody(enterpriseSearchKibanaTemplateResponse)),
-					mock.New200Response(mock.NewStructBody(enterpriseSearchKibanaTemplateResponse)),
 					mock.New200Response(mock.NewStructBody(enterpriseSearchKibanaTemplateResponse)),
 				),
 			}},

@@ -115,6 +115,24 @@ func TestNewElasticsearch(t *testing.T) {
 			err: errors.New(`deployment topology: failed to obtain desired topology names ([{Name:some ZoneCount:0 Size:1024}]) in deployment template id "default"`),
 		},
 		{
+			name: "fails due to unknown invalid template",
+			args: args{params: NewElasticsearchParams{
+				Region:     "ece-region",
+				Version:    "7.4.2",
+				TemplateID: "default",
+				DeploymentTemplateInfo: &models.DeploymentTemplateInfo{
+					ID: "default",
+					DeploymentTemplate: &models.DeploymentCreateRequest{
+						Resources: &models.DeploymentCreateResources{},
+					},
+				},
+				Topology: []ElasticsearchTopologyElement{
+					{Name: "some", Size: 1024},
+				},
+			}},
+			err: errors.New("deployment: the default template is not configured for Elasticsearch. Please use another template if you wish to start Elasticsearch instances"),
+		},
+		{
 			name: "Returns the default topology",
 			args: args{params: NewElasticsearchParams{
 				Region:                 "ece-region",

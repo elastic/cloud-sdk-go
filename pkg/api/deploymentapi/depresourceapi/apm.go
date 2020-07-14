@@ -44,7 +44,7 @@ func NewApm(params NewStateless) (*models.ApmPayload, error) {
 		return nil, err
 	}
 
-	if params.DeploymentTemplateInfo.DeploymentTemplate.Resources.Apm == nil {
+	if len(params.DeploymentTemplateInfo.DeploymentTemplate.Resources.Apm) == 0 {
 		return nil, fmt.Errorf("deployment: the %s template is not configured for APM. Please use another template if you wish to start APM instances",
 			params.TemplateID)
 	}

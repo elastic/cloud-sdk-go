@@ -44,7 +44,7 @@ func NewAppSearch(params NewStateless) (*models.AppSearchPayload, error) {
 		return nil, err
 	}
 
-	if params.DeploymentTemplateInfo.DeploymentTemplate.Resources.Appsearch == nil {
+	if len(params.DeploymentTemplateInfo.DeploymentTemplate.Resources.Appsearch) == 0 {
 		return nil, fmt.Errorf("deployment: the %s template is not configured for App Search. Please use another template if you wish to start App Search instances",
 			params.TemplateID)
 	}

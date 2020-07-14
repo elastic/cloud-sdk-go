@@ -44,7 +44,7 @@ func NewKibana(params NewStateless) (*models.KibanaPayload, error) {
 		return nil, err
 	}
 
-	if params.DeploymentTemplateInfo.DeploymentTemplate.Resources.Kibana == nil {
+	if len(params.DeploymentTemplateInfo.DeploymentTemplate.Resources.Kibana) == 0 {
 		return nil, fmt.Errorf("deployment: the %s template is not configured for Kibana. Please use another template if you wish to start Kibana instances",
 			params.TemplateID)
 	}

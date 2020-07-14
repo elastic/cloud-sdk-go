@@ -121,6 +121,11 @@ func NewElasticsearch(params NewElasticsearchParams) (*models.ElasticsearchPaylo
 		return nil, err
 	}
 
+	if len(params.DeploymentTemplateInfo.DeploymentTemplate.Resources.Elasticsearch) == 0 {
+		return nil, fmt.Errorf("deployment: the %s template is not configured for Elasticsearch. Please use another template if you wish to start Elasticsearch instances",
+			params.TemplateID)
+	}
+
 	var payload = newElasticsearchPayload(params)
 	payload.Plan.ClusterTopology, err = BuildElasticsearchTopology(
 		BuildElasticsearchTopologyParams{
