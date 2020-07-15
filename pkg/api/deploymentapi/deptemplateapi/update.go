@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 
-package deploymenttemplateapi
+package deptemplateapi
 
 import (
 	"errors"
@@ -23,28 +23,34 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/client/deployment_templates"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
-// DeleteParams is consumed by the Delete function.
-type DeleteParams struct {
+// UpdateParams is consumed by the Update function.
+type UpdateParams struct {
 	*api.API
 
-	TemplateID string
 	Region     string
+	TemplateID string
+	Request    *models.DeploymentTemplateRequestBody
 }
 
-// Validate ensures the parameters are usable by Delete.
-func (params DeleteParams) Validate() error {
-	var merr = multierror.NewPrefixed("invalid deployment template delete params")
+// Validate ensures the parameters are usable by Update.
+func (params UpdateParams) Validate() error {
+	var merr = multierror.NewPrefixed("invalid deployment template update params")
 
 	if params.API == nil {
 		merr = merr.Append(apierror.ErrMissingAPI)
 	}
 
+	if params.Request == nil {
+		merr = merr.Append(errors.New("required template request definition not provided"))
+	}
+
 	if params.TemplateID == "" {
-		merr = merr.Append(errors.New("required template id not provided"))
+		merr = merr.Append(errors.New("required template ID not provided"))
 	}
 
 	if err := ec.RequireRegionSet(params.Region); err != nil {
@@ -54,18 +60,20 @@ func (params DeleteParams) Validate() error {
 	return merr.ErrorOrNil()
 }
 
-// Delete removes an existing deployment temeplate.
-func Delete(params DeleteParams) error {
+// Update updates an existing deployment template from a definition.
+func Update(params UpdateParams) error {
 	if err := params.Validate(); err != nil {
 		return err
 	}
 
-	return api.ReturnErrOnly(
-		params.V1API.DeploymentTemplates.DeleteDeploymentTemplateV2(
-			deployment_templates.NewDeleteDeploymentTemplateV2Params().
-				WithRegion(params.Region).
-				WithTemplateID(params.TemplateID),
-			params.AuthWriter,
-		),
+	_, _, err := params.V1API.DeploymentTemplates.SetDeploymentTemplateV2(
+		deployment_templates.NewSetDeploymentTemplateV2Params().
+			WithTemplateID(params.TemplateID).
+			WithCreateOnly(ec.Bool(false)).
+			WithRegion(params.Region).
+			WithBody(params.Request),
+		params.AuthWriter,
 	)
+
+	return apierror.Unwrap(err)
 }

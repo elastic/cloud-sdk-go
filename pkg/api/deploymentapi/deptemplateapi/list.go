@@ -15,10 +15,11 @@
 // specific language governing permissions and limitations
 // under the License.
 
-package deploymenttemplateapi
+package deptemplateapi
 
 import (
-	"errors"
+	"fmt"
+	"strings"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
@@ -28,27 +29,31 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
-// GetParams is consumed by the Get function.
-type GetParams struct {
+// ListParams is consumed by the List function.
+type ListParams struct {
 	*api.API
 
-	TemplateID   string
-	Region       string
-	StackVersion string
+	MetadataFilter string
+	Region         string
+	StackVersion   string
 
+	ShowHidden                 bool
 	HideInstanceConfigurations bool
 }
 
-// Validate ensures the parameters are usable by Get.
-func (params GetParams) Validate() error {
-	var merr = multierror.NewPrefixed("invalid deployment template get params")
+// Validate ensures the parameters are usable by List.
+func (params ListParams) Validate() error {
+	var merr = multierror.NewPrefixed("invalid deployment template list params")
 
 	if params.API == nil {
 		merr = merr.Append(apierror.ErrMissingAPI)
 	}
 
-	if params.TemplateID == "" {
-		merr = merr.Append(errors.New("required template id not provided"))
+	if params.MetadataFilter != "" && len(strings.Split(params.MetadataFilter, ":")) != 2 {
+		merr = merr.Append(fmt.Errorf(
+			`invalid metadata filter "%s", must be formatted in the form of (key:value)`,
+			params.MetadataFilter,
+		))
 	}
 
 	if err := ec.RequireRegionSet(params.Region); err != nil {
@@ -58,14 +63,14 @@ func (params GetParams) Validate() error {
 	return merr.ErrorOrNil()
 }
 
-// Get returns the specified deployment template.
-func Get(params GetParams) (*models.DeploymentTemplateInfoV2, error) {
+// List returns a list of the available deployment templates.
+func List(params ListParams) ([]*models.DeploymentTemplateInfoV2, error) {
 	if err := params.Validate(); err != nil {
 		return nil, err
 	}
 
-	res, err := params.V1API.DeploymentTemplates.GetDeploymentTemplateV2(
-		getParams(params), params.AuthWriter,
+	res, err := params.V1API.DeploymentTemplates.GetDeploymentTemplatesV2(
+		listParams(params), params.AuthWriter,
 	)
 
 	if err != nil {
@@ -75,17 +80,21 @@ func Get(params GetParams) (*models.DeploymentTemplateInfoV2, error) {
 	return res.Payload, nil
 }
 
-// getParams creates the API params from the intermediary params struct.
+// listParams creates the API params from the intermediary params struct.
 // This is required for fields which are *<type> instead of directly using
 // With<Param>() builders which don't work well for pointer of types on default
 // values (i.e. "" => <string>, 0 => <int>, false => <bool>).
 // and the function makes it easier to use since all the logic to create and
 // set params is contained here.
-func getParams(params GetParams) *deployment_templates.GetDeploymentTemplateV2Params {
-	var apiParams = deployment_templates.NewGetDeploymentTemplateV2Params().
+func listParams(params ListParams) *deployment_templates.GetDeploymentTemplatesV2Params {
+	var apiParams = deployment_templates.NewGetDeploymentTemplatesV2Params().
 		WithShowInstanceConfigurations(ec.Bool(!params.HideInstanceConfigurations)).
-		WithRegion(params.Region).
-		WithTemplateID(params.TemplateID)
+		WithShowHidden(&params.ShowHidden).
+		WithRegion(params.Region)
+
+	if params.MetadataFilter != "" {
+		apiParams.SetMetadata(&params.MetadataFilter)
+	}
 
 	if params.StackVersion != "" {
 		apiParams.SetStackVersion(&params.StackVersion)

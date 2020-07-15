@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 
-package deploymenttemplateapi
+package deptemplateapi
 
 import (
 	"encoding/json"
@@ -32,91 +32,126 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 )
 
-func TestGet(t *testing.T) {
-	getRawResp, err := ioutil.ReadFile("./testdata/get.json")
+func TestList(t *testing.T) {
+	listRawResp, err := ioutil.ReadFile("./testdata/list.json")
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	var succeedResp *models.DeploymentTemplateInfoV2
-	if err := json.Unmarshal(getRawResp, &succeedResp); err != nil {
+	var succeedResp []*models.DeploymentTemplateInfoV2
+	if err := json.Unmarshal(listRawResp, &succeedResp); err != nil {
 		t.Fatal(err)
 	}
 	type args struct {
-		params GetParams
+		params ListParams
 	}
 	tests := []struct {
 		name string
 		args args
-		want *models.DeploymentTemplateInfoV2
+		want []*models.DeploymentTemplateInfoV2
 		err  error
 	}{
 		{
 			name: "fails due to parameter validation",
-			err: multierror.NewPrefixed("invalid deployment template get params",
+			err: multierror.NewPrefixed("invalid deployment template list params",
 				errors.New("api reference is required for the operation"),
-				errors.New("required template id not provided"),
+				errors.New("region not specified and is required for this operation"),
+			),
+		},
+		{
+			name: "fails due to parameter invalid metadata filter",
+			args: args{params: ListParams{
+				MetadataFilter: "somewrongful value",
+			}},
+			err: multierror.NewPrefixed("invalid deployment template list params",
+				errors.New("api reference is required for the operation"),
+				errors.New(`invalid metadata filter "somewrongful value", must be formatted in the form of (key:value)`),
 				errors.New("region not specified and is required for this operation"),
 			),
 		},
 		{
 			name: "succeeds",
-			args: args{params: GetParams{
-				Region:     "us-east-1",
-				TemplateID: "default",
+			args: args{params: ListParams{
+				Region: "us-east-1",
 				API: api.NewMock(mock.New200ResponseAssertion(
 					&mock.RequestAssertion{
 						Header: api.DefaultReadMockHeaders,
 						Method: "GET",
 						Host:   api.DefaultMockHost,
-						Path:   "/api/v1/deployments/templates/default",
+						Path:   "/api/v1/deployments/templates",
 						Query: url.Values{
 							"region":                       []string{"us-east-1"},
 							"show_instance_configurations": []string{"true"},
+							"show_hidden":                  []string{"false"},
 						},
 					},
-					mock.NewByteBody(getRawResp),
+					mock.NewByteBody(listRawResp),
 				)),
 			}},
 			want: succeedResp,
 		},
 		{
-			name: "succeeds with stack filter",
-			args: args{params: GetParams{
-				Region:       "us-east-1",
-				TemplateID:   "default",
-				StackVersion: "6.8.0",
+			name: "succeeds with metadata filter",
+			args: args{params: ListParams{
+				Region:         "us-east-1",
+				MetadataFilter: "parent_solution:stack",
 				API: api.NewMock(mock.New200ResponseAssertion(
 					&mock.RequestAssertion{
 						Header: api.DefaultReadMockHeaders,
 						Method: "GET",
 						Host:   api.DefaultMockHost,
-						Path:   "/api/v1/deployments/templates/default",
+						Path:   "/api/v1/deployments/templates",
 						Query: url.Values{
+							"metadata":                     []string{"parent_solution:stack"},
 							"region":                       []string{"us-east-1"},
 							"show_instance_configurations": []string{"true"},
-							"stack_version":                []string{"6.8.0"},
+							"show_hidden":                  []string{"false"},
 						},
 					},
-					mock.NewByteBody(getRawResp),
+					mock.NewByteBody(listRawResp),
+				)),
+			}},
+			want: succeedResp,
+		},
+		{
+			name: "succeeds with metadata and stack_version filter",
+			args: args{params: ListParams{
+				Region:         "us-east-1",
+				MetadataFilter: "parent_solution:stack",
+				StackVersion:   "6.2.1",
+				API: api.NewMock(mock.New200ResponseAssertion(
+					&mock.RequestAssertion{
+						Header: api.DefaultReadMockHeaders,
+						Method: "GET",
+						Host:   api.DefaultMockHost,
+						Path:   "/api/v1/deployments/templates",
+						Query: url.Values{
+							"metadata":                     []string{"parent_solution:stack"},
+							"region":                       []string{"us-east-1"},
+							"show_instance_configurations": []string{"true"},
+							"show_hidden":                  []string{"false"},
+							"stack_version":                []string{"6.2.1"},
+						},
+					},
+					mock.NewByteBody(listRawResp),
 				)),
 			}},
 			want: succeedResp,
 		},
 		{
 			name: "fails on API error",
-			args: args{params: GetParams{
-				Region:     "us-east-1",
-				TemplateID: "some-id",
+			args: args{params: ListParams{
+				Region: "us-east-1",
 				API: api.NewMock(mock.New500ResponseAssertion(
 					&mock.RequestAssertion{
 						Header: api.DefaultReadMockHeaders,
 						Method: "GET",
 						Host:   api.DefaultMockHost,
-						Path:   "/api/v1/deployments/templates/some-id",
+						Path:   "/api/v1/deployments/templates",
 						Query: url.Values{
 							"region":                       []string{"us-east-1"},
 							"show_instance_configurations": []string{"true"},
+							"show_hidden":                  []string{"false"},
 						},
 					},
 					mock.SampleInternalError().Response.Body,
@@ -127,7 +162,7 @@ func TestGet(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := Get(tt.args.params)
+			got, err := List(tt.args.params)
 			if !assert.Equal(t, tt.err, err) {
 				t.Error(err)
 			}

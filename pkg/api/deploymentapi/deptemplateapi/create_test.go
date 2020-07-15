@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 
-package deploymenttemplateapi
+package deptemplateapi
 
 import (
 	"encoding/json"
@@ -32,44 +32,65 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 )
 
-func TestUpdate(t *testing.T) {
-	updateRawDef, err := ioutil.ReadFile("./testdata/update.json")
+func TestCreate(t *testing.T) {
+	createRawDef, err := ioutil.ReadFile("./testdata/create.json")
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	var updateReq *models.DeploymentTemplateRequestBody
-	if err := json.Unmarshal(updateRawDef, &updateReq); err != nil {
+	var createReq *models.DeploymentTemplateRequestBody
+	if err := json.Unmarshal(createRawDef, &createReq); err != nil {
 		t.Fatal(err)
 	}
 
-	updateRawBody, err := json.Marshal(updateReq)
+	createRawBody, err := json.Marshal(createReq)
 	if err != nil {
 		t.Fatal(err)
 	}
 	type args struct {
-		params UpdateParams
+		params CreateParams
 	}
 	tests := []struct {
 		name string
 		args args
+		want string
 		err  error
 	}{
 		{
 			name: "fails due to parameter validation",
-			err: multierror.NewPrefixed("invalid deployment template update params",
+			err: multierror.NewPrefixed("invalid deployment template create params",
 				errors.New("api reference is required for the operation"),
 				errors.New("required template request definition not provided"),
-				errors.New("required template id not provided"),
 				errors.New("region not specified and is required for this operation"),
 			),
 		},
 		{
 			name: "succeeds",
-			args: args{params: UpdateParams{
+			args: args{params: CreateParams{
+				Region:  "us-east-1",
+				Request: createReq,
+				API: api.NewMock(mock.New201ResponseAssertion(
+					&mock.RequestAssertion{
+						Header: api.DefaultWriteMockHeaders,
+						Method: "POST",
+						Host:   api.DefaultMockHost,
+						Path:   "/api/v1/deployments/templates",
+						Query: url.Values{
+							"region": []string{"us-east-1"},
+						},
+						Body: mock.NewStringBody(string(createRawBody) + "\n"),
+					},
+					mock.NewStringBody(`{"id": "some-randomly-generated-id"}`),
+				)),
+			}},
+			want: "some-randomly-generated-id",
+		},
+		{
+			name: "succeeds with a preset ID",
+			args: args{params: CreateParams{
 				TemplateID: "my-preset-id",
 				Region:     "us-east-1",
-				Request:    updateReq,
+				Request:    createReq,
 				API: api.NewMock(mock.New201ResponseAssertion(
 					&mock.RequestAssertion{
 						Header: api.DefaultWriteMockHeaders,
@@ -77,30 +98,29 @@ func TestUpdate(t *testing.T) {
 						Host:   api.DefaultMockHost,
 						Path:   "/api/v1/deployments/templates/my-preset-id",
 						Query: url.Values{
-							"create_only": []string{"false"},
+							"create_only": []string{"true"},
 							"region":      []string{"us-east-1"},
 						},
-						Body: mock.NewStringBody(string(updateRawBody) + "\n"),
+						Body: mock.NewStringBody(string(createRawBody) + "\n"),
 					},
 					mock.NewStringBody(`{"id": "my-preset-id"}`),
 				)),
 			}},
+			want: "my-preset-id",
 		},
 		{
 			name: "fails on API error",
-			args: args{params: UpdateParams{
-				TemplateID: "some",
-				Region:     "us-east-1",
-				Request:    &models.DeploymentTemplateRequestBody{},
+			args: args{params: CreateParams{
+				Region:  "us-east-1",
+				Request: &models.DeploymentTemplateRequestBody{},
 				API: api.NewMock(mock.New500ResponseAssertion(
 					&mock.RequestAssertion{
 						Header: api.DefaultWriteMockHeaders,
-						Method: "PUT",
+						Method: "POST",
 						Host:   api.DefaultMockHost,
-						Path:   "/api/v1/deployments/templates/some",
+						Path:   "/api/v1/deployments/templates",
 						Query: url.Values{
-							"create_only": []string{"false"},
-							"region":      []string{"us-east-1"},
+							"region": []string{"us-east-1"},
 						},
 						Body: mock.NewStructBody(&models.DeploymentTemplateRequestBody{}),
 					},
@@ -112,9 +132,11 @@ func TestUpdate(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := Update(tt.args.params); !assert.Equal(t, tt.err, err) {
+			got, err := Create(tt.args.params)
+			if !assert.Equal(t, tt.err, err) {
 				t.Error(err)
 			}
+			assert.Equal(t, tt.want, got)
 		})
 	}
 }
