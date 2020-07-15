@@ -19,8 +19,10 @@ package deploymentapi
 
 import (
 	"errors"
-	"reflect"
+	"net/url"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
@@ -28,6 +30,7 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
+	"github.com/elastic/cloud-sdk-go/pkg/util"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
@@ -53,66 +56,131 @@ func TestGetResource(t *testing.T) {
 			name: "obtains a apm resource with a set RefID",
 			args: args{params: GetResourceParams{
 				GetParams: GetParams{
-					API: api.NewMock(mock.New200Response(mock.NewStructBody(
-						models.ApmResourceInfo{
+					API: api.NewMock(mock.New200ResponseAssertion(
+						&mock.RequestAssertion{
+							Header: api.DefaultReadMockHeaders,
+							Method: "GET",
+							Host:   api.DefaultMockHost,
+							Path:   "/api/v1/deployments/3531aaf988594efa87c1aabb7caed337/apm/apm",
+							Query: url.Values{
+								"show_metadata":      {"false"},
+								"show_plan_defaults": {"false"},
+								"show_plan_history":  {"false"},
+								"show_plan_logs":     {"false"},
+								"show_plans":         {"false"},
+								"show_settings":      {"false"},
+							},
+						},
+						mock.NewStructBody(models.ApmResourceInfo{
 							ElasticsearchClusterRefID: ec.String("elasticsearch"),
 							ID:                        ec.String("3531aaf988594efa87c1aabb7caed337"),
-							RefID:                     ec.String(deputil.Apm),
+							RefID:                     ec.String(util.Apm),
 						},
-					))),
+						))),
 					DeploymentID: "3531aaf988594efa87c1aabb7caed337",
-					RefID:        deputil.Apm,
+					RefID:        util.Apm,
 				},
-				Kind: deputil.Apm,
+				Kind: util.Apm,
 			}},
 			want: &models.ApmResourceInfo{
 				ElasticsearchClusterRefID: ec.String("elasticsearch"),
 				ID:                        ec.String("3531aaf988594efa87c1aabb7caed337"),
-				RefID:                     ec.String(deputil.Apm),
+				RefID:                     ec.String(util.Apm),
 			},
 		},
 		{
 			name: "obtains a apm resource without a RefID",
 			args: args{params: GetResourceParams{
 				GetParams: GetParams{
-					API: api.NewMock(
-						mock.New200Response(mock.NewStructBody(models.DeploymentGetResponse{
+					API: api.NewMock(mock.New200ResponseAssertion(
+						&mock.RequestAssertion{
+							Header: api.DefaultReadMockHeaders,
+							Method: "GET",
+							Host:   api.DefaultMockHost,
+							Path:   "/api/v1/deployments/3531aaf988594efa87c1aabb7caed337",
+							Query: url.Values{
+								"convert_legacy_plans": {"false"},
+								"enrich_with_template": {"true"},
+								"show_metadata":        {"false"},
+								"show_plan_defaults":   {"false"},
+								"show_plan_history":    {"false"},
+								"show_plan_logs":       {"false"},
+								"show_plans":           {"false"},
+								"show_security":        {"false"},
+								"show_settings":        {"false"},
+								"show_system_alerts":   {"5"},
+							},
+						},
+						mock.NewStructBody(models.DeploymentGetResponse{
 							Healthy: ec.Bool(true),
 							ID:      ec.String("3531aaf988594efa87c1aabb7caed337"),
 							Resources: &models.DeploymentResources{
 								Apm: []*models.ApmResourceInfo{{
 									ElasticsearchClusterRefID: ec.String("elasticsearch"),
 									ID:                        ec.String("3531aaf988594efa87c1aabb7caed337"),
-									RefID:                     ec.String(deputil.Apm),
+									RefID:                     ec.String(util.Apm),
 								}},
 							},
 						})),
-						mock.New200Response(mock.NewStructBody(models.ApmResourceInfo{
-							ElasticsearchClusterRefID: ec.String("elasticsearch"),
-							ID:                        ec.String("3531aaf988594efa87c1aabb7caed337"),
-							RefID:                     ec.String(deputil.Apm),
-						})),
+						mock.New200ResponseAssertion(
+							&mock.RequestAssertion{
+								Header: api.DefaultReadMockHeaders,
+								Method: "GET",
+								Host:   api.DefaultMockHost,
+								Path:   "/api/v1/deployments/3531aaf988594efa87c1aabb7caed337/apm/apm",
+								Query: url.Values{
+									"show_metadata":      {"false"},
+									"show_plan_defaults": {"false"},
+									"show_plan_history":  {"false"},
+									"show_plan_logs":     {"false"},
+									"show_plans":         {"false"},
+									"show_settings":      {"false"},
+								},
+							},
+							mock.NewStructBody(models.ApmResourceInfo{
+								ElasticsearchClusterRefID: ec.String("elasticsearch"),
+								ID:                        ec.String("3531aaf988594efa87c1aabb7caed337"),
+								RefID:                     ec.String(util.Apm),
+							})),
 					),
 					DeploymentID: "3531aaf988594efa87c1aabb7caed337",
 				},
-				Kind: deputil.Apm,
+				Kind: util.Apm,
 			}},
 			want: &models.ApmResourceInfo{
 				ElasticsearchClusterRefID: ec.String("elasticsearch"),
 				ID:                        ec.String("3531aaf988594efa87c1aabb7caed337"),
-				RefID:                     ec.String(deputil.Apm),
+				RefID:                     ec.String(util.Apm),
 			},
 		},
 		{
 			name: "obtains an elasticsearch resource with a set RefID",
 			args: args{params: GetResourceParams{
 				GetParams: GetParams{
-					API: api.NewMock(mock.New200Response(mock.NewStructBody(
-						models.ElasticsearchResourceInfo{
+					API: api.NewMock(mock.New200ResponseAssertion(
+						&mock.RequestAssertion{
+							Header: api.DefaultReadMockHeaders,
+							Method: "GET",
+							Host:   api.DefaultMockHost,
+							Path:   "/api/v1/deployments/3531aaf988594efa87c1aabb7caed337/elasticsearch/elasticsearch",
+							Query: url.Values{
+								"convert_legacy_plans": {"false"},
+								"enrich_with_template": {"true"},
+								"show_metadata":        {"false"},
+								"show_plan_defaults":   {"false"},
+								"show_plan_history":    {"false"},
+								"show_plan_logs":       {"false"},
+								"show_plans":           {"false"},
+								"show_security":        {"false"},
+								"show_settings":        {"false"},
+								"show_system_alerts":   {"5"},
+							},
+						},
+						mock.NewStructBody(models.ElasticsearchResourceInfo{
 							ID:    ec.String("3531aaf988594efa87c1aabb7caed337"),
 							RefID: ec.String("elasticsearch"),
 						},
-					))),
+						))),
 					DeploymentID: "3531aaf988594efa87c1aabb7caed337",
 					RefID:        "elasticsearch",
 				},
@@ -128,8 +196,26 @@ func TestGetResource(t *testing.T) {
 			args: args{params: GetResourceParams{
 				Kind: "elasticsearch",
 				GetParams: GetParams{
-					API: api.NewMock(
-						mock.New200Response(mock.NewStructBody(models.DeploymentGetResponse{
+					API: api.NewMock(mock.New200ResponseAssertion(
+						&mock.RequestAssertion{
+							Header: api.DefaultReadMockHeaders,
+							Method: "GET",
+							Host:   api.DefaultMockHost,
+							Path:   "/api/v1/deployments/3531aaf988594efa87c1aabb7caed337",
+							Query: url.Values{
+								"convert_legacy_plans": {"false"},
+								"enrich_with_template": {"true"},
+								"show_metadata":        {"false"},
+								"show_plan_defaults":   {"false"},
+								"show_plan_history":    {"false"},
+								"show_plan_logs":       {"false"},
+								"show_plans":           {"false"},
+								"show_security":        {"false"},
+								"show_settings":        {"false"},
+								"show_system_alerts":   {"5"},
+							},
+						},
+						mock.NewStructBody(models.DeploymentGetResponse{
 							Healthy: ec.Bool(true),
 							ID:      ec.String("3531aaf988594efa87c1aabb7caed337"),
 							Resources: &models.DeploymentResources{
@@ -139,12 +225,31 @@ func TestGetResource(t *testing.T) {
 								}},
 							},
 						})),
-						mock.New200Response(mock.NewStructBody(
-							models.ElasticsearchResourceInfo{
-								RefID: ec.String("elasticsearch"),
-								ID:    ec.String("3531aaf988594efa87c1aabb7caed337"),
+						mock.New200ResponseAssertion(
+							&mock.RequestAssertion{
+								Header: api.DefaultReadMockHeaders,
+								Method: "GET",
+								Host:   api.DefaultMockHost,
+								Path:   "/api/v1/deployments/3531aaf988594efa87c1aabb7caed337/elasticsearch/elasticsearch",
+								Query: url.Values{
+									"convert_legacy_plans": {"false"},
+									"enrich_with_template": {"true"},
+									"show_metadata":        {"false"},
+									"show_plan_defaults":   {"false"},
+									"show_plan_history":    {"false"},
+									"show_plan_logs":       {"false"},
+									"show_plans":           {"false"},
+									"show_security":        {"false"},
+									"show_settings":        {"false"},
+									"show_system_alerts":   {"5"},
+								},
 							},
-						)),
+							mock.NewStructBody(
+								models.ElasticsearchResourceInfo{
+									RefID: ec.String("elasticsearch"),
+									ID:    ec.String("3531aaf988594efa87c1aabb7caed337"),
+								},
+							)),
 					),
 					DeploymentID: "3531aaf988594efa87c1aabb7caed337",
 				},
@@ -158,13 +263,28 @@ func TestGetResource(t *testing.T) {
 			name: "obtains a kibana resource with a set RefID",
 			args: args{params: GetResourceParams{
 				GetParams: GetParams{
-					API: api.NewMock(mock.New200Response(mock.NewStructBody(
-						models.KibanaResourceInfo{
+					API: api.NewMock(mock.New200ResponseAssertion(
+						&mock.RequestAssertion{
+							Header: api.DefaultReadMockHeaders,
+							Method: "GET",
+							Host:   api.DefaultMockHost,
+							Path:   "/api/v1/deployments/3531aaf988594efa87c1aabb7caed337/kibana/kibana",
+							Query: url.Values{
+								"convert_legacy_plans": {"false"},
+								"show_metadata":        {"false"},
+								"show_plan_defaults":   {"false"},
+								"show_plan_history":    {"false"},
+								"show_plan_logs":       {"false"},
+								"show_plans":           {"false"},
+								"show_settings":        {"false"},
+							},
+						},
+						mock.NewStructBody(models.KibanaResourceInfo{
 							ElasticsearchClusterRefID: ec.String("elasticsearch"),
 							ID:                        ec.String("3531aaf988594efa87c1aabb7caed337"),
 							RefID:                     ec.String("kibana"),
 						},
-					))),
+						))),
 					DeploymentID: "3531aaf988594efa87c1aabb7caed337",
 					RefID:        "kibana",
 				},
@@ -180,8 +300,26 @@ func TestGetResource(t *testing.T) {
 			name: "obtains a kibana resource without a RefID",
 			args: args{params: GetResourceParams{
 				GetParams: GetParams{
-					API: api.NewMock(
-						mock.New200Response(mock.NewStructBody(models.DeploymentGetResponse{
+					API: api.NewMock(mock.New200ResponseAssertion(
+						&mock.RequestAssertion{
+							Header: api.DefaultReadMockHeaders,
+							Method: "GET",
+							Host:   api.DefaultMockHost,
+							Path:   "/api/v1/deployments/3531aaf988594efa87c1aabb7caed337",
+							Query: url.Values{
+								"convert_legacy_plans": {"false"},
+								"enrich_with_template": {"true"},
+								"show_metadata":        {"false"},
+								"show_plan_defaults":   {"false"},
+								"show_plan_history":    {"false"},
+								"show_plan_logs":       {"false"},
+								"show_plans":           {"false"},
+								"show_security":        {"false"},
+								"show_settings":        {"false"},
+								"show_system_alerts":   {"5"},
+							},
+						},
+						mock.NewStructBody(models.DeploymentGetResponse{
 							Healthy: ec.Bool(true),
 							ID:      ec.String("3531aaf988594efa87c1aabb7caed337"),
 							Resources: &models.DeploymentResources{
@@ -191,13 +329,29 @@ func TestGetResource(t *testing.T) {
 								}},
 							},
 						})),
-						mock.New200Response(mock.NewStructBody(
-							models.KibanaResourceInfo{
-								ElasticsearchClusterRefID: ec.String("elasticsearch"),
-								ID:                        ec.String("3531aaf988594efa87c1aabb7caed337"),
-								RefID:                     ec.String("kibana"),
+						mock.New200ResponseAssertion(
+							&mock.RequestAssertion{
+								Header: api.DefaultReadMockHeaders,
+								Method: "GET",
+								Host:   api.DefaultMockHost,
+								Path:   "/api/v1/deployments/3531aaf988594efa87c1aabb7caed337/kibana/elasticsearch",
+								Query: url.Values{
+									"convert_legacy_plans": {"false"},
+									"show_metadata":        {"false"},
+									"show_plan_defaults":   {"false"},
+									"show_plan_history":    {"false"},
+									"show_plan_logs":       {"false"},
+									"show_plans":           {"false"},
+									"show_settings":        {"false"},
+								},
 							},
-						)),
+							mock.NewStructBody(
+								models.KibanaResourceInfo{
+									ElasticsearchClusterRefID: ec.String("elasticsearch"),
+									ID:                        ec.String("3531aaf988594efa87c1aabb7caed337"),
+									RefID:                     ec.String("kibana"),
+								},
+							)),
 					),
 					DeploymentID: "3531aaf988594efa87c1aabb7caed337",
 				},
@@ -213,13 +367,27 @@ func TestGetResource(t *testing.T) {
 			name: "obtains a appsearch resource with a set RefID",
 			args: args{params: GetResourceParams{
 				GetParams: GetParams{
-					API: api.NewMock(mock.New200Response(mock.NewStructBody(
-						models.AppSearchResourceInfo{
+					API: api.NewMock(mock.New200ResponseAssertion(
+						&mock.RequestAssertion{
+							Header: api.DefaultReadMockHeaders,
+							Method: "GET",
+							Host:   api.DefaultMockHost,
+							Path:   "/api/v1/deployments/3531aaf988594efa87c1aabb7caed337/appsearch/appsearch",
+							Query: url.Values{
+								"show_metadata":      {"false"},
+								"show_plan_defaults": {"false"},
+								"show_plan_history":  {"false"},
+								"show_plan_logs":     {"false"},
+								"show_plans":         {"false"},
+								"show_settings":      {"false"},
+							},
+						},
+						mock.NewStructBody(models.AppSearchResourceInfo{
 							ElasticsearchClusterRefID: ec.String("elasticsearch"),
 							ID:                        ec.String("3531aaf988594efa87c1aabb7caed337"),
 							RefID:                     ec.String("appsearch"),
 						},
-					))),
+						))),
 					DeploymentID: "3531aaf988594efa87c1aabb7caed337",
 					RefID:        "appsearch",
 				},
@@ -235,8 +403,26 @@ func TestGetResource(t *testing.T) {
 			name: "obtains a appsearch resource without a RefID",
 			args: args{params: GetResourceParams{
 				GetParams: GetParams{
-					API: api.NewMock(
-						mock.New200Response(mock.NewStructBody(models.DeploymentGetResponse{
+					API: api.NewMock(mock.New200ResponseAssertion(
+						&mock.RequestAssertion{
+							Header: api.DefaultReadMockHeaders,
+							Method: "GET",
+							Host:   api.DefaultMockHost,
+							Path:   "/api/v1/deployments/3531aaf988594efa87c1aabb7caed337",
+							Query: url.Values{
+								"convert_legacy_plans": {"false"},
+								"enrich_with_template": {"true"},
+								"show_metadata":        {"false"},
+								"show_plan_defaults":   {"false"},
+								"show_plan_history":    {"false"},
+								"show_plan_logs":       {"false"},
+								"show_plans":           {"false"},
+								"show_security":        {"false"},
+								"show_settings":        {"false"},
+								"show_system_alerts":   {"5"},
+							},
+						},
+						mock.NewStructBody(models.DeploymentGetResponse{
 							Healthy: ec.Bool(true),
 							ID:      ec.String("3531aaf988594efa87c1aabb7caed337"),
 							Resources: &models.DeploymentResources{
@@ -246,13 +432,28 @@ func TestGetResource(t *testing.T) {
 								}},
 							},
 						})),
-						mock.New200Response(mock.NewStructBody(
-							models.AppSearchResourceInfo{
-								ElasticsearchClusterRefID: ec.String("elasticsearch"),
-								ID:                        ec.String("3531aaf988594efa87c1aabb7caed337"),
-								RefID:                     ec.String("appsearch"),
+						mock.New200ResponseAssertion(
+							&mock.RequestAssertion{
+								Header: api.DefaultReadMockHeaders,
+								Method: "GET",
+								Host:   api.DefaultMockHost,
+								Path:   "/api/v1/deployments/3531aaf988594efa87c1aabb7caed337/appsearch/appsearch",
+								Query: url.Values{
+									"show_metadata":      {"false"},
+									"show_plan_defaults": {"false"},
+									"show_plan_history":  {"false"},
+									"show_plan_logs":     {"false"},
+									"show_plans":         {"false"},
+									"show_settings":      {"false"},
+								},
 							},
-						)),
+							mock.NewStructBody(
+								models.AppSearchResourceInfo{
+									ElasticsearchClusterRefID: ec.String("elasticsearch"),
+									ID:                        ec.String("3531aaf988594efa87c1aabb7caed337"),
+									RefID:                     ec.String("appsearch"),
+								},
+							)),
 					),
 					DeploymentID: "3531aaf988594efa87c1aabb7caed337",
 				},
@@ -262,6 +463,107 @@ func TestGetResource(t *testing.T) {
 				ElasticsearchClusterRefID: ec.String("elasticsearch"),
 				ID:                        ec.String("3531aaf988594efa87c1aabb7caed337"),
 				RefID:                     ec.String("appsearch"),
+			},
+		},
+		{
+			name: "obtains an enterprise search resource with a set RefID",
+			args: args{params: GetResourceParams{
+				GetParams: GetParams{
+					API: api.NewMock(mock.New200ResponseAssertion(
+						&mock.RequestAssertion{
+							Header: api.DefaultReadMockHeaders,
+							Method: "GET",
+							Host:   api.DefaultMockHost,
+							Path:   "/api/v1/deployments/3531aaf988594efa87c1aabb7caed337/enterprise_search/enterprise_search",
+							Query: url.Values{
+								"show_metadata":      {"false"},
+								"show_plan_defaults": {"false"},
+								"show_plan_history":  {"false"},
+								"show_plan_logs":     {"false"},
+								"show_plans":         {"false"},
+								"show_settings":      {"false"},
+							},
+						},
+						mock.NewStructBody(models.EnterpriseSearchResourceInfo{
+							ElasticsearchClusterRefID: ec.String("elasticsearch"),
+							ID:                        ec.String("3531aaf988594efa87c1aabb7caed337"),
+							RefID:                     ec.String(util.EnterpriseSearch),
+						},
+						))),
+					DeploymentID: "3531aaf988594efa87c1aabb7caed337",
+					RefID:        util.EnterpriseSearch,
+				},
+				Kind: util.EnterpriseSearch,
+			}},
+			want: &models.EnterpriseSearchResourceInfo{
+				ElasticsearchClusterRefID: ec.String("elasticsearch"),
+				ID:                        ec.String("3531aaf988594efa87c1aabb7caed337"),
+				RefID:                     ec.String(util.EnterpriseSearch),
+			},
+		},
+		{
+			name: "obtains an enterprise search resource without a RefID",
+			args: args{params: GetResourceParams{
+				GetParams: GetParams{
+					API: api.NewMock(mock.New200ResponseAssertion(
+						&mock.RequestAssertion{
+							Header: api.DefaultReadMockHeaders,
+							Method: "GET",
+							Host:   api.DefaultMockHost,
+							Path:   "/api/v1/deployments/3531aaf988594efa87c1aabb7caed337",
+							Query: url.Values{
+								"convert_legacy_plans": {"false"},
+								"enrich_with_template": {"true"},
+								"show_metadata":        {"false"},
+								"show_plan_defaults":   {"false"},
+								"show_plan_history":    {"false"},
+								"show_plan_logs":       {"false"},
+								"show_plans":           {"false"},
+								"show_security":        {"false"},
+								"show_settings":        {"false"},
+								"show_system_alerts":   {"5"},
+							},
+						},
+						mock.NewStructBody(models.DeploymentGetResponse{
+							Healthy: ec.Bool(true),
+							ID:      ec.String("3531aaf988594efa87c1aabb7caed337"),
+							Resources: &models.DeploymentResources{
+								EnterpriseSearch: []*models.EnterpriseSearchResourceInfo{{
+									ElasticsearchClusterRefID: ec.String("elasticsearch"),
+									ID:                        ec.String("3531aaf988594efa87c1aabb7caed337"),
+									RefID:                     ec.String(util.EnterpriseSearch),
+								}},
+							},
+						})),
+						mock.New200ResponseAssertion(
+							&mock.RequestAssertion{
+								Header: api.DefaultReadMockHeaders,
+								Method: "GET",
+								Host:   api.DefaultMockHost,
+								Path:   "/api/v1/deployments/3531aaf988594efa87c1aabb7caed337/enterprise_search/enterprise_search",
+								Query: url.Values{
+									"show_metadata":      {"false"},
+									"show_plan_defaults": {"false"},
+									"show_plan_history":  {"false"},
+									"show_plan_logs":     {"false"},
+									"show_plans":         {"false"},
+									"show_settings":      {"false"},
+								},
+							},
+							mock.NewStructBody(models.EnterpriseSearchResourceInfo{
+								ElasticsearchClusterRefID: ec.String("elasticsearch"),
+								ID:                        ec.String("3531aaf988594efa87c1aabb7caed337"),
+								RefID:                     ec.String(util.EnterpriseSearch),
+							})),
+					),
+					DeploymentID: "3531aaf988594efa87c1aabb7caed337",
+				},
+				Kind: util.EnterpriseSearch,
+			}},
+			want: &models.EnterpriseSearchResourceInfo{
+				ElasticsearchClusterRefID: ec.String("elasticsearch"),
+				ID:                        ec.String("3531aaf988594efa87c1aabb7caed337"),
+				RefID:                     ec.String(util.EnterpriseSearch),
 			},
 		},
 		{
@@ -317,12 +619,30 @@ func TestGetResource(t *testing.T) {
 			name: "obtains the whole deployment when Kind is empty",
 			args: args{params: GetResourceParams{
 				GetParams: GetParams{
-					API: api.NewMock(mock.New200Response(mock.NewStructBody(
-						models.DeploymentGetResponse{
+					API: api.NewMock(mock.New200ResponseAssertion(
+						&mock.RequestAssertion{
+							Header: api.DefaultReadMockHeaders,
+							Method: "GET",
+							Host:   api.DefaultMockHost,
+							Path:   "/api/v1/deployments/f1d329b0fb34470ba8b18361cabdd2bc",
+							Query: url.Values{
+								"convert_legacy_plans": {"false"},
+								"enrich_with_template": {"true"},
+								"show_metadata":        {"false"},
+								"show_plan_defaults":   {"false"},
+								"show_plan_history":    {"false"},
+								"show_plan_logs":       {"false"},
+								"show_plans":           {"false"},
+								"show_security":        {"false"},
+								"show_settings":        {"false"},
+								"show_system_alerts":   {"5"},
+							},
+						},
+						mock.NewStructBody(models.DeploymentGetResponse{
 							Healthy: ec.Bool(true),
 							ID:      ec.String("f1d329b0fb34470ba8b18361cabdd2bc"),
 						},
-					))),
+						))),
 					DeploymentID: "f1d329b0fb34470ba8b18361cabdd2bc",
 				},
 			}},
@@ -335,12 +655,11 @@ func TestGetResource(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := GetResource(tt.args.params)
-			if !reflect.DeepEqual(err, tt.err) {
-				t.Errorf("GetResource() error = %v, wantErr %v", err, tt.err)
-				return
+			if !assert.Equal(t, tt.err, err) {
+				t.Error(err)
 			}
-			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("GetResource() = %+v, want %+v", got, tt.want)
+			if !assert.Equal(t, tt.want, got) {
+				t.Error(err)
 			}
 		})
 	}

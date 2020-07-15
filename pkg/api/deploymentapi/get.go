@@ -151,6 +151,29 @@ func GetElasticsearch(params GetParams) (*models.ElasticsearchResourceInfo, erro
 	return res.Payload, nil
 }
 
+// GetEnterpriseSearch returns info about an Enterprise Search resource belonging to a given deployment.
+func GetEnterpriseSearch(params GetParams) (*models.EnterpriseSearchResourceInfo, error) {
+	if err := params.Validate(); err != nil {
+		return nil, err
+	}
+
+	res, err := params.API.V1API.Deployments.GetDeploymentEnterpriseSearchResourceInfo(
+		deployments.NewGetDeploymentEnterpriseSearchResourceInfoParams().
+			WithDeploymentID(params.DeploymentID).
+			WithRefID(params.RefID).
+			WithShowPlans(ec.Bool(params.ShowPlans)).
+			WithShowPlanDefaults(ec.Bool(params.ShowPlanDefaults)).
+			WithShowPlanLogs(ec.Bool(params.ShowPlanLogs)).
+			WithShowMetadata(ec.Bool(params.ShowMetadata)).
+			WithShowSettings(ec.Bool(params.ShowSettings)),
+		params.AuthWriter,
+	)
+	if err != nil {
+		return nil, apierror.Unwrap(err)
+	}
+	return res.Payload, nil
+}
+
 // GetKibana returns info about an kibana resource belonging to a given deployment.
 func GetKibana(params GetParams) (*models.KibanaResourceInfo, error) {
 	if err := params.Validate(); err != nil {

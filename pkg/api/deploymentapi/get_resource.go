@@ -20,7 +20,7 @@ package deploymentapi
 import (
 	"fmt"
 
-	"github.com/elastic/cloud-sdk-go/pkg/api/deploymentapi/deputil"
+	"github.com/elastic/cloud-sdk-go/pkg/util"
 )
 
 // GetResourceParams is consumed by GetResource.
@@ -49,14 +49,16 @@ func GetResource(params GetResourceParams) (interface{}, error) {
 	}
 
 	switch params.Kind {
-	case deputil.Apm:
+	case util.Apm:
 		return GetApm(params.GetParams)
-	case deputil.Kibana:
+	case util.Kibana:
 		return GetKibana(params.GetParams)
-	case deputil.Elasticsearch:
+	case util.Elasticsearch:
 		return GetElasticsearch(params.GetParams)
-	case deputil.Appsearch:
+	case util.Appsearch:
 		return GetAppSearch(params.GetParams)
+	case util.EnterpriseSearch:
+		return GetEnterpriseSearch(params.GetParams)
 	default:
 		// If the is specified but not supported, return an error.
 		if params.Kind != "" {
@@ -78,20 +80,24 @@ func GetKindRefID(params GetResourceParams) (string, error) {
 
 	var refID string
 	switch params.Kind {
-	case deputil.Apm:
+	case util.Apm:
 		for _, resource := range res.Resources.Apm {
 			refID = *resource.RefID
 		}
-	case deputil.Kibana:
+	case util.Kibana:
 		for _, resource := range res.Resources.Kibana {
 			refID = *resource.RefID
 		}
-	case deputil.Elasticsearch:
+	case util.Elasticsearch:
 		for _, resource := range res.Resources.Elasticsearch {
 			refID = *resource.RefID
 		}
-	case deputil.Appsearch:
+	case util.Appsearch:
 		for _, resource := range res.Resources.Appsearch {
+			refID = *resource.RefID
+		}
+	case util.EnterpriseSearch:
+		for _, resource := range res.Resources.EnterpriseSearch {
 			refID = *resource.RefID
 		}
 	}

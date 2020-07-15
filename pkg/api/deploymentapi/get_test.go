@@ -20,8 +20,10 @@ package deploymentapi
 import (
 	"errors"
 	"net/http"
-	"reflect"
+	"net/url"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
@@ -34,10 +36,9 @@ import (
 
 func TestGetParams_Validate(t *testing.T) {
 	tests := []struct {
-		name    string
-		params  GetParams
-		wantErr bool
-		err     error
+		name   string
+		params GetParams
+		err    error
 	}{
 		{
 			name:   "validate should return all possible errors",
@@ -46,7 +47,6 @@ func TestGetParams_Validate(t *testing.T) {
 				apierror.ErrMissingAPI,
 				deputil.NewInvalidDeploymentIDError(""),
 			),
-			wantErr: true,
 		},
 		{
 			name: "validate should return error on missing api",
@@ -56,7 +56,6 @@ func TestGetParams_Validate(t *testing.T) {
 			err: multierror.NewPrefixed("deployment get",
 				apierror.ErrMissingAPI,
 			),
-			wantErr: true,
 		},
 		{
 			name: "validate should return error on invalid ID",
@@ -66,7 +65,6 @@ func TestGetParams_Validate(t *testing.T) {
 			err: multierror.NewPrefixed("deployment get",
 				deputil.NewInvalidDeploymentIDError(""),
 			),
-			wantErr: true,
 		},
 		{
 			name: "validate should pass if all params are properly set",
@@ -74,24 +72,13 @@ func TestGetParams_Validate(t *testing.T) {
 				API:          &api.API{},
 				DeploymentID: "f1d329b0fb34470ba8b18361cabdd2bc",
 			},
-			wantErr: false,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			err := tt.params.Validate()
-
-			if (err != nil) != tt.wantErr {
-				t.Errorf("Validate() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-
-			if tt.wantErr && tt.err == nil {
-				t.Errorf("Validate() expected errors = '%v' but no errors returned", tt.err)
-			}
-
-			if tt.wantErr && !reflect.DeepEqual(err, tt.err) {
-				t.Errorf("Validate() expected errors = '%v' but got %v", tt.err, err)
+			if !assert.Equal(t, tt.err, err) {
+				t.Error(err)
 			}
 		})
 	}
@@ -106,16 +93,14 @@ func TestGet(t *testing.T) {
 		params GetParams
 	}
 	tests := []struct {
-		name    string
-		args    args
-		want    *models.DeploymentGetResponse
-		wantErr bool
-		err     error
+		name string
+		args args
+		want *models.DeploymentGetResponse
+		err  error
 	}{
 		{
-			name:    "Get fails due to parameter validation failure",
-			args:    args{},
-			wantErr: true,
+			name: "Get fails due to parameter validation failure",
+			args: args{},
 			err: multierror.NewPrefixed("deployment get",
 				apierror.ErrMissingAPI,
 				errors.New(`id "" is invalid`),
@@ -132,18 +117,37 @@ func TestGet(t *testing.T) {
 					}}),
 				},
 			},
-			wantErr: true,
-			err:     errors.New(""),
+			err: errors.New(""),
 		},
 		{
 			name: "Get succeeds",
 			args: args{
 				params: GetParams{
 					DeploymentID: "f1d329b0fb34470ba8b18361cabdd2bc",
-					API: api.NewMock(mock.Response{Response: http.Response{
-						Body:       mock.NewStringBody(getResponse),
-						StatusCode: 200,
-					}}),
+					API: api.NewMock(mock.Response{
+						Response: http.Response{
+							Body:       mock.NewStringBody(getResponse),
+							StatusCode: 200,
+						},
+						Assert: &mock.RequestAssertion{
+							Header: api.DefaultReadMockHeaders,
+							Method: "GET",
+							Host:   api.DefaultMockHost,
+							Path:   "/api/v1/deployments/f1d329b0fb34470ba8b18361cabdd2bc",
+							Query: url.Values{
+								"convert_legacy_plans": {"false"},
+								"enrich_with_template": {"true"},
+								"show_metadata":        {"false"},
+								"show_plan_defaults":   {"false"},
+								"show_plan_history":    {"false"},
+								"show_plan_logs":       {"false"},
+								"show_plans":           {"false"},
+								"show_security":        {"false"},
+								"show_settings":        {"false"},
+								"show_system_alerts":   {"5"},
+							},
+						},
+					}),
 				},
 			},
 			want: &models.DeploymentGetResponse{
@@ -155,17 +159,11 @@ func TestGet(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := Get(tt.args.params)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("Get() error = %v, wantErr %v", err, tt.wantErr)
-				return
+			if !assert.Equal(t, tt.err, err) {
+				t.Error(err)
 			}
-
-			if tt.wantErr && tt.err != nil && err.Error() != tt.err.Error() {
-				t.Errorf("Get() actual error = '%v', want error '%v'", err, tt.err)
-			}
-
-			if !tt.wantErr && !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("Get() = %v, want %v", got, tt.want)
+			if !assert.Equal(t, tt.want, got) {
+				t.Error(err)
 			}
 		})
 	}
@@ -182,16 +180,14 @@ func TestGetAppSearch(t *testing.T) {
 		params GetParams
 	}
 	tests := []struct {
-		name    string
-		args    args
-		want    *models.AppSearchResourceInfo
-		wantErr bool
-		err     error
+		name string
+		args args
+		want *models.AppSearchResourceInfo
+		err  error
 	}{
 		{
-			name:    "Get fails due to parameter validation failure",
-			args:    args{},
-			wantErr: true,
+			name: "Get fails due to parameter validation failure",
+			args: args{},
 			err: multierror.NewPrefixed("deployment get",
 				apierror.ErrMissingAPI,
 				errors.New(`id "" is invalid`),
@@ -205,18 +201,33 @@ func TestGetAppSearch(t *testing.T) {
 					API:          api.NewMock(mock.SampleInternalError()),
 				},
 			},
-			wantErr: true,
-			err:     mock.MultierrorInternalError,
+			err: mock.MultierrorInternalError,
 		},
 		{
 			name: "Get succeeds",
 			args: args{
 				params: GetParams{
 					DeploymentID: "f1d329b0fb34470ba8b18361cabdd2bc",
-					API: api.NewMock(mock.Response{Response: http.Response{
-						Body:       mock.NewStringBody(getAppSearchResponse),
-						StatusCode: 200,
-					}}),
+					API: api.NewMock(mock.Response{
+						Response: http.Response{
+							Body:       mock.NewStringBody(getAppSearchResponse),
+							StatusCode: 200,
+						},
+						Assert: &mock.RequestAssertion{
+							Header: api.DefaultReadMockHeaders,
+							Method: "GET",
+							Host:   api.DefaultMockHost,
+							Path:   "/api/v1/deployments/f1d329b0fb34470ba8b18361cabdd2bc/appsearch/",
+							Query: url.Values{
+								"show_metadata":      {"false"},
+								"show_plan_defaults": {"false"},
+								"show_plan_history":  {"false"},
+								"show_plan_logs":     {"false"},
+								"show_plans":         {"false"},
+								"show_settings":      {"false"},
+							},
+						},
+					}),
 				},
 			},
 			want: &models.AppSearchResourceInfo{
@@ -229,17 +240,11 @@ func TestGetAppSearch(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := GetAppSearch(tt.args.params)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("Get() error = %v, wantErr %v", err, tt.wantErr)
-				return
+			if !assert.Equal(t, tt.err, err) {
+				t.Error(err)
 			}
-
-			if tt.wantErr && tt.err != nil && err.Error() != tt.err.Error() {
-				t.Errorf("Get() actual error = '%v', want error '%v'", err, tt.err)
-			}
-
-			if !tt.wantErr && !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("Get() = %v, want %v", got, tt.want)
+			if !assert.Equal(t, tt.want, got) {
+				t.Error(err)
 			}
 		})
 	}
@@ -256,16 +261,14 @@ func TestGetApm(t *testing.T) {
 		params GetParams
 	}
 	tests := []struct {
-		name    string
-		args    args
-		want    *models.ApmResourceInfo
-		wantErr bool
-		err     error
+		name string
+		args args
+		want *models.ApmResourceInfo
+		err  error
 	}{
 		{
-			name:    "Get fails due to parameter validation failure",
-			args:    args{},
-			wantErr: true,
+			name: "Get fails due to parameter validation failure",
+			args: args{},
 			err: multierror.NewPrefixed("deployment get",
 				apierror.ErrMissingAPI,
 				errors.New(`id "" is invalid`),
@@ -279,18 +282,33 @@ func TestGetApm(t *testing.T) {
 					API:          api.NewMock(mock.SampleInternalError()),
 				},
 			},
-			wantErr: true,
-			err:     mock.MultierrorInternalError,
+			err: mock.MultierrorInternalError,
 		},
 		{
 			name: "Get succeeds",
 			args: args{
 				params: GetParams{
 					DeploymentID: "f1d329b0fb34470ba8b18361cabdd2bc",
-					API: api.NewMock(mock.Response{Response: http.Response{
-						Body:       mock.NewStringBody(getApmResponse),
-						StatusCode: 200,
-					}}),
+					API: api.NewMock(mock.Response{
+						Response: http.Response{
+							Body:       mock.NewStringBody(getApmResponse),
+							StatusCode: 200,
+						},
+						Assert: &mock.RequestAssertion{
+							Header: api.DefaultReadMockHeaders,
+							Method: "GET",
+							Host:   api.DefaultMockHost,
+							Path:   "/api/v1/deployments/f1d329b0fb34470ba8b18361cabdd2bc/apm/",
+							Query: url.Values{
+								"show_metadata":      {"false"},
+								"show_plan_defaults": {"false"},
+								"show_plan_history":  {"false"},
+								"show_plan_logs":     {"false"},
+								"show_plans":         {"false"},
+								"show_settings":      {"false"},
+							},
+						},
+					}),
 				},
 			},
 			want: &models.ApmResourceInfo{
@@ -303,17 +321,11 @@ func TestGetApm(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := GetApm(tt.args.params)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("Get() error = %v, wantErr %v", err, tt.wantErr)
-				return
+			if !assert.Equal(t, tt.err, err) {
+				t.Error(err)
 			}
-
-			if tt.wantErr && tt.err != nil && err.Error() != tt.err.Error() {
-				t.Errorf("Get() actual error = '%v', want error '%v'", err, tt.err)
-			}
-
-			if !tt.wantErr && !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("Get() = %v, want %v", got, tt.want)
+			if !assert.Equal(t, tt.want, got) {
+				t.Error(err)
 			}
 		})
 	}
@@ -329,16 +341,14 @@ func TestGetElasticsearch(t *testing.T) {
 		params GetParams
 	}
 	tests := []struct {
-		name    string
-		args    args
-		want    *models.ElasticsearchResourceInfo
-		wantErr bool
-		err     error
+		name string
+		args args
+		want *models.ElasticsearchResourceInfo
+		err  error
 	}{
 		{
-			name:    "Get fails due to parameter validation failure",
-			args:    args{},
-			wantErr: true,
+			name: "Get fails due to parameter validation failure",
+			args: args{},
 			err: multierror.NewPrefixed("deployment get",
 				apierror.ErrMissingAPI,
 				errors.New(`id "" is invalid`),
@@ -352,18 +362,37 @@ func TestGetElasticsearch(t *testing.T) {
 					API:          api.NewMock(mock.SampleInternalError()),
 				},
 			},
-			wantErr: true,
-			err:     mock.MultierrorInternalError,
+			err: mock.MultierrorInternalError,
 		},
 		{
 			name: "Get succeeds",
 			args: args{
 				params: GetParams{
 					DeploymentID: "f1d329b0fb34470ba8b18361cabdd2bc",
-					API: api.NewMock(mock.Response{Response: http.Response{
-						Body:       mock.NewStringBody(getElasticsearchResponse),
-						StatusCode: 200,
-					}}),
+					API: api.NewMock(mock.Response{
+						Response: http.Response{
+							Body:       mock.NewStringBody(getElasticsearchResponse),
+							StatusCode: 200,
+						},
+						Assert: &mock.RequestAssertion{
+							Header: api.DefaultReadMockHeaders,
+							Method: "GET",
+							Host:   api.DefaultMockHost,
+							Path:   "/api/v1/deployments/f1d329b0fb34470ba8b18361cabdd2bc/elasticsearch/",
+							Query: url.Values{
+								"convert_legacy_plans": {"false"},
+								"enrich_with_template": {"true"},
+								"show_metadata":        {"false"},
+								"show_plan_defaults":   {"false"},
+								"show_plan_history":    {"false"},
+								"show_plan_logs":       {"false"},
+								"show_plans":           {"false"},
+								"show_security":        {"false"},
+								"show_settings":        {"false"},
+								"show_system_alerts":   {"5"},
+							},
+						},
+					}),
 				},
 			},
 			want: &models.ElasticsearchResourceInfo{
@@ -375,17 +404,92 @@ func TestGetElasticsearch(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := GetElasticsearch(tt.args.params)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("Get() error = %v, wantErr %v", err, tt.wantErr)
-				return
+			if !assert.Equal(t, tt.err, err) {
+				t.Error(err)
 			}
-
-			if tt.wantErr && tt.err != nil && err.Error() != tt.err.Error() {
-				t.Errorf("Get() actual error = '%v', want error '%v'", err, tt.err)
+			if !assert.Equal(t, tt.want, got) {
+				t.Error(err)
 			}
+		})
+	}
+}
 
-			if !tt.wantErr && !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("Get() = %v, want %v", got, tt.want)
+func TestGetEnterpriseSearch(t *testing.T) {
+	const getEnterpriseSearchResponse = `{
+  "elasticsearch_cluster_ref_id": "main-elasticsearch",
+  "id": "3531aaf988594efa87c1aabb7caed337",
+  "ref_id": "main-enterprise_search"
+}`
+
+	type args struct {
+		params GetParams
+	}
+	tests := []struct {
+		name string
+		args args
+		want *models.EnterpriseSearchResourceInfo
+		err  error
+	}{
+		{
+			name: "Get fails due to parameter validation failure",
+			args: args{},
+			err: multierror.NewPrefixed("deployment get",
+				apierror.ErrMissingAPI,
+				errors.New(`id "" is invalid`),
+			),
+		},
+		{
+			name: "Get fails due to API failure",
+			args: args{
+				params: GetParams{
+					DeploymentID: "f1d329b0fb34470ba8b18361cabdd2bc",
+					API:          api.NewMock(mock.SampleInternalError()),
+				},
+			},
+			err: mock.MultierrorInternalError,
+		},
+		{
+			name: "Get succeeds",
+			args: args{
+				params: GetParams{
+					DeploymentID: "f1d329b0fb34470ba8b18361cabdd2bc",
+					API: api.NewMock(mock.Response{
+						Response: http.Response{
+							Body:       mock.NewStringBody(getEnterpriseSearchResponse),
+							StatusCode: 200,
+						},
+						Assert: &mock.RequestAssertion{
+							Header: api.DefaultReadMockHeaders,
+							Method: "GET",
+							Host:   api.DefaultMockHost,
+							Path:   "/api/v1/deployments/f1d329b0fb34470ba8b18361cabdd2bc/enterprise_search/",
+							Query: url.Values{
+								"show_metadata":      {"false"},
+								"show_plan_defaults": {"false"},
+								"show_plan_history":  {"false"},
+								"show_plan_logs":     {"false"},
+								"show_plans":         {"false"},
+								"show_settings":      {"false"},
+							},
+						},
+					}),
+				},
+			},
+			want: &models.EnterpriseSearchResourceInfo{
+				ElasticsearchClusterRefID: ec.String("main-elasticsearch"),
+				ID:                        ec.String("3531aaf988594efa87c1aabb7caed337"),
+				RefID:                     ec.String("main-enterprise_search"),
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := GetEnterpriseSearch(tt.args.params)
+			if !assert.Equal(t, tt.err, err) {
+				t.Error(err)
+			}
+			if !assert.Equal(t, tt.want, got) {
+				t.Error(err)
 			}
 		})
 	}
@@ -402,16 +506,14 @@ func TestGetKibana(t *testing.T) {
 		params GetParams
 	}
 	tests := []struct {
-		name    string
-		args    args
-		want    *models.KibanaResourceInfo
-		wantErr bool
-		err     error
+		name string
+		args args
+		want *models.KibanaResourceInfo
+		err  error
 	}{
 		{
-			name:    "Get fails due to parameter validation failure",
-			args:    args{},
-			wantErr: true,
+			name: "Get fails due to parameter validation failure",
+			args: args{},
 			err: multierror.NewPrefixed("deployment get",
 				apierror.ErrMissingAPI,
 				errors.New(`id "" is invalid`),
@@ -425,18 +527,34 @@ func TestGetKibana(t *testing.T) {
 					API:          api.NewMock(mock.SampleInternalError()),
 				},
 			},
-			wantErr: true,
-			err:     mock.MultierrorInternalError,
+			err: mock.MultierrorInternalError,
 		},
 		{
 			name: "Get succeeds",
 			args: args{
 				params: GetParams{
 					DeploymentID: "f1d329b0fb34470ba8b18361cabdd2bc",
-					API: api.NewMock(mock.Response{Response: http.Response{
-						Body:       mock.NewStringBody(getKibanaResponse),
-						StatusCode: 200,
-					}}),
+					API: api.NewMock(mock.Response{
+						Response: http.Response{
+							Body:       mock.NewStringBody(getKibanaResponse),
+							StatusCode: 200,
+						},
+						Assert: &mock.RequestAssertion{
+							Header: api.DefaultReadMockHeaders,
+							Method: "GET",
+							Host:   api.DefaultMockHost,
+							Path:   "/api/v1/deployments/f1d329b0fb34470ba8b18361cabdd2bc/kibana/",
+							Query: url.Values{
+								"convert_legacy_plans": {"false"},
+								"show_metadata":        {"false"},
+								"show_plan_defaults":   {"false"},
+								"show_plan_history":    {"false"},
+								"show_plan_logs":       {"false"},
+								"show_plans":           {"false"},
+								"show_settings":        {"false"},
+							},
+						},
+					}),
 				},
 			},
 			want: &models.KibanaResourceInfo{
@@ -449,17 +567,11 @@ func TestGetKibana(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := GetKibana(tt.args.params)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("Get() error = %v, wantErr %v", err, tt.wantErr)
-				return
+			if !assert.Equal(t, tt.err, err) {
+				t.Error(err)
 			}
-
-			if tt.wantErr && tt.err != nil && err.Error() != tt.err.Error() {
-				t.Errorf("Get() actual error = '%v', want error '%v'", err, tt.err)
-			}
-
-			if !tt.wantErr && !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("Get() = %v, want %v", got, tt.want)
+			if !assert.Equal(t, tt.want, got) {
+				t.Error(err)
 			}
 		})
 	}
@@ -481,11 +593,10 @@ func TestGetElasticsearchID(t *testing.T) {
 		params GetParams
 	}
 	tests := []struct {
-		name    string
-		args    args
-		want    string
-		wantErr bool
-		err     error
+		name string
+		args args
+		want string
+		err  error
 	}{
 		{
 			name: "Get fails due to API failure",
@@ -495,18 +606,37 @@ func TestGetElasticsearchID(t *testing.T) {
 					API:          api.NewMock(mock.SampleInternalError()),
 				},
 			},
-			wantErr: true,
-			err:     mock.MultierrorInternalError,
+			err: mock.MultierrorInternalError,
 		},
 		{
 			name: "Get succeeds",
 			args: args{
 				params: GetParams{
 					DeploymentID: "e3dac8bf3dc64c528c295a94d0f19a77",
-					API: api.NewMock(mock.Response{Response: http.Response{
-						Body:       mock.NewStringBody(getResponse),
-						StatusCode: 200,
-					}}),
+					API: api.NewMock(mock.Response{
+						Response: http.Response{
+							Body:       mock.NewStringBody(getResponse),
+							StatusCode: 200,
+						},
+						Assert: &mock.RequestAssertion{
+							Header: api.DefaultReadMockHeaders,
+							Method: "GET",
+							Host:   api.DefaultMockHost,
+							Path:   "/api/v1/deployments/e3dac8bf3dc64c528c295a94d0f19a77",
+							Query: url.Values{
+								"convert_legacy_plans": {"false"},
+								"enrich_with_template": {"true"},
+								"show_metadata":        {"false"},
+								"show_plan_defaults":   {"false"},
+								"show_plan_history":    {"false"},
+								"show_plan_logs":       {"false"},
+								"show_plans":           {"false"},
+								"show_security":        {"false"},
+								"show_settings":        {"false"},
+								"show_system_alerts":   {"5"},
+							},
+						},
+					}),
 				},
 			},
 			want: "418017cd1c7f402cbb7a981b2004ceeb",
@@ -515,17 +645,11 @@ func TestGetElasticsearchID(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := GetElasticsearchID(tt.args.params)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("getElasticsearchID() error = %v, wantErr %v", err, tt.wantErr)
-				return
+			if !assert.Equal(t, tt.err, err) {
+				t.Error(err)
 			}
-
-			if tt.wantErr && tt.err != nil && err.Error() != tt.err.Error() {
-				t.Errorf("getElasticsearchID() actual error = '%v', want error '%v'", err, tt.err)
-			}
-
-			if !tt.wantErr && !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("getElasticsearchID() = %v, want %v", got, tt.want)
+			if !assert.Equal(t, tt.want, got) {
+				t.Error(err)
 			}
 		})
 	}
