@@ -18,8 +18,9 @@
 package deploymentapi
 
 import (
-	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
@@ -82,6 +83,13 @@ func Test_setOverrides(t *testing.T) {
 								},
 							},
 						},
+						EnterpriseSearch: []*models.EnterpriseSearchPayload{
+							{
+								Plan: &models.EnterpriseSearchPlan{
+									EnterpriseSearch: &models.EnterpriseSearchConfiguration{Version: "1.2.3"},
+								},
+							},
+						},
 						Kibana: []*models.KibanaPayload{
 							{
 								Plan: &models.KibanaClusterPlan{
@@ -119,6 +127,14 @@ func Test_setOverrides(t *testing.T) {
 							},
 						},
 					},
+					EnterpriseSearch: []*models.EnterpriseSearchPayload{
+						{
+							Region: &eceRegion,
+							Plan: &models.EnterpriseSearchPlan{
+								EnterpriseSearch: &models.EnterpriseSearchConfiguration{Version: "7.4.1"},
+							},
+						},
+					},
 					Kibana: []*models.KibanaPayload{
 						{
 							Region: &eceRegion,
@@ -149,6 +165,13 @@ func Test_setOverrides(t *testing.T) {
 							{
 								Plan: &models.AppSearchPlan{
 									Appsearch: &models.AppSearchConfiguration{Version: "7.4.1"},
+								},
+							},
+						},
+						EnterpriseSearch: []*models.EnterpriseSearchPayload{
+							{
+								Plan: &models.EnterpriseSearchPlan{
+									EnterpriseSearch: &models.EnterpriseSearchConfiguration{Version: "7.4.1"},
 								},
 							},
 						},
@@ -195,6 +218,14 @@ func Test_setOverrides(t *testing.T) {
 							},
 						},
 					},
+					EnterpriseSearch: []*models.EnterpriseSearchPayload{
+						{
+							Region: &overriddenRegion,
+							Plan: &models.EnterpriseSearchPlan{
+								EnterpriseSearch: &models.EnterpriseSearchConfiguration{Version: "7.4.1"},
+							},
+						},
+					},
 					Kibana: []*models.KibanaPayload{
 						{
 							Region: &overriddenRegion,
@@ -212,7 +243,7 @@ func Test_setOverrides(t *testing.T) {
 			var req = tt.args.req
 			setOverrides(req, tt.args.overrides)
 
-			if !reflect.DeepEqual(req, tt.want) {
+			if !assert.Equal(t, req, tt.want) {
 				t.Errorf("setOverrides() = %v, want %v", req, tt.want)
 			}
 		})

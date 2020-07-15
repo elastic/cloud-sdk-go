@@ -24,10 +24,10 @@ import (
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
-	"github.com/elastic/cloud-sdk-go/pkg/api/deploymentapi/deputil"
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
+	"github.com/elastic/cloud-sdk-go/pkg/util"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
@@ -68,8 +68,8 @@ func TestRestore(t *testing.T) {
 				Params: Params{
 					API:          api.NewMock(mock.SampleNotFoundError()),
 					DeploymentID: mock.ValidClusterID,
-					RefID:        deputil.Apm,
-					Kind:         deputil.Apm,
+					RefID:        util.Apm,
+					Kind:         util.Apm,
 				},
 			}},
 			err: mock.MultierrorNotFound,
@@ -103,8 +103,8 @@ func TestRestore(t *testing.T) {
 				Params: Params{
 					API:          api.NewMock(mock.New200Response(mock.NewStringBody(""))),
 					DeploymentID: mock.ValidClusterID,
-					RefID:        deputil.Apm,
-					Kind:         deputil.Apm,
+					RefID:        util.Apm,
+					Kind:         util.Apm,
 				},
 			}},
 		},

@@ -46,6 +46,7 @@ func setOverrides(req interface{}, overrides *PayloadOverrides) {
 	var apm []*models.ApmPayload
 	var appsearch []*models.AppSearchPayload
 	var elasticsearch []*models.ElasticsearchPayload
+	var enterprisesearch []*models.EnterpriseSearchPayload
 	var kibana []*models.KibanaPayload
 	switch t := req.(type) {
 	case *models.DeploymentUpdateRequest:
@@ -54,6 +55,7 @@ func setOverrides(req interface{}, overrides *PayloadOverrides) {
 		}
 		apm, appsearch = t.Resources.Apm, t.Resources.Appsearch
 		elasticsearch, kibana = t.Resources.Elasticsearch, t.Resources.Kibana
+		enterprisesearch = t.Resources.EnterpriseSearch
 	case *models.DeploymentCreateRequest:
 		if overrides.Name != "" {
 			t.Name = overrides.Name
@@ -63,17 +65,18 @@ func setOverrides(req interface{}, overrides *PayloadOverrides) {
 		}
 		apm, appsearch = t.Resources.Apm, t.Resources.Appsearch
 		elasticsearch, kibana = t.Resources.Elasticsearch, t.Resources.Kibana
+		enterprisesearch = t.Resources.EnterpriseSearch
 	}
 
 	overrideByPayload(
-		apm, appsearch, elasticsearch, kibana,
+		apm, appsearch, elasticsearch, kibana, enterprisesearch,
 		overrides.Region, overrides.Version,
 	)
 }
 
 // nolint
 func overrideByPayload(apm []*models.ApmPayload, appsearch []*models.AppSearchPayload,
-	elasticsearch []*models.ElasticsearchPayload, kibana []*models.KibanaPayload, region, version string) {
+	elasticsearch []*models.ElasticsearchPayload, kibana []*models.KibanaPayload, enterprisesearch []*models.EnterpriseSearchPayload, region, version string) {
 	for _, resource := range apm {
 		if resource.Region == nil && region != "" {
 			resource.Region = &region
@@ -106,6 +109,18 @@ func overrideByPayload(apm []*models.ApmPayload, appsearch []*models.AppSearchPa
 		if version != "" {
 			if resource.Plan != nil && resource.Plan.Elasticsearch != nil {
 				resource.Plan.Elasticsearch.Version = version
+			}
+		}
+	}
+
+	for _, resource := range enterprisesearch {
+		if resource.Region == nil && region != "" {
+			resource.Region = &region
+		}
+
+		if version != "" {
+			if resource.Plan != nil && resource.Plan.EnterpriseSearch != nil {
+				resource.Plan.EnterpriseSearch.Version = version
 			}
 		}
 	}
