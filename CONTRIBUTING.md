@@ -166,11 +166,14 @@ Due to the way Go handles package imports, the best approach for working on a `c
 
 ### Generating the client and models from a swagger definition
 
-To generate / update the client code you will need to follow these steps:
+When a new version of the API specification is released, the local copy of that specification found in [`api/apidocs.json`](./api/apidocs.json) needs to be updated and committed as well.
 
-1. Update the `api/apidocs.json` file with the latest swagger specification available from the public API.
-2. Run either `make swagger` or `make docker-swagger` to generate the client and models from the swagger definition.
-3. Commit the latest changes to a new branch and create a pull request to be reviewed.
+The swagger specification is then used to generate a [client](./pkg/client) and [models](./pkg/models) Go packages and sub-packages. To update the Go auto-generated codebase, `make swagger` or `make docker-swagger`
+can be used.
+
+Additionally, a full markdown declaration of API commands will be generated in `api/version/$(ECE_VERSION).md`, and `pkg/api/version.go` will be generated with the version matching the `ECE_VERSION` variable.
+
+The Makefile global variable `ECE_VERSION` should be modified before running `make swagger`. Make sure you have set the "EC_API_KEY" environment variable locally with your Elasticsearch Service API key. This will allow the API validation tests to run
 
 ### Running unit tests
 
