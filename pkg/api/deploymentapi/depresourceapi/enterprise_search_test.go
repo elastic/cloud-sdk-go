@@ -31,8 +31,8 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
-var enterpriseSearchTemplateResponse = models.DeploymentTemplateInfo{
-	ID: "default.enterprise-search",
+var enterpriseSearchTemplateResponse = models.DeploymentTemplateInfoV2{
+	ID: ec.String("default.enterprise-search"),
 	DeploymentTemplate: &models.DeploymentCreateRequest{
 		Resources: &models.DeploymentCreateResources{
 			EnterpriseSearch: []*models.EnterpriseSearchPayload{
@@ -61,8 +61,8 @@ var enterpriseSearchTemplateResponse = models.DeploymentTemplateInfo{
 	},
 }
 
-var defaultESTemplateResponse = models.DeploymentTemplateInfo{
-	ID: "default",
+var defaultESTemplateResponse = models.DeploymentTemplateInfoV2{
+	ID: ec.String("default"),
 	DeploymentTemplate: &models.DeploymentCreateRequest{
 		Resources: &models.DeploymentCreateResources{
 			Elasticsearch: []*models.ElasticsearchPayload{
@@ -118,10 +118,10 @@ func TestNewEnterpriseSearch(t *testing.T) {
 		{
 			name: "fails obtaining the deployment info",
 			args: args{params: NewStateless{
-				DeploymentID:           mock.ValidClusterID,
-				API:                    api.NewMock(mock.SampleInternalError()),
-				Region:                 "ece-region",
-				DeploymentTemplateInfo: &models.DeploymentTemplateInfo{Name: ec.String("default")},
+				DeploymentID:             mock.ValidClusterID,
+				API:                      api.NewMock(mock.SampleInternalError()),
+				Region:                   "ece-region",
+				DeploymentTemplateInfoV2: &models.DeploymentTemplateInfoV2{Name: ec.String("default")},
 			}},
 			err: mock.MultierrorInternalError,
 		},
@@ -140,8 +140,8 @@ func TestNewEnterpriseSearch(t *testing.T) {
 						},
 					})),
 				),
-				Region:                 "ece-region",
-				DeploymentTemplateInfo: &models.DeploymentTemplateInfo{Name: ec.String("default")},
+				Region:                   "ece-region",
+				DeploymentTemplateInfoV2: &models.DeploymentTemplateInfoV2{Name: ec.String("default")},
 			}},
 			err: errors.New("unable to obtain deployment template ID from existing deployment ID, please specify a one"),
 		},
@@ -152,8 +152,8 @@ func TestNewEnterpriseSearch(t *testing.T) {
 				API: api.NewMock(
 					mock.SampleInternalError(),
 				),
-				Region:                 "ece-region",
-				DeploymentTemplateInfo: &models.DeploymentTemplateInfo{Name: ec.String("default")},
+				Region:                   "ece-region",
+				DeploymentTemplateInfoV2: &models.DeploymentTemplateInfoV2{Name: ec.String("default")},
 			}},
 			err: mock.MultierrorInternalError,
 		},
@@ -165,8 +165,8 @@ func TestNewEnterpriseSearch(t *testing.T) {
 					mock.New200Response(mock.NewStructBody(getResponse)),
 					mock.New200Response(mock.NewStructBody(defaultESTemplateResponse)),
 				),
-				Region:                 "ece-region",
-				DeploymentTemplateInfo: &defaultESTemplateResponse,
+				Region:                   "ece-region",
+				DeploymentTemplateInfoV2: &defaultESTemplateResponse,
 			}},
 			err: errors.New("deployment: the an ID template is not configured for Enterprise Search. Please use another template if you wish to start Enterprise Search instances"),
 		},
@@ -177,10 +177,10 @@ func TestNewEnterpriseSearch(t *testing.T) {
 				API: api.NewMock(
 					mock.New200Response(mock.NewStructBody(enterpriseSearchTemplateResponse)),
 				),
-				TemplateID:             "default",
-				Region:                 "ece-region",
-				ElasticsearchRefID:     "main-elasticsearch",
-				DeploymentTemplateInfo: &enterpriseSearchTemplateResponse,
+				TemplateID:               "default",
+				Region:                   "ece-region",
+				ElasticsearchRefID:       "main-elasticsearch",
+				DeploymentTemplateInfoV2: &enterpriseSearchTemplateResponse,
 			}},
 			want: &models.EnterpriseSearchPayload{
 				ElasticsearchClusterRefID: ec.String("main-elasticsearch"),
@@ -210,8 +210,8 @@ func TestNewEnterpriseSearch(t *testing.T) {
 					mock.New200Response(mock.NewStructBody(getResponse)),
 					mock.New200Response(mock.NewStructBody(enterpriseSearchTemplateResponse)),
 				),
-				Region:                 "ece-region",
-				DeploymentTemplateInfo: &enterpriseSearchTemplateResponse,
+				Region:                   "ece-region",
+				DeploymentTemplateInfoV2: &enterpriseSearchTemplateResponse,
 			}},
 			want: &models.EnterpriseSearchPayload{
 				ElasticsearchClusterRefID: ec.String("main-elasticsearch"),

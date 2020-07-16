@@ -46,7 +46,7 @@ const (
 // NewElasticsearchParams is consumed by NewElasticsearch.
 type NewElasticsearchParams struct {
 	// Required deployment template definition
-	*models.DeploymentTemplateInfo
+	*models.DeploymentTemplateInfoV2
 
 	// Optional region name. Defaults to
 	Region string
@@ -86,7 +86,7 @@ func (params *NewElasticsearchParams) fillDefaults() {
 func (params *NewElasticsearchParams) Validate() error {
 	var merr = multierror.NewPrefixed("invalid deployment resource params")
 
-	if params.DeploymentTemplateInfo == nil {
+	if params.DeploymentTemplateInfoV2 == nil {
 		merr = merr.Append(errMissingDeploymentTemplateInfo)
 	}
 
@@ -121,7 +121,7 @@ func NewElasticsearch(params NewElasticsearchParams) (*models.ElasticsearchPaylo
 		return nil, err
 	}
 
-	if len(params.DeploymentTemplateInfo.DeploymentTemplate.Resources.Elasticsearch) == 0 {
+	if len(params.DeploymentTemplateInfoV2.DeploymentTemplate.Resources.Elasticsearch) == 0 {
 		return nil, fmt.Errorf("deployment: the %s template is not configured for Elasticsearch. Please use another template if you wish to start Elasticsearch instances",
 			params.TemplateID)
 	}
@@ -129,7 +129,7 @@ func NewElasticsearch(params NewElasticsearchParams) (*models.ElasticsearchPaylo
 	var payload = newElasticsearchPayload(params)
 	payload.Plan.ClusterTopology, err = BuildElasticsearchTopology(
 		BuildElasticsearchTopologyParams{
-			ClusterTopology: params.DeploymentTemplateInfo.DeploymentTemplate.Resources.Elasticsearch[0].Plan.ClusterTopology,
+			ClusterTopology: params.DeploymentTemplateInfoV2.DeploymentTemplate.Resources.Elasticsearch[0].Plan.ClusterTopology,
 			TemplateID:      params.TemplateID,
 			Topology:        params.Topology,
 		},

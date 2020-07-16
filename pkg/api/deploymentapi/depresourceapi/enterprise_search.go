@@ -44,12 +44,12 @@ func NewEnterpriseSearch(params NewStateless) (*models.EnterpriseSearchPayload, 
 		return nil, err
 	}
 
-	if len(params.DeploymentTemplateInfo.DeploymentTemplate.Resources.EnterpriseSearch) == 0 {
+	if len(params.DeploymentTemplateInfoV2.DeploymentTemplate.Resources.EnterpriseSearch) == 0 {
 		return nil, fmt.Errorf("deployment: the %s template is not configured for Enterprise Search. Please use another template if you wish to start Enterprise Search instances",
 			params.TemplateID)
 	}
 
-	var clusterTopology = params.DeploymentTemplateInfo.DeploymentTemplate.Resources.EnterpriseSearch[0].Plan.ClusterTopology
+	var clusterTopology = params.DeploymentTemplateInfoV2.DeploymentTemplate.Resources.EnterpriseSearch[0].Plan.ClusterTopology
 	var topology = models.EnterpriseSearchTopologyElement{Size: new(models.TopologySize)}
 	if len(clusterTopology) > 0 {
 		topology = *clusterTopology[0]

@@ -29,8 +29,8 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
-var apmKibanaTemplateResponse = models.DeploymentTemplateInfo{
-	ID: "default",
+var apmKibanaTemplateResponse = models.DeploymentTemplateInfoV2{
+	ID: ec.String("default"),
 	DeploymentTemplate: &models.DeploymentCreateRequest{
 		Resources: &models.DeploymentCreateResources{
 			Apm: []*models.ApmPayload{
@@ -74,8 +74,8 @@ var apmKibanaTemplateResponse = models.DeploymentTemplateInfo{
 	},
 }
 
-var appsearchKibanaTemplateResponse = models.DeploymentTemplateInfo{
-	ID: "default",
+var appsearchKibanaTemplateResponse = models.DeploymentTemplateInfoV2{
+	ID: ec.String("default"),
 	DeploymentTemplate: &models.DeploymentCreateRequest{
 		Resources: &models.DeploymentCreateResources{
 			Appsearch: []*models.AppSearchPayload{
@@ -119,8 +119,8 @@ var appsearchKibanaTemplateResponse = models.DeploymentTemplateInfo{
 	},
 }
 
-var enterpriseSearchKibanaTemplateResponse = models.DeploymentTemplateInfo{
-	ID: "default",
+var enterpriseSearchKibanaTemplateResponse = models.DeploymentTemplateInfoV2{
+	ID: ec.String("default"),
 	DeploymentTemplate: &models.DeploymentCreateRequest{
 		Resources: &models.DeploymentCreateResources{
 			EnterpriseSearch: []*models.EnterpriseSearchPayload{
@@ -164,9 +164,9 @@ var enterpriseSearchKibanaTemplateResponse = models.DeploymentTemplateInfo{
 	},
 }
 
-func TestNew(t *testing.T) {
+func TestNewPayload(t *testing.T) {
 	type args struct {
-		params NewParams
+		params NewPayloadParams
 	}
 	tests := []struct {
 		name string
@@ -176,7 +176,7 @@ func TestNew(t *testing.T) {
 	}{
 		{
 			name: "Fails due to API error",
-			args: args{params: NewParams{
+			args: args{params: NewPayloadParams{
 				Version: "7.6.1",
 				Region:  "ece-region",
 				ElasticsearchInstance: InstanceParams{
@@ -198,7 +198,7 @@ func TestNew(t *testing.T) {
 		},
 		{
 			name: "Fails to create a deployment payload with ES and Kibana instances",
-			args: args{params: NewParams{
+			args: args{params: NewPayloadParams{
 				Version: "7.6.1",
 				Region:  "ece-region",
 				ElasticsearchInstance: InstanceParams{
@@ -220,7 +220,7 @@ func TestNew(t *testing.T) {
 		},
 		{
 			name: "Fails to create a deployment payload with ES, Kibana and APM instances",
-			args: args{params: NewParams{
+			args: args{params: NewPayloadParams{
 				Version: "7.6.1",
 				Region:  "ece-region",
 				ElasticsearchInstance: InstanceParams{
@@ -248,7 +248,7 @@ func TestNew(t *testing.T) {
 		},
 		{
 			name: "Fails to create a deployment payload with ES, Kibana and App Search instances",
-			args: args{params: NewParams{
+			args: args{params: NewPayloadParams{
 				Version: "7.6.1",
 				Region:  "ece-region",
 				ElasticsearchInstance: InstanceParams{
@@ -276,7 +276,7 @@ func TestNew(t *testing.T) {
 		},
 		{
 			name: "Succeeds to create a deployment payload with ES and Kibana instances",
-			args: args{params: NewParams{
+			args: args{params: NewPayloadParams{
 				Version: "7.6.1",
 				Region:  "ece-region",
 				ElasticsearchInstance: InstanceParams{
@@ -341,7 +341,7 @@ func TestNew(t *testing.T) {
 		},
 		{
 			name: "Succeeds to create a deployment payload with ES, Kibana and APM instances",
-			args: args{params: NewParams{
+			args: args{params: NewPayloadParams{
 				Version: "7.6.1",
 				Region:  "ece-region",
 				ElasticsearchInstance: InstanceParams{
@@ -431,7 +431,7 @@ func TestNew(t *testing.T) {
 		},
 		{
 			name: "Succeeds to create a deployment payload with ES, Kibana and Appsearch instances",
-			args: args{params: NewParams{
+			args: args{params: NewPayloadParams{
 				Version: "7.6.1",
 				Region:  "ece-region",
 				ElasticsearchInstance: InstanceParams{
@@ -521,7 +521,7 @@ func TestNew(t *testing.T) {
 		},
 		{
 			name: "Succeeds to create a deployment payload with ES, Kibana and EnterpriseSearch instances",
-			args: args{params: NewParams{
+			args: args{params: NewPayloadParams{
 				Version: "7.6.1",
 				Region:  "ece-region",
 				ElasticsearchInstance: InstanceParams{
@@ -612,7 +612,7 @@ func TestNew(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := New(tt.args.params)
+			got, err := NewPayload(tt.args.params)
 			if !assert.Equal(t, tt.err, err) {
 				t.Error(err)
 			}

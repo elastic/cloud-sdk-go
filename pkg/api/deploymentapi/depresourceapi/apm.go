@@ -44,12 +44,12 @@ func NewApm(params NewStateless) (*models.ApmPayload, error) {
 		return nil, err
 	}
 
-	if len(params.DeploymentTemplateInfo.DeploymentTemplate.Resources.Apm) == 0 {
+	if len(params.DeploymentTemplateInfoV2.DeploymentTemplate.Resources.Apm) == 0 {
 		return nil, fmt.Errorf("deployment: the %s template is not configured for APM. Please use another template if you wish to start APM instances",
 			params.TemplateID)
 	}
 
-	var clusterTopology = params.DeploymentTemplateInfo.DeploymentTemplate.Resources.Apm[0].Plan.ClusterTopology
+	var clusterTopology = params.DeploymentTemplateInfoV2.DeploymentTemplate.Resources.Apm[0].Plan.ClusterTopology
 	var topology = models.ApmTopologyElement{Size: new(models.TopologySize)}
 	if len(clusterTopology) > 0 {
 		topology = *clusterTopology[0]

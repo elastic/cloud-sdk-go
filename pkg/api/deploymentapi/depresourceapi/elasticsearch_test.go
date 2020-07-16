@@ -61,8 +61,8 @@ var defaultESTopologies = []*models.ElasticsearchClusterTopologyElement{
 	},
 }
 
-var elasticsearchTemplateResponse = models.DeploymentTemplateInfo{
-	ID: "default",
+var elasticsearchTemplateResponse = models.DeploymentTemplateInfoV2{
+	ID: ec.String("default"),
 	DeploymentTemplate: &models.DeploymentCreateRequest{
 		Resources: &models.DeploymentCreateResources{
 			Elasticsearch: []*models.ElasticsearchPayload{
@@ -104,10 +104,10 @@ func TestNewElasticsearch(t *testing.T) {
 		{
 			name: "fails due to unknown desired topology",
 			args: args{params: NewElasticsearchParams{
-				Region:                 "ece-region",
-				Version:                "7.4.2",
-				TemplateID:             "default",
-				DeploymentTemplateInfo: &elasticsearchTemplateResponse,
+				Region:                   "ece-region",
+				Version:                  "7.4.2",
+				TemplateID:               "default",
+				DeploymentTemplateInfoV2: &elasticsearchTemplateResponse,
 				Topology: []ElasticsearchTopologyElement{
 					{Name: "some", Size: 1024},
 				},
@@ -120,8 +120,8 @@ func TestNewElasticsearch(t *testing.T) {
 				Region:     "ece-region",
 				Version:    "7.4.2",
 				TemplateID: "default",
-				DeploymentTemplateInfo: &models.DeploymentTemplateInfo{
-					ID: "default",
+				DeploymentTemplateInfoV2: &models.DeploymentTemplateInfoV2{
+					ID: ec.String("default"),
 					DeploymentTemplate: &models.DeploymentCreateRequest{
 						Resources: &models.DeploymentCreateResources{},
 					},
@@ -135,10 +135,10 @@ func TestNewElasticsearch(t *testing.T) {
 		{
 			name: "Returns the default topology",
 			args: args{params: NewElasticsearchParams{
-				Region:                 "ece-region",
-				Version:                "7.4.2",
-				TemplateID:             "default",
-				DeploymentTemplateInfo: &elasticsearchTemplateResponse,
+				Region:                   "ece-region",
+				Version:                  "7.4.2",
+				TemplateID:               "default",
+				DeploymentTemplateInfoV2: &elasticsearchTemplateResponse,
 			}},
 			want: &models.ElasticsearchPayload{
 				DisplayName: "",
@@ -170,10 +170,10 @@ func TestNewElasticsearch(t *testing.T) {
 		{
 			name: "Returns a custom topology",
 			args: args{params: NewElasticsearchParams{
-				Region:                 "ece-region",
-				Version:                "7.4.2",
-				TemplateID:             "default",
-				DeploymentTemplateInfo: &elasticsearchTemplateResponse,
+				Region:                   "ece-region",
+				Version:                  "7.4.2",
+				TemplateID:               "default",
+				DeploymentTemplateInfoV2: &elasticsearchTemplateResponse,
 				Topology: []ElasticsearchTopologyElement{
 					{Name: DataNode, Size: 8192, ZoneCount: 2},
 					{Name: MasterNode, Size: 1024, ZoneCount: 1},

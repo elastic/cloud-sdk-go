@@ -31,8 +31,8 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
-var kibanaTemplateResponse = models.DeploymentTemplateInfo{
-	ID: "default",
+var kibanaTemplateResponse = models.DeploymentTemplateInfoV2{
+	ID: ec.String("default"),
 	DeploymentTemplate: &models.DeploymentCreateRequest{
 		Resources: &models.DeploymentCreateResources{
 			Kibana: []*models.KibanaPayload{
@@ -61,8 +61,8 @@ var kibanaTemplateResponse = models.DeploymentTemplateInfo{
 	},
 }
 
-var invalidTemplateResponse = models.DeploymentTemplateInfo{
-	ID: "invalid",
+var invalidTemplateResponse = models.DeploymentTemplateInfoV2{
+	ID: ec.String("invalid"),
 	DeploymentTemplate: &models.DeploymentCreateRequest{
 		Resources: &models.DeploymentCreateResources{
 			Elasticsearch: []*models.ElasticsearchPayload{
@@ -118,10 +118,10 @@ func TestNewKibana(t *testing.T) {
 		{
 			name: "fails obtaining the deployment info",
 			args: args{params: NewStateless{
-				DeploymentID:           mock.ValidClusterID,
-				API:                    api.NewMock(mock.SampleInternalError()),
-				Region:                 "ece-region",
-				DeploymentTemplateInfo: &models.DeploymentTemplateInfo{Name: ec.String("default")},
+				DeploymentID:             mock.ValidClusterID,
+				API:                      api.NewMock(mock.SampleInternalError()),
+				Region:                   "ece-region",
+				DeploymentTemplateInfoV2: &models.DeploymentTemplateInfoV2{Name: ec.String("default")},
 			}},
 			err: mock.MultierrorInternalError,
 		},
@@ -140,8 +140,8 @@ func TestNewKibana(t *testing.T) {
 						},
 					})),
 				),
-				Region:                 "ece-region",
-				DeploymentTemplateInfo: &models.DeploymentTemplateInfo{Name: ec.String("default")},
+				Region:                   "ece-region",
+				DeploymentTemplateInfoV2: &models.DeploymentTemplateInfoV2{Name: ec.String("default")},
 			}},
 			err: errors.New("unable to obtain deployment template ID from existing deployment ID, please specify a one"),
 		},
@@ -152,8 +152,8 @@ func TestNewKibana(t *testing.T) {
 				API: api.NewMock(
 					mock.SampleInternalError(),
 				),
-				Region:                 "ece-region",
-				DeploymentTemplateInfo: &models.DeploymentTemplateInfo{Name: ec.String("default")},
+				Region:                   "ece-region",
+				DeploymentTemplateInfoV2: &models.DeploymentTemplateInfoV2{Name: ec.String("default")},
 			}},
 			err: mock.MultierrorInternalError,
 		},
@@ -165,8 +165,8 @@ func TestNewKibana(t *testing.T) {
 					mock.New200Response(mock.NewStructBody(getResponse)),
 					mock.New200Response(mock.NewStructBody(invalidTemplateResponse)),
 				),
-				Region:                 "ece-region",
-				DeploymentTemplateInfo: &invalidTemplateResponse,
+				Region:                   "ece-region",
+				DeploymentTemplateInfoV2: &invalidTemplateResponse,
 			}},
 			err: errors.New("deployment: the an ID template is not configured for Kibana. Please use another template if you wish to start Kibana instances"),
 		},
@@ -177,10 +177,10 @@ func TestNewKibana(t *testing.T) {
 				API: api.NewMock(
 					mock.New200Response(mock.NewStructBody(kibanaTemplateResponse)),
 				),
-				TemplateID:             "default",
-				Region:                 "ece-region",
-				ElasticsearchRefID:     "main-elasticsearch",
-				DeploymentTemplateInfo: &kibanaTemplateResponse,
+				TemplateID:               "default",
+				Region:                   "ece-region",
+				ElasticsearchRefID:       "main-elasticsearch",
+				DeploymentTemplateInfoV2: &kibanaTemplateResponse,
 			}},
 			want: &models.KibanaPayload{
 				ElasticsearchClusterRefID: ec.String("main-elasticsearch"),
@@ -210,8 +210,8 @@ func TestNewKibana(t *testing.T) {
 					mock.New200Response(mock.NewStructBody(getResponse)),
 					mock.New200Response(mock.NewStructBody(kibanaTemplateResponse)),
 				),
-				Region:                 "ece-region",
-				DeploymentTemplateInfo: &kibanaTemplateResponse,
+				Region:                   "ece-region",
+				DeploymentTemplateInfoV2: &kibanaTemplateResponse,
 			}},
 			want: &models.KibanaPayload{
 				ElasticsearchClusterRefID: ec.String("main-elasticsearch"),

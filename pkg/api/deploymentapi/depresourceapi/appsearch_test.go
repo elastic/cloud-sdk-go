@@ -31,8 +31,8 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
-var appsearchTemplateResponse = models.DeploymentTemplateInfo{
-	ID: "default.appsearch",
+var appsearchTemplateResponse = models.DeploymentTemplateInfoV2{
+	ID: ec.String("default.appsearch"),
 	DeploymentTemplate: &models.DeploymentCreateRequest{
 		Resources: &models.DeploymentCreateResources{
 			Appsearch: []*models.AppSearchPayload{
@@ -61,8 +61,8 @@ var appsearchTemplateResponse = models.DeploymentTemplateInfo{
 	},
 }
 
-var defaultTemplateResponse = models.DeploymentTemplateInfo{
-	ID: "default",
+var defaultTemplateResponse = models.DeploymentTemplateInfoV2{
+	ID: ec.String("default"),
 	DeploymentTemplate: &models.DeploymentCreateRequest{
 		Resources: &models.DeploymentCreateResources{
 			Elasticsearch: []*models.ElasticsearchPayload{
@@ -118,10 +118,10 @@ func TestNewAppSearch(t *testing.T) {
 		{
 			name: "fails obtaining the deployment info",
 			args: args{params: NewStateless{
-				DeploymentID:           mock.ValidClusterID,
-				API:                    api.NewMock(mock.SampleInternalError()),
-				Region:                 "ece-region",
-				DeploymentTemplateInfo: &models.DeploymentTemplateInfo{Name: ec.String("default")},
+				DeploymentID:             mock.ValidClusterID,
+				API:                      api.NewMock(mock.SampleInternalError()),
+				Region:                   "ece-region",
+				DeploymentTemplateInfoV2: &models.DeploymentTemplateInfoV2{Name: ec.String("default")},
 			}},
 			err: mock.MultierrorInternalError,
 		},
@@ -140,8 +140,8 @@ func TestNewAppSearch(t *testing.T) {
 						},
 					})),
 				),
-				Region:                 "ece-region",
-				DeploymentTemplateInfo: &models.DeploymentTemplateInfo{Name: ec.String("default")},
+				Region:                   "ece-region",
+				DeploymentTemplateInfoV2: &models.DeploymentTemplateInfoV2{Name: ec.String("default")},
 			}},
 			err: errors.New("unable to obtain deployment template ID from existing deployment ID, please specify a one"),
 		},
@@ -152,8 +152,8 @@ func TestNewAppSearch(t *testing.T) {
 				API: api.NewMock(
 					mock.SampleInternalError(),
 				),
-				Region:                 "ece-region",
-				DeploymentTemplateInfo: &models.DeploymentTemplateInfo{Name: ec.String("default")},
+				Region:                   "ece-region",
+				DeploymentTemplateInfoV2: &models.DeploymentTemplateInfoV2{Name: ec.String("default")},
 			}},
 			err: mock.MultierrorInternalError,
 		},
@@ -165,8 +165,8 @@ func TestNewAppSearch(t *testing.T) {
 					mock.New200Response(mock.NewStructBody(getResponse)),
 					mock.New200Response(mock.NewStructBody(defaultTemplateResponse)),
 				),
-				Region:                 "ece-region",
-				DeploymentTemplateInfo: &defaultTemplateResponse,
+				Region:                   "ece-region",
+				DeploymentTemplateInfoV2: &defaultTemplateResponse,
 			}},
 			err: errors.New("deployment: the an ID template is not configured for App Search. Please use another template if you wish to start App Search instances"),
 		},
@@ -177,10 +177,10 @@ func TestNewAppSearch(t *testing.T) {
 				API: api.NewMock(
 					mock.New200Response(mock.NewStructBody(appsearchTemplateResponse)),
 				),
-				TemplateID:             "default",
-				Region:                 "ece-region",
-				ElasticsearchRefID:     "main-elasticsearch",
-				DeploymentTemplateInfo: &appsearchTemplateResponse,
+				TemplateID:               "default",
+				Region:                   "ece-region",
+				ElasticsearchRefID:       "main-elasticsearch",
+				DeploymentTemplateInfoV2: &appsearchTemplateResponse,
 			}},
 			want: &models.AppSearchPayload{
 				ElasticsearchClusterRefID: ec.String("main-elasticsearch"),
@@ -210,8 +210,8 @@ func TestNewAppSearch(t *testing.T) {
 					mock.New200Response(mock.NewStructBody(getResponse)),
 					mock.New200Response(mock.NewStructBody(appsearchTemplateResponse)),
 				),
-				Region:                 "ece-region",
-				DeploymentTemplateInfo: &appsearchTemplateResponse,
+				Region:                   "ece-region",
+				DeploymentTemplateInfoV2: &appsearchTemplateResponse,
 			}},
 			want: &models.AppSearchPayload{
 				ElasticsearchClusterRefID: ec.String("main-elasticsearch"),

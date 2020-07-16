@@ -92,10 +92,10 @@ func TestParseElasticsearchInput(t *testing.T) {
 			args: args{params: ParseElasticsearchInputParams{
 				API: api.NewMock(mock.New200Response(mock.NewStructBody(elasticsearchTemplateResponse))),
 				NewElasticsearchParams: NewElasticsearchParams{
-					Region:                 "ece-region",
-					Version:                "7.4.2",
-					Name:                   "mycluster",
-					DeploymentTemplateInfo: &elasticsearchTemplateResponse,
+					Region:                   "ece-region",
+					Version:                  "7.4.2",
+					Name:                     "mycluster",
+					DeploymentTemplateInfoV2: &elasticsearchTemplateResponse,
 				},
 				TopologyElements: rawClusterTopology,
 			}},
@@ -128,9 +128,9 @@ func TestParseElasticsearchInput(t *testing.T) {
 					mock.New200Response(mock.NewStructBody(elasticsearchTemplateResponse)),
 				),
 				NewElasticsearchParams: NewElasticsearchParams{
-					Region:                 "ece-region",
-					Name:                   "mycluster",
-					DeploymentTemplateInfo: &elasticsearchTemplateResponse,
+					Region:                   "ece-region",
+					Name:                     "mycluster",
+					DeploymentTemplateInfoV2: &elasticsearchTemplateResponse,
 				},
 				TopologyElements: rawClusterTopology,
 			}},
@@ -156,9 +156,9 @@ func TestParseElasticsearchInput(t *testing.T) {
 					mock.New200Response(mock.NewStringBody("failed to get the version error")),
 				),
 				NewElasticsearchParams: NewElasticsearchParams{
-					Region:                 "ece-region",
-					Name:                   "mycluster",
-					DeploymentTemplateInfo: &elasticsearchTemplateResponse,
+					Region:                   "ece-region",
+					Name:                     "mycluster",
+					DeploymentTemplateInfoV2: &elasticsearchTemplateResponse,
 				},
 				TopologyElements: rawClusterTopology,
 			}},
@@ -178,9 +178,9 @@ func TestParseElasticsearchInput(t *testing.T) {
 					mock.New200Response(mock.NewStructBody(elasticsearchTemplateResponse)),
 				),
 				NewElasticsearchParams: NewElasticsearchParams{
-					Region:                 "ece-region",
-					Name:                   "mycluster",
-					DeploymentTemplateInfo: &elasticsearchTemplateResponse,
+					Region:                   "ece-region",
+					Name:                     "mycluster",
+					DeploymentTemplateInfoV2: &elasticsearchTemplateResponse,
 				},
 				Size:      2048,
 				ZoneCount: 3,
@@ -217,9 +217,9 @@ func TestParseElasticsearchInput(t *testing.T) {
 			args: args{params: ParseElasticsearchInputParams{
 				API: api.NewMock(),
 				NewElasticsearchParams: NewElasticsearchParams{
-					Region:                 "ece-region",
-					Name:                   "mycluster",
-					DeploymentTemplateInfo: &elasticsearchTemplateResponse,
+					Region:                   "ece-region",
+					Name:                     "mycluster",
+					DeploymentTemplateInfoV2: &elasticsearchTemplateResponse,
 				},
 				TopologyElements: []string{
 					`{"name": ""}`,
