@@ -31,8 +31,8 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
-var apmTemplateResponse = models.DeploymentTemplateInfo{
-	ID: "default",
+var apmTemplateResponse = models.DeploymentTemplateInfoV2{
+	ID: ec.String("default"),
 	DeploymentTemplate: &models.DeploymentCreateRequest{
 		Resources: &models.DeploymentCreateResources{
 			Apm: []*models.ApmPayload{
@@ -61,8 +61,8 @@ var apmTemplateResponse = models.DeploymentTemplateInfo{
 	},
 }
 
-var crossClusterTemplateResponse = models.DeploymentTemplateInfo{
-	ID: "cross-cluster-search",
+var crossClusterTemplateResponse = models.DeploymentTemplateInfoV2{
+	ID: ec.String("cross-cluster-search"),
 	DeploymentTemplate: &models.DeploymentCreateRequest{
 		Resources: &models.DeploymentCreateResources{
 			Elasticsearch: []*models.ElasticsearchPayload{
@@ -118,10 +118,10 @@ func TestNewApm(t *testing.T) {
 		{
 			name: "fails obtaining the deployment info",
 			args: args{params: NewStateless{
-				DeploymentID:           mock.ValidClusterID,
-				API:                    api.NewMock(mock.SampleInternalError()),
-				Region:                 "ece-region",
-				DeploymentTemplateInfo: &models.DeploymentTemplateInfo{Name: ec.String("default")},
+				DeploymentID:             mock.ValidClusterID,
+				API:                      api.NewMock(mock.SampleInternalError()),
+				Region:                   "ece-region",
+				DeploymentTemplateInfoV2: &models.DeploymentTemplateInfoV2{Name: ec.String("default")},
 			}},
 			err: mock.MultierrorInternalError,
 		},
@@ -140,8 +140,8 @@ func TestNewApm(t *testing.T) {
 						},
 					})),
 				),
-				Region:                 "ece-region",
-				DeploymentTemplateInfo: &models.DeploymentTemplateInfo{Name: ec.String("default")},
+				Region:                   "ece-region",
+				DeploymentTemplateInfoV2: &models.DeploymentTemplateInfoV2{Name: ec.String("default")},
 			}},
 			err: errors.New("unable to obtain deployment template ID from existing deployment ID, please specify a one"),
 		},
@@ -152,8 +152,8 @@ func TestNewApm(t *testing.T) {
 				API: api.NewMock(
 					mock.SampleInternalError(),
 				),
-				Region:                 "ece-region",
-				DeploymentTemplateInfo: &models.DeploymentTemplateInfo{Name: ec.String("default")},
+				Region:                   "ece-region",
+				DeploymentTemplateInfoV2: &models.DeploymentTemplateInfoV2{Name: ec.String("default")},
 			}},
 			err: mock.MultierrorInternalError,
 		},
@@ -165,8 +165,8 @@ func TestNewApm(t *testing.T) {
 					mock.New200Response(mock.NewStructBody(getResponse)),
 					mock.New200Response(mock.NewStructBody(crossClusterTemplateResponse)),
 				),
-				Region:                 "ece-region",
-				DeploymentTemplateInfo: &crossClusterTemplateResponse,
+				Region:                   "ece-region",
+				DeploymentTemplateInfoV2: &crossClusterTemplateResponse,
 			}},
 			err: errors.New("deployment: the an ID template is not configured for APM. Please use another template if you wish to start APM instances"),
 		},
@@ -177,10 +177,10 @@ func TestNewApm(t *testing.T) {
 				API: api.NewMock(
 					mock.New200Response(mock.NewStructBody(apmTemplateResponse)),
 				),
-				TemplateID:             "default",
-				Region:                 "ece-region",
-				ElasticsearchRefID:     "main-elasticsearch",
-				DeploymentTemplateInfo: &apmTemplateResponse,
+				TemplateID:               "default",
+				Region:                   "ece-region",
+				ElasticsearchRefID:       "main-elasticsearch",
+				DeploymentTemplateInfoV2: &apmTemplateResponse,
 			}},
 			want: &models.ApmPayload{
 				ElasticsearchClusterRefID: ec.String("main-elasticsearch"),
@@ -210,8 +210,8 @@ func TestNewApm(t *testing.T) {
 					mock.New200Response(mock.NewStructBody(getResponse)),
 					mock.New200Response(mock.NewStructBody(apmTemplateResponse)),
 				),
-				Region:                 "ece-region",
-				DeploymentTemplateInfo: &apmTemplateResponse,
+				Region:                   "ece-region",
+				DeploymentTemplateInfoV2: &apmTemplateResponse,
 			}},
 			want: &models.ApmPayload{
 				ElasticsearchClusterRefID: ec.String("main-elasticsearch"),

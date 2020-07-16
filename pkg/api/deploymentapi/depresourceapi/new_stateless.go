@@ -33,7 +33,7 @@ type NewStateless struct {
 	*api.API
 
 	// Required deployment template definition
-	*models.DeploymentTemplateInfo
+	*models.DeploymentTemplateInfoV2
 
 	// Optional DeploymentID.
 	DeploymentID string
@@ -69,7 +69,7 @@ func (params *NewStateless) Validate() error {
 		merr = merr.Append(apierror.ErrMissingAPI)
 	}
 
-	if params.DeploymentTemplateInfo == nil {
+	if params.DeploymentTemplateInfoV2 == nil {
 		merr = merr.Append(errMissingDeploymentTemplateInfo)
 	}
 

@@ -44,12 +44,12 @@ func NewAppSearch(params NewStateless) (*models.AppSearchPayload, error) {
 		return nil, err
 	}
 
-	if len(params.DeploymentTemplateInfo.DeploymentTemplate.Resources.Appsearch) == 0 {
+	if len(params.DeploymentTemplateInfoV2.DeploymentTemplate.Resources.Appsearch) == 0 {
 		return nil, fmt.Errorf("deployment: the %s template is not configured for App Search. Please use another template if you wish to start App Search instances",
 			params.TemplateID)
 	}
 
-	var clusterTopology = params.DeploymentTemplateInfo.DeploymentTemplate.Resources.Appsearch[0].Plan.ClusterTopology
+	var clusterTopology = params.DeploymentTemplateInfoV2.DeploymentTemplate.Resources.Appsearch[0].Plan.ClusterTopology
 	var topology = models.AppSearchTopologyElement{Size: new(models.TopologySize)}
 	if len(clusterTopology) > 0 {
 		topology = *clusterTopology[0]

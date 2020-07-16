@@ -29,8 +29,8 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
-var apmKibanaTemplateResponse = models.DeploymentTemplateInfo{
-	ID: "default",
+var apmKibanaTemplateResponse = models.DeploymentTemplateInfoV2{
+	ID: ec.String("default"),
 	DeploymentTemplate: &models.DeploymentCreateRequest{
 		Resources: &models.DeploymentCreateResources{
 			Apm: []*models.ApmPayload{
@@ -74,8 +74,8 @@ var apmKibanaTemplateResponse = models.DeploymentTemplateInfo{
 	},
 }
 
-var appsearchKibanaTemplateResponse = models.DeploymentTemplateInfo{
-	ID: "default",
+var appsearchKibanaTemplateResponse = models.DeploymentTemplateInfoV2{
+	ID: ec.String("default"),
 	DeploymentTemplate: &models.DeploymentCreateRequest{
 		Resources: &models.DeploymentCreateResources{
 			Appsearch: []*models.AppSearchPayload{
@@ -119,8 +119,8 @@ var appsearchKibanaTemplateResponse = models.DeploymentTemplateInfo{
 	},
 }
 
-var enterpriseSearchKibanaTemplateResponse = models.DeploymentTemplateInfo{
-	ID: "default",
+var enterpriseSearchKibanaTemplateResponse = models.DeploymentTemplateInfoV2{
+	ID: ec.String("default"),
 	DeploymentTemplate: &models.DeploymentCreateRequest{
 		Resources: &models.DeploymentCreateResources{
 			EnterpriseSearch: []*models.EnterpriseSearchPayload{
