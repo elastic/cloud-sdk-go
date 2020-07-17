@@ -22,9 +22,11 @@ import (
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
+	"github.com/elastic/cloud-sdk-go/pkg/api/deploymentapi"
 	"github.com/elastic/cloud-sdk-go/pkg/client/deployments"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
+	"github.com/elastic/cloud-sdk-go/pkg/util"
 )
 
 // UpdateParams is consumed by the Update function.
@@ -32,8 +34,11 @@ type UpdateParams struct {
 	*api.API
 
 	DeploymentID string
-	RefID        string
 	Contents     *models.KeystoreContents
+
+	// Optional RefID, whne not specified, an API call will be issued to auto-
+	// discover the resource's RefID.
+	RefID string
 }
 
 // Validate ensures the parameters are usable by Update.
@@ -46,10 +51,6 @@ func (params UpdateParams) Validate() error {
 
 	if len(params.DeploymentID) != 32 {
 		merr = merr.Append(apierror.ErrDeploymentID)
-	}
-
-	if params.RefID == "" {
-		merr = merr.Append(errors.New("required ref-id not provided"))
 	}
 
 	if params.Contents == nil {
@@ -65,6 +66,15 @@ func (params UpdateParams) Validate() error {
 // set to "null": {"secrets": {"my-secret": null}}.
 func Update(params UpdateParams) (*models.KeystoreContents, error) {
 	if err := params.Validate(); err != nil {
+		return nil, err
+	}
+
+	if err := deploymentapi.PopulateRefID(deploymentapi.PopulateRefIDParams{
+		API:          params.API,
+		DeploymentID: params.DeploymentID,
+		RefID:        &params.RefID,
+		Kind:         util.Elasticsearch,
+	}); err != nil {
 		return nil, err
 	}
 

@@ -19,6 +19,7 @@ package eskeystoreapi
 
 import (
 	"errors"
+	"net/url"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -28,6 +29,7 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
+	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
 func TestUpdate(t *testing.T) {
@@ -55,7 +57,6 @@ func TestUpdate(t *testing.T) {
 			err: multierror.NewPrefixed("invalid elasticsearch keystore get params",
 				apierror.ErrMissingAPI,
 				apierror.ErrDeploymentID,
-				errors.New("required ref-id not provided"),
 				errors.New("required keystore contents not provided"),
 			),
 		},
@@ -87,6 +88,97 @@ func TestUpdate(t *testing.T) {
 					"some-secret":     {Value: "some-value"},
 				},
 			},
+		},
+		{
+			name: "succeeds with RefID discovery",
+			args: args{params: UpdateParams{
+				DeploymentID: mock.ValidClusterID,
+				Contents:     &successContents,
+				API: api.NewMock(
+					mock.New200ResponseAssertion(
+						&mock.RequestAssertion{
+							Header: api.DefaultReadMockHeaders,
+							Method: "GET",
+							Host:   api.DefaultMockHost,
+							Path:   "/api/v1/deployments/320b7b540dfc967a7a649c18e2fce4ed",
+							Query: url.Values{
+								"convert_legacy_plans": {"false"},
+								"enrich_with_template": {"true"},
+								"show_metadata":        {"false"},
+								"show_plan_defaults":   {"false"},
+								"show_plan_history":    {"false"},
+								"show_plan_logs":       {"false"},
+								"show_plans":           {"false"},
+								"show_security":        {"false"},
+								"show_settings":        {"false"},
+								"show_system_alerts":   {"5"},
+							},
+						},
+						mock.NewStructBody(models.DeploymentGetResponse{
+							Healthy: ec.Bool(true),
+							ID:      ec.String(mock.ValidClusterID),
+							Resources: &models.DeploymentResources{
+								Elasticsearch: []*models.ElasticsearchResourceInfo{{
+									ID:    ec.String(mock.ValidClusterID),
+									RefID: ec.String("elasticsearch"),
+								}},
+							},
+						}),
+					),
+					mock.New200ResponseAssertion(
+						&mock.RequestAssertion{
+							Header: api.DefaultWriteMockHeaders,
+							Method: "PATCH",
+							Host:   api.DefaultMockHost,
+							Path:   "/api/v1/deployments/320b7b540dfc967a7a649c18e2fce4ed/elasticsearch/elasticsearch/keystore",
+							Body:   mock.NewByteBody(rawBody),
+						},
+						mock.NewStructBody(models.KeystoreContents{
+							Secrets: map[string]models.KeystoreSecret{
+								"some-new-secret": {Value: "some-creative-value"},
+								"some-secret":     {Value: "some-value"},
+							},
+						}),
+					),
+				),
+			}},
+			want: &models.KeystoreContents{
+				Secrets: map[string]models.KeystoreSecret{
+					"some-new-secret": {Value: "some-creative-value"},
+					"some-secret":     {Value: "some-value"},
+				},
+			},
+		},
+		{
+			name: "fails on RefID discovery",
+			args: args{params: UpdateParams{
+				DeploymentID: mock.ValidClusterID,
+				Contents:     new(models.KeystoreContents),
+				API: api.NewMock(
+					mock.New500ResponseAssertion(
+						&mock.RequestAssertion{
+							Header: api.DefaultReadMockHeaders,
+							Method: "GET",
+							Host:   api.DefaultMockHost,
+							Path:   "/api/v1/deployments/320b7b540dfc967a7a649c18e2fce4ed",
+							Query: url.Values{
+								"convert_legacy_plans": {"false"},
+								"enrich_with_template": {"true"},
+								"show_metadata":        {"false"},
+								"show_plan_defaults":   {"false"},
+								"show_plan_history":    {"false"},
+								"show_plan_logs":       {"false"},
+								"show_plans":           {"false"},
+								"show_security":        {"false"},
+								"show_settings":        {"false"},
+								"show_system_alerts":   {"5"},
+							},
+						},
+						mock.SampleInternalError().Response.Body,
+					),
+				),
+			}},
+			err: mock.MultierrorInternalError,
 		},
 		{
 			name: "fails on API error",

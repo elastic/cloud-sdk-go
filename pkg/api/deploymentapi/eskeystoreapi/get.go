@@ -18,13 +18,13 @@
 package eskeystoreapi
 
 import (
-	"errors"
-
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
+	"github.com/elastic/cloud-sdk-go/pkg/api/deploymentapi"
 	"github.com/elastic/cloud-sdk-go/pkg/client/deployments"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
+	"github.com/elastic/cloud-sdk-go/pkg/util"
 )
 
 // GetParams is consumed by the Get function.
@@ -32,7 +32,10 @@ type GetParams struct {
 	*api.API
 
 	DeploymentID string
-	RefID        string
+
+	// Optional RefID, whne not specified, an API call will be issued to auto-
+	// discover the resource's RefID.
+	RefID string
 }
 
 // Validate ensures the parameters are usable by Get.
@@ -47,16 +50,21 @@ func (params GetParams) Validate() error {
 		merr = merr.Append(apierror.ErrDeploymentID)
 	}
 
-	if params.RefID == "" {
-		merr = merr.Append(errors.New("required ref-id not provided"))
-	}
-
 	return merr.ErrorOrNil()
 }
 
 // Get returns the specified deployment template.
 func Get(params GetParams) (*models.KeystoreContents, error) {
 	if err := params.Validate(); err != nil {
+		return nil, err
+	}
+
+	if err := deploymentapi.PopulateRefID(deploymentapi.PopulateRefIDParams{
+		API:          params.API,
+		DeploymentID: params.DeploymentID,
+		RefID:        &params.RefID,
+		Kind:         util.Elasticsearch,
+	}); err != nil {
 		return nil, err
 	}
 
