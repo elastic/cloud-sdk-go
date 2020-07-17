@@ -99,7 +99,7 @@ func PopulateRefID(params PopulateRefIDParams) error {
 		return err
 	}
 
-	*params.RefID = *&refID
+	*params.RefID = refID
 
 	return nil
 }
