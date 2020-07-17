@@ -66,18 +66,10 @@ func (params *Params) Validate() error {
 
 // fillDefaults populates the RefID through an API call.
 func (params *Params) fillDefaults() error {
-	if params.RefID != "" {
-		return nil
-	}
-
-	refID, err := deploymentapi.GetKindRefID(deploymentapi.GetResourceParams{
-		Kind: params.Kind,
-		GetParams: deploymentapi.GetParams{
-			API:          params.API,
-			DeploymentID: params.DeploymentID,
-		},
+	return deploymentapi.PopulateRefID(deploymentapi.PopulateRefIDParams{
+		Kind:         params.Kind,
+		API:          params.API,
+		DeploymentID: params.DeploymentID,
+		RefID:        &params.RefID,
 	})
-
-	params.RefID = refID
-	return err
 }

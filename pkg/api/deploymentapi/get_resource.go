@@ -41,7 +41,7 @@ func GetResource(params GetResourceParams) (interface{}, error) {
 
 	var noRefIDAndKind = params.GetParams.RefID == "" && params.Kind != ""
 	if noRefIDAndKind {
-		refID, err := GetKindRefID(params)
+		refID, err := getKindRefID(params)
 		if err != nil {
 			return nil, err
 		}

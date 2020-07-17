@@ -36,9 +36,9 @@ type PopulateRefIDParams struct {
 	RefID *string
 }
 
-// GetKindRefID obtains a resource kind RefID. If the kind is not supported
+// getKindRefID obtains a resource kind RefID. If the kind is not supported
 // an error is returned.
-func GetKindRefID(params GetResourceParams) (string, error) {
+func getKindRefID(params GetResourceParams) (string, error) {
 	res, err := Get(params.GetParams)
 	if err != nil {
 		return "", err
@@ -88,7 +88,7 @@ func PopulateRefID(params PopulateRefIDParams) error {
 		return nil
 	}
 
-	refID, err := GetKindRefID(GetResourceParams{
+	refID, err := getKindRefID(GetResourceParams{
 		GetParams: GetParams{
 			API:          params.API,
 			DeploymentID: params.DeploymentID,
