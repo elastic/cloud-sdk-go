@@ -15,61 +15,69 @@
 // specific language governing permissions and limitations
 // under the License.
 
-package depresourceapi
+package eskeystoreapi
 
 import (
-	"errors"
-
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/api/deploymentapi"
-	"github.com/elastic/cloud-sdk-go/pkg/api/deploymentapi/deputil"
+	"github.com/elastic/cloud-sdk-go/pkg/client/deployments"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
+	"github.com/elastic/cloud-sdk-go/pkg/util"
 )
 
-// Params can be embedded in any structure which makes use of the
-// deployment/resource API which always require the fields. Also provides
-// RefID auto-discovery for the deployment resource kind if not specified.
-type Params struct {
+// GetParams is consumed by the Get function.
+type GetParams struct {
 	*api.API
 
 	DeploymentID string
-	Kind         string
-	RefID        string
+
+	// Optional RefID, whne not specified, an API call will be issued to auto-
+	// discover the resource's RefID.
+	RefID string
 }
 
-// Validate ensures the parameters are usable by the consuming function.
-func (params *Params) Validate() error {
-	var merr = multierror.NewPrefixed("deployment resource")
+// Validate ensures the parameters are usable by Get.
+func (params GetParams) Validate() error {
+	var merr = multierror.NewPrefixed("invalid elasticsearch keystore get params")
+
 	if params.API == nil {
 		merr = merr.Append(apierror.ErrMissingAPI)
 	}
 
 	if len(params.DeploymentID) != 32 {
-		merr = merr.Append(deputil.NewInvalidDeploymentIDError(params.DeploymentID))
-	}
-
-	if params.Kind == "" {
-		merr = merr.Append(errors.New("resource kind cannot be empty"))
-	}
-
-	// Ensures that RefID is either populated when the RefID isn't specified or
-	// returns an error when it fails obtaining the ref ID.
-	if err := params.fillDefaults(); err != nil {
-		merr = merr.Append(multierror.NewPrefixed(
-			"failed auto-discovering the resource ref id", err,
-		))
+		merr = merr.Append(apierror.ErrDeploymentID)
 	}
 
 	return merr.ErrorOrNil()
 }
 
-// fillDefaults populates the RefID through an API call.
-func (params *Params) fillDefaults() error {
-	return deploymentapi.PopulateRefID(deploymentapi.PopulateRefIDParams{
-		Kind:         params.Kind,
+// Get returns the specified deployment template.
+func Get(params GetParams) (*models.KeystoreContents, error) {
+	if err := params.Validate(); err != nil {
+		return nil, err
+	}
+
+	if err := deploymentapi.PopulateRefID(deploymentapi.PopulateRefIDParams{
 		API:          params.API,
 		DeploymentID: params.DeploymentID,
 		RefID:        &params.RefID,
-	})
+		Kind:         util.Elasticsearch,
+	}); err != nil {
+		return nil, err
+	}
+
+	res, err := params.V1API.Deployments.GetDeploymentEsResourceKeystore(
+		deployments.NewGetDeploymentEsResourceKeystoreParams().
+			WithDeploymentID(params.DeploymentID).
+			WithRefID(params.RefID),
+		params.AuthWriter,
+	)
+
+	if err != nil {
+		return nil, apierror.Unwrap(err)
+	}
+
+	return res.Payload, nil
 }

@@ -41,7 +41,7 @@ func GetResource(params GetResourceParams) (interface{}, error) {
 
 	var noRefIDAndKind = params.GetParams.RefID == "" && params.Kind != ""
 	if noRefIDAndKind {
-		refID, err := GetKindRefID(params)
+		refID, err := getKindRefID(params)
 		if err != nil {
 			return nil, err
 		}
@@ -68,43 +68,4 @@ func GetResource(params GetResourceParams) (interface{}, error) {
 		}
 		return Get(params.GetParams)
 	}
-}
-
-// GetKindRefID obtains a resource kind RefID. If the kind is not supported
-// an error is returned.
-func GetKindRefID(params GetResourceParams) (string, error) {
-	res, err := Get(params.GetParams)
-	if err != nil {
-		return "", err
-	}
-
-	var refID string
-	switch params.Kind {
-	case util.Apm:
-		for _, resource := range res.Resources.Apm {
-			refID = *resource.RefID
-		}
-	case util.Kibana:
-		for _, resource := range res.Resources.Kibana {
-			refID = *resource.RefID
-		}
-	case util.Elasticsearch:
-		for _, resource := range res.Resources.Elasticsearch {
-			refID = *resource.RefID
-		}
-	case util.Appsearch:
-		for _, resource := range res.Resources.Appsearch {
-			refID = *resource.RefID
-		}
-	case util.EnterpriseSearch:
-		for _, resource := range res.Resources.EnterpriseSearch {
-			refID = *resource.RefID
-		}
-	}
-
-	if refID == "" {
-		return "", fmt.Errorf("deployment get: resource kind %s is not available", params.Kind)
-	}
-
-	return refID, nil
 }
