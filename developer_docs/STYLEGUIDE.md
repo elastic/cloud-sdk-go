@@ -36,7 +36,7 @@ All errors must be handled and returned, `_` variables must not be used to disca
 
 ### API Errors
 
-API errors should always be encapsulated with `apierr.Unwrap()`, this function tries to break down and inspect the encapsulated and multi-layer wraps that the API errors contain.
+API errors should always be encapsulated with [`apierror.Unwrap()`](https://github.com/elastic/cloud-sdk-go/blob/master/pkg/api/apierror/unwrap.go#L59), this function tries to break down and inspect the encapsulated and multi-layer wraps that the API errors contain.
 
 ### Multiple errors
 
