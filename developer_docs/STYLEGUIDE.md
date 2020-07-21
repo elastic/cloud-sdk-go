@@ -40,7 +40,7 @@ API errors should always be encapsulated with [`apierror.Unwrap()`](https://gith
 
 ### Multiple errors
 
-When multiple errors can be returned, it is preferable to use the `mutlierror.Prefixed` type to return all the possible errors with a prefixed string to include some context.
+When multiple errors can be returned, it is preferable to use the [`mutlierror.Prefixed`](https://github.com/elastic/cloud-sdk-go/blob/master/pkg/multierror/prefixed.go#L41) type to return all the possible errors with a prefixed string to include some context.
 
 yes! :smile:
 
