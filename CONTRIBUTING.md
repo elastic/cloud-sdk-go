@@ -2,7 +2,7 @@
 
 Contributions are very welcome, these can include documentation, bug reports, issues, feature requests, feature implementations or tutorials.
 
-We have [good first issues](https://github.com/elastic/cloud-sdk-go/labels/good%20first%20issue) for new contributors. These are issues that we've identified as good starting points for getting acquainted with our codebase, [styleguide](https://github.com/elastic/ecctl/blob/master/developer_docs/STYLEGUIDE.md) or working with Go.
+We have [good first issues](https://github.com/elastic/cloud-sdk-go/labels/good%20first%20issue) for new contributors. These are issues that we've identified as good starting points for getting acquainted with our codebase, [styleguide](./developer_docs/STYLEGUIDE.md) or working with Go.
 
 - [Reporting Issues](#reporting-issues)
 - [Code Contribution Guidelines](#code-contribution-guidelines)
@@ -32,7 +32,7 @@ For the benefit of all and to maintain consistency, we have come up with some si
 - We encourage PRs to be kept to a single change. Please don't work on several tasks in a single PR if possible.
 
 - When you're ready to create a pull request, please be sure to:
-  - Adhere to the project's [style guide](https://github.com/elastic/ecctl/blob/master/developer_docs/STYLEGUIDE.md).
+  - Adhere to the project's [style guide](./developer_docs/STYLEGUIDE.md).
 
   - Make sure you signed the [Contributor License Agreement](https://www.elastic.co/contributor-agreement/). You only need to sign the CLA once. By signing this agreement, you give us the right to distribute your code without restriction.
 
