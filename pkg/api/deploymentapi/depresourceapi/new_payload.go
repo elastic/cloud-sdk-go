@@ -36,13 +36,15 @@ type InstanceParams struct {
 type NewPayloadParams struct {
 	*api.API
 
-	Name                     string
-	Version                  string
-	DeploymentTemplateID     string
-	Region                   string
-	ApmEnable                bool
-	AppsearchEnable          bool
-	EnterpriseSearchEnable   bool
+	Name                   string
+	Version                string
+	DeploymentTemplateID   string
+	Region                 string
+	ApmEnable              bool
+	AppsearchEnable        bool
+	EnterpriseSearchEnable bool
+	// Do not use. The field will be removed once an API bug has been resolved.
+	DeploymentTemplateAsList bool
 	Writer                   io.Writer
 	Plugins                  []string
 	TopologyElements         []string
@@ -51,9 +53,6 @@ type NewPayloadParams struct {
 	ApmInstance              InstanceParams
 	AppsearchInstance        InstanceParams
 	EnterpriseSearchInstance InstanceParams
-
-	// Do not use. The field will be removed once an API bug has been resolved.
-	DeploymentTemplateAsList bool
 }
 
 // NewPayload creates the payload for a deployment
