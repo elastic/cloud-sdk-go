@@ -113,6 +113,7 @@ func TestNewApm(t *testing.T) {
 				errors.New("deployment template info is not specified and is required for the operation"),
 				apierror.ErrDeploymentID,
 				errors.New("topology: region cannot be empty"),
+				errors.New("required version not provided"),
 			),
 		},
 		{
@@ -122,6 +123,7 @@ func TestNewApm(t *testing.T) {
 				API:                      api.NewMock(mock.SampleInternalError()),
 				Region:                   "ece-region",
 				DeploymentTemplateInfoV2: &models.DeploymentTemplateInfoV2{Name: ec.String("default")},
+				Version:                  "7.8.0",
 			}},
 			err: mock.MultierrorInternalError,
 		},
@@ -129,6 +131,7 @@ func TestNewApm(t *testing.T) {
 			name: "obtains the deployment info but fails getting the template ID info",
 			args: args{params: NewStateless{
 				DeploymentID: mock.ValidClusterID,
+				Version:      "7.8.0",
 				API: api.NewMock(
 					mock.New200Response(mock.NewStructBody(models.DeploymentGetResponse{
 						Resources: &models.DeploymentResources{
@@ -148,10 +151,9 @@ func TestNewApm(t *testing.T) {
 		{
 			name: "obtains the deployment info but fails getting the template ID info from the API",
 			args: args{params: NewStateless{
-				DeploymentID: mock.ValidClusterID,
-				API: api.NewMock(
-					mock.SampleInternalError(),
-				),
+				DeploymentID:             mock.ValidClusterID,
+				Version:                  "7.8.0",
+				API:                      api.NewMock(mock.SampleInternalError()),
 				Region:                   "ece-region",
 				DeploymentTemplateInfoV2: &models.DeploymentTemplateInfoV2{Name: ec.String("default")},
 			}},
@@ -161,6 +163,7 @@ func TestNewApm(t *testing.T) {
 			name: "obtains the deployment template when no template ID is defined but it's an invalid template for apm",
 			args: args{params: NewStateless{
 				DeploymentID: mock.ValidClusterID,
+				Version:      "7.8.0",
 				API: api.NewMock(
 					mock.New200Response(mock.NewStructBody(getResponse)),
 					mock.New200Response(mock.NewStructBody(crossClusterTemplateResponse)),
@@ -174,6 +177,7 @@ func TestNewApm(t *testing.T) {
 			name: "succeeds with no argument override",
 			args: args{params: NewStateless{
 				DeploymentID: mock.ValidClusterID,
+				Version:      "7.8.0",
 				API: api.NewMock(
 					mock.New200Response(mock.NewStructBody(apmTemplateResponse)),
 				),
@@ -187,7 +191,7 @@ func TestNewApm(t *testing.T) {
 				Region:                    ec.String("ece-region"),
 				RefID:                     ec.String("main-apm"),
 				Plan: &models.ApmPlan{
-					Apm: &models.ApmConfiguration{},
+					Apm: &models.ApmConfiguration{Version: "7.8.0"},
 					ClusterTopology: []*models.ApmTopologyElement{
 						{
 							Size: &models.TopologySize{
@@ -206,6 +210,7 @@ func TestNewApm(t *testing.T) {
 				Size:         4096,
 				ZoneCount:    3,
 				DeploymentID: mock.ValidClusterID,
+				Version:      "7.8.0",
 				API: api.NewMock(
 					mock.New200Response(mock.NewStructBody(getResponse)),
 					mock.New200Response(mock.NewStructBody(apmTemplateResponse)),
@@ -218,7 +223,7 @@ func TestNewApm(t *testing.T) {
 				Region:                    ec.String("ece-region"),
 				RefID:                     ec.String("main-apm"),
 				Plan: &models.ApmPlan{
-					Apm: &models.ApmConfiguration{},
+					Apm: &models.ApmConfiguration{Version: "7.8.0"},
 					ClusterTopology: []*models.ApmTopologyElement{
 						{
 							Size: &models.TopologySize{

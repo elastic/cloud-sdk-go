@@ -115,72 +115,16 @@ func TestParseElasticsearchInput(t *testing.T) {
 			},
 		},
 		{
-			name: "returns the payload from a set of raw topology elements and auto-discovers version",
-			args: args{params: ParseElasticsearchInputParams{
-				API: api.NewMock(
-					mock.New200Response(mock.NewStructBody(models.StackVersionConfigs{
-						Stacks: []*models.StackVersionConfig{
-							{Version: "6.4.2"},
-							{Version: "7.4.2"},
-							{Version: "5.4.2"},
-						},
-					})),
-					mock.New200Response(mock.NewStructBody(elasticsearchTemplateResponse)),
-				),
-				NewElasticsearchParams: NewElasticsearchParams{
-					Region:                   "ece-region",
-					Name:                     "mycluster",
-					DeploymentTemplateInfoV2: &elasticsearchTemplateResponse,
-				},
-				TopologyElements: rawClusterTopology,
-			}},
-			want: &models.ElasticsearchPayload{
-				DisplayName: "mycluster",
-				Region:      ec.String("ece-region"),
-				RefID:       ec.String(DefaultElasticsearchRefID),
-				Plan: &models.ElasticsearchClusterPlan{
-					Elasticsearch: &models.ElasticsearchConfiguration{
-						Version: "7.4.2",
-					},
-					DeploymentTemplate: &models.DeploymentTemplateReference{
-						ID: ec.String(DefaultTemplateID),
-					},
-					ClusterTopology: clusterTopology,
-				},
-			},
-		},
-		{
-			name: "returns the payload from a set of raw topology elements and fails the version auto-discover",
-			args: args{params: ParseElasticsearchInputParams{
-				API: api.NewMock(
-					mock.New200Response(mock.NewStringBody("failed to get the version error")),
-				),
-				NewElasticsearchParams: NewElasticsearchParams{
-					Region:                   "ece-region",
-					Name:                     "mycluster",
-					DeploymentTemplateInfoV2: &elasticsearchTemplateResponse,
-				},
-				TopologyElements: rawClusterTopology,
-			}},
-			err: errors.New("version discovery: failed to obtain stack list, please specify a version"),
-		},
-		{
 			name: "returns the payload from size and zonecount elements and auto-discovers version",
 			args: args{params: ParseElasticsearchInputParams{
 				API: api.NewMock(
-					mock.New200Response(mock.NewStructBody(models.StackVersionConfigs{
-						Stacks: []*models.StackVersionConfig{
-							{Version: "6.4.2"},
-							{Version: "7.4.2"},
-							{Version: "5.4.2"},
-						},
-					})),
 					mock.New200Response(mock.NewStructBody(elasticsearchTemplateResponse)),
 				),
 				NewElasticsearchParams: NewElasticsearchParams{
 					Region:                   "ece-region",
 					Name:                     "mycluster",
 					DeploymentTemplateInfoV2: &elasticsearchTemplateResponse,
+					Version:                  "7.8.0",
 				},
 				Size:      2048,
 				ZoneCount: 3,
@@ -191,7 +135,7 @@ func TestParseElasticsearchInput(t *testing.T) {
 				RefID:       ec.String(DefaultElasticsearchRefID),
 				Plan: &models.ElasticsearchClusterPlan{
 					Elasticsearch: &models.ElasticsearchConfiguration{
-						Version: "7.4.2",
+						Version: "7.8.0",
 					},
 					DeploymentTemplate: &models.DeploymentTemplateReference{
 						ID: ec.String(DefaultTemplateID),
@@ -213,13 +157,14 @@ func TestParseElasticsearchInput(t *testing.T) {
 			},
 		},
 		{
-			name: "returns the payload from size and zonecount elements and auto-discovers version",
+			name: "returns the payload from size and zonecount elements ",
 			args: args{params: ParseElasticsearchInputParams{
 				API: api.NewMock(),
 				NewElasticsearchParams: NewElasticsearchParams{
 					Region:                   "ece-region",
 					Name:                     "mycluster",
 					DeploymentTemplateInfoV2: &elasticsearchTemplateResponse,
+					Version:                  "7.8.0",
 				},
 				TopologyElements: []string{
 					`{"name": ""}`,

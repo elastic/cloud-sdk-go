@@ -57,6 +57,7 @@ type NewPayloadParams struct {
 }
 
 // NewPayload creates the payload for a deployment
+// // * Auto-discovers the latest Stack version if Version is not specified.
 func NewPayload(params NewPayloadParams) (*models.DeploymentCreateRequest, error) {
 	res, err := deptemplateapi.Get(deptemplateapi.GetParams{
 		API:        params.API,
@@ -68,10 +69,21 @@ func NewPayload(params NewPayloadParams) (*models.DeploymentCreateRequest, error
 		return nil, err
 	}
 
+	// Version Discovery
+	version, err := LatestStackVersion(LatestStackVersionParams{
+		Writer:  params.Writer,
+		API:     params.API,
+		Version: params.Version,
+		Region:  params.Region,
+	})
+	if err != nil {
+		return nil, err
+	}
+
 	esPayload, err := ParseElasticsearchInput(ParseElasticsearchInputParams{
 		NewElasticsearchParams: NewElasticsearchParams{
 			RefID:                    params.ElasticsearchInstance.RefID,
-			Version:                  params.Version,
+			Version:                  version,
 			Plugins:                  params.Plugins,
 			Region:                   params.Region,
 			TemplateID:               params.DeploymentTemplateID,
@@ -91,7 +103,7 @@ func NewPayload(params NewPayloadParams) (*models.DeploymentCreateRequest, error
 		ElasticsearchRefID:       params.ElasticsearchInstance.RefID,
 		API:                      params.API,
 		RefID:                    params.KibanaInstance.RefID,
-		Version:                  params.Version,
+		Version:                  version,
 		Region:                   params.Region,
 		TemplateID:               params.DeploymentTemplateID,
 		Size:                     params.KibanaInstance.Size,
@@ -112,7 +124,7 @@ func NewPayload(params NewPayloadParams) (*models.DeploymentCreateRequest, error
 			ElasticsearchRefID:       params.ElasticsearchInstance.RefID,
 			API:                      params.API,
 			RefID:                    params.ApmInstance.RefID,
-			Version:                  params.Version,
+			Version:                  version,
 			Region:                   params.Region,
 			TemplateID:               params.DeploymentTemplateID,
 			Size:                     params.ApmInstance.Size,
@@ -131,7 +143,7 @@ func NewPayload(params NewPayloadParams) (*models.DeploymentCreateRequest, error
 			ElasticsearchRefID:       params.ElasticsearchInstance.RefID,
 			API:                      params.API,
 			RefID:                    params.AppsearchInstance.RefID,
-			Version:                  params.Version,
+			Version:                  version,
 			Region:                   params.Region,
 			TemplateID:               params.DeploymentTemplateID,
 			Size:                     params.AppsearchInstance.Size,
@@ -151,7 +163,7 @@ func NewPayload(params NewPayloadParams) (*models.DeploymentCreateRequest, error
 				ElasticsearchRefID:       params.ElasticsearchInstance.RefID,
 				API:                      params.API,
 				RefID:                    params.EnterpriseSearchInstance.RefID,
-				Version:                  params.Version,
+				Version:                  version,
 				Region:                   params.Region,
 				TemplateID:               params.DeploymentTemplateID,
 				Size:                     params.EnterpriseSearchInstance.Size,

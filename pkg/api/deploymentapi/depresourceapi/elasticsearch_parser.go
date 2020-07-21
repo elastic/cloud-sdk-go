@@ -18,6 +18,7 @@
 package depresourceapi
 
 import (
+	"errors"
 	"io"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
@@ -44,6 +45,10 @@ func (params *ParseElasticsearchInputParams) Validate() error {
 		merr = merr.Append(apierror.ErrMissingAPI)
 	}
 
+	if params.Version == "" && params.Payload == nil {
+		merr = merr.Append(errors.New("required version not provided"))
+	}
+
 	return merr.ErrorOrNil()
 }
 
@@ -53,7 +58,6 @@ func (params *ParseElasticsearchInputParams) Validate() error {
 // * Tries to create an []ElasticsearchTopologyElement from a raw []string.
 // * If the previous step returns an empty slice, it uses a default slice which
 //   might override the values when Size or ZoneCount are set in the params.
-// * Auto-discovers the latest Stack version if Version is not specified.
 // When all of those steps are done, it finally calls NewElasticsearch building
 // the resulting ElasticsearchPayload.
 func ParseElasticsearchInput(params ParseElasticsearchInputParams) (*models.ElasticsearchPayload, error) {
@@ -77,19 +81,8 @@ func ParseElasticsearchInput(params ParseElasticsearchInputParams) (*models.Elas
 		))
 	}
 
-	// Version Discovery
-	version, err := LatestStackVersion(LatestStackVersionParams{
-		Writer:  params.Writer,
-		API:     params.API,
-		Version: params.Version,
-		Region:  params.Region,
-	})
-	if err != nil {
-		return nil, err
-	}
-
 	var NewEsparams = params.NewElasticsearchParams
-	NewEsparams.Version = version
+	NewEsparams.Version = params.Version
 	NewEsparams.Topology = topology
 
 	return NewElasticsearch(NewEsparams)

@@ -19,6 +19,7 @@ package depresourceapi
 
 import (
 	"errors"
+	"net/url"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -275,10 +276,51 @@ func TestNewPayload(t *testing.T) {
 			err: errors.New("deployment: the default template is not configured for App Search. Please use another template if you wish to start App Search instances"),
 		},
 		{
-			name: "Succeeds to create a deployment payload with ES and Kibana instances",
+			name: "Fails to create a deployment payload with ES, Kibana and App Search instances with version auto-discover",
 			args: args{params: NewPayloadParams{
-				Version: "7.6.1",
-				Region:  "ece-region",
+				Region: "ece-region",
+				ElasticsearchInstance: InstanceParams{
+					RefID:     "main-elasticsearch",
+					Size:      1024,
+					ZoneCount: 1,
+				},
+				KibanaInstance: InstanceParams{
+					RefID:     "main-kibana",
+					Size:      1024,
+					ZoneCount: 1,
+				},
+				AppsearchInstance: InstanceParams{
+					RefID:     "main-appsearch",
+					Size:      1024,
+					ZoneCount: 1,
+				},
+				DeploymentTemplateID: "default",
+				AppsearchEnable:      true,
+				API: api.NewMock(
+					mock.New200Response(mock.NewStructBody(apmKibanaTemplateResponse)),
+					mock.New200ResponseAssertion(
+						&mock.RequestAssertion{
+							Host:   api.DefaultMockHost,
+							Header: api.DefaultReadMockHeaders,
+							Path:   "/api/v1/regions/ece-region/stack/versions",
+							Method: "GET",
+							Query: url.Values{
+								"show_deleted":  {"false"},
+								"show_unusable": {"false"},
+							},
+						},
+						mock.NewStructBody(models.StackVersionConfigs{Stacks: []*models.StackVersionConfig{
+							{Version: "7.8.0"},
+						}}),
+					),
+				),
+			}},
+			err: errors.New("deployment: the default template is not configured for App Search. Please use another template if you wish to start App Search instances"),
+		},
+		{
+			name: "Succeeds to create a deployment payload with ES and Kibana instances with version auto-discovery",
+			args: args{params: NewPayloadParams{
+				Region: "ece-region",
 				ElasticsearchInstance: InstanceParams{
 					RefID:     "main-elasticsearch",
 					Size:      1024,
@@ -292,6 +334,21 @@ func TestNewPayload(t *testing.T) {
 				DeploymentTemplateID: "default",
 				API: api.NewMock(
 					mock.New200Response(mock.NewStructBody(kibanaTemplateResponse)),
+					mock.New200ResponseAssertion(
+						&mock.RequestAssertion{
+							Host:   api.DefaultMockHost,
+							Header: api.DefaultReadMockHeaders,
+							Path:   "/api/v1/regions/ece-region/stack/versions",
+							Method: "GET",
+							Query: url.Values{
+								"show_deleted":  {"false"},
+								"show_unusable": {"false"},
+							},
+						},
+						mock.NewStructBody(models.StackVersionConfigs{Stacks: []*models.StackVersionConfig{
+							{Version: "7.8.0"},
+						}}),
+					),
 				),
 			}},
 			want: &models.DeploymentCreateRequest{Resources: &models.DeploymentCreateResources{
@@ -300,7 +357,7 @@ func TestNewPayload(t *testing.T) {
 					Region: ec.String("ece-region"),
 					Plan: &models.ElasticsearchClusterPlan{
 						Elasticsearch: &models.ElasticsearchConfiguration{
-							Version: "7.6.1",
+							Version: "7.8.0",
 						},
 						DeploymentTemplate: &models.DeploymentTemplateReference{
 							ID: ec.String("default"),
@@ -324,7 +381,7 @@ func TestNewPayload(t *testing.T) {
 					RefID:                     ec.String("main-kibana"),
 					Plan: &models.KibanaClusterPlan{
 						Kibana: &models.KibanaConfiguration{
-							Version: "7.6.1",
+							Version: "7.8.0",
 						},
 						ClusterTopology: []*models.KibanaClusterTopologyElement{
 							{

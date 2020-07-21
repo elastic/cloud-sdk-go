@@ -113,6 +113,7 @@ func TestNewKibana(t *testing.T) {
 				errors.New("deployment template info is not specified and is required for the operation"),
 				apierror.ErrDeploymentID,
 				errors.New("topology: region cannot be empty"),
+				errors.New("required version not provided"),
 			),
 		},
 		{
@@ -121,6 +122,7 @@ func TestNewKibana(t *testing.T) {
 				DeploymentID:             mock.ValidClusterID,
 				API:                      api.NewMock(mock.SampleInternalError()),
 				Region:                   "ece-region",
+				Version:                  "7.8.0",
 				DeploymentTemplateInfoV2: &models.DeploymentTemplateInfoV2{Name: ec.String("default")},
 			}},
 			err: mock.MultierrorInternalError,
@@ -129,6 +131,7 @@ func TestNewKibana(t *testing.T) {
 			name: "obtains the deployment info but fails getting the template ID info",
 			args: args{params: NewStateless{
 				DeploymentID: mock.ValidClusterID,
+				Version:      "7.8.0",
 				API: api.NewMock(
 					mock.New200Response(mock.NewStructBody(models.DeploymentGetResponse{
 						Resources: &models.DeploymentResources{
@@ -149,6 +152,7 @@ func TestNewKibana(t *testing.T) {
 			name: "obtains the deployment info but fails getting the template ID info",
 			args: args{params: NewStateless{
 				DeploymentID: mock.ValidClusterID,
+				Version:      "7.8.0",
 				API: api.NewMock(
 					mock.SampleInternalError(),
 				),
@@ -161,6 +165,7 @@ func TestNewKibana(t *testing.T) {
 			name: "obtains the deployment template when no template ID is defined but it's an invalid template for kibana",
 			args: args{params: NewStateless{
 				DeploymentID: mock.ValidClusterID,
+				Version:      "7.8.0",
 				API: api.NewMock(
 					mock.New200Response(mock.NewStructBody(getResponse)),
 					mock.New200Response(mock.NewStructBody(invalidTemplateResponse)),
@@ -174,6 +179,7 @@ func TestNewKibana(t *testing.T) {
 			name: "succeeds with no argument override",
 			args: args{params: NewStateless{
 				DeploymentID: mock.ValidClusterID,
+				Version:      "7.8.0",
 				API: api.NewMock(
 					mock.New200Response(mock.NewStructBody(kibanaTemplateResponse)),
 				),
@@ -187,7 +193,7 @@ func TestNewKibana(t *testing.T) {
 				Region:                    ec.String("ece-region"),
 				RefID:                     ec.String("main-kibana"),
 				Plan: &models.KibanaClusterPlan{
-					Kibana: &models.KibanaConfiguration{},
+					Kibana: &models.KibanaConfiguration{Version: "7.8.0"},
 					ClusterTopology: []*models.KibanaClusterTopologyElement{
 						{
 							Size: &models.TopologySize{
@@ -203,6 +209,7 @@ func TestNewKibana(t *testing.T) {
 		{
 			name: "succeeds with argument overrides",
 			args: args{params: NewStateless{
+				Version:      "7.8.0",
 				Size:         4096,
 				ZoneCount:    3,
 				DeploymentID: mock.ValidClusterID,
@@ -218,7 +225,7 @@ func TestNewKibana(t *testing.T) {
 				Region:                    ec.String("ece-region"),
 				RefID:                     ec.String("main-kibana"),
 				Plan: &models.KibanaClusterPlan{
-					Kibana: &models.KibanaConfiguration{},
+					Kibana: &models.KibanaConfiguration{Version: "7.8.0"},
 					ClusterTopology: []*models.KibanaClusterTopologyElement{
 						{
 							Size: &models.TopologySize{

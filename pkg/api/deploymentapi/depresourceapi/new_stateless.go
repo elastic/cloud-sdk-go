@@ -81,6 +81,10 @@ func (params *NewStateless) Validate() error {
 		merr = merr.Append(errors.New("topology: region cannot be empty"))
 	}
 
+	if params.Version == "" {
+		merr = merr.Append(errors.New("required version not provided"))
+	}
+
 	return merr.ErrorOrNil()
 }
 
