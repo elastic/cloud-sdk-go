@@ -19,6 +19,7 @@ package deptemplateapi
 
 import (
 	"errors"
+	"fmt"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
@@ -37,6 +38,9 @@ type GetParams struct {
 	StackVersion string
 
 	HideInstanceConfigurations bool
+
+	// This field will be removed once a public API bug has been resolved
+	AsList bool
 }
 
 // Validate ensures the parameters are usable by Get.
@@ -62,6 +66,31 @@ func (params GetParams) Validate() error {
 func Get(params GetParams) (*models.DeploymentTemplateInfoV2, error) {
 	if err := params.Validate(); err != nil {
 		return nil, err
+	}
+
+	return get(params)
+}
+
+func get(params GetParams) (*models.DeploymentTemplateInfoV2, error) {
+	// Temporary workaround for an existing API bug.
+	if params.AsList {
+		res, err := List(ListParams{
+			API:                        params.API,
+			StackVersion:               params.StackVersion,
+			Region:                     params.Region,
+			HideInstanceConfigurations: params.HideInstanceConfigurations,
+		})
+		if err != nil {
+			return nil, err
+		}
+		for _, t := range res {
+			if params.TemplateID == *t.ID {
+				return t, nil
+			}
+		}
+		return nil, multierror.NewPrefixed("failed obtaining deployment template",
+			fmt.Errorf(`deployment template "%s" cannot be found`, params.TemplateID),
+		)
 	}
 
 	res, err := params.V1API.DeploymentTemplates.GetDeploymentTemplateV2(

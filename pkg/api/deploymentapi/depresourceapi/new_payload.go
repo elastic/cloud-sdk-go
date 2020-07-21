@@ -51,6 +51,9 @@ type NewPayloadParams struct {
 	ApmInstance              InstanceParams
 	AppsearchInstance        InstanceParams
 	EnterpriseSearchInstance InstanceParams
+
+	// Do not use. The field will be removed once an API bug has been resolved.
+	DeploymentTemplateAsList bool
 }
 
 // NewPayload creates the payload for a deployment
@@ -59,6 +62,7 @@ func NewPayload(params NewPayloadParams) (*models.DeploymentCreateRequest, error
 		API:        params.API,
 		TemplateID: params.DeploymentTemplateID,
 		Region:     params.Region,
+		AsList:     params.DeploymentTemplateAsList,
 	})
 	if err != nil {
 		return nil, err
