@@ -19,6 +19,7 @@ package depresourceapi
 
 import (
 	"errors"
+	"net/url"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -275,10 +276,51 @@ func TestNewPayload(t *testing.T) {
 			err: errors.New("deployment: the default template is not configured for App Search. Please use another template if you wish to start App Search instances"),
 		},
 		{
-			name: "Succeeds to create a deployment payload with ES and Kibana instances",
+			name: "Fails to create a deployment payload with ES, Kibana and App Search instances with version auto-discover",
 			args: args{params: NewPayloadParams{
-				Version: "7.6.1",
-				Region:  "ece-region",
+				Region: "ece-region",
+				ElasticsearchInstance: InstanceParams{
+					RefID:     "main-elasticsearch",
+					Size:      1024,
+					ZoneCount: 1,
+				},
+				KibanaInstance: InstanceParams{
+					RefID:     "main-kibana",
+					Size:      1024,
+					ZoneCount: 1,
+				},
+				AppsearchInstance: InstanceParams{
+					RefID:     "main-appsearch",
+					Size:      1024,
+					ZoneCount: 1,
+				},
+				DeploymentTemplateID: "default",
+				AppsearchEnable:      true,
+				API: api.NewMock(
+					mock.New200Response(mock.NewStructBody(apmKibanaTemplateResponse)),
+					mock.New200ResponseAssertion(
+						&mock.RequestAssertion{
+							Host:   api.DefaultMockHost,
+							Header: api.DefaultReadMockHeaders,
+							Path:   "/api/v1/regions/ece-region/stack/versions",
+							Method: "GET",
+							Query: url.Values{
+								"show_deleted":  {"false"},
+								"show_unusable": {"false"},
+							},
+						},
+						mock.NewStructBody(models.StackVersionConfigs{Stacks: []*models.StackVersionConfig{
+							{Version: "7.8.0"},
+						}}),
+					),
+				),
+			}},
+			err: errors.New("deployment: the default template is not configured for App Search. Please use another template if you wish to start App Search instances"),
+		},
+		{
+			name: "Succeeds to create a deployment payload with ES and Kibana instances with version auto-discovery",
+			args: args{params: NewPayloadParams{
+				Region: "ece-region",
 				ElasticsearchInstance: InstanceParams{
 					RefID:     "main-elasticsearch",
 					Size:      1024,
@@ -292,6 +334,87 @@ func TestNewPayload(t *testing.T) {
 				DeploymentTemplateID: "default",
 				API: api.NewMock(
 					mock.New200Response(mock.NewStructBody(kibanaTemplateResponse)),
+					mock.New200ResponseAssertion(
+						&mock.RequestAssertion{
+							Host:   api.DefaultMockHost,
+							Header: api.DefaultReadMockHeaders,
+							Path:   "/api/v1/regions/ece-region/stack/versions",
+							Method: "GET",
+							Query: url.Values{
+								"show_deleted":  {"false"},
+								"show_unusable": {"false"},
+							},
+						},
+						mock.NewStructBody(models.StackVersionConfigs{Stacks: []*models.StackVersionConfig{
+							{Version: "7.8.0"},
+						}}),
+					),
+				),
+			}},
+			want: &models.DeploymentCreateRequest{Resources: &models.DeploymentCreateResources{
+				Elasticsearch: []*models.ElasticsearchPayload{{
+					RefID:  ec.String("main-elasticsearch"),
+					Region: ec.String("ece-region"),
+					Plan: &models.ElasticsearchClusterPlan{
+						Elasticsearch: &models.ElasticsearchConfiguration{
+							Version: "7.8.0",
+						},
+						DeploymentTemplate: &models.DeploymentTemplateReference{
+							ID: ec.String("default"),
+						},
+						ClusterTopology: []*models.ElasticsearchClusterTopologyElement{{
+							ZoneCount:               1,
+							InstanceConfigurationID: "default.data",
+							Size: &models.TopologySize{
+								Resource: ec.String("memory"),
+								Value:    ec.Int32(1024),
+							},
+							NodeType: &models.ElasticsearchNodeType{
+								Data: ec.Bool(true),
+							},
+						}},
+					}},
+				},
+				Kibana: []*models.KibanaPayload{{
+					ElasticsearchClusterRefID: ec.String("main-elasticsearch"),
+					Region:                    ec.String("ece-region"),
+					RefID:                     ec.String("main-kibana"),
+					Plan: &models.KibanaClusterPlan{
+						Kibana: &models.KibanaConfiguration{
+							Version: "7.8.0",
+						},
+						ClusterTopology: []*models.KibanaClusterTopologyElement{
+							{
+								Size: &models.TopologySize{
+									Resource: ec.String("memory"),
+									Value:    ec.Int32(1024),
+								},
+								ZoneCount: 1,
+							},
+						},
+					},
+				}},
+			}},
+		},
+		{
+			name: "Succeeds to create a deployment payload with ES and Kibana instances (AsList)",
+			args: args{params: NewPayloadParams{
+				Version:                  "7.6.1",
+				Region:                   "ece-region",
+				DeploymentTemplateAsList: true,
+				ElasticsearchInstance: InstanceParams{
+					RefID:     "main-elasticsearch",
+					Size:      1024,
+					ZoneCount: 1,
+				},
+				KibanaInstance: InstanceParams{
+					RefID:     "main-kibana",
+					Size:      1024,
+					ZoneCount: 1,
+				},
+				DeploymentTemplateID: "default",
+				API: api.NewMock(
+					mock.New200Response(mock.NewStructBody([]models.DeploymentTemplateInfoV2{kibanaTemplateResponse})),
 				),
 			}},
 			want: &models.DeploymentCreateRequest{Resources: &models.DeploymentCreateResources{
@@ -363,6 +486,97 @@ func TestNewPayload(t *testing.T) {
 				ApmEnable:            true,
 				API: api.NewMock(
 					mock.New200Response(mock.NewStructBody(apmKibanaTemplateResponse)),
+				),
+			}},
+			want: &models.DeploymentCreateRequest{Resources: &models.DeploymentCreateResources{
+				Elasticsearch: []*models.ElasticsearchPayload{{
+					RefID:  ec.String("main-elasticsearch"),
+					Region: ec.String("ece-region"),
+					Plan: &models.ElasticsearchClusterPlan{
+						Elasticsearch: &models.ElasticsearchConfiguration{
+							Version: "7.6.1",
+						},
+						DeploymentTemplate: &models.DeploymentTemplateReference{
+							ID: ec.String("default"),
+						},
+						ClusterTopology: []*models.ElasticsearchClusterTopologyElement{{
+							ZoneCount:               1,
+							InstanceConfigurationID: "default.data",
+							Size: &models.TopologySize{
+								Resource: ec.String("memory"),
+								Value:    ec.Int32(1024),
+							},
+							NodeType: &models.ElasticsearchNodeType{
+								Data: ec.Bool(true),
+							},
+						}},
+					}},
+				},
+				Kibana: []*models.KibanaPayload{{
+					ElasticsearchClusterRefID: ec.String("main-elasticsearch"),
+					Region:                    ec.String("ece-region"),
+					RefID:                     ec.String("main-kibana"),
+					Plan: &models.KibanaClusterPlan{
+						Kibana: &models.KibanaConfiguration{
+							Version: "7.6.1",
+						},
+						ClusterTopology: []*models.KibanaClusterTopologyElement{
+							{
+								Size: &models.TopologySize{
+									Resource: ec.String("memory"),
+									Value:    ec.Int32(1024),
+								},
+								ZoneCount: 1,
+							},
+						},
+					},
+				}},
+				Apm: []*models.ApmPayload{{
+					ElasticsearchClusterRefID: ec.String("main-elasticsearch"),
+					Region:                    ec.String("ece-region"),
+					RefID:                     ec.String("main-apm"),
+					Plan: &models.ApmPlan{
+						Apm: &models.ApmConfiguration{
+							Version: "7.6.1",
+						},
+						ClusterTopology: []*models.ApmTopologyElement{
+							{
+								Size: &models.TopologySize{
+									Resource: ec.String("memory"),
+									Value:    ec.Int32(1024),
+								},
+								ZoneCount: 1,
+							},
+						},
+					},
+				}},
+			}},
+		},
+		{
+			name: "Succeeds to create a deployment payload with ES, Kibana and APM instances (AsList)",
+			args: args{params: NewPayloadParams{
+				Version:                  "7.6.1",
+				Region:                   "ece-region",
+				DeploymentTemplateAsList: true,
+				ElasticsearchInstance: InstanceParams{
+					RefID:     "main-elasticsearch",
+					Size:      1024,
+					ZoneCount: 1,
+				},
+				KibanaInstance: InstanceParams{
+					RefID:     "main-kibana",
+					Size:      1024,
+					ZoneCount: 1,
+				},
+				ApmInstance: InstanceParams{
+					RefID:     "main-apm",
+					Size:      1024,
+					ZoneCount: 1,
+				},
+				DeploymentTemplateID: "default",
+				ApmEnable:            true,
+				API: api.NewMock(
+					mock.New200Response(mock.NewStructBody([]models.DeploymentTemplateInfoV2{apmKibanaTemplateResponse})),
 				),
 			}},
 			want: &models.DeploymentCreateRequest{Resources: &models.DeploymentCreateResources{

@@ -42,6 +42,17 @@ func TestGet(t *testing.T) {
 	if err := json.Unmarshal(getRawResp, &succeedResp); err != nil {
 		t.Fatal(err)
 	}
+
+	listRawResp, err := ioutil.ReadFile("./testdata/list.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	var listSucceedResp []*models.DeploymentTemplateInfoV2
+	if err := json.Unmarshal(listRawResp, &listSucceedResp); err != nil {
+		t.Fatal(err)
+	}
+
 	type args struct {
 		params GetParams
 	}
@@ -104,6 +115,54 @@ func TestGet(t *testing.T) {
 			want: succeedResp,
 		},
 		{
+			name: "succeeds when AsList is set to true",
+			args: args{params: GetParams{
+				Region:     "us-east-1",
+				TemplateID: "default",
+				AsList:     true,
+				API: api.NewMock(mock.New200ResponseAssertion(
+					&mock.RequestAssertion{
+						Header: api.DefaultReadMockHeaders,
+						Method: "GET",
+						Host:   api.DefaultMockHost,
+						Path:   "/api/v1/deployments/templates",
+						Query: url.Values{
+							"region":                       []string{"us-east-1"},
+							"show_hidden":                  []string{"false"},
+							"show_instance_configurations": []string{"true"},
+						},
+					},
+					mock.NewByteBody(listRawResp),
+				)),
+			}},
+			want: succeedResp,
+		},
+		{
+			name: "fails when AsList is set to true and deployment template cannot be found",
+			args: args{params: GetParams{
+				Region:     "us-east-1",
+				TemplateID: "some-other-template",
+				AsList:     true,
+				API: api.NewMock(mock.New200ResponseAssertion(
+					&mock.RequestAssertion{
+						Header: api.DefaultReadMockHeaders,
+						Method: "GET",
+						Host:   api.DefaultMockHost,
+						Path:   "/api/v1/deployments/templates",
+						Query: url.Values{
+							"region":                       []string{"us-east-1"},
+							"show_hidden":                  []string{"false"},
+							"show_instance_configurations": []string{"true"},
+						},
+					},
+					mock.NewByteBody(listRawResp),
+				)),
+			}},
+			err: multierror.NewPrefixed("failed obtaining deployment template",
+				errors.New(`deployment template "some-other-template" cannot be found`),
+			),
+		},
+		{
 			name: "fails on API error",
 			args: args{params: GetParams{
 				Region:     "us-east-1",
@@ -116,6 +175,29 @@ func TestGet(t *testing.T) {
 						Path:   "/api/v1/deployments/templates/some-id",
 						Query: url.Values{
 							"region":                       []string{"us-east-1"},
+							"show_instance_configurations": []string{"true"},
+						},
+					},
+					mock.SampleInternalError().Response.Body,
+				)),
+			}},
+			err: mock.MultierrorInternalError,
+		},
+		{
+			name: "returns error when List returns error",
+			args: args{params: GetParams{
+				Region:     "us-east-1",
+				TemplateID: "some-id",
+				AsList:     true,
+				API: api.NewMock(mock.New500ResponseAssertion(
+					&mock.RequestAssertion{
+						Header: api.DefaultReadMockHeaders,
+						Method: "GET",
+						Host:   api.DefaultMockHost,
+						Path:   "/api/v1/deployments/templates",
+						Query: url.Values{
+							"region":                       []string{"us-east-1"},
+							"show_hidden":                  []string{"false"},
 							"show_instance_configurations": []string{"true"},
 						},
 					},

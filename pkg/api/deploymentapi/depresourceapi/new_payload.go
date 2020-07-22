@@ -36,13 +36,15 @@ type InstanceParams struct {
 type NewPayloadParams struct {
 	*api.API
 
-	Name                     string
-	Version                  string
-	DeploymentTemplateID     string
-	Region                   string
-	ApmEnable                bool
-	AppsearchEnable          bool
-	EnterpriseSearchEnable   bool
+	Name                   string
+	Version                string
+	DeploymentTemplateID   string
+	Region                 string
+	ApmEnable              bool
+	AppsearchEnable        bool
+	EnterpriseSearchEnable bool
+	// Do not use. The field will be removed once an API bug has been resolved.
+	DeploymentTemplateAsList bool
 	Writer                   io.Writer
 	Plugins                  []string
 	TopologyElements         []string
@@ -54,11 +56,24 @@ type NewPayloadParams struct {
 }
 
 // NewPayload creates the payload for a deployment
+// // * Auto-discovers the latest Stack version if Version is not specified.
 func NewPayload(params NewPayloadParams) (*models.DeploymentCreateRequest, error) {
 	res, err := deptemplateapi.Get(deptemplateapi.GetParams{
 		API:        params.API,
 		TemplateID: params.DeploymentTemplateID,
 		Region:     params.Region,
+		AsList:     params.DeploymentTemplateAsList,
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	// Version Discovery
+	version, err := LatestStackVersion(LatestStackVersionParams{
+		Writer:  params.Writer,
+		API:     params.API,
+		Version: params.Version,
+		Region:  params.Region,
 	})
 	if err != nil {
 		return nil, err
@@ -67,7 +82,7 @@ func NewPayload(params NewPayloadParams) (*models.DeploymentCreateRequest, error
 	esPayload, err := ParseElasticsearchInput(ParseElasticsearchInputParams{
 		NewElasticsearchParams: NewElasticsearchParams{
 			RefID:                    params.ElasticsearchInstance.RefID,
-			Version:                  params.Version,
+			Version:                  version,
 			Plugins:                  params.Plugins,
 			Region:                   params.Region,
 			TemplateID:               params.DeploymentTemplateID,
@@ -87,7 +102,7 @@ func NewPayload(params NewPayloadParams) (*models.DeploymentCreateRequest, error
 		ElasticsearchRefID:       params.ElasticsearchInstance.RefID,
 		API:                      params.API,
 		RefID:                    params.KibanaInstance.RefID,
-		Version:                  params.Version,
+		Version:                  version,
 		Region:                   params.Region,
 		TemplateID:               params.DeploymentTemplateID,
 		Size:                     params.KibanaInstance.Size,
@@ -108,7 +123,7 @@ func NewPayload(params NewPayloadParams) (*models.DeploymentCreateRequest, error
 			ElasticsearchRefID:       params.ElasticsearchInstance.RefID,
 			API:                      params.API,
 			RefID:                    params.ApmInstance.RefID,
-			Version:                  params.Version,
+			Version:                  version,
 			Region:                   params.Region,
 			TemplateID:               params.DeploymentTemplateID,
 			Size:                     params.ApmInstance.Size,
@@ -127,7 +142,7 @@ func NewPayload(params NewPayloadParams) (*models.DeploymentCreateRequest, error
 			ElasticsearchRefID:       params.ElasticsearchInstance.RefID,
 			API:                      params.API,
 			RefID:                    params.AppsearchInstance.RefID,
-			Version:                  params.Version,
+			Version:                  version,
 			Region:                   params.Region,
 			TemplateID:               params.DeploymentTemplateID,
 			Size:                     params.AppsearchInstance.Size,
@@ -147,7 +162,7 @@ func NewPayload(params NewPayloadParams) (*models.DeploymentCreateRequest, error
 				ElasticsearchRefID:       params.ElasticsearchInstance.RefID,
 				API:                      params.API,
 				RefID:                    params.EnterpriseSearchInstance.RefID,
-				Version:                  params.Version,
+				Version:                  version,
 				Region:                   params.Region,
 				TemplateID:               params.DeploymentTemplateID,
 				Size:                     params.EnterpriseSearchInstance.Size,
