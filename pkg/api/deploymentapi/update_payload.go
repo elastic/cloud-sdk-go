@@ -79,7 +79,7 @@ func NewUpdateRequest(res *models.DeploymentGetResponse) *models.DeploymentUpdat
 	return &req
 }
 
-func parseElasticsearchGetResponse(r *models.ElasticsearchResourceInfo) (*models.ElasticsearchPayload, string) {
+func parseElasticsearchGetResponse(r *models.ElasticsearchResourceInfo) (payload *models.ElasticsearchPayload, refID string) {
 	plan := r.Info.PlanInfo.Current
 	if plan == nil || plan.Plan == nil {
 		return nil, ""
