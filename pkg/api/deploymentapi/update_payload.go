@@ -36,10 +36,11 @@ func NewUpdateRequest(res *models.DeploymentGetResponse) *models.DeploymentUpdat
 	}
 
 	for _, r := range res.Resources.Elasticsearch {
-		if resource := parseElasticsearchGetResponse(r, &esRefID); resource != nil {
+		if resource, rID := parseElasticsearchGetResponse(r); resource != nil {
 			req.Resources.Elasticsearch = append(req.Resources.Elasticsearch,
 				resource,
 			)
+			esRefID = rID
 		}
 	}
 
@@ -78,13 +79,12 @@ func NewUpdateRequest(res *models.DeploymentGetResponse) *models.DeploymentUpdat
 	return &req
 }
 
-func parseElasticsearchGetResponse(r *models.ElasticsearchResourceInfo, esRefID *string) *models.ElasticsearchPayload {
+func parseElasticsearchGetResponse(r *models.ElasticsearchResourceInfo) (*models.ElasticsearchPayload, string) {
 	plan := r.Info.PlanInfo.Current
 	if plan == nil || plan.Plan == nil {
-		return nil
+		return nil, ""
 	}
 
-	*esRefID = *r.RefID
 	if r.Info.Settings != nil {
 		r.Info.Settings.Metadata = nil
 	}
@@ -103,7 +103,7 @@ func parseElasticsearchGetResponse(r *models.ElasticsearchResourceInfo, esRefID 
 		Region:      r.Region,
 		Plan:        plan.Plan,
 		Settings:    r.Info.Settings,
-	}
+	}, *r.RefID
 }
 
 func parseKibanaGetResponse(r *models.KibanaResourceInfo, esRefID string) *models.KibanaPayload {
