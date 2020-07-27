@@ -42,30 +42,30 @@ func TestNewElasticsearchTopology(t *testing.T) {
 		{
 			name: "correctly parses a single element topology",
 			args: args{topology: []string{
-				`{"name": "data", "size": 1024, "zone_count": 1}`,
+				`{"node_type": "data", "size": 1024, "zone_count": 1}`,
 			}},
 			want: []ElasticsearchTopologyElement{
-				{Name: "data", Size: 1024, ZoneCount: 1},
+				{NodeType: "data", Size: 1024, ZoneCount: 1},
 			},
 		},
 		{
 			name: "correctly parses a multi element topology",
 			args: args{topology: []string{
-				`{"name": "data", "size": 2048, "zone_count": 2}`,
-				`{"name": "ml", "size": 4096, "zone_count": 1}`,
-				`{"name": "master", "size": 1024, "zone_count": 1}`,
+				`{"node_type": "data", "size": 2048, "zone_count": 2}`,
+				`{"node_type": "ml", "size": 4096, "zone_count": 1}`,
+				`{"node_type": "master", "size": 1024, "zone_count": 1}`,
 			}},
 			want: []ElasticsearchTopologyElement{
-				{Name: "data", Size: 2048, ZoneCount: 2},
-				{Name: "ml", Size: 4096, ZoneCount: 1},
-				{Name: "master", Size: 1024, ZoneCount: 1},
+				{NodeType: "data", Size: 2048, ZoneCount: 2},
+				{NodeType: "ml", Size: 4096, ZoneCount: 1},
+				{NodeType: "master", Size: 1024, ZoneCount: 1},
 			},
 		},
 		{
 			name: "fails due to invalid json parses a multi element topology",
 			args: args{topology: []string{
-				`{"name": "data", "size": 2048, "zone_count": 2}`,
-				`{"name": "ml", "size": 4096, "zone_count": 1}`,
+				`{"node_type": "data", "size": 2048, "zone_count": 2}`,
+				`{"node_type": "ml", "size": 4096, "zone_count": 1}`,
 				`{"aaaaaaaaaa`,
 			}},
 			err: errors.New("depresourceapi: failed unpacking raw topology: unexpected end of JSON input"),
@@ -76,7 +76,7 @@ func TestNewElasticsearchTopology(t *testing.T) {
 				`{"zone_count": 2}`,
 			}},
 			err: multierror.NewPrefixed("elasticsearch topology",
-				errors.New("name cannot be empty"),
+				errors.New("node_type cannot be empty"),
 				errors.New("size cannot be empty"),
 			),
 		},
@@ -114,7 +114,7 @@ func TestNewElasticsearchTopologyElement(t *testing.T) {
 			name: "returns a parametrized ElasticsearchTopologyElement",
 			args: args{size: 2048, zoneCount: 3},
 			want: ElasticsearchTopologyElement{
-				Name:      DataNode,
+				NodeType:  DataNode,
 				Size:      2048,
 				ZoneCount: 3,
 			},
@@ -180,20 +180,20 @@ func TestBuildElasticsearchTopology(t *testing.T) {
 			args: args{params: BuildElasticsearchTopologyParams{
 				TemplateID: "sometemplateid",
 				Topology: []ElasticsearchTopologyElement{
-					{Name: "something weird", Size: 2048, ZoneCount: 1},
+					{NodeType: "something weird", Size: 2048, ZoneCount: 1},
 				},
 				ClusterTopology: topologies,
 			}},
-			err: errors.New(`deployment topology: failed to obtain desired topology names ([{Name:something weird ZoneCount:1 Size:2048}]) in deployment template id "sometemplateid"`),
+			err: errors.New(`deployment topology: failed to obtain desired topology names ([{NodeType:something weird ZoneCount:1 Size:2048}]) in deployment template id "sometemplateid"`),
 		},
 		{
 			name: "matches the topologies",
 			args: args{params: BuildElasticsearchTopologyParams{
 				TemplateID: "sometemplateid",
 				Topology: []ElasticsearchTopologyElement{
-					{Name: DataNode, Size: 8192, ZoneCount: 2},
-					{Name: MasterNode, Size: 1024, ZoneCount: 1},
-					{Name: MLNode, Size: 2048, ZoneCount: 1},
+					{NodeType: DataNode, Size: 8192, ZoneCount: 2},
+					{NodeType: MasterNode, Size: 1024, ZoneCount: 1},
+					{NodeType: MLNode, Size: 2048, ZoneCount: 1},
 				},
 				ClusterTopology: topologies,
 			}},

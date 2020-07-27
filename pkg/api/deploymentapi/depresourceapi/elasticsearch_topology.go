@@ -46,7 +46,7 @@ var (
 
 	// DefaultTopologyElement defines the element used in DefaultTopology
 	DefaultTopologyElement = ElasticsearchTopologyElement{
-		Name:      DataNode,
+		NodeType:  DataNode,
 		Size:      DefaultDataSize,
 		ZoneCount: DefaultDataZoneCount,
 	}
@@ -67,8 +67,8 @@ type BuildElasticsearchTopologyParams struct {
 // ElasticsearchTopologyElement is a single cluster topology element, meaning
 // a number of instances (controlled by ZoneCount) for a single NodeType.
 type ElasticsearchTopologyElement struct {
-	// Name can be one of "data", "master" or "ml".
-	Name string `json:"name"`
+	// NodeType can be one of "data", "master" or "ml".
+	NodeType string `json:"node_type"`
 
 	// Number of zones to span the cluster on.
 	ZoneCount int32 `json:"zone_count,omitempty"`
@@ -87,8 +87,8 @@ func (element *ElasticsearchTopologyElement) fillDefaults() {
 // Validate ensures the parameters are usable by the consuming function.
 func (element *ElasticsearchTopologyElement) Validate() error {
 	var merr = multierror.NewPrefixed("elasticsearch topology")
-	if element.Name == "" {
-		merr = merr.Append(errors.New("name cannot be empty"))
+	if element.NodeType == "" {
+		merr = merr.Append(errors.New("node_type cannot be empty"))
 	}
 
 	if element.Size == 0 {
@@ -173,19 +173,19 @@ func BuildElasticsearchTopology(params BuildElasticsearchTopologyParams) ([]*mod
 
 // matchNodeType compares  ElasticsearchTopologyElement name (NodeType) to the
 // actual NodeTypes specified in a deployment template cluster topology. The
-// Name field can be ["data", "master", "ml"].
+// NodeType field can be ["data", "master", "ml"].
 func matchNodeType(got models.ElasticsearchNodeType, want ElasticsearchTopologyElement) bool {
-	if want.Name == DataNode {
+	if want.NodeType == DataNode {
 		return got.Data != nil && *got.Data
 	}
 
-	if want.Name == MasterNode {
+	if want.NodeType == MasterNode {
 		var dataFalse = (got.Data != nil && !*got.Data) || got.Data == nil
 		var masterTrue = got.Master != nil && *got.Master
 		return dataFalse && masterTrue
 	}
 
-	if want.Name == MLNode {
+	if want.NodeType == MLNode {
 		var dataFalse = (got.Data != nil && !*got.Data) || got.Data == nil
 		var mlTrue = got.Ml != nil && *got.Ml
 		return dataFalse && mlTrue

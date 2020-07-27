@@ -97,7 +97,7 @@ func TestNewElasticsearch(t *testing.T) {
 				errors.New("deployment template info is not specified and is required for the operation"),
 				errors.New("region cannot be empty"),
 				errors.New("version cannot be empty"),
-				errors.New("element[0]: elasticsearch topology: name cannot be empty"),
+				errors.New("element[0]: elasticsearch topology: node_type cannot be empty"),
 				errors.New("element[0]: elasticsearch topology: size cannot be empty"),
 			),
 		},
@@ -109,10 +109,10 @@ func TestNewElasticsearch(t *testing.T) {
 				TemplateID:               "default",
 				DeploymentTemplateInfoV2: &elasticsearchTemplateResponse,
 				Topology: []ElasticsearchTopologyElement{
-					{Name: "some", Size: 1024},
+					{NodeType: "some", Size: 1024},
 				},
 			}},
-			err: errors.New(`deployment topology: failed to obtain desired topology names ([{Name:some ZoneCount:0 Size:1024}]) in deployment template id "default"`),
+			err: errors.New(`deployment topology: failed to obtain desired topology names ([{NodeType:some ZoneCount:0 Size:1024}]) in deployment template id "default"`),
 		},
 		{
 			name: "fails due to unknown invalid template",
@@ -127,7 +127,7 @@ func TestNewElasticsearch(t *testing.T) {
 					},
 				},
 				Topology: []ElasticsearchTopologyElement{
-					{Name: "some", Size: 1024},
+					{NodeType: "some", Size: 1024},
 				},
 			}},
 			err: errors.New("deployment: the default template is not configured for Elasticsearch. Please use another template if you wish to start Elasticsearch instances"),
@@ -175,9 +175,9 @@ func TestNewElasticsearch(t *testing.T) {
 				TemplateID:               "default",
 				DeploymentTemplateInfoV2: &elasticsearchTemplateResponse,
 				Topology: []ElasticsearchTopologyElement{
-					{Name: DataNode, Size: 8192, ZoneCount: 2},
-					{Name: MasterNode, Size: 1024, ZoneCount: 1},
-					{Name: MLNode, Size: 2048, ZoneCount: 1},
+					{NodeType: DataNode, Size: 8192, ZoneCount: 2},
+					{NodeType: MasterNode, Size: 1024, ZoneCount: 1},
+					{NodeType: MLNode, Size: 2048, ZoneCount: 1},
 				},
 			}},
 			want: &models.ElasticsearchPayload{
