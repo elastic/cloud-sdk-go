@@ -32,9 +32,9 @@ import (
 
 func TestParseElasticsearchInput(t *testing.T) {
 	var rawClusterTopology = []string{
-		`{"name": "data", "size": 2048, "zone_count": 2}`,
-		`{"name": "ml", "size": 4096, "zone_count": 1}`,
-		`{"name": "master", "size": 1024, "zone_count": 1}`,
+		`{"node_type": "data", "size": 2048, "zone_count": 2}`,
+		`{"node_type": "ml", "size": 4096, "zone_count": 1}`,
+		`{"node_type": "master", "size": 1024, "zone_count": 1}`,
 	}
 	var clusterTopology = []*models.ElasticsearchClusterTopologyElement{
 		{
@@ -167,11 +167,11 @@ func TestParseElasticsearchInput(t *testing.T) {
 					Version:                  "7.8.0",
 				},
 				TopologyElements: []string{
-					`{"name": ""}`,
+					`{"node_type": ""}`,
 				},
 			}},
 			err: multierror.NewPrefixed("elasticsearch topology",
-				errors.New("name cannot be empty"),
+				errors.New("node_type cannot be empty"),
 				errors.New("size cannot be empty"),
 			),
 		},
