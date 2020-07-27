@@ -1,0 +1,130 @@
+{
+  "name": "marc-appsearch-generate-payload",
+  "prune_orphans": false,
+  "resources": {
+    "apm": null,
+    "appsearch": [
+      {
+        "display_name": "marc-appsearch-generate-payload",
+        "elasticsearch_cluster_ref_id": "main-elasticsearch",
+        "plan": {
+          "appsearch": {
+            "system_settings": {},
+            "version": "7.6.2"
+          },
+          "cluster_topology": [
+            {
+              "instance_configuration_id": "gcp.appsearch.1",
+              "node_type": {
+                "appserver": true,
+                "worker": true
+              },
+              "size": {
+                "resource": "memory",
+                "value": 2048
+              },
+              "zone_count": 1
+            }
+          ],
+          "transient": {
+            "plan_configuration": {
+              "move_allocators": null,
+              "move_instances": null,
+              "preferred_allocators": null,
+              "timeout": 8192
+            },
+            "strategy": {
+              "autodetect": {}
+            }
+          }
+        },
+        "ref_id": "main-appsearch",
+        "region": "gcp-us-central1",
+        "settings": {}
+      }
+    ],
+    "elasticsearch": [
+      {
+        "display_name": "marc-appsearch-generate-payload",
+        "plan": {
+          "cluster_topology": [
+            {
+              "elasticsearch": {},
+              "instance_configuration_id": "gcp.data.highcpu.1",
+              "node_type": {
+                "data": true,
+                "ingest": true,
+                "master": true
+              },
+              "size": {
+                "resource": "memory",
+                "value": 1024
+              },
+              "zone_count": 1
+            }
+          ],
+          "deployment_template": {
+            "id": "gcp-appsearch-dedicated"
+          },
+          "elasticsearch": {
+            "version": "7.6.2"
+          }
+        },
+        "ref_id": "main-elasticsearch",
+        "region": "gcp-us-central1",
+        "settings": {
+          "curation": {
+            "specs": []
+          },
+          "dedicated_masters_threshold": 6,
+          "snapshot": {
+            "enabled": true,
+            "repository": {
+              "static": {
+                "repository_type": "gcs-resource",
+                "settings": {
+                  "bucket_name": "ueb5e2b24143a4986b8f3ba09b21fe",
+                  "client_name": "elastic-internal-474668"
+                }
+              }
+            },
+            "retention": {},
+            "slm": true,
+            "suspended": []
+          }
+        }
+      }
+    ],
+    "enterprise_search": null,
+    "kibana": [
+      {
+        "display_name": "marc-appsearch-generate-payload",
+        "elasticsearch_cluster_ref_id": "main-elasticsearch",
+        "plan": {
+          "cluster_topology": [
+            {
+              "instance_configuration_id": "gcp.kibana.1",
+              "size": {
+                "resource": "memory",
+                "value": 1024
+              },
+              "zone_count": 1
+            }
+          ],
+          "kibana": {
+            "system_settings": {},
+            "version": "7.6.2"
+          },
+          "transient": {
+            "strategy": {
+              "autodetect": {}
+            }
+          }
+        },
+        "ref_id": "main-kibana",
+        "region": "gcp-us-central1",
+        "settings": {}
+      }
+    ]
+  }
+}

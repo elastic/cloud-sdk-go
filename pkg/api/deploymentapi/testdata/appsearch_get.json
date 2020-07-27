@@ -1,0 +1,462 @@
+{
+  "healthy": true,
+  "id": "f534ac6a8cfc42f8aeb74bc4dba42458",
+  "metadata": {
+    "hidden": false,
+    "last_modified": "2020-07-23T09:00:27.947Z",
+    "last_resource_plan_modified": "2020-07-23T09:02:01.896Z",
+    "owner_id": "1059003638",
+    "subscription_level": "standard",
+    "system_owned": false
+  },
+  "name": "marc-appsearch-generate-payload",
+  "resources": {
+    "apm": [],
+    "appsearch": [
+      {
+        "elasticsearch_cluster_ref_id": "main-elasticsearch",
+        "id": "13d7fedff8394b0b8815cf2a25b3fad2",
+        "info": {
+          "deployment_id": "f534ac6a8cfc42f8aeb74bc4dba42458",
+          "elasticsearch_cluster": {
+            "elasticsearch_id": "47466878552f453285c34b2d05ffbe5a"
+          },
+          "external_links": [],
+          "healthy": true,
+          "id": "13d7fedff8394b0b8815cf2a25b3fad2",
+          "metadata": {
+            "endpoint": "13d7fedff8394b0b8815cf2a25b3fad2.app-search.us-central1.gcp.cloud.es.io",
+            "last_modified": "2020-07-23T09:00:24.311Z",
+            "ports": {
+              "http": 9200,
+              "https": 443,
+              "transport_passthrough": 9400
+            },
+            "version": 9
+          },
+          "name": "marc-appsearch-generate-payload",
+          "plan_info": {
+            "current": {
+              "attempt_end_time": "2020-07-23T09:02:01.896Z",
+              "attempt_start_time": "2020-07-23T08:59:40.605Z",
+              "healthy": true,
+              "plan": {
+                "appsearch": {
+                  "system_settings": {},
+                  "version": "7.6.2"
+                },
+                "cluster_topology": [
+                  {
+                    "instance_configuration_id": "gcp.appsearch.1",
+                    "node_type": {
+                      "appserver": true,
+                      "worker": true
+                    },
+                    "size": {
+                      "resource": "memory",
+                      "value": 2048
+                    },
+                    "zone_count": 1
+                  }
+                ],
+                "transient": {
+                  "plan_configuration": {
+                    "move_allocators": null,
+                    "move_instances": null,
+                    "preferred_allocators": null,
+                    "timeout": 8192
+                  },
+                  "strategy": {
+                    "autodetect": {}
+                  }
+                }
+              },
+              "plan_attempt_id": "d2727d24-e0e5-4926-891c-2659e276f945",
+              "plan_attempt_log": [],
+              "plan_end_time": "0001-01-01T00:00:00.000Z",
+              "source": {
+                "action": "deployments.create-deployment",
+                "date": "2020-07-23T08:59:36.868Z",
+                "facilitator": "adminconsole",
+                "user_id": "1059003638"
+              }
+            },
+            "healthy": true,
+            "history": []
+          },
+          "region": "gcp-us-central1",
+          "settings": {
+            "metadata": {
+              "hidden": false,
+              "name": "marc-appsearch-generate-payload",
+              "owner_id": "1059003638",
+              "resources": {
+                "cpu": {
+                  "boost": true,
+                  "hard_limit": true
+                }
+              },
+              "system_owned": false
+            }
+          },
+          "status": "started",
+          "topology": {
+            "healthy": true,
+            "instances": [
+              {
+                "allocator_id": "gi-1409793201397519348",
+                "container_started": true,
+                "healthy": true,
+                "instance_configuration": {
+                  "id": "gcp.appsearch.1",
+                  "name": "gcp.appsearch.1",
+                  "resource": "memory"
+                },
+                "instance_name": "instance-0000000000",
+                "maintenance_mode": false,
+                "memory": {
+                  "instance_capacity": 2048,
+                  "native_memory_pressure": 70
+                },
+                "service_roles": null,
+                "service_running": true,
+                "service_version": "7.6.2",
+                "zone": "us-central1-b"
+              }
+            ]
+          }
+        },
+        "ref_id": "main-appsearch",
+        "region": "gcp-us-central1"
+      }
+    ],
+    "elasticsearch": [
+      {
+        "id": "47466878552f453285c34b2d05ffbe5a",
+        "info": {
+          "associated_apm_clusters": [],
+          "associated_appsearch_clusters": [
+            {
+              "app_search_id": "13d7fedff8394b0b8815cf2a25b3fad2",
+              "enabled": true
+            }
+          ],
+          "associated_enterprise_search_clusters": [],
+          "associated_kibana_clusters": [
+            {
+              "enabled": true,
+              "kibana_id": "f4d1800521554476a6a45888be2ef6a3"
+            }
+          ],
+          "cluster_id": "47466878552f453285c34b2d05ffbe5a",
+          "cluster_name": "marc-appsearch-generate-payload",
+          "deployment_id": "f534ac6a8cfc42f8aeb74bc4dba42458",
+          "elasticsearch": {
+            "blocking_issues": {
+              "cluster_level": [],
+              "healthy": true,
+              "index_level": []
+            },
+            "healthy": true,
+            "master_info": {
+              "healthy": true,
+              "instances_with_no_master": [],
+              "masters": [
+                {
+                  "instances": [
+                    "instance-0000000000"
+                  ],
+                  "master_instance_name": "instance-0000000000",
+                  "master_node_id": "lMM4GkzkTSWMj_0p7j2EZg"
+                }
+              ]
+            },
+            "shard_info": {
+              "available_shards": [
+                {
+                  "instance_name": "instance-0000000000",
+                  "shard_count": 77
+                }
+              ],
+              "healthy": true,
+              "unavailable_replicas": [
+                {
+                  "instance_name": "instance-0000000000",
+                  "replica_count": 0
+                }
+              ],
+              "unavailable_shards": [
+                {
+                  "instance_name": "instance-0000000000",
+                  "shard_count": 0
+                }
+              ]
+            }
+          },
+          "external_links": [],
+          "healthy": true,
+          "locked": false,
+          "metadata": {
+            "cloud_id": "marc-appsearch-generate-payload:dXMtY2VudHJhbDEuZ2NwLmNsb3VkLmVzLmlvJDQ3NDY2ODc4NTUyZjQ1MzI4NWMzNGIyZDA1ZmZiZTVhJGY0ZDE4MDA1MjE1NTQ0NzZhNmE0NTg4OGJlMmVmNmEz",
+            "endpoint": "47466878552f453285c34b2d05ffbe5a.us-central1.gcp.cloud.es.io",
+            "last_modified": "2020-07-23T09:00:27.947Z",
+            "ports": {
+              "http": 9200,
+              "https": 9243,
+              "transport_passthrough": 9400
+            },
+            "version": 25
+          },
+          "plan_info": {
+            "current": {
+              "attempt_end_time": "2020-07-23T09:00:27.431Z",
+              "attempt_start_time": "2020-07-23T08:59:37.783Z",
+              "healthy": true,
+              "plan": {
+                "cluster_topology": [
+                  {
+                    "elasticsearch": {},
+                    "instance_configuration_id": "gcp.data.highcpu.1",
+                    "node_type": {
+                      "data": true,
+                      "ingest": true,
+                      "master": true
+                    },
+                    "size": {
+                      "resource": "memory",
+                      "value": 1024
+                    },
+                    "zone_count": 1
+                  },
+                  {
+                    "elasticsearch": {},
+                    "instance_configuration_id": "gcp.master.1",
+                    "node_type": {
+                      "data": false,
+                      "ingest": false,
+                      "master": true
+                    },
+                    "size": {
+                      "resource": "memory",
+                      "value": 0
+                    },
+                    "zone_count": 3
+                  }
+                ],
+                "deployment_template": {
+                  "id": "gcp-appsearch-dedicated"
+                },
+                "elasticsearch": {
+                  "version": "7.6.2"
+                }
+              },
+              "plan_attempt_id": "34ea45cd-0f55-42c9-8784-87021669269b",
+              "plan_attempt_log": [],
+              "plan_end_time": "0001-01-01T00:00:00.000Z",
+              "source": {
+                "action": "deployments.create-deployment",
+                "date": "2020-07-23T08:59:36.868Z",
+                "facilitator": "adminconsole",
+                "user_id": "1059003638"
+              }
+            },
+            "healthy": true,
+            "history": []
+          },
+          "region": "gcp-us-central1",
+          "settings": {
+            "curation": {
+              "specs": []
+            },
+            "dedicated_masters_threshold": 6,
+            "metadata": {
+              "hidden": false,
+              "name": "marc-appsearch-generate-payload",
+              "owner_id": "1059003638",
+              "resources": {
+                "cpu": {
+                  "boost": true,
+                  "hard_limit": true
+                }
+              },
+              "subscription_level": "standard",
+              "system_owned": false
+            },
+            "snapshot": {
+              "enabled": true,
+              "repository": {
+                "static": {
+                  "repository_type": "gcs-resource",
+                  "settings": {
+                    "bucket_name": "ueb5e2b24143a4986b8f3ba09b21fe",
+                    "client_name": "elastic-internal-474668"
+                  }
+                }
+              },
+              "retention": {},
+              "slm": true,
+              "suspended": []
+            }
+          },
+          "snapshots": {
+            "count": 0,
+            "healthy": true,
+            "latest_end_time": "0001-01-01T00:00:00.000Z",
+            "latest_successful_end_time": "0001-01-01T00:00:00.000Z",
+            "recent_success": false,
+            "scheduled_time": "2020-07-23T09:30:00.000Z"
+          },
+          "status": "started",
+          "system_alerts": [],
+          "topology": {
+            "healthy": true,
+            "instances": [
+              {
+                "allocator_id": "gi-8688329984208485664",
+                "container_started": true,
+                "disk": {
+                  "disk_space_available": 8192,
+                  "disk_space_used": 3,
+                  "storage_multiplier": 8
+                },
+                "healthy": true,
+                "instance_configuration": {
+                  "id": "gcp.data.highcpu.1",
+                  "name": "gcp.data.highcpu.1",
+                  "resource": "memory"
+                },
+                "instance_name": "instance-0000000000",
+                "maintenance_mode": false,
+                "memory": {
+                  "instance_capacity": 1024,
+                  "memory_pressure": 39,
+                  "native_memory_pressure": 81
+                },
+                "service_id": "lMM4GkzkTSWMj_0p7j2EZg",
+                "service_roles": [
+                  "data",
+                  "master",
+                  "ingest"
+                ],
+                "service_running": true,
+                "service_version": "7.6.2",
+                "zone": "us-central1-c"
+              }
+            ]
+          }
+        },
+        "ref_id": "main-elasticsearch",
+        "region": "gcp-us-central1"
+      }
+    ],
+    "enterprise_search": [],
+    "kibana": [
+      {
+        "elasticsearch_cluster_ref_id": "main-elasticsearch",
+        "id": "f4d1800521554476a6a45888be2ef6a3",
+        "info": {
+          "cluster_id": "f4d1800521554476a6a45888be2ef6a3",
+          "cluster_name": "marc-appsearch-generate-payload",
+          "deployment_id": "f534ac6a8cfc42f8aeb74bc4dba42458",
+          "elasticsearch_cluster": {
+            "elasticsearch_id": "47466878552f453285c34b2d05ffbe5a"
+          },
+          "external_links": [],
+          "healthy": true,
+          "metadata": {
+            "endpoint": "f4d1800521554476a6a45888be2ef6a3.us-central1.gcp.cloud.es.io",
+            "last_modified": "2020-07-23T09:00:18.473Z",
+            "ports": {
+              "http": 9200,
+              "https": 9243,
+              "transport_passthrough": 9400
+            },
+            "version": 16
+          },
+          "plan_info": {
+            "current": {
+              "attempt_end_time": "2020-07-23T09:01:14.782Z",
+              "attempt_start_time": "2020-07-23T08:59:39.625Z",
+              "healthy": true,
+              "plan": {
+                "cluster_topology": [
+                  {
+                    "instance_configuration_id": "gcp.kibana.1",
+                    "size": {
+                      "resource": "memory",
+                      "value": 1024
+                    },
+                    "zone_count": 1
+                  }
+                ],
+                "kibana": {
+                  "system_settings": {},
+                  "version": "7.6.2"
+                },
+                "transient": {
+                  "strategy": {
+                    "autodetect": {}
+                  }
+                }
+              },
+              "plan_attempt_id": "836ae91a-b1bd-4784-89ac-4911732b8116",
+              "plan_attempt_log": [],
+              "plan_end_time": "0001-01-01T00:00:00.000Z",
+              "source": {
+                "action": "deployments.create-deployment",
+                "date": "2020-07-23T08:59:36.868Z",
+                "facilitator": "adminconsole",
+                "user_id": "1059003638"
+              }
+            },
+            "healthy": true,
+            "history": []
+          },
+          "region": "gcp-us-central1",
+          "settings": {
+            "metadata": {
+              "hidden": false,
+              "name": "marc-appsearch-generate-payload",
+              "owner_id": "1059003638",
+              "resources": {
+                "cpu": {
+                  "boost": true,
+                  "hard_limit": true
+                }
+              },
+              "system_owned": false
+            }
+          },
+          "status": "started",
+          "topology": {
+            "healthy": true,
+            "instances": [
+              {
+                "allocator_id": "gi-3463416309153414419",
+                "container_started": true,
+                "healthy": true,
+                "instance_configuration": {
+                  "id": "gcp.kibana.1",
+                  "name": "gcp.kibana.1",
+                  "resource": "memory"
+                },
+                "instance_name": "instance-0000000000",
+                "maintenance_mode": false,
+                "memory": {
+                  "instance_capacity": 1024,
+                  "native_memory_pressure": 35
+                },
+                "service_roles": null,
+                "service_running": true,
+                "service_version": "7.6.2",
+                "zone": "us-central1-a"
+              }
+            ]
+          }
+        },
+        "ref_id": "main-kibana",
+        "region": "gcp-us-central1"
+      }
+    ]
+  }
+}
