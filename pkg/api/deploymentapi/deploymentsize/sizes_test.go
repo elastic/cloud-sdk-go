@@ -43,6 +43,14 @@ func TestParse(t *testing.T) {
 			args: args{strSize: "8gb"}, want: 8 * 1024,
 		},
 		{
+			name: "parses a 0.5G (gigabyte notation)",
+			args: args{strSize: "0.5G"}, want: 512,
+		},
+		{
+			name: "parses a 8GB (gigabyte notation)",
+			args: args{strSize: "8GB"}, want: 8 * 1024,
+		},
+		{
 			name: "trying to parse 512m returns a failure",
 			args: args{strSize: "512m"},
 			err:  errors.New(`failed to convert "512m" to <size><g>`),
