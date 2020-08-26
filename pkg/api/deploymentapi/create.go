@@ -31,8 +31,16 @@ import (
 type CreateParams struct {
 	*api.API
 
+	// Request from which to create the deployment, by cominging this with
+	// the Overrides fields, certain fields can be overridden centrally through
+	// that struct.
+	//
+	// Additionally, a Request can be generated with depresourceapi.NewPayload()
+	// for more information on that struct, please refer to its godoc.
 	Request *models.DeploymentCreateRequest
 
+	// Optional request_id to be sent in the Create which acts as an idempotency
+	// token.
 	RequestID string
 
 	// PayloadOverrides are used as a definition of values which want to
