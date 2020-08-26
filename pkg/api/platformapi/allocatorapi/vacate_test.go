@@ -23,10 +23,13 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"net/url"
 	"reflect"
 	"regexp"
 	"testing"
 	"time"
+
+	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
@@ -546,6 +549,7 @@ func TestCheckVacateFailures(t *testing.T) {
 	type args struct {
 		failures      *models.MoveClustersDetails
 		clusterFilter []string
+		id            string
 	}
 	tests := []struct {
 		name string
@@ -565,6 +569,7 @@ func TestCheckVacateFailures(t *testing.T) {
 		{
 			name: "Returns an elasticsearch error on ES vacate failure",
 			args: args{
+				id: "some-allocator-id",
 				failures: &models.MoveClustersDetails{
 					ElasticsearchClusters: []*models.MoveElasticsearchClusterDetails{
 						{
@@ -579,13 +584,18 @@ func TestCheckVacateFailures(t *testing.T) {
 					},
 				},
 			},
-			err: multierror.NewPrefixed("vacate error",
-				errors.New("resource id [123456789][elasticsearch] failed vacating, reason: code: unknown, message: a message"),
-			),
+			err: multierror.NewPrefixed("vacate error", VacateError{
+				AllocatorID: "some-allocator-id",
+				ResourceID:  "123456789",
+				Kind:        util.Elasticsearch,
+				Ctx:         "failed vacating",
+				Err:         errors.New("a message (unknown)"),
+			}),
 		},
 		{
 			name: "Returns a kibana error on Kibana vacate failure",
 			args: args{
+				id: "some-allocator-id",
 				failures: &models.MoveClustersDetails{
 					KibanaClusters: []*models.MoveKibanaClusterDetails{
 						{
@@ -600,13 +610,18 @@ func TestCheckVacateFailures(t *testing.T) {
 					},
 				},
 			},
-			err: multierror.NewPrefixed("vacate error",
-				errors.New("resource id [123456789][kibana] failed vacating, reason: code: unknown, message: a kibana error message"),
-			),
+			err: multierror.NewPrefixed("vacate error", VacateError{
+				AllocatorID: "some-allocator-id",
+				ResourceID:  "123456789",
+				Kind:        util.Kibana,
+				Ctx:         "failed vacating",
+				Err:         errors.New("a kibana error message (unknown)"),
+			}),
 		},
 		{
 			name: "Returns an error on APM vacate failure",
 			args: args{
+				id: "some-allocator-id",
 				failures: &models.MoveClustersDetails{
 					ApmClusters: []*models.MoveApmClusterDetails{
 						{
@@ -621,13 +636,18 @@ func TestCheckVacateFailures(t *testing.T) {
 					},
 				},
 			},
-			err: multierror.NewPrefixed("vacate error",
-				errors.New("resource id [123456789][apm] failed vacating, reason: code: unknown, message: an apm error message"),
-			),
+			err: multierror.NewPrefixed("vacate error", VacateError{
+				AllocatorID: "some-allocator-id",
+				ResourceID:  "123456789",
+				Kind:        util.Apm,
+				Ctx:         "failed vacating",
+				Err:         errors.New("an apm error message (unknown)"),
+			}),
 		},
 		{
 			name: "Returns an error on App Search vacate failure",
 			args: args{
+				id: "some-allocator-id",
 				failures: &models.MoveClustersDetails{
 					AppsearchClusters: []*models.MoveAppSearchDetails{
 						{
@@ -635,20 +655,25 @@ func TestCheckVacateFailures(t *testing.T) {
 							Errors: []*models.BasicFailedReplyElement{
 								{
 									Code:    ec.String("unknown"),
-									Message: ec.String("an apm error message"),
+									Message: ec.String("an appsearch error message"),
 								},
 							},
 						},
 					},
 				},
 			},
-			err: multierror.NewPrefixed("vacate error",
-				errors.New("resource id [123456789][appsearch] failed vacating, reason: code: unknown, message: an apm error message"),
-			),
+			err: multierror.NewPrefixed("vacate error", VacateError{
+				AllocatorID: "some-allocator-id",
+				ResourceID:  "123456789",
+				Kind:        util.Appsearch,
+				Ctx:         "failed vacating",
+				Err:         errors.New("an appsearch error message (unknown)"),
+			}),
 		},
 		{
 			name: "Returns an elasticsearch & kibana error on multiple ES & Kibana vacate failures",
 			args: args{
+				id: "some-allocator-id",
 				failures: &models.MoveClustersDetails{
 					ElasticsearchClusters: []*models.MoveElasticsearchClusterDetails{
 						{
@@ -675,13 +700,26 @@ func TestCheckVacateFailures(t *testing.T) {
 				},
 			},
 			err: multierror.NewPrefixed("vacate error",
-				errors.New("resource id [123456789][elasticsearch] failed vacating, reason: code: unknown, message: a message"),
-				errors.New("resource id [123456789][kibana] failed vacating, reason: code: unknown, message: a kibana error message"),
+				VacateError{
+					AllocatorID: "some-allocator-id",
+					ResourceID:  "123456789",
+					Kind:        util.Elasticsearch,
+					Ctx:         "failed vacating",
+					Err:         errors.New("a message (unknown)"),
+				},
+				VacateError{
+					AllocatorID: "some-allocator-id",
+					ResourceID:  "123456789",
+					Kind:        util.Kibana,
+					Ctx:         "failed vacating",
+					Err:         errors.New("a kibana error message (unknown)"),
+				},
 			),
 		},
 		{
 			name: "Returns only the clusters specified in the ClusterFilter",
 			args: args{
+				id:            "some-allocator-id",
 				clusterFilter: []string{"1234567890"},
 				failures: &models.MoveClustersDetails{
 					ElasticsearchClusters: []*models.MoveElasticsearchClusterDetails{
@@ -703,14 +741,19 @@ func TestCheckVacateFailures(t *testing.T) {
 					},
 				},
 			},
-			err: multierror.NewPrefixed("vacate error",
-				errors.New("resource id [1234567890][elasticsearch] failed vacating, reason: code: unknown, message: a message"),
-			),
+			err: multierror.NewPrefixed("vacate error", VacateError{
+				AllocatorID: "some-allocator-id",
+				ResourceID:  "1234567890",
+				Kind:        util.Elasticsearch,
+				Ctx:         "failed vacating",
+				Err:         errors.New("a message (unknown)"),
+			}),
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := CheckVacateFailures(tt.args.failures, tt.args.clusterFilter); !reflect.DeepEqual(err, tt.err) {
+			err := CheckVacateFailures(tt.args.failures, tt.args.clusterFilter, tt.args.id)
+			if !assert.Equal(t, tt.err, err) {
 				t.Errorf("CheckVacateFailures() error = %v, wantErr = %v", err, tt.err)
 			}
 		})
@@ -719,19 +762,19 @@ func TestCheckVacateFailures(t *testing.T) {
 
 func TestVacateCluster(t *testing.T) {
 	var errEmptyParams = `allocator : resource id [][]: 6 errors occurred:
-	* api reference is required for the operation
-	* invalid allocator ID 
-	* invalid cluster ID 
-	* invalid kind 
-	* output device cannot be nil
-	* region not specified and is required for this operation
+	* invalid allocator vacate params: api reference is required for the operation
+	* invalid allocator vacate params: invalid allocator ID 
+	* invalid allocator vacate params: invalid cluster ID 
+	* invalid allocator vacate params: invalid kind 
+	* invalid allocator vacate params: output device cannot be nil
+	* invalid allocator vacate params: region not specified and is required for this operation
 
 `
 	var errInvalidParams = `allocator someID: resource id [3ee11eb40eda22cac0cce259625c6734][somethingweird]: 4 errors occurred:
-	* api reference is required for the operation
-	* invalid kind somethingweird
-	* output device cannot be nil
-	* region not specified and is required for this operation
+	* invalid allocator vacate params: api reference is required for the operation
+	* invalid allocator vacate params: invalid kind somethingweird
+	* invalid allocator vacate params: output device cannot be nil
+	* invalid allocator vacate params: region not specified and is required for this operation
 
 `
 	type args struct {
@@ -975,7 +1018,7 @@ func TestVacateCluster(t *testing.T) {
 					ID:             "someID",
 					Region:         "us-east-1",
 					ClusterID:      "2ee11eb40eda22cac0cce259625c6734",
-					Kind:           "enterprise_search",
+					Kind:           util.EnterpriseSearch,
 					Output:         new(output.Device),
 					TrackFrequency: time.Nanosecond,
 					MaxPollRetries: 1,
@@ -985,9 +1028,47 @@ func TestVacateCluster(t *testing.T) {
 					}, "us-east-1")),
 				},
 			},
-			err: multierror.NewPrefixed("vacate error",
-				errors.New("resource id [2ee11eb40eda22cac0cce259625c6734][enterprise_search] failed vacating, reason: code: a code, message: a message"),
-			).Error(),
+			err: multierror.NewPrefixed("vacate error", VacateError{
+				AllocatorID: "someID",
+				ResourceID:  "2ee11eb40eda22cac0cce259625c6734",
+				Kind:        util.EnterpriseSearch,
+				Ctx:         "failed vacating",
+				Err:         errors.New("a message (a code)"),
+			}).Error(),
+		},
+		{
+			name: "Moving enterprise_search instance fails with JSON Output",
+			args: args{
+				buf: new(bytes.Buffer),
+				params: &VacateClusterParams{
+					ID:             "someID",
+					Region:         "us-east-1",
+					ClusterID:      "2ee11eb40eda22cac0cce259625c6734",
+					Kind:           util.EnterpriseSearch,
+					Output:         new(output.Device),
+					OutputFormat:   "json",
+					TrackFrequency: time.Nanosecond,
+					MaxPollRetries: 1,
+					API: discardResponses(newEnterpriseSearchVacateMove(t, "someID", vacateCaseClusterConfig{
+						ID:   "2ee11eb40eda22cac0cce259625c6734",
+						fail: true,
+					}, "us-east-1")),
+				},
+			},
+			err: `{
+  "errors": [
+    {
+      "allocator_id": "someID",
+      "context": "failed vacating",
+      "error": {
+        "message": "a message (a code)"
+      },
+      "kind": "enterprise_search",
+      "resource_id": "2ee11eb40eda22cac0cce259625c6734"
+    }
+  ]
+}
+`,
 		},
 		{
 			name: "Moving kibana instance fails",
@@ -1007,9 +1088,13 @@ func TestVacateCluster(t *testing.T) {
 					}, "us-east-1")),
 				},
 			},
-			err: multierror.NewPrefixed("vacate error",
-				errors.New("resource id [2ee11eb40eda22cac0cce259625c6734][kibana] failed vacating, reason: code: a code, message: a message"),
-			).Error(),
+			err: multierror.NewPrefixed("vacate error", VacateError{
+				AllocatorID: "someID",
+				ResourceID:  "2ee11eb40eda22cac0cce259625c6734",
+				Kind:        util.Kibana,
+				Ctx:         "failed vacating",
+				Err:         errors.New("a message (a code)"),
+			}).Error(),
 		},
 	}
 	for _, tt := range tests {
@@ -1017,7 +1102,7 @@ func TestVacateCluster(t *testing.T) {
 			if tt.args.buf != nil {
 				tt.args.params.Output = output.NewDevice(tt.args.buf)
 			}
-			if err := VacateCluster(tt.args.params); err != nil && err.Error() != tt.err {
+			if err := VacateCluster(tt.args.params); err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Errorf("VacateCluster() error = %v, wantErr %v", err, tt.err)
 			}
 
@@ -1161,7 +1246,17 @@ func Test_newMoveClusterParams(t *testing.T) {
 				Kind:      "elasticsearch",
 				Output:    output.NewDevice(new(bytes.Buffer)),
 			}},
-			err: errors.New(`allocator allocator-1: resource id [3ee11eb40eda22cac0cce259625c6734][elasticsearch]: validate_only: Post https://mock.elastic.co/api/v1/regions/us-east-1/platform/infrastructure/allocators/allocator-1/clusters/_move?force_update=false&validate_only=true: unauthorized`),
+			err: VacateError{
+				AllocatorID: "allocator-1",
+				ResourceID:  "3ee11eb40eda22cac0cce259625c6734",
+				Kind:        util.Elasticsearch,
+				Ctx:         "failed obtaining default vacate parameters",
+				Err: &url.Error{
+					Op:  "Post",
+					URL: "https://mock.elastic.co/api/v1/regions/us-east-1/platform/infrastructure/allocators/allocator-1/clusters/_move?force_update=false&validate_only=true",
+					Err: errors.New("unauthorized"),
+				},
+			},
 		},
 		{
 			name: "elasticsearch move succeeds to get parameters on an elasticsearch resource",
@@ -1239,7 +1334,7 @@ func Test_newMoveClusterParams(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := newMoveClusterParams(tt.args.params)
-			if !reflect.DeepEqual(err, tt.err) {
+			if !assert.Equal(t, tt.err, err) {
 				var errMesg string
 				if err != nil {
 					errMesg = err.Error()

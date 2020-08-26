@@ -1,0 +1,32 @@
+{
+  "errors": [
+    {
+      "message": "some"
+    },
+    {
+      "message": "some 2"
+    },
+    {
+      "message": "some 3"
+    },
+    {
+      "Payload": {
+        "errors": [
+          {
+            "code": "clusters.cluster_plan_state_error",
+            "fields": null,
+            "message": "There are running instances"
+          },
+          {
+            "code": "auth.invalid_password",
+            "fields": [
+              "body.password"
+            ],
+            "message": "request password doesn't match the user's password"
+          }
+        ]
+      },
+      "XCloudErrorCodes": ""
+    }
+  ]
+}

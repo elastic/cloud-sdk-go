@@ -18,16 +18,19 @@
 package planutil
 
 import (
-	"fmt"
-	"reflect"
 	"testing"
 	"time"
 
+	"github.com/stretchr/testify/assert"
+
 	"github.com/elastic/cloud-sdk-go/pkg/api"
+	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	"github.com/elastic/cloud-sdk-go/pkg/plan"
 	planmock "github.com/elastic/cloud-sdk-go/pkg/plan/mock"
+	"github.com/elastic/cloud-sdk-go/pkg/util"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
@@ -90,16 +93,24 @@ func TestWait(t *testing.T) {
 				),
 				DeploymentID: deploymentID,
 			}},
-			err: fmt.Errorf(
-				fmt.Sprintf(`deployment [%s] - [elasticsearch][cde7b6b605424a54ce9d56316eab13a1]: caught error: "some nasty  error"`, deploymentID),
-			),
+			err: multierror.NewPrefixed("found deployment plan errors", plan.TrackResponse{
+				DeploymentID: deploymentID,
+				ID:           "cde7b6b605424a54ce9d56316eab13a1",
+				Step:         "plan-completed",
+				Finished:     true,
+				RefID:        "main-elasticsearch",
+				Err:          apierror.JSONError{Message: "some nasty  error"},
+				Kind:         util.Elasticsearch,
+			}),
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			start := time.Now()
-			if err := Wait(tt.args.params); !reflect.DeepEqual(err, tt.err) {
-				t.Errorf("Wait() error = %v, wantErr %v", err, tt.err)
+			if err := Wait(tt.args.params); err != nil {
+				if !assert.EqualError(t, err, tt.err.Error()) {
+					t.Errorf("Wait() error = %v, wantErr %v", err, tt.err)
+				}
 			}
 
 			expectedRunDuration := tt.args.params.Config.PollFrequency * time.Duration(tt.args.params.Config.MaxRetries+1)

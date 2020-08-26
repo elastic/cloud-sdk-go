@@ -26,6 +26,7 @@ import (
 	"github.com/pkg/errors"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
+	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/client/platform_infrastructure"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
@@ -42,11 +43,11 @@ const (
 	PlanPendingMessage = "There is a plan still pending, cancel that or wait for it to complete before restarting"
 )
 
-// Vacate drains allocated cluster nodes away from the allocator list either to
+// Vacate drains allocated resource instances away from the allocator list either to
 // a specific allocator list or we let the constructor decide if that is empty.
-// If clusters is set, it will only move the nodes that are part of those IDs.
-// If kind is specified, it will only move the clusters that match that kind.
-// If none is specified it will add all of the clusters in the allocator.
+// If resources is set, it will only move the instances that are part of those IDs.
+// If kind is specified, it will only move the resources that match that kind.
+// If none is specified it will add all of the resources in the allocator.
 // The maximum concurrent moves is controlled by the Concurrency parameter.
 func Vacate(params *VacateParams) error {
 	if err := params.Validate(); err != nil {
@@ -85,14 +86,15 @@ func Vacate(params *VacateParams) error {
 	}
 
 	var merr = multierror.NewPrefixed("vacate error")
-	if err, ok := validateOnlyErr.(*multierror.Prefixed); ok {
-		for _, e := range err.Errors {
-			merr = merr.Append(e)
-		}
+	unpackMultierror(merr, validateOnlyErr)
+
+	// Wait until all of the items have been processed and unpack the errors
+	// from the pooled vacate calls tos the multierror.
+	if err := waitVacateCompletion(p, hasWork); err != nil {
+		unpackMultierror(merr, err)
 	}
 
-	// Wait until all of the items have been processed
-	return merr.Append(waitVacateCompletion(p, hasWork)).ErrorOrNil()
+	return multierror.WithFormat(merr.ErrorOrNil(), params.OutputFormat)
 }
 
 // moveAllocators ranges over the list of provided allocators and moves the
@@ -119,7 +121,7 @@ func moveAllocators(params *VacateParams, p *pool.Pool) ([]pool.Validator, bool,
 
 // moveNodes moves all of the nodes off the specified allocator
 func moveNodes(id string, params *VacateParams, p *pool.Pool) ([]pool.Validator, bool, error) {
-	var merr = multierror.NewPrefixed(fmt.Sprintf("allocator %s", id))
+	var merr = multierror.NewPrefixed("vacate error")
 	res, err := params.API.V1API.PlatformInfrastructure.MoveClusters(
 		platform_infrastructure.NewMoveClustersParams().
 			WithAllocatorID(id).
@@ -128,12 +130,15 @@ func moveNodes(id string, params *VacateParams, p *pool.Pool) ([]pool.Validator,
 			WithValidateOnly(ec.Bool(true)),
 		params.AuthWriter,
 	)
-
 	if err != nil {
-		return nil, false, merr.Append(api.UnwrapError(err)).ErrorOrNil()
+		return nil, false, merr.Append(VacateError{
+			AllocatorID: id,
+			Err:         api.UnwrapError(err),
+		})
 	}
 
-	if err := CheckVacateFailures(res.Payload.Failures, params.ClusterFilter); err != nil {
+	if err := CheckVacateFailures(res.Payload.Failures, params.ClusterFilter, id); err != nil {
+		// Errors already wrapped in VacateError
 		merr = merr.Append(err)
 	}
 
@@ -169,11 +174,14 @@ func waitVacateCompletion(p *pool.Pool, hasWork bool) error {
 	leftovers, _ := p.Leftovers()
 	for _, lover := range leftovers {
 		if params, ok := lover.(*VacateClusterParams); ok {
-			merr = merr.Append(fmt.Errorf(
-				"allocator %s: resource id [%s][%s]: %s",
-				params.ID, params.ClusterID, params.Kind,
-				"was either cancelled or not processed, follow up accordingly",
-			))
+			merr = merr.Append(VacateError{
+				AllocatorID: params.ID,
+				ResourceID:  params.ClusterID,
+				Kind:        params.Kind,
+				Err: apierror.JSONError{
+					Message: "was either cancelled or not processed, follow up accordingly",
+				},
+			})
 		}
 	}
 
@@ -278,7 +286,7 @@ func newVacateClusterParams(params addAllocatorMovesToPoolParams, id, kind strin
 	}
 }
 
-// VacateClusterInPool vacates a cluster from an allocator, complying
+// VacateClusterInPool vacates a resource from an allocator, complying
 // with the pool.RunFunc signature.
 func VacateClusterInPool(p pool.Validator) error {
 	if p == nil {
@@ -292,7 +300,7 @@ func VacateClusterInPool(p pool.Validator) error {
 	return errors.New("allocator vacate: failed casting parameters to *VacateClusterParams")
 }
 
-// VacateCluster moves a cluster node off an allocator.
+// VacateCluster moves a resource node off an allocator.
 func VacateCluster(params *VacateClusterParams) error {
 	params, err := fillVacateClusterParams(params)
 	if err != nil {
@@ -300,14 +308,14 @@ func VacateCluster(params *VacateClusterParams) error {
 	}
 
 	if err := moveClusterByType(params); err != nil {
-		return err
+		return multierror.WithFormat(err, params.OutputFormat)
 	}
 
 	if params.SkipTracking {
 		return nil
 	}
 
-	return planutil.TrackChange(planutil.TrackChangeParams{
+	err = planutil.TrackChange(planutil.TrackChangeParams{
 		TrackChangeParams: plan.TrackChangeParams{
 			API:              params.API,
 			ResourceID:       params.ClusterID,
@@ -321,6 +329,8 @@ func VacateCluster(params *VacateClusterParams) error {
 		Writer: params.Output,
 		Format: params.OutputFormat,
 	})
+
+	return multierror.WithFormat(err, params.OutputFormat)
 }
 
 // fillVacateClusterParams validates the parameters and fills any missing
@@ -332,7 +342,10 @@ func fillVacateClusterParams(params *VacateClusterParams) (*VacateClusterParams,
 	}
 
 	if err := params.Validate(); err != nil {
-		return nil, wrapVacateError(err, params, "")
+		return nil, multierror.NewPrefixed(fmt.Sprintf(
+			"allocator %s: resource id [%s][%s]",
+			params.ID, params.ClusterID, params.Kind), err,
+		)
 	}
 
 	if params.AllocatorDown == nil {
@@ -340,7 +353,13 @@ func fillVacateClusterParams(params *VacateClusterParams) (*VacateClusterParams,
 			GetParams{API: params.API, ID: params.ID, Region: params.Region},
 		)
 		if err != nil {
-			return nil, wrapVacateError(err, params, "allocator health autodiscovery")
+			return nil, VacateError{
+				AllocatorID: params.ID,
+				ResourceID:  params.ClusterID,
+				Kind:        params.Kind,
+				Ctx:         "allocator health autodiscovery",
+				Err:         err,
+			}
 		}
 		if alloc.Status != nil {
 			params.AllocatorDown = ec.Bool(!*alloc.Status.Connected || !*alloc.Status.Healthy)
@@ -358,34 +377,6 @@ func fillVacateClusterParams(params *VacateClusterParams) (*VacateClusterParams,
 	return params, nil
 }
 
-// returns a wrapping message from the VacateClusterParams
-func wrapVacateError(err error, params *VacateClusterParams, ctx string) error {
-	if params == nil {
-		return nil
-	}
-
-	if err == nil {
-		return nil
-	}
-
-	prefix := fmt.Sprintf("allocator %s: resource id [%s][%s]",
-		params.ID, params.ClusterID, params.Kind)
-
-	if merr, ok := err.(*multierror.Prefixed); ok {
-		if len(merr.Errors) == 1 {
-			err = fmt.Errorf("%s: %s", merr.Prefix, merr.Errors[0])
-		} else {
-			merr.Prefix = prefix
-			return merr
-		}
-	}
-
-	if ctx != "" {
-		return fmt.Errorf("%s: %s: %s", prefix, ctx, err)
-	}
-	return fmt.Errorf("%s: %s", prefix, err)
-}
-
 // newMoveClusterParams
 func newMoveClusterParams(params *VacateClusterParams) (*platform_infrastructure.MoveClustersByTypeParams, error) {
 	res, err := params.API.V1API.PlatformInfrastructure.MoveClusters(
@@ -398,7 +389,13 @@ func newMoveClusterParams(params *VacateClusterParams) (*platform_infrastructure
 		params.AuthWriter,
 	)
 	if err != nil {
-		return nil, wrapVacateError(api.UnwrapError(err), params, "validate_only")
+		return nil, VacateError{
+			AllocatorID: params.ID,
+			ResourceID:  params.ClusterID,
+			Kind:        params.Kind,
+			Ctx:         "failed obtaining default vacate parameters",
+			Err:         api.UnwrapError(err),
+		}
 	}
 
 	req := ComputeVacateRequest(res.Payload.Moves,
@@ -436,7 +433,7 @@ func newMoveClusterParams(params *VacateClusterParams) (*platform_infrastructure
 	return moveParams, nil
 }
 
-// moveClusterByType moves a cluster's node from its allocator
+// moveClusterByType moves a resource's node from its allocator
 func moveClusterByType(params *VacateClusterParams) error {
 	moveParams, err := newMoveClusterParams(params)
 	if err != nil {
@@ -444,27 +441,34 @@ func moveClusterByType(params *VacateClusterParams) error {
 	}
 
 	res, err := params.API.V1API.PlatformInfrastructure.MoveClustersByType(
-		moveParams,
-		params.AuthWriter,
+		moveParams, params.AuthWriter,
 	)
 
 	if err != nil {
-		return wrapVacateError(api.UnwrapError(err), params, "resource move")
+		return VacateError{
+			AllocatorID: params.ID,
+			ResourceID:  params.ClusterID,
+			Kind:        params.Kind,
+			Ctx:         "resource move API call error",
+			Err:         api.UnwrapError(err),
+		}
 	}
 
-	return CheckVacateFailures(res.Payload.Failures, params.ClusterFilter)
+	return CheckVacateFailures(res.Payload.Failures, params.ClusterFilter, params.ID)
 }
 
-// CheckVacateFailures iterates over the list of failures returning
-// a multierror with any of the failures found.
+// CheckVacateFailures iterates over the list of failures returning a multierror
+// of VacateError if any of failures are found.
 //
 // nolint because of the complexity score here
-func CheckVacateFailures(failures *models.MoveClustersDetails, filter []string) error {
+func CheckVacateFailures(failures *models.MoveClustersDetails, filter []string, allocatorID string) error {
 	if failures == nil {
 		return nil
 	}
 
 	var merr = multierror.NewPrefixed("vacate error")
+	const errMsgFmt = "%s (%s)"
+	const errCtx = "failed vacating"
 	for _, failure := range failures.ElasticsearchClusters {
 		if len(filter) > 0 && !slice.HasString(filter, *failure.ClusterID) {
 			continue
@@ -473,14 +477,16 @@ func CheckVacateFailures(failures *models.MoveClustersDetails, filter []string) 
 		var ferr error
 		if len(failure.Errors) > 0 {
 			var err = failure.Errors[0]
-			ferr = fmt.Errorf("code: %s, message: %s", *err.Code, *err.Message)
+			ferr = fmt.Errorf("%s (%s)", *err.Message, *err.Code)
 		}
 		if !strings.Contains(ferr.Error(), PlanPendingMessage) {
-			merr = merr.Append(
-				fmt.Errorf("resource id [%s][elasticsearch] failed vacating, reason: %s",
-					*failure.ClusterID, ferr,
-				),
-			)
+			merr = merr.Append(VacateError{
+				AllocatorID: allocatorID,
+				ResourceID:  *failure.ClusterID,
+				Kind:        util.Elasticsearch,
+				Ctx:         errCtx,
+				Err:         ferr,
+			})
 		}
 	}
 
@@ -492,13 +498,17 @@ func CheckVacateFailures(failures *models.MoveClustersDetails, filter []string) 
 		var ferr error
 		if len(failure.Errors) > 0 {
 			var err = failure.Errors[0]
-			ferr = fmt.Errorf("code: %s, message: %s", *err.Code, *err.Message)
+			ferr = fmt.Errorf("%s (%s)", *err.Message, *err.Code)
 		}
 
 		if !strings.Contains(ferr.Error(), PlanPendingMessage) {
-			merr = merr.Append(
-				fmt.Errorf("resource id [%s][kibana] failed vacating, reason: %s", *failure.ClusterID, ferr),
-			)
+			merr = merr.Append(VacateError{
+				AllocatorID: allocatorID,
+				ResourceID:  *failure.ClusterID,
+				Kind:        util.Kibana,
+				Ctx:         errCtx,
+				Err:         ferr,
+			})
 		}
 	}
 
@@ -510,13 +520,17 @@ func CheckVacateFailures(failures *models.MoveClustersDetails, filter []string) 
 		var ferr error
 		if len(failure.Errors) > 0 {
 			var err = failure.Errors[0]
-			ferr = fmt.Errorf("code: %s, message: %s", *err.Code, *err.Message)
+			ferr = fmt.Errorf("%s (%s)", *err.Message, *err.Code)
 		}
 
 		if !strings.Contains(ferr.Error(), PlanPendingMessage) {
-			merr = merr.Append(
-				fmt.Errorf("resource id [%s][apm] failed vacating, reason: %s", *failure.ClusterID, ferr),
-			)
+			merr = merr.Append(VacateError{
+				AllocatorID: allocatorID,
+				ResourceID:  *failure.ClusterID,
+				Kind:        util.Apm,
+				Ctx:         errCtx,
+				Err:         ferr,
+			})
 		}
 	}
 
@@ -528,13 +542,17 @@ func CheckVacateFailures(failures *models.MoveClustersDetails, filter []string) 
 		var ferr error
 		if len(failure.Errors) > 0 {
 			var err = failure.Errors[0]
-			ferr = fmt.Errorf("code: %s, message: %s", *err.Code, *err.Message)
+			ferr = fmt.Errorf("%s (%s)", *err.Message, *err.Code)
 		}
 
 		if !strings.Contains(ferr.Error(), PlanPendingMessage) {
-			merr = merr.Append(
-				fmt.Errorf("resource id [%s][appsearch] failed vacating, reason: %s", *failure.ClusterID, ferr),
-			)
+			merr = merr.Append(VacateError{
+				AllocatorID: allocatorID,
+				ResourceID:  *failure.ClusterID,
+				Kind:        util.Appsearch,
+				Ctx:         errCtx,
+				Err:         ferr,
+			})
 		}
 	}
 
@@ -546,27 +564,31 @@ func CheckVacateFailures(failures *models.MoveClustersDetails, filter []string) 
 		var ferr error
 		if len(failure.Errors) > 0 {
 			var err = failure.Errors[0]
-			ferr = fmt.Errorf("code: %s, message: %s", *err.Code, *err.Message)
+			ferr = fmt.Errorf("%s (%s)", *err.Message, *err.Code)
 		}
 
 		if !strings.Contains(ferr.Error(), PlanPendingMessage) {
-			merr = merr.Append(
-				fmt.Errorf("resource id [%s][enterprise_search] failed vacating, reason: %s", *failure.ClusterID, ferr),
-			)
+			merr = merr.Append(VacateError{
+				AllocatorID: allocatorID,
+				ResourceID:  *failure.ClusterID,
+				Kind:        util.EnterpriseSearch,
+				Ctx:         errCtx,
+				Err:         ferr,
+			})
 		}
 	}
 
 	return merr.ErrorOrNil()
 }
 
-// ComputeVacateRequest filters the tentative cluster that would be moved and
+// ComputeVacateRequest filters the tentative resources that would be moved and
 // filters those by ID if it's specified, also setting any preferred allocators
-// if that is sent. Any cluster plan overrides will be set in this function.
+// if that is sent. Any resource plan overrides will be set in this function.
 // nolint due to complexity
-func ComputeVacateRequest(pr *models.MoveClustersDetails, clusters, to []string, overrides PlanOverrides) *models.MoveClustersRequest {
+func ComputeVacateRequest(pr *models.MoveClustersDetails, resources, to []string, overrides PlanOverrides) *models.MoveClustersRequest {
 	var req models.MoveClustersRequest
 	for _, c := range pr.ElasticsearchClusters {
-		if len(clusters) > 0 && !slice.HasString(clusters, *c.ClusterID) {
+		if len(resources) > 0 && !slice.HasString(resources, *c.ClusterID) {
 			continue
 		}
 
@@ -592,7 +614,7 @@ func ComputeVacateRequest(pr *models.MoveClustersDetails, clusters, to []string,
 	}
 
 	for _, c := range pr.KibanaClusters {
-		if len(clusters) > 0 && !slice.HasString(clusters, *c.ClusterID) {
+		if len(resources) > 0 && !slice.HasString(resources, *c.ClusterID) {
 			continue
 		}
 
@@ -606,7 +628,7 @@ func ComputeVacateRequest(pr *models.MoveClustersDetails, clusters, to []string,
 	}
 
 	for _, c := range pr.ApmClusters {
-		if len(clusters) > 0 && !slice.HasString(clusters, *c.ClusterID) {
+		if len(resources) > 0 && !slice.HasString(resources, *c.ClusterID) {
 			continue
 		}
 
@@ -620,7 +642,7 @@ func ComputeVacateRequest(pr *models.MoveClustersDetails, clusters, to []string,
 	}
 
 	for _, c := range pr.AppsearchClusters {
-		if len(clusters) > 0 && !slice.HasString(clusters, *c.ClusterID) {
+		if len(resources) > 0 && !slice.HasString(resources, *c.ClusterID) {
 			continue
 		}
 
@@ -634,7 +656,7 @@ func ComputeVacateRequest(pr *models.MoveClustersDetails, clusters, to []string,
 	}
 
 	for _, c := range pr.EnterpriseSearchClusters {
-		if len(clusters) > 0 && !slice.HasString(clusters, *c.ClusterID) {
+		if len(resources) > 0 && !slice.HasString(resources, *c.ClusterID) {
 			continue
 		}
 
@@ -650,13 +672,21 @@ func ComputeVacateRequest(pr *models.MoveClustersDetails, clusters, to []string,
 	return &req
 }
 
-// unpackMultierror transforms a multierror to a multierror.Prefixed
+// unpackMultierror transforms a appends the individual errors to a multierror.Prefixed.
 func unpackMultierror(merr *multierror.Prefixed, err error) {
-	if e, ok := err.(*hashimultierror.Error); ok {
-		for _, v := range e.Errors {
+	var hashimerr *hashimultierror.Error
+	if errors.As(err, &hashimerr) {
+		for _, v := range hashimerr.Errors {
 			_ = merr.Append(v)
 		}
 		return
 	}
+
+	var prefixed *multierror.Prefixed
+	if errors.As(err, &prefixed) {
+		merr.Errors = append(merr.Errors, prefixed.Errors...)
+		return
+	}
+
 	_ = merr.Append(err)
 }

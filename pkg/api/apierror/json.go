@@ -15,31 +15,19 @@
 // specific language governing permissions and limitations
 // under the License.
 
-package multierror
+package apierror
 
-import (
-	"errors"
-	"fmt"
-	"io"
-	"os"
-)
-
-var output io.Writer = os.Stdout
-
-func ExamplePrefixed() {
-	err := NewPrefixed("config validation")
-	err = err.Append(errors.New("some validation error"))
-
-	if err.ErrorOrNil() != nil {
-		fmt.Fprintln(output, err)
-	}
+// JSONError wraps any incoming error inside this struct so that it can be
+// correctly  marshaled to JSON. If Error() is called, the error is still
+// returned in a string format.
+type JSONError struct {
+	Message string `json:"message,omitempty"`
 }
 
-func ExamplePrefixed_json() {
-	err := NewPrefixed("config validation")
-	err = err.Append(errors.New("some validation error"))
+// Error complies with the error interface
+func (me JSONError) Error() string { return me.Message }
 
-	if err.ErrorOrNil() != nil {
-		fmt.Fprintln(output, WithFormat(err, "json"))
-	}
+// NewJSONError creates a marshaleable error from an error.
+func NewJSONError(err error) error {
+	return JSONError{Message: err.Error()}
 }

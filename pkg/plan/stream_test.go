@@ -20,11 +20,14 @@ package plan
 import (
 	"bytes"
 	"errors"
-	"reflect"
 	"testing"
 	"time"
 
 	"github.com/go-openapi/strfmt"
+	"github.com/stretchr/testify/assert"
+
+	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
+	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 )
 
 var planStepLogErrorMessage = "Unexpected error during step: [perform-snapshot]: [no.found.constructor.models.TimeoutException: Timeout]"
@@ -37,26 +40,14 @@ func sendTrackResponses(responses []TrackResponse, c chan<- TrackResponse) {
 	close(c)
 }
 
+func newJSONMerr(errs ...error) error {
+	return multierror.WithFormat(multierror.NewPrefixed(
+		"found deployment plan errors", errs...,
+	), "json")
+}
+
 func TestStream(t *testing.T) {
-	// nolint
-	var sucessESLegacyFmt = `
-Cluster [1234567890][Elasticseach]: running step "step1" (Plan duration 1s)...
-Cluster [1234567890][Elasticseach]: running step "step2" (Plan duration 2s)...
-[92;mCluster [1234567890][Elasticseach]: finished running all the plan steps[0m (Total plan duration: 3s)
-`[1:]
-	// nolint
-	var failureESLegacyFmt = `
-Cluster [1234567890][Elasticseach]: running step "step1" (Plan duration 1s)...
-Cluster [1234567890][Elasticseach]: running step "step2" (Plan duration 2s)...
-[91;1mCluster [1234567890][Elasticseach]: caught error: "Unexpected error during step: [perform-snapshot]: [no.found.constructor.models.TimeoutException: Timeout]"[0m (Total plan duration: 3s)
-`[1:]
-	// nolint
-	var failureInPlanESLegacyFmt = `
-Cluster [1234567890][Elasticseach]: running step "step1" (Plan duration 1s)...
-Cluster [1234567890][Elasticseach]: running step "step2" (Plan duration 2s)...
-Cluster [1234567890][Elasticseach]: running step "step2" caught error: "Unexpected error during step: [perform-snapshot]: [no.found.constructor.models.TimeoutException: Timeout]" (Plan duration 3s)...
-[91;1mCluster [1234567890][Elasticseach]: caught error: "Unexpected error during step: [perform-snapshot]: [no.found.constructor.models.TimeoutException: Timeout]"[0m (Total plan duration: 4s)
-`[1:]
+	var planError = apierror.JSONError{Message: "Unexpected error during step: [perform-snapshot]: [no.found.constructor.models.TimeoutException: Timeout]"}
 	// nolint
 	var sucessESFmt = `
 Deployment [0987654321] - [Elasticseach][1234567890]: running step "step1" (Plan duration 1s)...
@@ -85,108 +76,6 @@ Deployment [0987654321] - [Elasticseach][1234567890]: running step "step2" caugh
 		wantDevice string
 		err        error
 	}{
-		{
-			name: "Stream succeeds with successful finish (legacy)",
-			args: args{
-				contents: []TrackResponse{
-					{
-						ID:       "1234567890",
-						Kind:     "elasticseach",
-						Step:     "step1",
-						Finished: false,
-						Duration: strfmt.Duration(time.Second),
-					},
-					{
-						ID:       "1234567890",
-						Kind:     "elasticseach",
-						Step:     "step2",
-						Finished: false,
-						Duration: strfmt.Duration(time.Second * 2),
-					},
-					{
-						ID:       "1234567890",
-						Kind:     "elasticseach",
-						Step:     planCompleted,
-						Finished: true,
-						Duration: strfmt.Duration(time.Second * 3),
-					},
-				},
-			},
-			// nolint
-			wantDevice: sucessESLegacyFmt,
-		},
-		{
-			name: "Stream succeeds with error finish (legacy)",
-			args: args{
-				contents: []TrackResponse{
-					{
-						ID:       "1234567890",
-						Kind:     "elasticseach",
-						Step:     "step1",
-						Finished: false,
-						Duration: strfmt.Duration(time.Second),
-					},
-					{
-						ID:       "1234567890",
-						Kind:     "elasticseach",
-						Step:     "step2",
-						Finished: false,
-						Duration: strfmt.Duration(time.Second * 2),
-					},
-					{
-						ID:       "1234567890",
-						Kind:     "elasticseach",
-						Step:     "step2",
-						Finished: true,
-						Err:      errors.New(planStepLogErrorMessage),
-						Duration: strfmt.Duration(time.Second * 3),
-					},
-				},
-			},
-			err: errors.New("cluster [1234567890][elasticseach] Unexpected error during step: [perform-snapshot]: [no.found.constructor.models.TimeoutException: Timeout]"),
-			//nolint
-			wantDevice: failureESLegacyFmt,
-		},
-		{
-			name: "Stream succeeds with error finish and step error (legacy)",
-			args: args{
-				contents: []TrackResponse{
-					{
-						ID:       "1234567890",
-						Kind:     "elasticseach",
-						Step:     "step1",
-						Finished: false,
-						Duration: strfmt.Duration(time.Second),
-					},
-					{
-						ID:       "1234567890",
-						Kind:     "elasticseach",
-						Step:     "step2",
-						Finished: false,
-						Duration: strfmt.Duration(time.Second * 2),
-					},
-					{
-						ID:       "1234567890",
-						Kind:     "elasticseach",
-						Step:     "step2",
-						Finished: false,
-						Err:      errors.New(planStepLogErrorMessage),
-						Duration: strfmt.Duration(time.Second * 3),
-					},
-					{
-						ID:       "1234567890",
-						Kind:     "elasticseach",
-						Step:     "step2",
-						Finished: true,
-						Err:      errors.New(planStepLogErrorMessage),
-						Duration: strfmt.Duration(time.Second * 4),
-					},
-				},
-			},
-			err: errors.New("cluster [1234567890][elasticseach] Unexpected error during step: [perform-snapshot]: [no.found.constructor.models.TimeoutException: Timeout]"),
-			//nolint
-			wantDevice: failureInPlanESLegacyFmt,
-		},
 		{
 			name: "Stream succeeds with successful finish",
 			args: args{
@@ -257,7 +146,17 @@ Deployment [0987654321] - [Elasticseach][1234567890]: running step "step2" caugh
 					},
 				},
 			},
-			err: errors.New(`deployment [0987654321] - [elasticseach][1234567890]: caught error: "Unexpected error during step: [perform-snapshot]: [no.found.constructor.models.TimeoutException: Timeout]"`),
+			err: multierror.NewPrefixed("found deployment plan errors", TrackResponse{
+				ID:           "1234567890",
+				Kind:         "elasticseach",
+				Step:         "step2",
+				Err:          planError,
+				DeploymentID: "0987654321",
+				RefID:        "main-elasticsearch",
+				Duration:     3000000000,
+				Finished:     true,
+				runningStep:  false,
+			}),
 			//nolint
 			wantDevice: failureESFmt,
 		},
@@ -305,7 +204,17 @@ Deployment [0987654321] - [Elasticseach][1234567890]: running step "step2" caugh
 					},
 				},
 			},
-			err: errors.New(`deployment [0987654321] - [elasticseach][1234567890]: caught error: "Unexpected error during step: [perform-snapshot]: [no.found.constructor.models.TimeoutException: Timeout]"`),
+			err: multierror.NewPrefixed("found deployment plan errors", TrackResponse{
+				ID:           "1234567890",
+				Kind:         "elasticseach",
+				Step:         "step2",
+				Err:          planError,
+				DeploymentID: "0987654321",
+				RefID:        "main-elasticsearch",
+				Duration:     4000000000,
+				Finished:     true,
+				runningStep:  false,
+			}),
 			//nolint
 			wantDevice: failureInPlanESFmt,
 		},
@@ -317,10 +226,11 @@ Deployment [0987654321] - [Elasticseach][1234567890]: running step "step2" caugh
 
 			// Simulate sender
 			go sendTrackResponses(tt.args.contents, channel)
-			err := Stream(channel, device)
-			if !reflect.DeepEqual(err, tt.err) {
+
+			if err := Stream(channel, device); !assert.Equal(t, tt.err, err) {
 				t.Errorf("Stream() error = \n%v, want \n%v", err, tt.err)
 			}
+
 			if gotDevice := device.String(); gotDevice != tt.wantDevice {
 				t.Errorf("Stream() = \n%v, want \n%v", gotDevice, tt.wantDevice)
 			}
@@ -329,17 +239,20 @@ Deployment [0987654321] - [Elasticseach][1234567890]: running step "step2" caugh
 }
 
 func TestStreamJSON(t *testing.T) {
+	var planError = apierror.JSONError{Message: "Unexpected error during step: [perform-snapshot]: [no.found.constructor.models.TimeoutException: Timeout]"}
 	var wantPrettyOut = `
 {
   "id": "1234567890",
   "kind": "elasticseach",
   "step": "step1",
+  "deployment_id": "0987654321",
   "duration": "1s"
 }
 {
   "id": "1234567890",
   "kind": "elasticseach",
   "step": "step2",
+  "deployment_id": "0987654321",
   "duration": "2s"
 }
 {
@@ -349,6 +262,7 @@ func TestStreamJSON(t *testing.T) {
   "err": {
     "message": "Unexpected error during step: [perform-snapshot]: [no.found.constructor.models.TimeoutException: Timeout]"
   },
+  "deployment_id": "0987654321",
   "duration": "3s"
 }
 {
@@ -358,14 +272,11 @@ func TestStreamJSON(t *testing.T) {
   "err": {
     "message": "Unexpected error during step: [perform-snapshot]: [no.found.constructor.models.TimeoutException: Timeout]"
   },
+  "deployment_id": "0987654321",
+  "ref_id": "main-elasticsearch",
   "duration": "4s",
   "finished": true
 }
-`[1:]
-	var wantSucessLegacy = `
-{"id":"1234567890","kind":"elasticseach","step":"step1","duration":"1s"}
-{"id":"1234567890","kind":"elasticseach","step":"step2","duration":"2s"}
-{"id":"1234567890","kind":"elasticseach","step":"plan-completed","duration":"3s","finished":true}
 `[1:]
 	var wantSucess = `
 {"id":"1234567890","kind":"elasticseach","step":"step1","deployment_id":"0987654321","ref_id":"main-elasticsearch","duration":"1s"}
@@ -373,15 +284,15 @@ func TestStreamJSON(t *testing.T) {
 {"id":"1234567890","kind":"elasticseach","step":"plan-completed","deployment_id":"0987654321","ref_id":"main-elasticsearch","duration":"3s","finished":true}
 `[1:]
 	var wantSuccessWithErrCatch = `
-{"id":"1234567890","kind":"elasticseach","step":"step1","duration":"1s"}
-{"id":"1234567890","kind":"elasticseach","step":"step2","duration":"2s"}
-{"id":"1234567890","kind":"elasticseach","step":"step2","err":{"message":"Unexpected error during step: [perform-snapshot]: [no.found.constructor.models.TimeoutException: Timeout]"},"duration":"3s"}
-{"id":"1234567890","kind":"elasticseach","step":"step2","err":{"message":"Unexpected error during step: [perform-snapshot]: [no.found.constructor.models.TimeoutException: Timeout]"},"duration":"4s","finished":true}
+{"id":"1234567890","kind":"elasticseach","step":"step1","deployment_id":"0987654321","duration":"1s"}
+{"id":"1234567890","kind":"elasticseach","step":"step2","deployment_id":"0987654321","duration":"2s"}
+{"id":"1234567890","kind":"elasticseach","step":"step2","err":{"message":"Unexpected error during step: [perform-snapshot]: [no.found.constructor.models.TimeoutException: Timeout]"},"deployment_id":"0987654321","duration":"3s"}
+{"id":"1234567890","kind":"elasticseach","step":"step2","err":{"message":"Unexpected error during step: [perform-snapshot]: [no.found.constructor.models.TimeoutException: Timeout]"},"deployment_id":"0987654321","ref_id":"main-elasticsearch","duration":"4s","finished":true}
 `[1:]
 	var wantSuccessWithErrFinish = `
-{"id":"1234567890","kind":"elasticseach","step":"step1","duration":"1s"}
-{"id":"1234567890","kind":"elasticseach","step":"step2","duration":"2s"}
-{"id":"1234567890","kind":"elasticseach","step":"step2","err":{"message":"Unexpected error during step: [perform-snapshot]: [no.found.constructor.models.TimeoutException: Timeout]"},"duration":"3s","finished":true}
+{"id":"1234567890","kind":"elasticseach","step":"step1","deployment_id":"0987654321","duration":"1s"}
+{"id":"1234567890","kind":"elasticseach","step":"step2","deployment_id":"0987654321","duration":"2s"}
+{"id":"1234567890","kind":"elasticseach","step":"step2","err":{"message":"Unexpected error during step: [perform-snapshot]: [no.found.constructor.models.TimeoutException: Timeout]"},"deployment_id":"0987654321","ref_id":"main-elasticsearch","duration":"3s","finished":true}
 `[1:]
 	type args struct {
 		contents []TrackResponse
@@ -393,35 +304,6 @@ func TestStreamJSON(t *testing.T) {
 		wantDevice string
 		err        error
 	}{
-		{
-			name: "Stream succeeds with successful finish (legacy)",
-			args: args{
-				contents: []TrackResponse{
-					{
-						ID:       "1234567890",
-						Kind:     "elasticseach",
-						Step:     "step1",
-						Finished: false,
-						Duration: strfmt.Duration(time.Second),
-					},
-					{
-						ID:       "1234567890",
-						Kind:     "elasticseach",
-						Step:     "step2",
-						Finished: false,
-						Duration: strfmt.Duration(time.Second * 2),
-					},
-					{
-						ID:       "1234567890",
-						Kind:     "elasticseach",
-						Step:     planCompleted,
-						Finished: true,
-						Duration: strfmt.Duration(time.Second * 3),
-					},
-				},
-			},
-			wantDevice: wantSucessLegacy,
-		},
 		{
 			name: "Stream succeeds with successful finish",
 			args: args{
@@ -462,30 +344,43 @@ func TestStreamJSON(t *testing.T) {
 			args: args{
 				contents: []TrackResponse{
 					{
-						ID:       "1234567890",
-						Kind:     "elasticseach",
-						Step:     "step1",
-						Finished: false,
-						Duration: strfmt.Duration(time.Second),
+						DeploymentID: "0987654321",
+						ID:           "1234567890",
+						Kind:         "elasticseach",
+						Step:         "step1",
+						Finished:     false,
+						Duration:     strfmt.Duration(time.Second),
 					},
 					{
-						ID:       "1234567890",
-						Kind:     "elasticseach",
-						Step:     "step2",
-						Finished: false,
-						Duration: strfmt.Duration(time.Second * 2),
+						DeploymentID: "0987654321",
+						ID:           "1234567890",
+						Kind:         "elasticseach",
+						Step:         "step2",
+						Finished:     false,
+						Duration:     strfmt.Duration(time.Second * 2),
 					},
 					{
-						ID:       "1234567890",
-						Kind:     "elasticseach",
-						Step:     "step2",
-						Finished: true,
-						Err:      errors.New(planStepLogErrorMessage),
-						Duration: strfmt.Duration(time.Second * 3),
+						DeploymentID: "0987654321",
+						ID:           "1234567890",
+						Kind:         "elasticseach",
+						RefID:        "main-elasticsearch",
+						Step:         "step2",
+						Finished:     true,
+						Err:          errors.New(planStepLogErrorMessage),
+						Duration:     strfmt.Duration(time.Second * 3),
 					},
 				},
 			},
-			err:        errors.New("cluster [1234567890][elasticseach] Unexpected error during step: [perform-snapshot]: [no.found.constructor.models.TimeoutException: Timeout]"),
+			err: newJSONMerr(TrackResponse{
+				ID:           "1234567890",
+				Kind:         "elasticseach",
+				Step:         "step2",
+				Err:          planError,
+				DeploymentID: "0987654321",
+				RefID:        "main-elasticsearch",
+				Duration:     3000000000,
+				Finished:     true,
+			}),
 			wantDevice: wantSuccessWithErrFinish,
 		},
 		{
@@ -493,38 +388,52 @@ func TestStreamJSON(t *testing.T) {
 			args: args{
 				contents: []TrackResponse{
 					{
-						ID:       "1234567890",
-						Kind:     "elasticseach",
-						Step:     "step1",
-						Finished: false,
-						Duration: strfmt.Duration(time.Second),
+						DeploymentID: "0987654321",
+						ID:           "1234567890",
+						Kind:         "elasticseach",
+						Step:         "step1",
+						Finished:     false,
+						Duration:     strfmt.Duration(time.Second),
 					},
 					{
-						ID:       "1234567890",
-						Kind:     "elasticseach",
-						Step:     "step2",
-						Finished: false,
-						Duration: strfmt.Duration(time.Second * 2),
+						DeploymentID: "0987654321",
+						ID:           "1234567890",
+						Kind:         "elasticseach",
+						Step:         "step2",
+						Finished:     false,
+						Duration:     strfmt.Duration(time.Second * 2),
 					},
 					{
-						ID:       "1234567890",
-						Kind:     "elasticseach",
-						Step:     "step2",
-						Finished: false,
-						Err:      errors.New(planStepLogErrorMessage),
-						Duration: strfmt.Duration(time.Second * 3),
+						DeploymentID: "0987654321",
+						ID:           "1234567890",
+						Kind:         "elasticseach",
+						Step:         "step2",
+						Finished:     false,
+						Err:          errors.New(planStepLogErrorMessage),
+						Duration:     strfmt.Duration(time.Second * 3),
 					},
 					{
-						ID:       "1234567890",
-						Kind:     "elasticseach",
-						Step:     "step2",
-						Finished: true,
-						Err:      errors.New(planStepLogErrorMessage),
-						Duration: strfmt.Duration(time.Second * 4),
+						DeploymentID: "0987654321",
+						ID:           "1234567890",
+						Kind:         "elasticseach",
+						RefID:        "main-elasticsearch",
+						Step:         "step2",
+						Finished:     true,
+						Err:          errors.New(planStepLogErrorMessage),
+						Duration:     strfmt.Duration(time.Second * 4),
 					},
 				},
 			},
-			err:        errors.New("cluster [1234567890][elasticseach] Unexpected error during step: [perform-snapshot]: [no.found.constructor.models.TimeoutException: Timeout]"),
+			err: newJSONMerr(TrackResponse{
+				ID:           "1234567890",
+				Kind:         "elasticseach",
+				Step:         "step2",
+				Err:          planError,
+				DeploymentID: "0987654321",
+				RefID:        "main-elasticsearch",
+				Duration:     4000000000,
+				Finished:     true,
+			}),
 			wantDevice: wantSuccessWithErrCatch,
 		},
 		{
@@ -532,39 +441,53 @@ func TestStreamJSON(t *testing.T) {
 			args: args{
 				contents: []TrackResponse{
 					{
-						ID:       "1234567890",
-						Kind:     "elasticseach",
-						Step:     "step1",
-						Finished: false,
-						Duration: strfmt.Duration(time.Second),
+						DeploymentID: "0987654321",
+						ID:           "1234567890",
+						Kind:         "elasticseach",
+						Step:         "step1",
+						Finished:     false,
+						Duration:     strfmt.Duration(time.Second),
 					},
 					{
-						ID:       "1234567890",
-						Kind:     "elasticseach",
-						Step:     "step2",
-						Finished: false,
-						Duration: strfmt.Duration(time.Second * 2),
+						DeploymentID: "0987654321",
+						ID:           "1234567890",
+						Kind:         "elasticseach",
+						Step:         "step2",
+						Finished:     false,
+						Duration:     strfmt.Duration(time.Second * 2),
 					},
 					{
-						ID:       "1234567890",
-						Kind:     "elasticseach",
-						Step:     "step2",
-						Finished: false,
-						Err:      errors.New(planStepLogErrorMessage),
-						Duration: strfmt.Duration(time.Second * 3),
+						DeploymentID: "0987654321",
+						ID:           "1234567890",
+						Kind:         "elasticseach",
+						Step:         "step2",
+						Finished:     false,
+						Err:          errors.New(planStepLogErrorMessage),
+						Duration:     strfmt.Duration(time.Second * 3),
 					},
 					{
-						ID:       "1234567890",
-						Kind:     "elasticseach",
-						Step:     "step2",
-						Finished: true,
-						Err:      errors.New(planStepLogErrorMessage),
-						Duration: strfmt.Duration(time.Second * 4),
+						DeploymentID: "0987654321",
+						ID:           "1234567890",
+						Kind:         "elasticseach",
+						RefID:        "main-elasticsearch",
+						Step:         "step2",
+						Finished:     true,
+						Err:          errors.New(planStepLogErrorMessage),
+						Duration:     strfmt.Duration(time.Second * 4),
 					},
 				},
 				pretty: true,
 			},
-			err:        errors.New("cluster [1234567890][elasticseach] Unexpected error during step: [perform-snapshot]: [no.found.constructor.models.TimeoutException: Timeout]"),
+			err: newJSONMerr(TrackResponse{
+				ID:           "1234567890",
+				Kind:         "elasticseach",
+				Step:         "step2",
+				Err:          planError,
+				DeploymentID: "0987654321",
+				RefID:        "main-elasticsearch",
+				Duration:     4000000000,
+				Finished:     true,
+			}),
 			wantDevice: wantPrettyOut,
 		},
 	}
@@ -576,8 +499,14 @@ func TestStreamJSON(t *testing.T) {
 			// Simulate sender
 			go sendTrackResponses(tt.args.contents, channel)
 			err := StreamJSON(channel, device, tt.args.pretty)
-			if !reflect.DeepEqual(err, tt.err) {
-				t.Errorf("StreamJSON() error = \n%v, want \n%v", err, tt.err)
+			var wantErr string
+			if tt.err != nil {
+				wantErr = tt.err.Error()
+			}
+			if err != nil {
+				if !assert.EqualError(t, err, wantErr) {
+					t.Errorf("StreamJSON() error = \n%v, want \n%v", err, tt.err)
+				}
 			}
 
 			if gotDevice := device.String(); gotDevice != tt.wantDevice {

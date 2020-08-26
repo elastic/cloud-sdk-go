@@ -277,7 +277,7 @@ func TestPrefixed_Error(t *testing.T) {
 					errors.New("some error"),
 				},
 			},
-			want: "prefix: some bogus return",
+			want: "some bogus return",
 		},
 	}
 	for _, tt := range tests {

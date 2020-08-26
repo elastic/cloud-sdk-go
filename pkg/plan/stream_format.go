@@ -17,19 +17,7 @@
 
 package plan
 
-// Legacy cluster format (DEPRECATED, will be removed in a future version)
-const (
-	// legacyStreamFormat with green color
-	legacyStreamFinishFormat = "\x1b[92;mCluster [%s][%s]: finished running all the plan steps\x1b[0m (Total plan duration: %s)\n"
-	// legacyStreamFormatOnError with red color
-	legacyStreamFinishErrFormat = "\x1b[91;1mCluster [%s][%s]: caught error: \"%s\"\x1b[0m (Total plan duration: %s)\n"
-
-	// These formats are used when the plan has not yet finished.
-	legacyStreamFormat    = "Cluster [%s][%s]: running step \"%s\" (Plan duration %s)...\n"
-	legacyStreamErrFormat = "Cluster [%s][%s]: running step \"%s\" caught error: \"%s\" (Plan duration %s)...\n"
-)
-
-// Deployment format (Current).
+// Deployment format.
 const (
 	// streamFinishFormat with green color
 	streamFinishFormat = "\x1b[92;mDeployment [%s] - [%s][%s]: finished running all the plan steps\x1b[0m (Total plan duration: %s)\n"
