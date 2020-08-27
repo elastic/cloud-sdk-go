@@ -26,12 +26,13 @@ import (
 	"strconv"
 
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // DeploymentTemplateInfo The top-level object for a deployment template.
+//
 // swagger:model DeploymentTemplateInfo
 type DeploymentTemplateInfo struct {
 

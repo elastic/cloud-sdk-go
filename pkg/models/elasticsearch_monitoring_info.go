@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ElasticsearchMonitoringInfo Information about the monitoring status for the Elasticsearch cluster.
+//
 // swagger:model ElasticsearchMonitoringInfo
 type ElasticsearchMonitoringInfo struct {
 

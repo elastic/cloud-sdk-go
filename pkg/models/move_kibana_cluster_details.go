@@ -26,12 +26,13 @@ import (
 	"strconv"
 
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // MoveKibanaClusterDetails Information about the Kibana instance that you want to move.
+//
 // swagger:model MoveKibanaClusterDetails
 type MoveKibanaClusterDetails struct {
 

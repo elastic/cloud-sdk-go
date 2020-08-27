@@ -24,11 +24,12 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // TransientAppSearchPlanConfiguration Defines configuration parameters that control how the plan (ie consisting of the cluster topology and AppSearch settings) is applied
+//
 // swagger:model TransientAppSearchPlanConfiguration
 type TransientAppSearchPlanConfiguration struct {
 

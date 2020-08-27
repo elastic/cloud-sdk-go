@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // PublicCertChainCollection Collections of public certificate chains for all the defined extra certificates
+//
 // swagger:model PublicCertChainCollection
 type PublicCertChainCollection struct {
 

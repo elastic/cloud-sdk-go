@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ApmCrudResponse The response to an APM CRUD (create/update-plan) request.
+//
 // swagger:model ApmCrudResponse
 type ApmCrudResponse struct {
 

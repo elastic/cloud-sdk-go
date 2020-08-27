@@ -26,12 +26,13 @@ import (
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // SamlSettings The configuration for the Elasticsearch security SAML realm.
+//
 // swagger:model SamlSettings
 type SamlSettings struct {
 
@@ -247,7 +248,7 @@ const (
 
 // prop value enum
 func (m *SamlSettings) validateSslCertificateURLTruststoreTypeEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, samlSettingsTypeSslCertificateURLTruststoreTypePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, samlSettingsTypeSslCertificateURLTruststoreTypePropEnum, true); err != nil {
 		return err
 	}
 	return nil

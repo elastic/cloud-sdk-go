@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // QueryStringQuery A query that uses the `SimpleQueryParser` for parsing.
+//
 // swagger:model QueryStringQuery
 type QueryStringQuery struct {
 

@@ -26,11 +26,12 @@ import (
 	"strconv"
 
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // StackVersionTemplateInfo The template information for an Elastic Stack version.
+//
 // swagger:model StackVersionTemplateInfo
 type StackVersionTemplateInfo struct {
 

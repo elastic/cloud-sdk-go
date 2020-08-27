@@ -26,12 +26,13 @@ import (
 	"strconv"
 
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // KibanaClusterPlansInfo Information about the current, pending, or past Kibana instance plans.
+//
 // swagger:model KibanaClusterPlansInfo
 type KibanaClusterPlansInfo struct {
 

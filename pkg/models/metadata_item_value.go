@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // MetadataItemValue The value of the metadata item, which is primarily used to add a single item when the key is provided in the URL.
+//
 // swagger:model MetadataItemValue
 type MetadataItemValue struct {
 

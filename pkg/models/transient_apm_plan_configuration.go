@@ -24,11 +24,12 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // TransientApmPlanConfiguration Defines the configuration parameters that control how the plan is applied. For example, the Elasticsearch cluster topology and APM Server settings.
+//
 // swagger:model TransientApmPlanConfiguration
 type TransientApmPlanConfiguration struct {
 

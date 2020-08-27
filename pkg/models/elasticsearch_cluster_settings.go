@@ -24,11 +24,12 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // ElasticsearchClusterSettings The settings for an Elasticsearch cluster.
+//
 // swagger:model ElasticsearchClusterSettings
 type ElasticsearchClusterSettings struct {
 

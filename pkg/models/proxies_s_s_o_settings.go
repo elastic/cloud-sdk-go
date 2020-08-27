@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ProxiesSSOSettings The single sign-on settings for all proxies.
+//
 // swagger:model ProxiesSSOSettings
 type ProxiesSSOSettings struct {
 

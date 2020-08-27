@@ -27,12 +27,13 @@ import (
 	"strconv"
 
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // AppSearchInfo The overview information for the App Search Server.
+//
 // swagger:model AppSearchInfo
 type AppSearchInfo struct {
 
@@ -328,7 +329,7 @@ const (
 
 // prop value enum
 func (m *AppSearchInfo) validateStatusEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, appSearchInfoTypeStatusPropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, appSearchInfoTypeStatusPropEnum, true); err != nil {
 		return err
 	}
 	return nil

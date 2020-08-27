@@ -24,11 +24,12 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // TransientKibanaPlanConfiguration Defines the configuration parameters that control how the plan is applied. For example, the Elasticsearch cluster topology and Kibana instance settings.
+//
 // swagger:model TransientKibanaPlanConfiguration
 type TransientKibanaPlanConfiguration struct {
 

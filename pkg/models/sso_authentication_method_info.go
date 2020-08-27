@@ -26,12 +26,13 @@ import (
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // SsoAuthenticationMethodInfo Specifies the authentication methods that are enabled on the Elasticsearch cluster. NOTE: When all fields are `false`, only the Platform admin and Platform viewer are available.
+//
 // swagger:model SsoAuthenticationMethodInfo
 type SsoAuthenticationMethodInfo struct {
 
@@ -103,7 +104,7 @@ const (
 
 // prop value enum
 func (m *SsoAuthenticationMethodInfo) validateSsoTypeEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, ssoAuthenticationMethodInfoTypeSsoTypePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, ssoAuthenticationMethodInfoTypeSsoTypePropEnum, true); err != nil {
 		return err
 	}
 	return nil

@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // RemoteResourceRef The Elasticsearch resource used as a Remote Cluster.
+//
 // swagger:model RemoteResourceRef
 type RemoteResourceRef struct {
 

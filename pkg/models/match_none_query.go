@@ -23,5 +23,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 // MatchNoneQuery A query that doesn't match any documents.
+//
 // swagger:model MatchNoneQuery
 type MatchNoneQuery interface{}

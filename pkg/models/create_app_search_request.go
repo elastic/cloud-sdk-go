@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // CreateAppSearchRequest The request body for creating an App Search.
+//
 // swagger:model CreateAppSearchRequest
 type CreateAppSearchRequest struct {
 

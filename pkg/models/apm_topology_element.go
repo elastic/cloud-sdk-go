@@ -24,11 +24,12 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // ApmTopologyElement Defines the topology of the APM Server nodes. For example, the number or capacity of the nodes, and where you can allocate the nodes.
+//
 // swagger:model ApmTopologyElement
 type ApmTopologyElement struct {
 

@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // MoveClustersCommandResponse Information about the move operations for the Elasticsearch clusters, multiple Kibana instances, and multiple APM Servers, prior to the move.
+//
 // swagger:model MoveClustersCommandResponse
 type MoveClustersCommandResponse struct {
 

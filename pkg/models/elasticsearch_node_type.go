@@ -23,11 +23,12 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // ElasticsearchNodeType Controls the combinations of Elasticsearch node types. TIP: By default, the Elasticsearch node is master eligible, can hold data, and run ingest pipelines. WARNING: Do not set for tiebreaker topologies.
+//
 // swagger:model ElasticsearchNodeType
 type ElasticsearchNodeType struct {
 

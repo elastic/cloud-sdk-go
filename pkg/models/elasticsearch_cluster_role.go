@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ElasticsearchClusterRole The authorization information for an Elasticsearch cluster user.
+//
 // swagger:model ElasticsearchClusterRole
 type ElasticsearchClusterRole struct {
 

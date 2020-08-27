@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // StackVersionArchiveProcessingError Information about the errors that occurred from processing an Elastic Stack version.
+//
 // swagger:model StackVersionArchiveProcessingError
 type StackVersionArchiveProcessingError struct {
 

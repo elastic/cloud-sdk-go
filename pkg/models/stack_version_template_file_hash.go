@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // StackVersionTemplateFileHash The template file hash for an Elastic Stack version.
+//
 // swagger:model StackVersionTemplateFileHash
 type StackVersionTemplateFileHash struct {
 

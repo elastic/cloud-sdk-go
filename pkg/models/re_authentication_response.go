@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ReAuthenticationResponse The re-authentication response body
+//
 // swagger:model ReAuthenticationResponse
 type ReAuthenticationResponse struct {
 

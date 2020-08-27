@@ -26,12 +26,13 @@ import (
 	"strconv"
 
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ActiveDirectorySecurityRealmRoleMappingRules Elasticsearch Security Active Directory role mapping rule set
+//
 // swagger:model ActiveDirectorySecurityRealmRoleMappingRules
 type ActiveDirectorySecurityRealmRoleMappingRules struct {
 

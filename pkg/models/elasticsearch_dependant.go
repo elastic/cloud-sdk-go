@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ElasticsearchDependant Details about an orphaned Elasticsearch-dependent resources.
+//
 // swagger:model ElasticsearchDependant
 type ElasticsearchDependant struct {
 

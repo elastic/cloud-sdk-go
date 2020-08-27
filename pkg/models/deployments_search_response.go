@@ -26,12 +26,13 @@ import (
 	"strconv"
 
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // DeploymentsSearchResponse Contains a list of Deployments as result of a search request.
+//
 // swagger:model DeploymentsSearchResponse
 type DeploymentsSearchResponse struct {
 

@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // PrefixQuery The query that matches documents with fields that contain terms with a specified, not analyzed, prefix.
+//
 // swagger:model PrefixQuery
 type PrefixQuery struct {
 

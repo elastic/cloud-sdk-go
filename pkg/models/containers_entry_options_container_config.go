@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ContainersEntryOptionsContainerConfig Container config. Roughly corresponds to Docker container config
+//
 // swagger:model ContainersEntryOptionsContainerConfig
 type ContainersEntryOptionsContainerConfig struct {
 

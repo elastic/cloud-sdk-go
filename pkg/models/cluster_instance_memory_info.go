@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ClusterInstanceMemoryInfo Information about the memory capacity and use of the Kibana instance or APM Server.
+//
 // swagger:model ClusterInstanceMemoryInfo
 type ClusterInstanceMemoryInfo struct {
 

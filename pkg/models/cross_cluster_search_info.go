@@ -26,12 +26,13 @@ import (
 	"strconv"
 
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // CrossClusterSearchInfo The cross-cluster search settings and status for the Elasticsearch cluster.
+//
 // swagger:model CrossClusterSearchInfo
 type CrossClusterSearchInfo struct {
 

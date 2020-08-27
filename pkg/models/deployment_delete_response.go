@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // DeploymentDeleteResponse A response returned from the Deployment delete endpoint
+//
 // swagger:model DeploymentDeleteResponse
 type DeploymentDeleteResponse struct {
 

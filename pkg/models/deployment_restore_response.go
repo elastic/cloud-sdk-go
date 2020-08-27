@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // DeploymentRestoreResponse A response returned from the Deployment restore endpoint
+//
 // swagger:model DeploymentRestoreResponse
 type DeploymentRestoreResponse struct {
 

@@ -26,12 +26,13 @@ import (
 	"strconv"
 
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // EnterpriseSearchPlansInfo Information about current, pending, and past Enterprise Search Server plans.
+//
 // swagger:model EnterpriseSearchPlansInfo
 type EnterpriseSearchPlansInfo struct {
 

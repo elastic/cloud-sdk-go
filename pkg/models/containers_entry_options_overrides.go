@@ -24,11 +24,12 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // ContainersEntryOptionsOverrides Overrides for the container allocation.
+//
 // swagger:model ContainersEntryOptionsOverrides
 type ContainersEntryOptionsOverrides struct {
 

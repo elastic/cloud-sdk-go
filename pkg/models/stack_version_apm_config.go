@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // StackVersionApmConfig The APM Server configuration for an Elastic Stack version.
+//
 // swagger:model StackVersionApmConfig
 type StackVersionApmConfig struct {
 

@@ -23,11 +23,12 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // ElasticsearchScriptTypeSettings Enables scripting for the specified type and controls other parameters. Store scripts in indexes (`stored`), upload in file bundles (`file`), or use in API requests (`inline`).
+//
 // swagger:model ElasticsearchScriptTypeSettings
 type ElasticsearchScriptTypeSettings struct {
 

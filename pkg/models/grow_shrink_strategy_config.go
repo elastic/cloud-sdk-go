@@ -23,5 +23,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 // GrowShrinkStrategyConfig A strategy that creates instances with the new plan, migrates data from the old instances, then shuts down the old instances. `GrowShrinkStrategyConfig` is safer than 'rolling' and ensures single node availability during a plan change, but can be a lot slower on larger clusters.
+//
 // swagger:model GrowShrinkStrategyConfig
 type GrowShrinkStrategyConfig interface{}

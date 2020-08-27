@@ -23,5 +23,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 // RollingGrowShrinkStrategyConfig A strategy that creates new Elasticsearch instances, Kibana instances, and APM Servers with the new plan, then migrates the node data to minimize the amount of spare capacity.
+//
 // swagger:model RollingGrowShrinkStrategyConfig
 type RollingGrowShrinkStrategyConfig interface{}

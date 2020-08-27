@@ -26,12 +26,13 @@ import (
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // LdapUserSearch The user search configuration for the Elasticsearch security LDAP realm.
+//
 // swagger:model LdapUserSearch
 type LdapUserSearch struct {
 
@@ -86,7 +87,7 @@ const (
 
 // prop value enum
 func (m *LdapUserSearch) validateScopeEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, ldapUserSearchTypeScopePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, ldapUserSearchTypeScopePropEnum, true); err != nil {
 		return err
 	}
 	return nil

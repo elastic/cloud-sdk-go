@@ -24,11 +24,12 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // SecurityDeploymentUpdateRequest The update request for the Elasticsearch security deployment.
+//
 // swagger:model SecurityDeploymentUpdateRequest
 type SecurityDeploymentUpdateRequest struct {
 

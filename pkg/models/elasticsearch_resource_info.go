@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ElasticsearchResourceInfo Describes an Elasticsearch resource belonging to a Deployment
+//
 // swagger:model ElasticsearchResourceInfo
 type ElasticsearchResourceInfo struct {
 

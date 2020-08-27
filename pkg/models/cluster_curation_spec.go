@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ClusterCurationSpec Specifies the conditions to trigger an Elasticsearch cluster curation.
+//
 // swagger:model ClusterCurationSpec
 type ClusterCurationSpec struct {
 

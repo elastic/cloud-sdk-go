@@ -26,12 +26,13 @@ import (
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ActiveDirectoryGroupSearch Elasticsearch Security Active Directory realm group search configuration
+//
 // swagger:model ActiveDirectoryGroupSearch
 type ActiveDirectoryGroupSearch struct {
 
@@ -83,7 +84,7 @@ const (
 
 // prop value enum
 func (m *ActiveDirectoryGroupSearch) validateScopeEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, activeDirectoryGroupSearchTypeScopePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, activeDirectoryGroupSearchTypeScopePropEnum, true); err != nil {
 		return err
 	}
 	return nil

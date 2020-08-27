@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // CommentWithMeta A persisted Comment along with its metadata
+//
 // swagger:model CommentWithMeta
 type CommentWithMeta struct {
 

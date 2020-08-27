@@ -27,12 +27,13 @@ import (
 	"strconv"
 
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ElasticsearchPlanControlConfiguration The configuration settings for the timeout and fallback parameters.
+//
 // swagger:model ElasticsearchPlanControlConfiguration
 type ElasticsearchPlanControlConfiguration struct {
 
@@ -131,7 +132,7 @@ const (
 
 // prop value enum
 func (m *ElasticsearchPlanControlConfiguration) validateClusterRebootEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, elasticsearchPlanControlConfigurationTypeClusterRebootPropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, elasticsearchPlanControlConfigurationTypeClusterRebootPropEnum, true); err != nil {
 		return err
 	}
 	return nil

@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // CommentUpdateRequest A request for updating an existing Comment
+//
 // swagger:model CommentUpdateRequest
 type CommentUpdateRequest struct {
 

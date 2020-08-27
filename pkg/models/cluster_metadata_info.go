@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ClusterMetadataInfo Information about the public and internal state, and the configuration settings of an Elasticsearch cluster.
+//
 // swagger:model ClusterMetadataInfo
 type ClusterMetadataInfo struct {
 

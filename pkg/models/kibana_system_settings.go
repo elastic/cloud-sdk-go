@@ -23,11 +23,12 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // KibanaSystemSettings A subset of Kibana settings. TIP: To define the complete set of Elasticsearch settings, use `KibanaSystemSettings` with `user_settings_override_` and `user_settings_`.
+//
 // swagger:model KibanaSystemSettings
 type KibanaSystemSettings struct {
 

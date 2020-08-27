@@ -27,12 +27,13 @@ import (
 	"strconv"
 
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ClusterPlanStepInfo Information about a step in a plan.
+//
 // swagger:model ClusterPlanStepInfo
 type ClusterPlanStepInfo struct {
 
@@ -165,7 +166,7 @@ const (
 
 // prop value enum
 func (m *ClusterPlanStepInfo) validateStageEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, clusterPlanStepInfoTypeStagePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, clusterPlanStepInfoTypeStagePropEnum, true); err != nil {
 		return err
 	}
 	return nil
@@ -227,7 +228,7 @@ const (
 
 // prop value enum
 func (m *ClusterPlanStepInfo) validateStatusEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, clusterPlanStepInfoTypeStatusPropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, clusterPlanStepInfoTypeStatusPropEnum, true); err != nil {
 		return err
 	}
 	return nil

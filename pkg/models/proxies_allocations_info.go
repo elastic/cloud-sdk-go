@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ProxiesAllocationsInfo The allocation status for a specified type, such as Elasticsearch, Kibana, or APM. The status is part of the overall proxy health information.
+//
 // swagger:model ProxiesAllocationsInfo
 type ProxiesAllocationsInfo struct {
 

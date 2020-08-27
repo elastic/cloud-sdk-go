@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ClusterMetadataPortInfo Information about the ports that allow communication between the Elasticsearch cluster and various protocols.
+//
 // swagger:model ClusterMetadataPortInfo
 type ClusterMetadataPortInfo struct {
 

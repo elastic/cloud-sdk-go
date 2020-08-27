@@ -24,11 +24,12 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // ClusterInfo A container for information about an Elasticsearch cluster, Kibana instance, or APM Server.
+//
 // swagger:model ClusterInfo
 type ClusterInfo struct {
 

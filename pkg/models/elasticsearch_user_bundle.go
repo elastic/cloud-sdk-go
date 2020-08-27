@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ElasticsearchUserBundle A list of admin-uploaded bundle objects, such as scripts and synonym files.
+//
 // swagger:model ElasticsearchUserBundle
 type ElasticsearchUserBundle struct {
 

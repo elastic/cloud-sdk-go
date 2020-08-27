@@ -26,12 +26,13 @@ import (
 	"strconv"
 
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // StackVersionArchiveProcessingResult The result from processing an archive of an Elastic Stack version.
+//
 // swagger:model StackVersionArchiveProcessingResult
 type StackVersionArchiveProcessingResult struct {
 

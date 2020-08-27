@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // TrafficFilterSettings The configuration settings for the traffic filter.
+//
 // swagger:model TrafficFilterSettings
 type TrafficFilterSettings struct {
 

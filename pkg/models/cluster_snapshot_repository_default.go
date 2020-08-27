@@ -23,5 +23,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 // ClusterSnapshotRepositoryDefault The default object for the Elasticsearch cluster snapshot repository.
+//
 // swagger:model ClusterSnapshotRepositoryDefault
 type ClusterSnapshotRepositoryDefault interface{}

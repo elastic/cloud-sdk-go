@@ -23,11 +23,12 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // StackVersionMetadata The metadata for the Elastic Stack.
+//
 // swagger:model StackVersionMetadata
 type StackVersionMetadata struct {
 

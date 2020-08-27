@@ -24,11 +24,12 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // PlanStrategy The options for performing a plan change. Specify only one property each time. The default is `grow_and_shrink`.
+//
 // swagger:model PlanStrategy
 type PlanStrategy struct {
 

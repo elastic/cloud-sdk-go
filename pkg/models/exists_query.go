@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ExistsQuery Matches documents that have at least one non-`null` value in the original field.
+//
 // swagger:model ExistsQuery
 type ExistsQuery struct {
 

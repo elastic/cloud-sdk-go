@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ElasticsearchShardElement Information about the shards for each Elasticsearch instance container that hosts an Elasticsearch node. TIP: When the shard is unavailable, the cluster is unable to serve all of the data.
+//
 // swagger:model ElasticsearchShardElement
 type ElasticsearchShardElement struct {
 

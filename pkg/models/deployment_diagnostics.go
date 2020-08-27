@@ -24,11 +24,12 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // DeploymentDiagnostics Describes the diagnostics for a given Deployment-modifying payload
+//
 // swagger:model DeploymentDiagnostics
 type DeploymentDiagnostics struct {
 

@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // CreateApmInCreateElasticsearchRequest The request body for creating an APM Server, which is included in the Elasticsearch cluster create request.
+//
 // swagger:model CreateApmInCreateElasticsearchRequest
 type CreateApmInCreateElasticsearchRequest struct {
 

@@ -24,11 +24,12 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // EnterpriseSearchTopologyElement Defines the topology of the Enterprise Search nodes (e.g. number/capacity of nodes, and where they can be allocated)
+//
 // swagger:model EnterpriseSearchTopologyElement
 type EnterpriseSearchTopologyElement struct {
 

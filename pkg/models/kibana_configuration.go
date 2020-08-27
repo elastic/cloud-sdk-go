@@ -24,11 +24,12 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // KibanaConfiguration The Kibana instance settings. When specified at the top level, provides a field-by-field default. When specified at the topology level, provides the override settings.
+//
 // swagger:model KibanaConfiguration
 type KibanaConfiguration struct {
 

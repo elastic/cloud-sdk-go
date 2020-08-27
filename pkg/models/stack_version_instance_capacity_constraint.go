@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // StackVersionInstanceCapacityConstraint The Elasticsearch instance, Kibana instance, APM Server capacity constraints for an Elastic Stack node type.
+//
 // swagger:model StackVersionInstanceCapacityConstraint
 type StackVersionInstanceCapacityConstraint struct {
 

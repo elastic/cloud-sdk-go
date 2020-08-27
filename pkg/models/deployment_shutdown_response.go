@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // DeploymentShutdownResponse A response returned from the Deployment shutdown endpoint
+//
 // swagger:model DeploymentShutdownResponse
 type DeploymentShutdownResponse struct {
 

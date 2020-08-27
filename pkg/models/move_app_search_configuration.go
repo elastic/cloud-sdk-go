@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // MoveAppSearchConfiguration The configuration object for moving App Searches.
+//
 // swagger:model MoveAppSearchConfiguration
 type MoveAppSearchConfiguration struct {
 

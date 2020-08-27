@@ -24,11 +24,12 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // DeploymentSettings Additional configuration about the current deployment object.
+//
 // swagger:model DeploymentSettings
 type DeploymentSettings struct {
 

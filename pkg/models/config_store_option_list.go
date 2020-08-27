@@ -26,12 +26,13 @@ import (
 	"strconv"
 
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ConfigStoreOptionList A list of Config Store values.
+//
 // swagger:model ConfigStoreOptionList
 type ConfigStoreOptionList struct {
 

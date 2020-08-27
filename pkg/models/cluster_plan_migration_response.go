@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ClusterPlanMigrationResponse The response from migrating an Elasticsearch cluster plan to a new template.
+//
 // swagger:model ClusterPlanMigrationResponse
 type ClusterPlanMigrationResponse struct {
 

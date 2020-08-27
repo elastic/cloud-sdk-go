@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // AllocatorsZoneSummary Summary of the allocators for the specified zone.
+//
 // swagger:model AllocatorsZoneSummary
 type AllocatorsZoneSummary struct {
 

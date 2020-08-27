@@ -24,11 +24,12 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // SearchRequest An Elasticsearch search request with a subset of options.
+//
 // swagger:model SearchRequest
 type SearchRequest struct {
 

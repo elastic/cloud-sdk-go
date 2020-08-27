@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // DeploymentTemplateReference Specifies the deployment template used to create the plan.
+//
 // swagger:model DeploymentTemplateReference
 type DeploymentTemplateReference struct {
 

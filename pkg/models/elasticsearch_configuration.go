@@ -26,11 +26,12 @@ import (
 	"strconv"
 
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // ElasticsearchConfiguration The Elasticsearch cluster settings. When specified at the top level, provides a field-by-field default. When specified at the topology level, provides the override settings.
+//
 // swagger:model ElasticsearchConfiguration
 type ElasticsearchConfiguration struct {
 

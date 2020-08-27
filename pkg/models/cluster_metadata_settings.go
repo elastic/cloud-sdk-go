@@ -24,11 +24,12 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // ClusterMetadataSettings The top-level configuration settings for the Elasticsearch cluster.
+//
 // swagger:model ClusterMetadataSettings
 type ClusterMetadataSettings struct {
 

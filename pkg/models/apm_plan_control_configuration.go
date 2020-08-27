@@ -27,12 +27,13 @@ import (
 	"strconv"
 
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ApmPlanControlConfiguration The plan control configuration options for the APM Server.
+//
 // swagger:model ApmPlanControlConfiguration
 type ApmPlanControlConfiguration struct {
 
@@ -104,7 +105,7 @@ const (
 
 // prop value enum
 func (m *ApmPlanControlConfiguration) validateClusterRebootEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, apmPlanControlConfigurationTypeClusterRebootPropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, apmPlanControlConfigurationTypeClusterRebootPropEnum, true); err != nil {
 		return err
 	}
 	return nil
