@@ -35,8 +35,8 @@ type CreateParams struct {
 	// the Overrides fields, certain fields can be overridden centrally through
 	// that struct.
 	//
-	// Additionally, a Request can be generated with depresourceapi.NewPayload()
-	// for more information on that struct, please refer to its godoc.
+	// Additionally, a Request can be generated with depresourceapi.NewPayload().
+	// For more information on that struct, please refer to its godoc.
 	Request *models.DeploymentCreateRequest
 
 	// Optional request_id to be sent in the Create which acts as an idempotency
