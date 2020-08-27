@@ -31,7 +31,7 @@ import (
 type CreateParams struct {
 	*api.API
 
-	// Request from which to create the deployment, by cominging this with
+	// Request from which to create the deployment, by combining this with
 	// the Overrides fields, certain fields can be overridden centrally through
 	// that struct.
 	//
