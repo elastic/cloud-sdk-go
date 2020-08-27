@@ -27,14 +27,14 @@ import (
 	"github.com/hashicorp/go-multierror"
 )
 
-// JSONError wraps a list of errors to be encodede in JSON format.
+// JSONError wraps a list of errors to be encoded in JSON format.
 type JSONError struct {
 	Errors []interface{} `json:"errors,omitempty"`
 }
 
 // WithFormatFunc takes in an error and tries to set the ErrorFormatFunc to the
 // passed function if the error is of type *Prefixed or *multierror.Error,
-// otherwise it returns the erorr as is.
+// otherwise it returns the error as is.
 func WithFormatFunc(err error, ff FormatFunc) error {
 	var merr *Prefixed
 	if errors.As(err, &merr) {
