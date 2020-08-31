@@ -26,12 +26,13 @@ import (
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ZookeeperNodeInfo Information about a ZooKeeper node.
+//
 // swagger:model ZookeeperNodeInfo
 type ZookeeperNodeInfo struct {
 
@@ -104,7 +105,7 @@ const (
 
 // prop value enum
 func (m *ZookeeperNodeInfo) validateStateEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, zookeeperNodeInfoTypeStatePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, zookeeperNodeInfoTypeStatePropEnum, true); err != nil {
 		return err
 	}
 	return nil

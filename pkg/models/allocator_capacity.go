@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // AllocatorCapacity The total and used capacity of the allocator.
+//
 // swagger:model AllocatorCapacity
 type AllocatorCapacity struct {
 

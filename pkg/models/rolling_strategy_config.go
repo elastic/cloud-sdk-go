@@ -23,11 +23,12 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // RollingStrategyConfig Performs inline, rolling configuration changes that mutate existing containers. TIP: This is the fastest way to update a plan, but can fail for complex plan changes, such as topology changes. Also, this is less safe for configuration changes that leave a cluster in a non running state. NOTE: When you perform a major version upgrade, and 'group_by' is set to 'pass:macros[__all__]';, rolling is required.
+//
 // swagger:model RollingStrategyConfig
 type RollingStrategyConfig struct {
 

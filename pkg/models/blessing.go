@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // Blessing Whether something is blessed or not
+//
 // swagger:model Blessing
 type Blessing struct {
 

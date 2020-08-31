@@ -24,11 +24,12 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // SecurityDeploymentTopology The cluster topology for the Elasticsearch security deployment.
+//
 // swagger:model SecurityDeploymentTopology
 type SecurityDeploymentTopology struct {
 

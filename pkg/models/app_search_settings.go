@@ -24,11 +24,12 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // AppSearchSettings The settings for the App Search.
+//
 // swagger:model AppSearchSettings
 type AppSearchSettings struct {
 

@@ -23,11 +23,12 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // DeploymentCreateMetadata Additional information about the new deployment object.
+//
 // swagger:model DeploymentCreateMetadata
 type DeploymentCreateMetadata struct {
 

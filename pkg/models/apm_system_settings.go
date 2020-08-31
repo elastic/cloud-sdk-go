@@ -23,12 +23,13 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // ApmSystemSettings A structure that defines a curated subset of the APM Server settings.
 // TIP: To define the complete set of APM Server setting, use `ApmSystemSettings` with `user_settings_override_` and `user_settings_`.
+//
 // swagger:model ApmSystemSettings
 type ApmSystemSettings struct {
 

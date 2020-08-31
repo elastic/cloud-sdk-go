@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // StackVersionConfig The details for an Elastic Stack configuration.
+//
 // swagger:model StackVersionConfig
 type StackVersionConfig struct {
 

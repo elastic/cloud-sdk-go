@@ -26,12 +26,13 @@ import (
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // AuthenticationInfo A user's authentication info
+//
 // swagger:model AuthenticationInfo
 type AuthenticationInfo struct {
 
@@ -153,7 +154,7 @@ const (
 
 // prop value enum
 func (m *AuthenticationInfo) validateTotpDeviceSourceEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, authenticationInfoTypeTotpDeviceSourcePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, authenticationInfoTypeTotpDeviceSourcePropEnum, true); err != nil {
 		return err
 	}
 	return nil

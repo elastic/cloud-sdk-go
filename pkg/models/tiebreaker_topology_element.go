@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // TiebreakerTopologyElement Defines the topology, such as capacity and location, of the special tiebreaker node. TIP: When there are master nodes present, the master node topology is the default.
+//
 // swagger:model TiebreakerTopologyElement
 type TiebreakerTopologyElement struct {
 

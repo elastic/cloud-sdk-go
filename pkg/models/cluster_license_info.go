@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ClusterLicenseInfo Information about the Elasticsearch cluster license.
+//
 // swagger:model ClusterLicenseInfo
 type ClusterLicenseInfo struct {
 

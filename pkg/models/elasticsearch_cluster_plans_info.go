@@ -26,12 +26,13 @@ import (
 	"strconv"
 
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ElasticsearchClusterPlansInfo Information about the current, pending, and past Elasticsearch cluster plans.
+//
 // swagger:model ElasticsearchClusterPlansInfo
 type ElasticsearchClusterPlansInfo struct {
 

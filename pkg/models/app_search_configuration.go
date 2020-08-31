@@ -24,11 +24,12 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // AppSearchConfiguration app search configuration
+//
 // swagger:model AppSearchConfiguration
 type AppSearchConfiguration struct {
 

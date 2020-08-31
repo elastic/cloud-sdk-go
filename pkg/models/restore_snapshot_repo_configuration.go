@@ -23,11 +23,12 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // RestoreSnapshotRepoConfiguration Configures the location of a remote repository. The default is the system repository.
+//
 // swagger:model RestoreSnapshotRepoConfiguration
 type RestoreSnapshotRepoConfiguration struct {
 

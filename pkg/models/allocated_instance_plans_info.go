@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // AllocatedInstancePlansInfo The plan information for the Elasticsearch cluster associated with the Kibana instance or APM Server.
+//
 // swagger:model AllocatedInstancePlansInfo
 type AllocatedInstancePlansInfo struct {
 

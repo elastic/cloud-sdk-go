@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // DeploymentCreateRequest A request for creating a new Deployment consisting of multiple clusters
+//
 // swagger:model DeploymentCreateRequest
 type DeploymentCreateRequest struct {
 

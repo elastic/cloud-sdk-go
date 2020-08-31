@@ -23,11 +23,12 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // RangeQuery The query that matches documents with fields that contain terms within a specified range.
+//
 // swagger:model RangeQuery
 type RangeQuery struct {
 

@@ -26,11 +26,12 @@ import (
 	"strconv"
 
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // BoolQuery A query for documents that match boolean combinations of other queries.
+//
 // swagger:model BoolQuery
 type BoolQuery struct {
 

@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ProxiesFilter Selects proxies by matching a proxy metadata item.
+//
 // swagger:model ProxiesFilter
 type ProxiesFilter struct {
 

@@ -24,11 +24,12 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // ClusterCommandResponse The response to an Elasticsearch cluster or Kibana instance command.
+//
 // swagger:model ClusterCommandResponse
 type ClusterCommandResponse struct {
 

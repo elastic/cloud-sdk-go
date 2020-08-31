@@ -26,12 +26,13 @@ import (
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // LdapSettings The configuration for the Elasticsearch security LDAP realm.
+//
 // swagger:model LdapSettings
 type LdapSettings struct {
 
@@ -182,7 +183,7 @@ const (
 
 // prop value enum
 func (m *LdapSettings) validateBindTypeEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, ldapSettingsTypeBindTypePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, ldapSettingsTypeBindTypePropEnum, true); err != nil {
 		return err
 	}
 	return nil
@@ -225,7 +226,7 @@ const (
 
 // prop value enum
 func (m *LdapSettings) validateCertificateURLTruststoreTypeEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, ldapSettingsTypeCertificateURLTruststoreTypePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, ldapSettingsTypeCertificateURLTruststoreTypePropEnum, true); err != nil {
 		return err
 	}
 	return nil

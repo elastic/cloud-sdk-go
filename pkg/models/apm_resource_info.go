@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ApmResourceInfo Describes an APM resource belonging to a Deployment
+//
 // swagger:model ApmResourceInfo
 type ApmResourceInfo struct {
 

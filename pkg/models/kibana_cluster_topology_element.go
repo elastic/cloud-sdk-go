@@ -24,11 +24,12 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // KibanaClusterTopologyElement The topology of the Kibana nodes, including the number, capacity, and type of nodes, and where they can be allocated.
+//
 // swagger:model KibanaClusterTopologyElement
 type KibanaClusterTopologyElement struct {
 

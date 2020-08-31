@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // MatchQuery Consumes and analyzes text, numbers, and dates, then constructs a query.
+//
 // swagger:model MatchQuery
 type MatchQuery struct {
 

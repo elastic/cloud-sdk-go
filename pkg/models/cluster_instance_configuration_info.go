@@ -26,12 +26,13 @@ import (
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ClusterInstanceConfigurationInfo Information about a configuration that creates a Kibana instance or APM Server.
+//
 // swagger:model ClusterInstanceConfigurationInfo
 type ClusterInstanceConfigurationInfo struct {
 
@@ -112,7 +113,7 @@ const (
 
 // prop value enum
 func (m *ClusterInstanceConfigurationInfo) validateResourceEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, clusterInstanceConfigurationInfoTypeResourcePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, clusterInstanceConfigurationInfoTypeResourcePropEnum, true); err != nil {
 		return err
 	}
 	return nil

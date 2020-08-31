@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // EnterpriseSearchPayload An Enterprise Search creation request paired with the alias of the Elasticsearch cluster it should be paired with
+//
 // swagger:model EnterpriseSearchPayload
 type EnterpriseSearchPayload struct {
 

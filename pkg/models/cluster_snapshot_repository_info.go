@@ -24,11 +24,12 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // ClusterSnapshotRepositoryInfo Information about the Elasticsearch cluster snapshot repository.
+//
 // swagger:model ClusterSnapshotRepositoryInfo
 type ClusterSnapshotRepositoryInfo struct {
 

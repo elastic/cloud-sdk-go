@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // FilterAssociation The association with a ruleset or user auth token for a deployment, template, or product.
+//
 // swagger:model FilterAssociation
 type FilterAssociation struct {
 

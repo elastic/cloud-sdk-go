@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // AccountTrustRelationship The trust relationship with the clusters of one account.
+//
 // swagger:model AccountTrustRelationship
 type AccountTrustRelationship struct {
 

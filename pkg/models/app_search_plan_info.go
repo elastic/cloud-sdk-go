@@ -26,12 +26,13 @@ import (
 	"strconv"
 
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // AppSearchPlanInfo Information about the App Search Server plan.
+//
 // swagger:model AppSearchPlanInfo
 type AppSearchPlanInfo struct {
 

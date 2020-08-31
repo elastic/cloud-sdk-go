@@ -23,5 +23,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 // DeploymentResourceCommandResponse Response returned when a command is successfully issued against a given Deployment resource
+//
 // swagger:model DeploymentResourceCommandResponse
 type DeploymentResourceCommandResponse interface{}

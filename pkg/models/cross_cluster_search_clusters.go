@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // CrossClusterSearchClusters The cross-cluster search clusters for the remote clusters.
+//
 // swagger:model CrossClusterSearchClusters
 type CrossClusterSearchClusters struct {
 

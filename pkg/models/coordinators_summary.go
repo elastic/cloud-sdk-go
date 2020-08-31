@@ -26,12 +26,13 @@ import (
 	"strconv"
 
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // CoordinatorsSummary Summarized information about coordinators.
+//
 // swagger:model CoordinatorsSummary
 type CoordinatorsSummary struct {
 

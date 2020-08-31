@@ -26,12 +26,13 @@ import (
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // SecurityDeployment The Elasticsearch security deployment.
+//
 // swagger:model SecurityDeployment
 type SecurityDeployment struct {
 
@@ -181,7 +182,7 @@ const (
 
 // prop value enum
 func (m *SecurityDeployment) validateStatusEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, securityDeploymentTypeStatusPropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, securityDeploymentTypeStatusPropEnum, true); err != nil {
 		return err
 	}
 	return nil

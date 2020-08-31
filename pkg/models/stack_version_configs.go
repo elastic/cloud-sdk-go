@@ -26,12 +26,13 @@ import (
 	"strconv"
 
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // StackVersionConfigs The details for multiple Elastic Stack configurations.
+//
 // swagger:model StackVersionConfigs
 type StackVersionConfigs struct {
 

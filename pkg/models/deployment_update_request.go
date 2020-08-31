@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // DeploymentUpdateRequest A request for updating a Deployment consisting of multiple resources
+//
 // swagger:model DeploymentUpdateRequest
 type DeploymentUpdateRequest struct {
 

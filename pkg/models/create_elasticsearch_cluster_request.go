@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // CreateElasticsearchClusterRequest The request body for creating an Elasticsearch cluster using the clusters API.
+//
 // swagger:model CreateElasticsearchClusterRequest
 type CreateElasticsearchClusterRequest struct {
 

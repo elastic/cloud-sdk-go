@@ -26,12 +26,13 @@ import (
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ActiveDirectorySettings Elasticsearch Security Active Directory realm configuration
+//
 // swagger:model ActiveDirectorySettings
 type ActiveDirectorySettings struct {
 
@@ -175,7 +176,7 @@ const (
 
 // prop value enum
 func (m *ActiveDirectorySettings) validateCertificateURLTruststoreTypeEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, activeDirectorySettingsTypeCertificateURLTruststoreTypePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, activeDirectorySettingsTypeCertificateURLTruststoreTypePropEnum, true); err != nil {
 		return err
 	}
 	return nil

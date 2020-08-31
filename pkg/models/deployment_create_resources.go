@@ -26,11 +26,12 @@ import (
 	"strconv"
 
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // DeploymentCreateResources Describes the resources that will belong to a Deployment
+//
 // swagger:model DeploymentCreateResources
 type DeploymentCreateResources struct {
 

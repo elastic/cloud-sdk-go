@@ -26,12 +26,13 @@ import (
 	"strconv"
 
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // DeploymentTemplateRequestBody Request body to create or update a Deployment Template
+//
 // swagger:model DeploymentTemplateRequestBody
 type DeploymentTemplateRequestBody struct {
 

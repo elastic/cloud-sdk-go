@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // MoveElasticsearchClusterConfiguration The configuration object for moving Elasticsearch clusters.
+//
 // swagger:model MoveElasticsearchClusterConfiguration
 type MoveElasticsearchClusterConfiguration struct {
 

@@ -26,12 +26,13 @@ import (
 	"strconv"
 
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // StackVersionEnterpriseSearchConfig EnterpriseSearch related configuration of an Elastic Stack version
+//
 // swagger:model StackVersionEnterpriseSearchConfig
 type StackVersionEnterpriseSearchConfig struct {
 

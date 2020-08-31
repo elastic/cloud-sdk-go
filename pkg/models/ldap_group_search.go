@@ -26,12 +26,13 @@ import (
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // LdapGroupSearch The group search configuration for the Elasticsearch security LDAP realm.
+//
 // swagger:model LdapGroupSearch
 type LdapGroupSearch struct {
 
@@ -89,7 +90,7 @@ const (
 
 // prop value enum
 func (m *LdapGroupSearch) validateScopeEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, ldapGroupSearchTypeScopePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, ldapGroupSearchTypeScopePropEnum, true); err != nil {
 		return err
 	}
 	return nil

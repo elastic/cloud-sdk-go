@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // RemoteClusterInfo Information about the remote cluster for cross-cluster search.
+//
 // swagger:model RemoteClusterInfo
 type RemoteClusterInfo struct {
 

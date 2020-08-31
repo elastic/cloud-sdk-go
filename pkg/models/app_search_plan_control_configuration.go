@@ -27,12 +27,13 @@ import (
 	"strconv"
 
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // AppSearchPlanControlConfiguration app search plan control configuration
+//
 // swagger:model AppSearchPlanControlConfiguration
 type AppSearchPlanControlConfiguration struct {
 
@@ -104,7 +105,7 @@ const (
 
 // prop value enum
 func (m *AppSearchPlanControlConfiguration) validateClusterRebootEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, appSearchPlanControlConfigurationTypeClusterRebootPropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, appSearchPlanControlConfigurationTypeClusterRebootPropEnum, true); err != nil {
 		return err
 	}
 	return nil

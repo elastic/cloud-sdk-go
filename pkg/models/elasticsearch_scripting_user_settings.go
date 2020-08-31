@@ -24,11 +24,12 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // ElasticsearchScriptingUserSettings Controls the languages supported by the Elasticsearch cluster, such as Painless, Mustache, and Expressions. Controls how the languages are used, such as file, index, and inline. TIP: For complex configurations, leave these blank and configure these settings in the user YAML or JSON.
+//
 // swagger:model ElasticsearchScriptingUserSettings
 type ElasticsearchScriptingUserSettings struct {
 

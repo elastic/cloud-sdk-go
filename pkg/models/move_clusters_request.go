@@ -26,11 +26,12 @@ import (
 	"strconv"
 
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // MoveClustersRequest The request for moving Elasticsearch clusters off an allocator.
+//
 // swagger:model MoveClustersRequest
 type MoveClustersRequest struct {
 

@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ElasticsearchReplicaElement Information about the unavailable replicas. NOTE: Unlike shards, unavailable replicas indicate a loss of redundancy rather than a loss of availability.
+//
 // swagger:model ElasticsearchReplicaElement
 type ElasticsearchReplicaElement struct {
 

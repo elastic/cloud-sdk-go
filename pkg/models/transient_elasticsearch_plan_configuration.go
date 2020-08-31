@@ -24,11 +24,12 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // TransientElasticsearchPlanConfiguration Defines the configuration parameters that control how the plan is applied. For example, the Elasticsearch cluster topology and Elasticsearch settings.
+//
 // swagger:model TransientElasticsearchPlanConfiguration
 type TransientElasticsearchPlanConfiguration struct {
 

@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // EnterpriseSearchSubInfo Information about the APM Servers associated with the Elasticsearch cluster.
+//
 // swagger:model EnterpriseSearchSubInfo
 type EnterpriseSearchSubInfo struct {
 

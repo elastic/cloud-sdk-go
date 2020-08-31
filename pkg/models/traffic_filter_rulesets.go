@@ -26,12 +26,13 @@ import (
 	"strconv"
 
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // TrafficFilterRulesets The container for a set of traffic filter rulesets.
+//
 // swagger:model TrafficFilterRulesets
 type TrafficFilterRulesets struct {
 

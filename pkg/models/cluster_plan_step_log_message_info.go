@@ -26,12 +26,13 @@ import (
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ClusterPlanStepLogMessageInfo The log message from a specified stage of an executed step in a plan.
+//
 // swagger:model ClusterPlanStepLogMessageInfo
 type ClusterPlanStepLogMessageInfo struct {
 
@@ -110,7 +111,7 @@ const (
 
 // prop value enum
 func (m *ClusterPlanStepLogMessageInfo) validateStageEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, clusterPlanStepLogMessageInfoTypeStagePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, clusterPlanStepLogMessageInfoTypeStagePropEnum, true); err != nil {
 		return err
 	}
 	return nil

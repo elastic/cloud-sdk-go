@@ -23,11 +23,12 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // RestoreSnapshotAPIConfiguration The configuration for the restore command, such as which indices you want to restore.
+//
 // swagger:model RestoreSnapshotApiConfiguration
 type RestoreSnapshotAPIConfiguration struct {
 

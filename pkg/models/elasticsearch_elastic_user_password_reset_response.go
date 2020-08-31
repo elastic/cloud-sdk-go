@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ElasticsearchElasticUserPasswordResetResponse Envelope holding the newly-reset password for a cluster's user
+//
 // swagger:model ElasticsearchElasticUserPasswordResetResponse
 type ElasticsearchElasticUserPasswordResetResponse struct {
 

@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // RequestEnrollmentTokenReply Returns the enrollment token that is used to securely start a new server with designated roles.
+//
 // swagger:model RequestEnrollmentTokenReply
 type RequestEnrollmentTokenReply struct {
 

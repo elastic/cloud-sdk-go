@@ -26,12 +26,13 @@ import (
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // CreateExtensionRequest The body of a request to create a new extension
+//
 // swagger:model CreateExtensionRequest
 type CreateExtensionRequest struct {
 
@@ -100,7 +101,7 @@ const (
 
 // prop value enum
 func (m *CreateExtensionRequest) validateExtensionTypeEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, createExtensionRequestTypeExtensionTypePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, createExtensionRequestTypeExtensionTypePropEnum, true); err != nil {
 		return err
 	}
 	return nil

@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // RunnerContainerInfo Information about a container within a runner.
+//
 // swagger:model RunnerContainerInfo
 type RunnerContainerInfo struct {
 

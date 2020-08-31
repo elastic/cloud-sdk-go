@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // CreateApmRequest The request body for creating one or more APM Servers.
+//
 // swagger:model CreateApmRequest
 type CreateApmRequest struct {
 

@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // TokenResponse The response value after a login without redirect configured, or after elevated permissions are enabled or disabled.
+//
 // swagger:model TokenResponse
 type TokenResponse struct {
 

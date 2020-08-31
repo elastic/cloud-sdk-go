@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // InstanceConfigurationInfo The configuration template for Elasticsearch instances, Kibana instances, and APM Servers.
+//
 // swagger:model InstanceConfigurationInfo
 type InstanceConfigurationInfo struct {
 

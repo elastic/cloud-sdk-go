@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // EnterpriseSearchNodeTypes Node types to enable for an Enterprise Search instance
+//
 // swagger:model EnterpriseSearchNodeTypes
 type EnterpriseSearchNodeTypes struct {
 

@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ElasticsearchCuration The structure that defines the routing settings for index curation.
+//
 // swagger:model ElasticsearchCuration
 type ElasticsearchCuration struct {
 

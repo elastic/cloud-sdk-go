@@ -24,11 +24,12 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // LoggingSettings Information about logging settings.
+//
 // swagger:model LoggingSettings
 type LoggingSettings struct {
 

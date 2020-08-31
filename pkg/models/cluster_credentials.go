@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ClusterCredentials The username and password for the new Elasticsearch cluster, which is returned from the Elasticsearch cluster `create` command.
+//
 // swagger:model ClusterCredentials
 type ClusterCredentials struct {
 

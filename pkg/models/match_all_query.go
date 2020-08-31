@@ -23,5 +23,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 // MatchAllQuery A query that matches all documents.
+//
 // swagger:model MatchAllQuery
 type MatchAllQuery interface{}

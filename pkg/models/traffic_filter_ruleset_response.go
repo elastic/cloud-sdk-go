@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // TrafficFilterRulesetResponse The response after you create a new ruleset.
+//
 // swagger:model TrafficFilterRulesetResponse
 type TrafficFilterRulesetResponse struct {
 

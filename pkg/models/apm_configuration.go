@@ -24,11 +24,12 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // ApmConfiguration The configuration options for the APM Server.
+//
 // swagger:model ApmConfiguration
 type ApmConfiguration struct {
 

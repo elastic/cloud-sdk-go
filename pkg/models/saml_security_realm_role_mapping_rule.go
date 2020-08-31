@@ -26,12 +26,13 @@ import (
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // SamlSecurityRealmRoleMappingRule The mapping rule for the Elasticsearch security SAML role.
+//
 // swagger:model SamlSecurityRealmRoleMappingRule
 type SamlSecurityRealmRoleMappingRule struct {
 
@@ -106,7 +107,7 @@ const (
 
 // prop value enum
 func (m *SamlSecurityRealmRoleMappingRule) validateTypeEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, samlSecurityRealmRoleMappingRuleTypeTypePropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, samlSecurityRealmRoleMappingRuleTypeTypePropEnum, true); err != nil {
 		return err
 	}
 	return nil

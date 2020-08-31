@@ -23,11 +23,12 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // AppSearchSystemSettings This structure defines a curated subset of the AppSearch settings. (This field together with 'user_settings_override*' and  'user_settings*' defines the total set of AppSearch settings)
+//
 // swagger:model AppSearchSystemSettings
 type AppSearchSystemSettings struct {
 

@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ElasticsearchUserPlugin A list of admin-uploaded plugin objects.
+//
 // swagger:model ElasticsearchUserPlugin
 type ElasticsearchUserPlugin struct {
 

@@ -23,11 +23,12 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // EnterpriseSearchSystemSettings This structure defines a curated subset of the Enterprise Search settings. (This field together with 'user_settings_override*' and  'user_settings*' defines the total set of Enterprise Search settings)
+//
 // swagger:model EnterpriseSearchSystemSettings
 type EnterpriseSearchSystemSettings struct {
 

@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // EnrollmentTokenRequest An enrollment token request for one or more services.
+//
 // swagger:model EnrollmentTokenRequest
 type EnrollmentTokenRequest struct {
 

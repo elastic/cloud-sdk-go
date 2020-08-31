@@ -26,12 +26,13 @@ import (
 	"strconv"
 
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // AvailableAuthenticationMethods Specifies the authentication methods that are enabled on the Elasticsearch cluster. NOTE: When all fields are `false`, only the Platform admin and Platform viewer are available.
+//
 // swagger:model AvailableAuthenticationMethods
 type AvailableAuthenticationMethods struct {
 

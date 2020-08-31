@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // QueryContainer The container for all of the allowed Elasticsearch queries. Specify only one property each time.
+//
 // swagger:model QueryContainer
 type QueryContainer struct {
 

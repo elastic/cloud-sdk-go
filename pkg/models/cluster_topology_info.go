@@ -26,12 +26,13 @@ import (
 	"strconv"
 
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ClusterTopologyInfo The topology for Elasticsearch clusters, multiple Kibana instances, or multiple APM Servers. The `ClusterTopologyInfo` also includes the instances and containers, and where they are located.
+//
 // swagger:model ClusterTopologyInfo
 type ClusterTopologyInfo struct {
 

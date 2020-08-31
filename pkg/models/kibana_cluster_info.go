@@ -27,12 +27,13 @@ import (
 	"strconv"
 
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // KibanaClusterInfo The top-level object information for a Kibana instance.
+//
 // swagger:model KibanaClusterInfo
 type KibanaClusterInfo struct {
 
@@ -329,7 +330,7 @@ const (
 
 // prop value enum
 func (m *KibanaClusterInfo) validateStatusEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, kibanaClusterInfoTypeStatusPropEnum); err != nil {
+	if err := validate.EnumCase(path, location, value, kibanaClusterInfoTypeStatusPropEnum, true); err != nil {
 		return err
 	}
 	return nil

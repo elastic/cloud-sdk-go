@@ -26,12 +26,13 @@ import (
 	"strconv"
 
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ClusterCurationSettings The index curation settings for an Elasticsearch cluster.
+//
 // swagger:model ClusterCurationSettings
 type ClusterCurationSettings struct {
 

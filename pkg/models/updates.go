@@ -26,11 +26,12 @@ import (
 	"strconv"
 
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // Updates Holds diagnostics for existing resources that might be updated
+//
 // swagger:model Updates
 type Updates struct {
 

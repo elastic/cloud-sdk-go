@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // ElasticsearchMasterElement Information about the Elasticsearch instances. For split-brain cases, this also includes sub-clusters.
+//
 // swagger:model ElasticsearchMasterElement
 type ElasticsearchMasterElement struct {
 

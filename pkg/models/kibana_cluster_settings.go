@@ -24,11 +24,12 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // KibanaClusterSettings The settings for multiple Kibana instances.
+//
 // swagger:model KibanaClusterSettings
 type KibanaClusterSettings struct {
 

@@ -24,12 +24,13 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // StackVersionKibanaConfig The Kibana configuration for an Elastic Stack version.
+//
 // swagger:model StackVersionKibanaConfig
 type StackVersionKibanaConfig struct {
 

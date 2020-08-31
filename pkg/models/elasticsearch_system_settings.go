@@ -24,11 +24,12 @@ package models
 
 import (
 	"github.com/go-openapi/errors"
-	strfmt "github.com/go-openapi/strfmt"
+	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
 // ElasticsearchSystemSettings A subset of Elasticsearch settings. TIP: To define the complete set of Elasticsearch settings, use `ElasticsearchSystemSettings` with `user_settings_override*` and `user_settings*`.
+//
 // swagger:model ElasticsearchSystemSettings
 type ElasticsearchSystemSettings struct {
 
