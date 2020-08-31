@@ -10546,7 +10546,7 @@
           }
         } ],
         "responses" : {
-          "200" : {
+          "201" : {
             "description" : "Create association request was valid and the association has been created",
             "schema" : {
               "$ref" : "#/definitions/EmptyResponse"

@@ -46,7 +46,7 @@ type Client struct {
 type ClientService interface {
 	CreateTrafficFilterRuleset(params *CreateTrafficFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter) (*CreateTrafficFilterRulesetCreated, error)
 
-	CreateTrafficFilterRulesetAssociation(params *CreateTrafficFilterRulesetAssociationParams, authInfo runtime.ClientAuthInfoWriter) (*CreateTrafficFilterRulesetAssociationOK, error)
+	CreateTrafficFilterRulesetAssociation(params *CreateTrafficFilterRulesetAssociationParams, authInfo runtime.ClientAuthInfoWriter) (*CreateTrafficFilterRulesetAssociationCreated, error)
 
 	DeleteTrafficFilterRuleset(params *DeleteTrafficFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteTrafficFilterRulesetOK, error)
 
@@ -107,7 +107,7 @@ func (a *Client) CreateTrafficFilterRuleset(params *CreateTrafficFilterRulesetPa
 
   Applies the ruleset to the specified deployment.
 */
-func (a *Client) CreateTrafficFilterRulesetAssociation(params *CreateTrafficFilterRulesetAssociationParams, authInfo runtime.ClientAuthInfoWriter) (*CreateTrafficFilterRulesetAssociationOK, error) {
+func (a *Client) CreateTrafficFilterRulesetAssociation(params *CreateTrafficFilterRulesetAssociationParams, authInfo runtime.ClientAuthInfoWriter) (*CreateTrafficFilterRulesetAssociationCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateTrafficFilterRulesetAssociationParams()
@@ -129,7 +129,7 @@ func (a *Client) CreateTrafficFilterRulesetAssociation(params *CreateTrafficFilt
 	if err != nil {
 		return nil, err
 	}
-	success, ok := result.(*CreateTrafficFilterRulesetAssociationOK)
+	success, ok := result.(*CreateTrafficFilterRulesetAssociationCreated)
 	if ok {
 		return success, nil
 	}

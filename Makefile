@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 export GO111MODULE ?= on
-export VERSION ?= v1.0.0
-export ECE_VERSION ?= 2.6.0
+export VERSION ?= v1.0.1
+export ECE_VERSION ?= 2.6.1
 ECE_DEF_FILE ?= api/version/$(ECE_VERSION).md
 export GOBIN = $(shell pwd)/bin
 BINARY := cloud-sdk-go
