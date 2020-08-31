@@ -32,26 +32,59 @@ type InstanceParams struct {
 	RefID     string
 }
 
-// NewPayloadParams is consumed by New()
+// NewPayloadParams is consumed by NewPayload()
 type NewPayloadParams struct {
 	*api.API
 
-	Name                   string
-	Version                string
-	DeploymentTemplateID   string
-	Region                 string
-	ApmEnable              bool
-	AppsearchEnable        bool
+	// Optional deployment name
+	Name string
+
+	// Optional Elastic Stack version, Latest version will be used if empty.
+	Version string
+
+	// Required deployment template ID to use to create the deployment.
+	DeploymentTemplateID string
+
+	// Required region where the deployment will be created.
+	Region string
+
+	// Optionally enable an APM instance.
+	ApmEnable bool
+
+	// Optionally enable an AppSearch instance.
+	AppsearchEnable bool
+
+	// Optionally enable an Enterprise Search instance.
 	EnterpriseSearchEnable bool
+
 	// Do not use. The field will be removed once an API bug has been resolved.
 	DeploymentTemplateAsList bool
-	Writer                   io.Writer
-	Plugins                  []string
-	TopologyElements         []string
-	ElasticsearchInstance    InstanceParams
-	KibanaInstance           InstanceParams
-	ApmInstance              InstanceParams
-	AppsearchInstance        InstanceParams
+
+	// Optional io.Writer where notices will be written.
+	Writer io.Writer
+
+	// Optional Elasticsearch plug-ins to be enabled.
+	Plugins []string
+
+	// Optional Elasticsearch Topology Elements to compose a complex multi-
+	// topology Elasticsearch cluster. Required when ElasticsearchInstance is
+	// empty.
+	TopologyElements []string
+
+	// Optional ElasticsearchInstance template for single topology element
+	// Elasticsearch clusters.
+	ElasticsearchInstance InstanceParams
+
+	// Required KibanaInstance template for the Kibana instance.
+	KibanaInstance InstanceParams
+
+	// Optional ApmInstance unless AppsearchEnable is set.
+	ApmInstance InstanceParams
+
+	// Optional AppsearchInstance unless AppsearchEnable is set.
+	AppsearchInstance InstanceParams
+
+	// Optional EnterpriseSearchInstance unless EnterpriseSearchEnable is set.
 	EnterpriseSearchInstance InstanceParams
 }
 
