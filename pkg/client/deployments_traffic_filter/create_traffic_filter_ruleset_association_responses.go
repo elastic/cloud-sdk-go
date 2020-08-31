@@ -41,6 +41,12 @@ type CreateTrafficFilterRulesetAssociationReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateTrafficFilterRulesetAssociationReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
+	case 200:
+		result := NewCreateTrafficFilterRulesetAssociationOK()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return result, nil
 	case 201:
 		result := NewCreateTrafficFilterRulesetAssociationCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -63,6 +69,37 @@ func (o *CreateTrafficFilterRulesetAssociationReader) ReadResponse(response runt
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
+}
+
+// NewCreateTrafficFilterRulesetAssociationOK creates a CreateTrafficFilterRulesetAssociationOK with default headers values
+func NewCreateTrafficFilterRulesetAssociationOK() *CreateTrafficFilterRulesetAssociationOK {
+	return &CreateTrafficFilterRulesetAssociationOK{}
+}
+
+/*CreateTrafficFilterRulesetAssociationOK handles this case with default header values.
+
+Create association request was valid and the association already exists
+*/
+type CreateTrafficFilterRulesetAssociationOK struct {
+	Payload models.EmptyResponse
+}
+
+func (o *CreateTrafficFilterRulesetAssociationOK) Error() string {
+	return fmt.Sprintf("[POST /deployments/traffic-filter/rulesets/{ruleset_id}/associations][%d] createTrafficFilterRulesetAssociationOK  %+v", 200, o.Payload)
+}
+
+func (o *CreateTrafficFilterRulesetAssociationOK) GetPayload() models.EmptyResponse {
+	return o.Payload
+}
+
+func (o *CreateTrafficFilterRulesetAssociationOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
 }
 
 // NewCreateTrafficFilterRulesetAssociationCreated creates a CreateTrafficFilterRulesetAssociationCreated with default headers values

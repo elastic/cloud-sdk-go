@@ -10552,6 +10552,12 @@
               "$ref" : "#/definitions/EmptyResponse"
             }
           },
+          "200" : {
+            "description" : "Create association request was valid and the association already exists",
+            "schema" : {
+              "$ref" : "#/definitions/EmptyResponse"
+            }
+          },
           "404" : {
             "description" : "The traffic filter ruleset specified by {ruleset_id} cannot be found. (code: `traffic_filter.not_found`)",
             "headers" : {

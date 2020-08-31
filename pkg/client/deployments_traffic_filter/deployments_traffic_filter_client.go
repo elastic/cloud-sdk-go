@@ -46,7 +46,7 @@ type Client struct {
 type ClientService interface {
 	CreateTrafficFilterRuleset(params *CreateTrafficFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter) (*CreateTrafficFilterRulesetCreated, error)
 
-	CreateTrafficFilterRulesetAssociation(params *CreateTrafficFilterRulesetAssociationParams, authInfo runtime.ClientAuthInfoWriter) (*CreateTrafficFilterRulesetAssociationCreated, error)
+	CreateTrafficFilterRulesetAssociation(params *CreateTrafficFilterRulesetAssociationParams, authInfo runtime.ClientAuthInfoWriter) (*CreateTrafficFilterRulesetAssociationOK, *CreateTrafficFilterRulesetAssociationCreated, error)
 
 	DeleteTrafficFilterRuleset(params *DeleteTrafficFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteTrafficFilterRulesetOK, error)
 
@@ -107,7 +107,7 @@ func (a *Client) CreateTrafficFilterRuleset(params *CreateTrafficFilterRulesetPa
 
   Applies the ruleset to the specified deployment.
 */
-func (a *Client) CreateTrafficFilterRulesetAssociation(params *CreateTrafficFilterRulesetAssociationParams, authInfo runtime.ClientAuthInfoWriter) (*CreateTrafficFilterRulesetAssociationCreated, error) {
+func (a *Client) CreateTrafficFilterRulesetAssociation(params *CreateTrafficFilterRulesetAssociationParams, authInfo runtime.ClientAuthInfoWriter) (*CreateTrafficFilterRulesetAssociationOK, *CreateTrafficFilterRulesetAssociationCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateTrafficFilterRulesetAssociationParams()
@@ -127,15 +127,16 @@ func (a *Client) CreateTrafficFilterRulesetAssociation(params *CreateTrafficFilt
 		Client:             params.HTTPClient,
 	})
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
-	success, ok := result.(*CreateTrafficFilterRulesetAssociationCreated)
-	if ok {
-		return success, nil
+	switch value := result.(type) {
+	case *CreateTrafficFilterRulesetAssociationOK:
+		return value, nil, nil
+	case *CreateTrafficFilterRulesetAssociationCreated:
+		return nil, value, nil
 	}
-	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for create-traffic-filter-ruleset-association: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	msg := fmt.Sprintf("unexpected success response for deployments_traffic_filter: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
