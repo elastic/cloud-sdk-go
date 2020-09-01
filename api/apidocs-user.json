@@ -13,6 +13,8 @@
   }, {
     "name" : "Deployments"
   }, {
+    "name" : "DeploymentsTrafficFilter"
+  }, {
     "name" : "Extensions"
   }, {
     "name" : "Stack"
@@ -188,14 +190,14 @@
         "parameters" : [ {
           "name" : "include_deployments",
           "in" : "query",
-          "description" : "Include deployments referencing this extension.",
+          "description" : "Include deployments referencing this extension.\nDEPRECATED: To get the list of deployments that reference an extension, use the Get Extension API.\n",
           "required" : false,
           "type" : "boolean",
           "default" : false
         } ],
         "responses" : {
           "200" : {
-            "description" : "The Extensions that are available",
+            "description" : "The extensions that are available",
             "schema" : {
               "$ref" : "#/definitions/Extensions"
             }
@@ -226,7 +228,7 @@
         } ],
         "responses" : {
           "201" : {
-            "description" : "The Extension that was just created.",
+            "description" : "The extension that was just created.",
             "headers" : {
               "x-cloud-resource-version" : {
                 "type" : "string",
@@ -299,18 +301,18 @@
       "get" : {
         "tags" : [ "Extensions" ],
         "summary" : "Get Extension",
-        "description" : "Retrieves an Extension.",
+        "description" : "Retrieves an extension.",
         "operationId" : "get-extension",
         "parameters" : [ {
           "name" : "extension_id",
           "in" : "path",
-          "description" : "Id of an Extension",
+          "description" : "Id of an extension",
           "required" : true,
           "type" : "string"
         }, {
           "name" : "include_deployments",
           "in" : "query",
-          "description" : "Include deployments referencing this extension.",
+          "description" : "Include deployments referencing this extension. Up to only 10000 deployments will be included.",
           "required" : false,
           "type" : "boolean",
           "default" : false
@@ -337,7 +339,7 @@
             }
           },
           "404" : {
-            "description" : "The Extension requested does not exist. (code: `extensions.not_found`)",
+            "description" : "The extension requested does not exist. (code: `extensions.not_found`)",
             "headers" : {
               "x-cloud-error-codes" : {
                 "type" : "string",
@@ -362,18 +364,18 @@
       "post" : {
         "tags" : [ "Extensions" ],
         "summary" : "Update Extension",
-        "description" : "Updates a Extension.",
+        "description" : "Updates an extension.",
         "operationId" : "update-extension",
         "parameters" : [ {
           "name" : "extension_id",
           "in" : "path",
-          "description" : "Id of an Extension",
+          "description" : "Id of an extension",
           "required" : true,
           "type" : "string"
         }, {
           "in" : "body",
           "name" : "body",
-          "description" : "The Extension update data.",
+          "description" : "The extension update data.",
           "required" : true,
           "schema" : {
             "$ref" : "#/definitions/UpdateExtensionRequest"
@@ -401,7 +403,7 @@
             }
           },
           "401" : {
-            "description" : "* The Extension does not belong to you. (code: `extensions.unauthorised`)\n* Your current session does not have a user id associated with it. (code: `extensions.no_user_id`)",
+            "description" : "* The extension does not belong to you. (code: `extensions.unauthorised`)\n* Your current session does not have a user id associated with it. (code: `extensions.no_user_id`)",
             "headers" : {
               "x-cloud-error-codes" : {
                 "type" : "string",
@@ -414,7 +416,7 @@
             }
           },
           "404" : {
-            "description" : "The Extension you want does not exist. (code: `extensions.not_found`)",
+            "description" : "The extension you want does not exist. (code: `extensions.not_found`)",
             "headers" : {
               "x-cloud-error-codes" : {
                 "type" : "string",
@@ -465,13 +467,13 @@
       "put" : {
         "tags" : [ "Extensions" ],
         "summary" : "Uploads the Extension",
-        "description" : "Uploads archive for an Extension.",
+        "description" : "Uploads archive for an extension.",
         "operationId" : "upload-extension",
         "consumes" : [ "multipart/form-data" ],
         "parameters" : [ {
           "name" : "extension_id",
           "in" : "path",
-          "description" : "Id of an Extension",
+          "description" : "Id of an extension",
           "required" : true,
           "type" : "string"
         }, {
@@ -503,7 +505,7 @@
             }
           },
           "401" : {
-            "description" : "* The Extension does not belong to you. (code: `extensions.unauthorised`)\n* Your current session does not have a user id associated with it. (code: `extensions.no_user_id`)",
+            "description" : "* The extension does not belong to you. (code: `extensions.unauthorised`)\n* Your current session does not have a user id associated with it. (code: `extensions.no_user_id`)",
             "headers" : {
               "x-cloud-error-codes" : {
                 "type" : "string",
@@ -516,7 +518,7 @@
             }
           },
           "404" : {
-            "description" : "The Extension you want does not exist. (code: `extensions.not_found`)",
+            "description" : "The extension you want does not exist. (code: `extensions.not_found`)",
             "headers" : {
               "x-cloud-error-codes" : {
                 "type" : "string",
@@ -559,7 +561,7 @@
         "parameters" : [ {
           "name" : "extension_id",
           "in" : "path",
-          "description" : "Id of an Extension",
+          "description" : "Id of an extension",
           "required" : true,
           "type" : "string"
         } ],
@@ -585,7 +587,7 @@
             }
           },
           "401" : {
-            "description" : "* The Extension does not belong to you. (code: `extensions.unauthorised`)\n* Your current session does not have a user id associated with it. (code: `extensions.no_user_id`)",
+            "description" : "* The extension does not belong to you. (code: `extensions.unauthorised`)\n* Your current session does not have a user id associated with it. (code: `extensions.no_user_id`)",
             "headers" : {
               "x-cloud-error-codes" : {
                 "type" : "string",
@@ -598,7 +600,7 @@
             }
           },
           "404" : {
-            "description" : "The Extension requested does not exist. (code: `extensions.not_found`)",
+            "description" : "The extension requested does not exist. (code: `extensions.not_found`)",
             "headers" : {
               "x-cloud-error-codes" : {
                 "type" : "string",
@@ -703,6 +705,617 @@
         } ],
         "x-doc" : {
           "tag" : "Deployments - Templates"
+        }
+      }
+    },
+    "/deployments/templates/{template_id}" : {
+      "get" : {
+        "tags" : [ "DeploymentTemplates" ],
+        "summary" : "Get deployment template",
+        "description" : "Retrieves a deployment template by id.",
+        "operationId" : "get-deployment-template-v2",
+        "parameters" : [ {
+          "name" : "template_id",
+          "in" : "path",
+          "description" : "The identifier for the deployment template.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "stack_version",
+          "in" : "query",
+          "description" : "If present, it will cause the returned deployment template to be adapted to return only the elements allowed in that version.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "region",
+          "in" : "query",
+          "description" : "Region of the deployment template",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The deployment template was found and returned successfully.",
+            "schema" : {
+              "$ref" : "#/definitions/DeploymentTemplateInfoV2"
+            }
+          },
+          "404" : {
+            "description" : "The deployment template specified by {template_id} cannot be found. (code: `templates.template_not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "templates.template_not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "401" : {
+            "description" : "The user is not authorized to access requested region. (code: `templates.region_not_allowed`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "templates.region_not_allowed" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "400" : {
+            "description" : "The requested region is not supported. (code: `templates.region_not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "templates.region_not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployments - Templates"
+        }
+      }
+    },
+    "/deployments/traffic-filter/associations/{association_type}/{associated_entity_id}/rulesets" : {
+      "get" : {
+        "tags" : [ "DeploymentsTrafficFilter" ],
+        "summary" : "Get associated rulesets",
+        "description" : "Retrieves the rulesets associated with a deployment.",
+        "operationId" : "get-traffic-filter-deployment-ruleset-associations",
+        "parameters" : [ {
+          "name" : "association_type",
+          "in" : "path",
+          "description" : "Association type",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "associated_entity_id",
+          "in" : "path",
+          "description" : "Associated entity ID",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Rulesets in the deployment were successfully returned",
+            "schema" : {
+              "$ref" : "#/definitions/TrafficFilterSettings"
+            }
+          },
+          "400" : {
+            "description" : "Invalid association type. (code: `traffic_filter.invalid_association_type`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "traffic_filter.invalid_association_type" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "500" : {
+            "description" : "Error fetching traffic filter rulesets. (code: `traffic_filter.request_execution_failed`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "traffic_filter.request_execution_failed" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployments - Traffic Filter - Associations"
+        }
+      }
+    },
+    "/deployments/traffic-filter/rulesets" : {
+      "get" : {
+        "tags" : [ "DeploymentsTrafficFilter" ],
+        "summary" : "List traffic filter rulesets",
+        "description" : "List all of the traffic filter rulesets.",
+        "operationId" : "get-traffic-filter-rulesets",
+        "parameters" : [ {
+          "name" : "include_associations",
+          "in" : "query",
+          "description" : "Retrieves a list of resources that are associated to the specified ruleset.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "region",
+          "in" : "query",
+          "description" : "If provided limits the rulesets to that region only.",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The collection of traffic filter routes",
+            "schema" : {
+              "$ref" : "#/definitions/TrafficFilterRulesets"
+            }
+          },
+          "500" : {
+            "description" : "Error fetching traffic filter rulesets. (code: `traffic_filter.request_execution_failed`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "traffic_filter.request_execution_failed" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployments - Traffic Filter - CRUD"
+        }
+      },
+      "post" : {
+        "tags" : [ "DeploymentsTrafficFilter" ],
+        "summary" : "Create a ruleset",
+        "description" : "Creates a ruleset that consists of a set of rules.",
+        "operationId" : "create-traffic-filter-ruleset",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "The specification for traffic filter ruleset.",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/TrafficFilterRulesetRequest"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "The ruleset definition is valid and the creation has started.",
+            "schema" : {
+              "$ref" : "#/definitions/TrafficFilterRulesetResponse"
+            }
+          },
+          "500" : {
+            "description" : "Error creating the traffic filter ruleset. (code: `traffic_filter.request_execution_failed`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "traffic_filter.request_execution_failed" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployments - Traffic Filter - CRUD"
+        }
+      }
+    },
+    "/deployments/traffic-filter/rulesets/{ruleset_id}" : {
+      "get" : {
+        "tags" : [ "DeploymentsTrafficFilter" ],
+        "summary" : "Retrieves the ruleset by ID.",
+        "description" : "Retrieves a list of resources that are associated to the specified ruleset.",
+        "operationId" : "get-traffic-filter-ruleset",
+        "parameters" : [ {
+          "name" : "ruleset_id",
+          "in" : "path",
+          "description" : "The mandatory ruleset ID.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "include_associations",
+          "in" : "query",
+          "description" : "Retrieves a list of resources that are associated to the specified ruleset.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The container for a set of traffic filter rules.",
+            "schema" : {
+              "$ref" : "#/definitions/TrafficFilterRulesetInfo"
+            }
+          },
+          "404" : {
+            "description" : "The traffic filter ruleset specified by {ruleset_id} cannot be found. (code: `traffic_filter.not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "traffic_filter.not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "500" : {
+            "description" : "Error reading the traffic filter ruleset. (code: `traffic_filter.request_execution_failed`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "traffic_filter.request_execution_failed" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployments - Traffic Filter - CRUD"
+        }
+      },
+      "put" : {
+        "tags" : [ "DeploymentsTrafficFilter" ],
+        "summary" : "Updates a ruleset",
+        "description" : "Updates the ruleset with the definition.",
+        "operationId" : "update-traffic-filter-ruleset",
+        "parameters" : [ {
+          "name" : "ruleset_id",
+          "in" : "path",
+          "description" : "The mandatory ruleset ID.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "The specification for traffic filter ruleset.",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/TrafficFilterRulesetRequest"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The ruleset definition was valid and the update has started.",
+            "schema" : {
+              "$ref" : "#/definitions/TrafficFilterRulesetResponse"
+            }
+          },
+          "404" : {
+            "description" : "The traffic filter ruleset specified by {ruleset_id} cannot be found. (code: `traffic_filter.not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "traffic_filter.not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "500" : {
+            "description" : "Error reading the traffic filter ruleset. (code: `traffic_filter.request_execution_failed`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "traffic_filter.request_execution_failed" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployments - Traffic Filter - CRUD"
+        }
+      },
+      "delete" : {
+        "tags" : [ "DeploymentsTrafficFilter" ],
+        "summary" : "Delete a ruleset",
+        "description" : "Deletes the ruleset by ID.",
+        "operationId" : "delete-traffic-filter-ruleset",
+        "parameters" : [ {
+          "name" : "ruleset_id",
+          "in" : "path",
+          "description" : "The mandatory ruleset ID.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "ignore_associations",
+          "in" : "query",
+          "description" : "When true, ignores the associations and deletes the ruleset. When false, recognizes the associations, which prevents the deletion of the rule set.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The traffic filter ruleset was successfully deleted.",
+            "schema" : {
+              "$ref" : "#/definitions/EmptyResponse"
+            }
+          },
+          "404" : {
+            "description" : "The traffic filter ruleset specified by {ruleset_id} cannot be found. (code: `traffic_filter.not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "traffic_filter.not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "500" : {
+            "description" : "Error deleting the traffic filter ruleset. (code: `traffic_filter.request_execution_failed`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "traffic_filter.request_execution_failed" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployments - Traffic Filter - CRUD"
+        }
+      }
+    },
+    "/deployments/traffic-filter/rulesets/{ruleset_id}/associations" : {
+      "get" : {
+        "tags" : [ "DeploymentsTrafficFilter" ],
+        "summary" : "Get associated deployments",
+        "description" : "Retrieves a list of deployments that are associated to the specified ruleset.",
+        "operationId" : "get-traffic-filter-ruleset-deployment-associations",
+        "parameters" : [ {
+          "name" : "ruleset_id",
+          "in" : "path",
+          "description" : "The mandatory ruleset ID.",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Associations referred by traffic filter rulesets were successfully returned",
+            "schema" : {
+              "$ref" : "#/definitions/RulesetAssociations"
+            }
+          },
+          "500" : {
+            "description" : "Error fetching deployments. (code: `traffic_filter.request_execution_failed`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "traffic_filter.request_execution_failed" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployments - Traffic Filter - Associations"
+        }
+      },
+      "post" : {
+        "tags" : [ "DeploymentsTrafficFilter" ],
+        "summary" : "Create ruleset association",
+        "description" : "Applies the ruleset to the specified deployment.",
+        "operationId" : "create-traffic-filter-ruleset-association",
+        "parameters" : [ {
+          "name" : "ruleset_id",
+          "in" : "path",
+          "description" : "The mandatory ruleset ID.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "Mandatory ruleset association description",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/FilterAssociation"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "Create association request was valid and the association has been created",
+            "schema" : {
+              "$ref" : "#/definitions/EmptyResponse"
+            }
+          },
+          "200" : {
+            "description" : "Create association request was valid and the association already exists",
+            "schema" : {
+              "$ref" : "#/definitions/EmptyResponse"
+            }
+          },
+          "404" : {
+            "description" : "The traffic filter ruleset specified by {ruleset_id} cannot be found. (code: `traffic_filter.not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "traffic_filter.not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "500" : {
+            "description" : "Creation failed. (code: `traffic_filter.request_execution_failed`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "traffic_filter.request_execution_failed" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployments - Traffic Filter - Associations"
+        }
+      }
+    },
+    "/deployments/traffic-filter/rulesets/{ruleset_id}/associations/{association_type}/{associated_entity_id}" : {
+      "delete" : {
+        "tags" : [ "DeploymentsTrafficFilter" ],
+        "summary" : "Delete ruleset association",
+        "description" : "Deletes the traffic rules in the ruleset from the deployment.",
+        "operationId" : "delete-traffic-filter-ruleset-association",
+        "parameters" : [ {
+          "name" : "ruleset_id",
+          "in" : "path",
+          "description" : "The mandatory ruleset ID.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "association_type",
+          "in" : "path",
+          "description" : "Association type",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "associated_entity_id",
+          "in" : "path",
+          "description" : "Associated entity ID",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Delete association request was valid and the association has been deleted",
+            "schema" : {
+              "$ref" : "#/definitions/EmptyResponse"
+            }
+          },
+          "404" : {
+            "description" : "The traffic filter ruleset association cannot be found. (code: `traffic_filter.not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "traffic_filter.not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "500" : {
+            "description" : "Deletion failed. (code: `traffic_filter.request_execution_failed`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "traffic_filter.request_execution_failed" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployments - Traffic Filter - Associations"
         }
       }
     },
@@ -909,6 +1522,68 @@
           },
           "400" : {
             "description" : "The deployment request had errors.",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "401" : {
+            "description" : "You are not authorized to perform this action.",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "404" : {
+            "description" : "The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.deployment_not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployment - CRUD"
+        }
+      }
+    },
+    "/deployments/{deployment_id}/_migrate" : {
+      "post" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Build Migrate Deployment Template request",
+        "description" : "Returns a deployment update request that would transform this deployment from its template to the provided one.",
+        "operationId" : "migrate-deployment",
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "template",
+          "in" : "query",
+          "description" : "The ID of the deployment template to migrate to",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The request was valid and the deployment can be migrated to the template with the provided id.",
+            "schema" : {
+              "$ref" : "#/definitions/DeploymentTemplateMigrateResponse"
+            }
+          },
+          "400" : {
+            "description" : "The deployment cannot be successfully migrated to the template with the provided id.",
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
@@ -1665,6 +2340,13 @@
           "required" : true,
           "type" : "string"
         }, {
+          "name" : "validate_only",
+          "in" : "query",
+          "description" : "When `true`, does not enable ILM but returns warnings if any applications may lose availability during ILM migration.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
           "in" : "body",
           "name" : "body",
           "description" : "Information to build the ILM policies that will be created",
@@ -1748,6 +2430,13 @@
           "description" : "User-specified RefId for the Resource.",
           "required" : true,
           "type" : "string"
+        }, {
+          "name" : "validate_only",
+          "in" : "query",
+          "description" : "When `true`, does not enable SLM but returns warnings if any applications may lose availability during SLM migration.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
         } ],
         "responses" : {
           "200" : {
@@ -3967,7 +4656,7 @@
         },
         "trust_all" : {
           "type" : "boolean",
-          "description" : "If true, all the clusters of this account will be trusted and the `trust_whitelist` is ignored."
+          "description" : "If true, all clusters in this account will by default be trusted and the `trust_whitelist` is ignored."
         },
         "trust_whitelist" : {
           "type" : "array",
@@ -5094,6 +5783,10 @@
           "type" : "string",
           "description" : "The DNS name of the cluster endpoint, if available"
         },
+        "service_url" : {
+          "type" : "string",
+          "description" : "The full URL to access this deployment resource"
+        },
         "cloud_id" : {
           "type" : "string",
           "description" : "The cloud ID, an encoded string that provides other Elastic services with the necessary information to connect to this Elasticsearch and Kibana (only present if both exist)"
@@ -5582,6 +6275,15 @@
     },
     "DeploymentResourceCommandResponse" : {
       "type" : "object",
+      "properties" : {
+        "warnings" : {
+          "type" : "array",
+          "description" : "List of warnings generated from validating command",
+          "items" : {
+            "$ref" : "#/definitions/ReplyWarning"
+          }
+        }
+      },
       "description" : "Response returned when a command is successfully issued against a given Deployment resource"
     },
     "DeploymentResourceCrudResponse" : {
@@ -5778,9 +6480,24 @@
         "min_version" : {
           "type" : "string",
           "description" : "Minimum stack version required by this template, if any."
+        },
+        "template_category_id" : {
+          "type" : "string",
+          "description" : "Provider and version agnostic template identifier used for grouping related template types."
         }
       },
       "description" : "Deployment template detailed information"
+    },
+    "DeploymentTemplateMigrateResponse" : {
+      "type" : "object",
+      "required" : [ "resources" ],
+      "properties" : {
+        "resources" : {
+          "description" : "Resources that are part of the deployment after the migrate operation.",
+          "$ref" : "#/definitions/DeploymentUpdateRequest"
+        }
+      },
+      "description" : "A response returned from the Deployment migrate endpoint"
     },
     "DeploymentTemplateReference" : {
       "type" : "object",
@@ -6304,11 +7021,12 @@
           "$ref" : "#/definitions/TrafficFilterSettings"
         },
         "ccs" : {
+          "description" : "DEPRECATED (Scheduled to be removed in the next major version): Configuration of remote clusters. Use the /remote-clusters endpoints instead",
           "$ref" : "#/definitions/CrossClusterSearchSettings"
         },
         "trust" : {
           "description" : "Configuration of trust with other clusters",
-          "$ref" : "#/definitions/TrustSettings"
+          "$ref" : "#/definitions/ElasticsearchClusterTrustSettings"
         }
       },
       "description" : "The settings for an Elasticsearch cluster."
@@ -6336,6 +7054,26 @@
         }
       },
       "description" : "The topology of the Elasticsearch nodes, including the number, capacity, and type of nodes, and where they can be allocated."
+    },
+    "ElasticsearchClusterTrustSettings" : {
+      "type" : "object",
+      "properties" : {
+        "accounts" : {
+          "type" : "array",
+          "description" : "The list of trust relationships with different accounts",
+          "items" : {
+            "$ref" : "#/definitions/AccountTrustRelationship"
+          }
+        },
+        "external" : {
+          "type" : "array",
+          "description" : "The list of trust relationships with external entities",
+          "items" : {
+            "$ref" : "#/definitions/ExternalTrustRelationship"
+          }
+        }
+      },
+      "description" : "Configuration of trust with other clusters."
     },
     "ElasticsearchClusterUser" : {
       "type" : "object",
@@ -7315,7 +8053,7 @@
         },
         "deployments" : {
           "type" : "array",
-          "description" : "The deployments using this extension.",
+          "description" : "List of deployments using this extension. Up to only 10000 deployments will be included in the list.",
           "items" : {
             "type" : "string"
           }
@@ -7354,6 +8092,43 @@
           "description" : "hyperlink to an external resource"
         }
       }
+    },
+    "ExternalTrustRelationship" : {
+      "type" : "object",
+      "required" : [ "trust_all", "trust_relationship_id" ],
+      "properties" : {
+        "trust_relationship_id" : {
+          "type" : "string",
+          "description" : "the ID of the external trust relationship"
+        },
+        "trust_all" : {
+          "type" : "boolean",
+          "description" : "If true, all clusters in this external entity will be trusted and the `trust_whitelist` is ignored."
+        },
+        "trust_whitelist" : {
+          "type" : "array",
+          "description" : "The list of clusters to trust. Only used when `trust_all` is false.",
+          "items" : {
+            "type" : "string"
+          }
+        }
+      },
+      "description" : "The trust relationship with external entities (remote environments, remote accounts...)."
+    },
+    "FilterAssociation" : {
+      "type" : "object",
+      "required" : [ "entity_type", "id" ],
+      "properties" : {
+        "entity_type" : {
+          "type" : "string",
+          "description" : "Type of the traffic filter ruleset association, such as 'deployment', 'cluster'"
+        },
+        "id" : {
+          "type" : "string",
+          "description" : "ID of the entity, such as the deployment ID or Elasticsearch cluster ID."
+        }
+      },
+      "description" : "The association with a ruleset or user auth token for a deployment, template, or product."
     },
     "GrowShrinkStrategyConfig" : {
       "type" : "object",
@@ -8327,6 +9102,25 @@
       },
       "description" : "Performs inline, rolling configuration changes that mutate existing containers. TIP: This is the fastest way to update a plan, but can fail for complex plan changes, such as topology changes. Also, this is less safe for configuration changes that leave a cluster in a non running state. NOTE: When you perform a major version upgrade, and 'group_by' is set to 'pass:macros[__all__]';, rolling is required."
     },
+    "RulesetAssociations" : {
+      "type" : "object",
+      "required" : [ "associations", "total_associations" ],
+      "properties" : {
+        "associations" : {
+          "type" : "array",
+          "description" : "List of associations",
+          "items" : {
+            "$ref" : "#/definitions/FilterAssociation"
+          }
+        },
+        "total_associations" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Total number of associations. This includes associations the user does not have permission to view."
+        }
+      },
+      "description" : "The configuration settings for the traffic filter."
+    },
     "SearchRequest" : {
       "type" : "object",
       "properties" : {
@@ -8788,6 +9582,134 @@
       },
       "description" : "Measured by the amount of a resource. The final cluster size is calculated using multipliers from the topology instance configuration."
     },
+    "TrafficFilterRule" : {
+      "type" : "object",
+      "required" : [ "source" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "The rule ID"
+        },
+        "description" : {
+          "type" : "string",
+          "description" : "Description of the rule"
+        },
+        "source" : {
+          "type" : "string",
+          "description" : "Allowed traffic filter source: IP address, CIDR mask, or VPC endpoint ID"
+        }
+      },
+      "description" : "The container for an IP filter rule."
+    },
+    "TrafficFilterRulesetInfo" : {
+      "type" : "object",
+      "required" : [ "id", "include_by_default", "name", "region", "rules", "type" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "The ruleset ID"
+        },
+        "name" : {
+          "type" : "string",
+          "description" : "Name of the ruleset"
+        },
+        "description" : {
+          "type" : "string",
+          "description" : "Description of the ruleset"
+        },
+        "type" : {
+          "type" : "string",
+          "description" : "Type of the ruleset"
+        },
+        "include_by_default" : {
+          "type" : "boolean",
+          "description" : "Should the ruleset be automatically included in the new deployments"
+        },
+        "region" : {
+          "type" : "string",
+          "description" : "The ruleset can be attached only to deployments in the specific region"
+        },
+        "rules" : {
+          "type" : "array",
+          "description" : "List of rules",
+          "items" : {
+            "$ref" : "#/definitions/TrafficFilterRule"
+          }
+        },
+        "associations" : {
+          "type" : "array",
+          "description" : "List of associations. Returned only when include_associations query parameter is true",
+          "items" : {
+            "$ref" : "#/definitions/FilterAssociation"
+          }
+        },
+        "total_associations" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Total number of associations. This includes associations the user does not have permission to view.Returned only when include_associations query parameter is true"
+        }
+      },
+      "description" : "The container for a set of traffic filter rules."
+    },
+    "TrafficFilterRulesetRequest" : {
+      "type" : "object",
+      "required" : [ "include_by_default", "name", "region", "rules", "type" ],
+      "properties" : {
+        "name" : {
+          "type" : "string",
+          "description" : "Name of the ruleset"
+        },
+        "description" : {
+          "type" : "string",
+          "description" : "Description of the ruleset"
+        },
+        "type" : {
+          "type" : "string",
+          "description" : "Type of the ruleset"
+        },
+        "include_by_default" : {
+          "type" : "boolean",
+          "description" : "Should the ruleset be automatically included in the new deployments"
+        },
+        "region" : {
+          "type" : "string",
+          "description" : "The ruleset can be attached only to deployments in the specific region"
+        },
+        "rules" : {
+          "type" : "array",
+          "description" : "List of rules",
+          "items" : {
+            "$ref" : "#/definitions/TrafficFilterRule"
+          }
+        }
+      },
+      "description" : "The specification for traffic filter ruleset."
+    },
+    "TrafficFilterRulesetResponse" : {
+      "type" : "object",
+      "required" : [ "id" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "The new ruleset ID"
+        }
+      },
+      "description" : "The response after you create a new ruleset."
+    },
+    "TrafficFilterRulesets" : {
+      "type" : "object",
+      "required" : [ "rulesets" ],
+      "properties" : {
+        "rulesets" : {
+          "type" : "array",
+          "description" : "List of traffic filter rules",
+          "items" : {
+            "$ref" : "#/definitions/TrafficFilterRulesetInfo"
+          }
+        }
+      },
+      "description" : "The container for a set of traffic filter rulesets."
+    },
     "TrafficFilterSettings" : {
       "type" : "object",
       "required" : [ "rulesets" ],
@@ -8838,6 +9760,10 @@
         "restore_snapshot" : {
           "$ref" : "#/definitions/RestoreSnapshotConfiguration"
         },
+        "remote_clusters" : {
+          "description" : "The list of resources that will be configured as remote clusters",
+          "$ref" : "#/definitions/RemoteResources"
+        },
         "cluster_settings_json" : {
           "type" : "object",
           "description" : "If specified, contains transient settings to be applied to an Elasticsearch cluster during changes, default values shown below applied.\nThese can be overridden by specifying them in the map (or null to unset). Additional settings can also be set. Settings will be cleared after the plan has finished. If not specified, no settings will be applied.\nNOTE: These settings are only explicitly cleared for 5.x+ clusters, they must be hand-reset to their defaults in 2.x- (or a cluster reboot will clear them).\n- indices.store.throttle.max_bytes_per_sec: 150Mb\n- indices.recovery.max_bytes_per_sec: 150Mb\n- cluster.routing.allocation.cluster_concurrent_rebalance: 10\n- cluster.routing.allocation.node_initial_primaries_recoveries: 8\n- cluster.routing.allocation.node_concurrent_incoming_recoveries: 8\n"
@@ -8868,20 +9794,6 @@
         }
       },
       "description" : "Defines the configuration parameters that control how the plan is applied. For example, the Elasticsearch cluster topology and Kibana instance settings."
-    },
-    "TrustSettings" : {
-      "type" : "object",
-      "required" : [ "accounts" ],
-      "properties" : {
-        "accounts" : {
-          "type" : "array",
-          "description" : "The list of trust relationships with different accounts",
-          "items" : {
-            "$ref" : "#/definitions/AccountTrustRelationship"
-          }
-        }
-      },
-      "description" : "Configuration of trust with other clusters."
     },
     "UpdateExtensionRequest" : {
       "type" : "object",

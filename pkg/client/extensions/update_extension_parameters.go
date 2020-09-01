@@ -80,12 +80,12 @@ for the update extension operation typically these are written to a http.Request
 type UpdateExtensionParams struct {
 
 	/*Body
-	  The Extension update data.
+	  The extension update data.
 
 	*/
 	Body *models.UpdateExtensionRequest
 	/*ExtensionID
-	  Id of an Extension
+	  Id of an extension
 
 	*/
 	ExtensionID string

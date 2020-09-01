@@ -92,6 +92,8 @@ type ListExtensionsParams struct {
 
 	/*IncludeDeployments
 	  Include deployments referencing this extension.
+	DEPRECATED: To get the list of deployments that reference an extension, use the Get Extension API.
+
 
 	*/
 	IncludeDeployments *bool

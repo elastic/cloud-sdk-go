@@ -31,13 +31,17 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 )
 
 // NewEnableDeploymentResourceSlmParams creates a new EnableDeploymentResourceSlmParams object
 // with the default values initialized.
 func NewEnableDeploymentResourceSlmParams() *EnableDeploymentResourceSlmParams {
-	var ()
+	var (
+		validateOnlyDefault = bool(false)
+	)
 	return &EnableDeploymentResourceSlmParams{
+		ValidateOnly: &validateOnlyDefault,
 
 		timeout: cr.DefaultTimeout,
 	}
@@ -46,8 +50,11 @@ func NewEnableDeploymentResourceSlmParams() *EnableDeploymentResourceSlmParams {
 // NewEnableDeploymentResourceSlmParamsWithTimeout creates a new EnableDeploymentResourceSlmParams object
 // with the default values initialized, and the ability to set a timeout on a request
 func NewEnableDeploymentResourceSlmParamsWithTimeout(timeout time.Duration) *EnableDeploymentResourceSlmParams {
-	var ()
+	var (
+		validateOnlyDefault = bool(false)
+	)
 	return &EnableDeploymentResourceSlmParams{
+		ValidateOnly: &validateOnlyDefault,
 
 		timeout: timeout,
 	}
@@ -56,8 +63,11 @@ func NewEnableDeploymentResourceSlmParamsWithTimeout(timeout time.Duration) *Ena
 // NewEnableDeploymentResourceSlmParamsWithContext creates a new EnableDeploymentResourceSlmParams object
 // with the default values initialized, and the ability to set a context for a request
 func NewEnableDeploymentResourceSlmParamsWithContext(ctx context.Context) *EnableDeploymentResourceSlmParams {
-	var ()
+	var (
+		validateOnlyDefault = bool(false)
+	)
 	return &EnableDeploymentResourceSlmParams{
+		ValidateOnly: &validateOnlyDefault,
 
 		Context: ctx,
 	}
@@ -66,9 +76,12 @@ func NewEnableDeploymentResourceSlmParamsWithContext(ctx context.Context) *Enabl
 // NewEnableDeploymentResourceSlmParamsWithHTTPClient creates a new EnableDeploymentResourceSlmParams object
 // with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewEnableDeploymentResourceSlmParamsWithHTTPClient(client *http.Client) *EnableDeploymentResourceSlmParams {
-	var ()
+	var (
+		validateOnlyDefault = bool(false)
+	)
 	return &EnableDeploymentResourceSlmParams{
-		HTTPClient: client,
+		ValidateOnly: &validateOnlyDefault,
+		HTTPClient:   client,
 	}
 }
 
@@ -87,6 +100,11 @@ type EnableDeploymentResourceSlmParams struct {
 
 	*/
 	RefID string
+	/*ValidateOnly
+	  When `true`, does not enable SLM but returns warnings if any applications may lose availability during SLM migration.
+
+	*/
+	ValidateOnly *bool
 
 	timeout    time.Duration
 	Context    context.Context
@@ -148,6 +166,17 @@ func (o *EnableDeploymentResourceSlmParams) SetRefID(refID string) {
 	o.RefID = refID
 }
 
+// WithValidateOnly adds the validateOnly to the enable deployment resource slm params
+func (o *EnableDeploymentResourceSlmParams) WithValidateOnly(validateOnly *bool) *EnableDeploymentResourceSlmParams {
+	o.SetValidateOnly(validateOnly)
+	return o
+}
+
+// SetValidateOnly adds the validateOnly to the enable deployment resource slm params
+func (o *EnableDeploymentResourceSlmParams) SetValidateOnly(validateOnly *bool) {
+	o.ValidateOnly = validateOnly
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *EnableDeploymentResourceSlmParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -164,6 +193,22 @@ func (o *EnableDeploymentResourceSlmParams) WriteToRequest(r runtime.ClientReque
 	// path param ref_id
 	if err := r.SetPathParam("ref_id", o.RefID); err != nil {
 		return err
+	}
+
+	if o.ValidateOnly != nil {
+
+		// query param validate_only
+		var qrValidateOnly bool
+		if o.ValidateOnly != nil {
+			qrValidateOnly = *o.ValidateOnly
+		}
+		qValidateOnly := swag.FormatBool(qrValidateOnly)
+		if qValidateOnly != "" {
+			if err := r.SetQueryParam("validate_only", qValidateOnly); err != nil {
+				return err
+			}
+		}
+
 	}
 
 	if len(res) > 0 {

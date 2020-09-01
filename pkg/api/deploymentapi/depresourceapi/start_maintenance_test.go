@@ -38,7 +38,7 @@ func TestStartMaintenanceMode(t *testing.T) {
 	tests := []struct {
 		name string
 		args args
-		want models.DeploymentResourceCommandResponse
+		want *models.DeploymentResourceCommandResponse
 		err  error
 	}{
 		{
@@ -141,7 +141,7 @@ func TestStartInstancesMaintenanceMode(t *testing.T) {
 	tests := []struct {
 		name string
 		args args
-		want models.DeploymentResourceCommandResponse
+		want *models.DeploymentResourceCommandResponse
 		err  error
 	}{
 		{
@@ -259,7 +259,7 @@ func TestStartMaintenanceModeAllOrSpecified(t *testing.T) {
 	tests := []struct {
 		name string
 		args args
-		want models.DeploymentResourceCommandResponse
+		want *models.DeploymentResourceCommandResponse
 		err  error
 	}{
 		{

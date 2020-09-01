@@ -46,6 +46,12 @@ func (o *CreateTrafficFilterRulesetAssociationReader) ReadResponse(response runt
 			return nil, err
 		}
 		return result, nil
+	case 201:
+		result := NewCreateTrafficFilterRulesetAssociationCreated()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return result, nil
 	case 404:
 		result := NewCreateTrafficFilterRulesetAssociationNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -71,7 +77,7 @@ func NewCreateTrafficFilterRulesetAssociationOK() *CreateTrafficFilterRulesetAss
 
 /*CreateTrafficFilterRulesetAssociationOK handles this case with default header values.
 
-Create association request was valid and the association has been created
+Create association request was valid and the association already exists
 */
 type CreateTrafficFilterRulesetAssociationOK struct {
 	Payload models.EmptyResponse
@@ -86,6 +92,37 @@ func (o *CreateTrafficFilterRulesetAssociationOK) GetPayload() models.EmptyRespo
 }
 
 func (o *CreateTrafficFilterRulesetAssociationOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response payload
+	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewCreateTrafficFilterRulesetAssociationCreated creates a CreateTrafficFilterRulesetAssociationCreated with default headers values
+func NewCreateTrafficFilterRulesetAssociationCreated() *CreateTrafficFilterRulesetAssociationCreated {
+	return &CreateTrafficFilterRulesetAssociationCreated{}
+}
+
+/*CreateTrafficFilterRulesetAssociationCreated handles this case with default header values.
+
+Create association request was valid and the association has been created
+*/
+type CreateTrafficFilterRulesetAssociationCreated struct {
+	Payload models.EmptyResponse
+}
+
+func (o *CreateTrafficFilterRulesetAssociationCreated) Error() string {
+	return fmt.Sprintf("[POST /deployments/traffic-filter/rulesets/{ruleset_id}/associations][%d] createTrafficFilterRulesetAssociationCreated  %+v", 201, o.Payload)
+}
+
+func (o *CreateTrafficFilterRulesetAssociationCreated) GetPayload() models.EmptyResponse {
+	return o.Payload
+}
+
+func (o *CreateTrafficFilterRulesetAssociationCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {

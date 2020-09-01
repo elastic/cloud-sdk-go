@@ -33,7 +33,7 @@ import (
 // swagger:model ElasticsearchClusterSettings
 type ElasticsearchClusterSettings struct {
 
-	// ccs
+	// DEPRECATED (Scheduled to be removed in the next major version): Configuration of remote clusters. Use the /remote-clusters endpoints instead
 	Ccs *CrossClusterSearchSettings `json:"ccs,omitempty"`
 
 	// curation
@@ -58,7 +58,7 @@ type ElasticsearchClusterSettings struct {
 	TrafficFilter *TrafficFilterSettings `json:"traffic_filter,omitempty"`
 
 	// Configuration of trust with other clusters
-	Trust *TrustSettings `json:"trust,omitempty"`
+	Trust *ElasticsearchClusterTrustSettings `json:"trust,omitempty"`
 }
 
 // Validate validates this elasticsearch cluster settings

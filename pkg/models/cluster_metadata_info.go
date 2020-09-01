@@ -51,6 +51,9 @@ type ClusterMetadataInfo struct {
 	// An unstructured JSON representation of the public and internal state (can be filtered out via URL parameter). The contents and structure of the `raw` field can change at any time.
 	Raw interface{} `json:"raw,omitempty"`
 
+	// The full URL to access this deployment resource
+	ServiceURL string `json:"service_url,omitempty"`
+
 	// The resource version number of the cluster metadata
 	// Required: true
 	Version *int32 `json:"version"`

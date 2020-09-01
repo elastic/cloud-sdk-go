@@ -86,21 +86,23 @@ func NewRestartDeploymentEsResourceAccepted() *RestartDeploymentEsResourceAccept
 The restart command was issued successfully.
 */
 type RestartDeploymentEsResourceAccepted struct {
-	Payload models.DeploymentResourceCommandResponse
+	Payload *models.DeploymentResourceCommandResponse
 }
 
 func (o *RestartDeploymentEsResourceAccepted) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_restart][%d] restartDeploymentEsResourceAccepted  %+v", 202, o.Payload)
 }
 
-func (o *RestartDeploymentEsResourceAccepted) GetPayload() models.DeploymentResourceCommandResponse {
+func (o *RestartDeploymentEsResourceAccepted) GetPayload() *models.DeploymentResourceCommandResponse {
 	return o.Payload
 }
 
 func (o *RestartDeploymentEsResourceAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
+	o.Payload = new(models.DeploymentResourceCommandResponse)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

@@ -46,6 +46,12 @@ func (o *GetDeploymentTemplateReader) ReadResponse(response runtime.ClientRespon
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewGetDeploymentTemplateBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	case 404:
 		result := NewGetDeploymentTemplateNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -82,6 +88,46 @@ func (o *GetDeploymentTemplateOK) GetPayload() *models.DeploymentTemplateInfo {
 func (o *GetDeploymentTemplateOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.DeploymentTemplateInfo)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetDeploymentTemplateBadRequest creates a GetDeploymentTemplateBadRequest with default headers values
+func NewGetDeploymentTemplateBadRequest() *GetDeploymentTemplateBadRequest {
+	return &GetDeploymentTemplateBadRequest{}
+}
+
+/*GetDeploymentTemplateBadRequest handles this case with default header values.
+
+The template is not compatible with the [cluster] format. (code: `deployment.migration_invalid`)
+*/
+type GetDeploymentTemplateBadRequest struct {
+	/*The error codes associated with the response
+	 */
+	XCloudErrorCodes string
+
+	Payload *models.BasicFailedReply
+}
+
+func (o *GetDeploymentTemplateBadRequest) Error() string {
+	return fmt.Sprintf("[GET /platform/configuration/templates/deployments/{template_id}][%d] getDeploymentTemplateBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *GetDeploymentTemplateBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
+func (o *GetDeploymentTemplateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response header x-cloud-error-codes
+	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+
+	o.Payload = new(models.BasicFailedReply)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

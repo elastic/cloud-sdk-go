@@ -64,6 +64,12 @@ func (o *SetAPIBaseURLReader) ReadResponse(response runtime.ClientResponse, cons
 			return nil, err
 		}
 		return nil, result
+	case 412:
+		result := NewSetAPIBaseURLPreconditionFailed()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
@@ -228,6 +234,46 @@ func (o *SetAPIBaseURLConflict) GetPayload() *models.BasicFailedReply {
 }
 
 func (o *SetAPIBaseURLConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// response header x-cloud-error-codes
+	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+
+	o.Payload = new(models.BasicFailedReply)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSetAPIBaseURLPreconditionFailed creates a SetAPIBaseURLPreconditionFailed with default headers values
+func NewSetAPIBaseURLPreconditionFailed() *SetAPIBaseURLPreconditionFailed {
+	return &SetAPIBaseURLPreconditionFailed{}
+}
+
+/*SetAPIBaseURLPreconditionFailed handles this case with default header values.
+
+skip_cascading_operations was false but the Security Deployment already had a pending plan. (code: `security_deployment.cluster_pending_plan_exists`)
+*/
+type SetAPIBaseURLPreconditionFailed struct {
+	/*The error codes associated with the response
+	 */
+	XCloudErrorCodes string
+
+	Payload *models.BasicFailedReply
+}
+
+func (o *SetAPIBaseURLPreconditionFailed) Error() string {
+	return fmt.Sprintf("[PUT /platform/configuration/api_base_url][%d] setApiBaseUrlPreconditionFailed  %+v", 412, o.Payload)
+}
+
+func (o *SetAPIBaseURLPreconditionFailed) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
+func (o *SetAPIBaseURLPreconditionFailed) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response header x-cloud-error-codes
 	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")

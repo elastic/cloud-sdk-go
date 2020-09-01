@@ -86,21 +86,23 @@ func NewStopDeploymentResourceInstancesAccepted() *StopDeploymentResourceInstanc
 The stop command was issued successfully.
 */
 type StopDeploymentResourceInstancesAccepted struct {
-	Payload models.DeploymentResourceCommandResponse
+	Payload *models.DeploymentResourceCommandResponse
 }
 
 func (o *StopDeploymentResourceInstancesAccepted) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_ids}/_stop][%d] stopDeploymentResourceInstancesAccepted  %+v", 202, o.Payload)
 }
 
-func (o *StopDeploymentResourceInstancesAccepted) GetPayload() models.DeploymentResourceCommandResponse {
+func (o *StopDeploymentResourceInstancesAccepted) GetPayload() *models.DeploymentResourceCommandResponse {
 	return o.Payload
 }
 
 func (o *StopDeploymentResourceInstancesAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
+	o.Payload = new(models.DeploymentResourceCommandResponse)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

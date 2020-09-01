@@ -53,7 +53,7 @@ func (params *StopInstancesParams) Validate() error {
 }
 
 // Stop stops all instances belonging to a deployment resource kind.
-func Stop(params StopParams) (models.DeploymentResourceCommandResponse, error) {
+func Stop(params StopParams) (*models.DeploymentResourceCommandResponse, error) {
 	if err := params.Validate(); err != nil {
 		return nil, err
 	}
@@ -73,7 +73,7 @@ func Stop(params StopParams) (models.DeploymentResourceCommandResponse, error) {
 }
 
 // StopInstances stops defined instances belonging to a deployment resource.
-func StopInstances(params StopInstancesParams) (models.DeploymentResourceCommandResponse, error) {
+func StopInstances(params StopInstancesParams) (*models.DeploymentResourceCommandResponse, error) {
 	if err := params.Validate(); err != nil {
 		return nil, err
 	}
@@ -95,7 +95,7 @@ func StopInstances(params StopInstancesParams) (models.DeploymentResourceCommand
 }
 
 // StopAllOrSpecified stops all or defined instances belonging to a deployment resource.
-func StopAllOrSpecified(params StopInstancesParams) (models.DeploymentResourceCommandResponse, error) {
+func StopAllOrSpecified(params StopInstancesParams) (*models.DeploymentResourceCommandResponse, error) {
 	if params.All {
 		res, err := Stop(params.StopParams)
 		if err != nil {

@@ -175,7 +175,7 @@ func NewUpdateExtensionUnauthorized() *UpdateExtensionUnauthorized {
 
 /*UpdateExtensionUnauthorized handles this case with default header values.
 
-* The Extension does not belong to you. (code: `extensions.unauthorised`)
+* The extension does not belong to you. (code: `extensions.unauthorised`)
 * Your current session does not have a user id associated with it. (code: `extensions.no_user_id`)
  */
 type UpdateExtensionUnauthorized struct {
@@ -216,7 +216,7 @@ func NewUpdateExtensionNotFound() *UpdateExtensionNotFound {
 
 /*UpdateExtensionNotFound handles this case with default header values.
 
-The Extension you want does not exist. (code: `extensions.not_found`)
+The extension you want does not exist. (code: `extensions.not_found`)
 */
 type UpdateExtensionNotFound struct {
 	/*The error codes associated with the response

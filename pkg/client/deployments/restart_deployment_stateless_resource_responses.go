@@ -86,21 +86,23 @@ func NewRestartDeploymentStatelessResourceAccepted() *RestartDeploymentStateless
 The restart command was issued successfully
 */
 type RestartDeploymentStatelessResourceAccepted struct {
-	Payload models.DeploymentResourceCommandResponse
+	Payload *models.DeploymentResourceCommandResponse
 }
 
 func (o *RestartDeploymentStatelessResourceAccepted) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_restart][%d] restartDeploymentStatelessResourceAccepted  %+v", 202, o.Payload)
 }
 
-func (o *RestartDeploymentStatelessResourceAccepted) GetPayload() models.DeploymentResourceCommandResponse {
+func (o *RestartDeploymentStatelessResourceAccepted) GetPayload() *models.DeploymentResourceCommandResponse {
 	return o.Payload
 }
 
 func (o *RestartDeploymentStatelessResourceAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
+	o.Payload = new(models.DeploymentResourceCommandResponse)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

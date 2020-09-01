@@ -41,6 +41,7 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/client/extensions"
 	"github.com/elastic/cloud-sdk-go/pkg/client/platform"
 	"github.com/elastic/cloud-sdk-go/pkg/client/platform_configuration_instances"
+	"github.com/elastic/cloud-sdk-go/pkg/client/platform_configuration_networking"
 	"github.com/elastic/cloud-sdk-go/pkg/client/platform_configuration_security"
 	"github.com/elastic/cloud-sdk-go/pkg/client/platform_configuration_snapshots"
 	"github.com/elastic/cloud-sdk-go/pkg/client/platform_configuration_templates"
@@ -106,6 +107,7 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Rest {
 	cli.Extensions = extensions.New(transport, formats)
 	cli.Platform = platform.New(transport, formats)
 	cli.PlatformConfigurationInstances = platform_configuration_instances.New(transport, formats)
+	cli.PlatformConfigurationNetworking = platform_configuration_networking.New(transport, formats)
 	cli.PlatformConfigurationSecurity = platform_configuration_security.New(transport, formats)
 	cli.PlatformConfigurationSnapshots = platform_configuration_snapshots.New(transport, formats)
 	cli.PlatformConfigurationTemplates = platform_configuration_templates.New(transport, formats)
@@ -185,6 +187,8 @@ type Rest struct {
 
 	PlatformConfigurationInstances platform_configuration_instances.ClientService
 
+	PlatformConfigurationNetworking platform_configuration_networking.ClientService
+
 	PlatformConfigurationSecurity platform_configuration_security.ClientService
 
 	PlatformConfigurationSnapshots platform_configuration_snapshots.ClientService
@@ -219,6 +223,7 @@ func (c *Rest) SetTransport(transport runtime.ClientTransport) {
 	c.Extensions.SetTransport(transport)
 	c.Platform.SetTransport(transport)
 	c.PlatformConfigurationInstances.SetTransport(transport)
+	c.PlatformConfigurationNetworking.SetTransport(transport)
 	c.PlatformConfigurationSecurity.SetTransport(transport)
 	c.PlatformConfigurationSnapshots.SetTransport(transport)
 	c.PlatformConfigurationTemplates.SetTransport(transport)

@@ -140,7 +140,7 @@ func (a *Client) DeleteExtension(params *DeleteExtensionParams, authInfo runtime
 /*
   GetExtension gets extension
 
-  Retrieves an Extension.
+  Retrieves an extension.
 */
 func (a *Client) GetExtension(params *GetExtensionParams, authInfo runtime.ClientAuthInfoWriter) (*GetExtensionOK, error) {
 	// TODO: Validate the params before sending
@@ -214,7 +214,7 @@ func (a *Client) ListExtensions(params *ListExtensionsParams, authInfo runtime.C
 /*
   UpdateExtension updates extension
 
-  Updates a Extension.
+  Updates an extension.
 */
 func (a *Client) UpdateExtension(params *UpdateExtensionParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateExtensionOK, error) {
 	// TODO: Validate the params before sending
@@ -251,7 +251,7 @@ func (a *Client) UpdateExtension(params *UpdateExtensionParams, authInfo runtime
 /*
   UploadExtension uploads the extension
 
-  Uploads archive for an Extension.
+  Uploads archive for an extension.
 */
 func (a *Client) UploadExtension(params *UploadExtensionParams, authInfo runtime.ClientAuthInfoWriter) (*UploadExtensionOK, error) {
 	// TODO: Validate the params before sending

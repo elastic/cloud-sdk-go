@@ -61,6 +61,9 @@ type DeploymentTemplateRequestBody struct {
 
 	// Whether or not if this is system owned template.
 	SystemOwned *bool `json:"system_owned,omitempty"`
+
+	// Provider and version agnostic template identifier used for grouping related template types.
+	TemplateCategoryID string `json:"template_category_id,omitempty"`
 }
 
 // Validate validates this deployment template request body

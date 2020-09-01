@@ -77,7 +77,7 @@ func NewCreateExtensionCreated() *CreateExtensionCreated {
 
 /*CreateExtensionCreated handles this case with default header values.
 
-The Extension that was just created.
+The extension that was just created.
 */
 type CreateExtensionCreated struct {
 	/*The date-time when the resource was created (ISO format relative to UTC)

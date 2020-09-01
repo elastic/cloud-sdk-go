@@ -31,6 +31,7 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
@@ -38,8 +39,11 @@ import (
 // NewEnableDeploymentResourceIlmParams creates a new EnableDeploymentResourceIlmParams object
 // with the default values initialized.
 func NewEnableDeploymentResourceIlmParams() *EnableDeploymentResourceIlmParams {
-	var ()
+	var (
+		validateOnlyDefault = bool(false)
+	)
 	return &EnableDeploymentResourceIlmParams{
+		ValidateOnly: &validateOnlyDefault,
 
 		timeout: cr.DefaultTimeout,
 	}
@@ -48,8 +52,11 @@ func NewEnableDeploymentResourceIlmParams() *EnableDeploymentResourceIlmParams {
 // NewEnableDeploymentResourceIlmParamsWithTimeout creates a new EnableDeploymentResourceIlmParams object
 // with the default values initialized, and the ability to set a timeout on a request
 func NewEnableDeploymentResourceIlmParamsWithTimeout(timeout time.Duration) *EnableDeploymentResourceIlmParams {
-	var ()
+	var (
+		validateOnlyDefault = bool(false)
+	)
 	return &EnableDeploymentResourceIlmParams{
+		ValidateOnly: &validateOnlyDefault,
 
 		timeout: timeout,
 	}
@@ -58,8 +65,11 @@ func NewEnableDeploymentResourceIlmParamsWithTimeout(timeout time.Duration) *Ena
 // NewEnableDeploymentResourceIlmParamsWithContext creates a new EnableDeploymentResourceIlmParams object
 // with the default values initialized, and the ability to set a context for a request
 func NewEnableDeploymentResourceIlmParamsWithContext(ctx context.Context) *EnableDeploymentResourceIlmParams {
-	var ()
+	var (
+		validateOnlyDefault = bool(false)
+	)
 	return &EnableDeploymentResourceIlmParams{
+		ValidateOnly: &validateOnlyDefault,
 
 		Context: ctx,
 	}
@@ -68,9 +78,12 @@ func NewEnableDeploymentResourceIlmParamsWithContext(ctx context.Context) *Enabl
 // NewEnableDeploymentResourceIlmParamsWithHTTPClient creates a new EnableDeploymentResourceIlmParams object
 // with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewEnableDeploymentResourceIlmParamsWithHTTPClient(client *http.Client) *EnableDeploymentResourceIlmParams {
-	var ()
+	var (
+		validateOnlyDefault = bool(false)
+	)
 	return &EnableDeploymentResourceIlmParams{
-		HTTPClient: client,
+		ValidateOnly: &validateOnlyDefault,
+		HTTPClient:   client,
 	}
 }
 
@@ -94,6 +107,11 @@ type EnableDeploymentResourceIlmParams struct {
 
 	*/
 	RefID string
+	/*ValidateOnly
+	  When `true`, does not enable ILM but returns warnings if any applications may lose availability during ILM migration.
+
+	*/
+	ValidateOnly *bool
 
 	timeout    time.Duration
 	Context    context.Context
@@ -166,6 +184,17 @@ func (o *EnableDeploymentResourceIlmParams) SetRefID(refID string) {
 	o.RefID = refID
 }
 
+// WithValidateOnly adds the validateOnly to the enable deployment resource ilm params
+func (o *EnableDeploymentResourceIlmParams) WithValidateOnly(validateOnly *bool) *EnableDeploymentResourceIlmParams {
+	o.SetValidateOnly(validateOnly)
+	return o
+}
+
+// SetValidateOnly adds the validateOnly to the enable deployment resource ilm params
+func (o *EnableDeploymentResourceIlmParams) SetValidateOnly(validateOnly *bool) {
+	o.ValidateOnly = validateOnly
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *EnableDeploymentResourceIlmParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -188,6 +217,22 @@ func (o *EnableDeploymentResourceIlmParams) WriteToRequest(r runtime.ClientReque
 	// path param ref_id
 	if err := r.SetPathParam("ref_id", o.RefID); err != nil {
 		return err
+	}
+
+	if o.ValidateOnly != nil {
+
+		// query param validate_only
+		var qrValidateOnly bool
+		if o.ValidateOnly != nil {
+			qrValidateOnly = *o.ValidateOnly
+		}
+		qValidateOnly := swag.FormatBool(qrValidateOnly)
+		if qValidateOnly != "" {
+			if err := r.SetQueryParam("validate_only", qValidateOnly); err != nil {
+				return err
+			}
+		}
+
 	}
 
 	if len(res) > 0 {

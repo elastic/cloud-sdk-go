@@ -78,7 +78,7 @@ for the upload extension operation typically these are written to a http.Request
 type UploadExtensionParams struct {
 
 	/*ExtensionID
-	  Id of an Extension
+	  Id of an extension
 
 	*/
 	ExtensionID string

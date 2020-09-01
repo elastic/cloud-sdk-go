@@ -111,7 +111,7 @@ func TestStart(t *testing.T) {
 	tests := []struct {
 		name string
 		args args
-		want models.DeploymentResourceCommandResponse
+		want *models.DeploymentResourceCommandResponse
 		err  error
 	}{
 		{
@@ -210,7 +210,7 @@ func TestStartInstances(t *testing.T) {
 	tests := []struct {
 		name string
 		args args
-		want models.DeploymentResourceCommandResponse
+		want *models.DeploymentResourceCommandResponse
 		err  error
 	}{
 		{
@@ -321,7 +321,7 @@ func TestStartAllOrSpecified(t *testing.T) {
 	tests := []struct {
 		name string
 		args args
-		want models.DeploymentResourceCommandResponse
+		want *models.DeploymentResourceCommandResponse
 		err  error
 	}{
 		{

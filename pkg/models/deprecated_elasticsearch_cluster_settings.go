@@ -33,7 +33,7 @@ import (
 // swagger:model DeprecatedElasticsearchClusterSettings
 type DeprecatedElasticsearchClusterSettings struct {
 
-	// ccs
+	// DEPRECATED (Scheduled to be removed in the next major version): Configuration of remote clusters. Use the /remote-clusters endpoints instead
 	Ccs *CrossClusterSearchSettings `json:"ccs,omitempty"`
 
 	// curation

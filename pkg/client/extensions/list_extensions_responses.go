@@ -59,7 +59,7 @@ func NewListExtensionsOK() *ListExtensionsOK {
 
 /*ListExtensionsOK handles this case with default header values.
 
-The Extensions that are available
+The extensions that are available
 */
 type ListExtensionsOK struct {
 	Payload *models.Extensions

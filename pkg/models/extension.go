@@ -36,7 +36,7 @@ import (
 // swagger:model Extension
 type Extension struct {
 
-	// The deployments using this extension.
+	// List of deployments using this extension. Up to only 10000 deployments will be included in the list.
 	Deployments []string `json:"deployments"`
 
 	// The extension description.

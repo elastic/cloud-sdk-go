@@ -52,6 +52,8 @@ type ClientService interface {
 
 	GetDeploymentTemplates(params *GetDeploymentTemplatesParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentTemplatesOK, error)
 
+	GetGlobalDeploymentTemplates(params *GetGlobalDeploymentTemplatesParams, authInfo runtime.ClientAuthInfoWriter) (*GetGlobalDeploymentTemplatesOK, error)
+
 	SetDeploymentTemplate(params *SetDeploymentTemplateParams, authInfo runtime.ClientAuthInfoWriter) (*SetDeploymentTemplateOK, *SetDeploymentTemplateCreated, error)
 
 	SetTransport(transport runtime.ClientTransport)
@@ -202,6 +204,43 @@ func (a *Client) GetDeploymentTemplates(params *GetDeploymentTemplatesParams, au
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for get-deployment-templates: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  GetGlobalDeploymentTemplates gets all templates cross region
+
+  Global deployment template endpoint which fetches the deployment templates across all region services.
+*/
+func (a *Client) GetGlobalDeploymentTemplates(params *GetGlobalDeploymentTemplatesParams, authInfo runtime.ClientAuthInfoWriter) (*GetGlobalDeploymentTemplatesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetGlobalDeploymentTemplatesParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "get-global-deployment-templates",
+		Method:             "GET",
+		PathPattern:        "/platform/configuration/templates/deployments/global",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetGlobalDeploymentTemplatesReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetGlobalDeploymentTemplatesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-global-deployment-templates: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

@@ -86,21 +86,23 @@ func NewStartDeploymentResourceInstancesAllAccepted() *StartDeploymentResourceIn
 The start command was issued successfully.
 */
 type StartDeploymentResourceInstancesAllAccepted struct {
-	Payload models.DeploymentResourceCommandResponse
+	Payload *models.DeploymentResourceCommandResponse
 }
 
 func (o *StartDeploymentResourceInstancesAllAccepted) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/_start][%d] startDeploymentResourceInstancesAllAccepted  %+v", 202, o.Payload)
 }
 
-func (o *StartDeploymentResourceInstancesAllAccepted) GetPayload() models.DeploymentResourceCommandResponse {
+func (o *StartDeploymentResourceInstancesAllAccepted) GetPayload() *models.DeploymentResourceCommandResponse {
 	return o.Payload
 }
 
 func (o *StartDeploymentResourceInstancesAllAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
+	o.Payload = new(models.DeploymentResourceCommandResponse)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
