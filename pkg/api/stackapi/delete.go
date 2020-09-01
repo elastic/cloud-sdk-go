@@ -22,7 +22,7 @@ import (
 	"errors"
 	"strings"
 
-	"github.com/blang/semver"
+	semver "github.com/blang/semver/v4"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
