@@ -44,7 +44,7 @@ func (params CreateParams) Validate() error {
 	}
 
 	if params.Req == nil {
-		merr = merr.Append(errors.New("request payload cannot be empty"))
+		merr = merr.Append(errors.New("request payload is not specified and is required for the operation"))
 	}
 
 	return merr.ErrorOrNil()

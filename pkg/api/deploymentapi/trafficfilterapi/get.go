@@ -47,7 +47,7 @@ func (params GetParams) Validate() error {
 	}
 
 	if params.ID == "" {
-		merr = merr.Append(errors.New("rule set id cannot be empty"))
+		merr = merr.Append(errors.New("rule set id is not specified and is required for the operation"))
 	}
 
 	return merr.ErrorOrNil()

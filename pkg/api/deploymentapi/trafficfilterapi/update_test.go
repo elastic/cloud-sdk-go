@@ -45,8 +45,8 @@ func TestUpdate(t *testing.T) {
 			name: "fails due to parameter validation",
 			err: multierror.NewPrefixed("invalid traffic filter update params",
 				apierror.ErrMissingAPI,
-				errors.New("rule set id cannot be empty"),
-				errors.New("request payload cannot be empty"),
+				errors.New("rule set id is not specified and is required for the operation"),
+				errors.New("request payload is not specified and is required for the operation"),
 			),
 		},
 		{

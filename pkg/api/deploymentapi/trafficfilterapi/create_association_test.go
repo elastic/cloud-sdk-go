@@ -42,9 +42,9 @@ func TestCreateAssociation(t *testing.T) {
 			name: "fails due to parameter validation",
 			err: multierror.NewPrefixed("invalid traffic filter association create params",
 				apierror.ErrMissingAPI,
-				errors.New("rule set id cannot be empty"),
-				errors.New("entity id cannot be empty"),
-				errors.New("entity type cannot be empty"),
+				errors.New("rule set id is not specified and is required for the operation"),
+				errors.New("entity id is not specified and is required for the operation"),
+				errors.New("entity type is not specified and is required for the operation"),
 			),
 		},
 		{

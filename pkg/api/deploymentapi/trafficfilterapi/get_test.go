@@ -46,7 +46,7 @@ func TestGet(t *testing.T) {
 			name: "fails due to parameter validation",
 			err: multierror.NewPrefixed("invalid traffic filter get params",
 				apierror.ErrMissingAPI,
-				errors.New("rule set id cannot be empty"),
+				errors.New("rule set id is not specified and is required for the operation"),
 			),
 		},
 		{

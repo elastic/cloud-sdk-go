@@ -49,15 +49,15 @@ func (params DeleteAssociationParams) Validate() error {
 	}
 
 	if params.ID == "" {
-		merr = merr.Append(errors.New("rule set id cannot be empty"))
+		merr = merr.Append(errors.New("rule set id is not specified and is required for the operation"))
 	}
 
 	if params.EntityID == "" {
-		merr = merr.Append(errors.New("entity id cannot be empty"))
+		merr = merr.Append(errors.New("entity id is not specified and is required for the operation"))
 	}
 
 	if params.ID == "" {
-		merr = merr.Append(errors.New("entity type cannot be empty"))
+		merr = merr.Append(errors.New("entity type is not specified and is required for the operation"))
 	}
 
 	return merr.ErrorOrNil()

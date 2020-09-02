@@ -45,7 +45,7 @@ func TestCreate(t *testing.T) {
 			name: "fails due to parameter validation",
 			err: multierror.NewPrefixed("invalid traffic filter create params",
 				apierror.ErrMissingAPI,
-				errors.New("request payload cannot be empty"),
+				errors.New("request payload is not specified and is required for the operation"),
 			),
 		},
 		{
