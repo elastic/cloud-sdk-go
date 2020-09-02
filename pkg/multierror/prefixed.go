@@ -67,10 +67,16 @@ func (p *Prefixed) Error() string {
 	}
 
 	if p.FormatFunc == nil {
-		p.FormatFunc = multierror.ListFormatFunc
+		p.FormatFunc = wrapPrefix(p.Prefix, multierror.ListFormatFunc)
 	}
 
-	return fmt.Sprint(p.Prefix, ": ", p.FormatFunc(p.Errors))
+	return p.FormatFunc(p.Errors)
+}
+
+func wrapPrefix(prefix string, f FormatFunc) FormatFunc {
+	return func(es []error) string {
+		return fmt.Sprint(prefix, ": ", f(es))
+	}
 }
 
 func unpackErrors(prefix string, errs ...error) []error {

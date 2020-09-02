@@ -21,16 +21,19 @@ import (
 	"bytes"
 	"errors"
 	"fmt"
-	"reflect"
 	"regexp"
 	"testing"
 
+	"github.com/stretchr/testify/assert"
+
 	"github.com/elastic/cloud-sdk-go/pkg/api"
+	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	"github.com/elastic/cloud-sdk-go/pkg/plan"
 	planmock "github.com/elastic/cloud-sdk-go/pkg/plan/mock"
+	"github.com/elastic/cloud-sdk-go/pkg/util"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
@@ -146,10 +149,15 @@ func TestTrackChange(t *testing.T) {
 				Format: "text",
 				Writer: textBufErr,
 			}},
-			err: fmt.Errorf(
-				`deployment [%s] - [elasticsearch][cde7b6b605424a54ce9d56316eab13a1]: caught error: "some nasty error"`,
-				deploymentID,
-			),
+			err: multierror.NewPrefixed("found deployment plan errors", plan.TrackResponse{
+				DeploymentID: deploymentID,
+				ID:           "cde7b6b605424a54ce9d56316eab13a1",
+				Step:         "plan-completed",
+				Finished:     true,
+				RefID:        "main-elasticsearch",
+				Err:          apierror.JSONError{Message: "some nasty error"},
+				Kind:         util.Elasticsearch,
+			}),
 			wantBuf: wantBufErr,
 		},
 		{
@@ -182,10 +190,15 @@ func TestTrackChange(t *testing.T) {
 				Format: "json",
 				Writer: textBufErrJSON,
 			}},
-			err: fmt.Errorf(
-				`deployment [%s] - [elasticsearch][cde7b6b605424a54ce9d56316eab13a1]: caught error: "some nasty error"`,
-				deploymentID,
-			),
+			err: multierror.WithFormat(multierror.NewPrefixed("found deployment plan errors", plan.TrackResponse{
+				DeploymentID: deploymentID,
+				ID:           "cde7b6b605424a54ce9d56316eab13a1",
+				Step:         "plan-completed",
+				Finished:     true,
+				RefID:        "main-elasticsearch",
+				Err:          apierror.JSONError{Message: "some nasty error"},
+				Kind:         util.Elasticsearch,
+			}), "json"),
 			wantBuf: wantBufErrJSON,
 		},
 		{
@@ -207,8 +220,11 @@ func TestTrackChange(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := TrackChange(tt.args.params); !reflect.DeepEqual(err, tt.err) {
-				t.Errorf("TrackChange() error = %v, wantErr %v", err, tt.err)
+			if err := TrackChange(tt.args.params); err != nil {
+				removeDuration(err)
+				if !assert.EqualError(t, tt.err, err.Error()) {
+					t.Errorf("TrackChange() error = %v, wantErr %v", err, tt.err)
+				}
 			}
 			// Remove all of the duration timestamps.
 			pattern := `(?mi).\(.*plan duration.*`
@@ -226,5 +242,23 @@ func TestTrackChange(t *testing.T) {
 				}
 			}
 		})
+	}
+}
+
+func removeDuration(err error) {
+	var merr *multierror.Prefixed
+	if errors.As(err, &merr) {
+		var errs []error
+		for _, e := range merr.Errors {
+			var respErr plan.TrackResponse
+			if errors.As(e, &respErr) {
+				respErr.Duration = 0
+				errs = append(errs, respErr)
+				continue
+			}
+			errs = append(errs, e)
+			continue
+		}
+		merr.Errors = errs
 	}
 }

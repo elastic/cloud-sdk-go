@@ -22,6 +22,7 @@ import (
 	"fmt"
 	"io"
 
+	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 )
 
@@ -43,15 +44,6 @@ func Stream(channel <-chan TrackResponse, device io.Writer) error {
 	})
 }
 
-// MarshableError wraps any incoming error inside this struct so that it can
-// be correctly  marshaled to JSON.
-type MarshableError struct {
-	Message string `json:"message,omitempty"`
-}
-
-// Error complies with the error interface
-func (me MarshableError) Error() string { return me.Message }
-
 // StreamJSON prints a json formatted line for on each TrackResponse received
 // by the channel, if pretty is set to true, the message will be intended with
 // 2 spaces. Unless the sender closes the channel when it has finished, calling
@@ -63,12 +55,12 @@ func StreamJSON(channel <-chan TrackResponse, device io.Writer, pretty bool) err
 	}
 
 	var lastStreamed = make(map[string]string)
-	return StreamFunc(channel, func(res TrackResponse) {
+	err := StreamFunc(channel, func(res TrackResponse) {
 		if _, ok := lastStreamed[res.ID]; !ok {
 			lastStreamed[res.ID] = ""
 		}
 		if res.Err != nil {
-			res.Err = &MarshableError{res.Err.Error()}
+			res.Err = apierror.NewJSONError(res.Err)
 			lastStreamed[res.ID] = res.Step
 			_ = encoder.Encode(res)
 		}
@@ -78,6 +70,8 @@ func StreamJSON(channel <-chan TrackResponse, device io.Writer, pretty bool) err
 			_ = encoder.Encode(res)
 		}
 	})
+
+	return multierror.WithFormat(err, "json")
 }
 
 // StreamFunc is the underlying function used by Stream and StreamJSON. If used
@@ -89,22 +83,12 @@ func StreamFunc(channel <-chan TrackResponse, function func(TrackResponse)) erro
 	var merr = multierror.NewPrefixed("found deployment plan errors")
 	for res := range channel {
 		function(res)
+
 		if res.Err != nil && res.Finished && res.Err != ErrPlanFinished {
-			merr = merr.Append(res.Error())
+			res.Err = apierror.NewJSONError(res.Err)
+			merr = merr.Append(res)
 		}
 	}
 
-	return compatibleError(merr)
-}
-
-// compatibleError is a small utility to ensure that the otuput of StreamFunc
-// remains the same as long as the TrackResponse is kept the same.
-func compatibleError(e *multierror.Prefixed) error {
-	if e != nil {
-		if len(e.Errors) == 1 {
-			return e.Errors[0]
-		}
-	}
-
-	return e.ErrorOrNil()
+	return merr.ErrorOrNil()
 }

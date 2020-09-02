@@ -21,7 +21,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"io/ioutil"
 
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	"github.com/elastic/cloud-sdk-go/pkg/plan"
@@ -73,9 +72,5 @@ func TrackChange(params TrackChangeParams) error {
 		return plan.StreamJSON(channel, params.Writer, false)
 	}
 
-	if params.Format == "text" {
-		return plan.Stream(channel, params.Writer)
-	}
-
-	return plan.StreamJSON(channel, ioutil.Discard, false)
+	return plan.Stream(channel, params.Writer)
 }

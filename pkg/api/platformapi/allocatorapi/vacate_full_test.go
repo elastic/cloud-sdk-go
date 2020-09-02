@@ -27,6 +27,8 @@ import (
 	"testing"
 	"time"
 
+	"github.com/stretchr/testify/assert"
+
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
@@ -607,9 +609,115 @@ func TestVacate(t *testing.T) {
 				"\x1b[92;mDeployment [DISCOVERED_DEPLOYMENT_ID] - [Kibana][4ee11eb40eda22cac0cce259625c6734]: finished running all the plan steps\x1b[0m (Total plan duration )",
 			),
 			err: `vacate error: 2 errors occurred:
-	* resource id [3ee11eb40eda22cac0cce259625c6734][elasticsearch] failed vacating, reason: code: a code, message: a message
-	* deployment [DISCOVERED_DEPLOYMENT_ID] - [elasticsearch][5ee11eb40eda22cac0cce259625c6734]: caught error: "Unexpected error during step: [perform-snapshot]: [no.found.constructor.models.TimeoutException: Timeout]"
+	* allocator allocatorID-1: resource id [3ee11eb40eda22cac0cce259625c6734][elasticsearch]: failed vacating: a message (a code)
+	* found deployment plan errors: deployment [DISCOVERED_DEPLOYMENT_ID] - [elasticsearch][5ee11eb40eda22cac0cce259625c6734]: caught error: "Unexpected error during step: [perform-snapshot]: [no.found.constructor.models.TimeoutException: Timeout]"
 
+`,
+		},
+		{
+			name: "Moving multiple clusters from multiple allocators that fail to move with JSON format",
+			args: args{
+				buf: sdkSync.NewBuffer(),
+				params: newVacateTestCase(t, vacateCase{outputFormat: "json", region: "us-east-1", topology: []vacateCaseClusters{
+					{
+						Allocator: "allocatorID-1",
+						elasticsearch: []vacateCaseClusterConfig{
+							{
+								ID:   "3ee11eb40eda22cac0cce259625c6734",
+								fail: true,
+							},
+						},
+						kibana: []vacateCaseClusterConfig{
+							{
+								ID: "2ee11eb40eda22cac0cce259625c6734",
+								steps: [][]*models.ClusterPlanStepInfo{
+									{
+										newPlanStep("step1", "success"),
+										newPlanStep("step2", "pending"),
+									},
+								},
+								plan: []*models.ClusterPlanStepInfo{
+									newPlanStep("step1", "success"),
+									newPlanStep("step2", "success"),
+									newPlanStep("plan-completed", "success"),
+								},
+							},
+						},
+					},
+					{
+						Allocator: "allocatorID-2",
+						elasticsearch: []vacateCaseClusterConfig{
+							{
+								ID: "5ee11eb40eda22cac0cce259625c6734",
+								steps: [][]*models.ClusterPlanStepInfo{
+									{
+										newPlanStep("step1", "success"),
+										newPlanStep("step2", "pending"),
+									},
+									{
+										newPlanStep("step1", "success"),
+										newPlanStep("step2", "success"),
+										newPlanStepWithDetails("step3", "error", []*models.ClusterPlanStepLogMessageInfo{{
+											Message: ec.String(planStepLogErrorMessage),
+										}}),
+									},
+								},
+								plan: []*models.ClusterPlanStepInfo{
+									newPlanStep("step1", "success"),
+									newPlanStep("step2", "success"),
+									newPlanStepWithDetails("step3", "error", []*models.ClusterPlanStepLogMessageInfo{{
+										Message: ec.String(planStepLogErrorMessage),
+									}}),
+									newPlanStepWithDetails("plan-completed", "error", []*models.ClusterPlanStepLogMessageInfo{{
+										Message: ec.String(planStepLogErrorMessage),
+									}}),
+								},
+							},
+						},
+						kibana: []vacateCaseClusterConfig{
+							{
+								ID: "4ee11eb40eda22cac0cce259625c6734",
+								steps: [][]*models.ClusterPlanStepInfo{
+									{
+										newPlanStep("step1", "success"),
+										newPlanStep("step2", "pending"),
+									},
+								},
+								plan: []*models.ClusterPlanStepInfo{
+									newPlanStep("step1", "success"),
+									newPlanStep("step2", "success"),
+									newPlanStep("plan-completed", "success"),
+								},
+							},
+						},
+					},
+				}}),
+			},
+			want: newOutputResponses(
+				`{"id":"2ee11eb40eda22cac0cce259625c6734","kind":"kibana","step":"step2","deployment_id":"DISCOVERED_DEPLOYMENT_ID","ref_id":"main-kibana","duration":"s"}`,
+				`{"id":"2ee11eb40eda22cac0cce259625c6734","kind":"kibana","step":"plan-completed","err":{"message":"finished all the plan steps"},"deployment_id":"DISCOVERED_DEPLOYMENT_ID","ref_id":"main-kibana","duration":"s","finished":true}`,
+				`{"id":"5ee11eb40eda22cac0cce259625c6734","kind":"elasticsearch","step":"step2","deployment_id":"DISCOVERED_DEPLOYMENT_ID","ref_id":"main-elasticsearch","duration":"s"}`,
+				`{"id":"5ee11eb40eda22cac0cce259625c6734","kind":"elasticsearch","step":"step3","err":{"message":"Unexpected error during step: [perform-snapshot]: [no.found.constructor.models.TimeoutException: Timeout]"},"deployment_id":"DISCOVERED_DEPLOYMENT_ID","ref_id":"main-elasticsearch","duration":"s"}`,
+				`{"id":"5ee11eb40eda22cac0cce259625c6734","kind":"elasticsearch","step":"plan-completed","err":{"message":"Unexpected error during step: [perform-snapshot]: [no.found.constructor.models.TimeoutException: Timeout]"},"deployment_id":"DISCOVERED_DEPLOYMENT_ID","ref_id":"main-elasticsearch","duration":"s","finished":true}`,
+				`{"id":"4ee11eb40eda22cac0cce259625c6734","kind":"kibana","step":"step2","deployment_id":"DISCOVERED_DEPLOYMENT_ID","ref_id":"main-kibana","duration":"s"}`,
+				`{"id":"4ee11eb40eda22cac0cce259625c6734","kind":"kibana","step":"plan-completed","err":{"message":"finished all the plan steps"},"deployment_id":"DISCOVERED_DEPLOYMENT_ID","ref_id":"main-kibana","duration":"s","finished":true}`,
+			),
+			err: `{
+  "errors": [
+    {
+      "allocator_id": "allocatorID-1",
+      "context": "failed vacating",
+      "error": {
+        "message": "a message (a code)"
+      },
+      "kind": "elasticsearch",
+      "resource_id": "3ee11eb40eda22cac0cce259625c6734"
+    },
+    {
+      "message": "found deployment plan errors: deployment [DISCOVERED_DEPLOYMENT_ID] - [elasticsearch][5ee11eb40eda22cac0cce259625c6734]: caught error: \"Unexpected error during step: [perform-snapshot]: [no.found.constructor.models.TimeoutException: Timeout]\""
+    }
+  ]
+}
 `,
 		},
 		{
@@ -629,7 +737,13 @@ func TestVacate(t *testing.T) {
 				},
 			},
 			err: multierror.NewPrefixed("vacate error",
-				errors.New("allocator allocatorID: vacate error: resource id [3ee11eb40eda22cac0cce259625c6734][kibana] failed vacating, reason: code: some code, message: failed for reason"),
+				VacateError{
+					AllocatorID: "allocatorID",
+					ResourceID:  "3ee11eb40eda22cac0cce259625c6734",
+					Kind:        "kibana",
+					Ctx:         "failed vacating",
+					Err:         errors.New("failed for reason (some code)"),
+				},
 			).Error(),
 		},
 	}
@@ -639,14 +753,19 @@ func TestVacate(t *testing.T) {
 				tt.args.params.Output = output.NewDevice(tt.args.buf)
 			}
 
-			if err := Vacate(tt.args.params); err != nil && err.Error() != tt.err {
+			if err := Vacate(tt.args.params); err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Errorf("Vacate() error = %v, wantErr %v", err, tt.err)
 			}
 
 			var got string
 			if tt.args.buf != nil {
-				got = regexp.MustCompile(`duration.*\)`).
-					ReplaceAllString(tt.args.buf.String(), "duration )")
+				if tt.args.params.OutputFormat == "json" {
+					got = regexp.MustCompile(`"duration".*s"`).
+						ReplaceAllString(tt.args.buf.String(), `"duration":"s"`)
+				} else {
+					got = regexp.MustCompile(`duration.*\)`).
+						ReplaceAllString(tt.args.buf.String(), "duration )")
+				}
 			}
 
 			if tt.args.buf != nil && tt.want != got {

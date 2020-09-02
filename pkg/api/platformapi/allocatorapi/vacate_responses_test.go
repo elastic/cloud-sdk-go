@@ -47,6 +47,7 @@ const planStepLogErrorMessage = "Unexpected error during step: [perform-snapshot
 type vacateCase struct {
 	topology     []vacateCaseClusters
 	skipTracking bool
+	outputFormat string
 	region       string
 }
 
@@ -512,6 +513,9 @@ func newAllocator(t *testing.T, id, clusterID, kind string) io.ReadCloser {
 func newVacateTestCase(t *testing.T, tc vacateCase) *VacateParams {
 	var responses = make([]mock.Response, 0, len(tc.topology))
 	var allocators = make([]string, 0, len(tc.topology))
+	if tc.outputFormat == "" {
+		tc.outputFormat = "text"
+	}
 
 	// Do top level Vacate() Calls
 	for i := range tc.topology {
@@ -596,7 +600,7 @@ func newVacateTestCase(t *testing.T, tc vacateCase) *VacateParams {
 		Output:         output.NewDevice(sdkSync.NewBuffer()),
 		Allocators:     allocators,
 		API:            api.NewMock(responses...),
-		OutputFormat:   "text",
+		OutputFormat:   tc.outputFormat,
 		Region:         tc.region,
 		Concurrency:    1,
 		MaxPollRetries: 1,
