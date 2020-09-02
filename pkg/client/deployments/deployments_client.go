@@ -78,6 +78,8 @@ type ClientService interface {
 
 	ListDeployments(params *ListDeploymentsParams, authInfo runtime.ClientAuthInfoWriter) (*ListDeploymentsOK, error)
 
+	MigrateDeployment(params *MigrateDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*MigrateDeploymentOK, error)
+
 	ResetElasticsearchUserPassword(params *ResetElasticsearchUserPasswordParams, authInfo runtime.ClientAuthInfoWriter) (*ResetElasticsearchUserPasswordOK, error)
 
 	RestartDeploymentEsResource(params *RestartDeploymentEsResourceParams, authInfo runtime.ClientAuthInfoWriter) (*RestartDeploymentEsResourceAccepted, error)
@@ -760,6 +762,43 @@ func (a *Client) ListDeployments(params *ListDeploymentsParams, authInfo runtime
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for list-deployments: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  MigrateDeployment builds migrate deployment template request
+
+  Returns a deployment update request that would transform this deployment from its template to the provided one.
+*/
+func (a *Client) MigrateDeployment(params *MigrateDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*MigrateDeploymentOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewMigrateDeploymentParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "migrate-deployment",
+		Method:             "POST",
+		PathPattern:        "/deployments/{deployment_id}/_migrate",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &MigrateDeploymentReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*MigrateDeploymentOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for migrate-deployment: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

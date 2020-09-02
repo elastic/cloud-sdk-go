@@ -80,21 +80,23 @@ func NewEnableDeploymentResourceIlmOK() *EnableDeploymentResourceIlmOK {
 Standard response
 */
 type EnableDeploymentResourceIlmOK struct {
-	Payload models.DeploymentResourceCommandResponse
+	Payload *models.DeploymentResourceCommandResponse
 }
 
 func (o *EnableDeploymentResourceIlmOK) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_enable-ilm][%d] enableDeploymentResourceIlmOK  %+v", 200, o.Payload)
 }
 
-func (o *EnableDeploymentResourceIlmOK) GetPayload() models.DeploymentResourceCommandResponse {
+func (o *EnableDeploymentResourceIlmOK) GetPayload() *models.DeploymentResourceCommandResponse {
 	return o.Payload
 }
 
 func (o *EnableDeploymentResourceIlmOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
+	o.Payload = new(models.DeploymentResourceCommandResponse)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

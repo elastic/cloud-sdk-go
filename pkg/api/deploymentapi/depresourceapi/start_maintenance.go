@@ -24,7 +24,7 @@ import (
 )
 
 // StartMaintenanceMode starts maintenance mode of all instances belonging to a deployment resource kind.
-func StartMaintenanceMode(params StartParams) (models.DeploymentResourceCommandResponse, error) {
+func StartMaintenanceMode(params StartParams) (*models.DeploymentResourceCommandResponse, error) {
 	if err := params.Validate(); err != nil {
 		return nil, err
 	}
@@ -44,7 +44,7 @@ func StartMaintenanceMode(params StartParams) (models.DeploymentResourceCommandR
 }
 
 // StartInstancesMaintenanceMode starts maintenance mode of defined instances belonging to a deployment resource.
-func StartInstancesMaintenanceMode(params StartInstancesParams) (models.DeploymentResourceCommandResponse, error) {
+func StartInstancesMaintenanceMode(params StartInstancesParams) (*models.DeploymentResourceCommandResponse, error) {
 	if err := params.Validate(); err != nil {
 		return nil, err
 	}
@@ -66,7 +66,7 @@ func StartInstancesMaintenanceMode(params StartInstancesParams) (models.Deployme
 }
 
 // StartMaintenanceModeAllOrSpecified starts all or defined instances belonging to a deployment resource.
-func StartMaintenanceModeAllOrSpecified(params StartInstancesParams) (models.DeploymentResourceCommandResponse, error) {
+func StartMaintenanceModeAllOrSpecified(params StartInstancesParams) (*models.DeploymentResourceCommandResponse, error) {
 	if params.All {
 		res, err := StartMaintenanceMode(params.StartParams)
 		if err != nil {

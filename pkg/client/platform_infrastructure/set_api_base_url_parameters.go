@@ -39,8 +39,11 @@ import (
 // NewSetAPIBaseURLParams creates a new SetAPIBaseURLParams object
 // with the default values initialized.
 func NewSetAPIBaseURLParams() *SetAPIBaseURLParams {
-	var ()
+	var (
+		skipCascadingOperationsDefault = bool(false)
+	)
 	return &SetAPIBaseURLParams{
+		SkipCascadingOperations: &skipCascadingOperationsDefault,
 
 		timeout: cr.DefaultTimeout,
 	}
@@ -49,8 +52,11 @@ func NewSetAPIBaseURLParams() *SetAPIBaseURLParams {
 // NewSetAPIBaseURLParamsWithTimeout creates a new SetAPIBaseURLParams object
 // with the default values initialized, and the ability to set a timeout on a request
 func NewSetAPIBaseURLParamsWithTimeout(timeout time.Duration) *SetAPIBaseURLParams {
-	var ()
+	var (
+		skipCascadingOperationsDefault = bool(false)
+	)
 	return &SetAPIBaseURLParams{
+		SkipCascadingOperations: &skipCascadingOperationsDefault,
 
 		timeout: timeout,
 	}
@@ -59,8 +65,11 @@ func NewSetAPIBaseURLParamsWithTimeout(timeout time.Duration) *SetAPIBaseURLPara
 // NewSetAPIBaseURLParamsWithContext creates a new SetAPIBaseURLParams object
 // with the default values initialized, and the ability to set a context for a request
 func NewSetAPIBaseURLParamsWithContext(ctx context.Context) *SetAPIBaseURLParams {
-	var ()
+	var (
+		skipCascadingOperationsDefault = bool(false)
+	)
 	return &SetAPIBaseURLParams{
+		SkipCascadingOperations: &skipCascadingOperationsDefault,
 
 		Context: ctx,
 	}
@@ -69,9 +78,12 @@ func NewSetAPIBaseURLParamsWithContext(ctx context.Context) *SetAPIBaseURLParams
 // NewSetAPIBaseURLParamsWithHTTPClient creates a new SetAPIBaseURLParams object
 // with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewSetAPIBaseURLParamsWithHTTPClient(client *http.Client) *SetAPIBaseURLParams {
-	var ()
+	var (
+		skipCascadingOperationsDefault = bool(false)
+	)
 	return &SetAPIBaseURLParams{
-		HTTPClient: client,
+		SkipCascadingOperations: &skipCascadingOperationsDefault,
+		HTTPClient:              client,
 	}
 }
 
@@ -85,6 +97,11 @@ type SetAPIBaseURLParams struct {
 
 	*/
 	Body *models.APIBaseURLData
+	/*SkipCascadingOperations
+	  Whether or not to skip cascading operations, such as re-provisioning the Security Deployment.
+
+	*/
+	SkipCascadingOperations *bool
 	/*Version
 	  If specified, then checks for conflicts against the version stored in the persistent store (returned in 'x-cloud-resource-version' of the GET request). If not specified, will unconditionally upsert.
 
@@ -140,6 +157,17 @@ func (o *SetAPIBaseURLParams) SetBody(body *models.APIBaseURLData) {
 	o.Body = body
 }
 
+// WithSkipCascadingOperations adds the skipCascadingOperations to the set api base url params
+func (o *SetAPIBaseURLParams) WithSkipCascadingOperations(skipCascadingOperations *bool) *SetAPIBaseURLParams {
+	o.SetSkipCascadingOperations(skipCascadingOperations)
+	return o
+}
+
+// SetSkipCascadingOperations adds the skipCascadingOperations to the set api base url params
+func (o *SetAPIBaseURLParams) SetSkipCascadingOperations(skipCascadingOperations *bool) {
+	o.SkipCascadingOperations = skipCascadingOperations
+}
+
 // WithVersion adds the version to the set api base url params
 func (o *SetAPIBaseURLParams) WithVersion(version *int64) *SetAPIBaseURLParams {
 	o.SetVersion(version)
@@ -163,6 +191,22 @@ func (o *SetAPIBaseURLParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err
 		}
+	}
+
+	if o.SkipCascadingOperations != nil {
+
+		// query param skip_cascading_operations
+		var qrSkipCascadingOperations bool
+		if o.SkipCascadingOperations != nil {
+			qrSkipCascadingOperations = *o.SkipCascadingOperations
+		}
+		qSkipCascadingOperations := swag.FormatBool(qrSkipCascadingOperations)
+		if qSkipCascadingOperations != "" {
+			if err := r.SetQueryParam("skip_cascading_operations", qSkipCascadingOperations); err != nil {
+				return err
+			}
+		}
+
 	}
 
 	if o.Version != nil {

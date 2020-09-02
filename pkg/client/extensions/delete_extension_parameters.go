@@ -78,7 +78,7 @@ for the delete extension operation typically these are written to a http.Request
 type DeleteExtensionParams struct {
 
 	/*ExtensionID
-	  Id of an Extension
+	  Id of an extension
 
 	*/
 	ExtensionID string

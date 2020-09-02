@@ -81,7 +81,7 @@ type LogoutParams struct {
 	  Cookie header containing the ec-sso-session-id session cookie.
 
 	*/
-	Cookie string
+	Cookie *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -122,13 +122,13 @@ func (o *LogoutParams) SetHTTPClient(client *http.Client) {
 }
 
 // WithCookie adds the cookie to the logout params
-func (o *LogoutParams) WithCookie(cookie string) *LogoutParams {
+func (o *LogoutParams) WithCookie(cookie *string) *LogoutParams {
 	o.SetCookie(cookie)
 	return o
 }
 
 // SetCookie adds the cookie to the logout params
-func (o *LogoutParams) SetCookie(cookie string) {
+func (o *LogoutParams) SetCookie(cookie *string) {
 	o.Cookie = cookie
 }
 
@@ -140,9 +140,13 @@ func (o *LogoutParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Regist
 	}
 	var res []error
 
-	// header param Cookie
-	if err := r.SetHeaderParam("Cookie", o.Cookie); err != nil {
-		return err
+	if o.Cookie != nil {
+
+		// header param Cookie
+		if err := r.SetHeaderParam("Cookie", *o.Cookie); err != nil {
+			return err
+		}
+
 	}
 
 	if len(res) > 0 {

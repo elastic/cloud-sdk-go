@@ -117,7 +117,7 @@ func NewGetExtensionNotFound() *GetExtensionNotFound {
 
 /*GetExtensionNotFound handles this case with default header values.
 
-The Extension requested does not exist. (code: `extensions.not_found`)
+The extension requested does not exist. (code: `extensions.not_found`)
 */
 type GetExtensionNotFound struct {
 	/*The error codes associated with the response

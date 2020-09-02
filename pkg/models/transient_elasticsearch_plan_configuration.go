@@ -47,6 +47,9 @@ type TransientElasticsearchPlanConfiguration struct {
 	// plan configuration
 	PlanConfiguration *ElasticsearchPlanControlConfiguration `json:"plan_configuration,omitempty"`
 
+	// The list of resources that will be configured as remote clusters
+	RemoteClusters *RemoteResources `json:"remote_clusters,omitempty"`
+
 	// restore snapshot
 	RestoreSnapshot *RestoreSnapshotConfiguration `json:"restore_snapshot,omitempty"`
 
@@ -59,6 +62,10 @@ func (m *TransientElasticsearchPlanConfiguration) Validate(formats strfmt.Regist
 	var res []error
 
 	if err := m.validatePlanConfiguration(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateRemoteClusters(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -86,6 +93,24 @@ func (m *TransientElasticsearchPlanConfiguration) validatePlanConfiguration(form
 		if err := m.PlanConfiguration.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("plan_configuration")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *TransientElasticsearchPlanConfiguration) validateRemoteClusters(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.RemoteClusters) { // not required
+		return nil
+	}
+
+	if m.RemoteClusters != nil {
+		if err := m.RemoteClusters.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("remote_clusters")
 			}
 			return err
 		}

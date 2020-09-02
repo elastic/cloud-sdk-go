@@ -40,6 +40,10 @@ type AuthenticationInfo struct {
 	// Format: date-time
 	ElevatedPermissionsExpireAt strfmt.DateTime `json:"elevated_permissions_expire_at,omitempty"`
 
+	// The UTC time when current authentication will expire. Applies to only token based authentication
+	// Format: date-time
+	ExpiresAt strfmt.DateTime `json:"expires_at,omitempty"`
+
 	// True if the user has elevated permissions
 	// Required: true
 	HasElevatedPermissions *bool `json:"has_elevated_permissions"`
@@ -66,6 +70,10 @@ func (m *AuthenticationInfo) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateElevatedPermissionsExpireAt(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateExpiresAt(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -98,6 +106,19 @@ func (m *AuthenticationInfo) validateElevatedPermissionsExpireAt(formats strfmt.
 	}
 
 	if err := validate.FormatOf("elevated_permissions_expire_at", "body", "date-time", m.ElevatedPermissionsExpireAt.String(), formats); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *AuthenticationInfo) validateExpiresAt(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ExpiresAt) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("expires_at", "body", "date-time", m.ExpiresAt.String(), formats); err != nil {
 		return err
 	}
 

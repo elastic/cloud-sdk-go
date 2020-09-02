@@ -24,7 +24,7 @@ import (
 )
 
 // StopMaintenanceMode stops maintenance mode of all instances belonging to a deployment resource kind.
-func StopMaintenanceMode(params StopParams) (models.DeploymentResourceCommandResponse, error) {
+func StopMaintenanceMode(params StopParams) (*models.DeploymentResourceCommandResponse, error) {
 	if err := params.Validate(); err != nil {
 		return nil, err
 	}
@@ -44,7 +44,7 @@ func StopMaintenanceMode(params StopParams) (models.DeploymentResourceCommandRes
 }
 
 // StopInstancesMaintenanceMode stops maintenance mode of defined instances belonging to a deployment resource.
-func StopInstancesMaintenanceMode(params StopInstancesParams) (models.DeploymentResourceCommandResponse, error) {
+func StopInstancesMaintenanceMode(params StopInstancesParams) (*models.DeploymentResourceCommandResponse, error) {
 	if err := params.Validate(); err != nil {
 		return nil, err
 	}
@@ -66,7 +66,7 @@ func StopInstancesMaintenanceMode(params StopInstancesParams) (models.Deployment
 }
 
 // StopMaintenanceModeAllOrSpecified stops all or defined instances belonging to a deployment resource.
-func StopMaintenanceModeAllOrSpecified(params StopInstancesParams) (models.DeploymentResourceCommandResponse, error) {
+func StopMaintenanceModeAllOrSpecified(params StopInstancesParams) (*models.DeploymentResourceCommandResponse, error) {
 	if params.All {
 		res, err := StopMaintenanceMode(params.StopParams)
 		if err != nil {

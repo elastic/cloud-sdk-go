@@ -86,21 +86,23 @@ func NewStartDeploymentResourceMaintenanceModeAccepted() *StartDeploymentResourc
 The start maintenance command was issued successfully.
 */
 type StartDeploymentResourceMaintenanceModeAccepted struct {
-	Payload models.DeploymentResourceCommandResponse
+	Payload *models.DeploymentResourceCommandResponse
 }
 
 func (o *StartDeploymentResourceMaintenanceModeAccepted) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_ids}/maintenance-mode/_start][%d] startDeploymentResourceMaintenanceModeAccepted  %+v", 202, o.Payload)
 }
 
-func (o *StartDeploymentResourceMaintenanceModeAccepted) GetPayload() models.DeploymentResourceCommandResponse {
+func (o *StartDeploymentResourceMaintenanceModeAccepted) GetPayload() *models.DeploymentResourceCommandResponse {
 	return o.Payload
 }
 
 func (o *StartDeploymentResourceMaintenanceModeAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
+	o.Payload = new(models.DeploymentResourceCommandResponse)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

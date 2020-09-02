@@ -23,29 +23,27 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"strconv"
-
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
-// TrustSettings Configuration of trust with other clusters.
+// DeploymentDomainName Deployment domain name configuration
 //
-// swagger:model TrustSettings
-type TrustSettings struct {
+// swagger:model DeploymentDomainName
+type DeploymentDomainName struct {
 
-	// The list of trust relationships with different accounts
+	// The domain name for all deployments. The hostname of an application in a deployment is constructed from the application ID and the domain name (for example, 1234567890.example.com).
 	// Required: true
-	Accounts []*AccountTrustRelationship `json:"accounts"`
+	Value *string `json:"value"`
 }
 
-// Validate validates this trust settings
-func (m *TrustSettings) Validate(formats strfmt.Registry) error {
+// Validate validates this deployment domain name
+func (m *DeploymentDomainName) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateAccounts(formats); err != nil {
+	if err := m.validateValue(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -55,33 +53,17 @@ func (m *TrustSettings) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *TrustSettings) validateAccounts(formats strfmt.Registry) error {
+func (m *DeploymentDomainName) validateValue(formats strfmt.Registry) error {
 
-	if err := validate.Required("accounts", "body", m.Accounts); err != nil {
+	if err := validate.Required("value", "body", m.Value); err != nil {
 		return err
-	}
-
-	for i := 0; i < len(m.Accounts); i++ {
-		if swag.IsZero(m.Accounts[i]) { // not required
-			continue
-		}
-
-		if m.Accounts[i] != nil {
-			if err := m.Accounts[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("accounts" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
 	}
 
 	return nil
 }
 
 // MarshalBinary interface implementation
-func (m *TrustSettings) MarshalBinary() ([]byte, error) {
+func (m *DeploymentDomainName) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -89,8 +71,8 @@ func (m *TrustSettings) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *TrustSettings) UnmarshalBinary(b []byte) error {
-	var res TrustSettings
+func (m *DeploymentDomainName) UnmarshalBinary(b []byte) error {
+	var res DeploymentDomainName
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

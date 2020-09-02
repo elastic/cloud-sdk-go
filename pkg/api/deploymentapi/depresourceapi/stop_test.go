@@ -113,7 +113,7 @@ func TestStop(t *testing.T) {
 	tests := []struct {
 		name string
 		args args
-		want models.DeploymentResourceCommandResponse
+		want *models.DeploymentResourceCommandResponse
 		err  error
 	}{
 		{
@@ -212,7 +212,7 @@ func TestStopInstances(t *testing.T) {
 	tests := []struct {
 		name string
 		args args
-		want models.DeploymentResourceCommandResponse
+		want *models.DeploymentResourceCommandResponse
 		err  error
 	}{
 		{
@@ -326,7 +326,7 @@ func TestStopAllOrSpecified(t *testing.T) {
 	tests := []struct {
 		name string
 		args args
-		want models.DeploymentResourceCommandResponse
+		want *models.DeploymentResourceCommandResponse
 		err  error
 	}{
 		{

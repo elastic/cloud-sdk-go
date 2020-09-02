@@ -53,7 +53,7 @@ func (params *StartInstancesParams) Validate() error {
 }
 
 // Start starts all instances belonging to a deployment resource kind.
-func Start(params StartParams) (models.DeploymentResourceCommandResponse, error) {
+func Start(params StartParams) (*models.DeploymentResourceCommandResponse, error) {
 	if err := params.Validate(); err != nil {
 		return nil, err
 	}
@@ -73,7 +73,7 @@ func Start(params StartParams) (models.DeploymentResourceCommandResponse, error)
 }
 
 // StartInstances starts defined instances belonging to a deployment resource.
-func StartInstances(params StartInstancesParams) (models.DeploymentResourceCommandResponse, error) {
+func StartInstances(params StartInstancesParams) (*models.DeploymentResourceCommandResponse, error) {
 	if err := params.Validate(); err != nil {
 		return nil, err
 	}
@@ -95,7 +95,7 @@ func StartInstances(params StartInstancesParams) (models.DeploymentResourceComma
 }
 
 // StartAllOrSpecified starts all or defined instances belonging to a deployment resource.
-func StartAllOrSpecified(params StartInstancesParams) (models.DeploymentResourceCommandResponse, error) {
+func StartAllOrSpecified(params StartInstancesParams) (*models.DeploymentResourceCommandResponse, error) {
 	if params.All {
 		res, err := Start(params.StartParams)
 		if err != nil {

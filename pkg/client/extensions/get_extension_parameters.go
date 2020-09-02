@@ -91,12 +91,12 @@ for the get extension operation typically these are written to a http.Request
 type GetExtensionParams struct {
 
 	/*ExtensionID
-	  Id of an Extension
+	  Id of an extension
 
 	*/
 	ExtensionID string
 	/*IncludeDeployments
-	  Include deployments referencing this extension.
+	  Include deployments referencing this extension. Up to only 10000 deployments will be included.
 
 	*/
 	IncludeDeployments *bool

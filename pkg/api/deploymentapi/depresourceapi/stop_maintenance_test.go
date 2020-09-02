@@ -38,7 +38,7 @@ func TestStopMaintenanceMode(t *testing.T) {
 	tests := []struct {
 		name string
 		args args
-		want models.DeploymentResourceCommandResponse
+		want *models.DeploymentResourceCommandResponse
 		err  error
 	}{
 		{
@@ -141,7 +141,7 @@ func TestStopInstancesMaintenanceMode(t *testing.T) {
 	tests := []struct {
 		name string
 		args args
-		want models.DeploymentResourceCommandResponse
+		want *models.DeploymentResourceCommandResponse
 		err  error
 	}{
 		{
@@ -259,7 +259,7 @@ func TestStopMaintenanceModeAllOrSpecified(t *testing.T) {
 	tests := []struct {
 		name string
 		args args
-		want models.DeploymentResourceCommandResponse
+		want *models.DeploymentResourceCommandResponse
 		err  error
 	}{
 		{
