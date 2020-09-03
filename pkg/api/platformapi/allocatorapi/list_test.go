@@ -20,6 +20,7 @@ package allocatorapi
 import (
 	"errors"
 	"net/http"
+	"net/url"
 	"reflect"
 	"testing"
 
@@ -195,6 +196,164 @@ func TestList(t *testing.T) {
 	}
   ]
 }`
+
+	var wantSucceeds = &models.AllocatorOverview{
+		Zones: []*models.AllocatorZoneInfo{
+			{
+				Allocators: []*models.AllocatorInfo{
+					{
+						AllocatorID: ec.String("i-09a0e797fb3af6864"),
+						Capacity: &models.AllocatorCapacity{Memory: &models.AllocatorCapacityMemory{
+							Total: ec.Int32(236544),
+						}},
+						Features: []string{
+							"apm",
+							"elasticsearch",
+							"elasticsearch_data",
+							"ssd",
+							"templates",
+							"tinyauth",
+						},
+						HostIP:    ec.String("172.25.61.100"),
+						Instances: []*models.AllocatedInstanceStatus{},
+						Metadata: []*models.MetadataItem{
+							{
+								Key:   ec.String("version"),
+								Value: ec.String("2017-09-30"),
+							},
+							{
+								Key:   ec.String("instanceId"),
+								Value: ec.String("i-09a0e797fb3af6864"),
+							},
+							{
+								Key:   ec.String("architecture"),
+								Value: ec.String("x86_64"),
+							},
+							{
+								Key:   ec.String("instanceType"),
+								Value: ec.String("i3.8xlarge"),
+							},
+							{
+								Key:   ec.String("availabilityZone"),
+								Value: ec.String("us-east-1a"),
+							},
+							{
+								Key:   ec.String("pendingTime"),
+								Value: ec.String("2018-05-18T13:24:21Z"),
+							},
+							{
+								Key:   ec.String("imageId"),
+								Value: ec.String("ami-ba0a51c0"),
+							},
+							{
+								Key:   ec.String("privateIp"),
+								Value: ec.String("172.25.61.100"),
+							},
+							{
+								Key:   ec.String("region"),
+								Value: ec.String("us-east-1"),
+							},
+						},
+						PublicHostname: ec.String("172.25.61.100"),
+						Settings:       &models.AllocatorSettings{},
+						Status: &models.AllocatorHealthStatus{
+							Connected:       ec.Bool(true),
+							Healthy:         ec.Bool(true),
+							MaintenanceMode: ec.Bool(false),
+						},
+						ZoneID: ec.String("us-east-1a"),
+					},
+					{
+						AllocatorID: ec.String("i-09a0e797fb3af6861"),
+						Capacity: &models.AllocatorCapacity{Memory: &models.AllocatorCapacityMemory{
+							Total: ec.Int32(236544),
+						}},
+						Features: []string{
+							"apm",
+							"elasticsearch",
+							"elasticsearch_data",
+							"ssd",
+							"templates",
+							"tinyauth",
+						},
+						HostIP:    ec.String("172.25.61.201"),
+						Instances: []*models.AllocatedInstanceStatus{},
+						Metadata: []*models.MetadataItem{
+							{
+								Key:   ec.String("version"),
+								Value: ec.String("2017-09-30"),
+							},
+							{
+								Key:   ec.String("instanceId"),
+								Value: ec.String("i-09a0e797fb3af6861"),
+							},
+							{
+								Key:   ec.String("architecture"),
+								Value: ec.String("x86_64"),
+							},
+							{
+								Key:   ec.String("instanceType"),
+								Value: ec.String("i3.large"),
+							},
+							{
+								Key:   ec.String("availabilityZone"),
+								Value: ec.String("us-east-1a"),
+							},
+							{
+								Key:   ec.String("pendingTime"),
+								Value: ec.String("2018-05-18T13:24:21Z"),
+							},
+							{
+								Key:   ec.String("imageId"),
+								Value: ec.String("ami-ba0a51c0"),
+							},
+							{
+								Key:   ec.String("privateIp"),
+								Value: ec.String("172.25.61.200"),
+							},
+							{
+								Key:   ec.String("region"),
+								Value: ec.String("us-east-1"),
+							},
+						},
+						PublicHostname: ec.String("172.25.61.200"),
+						Settings:       &models.AllocatorSettings{},
+						Status: &models.AllocatorHealthStatus{
+							Connected:       ec.Bool(true),
+							Healthy:         ec.Bool(true),
+							MaintenanceMode: ec.Bool(false),
+						},
+						ZoneID: ec.String("us-east-1a"),
+					},
+					{
+						AllocatorID: ec.String("i-09a0e797fb3a12345"),
+						Capacity: &models.AllocatorCapacity{Memory: &models.AllocatorCapacityMemory{
+							Total: ec.Int32(16384),
+						}},
+						Features: []string{
+							"apm",
+							"elasticsearch",
+							"elasticsearch_data",
+							"ssd",
+							"templates",
+							"tinyauth",
+						},
+						HostIP:         ec.String("172.25.61.202"),
+						Instances:      []*models.AllocatedInstanceStatus{},
+						Metadata:       []*models.MetadataItem{},
+						PublicHostname: ec.String("172.25.61.200"),
+						Settings:       &models.AllocatorSettings{},
+						Status: &models.AllocatorHealthStatus{
+							Connected:       ec.Bool(true),
+							Healthy:         ec.Bool(true),
+							MaintenanceMode: ec.Bool(false),
+						},
+						ZoneID: ec.String("us-east-1a"),
+					},
+				},
+			},
+		},
+	}
 	type args struct {
 		params ListParams
 	}
@@ -224,168 +383,37 @@ func TestList(t *testing.T) {
 			name: "List Succeeds",
 			args: args{params: ListParams{
 				Region: "us-east-1",
-				API: api.NewMock(mock.Response{Response: http.Response{
-					Body:       mock.NewStringBody(listAllocatorsSuccess),
-					StatusCode: 200,
-				}}),
+				API: api.NewMock(mock.New200ResponseAssertion(
+					&mock.RequestAssertion{
+						Header: api.DefaultReadMockHeaders,
+						Host:   api.DefaultMockHost,
+						Method: "GET",
+						Path:   "/api/v1/regions/us-east-1/platform/infrastructure/allocators",
+					},
+					mock.NewStringBody(listAllocatorsSuccess),
+				)),
 			}},
-			want: &models.AllocatorOverview{
-				Zones: []*models.AllocatorZoneInfo{
-					{
-						Allocators: []*models.AllocatorInfo{
-							{
-								AllocatorID: ec.String("i-09a0e797fb3af6864"),
-								Capacity: &models.AllocatorCapacity{Memory: &models.AllocatorCapacityMemory{
-									Total: ec.Int32(236544),
-								}},
-								Features: []string{
-									"apm",
-									"elasticsearch",
-									"elasticsearch_data",
-									"ssd",
-									"templates",
-									"tinyauth",
-								},
-								HostIP:    ec.String("172.25.61.100"),
-								Instances: []*models.AllocatedInstanceStatus{},
-								Metadata: []*models.MetadataItem{
-									{
-										Key:   ec.String("version"),
-										Value: ec.String("2017-09-30"),
-									},
-									{
-										Key:   ec.String("instanceId"),
-										Value: ec.String("i-09a0e797fb3af6864"),
-									},
-									{
-										Key:   ec.String("architecture"),
-										Value: ec.String("x86_64"),
-									},
-									{
-										Key:   ec.String("instanceType"),
-										Value: ec.String("i3.8xlarge"),
-									},
-									{
-										Key:   ec.String("availabilityZone"),
-										Value: ec.String("us-east-1a"),
-									},
-									{
-										Key:   ec.String("pendingTime"),
-										Value: ec.String("2018-05-18T13:24:21Z"),
-									},
-									{
-										Key:   ec.String("imageId"),
-										Value: ec.String("ami-ba0a51c0"),
-									},
-									{
-										Key:   ec.String("privateIp"),
-										Value: ec.String("172.25.61.100"),
-									},
-									{
-										Key:   ec.String("region"),
-										Value: ec.String("us-east-1"),
-									},
-								},
-								PublicHostname: ec.String("172.25.61.100"),
-								Settings:       &models.AllocatorSettings{},
-								Status: &models.AllocatorHealthStatus{
-									Connected:       ec.Bool(true),
-									Healthy:         ec.Bool(true),
-									MaintenanceMode: ec.Bool(false),
-								},
-								ZoneID: ec.String("us-east-1a"),
-							},
-							{
-								AllocatorID: ec.String("i-09a0e797fb3af6861"),
-								Capacity: &models.AllocatorCapacity{Memory: &models.AllocatorCapacityMemory{
-									Total: ec.Int32(236544),
-								}},
-								Features: []string{
-									"apm",
-									"elasticsearch",
-									"elasticsearch_data",
-									"ssd",
-									"templates",
-									"tinyauth",
-								},
-								HostIP:    ec.String("172.25.61.201"),
-								Instances: []*models.AllocatedInstanceStatus{},
-								Metadata: []*models.MetadataItem{
-									{
-										Key:   ec.String("version"),
-										Value: ec.String("2017-09-30"),
-									},
-									{
-										Key:   ec.String("instanceId"),
-										Value: ec.String("i-09a0e797fb3af6861"),
-									},
-									{
-										Key:   ec.String("architecture"),
-										Value: ec.String("x86_64"),
-									},
-									{
-										Key:   ec.String("instanceType"),
-										Value: ec.String("i3.large"),
-									},
-									{
-										Key:   ec.String("availabilityZone"),
-										Value: ec.String("us-east-1a"),
-									},
-									{
-										Key:   ec.String("pendingTime"),
-										Value: ec.String("2018-05-18T13:24:21Z"),
-									},
-									{
-										Key:   ec.String("imageId"),
-										Value: ec.String("ami-ba0a51c0"),
-									},
-									{
-										Key:   ec.String("privateIp"),
-										Value: ec.String("172.25.61.200"),
-									},
-									{
-										Key:   ec.String("region"),
-										Value: ec.String("us-east-1"),
-									},
-								},
-								PublicHostname: ec.String("172.25.61.200"),
-								Settings:       &models.AllocatorSettings{},
-								Status: &models.AllocatorHealthStatus{
-									Connected:       ec.Bool(true),
-									Healthy:         ec.Bool(true),
-									MaintenanceMode: ec.Bool(false),
-								},
-								ZoneID: ec.String("us-east-1a"),
-							},
-							{
-								AllocatorID: ec.String("i-09a0e797fb3a12345"),
-								Capacity: &models.AllocatorCapacity{Memory: &models.AllocatorCapacityMemory{
-									Total: ec.Int32(16384),
-								}},
-								Features: []string{
-									"apm",
-									"elasticsearch",
-									"elasticsearch_data",
-									"ssd",
-									"templates",
-									"tinyauth",
-								},
-								HostIP:         ec.String("172.25.61.202"),
-								Instances:      []*models.AllocatedInstanceStatus{},
-								Metadata:       []*models.MetadataItem{},
-								PublicHostname: ec.String("172.25.61.200"),
-								Settings:       &models.AllocatorSettings{},
-								Status: &models.AllocatorHealthStatus{
-									Connected:       ec.Bool(true),
-									Healthy:         ec.Bool(true),
-									MaintenanceMode: ec.Bool(false),
-								},
-								ZoneID: ec.String("us-east-1a"),
-							},
+			want: wantSucceeds,
+		},
+		{
+			name: "List Succeeds with size > 0",
+			args: args{params: ListParams{
+				Region: "us-east-1",
+				Size:   10,
+				API: api.NewMock(mock.New200ResponseAssertion(
+					&mock.RequestAssertion{
+						Header: api.DefaultReadMockHeaders,
+						Host:   api.DefaultMockHost,
+						Method: "GET",
+						Path:   "/api/v1/regions/us-east-1/platform/infrastructure/allocators",
+						Query: url.Values{
+							"size": []string{"10"},
 						},
 					},
-				},
-			},
+					mock.NewStringBody(listAllocatorsSuccess),
+				)),
+			}},
+			want: wantSucceeds,
 		},
 		{
 			name: "List Succeeds with one filter tag",

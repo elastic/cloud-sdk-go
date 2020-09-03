@@ -36,6 +36,7 @@ type ListParams struct {
 	FilterTags string
 	ShowAll    bool
 	Region     string
+	Size       int64
 }
 
 // Validate ensures that the parameters are correct
@@ -58,11 +59,16 @@ func List(params ListParams) (*models.AllocatorOverview, error) {
 		return nil, err
 	}
 
+	p := platform_infrastructure.NewGetAllocatorsParams().
+		WithContext(api.WithRegion(context.Background(), params.Region)).
+		WithQ(ec.String(params.Query))
+
+	if params.Size > 0 {
+		p.SetSize(&params.Size)
+	}
+
 	res, err := params.API.V1API.PlatformInfrastructure.GetAllocators(
-		platform_infrastructure.NewGetAllocatorsParams().
-			WithContext(api.WithRegion(context.Background(), params.Region)).
-			WithQ(ec.String(params.Query)),
-		params.AuthWriter,
+		p, params.AuthWriter,
 	)
 
 	if err != nil {
