@@ -30,13 +30,25 @@ import (
 
 // ListParams is used to list allocators
 type ListParams struct {
+	// Required API instance.
 	*api.API
+
+	// Required region on which to perform the allocator list.
+	Region string
+
+	// Optional Elasticsearch search query.
 	Query string
-	// Expected format is key:value slice. i.e. [key:val, key:value]
+
+	// Optional filter tags with expected format: key:value slice. i.e.
+	// [key:val, key:value].
 	FilterTags string
-	ShowAll    bool
-	Region     string
-	Size       int64
+
+	// Optional toggle to show all allocators (By default connected:false) are
+	// omitted.
+	ShowAll bool
+
+	// Optional number of allocators to return (Defaults to 100).
+	Size int64
 }
 
 // Validate ensures that the parameters are correct
