@@ -31,11 +31,17 @@ var systemAlerts = ec.Int64(5)
 
 // GetParams is consumed by get resource functions
 type GetParams struct {
+	// Required API instance.
 	*api.API
+
+	// Required Deployment identifier.
 	DeploymentID string
 
 	// Optional parameters
 	deputil.QueryParams
+
+	// Optionally convert the legacy plans to the current deployment format.
+	ConvertLegacyPlans bool
 
 	// RefID, when specified, skips auto-discovering the deployment resource
 	// RefID and instead uses the one that's passed.
@@ -71,6 +77,7 @@ func Get(params GetParams) (*models.DeploymentGetResponse, error) {
 			WithShowPlanHistory(ec.Bool(params.ShowPlanHistory)).
 			WithShowMetadata(ec.Bool(params.ShowMetadata)).
 			WithShowSettings(ec.Bool(params.ShowSettings)).
+			WithConvertLegacyPlans(ec.Bool(params.ConvertLegacyPlans)).
 			WithShowSystemAlerts(systemAlerts),
 		params.AuthWriter,
 	)
