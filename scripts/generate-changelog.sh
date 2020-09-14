@@ -6,7 +6,7 @@ if [[ $(git status) == *"Your branch is behind"* ]]; then
 fi
 
 git fetch
-PREV_TAG=$(git tag -l | tail -1)
+PREV_TAG=$(git tag -l 'v[0-9-]*.[0-9-]*.[0-9-]'| tail -1)
 CHANGELOGFILE=notes/${VERSION}.md
 
 if [[ -z ${PREV_TAG} ]]; then echo "-> Exiting changelog generation since there's no previous tag"; exit 0; fi
@@ -17,7 +17,7 @@ read -p "=> Previous release was ${PREV_TAG}, is that correct? " -n 1 -r
 if [[ ${REPLY} =~ ^[Yy]$ ]]; then
     echo ""
     cp scripts/changelog.tpl.md ${CHANGELOGFILE}
-    git -c log.showSignature=false log --pretty="* %h %s" --no-decorate --no-color tags/${PREV_TAG}...master >> ${CHANGELOGFILE}
+    git -c log.showSignature=false log --pretty="* %h %s" --no-decorate --no-color tags/${PREV_TAG}...$(git branch --show-current) >> ${CHANGELOGFILE}
     
     echo "=> Changelog generated."
     VISUAL="${VISUAL:-"${EDITOR:-vim}"}"
