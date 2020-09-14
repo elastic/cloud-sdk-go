@@ -69,7 +69,7 @@ func TestRun(t *testing.T) {
 			want: 5,
 			wantErr: multierror.NewPrefixed("api spec validation",
 				//nolint - error strings should not be capitalized or end with punctuation or a newline
-				errors.New("Post http://0.0.0.0:1234/deployments/_search: connection refused"),
+				errors.New(`Post "http://0.0.0.0:1234/deployments/_search": connection refused`),
 			),
 		},
 		{
@@ -82,7 +82,7 @@ func TestRun(t *testing.T) {
 			}},
 			want: 2,
 			//nolint - error strings should not be capitalized or end with punctuation or a newline
-			wantErr: errors.New("Get https://example.co/hola: no such host"),
+			wantErr: errors.New(`Get "https://example.co/hola": no such host`),
 		},
 	}
 	for _, tt := range tests {
