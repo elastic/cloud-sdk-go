@@ -155,6 +155,43 @@ func TestGet(t *testing.T) {
 				ID:      ec.String("f1d329b0fb34470ba8b18361cabdd2bc"),
 			},
 		},
+		{
+			name: "Get succeeds with ConvertLegacyPlans",
+			args: args{
+				params: GetParams{
+					DeploymentID:       "f1d329b0fb34470ba8b18361cabdd2bc",
+					ConvertLegacyPlans: true,
+					API: api.NewMock(mock.Response{
+						Response: http.Response{
+							Body:       mock.NewStringBody(getResponse),
+							StatusCode: 200,
+						},
+						Assert: &mock.RequestAssertion{
+							Header: api.DefaultReadMockHeaders,
+							Method: "GET",
+							Host:   api.DefaultMockHost,
+							Path:   "/api/v1/deployments/f1d329b0fb34470ba8b18361cabdd2bc",
+							Query: url.Values{
+								"convert_legacy_plans": {"true"},
+								"enrich_with_template": {"true"},
+								"show_metadata":        {"false"},
+								"show_plan_defaults":   {"false"},
+								"show_plan_history":    {"false"},
+								"show_plan_logs":       {"false"},
+								"show_plans":           {"false"},
+								"show_security":        {"false"},
+								"show_settings":        {"false"},
+								"show_system_alerts":   {"5"},
+							},
+						},
+					}),
+				},
+			},
+			want: &models.DeploymentGetResponse{
+				Healthy: ec.Bool(true),
+				ID:      ec.String("f1d329b0fb34470ba8b18361cabdd2bc"),
+			},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
