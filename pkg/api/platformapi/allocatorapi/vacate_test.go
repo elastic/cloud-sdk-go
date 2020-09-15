@@ -1141,7 +1141,7 @@ func Test_fillVacateClusterParams(t *testing.T) {
 					Output:    output.NewDevice(new(bytes.Buffer)),
 				},
 			},
-			err: errors.New(`allocator allocator-1: resource id [3ee11eb40eda22cac0cce259625c6734][elasticsearch]: allocator health autodiscovery: Get https://mock.elastic.co/api/v1/regions/us-east-1/platform/infrastructure/allocators/allocator-1: unauthorized`),
+			err: errors.New(`allocator allocator-1: resource id [3ee11eb40eda22cac0cce259625c6734][elasticsearch]: allocator health autodiscovery: Get "https://mock.elastic.co/api/v1/regions/us-east-1/platform/infrastructure/allocators/allocator-1": unauthorized`),
 		},
 		{
 			name: "sets defaults on parameters that aren't specified",
