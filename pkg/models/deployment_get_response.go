@@ -49,6 +49,9 @@ type DeploymentGetResponse struct {
 	// Required: true
 	Name *string `json:"name"`
 
+	// The observability information for this deployment
+	Observability *DeploymentObservability `json:"observability,omitempty"`
+
 	// The Resources that belong to this Deployment
 	// Required: true
 	Resources *DeploymentResources `json:"resources"`
@@ -74,6 +77,10 @@ func (m *DeploymentGetResponse) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateName(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateObservability(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -131,6 +138,24 @@ func (m *DeploymentGetResponse) validateName(formats strfmt.Registry) error {
 
 	if err := validate.Required("name", "body", m.Name); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *DeploymentGetResponse) validateObservability(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Observability) { // not required
+		return nil
+	}
+
+	if m.Observability != nil {
+		if err := m.Observability.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("observability")
+			}
+			return err
+		}
 	}
 
 	return nil

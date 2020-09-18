@@ -106,7 +106,7 @@ type SetAPIBaseURLParams struct {
 	  If specified, then checks for conflicts against the version stored in the persistent store (returned in 'x-cloud-resource-version' of the GET request). If not specified, will unconditionally upsert.
 
 	*/
-	Version *int64
+	Version *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -169,13 +169,13 @@ func (o *SetAPIBaseURLParams) SetSkipCascadingOperations(skipCascadingOperations
 }
 
 // WithVersion adds the version to the set api base url params
-func (o *SetAPIBaseURLParams) WithVersion(version *int64) *SetAPIBaseURLParams {
+func (o *SetAPIBaseURLParams) WithVersion(version *string) *SetAPIBaseURLParams {
 	o.SetVersion(version)
 	return o
 }
 
 // SetVersion adds the version to the set api base url params
-func (o *SetAPIBaseURLParams) SetVersion(version *int64) {
+func (o *SetAPIBaseURLParams) SetVersion(version *string) {
 	o.Version = version
 }
 
@@ -212,11 +212,11 @@ func (o *SetAPIBaseURLParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 	if o.Version != nil {
 
 		// query param version
-		var qrVersion int64
+		var qrVersion string
 		if o.Version != nil {
 			qrVersion = *o.Version
 		}
-		qVersion := swag.FormatInt64(qrVersion)
+		qVersion := qrVersion
 		if qVersion != "" {
 			if err := r.SetQueryParam("version", qVersion); err != nil {
 				return err

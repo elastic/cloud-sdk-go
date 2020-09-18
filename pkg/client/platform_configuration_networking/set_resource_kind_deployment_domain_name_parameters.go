@@ -111,7 +111,7 @@ type SetResourceKindDeploymentDomainNameParams struct {
 	  If specified, then checks for conflicts against the version stored in the persistent store (returned in 'x-cloud-resource-version' of the GET request). If not specified, will unconditionally upsert.
 
 	*/
-	Version *int64
+	Version *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -185,13 +185,13 @@ func (o *SetResourceKindDeploymentDomainNameParams) SetSkipCascadingOperations(s
 }
 
 // WithVersion adds the version to the set resource kind deployment domain name params
-func (o *SetResourceKindDeploymentDomainNameParams) WithVersion(version *int64) *SetResourceKindDeploymentDomainNameParams {
+func (o *SetResourceKindDeploymentDomainNameParams) WithVersion(version *string) *SetResourceKindDeploymentDomainNameParams {
 	o.SetVersion(version)
 	return o
 }
 
 // SetVersion adds the version to the set resource kind deployment domain name params
-func (o *SetResourceKindDeploymentDomainNameParams) SetVersion(version *int64) {
+func (o *SetResourceKindDeploymentDomainNameParams) SetVersion(version *string) {
 	o.Version = version
 }
 
@@ -233,11 +233,11 @@ func (o *SetResourceKindDeploymentDomainNameParams) WriteToRequest(r runtime.Cli
 	if o.Version != nil {
 
 		// query param version
-		var qrVersion int64
+		var qrVersion string
 		if o.Version != nil {
 			qrVersion = *o.Version
 		}
-		qVersion := swag.FormatInt64(qrVersion)
+		qVersion := qrVersion
 		if qVersion != "" {
 			if err := r.SetQueryParam("version", qVersion); err != nil {
 				return err

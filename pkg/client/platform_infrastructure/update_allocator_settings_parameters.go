@@ -31,7 +31,6 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
 )
 
 // NewUpdateAllocatorSettingsParams creates a new UpdateAllocatorSettingsParams object
@@ -92,7 +91,7 @@ type UpdateAllocatorSettingsParams struct {
 	  Checks for conflicts against the metadata version, then returns the value in the `x-cloud-resource-version` header.
 
 	*/
-	Version *int64
+	Version *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -155,13 +154,13 @@ func (o *UpdateAllocatorSettingsParams) SetBody(body string) {
 }
 
 // WithVersion adds the version to the update allocator settings params
-func (o *UpdateAllocatorSettingsParams) WithVersion(version *int64) *UpdateAllocatorSettingsParams {
+func (o *UpdateAllocatorSettingsParams) WithVersion(version *string) *UpdateAllocatorSettingsParams {
 	o.SetVersion(version)
 	return o
 }
 
 // SetVersion adds the version to the update allocator settings params
-func (o *UpdateAllocatorSettingsParams) SetVersion(version *int64) {
+func (o *UpdateAllocatorSettingsParams) SetVersion(version *string) {
 	o.Version = version
 }
 
@@ -185,11 +184,11 @@ func (o *UpdateAllocatorSettingsParams) WriteToRequest(r runtime.ClientRequest, 
 	if o.Version != nil {
 
 		// query param version
-		var qrVersion int64
+		var qrVersion string
 		if o.Version != nil {
 			qrVersion = *o.Version
 		}
-		qVersion := swag.FormatInt64(qrVersion)
+		qVersion := qrVersion
 		if qVersion != "" {
 			if err := r.SetQueryParam("version", qVersion); err != nil {
 				return err

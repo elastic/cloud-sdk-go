@@ -31,7 +31,6 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
 )
 
 // NewSetDeploymentResourceRawMetadataParams creates a new SetDeploymentResourceRawMetadataParams object
@@ -102,7 +101,7 @@ type SetDeploymentResourceRawMetadataParams struct {
 	  If specified, checks for conflicts against the metadata version (returned in 'x-cloud-resource-version' of the GET request)
 
 	*/
-	Version *int64
+	Version *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -187,13 +186,13 @@ func (o *SetDeploymentResourceRawMetadataParams) SetResourceKind(resourceKind st
 }
 
 // WithVersion adds the version to the set deployment resource raw metadata params
-func (o *SetDeploymentResourceRawMetadataParams) WithVersion(version *int64) *SetDeploymentResourceRawMetadataParams {
+func (o *SetDeploymentResourceRawMetadataParams) WithVersion(version *string) *SetDeploymentResourceRawMetadataParams {
 	o.SetVersion(version)
 	return o
 }
 
 // SetVersion adds the version to the set deployment resource raw metadata params
-func (o *SetDeploymentResourceRawMetadataParams) SetVersion(version *int64) {
+func (o *SetDeploymentResourceRawMetadataParams) SetVersion(version *string) {
 	o.Version = version
 }
 
@@ -227,11 +226,11 @@ func (o *SetDeploymentResourceRawMetadataParams) WriteToRequest(r runtime.Client
 	if o.Version != nil {
 
 		// query param version
-		var qrVersion int64
+		var qrVersion string
 		if o.Version != nil {
 			qrVersion = *o.Version
 		}
-		qVersion := swag.FormatInt64(qrVersion)
+		qVersion := qrVersion
 		if qVersion != "" {
 			if err := r.SetQueryParam("version", qVersion); err != nil {
 				return err

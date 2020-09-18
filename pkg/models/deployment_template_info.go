@@ -54,6 +54,9 @@ type DeploymentTemplateInfo struct {
 	// Optional list of instance configurations used in the cluster template.
 	InstanceConfigurations []*InstanceConfiguration `json:"instance_configurations,omitempty"`
 
+	// The Kibana Deeplink for this type of deployment.
+	KibanaDeeplink []*KibanaDeeplink `json:"kibana_deeplink"`
+
 	// Optional arbitrary metadata to associate with this template.
 	Metadata []*MetadataItem `json:"metadata"`
 
@@ -90,6 +93,10 @@ func (m *DeploymentTemplateInfo) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateInstanceConfigurations(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateKibanaDeeplink(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -162,6 +169,31 @@ func (m *DeploymentTemplateInfo) validateInstanceConfigurations(formats strfmt.R
 			if err := m.InstanceConfigurations[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("instance_configurations" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *DeploymentTemplateInfo) validateKibanaDeeplink(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.KibanaDeeplink) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.KibanaDeeplink); i++ {
+		if swag.IsZero(m.KibanaDeeplink[i]) { // not required
+			continue
+		}
+
+		if m.KibanaDeeplink[i] != nil {
+			if err := m.KibanaDeeplink[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("kibana_deeplink" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

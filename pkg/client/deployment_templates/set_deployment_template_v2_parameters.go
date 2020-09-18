@@ -116,7 +116,7 @@ type SetDeploymentTemplateV2Params struct {
 	  If specified, checks for conflicts against the version of the template (returned in 'x-cloud-resource-version' of the GET request)
 
 	*/
-	Version *int64
+	Version *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -201,13 +201,13 @@ func (o *SetDeploymentTemplateV2Params) SetTemplateID(templateID string) {
 }
 
 // WithVersion adds the version to the set deployment template v2 params
-func (o *SetDeploymentTemplateV2Params) WithVersion(version *int64) *SetDeploymentTemplateV2Params {
+func (o *SetDeploymentTemplateV2Params) WithVersion(version *string) *SetDeploymentTemplateV2Params {
 	o.SetVersion(version)
 	return o
 }
 
 // SetVersion adds the version to the set deployment template v2 params
-func (o *SetDeploymentTemplateV2Params) SetVersion(version *int64) {
+func (o *SetDeploymentTemplateV2Params) SetVersion(version *string) {
 	o.Version = version
 }
 
@@ -258,11 +258,11 @@ func (o *SetDeploymentTemplateV2Params) WriteToRequest(r runtime.ClientRequest, 
 	if o.Version != nil {
 
 		// query param version
-		var qrVersion int64
+		var qrVersion string
 		if o.Version != nil {
 			qrVersion = *o.Version
 		}
-		qVersion := swag.FormatInt64(qrVersion)
+		qVersion := qrVersion
 		if qVersion != "" {
 			if err := r.SetQueryParam("version", qVersion); err != nil {
 				return err

@@ -1489,7 +1489,7 @@
           "in" : "query",
           "description" : "If specified then checks for conflicts against the version stored in the persistent store (returned in 'x-cloud-resource-version' of the GET request)",
           "required" : false,
-          "type" : "integer"
+          "type" : "string"
         }, {
           "in" : "body",
           "name" : "body",
@@ -4646,6 +4646,21 @@
     }
   },
   "definitions" : {
+    "AbsoluteRefId" : {
+      "type" : "object",
+      "required" : [ "deployment_id", "ref_id" ],
+      "properties" : {
+        "deployment_id" : {
+          "type" : "string",
+          "description" : "The deployment id"
+        },
+        "ref_id" : {
+          "type" : "string",
+          "description" : "The reference id of the resource in the given deployment"
+        }
+      },
+      "description" : "A reference to a specific resource of a deployment"
+    },
     "AccountTrustRelationship" : {
       "type" : "object",
       "required" : [ "account_id", "trust_all" ],
@@ -6182,6 +6197,10 @@
         "traffic_filter_settings" : {
           "description" : "The traffic filter rulesets to apply to this deployment.",
           "$ref" : "#/definitions/TrafficFilterSettings"
+        },
+        "observability" : {
+          "description" : "Observability settings for this deployment",
+          "$ref" : "#/definitions/DeploymentObservabilitySettings"
         }
       },
       "description" : "Additional configuration for the new deployment object."
@@ -6223,9 +6242,104 @@
         "settings" : {
           "description" : "Additional configuration for this Deployment",
           "$ref" : "#/definitions/DeploymentSettings"
+        },
+        "observability" : {
+          "description" : "The observability information for this deployment",
+          "$ref" : "#/definitions/DeploymentObservability"
         }
       },
       "description" : "Describes a given Deployment"
+    },
+    "DeploymentLogging" : {
+      "type" : "object",
+      "required" : [ "healthy" ],
+      "properties" : {
+        "healthy" : {
+          "type" : "boolean",
+          "description" : "Whether the deployment logging is healthy or not"
+        },
+        "urls" : {
+          "type" : "object",
+          "description" : "The URLs to view this deployment's logs in Kibana",
+          "additionalProperties" : {
+            "type" : "string"
+          }
+        }
+      },
+      "description" : "Logging information for a deployment"
+    },
+    "DeploymentLoggingSettings" : {
+      "type" : "object",
+      "required" : [ "destination" ],
+      "properties" : {
+        "destination" : {
+          "description" : "The destination deployment that this deployment's logs will be sent to",
+          "$ref" : "#/definitions/AbsoluteRefId"
+        }
+      },
+      "description" : "The logging settings for a deployment"
+    },
+    "DeploymentMetrics" : {
+      "type" : "object",
+      "required" : [ "healthy" ],
+      "properties" : {
+        "healthy" : {
+          "type" : "boolean",
+          "description" : "Whether the deployment metrics are healthy or not"
+        },
+        "urls" : {
+          "type" : "object",
+          "description" : "The URLs to view this deployment's metrics in Kibana",
+          "additionalProperties" : {
+            "type" : "string"
+          }
+        }
+      },
+      "description" : "Metrics information for a deployment"
+    },
+    "DeploymentMetricsSettings" : {
+      "type" : "object",
+      "required" : [ "destination" ],
+      "properties" : {
+        "destination" : {
+          "description" : "The destination deployment that this deployment's metrics will be sent to",
+          "$ref" : "#/definitions/AbsoluteRefId"
+        }
+      },
+      "description" : "The metrics settings for a deployment"
+    },
+    "DeploymentObservability" : {
+      "type" : "object",
+      "required" : [ "healthy" ],
+      "properties" : {
+        "healthy" : {
+          "type" : "boolean",
+          "description" : "Whether the deployment observability is healthy or not (one or more of the subsections will have healthy: false)"
+        },
+        "logging" : {
+          "description" : "The logging information for the deployment",
+          "$ref" : "#/definitions/DeploymentLogging"
+        },
+        "metrics" : {
+          "description" : "The metrics information for the deployment",
+          "$ref" : "#/definitions/DeploymentMetrics"
+        }
+      },
+      "description" : "Observability information for a deployment"
+    },
+    "DeploymentObservabilitySettings" : {
+      "type" : "object",
+      "properties" : {
+        "logging" : {
+          "description" : "The logging settings for the deployment",
+          "$ref" : "#/definitions/DeploymentLoggingSettings"
+        },
+        "metrics" : {
+          "description" : "The metrics settings for the deployment",
+          "$ref" : "#/definitions/DeploymentMetricsSettings"
+        }
+      },
+      "description" : "The observability settings for a deployment"
     },
     "DeploymentResource" : {
       "type" : "object",
@@ -6407,6 +6521,10 @@
         "traffic_filter_settings" : {
           "description" : "The traffic filter rulesets for this deployment.",
           "$ref" : "#/definitions/TrafficFilterSettings"
+        },
+        "observability" : {
+          "description" : "Logging and monitoring settings for this deployment",
+          "$ref" : "#/definitions/DeploymentObservabilitySettings"
         }
       },
       "description" : "Additional configuration about the current deployment object."
@@ -6484,6 +6602,13 @@
         "template_category_id" : {
           "type" : "string",
           "description" : "Provider and version agnostic template identifier used for grouping related template types."
+        },
+        "kibana_deeplink" : {
+          "type" : "array",
+          "description" : "The Kibana Deeplink for this type of deployment.",
+          "items" : {
+            "$ref" : "#/definitions/KibanaDeeplink"
+          }
         }
       },
       "description" : "Deployment template detailed information"
@@ -6529,6 +6654,10 @@
         "resources" : {
           "description" : "New information about the Resources that will have this Deployment, otherwise they stay the same",
           "$ref" : "#/definitions/DeploymentUpdateResources"
+        },
+        "settings" : {
+          "description" : "New information about the current deployment object, otherwise stays the same",
+          "$ref" : "#/definitions/DeploymentUpdateSettings"
         }
       },
       "description" : "A request for updating a Deployment consisting of multiple resources"
@@ -6596,6 +6725,16 @@
         }
       },
       "description" : "A response returned from the Deployment update endpoint"
+    },
+    "DeploymentUpdateSettings" : {
+      "type" : "object",
+      "properties" : {
+        "observability" : {
+          "description" : "Logging and monitoring settings for this deployment. If provided it will change observability settings, if null observability will be removed from the deployment, otherwise will stay the same",
+          "$ref" : "#/definitions/DeploymentObservabilitySettings"
+        }
+      },
+      "description" : "Additional configuration for the new deployment object."
     },
     "DeploymentsListResponse" : {
       "type" : "object",
@@ -8057,9 +8196,33 @@
           "items" : {
             "type" : "string"
           }
+        },
+        "file_metadata" : {
+          "description" : "The extension file metadata.",
+          "$ref" : "#/definitions/ExtensionFileMetadata"
         }
       },
       "description" : "An API extension. It represents clusters' plugins and bundles"
+    },
+    "ExtensionFileMetadata" : {
+      "type" : "object",
+      "properties" : {
+        "last_modified_date" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "The date and time the extension was last modified."
+        },
+        "size" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "The extension file size in bytes."
+        },
+        "url" : {
+          "type" : "string",
+          "format" : "uri",
+          "description" : "The temporary URL to download the extension file. Usable for verification."
+        }
+      }
     },
     "Extensions" : {
       "type" : "object",
@@ -8505,6 +8668,21 @@
         }
       },
       "description" : "The Kibana instance settings. When specified at the top level, provides a field-by-field default. When specified at the topology level, provides the override settings."
+    },
+    "KibanaDeeplink" : {
+      "type" : "object",
+      "required" : [ "semver", "uri" ],
+      "properties" : {
+        "semver" : {
+          "type" : "string",
+          "description" : "Semver condition when to apply the URI."
+        },
+        "uri" : {
+          "type" : "string",
+          "description" : "URI to which the user should be directed."
+        }
+      },
+      "description" : "Embedded object that contains information for linking into a specific Kibana page configured via the template."
     },
     "KibanaPayload" : {
       "type" : "object",

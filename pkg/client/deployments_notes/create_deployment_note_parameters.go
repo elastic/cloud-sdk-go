@@ -31,7 +31,6 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
 
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
@@ -94,7 +93,7 @@ type CreateDeploymentNoteParams struct {
 	  If specified then checks for conflicts against the version of the deployment note
 
 	*/
-	Version *int64
+	Version *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -157,13 +156,13 @@ func (o *CreateDeploymentNoteParams) SetDeploymentID(deploymentID string) {
 }
 
 // WithVersion adds the version to the create deployment note params
-func (o *CreateDeploymentNoteParams) WithVersion(version *int64) *CreateDeploymentNoteParams {
+func (o *CreateDeploymentNoteParams) WithVersion(version *string) *CreateDeploymentNoteParams {
 	o.SetVersion(version)
 	return o
 }
 
 // SetVersion adds the version to the create deployment note params
-func (o *CreateDeploymentNoteParams) SetVersion(version *int64) {
+func (o *CreateDeploymentNoteParams) SetVersion(version *string) {
 	o.Version = version
 }
 
@@ -189,11 +188,11 @@ func (o *CreateDeploymentNoteParams) WriteToRequest(r runtime.ClientRequest, reg
 	if o.Version != nil {
 
 		// query param version
-		var qrVersion int64
+		var qrVersion string
 		if o.Version != nil {
 			qrVersion = *o.Version
 		}
-		qVersion := swag.FormatInt64(qrVersion)
+		qVersion := qrVersion
 		if qVersion != "" {
 			if err := r.SetQueryParam("version", qVersion); err != nil {
 				return err

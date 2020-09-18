@@ -31,7 +31,6 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
 )
 
 // NewDeleteAllocatorMetadataItemParams creates a new DeleteAllocatorMetadataItemParams object
@@ -92,7 +91,7 @@ type DeleteAllocatorMetadataItemParams struct {
 	  Checks for conflicts against the metadata version, then returns the value in the `x-cloud-resource-version` header.
 
 	*/
-	Version *int64
+	Version *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -155,13 +154,13 @@ func (o *DeleteAllocatorMetadataItemParams) SetKey(key string) {
 }
 
 // WithVersion adds the version to the delete allocator metadata item params
-func (o *DeleteAllocatorMetadataItemParams) WithVersion(version *int64) *DeleteAllocatorMetadataItemParams {
+func (o *DeleteAllocatorMetadataItemParams) WithVersion(version *string) *DeleteAllocatorMetadataItemParams {
 	o.SetVersion(version)
 	return o
 }
 
 // SetVersion adds the version to the delete allocator metadata item params
-func (o *DeleteAllocatorMetadataItemParams) SetVersion(version *int64) {
+func (o *DeleteAllocatorMetadataItemParams) SetVersion(version *string) {
 	o.Version = version
 }
 
@@ -186,11 +185,11 @@ func (o *DeleteAllocatorMetadataItemParams) WriteToRequest(r runtime.ClientReque
 	if o.Version != nil {
 
 		// query param version
-		var qrVersion int64
+		var qrVersion string
 		if o.Version != nil {
 			qrVersion = *o.Version
 		}
-		qVersion := swag.FormatInt64(qrVersion)
+		qVersion := qrVersion
 		if qVersion != "" {
 			if err := r.SetQueryParam("version", qVersion); err != nil {
 				return err
