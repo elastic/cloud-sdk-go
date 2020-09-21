@@ -133,7 +133,7 @@ type Pool struct {
 	// writer where any (log, info) messages will be sent.
 	writer io.Writer
 
-	// FailFast can be set to stop all the pool when any of the workers returns
+	// failFast can be set to stop all the pool when any of the workers returns
 	// with an error.
 	failFast bool
 }
