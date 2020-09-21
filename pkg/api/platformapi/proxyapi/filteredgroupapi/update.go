@@ -29,7 +29,7 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
-var errVersionCannotBeLesserThanZero = errors.New("version cannot be empty")
+var errVersionCannotBeEmpty = errors.New("version cannot be empty")
 
 // UpdateParams is the set of parameters required for updating proxies filtered group
 type UpdateParams struct {
@@ -66,7 +66,7 @@ func (params UpdateParams) Validate() error {
 	}
 
 	if params.Version == "" {
-		merr = merr.Append(errVersionCannotBeLesserThanZero)
+		merr = merr.Append(errVersionCannotBeEmpty)
 	}
 
 	return merr.ErrorOrNil()
