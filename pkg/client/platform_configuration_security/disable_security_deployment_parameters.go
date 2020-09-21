@@ -31,7 +31,6 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
 )
 
 // NewDisableSecurityDeploymentParams creates a new DisableSecurityDeploymentParams object
@@ -82,7 +81,7 @@ type DisableSecurityDeploymentParams struct {
 	  When specified, checks for conflicts against the version stored in the persistent store (returned in 'x-cloud-resource-version' of the GET request)
 
 	*/
-	Version *int64
+	Version *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -123,13 +122,13 @@ func (o *DisableSecurityDeploymentParams) SetHTTPClient(client *http.Client) {
 }
 
 // WithVersion adds the version to the disable security deployment params
-func (o *DisableSecurityDeploymentParams) WithVersion(version *int64) *DisableSecurityDeploymentParams {
+func (o *DisableSecurityDeploymentParams) WithVersion(version *string) *DisableSecurityDeploymentParams {
 	o.SetVersion(version)
 	return o
 }
 
 // SetVersion adds the version to the disable security deployment params
-func (o *DisableSecurityDeploymentParams) SetVersion(version *int64) {
+func (o *DisableSecurityDeploymentParams) SetVersion(version *string) {
 	o.Version = version
 }
 
@@ -144,11 +143,11 @@ func (o *DisableSecurityDeploymentParams) WriteToRequest(r runtime.ClientRequest
 	if o.Version != nil {
 
 		// query param version
-		var qrVersion int64
+		var qrVersion string
 		if o.Version != nil {
 			qrVersion = *o.Version
 		}
-		qVersion := swag.FormatInt64(qrVersion)
+		qVersion := qrVersion
 		if qVersion != "" {
 			if err := r.SetQueryParam("version", qVersion); err != nil {
 				return err

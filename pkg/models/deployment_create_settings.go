@@ -36,6 +36,9 @@ type DeploymentCreateSettings struct {
 	// DEPRECATED (Scheduled to be removed in the next major version): The set of rulesets applies to this deployment.
 	IPFilteringSettings *IPFilteringSettings `json:"ip_filtering_settings,omitempty"`
 
+	// Observability settings for this deployment
+	Observability *DeploymentObservabilitySettings `json:"observability,omitempty"`
+
 	// The traffic filter rulesets to apply to this deployment.
 	TrafficFilterSettings *TrafficFilterSettings `json:"traffic_filter_settings,omitempty"`
 }
@@ -45,6 +48,10 @@ func (m *DeploymentCreateSettings) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateIPFilteringSettings(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateObservability(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -68,6 +75,24 @@ func (m *DeploymentCreateSettings) validateIPFilteringSettings(formats strfmt.Re
 		if err := m.IPFilteringSettings.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ip_filtering_settings")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *DeploymentCreateSettings) validateObservability(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Observability) { // not required
+		return nil
+	}
+
+	if m.Observability != nil {
+		if err := m.Observability.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("observability")
 			}
 			return err
 		}

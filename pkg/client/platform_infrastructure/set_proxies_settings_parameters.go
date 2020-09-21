@@ -31,7 +31,6 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
 
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
@@ -89,7 +88,7 @@ type SetProxiesSettingsParams struct {
 	  If specified, checks for conflicts against the version of the settings (returned in 'x-cloud-resource-version' of the GET request)
 
 	*/
-	Version *int64
+	Version *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -141,13 +140,13 @@ func (o *SetProxiesSettingsParams) SetBody(body *models.ProxiesSettings) {
 }
 
 // WithVersion adds the version to the set proxies settings params
-func (o *SetProxiesSettingsParams) WithVersion(version *int64) *SetProxiesSettingsParams {
+func (o *SetProxiesSettingsParams) WithVersion(version *string) *SetProxiesSettingsParams {
 	o.SetVersion(version)
 	return o
 }
 
 // SetVersion adds the version to the set proxies settings params
-func (o *SetProxiesSettingsParams) SetVersion(version *int64) {
+func (o *SetProxiesSettingsParams) SetVersion(version *string) {
 	o.Version = version
 }
 
@@ -168,11 +167,11 @@ func (o *SetProxiesSettingsParams) WriteToRequest(r runtime.ClientRequest, reg s
 	if o.Version != nil {
 
 		// query param version
-		var qrVersion int64
+		var qrVersion string
 		if o.Version != nil {
 			qrVersion = *o.Version
 		}
-		qVersion := swag.FormatInt64(qrVersion)
+		qVersion := qrVersion
 		if qVersion != "" {
 			if err := r.SetQueryParam("version", qVersion); err != nil {
 				return err

@@ -29,39 +29,29 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// Metadata Metadata of an entity
+// KibanaDeeplink Embedded object that contains information for linking into a specific Kibana page configured via the template.
 //
-// swagger:model Metadata
-type Metadata struct {
+// swagger:model KibanaDeeplink
+type KibanaDeeplink struct {
 
-	// Creation time
+	// Semver condition when to apply the URI.
 	// Required: true
-	// Format: date-time
-	CreatedTime *strfmt.DateTime `json:"created_time"`
+	Semver *string `json:"semver"`
 
-	// Modification time
+	// URI to which the user should be directed.
 	// Required: true
-	// Format: date-time
-	ModifiedTime *strfmt.DateTime `json:"modified_time"`
-
-	// Version
-	// Required: true
-	Version *string `json:"version"`
+	URI *string `json:"uri"`
 }
 
-// Validate validates this metadata
-func (m *Metadata) Validate(formats strfmt.Registry) error {
+// Validate validates this kibana deeplink
+func (m *KibanaDeeplink) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateCreatedTime(formats); err != nil {
+	if err := m.validateSemver(formats); err != nil {
 		res = append(res, err)
 	}
 
-	if err := m.validateModifiedTime(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateVersion(formats); err != nil {
+	if err := m.validateURI(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -71,35 +61,18 @@ func (m *Metadata) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *Metadata) validateCreatedTime(formats strfmt.Registry) error {
+func (m *KibanaDeeplink) validateSemver(formats strfmt.Registry) error {
 
-	if err := validate.Required("created_time", "body", m.CreatedTime); err != nil {
-		return err
-	}
-
-	if err := validate.FormatOf("created_time", "body", "date-time", m.CreatedTime.String(), formats); err != nil {
+	if err := validate.Required("semver", "body", m.Semver); err != nil {
 		return err
 	}
 
 	return nil
 }
 
-func (m *Metadata) validateModifiedTime(formats strfmt.Registry) error {
+func (m *KibanaDeeplink) validateURI(formats strfmt.Registry) error {
 
-	if err := validate.Required("modified_time", "body", m.ModifiedTime); err != nil {
-		return err
-	}
-
-	if err := validate.FormatOf("modified_time", "body", "date-time", m.ModifiedTime.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *Metadata) validateVersion(formats strfmt.Registry) error {
-
-	if err := validate.Required("version", "body", m.Version); err != nil {
+	if err := validate.Required("uri", "body", m.URI); err != nil {
 		return err
 	}
 
@@ -107,7 +80,7 @@ func (m *Metadata) validateVersion(formats strfmt.Registry) error {
 }
 
 // MarshalBinary interface implementation
-func (m *Metadata) MarshalBinary() ([]byte, error) {
+func (m *KibanaDeeplink) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -115,8 +88,8 @@ func (m *Metadata) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *Metadata) UnmarshalBinary(b []byte) error {
-	var res Metadata
+func (m *KibanaDeeplink) UnmarshalBinary(b []byte) error {
+	var res KibanaDeeplink
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

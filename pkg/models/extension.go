@@ -50,6 +50,9 @@ type Extension struct {
 	// Enum: [plugin bundle]
 	ExtensionType *string `json:"extension_type"`
 
+	// The extension file metadata.
+	FileMetadata *ExtensionFileMetadata `json:"file_metadata,omitempty"`
+
 	// The extension ID
 	// Required: true
 	ID *string `json:"id"`
@@ -72,6 +75,10 @@ func (m *Extension) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateExtensionType(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateFileMetadata(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -135,6 +142,24 @@ func (m *Extension) validateExtensionType(formats strfmt.Registry) error {
 	// value enum
 	if err := m.validateExtensionTypeEnum("extension_type", "body", *m.ExtensionType); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *Extension) validateFileMetadata(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.FileMetadata) { // not required
+		return nil
+	}
+
+	if m.FileMetadata != nil {
+		if err := m.FileMetadata.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("file_metadata")
+			}
+			return err
+		}
 	}
 
 	return nil

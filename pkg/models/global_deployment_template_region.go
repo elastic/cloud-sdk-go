@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"strconv"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -38,6 +40,9 @@ type GlobalDeploymentTemplateRegion struct {
 	// Required: true
 	DeploymentTemplateID *string `json:"deployment_template_id"`
 
+	// The Kibana Deeplink for this type of deployment.
+	KibanaDeeplink []*KibanaDeeplink `json:"kibana_deeplink"`
+
 	// The region identifier.
 	// Required: true
 	RegionID *string `json:"region_id"`
@@ -52,6 +57,10 @@ func (m *GlobalDeploymentTemplateRegion) Validate(formats strfmt.Registry) error
 	var res []error
 
 	if err := m.validateDeploymentTemplateID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateKibanaDeeplink(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -73,6 +82,31 @@ func (m *GlobalDeploymentTemplateRegion) validateDeploymentTemplateID(formats st
 
 	if err := validate.Required("deployment_template_id", "body", m.DeploymentTemplateID); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *GlobalDeploymentTemplateRegion) validateKibanaDeeplink(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.KibanaDeeplink) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.KibanaDeeplink); i++ {
+		if swag.IsZero(m.KibanaDeeplink[i]) { // not required
+			continue
+		}
+
+		if m.KibanaDeeplink[i] != nil {
+			if err := m.KibanaDeeplink[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("kibana_deeplink" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil

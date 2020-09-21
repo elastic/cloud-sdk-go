@@ -31,7 +31,6 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
 )
 
 // NewDeleteCommentParams creates a new DeleteCommentParams object
@@ -97,7 +96,7 @@ type DeleteCommentParams struct {
 	  If specified then checks for conflicts against the version stored in the persistent store (returned in 'x-cloud-resource-version' of the GET request)
 
 	*/
-	Version *int64
+	Version *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -171,13 +170,13 @@ func (o *DeleteCommentParams) SetResourceType(resourceType string) {
 }
 
 // WithVersion adds the version to the delete comment params
-func (o *DeleteCommentParams) WithVersion(version *int64) *DeleteCommentParams {
+func (o *DeleteCommentParams) WithVersion(version *string) *DeleteCommentParams {
 	o.SetVersion(version)
 	return o
 }
 
 // SetVersion adds the version to the delete comment params
-func (o *DeleteCommentParams) SetVersion(version *int64) {
+func (o *DeleteCommentParams) SetVersion(version *string) {
 	o.Version = version
 }
 
@@ -207,11 +206,11 @@ func (o *DeleteCommentParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 	if o.Version != nil {
 
 		// query param version
-		var qrVersion int64
+		var qrVersion string
 		if o.Version != nil {
 			qrVersion = *o.Version
 		}
-		qVersion := swag.FormatInt64(qrVersion)
+		qVersion := qrVersion
 		if qVersion != "" {
 			if err := r.SetQueryParam("version", qVersion); err != nil {
 				return err

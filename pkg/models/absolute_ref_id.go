@@ -29,39 +29,29 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// Metadata Metadata of an entity
+// AbsoluteRefID A reference to a specific resource of a deployment
 //
-// swagger:model Metadata
-type Metadata struct {
+// swagger:model AbsoluteRefId
+type AbsoluteRefID struct {
 
-	// Creation time
+	// The deployment id
 	// Required: true
-	// Format: date-time
-	CreatedTime *strfmt.DateTime `json:"created_time"`
+	DeploymentID *string `json:"deployment_id"`
 
-	// Modification time
+	// The reference id of the resource in the given deployment
 	// Required: true
-	// Format: date-time
-	ModifiedTime *strfmt.DateTime `json:"modified_time"`
-
-	// Version
-	// Required: true
-	Version *string `json:"version"`
+	RefID *string `json:"ref_id"`
 }
 
-// Validate validates this metadata
-func (m *Metadata) Validate(formats strfmt.Registry) error {
+// Validate validates this absolute ref Id
+func (m *AbsoluteRefID) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateCreatedTime(formats); err != nil {
+	if err := m.validateDeploymentID(formats); err != nil {
 		res = append(res, err)
 	}
 
-	if err := m.validateModifiedTime(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateVersion(formats); err != nil {
+	if err := m.validateRefID(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -71,35 +61,18 @@ func (m *Metadata) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *Metadata) validateCreatedTime(formats strfmt.Registry) error {
+func (m *AbsoluteRefID) validateDeploymentID(formats strfmt.Registry) error {
 
-	if err := validate.Required("created_time", "body", m.CreatedTime); err != nil {
-		return err
-	}
-
-	if err := validate.FormatOf("created_time", "body", "date-time", m.CreatedTime.String(), formats); err != nil {
+	if err := validate.Required("deployment_id", "body", m.DeploymentID); err != nil {
 		return err
 	}
 
 	return nil
 }
 
-func (m *Metadata) validateModifiedTime(formats strfmt.Registry) error {
+func (m *AbsoluteRefID) validateRefID(formats strfmt.Registry) error {
 
-	if err := validate.Required("modified_time", "body", m.ModifiedTime); err != nil {
-		return err
-	}
-
-	if err := validate.FormatOf("modified_time", "body", "date-time", m.ModifiedTime.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *Metadata) validateVersion(formats strfmt.Registry) error {
-
-	if err := validate.Required("version", "body", m.Version); err != nil {
+	if err := validate.Required("ref_id", "body", m.RefID); err != nil {
 		return err
 	}
 
@@ -107,7 +80,7 @@ func (m *Metadata) validateVersion(formats strfmt.Registry) error {
 }
 
 // MarshalBinary interface implementation
-func (m *Metadata) MarshalBinary() ([]byte, error) {
+func (m *AbsoluteRefID) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -115,8 +88,8 @@ func (m *Metadata) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *Metadata) UnmarshalBinary(b []byte) error {
-	var res Metadata
+func (m *AbsoluteRefID) UnmarshalBinary(b []byte) error {
+	var res AbsoluteRefID
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

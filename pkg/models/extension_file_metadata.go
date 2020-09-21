@@ -29,39 +29,32 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// Metadata Metadata of an entity
+// ExtensionFileMetadata extension file metadata
 //
-// swagger:model Metadata
-type Metadata struct {
+// swagger:model ExtensionFileMetadata
+type ExtensionFileMetadata struct {
 
-	// Creation time
-	// Required: true
+	// The date and time the extension was last modified.
 	// Format: date-time
-	CreatedTime *strfmt.DateTime `json:"created_time"`
+	LastModifiedDate strfmt.DateTime `json:"last_modified_date,omitempty"`
 
-	// Modification time
-	// Required: true
-	// Format: date-time
-	ModifiedTime *strfmt.DateTime `json:"modified_time"`
+	// The extension file size in bytes.
+	Size int64 `json:"size,omitempty"`
 
-	// Version
-	// Required: true
-	Version *string `json:"version"`
+	// The temporary URL to download the extension file. Usable for verification.
+	// Format: uri
+	URL strfmt.URI `json:"url,omitempty"`
 }
 
-// Validate validates this metadata
-func (m *Metadata) Validate(formats strfmt.Registry) error {
+// Validate validates this extension file metadata
+func (m *ExtensionFileMetadata) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateCreatedTime(formats); err != nil {
+	if err := m.validateLastModifiedDate(formats); err != nil {
 		res = append(res, err)
 	}
 
-	if err := m.validateModifiedTime(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateVersion(formats); err != nil {
+	if err := m.validateURL(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -71,35 +64,26 @@ func (m *Metadata) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *Metadata) validateCreatedTime(formats strfmt.Registry) error {
+func (m *ExtensionFileMetadata) validateLastModifiedDate(formats strfmt.Registry) error {
 
-	if err := validate.Required("created_time", "body", m.CreatedTime); err != nil {
-		return err
+	if swag.IsZero(m.LastModifiedDate) { // not required
+		return nil
 	}
 
-	if err := validate.FormatOf("created_time", "body", "date-time", m.CreatedTime.String(), formats); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *Metadata) validateModifiedTime(formats strfmt.Registry) error {
-
-	if err := validate.Required("modified_time", "body", m.ModifiedTime); err != nil {
-		return err
-	}
-
-	if err := validate.FormatOf("modified_time", "body", "date-time", m.ModifiedTime.String(), formats); err != nil {
+	if err := validate.FormatOf("last_modified_date", "body", "date-time", m.LastModifiedDate.String(), formats); err != nil {
 		return err
 	}
 
 	return nil
 }
 
-func (m *Metadata) validateVersion(formats strfmt.Registry) error {
+func (m *ExtensionFileMetadata) validateURL(formats strfmt.Registry) error {
 
-	if err := validate.Required("version", "body", m.Version); err != nil {
+	if swag.IsZero(m.URL) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("url", "body", "uri", m.URL.String(), formats); err != nil {
 		return err
 	}
 
@@ -107,7 +91,7 @@ func (m *Metadata) validateVersion(formats strfmt.Registry) error {
 }
 
 // MarshalBinary interface implementation
-func (m *Metadata) MarshalBinary() ([]byte, error) {
+func (m *ExtensionFileMetadata) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -115,8 +99,8 @@ func (m *Metadata) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *Metadata) UnmarshalBinary(b []byte) error {
-	var res Metadata
+func (m *ExtensionFileMetadata) UnmarshalBinary(b []byte) error {
+	var res ExtensionFileMetadata
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

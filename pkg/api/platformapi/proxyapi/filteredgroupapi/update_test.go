@@ -79,7 +79,7 @@ func TestUpdate(t *testing.T) {
 					"proxyType": "main-nextgen",
 				},
 				ExpectedProxiesCount: 15,
-				Version:              1,
+				Version:              "1",
 			}},
 			want: &models.ProxiesFilteredGroup{
 				ExpectedProxiesCount: ec.Int32(15),
@@ -107,20 +107,20 @@ func TestUpdate(t *testing.T) {
 				},
 
 				ExpectedProxiesCount: 15,
-				Version:              1,
+				Version:              "1",
 			}},
 			err: errors.New(`{"error": "some error"}`),
 		},
 		{
 			name: "Proxies filtered group update fails due validation",
-			args: args{params: UpdateParams{Version: -1}},
+			args: args{params: UpdateParams{}},
 			err: multierror.NewPrefixed("invalid filtered group params",
 				errors.New("id is not specified and is required for the operation"),
 				errors.New("api reference is required for the operation"),
 				errors.New("region not specified and is required for this operation"),
 				errors.New("filters is not specified and is required for the operation"),
 				errors.New("expected proxies count must be greater than 0"),
-				errors.New("version cannot be less than 0"),
+				errors.New("version cannot be empty"),
 			),
 		},
 	}

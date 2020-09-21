@@ -31,7 +31,6 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
 )
 
 // NewUpdateProxiesSettingsParams creates a new UpdateProxiesSettingsParams object
@@ -87,7 +86,7 @@ type UpdateProxiesSettingsParams struct {
 	  If specified, checks for conflicts against the version of the repository configuration (returned in 'x-cloud-resource-version' of the GET request)
 
 	*/
-	Version *int64
+	Version *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -139,13 +138,13 @@ func (o *UpdateProxiesSettingsParams) SetBody(body string) {
 }
 
 // WithVersion adds the version to the update proxies settings params
-func (o *UpdateProxiesSettingsParams) WithVersion(version *int64) *UpdateProxiesSettingsParams {
+func (o *UpdateProxiesSettingsParams) WithVersion(version *string) *UpdateProxiesSettingsParams {
 	o.SetVersion(version)
 	return o
 }
 
 // SetVersion adds the version to the update proxies settings params
-func (o *UpdateProxiesSettingsParams) SetVersion(version *int64) {
+func (o *UpdateProxiesSettingsParams) SetVersion(version *string) {
 	o.Version = version
 }
 
@@ -164,11 +163,11 @@ func (o *UpdateProxiesSettingsParams) WriteToRequest(r runtime.ClientRequest, re
 	if o.Version != nil {
 
 		// query param version
-		var qrVersion int64
+		var qrVersion string
 		if o.Version != nil {
 			qrVersion = *o.Version
 		}
-		qVersion := swag.FormatInt64(qrVersion)
+		qVersion := qrVersion
 		if qVersion != "" {
 			if err := r.SetQueryParam("version", qVersion); err != nil {
 				return err

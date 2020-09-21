@@ -52,7 +52,7 @@ func TestUpdateTemplate(t *testing.T) {
 						Header: api.DefaultWriteMockHeaders,
 						Method: "PUT",
 						Host:   api.DefaultMockHost,
-						Body:   mock.NewStringBody(`{"cluster_template":{"plan":{"cluster_topology":[{"instance_configuration_id":"default-elasticsearch","node_type":{"data":true,"master":true},"size":{"resource":"memory","value":1024}}],"elasticsearch":{"version":"6.2.3"}}},"metadata":[{"key":"trial","value":"true"}],"name":"(Trial) Default Elasticsearch","source":{"action":"deployments.create-template","admin_id":"admin","date":"2018-04-19T18:16:57.297Z","facilitator":"adminconsole","remote_addresses":["52.205.1.231"],"user_id":"1"},"system_owned":false}` + "\n"),
+						Body:   mock.NewStringBody(`{"cluster_template":{"plan":{"cluster_topology":[{"instance_configuration_id":"default-elasticsearch","node_type":{"data":true,"master":true},"size":{"resource":"memory","value":1024}}],"elasticsearch":{"version":"6.2.3"}}},"kibana_deeplink":null,"metadata":[{"key":"trial","value":"true"}],"name":"(Trial) Default Elasticsearch","source":{"action":"deployments.create-template","admin_id":"admin","date":"2018-04-19T18:16:57.297Z","facilitator":"adminconsole","remote_addresses":["52.205.1.231"],"user_id":"1"},"system_owned":false}` + "\n"),
 						Query: url.Values{
 							"create_only": {"false"},
 						},

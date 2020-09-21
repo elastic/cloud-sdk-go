@@ -28,34 +28,20 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// DeploymentSettings Additional configuration about the current deployment object.
+// DeploymentUpdateSettings Additional configuration for the new deployment object.
 //
-// swagger:model DeploymentSettings
-type DeploymentSettings struct {
+// swagger:model DeploymentUpdateSettings
+type DeploymentUpdateSettings struct {
 
-	// DEPRECATED The set of IP filtering rulesets applies to this deployment.
-	IPFilteringSettings *IPFilteringSettings `json:"ip_filtering_settings,omitempty"`
-
-	// Logging and monitoring settings for this deployment
+	// Logging and monitoring settings for this deployment. If provided it will change observability settings, if null observability will be removed from the deployment, otherwise will stay the same
 	Observability *DeploymentObservabilitySettings `json:"observability,omitempty"`
-
-	// The traffic filter rulesets for this deployment.
-	TrafficFilterSettings *TrafficFilterSettings `json:"traffic_filter_settings,omitempty"`
 }
 
-// Validate validates this deployment settings
-func (m *DeploymentSettings) Validate(formats strfmt.Registry) error {
+// Validate validates this deployment update settings
+func (m *DeploymentUpdateSettings) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateIPFilteringSettings(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateObservability(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateTrafficFilterSettings(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -65,25 +51,7 @@ func (m *DeploymentSettings) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *DeploymentSettings) validateIPFilteringSettings(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.IPFilteringSettings) { // not required
-		return nil
-	}
-
-	if m.IPFilteringSettings != nil {
-		if err := m.IPFilteringSettings.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("ip_filtering_settings")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *DeploymentSettings) validateObservability(formats strfmt.Registry) error {
+func (m *DeploymentUpdateSettings) validateObservability(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Observability) { // not required
 		return nil
@@ -101,26 +69,8 @@ func (m *DeploymentSettings) validateObservability(formats strfmt.Registry) erro
 	return nil
 }
 
-func (m *DeploymentSettings) validateTrafficFilterSettings(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.TrafficFilterSettings) { // not required
-		return nil
-	}
-
-	if m.TrafficFilterSettings != nil {
-		if err := m.TrafficFilterSettings.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("traffic_filter_settings")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
 // MarshalBinary interface implementation
-func (m *DeploymentSettings) MarshalBinary() ([]byte, error) {
+func (m *DeploymentUpdateSettings) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -128,8 +78,8 @@ func (m *DeploymentSettings) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *DeploymentSettings) UnmarshalBinary(b []byte) error {
-	var res DeploymentSettings
+func (m *DeploymentUpdateSettings) UnmarshalBinary(b []byte) error {
+	var res DeploymentUpdateSettings
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

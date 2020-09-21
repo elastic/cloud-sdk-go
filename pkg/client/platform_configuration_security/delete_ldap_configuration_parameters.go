@@ -31,7 +31,6 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
 )
 
 // NewDeleteLdapConfigurationParams creates a new DeleteLdapConfigurationParams object
@@ -87,7 +86,7 @@ type DeleteLdapConfigurationParams struct {
 	  When specified, checks for conflicts against the version stored in the persistent store (returned in 'x-cloud-resource-version' of the GET request)
 
 	*/
-	Version *int64
+	Version *string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -139,13 +138,13 @@ func (o *DeleteLdapConfigurationParams) SetRealmID(realmID string) {
 }
 
 // WithVersion adds the version to the delete ldap configuration params
-func (o *DeleteLdapConfigurationParams) WithVersion(version *int64) *DeleteLdapConfigurationParams {
+func (o *DeleteLdapConfigurationParams) WithVersion(version *string) *DeleteLdapConfigurationParams {
 	o.SetVersion(version)
 	return o
 }
 
 // SetVersion adds the version to the delete ldap configuration params
-func (o *DeleteLdapConfigurationParams) SetVersion(version *int64) {
+func (o *DeleteLdapConfigurationParams) SetVersion(version *string) {
 	o.Version = version
 }
 
@@ -165,11 +164,11 @@ func (o *DeleteLdapConfigurationParams) WriteToRequest(r runtime.ClientRequest, 
 	if o.Version != nil {
 
 		// query param version
-		var qrVersion int64
+		var qrVersion string
 		if o.Version != nil {
 			qrVersion = *o.Version
 		}
-		qVersion := swag.FormatInt64(qrVersion)
+		qVersion := qrVersion
 		if qVersion != "" {
 			if err := r.SetQueryParam("version", qVersion); err != nil {
 				return err

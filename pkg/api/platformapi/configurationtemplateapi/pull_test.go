@@ -123,6 +123,7 @@ func TestPullToFolder(t *testing.T) {
 				"some-folder/0efbab9c368849a59fc5622ec750ba47.json": `{
   "description": "Test default Elasticsearch template",
   "id": "0efbab9c368849a59fc5622ec750ba47",
+  "kibana_deeplink": null,
   "metadata": null,
   "name": "Default Elasticsearch",
   "system_owned": true
@@ -131,6 +132,7 @@ func TestPullToFolder(t *testing.T) {
 				"some-folder/84e0bd6d69bb44e294809d89cea88a7e.json": `{
   "description": "Test default Elasticsearch trial template",
   "id": "84e0bd6d69bb44e294809d89cea88a7e",
+  "kibana_deeplink": null,
   "metadata": null,
   "name": "(Trial) Default Elasticsearch",
   "system_owned": false

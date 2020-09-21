@@ -46,6 +46,9 @@ type DeploymentUpdateRequest struct {
 
 	// New information about the Resources that will have this Deployment, otherwise they stay the same
 	Resources *DeploymentUpdateResources `json:"resources,omitempty"`
+
+	// New information about the current deployment object, otherwise stays the same
+	Settings *DeploymentUpdateSettings `json:"settings,omitempty"`
 }
 
 // Validate validates this deployment update request
@@ -61,6 +64,10 @@ func (m *DeploymentUpdateRequest) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateResources(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateSettings(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -107,6 +114,24 @@ func (m *DeploymentUpdateRequest) validateResources(formats strfmt.Registry) err
 		if err := m.Resources.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("resources")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *DeploymentUpdateRequest) validateSettings(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Settings) { // not required
+		return nil
+	}
+
+	if m.Settings != nil {
+		if err := m.Settings.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("settings")
 			}
 			return err
 		}
