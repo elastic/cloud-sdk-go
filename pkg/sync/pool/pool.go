@@ -79,6 +79,8 @@ var (
 	ErrCannotWaitOnStoppedPool = errors.New("pool: cannot wait for workers to finish on a stopped pool")
 	// ErrCannotGetLeftovers is returned when the pool is not in a stopped state.
 	ErrCannotGetLeftovers = errors.New("pool: cannot get the work leftovers on a non stopped pool")
+
+	failFastSetStopMsg = `pool: fail fast is set and received an error, stopping pool...`
 )
 
 var (
@@ -130,6 +132,10 @@ type Pool struct {
 
 	// writer where any (log, info) messages will be sent.
 	writer io.Writer
+
+	// FailFast can be set to stop all the pool when any of the workers returns
+	// with an error.
+	failFast bool
 }
 
 // Signals contains all of the channels that are used to trigger different
@@ -242,8 +248,9 @@ func NewPool(params Params) (*Pool, error) {
 			Errors:     new(Errors),
 			monitoring: true,
 		},
-		errors: make(chan error),
-		writer: params.Writer,
+		errors:   make(chan error),
+		writer:   params.Writer,
+		failFast: params.FailFast,
 	}
 
 	go pool.monitor(nil)
@@ -324,15 +331,23 @@ func (p *Pool) monitor(interrupt chan os.Signal) {
 			p.state.Queued.Add(1)
 		case err := <-p.errors:
 			p.state.Errors.Add(err)
-		case <-interrupt:
-			if !interrupted {
-				interrupted = true
+			if p.failFast {
 				if p.writer != nil {
-					fmt.Fprintln(p.writer, "pool: received interrupt, stopping pool...")
+					fmt.Fprintln(p.writer, failFastSetStopMsg)
 				}
 				//nolint
 				go p.Stop()
 			}
+		case <-interrupt:
+			if interrupted {
+				continue
+			}
+			interrupted = true
+			if p.writer != nil {
+				fmt.Fprintln(p.writer, "pool: received interrupt, stopping pool...")
+			}
+			//nolint
+			go p.Stop()
 		case <-p.signals.StopMonitor:
 			p.state.monitoring = false
 			break

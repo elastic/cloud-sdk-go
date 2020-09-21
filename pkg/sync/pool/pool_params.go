@@ -60,6 +60,10 @@ type Params struct {
 
 	// Writer is the device where any (log, info) messages will be sent.
 	Writer io.Writer
+
+	// FailFast can be set to stop all the pool when any of the workers returns
+	// with an error.
+	FailFast bool
 }
 
 // Timeout is an object that encloses different Pool operation timeouts.

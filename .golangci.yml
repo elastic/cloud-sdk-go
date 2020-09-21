@@ -13,6 +13,7 @@ linters:
     - funlen
     - wsl
     - gomnd
+    - maligned
 linters-settings:
   govet:
     check-shadowing: false
