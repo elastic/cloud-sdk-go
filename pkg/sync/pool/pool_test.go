@@ -687,6 +687,7 @@ func TestPoolWait(t *testing.T) {
 		errors.New("ANOTHER ERROR"),
 		errors.New("YET ANOTHER ERROR"),
 	}
+	var failFastErr = []error{errors.New("some err")}
 	type fields struct {
 		size      uint16
 		run       RunFunc
@@ -697,6 +698,7 @@ func TestPoolWait(t *testing.T) {
 		state     *State
 		timeouts  Timeout
 		writer    *bytes.Buffer
+		failFast  bool
 	}
 	type args struct {
 		interrupt chan os.Signal
@@ -755,6 +757,26 @@ func TestPoolWait(t *testing.T) {
 			err: &multierror.Error{
 				Errors: errs,
 			},
+		},
+		{
+			name: "Stop the pool when a worker returns an error (failFast: true)",
+			fields: fields{
+				errors:   make(chan error),
+				writer:   new(bytes.Buffer),
+				failFast: true,
+				state: &State{
+					Status: Counter{value: StoppedSuccess},
+					Errors: new(Errors),
+				},
+			},
+			args: args{
+				wait: time.Millisecond * 50,
+				errs: failFastErr,
+			},
+			err: &multierror.Error{
+				Errors: failFastErr,
+			},
+			output: failFastSetStopMsg + "\n",
 		},
 		{
 			name: `Stop the pool and retrieve the errors caught if "os.Interrupt" is sent`,
@@ -836,6 +858,7 @@ func TestPoolWait(t *testing.T) {
 				signals:   tt.fields.signals,
 				state:     tt.fields.state,
 				timeouts:  tt.fields.timeouts,
+				failFast:  tt.fields.failFast,
 			}
 
 			if tt.fields.writer != nil {
