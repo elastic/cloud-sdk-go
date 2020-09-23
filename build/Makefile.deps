@@ -75,6 +75,11 @@ $(GOBIN)/prism: $(GOBIN)/gobin
 	@ curl -L https://raw.githack.com/stoplightio/prism/master/install | sh
 	@ cp /usr/local/bin/prism $(GOBIN)/prism
 
+$(GOBIN)/apivalidator: $(GOBIN)/gobin
+	@ echo "-> Installing apivalidator..."
+	@ if [[ -f bin/apivalidator ]]; then rm -f bin/apivalidator; fi
+	@ $(GOBIN)/gobin github.com/elastic/cloud-sdk-go/internal/cmd/apivalidator@master
+
 ## Downloads the required go modules.
 .PHONY: mod
 mod:

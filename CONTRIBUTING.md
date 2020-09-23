@@ -15,7 +15,7 @@ We have [good first issues](https://github.com/elastic/cloud-sdk-go/labels/good%
   - [Setting up your fork](#setting-up-your-fork)
 - [Development](#development)
   - [Generating the client and models from a swagger definition](#generating-the-client-and-models-from-a-swagger-definition)
-  - [Running unit tests](#running-unit-tests)
+  - [Running tests](#running-tests)
 
 ## Reporting Issues
 
@@ -175,7 +175,9 @@ Additionally, a full markdown declaration of API commands will be generated in `
 
 The Makefile global variable `ECE_VERSION` should be modified before running `make swagger`. Make sure you have set the "EC_API_KEY" environment variable locally with your Elasticsearch Service API key. This will allow the API validation tests to run
 
-### Running unit tests
+### Running tests
+
+#### Unit
 
 There's two variables that can be passed to the Makefile target:
 
@@ -183,6 +185,39 @@ There's two variables that can be passed to the Makefile target:
 - `TEST_UNIT_PACKAGE` controls which package names to test (defaults to `./...` which means all packages).
 
 The current `TEST_UNIT_FLAGS` default to: `-timeout 10s -p 4 -race -cover`.
+
+#### API Validation
+
+In order to run validation tests for our API specification against the live public API, we use the [Prism Validation Proxy](https://stoplight.io/p/docs/gh/stoplightio/prism/docs/guides/03-validation-proxy.md) alongside our custom `apivalidator` CLI.
+
+Before you run the tests or use the CLI, make sure you've got the `EC_API_KEY` environment variable set, and start the validation proxy by running:
+
+```console
+$ export EC_API_KEY=<your-api-key>
+$ make validation-proxy
+[1:43:49 AM] › [CLI] …  awaiting  Starting Prism…
+[1:43:50 AM] › [CLI] ℹ  info      GET        http://0.0.0.0:4010/deployments
+<...>
+[1:43:50 AM] › [CLI] ▶  start     Prism is listening on http://0.0.0.0:4010
+```
+
+Once the validation proxy is up and running, you can either run the validation testing suite which validates the apidocs-user.json we have on master in cloud-sdk-go by running:
+
+```console
+$ make api-validation
+```
+
+Or, you can run the CLI manually if you wish to validate an api specification from another location or from your local directory by using the `--source` flag.
+
+```console
+$ ./bin/apivalidator --source https://raw.githubusercontent.com/elastic/cloud-sdk-go/v1.0.0-beta3/api/apidocs-user.json
+```
+
+If for some reason you're running the validation proxy on a different port than the default, make sure to use the `--port` flag:
+
+```console
+$ ./bin/apivalidator --port 4123
+```
 
 #### Go test flags
 
