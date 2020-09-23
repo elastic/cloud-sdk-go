@@ -1,36 +1,37 @@
+RELEASE_BRANCH ?= 1.0
 export EXTERNAL_PORT ?= 4010
 PUBLISHED_PORT ?= $(EXTERNAL_PORT):4010
 API_LOCATION ?= https://api.elastic-cloud.com
 APISPEC_FILENAME ?= apidocs-user.json
-export APISPEC_LOCATION ?= api/$(APISPEC_FILENAME)
+export APISPEC_LOCATION ?= https://raw.githubusercontent.com/elastic/cloud-sdk-go/$(RELEASE_BRANCH)/api/$(APISPEC_FILENAME)
 PRISM_CONTAINER ?= stoplight/prism:3
+
+CURL_GITHUB_EVENT_AV_TYPE_DATA = '{"event_type": "api-validation-tests"}'
 
 #### API validation test targets
 
 ## Starts a validation proxy server to the ESS API.
 .PHONY: validation-proxy
 validation-proxy:
-	@ prism proxy $(APISPEC_LOCATION) $(API_LOCATION) --errors
+	@ docker run --init -p $(PUBLISHED_PORT) -P $(PRISM_CONTAINER) proxy -m -h 0.0.0.0 $(APISPEC_LOCATION) $(API_LOCATION) --errors
 
 ## Runs tests through a validation proxy to the ESS API in order to find discrepancies between an API specification and a target server.
 .PHONY: api-validation
-api-validation: apivalidation-deps build_apivalidator
+api-validation: apivalidation-deps
 	@ cd build/apivalidation && $(GOBIN)/gotestsum --format standard-verbose -- -tags=apivalidation -timeout=10m ./...
-
-.PHONY: build_apivalidator
-build_apivalidator:
-	@ echo "-> Building apivalidator in bin/apivalidator..."
-	@ if [[ -f bin/apivalidator ]]; then rm -f bin/apivalidator; fi
-	@ go build -o bin/apivalidator ./internal/cmd/apivalidator/
 
 .PHONY: wait-on-proxy
 wait-on-proxy:
 	@ until nc -z -w 2 localhost $(EXTERNAL_PORT); do sleep 5; done
 
 .PHONY: apivalidation-deps
-apivalidation-deps: $(GOBIN)/gobin $(GOBIN)/gotestsum $(GOBIN)/prism
+apivalidation-deps: $(GOBIN)/gobin $(GOBIN)/gotestsum $(GOBIN)/apivalidator
 
-.PHONY: run-apivalidation-tests
-run-apivalidation-tests:
-	@ make validation-proxy & make wait-on-proxy && make api-validation
-	@ ps -ef | grep [p]rism | grep -v grep | awk '{print $2}' | xargs kill
+#### GitHub interaction targets
+
+## Triggers the API validation tests against the validation proxy.
+.PHONY: trigger-github-apivalidation
+trigger-github-apivalidation:
+	@ echo "-> Sending $(CURL_GITHUB_EVENT_AV_TYPE_DATA) to $(CURL_GITHUB_DISPATCH_URL)"
+	@ curl -H $(CURL_GITHUB_ACCEPT) -H $(CURL_GITHUB_AUTHORIZATION) -XPOST \
+	--data $(CURL_GITHUB_EVENT_AV_TYPE_DATA) $(CURL_GITHUB_DISPATCH_URL)

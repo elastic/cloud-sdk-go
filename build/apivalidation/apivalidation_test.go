@@ -27,7 +27,7 @@ import (
 )
 
 var (
-	apiSpecSource = "../../" + os.Getenv("APISPEC_LOCATION")
+	apiSpecSource = os.Getenv("APISPEC_LOCATION")
 	port          = os.Getenv("EXTERNAL_PORT")
 )
 
