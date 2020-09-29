@@ -23,7 +23,7 @@ import (
 	"sync/atomic"
 )
 
-// NewDebugTransport Deprecated factory for DebugTransport.
+// NewDebugTransport Deprecated: factory for DebugTransport.
 func NewDebugTransport(transport http.RoundTripper, o io.Writer, obscure bool) *DebugTransport {
 	if t, ok := transport.(*DebugTransport); ok {
 		return t
@@ -41,7 +41,7 @@ func NewDebugTransport(transport http.RoundTripper, o io.Writer, obscure bool) *
 	}
 }
 
-// DebugTransport Deprecated is an http.RoundTripper that keeps track of the
+// DebugTransport Deprecated: is an http.RoundTripper that keeps track of the
 // in-flight request and implements hooks to report HTTP tracing events.
 type DebugTransport struct {
 	output    io.Writer
@@ -51,7 +51,7 @@ type DebugTransport struct {
 	redactAuth bool
 }
 
-// RoundTrip Deprecated wraps http.DefaultTransport.RoundTrip to keep track
+// RoundTrip Deprecated: wraps http.DefaultTransport.RoundTrip to keep track
 // of the current request.
 func (t *DebugTransport) RoundTrip(req *http.Request) (res *http.Response, err error) {
 	count := atomic.AddInt64(&t.count, 1)

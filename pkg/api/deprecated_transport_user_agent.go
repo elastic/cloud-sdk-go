@@ -21,14 +21,14 @@ import (
 	"net/http"
 )
 
-// UserAgentTransport Deprecated wraps an http.RoundTripper and adds an User
+// UserAgentTransport Deprecated: wraps an http.RoundTripper and adds an User
 // -Agent header to all requests  which are processed through the structure.
 type UserAgentTransport struct {
 	agent string
 	rt    http.RoundTripper
 }
 
-// NewUserAgentTransport Deprecated initializes a new UserAgentTransport
+// NewUserAgentTransport Deprecated: initializes a new UserAgentTransport
 func NewUserAgentTransport(rt http.RoundTripper, agent string) *UserAgentTransport {
 	if agent == "" {
 		agent = DefaultUserAgent
@@ -44,7 +44,7 @@ func NewUserAgentTransport(rt http.RoundTripper, agent string) *UserAgentTranspo
 	}
 }
 
-// RoundTrip Deprecated wraps http.DefaultTransport.RoundTrip to keep track
+// RoundTrip Deprecated: wraps http.DefaultTransport.RoundTrip to keep track
 // of the current request.
 func (ua *UserAgentTransport) RoundTrip(req *http.Request) (*http.Response, error) {
 	if ua.rt == nil {
