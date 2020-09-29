@@ -19,16 +19,11 @@ package api
 
 import (
 	"crypto/tls"
-	"fmt"
 	"io"
 	"net"
 	"net/http"
 	"time"
-
-	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 )
-
-const transportCastErrFmt = "http transport warning: failed converting %T to *http.Transport\n"
 
 var (
 	// DefaultTimeout is used when TransportConfig.Transport is not specified.
@@ -53,6 +48,12 @@ type TransportConfig struct {
 
 	// UserAgent if specified, it sets the user agent on all outgoing requests.
 	UserAgent string
+
+	// Number of retries to perform on request timeout.
+	Retries int
+
+	// Cooldown time between retries.
+	RetryBackoff time.Duration
 }
 
 func newDefaultTransport(timeout time.Duration) *http.Transport {
@@ -64,48 +65,35 @@ func newDefaultTransport(timeout time.Duration) *http.Transport {
 	transport.DialContext = (&net.Dialer{
 		Timeout:   timeout,
 		KeepAlive: 30 * time.Second,
-		DualStack: true,
 	}).DialContext
 
 	return transport
 }
 
-// NewTransport constructs a new http.RoundTripper from its config. If rt is
-// *http.Transport then it will be wrapped with *ErrCatchTransport. See more
-// information on the GoDoc help for that type. Additionally, that transport is
-// wrapped in *UserAgentTransport to be able to configure a User-Agent for all
-// outgoing requests.
-func NewTransport(rt http.RoundTripper, cfg TransportConfig) http.RoundTripper {
+// NewTransport constructs a new http.RoundTripper from its config.
+func NewTransport(rt http.RoundTripper, cfg TransportConfig) (http.RoundTripper, error) {
 	if rt == nil {
 		rt = newDefaultTransport(cfg.Timeout)
 	}
 
-	switch t := rt.(type) {
-	case *http.Transport:
+	if t, ok := rt.(*http.Transport); ok {
 		if t.TLSClientConfig == nil {
 			t.TLSClientConfig = new(tls.Config)
 		}
 		t.TLSClientConfig.InsecureSkipVerify = cfg.SkipTLSVerify
-		rt = t
-	case *DebugTransport:
-		return NewUserAgentTransport(t, cfg.UserAgent)
-	case *UserAgentTransport:
-		return t
-	case *mock.RoundTripper:
-		return NewUserAgentTransport(t, cfg.UserAgent)
-	default:
-		if cfg.ErrorDevice != nil {
-			fmt.Fprintf(cfg.ErrorDevice, transportCastErrFmt, rt)
-		}
 	}
 
-	if cfg.Verbose {
-		return NewUserAgentTransport(
-			NewDebugTransport(rt, cfg.Device, cfg.RedactAuth), cfg.UserAgent,
-		)
+	if t, ok := rt.(*CustomTransport); ok {
+		return t, nil
 	}
 
-	return NewUserAgentTransport(
-		NewErrCatchTransport(rt), cfg.UserAgent,
-	)
+	return NewCustomTransport(CustomTransportCfg{
+		RoundTripper: rt,
+		UserAgent:    cfg.UserAgent,
+		Retries:      cfg.Retries,
+		RedactAuth:   cfg.RedactAuth,
+		Verbose:      cfg.Verbose,
+		Writer:       cfg.Device,
+		Backoff:      cfg.RetryBackoff,
+	})
 }

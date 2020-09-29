@@ -85,7 +85,6 @@ func TestNewTransport(t *testing.T) {
 				},
 				rt: new(mockRT),
 			},
-			want: "http transport warning: failed converting *api.mockRT to *http.Transport\n",
 		},
 		{
 			name: "Receives no error when the UserAgentTransport",

@@ -43,13 +43,19 @@ func NewAPI(c Config) (*API, error) {
 		return nil, err
 	}
 
-	c.Client.Transport = NewTransport(c.Client.Transport, TransportConfig{
+	t, err := NewTransport(c.Client.Transport, TransportConfig{
 		SkipTLSVerify:   c.SkipTLSVerify,
 		ErrorDevice:     c.ErrorDevice,
 		VerboseSettings: c.VerboseSettings,
 		Timeout:         c.Timeout,
 		UserAgent:       c.UserAgent,
+		Retries:         c.Retries,
+		RetryBackoff:    c.RetryBackoff,
 	})
+	if err != nil {
+		return nil, err
+	}
+	c.Client.Transport = t
 
 	// Sadly, all the client parameters take the DefaultTimeout from the runtime
 	// client if not specified in the call as a query parameter, modifying this
