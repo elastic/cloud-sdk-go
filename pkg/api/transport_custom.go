@@ -159,7 +159,7 @@ func (t *CustomTransport) doRoundTrip(req *http.Request) (res *http.Response, er
 			if i+2 <= t.retries {
 				msg = "request %d/%d timed out, retrying...\n"
 			}
-			_, _ = fmt.Fprintf(t.writer, msg, count, t.retries+1)
+			fmt.Fprintf(t.writer, msg, count, t.retries+1)
 		}
 
 		// Necessary to be able to access the error through api.UnwrapError.
