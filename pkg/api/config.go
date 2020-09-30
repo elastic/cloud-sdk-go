@@ -59,6 +59,12 @@ type Config struct {
 
 	// UserAgent if specified, it sets the user agent on all outgoing requests.
 	UserAgent string
+
+	// Number of retries to perform on request timeout.
+	Retries int
+
+	// Cooldown time between retries.
+	RetryBackoff time.Duration
 }
 
 // Validate returns an error if the config is invalid

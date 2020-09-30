@@ -21,20 +21,14 @@ import (
 	"net/http"
 )
 
-const userAgentHeader = "User-Agent"
-
-// DefaultUserAgent is used in UserAgentTransport when the agent is not set.
-// It defaults to the project name + the current committed version.
-var DefaultUserAgent = "cloud-sdk-go/" + Version
-
-// UserAgentTransport wraps an http.RoundTripper and adds an User-Agent header
-// to all requests  which are processed through the structure.
+// UserAgentTransport Deprecated: wraps an http.RoundTripper and adds an User
+// -Agent header to all requests  which are processed through the structure.
 type UserAgentTransport struct {
 	agent string
 	rt    http.RoundTripper
 }
 
-// NewUserAgentTransport initializes a new UserAgentTransport
+// NewUserAgentTransport Deprecated: initializes a new UserAgentTransport
 func NewUserAgentTransport(rt http.RoundTripper, agent string) *UserAgentTransport {
 	if agent == "" {
 		agent = DefaultUserAgent
@@ -50,7 +44,7 @@ func NewUserAgentTransport(rt http.RoundTripper, agent string) *UserAgentTranspo
 	}
 }
 
-// RoundTrip wraps http.DefaultTransport.RoundTrip to keep track
+// RoundTrip Deprecated: wraps http.DefaultTransport.RoundTrip to keep track
 // of the current request.
 func (ua *UserAgentTransport) RoundTrip(req *http.Request) (*http.Response, error) {
 	if ua.rt == nil {

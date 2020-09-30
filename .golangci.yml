@@ -60,3 +60,6 @@ issues:
 
 output:
   format: tab
+
+run:
+  timeout: 10m
