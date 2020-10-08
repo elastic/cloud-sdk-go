@@ -34,6 +34,7 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	"github.com/elastic/cloud-sdk-go/pkg/output"
+	"github.com/elastic/cloud-sdk-go/pkg/plan"
 	sdkSync "github.com/elastic/cloud-sdk-go/pkg/sync"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
@@ -714,7 +715,15 @@ func TestVacate(t *testing.T) {
       "resource_id": "3ee11eb40eda22cac0cce259625c6734"
     },
     {
-      "message": "found deployment plan errors: deployment [DISCOVERED_DEPLOYMENT_ID] - [elasticsearch][5ee11eb40eda22cac0cce259625c6734]: caught error: \"Unexpected error during step: [perform-snapshot]: [no.found.constructor.models.TimeoutException: Timeout]\""
+      "deployment_id": "DISCOVERED_DEPLOYMENT_ID",
+      "err": {
+        "message": "Unexpected error during step: [perform-snapshot]: [no.found.constructor.models.TimeoutException: Timeout]"
+      },
+      "finished": true,
+      "id": "5ee11eb40eda22cac0cce259625c6734",
+      "kind": "elasticsearch",
+      "ref_id": "main-elasticsearch",
+      "step": "plan-completed"
     }
   ]
 }
@@ -753,8 +762,21 @@ func TestVacate(t *testing.T) {
 				tt.args.params.Output = output.NewDevice(tt.args.buf)
 			}
 
-			if err := Vacate(tt.args.params); err != nil && !assert.EqualError(t, err, tt.err) {
-				t.Errorf("Vacate() error = %v, wantErr %v", err, tt.err)
+			if err := Vacate(tt.args.params); err != nil {
+				// Set duration to 0
+				var merr *multierror.Prefixed
+				if errors.As(err, &merr) {
+					for i, e := range merr.Errors {
+						var tr plan.TrackResponse
+						if errors.As(e, &tr) {
+							tr.Duration = 0
+							merr.Errors[i] = tr
+						}
+					}
+				}
+				if !assert.EqualError(t, err, tt.err) {
+					t.Errorf("Vacate() error = %v, wantErr %v", err, tt.err)
+				}
 			}
 
 			var got string

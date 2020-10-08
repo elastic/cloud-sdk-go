@@ -19,6 +19,7 @@ package plan
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 
@@ -70,6 +71,11 @@ func StreamJSON(channel <-chan TrackResponse, device io.Writer, pretty bool) err
 			_ = encoder.Encode(res)
 		}
 	})
+
+	var merr *multierror.Prefixed
+	if errors.As(err, &merr) {
+		merr.SkipPrefixing = true
+	}
 
 	return multierror.WithFormat(err, "json")
 }

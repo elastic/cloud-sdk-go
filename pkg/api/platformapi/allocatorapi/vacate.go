@@ -315,7 +315,7 @@ func VacateCluster(params *VacateClusterParams) error {
 		return nil
 	}
 
-	err = planutil.TrackChange(planutil.TrackChangeParams{
+	return planutil.TrackChange(planutil.TrackChangeParams{
 		TrackChangeParams: plan.TrackChangeParams{
 			API:              params.API,
 			ResourceID:       params.ClusterID,
@@ -329,8 +329,6 @@ func VacateCluster(params *VacateClusterParams) error {
 		Writer: params.Output,
 		Format: params.OutputFormat,
 	})
-
-	return multierror.WithFormat(err, params.OutputFormat)
 }
 
 // fillVacateClusterParams validates the parameters and fills any missing
