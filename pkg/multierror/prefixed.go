@@ -35,11 +35,27 @@ type Prefixed struct {
 	Prefix     string
 	Errors     []error
 	FormatFunc FormatFunc
+
+	// SkipPrefixing when set to true subsequently appended errors needn't be
+	// prefixed. This is particularly useful multierrors which contain JSON
+	// marshaleable errors.
+	SkipPrefixing bool
 }
 
-// NewPrefixed creates a new pointer to Prefixed w
+// NewPrefixed creates a new pointer to Prefixed.
 func NewPrefixed(prefix string, errs ...error) *Prefixed {
 	return &Prefixed{Prefix: prefix, Errors: unpackErrors(prefix, errs...)}
+}
+
+// NewJSONPrefixed returns a new pointer to Prefixed with the right config for
+// JSON packed errors to not be prefixed.
+func NewJSONPrefixed(prefix string, errs ...error) *Prefixed {
+	return &Prefixed{
+		Prefix:        prefix,
+		Errors:        unpackErrors(prefix, errs...),
+		SkipPrefixing: true,
+		FormatFunc:    JSONFormatFunc,
+	}
 }
 
 // Append appends a number of errors to the current instance of Prefixed. It'll
@@ -86,18 +102,22 @@ func unpackErrors(prefix string, errs ...error) []error {
 			continue
 		}
 
-		if e, ok := err.(*Prefixed); ok {
-			if prefix == e.Prefix {
+		var e *Prefixed
+		if errors.As(err, &e) {
+			if prefix == e.Prefix || e.SkipPrefixing {
 				result = append(result, e.Errors...)
 				continue
 			}
 			result = append(result, prefixIndividualErrors(e)...)
 			continue
 		}
-		if e, ok := err.(*multierror.Error); ok {
-			result = append(result, e.Errors...)
+
+		var hashiErr *multierror.Error
+		if errors.As(err, &hashiErr) {
+			result = append(result, hashiErr.Errors...)
 			continue
 		}
+
 		result = append(result, err)
 	}
 	return result

@@ -41,9 +41,7 @@ func sendTrackResponses(responses []TrackResponse, c chan<- TrackResponse) {
 }
 
 func newJSONMerr(errs ...error) error {
-	return multierror.WithFormat(multierror.NewPrefixed(
-		"found deployment plan errors", errs...,
-	), "json")
+	return multierror.NewJSONPrefixed("found deployment plan errors", errs...)
 }
 
 func TestStream(t *testing.T) {
@@ -303,6 +301,7 @@ func TestStreamJSON(t *testing.T) {
 		args       args
 		wantDevice string
 		err        error
+		errMsg     string
 	}{
 		{
 			name: "Stream succeeds with successful finish",
@@ -382,6 +381,23 @@ func TestStreamJSON(t *testing.T) {
 				Finished:     true,
 			}),
 			wantDevice: wantSuccessWithErrFinish,
+			errMsg: `{
+  "errors": [
+    {
+      "deployment_id": "0987654321",
+      "duration": "3s",
+      "err": {
+        "message": "Unexpected error during step: [perform-snapshot]: [no.found.constructor.models.TimeoutException: Timeout]"
+      },
+      "finished": true,
+      "id": "1234567890",
+      "kind": "elasticseach",
+      "ref_id": "main-elasticsearch",
+      "step": "step2"
+    }
+  ]
+}
+`,
 		},
 		{
 			name: "Stream succeeds with error finish and step error",
@@ -435,6 +451,23 @@ func TestStreamJSON(t *testing.T) {
 				Finished:     true,
 			}),
 			wantDevice: wantSuccessWithErrCatch,
+			errMsg: `{
+  "errors": [
+    {
+      "deployment_id": "0987654321",
+      "duration": "4s",
+      "err": {
+        "message": "Unexpected error during step: [perform-snapshot]: [no.found.constructor.models.TimeoutException: Timeout]"
+      },
+      "finished": true,
+      "id": "1234567890",
+      "kind": "elasticseach",
+      "ref_id": "main-elasticsearch",
+      "step": "step2"
+    }
+  ]
+}
+`,
 		},
 		{
 			name: "Stream succeeds with error finish and step error (Pretty format)",
@@ -489,6 +522,23 @@ func TestStreamJSON(t *testing.T) {
 				Finished:     true,
 			}),
 			wantDevice: wantPrettyOut,
+			errMsg: `{
+  "errors": [
+    {
+      "deployment_id": "0987654321",
+      "duration": "4s",
+      "err": {
+        "message": "Unexpected error during step: [perform-snapshot]: [no.found.constructor.models.TimeoutException: Timeout]"
+      },
+      "finished": true,
+      "id": "1234567890",
+      "kind": "elasticseach",
+      "ref_id": "main-elasticsearch",
+      "step": "step2"
+    }
+  ]
+}
+`,
 		},
 	}
 	for _, tt := range tests {
@@ -506,6 +556,9 @@ func TestStreamJSON(t *testing.T) {
 			if err != nil {
 				if !assert.EqualError(t, err, wantErr) {
 					t.Errorf("StreamJSON() error = \n%v, want \n%v", err, tt.err)
+				}
+				if !assert.EqualError(t, err, tt.errMsg) {
+					t.Errorf("StreamJSON() error = \n%v, want \n%v", err, tt.errMsg)
 				}
 			}
 
