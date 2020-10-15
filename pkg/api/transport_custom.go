@@ -151,6 +151,10 @@ func (t *CustomTransport) doRoundTrip(req *http.Request) (res *http.Response, er
 
 		// Return early when err is empty or not a timeout.
 		if err == nil || !errors.Is(err, context.DeadlineExceeded) {
+			// Necessary to be able to access the error through api.UnwrapError.
+			if res != nil {
+				_, _ = httputil.DumpResponse(res, res.Body != nil)
+			}
 			return
 		}
 
