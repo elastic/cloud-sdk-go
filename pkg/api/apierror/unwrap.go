@@ -135,7 +135,7 @@ func tryWrappedResponse(apiError interface{}) error {
 	res := (*http.Response)(ptr)
 	b, err := ioutil.ReadAll(res.Body)
 	if err != nil {
-		return fmt.Errorf("failed reading error body")
+		return fmt.Errorf("failed reading error body: %w", err)
 	}
 	defer res.Body.Close()
 
