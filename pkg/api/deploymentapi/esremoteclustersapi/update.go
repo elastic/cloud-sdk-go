@@ -15,9 +15,11 @@
 // specific language governing permissions and limitations
 // under the License.
 
-package eskeystoreapi
+package esremoteclustersapi
 
 import (
+	"errors"
+
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/api/deploymentapi"
@@ -27,20 +29,25 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/util"
 )
 
-// GetParams is consumed by the Get function.
-type GetParams struct {
+// UpdateParams is consumed by Update.
+type UpdateParams struct {
+	// Required API instance
 	*api.API
 
+	// Required source deployment ID
 	DeploymentID string
 
-	// Optional RefID, when not specified, an API call will be issued to auto-
-	// discover the resource's RefID.
+	// Optional source ref_id. When not specified, an API call will be issued
+	// to auto-discover the resource's RefID.
 	RefID string
+
+	// Required remote resources
+	RemoteResources *models.RemoteResources
 }
 
-// Validate ensures the parameters are usable by Get.
-func (params GetParams) Validate() error {
-	var merr = multierror.NewPrefixed("invalid elasticsearch keystore get params")
+// Validate ensures the parameters are usable by the consuming function.
+func (params UpdateParams) Validate() error {
+	merr := multierror.NewPrefixed("invalid elasticsearch remote clusters api params")
 
 	if params.API == nil {
 		merr = merr.Append(apierror.ErrMissingAPI)
@@ -50,13 +57,17 @@ func (params GetParams) Validate() error {
 		merr = merr.Append(apierror.ErrDeploymentID)
 	}
 
+	if params.RemoteResources == nil {
+		merr = merr.Append(errors.New("required remote resources not provided"))
+	}
+
 	return merr.ErrorOrNil()
 }
 
-// Get returns the specified deployment template.
-func Get(params GetParams) (*models.KeystoreContents, error) {
+// Update returns a response with the number of remote deployments.
+func Update(params UpdateParams) error {
 	if err := params.Validate(); err != nil {
-		return nil, err
+		return err
 	}
 
 	if err := deploymentapi.PopulateRefID(deploymentapi.PopulateRefIDParams{
@@ -65,19 +76,16 @@ func Get(params GetParams) (*models.KeystoreContents, error) {
 		RefID:        &params.RefID,
 		Kind:         util.Elasticsearch,
 	}); err != nil {
-		return nil, err
+		return err
 	}
 
-	res, err := params.V1API.Deployments.GetDeploymentEsResourceKeystore(
-		deployments.NewGetDeploymentEsResourceKeystoreParams().
-			WithDeploymentID(params.DeploymentID).
-			WithRefID(params.RefID),
-		params.AuthWriter,
+	return api.ReturnErrOnly(
+		params.V1API.Deployments.SetDeploymentEsResourceRemoteClusters(
+			deployments.NewSetDeploymentEsResourceRemoteClustersParams().
+				WithDeploymentID(params.DeploymentID).
+				WithRefID(params.RefID).
+				WithBody(params.RemoteResources),
+			params.AuthWriter,
+		),
 	)
-
-	if err != nil {
-		return nil, apierror.Unwrap(err)
-	}
-
-	return res.Payload, nil
 }
