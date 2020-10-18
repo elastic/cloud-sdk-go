@@ -132,58 +132,51 @@ func (t *CustomTransport) RoundTrip(req *http.Request) (*http.Response, error) {
 	// UserAgent header handling
 	req.Header.Set(userAgentHeader, t.agent)
 
-	return t.doRoundTrip(req)
+	return t.doRoundTrip(req, t.retries)
 }
 
 // doRoundTrip performs an http call with the specified request and retries the
 // request when the returned error is context.DeadlineExceeded (timeout).
-func (t *CustomTransport) doRoundTrip(req *http.Request) (res *http.Response, err error) {
-	for i := -1; i < t.retries; i++ {
-		count := atomic.AddInt64(&t.count, 1)
-		res, err = t.rt.RoundTrip(req)
+func (t *CustomTransport) doRoundTrip(req *http.Request, retries int) (*http.Response, error) {
+	count := atomic.AddInt64(&t.count, 1)
+	if t.verbose {
+		handleVerboseRequest(t.writer, req, count, t.redactAuth)
+	}
 
+	res, err := t.rt.RoundTrip(req)
+
+	if t.verbose && res != nil {
+		handleVerboseResponse(t.writer, res, count)
+	}
+
+	if errors.Is(err, context.DeadlineExceeded) {
 		if t.verbose {
-			handleVerboseRequest(t.writer, req, count, t.redactAuth)
-			if res != nil {
-				handleVerboseResponse(t.writer, res, count)
+			msg := "request timed out, retrying..."
+			if retries <= 0 {
+				msg = "request timed out, giving up."
 			}
+			fmt.Fprintln(t.writer, msg)
 		}
 
-		// Return early when err is empty or not a timeout.
-		if err == nil || !errors.Is(err, context.DeadlineExceeded) {
-			// Necessary to be able to access the error through api.UnwrapError.
-			if res != nil {
-				_, _ = httputil.DumpResponse(res, res.Body != nil)
-			}
-			return
+		if retries > 0 {
+			retries--
+			// Recursively do the roundtrip and return the result
+			<-time.After(backoff(t.backoff))
+			return t.doRoundTrip(req, retries)
 		}
+	}
 
-		if t.verbose {
-			var msg = "request %d/%d timed out, giving up.\n"
-			if i+2 <= t.retries {
-				msg = "request %d/%d timed out, retrying...\n"
-			}
-			fmt.Fprintf(t.writer, msg, count, t.retries+1)
+	if res != nil && !t.verbose {
+		_, _ = httputil.DumpResponse(res, res.Body != nil)
+
+		// When the content type is "text/html", a bit of tweaking is required
+		// for the response to be marshaled to JSON. Using the standard error
+		// definition and populating it with parts of the request so the error
+		// can be identified.
+		if strings.Contains(res.Header.Get(contentType), textHTMLContentType) {
+			res.Header.Set(contentType, jsonContentType)
+			res.Body = newProxyBody(req, res.StatusCode)
 		}
-
-		// Necessary to be able to access the error through api.UnwrapError.
-		if !t.verbose && res != nil {
-			_, _ = httputil.DumpResponse(res, res.Body != nil)
-
-			// When the content type is "text/html", a bit of tweaking is required
-			// for the response to be marshaled to JSON. Using the standard error
-			// definition and populating it with parts of the request so the error
-			// can be identified.
-			if strings.Contains(res.Header.Get(contentType), textHTMLContentType) {
-				res.Header.Set(contentType, jsonContentType)
-				res.Body = newProxyBody(req, res.StatusCode)
-			}
-		}
-
-		// Backoff a random amount between 0.1 and 1.0 of the configured
-		// backoff duration.
-		rand.Seed(time.Now().UnixNano())
-		<-time.After(t.backoff * time.Duration(rand.Float32()+0.1))
 	}
 
 	return res, err
@@ -224,4 +217,9 @@ func newProxyBody(req *http.Request, code int) io.ReadCloser {
 			},
 		},
 	})
+}
+
+func backoff(d time.Duration) time.Duration {
+	rand.Seed(time.Now().UnixNano())
+	return d / time.Duration(rand.Float32()*10+1)
 }

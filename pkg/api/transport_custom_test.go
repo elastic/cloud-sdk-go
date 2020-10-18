@@ -27,10 +27,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stretchr/testify/assert"
-
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestNewCustomTransport(t *testing.T) {
@@ -150,7 +149,7 @@ func TestCustomTransport_RoundTrip(t *testing.T) {
 			},
 			args:    args{req: req},
 			err:     context.DeadlineExceeded,
-			wantOut: "==================== Start of Request #1 ====================\nmethod / HTTP/1.1\r\nHost: localhost\r\nAuthorization: mocked\r\nAccept-Encoding: gzip\r\n\r\n\n====================  End of Request #1  ====================\nrequest 1/2 timed out, retrying...\n==================== Start of Request #2 ====================\nmethod / HTTP/1.1\r\nHost: localhost\r\nAuthorization: mocked\r\nAccept-Encoding: gzip\r\n\r\n\n====================  End of Request #2  ====================\nrequest 2/2 timed out, giving up.\n",
+			wantOut: "==================== Start of Request #1 ====================\nmethod / HTTP/1.1\r\nHost: localhost\r\nAuthorization: mocked\r\nAccept-Encoding: gzip\r\n\r\n\n====================  End of Request #1  ====================\nrequest timed out, retrying...\n==================== Start of Request #2 ====================\nmethod / HTTP/1.1\r\nHost: localhost\r\nAuthorization: mocked\r\nAccept-Encoding: gzip\r\n\r\n\n====================  End of Request #2  ====================\nrequest timed out, giving up.\n",
 		},
 		{
 			name: "returns a different error after the maximum retries have been reached",
@@ -178,7 +177,7 @@ func TestCustomTransport_RoundTrip(t *testing.T) {
 			},
 			args:    args{req: req},
 			err:     errors.New("some other error"),
-			wantOut: "==================== Start of Request #1 ====================\nmethod / HTTP/1.1\r\nHost: localhost\r\nAuthorization: mocked\r\nAccept-Encoding: gzip\r\n\r\n\n====================  End of Request #1  ====================\nrequest 1/2 timed out, retrying...\n==================== Start of Request #2 ====================\nmethod / HTTP/1.1\r\nHost: localhost\r\nAuthorization: mocked\r\nAccept-Encoding: gzip\r\n\r\n\n====================  End of Request #2  ====================\n",
+			wantOut: "==================== Start of Request #1 ====================\nmethod / HTTP/1.1\r\nHost: localhost\r\nAuthorization: mocked\r\nAccept-Encoding: gzip\r\n\r\n\n====================  End of Request #1  ====================\nrequest timed out, retrying...\n==================== Start of Request #2 ====================\nmethod / HTTP/1.1\r\nHost: localhost\r\nAuthorization: mocked\r\nAccept-Encoding: gzip\r\n\r\n\n====================  End of Request #2  ====================\n",
 		},
 		{
 			name: "succeeds after retrying the request",
@@ -202,7 +201,7 @@ func TestCustomTransport_RoundTrip(t *testing.T) {
 			want: &http.Response{
 				StatusCode: 200,
 			},
-			wantOut: "==================== Start of Request #1 ====================\nmethod / HTTP/1.1\r\nHost: localhost\r\nAuthorization: mocked\r\nAccept-Encoding: gzip\r\n\r\n\n====================  End of Request #1  ====================\nrequest 1/2 timed out, retrying...\n==================== Start of Request #2 ====================\nmethod / HTTP/1.1\r\nHost: localhost\r\nAuthorization: mocked\r\nAccept-Encoding: gzip\r\n\r\n\n====================  End of Request #2  ====================\n==================== Start of Response #2 ====================\nHTTP/0.0 200 OK\r\n\r\n{}\n====================  End of Response #2  ====================\n",
+			wantOut: "==================== Start of Request #1 ====================\nmethod / HTTP/1.1\r\nHost: localhost\r\nAuthorization: mocked\r\nAccept-Encoding: gzip\r\n\r\n\n====================  End of Request #1  ====================\nrequest timed out, retrying...\n==================== Start of Request #2 ====================\nmethod / HTTP/1.1\r\nHost: localhost\r\nAuthorization: mocked\r\nAccept-Encoding: gzip\r\n\r\n\n====================  End of Request #2  ====================\n==================== Start of Response #2 ====================\nHTTP/0.0 200 OK\r\n\r\n{}\n====================  End of Response #2  ====================\n",
 		},
 		{
 			name: "succeeds after retrying the request and redacts the Authorization header",
@@ -227,7 +226,77 @@ func TestCustomTransport_RoundTrip(t *testing.T) {
 			want: &http.Response{
 				StatusCode: 200,
 			},
-			wantOut: "==================== Start of Request #1 ====================\nmethod / HTTP/1.1\r\nHost: localhost\r\nAuthorization: [REDACTED]\r\nAccept-Encoding: gzip\r\n\r\n\n====================  End of Request #1  ====================\nrequest 1/2 timed out, retrying...\n==================== Start of Request #2 ====================\nmethod / HTTP/1.1\r\nHost: localhost\r\nAuthorization: [REDACTED]\r\nAccept-Encoding: gzip\r\n\r\n\n====================  End of Request #2  ====================\n==================== Start of Response #2 ====================\nHTTP/0.0 200 OK\r\nContent-Length: 0\r\n\r\n\n====================  End of Response #2  ====================\n",
+			wantOut: "==================== Start of Request #1 ====================\nmethod / HTTP/1.1\r\nHost: localhost\r\nAuthorization: [REDACTED]\r\nAccept-Encoding: gzip\r\n\r\n\n====================  End of Request #1  ====================\nrequest timed out, retrying...\n==================== Start of Request #2 ====================\nmethod / HTTP/1.1\r\nHost: localhost\r\nAuthorization: [REDACTED]\r\nAccept-Encoding: gzip\r\n\r\n\n====================  End of Request #2  ====================\n==================== Start of Response #2 ====================\nHTTP/0.0 200 OK\r\nContent-Length: 0\r\n\r\n\n====================  End of Response #2  ====================\n",
+		},
+		{
+			name: "succeeds after retrying the request and redacts the Authorization header",
+			fields: fields{
+				rt: mock.NewRoundTripper(
+					mock.Response{
+						Response: http.Response{
+							StatusCode: 500,
+							Body:       mock.NewStringBody("{}"),
+						},
+						Error: context.DeadlineExceeded,
+					},
+					mock.Response{
+						Response: http.Response{
+							StatusCode: 404,
+							Body:       mock.NewStringBody("{}"),
+						},
+						Error: context.DeadlineExceeded,
+					},
+					mock.New201Response(ioutil.NopCloser(sucessBuf)),
+				),
+				retries:    2,
+				verbose:    true,
+				redactAuth: true,
+				writer:     new(bytes.Buffer),
+				backoff:    time.Nanosecond,
+			},
+			args: args{req: req},
+			want: &http.Response{
+				StatusCode: 201,
+			},
+			wantOut: "==================== Start of Request #1 ====================\nmethod / HTTP/1.1\r\nHost: localhost\r\nAuthorization: [REDACTED]\r\nAccept-Encoding: gzip\r\n\r\n\n====================  End of Request #1  ====================\nrequest timed out, retrying...\n==================== Start of Request #2 ====================\nmethod / HTTP/1.1\r\nHost: localhost\r\nAuthorization: [REDACTED]\r\nAccept-Encoding: gzip\r\n\r\n\n====================  End of Request #2  ====================\nrequest timed out, retrying...\n==================== Start of Request #3 ====================\nmethod / HTTP/1.1\r\nHost: localhost\r\nAuthorization: [REDACTED]\r\nAccept-Encoding: gzip\r\n\r\n\n====================  End of Request #3  ====================\n==================== Start of Response #3 ====================\nHTTP/0.0 201 Created\r\nContent-Length: 0\r\n\r\n\n====================  End of Response #3  ====================\n",
+		},
+		{
+			name: "succeeds directly (Ensures that no retries are performed when err! = context.DeadlineExceeded)",
+			fields: fields{
+				rt: mock.NewRoundTripper(
+					mock.New202Response(ioutil.NopCloser(sucessBuf)),
+				),
+				retries:    2,
+				verbose:    true,
+				redactAuth: true,
+				writer:     new(bytes.Buffer),
+				backoff:    time.Nanosecond,
+			},
+			args: args{req: req},
+			want: &http.Response{
+				StatusCode: 202,
+			},
+			wantOut: "==================== Start of Request #1 ====================\nmethod / HTTP/1.1\r\nHost: localhost\r\nAuthorization: [REDACTED]\r\nAccept-Encoding: gzip\r\n\r\n\n====================  End of Request #1  ====================\n==================== Start of Response #1 ====================\nHTTP/0.0 202 Accepted\r\nContent-Length: 0\r\n\r\n\n====================  End of Response #1  ====================\n",
+		},
+		{
+			name: "fails directly (Ensures that no retries are performed when err! = context.DeadlineExceeded)",
+			fields: fields{
+				rt: mock.NewRoundTripper(mock.Response{
+					Response: http.Response{
+						StatusCode: 500,
+						Body:       mock.NewStringBody("{}"),
+					},
+					Error: context.Canceled,
+				}),
+				retries:    2,
+				verbose:    true,
+				redactAuth: true,
+				writer:     new(bytes.Buffer),
+				backoff:    time.Nanosecond,
+			},
+			args:    args{req: req},
+			wantOut: "==================== Start of Request #1 ====================\nmethod / HTTP/1.1\r\nHost: localhost\r\nAuthorization: [REDACTED]\r\nAccept-Encoding: gzip\r\n\r\n\n====================  End of Request #1  ====================\n",
+			err:     context.Canceled,
 		},
 	}
 	for _, tt := range tests {
@@ -253,6 +322,45 @@ func TestCustomTransport_RoundTrip(t *testing.T) {
 			if buf, ok := ct.writer.(*bytes.Buffer); ok {
 				assert.Equal(t, tt.wantOut, buf.String())
 			}
+		})
+	}
+}
+
+func Test_backoff(t *testing.T) {
+	type args struct {
+		d time.Duration
+	}
+	tests := []struct {
+		name string
+		args args
+		want time.Duration
+	}{
+		{
+			name: "second backoff",
+			args: args{d: time.Second},
+			want: time.Second,
+		},
+		{
+			name: "two second backoff",
+			args: args{d: 2 * time.Second},
+			want: 2 * time.Second,
+		},
+		{
+			name: "ten second backoff",
+			args: args{d: 10 * time.Second},
+			want: 10 * time.Second,
+		},
+		{
+			name: "millisecond backoff",
+			args: args{d: time.Millisecond},
+			want: time.Millisecond,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := backoff(tt.args.d)
+			assert.NotZero(t, got)
+			assert.LessOrEqual(t, int64(got), int64(tt.want))
 		})
 	}
 }
