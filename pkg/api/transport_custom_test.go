@@ -27,9 +27,10 @@ import (
 	"testing"
 	"time"
 
+	"github.com/stretchr/testify/assert"
+
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
-	"github.com/stretchr/testify/assert"
 )
 
 func TestNewCustomTransport(t *testing.T) {
