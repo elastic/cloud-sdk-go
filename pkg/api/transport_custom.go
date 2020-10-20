@@ -18,11 +18,11 @@
 package api
 
 import (
-	"context"
 	"errors"
 	"fmt"
 	"io"
 	"math/rand"
+	"net"
 	"net/http"
 	"net/http/httputil"
 	"regexp"
@@ -149,7 +149,7 @@ func (t *CustomTransport) doRoundTrip(req *http.Request, retries int) (*http.Res
 		handleVerboseResponse(t.writer, res, count)
 	}
 
-	if errors.Is(err, context.DeadlineExceeded) {
+	if e, ok := err.(net.Error); ok && e.Timeout() {
 		if t.verbose {
 			msg := "request timed out, retrying..."
 			if retries <= 0 {
