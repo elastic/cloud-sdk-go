@@ -23,7 +23,9 @@ import (
 	"errors"
 	"io"
 	"io/ioutil"
+	"net"
 	"net/http"
+	"os"
 	"testing"
 	"time"
 
@@ -92,6 +94,12 @@ func TestNewCustomTransport(t *testing.T) {
 		})
 	}
 }
+
+type timeoutError struct{}
+
+func (timeoutError) Error() string   { return "timeout error" }
+func (timeoutError) Timeout() bool   { return true }
+func (timeoutError) Temporary() bool { return true }
 
 // nolint
 func TestCustomTransport_RoundTrip(t *testing.T) {
@@ -181,6 +189,49 @@ func TestCustomTransport_RoundTrip(t *testing.T) {
 			wantOut: "==================== Start of Request #1 ====================\nmethod / HTTP/1.1\r\nHost: localhost\r\nAuthorization: mocked\r\nAccept-Encoding: gzip\r\n\r\n\n====================  End of Request #1  ====================\nrequest timed out, retrying...\n==================== Start of Request #2 ====================\nmethod / HTTP/1.1\r\nHost: localhost\r\nAuthorization: mocked\r\nAccept-Encoding: gzip\r\n\r\n\n====================  End of Request #2  ====================\n",
 		},
 		{
+			name: "returns a different error after the maximum retries have been reached (multiple errors complying with interface)",
+			fields: fields{
+				rt: mock.NewRoundTripper(
+					mock.Response{
+						Response: http.Response{
+							StatusCode: 500,
+							Body:       mock.NewStringBody("{}"),
+						},
+						Error: context.DeadlineExceeded,
+					},
+					mock.Response{
+						Response: http.Response{
+							StatusCode: 500,
+							Body:       mock.NewStringBody("{}"),
+						},
+						Error: &timeoutError{},
+					},
+					mock.Response{
+						Response: http.Response{
+							StatusCode: 500,
+							Body:       mock.NewStringBody("{}"),
+						},
+						Error: os.ErrDeadlineExceeded,
+					},
+					mock.Response{
+						Response: http.Response{
+							StatusCode: 500,
+							Body:       mock.NewStringBody("{}"),
+						},
+						// Complies with the interface but Timeout() == false.
+						Error: &net.AddrError{},
+					},
+				),
+				retries: 3,
+				backoff: time.Nanosecond,
+				verbose: true,
+				writer:  new(bytes.Buffer),
+			},
+			args:    args{req: req},
+			err:     &net.AddrError{},
+			wantOut: "==================== Start of Request #1 ====================\nmethod / HTTP/1.1\r\nHost: localhost\r\nAuthorization: mocked\r\nAccept-Encoding: gzip\r\n\r\n\n====================  End of Request #1  ====================\nrequest timed out, retrying...\n==================== Start of Request #2 ====================\nmethod / HTTP/1.1\r\nHost: localhost\r\nAuthorization: mocked\r\nAccept-Encoding: gzip\r\n\r\n\n====================  End of Request #2  ====================\nrequest timed out, retrying...\n==================== Start of Request #3 ====================\nmethod / HTTP/1.1\r\nHost: localhost\r\nAuthorization: mocked\r\nAccept-Encoding: gzip\r\n\r\n\n====================  End of Request #3  ====================\nrequest timed out, retrying...\n==================== Start of Request #4 ====================\nmethod / HTTP/1.1\r\nHost: localhost\r\nAuthorization: mocked\r\nAccept-Encoding: gzip\r\n\r\n\n====================  End of Request #4  ====================\n",
+		},
+		{
 			name: "succeeds after retrying the request",
 			fields: fields{
 				rt: mock.NewRoundTripper(
@@ -262,7 +313,7 @@ func TestCustomTransport_RoundTrip(t *testing.T) {
 			wantOut: "==================== Start of Request #1 ====================\nmethod / HTTP/1.1\r\nHost: localhost\r\nAuthorization: [REDACTED]\r\nAccept-Encoding: gzip\r\n\r\n\n====================  End of Request #1  ====================\nrequest timed out, retrying...\n==================== Start of Request #2 ====================\nmethod / HTTP/1.1\r\nHost: localhost\r\nAuthorization: [REDACTED]\r\nAccept-Encoding: gzip\r\n\r\n\n====================  End of Request #2  ====================\nrequest timed out, retrying...\n==================== Start of Request #3 ====================\nmethod / HTTP/1.1\r\nHost: localhost\r\nAuthorization: [REDACTED]\r\nAccept-Encoding: gzip\r\n\r\n\n====================  End of Request #3  ====================\n==================== Start of Response #3 ====================\nHTTP/0.0 201 Created\r\nContent-Length: 0\r\n\r\n\n====================  End of Response #3  ====================\n",
 		},
 		{
-			name: "succeeds directly (Ensures that no retries are performed when err! = context.DeadlineExceeded)",
+			name: "succeeds directly (Ensures that no retries are performed when err != e.Timeout())",
 			fields: fields{
 				rt: mock.NewRoundTripper(
 					mock.New202Response(ioutil.NopCloser(sucessBuf)),
@@ -280,7 +331,7 @@ func TestCustomTransport_RoundTrip(t *testing.T) {
 			wantOut: "==================== Start of Request #1 ====================\nmethod / HTTP/1.1\r\nHost: localhost\r\nAuthorization: [REDACTED]\r\nAccept-Encoding: gzip\r\n\r\n\n====================  End of Request #1  ====================\n==================== Start of Response #1 ====================\nHTTP/0.0 202 Accepted\r\nContent-Length: 0\r\n\r\n\n====================  End of Response #1  ====================\n",
 		},
 		{
-			name: "fails directly (Ensures that no retries are performed when err! = context.DeadlineExceeded)",
+			name: "fails directly (Ensures that no retries are performed when err != e.Timeout())",
 			fields: fields{
 				rt: mock.NewRoundTripper(mock.Response{
 					Response: http.Response{
