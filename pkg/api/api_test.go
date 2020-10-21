@@ -20,14 +20,16 @@ package api
 import (
 	"bytes"
 	"errors"
+	"net/http"
 	"net/url"
-	"reflect"
 	"testing"
+	"time"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 	"github.com/elastic/cloud-sdk-go/pkg/auth"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	"github.com/elastic/cloud-sdk-go/pkg/output"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestNewAPI(t *testing.T) {
@@ -35,13 +37,34 @@ func TestNewAPI(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+
+	wantVerbose := mock.NewClient()
+	verboseTransport := CustomTransport{
+		rt:      mock.NewRoundTripper(),
+		writer:  output.NewDevice(new(bytes.Buffer)),
+		verbose: true,
+		agent:   DefaultUserAgent,
+		backoff: defaultBackoff,
+	}
+	wantVerbose.Transport = &verboseTransport
+
+	wantRetries := mock.NewClient()
+
+	retryTransport := verboseTransport
+	retryTransport.retries = 5
+	wantRetries.Transport = &retryTransport
+
+	clientWithTimeout := mock.NewClient()
+	clientWithTimeout.Timeout = time.Hour
+
 	type args struct {
 		c Config
 	}
 	tests := []struct {
-		name string
-		args args
-		err  error
+		name       string
+		args       args
+		wantClient *http.Client
+		err        error
 	}{
 		{
 			name: "fails due to empty parameters",
@@ -65,9 +88,10 @@ func TestNewAPI(t *testing.T) {
 				errEmptyAuthWriter,
 				&url.Error{Op: "parse", URL: "very.much.invalid/", Err: errors.New("invalid URI for request")},
 			),
+			wantClient: mock.NewClient(),
 		},
 		{
-			name: "succeeds",
+			name: "succeeds with verbose",
 			args: args{c: Config{
 				Host:       ESSEndpoint,
 				AuthWriter: dummyKey,
@@ -77,6 +101,7 @@ func TestNewAPI(t *testing.T) {
 				},
 				Client: mock.NewClient(),
 			}},
+			wantClient: wantVerbose,
 		},
 		{
 			name: "succeeds without host",
@@ -88,14 +113,45 @@ func TestNewAPI(t *testing.T) {
 				},
 				Client: mock.NewClient(),
 			}},
+			wantClient: wantVerbose,
+		},
+		{
+			name: "succeeds with retries",
+			args: args{c: Config{
+				Host:       ESSEndpoint,
+				AuthWriter: dummyKey,
+				Retries:    5,
+				VerboseSettings: VerboseSettings{
+					Verbose: true,
+					Device:  output.NewDevice(new(bytes.Buffer)),
+				},
+				Client: mock.NewClient(),
+			}},
+			wantClient: wantRetries,
+		},
+		{
+			name: "succeeds with and removes the http.Client.Timeout",
+			args: args{c: Config{
+				Host:       ESSEndpoint,
+				AuthWriter: dummyKey,
+				Retries:    5,
+				VerboseSettings: VerboseSettings{
+					Verbose: true,
+					Device:  output.NewDevice(new(bytes.Buffer)),
+				},
+				Client: clientWithTimeout,
+			}},
+			wantClient: wantRetries,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if _, err := NewAPI(tt.args.c); !reflect.DeepEqual(err, tt.err) {
-				t.Errorf("NewAPI() error = %v, wantErr %v", err, tt.err)
-				return
+			_, err := NewAPI(tt.args.c)
+			if !assert.Equal(t, tt.err, err) {
+				t.Error(err)
 			}
+
+			assert.Equal(t, tt.wantClient, tt.args.c.Client)
 		})
 	}
 }
