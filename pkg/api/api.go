@@ -18,6 +18,8 @@
 package api
 
 import (
+	"time"
+
 	runtimeclient "github.com/go-openapi/runtime/client"
 
 	"github.com/elastic/cloud-sdk-go/pkg/auth"
@@ -62,8 +64,18 @@ func NewAPI(c Config) (*API, error) {
 	// value effectively affects all of the related clients.
 	runtimeclient.DefaultTimeout = c.Timeout
 
-	// Also sets the client Timeout value
-	c.Client.Timeout = c.Timeout
+	// If retries are set, then we don't want the framework cancellation to kick in
+	// while we're still retrying requests, to enable that, we're multiplying the
+	// specified timeout by the # of retries, accounting for the backoffs as well.
+	if c.Retries > 0 {
+		if c.RetryBackoff.Microseconds() <= 0 {
+			c.RetryBackoff = defaultBackoff
+		}
+		runtimeclient.DefaultTimeout = c.Timeout*time.Duration(c.Retries) + (c.RetryBackoff * time.Duration(c.Retries))
+		// We leave the http client with no timeout, since we don't want yet another
+		// layer of context cancellatins to step in.
+		c.Client.Timeout = 0
+	}
 
 	transport, err := NewCloudClientRuntime(c)
 	if err != nil {

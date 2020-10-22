@@ -43,7 +43,7 @@ const userAgentHeader = "User-Agent"
 // It defaults to the project name + the current committed version.
 var DefaultUserAgent = "cloud-sdk-go/" + Version
 
-var defaultBackoff = time.Second * 1
+var defaultBackoff = time.Second
 
 // CustomTransport is the cloud-sdk-go custom transport which handles all the
 // add-ons for http request and responses. It supports:
