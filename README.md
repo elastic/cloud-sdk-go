@@ -10,6 +10,46 @@ Run the following `go get` command to install the SDK in your module dependencie
 go get -u github.com/elastic/cloud-sdk-go
 ```
 
+## Usage
+
+See the [`pkg/api`](https://github.com/elastic/cloud-sdk-go/tree/master/pkg/api) package for more in depth documentation.
+
+```go
+package main
+
+import (
+    "encoding/json"
+    "net/http"
+    "os"
+
+    "github.com/elastic/cloud-sdk-go/pkg/api"
+    "github.com/elastic/cloud-sdk-go/pkg/api/deploymentapi"
+    "github.com/elastic/cloud-sdk-go/pkg/auth"
+)
+
+func main() {
+    // Create a API instance with an API key as means of authentication.
+    ess, err := api.NewAPI(api.Config{
+        Client:        new(http.Client),
+        AuthWriter:    auth.APIKey("some-apikey"),
+    })
+    if err != nil {
+        panic(err)
+    }
+
+    // List the user's deployments via the `deploymentapi` package (Recommended).
+    res, err := deploymentapi.List(deploymentapi.ListParams{API: ess.V1API})
+    if err != nil {
+        panic(err)
+    }
+
+    var encoder = json.NewEncoder(os.Stdout)
+    if err := encoder.Encode(res); err != nil {
+        panic(err)
+    }
+}
+```
+
 ## High level package overview
 
 The project's structure is based off the standard Go project layout. Therefore, all of our library code that we expect other projects to import is placed in the `pkg/` directory.
