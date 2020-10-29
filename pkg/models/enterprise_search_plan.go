@@ -31,7 +31,7 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// EnterpriseSearchPlan enterprise search plan
+// EnterpriseSearchPlan The plan for the Enterprise Search cluster.
 //
 // swagger:model EnterpriseSearchPlan
 type EnterpriseSearchPlan struct {
