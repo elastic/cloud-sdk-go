@@ -397,11 +397,10 @@ func TestNewPayload(t *testing.T) {
 			}},
 		},
 		{
-			name: "Succeeds to create a deployment payload with ES and Kibana instances (AsList)",
+			name: "Succeeds to create a deployment payload with ES and Kibana instances",
 			args: args{params: NewPayloadParams{
-				Version:                  "7.6.1",
-				Region:                   "ece-region",
-				DeploymentTemplateAsList: true,
+				Version: "7.6.1",
+				Region:  "ece-region",
 				ElasticsearchInstance: InstanceParams{
 					RefID:     "main-elasticsearch",
 					Size:      1024,
@@ -414,7 +413,7 @@ func TestNewPayload(t *testing.T) {
 				},
 				DeploymentTemplateID: "default",
 				API: api.NewMock(
-					mock.New200Response(mock.NewStructBody([]models.DeploymentTemplateInfoV2{kibanaTemplateResponse})),
+					mock.New200Response(mock.NewStructBody(kibanaTemplateResponse)),
 				),
 			}},
 			want: &models.DeploymentCreateRequest{Resources: &models.DeploymentCreateResources{
@@ -486,97 +485,6 @@ func TestNewPayload(t *testing.T) {
 				ApmEnable:            true,
 				API: api.NewMock(
 					mock.New200Response(mock.NewStructBody(apmKibanaTemplateResponse)),
-				),
-			}},
-			want: &models.DeploymentCreateRequest{Resources: &models.DeploymentCreateResources{
-				Elasticsearch: []*models.ElasticsearchPayload{{
-					RefID:  ec.String("main-elasticsearch"),
-					Region: ec.String("ece-region"),
-					Plan: &models.ElasticsearchClusterPlan{
-						Elasticsearch: &models.ElasticsearchConfiguration{
-							Version: "7.6.1",
-						},
-						DeploymentTemplate: &models.DeploymentTemplateReference{
-							ID: ec.String("default"),
-						},
-						ClusterTopology: []*models.ElasticsearchClusterTopologyElement{{
-							ZoneCount:               1,
-							InstanceConfigurationID: "default.data",
-							Size: &models.TopologySize{
-								Resource: ec.String("memory"),
-								Value:    ec.Int32(1024),
-							},
-							NodeType: &models.ElasticsearchNodeType{
-								Data: ec.Bool(true),
-							},
-						}},
-					}},
-				},
-				Kibana: []*models.KibanaPayload{{
-					ElasticsearchClusterRefID: ec.String("main-elasticsearch"),
-					Region:                    ec.String("ece-region"),
-					RefID:                     ec.String("main-kibana"),
-					Plan: &models.KibanaClusterPlan{
-						Kibana: &models.KibanaConfiguration{
-							Version: "7.6.1",
-						},
-						ClusterTopology: []*models.KibanaClusterTopologyElement{
-							{
-								Size: &models.TopologySize{
-									Resource: ec.String("memory"),
-									Value:    ec.Int32(1024),
-								},
-								ZoneCount: 1,
-							},
-						},
-					},
-				}},
-				Apm: []*models.ApmPayload{{
-					ElasticsearchClusterRefID: ec.String("main-elasticsearch"),
-					Region:                    ec.String("ece-region"),
-					RefID:                     ec.String("main-apm"),
-					Plan: &models.ApmPlan{
-						Apm: &models.ApmConfiguration{
-							Version: "7.6.1",
-						},
-						ClusterTopology: []*models.ApmTopologyElement{
-							{
-								Size: &models.TopologySize{
-									Resource: ec.String("memory"),
-									Value:    ec.Int32(1024),
-								},
-								ZoneCount: 1,
-							},
-						},
-					},
-				}},
-			}},
-		},
-		{
-			name: "Succeeds to create a deployment payload with ES, Kibana and APM instances (AsList)",
-			args: args{params: NewPayloadParams{
-				Version:                  "7.6.1",
-				Region:                   "ece-region",
-				DeploymentTemplateAsList: true,
-				ElasticsearchInstance: InstanceParams{
-					RefID:     "main-elasticsearch",
-					Size:      1024,
-					ZoneCount: 1,
-				},
-				KibanaInstance: InstanceParams{
-					RefID:     "main-kibana",
-					Size:      1024,
-					ZoneCount: 1,
-				},
-				ApmInstance: InstanceParams{
-					RefID:     "main-apm",
-					Size:      1024,
-					ZoneCount: 1,
-				},
-				DeploymentTemplateID: "default",
-				ApmEnable:            true,
-				API: api.NewMock(
-					mock.New200Response(mock.NewStructBody([]models.DeploymentTemplateInfoV2{apmKibanaTemplateResponse})),
 				),
 			}},
 			want: &models.DeploymentCreateRequest{Resources: &models.DeploymentCreateResources{

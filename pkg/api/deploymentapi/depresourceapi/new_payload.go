@@ -57,9 +57,6 @@ type NewPayloadParams struct {
 	// Optionally enable an Enterprise Search instance.
 	EnterpriseSearchEnable bool
 
-	// Do not use. The field will be removed once an API bug has been resolved.
-	DeploymentTemplateAsList bool
-
 	// Optional io.Writer where notices will be written.
 	Writer io.Writer
 
@@ -95,7 +92,6 @@ func NewPayload(params NewPayloadParams) (*models.DeploymentCreateRequest, error
 		API:        params.API,
 		TemplateID: params.DeploymentTemplateID,
 		Region:     params.Region,
-		AsList:     params.DeploymentTemplateAsList,
 	})
 	if err != nil {
 		return nil, err
