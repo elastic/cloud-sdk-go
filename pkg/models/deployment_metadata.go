@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"strconv"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -56,6 +58,9 @@ type DeploymentMetadata struct {
 
 	// Indicates if a deployment is system owned (restricts the set of operations that can be performed on it)
 	SystemOwned *bool `json:"system_owned,omitempty"`
+
+	// Arbitrary user-defined metadata associated with this deployment
+	Tags []*MetadataItem `json:"tags"`
 }
 
 // Validate validates this deployment metadata
@@ -67,6 +72,10 @@ func (m *DeploymentMetadata) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateLastResourcePlanModified(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateTags(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -97,6 +106,31 @@ func (m *DeploymentMetadata) validateLastResourcePlanModified(formats strfmt.Reg
 
 	if err := validate.FormatOf("last_resource_plan_modified", "body", "date-time", m.LastResourcePlanModified.String(), formats); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *DeploymentMetadata) validateTags(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Tags) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.Tags); i++ {
+		if swag.IsZero(m.Tags[i]) { // not required
+			continue
+		}
+
+		if m.Tags[i] != nil {
+			if err := m.Tags[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("tags" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil

@@ -80,7 +80,7 @@ for the search deployments operation typically these are written to a http.Reque
 type SearchDeploymentsParams struct {
 
 	/*Body
-	  (Optional) The search request to execute. NOTE: When not specified, all of the deployments are matched.
+	  (Optional) The search query to run. When not specified, all of the deployments are matched.
 
 	*/
 	Body *models.SearchRequest

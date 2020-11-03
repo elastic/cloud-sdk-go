@@ -23,33 +23,35 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"strconv"
-
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
-// DeploymentUpdateMetadata Additional information about the current deployment object.
+// ObservabilityIssue Observability health issue
 //
-// swagger:model DeploymentUpdateMetadata
-type DeploymentUpdateMetadata struct {
+// swagger:model ObservabilityIssue
+type ObservabilityIssue struct {
 
-	// Whether or not this deployment is hidden from the normal deployment list
-	Hidden *bool `json:"hidden,omitempty"`
+	// A user-friendly description of the observability health issue
+	// Required: true
+	Description *string `json:"description"`
 
-	// Indicates if a deployment is system owned (restricts the set of operations that can be performed on it)
-	SystemOwned *bool `json:"system_owned,omitempty"`
-
-	// Arbitrary user-defined metadata associated with this deployment
-	Tags []*MetadataItem `json:"tags"`
+	// Severity of the health issue
+	// Required: true
+	Severity *string `json:"severity"`
 }
 
-// Validate validates this deployment update metadata
-func (m *DeploymentUpdateMetadata) Validate(formats strfmt.Registry) error {
+// Validate validates this observability issue
+func (m *ObservabilityIssue) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateTags(formats); err != nil {
+	if err := m.validateDescription(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateSeverity(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -59,33 +61,26 @@ func (m *DeploymentUpdateMetadata) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *DeploymentUpdateMetadata) validateTags(formats strfmt.Registry) error {
+func (m *ObservabilityIssue) validateDescription(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.Tags) { // not required
-		return nil
+	if err := validate.Required("description", "body", m.Description); err != nil {
+		return err
 	}
 
-	for i := 0; i < len(m.Tags); i++ {
-		if swag.IsZero(m.Tags[i]) { // not required
-			continue
-		}
+	return nil
+}
 
-		if m.Tags[i] != nil {
-			if err := m.Tags[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("tags" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
+func (m *ObservabilityIssue) validateSeverity(formats strfmt.Registry) error {
 
+	if err := validate.Required("severity", "body", m.Severity); err != nil {
+		return err
 	}
 
 	return nil
 }
 
 // MarshalBinary interface implementation
-func (m *DeploymentUpdateMetadata) MarshalBinary() ([]byte, error) {
+func (m *ObservabilityIssue) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -93,8 +88,8 @@ func (m *DeploymentUpdateMetadata) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *DeploymentUpdateMetadata) UnmarshalBinary(b []byte) error {
-	var res DeploymentUpdateMetadata
+func (m *ObservabilityIssue) UnmarshalBinary(b []byte) error {
+	var res ObservabilityIssue
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

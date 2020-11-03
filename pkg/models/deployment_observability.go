@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"strconv"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -38,6 +40,9 @@ type DeploymentObservability struct {
 	// Required: true
 	Healthy *bool `json:"healthy"`
 
+	// General observability health issues for the deployment
+	Issues []*ObservabilityIssue `json:"issues"`
+
 	// The logging information for the deployment
 	Logging *DeploymentLogging `json:"logging,omitempty"`
 
@@ -50,6 +55,10 @@ func (m *DeploymentObservability) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateHealthy(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateIssues(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -71,6 +80,31 @@ func (m *DeploymentObservability) validateHealthy(formats strfmt.Registry) error
 
 	if err := validate.Required("healthy", "body", m.Healthy); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *DeploymentObservability) validateIssues(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Issues) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.Issues); i++ {
+		if swag.IsZero(m.Issues[i]) { // not required
+			continue
+		}
+
+		if m.Issues[i] != nil {
+			if err := m.Issues[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("issues" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil
