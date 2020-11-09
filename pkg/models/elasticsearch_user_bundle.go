@@ -42,7 +42,7 @@ type ElasticsearchUserBundle struct {
 	// Required: true
 	Name *string `json:"name"`
 
-	// The URL of the bundle (must be accessible from the ECE infrastructure)
+	// The URL of the bundle, which must be accessible from the ECE infrastructure. This URL could be cached by platform, make sure to change it when updating the bundle
 	// Required: true
 	URL *string `json:"url"`
 }

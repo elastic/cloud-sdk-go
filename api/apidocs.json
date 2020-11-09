@@ -24098,9 +24098,9 @@
         },
         "trust_all" : {
           "type" : "boolean",
-          "description" : "If true, all clusters in this account will by default be trusted and the `trust_whitelist` is ignored."
+          "description" : "If true, all clusters in this account will by default be trusted and the `trust_allowlist` is ignored."
         },
-        "trust_whitelist" : {
+        "trust_allowlist" : {
           "type" : "array",
           "description" : "The list of clusters to trust. Only used when `trust_all` is false.",
           "items" : {
@@ -25301,7 +25301,8 @@
         "transient" : {
           "$ref" : "#/definitions/TransientAppSearchPlanConfiguration"
         }
-      }
+      },
+      "description" : "The plan for the App Search cluster."
     },
     "AppSearchPlanControlConfiguration" : {
       "type" : "object",
@@ -29266,7 +29267,7 @@
         },
         "url" : {
           "type" : "string",
-          "description" : "The URL of the bundle (must be accessible from the ECE infrastructure)"
+          "description" : "The URL of the bundle, which must be accessible from the ECE infrastructure. This URL could be cached by platform, make sure to change it when updating the bundle"
         },
         "elasticsearch_version" : {
           "type" : "string",
@@ -29544,7 +29545,8 @@
         "transient" : {
           "$ref" : "#/definitions/TransientEnterpriseSearchPlanConfiguration"
         }
-      }
+      },
+      "description" : "The plan for the Enterprise Search cluster."
     },
     "EnterpriseSearchPlanControlConfiguration" : {
       "type" : "object",
@@ -29900,9 +29902,9 @@
         },
         "trust_all" : {
           "type" : "boolean",
-          "description" : "If true, all clusters in this external entity will be trusted and the `trust_whitelist` is ignored."
+          "description" : "If true, all clusters in this external entity will be trusted and the `trust_allowlist` is ignored."
         },
-        "trust_whitelist" : {
+        "trust_allowlist" : {
           "type" : "array",
           "description" : "The list of clusters to trust. Only used when `trust_all` is false.",
           "items" : {

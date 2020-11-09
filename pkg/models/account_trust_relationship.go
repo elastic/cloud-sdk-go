@@ -38,12 +38,12 @@ type AccountTrustRelationship struct {
 	// Required: true
 	AccountID *string `json:"account_id"`
 
-	// If true, all clusters in this account will by default be trusted and the `trust_whitelist` is ignored.
+	// If true, all clusters in this account will by default be trusted and the `trust_allowlist` is ignored.
 	// Required: true
 	TrustAll *bool `json:"trust_all"`
 
 	// The list of clusters to trust. Only used when `trust_all` is false.
-	TrustWhitelist []string `json:"trust_whitelist"`
+	TrustAllowlist []string `json:"trust_allowlist"`
 }
 
 // Validate validates this account trust relationship

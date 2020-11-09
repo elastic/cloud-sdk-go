@@ -34,16 +34,16 @@ import (
 // swagger:model ExternalTrustRelationship
 type ExternalTrustRelationship struct {
 
-	// If true, all clusters in this external entity will be trusted and the `trust_whitelist` is ignored.
+	// If true, all clusters in this external entity will be trusted and the `trust_allowlist` is ignored.
 	// Required: true
 	TrustAll *bool `json:"trust_all"`
+
+	// The list of clusters to trust. Only used when `trust_all` is false.
+	TrustAllowlist []string `json:"trust_allowlist"`
 
 	// the ID of the external trust relationship
 	// Required: true
 	TrustRelationshipID *string `json:"trust_relationship_id"`
-
-	// The list of clusters to trust. Only used when `trust_all` is false.
-	TrustWhitelist []string `json:"trust_whitelist"`
 }
 
 // Validate validates this external trust relationship

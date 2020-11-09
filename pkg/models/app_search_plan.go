@@ -31,7 +31,7 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// AppSearchPlan app search plan
+// AppSearchPlan The plan for the App Search cluster.
 //
 // swagger:model AppSearchPlan
 type AppSearchPlan struct {
