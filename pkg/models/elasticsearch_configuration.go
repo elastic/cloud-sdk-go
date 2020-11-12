@@ -68,7 +68,7 @@ type ElasticsearchConfiguration struct {
 	// An arbitrary YAML object allowing cluster owners to set their parameters (only one of this and 'user_settings_json' is allowed), provided they are on the whitelist ('user_settings_whitelist') and not on the blacklist ('user_settings_blacklist'). NOTES: (This field together with 'user_settings_override*' and 'system_settings' defines the total set of Elasticsearch settings)
 	UserSettingsYaml string `json:"user_settings_yaml,omitempty"`
 
-	// The version of the Elasticsearch cluster (must be one of the ECE supported versions). Currently cannot be different across the topology (and is generally specified in the globals)
+	// The version of the Elasticsearch cluster (must be one of the ECE supported versions). Currently cannot be different across the topology (and is generally specified in the globals). Defaults to the latest version if not specified.
 	Version string `json:"version,omitempty"`
 }
 

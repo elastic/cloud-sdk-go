@@ -68,6 +68,8 @@ type ClientService interface {
 
 	GetDeploymentEnterpriseSearchResourceInfo(params *GetDeploymentEnterpriseSearchResourceInfoParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentEnterpriseSearchResourceInfoOK, error)
 
+	GetDeploymentEsResourceEligibleRemoteClusters(params *GetDeploymentEsResourceEligibleRemoteClustersParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentEsResourceEligibleRemoteClustersOK, error)
+
 	GetDeploymentEsResourceInfo(params *GetDeploymentEsResourceInfoParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentEsResourceInfoOK, error)
 
 	GetDeploymentEsResourceKeystore(params *GetDeploymentEsResourceKeystoreParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentEsResourceKeystoreOK, error)
@@ -95,6 +97,8 @@ type ClientService interface {
 	ResyncDeployments(params *ResyncDeploymentsParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncDeploymentsOK, error)
 
 	SearchDeployments(params *SearchDeploymentsParams, authInfo runtime.ClientAuthInfoWriter) (*SearchDeploymentsOK, error)
+
+	SearchEligibleRemoteClusters(params *SearchEligibleRemoteClustersParams, authInfo runtime.ClientAuthInfoWriter) (*SearchEligibleRemoteClustersOK, error)
 
 	SetAppsearchReadOnlyMode(params *SetAppsearchReadOnlyModeParams, authInfo runtime.ClientAuthInfoWriter) (*SetAppsearchReadOnlyModeOK, error)
 
@@ -577,6 +581,43 @@ func (a *Client) GetDeploymentEnterpriseSearchResourceInfo(params *GetDeployment
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for get-deployment-enterprise-search-resource-info: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  GetDeploymentEsResourceEligibleRemoteClusters gets eligible remote clusters
+
+  Returns the list of deployments which contain eligible remote clusters for the elasticsearch resource.
+*/
+func (a *Client) GetDeploymentEsResourceEligibleRemoteClusters(params *GetDeploymentEsResourceEligibleRemoteClustersParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentEsResourceEligibleRemoteClustersOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetDeploymentEsResourceEligibleRemoteClustersParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "get-deployment-es-resource-eligible-remote-clusters",
+		Method:             "POST",
+		PathPattern:        "/deployments/{deployment_id}/elasticsearch/{ref_id}/eligible-remote-clusters",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetDeploymentEsResourceEligibleRemoteClustersReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetDeploymentEsResourceEligibleRemoteClustersOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-deployment-es-resource-eligible-remote-clusters: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -1099,6 +1140,43 @@ func (a *Client) SearchDeployments(params *SearchDeploymentsParams, authInfo run
 }
 
 /*
+  SearchEligibleRemoteClusters gets eligible remote clusters
+
+  Returns the list of deployments which contain eligible remote clusters for a specific version.
+*/
+func (a *Client) SearchEligibleRemoteClusters(params *SearchEligibleRemoteClustersParams, authInfo runtime.ClientAuthInfoWriter) (*SearchEligibleRemoteClustersOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSearchEligibleRemoteClustersParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "search-eligible-remote-clusters",
+		Method:             "POST",
+		PathPattern:        "/deployments/eligible-remote-clusters",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &SearchEligibleRemoteClustersReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*SearchEligibleRemoteClustersOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for search-eligible-remote-clusters: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
   SetAppsearchReadOnlyMode sets app search read only status
 
   Enable/Disable read-only mode on the given App Search resource.
@@ -1324,7 +1402,8 @@ func (a *Client) ShutdownDeploymentEsResource(params *ShutdownDeploymentEsResour
 /*
   ShutdownDeploymentStatelessResource shutdowns deployment stateless resource
 
-  Shutdown Stateless Resource belonging to a given Deployment.
+  Shut down Stateless Resource belonging to a given Deployment.
+Kibana cannot be shut down on Elasticsearch Service as it is required for Elasticsearch administrative functions, such as Snapshot Lifecycle Management and version upgrades.
 */
 func (a *Client) ShutdownDeploymentStatelessResource(params *ShutdownDeploymentStatelessResourceParams, authInfo runtime.ClientAuthInfoWriter) (*ShutdownDeploymentStatelessResourceOK, error) {
 	// TODO: Validate the params before sending
