@@ -80,7 +80,7 @@ for the search apms operation typically these are written to a http.Request
 type SearchApmsParams struct {
 
 	/*Body
-	  (Optional) The search request to execute. NOTE: When not specified, all of the clusters are matched.
+	  (Optional) The search query to run. When not specified, all of the clusters are matched.
 
 	*/
 	Body *models.SearchRequest

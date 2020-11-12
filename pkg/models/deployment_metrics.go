@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"strconv"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -38,6 +40,9 @@ type DeploymentMetrics struct {
 	// Required: true
 	Healthy *bool `json:"healthy"`
 
+	// Metrics health issues for the deployment
+	Issues []*ObservabilityIssue `json:"issues"`
+
 	// The URLs to view this deployment's metrics in Kibana
 	Urls map[string]string `json:"urls,omitempty"`
 }
@@ -47,6 +52,10 @@ func (m *DeploymentMetrics) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateHealthy(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateIssues(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -60,6 +69,31 @@ func (m *DeploymentMetrics) validateHealthy(formats strfmt.Registry) error {
 
 	if err := validate.Required("healthy", "body", m.Healthy); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *DeploymentMetrics) validateIssues(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Issues) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.Issues); i++ {
+		if swag.IsZero(m.Issues[i]) { // not required
+			continue
+		}
+
+		if m.Issues[i] != nil {
+			if err := m.Issues[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("issues" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil

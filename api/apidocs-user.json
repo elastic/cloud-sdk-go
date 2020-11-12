@@ -143,7 +143,7 @@
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
-          "description" : "(Optional) The search request to execute. NOTE: When not specified, all of the deployments are matched.",
+          "description" : "(Optional) The search query to run. When not specified, all of the deployments are matched.",
           "required" : false,
           "schema" : {
             "$ref" : "#/definitions/SearchRequest"
@@ -178,6 +178,58 @@
         } ],
         "x-doc" : {
           "tag" : "Deployment - Commands"
+        }
+      }
+    },
+    "/deployments/eligible-remote-clusters" : {
+      "post" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Get eligible remote clusters",
+        "description" : "Returns the list of deployments which contain eligible remote clusters for a specific version.",
+        "operationId" : "search-eligible-remote-clusters",
+        "parameters" : [ {
+          "name" : "version",
+          "in" : "query",
+          "description" : "The version of the Elasticsearch cluster cluster that will potentially be configured to have remote clusters.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "(Optional) The search query to run against all deployments containing eligible remote clusters. When not specified, all the eligible deployments are matched.",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/SearchRequest"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "List of deployments which contains eligible remote clusters for a specific version",
+            "schema" : {
+              "$ref" : "#/definitions/DeploymentsSearchResponse"
+            }
+          },
+          "400" : {
+            "description" : "The provided version is invalid. (code: `stackpack.invalid_version`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "stackpack.invalid_version" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployment - Remote Clusters"
         }
       }
     },
@@ -2784,6 +2836,77 @@
         }
       }
     },
+    "/deployments/{deployment_id}/elasticsearch/{ref_id}/eligible-remote-clusters" : {
+      "post" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Get eligible remote clusters",
+        "description" : "Returns the list of deployments which contain eligible remote clusters for the elasticsearch resource.",
+        "operationId" : "get-deployment-es-resource-eligible-remote-clusters",
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "ref_id",
+          "in" : "path",
+          "description" : "User-specified RefId for the Resource.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "(Optional) The search query to run against all deployments containing eligible remote clusters. When not specified, all the eligible deployments are matched.",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/SearchRequest"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "List of deployments which contains eligible remote clusters for the resource",
+            "schema" : {
+              "$ref" : "#/definitions/DeploymentsSearchResponse"
+            }
+          },
+          "404" : {
+            "description" : "* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)\n* The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.deployment_not_found", "deployments.deployment_resource_not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "400" : {
+            "description" : "The resource specified doesn't yet have a valid version for the current plan or the pending plan. (code: `deployments.resource_does_not_have_a_valid_version`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.resource_does_not_have_a_valid_version" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Deployment - Remote Clusters"
+        }
+      }
+    },
     "/deployments/{deployment_id}/elasticsearch/{ref_id}/keystore" : {
       "get" : {
         "tags" : [ "Deployments" ],
@@ -4413,7 +4536,7 @@
       "post" : {
         "tags" : [ "Deployments" ],
         "summary" : "Shutdown Deployment Stateless Resource",
-        "description" : "Shutdown Stateless Resource belonging to a given Deployment.",
+        "description" : "Shut down Stateless Resource belonging to a given Deployment.\nKibana cannot be shut down on Elasticsearch Service as it is required for Elasticsearch administrative functions, such as Snapshot Lifecycle Management and version upgrades.",
         "operationId" : "shutdown-deployment-stateless-resource",
         "parameters" : [ {
           "name" : "deployment_id",
@@ -6105,6 +6228,19 @@
       },
       "description" : "The configuration settings for the cross-cluster search."
     },
+    "DeploymentCreateMetadata" : {
+      "type" : "object",
+      "properties" : {
+        "tags" : {
+          "type" : "array",
+          "description" : "Arbitrary user-defined metadata associated with this deployment",
+          "items" : {
+            "$ref" : "#/definitions/MetadataItem"
+          }
+        }
+      },
+      "description" : "Additional information about the new deployment object."
+    },
     "DeploymentCreateRequest" : {
       "type" : "object",
       "required" : [ "resources" ],
@@ -6120,6 +6256,10 @@
         "settings" : {
           "description" : "Additional configuration for this Deployment",
           "$ref" : "#/definitions/DeploymentCreateSettings"
+        },
+        "metadata" : {
+          "description" : "Additional information about this deployment",
+          "$ref" : "#/definitions/DeploymentCreateMetadata"
         }
       },
       "description" : "A request for creating a new Deployment consisting of multiple clusters"
@@ -6244,6 +6384,10 @@
           "description" : "Additional configuration for this Deployment",
           "$ref" : "#/definitions/DeploymentSettings"
         },
+        "metadata" : {
+          "description" : "Additional information about this deployment",
+          "$ref" : "#/definitions/DeploymentMetadata"
+        },
         "observability" : {
           "description" : "The observability information for this deployment",
           "$ref" : "#/definitions/DeploymentObservability"
@@ -6265,6 +6409,13 @@
           "additionalProperties" : {
             "type" : "string"
           }
+        },
+        "issues" : {
+          "type" : "array",
+          "description" : "Logging health issues for the deployment",
+          "items" : {
+            "$ref" : "#/definitions/ObservabilityIssue"
+          }
         }
       },
       "description" : "Logging information for a deployment"
@@ -6280,6 +6431,19 @@
       },
       "description" : "The logging settings for a deployment"
     },
+    "DeploymentMetadata" : {
+      "type" : "object",
+      "properties" : {
+        "tags" : {
+          "type" : "array",
+          "description" : "Arbitrary user-defined metadata associated with this deployment",
+          "items" : {
+            "$ref" : "#/definitions/MetadataItem"
+          }
+        }
+      },
+      "description" : "Additional information about the current deployment object."
+    },
     "DeploymentMetrics" : {
       "type" : "object",
       "required" : [ "healthy" ],
@@ -6293,6 +6457,13 @@
           "description" : "The URLs to view this deployment's metrics in Kibana",
           "additionalProperties" : {
             "type" : "string"
+          }
+        },
+        "issues" : {
+          "type" : "array",
+          "description" : "Metrics health issues for the deployment",
+          "items" : {
+            "$ref" : "#/definitions/ObservabilityIssue"
           }
         }
       },
@@ -6324,6 +6495,13 @@
         "metrics" : {
           "description" : "The metrics information for the deployment",
           "$ref" : "#/definitions/DeploymentMetrics"
+        },
+        "issues" : {
+          "type" : "array",
+          "description" : "General observability health issues for the deployment",
+          "items" : {
+            "$ref" : "#/definitions/ObservabilityIssue"
+          }
         }
       },
       "description" : "Observability information for a deployment"
@@ -6508,6 +6686,10 @@
         "settings" : {
           "description" : "Additional configuration for this Deployment",
           "$ref" : "#/definitions/DeploymentSettings"
+        },
+        "metadata" : {
+          "description" : "Additional information about this deployment",
+          "$ref" : "#/definitions/DeploymentMetadata"
         }
       },
       "description" : "Describes a searched Deployment"
@@ -6640,6 +6822,19 @@
       },
       "description" : "Specifies the deployment template used to create the plan."
     },
+    "DeploymentUpdateMetadata" : {
+      "type" : "object",
+      "properties" : {
+        "tags" : {
+          "type" : "array",
+          "description" : "Arbitrary user-defined metadata associated with this deployment",
+          "items" : {
+            "$ref" : "#/definitions/MetadataItem"
+          }
+        }
+      },
+      "description" : "Additional information about the current deployment object."
+    },
     "DeploymentUpdateRequest" : {
       "type" : "object",
       "required" : [ "prune_orphans" ],
@@ -6657,8 +6852,12 @@
           "$ref" : "#/definitions/DeploymentUpdateResources"
         },
         "settings" : {
-          "description" : "New information about the current deployment object, otherwise stays the same",
+          "description" : "Any new configuration for the current deployment object. If there is no new configuration the value is unchanged.",
           "$ref" : "#/definitions/DeploymentUpdateSettings"
+        },
+        "metadata" : {
+          "description" : "Any new information about the current deployment object. If there is no new information the value is unchanged.",
+          "$ref" : "#/definitions/DeploymentUpdateMetadata"
         }
       },
       "description" : "A request for updating a Deployment consisting of multiple resources"
@@ -7235,7 +7434,7 @@
       "properties" : {
         "version" : {
           "type" : "string",
-          "description" : "The version of the Elasticsearch cluster (must be one of the ECE supported versions). Currently cannot be different across the topology (and is generally specified in the globals)"
+          "description" : "The version of the Elasticsearch cluster (must be one of the ECE supported versions). Currently cannot be different across the topology (and is generally specified in the globals). Defaults to the latest version if not specified."
         },
         "docker_image" : {
           "type" : "string",
@@ -8885,6 +9084,21 @@
         }
       },
       "description" : "A query that matches nested objects."
+    },
+    "ObservabilityIssue" : {
+      "type" : "object",
+      "required" : [ "description", "severity" ],
+      "properties" : {
+        "description" : {
+          "type" : "string",
+          "description" : "A user-friendly description of the observability health issue"
+        },
+        "severity" : {
+          "type" : "string",
+          "description" : "Severity of the health issue"
+        }
+      },
+      "description" : "Observability health issue"
     },
     "Orphaned" : {
       "type" : "object",

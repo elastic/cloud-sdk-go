@@ -34,7 +34,7 @@ import (
 // swagger:model DeploymentCreateRequest
 type DeploymentCreateRequest struct {
 
-	// Additional information for this Deployment
+	// Additional information about this deployment
 	Metadata *DeploymentCreateMetadata `json:"metadata,omitempty"`
 
 	// A name for the deployment; otherwise this will be the generated deployment id

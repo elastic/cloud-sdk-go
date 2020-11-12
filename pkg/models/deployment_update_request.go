@@ -34,7 +34,7 @@ import (
 // swagger:model DeploymentUpdateRequest
 type DeploymentUpdateRequest struct {
 
-	// New information about the current deployment object, otherwise stays the same
+	// Any new information about the current deployment object. If there is no new information the value is unchanged.
 	Metadata *DeploymentUpdateMetadata `json:"metadata,omitempty"`
 
 	// A new name for the deployment, otherwise stays the same.
@@ -47,7 +47,7 @@ type DeploymentUpdateRequest struct {
 	// New information about the Resources that will have this Deployment, otherwise they stay the same
 	Resources *DeploymentUpdateResources `json:"resources,omitempty"`
 
-	// New information about the current deployment object, otherwise stays the same
+	// Any new configuration for the current deployment object. If there is no new configuration the value is unchanged.
 	Settings *DeploymentUpdateSettings `json:"settings,omitempty"`
 }
 
