@@ -76,6 +76,12 @@ func NewUpdateRequest(res *models.DeploymentGetResponse) *models.DeploymentUpdat
 		}
 	}
 
+	if res.Settings != nil && res.Settings.Observability != nil {
+		req.Settings = &models.DeploymentUpdateSettings{
+			Observability: res.Settings.Observability,
+		}
+	}
+
 	return &req
 }
 
