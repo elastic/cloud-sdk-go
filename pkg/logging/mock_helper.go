@@ -24,22 +24,22 @@ func logMessageMatcher(message string, level LogLevel) func(message LogMessage) 
 	}
 }
 
-// DebugLogMessageMatcher returns matcher function to be used by Mockery mock expectations of a debug message
+// DebugLogMessageMatcher returns a matcher function to be used by a Mockery mock which expects a debug message.
 func DebugLogMessageMatcher(message string) func(message LogMessage) bool {
 	return logMessageMatcher(message, DEBUG)
 }
 
-// InfoLogMessageMatcher returns matcher function to be used by Mockery mock expectations of a info message
+// InfoLogMessageMatcher returns a matcher function to be used by a Mockery mock which expects an info message.
 func InfoLogMessageMatcher(message string) func(message LogMessage) bool {
 	return logMessageMatcher(message, INFO)
 }
 
-// WarnLogMessageMatcher returns matcher function to be used by Mockery mock expectations of a warning message
+// WarnLogMessageMatcher returns a matcher function to be used by a Mockery mock which expects a warning message.
 func WarnLogMessageMatcher(message string) func(message LogMessage) bool {
 	return logMessageMatcher(message, WARNING)
 }
 
-// ErrorLogMessageMatcher returns matcher function to be used by Mockery mock expectations of an error message
+// ErrorLogMessageMatcher returns a matcher function to be used by a Mockery mock which expects an error message.
 func ErrorLogMessageMatcher(message string) func(message LogMessage) bool {
 	return logMessageMatcher(message, ERROR)
 }
