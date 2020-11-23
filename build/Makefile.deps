@@ -12,8 +12,9 @@ VERSION_GOLICENSER:=v0.3.0
 VERSION_GOLANGCILINT:=v1.23.8
 VERSION_SWAGGER:=v0.25.0
 VERSION_GOTESTSUM:=v0.4.2
+VERSION_MOCKERY:=v2.3.0
 
-deps: $(GOBIN)/gobin $(GOBIN)/golint $(GOBIN)/go-licenser $(GOBIN)/golangci-lint $(GOBIN)/swagger
+deps: $(GOBIN)/gobin $(GOBIN)/golint $(GOBIN)/go-licenser $(GOBIN)/golangci-lint $(GOBIN)/swagger ${GOBIN}/mockery
 
 $(GOBIN):
 	@ mkdir -p $(GOBIN)
@@ -79,6 +80,14 @@ $(GOBIN)/apivalidator: $(GOBIN)/gobin
 	@ echo "-> Installing apivalidator..."
 	@ if [[ -f bin/apivalidator ]]; then rm -f bin/apivalidator; fi
 	@ $(GOBIN)/gobin github.com/elastic/cloud-sdk-go/internal/cmd/apivalidator@master
+
+$(VERSION_DIR)/.version-mockery-$(VERSION_MOCKERY): | $(VERSION_DIR)
+	@ rm -f $(VERSION_DIR)/.version-mockery-*
+	@ echo $(VERSION_MOCKERY) > $(VERSION_DIR)/.version-mockery-$(VERSION_MOCKERY)
+
+$(GOBIN)/mockery: $(VERSION_DIR)/.version-mockery-$(VERSION_MOCKERY) | $(GOBIN)
+	@ echo "-> Installing mockery..."
+	@ $(GOBIN)/gobin github.com/vektra/mockery/v2/@$(VERSION_MOCKERY)
 
 ## Downloads the required go modules.
 .PHONY: mod

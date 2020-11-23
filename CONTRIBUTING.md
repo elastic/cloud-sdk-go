@@ -175,6 +175,8 @@ Additionally, a full markdown declaration of API commands will be generated in `
 
 The Makefile global variable `ECE_VERSION` should be modified before running `make swagger`. Make sure you have set the "EC_API_KEY" environment variable locally with your Elasticsearch Service API key. This will allow the API validation tests to run
 
+## Testing
+
 ### Running tests
 
 #### Unit
@@ -243,3 +245,55 @@ $ make unit TEST_UNIT_PACKAGE=github.com/elastic/cloud-sdk-go/pkg/api
 -> Running unit tests for cloud-sdk-go...
 ok      github.com/elastic/cloud-sdk-go/pkg/api 1.277s  coverage: 89.0% of statements
 ```
+
+### Generating mocks
+
+*Any new mocks should be generated with [Mockery](https://github.com/vektra/mockery) via `make generate-mocks`. New code should utilise these mocks.*
+
+We use [Mockery](https://github.com/vektra/mockery) to generate mocks for all defined interfaces. The generated mocks are based on [`testify/mock`](https://pkg.go.dev/github.com/stretchr/testify/mock?tab=doc), which provides a rich interface for defining mock behaviour and expectations. 
+The mocks can be regenerated via `make generate-mocks` to include any interface changes. Here's an example how to use the new make target:
+`make generate-mocks MOCKERY_SOURCE_PACKAGE=./pkg/logging`
+
+Mocks will be created inside the same package with the following naming convention :`mock_<interface_name>.go` in snake case.
+
+#### Usage Example
+
+```
+type MyInterface interface {
+	SimpleReceiver() bool
+	ComplexReceiver(someString string, someStruct Params) (bool, error)
+}
+
+func Test_Dependency(t *testing.T) {
+    m := MockMyInterface{}
+
+    // Setup a return value for the SimpleReceiver
+    m.On("SimpleReceiver").Return(true)
+
+    // Setup a return value for specific params
+    m.On("ComplexReceiver", "I wanna know what love is", Params{ WhoShouldShowMe: "you" }).Return(true, nil)
+
+    // Setup a different return value for different params
+    m.On("ComplexReceiver", "Do you feel my heart beating?", Params{ HowLongDoesTheFlameBurnFor: "eternity" }).Return(false, assert.AnError)
+
+    // Setup a generic return value
+    m.On("ComplexReceiver", mock.Anything, mock.IsType(Params{})).Return(false, nil)
+
+    // Use a matcher to programatically check parameter values
+    wasCalled := false
+    m.On("ComplexReceiver", mock.MatchedBy(func(s string) bool {
+            return len(s) < 6
+        }), mock.Anything).Run(func(a mock.Arguments) {
+            wasCalled = true
+        }).Return(true, nil)
+
+    // Setup an expecatation that a method is called four times. A fifth call would panic.
+    m.On("SimpleReceiver").Times(4).Return(true)
+
+    // Optionally assert that everything that the expectations we setup were met
+    m.AssertExpectations(t)
+}
+
+```
+Bear in mind that generated mocks will panic when a matching method call is not found on the mock instance.
+                  

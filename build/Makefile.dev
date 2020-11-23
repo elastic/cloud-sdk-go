@@ -37,3 +37,11 @@ _report_path:
 unit-coverage: _report_path
 	@ echo "-> Generating coverage report..."
 	@ go tool cover -html=$(REPORT_PATH)/c.out -o $(REPORT_PATH)/coverage.html
+
+.PHONY: generate-mocks
+generate-mocks: deps
+ifndef MOCKERY_SOURCE_PACKAGE
+	@ echo "You need to specify the source package in ${MOCKERY_SOURCE_PACKAGE}"
+else
+	@ $(GOBIN)/mockery --srcpkg ${MOCKERY_SOURCE_PACKAGE} --inpackage --all --case snake
+endif

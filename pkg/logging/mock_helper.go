@@ -15,33 +15,31 @@
 // specific language governing permissions and limitations
 // under the License.
 
-package mocks
+package logging
 
-import "github.com/elastic/cloud-sdk-go/pkg/logging"
-
-func logMessageMatcher(message string, level logging.LogLevel) func(message logging.LogMessage) bool {
-	return func(logMessage logging.LogMessage) bool {
+func logMessageMatcher(message string, level LogLevel) func(message LogMessage) bool {
+	return func(logMessage LogMessage) bool {
 		return logMessage.Message == message &&
-			logging.Level(logMessage.Log.Level) == level
+			Level(logMessage.Log.Level) == level
 	}
 }
 
 // DebugLogMessageMatcher returns matcher function to be used by Mockery mock expectations of a debug message
-func DebugLogMessageMatcher(message string) func(message logging.LogMessage) bool {
-	return logMessageMatcher(message, logging.DEBUG)
+func DebugLogMessageMatcher(message string) func(message LogMessage) bool {
+	return logMessageMatcher(message, DEBUG)
 }
 
 // InfoLogMessageMatcher returns matcher function to be used by Mockery mock expectations of a info message
-func InfoLogMessageMatcher(message string) func(message logging.LogMessage) bool {
-	return logMessageMatcher(message, logging.INFO)
+func InfoLogMessageMatcher(message string) func(message LogMessage) bool {
+	return logMessageMatcher(message, INFO)
 }
 
 // WarnLogMessageMatcher returns matcher function to be used by Mockery mock expectations of a warning message
-func WarnLogMessageMatcher(message string) func(message logging.LogMessage) bool {
-	return logMessageMatcher(message, logging.WARNING)
+func WarnLogMessageMatcher(message string) func(message LogMessage) bool {
+	return logMessageMatcher(message, WARNING)
 }
 
 // ErrorLogMessageMatcher returns matcher function to be used by Mockery mock expectations of an error message
-func ErrorLogMessageMatcher(message string) func(message logging.LogMessage) bool {
-	return logMessageMatcher(message, logging.ERROR)
+func ErrorLogMessageMatcher(message string) func(message LogMessage) bool {
+	return logMessageMatcher(message, ERROR)
 }
