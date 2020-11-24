@@ -42,7 +42,7 @@ const (
 	// TRACE defines the trace log level as int value of 5
 	TRACE
 
-	warn  = "WARNING"
+	warn  = "WARN"
 	trace = "TRACE"
 	info  = "INFO"
 	err   = "ERROR"
