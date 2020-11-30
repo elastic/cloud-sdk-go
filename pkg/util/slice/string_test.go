@@ -22,9 +22,9 @@ import (
 	"testing"
 )
 
-func TestHasString(t *testing.T) {
+func TestStringSlice_Contains(t *testing.T) {
 	type args struct {
-		slice []string
+		slice StringSlice
 		s     string
 	}
 	tests := []struct {
@@ -51,7 +51,7 @@ func TestHasString(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := HasString(tt.args.slice, tt.args.s); got != tt.want {
+			if got := tt.args.slice.Contains(tt.args.s); got != tt.want {
 				t.Errorf("HasString() = %v, want %v", got, tt.want)
 			}
 		})
@@ -94,9 +94,9 @@ func TestContainsAll(t *testing.T) {
 	}
 }
 
-func TestIsEmpty(t *testing.T) {
+func TestStringSlice_IsEmpty(t *testing.T) {
 	type args struct {
-		slice []string
+		slice StringSlice
 	}
 	tests := []struct {
 		name string
@@ -126,7 +126,7 @@ func TestIsEmpty(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := IsEmpty(tt.args.slice); got != tt.want {
+			if got := tt.args.slice.IsEmpty(); got != tt.want {
 				t.Errorf("IsEmpty() = %v, want %v", got, tt.want)
 			}
 		})
@@ -156,6 +156,31 @@ func TestStringSlice_ToMap(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			actual := tt.fields.slice.ToMap(tt.args.sep)
+			if !reflect.DeepEqual(actual, tt.expected) {
+				t.Errorf("Expect: \n%+v Got: \n%+v", tt.expected, actual)
+			}
+		})
+	}
+}
+
+func TestStringSlice_ToCommaSeparatedString(t *testing.T) {
+	type fields struct {
+		slice StringSlice
+	}
+	tests := []struct {
+		name     string
+		expected string
+		fields   fields
+	}{
+		{
+			name:     "should return the expected string",
+			fields:   fields{slice: StringSlice{"1", "2", "3"}},
+			expected: "1,2,3",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			actual := tt.fields.slice.ToCommaSeparatedString()
 			if !reflect.DeepEqual(actual, tt.expected) {
 				t.Errorf("Expect: \n%+v Got: \n%+v", tt.expected, actual)
 			}
