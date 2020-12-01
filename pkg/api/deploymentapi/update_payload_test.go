@@ -69,6 +69,11 @@ func TestNewUpdateRequest(t *testing.T) {
 		}},
 	)
 
+	var observabilityGet, observabilityWant = getUpdateResponse(t,
+		"./testdata/observability_get.json",
+		"./testdata/observability_update.json",
+	)
+
 	type args struct {
 		res *models.DeploymentGetResponse
 	}
@@ -95,6 +100,11 @@ func TestNewUpdateRequest(t *testing.T) {
 			name: "parses a get response from a deployment with Enterprise Search resources",
 			args: args{res: enterpriseSearchGet},
 			want: enterpriseSearchWant,
+		},
+		{
+			name: "parses a get response from a deployment with observability settings",
+			args: args{res: observabilityGet},
+			want: observabilityWant,
 		},
 	}
 	for _, tt := range tests {
