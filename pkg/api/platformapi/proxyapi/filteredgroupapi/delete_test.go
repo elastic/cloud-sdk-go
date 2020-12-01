@@ -39,7 +39,7 @@ func TestDelete(t *testing.T) {
 	tests := []struct {
 		name string
 		args args
-		err  error
+		err  string
 	}{
 		{
 			name: "Proxies filtered group delete succeeds",
@@ -60,7 +60,6 @@ func TestDelete(t *testing.T) {
 				}),
 				ID: "test2",
 			}},
-			err: nil,
 		},
 		{
 			name: "Proxies filtered group delete fails with 403 Forbidden",
@@ -69,7 +68,7 @@ func TestDelete(t *testing.T) {
 				API:    api.NewMock(mock.New500Response(mock.NewStringBody(`{"error": "some error"}`))),
 				ID:     "test1",
 			}},
-			err: errors.New(`{"error": "some error"}`),
+			err: `{"error": "some error"}`,
 		},
 		{
 			name: "Proxies filtered group delete fails due validation",
@@ -78,13 +77,13 @@ func TestDelete(t *testing.T) {
 				errors.New("id is not specified and is required for the operation"),
 				errors.New("api reference is required for the operation"),
 				errors.New("region not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			err := Delete(tt.args.params)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 		})

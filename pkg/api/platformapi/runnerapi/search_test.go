@@ -54,7 +54,7 @@ field in body is required`
 		name string
 		args args
 		want *models.RunnerOverview
-		err  error
+		err  string
 	}{
 		{
 			name: "fails validation",
@@ -66,7 +66,7 @@ field in body is required`
 				errors.New("api reference is required for the operation"),
 				errors.New(searchReqErr),
 				errors.New("region not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 		{
 			name: "fails if search api call fails",
@@ -76,7 +76,7 @@ field in body is required`
 				API:     api.NewMock(mock.New404Response(mock.NewStringBody(`{"error": "some error"}`))),
 			}},
 
-			err: errors.New(`{"error": "some error"}`),
+			err: `{"error": "some error"}`,
 		},
 		{
 			name: "succeeds if search api call succeeds",
@@ -113,7 +113,7 @@ field in body is required`
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := Search(tt.args.params)
-			if tt.err != nil && !assert.Equal(t, tt.err.Error(), err.Error()) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 			if !assert.Equal(t, tt.want, got) {

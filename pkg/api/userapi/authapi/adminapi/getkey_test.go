@@ -39,7 +39,7 @@ func TestGetKey(t *testing.T) {
 		name string
 		args args
 		want *models.APIKeyResponse
-		err  error
+		err  string
 	}{
 		{
 			name: "fails due to parameter validation",
@@ -48,7 +48,7 @@ func TestGetKey(t *testing.T) {
 				apierror.ErrMissingAPI,
 				errors.New("key id is not specified and is required for this operation"),
 				errors.New("user id is not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 		{
 			name: "fails due to API error",
@@ -61,7 +61,7 @@ func TestGetKey(t *testing.T) {
 			}},
 			err: multierror.NewPrefixed("api error",
 				errors.New("key.not_found: key not found"),
-			),
+			).Error(),
 		},
 		{
 			name: "succeeds",
@@ -91,7 +91,7 @@ func TestGetKey(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := GetKey(tt.args.params)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 			if !assert.Equal(t, tt.want, got) {

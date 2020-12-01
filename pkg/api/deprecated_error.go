@@ -17,11 +17,10 @@
 
 package api
 
-import (
-	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
-)
+import "github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 
-// ReturnErrOnly is used to strip the first return argument of a function call
-func ReturnErrOnly(_ interface{}, err error) error {
+// UnwrapError Deprecated: unpacks an error message returned from a client API
+// call. Deprecated: in favour of apierror.Wrap().
+func UnwrapError(err error) error {
 	return apierror.Wrap(err)
 }

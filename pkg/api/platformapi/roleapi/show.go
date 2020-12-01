@@ -69,7 +69,7 @@ func Show(params ShowParams) (*models.RoleAggregate, error) {
 	)
 
 	if err != nil {
-		return nil, api.UnwrapError(err)
+		return nil, apierror.Wrap(err)
 	}
 
 	return res.Payload, nil

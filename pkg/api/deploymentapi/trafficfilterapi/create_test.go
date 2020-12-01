@@ -39,14 +39,14 @@ func TestCreate(t *testing.T) {
 		name string
 		args args
 		want *models.TrafficFilterRulesetResponse
-		err  error
+		err  string
 	}{
 		{
 			name: "fails due to parameter validation",
 			err: multierror.NewPrefixed("invalid traffic filter create params",
 				apierror.ErrMissingAPI,
 				errors.New("request payload is not specified and is required for the operation"),
-			),
+			).Error(),
 		},
 		{
 			name: "succeeds",
@@ -89,13 +89,13 @@ func TestCreate(t *testing.T) {
 					}},
 				},
 			}},
-			err: mock.MultierrorInternalError,
+			err: mock.MultierrorInternalError.Error(),
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := Create(tt.args.params)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 			assert.Equal(t, tt.want, got)

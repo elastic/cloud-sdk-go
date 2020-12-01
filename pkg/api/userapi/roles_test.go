@@ -28,37 +28,33 @@ import (
 
 func TestValidateRoles(t *testing.T) {
 	tests := []struct {
-		name    string
-		arg     []string
-		wantErr bool
-		err     error
+		name string
+		arg  []string
+		err  string
 	}{
 		{
 			name: "validate should return an error when ece_platform_admin is used along other roles",
 			arg:  []string{platformAdminRole, platformViewerRole},
 			err: multierror.NewPrefixed("invalid user params",
 				errors.New("ece_platform_admin cannot be used in conjunction with other roles"),
-			),
-			wantErr: true,
+			).Error(),
 		},
 		{
 			name: "validate should return an error when ece_platform_admin is used along other roles",
 			arg:  []string{deploymentsManagerRole, deploymentsViewerRole},
 			err: multierror.NewPrefixed("invalid user params",
 				errors.New("only one of ece_deployment_manager or ece_deployment_viewer can be chosen"),
-			),
-			wantErr: true,
+			).Error(),
 		},
 		{
-			name:    "validate should pass if all params are properly set",
-			arg:     []string{platformViewerRole, deploymentsManagerRole},
-			wantErr: false,
+			name: "validate should pass if all params are properly set",
+			arg:  []string{platformViewerRole, deploymentsManagerRole},
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			err := ValidateRoles(tt.arg)
-			if err != nil && !assert.Equal(t, tt.err.Error(), err.Error()) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 		})

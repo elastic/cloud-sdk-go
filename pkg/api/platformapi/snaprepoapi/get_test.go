@@ -33,6 +33,11 @@ import (
 )
 
 func TestGet(t *testing.T) {
+	urlError := url.Error{
+		Op:  "Get",
+		URL: "https://mock.elastic.co/api/v1/regions/us-east-1/platform/configuration/snapshots/repositories/my_snapshot_repo",
+		Err: errors.New("ERROR"),
+	}
 	var getSnapshotSuccess = `
 	{
 		"repository_name": "my_snapshot_repo",
@@ -52,7 +57,7 @@ func TestGet(t *testing.T) {
 		name string
 		args args
 		want *models.RepositoryConfig
-		err  error
+		err  string
 	}{
 		{
 			name: "Getting a snapshot repository succeeds",
@@ -93,11 +98,7 @@ func TestGet(t *testing.T) {
 					Name:   "my_snapshot_repo",
 				},
 			},
-			err: &url.Error{
-				Op:  "Get",
-				URL: "https://mock.elastic.co/api/v1/regions/us-east-1/platform/configuration/snapshots/repositories/my_snapshot_repo",
-				Err: errors.New("ERROR"),
-			},
+			err: urlError.Error(),
 		},
 		{
 			name: "Getting a snapshot repository fails when parameters are invalid",
@@ -108,14 +109,13 @@ func TestGet(t *testing.T) {
 				errors.New("api reference is required for the operation"),
 				errors.New("name not specified and is required for this operation"),
 				errors.New("region not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := Get(tt.args.params)
-
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 			if !assert.Equal(t, tt.want, got) {

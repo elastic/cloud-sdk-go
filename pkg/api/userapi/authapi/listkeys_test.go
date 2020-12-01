@@ -18,7 +18,6 @@
 package userauthapi
 
 import (
-	"errors"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -46,28 +45,28 @@ func TestListKeys(t *testing.T) {
 		name string
 		args args
 		want *models.APIKeysResponse
-		err  error
+		err  string
 	}{
 		{
 			name: "fails due to parameter validation",
 			args: args{},
 			err: multierror.NewPrefixed("invalid user auth params",
 				apierror.ErrMissingAPI,
-			),
+			).Error(),
 		},
 		{
 			name: "fails due to API error on all call",
 			args: args{params: ListKeysParams{
 				API: api.NewMock(mock.New500Response(mock.NewStringBody(`{"error": "some error"}`))),
 			}},
-			err: errors.New(`{"error": "some error"}`),
+			err: `{"error": "some error"}`,
 		},
 		{
 			name: "fails due to API error",
 			args: args{params: ListKeysParams{
 				API: api.NewMock(mock.New500Response(mock.NewStringBody(`{"error": "some error"}`))),
 			}},
-			err: errors.New(`{"error": "some error"}`),
+			err: `{"error": "some error"}`,
 		},
 		{
 			name: "succeeds listing keys",
@@ -90,7 +89,7 @@ func TestListKeys(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := ListKeys(tt.args.params)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 			if !assert.Equal(t, tt.want, got) {

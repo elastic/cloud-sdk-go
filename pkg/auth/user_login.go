@@ -127,7 +127,7 @@ func (t *UserLogin) Login(c *client.Rest) error {
 		nil,
 	)
 	if err != nil {
-		return multierror.NewPrefixed("failed to login with user/password", apierror.Unwrap(err))
+		return multierror.NewPrefixed("failed to login with user/password", apierror.Wrap(err))
 	}
 
 	return t.Holder.Update(*res.Payload.Token)
@@ -187,7 +187,7 @@ func (t *UserLogin) RefreshTokenOnce(c *client.Rest) error {
 		authentication.NewRefreshTokenParams(), t,
 	)
 	if err != nil {
-		return multierror.NewPrefixed("failed to refresh the loaded token", apierror.Unwrap(err))
+		return multierror.NewPrefixed("failed to refresh the loaded token", apierror.Wrap(err))
 	}
 
 	return t.Holder.Update(*res.Payload.Token)

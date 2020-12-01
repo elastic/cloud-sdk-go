@@ -90,7 +90,7 @@ func Create(params CreateParams) (string, error) {
 	}
 
 	if err != nil {
-		return "", apierror.Unwrap(err)
+		return "", apierror.Wrap(err)
 	}
 
 	return *res.GetPayload().ID, nil

@@ -71,7 +71,7 @@ func CreateTemplate(params CreateTemplateParams) (string, error) {
 
 	if params.ID != "" {
 		if err := UpdateTemplate(UpdateTemplateParams(params)); err != nil {
-			return "", api.UnwrapError(err)
+			return "", apierror.Wrap(err)
 		}
 		return params.ID, nil
 	}
@@ -83,7 +83,7 @@ func CreateTemplate(params CreateTemplateParams) (string, error) {
 	)
 
 	if err != nil {
-		return "", api.UnwrapError(err)
+		return "", apierror.Wrap(err)
 	}
 
 	return *resp.Payload.ID, nil

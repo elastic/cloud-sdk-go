@@ -32,13 +32,18 @@ import (
 )
 
 func TestResync(t *testing.T) {
+	urlError := url.Error{
+		Op:  "Post",
+		URL: "https://mock.elastic.co/api/v1/regions/us-east-1/platform/infrastructure/runners/2c221bd86b7f48959a59ee3128d5c5e8/_resync",
+		Err: errors.New("error with API"),
+	}
 	type args struct {
 		params ResyncParams
 	}
 	tests := []struct {
 		name string
 		args args
-		err  error
+		err  string
 	}{
 		{
 			name: "Fails due to parameter validation",
@@ -47,7 +52,7 @@ func TestResync(t *testing.T) {
 				errors.New("api reference is required for the operation"),
 				errors.New("id not specified and is required for the operation"),
 				errors.New("region not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 		{
 			name: "Fails due to unknown API response",
@@ -59,7 +64,7 @@ func TestResync(t *testing.T) {
 					Body:       mock.NewStringBody(`{"error": "some forbidden error"}`),
 				}}),
 			}},
-			err: errors.New(`{"error": "some forbidden error"}`),
+			err: `{"error": "some forbidden error"}`,
 		},
 		{
 			name: "Fails due to API error",
@@ -70,11 +75,7 @@ func TestResync(t *testing.T) {
 					Error: errors.New("error with API"),
 				}),
 			}},
-			err: &url.Error{
-				Op:  "Post",
-				URL: "https://mock.elastic.co/api/v1/regions/us-east-1/platform/infrastructure/runners/2c221bd86b7f48959a59ee3128d5c5e8/_resync",
-				Err: errors.New("error with API"),
-			},
+			err: urlError.Error(),
 		},
 		{
 			name: "Succeeds to resynchronize Kibana instance without errors",
@@ -100,7 +101,7 @@ func TestResync(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			err := Resync(tt.args.params)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 		})
@@ -108,13 +109,18 @@ func TestResync(t *testing.T) {
 }
 
 func TestResyncAll(t *testing.T) {
+	urlError := url.Error{
+		Op:  "Post",
+		URL: "https://mock.elastic.co/api/v1/regions/us-east-1/platform/infrastructure/runners/_resync?skip_matching_version=true",
+		Err: errors.New("error with API"),
+	}
 	type args struct {
 		params ResyncAllParams
 	}
 	tests := []struct {
 		name string
 		args args
-		err  error
+		err  string
 		want *models.ModelVersionIndexSynchronizationResults
 	}{
 		{
@@ -123,7 +129,7 @@ func TestResyncAll(t *testing.T) {
 			err: multierror.NewPrefixed("invalid runner resync all params",
 				errors.New("api reference is required for the operation"),
 				errors.New("region not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 		{
 			name: "Fails due to unknown API response",
@@ -134,7 +140,7 @@ func TestResyncAll(t *testing.T) {
 					Body:       mock.NewStringBody(`{"error": "some forbidden error"}`),
 				}}),
 			}},
-			err: errors.New(`{"error": "some forbidden error"}`),
+			err: `{"error": "some forbidden error"}`,
 		},
 		{
 			name: "Fails due to API error",
@@ -144,11 +150,7 @@ func TestResyncAll(t *testing.T) {
 					Error: errors.New("error with API"),
 				}),
 			}},
-			err: &url.Error{
-				Op:  "Post",
-				URL: "https://mock.elastic.co/api/v1/regions/us-east-1/platform/infrastructure/runners/_resync?skip_matching_version=true",
-				Err: errors.New("error with API"),
-			},
+			err: urlError.Error(),
 		},
 		{
 			name: "Succeeds to re-synchronize all Kibana instances without errors",
@@ -177,7 +179,7 @@ func TestResyncAll(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := ResyncAll(tt.args.params)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 			if !assert.Equal(t, tt.want, got) {

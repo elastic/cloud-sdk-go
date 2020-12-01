@@ -37,8 +37,8 @@ func TestPopulateRefID(t *testing.T) {
 	tests := []struct {
 		name string
 		args args
-		err  error
 		want string
+		err  string
 	}{
 		{
 			name: "already set RefID returns it",
@@ -114,12 +114,13 @@ func TestPopulateRefID(t *testing.T) {
 					mock.SampleInternalError().Response.Body,
 				)),
 			}},
-			err: mock.MultierrorInternalError,
+			err: mock.MultierrorInternalError.Error(),
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := PopulateRefID(tt.args.params); !assert.Equal(t, tt.err, err) {
+			err := PopulateRefID(tt.args.params)
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Errorf("PopulateRefID() error = %v, wantErr %v", err, tt.err)
 			}
 			assert.EqualValues(t, tt.want, *tt.args.params.RefID)

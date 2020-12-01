@@ -15,61 +15,47 @@
 // specific language governing permissions and limitations
 // under the License.
 
-package instanceconfigapi
+package api
 
 import (
-	"io"
-	"strings"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/elastic/cloud-sdk-go/pkg/models"
-	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
+	"github.com/elastic/cloud-sdk-go/pkg/client/authentication"
 )
 
-func TestNewConfig(t *testing.T) {
+func TestReturnErrOnly(t *testing.T) {
 	type args struct {
-		source io.Reader
+		in0 interface{}
+		err error
 	}
 	tests := []struct {
 		name string
 		args args
-		want *models.InstanceConfiguration
 		err  string
 	}{
 		{
-			name: "NewConfig succeeds",
+			name: "returns nil when the passed error is nil",
 			args: args{
-				source: strings.NewReader(newConfigKibanaInstanceConfig),
+				in0: "",
 			},
-			want: &models.InstanceConfiguration{
-				ID:                "kibana",
-				Description:       "Instance configuration to be used for Kibana",
-				Name:              ec.String("kibana"),
-				InstanceType:      ec.String("kibana"),
-				StorageMultiplier: float64(4),
-				NodeTypes:         []string{},
-				DiscreteSizes: &models.DiscreteSizes{
-					DefaultSize: ec.Int32(1024),
-					Resource:    ec.String("memory"),
-					Sizes: []int32{
-						1024,
-						2048,
-						4096,
-						8192,
-					},
-				},
+		},
+		{
+			name: "returns the error when it receives one",
+			args: args{
+				in0: "with error",
+				err: authentication.NewDeleteUserAPIKeysNotFound(),
 			},
+			err: authentication.NewDeleteUserAPIKeysNotFound().Error(),
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := NewConfig(tt.args.source)
+			err := ReturnErrOnly(tt.args.in0, tt.args.err)
 			if err != nil && !assert.EqualError(t, err, tt.err) {
-				t.Error(err)
+				t.Errorf("ReturnErrOnly() error = %v, wantErr %v", err, tt.err)
 			}
-			assert.Equal(t, tt.want, got)
 		})
 	}
 }

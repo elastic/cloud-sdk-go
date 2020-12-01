@@ -20,8 +20,9 @@ package allocatorapi
 import (
 	"errors"
 	"net/http"
-	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
@@ -36,11 +37,10 @@ func TestSearch(t *testing.T) {
 		params SearchParams
 	}
 	tests := []struct {
-		name    string
-		args    args
-		want    *models.AllocatorOverview
-		wantErr bool
-		err     error
+		name string
+		args args
+		want *models.AllocatorOverview
+		err  string
 	}{
 		{
 			name: "fails if search request is invalid",
@@ -51,16 +51,15 @@ func TestSearch(t *testing.T) {
 					StatusCode: 200,
 				}}),
 			}},
-			wantErr: true,
+			err: "invalid allocator search params: 2 errors occurred:\n\t* validation failure list:\nvalidation failure list:\nvalidation failure list:\nfield in body is required\n\t* region not specified and is required for this operation\n\n",
 		},
 		{
-			name:    "fails if api reference is empty",
-			args:    args{params: SearchParams{}},
-			wantErr: true,
+			name: "fails if api reference is empty",
+			args: args{params: SearchParams{}},
 			err: multierror.NewPrefixed("invalid allocator search params",
 				apierror.ErrMissingAPI,
 				errors.New("region not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 		{
 			name: "fails if search api call fails",
@@ -69,8 +68,7 @@ func TestSearch(t *testing.T) {
 				Request: models.SearchRequest{Query: &models.QueryContainer{}},
 				API:     api.NewMock(mock.New404Response(mock.NewStringBody(`{"error": "some error"}`))),
 			}},
-			wantErr: true,
-			err:     errors.New(`{"error": "some error"}`),
+			err: `{"error": "some error"}`,
 		},
 		{
 			name: "succeeds if search api call succeeds",
@@ -113,24 +111,16 @@ func TestSearch(t *testing.T) {
 					{ZoneID: ec.String("us-east-1e")},
 				},
 			},
-			wantErr: false,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := Search(tt.args.params)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("Search() error = %v, wantErr %v", err, tt.wantErr)
-				return
+			if err != nil && !assert.EqualError(t, err, tt.err) {
+				t.Error(err)
 			}
 
-			if tt.wantErr && tt.err != nil && !reflect.DeepEqual(err, tt.err) {
-				t.Errorf("Search() actual error = '%v', want error '%v'", err, tt.err)
-			}
-
-			if !tt.wantErr && !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("Search() = %v, want %v", got, tt.want)
-			}
+			assert.Equal(t, tt.want, got)
 		})
 	}
 }

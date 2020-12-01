@@ -82,7 +82,7 @@ func Get(params GetParams) (*models.DeploymentGetResponse, error) {
 		params.AuthWriter,
 	)
 	if err != nil {
-		return nil, apierror.Unwrap(err)
+		return nil, apierror.Wrap(err)
 	}
 
 	return res.Payload, nil
@@ -106,7 +106,7 @@ func GetApm(params GetParams) (*models.ApmResourceInfo, error) {
 		params.AuthWriter,
 	)
 	if err != nil {
-		return nil, apierror.Unwrap(err)
+		return nil, apierror.Wrap(err)
 	}
 	return res.Payload, nil
 }
@@ -129,7 +129,7 @@ func GetAppSearch(params GetParams) (*models.AppSearchResourceInfo, error) {
 		params.AuthWriter,
 	)
 	if err != nil {
-		return nil, apierror.Unwrap(err)
+		return nil, apierror.Wrap(err)
 	}
 	return res.Payload, nil
 }
@@ -153,7 +153,7 @@ func GetElasticsearch(params GetParams) (*models.ElasticsearchResourceInfo, erro
 		params.AuthWriter,
 	)
 	if err != nil {
-		return nil, apierror.Unwrap(err)
+		return nil, apierror.Wrap(err)
 	}
 	return res.Payload, nil
 }
@@ -176,7 +176,7 @@ func GetEnterpriseSearch(params GetParams) (*models.EnterpriseSearchResourceInfo
 		params.AuthWriter,
 	)
 	if err != nil {
-		return nil, apierror.Unwrap(err)
+		return nil, apierror.Wrap(err)
 	}
 	return res.Payload, nil
 }
@@ -199,7 +199,7 @@ func GetKibana(params GetParams) (*models.KibanaResourceInfo, error) {
 		params.AuthWriter,
 	)
 	if err != nil {
-		return nil, apierror.Unwrap(err)
+		return nil, apierror.Wrap(err)
 	}
 	return res.Payload, nil
 }

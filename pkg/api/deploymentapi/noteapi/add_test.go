@@ -20,8 +20,9 @@ package noteapi
 import (
 	"errors"
 	"net/http"
-	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
@@ -35,7 +36,7 @@ func TestAdd(t *testing.T) {
 	tests := []struct {
 		name string
 		args args
-		err  error
+		err  string
 	}{
 		{
 			name: "Succeeds posting a deployment note",
@@ -66,7 +67,7 @@ func TestAdd(t *testing.T) {
 				UserID:  "someid",
 				Message: "note message",
 			}},
-			err: mock.MultierrorInternalError,
+			err: mock.MultierrorInternalError.Error(),
 		},
 		{
 			name: "Fails due to parameter validation (empty params)",
@@ -79,12 +80,13 @@ func TestAdd(t *testing.T) {
 					errors.New(`id "" is invalid`),
 					errors.New("region not specified and is required for this operation"),
 				),
-			),
+			).Error(),
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := Add(tt.args.params); !reflect.DeepEqual(err, tt.err) {
+			err := Add(tt.args.params)
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Errorf("Add() error = %v, wantErr %v", err, tt.err)
 			}
 		})

@@ -50,7 +50,7 @@ func TestGet(t *testing.T) {
 		name string
 		args args
 		want *models.ProxyInfo
-		err  error
+		err  string
 	}{
 		{
 			name: "Get proxy succeeds",
@@ -87,7 +87,7 @@ func TestGet(t *testing.T) {
 				Region: "us-east-1",
 				API:    api.NewMock(mock.New500Response(mock.NewStringBody(`{"error": "some error"}`))),
 			}},
-			err: errors.New(`{"error": "some error"}`),
+			err: `{"error": "some error"}`,
 		},
 		{
 			name: "Get proxy fails due to validation",
@@ -96,13 +96,13 @@ func TestGet(t *testing.T) {
 				errors.New("proxy id is not specified and is required for the operation"),
 				errors.New("api reference is required for the operation"),
 				errors.New("region not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := Get(tt.args.params)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 			if !assert.Equal(t, tt.want, got) {

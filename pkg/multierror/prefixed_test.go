@@ -19,11 +19,63 @@ package multierror
 
 import (
 	"errors"
+	"fmt"
 	"reflect"
+	"strings"
 	"testing"
 
 	"github.com/hashicorp/go-multierror"
+
+	"github.com/elastic/cloud-sdk-go/pkg/client/authentication"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
+
+type apierr struct {
+	Err error
+}
+
+func (e *apierr) Multierror() *Prefixed {
+	payload := reflect.ValueOf(e.Err).Elem().FieldByName("Payload")
+	if !payload.IsValid() {
+		return nil
+	}
+
+	if r, ok := payload.Interface().(*models.BasicFailedReply); ok {
+		merr := NewPrefixed("api error")
+		for _, e := range r.Errors {
+			merr = merr.Append(newBasicFailedReply(e))
+		}
+
+		return merr
+	}
+	return nil
+}
+
+func (e *apierr) Error() string { return "" }
+
+func newBasicFailedReply(elem *models.BasicFailedReplyElement) error {
+	var code, message = "unknown", "unknown"
+	var fields string
+
+	if elem.Code != nil {
+		code = *elem.Code
+	}
+
+	if elem.Message != nil {
+		message = *elem.Message
+	}
+
+	if elem.Fields != nil {
+		fields = strings.Join(elem.Fields, ", ")
+	}
+
+	if fields != "" {
+		return fmt.Errorf("%s: %s (%s)", code, message, fields)
+	}
+
+	return fmt.Errorf("%s: %s", code, message)
+}
 
 func TestNewPrefixed(t *testing.T) {
 	type args struct {
@@ -164,8 +216,31 @@ func TestPrefixed_Append(t *testing.T) {
 					errors.New("prefix 2: a prefixed error"),
 					errors.New("prefix 2: another error"),
 					errors.New("a normal error"),
-					errors.New("github.com/elastic/cloud-sdk-go/pkg/multierror.TestPrefixed_Append.func1: a prefixed error"),
-					errors.New("github.com/elastic/cloud-sdk-go/pkg/multierror.TestPrefixed_Append.func1: another error"),
+					errors.New("github.com/elastic/cloud-sdk-go/pkg/multierror.unpackErrors: a prefixed error"),
+					errors.New("github.com/elastic/cloud-sdk-go/pkg/multierror.unpackErrors: another error"),
+				},
+			},
+		},
+		{
+			name: "Handles an apierror.Error",
+			fields: fields{Prefix: "some prefix", Errors: []error{
+				errors.New("an error"),
+			}},
+			args: args{errs: []error{
+				&apierr{Err: &authentication.LoginUnauthorized{
+					Payload: &models.BasicFailedReply{Errors: []*models.BasicFailedReplyElement{
+						{
+							Code:    ec.String("a code"),
+							Message: ec.String("message"),
+						},
+					}},
+				}},
+			}},
+			want: &Prefixed{
+				Prefix: "some prefix",
+				Errors: []error{
+					errors.New("an error"),
+					errors.New("api error: a code: message"),
 				},
 			},
 		},

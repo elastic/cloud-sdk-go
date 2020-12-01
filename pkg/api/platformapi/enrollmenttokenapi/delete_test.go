@@ -21,8 +21,9 @@ import (
 	"errors"
 	"net/http"
 	"net/url"
-	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
@@ -30,13 +31,18 @@ import (
 )
 
 func TestDelete(t *testing.T) {
+	urlError := url.Error{
+		Op:  "Delete",
+		URL: "https://mock.elastic.co/api/v1/regions/us-east-1/platform/configuration/security/enrollment-tokens/atoken",
+		Err: errors.New("error"),
+	}
 	type args struct {
 		params DeleteParams
 	}
 	tests := []struct {
 		name string
 		args args
-		err  error
+		err  string
 	}{
 		{
 			name: "Create fails due to missing token",
@@ -46,7 +52,7 @@ func TestDelete(t *testing.T) {
 			err: multierror.NewPrefixed("invalid enrollment-token delete params",
 				errors.New("token cannot be empty"),
 				errors.New("region not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 		{
 			name: "Create fails due to missing API",
@@ -56,7 +62,7 @@ func TestDelete(t *testing.T) {
 			err: multierror.NewPrefixed("invalid enrollment-token delete params",
 				errors.New("api reference is required for the operation"),
 				errors.New("region not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 		{
 			name: "Delete fails due to API error",
@@ -67,11 +73,7 @@ func TestDelete(t *testing.T) {
 					Error: errors.New("error"),
 				}),
 			}},
-			err: &url.Error{
-				Op:  "Delete",
-				URL: "https://mock.elastic.co/api/v1/regions/us-east-1/platform/configuration/security/enrollment-tokens/atoken",
-				Err: errors.New("error"),
-			},
+			err: urlError.Error(),
 		},
 		{
 			name: "Delete Succeeds with persistent token",
@@ -95,7 +97,8 @@ func TestDelete(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := Delete(tt.args.params); !reflect.DeepEqual(err, tt.err) {
+			err := Delete(tt.args.params)
+			if !assert.EqualError(t, err, tt.err) {
 				t.Errorf("Delete() error = %v, wantErr %v", err, tt.err)
 			}
 		})

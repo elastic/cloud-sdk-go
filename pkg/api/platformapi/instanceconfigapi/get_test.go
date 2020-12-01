@@ -40,7 +40,7 @@ func TestGet(t *testing.T) {
 		name string
 		args args
 		want *models.InstanceConfiguration
-		err  error
+		err  string
 	}{
 		{
 			name: "Get succeeds",
@@ -129,7 +129,7 @@ func TestGet(t *testing.T) {
 					API:    api.NewMock(mock.New500Response(mock.NewStringBody(`{"error": "some error"}`))),
 				},
 			},
-			err: errors.New(`{"error": "some error"}`),
+			err: `{"error": "some error"}`,
 		},
 		{
 			name: "Get fails on parameter validation failure",
@@ -138,13 +138,13 @@ func TestGet(t *testing.T) {
 				apierror.ErrMissingAPI,
 				errors.New("id not specified and is required for the operation"),
 				errors.New("region not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := Get(tt.args.params)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 			assert.Equal(t, tt.want, got)

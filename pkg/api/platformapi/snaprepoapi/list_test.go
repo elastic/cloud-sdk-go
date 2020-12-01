@@ -18,11 +18,9 @@
 package snaprepoapi
 
 import (
-	"encoding/json"
 	"errors"
 	"net/http"
 	"net/url"
-	"os"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -35,6 +33,11 @@ import (
 )
 
 func TestList(t *testing.T) {
+	urlError := url.Error{
+		Op:  "Get",
+		URL: "https://mock.elastic.co/api/v1/regions/us-east-1/platform/configuration/snapshots/repositories",
+		Err: errors.New("ERROR"),
+	}
 	var listSnapshotsSuccess = `
 	{
 		"configs": [
@@ -75,7 +78,7 @@ func TestList(t *testing.T) {
 		name string
 		args args
 		want *models.RepositoryConfigs
-		err  error
+		err  string
 	}{
 		{
 			name: "List Succeeds",
@@ -135,11 +138,7 @@ func TestList(t *testing.T) {
 					API:    api.NewMock(mock.Response{Error: errors.New("ERROR")}),
 				},
 			},
-			err: &url.Error{
-				Op:  "Get",
-				URL: "https://mock.elastic.co/api/v1/regions/us-east-1/platform/configuration/snapshots/repositories",
-				Err: errors.New("ERROR"),
-			},
+			err: urlError.Error(),
 		},
 		{
 			name: "List fails when parameters are not valid",
@@ -147,17 +146,13 @@ func TestList(t *testing.T) {
 			err: multierror.NewPrefixed("invalid snapshot repository list params",
 				errors.New("api reference is required for the operation"),
 				errors.New("region not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := List(tt.args.params)
-			d := json.NewEncoder(os.Stdout)
-			d.SetIndent("", "    ")
-			d.Encode(tt.want)
-
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 			if !assert.Equal(t, tt.want, got) {

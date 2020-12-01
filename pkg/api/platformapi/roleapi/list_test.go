@@ -38,7 +38,7 @@ func TestList(t *testing.T) {
 		name string
 		args args
 		want *models.RoleAggregates
-		err  error
+		err  string
 	}{
 		{
 			name: "fails on parameter validation",
@@ -46,7 +46,7 @@ func TestList(t *testing.T) {
 			err: multierror.NewPrefixed("invalid role list params",
 				errors.New("api reference is required for the operation"),
 				errors.New("region not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 		{
 			name: "fails on api error",
@@ -56,7 +56,7 @@ func TestList(t *testing.T) {
 					`{"error": "failed listing roles"}`,
 				))),
 			}},
-			err: errors.New(`{"error": "failed listing roles"}`),
+			err: `{"error": "failed listing roles"}`,
 		},
 		{
 			name: "succeeds",
@@ -88,7 +88,7 @@ func TestList(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := List(tt.args.params)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 			if !assert.Equal(t, tt.want, got) {

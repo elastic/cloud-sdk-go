@@ -37,7 +37,7 @@ func StopMaintenanceMode(params StopParams) (*models.DeploymentResourceCommandRe
 		params.AuthWriter,
 	)
 	if err != nil {
-		return nil, apierror.Unwrap(err)
+		return nil, apierror.Wrap(err)
 	}
 
 	return res.Payload, nil
@@ -59,7 +59,7 @@ func StopInstancesMaintenanceMode(params StopInstancesParams) (*models.Deploymen
 		params.AuthWriter,
 	)
 	if err != nil {
-		return nil, apierror.Unwrap(err)
+		return nil, apierror.Wrap(err)
 	}
 
 	return res.Payload, nil

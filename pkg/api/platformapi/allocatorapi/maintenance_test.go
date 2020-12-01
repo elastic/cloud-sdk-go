@@ -37,7 +37,7 @@ func TestStartMaintenance(t *testing.T) {
 	tests := []struct {
 		name string
 		args args
-		err  error
+		err  string
 	}{
 		{
 			name: "Start maintenance fails due to parameter validation (Missing API)",
@@ -49,7 +49,7 @@ func TestStartMaintenance(t *testing.T) {
 			err: multierror.NewPrefixed("invalid allocator maintenance params",
 				apierror.ErrMissingAPI,
 				errors.New("region not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 		{
 			name: "Start maintenance fails due to parameter validation (Missing ID)",
@@ -61,7 +61,7 @@ func TestStartMaintenance(t *testing.T) {
 			err: multierror.NewPrefixed("invalid allocator maintenance params",
 				errors.New("id cannot be empty"),
 				errors.New("region not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 		{
 			name: "Start maintenance succeeds",
@@ -88,7 +88,9 @@ func TestStartMaintenance(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			err := StartMaintenance(tt.args.params)
-			assert.Equal(t, tt.err, err)
+			if err != nil && !assert.EqualError(t, err, tt.err) {
+				t.Error(err)
+			}
 		})
 	}
 }
@@ -100,7 +102,7 @@ func TestStopMaintenance(t *testing.T) {
 	tests := []struct {
 		name string
 		args args
-		err  error
+		err  string
 	}{
 		{
 			name: "Stop maintenance fails due to parameter validation (Missing API)",
@@ -112,7 +114,7 @@ func TestStopMaintenance(t *testing.T) {
 			err: multierror.NewPrefixed("invalid allocator maintenance params",
 				apierror.ErrMissingAPI,
 				errors.New("region not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 		{
 			name: "Stop maintenance fails due to parameter validation (Missing ID)",
@@ -124,7 +126,7 @@ func TestStopMaintenance(t *testing.T) {
 			err: multierror.NewPrefixed("invalid allocator maintenance params",
 				errors.New("id cannot be empty"),
 				errors.New("region not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 		{
 			name: "Stop maintenance succeeds",
@@ -151,7 +153,9 @@ func TestStopMaintenance(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			err := StopMaintenance(tt.args.params)
-			assert.Equal(t, tt.err, err)
+			if err != nil && !assert.EqualError(t, err, tt.err) {
+				t.Error(err)
+			}
 		})
 	}
 }

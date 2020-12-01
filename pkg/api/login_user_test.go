@@ -20,8 +20,10 @@ package api
 import (
 	"bytes"
 	"errors"
-	"reflect"
+	"net/http"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 	"github.com/elastic/cloud-sdk-go/pkg/auth"
@@ -32,7 +34,15 @@ import (
 
 func TestLoginUser(t *testing.T) {
 	var apiKeyAPI = NewMock()
-	var userLoginError = NewMock(mock.New500Response(mock.NewStringBody("error")))
+
+	var userLoginError = NewMock(mock.Response{
+		Response: http.Response{
+			StatusCode: 401,
+			Body: mock.NewStructBody(&models.BasicFailedReply{Errors: []*models.BasicFailedReplyElement{
+				{Code: ec.String("a code"), Message: ec.String("message")},
+			}}),
+		},
+	})
 	fail, err := auth.NewUserLogin("user", "pass")
 	if err != nil {
 		t.Fatal(err)
@@ -54,7 +64,7 @@ func TestLoginUser(t *testing.T) {
 		name       string
 		args       args
 		wantWriter string
-		err        error
+		err        string
 	}{
 		{
 			name: "skips logging in when the AuthWriter isn't *auth.UserLogin",
@@ -63,7 +73,9 @@ func TestLoginUser(t *testing.T) {
 		{
 			name: "fails logging in",
 			args: args{instance: userLoginError},
-			err:  multierror.NewPrefixed("failed to login with user/password", errors.New("error")),
+			err: multierror.NewPrefixed("failed to login with user/password",
+				errors.New("api error: a code: message"),
+			).Error(),
 		},
 		{
 			name: "succeeds logging in",
@@ -73,7 +85,7 @@ func TestLoginUser(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			writer := &bytes.Buffer{}
-			if err := LoginUser(tt.args.instance, writer); !reflect.DeepEqual(err, tt.err) {
+			if err := LoginUser(tt.args.instance, writer); err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Errorf("LoginUser() error = %v, wantErr %v", err, tt.err)
 				return
 			}

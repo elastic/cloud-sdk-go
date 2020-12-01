@@ -20,7 +20,6 @@ package allocatorapi
 import (
 	"errors"
 	"net/http"
-	"reflect"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -80,7 +79,7 @@ func TestGetAllocatorMetadata(t *testing.T) {
 		name string
 		args args
 		want []*models.MetadataItem
-		err  error
+		err  string
 	}{
 		{
 			name: "Get metadata fails due to parameter validation failure",
@@ -88,7 +87,7 @@ func TestGetAllocatorMetadata(t *testing.T) {
 				apierror.ErrMissingAPI,
 				errors.New("id cannot be empty"),
 				errors.New("region not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 		{
 			name: "Get metadata fails due to API failure",
@@ -97,7 +96,7 @@ func TestGetAllocatorMetadata(t *testing.T) {
 				Region: "us-east-1",
 				API:    api.NewMock(mock.New500Response(mock.NewStringBody(`{"error": "some error"}`))),
 			}},
-			err: errors.New(`{"error": "some error"}`),
+			err: `{"error": "some error"}`,
 		},
 		{
 			name: "Get metadata Succeeds",
@@ -154,11 +153,10 @@ func TestGetAllocatorMetadata(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := GetAllocatorMetadata(tt.args.params)
-			if !reflect.DeepEqual(err, tt.err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Errorf("GetAllocatorMetadata() error = %v, wantErr %v", err, tt.err)
-				return
 			}
-			if !reflect.DeepEqual(got, tt.want) {
+			if !assert.Equal(t, tt.want, got) {
 				t.Errorf("GetAllocatorMetadata() = \n%+v, want \n%+v", got, tt.want)
 			}
 		})
@@ -172,7 +170,7 @@ func TestSetAllocatorMetadataItem(t *testing.T) {
 	tests := []struct {
 		name string
 		args args
-		err  error
+		err  string
 	}{
 		{
 			name: "Set allocator metadata fails due to parameter validation",
@@ -182,7 +180,7 @@ func TestSetAllocatorMetadataItem(t *testing.T) {
 				errors.New("key cannot be empty"),
 				errors.New("key value cannot be empty"),
 				errors.New("region not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 		{
 			name: "Set allocator metadata succeeds",
@@ -210,7 +208,7 @@ func TestSetAllocatorMetadataItem(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			err := SetAllocatorMetadataItem(tt.args.params)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 		})
@@ -224,7 +222,7 @@ func TestDeleteAllocatorMetadataItem(t *testing.T) {
 	tests := []struct {
 		name string
 		args args
-		err  error
+		err  string
 	}{
 		{
 			name: "Delete allocator metadata fails due to parameter validation",
@@ -233,7 +231,7 @@ func TestDeleteAllocatorMetadataItem(t *testing.T) {
 				errors.New("id cannot be empty"),
 				errors.New("key cannot be empty"),
 				errors.New("region not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 		{
 			name: "Set allocator metadata succeeds",
@@ -259,7 +257,7 @@ func TestDeleteAllocatorMetadataItem(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			err := DeleteAllocatorMetadataItem(tt.args.params)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 		})

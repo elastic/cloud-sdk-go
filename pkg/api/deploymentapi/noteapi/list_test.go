@@ -20,8 +20,9 @@ package noteapi
 import (
 	"errors"
 	"net/http"
-	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
@@ -58,7 +59,7 @@ func TestList(t *testing.T) {
 		name    string
 		args    args
 		want    *models.Notes
-		wantErr error
+		wantErr string
 	}{
 		{
 			name: "List notes succeeds",
@@ -95,7 +96,7 @@ func TestList(t *testing.T) {
 				ID:     "a2c4f423c1014941b75a48292264dd25",
 				API:    api.NewMock(mock.SampleInternalError()),
 			}},
-			wantErr: mock.MultierrorInternalError,
+			wantErr: mock.MultierrorInternalError.Error(),
 		},
 		{
 			name: "List fails due to validation",
@@ -104,16 +105,16 @@ func TestList(t *testing.T) {
 				errors.New("api reference is required for the operation"),
 				errors.New(`id "" is invalid`),
 				errors.New("region not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := List(tt.args.params)
-			if !reflect.DeepEqual(err, tt.wantErr) {
+			if err != nil && !assert.EqualError(t, err, tt.wantErr) {
 				t.Errorf("List() error = %v, wantErr %v", err, tt.wantErr)
 			}
-			if !reflect.DeepEqual(got, tt.want) {
+			if !assert.Equal(t, tt.want, got) {
 				t.Errorf("List() = %v, want %v", got, tt.want)
 			}
 		})

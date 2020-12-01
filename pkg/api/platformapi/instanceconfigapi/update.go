@@ -73,5 +73,9 @@ func Update(params UpdateParams) error {
 		params.AuthWriter,
 	)
 
-	return api.UnwrapError(err)
+	if err != nil {
+		return apierror.Wrap(err)
+	}
+
+	return nil
 }

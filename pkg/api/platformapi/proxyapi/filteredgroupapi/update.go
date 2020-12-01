@@ -95,7 +95,7 @@ func Update(params UpdateParams) (*models.ProxiesFilteredGroup, error) {
 		params.AuthWriter,
 	)
 	if err != nil {
-		return nil, api.UnwrapError(err)
+		return nil, apierror.Wrap(err)
 	}
 
 	return proxy.Payload, nil

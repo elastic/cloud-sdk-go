@@ -25,6 +25,8 @@ import (
 	"testing"
 	"time"
 
+	"github.com/stretchr/testify/assert"
+
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 	"github.com/elastic/cloud-sdk-go/pkg/client"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
@@ -51,28 +53,28 @@ func TestNewUserLogin(t *testing.T) {
 		name string
 		args args
 		want *UserLogin
-		err  error
+		err  string
 	}{
 		{
 			name: "fails on empty username and password",
 			err: multierror.NewPrefixed("auth",
 				errors.New("username must not be empty"),
 				errors.New("password must not be empty"),
-			),
+			).Error(),
 		},
 		{
 			name: "fails on empty username",
 			args: args{password: "some"},
 			err: multierror.NewPrefixed("auth",
 				errors.New("username must not be empty"),
-			),
+			).Error(),
 		},
 		{
 			name: "fails on empty password",
 			args: args{username: "some"},
 			err: multierror.NewPrefixed("auth",
 				errors.New("password must not be empty"),
-			),
+			).Error(),
 		},
 		{
 			name: "builds UserLogin with default holder",
@@ -87,7 +89,7 @@ func TestNewUserLogin(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := NewUserLogin(tt.args.username, tt.args.password)
-			if !reflect.DeepEqual(err, tt.err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Errorf("NewUserLogin() error = %v, wantErr %v", err, tt.err)
 				return
 			}
@@ -112,7 +114,7 @@ func TestUserLogin_Login(t *testing.T) {
 		fields    fields
 		args      args
 		wantToken string
-		err       error
+		err       string
 	}{
 		{
 			name: "fails due to empty client",
@@ -121,7 +123,7 @@ func TestUserLogin_Login(t *testing.T) {
 				Password: "invalid",
 				Holder:   new(GenericHolder),
 			},
-			err: errors.New("auth: login client cannot be empty"),
+			err: "auth: login client cannot be empty",
 		},
 		{
 			name: "fails due to API error",
@@ -134,10 +136,7 @@ func TestUserLogin_Login(t *testing.T) {
 				Body:       mock.NewStructBody(failedReply),
 				StatusCode: 401,
 			}})},
-			err: multierror.NewPrefixed(
-				"failed to login with user/password",
-				errors.New("api error: code: message"),
-			),
+			err: "failed to login with user/password: 1 error occurred:\n\t* api error: code: message\n\n",
 		},
 		{
 			name: "succeeds",
@@ -162,7 +161,7 @@ func TestUserLogin_Login(t *testing.T) {
 				Password: tt.fields.Password,
 				Holder:   tt.fields.Holder,
 			}
-			if err := ul.Login(tt.args.rc); !reflect.DeepEqual(err, tt.err) {
+			if err := ul.Login(tt.args.rc); err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Errorf("UserLogin.Login() error = %v, wantErr %v", err, tt.err)
 			}
 			if ul.Holder != nil {
@@ -230,7 +229,7 @@ func TestUserLogin_RefreshTokenOnce(t *testing.T) {
 		fields    fields
 		args      args
 		wantToken string
-		err       error
+		err       string
 	}{
 		{
 			name: "fails due to empty client",
@@ -239,7 +238,7 @@ func TestUserLogin_RefreshTokenOnce(t *testing.T) {
 				Password: "invalid",
 				Holder:   new(GenericHolder),
 			},
-			err: errors.New("auth: login client cannot be empty"),
+			err: "auth: login client cannot be empty",
 		},
 		{
 			name: "fails due to API error",
@@ -252,10 +251,7 @@ func TestUserLogin_RefreshTokenOnce(t *testing.T) {
 				Body:       mock.NewStructBody(failedReply),
 				StatusCode: 401,
 			}})},
-			err: multierror.NewPrefixed(
-				"failed to refresh the loaded token",
-				errors.New("api error: code: message"),
-			),
+			err: "failed to refresh the loaded token: 1 error occurred:\n\t* api error: code: message\n\n",
 		},
 		{
 			name: "succeeds",
@@ -280,7 +276,7 @@ func TestUserLogin_RefreshTokenOnce(t *testing.T) {
 				Password: tt.fields.Password,
 				Holder:   tt.fields.Holder,
 			}
-			if err := ul.RefreshTokenOnce(tt.args.rc); !reflect.DeepEqual(err, tt.err) {
+			if err := ul.RefreshTokenOnce(tt.args.rc); err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Errorf("UserLogin.RefreshTokenOnce() error = %v, wantErr %v", err, tt.err)
 			}
 			if ul.Holder != nil {

@@ -36,7 +36,7 @@ func TestDeleteAssociation(t *testing.T) {
 	tests := []struct {
 		name string
 		args args
-		err  error
+		err  string
 	}{
 		{
 			name: "fails due to parameter validation",
@@ -45,7 +45,7 @@ func TestDeleteAssociation(t *testing.T) {
 				errors.New("rule set id is not specified and is required for the operation"),
 				errors.New("entity id is not specified and is required for the operation"),
 				errors.New("entity type is not specified and is required for the operation"),
-			),
+			).Error(),
 		},
 		{
 			name: "succeeds",
@@ -72,12 +72,13 @@ func TestDeleteAssociation(t *testing.T) {
 				EntityID:   "some-entity-id",
 				EntityType: "deployment",
 			}},
-			err: mock.MultierrorInternalError,
+			err: mock.MultierrorInternalError.Error(),
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := DeleteAssociation(tt.args.params); !assert.Equal(t, tt.err, err) {
+			err := DeleteAssociation(tt.args.params)
+			if !assert.EqualError(t, err, tt.err) {
 				t.Errorf("DeleteAssociation() error = %v, wantErr %v", err, tt.err)
 			}
 		})

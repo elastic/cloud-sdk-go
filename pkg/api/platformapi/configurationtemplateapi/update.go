@@ -79,5 +79,5 @@ func UpdateTemplate(params UpdateTemplateParams) error {
 		params.AuthWriter,
 	)
 
-	return api.UnwrapError(err)
+	return apierror.Wrap(err)
 }

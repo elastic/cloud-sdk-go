@@ -19,8 +19,9 @@ package deploymentapi
 
 import (
 	"errors"
-	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
@@ -38,14 +39,14 @@ func TestDelete(t *testing.T) {
 		name string
 		args args
 		want *models.DeploymentDeleteResponse
-		err  error
+		err  string
 	}{
 		{
 			name: "fails on parameter validation",
 			err: multierror.NewPrefixed("deploment delete",
 				apierror.ErrMissingAPI,
 				errors.New(`id "" is invalid`),
-			),
+			).Error(),
 		},
 		{
 			name: "fails on API error",
@@ -53,7 +54,7 @@ func TestDelete(t *testing.T) {
 				API:          api.NewMock(mock.New500Response(mock.NewStringBody("error"))),
 				DeploymentID: mock.ValidClusterID,
 			}},
-			err: errors.New("error"),
+			err: "error",
 		},
 		{
 			name: "Succeeds",
@@ -71,11 +72,10 @@ func TestDelete(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := Delete(tt.args.params)
-			if !reflect.DeepEqual(err, tt.err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Errorf("Delete() error = %v, wantErr %v", err, tt.err)
-				return
 			}
-			if !reflect.DeepEqual(got, tt.want) {
+			if !assert.Equal(t, tt.want, got) {
 				t.Errorf("Delete() = %v, want %v", got, tt.want)
 			}
 		})
