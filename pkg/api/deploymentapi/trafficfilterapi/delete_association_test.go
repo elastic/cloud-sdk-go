@@ -78,7 +78,7 @@ func TestDeleteAssociation(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			err := DeleteAssociation(tt.args.params)
-			if !assert.EqualError(t, err, tt.err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Errorf("DeleteAssociation() error = %v, wantErr %v", err, tt.err)
 			}
 		})
