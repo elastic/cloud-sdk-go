@@ -41,7 +41,7 @@ const (
 	errPrefix = "api error"
 )
 
-type knownError interface {
+type basicFailedReply interface {
 	GetPayload() *models.BasicFailedReply
 }
 
@@ -86,7 +86,7 @@ func Wrap(err error) error {
 
 	result := Error{Err: err}
 
-	if bfr, ok := err.(knownError); ok {
+	if bfr, ok := err.(basicFailedReply); ok {
 		m := newBasicFailedReplyMultierror(errPrefix, bfr.GetPayload())
 		if m.ErrorOrNil() != nil {
 			result.merr = m
