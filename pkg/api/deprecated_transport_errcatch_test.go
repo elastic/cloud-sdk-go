@@ -22,8 +22,9 @@ import (
 	"net/http"
 	"net/http/httputil"
 	"net/url"
-	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
@@ -54,7 +55,7 @@ func TestErrCatchTransport_RoundTrip(t *testing.T) {
 		fields fields
 		args   args
 		want   *http.Response
-		err    error
+		err    string
 	}{
 		{
 			name: "returns a response",
@@ -78,7 +79,7 @@ func TestErrCatchTransport_RoundTrip(t *testing.T) {
 				Error: errors.New("errored out"),
 			})},
 			args: args{req: &http.Request{}},
-			err:  errors.New("errored out"),
+			err:  "errored out",
 		},
 		{
 			name: "returns a 404 proxy content",
@@ -116,11 +117,11 @@ func TestErrCatchTransport_RoundTrip(t *testing.T) {
 				rt: tt.fields.rt,
 			}
 			got, err := e.RoundTrip(tt.args.req)
-			if !reflect.DeepEqual(err, tt.err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Errorf("ErrCatchTransport.RoundTrip() error = %v, wantErr %v", err, tt.err)
 				return
 			}
-			if !reflect.DeepEqual(got, tt.want) {
+			if !assert.Equal(t, tt.want, got) {
 				t.Errorf("ErrCatchTransport.RoundTrip() = %v, want %v", got, tt.want)
 			}
 		})

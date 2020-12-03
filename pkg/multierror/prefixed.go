@@ -25,6 +25,10 @@ import (
 	"github.com/hashicorp/go-multierror"
 )
 
+type asMulti interface {
+	Multierror() *Prefixed
+}
+
 // FormatFunc defines a format function which should format a slice of errors
 // into a string.
 type FormatFunc func(es []error) string
@@ -96,31 +100,45 @@ func wrapPrefix(prefix string, f FormatFunc) FormatFunc {
 }
 
 func unpackErrors(prefix string, errs ...error) []error {
-	var result = make([]error, 0, len(errs))
+	result := make([]error, 0, len(errs))
 	for _, err := range errs {
 		if err == nil {
 			continue
 		}
 
-		var e *Prefixed
-		if errors.As(err, &e) {
-			if prefix == e.Prefix || e.SkipPrefixing {
-				result = append(result, e.Errors...)
-				continue
-			}
-			result = append(result, prefixIndividualErrors(e)...)
-			continue
-		}
-
-		var hashiErr *multierror.Error
-		if errors.As(err, &hashiErr) {
-			result = append(result, hashiErr.Errors...)
-			continue
-		}
-
-		result = append(result, err)
+		result = append(result, unpack(prefix, err)...)
 	}
 	return result
+}
+
+func unpack(prefix string, err error) []error {
+	// Handles wrapped apierror.Error, this intermediary interface is
+	// needed since the apierror package imports multierror.Prefixed.
+	if m, ok := err.(asMulti); ok {
+		if e := m.Multierror(); e != nil {
+			return handleNestedPrefixed(prefix, e)
+		}
+	}
+
+	var e *Prefixed
+	if errors.As(err, &e) {
+		return handleNestedPrefixed(prefix, e)
+	}
+
+	var hashiErr *multierror.Error
+	if errors.As(err, &hashiErr) {
+		return hashiErr.Errors
+	}
+
+	return []error{err}
+}
+
+func handleNestedPrefixed(prefix string, e *Prefixed) []error {
+	if prefix == e.Prefix || e.SkipPrefixing {
+		return e.Errors
+	}
+
+	return prefixIndividualErrors(e)
 }
 
 func prefixIndividualErrors(prefixed *Prefixed) []error {

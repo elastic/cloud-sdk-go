@@ -33,6 +33,11 @@ import (
 )
 
 func TestShow(t *testing.T) {
+	urlError := url.Error{
+		Op:  "Get",
+		URL: "https://mock.elastic.co/api/v1/regions/us-east-1/platform/infrastructure/runners/192.168.44.10",
+		Err: errors.New("error"),
+	}
 	var runnerShow = `
 {
   "connected": true,
@@ -46,7 +51,7 @@ func TestShow(t *testing.T) {
 		name string
 		args args
 		want *models.RunnerInfo
-		err  error
+		err  string
 	}{
 		{
 			name: "Show runner succeeds",
@@ -83,11 +88,7 @@ func TestShow(t *testing.T) {
 				},
 			},
 			want: nil,
-			err: &url.Error{
-				Op:  "Get",
-				URL: "https://mock.elastic.co/api/v1/regions/us-east-1/platform/infrastructure/runners/192.168.44.10",
-				Err: errors.New("error"),
-			},
+			err:  urlError.Error(),
 		},
 		{
 			name: "Show runner fails due to validation",
@@ -99,13 +100,13 @@ func TestShow(t *testing.T) {
 				errors.New("api reference is required for the operation"),
 				errors.New("id not specified and is required for the operation"),
 				errors.New("region not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := Show(tt.args.params)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 			if !assert.Equal(t, tt.want, got) {

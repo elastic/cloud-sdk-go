@@ -21,8 +21,9 @@ import (
 	"errors"
 	"net/http"
 	"net/url"
-	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
@@ -32,6 +33,17 @@ import (
 )
 
 func TestList(t *testing.T) {
+	urlError := url.Error{
+		Op:  "Get",
+		URL: "https://mock.elastic.co/api/v1/regions/us-east-1/stack/versions?show_deleted=false&show_unusable=false",
+		Err: errors.New(`{"error": "some error"}`),
+	}
+
+	deleteURLError := url.Error{
+		Op:  "Get",
+		URL: "https://mock.elastic.co/api/v1/regions/us-east-1/stack/versions?show_deleted=true&show_unusable=false",
+		Err: errors.New(`{"error": "some error"}`),
+	}
 	type args struct {
 		params ListParams
 	}
@@ -39,7 +51,7 @@ func TestList(t *testing.T) {
 		name string
 		args args
 		want *models.StackVersionConfigs
-		err  error
+		err  string
 	}{
 		{
 			name: "List succeeds",
@@ -159,11 +171,7 @@ func TestList(t *testing.T) {
 					Error: errors.New(`{"error": "some error"}`),
 				}),
 			}},
-			err: &url.Error{
-				Op:  "Get",
-				URL: "https://mock.elastic.co/api/v1/regions/us-east-1/stack/versions?show_deleted=false&show_unusable=false",
-				Err: errors.New(`{"error": "some error"}`),
-			},
+			err: urlError.Error(),
 		},
 		{
 			name: "List deleted fails due to API error",
@@ -174,11 +182,7 @@ func TestList(t *testing.T) {
 					Error: errors.New(`{"error": "some error"}`),
 				}),
 			}},
-			err: &url.Error{
-				Op:  "Get",
-				URL: "https://mock.elastic.co/api/v1/regions/us-east-1/stack/versions?show_deleted=true&show_unusable=false",
-				Err: errors.New(`{"error": "some error"}`),
-			},
+			err: deleteURLError.Error(),
 		},
 		{
 			name: "List fails due to validation",
@@ -186,17 +190,16 @@ func TestList(t *testing.T) {
 			err: multierror.NewPrefixed("invalid stack list params",
 				errors.New("api reference is required for the operation"),
 				errors.New("region not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := List(tt.args.params)
-			if !reflect.DeepEqual(err, tt.err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Errorf("List() error = %v, wantErr %v", err, tt.err)
-				return
 			}
-			if !reflect.DeepEqual(got, tt.want) {
+			if !assert.Equal(t, tt.want, got) {
 				t.Errorf("List() = %v, want %v", got, tt.want)
 			}
 		})

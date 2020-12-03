@@ -45,7 +45,7 @@ func CancelPlan(params CancelPlanParams) (*models.DeploymentResourceCrudResponse
 		params.AuthWriter,
 	)
 	if err != nil {
-		return nil, apierror.Unwrap(err)
+		return nil, apierror.Wrap(err)
 	}
 
 	return res.Payload, nil

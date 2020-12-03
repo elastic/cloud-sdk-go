@@ -100,11 +100,16 @@ func TestGetTemplate(t *testing.T) {
     },
 	"system_owned": false
 }`
+	urlError := url.Error{
+		Op:  "Get",
+		URL: `https://mock.elastic.co/api/v1/regions/us-east-1/platform/configuration/templates/deployments/84e0bd6d69bb44e294809d89cea88a7e?format=deployment&show_instance_configurations=false`,
+		Err: errors.New("error"),
+	}
 	tests := []struct {
 		name string
 		args GetTemplateParams
 		want *models.DeploymentTemplateInfo
-		err  error
+		err  string
 	}{
 		{
 			name: "Platform deployment template show succeeds",
@@ -222,11 +227,7 @@ func TestGetTemplate(t *testing.T) {
 				Region: "us-east-1",
 				API:    api.NewMock(mock.Response{Error: errors.New("error")}),
 			},
-			err: &url.Error{
-				Op:  "Get",
-				URL: `https://mock.elastic.co/api/v1/regions/us-east-1/platform/configuration/templates/deployments/84e0bd6d69bb44e294809d89cea88a7e?format=deployment&show_instance_configurations=false`,
-				Err: errors.New("error"),
-			},
+			err: urlError.Error(),
 		},
 		{
 			name: "Platform deployment template show fails due to parameter validation",
@@ -234,13 +235,13 @@ func TestGetTemplate(t *testing.T) {
 				errors.New("api reference is required for the operation"),
 				errors.New("template ID not specified and is required for this operation"),
 				errors.New("region not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := GetTemplate(tt.args)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 			if !assert.Equal(t, tt.want, got) {

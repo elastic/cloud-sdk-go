@@ -52,16 +52,15 @@ func TestCreateKey(t *testing.T) {
 		name string
 		args args
 		want *models.APIKeyResponse
-		err  error
+		err  string
 	}{
 		{
 			name: "fails due to parameter validation",
-			args: args{},
 			err: multierror.NewPrefixed("invalid user auth params",
 				apierror.ErrMissingAPI,
 				errors.New("password is not specified and is required for this operation"),
 				errors.New("key description is not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 		{
 			name: "fails due to reauthenticate API error",
@@ -74,7 +73,7 @@ func TestCreateKey(t *testing.T) {
 			}},
 			err: multierror.NewPrefixed("api error",
 				errors.New("auth.invalid_password: request password doesn't match the user's password (body.password)"),
-			),
+			).Error(),
 		},
 		{
 			name: "fails due to create API error",
@@ -90,7 +89,7 @@ func TestCreateKey(t *testing.T) {
 			}},
 			err: multierror.NewPrefixed("api error",
 				errors.New("auth.invalid_password: request password doesn't match the user's password (body.password)"),
-			),
+			).Error(),
 		},
 		{
 			name: "succeeds",
@@ -128,7 +127,7 @@ func TestCreateKey(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := CreateKey(tt.args.params)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 			if !assert.Equal(t, tt.want, got) {

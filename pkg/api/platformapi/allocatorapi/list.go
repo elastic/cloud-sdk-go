@@ -84,7 +84,7 @@ func List(params ListParams) (*models.AllocatorOverview, error) {
 	)
 
 	if err != nil {
-		return nil, api.UnwrapError(err)
+		return nil, apierror.Wrap(err)
 	}
 	if !params.ShowAll {
 		for _, z := range res.Payload.Zones {

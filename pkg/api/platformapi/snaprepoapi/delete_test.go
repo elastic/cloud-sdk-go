@@ -37,7 +37,7 @@ func TestDelete(t *testing.T) {
 	tests := []struct {
 		name string
 		args args
-		err  error
+		err  string
 	}{
 		{
 			name: "Delete succeeds",
@@ -72,7 +72,7 @@ func TestDelete(t *testing.T) {
 					API:    api.NewMock(mock.New404Response(mock.NewStringBody(`{"error": "some error"}`))),
 				},
 			},
-			err: errors.New(`{"error": "some error"}`),
+			err: `{"error": "some error"}`,
 		},
 		{
 			name: "Delete fails on invalid params",
@@ -83,13 +83,13 @@ func TestDelete(t *testing.T) {
 				errors.New("api reference is required for the operation"),
 				errors.New("name not specified and is required for this operation"),
 				errors.New("region not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			err := Delete(tt.args.params)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 		})

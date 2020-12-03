@@ -21,10 +21,10 @@ import (
 	"errors"
 	"net/http"
 	"net/url"
-	"reflect"
 	"testing"
 
 	"github.com/go-openapi/strfmt"
+	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
@@ -35,11 +35,16 @@ import (
 )
 
 func TestCreateTemplate(t *testing.T) {
+	urlError := url.Error{
+		Op:  "Post",
+		URL: "https://mock.elastic.co/api/v1/regions/us-east-1/platform/configuration/templates/deployments",
+		Err: errors.New("error"),
+	}
 	tests := []struct {
 		name string
 		args CreateTemplateParams
 		want string
-		err  error
+		err  string
 	}{
 		{
 			name: "Platform deployment template create succeeds",
@@ -81,11 +86,7 @@ func TestCreateTemplate(t *testing.T) {
 				Region:                 "us-east-1",
 				API:                    api.NewMock(mock.Response{Error: errors.New("error")}),
 			},
-			err: &url.Error{
-				Op:  "Post",
-				URL: "https://mock.elastic.co/api/v1/regions/us-east-1/platform/configuration/templates/deployments",
-				Err: errors.New("error"),
-			},
+			err: urlError.Error(),
 		},
 		{
 			name: "Platform deployment template create fails with empty params",
@@ -93,18 +94,16 @@ func TestCreateTemplate(t *testing.T) {
 				apierror.ErrMissingAPI,
 				errors.New("deployment template is missing"),
 				errors.New("region not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := CreateTemplate(tt.args)
-
-			if !reflect.DeepEqual(err, tt.err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Errorf("Create() error = %v, wantErr %v", err, tt.err)
 			}
-
-			if !reflect.DeepEqual(got, tt.want) {
+			if !assert.Equal(t, got, tt.want) {
 				t.Errorf("Create() = %v, want %v", got, tt.want)
 			}
 		})

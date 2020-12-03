@@ -32,10 +32,15 @@ import (
 )
 
 func TestUpdateTemplate(t *testing.T) {
+	urlError := url.Error{
+		Op:  "Put",
+		URL: "https://mock.elastic.co/api/v1/regions/us-east-1/platform/configuration/templates/deployments/84e0bd6d69bb44e294809d89cea88a7e?create_only=false",
+		Err: errors.New("error"),
+	}
 	tests := []struct {
 		name string
 		args UpdateTemplateParams
-		err  error
+		err  string
 	}{
 		{
 			name: "Platform deployment template update succeeds",
@@ -69,11 +74,7 @@ func TestUpdateTemplate(t *testing.T) {
 				API:                    api.NewMock(mock.Response{Error: errors.New("error")}),
 				Region:                 "us-east-1",
 			},
-			err: &url.Error{
-				Op:  "Put",
-				URL: "https://mock.elastic.co/api/v1/regions/us-east-1/platform/configuration/templates/deployments/84e0bd6d69bb44e294809d89cea88a7e?create_only=false",
-				Err: errors.New("error"),
-			},
+			err: urlError.Error(),
 		},
 		{
 			name: "Platform deployment template update fails with empty params",
@@ -82,13 +83,13 @@ func TestUpdateTemplate(t *testing.T) {
 				errInvalidTemplateID,
 				errors.New("deployment template is missing"),
 				errors.New("region not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			err := UpdateTemplate(tt.args)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 		})

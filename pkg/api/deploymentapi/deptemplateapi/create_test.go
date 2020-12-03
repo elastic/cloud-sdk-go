@@ -54,7 +54,7 @@ func TestCreate(t *testing.T) {
 		name string
 		args args
 		want string
-		err  error
+		err  string
 	}{
 		{
 			name: "fails due to parameter validation",
@@ -62,7 +62,7 @@ func TestCreate(t *testing.T) {
 				errors.New("api reference is required for the operation"),
 				errors.New("required template request definition not provided"),
 				errors.New("region not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 		{
 			name: "succeeds",
@@ -127,13 +127,13 @@ func TestCreate(t *testing.T) {
 					mock.SampleInternalError().Response.Body,
 				)),
 			}},
-			err: mock.MultierrorInternalError,
+			err: mock.MultierrorInternalError.Error(),
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := Create(tt.args.params)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 			assert.Equal(t, tt.want, got)

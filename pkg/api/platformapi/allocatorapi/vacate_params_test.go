@@ -19,9 +19,10 @@ package allocatorapi
 
 import (
 	"errors"
-	"reflect"
 	"testing"
 	"time"
+
+	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
@@ -49,7 +50,7 @@ func TestVacateParamsValidate(t *testing.T) {
 	tests := []struct {
 		name   string
 		fields fields
-		err    error
+		err    string
 	}{
 		{
 			name: "Accepts a correct set of parameters",
@@ -60,7 +61,6 @@ func TestVacateParamsValidate(t *testing.T) {
 				Output:      new(output.Device),
 				Region:      "us-east-1",
 			},
-			err: nil,
 		},
 		{
 			name: "Accepts a correct set of parameters with an elasticsearch kind filter",
@@ -72,7 +72,6 @@ func TestVacateParamsValidate(t *testing.T) {
 				Output:      new(output.Device),
 				Region:      "us-east-1",
 			},
-			err: nil,
 		},
 		{
 			name: "Accepts a correct set of parameters with a kibana kind filter",
@@ -84,7 +83,6 @@ func TestVacateParamsValidate(t *testing.T) {
 				Output:      new(output.Device),
 				Region:      "us-east-1",
 			},
-			err: nil,
 		},
 		{
 			name: "Accepts a correct set of parameters with an apm kind filter",
@@ -96,7 +94,6 @@ func TestVacateParamsValidate(t *testing.T) {
 				Output:      new(output.Device),
 				Region:      "us-east-1",
 			},
-			err: nil,
 		},
 		{
 			name: "Accepts a correct set of parameters with an appsearch kind filter",
@@ -108,7 +105,6 @@ func TestVacateParamsValidate(t *testing.T) {
 				Output:      new(output.Device),
 				Region:      "us-east-1",
 			},
-			err: nil,
 		},
 		{
 			name: "Accepts a correct set of parameters with an enterprise_search kind filter",
@@ -120,7 +116,6 @@ func TestVacateParamsValidate(t *testing.T) {
 				Output:      new(output.Device),
 				Region:      "us-east-1",
 			},
-			err: nil,
 		},
 		{
 			name:   "Empty parameters are not accepted",
@@ -131,7 +126,7 @@ func TestVacateParamsValidate(t *testing.T) {
 				errConcurrencyCannotBeZero,
 				errOutputDeviceCannotBeNil,
 				errors.New("region not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 		{
 			name: "Cluster filter is invalid",
@@ -145,7 +140,7 @@ func TestVacateParamsValidate(t *testing.T) {
 			},
 			err: multierror.NewPrefixed("invalid allocator vacate params",
 				errors.New(`cluster filter: id "something" is invalid, must be 32 characters long`),
-			),
+			).Error(),
 		},
 		{
 			name: "Invalid combination of cluster filter and kind filter",
@@ -160,7 +155,7 @@ func TestVacateParamsValidate(t *testing.T) {
 			},
 			err: multierror.NewPrefixed("invalid allocator vacate params",
 				errors.New(`only one of "clusters" or "kind" can be specified`),
-			),
+			).Error(),
 		},
 		{
 			name: "Invalid combination of allocatorDown and multiple allocators",
@@ -174,7 +169,7 @@ func TestVacateParamsValidate(t *testing.T) {
 			},
 			err: multierror.NewPrefixed("invalid allocator vacate params",
 				errors.New(`cannot set the AllocatorDown when multiple allocators are specified`),
-			),
+			).Error(),
 		},
 	}
 	for _, tt := range tests {
@@ -193,7 +188,8 @@ func TestVacateParamsValidate(t *testing.T) {
 				PoolTimeout:         tt.fields.PoolTimeout,
 				AllocatorDown:       tt.fields.AllocatorDown,
 			}
-			if err := params.Validate(); !reflect.DeepEqual(err, tt.err) {
+			err := params.Validate()
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Errorf("VacateParams.Validate() error = %v, wantErr %v", err, tt.err)
 			}
 		})

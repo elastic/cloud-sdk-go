@@ -32,13 +32,18 @@ import (
 )
 
 func TestEnableMaintenace(t *testing.T) {
+	urlError := url.Error{
+		Op:  "Post",
+		URL: "https://mock.elastic.co/api/v1/regions/us-east-1/platform/infrastructure/constructors/192.168.44.10/maintenance-mode/_start",
+		Err: errors.New("error"),
+	}
 	type args struct {
 		params MaintenanceParams
 	}
 	tests := []struct {
 		name string
 		args args
-		err  error
+		err  string
 	}{
 		{
 			name: "Set constructor to maintenance mode succeeds",
@@ -66,11 +71,7 @@ func TestEnableMaintenace(t *testing.T) {
 				Region: "us-east-1",
 				API:    api.NewMock(mock.Response{Error: errors.New("error")}),
 			}},
-			err: &url.Error{
-				Op:  "Post",
-				URL: "https://mock.elastic.co/api/v1/regions/us-east-1/platform/infrastructure/constructors/192.168.44.10/maintenance-mode/_start",
-				Err: errors.New("error"),
-			},
+			err: urlError.Error(),
 		},
 		{
 			name: "Set constructor to maintenance mode fails due to param validation",
@@ -78,13 +79,13 @@ func TestEnableMaintenace(t *testing.T) {
 				apierror.ErrMissingAPI,
 				errors.New("id field cannot be empty"),
 				errors.New("region not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			err := EnableMaintenace(tt.args.params)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 		})
@@ -92,13 +93,18 @@ func TestEnableMaintenace(t *testing.T) {
 }
 
 func TestDisableMaintenance(t *testing.T) {
+	urlError := url.Error{
+		Op:  "Post",
+		URL: "https://mock.elastic.co/api/v1/regions/us-east-1/platform/infrastructure/constructors/192.168.44.10/maintenance-mode/_stop",
+		Err: errors.New("error"),
+	}
 	type args struct {
 		params MaintenanceParams
 	}
 	tests := []struct {
 		name string
 		args args
-		err  error
+		err  string
 	}{
 		{
 			name: "Set constructor maintenance mode to false succeeds",
@@ -126,11 +132,7 @@ func TestDisableMaintenance(t *testing.T) {
 				Region: "us-east-1",
 				API:    api.NewMock(mock.Response{Error: errors.New("error")}),
 			}},
-			err: &url.Error{
-				Op:  "Post",
-				URL: "https://mock.elastic.co/api/v1/regions/us-east-1/platform/infrastructure/constructors/192.168.44.10/maintenance-mode/_stop",
-				Err: errors.New("error"),
-			},
+			err: urlError.Error(),
 		},
 		{
 			name: "Set constructor maintenance mode to false fails due to param validation",
@@ -138,13 +140,13 @@ func TestDisableMaintenance(t *testing.T) {
 				apierror.ErrMissingAPI,
 				errors.New("id field cannot be empty"),
 				errors.New("region not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			err := DisableMaintenance(tt.args.params)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 		})

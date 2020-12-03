@@ -40,7 +40,7 @@ func TestCreate(t *testing.T) {
 		name string
 		args args
 		want *models.IDResponse
-		err  error
+		err  string
 	}{
 		{
 			name: "Create Succeeds",
@@ -141,7 +141,7 @@ func TestCreate(t *testing.T) {
 				},
 				API: api.NewMock(mock.New500Response(mock.NewStringBody(`{"error": "some error"}`))),
 			}},
-			err: errors.New(`{"error": "some error"}`),
+			err: `{"error": "some error"}`,
 		},
 		{
 			name: "Create fails on parameter validation failure",
@@ -149,13 +149,13 @@ func TestCreate(t *testing.T) {
 				apierror.ErrMissingAPI,
 				errors.New("config not specified and is required for the operation"),
 				errors.New("region not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := Create(tt.args.params)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 			assert.Equal(t, tt.want, got)

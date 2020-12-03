@@ -39,7 +39,7 @@ func TestUpdate(t *testing.T) {
 	tests := []struct {
 		name string
 		args args
-		err  error
+		err  string
 	}{
 		{
 			name: "Update Succeeds",
@@ -104,7 +104,7 @@ func TestUpdate(t *testing.T) {
 				},
 				API: api.NewMock(mock.New500Response(mock.NewStringBody(`{"error": "some error"}`))),
 			}},
-			err: errors.New(`{"error": "some error"}`),
+			err: `{"error": "some error"}`,
 		},
 		{
 			name: "Update fails on parameter validation failure",
@@ -113,12 +113,13 @@ func TestUpdate(t *testing.T) {
 				errors.New("config not specified and is required for the operation"),
 				errors.New("id not specified and is required for the operation"),
 				errors.New("region not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := Update(tt.args.params); !assert.Equal(t, tt.err, err) {
+			err := Update(tt.args.params)
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 		})

@@ -51,49 +51,43 @@ func TestEnable(t *testing.T) {
 		name string
 		args args
 		want *models.User
-		err  error
+		err  string
 	}{
 		{
 			name: "Enable fails due to parameter validation failure (missing API)",
-			args: args{
-				params: EnableParams{},
-			},
+			args: args{params: EnableParams{}},
 			err: multierror.NewPrefixed("invalid user params",
 				errors.New("username is not specified and is required for this operation"),
 				apierror.ErrMissingAPI,
-			),
+			).Error(),
 		},
 		{
 			name: "Enable fails due to API failure",
-			args: args{
-				params: EnableParams{
-					UserName: "tiburcio",
-					Enabled:  true,
-					API:      api.NewMock(mock.SampleNotFoundError()),
-				},
-			},
-			err: mock.MultierrorNotFound,
+			args: args{params: EnableParams{
+				UserName: "tiburcio",
+				Enabled:  true,
+				API:      api.NewMock(mock.SampleNotFoundError()),
+			}},
+			err: mock.MultierrorNotFound.Error(),
 		},
 		{
 			name: "Enable succeeds",
-			args: args{
-				params: EnableParams{
-					UserName: "tiburcio",
-					API: api.NewMock(mock.Response{
-						Response: http.Response{
-							Body:       mock.NewStringBody(successResponse),
-							StatusCode: 200,
-						},
-						Assert: &mock.RequestAssertion{
-							Header: api.DefaultWriteMockHeaders,
-							Method: "PATCH",
-							Host:   api.DefaultMockHost,
-							Path:   "/api/v1/users/tiburcio",
-							Body:   mock.NewStringBody(`{"security":{"enabled":false},"user_name":"tiburcio"}`),
-						},
-					}),
-				},
-			},
+			args: args{params: EnableParams{
+				UserName: "tiburcio",
+				API: api.NewMock(mock.Response{
+					Response: http.Response{
+						Body:       mock.NewStringBody(successResponse),
+						StatusCode: 200,
+					},
+					Assert: &mock.RequestAssertion{
+						Header: api.DefaultWriteMockHeaders,
+						Method: "PATCH",
+						Host:   api.DefaultMockHost,
+						Path:   "/api/v1/users/tiburcio",
+						Body:   mock.NewStringBody(`{"security":{"enabled":false},"user_name":"tiburcio"}`),
+					},
+				}),
+			}},
 			want: &models.User{
 				Builtin:  ec.Bool(false),
 				UserName: ec.String("tiburcio"),
@@ -107,7 +101,7 @@ func TestEnable(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := Enable(tt.args.params)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 			if !assert.Equal(t, tt.want, got) {

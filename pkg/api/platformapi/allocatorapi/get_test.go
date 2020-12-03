@@ -20,8 +20,9 @@ package allocatorapi
 import (
 	"errors"
 	"net/http"
-	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
@@ -104,7 +105,7 @@ func TestGet(t *testing.T) {
 		name string
 		args args
 		want *models.AllocatorInfo
-		err  error
+		err  string
 	}{
 		{
 			name: "Get fails due to parameter validation failure (missing API)",
@@ -116,7 +117,7 @@ func TestGet(t *testing.T) {
 			err: multierror.NewPrefixed("invalid allocator get params",
 				apierror.ErrMissingAPI,
 				errors.New("region not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 		{
 			name: "Get fails due to parameter validation failure (missing ID)",
@@ -128,7 +129,7 @@ func TestGet(t *testing.T) {
 			err: multierror.NewPrefixed("invalid allocator get params",
 				errors.New("id cannot be empty"),
 				errors.New("region not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 		{
 			name: "Get fails due to API failure",
@@ -139,7 +140,7 @@ func TestGet(t *testing.T) {
 					Region: "some-region",
 				},
 			},
-			err: errors.New(`{"error": "some error"}`),
+			err: `{"error": "some error"}`,
 		},
 		{
 			name: "Get Succeeds",
@@ -228,11 +229,10 @@ func TestGet(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := Get(tt.args.params)
-			if !reflect.DeepEqual(err, tt.err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Errorf("Get() error = %v, wantErr %v", err, tt.err)
-				return
 			}
-			if !reflect.DeepEqual(got, tt.want) {
+			if !assert.Equal(t, tt.want, got) {
 				t.Errorf("Get() = \n%+v, want \n%+v", got, tt.want)
 			}
 		})

@@ -50,7 +50,7 @@ func TestUpdate(t *testing.T) {
 		name string
 		args args
 		want *models.KeystoreContents
-		err  error
+		err  string
 	}{
 		{
 			name: "fails due to parameter validation",
@@ -58,7 +58,7 @@ func TestUpdate(t *testing.T) {
 				apierror.ErrMissingAPI,
 				apierror.ErrDeploymentID,
 				errors.New("required keystore contents not provided"),
-			),
+			).Error(),
 		},
 		{
 			name: "succeeds",
@@ -178,7 +178,7 @@ func TestUpdate(t *testing.T) {
 					),
 				),
 			}},
-			err: mock.MultierrorInternalError,
+			err: mock.MultierrorInternalError.Error(),
 		},
 		{
 			name: "fails on API error",
@@ -197,13 +197,13 @@ func TestUpdate(t *testing.T) {
 					mock.SampleInternalError().Response.Body,
 				)),
 			}},
-			err: mock.MultierrorInternalError,
+			err: mock.MultierrorInternalError.Error(),
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := Update(tt.args.params)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 			assert.Equal(t, tt.want, got)

@@ -76,7 +76,7 @@ func Enable(params EnableParams) (*models.User, error) {
 	)
 
 	if err != nil {
-		return nil, api.UnwrapError(err)
+		return nil, apierror.Wrap(err)
 	}
 
 	return res.Payload, nil

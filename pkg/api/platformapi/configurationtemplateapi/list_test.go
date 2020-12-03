@@ -21,7 +21,6 @@ import (
 	"errors"
 	"net/http"
 	"net/url"
-	"reflect"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -48,11 +47,16 @@ func TestListTemplates(t *testing.T) {
 	  "system_owned": true
 	}
   ]`
+	urlError := url.Error{
+		Op:  "Get",
+		URL: "https://mock.elastic.co/api/v1/regions/us-east-1/platform/configuration/templates/deployments?format=cluster&show_hidden=false&show_instance_configurations=false",
+		Err: errors.New("error"),
+	}
 	tests := []struct {
 		name string
 		args ListTemplateParams
 		want []*models.DeploymentTemplateInfo
-		err  error
+		err  string
 	}{
 		{
 			name: "Platform deployment templates list succeeds",
@@ -137,28 +141,23 @@ func TestListTemplates(t *testing.T) {
 				Format: "cluster",
 				API:    api.NewMock(mock.Response{Error: errors.New("error")}),
 			},
-			err: &url.Error{
-				Op:  "Get",
-				URL: "https://mock.elastic.co/api/v1/regions/us-east-1/platform/configuration/templates/deployments?format=cluster&show_hidden=false&show_instance_configurations=false",
-				Err: errors.New("error"),
-			},
+			err: urlError.Error(),
 		},
 		{
 			name: "Platform deployment templates fails with empty params",
 			err: multierror.NewPrefixed("invalid deployment template list params",
 				errors.New("api reference is required for the operation"),
 				errors.New("region not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := ListTemplates(tt.args)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
-
-			if !reflect.DeepEqual(got, tt.want) {
+			if !assert.Equal(t, got, tt.want) {
 				t.Errorf("List() = %v, want %v", got, tt.want)
 			}
 		})

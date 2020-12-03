@@ -36,7 +36,7 @@ func TestAddBlessing(t *testing.T) {
 	tests := []struct {
 		name string
 		args args
-		err  error
+		err  string
 	}{
 		{
 			name: "fails on parameter validation",
@@ -47,7 +47,7 @@ func TestAddBlessing(t *testing.T) {
 				errors.New("id not specified and is required for this operation"),
 				errors.New("runner id not specified and is required for this operation"),
 				errors.New("region not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 		{
 			name: "fails updating the role",
@@ -60,7 +60,7 @@ func TestAddBlessing(t *testing.T) {
 				RunnerID: "some",
 				ID:       "one",
 			}},
-			err: errors.New(`{"error": "failed updating role"}`),
+			err: `{"error": "failed updating role"}`,
 		},
 		{
 			name: "succeeds",
@@ -85,7 +85,7 @@ func TestAddBlessing(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			err := AddBlessing(tt.args.params)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 		})

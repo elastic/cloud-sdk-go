@@ -18,7 +18,6 @@
 package userapi
 
 import (
-	"errors"
 	"net/http"
 	"net/url"
 	"testing"
@@ -47,27 +46,21 @@ func TestList(t *testing.T) {
 		params ListParams
 	}
 	tests := []struct {
-		name    string
-		args    args
-		want    *models.UserList
-		wantErr bool
-		err     error
+		name string
+		args args
+		want *models.UserList
+		err  string
 	}{
 		{
-			name:    "List fails due to parameter validation failure (missing API)",
-			args:    args{},
-			wantErr: true,
-			err:     apierror.ErrMissingAPI,
+			name: "List fails due to parameter validation failure (missing API)",
+			err:  apierror.ErrMissingAPI.Error(),
 		},
 		{
 			name: "List fails due to API failure",
-			args: args{
-				params: ListParams{
-					API: api.NewMock(mock.New500Response(mock.NewStringBody(`{"error": "some error"}`))),
-				},
-			},
-			wantErr: true,
-			err:     errors.New(`{"error": "some error"}`),
+			args: args{params: ListParams{
+				API: api.NewMock(mock.New500Response(mock.NewStringBody(`{"error": "some error"}`))),
+			}},
+			err: `{"error": "some error"}`,
 		},
 		{
 			name: "List succeeds",
@@ -108,7 +101,7 @@ func TestList(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := List(tt.args.params)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 			if !assert.Equal(t, tt.want, got) {

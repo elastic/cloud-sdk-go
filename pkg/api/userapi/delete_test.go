@@ -35,56 +35,48 @@ func TestDelete(t *testing.T) {
 		params DeleteParams
 	}
 	tests := []struct {
-		name    string
-		args    args
-		wantErr bool
-		err     error
+		name string
+		args args
+		err  string
 	}{
 		{
-			name:    "Delete fails due to parameter validation failure",
-			args:    args{},
-			wantErr: true,
+			name: "Delete fails due to parameter validation failure",
 			err: multierror.NewPrefixed("invalid user params",
 				apierror.ErrMissingAPI,
 				errors.New("username is not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 		{
 			name: "Delete fails due to API failure",
-			args: args{
-				params: DeleteParams{
-					UserName: "user bob",
-					API:      api.NewMock(mock.SampleInternalError()),
-				},
-			},
-			wantErr: true,
-			err:     mock.MultierrorInternalError,
+			args: args{params: DeleteParams{
+				UserName: "user bob",
+				API:      api.NewMock(mock.SampleInternalError()),
+			}},
+			err: mock.MultierrorInternalError.Error(),
 		},
 		{
 			name: "Delete succeeds",
-			args: args{
-				params: DeleteParams{
-					UserName: "userbob",
-					API: api.NewMock(mock.Response{
-						Response: http.Response{
-							Body:       mock.NewStringBody(""),
-							StatusCode: 200,
-						},
-						Assert: &mock.RequestAssertion{
-							Header: api.DefaultWriteMockHeaders,
-							Method: "DELETE",
-							Host:   api.DefaultMockHost,
-							Path:   "/api/v1/users/userbob",
-						},
-					}),
-				},
-			},
+			args: args{params: DeleteParams{
+				UserName: "userbob",
+				API: api.NewMock(mock.Response{
+					Response: http.Response{
+						Body:       mock.NewStringBody(""),
+						StatusCode: 200,
+					},
+					Assert: &mock.RequestAssertion{
+						Header: api.DefaultWriteMockHeaders,
+						Method: "DELETE",
+						Host:   api.DefaultMockHost,
+						Path:   "/api/v1/users/userbob",
+					},
+				}),
+			}},
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			err := Delete(tt.args.params)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 		})

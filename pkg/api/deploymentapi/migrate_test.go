@@ -20,8 +20,9 @@ package deploymentapi
 import (
 	"errors"
 	"net/url"
-	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
@@ -39,7 +40,7 @@ func TestMigrate(t *testing.T) {
 		name string
 		args args
 		want *models.DeploymentTemplateMigrateResponse
-		err  error
+		err  string
 	}{
 		{
 			name: "fails on parameter validation",
@@ -47,7 +48,7 @@ func TestMigrate(t *testing.T) {
 				apierror.ErrMissingAPI,
 				apierror.ErrDeploymentID,
 				errors.New("a target deployment template is necessary for this operation"),
-			),
+			).Error(),
 		},
 		{
 			name: "fails on API error",
@@ -56,7 +57,7 @@ func TestMigrate(t *testing.T) {
 				DeploymentID: mock.ValidClusterID,
 				TemplateID:   "aws-io-optimized",
 			}},
-			err: errors.New(`{"error": "some error"}`),
+			err: `{"error": "some error"}`,
 		},
 		{
 			name: "Succeeds",
@@ -109,11 +110,10 @@ func TestMigrate(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := Migrate(tt.args.params)
-			if !reflect.DeepEqual(err, tt.err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Errorf("Migrate() error = %v, wantErr %v", err, tt.err)
-				return
 			}
-			if !reflect.DeepEqual(got, tt.want) {
+			if !assert.Equal(t, tt.want, got) {
 				t.Errorf("Migrate() = %v, want %v", got, tt.want)
 			}
 		})

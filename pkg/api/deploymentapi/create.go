@@ -84,7 +84,7 @@ func Create(params CreateParams) (*models.DeploymentCreateResponse, error) {
 		params.AuthWriter,
 	)
 	if err != nil {
-		return nil, apierror.Unwrap(err)
+		return nil, apierror.Wrap(err)
 	}
 
 	if res == nil {

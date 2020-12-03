@@ -48,35 +48,27 @@ func TestUpdate(t *testing.T) {
 		params UpdateParams
 	}
 	tests := []struct {
-		name    string
-		args    args
-		want    *models.User
-		wantErr bool
-		err     error
+		name string
+		args args
+		want *models.User
+		err  string
 	}{
 		{
 			name: "Update fails due to parameter validation failure",
-			args: args{
-				params: UpdateParams{},
-			},
-			wantErr: true,
 			err: multierror.NewPrefixed("invalid user params",
 				errors.New("update requires a username"),
 				apierror.ErrMissingAPI,
-			),
+			).Error(),
 		},
 		{
 			name: "Update fails due to API failure",
-			args: args{
-				params: UpdateParams{
-					UserName: "fulgencio",
-					Password: []byte("supersecretpass"),
-					Roles:    []string{"ece_platform_admin"},
-					API:      api.NewMock(mock.SampleInternalError()),
-				},
-			},
-			wantErr: true,
-			err:     mock.MultierrorInternalError,
+			args: args{params: UpdateParams{
+				UserName: "fulgencio",
+				Password: []byte("supersecretpass"),
+				Roles:    []string{"ece_platform_admin"},
+				API:      api.NewMock(mock.SampleInternalError()),
+			}},
+			err: mock.MultierrorInternalError.Error(),
 		},
 		{
 			name: "Update succeeds",
@@ -113,7 +105,7 @@ func TestUpdate(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := Update(tt.args.params)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 			if !assert.Equal(t, tt.want, got) {
@@ -138,34 +130,27 @@ func TestUpdateCurrent(t *testing.T) {
 		params UpdateParams
 	}
 	tests := []struct {
-		name    string
-		args    args
-		want    *models.User
-		wantErr bool
-		err     error
+		name string
+		args args
+		want *models.User
+		err  string
 	}{
 		{
 			name: "Update fails due to parameter validation failure (missing API)",
-			args: args{
-				params: UpdateParams{UserName: "xochitl"},
-			},
-			wantErr: true,
+			args: args{params: UpdateParams{UserName: "xochitl"}},
 			err: multierror.NewPrefixed("invalid user params",
 				apierror.ErrMissingAPI,
-			),
+			).Error(),
 		},
 		{
 			name: "Update fails due to API failure",
-			args: args{
-				params: UpdateParams{
-					UserName: "xochitl",
-					Password: []byte("supersecretpass"),
-					Roles:    []string{"ece_platform_admin"},
-					API:      api.NewMock(mock.SampleInternalError()),
-				},
-			},
-			wantErr: true,
-			err:     mock.MultierrorInternalError,
+			args: args{params: UpdateParams{
+				UserName: "xochitl",
+				Password: []byte("supersecretpass"),
+				Roles:    []string{"ece_platform_admin"},
+				API:      api.NewMock(mock.SampleInternalError()),
+			}},
+			err: mock.MultierrorInternalError.Error(),
 		},
 		{
 			name: "Update succeeds",
@@ -201,7 +186,7 @@ func TestUpdateCurrent(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := UpdateCurrent(tt.args.params)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 			if !assert.Equal(t, tt.want, got) {

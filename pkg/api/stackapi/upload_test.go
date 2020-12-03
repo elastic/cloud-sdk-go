@@ -21,9 +21,10 @@ import (
 	"errors"
 	"net/http"
 	"net/url"
-	"reflect"
 	"strings"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
@@ -33,13 +34,18 @@ import (
 )
 
 func TestUpload(t *testing.T) {
+	urlError := url.Error{
+		Op:  "Post",
+		URL: "https://mock.elastic.co/api/v1/regions/us-east-1/stack/versions",
+		Err: errors.New(`{"error": "some error"}`),
+	}
 	type args struct {
 		params UploadParams
 	}
 	tests := []struct {
 		name string
 		args args
-		err  error
+		err  string
 	}{
 		{
 			name: "Upload Succeeds",
@@ -66,11 +72,7 @@ func TestUpload(t *testing.T) {
 					Error: errors.New(`{"error": "some error"}`),
 				}),
 			}},
-			err: &url.Error{
-				Op:  "Post",
-				URL: "https://mock.elastic.co/api/v1/regions/us-east-1/stack/versions",
-				Err: errors.New(`{"error": "some error"}`),
-			},
+			err: urlError.Error(),
 		},
 		{
 			name: "Upload fails due to empty parameters",
@@ -79,7 +81,7 @@ func TestUpload(t *testing.T) {
 				errors.New("api reference is required for the operation"),
 				errors.New("stackpack cannot be empty"),
 				errors.New("region not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 		{
 			name: "Upload fails due to stackpack upload error",
@@ -106,12 +108,13 @@ func TestUpload(t *testing.T) {
 			}},
 			err: multierror.NewPrefixed("stack upload",
 				errors.New("some.code.error: some message"),
-			),
+			).Error(),
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := Upload(tt.args.params); !reflect.DeepEqual(err, tt.err) {
+			err := Upload(tt.args.params)
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Errorf("Upload() error = %v, wantErr %v", err, tt.err)
 			}
 		})

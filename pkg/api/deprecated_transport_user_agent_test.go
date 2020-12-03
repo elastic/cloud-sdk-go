@@ -19,8 +19,9 @@ package api
 
 import (
 	"net/http"
-	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 )
@@ -39,7 +40,7 @@ func TestUserAgentTransport_RoundTrip(t *testing.T) {
 		fields              fields
 		args                args
 		want                *http.Response
-		err                 error
+		err                 string
 		wantUserAgentHeader string
 	}{
 		{
@@ -71,12 +72,12 @@ func TestUserAgentTransport_RoundTrip(t *testing.T) {
 				rt:    tt.fields.rt,
 			}
 			got, err := ua.RoundTrip(tt.args.req)
-			if !reflect.DeepEqual(err, tt.err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Errorf("UserAgentTransport.RoundTrip() error = %v, wantErr %v", err, tt.err)
 				return
 			}
 			defer got.Body.Close()
-			if !reflect.DeepEqual(got, tt.want) {
+			if !assert.Equal(t, tt.want, got) {
 				t.Errorf("UserAgentTransport.RoundTrip() = %v, want %v", got, tt.want)
 			}
 			actualHeader := tt.args.req.Header.Get(userAgentHeader)

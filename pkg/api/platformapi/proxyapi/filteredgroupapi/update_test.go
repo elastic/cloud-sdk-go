@@ -53,7 +53,7 @@ func TestUpdate(t *testing.T) {
 		name string
 		args args
 		want *models.ProxiesFilteredGroup
-		err  error
+		err  string
 	}{
 		{
 			name: "Proxies filtered group update succeeds",
@@ -109,7 +109,7 @@ func TestUpdate(t *testing.T) {
 				ExpectedProxiesCount: 15,
 				Version:              "1",
 			}},
-			err: errors.New(`{"error": "some error"}`),
+			err: `{"error": "some error"}`,
 		},
 		{
 			name: "Proxies filtered group update fails due validation",
@@ -121,13 +121,13 @@ func TestUpdate(t *testing.T) {
 				errors.New("filters is not specified and is required for the operation"),
 				errors.New("expected proxies count must be greater than 0"),
 				errors.New("version cannot be empty"),
-			),
+			).Error(),
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := Update(tt.args.params)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 			if !assert.Equal(t, tt.want, got) {

@@ -21,9 +21,10 @@ import (
 	"errors"
 	"net/http"
 	"net/url"
-	"reflect"
 	"testing"
 	"time"
+
+	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
@@ -33,6 +34,11 @@ import (
 )
 
 func TestCreate(t *testing.T) {
+	urlError := url.Error{
+		Op:  "Post",
+		URL: "https://mock.elastic.co/api/v1/regions/us-east-1/platform/configuration/security/enrollment-tokens",
+		Err: errors.New("error"),
+	}
 	type args struct {
 		params CreateParams
 	}
@@ -40,7 +46,7 @@ func TestCreate(t *testing.T) {
 		name string
 		args args
 		want *models.RequestEnrollmentTokenReply
-		err  error
+		err  string
 	}{
 		{
 			name: "Create fails due to incorrect duration",
@@ -51,7 +57,7 @@ func TestCreate(t *testing.T) {
 			}},
 			err: multierror.NewPrefixed("invalid enrollment-token create params",
 				errors.New("validity value 3599996400 exceeds max allowed 2147483647 value in seconds"),
-			),
+			).Error(),
 		},
 		{
 			name: "Create fails due to missing API and region",
@@ -59,7 +65,7 @@ func TestCreate(t *testing.T) {
 			err: multierror.NewPrefixed("invalid enrollment-token create params",
 				errors.New("api reference is required for the operation"),
 				errors.New("region not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 		{
 			name: "Create Succeeds with persistent token",
@@ -95,21 +101,17 @@ func TestCreate(t *testing.T) {
 					Error: errors.New("error"),
 				}),
 			}},
-			err: &url.Error{
-				Op:  "Post",
-				URL: "https://mock.elastic.co/api/v1/regions/us-east-1/platform/configuration/security/enrollment-tokens",
-				Err: errors.New("error"),
-			},
+			err: urlError.Error(),
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := Create(tt.args.params)
-			if !reflect.DeepEqual(err, tt.err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Errorf("Create() error = %v, wantErr %v", err, tt.err)
 				return
 			}
-			if !reflect.DeepEqual(got, tt.want) {
+			if !assert.Equal(t, tt.want, got) {
 				t.Errorf("Create() = %v, want %v", got, tt.want)
 			}
 		})

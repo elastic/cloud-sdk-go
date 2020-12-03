@@ -38,7 +38,7 @@ func TestGetParams_Validate(t *testing.T) {
 	tests := []struct {
 		name   string
 		params GetParams
-		err    error
+		err    string
 	}{
 		{
 			name:   "validate should return all possible errors",
@@ -46,7 +46,7 @@ func TestGetParams_Validate(t *testing.T) {
 			err: multierror.NewPrefixed("deployment get",
 				apierror.ErrMissingAPI,
 				deputil.NewInvalidDeploymentIDError(""),
-			),
+			).Error(),
 		},
 		{
 			name: "validate should return error on missing api",
@@ -55,7 +55,7 @@ func TestGetParams_Validate(t *testing.T) {
 			},
 			err: multierror.NewPrefixed("deployment get",
 				apierror.ErrMissingAPI,
-			),
+			).Error(),
 		},
 		{
 			name: "validate should return error on invalid ID",
@@ -64,7 +64,7 @@ func TestGetParams_Validate(t *testing.T) {
 			},
 			err: multierror.NewPrefixed("deployment get",
 				deputil.NewInvalidDeploymentIDError(""),
-			),
+			).Error(),
 		},
 		{
 			name: "validate should pass if all params are properly set",
@@ -77,7 +77,7 @@ func TestGetParams_Validate(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			err := tt.params.Validate()
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 		})
@@ -96,7 +96,7 @@ func TestGet(t *testing.T) {
 		name string
 		args args
 		want *models.DeploymentGetResponse
-		err  error
+		err  string
 	}{
 		{
 			name: "Get fails due to parameter validation failure",
@@ -104,7 +104,7 @@ func TestGet(t *testing.T) {
 			err: multierror.NewPrefixed("deployment get",
 				apierror.ErrMissingAPI,
 				errors.New(`id "" is invalid`),
-			),
+			).Error(),
 		},
 		{
 			name: "Get fails due to API failure",
@@ -112,12 +112,12 @@ func TestGet(t *testing.T) {
 				params: GetParams{
 					DeploymentID: "f1d329b0fb34470ba8b18361cabdd2bc",
 					API: api.NewMock(mock.Response{Response: http.Response{
-						Body:       mock.NewStringBody(""),
+						Body:       mock.NewStringBody("error"),
 						StatusCode: 500,
 					}}),
 				},
 			},
-			err: errors.New(""),
+			err: "error",
 		},
 		{
 			name: "Get succeeds",
@@ -196,7 +196,7 @@ func TestGet(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := Get(tt.args.params)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 			if !assert.Equal(t, tt.want, got) {
@@ -220,7 +220,7 @@ func TestGetAppSearch(t *testing.T) {
 		name string
 		args args
 		want *models.AppSearchResourceInfo
-		err  error
+		err  string
 	}{
 		{
 			name: "Get fails due to parameter validation failure",
@@ -228,7 +228,7 @@ func TestGetAppSearch(t *testing.T) {
 			err: multierror.NewPrefixed("deployment get",
 				apierror.ErrMissingAPI,
 				errors.New(`id "" is invalid`),
-			),
+			).Error(),
 		},
 		{
 			name: "Get fails due to API failure",
@@ -238,7 +238,7 @@ func TestGetAppSearch(t *testing.T) {
 					API:          api.NewMock(mock.SampleInternalError()),
 				},
 			},
-			err: mock.MultierrorInternalError,
+			err: mock.MultierrorInternalError.Error(),
 		},
 		{
 			name: "Get succeeds",
@@ -277,7 +277,7 @@ func TestGetAppSearch(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := GetAppSearch(tt.args.params)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 			if !assert.Equal(t, tt.want, got) {
@@ -301,7 +301,7 @@ func TestGetApm(t *testing.T) {
 		name string
 		args args
 		want *models.ApmResourceInfo
-		err  error
+		err  string
 	}{
 		{
 			name: "Get fails due to parameter validation failure",
@@ -309,7 +309,7 @@ func TestGetApm(t *testing.T) {
 			err: multierror.NewPrefixed("deployment get",
 				apierror.ErrMissingAPI,
 				errors.New(`id "" is invalid`),
-			),
+			).Error(),
 		},
 		{
 			name: "Get fails due to API failure",
@@ -319,7 +319,7 @@ func TestGetApm(t *testing.T) {
 					API:          api.NewMock(mock.SampleInternalError()),
 				},
 			},
-			err: mock.MultierrorInternalError,
+			err: mock.MultierrorInternalError.Error(),
 		},
 		{
 			name: "Get succeeds",
@@ -358,7 +358,7 @@ func TestGetApm(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := GetApm(tt.args.params)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 			if !assert.Equal(t, tt.want, got) {
@@ -381,7 +381,7 @@ func TestGetElasticsearch(t *testing.T) {
 		name string
 		args args
 		want *models.ElasticsearchResourceInfo
-		err  error
+		err  string
 	}{
 		{
 			name: "Get fails due to parameter validation failure",
@@ -389,7 +389,7 @@ func TestGetElasticsearch(t *testing.T) {
 			err: multierror.NewPrefixed("deployment get",
 				apierror.ErrMissingAPI,
 				errors.New(`id "" is invalid`),
-			),
+			).Error(),
 		},
 		{
 			name: "Get fails due to API failure",
@@ -399,7 +399,7 @@ func TestGetElasticsearch(t *testing.T) {
 					API:          api.NewMock(mock.SampleInternalError()),
 				},
 			},
-			err: mock.MultierrorInternalError,
+			err: mock.MultierrorInternalError.Error(),
 		},
 		{
 			name: "Get succeeds",
@@ -441,7 +441,7 @@ func TestGetElasticsearch(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := GetElasticsearch(tt.args.params)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 			if !assert.Equal(t, tt.want, got) {
@@ -465,7 +465,7 @@ func TestGetEnterpriseSearch(t *testing.T) {
 		name string
 		args args
 		want *models.EnterpriseSearchResourceInfo
-		err  error
+		err  string
 	}{
 		{
 			name: "Get fails due to parameter validation failure",
@@ -473,7 +473,7 @@ func TestGetEnterpriseSearch(t *testing.T) {
 			err: multierror.NewPrefixed("deployment get",
 				apierror.ErrMissingAPI,
 				errors.New(`id "" is invalid`),
-			),
+			).Error(),
 		},
 		{
 			name: "Get fails due to API failure",
@@ -483,7 +483,7 @@ func TestGetEnterpriseSearch(t *testing.T) {
 					API:          api.NewMock(mock.SampleInternalError()),
 				},
 			},
-			err: mock.MultierrorInternalError,
+			err: mock.MultierrorInternalError.Error(),
 		},
 		{
 			name: "Get succeeds",
@@ -522,7 +522,7 @@ func TestGetEnterpriseSearch(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := GetEnterpriseSearch(tt.args.params)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 			if !assert.Equal(t, tt.want, got) {
@@ -546,7 +546,7 @@ func TestGetKibana(t *testing.T) {
 		name string
 		args args
 		want *models.KibanaResourceInfo
-		err  error
+		err  string
 	}{
 		{
 			name: "Get fails due to parameter validation failure",
@@ -554,7 +554,7 @@ func TestGetKibana(t *testing.T) {
 			err: multierror.NewPrefixed("deployment get",
 				apierror.ErrMissingAPI,
 				errors.New(`id "" is invalid`),
-			),
+			).Error(),
 		},
 		{
 			name: "Get fails due to API failure",
@@ -564,7 +564,7 @@ func TestGetKibana(t *testing.T) {
 					API:          api.NewMock(mock.SampleInternalError()),
 				},
 			},
-			err: mock.MultierrorInternalError,
+			err: mock.MultierrorInternalError.Error(),
 		},
 		{
 			name: "Get succeeds",
@@ -604,7 +604,7 @@ func TestGetKibana(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := GetKibana(tt.args.params)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 			if !assert.Equal(t, tt.want, got) {
@@ -633,7 +633,7 @@ func TestGetElasticsearchID(t *testing.T) {
 		name string
 		args args
 		want string
-		err  error
+		err  string
 	}{
 		{
 			name: "Get fails due to API failure",
@@ -643,7 +643,7 @@ func TestGetElasticsearchID(t *testing.T) {
 					API:          api.NewMock(mock.SampleInternalError()),
 				},
 			},
-			err: mock.MultierrorInternalError,
+			err: mock.MultierrorInternalError.Error(),
 		},
 		{
 			name: "Get succeeds",
@@ -682,7 +682,7 @@ func TestGetElasticsearchID(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := GetElasticsearchID(tt.args.params)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 			if !assert.Equal(t, tt.want, got) {

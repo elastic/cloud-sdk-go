@@ -19,8 +19,9 @@ package depresourceapi
 
 import (
 	"errors"
-	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
@@ -39,7 +40,7 @@ func TestDeleteStateless(t *testing.T) {
 		name string
 		args args
 		want *models.DeploymentResourceUpgradeResponse
-		err  error
+		err  string
 	}{
 		{
 			name: "fails due to parameter validation",
@@ -50,7 +51,7 @@ func TestDeleteStateless(t *testing.T) {
 				errors.New("resource kind cannot be empty"),
 				errors.New(`failed auto-discovering the resource ref id: deployment get: api reference is required for the operation`),
 				errors.New(`failed auto-discovering the resource ref id: deployment get: id "" is invalid`),
-			)),
+			)).Error(),
 		},
 		{
 			name: "fails due to parameter validation on invalid kind",
@@ -67,7 +68,7 @@ func TestDeleteStateless(t *testing.T) {
 					errors.New(`failed auto-discovering the resource ref id: deployment get: id "" is invalid`),
 				),
 				errors.New("resource kind \"elasticsearch\" is not supported"),
-			),
+			).Error(),
 		},
 		{
 			name: "fails due to API error",
@@ -79,7 +80,7 @@ func TestDeleteStateless(t *testing.T) {
 					Kind:         "kibana",
 				},
 			}},
-			err: mock.MultierrorNotFound,
+			err: mock.MultierrorNotFound.Error(),
 		},
 		{
 			name: "succeeds on APM resource",
@@ -102,7 +103,7 @@ func TestDeleteStateless(t *testing.T) {
 					Kind:         util.Apm,
 				},
 			}},
-			err: mock.MultierrorInternalError,
+			err: mock.MultierrorInternalError.Error(),
 		},
 		{
 			name: "succeeds",
@@ -141,9 +142,8 @@ func TestDeleteStateless(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			err := DeleteStateless(tt.args.params)
-			if !reflect.DeepEqual(err, tt.err) {
-				t.Errorf("DeleteStateless() error = %v, wantErr %v", err, tt.err)
-				return
+			if err != nil && !assert.EqualError(t, err, tt.err) {
+				t.Error(err)
 			}
 		})
 	}
