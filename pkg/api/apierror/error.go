@@ -39,6 +39,8 @@ const (
 	ErrTimedOutMsg = "operation timed out"
 
 	errPrefix = "api error"
+
+	httpRetryWith = 449
 )
 
 type basicFailedReply interface {
@@ -154,7 +156,7 @@ func unwrapRuntimeAPIError(prefix string, err error) error {
 		return nil
 	}
 
-	if apiErr.Code == 449 {
+	if apiErr.Code == httpRetryWith {
 		return ErrMissingElevatedPermissions
 	}
 
