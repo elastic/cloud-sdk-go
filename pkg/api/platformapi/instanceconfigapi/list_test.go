@@ -40,7 +40,7 @@ func TestList(t *testing.T) {
 		name string
 		args args
 		want []*models.InstanceConfiguration
-		err  error
+		err  string
 	}{
 		{
 			name: "List succeeds",
@@ -110,7 +110,7 @@ func TestList(t *testing.T) {
 				Region: "us-east-1",
 				API:    api.NewMock(mock.New500Response(mock.NewStringBody(`{"error": "some error"}`))),
 			}},
-			err: errors.New(`{"error": "some error"}`),
+			err: `{"error": "some error"}`,
 		},
 		{
 			name: "List fails on parameter validation failure",
@@ -118,13 +118,13 @@ func TestList(t *testing.T) {
 			err: multierror.NewPrefixed("invalid instance config list params",
 				apierror.ErrMissingAPI,
 				errors.New("region not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := List(tt.args.params)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 			assert.Equal(t, tt.want, got)

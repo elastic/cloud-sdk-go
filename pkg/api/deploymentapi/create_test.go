@@ -19,8 +19,9 @@ package deploymentapi
 
 import (
 	"errors"
-	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
@@ -61,14 +62,14 @@ func TestCreate(t *testing.T) {
 		name string
 		args args
 		want *models.DeploymentCreateResponse
-		err  error
+		err  string
 	}{
 		{
 			name: "fails on parameter validation",
 			err: multierror.NewPrefixed("deployment create",
 				apierror.ErrMissingAPI,
 				errors.New("request payload cannot be empty"),
-			),
+			).Error(),
 		},
 		{
 			name: "fails on API error",
@@ -76,7 +77,7 @@ func TestCreate(t *testing.T) {
 				API:     api.NewMock(mock.New500Response(mock.NewStringBody("error"))),
 				Request: &models.DeploymentCreateRequest{},
 			}},
-			err: errors.New("error"),
+			err: "error",
 		},
 		{
 			name: "succeeds",
@@ -222,11 +223,10 @@ func TestCreate(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := Create(tt.args.params)
-			if !reflect.DeepEqual(err, tt.err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Errorf("Create() error = %v, wantErr %v", err, tt.err)
-				return
 			}
-			if !reflect.DeepEqual(got, tt.want) {
+			if !assert.Equal(t, tt.want, got) {
 				t.Errorf("Create() = %v, want %v", got, tt.want)
 			}
 		})

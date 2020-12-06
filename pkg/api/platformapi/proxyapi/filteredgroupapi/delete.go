@@ -65,5 +65,5 @@ func Delete(params DeleteParams) error {
 			WithProxiesFilteredGroupID(params.ID),
 		params.AuthWriter,
 	)
-	return api.UnwrapError(err)
+	return apierror.Wrap(err)
 }

@@ -18,9 +18,9 @@
 package deploymentapi
 
 import (
-	"errors"
-	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
@@ -38,14 +38,14 @@ func TestRestore(t *testing.T) {
 		name string
 		args args
 		want *models.DeploymentRestoreResponse
-		err  error
+		err  string
 	}{
 		{
 			name: "fails on parameter validation",
 			err: multierror.NewPrefixed("deployment restore",
 				apierror.ErrMissingAPI,
 				apierror.ErrDeploymentID,
-			),
+			).Error(),
 		},
 		{
 			name: "fails on API error",
@@ -53,7 +53,7 @@ func TestRestore(t *testing.T) {
 				API:          api.NewMock(mock.New500Response(mock.NewStringBody(`{"error": "some error"}`))),
 				DeploymentID: mock.ValidClusterID,
 			}},
-			err: errors.New(`{"error": "some error"}`),
+			err: `{"error": "some error"}`,
 		},
 		{
 			name: "Succeeds",
@@ -71,11 +71,11 @@ func TestRestore(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := Restore(tt.args.params)
-			if !reflect.DeepEqual(err, tt.err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Errorf("Restore() error = %v, wantErr %v", err, tt.err)
 				return
 			}
-			if !reflect.DeepEqual(got, tt.want) {
+			if !assert.Equal(t, tt.want, got) {
 				t.Errorf("Restore() = %v, want %v", got, tt.want)
 			}
 		})

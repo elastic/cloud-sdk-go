@@ -25,18 +25,21 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 )
 
-func newMultierror(r *models.BasicFailedReply) error {
-	merr := multierror.NewPrefixed("api error")
-	for _, e := range r.Errors {
-		merr = merr.Append(
-			newError(e),
-		)
+// newBasicFailedReplyMultierror returns a multierror from a BasicFailedReply.
+func newBasicFailedReplyMultierror(prefix string, r *models.BasicFailedReply) *multierror.Prefixed {
+	merr := multierror.NewPrefixed(prefix)
+	if r == nil {
+		return merr
 	}
 
-	return merr.ErrorOrNil()
+	for _, e := range r.Errors {
+		merr = merr.Append(newBasicFailedReply(e))
+	}
+
+	return merr
 }
 
-func newError(elem *models.BasicFailedReplyElement) error {
+func newBasicFailedReply(elem *models.BasicFailedReplyElement) error {
 	var code, message = "unknown", "unknown"
 	var fields string
 

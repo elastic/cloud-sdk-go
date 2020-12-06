@@ -133,7 +133,7 @@ func moveNodes(id string, params *VacateParams, p *pool.Pool) ([]pool.Validator,
 	if err != nil {
 		return nil, false, merr.Append(VacateError{
 			AllocatorID: id,
-			Err:         api.UnwrapError(err),
+			Err:         apierror.Wrap(err),
 		})
 	}
 
@@ -392,7 +392,7 @@ func newMoveClusterParams(params *VacateClusterParams) (*platform_infrastructure
 			ResourceID:  params.ClusterID,
 			Kind:        params.Kind,
 			Ctx:         "failed obtaining default vacate parameters",
-			Err:         api.UnwrapError(err),
+			Err:         apierror.Wrap(err),
 		}
 	}
 
@@ -448,7 +448,7 @@ func moveClusterByType(params *VacateClusterParams) error {
 			ResourceID:  params.ClusterID,
 			Kind:        params.Kind,
 			Ctx:         "resource move API call error",
-			Err:         api.UnwrapError(err),
+			Err:         apierror.Wrap(err),
 		}
 	}
 

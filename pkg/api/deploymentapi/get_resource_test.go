@@ -42,7 +42,7 @@ func TestGetResource(t *testing.T) {
 		name string
 		args args
 		want interface{}
-		err  error
+		err  string
 	}{
 		{
 			name: "fails due to param validation",
@@ -50,7 +50,7 @@ func TestGetResource(t *testing.T) {
 			err: multierror.NewPrefixed("deployment get",
 				apierror.ErrMissingAPI,
 				deputil.NewInvalidDeploymentIDError(""),
-			),
+			).Error(),
 		},
 		{
 			name: "obtains a apm resource with a set RefID",
@@ -586,7 +586,7 @@ func TestGetResource(t *testing.T) {
 				},
 				Kind: "INVALID",
 			}},
-			err: errors.New("deployment get: resource kind INVALID is not available"),
+			err: "deployment get: resource kind INVALID is not available",
 		},
 		{
 			name: "returns an error when the RefID discovery fails",
@@ -601,7 +601,9 @@ func TestGetResource(t *testing.T) {
 				},
 				Kind: "INVALID",
 			}},
-			err: multierror.NewPrefixed("api error", errors.New("deployment.missing: unknown")),
+			err: multierror.NewPrefixed(
+				"api error", errors.New("deployment.missing: unknown"),
+			).Error(),
 		},
 		{
 			name: "tries to obtain an INVALID resource with a set RefID",
@@ -613,7 +615,7 @@ func TestGetResource(t *testing.T) {
 				},
 				Kind: "INVALID",
 			}},
-			err: errors.New("deployment get: resource kind INVALID is not valid"),
+			err: "deployment get: resource kind INVALID is not valid",
 		},
 		{
 			name: "obtains the whole deployment when Kind is empty",
@@ -655,7 +657,7 @@ func TestGetResource(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := GetResource(tt.args.params)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 			if !assert.Equal(t, tt.want, got) {

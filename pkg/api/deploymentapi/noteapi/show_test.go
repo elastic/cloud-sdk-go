@@ -20,8 +20,9 @@ package noteapi
 import (
 	"errors"
 	"net/http"
-	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
@@ -47,7 +48,7 @@ func TestGet(t *testing.T) {
 		name    string
 		args    args
 		want    *models.Note
-		wantErr error
+		wantErr string
 	}{
 		{
 			name: "Get note succeeds",
@@ -79,7 +80,7 @@ func TestGet(t *testing.T) {
 					API:    api.NewMock(mock.SampleInternalError()),
 				},
 			}},
-			wantErr: mock.MultierrorInternalError,
+			wantErr: mock.MultierrorInternalError.Error(),
 		},
 		{
 			name: "Get note fails due to validation",
@@ -91,16 +92,16 @@ func TestGet(t *testing.T) {
 					errors.New(`id "" is invalid`),
 					errors.New("region not specified and is required for this operation"),
 				),
-			),
+			).Error(),
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := Get(tt.args.params)
-			if !reflect.DeepEqual(err, tt.wantErr) {
+			if err != nil && !assert.EqualError(t, err, tt.wantErr) {
 				t.Errorf("Get() error = %v, wantErr %v", err, tt.wantErr)
 			}
-			if !reflect.DeepEqual(got, tt.want) {
+			if !assert.Equal(t, tt.want, got) {
 				t.Errorf("Get() = %v, want %v", got, tt.want)
 			}
 		})

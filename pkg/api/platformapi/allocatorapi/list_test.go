@@ -21,8 +21,9 @@ import (
 	"errors"
 	"net/http"
 	"net/url"
-	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
@@ -361,7 +362,7 @@ func TestList(t *testing.T) {
 		name string
 		args args
 		want *models.AllocatorOverview
-		err  error
+		err  string
 	}{
 		{
 			name: "List fails due to parameter validation failure (missing API)",
@@ -369,7 +370,7 @@ func TestList(t *testing.T) {
 			err: multierror.NewPrefixed("invalid allocator list params",
 				apierror.ErrMissingAPI,
 				errors.New("region not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 		{
 			name: "List fails due to API error",
@@ -377,7 +378,7 @@ func TestList(t *testing.T) {
 				API:    api.NewMock(mock.New500Response(mock.NewStringBody(`{"error": "some error"}`))),
 				Region: "us-east-1",
 			}},
-			err: errors.New(`{"error": "some error"}`),
+			err: `{"error": "some error"}`,
 		},
 		{
 			name: "List Succeeds",
@@ -603,11 +604,11 @@ func TestList(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := List(tt.args.params)
-			if !reflect.DeepEqual(err, tt.err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Errorf("List() error = %v, wantErr %v", err, tt.err)
 				return
 			}
-			if !reflect.DeepEqual(got, tt.want) {
+			if !assert.Equal(t, tt.want, got) {
 				t.Errorf("List() = \n%+v, want \n%+v", got, tt.want)
 			}
 		})

@@ -63,7 +63,7 @@ func ReAuthenticate(params ReAuthenticateParams) (string, error) {
 		params.AuthWriter,
 	)
 	if err != nil {
-		return "", api.UnwrapError(err)
+		return "", apierror.Wrap(err)
 	}
 
 	return *res.Payload.SecurityToken, nil

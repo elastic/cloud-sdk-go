@@ -35,13 +35,18 @@ import (
 )
 
 func TestPullToDirectory(t *testing.T) {
+	urlError := url.Error{
+		Op:  "Get",
+		URL: "https://mock.elastic.co/api/v1/regions/us-east-1/platform/configuration/instances",
+		Err: errors.New("error"),
+	}
 	type args struct {
 		params PullToDirectoryParams
 	}
 	tests := []struct {
 		name string
 		args args
-		err  error
+		err  string
 		want map[string]string
 	}{
 		{
@@ -50,7 +55,7 @@ func TestPullToDirectory(t *testing.T) {
 				apierror.ErrMissingAPI,
 				errors.New("folder not specified and is required for the operation"),
 				errors.New("region not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 		{
 			name: "fails listing the configs due to API error",
@@ -59,11 +64,7 @@ func TestPullToDirectory(t *testing.T) {
 				Directory: "some",
 				API:       api.NewMock(mock.Response{Error: errors.New("error")}),
 			}},
-			err: &url.Error{
-				Op:  "Get",
-				URL: "https://mock.elastic.co/api/v1/regions/us-east-1/platform/configuration/instances",
-				Err: errors.New("error"),
-			},
+			err: urlError.Error(),
 		},
 		{
 			name: "pulls instance configs successfully",
@@ -136,7 +137,7 @@ func TestPullToDirectory(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			err := PullToDirectory(tt.args.params)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 

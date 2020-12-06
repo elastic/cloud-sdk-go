@@ -61,7 +61,7 @@ func List(params ListParams) ([]*models.ProxiesFilteredGroupHealth, error) {
 		params.AuthWriter,
 	)
 	if err != nil {
-		return nil, api.UnwrapError(err)
+		return nil, apierror.Wrap(err)
 	}
 
 	return proxies.Payload.FilteredGroups, nil

@@ -36,7 +36,7 @@ func TestNewConfig(t *testing.T) {
 		name string
 		args args
 		want *models.InstanceConfiguration
-		err  error
+		err  string
 	}{
 		{
 			name: "NewConfig succeeds",
@@ -66,7 +66,7 @@ func TestNewConfig(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := NewConfig(tt.args.source)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 			assert.Equal(t, tt.want, got)

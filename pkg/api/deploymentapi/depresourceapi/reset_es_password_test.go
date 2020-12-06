@@ -168,7 +168,7 @@ func TestResetElasticsearchPassword(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := ResetElasticsearchPassword(tt.args.params)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err.Error()) {
 				t.Error(err)
 			}
 			if !assert.Equal(t, tt.want, got) {

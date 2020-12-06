@@ -27,4 +27,7 @@ var (
 
 	// ErrDeploymentID is the message returned when a provided cluster id is not of the expected length (32 chars).
 	ErrDeploymentID = errors.New("deployment id should have a length of 32 characters")
+
+	// ErrMissingElevatedPermissions is returned when the error code is 449.
+	ErrMissingElevatedPermissions = errors.New("the requested operation requires elevated permissions")
 )

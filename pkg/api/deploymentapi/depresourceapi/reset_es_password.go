@@ -79,7 +79,7 @@ func ResetElasticsearchPassword(params ResetElasticsearchPasswordParams) (*model
 		params.AuthWriter,
 	)
 	if err != nil {
-		return nil, api.UnwrapError(err)
+		return nil, apierror.Wrap(err)
 	}
 
 	return res.Payload, nil

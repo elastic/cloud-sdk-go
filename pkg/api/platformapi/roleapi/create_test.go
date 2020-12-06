@@ -36,7 +36,7 @@ func TestCreate(t *testing.T) {
 	tests := []struct {
 		name string
 		args args
-		err  error
+		err  string
 	}{
 		{
 			name: "fails on parameter validation",
@@ -45,7 +45,7 @@ func TestCreate(t *testing.T) {
 				errors.New("api reference is required for the operation"),
 				errors.New("role definition not specified and is required for this operation"),
 				errors.New("region not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 		{
 			name: "fails creating the role",
@@ -56,7 +56,7 @@ func TestCreate(t *testing.T) {
 				))),
 				Role: &models.RoleAggregateCreateData{},
 			}},
-			err: errors.New(`{"error": "failed creating role"}`),
+			err: `{"error": "failed creating role"}`,
 		},
 		{
 			name: "succeeds",
@@ -79,7 +79,7 @@ func TestCreate(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			err := Create(tt.args.params)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 		})

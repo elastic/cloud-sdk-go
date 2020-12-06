@@ -65,5 +65,5 @@ func Delete(params DeleteParams) error {
 		params.AuthWriter,
 	)
 
-	return api.UnwrapError(err)
+	return apierror.Wrap(err)
 }

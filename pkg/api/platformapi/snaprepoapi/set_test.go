@@ -31,13 +31,18 @@ import (
 )
 
 func TestSet(t *testing.T) {
+	urlError := url.Error{
+		Op:  "Put",
+		URL: "https://mock.elastic.co/api/v1/regions/us-east-1/platform/configuration/snapshots/repositories/snapshot_repo_name",
+		Err: errors.New("ERROR"),
+	}
 	type args struct {
 		params SetParams
 	}
 	tests := []struct {
 		name string
 		args args
-		err  error
+		err  string
 	}{
 		{
 			name: "Set succeeds",
@@ -84,11 +89,7 @@ func TestSet(t *testing.T) {
 					API:    api.NewMock(mock.Response{Error: errors.New("ERROR")}),
 				},
 			},
-			err: &url.Error{
-				Op:  "Put",
-				URL: "https://mock.elastic.co/api/v1/regions/us-east-1/platform/configuration/snapshots/repositories/snapshot_repo_name",
-				Err: errors.New("ERROR"),
-			},
+			err: urlError.Error(),
 		},
 		{
 			name: "Set fails due to unset params",
@@ -100,7 +101,7 @@ func TestSet(t *testing.T) {
 				errors.New("name not specified and is required for this operation"),
 				errors.New("region not specified and is required for this operation"),
 				errors.New("config not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 		{
 			name: "Set fails due to invalid config",
@@ -121,13 +122,13 @@ func TestSet(t *testing.T) {
 				errors.New("s3 configuration: required setting: bucket cannot be empty"),
 				errors.New("s3 configuration: required setting: access key cannot be empty"),
 				errors.New("s3 configuration: required setting: secret key cannot be empty"),
-			),
+			).Error(),
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			err := Set(tt.args.params)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 		})

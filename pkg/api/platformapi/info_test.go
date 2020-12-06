@@ -20,8 +20,9 @@ package platformapi
 import (
 	"errors"
 	"net/http"
-	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
@@ -39,7 +40,7 @@ func TestGetInfo(t *testing.T) {
 		name string
 		args args
 		want *models.PlatformInfo
-		err  error
+		err  string
 	}{
 		{
 			name: "Succeeds",
@@ -72,17 +73,16 @@ func TestGetInfo(t *testing.T) {
 			err: multierror.NewPrefixed("invalid platform get params",
 				apierror.ErrMissingAPI,
 				errors.New("region not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := GetInfo(tt.args.params)
-			if !reflect.DeepEqual(err, tt.err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Errorf("GetInfo() error = %v, wantErr %v", err, tt.err)
-				return
 			}
-			if !reflect.DeepEqual(got, tt.want) {
+			if !assert.Equal(t, tt.want, got) {
 				t.Errorf("GetInfo() = %v, want %v", got, tt.want)
 			}
 		})

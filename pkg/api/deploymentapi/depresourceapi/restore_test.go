@@ -19,8 +19,9 @@ package depresourceapi
 
 import (
 	"errors"
-	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
@@ -38,7 +39,7 @@ func TestRestore(t *testing.T) {
 	tests := []struct {
 		name string
 		args args
-		err  error
+		err  string
 	}{
 		{
 			name: "fails due to param validation",
@@ -48,7 +49,7 @@ func TestRestore(t *testing.T) {
 				errors.New("resource kind cannot be empty"),
 				errors.New(`failed auto-discovering the resource ref id: deployment get: api reference is required for the operation`),
 				errors.New(`failed auto-discovering the resource ref id: deployment get: id "" is invalid`),
-			)),
+			)).Error(),
 		},
 		{
 			name: "fails due to restore Kibana due to API error",
@@ -60,7 +61,7 @@ func TestRestore(t *testing.T) {
 					Kind:         "kibana",
 				},
 			}},
-			err: mock.MultierrorNotFound,
+			err: mock.MultierrorNotFound.Error(),
 		},
 		{
 			name: "fails to restore APM due to API error",
@@ -72,7 +73,7 @@ func TestRestore(t *testing.T) {
 					Kind:         util.Apm,
 				},
 			}},
-			err: mock.MultierrorNotFound,
+			err: mock.MultierrorNotFound.Error(),
 		},
 		{
 			name: "fails due to restore Elasticsearch due to API error",
@@ -84,7 +85,7 @@ func TestRestore(t *testing.T) {
 					Kind:         "elasticsearch",
 				},
 			}},
-			err: mock.MultierrorNotFound,
+			err: mock.MultierrorNotFound.Error(),
 		},
 		{
 			name: "Succeeds restoring Kibana",
@@ -144,7 +145,9 @@ func TestRestore(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := Restore(tt.args.params); !reflect.DeepEqual(err, tt.err) {
+			err := Restore(tt.args.params)
+
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Errorf("Restore() error = %v, wantErr %v", err, tt.err)
 			}
 		})

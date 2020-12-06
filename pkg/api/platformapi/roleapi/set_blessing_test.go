@@ -36,7 +36,7 @@ func TestSetBlessings(t *testing.T) {
 	tests := []struct {
 		name string
 		args args
-		err  error
+		err  string
 	}{
 		{
 			name: "fails on parameter validation",
@@ -46,7 +46,7 @@ func TestSetBlessings(t *testing.T) {
 				errors.New("blessing definitions not specified and is required for this operation"),
 				errors.New("id not specified and is required for this operation"),
 				errors.New("region not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 		{
 			name: "fails updating the role",
@@ -58,7 +58,7 @@ func TestSetBlessings(t *testing.T) {
 				Blessings: &models.Blessings{},
 				ID:        "one",
 			}},
-			err: errors.New(`{"error": "failed updating role"}`),
+			err: `{"error": "failed updating role"}`,
 		},
 		{
 			name: "succeeds",
@@ -82,7 +82,7 @@ func TestSetBlessings(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			err := SetBlessings(tt.args.params)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 		})

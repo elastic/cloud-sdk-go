@@ -21,8 +21,9 @@ import (
 	"errors"
 	"net/http"
 	"net/url"
-	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
@@ -30,13 +31,18 @@ import (
 )
 
 func TestDelete(t *testing.T) {
+	urlError := url.Error{
+		Op:  "Delete",
+		URL: "https://mock.elastic.co/api/v1/regions/us-east-1/stack/versions/5.6.0",
+		Err: errors.New(`{"error": "some error"}`),
+	}
 	type args struct {
 		params DeleteParams
 	}
 	tests := []struct {
 		name string
 		args args
-		err  error
+		err  string
 	}{
 		{
 			name: "Delete Succeeds",
@@ -67,11 +73,7 @@ func TestDelete(t *testing.T) {
 					Error: errors.New(`{"error": "some error"}`),
 				}),
 			}},
-			err: &url.Error{
-				Op:  "Delete",
-				URL: "https://mock.elastic.co/api/v1/regions/us-east-1/stack/versions/5.6.0",
-				Err: errors.New(`{"error": "some error"}`),
-			},
+			err: urlError.Error(),
 		},
 		{
 			name: "Delete fails due to empty API",
@@ -81,7 +83,7 @@ func TestDelete(t *testing.T) {
 			}},
 			err: multierror.NewPrefixed("invalid stack delete params",
 				errors.New("api reference is required for the operation"),
-			),
+			).Error(),
 		},
 		{
 			name: "Delete fails due to empty version",
@@ -91,7 +93,7 @@ func TestDelete(t *testing.T) {
 			}},
 			err: multierror.NewPrefixed("invalid stack delete params",
 				errors.New("version string empty"),
-			),
+			).Error(),
 		},
 		{
 			name: "Delete fails due to empty region",
@@ -101,7 +103,7 @@ func TestDelete(t *testing.T) {
 			}},
 			err: multierror.NewPrefixed("invalid stack delete params",
 				errors.New("region not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 		{
 			name: "Delete fails due to empty parameters",
@@ -110,12 +112,13 @@ func TestDelete(t *testing.T) {
 				errors.New("api reference is required for the operation"),
 				errors.New("version string empty"),
 				errors.New("region not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := Delete(tt.args.params); !reflect.DeepEqual(err, tt.err) {
+			err := Delete(tt.args.params)
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Errorf("Delete() error = %v, wantErr %v", err, tt.err)
 			}
 		})

@@ -53,7 +53,7 @@ func TestListKeys(t *testing.T) {
 		name string
 		args args
 		want *models.APIKeysResponse
-		err  error
+		err  string
 	}{
 		{
 			name: "fails due to parameter validation",
@@ -61,7 +61,7 @@ func TestListKeys(t *testing.T) {
 			err: multierror.NewPrefixed("invalid user auth admin params",
 				apierror.ErrMissingAPI,
 				errors.New("one of user id or the all bool set to true must be specified for this operation"),
-			),
+			).Error(),
 		},
 		{
 			name: "fails due to parameter validation, both all and userid specified",
@@ -71,7 +71,7 @@ func TestListKeys(t *testing.T) {
 			err: multierror.NewPrefixed("invalid user auth admin params",
 				apierror.ErrMissingAPI,
 				errors.New("user id must not be specified if the all bool is set to true"),
-			),
+			).Error(),
 		},
 		{
 			name: "fails due to API error on all call",
@@ -79,7 +79,7 @@ func TestListKeys(t *testing.T) {
 				API: api.NewMock(mock.New500Response(mock.NewStringBody(`{"error": "some error"}`))),
 				All: true,
 			}},
-			err: errors.New(`{"error": "some error"}`),
+			err: `{"error": "some error"}`,
 		},
 		{
 			name: "fails due to API error on user call",
@@ -87,7 +87,7 @@ func TestListKeys(t *testing.T) {
 				API:    api.NewMock(mock.New500Response(mock.NewStringBody(`{"error": "some error"}`))),
 				UserID: "someid",
 			}},
-			err: errors.New(`{"error": "some error"}`),
+			err: `{"error": "some error"}`,
 		},
 		{
 			name: "succeeds listing keys for multiple users",
@@ -121,7 +121,7 @@ func TestListKeys(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := ListKeys(tt.args.params)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 			if !assert.Equal(t, tt.want, got) {

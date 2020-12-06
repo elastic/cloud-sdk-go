@@ -20,6 +20,7 @@ package mock
 import (
 	"fmt"
 
+	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 )
 
@@ -40,19 +41,19 @@ const (
 
 var (
 	// MultierrorInternalError represents the multierror returned by apier.Unwrap().
-	MultierrorInternalError = multierror.NewPrefixed("api error",
+	MultierrorInternalError = apierror.Wrap(multierror.NewPrefixed("api error",
 		fmt.Errorf("%s: %s", code500, message500),
-	)
+	))
 
 	// MultierrorNotFound represents the multierror returned by apier.Unwrap().
-	MultierrorNotFound = multierror.NewPrefixed("api error",
+	MultierrorNotFound = apierror.Wrap(multierror.NewPrefixed("api error",
 		fmt.Errorf("%s: %s", code404, message404),
-	)
+	))
 
 	// MultierrorBadRequest represents the multierror returned by apier.Unwrap().
-	MultierrorBadRequest = multierror.NewPrefixed("api error",
+	MultierrorBadRequest = apierror.Wrap(multierror.NewPrefixed("api error",
 		fmt.Errorf("%s: %s", code400, message400),
-	)
+	))
 )
 
 // SampleInternalError returns a response which encapsulates a 500 error.
