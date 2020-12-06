@@ -66,7 +66,7 @@ func List(params ListParams) (*models.StackVersionConfigs, error) {
 		params.AuthWriter,
 	)
 	if err != nil {
-		return nil, api.UnwrapError(err)
+		return nil, apierror.Wrap(err)
 	}
 
 	stacks := res.Payload.Stacks

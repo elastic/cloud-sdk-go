@@ -22,6 +22,8 @@ import (
 	"reflect"
 	"testing"
 
+	"github.com/stretchr/testify/assert"
+
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
@@ -38,7 +40,7 @@ func TestCancelPlan(t *testing.T) {
 		name string
 		args args
 		want *models.DeploymentResourceCrudResponse
-		err  error
+		err  string
 	}{
 		{
 			name: "fails due to parameter validation",
@@ -49,7 +51,7 @@ func TestCancelPlan(t *testing.T) {
 				errors.New("resource kind cannot be empty"),
 				errors.New(`failed auto-discovering the resource ref id: deployment get: api reference is required for the operation`),
 				errors.New(`failed auto-discovering the resource ref id: deployment get: id "" is invalid`),
-			),
+			).Error(),
 		},
 		{
 			name: "fails due to API error",
@@ -61,7 +63,7 @@ func TestCancelPlan(t *testing.T) {
 					RefID:        "main-elasticsearch",
 				},
 			}},
-			err: mock.MultierrorInternalError,
+			err: mock.MultierrorInternalError.Error(),
 		},
 		{
 			name: "fails due to RefID discovery",
@@ -76,9 +78,7 @@ func TestCancelPlan(t *testing.T) {
 					Kind:         "elasticsearch",
 				},
 			}},
-			err: multierror.NewPrefixed("deployment resource", multierror.NewPrefixed("failed auto-discovering the resource ref id", multierror.NewPrefixed("api error",
-				errors.New("deployment.missing: unknown"),
-			))),
+			err: "deployment resource: 1 error occurred:\n\t* failed auto-discovering the resource ref id: api error: deployment.missing: unknown\n\n",
 		},
 		{
 			name: "succeeds",
@@ -96,9 +96,8 @@ func TestCancelPlan(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := CancelPlan(tt.args.params)
-			if !reflect.DeepEqual(err, tt.err) {
-				t.Errorf("CancelPlan() error = %v, wantErr %v", err, tt.err)
-				return
+			if err != nil && !assert.EqualError(t, err, tt.err) {
+				t.Error(err)
 			}
 			if !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("CancelPlan() = %v, want %v", got, tt.want)

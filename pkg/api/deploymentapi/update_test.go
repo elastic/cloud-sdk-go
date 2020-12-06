@@ -19,8 +19,9 @@ package deploymentapi
 
 import (
 	"errors"
-	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
@@ -38,7 +39,7 @@ func TestUpdate(t *testing.T) {
 		name string
 		args args
 		want *models.DeploymentUpdateResponse
-		err  error
+		err  string
 	}{
 		{
 			name: "fails on parameter validation",
@@ -46,7 +47,7 @@ func TestUpdate(t *testing.T) {
 				apierror.ErrMissingAPI,
 				errors.New("request payload cannot be empty"),
 				apierror.ErrDeploymentID,
-			),
+			).Error(),
 		},
 		{
 			name: "fails on API error",
@@ -55,7 +56,7 @@ func TestUpdate(t *testing.T) {
 				API:          api.NewMock(mock.New500Response(mock.NewStringBody(`{"error": "some error"}`))),
 				Request:      &models.DeploymentUpdateRequest{},
 			}},
-			err: errors.New(`{"error": "some error"}`),
+			err: `{"error": "some error"}`,
 		},
 		{
 			name: "succeeds updating to 7.4.1",
@@ -120,13 +121,10 @@ func TestUpdate(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := Update(tt.args.params)
-
-			if !reflect.DeepEqual(err, tt.err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Errorf("Update() error = %v, wantErr %v", err, tt.err)
-				return
 			}
-
-			if !reflect.DeepEqual(got, tt.want) {
+			if !assert.Equal(t, tt.want, got) {
 				t.Errorf("Update() = %+v, want %+v", got, tt.want)
 			}
 		})

@@ -39,7 +39,7 @@ func TestUpdate(t *testing.T) {
 		name string
 		args args
 		want *models.TrafficFilterRulesetResponse
-		err  error
+		err  string
 	}{
 		{
 			name: "fails due to parameter validation",
@@ -47,7 +47,7 @@ func TestUpdate(t *testing.T) {
 				apierror.ErrMissingAPI,
 				errors.New("rule set id is not specified and is required for the operation"),
 				errors.New("request payload is not specified and is required for the operation"),
-			),
+			).Error(),
 		},
 		{
 			name: "succeeds",
@@ -84,13 +84,13 @@ func TestUpdate(t *testing.T) {
 				ID:  "some-id",
 				Req: &models.TrafficFilterRulesetRequest{},
 			}},
-			err: mock.MultierrorInternalError,
+			err: mock.MultierrorInternalError.Error(),
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := Update(tt.args.params)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 			assert.Equal(t, tt.want, got)

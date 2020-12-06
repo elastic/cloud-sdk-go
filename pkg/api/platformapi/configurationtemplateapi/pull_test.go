@@ -36,6 +36,11 @@ import (
 )
 
 func TestPullToFolder(t *testing.T) {
+	urlError := url.Error{
+		Op:  "Get",
+		URL: "https://mock.elastic.co/api/v1/regions/us-east-1/platform/configuration/templates/deployments?format=cluster&show_hidden=false&show_instance_configurations=false",
+		Err: errors.New("error"),
+	}
 	var templateListSuccess = []*models.DeploymentTemplateInfo{
 		{
 			ID:          "84e0bd6d69bb44e294809d89cea88a7e",
@@ -56,7 +61,7 @@ func TestPullToFolder(t *testing.T) {
 	tests := []struct {
 		name string
 		args args
-		err  error
+		err  string
 		want map[string]string
 	}{
 		{
@@ -65,7 +70,7 @@ func TestPullToFolder(t *testing.T) {
 				errors.New("api reference is required for the operation"),
 				errors.New("folder not specified and is required for the operation"),
 				errors.New("region not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 		{
 			name: "fails listing the templates due to API error",
@@ -75,25 +80,7 @@ func TestPullToFolder(t *testing.T) {
 				Format: "cluster",
 				API:    api.NewMock(mock.Response{Error: errors.New("error")}),
 			}},
-			err: &url.Error{
-				Op:  "Get",
-				URL: "https://mock.elastic.co/api/v1/regions/us-east-1/platform/configuration/templates/deployments?format=cluster&show_hidden=false&show_instance_configurations=false",
-				Err: errors.New("error"),
-			},
-		},
-		{
-			name: "fails listing the templates due to API error",
-			args: args{params: PullToFolderParams{
-				Region: "us-east-1",
-				Folder: "some",
-				Format: "cluster",
-				API:    api.NewMock(mock.Response{Error: errors.New("error")}),
-			}},
-			err: &url.Error{
-				Op:  "Get",
-				URL: "https://mock.elastic.co/api/v1/regions/us-east-1/platform/configuration/templates/deployments?format=cluster&show_hidden=false&show_instance_configurations=false",
-				Err: errors.New("error"),
-			},
+			err: urlError.Error(),
 		},
 		{
 			name: "pulls templates successfully",
@@ -144,7 +131,7 @@ func TestPullToFolder(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			err := PullToFolder(tt.args.params)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 

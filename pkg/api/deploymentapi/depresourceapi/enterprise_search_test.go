@@ -103,7 +103,7 @@ func TestNewEnterpriseSearch(t *testing.T) {
 		name string
 		args args
 		want *models.EnterpriseSearchPayload
-		err  error
+		err  string
 	}{
 		{
 			name: "fails due to parameter validation",
@@ -114,7 +114,7 @@ func TestNewEnterpriseSearch(t *testing.T) {
 				apierror.ErrDeploymentID,
 				errors.New("topology: region cannot be empty"),
 				errors.New("required version not provided"),
-			),
+			).Error(),
 		},
 		{
 			name: "fails obtaining the deployment info",
@@ -125,7 +125,7 @@ func TestNewEnterpriseSearch(t *testing.T) {
 				Version:                  "7.8.0",
 				DeploymentTemplateInfoV2: &models.DeploymentTemplateInfoV2{Name: ec.String("default")},
 			}},
-			err: mock.MultierrorInternalError,
+			err: mock.MultierrorInternalError.Error(),
 		},
 		{
 			name: "obtains the deployment info but fails getting the template ID info",
@@ -146,7 +146,7 @@ func TestNewEnterpriseSearch(t *testing.T) {
 				Region:                   "ece-region",
 				DeploymentTemplateInfoV2: &models.DeploymentTemplateInfoV2{Name: ec.String("default")},
 			}},
-			err: errors.New("unable to obtain deployment template ID from existing deployment ID, please specify a one"),
+			err: "unable to obtain deployment template ID from existing deployment ID, please specify a one",
 		},
 		{
 			name: "obtains the deployment info but fails getting the template ID info from the API",
@@ -159,7 +159,7 @@ func TestNewEnterpriseSearch(t *testing.T) {
 				Region:                   "ece-region",
 				DeploymentTemplateInfoV2: &models.DeploymentTemplateInfoV2{Name: ec.String("default")},
 			}},
-			err: mock.MultierrorInternalError,
+			err: mock.MultierrorInternalError.Error(),
 		},
 		{
 			name: "obtains the deployment template but it's an invalid template for enterprise search",
@@ -173,7 +173,7 @@ func TestNewEnterpriseSearch(t *testing.T) {
 				Region:                   "ece-region",
 				DeploymentTemplateInfoV2: &defaultESTemplateResponse,
 			}},
-			err: errors.New("deployment: the an ID template is not configured for Enterprise Search. Please use another template if you wish to start Enterprise Search instances"),
+			err: "deployment: the an ID template is not configured for Enterprise Search. Please use another template if you wish to start Enterprise Search instances",
 		},
 		{
 			name: "succeeds with no argument override",
@@ -242,7 +242,7 @@ func TestNewEnterpriseSearch(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := NewEnterpriseSearch(tt.args.params)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 			if !assert.Equal(t, tt.want, got) {

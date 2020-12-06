@@ -74,7 +74,7 @@ func GetDeploymentInfo(params GetDeploymentInfoParams) (GetDeploymentInfoRespons
 		params.AuthWriter,
 	)
 	if err != nil {
-		return emptyRes, apierror.Unwrap(err)
+		return emptyRes, apierror.Wrap(err)
 	}
 
 	for _, resource := range res.Payload.Resources.Elasticsearch {

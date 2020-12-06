@@ -47,11 +47,10 @@ func TestCreate(t *testing.T) {
 		params CreateParams
 	}
 	tests := []struct {
-		name    string
-		args    args
-		want    *models.User
-		wantErr bool
-		err     error
+		name string
+		args args
+		want *models.User
+		err  string
 	}{
 		{
 			name: "Create fails due to parameter validation failure (missing API)",
@@ -60,14 +59,13 @@ func TestCreate(t *testing.T) {
 					Email: "hi",
 				},
 			},
-			wantErr: true,
 			err: multierror.NewPrefixed("invalid user params",
 				errors.New("api reference is required for the operation"),
 				errors.New("username is not specified and is required for this operation"),
 				errors.New("a password with a minimum of 8 characters is required for this operation"),
 				errors.New("a minimum of 1 role is required for this operation"),
 				errors.New("hi is not a valid email address format"),
-			),
+			).Error(),
 		},
 		{
 			name: "Create fails due to API failure",
@@ -79,8 +77,7 @@ func TestCreate(t *testing.T) {
 					API:      api.NewMock(mock.New404Response(mock.NewStringBody(`{"error": "some error"}`))),
 				},
 			},
-			wantErr: true,
-			err:     errors.New(`{"error": "some error"}`),
+			err: `{"error": "some error"}`,
 		},
 		{
 			name: "Create succeeds",
@@ -117,7 +114,7 @@ func TestCreate(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := Create(tt.args.params)
-			if err != nil && !assert.Equal(t, tt.err.Error(), err.Error()) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 			if !assert.Equal(t, tt.want, got) {

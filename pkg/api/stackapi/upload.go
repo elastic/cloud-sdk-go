@@ -72,7 +72,7 @@ func Upload(params UploadParams) error {
 		params.AuthWriter,
 	)
 	if err != nil {
-		return api.UnwrapError(err)
+		return apierror.Wrap(err)
 	}
 
 	var merr = multierror.NewPrefixed("stack upload")

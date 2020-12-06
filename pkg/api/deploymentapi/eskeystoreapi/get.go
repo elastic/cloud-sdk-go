@@ -76,7 +76,7 @@ func Get(params GetParams) (*models.KeystoreContents, error) {
 	)
 
 	if err != nil {
-		return nil, apierror.Unwrap(err)
+		return nil, apierror.Wrap(err)
 	}
 
 	return res.Payload, nil

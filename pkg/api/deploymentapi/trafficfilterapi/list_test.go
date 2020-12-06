@@ -39,13 +39,13 @@ func TestList(t *testing.T) {
 		name string
 		args args
 		want *models.TrafficFilterRulesets
-		err  error
+		err  string
 	}{
 		{
 			name: "fails due to parameter validation",
 			err: multierror.NewPrefixed("invalid traffic filter list params",
 				apierror.ErrMissingAPI,
-			),
+			).Error(),
 		},
 		{
 			name: "succeeds",
@@ -99,13 +99,13 @@ func TestList(t *testing.T) {
 				API:    api.NewMock(mock.SampleInternalError()),
 				Region: "some-region",
 			}},
-			err: mock.MultierrorInternalError,
+			err: mock.MultierrorInternalError.Error(),
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := List(tt.args.params)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 			assert.Equal(t, tt.want, got)

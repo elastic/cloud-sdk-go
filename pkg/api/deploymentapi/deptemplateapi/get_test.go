@@ -60,7 +60,7 @@ func TestGet(t *testing.T) {
 		name string
 		args args
 		want *models.DeploymentTemplateInfoV2
-		err  error
+		err  string
 	}{
 		{
 			name: "fails due to parameter validation",
@@ -68,7 +68,7 @@ func TestGet(t *testing.T) {
 				errors.New("api reference is required for the operation"),
 				errors.New("required template ID not provided"),
 				errors.New("region not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 		{
 			name: "succeeds",
@@ -133,13 +133,13 @@ func TestGet(t *testing.T) {
 					mock.SampleInternalError().Response.Body,
 				)),
 			}},
-			err: mock.MultierrorInternalError,
+			err: mock.MultierrorInternalError.Error(),
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := Get(tt.args.params)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 			assert.Equal(t, tt.want, got)

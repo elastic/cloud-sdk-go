@@ -66,7 +66,7 @@ func Start(params StartParams) (*models.DeploymentResourceCommandResponse, error
 		params.AuthWriter,
 	)
 	if err != nil {
-		return nil, apierror.Unwrap(err)
+		return nil, apierror.Wrap(err)
 	}
 
 	return res.Payload, nil
@@ -88,7 +88,7 @@ func StartInstances(params StartInstancesParams) (*models.DeploymentResourceComm
 		params.AuthWriter,
 	)
 	if err != nil {
-		return nil, apierror.Unwrap(err)
+		return nil, apierror.Wrap(err)
 	}
 
 	return res.Payload, nil

@@ -37,14 +37,14 @@ func TestDelete(t *testing.T) {
 	tests := []struct {
 		name string
 		args args
-		err  error
+		err  string
 	}{
 		{
 			name: "fails due to parameter validation",
 			err: multierror.NewPrefixed("invalid traffic filter delete params",
 				apierror.ErrMissingAPI,
 				errors.New("rule set id is not specified and is required for the operation"),
-			),
+			).Error(),
 		},
 		{
 			name: "succeeds",
@@ -89,12 +89,13 @@ func TestDelete(t *testing.T) {
 				API: api.NewMock(mock.SampleInternalError()),
 				ID:  "some-id",
 			}},
-			err: mock.MultierrorInternalError,
+			err: mock.MultierrorInternalError.Error(),
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := Delete(tt.args.params); !assert.Equal(t, tt.err, err) {
+			err := Delete(tt.args.params)
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Errorf("Delete() error = %v, wantErr %v", err, tt.err)
 			}
 		})

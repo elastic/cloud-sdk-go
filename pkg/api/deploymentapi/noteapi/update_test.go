@@ -20,8 +20,9 @@ package noteapi
 import (
 	"errors"
 	"net/http"
-	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
@@ -48,7 +49,7 @@ func TestUpdate(t *testing.T) {
 		name    string
 		args    args
 		want    *models.Note
-		wantErr error
+		wantErr string
 	}{
 		{
 			name: "Update note succeeds",
@@ -84,7 +85,7 @@ func TestUpdate(t *testing.T) {
 					API:    api.NewMock(mock.SampleInternalError()),
 				},
 			}},
-			wantErr: mock.MultierrorInternalError,
+			wantErr: mock.MultierrorInternalError.Error(),
 		},
 		{
 			name: "Update note fails due to empty params",
@@ -97,16 +98,16 @@ func TestUpdate(t *testing.T) {
 					errors.New(`id "" is invalid`),
 					errors.New("region not specified and is required for this operation"),
 				),
-			),
+			).Error(),
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := Update(tt.args.params)
-			if !reflect.DeepEqual(err, tt.wantErr) {
+			if err != nil && !assert.EqualError(t, err, tt.wantErr) {
 				t.Errorf("Update() error = %v, wantErr %v", err, tt.wantErr)
 			}
-			if !reflect.DeepEqual(got, tt.want) {
+			if !assert.Equal(t, tt.want, got) {
 				t.Errorf("Update() = %v, want %v", got, tt.want)
 			}
 		})

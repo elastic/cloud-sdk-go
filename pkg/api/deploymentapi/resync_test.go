@@ -21,8 +21,9 @@ import (
 	"errors"
 	"net/http"
 	"net/url"
-	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
@@ -31,13 +32,18 @@ import (
 )
 
 func TestResync(t *testing.T) {
+	urlErr := &url.Error{
+		Op:  "Post",
+		URL: "https://mock.elastic.co/api/v1/deployments/2c221bd86b7f48959a59ee3128d5c5e8/_resync",
+		Err: errors.New("error with API"),
+	}
 	type args struct {
 		params ResyncParams
 	}
 	tests := []struct {
 		name    string
 		args    args
-		wantErr error
+		wantErr string
 	}{
 		{
 			name: "Fails due to parameter validation (Cluster ID)",
@@ -45,7 +51,7 @@ func TestResync(t *testing.T) {
 			wantErr: multierror.NewPrefixed("deployment resync",
 				errors.New("deployment params: api reference is required for the operation"),
 				errors.New(`deployment params: id "" is invalid`),
-			),
+			).Error(),
 		},
 		{
 			name: "Fails due to parameter validation (API)",
@@ -54,7 +60,7 @@ func TestResync(t *testing.T) {
 			}},
 			wantErr: multierror.NewPrefixed("deployment resync",
 				errors.New("deployment params: api reference is required for the operation"),
-			),
+			).Error(),
 		},
 		{
 			name: "Fails due to unknown API response",
@@ -65,7 +71,7 @@ func TestResync(t *testing.T) {
 					Body:       mock.NewStringBody(`{"error": "some forbidden error"}`),
 				}}),
 			}},
-			wantErr: errors.New(`{"error": "some forbidden error"}`),
+			wantErr: `{"error": "some forbidden error"}`,
 		},
 		{
 			name: "Fails due to API error",
@@ -75,11 +81,7 @@ func TestResync(t *testing.T) {
 					Error: errors.New("error with API"),
 				}),
 			}},
-			wantErr: &url.Error{
-				Op:  "Post",
-				URL: "https://mock.elastic.co/api/v1/deployments/2c221bd86b7f48959a59ee3128d5c5e8/_resync",
-				Err: errors.New("error with API"),
-			},
+			wantErr: urlErr.Error(),
 		},
 		{
 			name: "Succeeds to resynchronize a deployment without errors",
@@ -95,7 +97,8 @@ func TestResync(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := Resync(tt.args.params); !reflect.DeepEqual(err, tt.wantErr) {
+			err := Resync(tt.args.params)
+			if err != nil && !assert.EqualError(t, err, tt.wantErr) {
 				t.Errorf("Resync() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
@@ -103,19 +106,24 @@ func TestResync(t *testing.T) {
 }
 
 func TestResyncAll(t *testing.T) {
+	urlError := &url.Error{
+		Op:  "Post",
+		URL: "https://mock.elastic.co/api/v1/deployments/_resync",
+		Err: errors.New("error with API"),
+	}
 	type args struct {
 		params ResyncAllParams
 	}
 	tests := []struct {
 		name    string
 		args    args
-		wantErr error
 		want    *models.IndexSynchronizationResults
+		wantErr string
 	}{
 		{
 			name:    "Fails due to parameter validation (API)",
 			args:    args{params: ResyncAllParams{}},
-			wantErr: errors.New("api reference is required for the operation"),
+			wantErr: "api reference is required for the operation",
 		},
 		{
 			name: "Fails due to unknown API response",
@@ -125,7 +133,7 @@ func TestResyncAll(t *testing.T) {
 					Body:       mock.NewStringBody(`{"error": "some forbidden error"}`),
 				}}),
 			}},
-			wantErr: errors.New(`{"error": "some forbidden error"}`),
+			wantErr: `{"error": "some forbidden error"}`,
 		},
 		{
 			name: "Fails due to API error",
@@ -134,11 +142,7 @@ func TestResyncAll(t *testing.T) {
 					Error: errors.New("error with API"),
 				}),
 			}},
-			wantErr: &url.Error{
-				Op:  "Post",
-				URL: "https://mock.elastic.co/api/v1/deployments/_resync",
-				Err: errors.New("error with API"),
-			},
+			wantErr: urlError.Error(),
 		},
 		{
 			name: "Succeeds to resynchronize all deployments without errors",
@@ -155,11 +159,10 @@ func TestResyncAll(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := ResyncAll(tt.args.params)
-			if !reflect.DeepEqual(tt.wantErr, err) {
+			if err != nil && !assert.EqualError(t, err, tt.wantErr) {
 				t.Errorf("ResyncAll() error = %v, wantErr %v", err, tt.wantErr)
-				return
 			}
-			if !reflect.DeepEqual(got, tt.want) {
+			if !assert.Equal(t, tt.want, got) {
 				t.Errorf("ResyncAll() = %v, want %v", got, tt.want)
 			}
 		})

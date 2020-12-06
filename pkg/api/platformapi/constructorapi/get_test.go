@@ -43,6 +43,11 @@ func TestGet(t *testing.T) {
 		}
 	  }`[1:]
 
+	urlError := url.Error{
+		Op:  "Get",
+		URL: "https://mock.elastic.co/api/v1/regions/us-east-1/platform/infrastructure/constructors/192.168.44.10",
+		Err: errors.New("error"),
+	}
 	type args struct {
 		params GetParams
 	}
@@ -50,7 +55,7 @@ func TestGet(t *testing.T) {
 		name string
 		args args
 		want *models.ConstructorInfo
-		err  error
+		err  string
 	}{
 		{
 			name: "Get constructor succeeds",
@@ -85,11 +90,7 @@ func TestGet(t *testing.T) {
 				Region: "us-east-1",
 				API:    api.NewMock(mock.Response{Error: errors.New("error")}),
 			}},
-			err: &url.Error{
-				Op:  "Get",
-				URL: "https://mock.elastic.co/api/v1/regions/us-east-1/platform/infrastructure/constructors/192.168.44.10",
-				Err: errors.New("error"),
-			},
+			err: urlError.Error(),
 		},
 		{
 			name: "Get constructor fails due to empty parameter validation",
@@ -97,13 +98,13 @@ func TestGet(t *testing.T) {
 				apierror.ErrMissingAPI,
 				errors.New("id field cannot be empty"),
 				errors.New("region not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := Get(tt.args.params)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 			if !assert.Equal(t, tt.want, got) {

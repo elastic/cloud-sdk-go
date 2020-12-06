@@ -126,7 +126,7 @@ func getDeploymentID(params TrackChangeParams) (string, error) {
 		params.AuthWriter,
 	)
 	if err != nil {
-		return "", apierror.Unwrap(err)
+		return "", apierror.Wrap(err)
 	}
 
 	if len(res.Payload.Deployments) > 0 {

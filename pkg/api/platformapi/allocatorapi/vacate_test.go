@@ -1127,7 +1127,7 @@ func Test_fillVacateClusterParams(t *testing.T) {
 		name string
 		args args
 		want *VacateClusterParams
-		err  error
+		err  string
 	}{
 		{
 			name: "returns an error when the allocator discovery health can't be obtained",
@@ -1141,7 +1141,7 @@ func Test_fillVacateClusterParams(t *testing.T) {
 					Output:    output.NewDevice(new(bytes.Buffer)),
 				},
 			},
-			err: errors.New(`allocator allocator-1: resource id [3ee11eb40eda22cac0cce259625c6734][elasticsearch]: allocator health autodiscovery: Get "https://mock.elastic.co/api/v1/regions/us-east-1/platform/infrastructure/allocators/allocator-1": unauthorized`),
+			err: `allocator allocator-1: resource id [3ee11eb40eda22cac0cce259625c6734][elasticsearch]: allocator health autodiscovery: Get "https://mock.elastic.co/api/v1/regions/us-east-1/platform/infrastructure/allocators/allocator-1": unauthorized`,
 		},
 		{
 			name: "sets defaults on parameters that aren't specified",
@@ -1202,19 +1202,8 @@ func Test_fillVacateClusterParams(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := fillVacateClusterParams(tt.args.params)
-			if !reflect.DeepEqual(err, tt.err) {
-				var errMesg string
-				if err != nil {
-					errMesg = err.Error()
-				}
-				var wantErr string
-				if tt.err != nil {
-					wantErr = tt.err.Error()
-				}
-				if errMesg != wantErr {
-					t.Errorf("fillVacateClusterParams() error = %v, wantErr %v", errMesg, wantErr)
-					return
-				}
+			if err != nil && !assert.EqualError(t, err, tt.err) {
+				t.Error(err)
 			}
 			if got != nil {
 				got.API = nil
@@ -1234,7 +1223,7 @@ func Test_newMoveClusterParams(t *testing.T) {
 		name string
 		args args
 		want *platform_infrastructure.MoveClustersByTypeParams
-		err  error
+		err  string
 	}{
 		{
 			name: "when an API error is returned, the error is properly wrapped",
@@ -1256,7 +1245,7 @@ func Test_newMoveClusterParams(t *testing.T) {
 					URL: "https://mock.elastic.co/api/v1/regions/us-east-1/platform/infrastructure/allocators/allocator-1/clusters/_move?force_update=false&validate_only=true",
 					Err: errors.New("unauthorized"),
 				},
-			},
+			}.Error(),
 		},
 		{
 			name: "elasticsearch move succeeds to get parameters on an elasticsearch resource",
@@ -1334,20 +1323,10 @@ func Test_newMoveClusterParams(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := newMoveClusterParams(tt.args.params)
-			if !assert.Equal(t, tt.err, err) {
-				var errMesg string
-				if err != nil {
-					errMesg = err.Error()
-				}
-				var wantErr string
-				if tt.err != nil {
-					wantErr = tt.err.Error()
-				}
-				if errMesg != wantErr {
-					t.Errorf("newMoveClusterParams() error = %v, wantErr %v", errMesg, wantErr)
-					return
-				}
+			if err != nil && !assert.EqualError(t, err, tt.err) {
+				t.Error(err)
 			}
+
 			if !reflect.DeepEqual(got, tt.want) {
 				_, diff, _ := util.CompareStructs(got, tt.want)
 				t.Errorf("newMoveClusterParams() = \n%+v\n, want \n%+v", got, tt.want)

@@ -36,7 +36,7 @@ func TestDelete(t *testing.T) {
 	tests := []struct {
 		name string
 		args args
-		err  error
+		err  string
 	}{
 		{
 			name: "fails due to parameter validation",
@@ -44,7 +44,7 @@ func TestDelete(t *testing.T) {
 				errors.New("api reference is required for the operation"),
 				errors.New("required template ID not provided"),
 				errors.New("region not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 		{
 			name: "succeeds",
@@ -83,12 +83,14 @@ func TestDelete(t *testing.T) {
 					mock.SampleInternalError().Response.Body,
 				)),
 			}},
-			err: mock.MultierrorInternalError,
+			err: mock.MultierrorInternalError.Error(),
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := Delete(tt.args.params); !assert.Equal(t, tt.err, err) {
+			err := Delete(tt.args.params)
+
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 		})

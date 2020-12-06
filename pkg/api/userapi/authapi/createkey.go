@@ -20,7 +20,7 @@ package userauthapi
 import (
 	"errors"
 
-	"github.com/elastic/cloud-sdk-go/pkg/api"
+	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/client/authentication"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
@@ -66,7 +66,7 @@ func CreateKey(params CreateKeyParams) (*models.APIKeyResponse, error) {
 		params.AuthWriter,
 	)
 	if err != nil {
-		return nil, api.UnwrapError(err)
+		return nil, apierror.Wrap(err)
 	}
 
 	return res.Payload, nil

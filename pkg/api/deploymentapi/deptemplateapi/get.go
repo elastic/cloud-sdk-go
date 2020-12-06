@@ -73,7 +73,7 @@ func get(params GetParams) (*models.DeploymentTemplateInfoV2, error) {
 	)
 
 	if err != nil {
-		return nil, apierror.Unwrap(err)
+		return nil, apierror.Wrap(err)
 	}
 
 	return res.Payload, nil

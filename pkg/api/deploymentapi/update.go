@@ -84,7 +84,7 @@ func Update(params UpdateParams) (*models.DeploymentUpdateResponse, error) {
 	)
 
 	if err != nil {
-		return nil, apierror.Unwrap(err)
+		return nil, apierror.Wrap(err)
 	}
 
 	return res.Payload, nil

@@ -53,7 +53,7 @@ func TestList(t *testing.T) {
 		name string
 		args args
 		want *models.ProxyOverview
-		err  error
+		err  string
 	}{
 		{
 			name: "Proxy list succeeds",
@@ -91,7 +91,7 @@ func TestList(t *testing.T) {
 				Region: "us-east-1",
 				API:    api.NewMock(mock.New500Response(mock.NewStringBody(`{"error": "some error"}`))),
 			}},
-			err: errors.New(`{"error": "some error"}`),
+			err: `{"error": "some error"}`,
 		},
 		{
 			name: "Proxy list fails due to validation",
@@ -99,13 +99,13 @@ func TestList(t *testing.T) {
 			err: multierror.NewPrefixed("invalid proxy params",
 				errors.New("api reference is required for the operation"),
 				errors.New("region not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := List(tt.args.params)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 			if !assert.Equal(t, tt.want, got) {

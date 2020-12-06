@@ -42,51 +42,43 @@ func TestGet(t *testing.T) {
 		params GetParams
 	}
 	tests := []struct {
-		name    string
-		args    args
-		want    *models.User
-		wantErr bool
-		err     error
+		name string
+		args args
+		want *models.User
+		err  string
 	}{
 		{
-			name:    "Get fails due to parameter validation failure",
-			args:    args{},
-			wantErr: true,
+			name: "Get fails due to parameter validation failure",
 			err: multierror.NewPrefixed("invalid user params",
 				apierror.ErrMissingAPI,
 				errors.New("username is not specified and is required for this operation"),
-			),
+			).Error(),
 		},
 		{
 			name: "Get fails due to API failure",
-			args: args{
-				params: GetParams{
-					UserName: "hermenelgilda",
-					API:      api.NewMock(mock.New500Response(mock.NewStringBody(`{"error": "some error"}`))),
-				},
-			},
-			wantErr: true,
-			err:     errors.New(`{"error": "some error"}`),
+			args: args{params: GetParams{
+				UserName: "hermenelgilda",
+				API:      api.NewMock(mock.New500Response(mock.NewStringBody(`{"error": "some error"}`))),
+			}},
+			err: `{"error": "some error"}`,
 		},
 		{
 			name: "Get succeeds",
-			args: args{
-				params: GetParams{
-					UserName: "admin",
-					API: api.NewMock(mock.Response{
-						Response: http.Response{
-							Body:       mock.NewStringBody(getUserResponse),
-							StatusCode: 200,
-						},
-						Assert: &mock.RequestAssertion{
-							Header: api.DefaultReadMockHeaders,
-							Method: "GET",
-							Host:   api.DefaultMockHost,
-							Path:   "/api/v1/users/admin",
-						},
-					}),
-				},
-			},
+			args: args{params: GetParams{
+				UserName: "admin",
+				API: api.NewMock(mock.Response{
+					Response: http.Response{
+						Body:       mock.NewStringBody(getUserResponse),
+						StatusCode: 200,
+					},
+					Assert: &mock.RequestAssertion{
+						Header: api.DefaultReadMockHeaders,
+						Method: "GET",
+						Host:   api.DefaultMockHost,
+						Path:   "/api/v1/users/admin",
+					},
+				}),
+			}},
 			want: &models.User{
 				Builtin:  ec.Bool(true),
 				UserName: ec.String("admin"),
@@ -96,7 +88,7 @@ func TestGet(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := Get(tt.args.params)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 			if !assert.Equal(t, tt.want, got) {
@@ -116,46 +108,38 @@ func TestGetCurrent(t *testing.T) {
 		params GetCurrentParams
 	}
 	tests := []struct {
-		name    string
-		args    args
-		want    *models.User
-		wantErr bool
-		err     error
+		name string
+		args args
+		want *models.User
+		err  string
 	}{
 		{
-			name:    "Get fails due to parameter validation failure",
-			args:    args{},
-			wantErr: true,
-			err:     errors.New("api reference is required for the operation"),
+			name: "Get fails due to parameter validation failure",
+			err:  "api reference is required for the operation",
 		},
 		{
 			name: "Get fails due to API failure",
-			args: args{
-				params: GetCurrentParams{
-					API: api.NewMock(mock.SampleInternalError()),
-				},
-			},
-			wantErr: true,
-			err:     mock.MultierrorInternalError,
+			args: args{params: GetCurrentParams{
+				API: api.NewMock(mock.SampleInternalError()),
+			}},
+			err: mock.MultierrorInternalError.Error(),
 		},
 		{
 			name: "Get succeeds",
-			args: args{
-				params: GetCurrentParams{
-					API: api.NewMock(mock.Response{
-						Response: http.Response{
-							Body:       mock.NewStringBody(getCurrentResponse),
-							StatusCode: 200,
-						},
-						Assert: &mock.RequestAssertion{
-							Header: api.DefaultReadMockHeaders,
-							Method: "GET",
-							Host:   api.DefaultMockHost,
-							Path:   "/api/v1/user",
-						},
-					}),
-				},
-			},
+			args: args{params: GetCurrentParams{
+				API: api.NewMock(mock.Response{
+					Response: http.Response{
+						Body:       mock.NewStringBody(getCurrentResponse),
+						StatusCode: 200,
+					},
+					Assert: &mock.RequestAssertion{
+						Header: api.DefaultReadMockHeaders,
+						Method: "GET",
+						Host:   api.DefaultMockHost,
+						Path:   "/api/v1/user",
+					},
+				}),
+			}},
 			want: &models.User{
 				Builtin:  ec.Bool(true),
 				UserName: ec.String("admin"),
@@ -165,7 +149,7 @@ func TestGetCurrent(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := GetCurrent(tt.args.params)
-			if !assert.Equal(t, tt.err, err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Error(err)
 			}
 			if !assert.Equal(t, tt.want, got) {

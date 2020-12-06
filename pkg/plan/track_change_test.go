@@ -24,6 +24,8 @@ import (
 	"reflect"
 	"testing"
 
+	"github.com/stretchr/testify/assert"
+
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
@@ -381,7 +383,7 @@ func TestTrackChange(t *testing.T) {
 		name string
 		args args
 		want []TrackResponse
-		err  error
+		err  string
 	}{
 		{
 			name: "errors out on parameter validation",
@@ -390,7 +392,7 @@ func TestTrackChange(t *testing.T) {
 				errors.New("API cannot be nil"),
 				errors.New("one of DeploymentID or ResourceID must be specified"),
 				errors.New("kind cannot be empty"),
-			),
+			).Error(),
 		},
 		{
 			name: "errors out when both DeploymentID and ResourceID are specified",
@@ -401,7 +403,7 @@ func TestTrackChange(t *testing.T) {
 			err: multierror.NewPrefixed("plan track change",
 				errors.New("API cannot be nil"),
 				errors.New("cannot specify both DeploymentID and ResourceID"),
-			),
+			).Error(),
 		},
 		{
 			name: "fails looking up the deploymentID",
@@ -412,7 +414,7 @@ func TestTrackChange(t *testing.T) {
 				ResourceID: "cde7b6b605424a54ce9d56316eab13a1",
 				Kind:       "elasticsearch",
 			}},
-			err: errors.New("some error"),
+			err: "some error",
 		},
 		{
 			name: "fails looking up the deploymentID (No DeploymentID found)",
@@ -425,7 +427,7 @@ func TestTrackChange(t *testing.T) {
 				ResourceID: "cde7b6b605424a54ce9d56316eab13a1",
 				Kind:       "elasticsearch",
 			}},
-			err: errors.New("plan track change: couldn't find a deployment containing Kind elasticsearch with ID cde7b6b605424a54ce9d56316eab13a1"),
+			err: "plan track change: couldn't find a deployment containing Kind elasticsearch with ID cde7b6b605424a54ce9d56316eab13a1",
 		},
 		{
 			name: "looks up the deploymentID and tracks the change",
@@ -637,7 +639,7 @@ func TestTrackChange(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := TrackChange(tt.args.params)
-			if !reflect.DeepEqual(err, tt.err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Errorf("TrackChange() error = %v, wantErr %v", err, tt.err)
 				return
 			}

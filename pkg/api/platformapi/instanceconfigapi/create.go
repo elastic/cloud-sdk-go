@@ -67,7 +67,7 @@ func Create(params CreateParams) (*models.IDResponse, error) {
 			Config: params.Config,
 			Region: params.Region,
 		}); err != nil {
-			return nil, api.UnwrapError(err)
+			return nil, apierror.Wrap(err)
 		}
 		return &models.IDResponse{ID: ec.String(params.Config.ID)}, nil
 	}
@@ -80,7 +80,7 @@ func Create(params CreateParams) (*models.IDResponse, error) {
 	)
 
 	if err != nil {
-		return nil, api.UnwrapError(err)
+		return nil, apierror.Wrap(err)
 	}
 
 	return res.Payload, nil

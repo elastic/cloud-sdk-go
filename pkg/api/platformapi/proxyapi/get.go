@@ -71,7 +71,7 @@ func Get(params GetParams) (*models.ProxyInfo, error) {
 		params.AuthWriter,
 	)
 	if err != nil {
-		return nil, api.UnwrapError(err)
+		return nil, apierror.Wrap(err)
 	}
 
 	return proxy.Payload, nil
