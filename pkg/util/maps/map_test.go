@@ -20,6 +20,8 @@ package maps
 import (
 	"testing"
 
+	"github.com/stretchr/testify/assert"
+
 	"github.com/pkg/errors"
 
 	"github.com/elastic/cloud-sdk-go/pkg/util/slice"
@@ -147,6 +149,50 @@ func TestFilter(t *testing.T) {
 					t.Errorf("Filter() result should have key = %v, but it hasn't", e)
 				}
 			}
+		})
+	}
+}
+
+func TestDereference(t *testing.T) {
+	type args struct {
+		input interface{}
+	}
+	tests := []struct {
+		name     string
+		args     args
+		expected map[string]string
+	}{
+		{
+			name: "should return an empty slice when input is nil",
+			args: args{
+				input: nil,
+			},
+			expected: make(map[string]string),
+		},
+		{
+			name: "should return an empty slice when input is not supported",
+			args: args{
+				input: []int{},
+			},
+			expected: make(map[string]string),
+		},
+		{
+			name: "should return the expected slice when input is a reference to string map of interfaces",
+			args: args{
+				input: &map[string]interface{}{
+					"1": "some-value-1",
+					"2": "some-value-2",
+				},
+			},
+			expected: map[string]string{
+				"1": "some-value-1",
+				"2": "some-value-2",
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.Equal(t, Dereference(tt.args.input), tt.expected)
 		})
 	}
 }

@@ -74,3 +74,23 @@ func HasKey(m map[string]interface{}, key string) bool {
 	_, ok := m[key]
 	return ok
 }
+
+// Dereference accepts a pointer to a string map of interface and returns the de-referenced value
+// as a string map of strings
+// if the input is nil or not supported then it returns an empty string map
+func Dereference(s interface{}) map[string]string {
+	switch m := s.(type) {
+	case *map[string]interface{}:
+		if m != nil {
+			newMap := make(map[string]string, len(*m))
+			for k, v := range *m {
+				newMap[k] = v.(string)
+			}
+			return newMap
+		}
+	default:
+		return make(map[string]string)
+	}
+
+	return make(map[string]string)
+}
