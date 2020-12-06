@@ -17,7 +17,10 @@
 
 package slice
 
-import "strings"
+import (
+	"encoding/json"
+	"strings"
+)
 
 // HasString returns true if the given string value is found in the provided
 // slice, otherwise returns false.
@@ -71,4 +74,53 @@ func (ss StringSlice) ToMap(sep string) map[string]string {
 	}
 
 	return newMap
+}
+
+// IsEmpty returns true if a string slice is empty or contains empty string
+// values, otherwise returns false.
+func (ss StringSlice) IsEmpty() bool {
+	return IsEmpty(ss)
+}
+
+// Contains returns true if the given string value is found in the provided
+// slice, otherwise returns false.
+func (ss StringSlice) Contains(s string) bool {
+	return HasString(ss, s)
+}
+
+// ToCommaSeparatedString returns the elements of the string slice as a single string where all values are separated
+// by the comma.
+func (ss StringSlice) ToCommaSeparatedString() string {
+	return strings.Join(ss, ",")
+}
+
+// Dereference accepts the following as input
+// - a pointer to a string slice
+// - a pointer to an interface slice that contains string elements
+// - a pointer to a string map of json.RawMessage
+//
+// and returns the de-referenced value of the slice as a StringSlice
+// if the input is nil or not supported then it returns an empty StringSlice
+func Dereference(s interface{}) StringSlice {
+	newSlice := StringSlice{}
+	switch m := s.(type) {
+	case *[]string:
+		if m != nil {
+			return *m
+		}
+	case *map[string]json.RawMessage:
+		if m != nil {
+			for k := range *m {
+				newSlice = append(newSlice, k)
+			}
+		}
+	case *[]interface{}:
+		if m != nil {
+			for _, item := range *m {
+				newSlice = append(newSlice, item.(string))
+			}
+		}
+	}
+
+	return newSlice
 }

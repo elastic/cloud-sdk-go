@@ -18,8 +18,11 @@
 package slice
 
 import (
+	"encoding/json"
 	"reflect"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestHasString(t *testing.T) {
@@ -159,6 +162,86 @@ func TestStringSlice_ToMap(t *testing.T) {
 			if !reflect.DeepEqual(actual, tt.expected) {
 				t.Errorf("Expect: \n%+v Got: \n%+v", tt.expected, actual)
 			}
+		})
+	}
+}
+
+func TestStringSlice_ToCommaSeparatedString(t *testing.T) {
+	type fields struct {
+		slice StringSlice
+	}
+	tests := []struct {
+		name     string
+		expected string
+		fields   fields
+	}{
+		{
+			name:     "should return the expected string",
+			fields:   fields{slice: StringSlice{"1", "2", "3"}},
+			expected: "1,2,3",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			actual := tt.fields.slice.ToCommaSeparatedString()
+			if !reflect.DeepEqual(actual, tt.expected) {
+				t.Errorf("Expect: \n%+v Got: \n%+v", tt.expected, actual)
+			}
+		})
+	}
+}
+
+func TestDereference(t *testing.T) {
+	type args struct {
+		input interface{}
+	}
+	tests := []struct {
+		name     string
+		args     args
+		expected StringSlice
+	}{
+		{
+			name: "should return an empty slice when input is nil",
+			args: args{
+				input: nil,
+			},
+			expected: StringSlice{},
+		},
+		{
+			name: "should return an empty slice when input is not supported",
+			args: args{
+				input: []int{},
+			},
+			expected: StringSlice{},
+		},
+		{
+			name: "should return the expected slice when input is a reference to string array",
+			args: args{
+				input: &[]string{"123", "321"},
+			},
+			expected: StringSlice{"123", "321"},
+		},
+		{
+			name: "should return the expected slice when input is a reference to an interface array",
+			args: args{
+				input: &[]interface{}{"123", "321"},
+			},
+			expected: StringSlice{"123", "321"},
+		},
+		{
+			name: "should return the expected slice when input is a reference to string map of json.RawMessage",
+			args: args{
+				input: &map[string]json.RawMessage{
+					"123": []byte("doesn't matter"),
+					"321": []byte("doesn't matter"),
+				},
+			},
+			expected: StringSlice{"123", "321"},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.Equal(t, Dereference(tt.args.input), tt.expected)
 		})
 	}
 }
