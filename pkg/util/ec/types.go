@@ -43,6 +43,9 @@ func Int32(i int32) *int32 { return &i }
 // Int64 creates a new int64 pointer from an int64
 func Int64(i int64) *int64 { return &i }
 
+// Int creates a new int pointer from an int
+func Int(i int) *int { return &i }
+
 // CompareStructs two structs and return the differences
 func CompareStructs(a, b interface{}) (equals bool, diff string, err error) {
 	var spewConfig = spew.ConfigState{
