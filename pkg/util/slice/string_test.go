@@ -233,10 +233,9 @@ func TestDereference(t *testing.T) {
 			args: args{
 				input: &map[string]json.RawMessage{
 					"123": []byte("doesn't matter"),
-					"321": []byte("doesn't matter"),
 				},
 			},
-			expected: StringSlice{"123", "321"},
+			expected: StringSlice{"123"},
 		},
 	}
 	for _, tt := range tests {
