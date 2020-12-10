@@ -102,7 +102,7 @@ func TestNewUpdateRequest(t *testing.T) {
 			want: enterpriseSearchWant,
 		},
 		{
-			name: "parses a get response from a deployment with observability settings",
+			name: "parses a get response from a deployment with observability settings and empty size",
 			args: args{res: observabilityGet},
 			want: observabilityWant,
 		},
