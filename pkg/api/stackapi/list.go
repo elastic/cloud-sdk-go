@@ -20,9 +20,8 @@ package stackapi
 import (
 	"context"
 	"sort"
-	"strconv"
-	"strings"
 
+	"github.com/blang/semver/v4"
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/client/stack"
@@ -78,24 +77,19 @@ func List(params ListParams) (*models.StackVersionConfigs, error) {
 }
 
 func compareVersions(version1, version2 string) bool {
-	v1 := strings.Split(version1, ".")
-	major1 := v1[0]
-	minor1 := v1[1]
-	patch1 := v1[2]
-	p1, err1 := strconv.Atoi(patch1)
-
-	v2 := strings.Split(version2, ".")
-	major2 := v2[0]
-	minor2 := v2[1]
-	patch2 := v2[2]
-	p2, err2 := strconv.Atoi(patch2)
-
-	var patchComp = patch1 > patch2
-	if err1 == nil && err2 == nil {
-		patchComp = p1 > p2
+	a, err := semver.ParseTolerant(version1)
+	if err != nil {
+		return false
 	}
 
-	return major1 > major2 ||
-		(major1 == major2 && minor1 > minor2) ||
-		(major1 == major2 && minor1 == minor2 && patchComp)
+	b, err := semver.ParseTolerant(version2)
+	if err != nil {
+		return false
+	}
+
+	if a.GT(b) {
+		return true
+	}
+
+	return false
 }

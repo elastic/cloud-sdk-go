@@ -103,6 +103,26 @@ func TestList(t *testing.T) {
 										},
 									},
 								},
+								{
+									Deleted: ec.Bool(false),
+									Version: "7.9.3",
+									Kibana: &models.StackVersionKibanaConfig{
+										CapacityConstraints: &models.StackVersionInstanceCapacityConstraint{
+											Max: ec.Int32(8192),
+											Min: ec.Int32(1024),
+										},
+									},
+								},
+								{
+									Deleted: ec.Bool(false),
+									Version: "7.10.0",
+									Kibana: &models.StackVersionKibanaConfig{
+										CapacityConstraints: &models.StackVersionInstanceCapacityConstraint{
+											Max: ec.Int32(8192),
+											Min: ec.Int32(1024),
+										},
+									},
+								},
 							},
 						}),
 					},
@@ -120,6 +140,26 @@ func TestList(t *testing.T) {
 			}},
 			want: &models.StackVersionConfigs{
 				Stacks: []*models.StackVersionConfig{
+					{
+						Deleted: ec.Bool(false),
+						Version: "7.10.0",
+						Kibana: &models.StackVersionKibanaConfig{
+							CapacityConstraints: &models.StackVersionInstanceCapacityConstraint{
+								Max: ec.Int32(8192),
+								Min: ec.Int32(1024),
+							},
+						},
+					},
+					{
+						Deleted: ec.Bool(false),
+						Version: "7.9.3",
+						Kibana: &models.StackVersionKibanaConfig{
+							CapacityConstraints: &models.StackVersionInstanceCapacityConstraint{
+								Max: ec.Int32(8192),
+								Min: ec.Int32(1024),
+							},
+						},
+					},
 					{
 						Deleted: ec.Bool(false),
 						Version: "6.2.0",
@@ -212,10 +252,9 @@ func TestCompareVersions(t *testing.T) {
 		Version2 string
 	}
 	tests := []struct {
-		name    string
-		fields  fields
-		wantErr bool
-		want    bool
+		name   string
+		fields fields
+		want   bool
 	}{
 		{
 			name: "Compare versions different major versions",
@@ -223,8 +262,7 @@ func TestCompareVersions(t *testing.T) {
 				Version1: "6.0.0",
 				Version2: "5.9.9",
 			},
-			wantErr: false,
-			want:    true,
+			want: true,
 		},
 		{
 			name: "Compare versions different minor versions",
@@ -232,8 +270,7 @@ func TestCompareVersions(t *testing.T) {
 				Version1: "5.5.0",
 				Version2: "5.4.9",
 			},
-			wantErr: false,
-			want:    true,
+			want: true,
 		},
 		{
 			name: "Compare versions different patch versions",
@@ -241,8 +278,7 @@ func TestCompareVersions(t *testing.T) {
 				Version1: "5.5.5",
 				Version2: "5.5.4",
 			},
-			wantErr: false,
-			want:    true,
+			want: true,
 		},
 		{
 			name: "Compare versions different patch versions greater than 9",
@@ -250,8 +286,15 @@ func TestCompareVersions(t *testing.T) {
 				Version1: "5.5.10",
 				Version2: "5.5.9",
 			},
-			wantErr: false,
-			want:    true,
+			want: true,
+		},
+		{
+			name: "Compare versions different patch versions greater than 9",
+			fields: fields{
+				Version1: "7.10.0",
+				Version2: "7.9.3",
+			},
+			want: true,
 		},
 	}
 	for _, tt := range tests {
