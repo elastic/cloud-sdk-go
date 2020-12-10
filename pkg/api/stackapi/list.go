@@ -22,6 +22,7 @@ import (
 	"sort"
 
 	"github.com/blang/semver/v4"
+
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/client/stack"
