@@ -124,6 +124,16 @@
                                             "value": 0
                                         },
                                         "zone_count": 3
+                                    },
+                                    {
+                                        "elasticsearch": {},
+                                        "instance_configuration_id": "gcp.data.highio.1",
+                                        "node_type": {
+                                            "data": true,
+                                            "ingest": true,
+                                            "master": true
+                                        },
+                                        "zone_count": 1
                                     }
                                 ],
                                 "deployment_template": {

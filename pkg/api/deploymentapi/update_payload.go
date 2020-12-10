@@ -97,7 +97,7 @@ func parseElasticsearchGetResponse(r *models.ElasticsearchResourceInfo) (payload
 
 	var ct = make([]*models.ElasticsearchClusterTopologyElement, 0, len(plan.Plan.ClusterTopology))
 	for _, t := range plan.Plan.ClusterTopology {
-		if t.Size.Value != nil && *t.Size.Value > 0 {
+		if t.Size != nil && t.Size.Value != nil && *t.Size.Value > 0 {
 			ct = append(ct, t)
 		}
 	}
@@ -124,7 +124,7 @@ func parseKibanaGetResponse(r *models.KibanaResourceInfo, esRefID string) *model
 
 	var ct = make([]*models.KibanaClusterTopologyElement, 0, len(plan.Plan.ClusterTopology))
 	for _, t := range plan.Plan.ClusterTopology {
-		if t.Size.Value != nil && *t.Size.Value > 0 {
+		if t.Size != nil && t.Size.Value != nil && *t.Size.Value > 0 {
 			ct = append(ct, t)
 		}
 	}
@@ -152,7 +152,7 @@ func parseApmGetResponse(r *models.ApmResourceInfo, esRefID string) *models.ApmP
 
 	var ct = make([]*models.ApmTopologyElement, 0, len(plan.Plan.ClusterTopology))
 	for _, t := range plan.Plan.ClusterTopology {
-		if t.Size.Value != nil && *t.Size.Value > 0 {
+		if t.Size != nil && t.Size.Value != nil && *t.Size.Value > 0 {
 			ct = append(ct, t)
 		}
 	}
@@ -180,7 +180,7 @@ func parseAppSearchGetResponse(r *models.AppSearchResourceInfo, esRefID string) 
 
 	var ct = make([]*models.AppSearchTopologyElement, 0, len(plan.Plan.ClusterTopology))
 	for _, t := range plan.Plan.ClusterTopology {
-		if t.Size.Value != nil && *t.Size.Value > 0 {
+		if t.Size != nil && t.Size.Value != nil && *t.Size.Value > 0 {
 			ct = append(ct, t)
 		}
 	}
@@ -208,7 +208,7 @@ func parseEnterpriseSearchGetResponse(r *models.EnterpriseSearchResourceInfo, es
 
 	var ct = make([]*models.EnterpriseSearchTopologyElement, 0, len(plan.Plan.ClusterTopology))
 	for _, t := range plan.Plan.ClusterTopology {
-		if t.Size.Value != nil && *t.Size.Value > 0 {
+		if t.Size != nil && t.Size.Value != nil && *t.Size.Value > 0 {
 			ct = append(ct, t)
 		}
 	}
