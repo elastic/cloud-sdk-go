@@ -229,3 +229,73 @@ func TestDecodeFlags(t *testing.T) {
 		})
 	}
 }
+
+func TestNoneOrBothFlags(t *testing.T) {
+	cmdWithNonUsed := &cobra.Command{
+		Use: "something",
+		Run: func(cmd *cobra.Command, args []string) {},
+	}
+	cmdWithNonUsed.Flags().String("option1", "", "option1")
+	cmdWithNonUsed.Flags().String("option2", "", "option2")
+	cmdWithNonUsed.ParseFlags([]string{})
+
+	cmdWithBothUsed := &cobra.Command{
+		Use: "something",
+		Run: func(cmd *cobra.Command, args []string) {},
+	}
+	cmdWithBothUsed.Flags().String("option1", "", "option1")
+	cmdWithBothUsed.Flags().String("option2", "", "option2")
+	cmdWithBothUsed.ParseFlags([]string{"--option1=value1", "--option2=value2"})
+
+	cmdWithOnlyOneUsed := &cobra.Command{
+		Use: "something",
+		Run: func(cmd *cobra.Command, args []string) {},
+	}
+	cmdWithOnlyOneUsed.Flags().String("option1", "", "option1")
+	cmdWithOnlyOneUsed.Flags().String("option2", "", "option2")
+	cmdWithOnlyOneUsed.ParseFlags([]string{"--option1=value1"})
+
+	type args struct {
+		cmd    *cobra.Command
+		first  string
+		second string
+	}
+	tests := []struct {
+		name string
+		args args
+		err  error
+	}{
+		{
+			name: "returns no error when no flag is specified",
+			args: args{
+				cmd:    cmdWithNonUsed,
+				first:  "option1",
+				second: "option2",
+			},
+		},
+		{
+			name: "returns no error when both flags are specified",
+			args: args{
+				cmd:    cmdWithBothUsed,
+				first:  "option1",
+				second: "option2",
+			},
+		},
+		{
+			name: "returns error when both only first flag is specified",
+			args: args{
+				cmd:    cmdWithOnlyOneUsed,
+				first:  "option1",
+				second: "option2",
+			},
+			err: errors.New(`flags "--option1" and "--option2", should be both used or none`),
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if err := NoneOrBothFlags(tt.args.cmd, tt.args.first, tt.args.second); !reflect.DeepEqual(err, tt.err) {
+				t.Errorf("NoneOrBothFlags() error = %v, wantErr %v", err, tt.err)
+			}
+		})
+	}
+}
