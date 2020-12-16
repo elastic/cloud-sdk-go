@@ -52,6 +52,18 @@ func DecodeFlags(cmd *cobra.Command, output interface{}) error {
 	return mapstructure.WeakDecode(flagMap, output)
 }
 
+// NoneOrBothFlags checks if none or both flags have been specified, and if not
+// returns an error.
+func NoneOrBothFlags(cmd *cobra.Command, first, second string) error {
+	if cmd.Flag(first).Changed != cmd.Flag(second).Changed {
+		return fmt.Errorf(
+			`flags "--%s" and "--%s", should be both used or none`,
+			first, second,
+		)
+	}
+	return nil
+}
+
 func parseValue(val pflag.Value) interface{} {
 	// All types which encapsulate the pflag slice type have a GetSlice
 	// method, which obtains the slice as []string. Combined with the
