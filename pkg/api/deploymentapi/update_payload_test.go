@@ -74,6 +74,11 @@ func TestNewUpdateRequest(t *testing.T) {
 		"./testdata/observability_update.json",
 	)
 
+	var loggingMetricsGet, loggingMetricsWant = getUpdateResponse(t,
+		"./testdata/logging_metrics_legacy_kibana_get.json",
+		"./testdata/logging_metrics_legacy_kibana_update.json",
+	)
+
 	type args struct {
 		res *models.DeploymentGetResponse
 	}
@@ -102,9 +107,14 @@ func TestNewUpdateRequest(t *testing.T) {
 			want: enterpriseSearchWant,
 		},
 		{
-			name: "parses a get response from a deployment with observability settings and empty size",
+			name: "parses a get response from a deployment with observability settings and legacy topology",
 			args: args{res: observabilityGet},
 			want: observabilityWant,
+		},
+		{
+			name: "parses a get response from a deployment with kibana legacy topology",
+			args: args{res: loggingMetricsGet},
+			want: loggingMetricsWant,
 		},
 	}
 	for _, tt := range tests {

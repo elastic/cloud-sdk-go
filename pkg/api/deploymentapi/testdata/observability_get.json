@@ -133,7 +133,8 @@
                                             "ingest": true,
                                             "master": true
                                         },
-                                        "zone_count": 1
+                                        "zone_count": 1,
+                                        "memory_per_node": 2048
                                     }
                                 ],
                                 "deployment_template": {

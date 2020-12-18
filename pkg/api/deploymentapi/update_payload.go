@@ -97,7 +97,7 @@ func parseElasticsearchGetResponse(r *models.ElasticsearchResourceInfo) (payload
 
 	var ct = make([]*models.ElasticsearchClusterTopologyElement, 0, len(plan.Plan.ClusterTopology))
 	for _, t := range plan.Plan.ClusterTopology {
-		if t.Size != nil && t.Size.Value != nil && *t.Size.Value > 0 {
+		if t.MemoryPerNode > 0 || !nilOZeroToplogySize(t.Size) {
 			ct = append(ct, t)
 		}
 	}
@@ -124,7 +124,7 @@ func parseKibanaGetResponse(r *models.KibanaResourceInfo, esRefID string) *model
 
 	var ct = make([]*models.KibanaClusterTopologyElement, 0, len(plan.Plan.ClusterTopology))
 	for _, t := range plan.Plan.ClusterTopology {
-		if t.Size != nil && t.Size.Value != nil && *t.Size.Value > 0 {
+		if t.MemoryPerNode > 0 || !nilOZeroToplogySize(t.Size) {
 			ct = append(ct, t)
 		}
 	}
@@ -222,4 +222,8 @@ func parseEnterpriseSearchGetResponse(r *models.EnterpriseSearchResourceInfo, es
 		Plan:                      plan.Plan,
 		Settings:                  r.Info.Settings,
 	}
+}
+
+func nilOZeroToplogySize(ts *models.TopologySize) bool {
+	return ts == nil || ts.Value == nil || *ts.Value == 0
 }

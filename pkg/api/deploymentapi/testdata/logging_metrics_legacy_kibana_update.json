@@ -1,0 +1,136 @@
+{
+    "name": "logging-and-metrics",
+    "prune_orphans": false,
+    "resources": {
+        "apm": null,
+        "appsearch": null,
+        "elasticsearch": [
+            {
+                "display_name": "logging-and-metrics",
+                "plan": {
+                    "cluster_topology": [
+                        {
+                            "elasticsearch": {
+                                "system_settings": {
+                                    "auto_create_index": true,
+                                    "destructive_requires_name": false,
+                                    "enable_close_index": false,
+                                    "monitoring_collection_interval": -1,
+                                    "monitoring_history_duration": "7d",
+                                    "reindex_whitelist": [],
+                                    "scripting": {
+                                        "inline": {
+                                            "enabled": true
+                                        },
+                                        "stored": {
+                                            "enabled": true
+                                        }
+                                    },
+                                    "use_disk_threshold": true
+                                }
+                            },
+                            "instance_configuration_id": "data.default",
+                            "node_type": {
+                                "data": true,
+                                "ingest": true,
+                                "master": true,
+                                "ml": false
+                            },
+                            "size": {
+                                "resource": "memory",
+                                "value": 16384
+                            },
+                            "zone_count": 3
+                        }
+                    ],
+                    "deployment_template": {
+                        "id": "default"
+                    },
+                    "elasticsearch": {
+                        "system_settings": {
+                            "enable_close_index": false,
+                            "reindex_whitelist": null,
+                            "use_disk_threshold": true
+                        },
+                        "version": "6.8.5"
+                    },
+                    "tiebreaker_topology": {
+                        "memory_per_node": 1024
+                    },
+                    "transient": {
+                        "plan_configuration": {
+                            "calm_wait_time": 5,
+                            "extended_maintenance": false,
+                            "max_snapshot_age": 300,
+                            "max_snapshot_attempts": 3,
+                            "move_allocators": [
+                                {
+                                    "allocator_down": true,
+                                    "from": "ece-allocator-3",
+                                    "to": null
+                                }
+                            ],
+                            "move_instances": null,
+                            "move_only": true,
+                            "override_failsafe": false,
+                            "preferred_allocators": [],
+                            "reallocate_instances": false,
+                            "skip_data_migration": true,
+                            "skip_post_upgrade_steps": false,
+                            "skip_snapshot": true,
+                            "skip_snapshot_post_major_upgrade": false,
+                            "skip_upgrade_checker": false,
+                            "timeout": 65536
+                        },
+                        "strategy": {
+                            "grow_and_shrink": {}
+                        }
+                    }
+                },
+                "ref_id": "elasticsearch",
+                "region": "ece-region"
+            }
+        ],
+        "enterprise_search": null,
+        "kibana": [
+            {
+                "display_name": "logging-and-metrics",
+                "elasticsearch_cluster_ref_id": "elasticsearch",
+                "plan": {
+                    "cluster_topology": [
+                        {
+                            "instance_configuration_id": "kibana",
+                            "kibana": {
+                                "system_settings": {
+                                    "elasticsearch_password": "-x",
+                                    "elasticsearch_url": "http://x.containerhost:9244",
+                                    "elasticsearch_username": "found-internal-kibana4-server"
+                                },
+                                "user_settings_json": {},
+                                "user_settings_override_json": {}
+                            },
+                            "memory_per_node": 1024,
+                            "node_count_per_zone": 1,
+                            "zone_count": 2
+                        }
+                    ],
+                    "kibana": {
+                        "system_settings": {
+                            "elasticsearch_password": "-x",
+                            "elasticsearch_url": "http://x.containerhost:9244",
+                            "elasticsearch_username": "found-internal-kibana4-server"
+                        },
+                        "version": "6.8.5"
+                    },
+                    "transient": {
+                        "strategy": {
+                            "autodetect": {}
+                        }
+                    }
+                },
+                "ref_id": "kibana",
+                "region": "ece-region"
+            }
+        ]
+    }
+}
