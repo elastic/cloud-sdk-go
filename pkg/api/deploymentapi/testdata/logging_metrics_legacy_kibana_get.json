@@ -1,0 +1,453 @@
+{
+    "healthy": true,
+    "id": "x",
+    "metadata": {
+        "hidden": false,
+        "last_modified": "2020-11-17T13:42:09.116Z",
+        "last_resource_plan_modified": "0001-01-01T00:00:00.000Z",
+        "owner_id": "admin",
+        "system_owned": true,
+        "tags": null
+    },
+    "name": "logging-and-metrics",
+    "resources": {
+        "apm": [],
+        "appsearch": [],
+        "elasticsearch": [
+            {
+                "id": "x",
+                "info": {
+                    "associated_apm_clusters": [],
+                    "associated_appsearch_clusters": [],
+                    "associated_enterprise_search_clusters": null,
+                    "associated_kibana_clusters": [
+                        {
+                            "enabled": true,
+                            "kibana_id": "x"
+                        }
+                    ],
+                    "cluster_id": "x",
+                    "cluster_name": "logging-and-metrics",
+                    "deployment_id": "x",
+                    "elasticsearch": {
+                        "blocking_issues": {
+                            "cluster_level": [],
+                            "healthy": true,
+                            "index_level": []
+                        },
+                        "healthy": true,
+                        "master_info": {
+                            "healthy": true,
+                            "instances_with_no_master": [],
+                            "masters": [
+                                {
+                                    "instances": [
+                                        "instance-0000000018",
+                                        "instance-0000000019",
+                                        "instance-0000000016"
+                                    ],
+                                    "master_instance_name": "instance-0000000018",
+                                    "master_node_id": "x"
+                                }
+                            ]
+                        },
+                        "shard_info": {
+                            "available_shards": [
+                                {
+                                    "instance_name": "instance-0000000018",
+                                    "shard_count": 44
+                                },
+                                {
+                                    "instance_name": "instance-0000000019",
+                                    "shard_count": 44
+                                },
+                                {
+                                    "instance_name": "instance-0000000016",
+                                    "shard_count": 44
+                                }
+                            ],
+                            "healthy": true,
+                            "unavailable_replicas": [
+                                {
+                                    "instance_name": "instance-0000000018",
+                                    "replica_count": 0
+                                },
+                                {
+                                    "instance_name": "instance-0000000019",
+                                    "replica_count": 0
+                                },
+                                {
+                                    "instance_name": "instance-0000000016",
+                                    "replica_count": 0
+                                }
+                            ],
+                            "unavailable_shards": [
+                                {
+                                    "instance_name": "instance-0000000018",
+                                    "shard_count": 0
+                                },
+                                {
+                                    "instance_name": "instance-0000000019",
+                                    "shard_count": 0
+                                },
+                                {
+                                    "instance_name": "instance-0000000016",
+                                    "shard_count": 0
+                                }
+                            ]
+                        }
+                    },
+                    "elasticsearch_monitoring_info": {
+                        "destination_cluster_ids": [
+                            "x"
+                        ],
+                        "healthy": true,
+                        "last_modified": "2020-11-17T10:49:56.910Z",
+                        "last_update_status": "Successfully applied Monitoring configuration",
+                        "source_cluster_ids": []
+                    },
+                    "external_links": [
+                        {
+                            "id": "cluster-logs",
+                            "label": "Elasticsearch Logs",
+                            "uri": "https://x:9243/app/kibana#/discover?_a=(columns:!(message),index:'cluster-logs-*',query:(query_string:(query:'ece.cluster:%22x%22')))\u0026_g=(time:(from:now-1h,mode:quick,to:now))"
+                        },
+                        {
+                            "id": "metricbeat",
+                            "label": "Elasticsearch Metrics",
+                            "uri": "https://x:9243/app/kibana#/dashboard/x?_a=(filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'metricbeat-*',key:ece.cluster,negate:!f,params:(query:'x',type:phrase),type:phrase,value:'x'),query:(match:(ece.cluster:(query:'x',type:phrase))))))\u0026_g=(time:(from:now-1h,mode:quick,to:now))"
+                        },
+                        {
+                            "id": "proxy-logs",
+                            "label": "Proxy logs",
+                            "uri": "https://x:9243/app/kibana#/discover?_a=(columns:!(status_code,request_method,request_path,request_length,response_length,response_time),index:'proxy-logs-*',query:(query_string:(query:'handling_cluster:%22x%22')))\u0026_g=(time:(from:now-1h,mode:quick,to:now))"
+                        }
+                    ],
+                    "healthy": true,
+                    "metadata": {
+                        "cloud_id": "logging-and-metrics:x",
+                        "endpoint": "x",
+                        "last_modified": "2020-11-17T13:42:05.069Z",
+                        "ports": {
+                            "http": 9200,
+                            "https": 9243,
+                            "transport_passthrough": null
+                        },
+                        "version": 96
+                    },
+                    "plan_info": {
+                        "current": {
+                            "attempt_end_time": "2020-11-17T10:49:59.528Z",
+                            "attempt_start_time": "2020-11-17T10:48:56.849Z",
+                            "healthy": true,
+                            "plan": {
+                                "cluster_topology": [
+                                    {
+                                        "elasticsearch": {
+                                            "system_settings": {
+                                                "auto_create_index": true,
+                                                "destructive_requires_name": false,
+                                                "enable_close_index": false,
+                                                "monitoring_collection_interval": -1,
+                                                "monitoring_history_duration": "7d",
+                                                "reindex_whitelist": [],
+                                                "scripting": {
+                                                    "inline": {
+                                                        "enabled": true
+                                                    },
+                                                    "stored": {
+                                                        "enabled": true
+                                                    }
+                                                },
+                                                "use_disk_threshold": true
+                                            }
+                                        },
+                                        "instance_configuration_id": "data.default",
+                                        "node_type": {
+                                            "data": true,
+                                            "ingest": true,
+                                            "master": true,
+                                            "ml": false
+                                        },
+                                        "size": {
+                                            "resource": "memory",
+                                            "value": 16384
+                                        },
+                                        "zone_count": 3
+                                    },
+                                    {
+                                        "elasticsearch": {
+                                            "system_settings": {
+                                                "auto_create_index": true,
+                                                "destructive_requires_name": false,
+                                                "enable_close_index": false,
+                                                "monitoring_collection_interval": -1,
+                                                "monitoring_history_duration": "7d",
+                                                "reindex_whitelist": [],
+                                                "scripting": {
+                                                    "inline": {
+                                                        "enabled": true
+                                                    },
+                                                    "stored": {
+                                                        "enabled": true
+                                                    }
+                                                },
+                                                "use_disk_threshold": true
+                                            }
+                                        },
+                                        "instance_configuration_id": "coordinating",
+                                        "node_type": {
+                                            "data": false,
+                                            "ingest": true,
+                                            "master": false
+                                        },
+                                        "size": {
+                                            "resource": "memory",
+                                            "value": 0
+                                        },
+                                        "zone_count": 1
+                                    },
+                                    {
+                                        "elasticsearch": {
+                                            "system_settings": {
+                                                "auto_create_index": true,
+                                                "destructive_requires_name": false,
+                                                "enable_close_index": false,
+                                                "monitoring_collection_interval": -1,
+                                                "monitoring_history_duration": "7d",
+                                                "reindex_whitelist": [],
+                                                "scripting": {
+                                                    "inline": {
+                                                        "enabled": true
+                                                    },
+                                                    "stored": {
+                                                        "enabled": true
+                                                    }
+                                                },
+                                                "use_disk_threshold": true
+                                            }
+                                        },
+                                        "instance_configuration_id": "master",
+                                        "node_type": {
+                                            "data": false,
+                                            "ingest": false,
+                                            "master": true
+                                        },
+                                        "size": {
+                                            "resource": "memory",
+                                            "value": 0
+                                        },
+                                        "zone_count": 1
+                                    },
+                                    {
+                                        "elasticsearch": {
+                                            "system_settings": {
+                                                "auto_create_index": true,
+                                                "destructive_requires_name": false,
+                                                "enable_close_index": false,
+                                                "monitoring_collection_interval": -1,
+                                                "monitoring_history_duration": "7d",
+                                                "reindex_whitelist": [],
+                                                "scripting": {
+                                                    "inline": {
+                                                        "enabled": true
+                                                    },
+                                                    "stored": {
+                                                        "enabled": true
+                                                    }
+                                                },
+                                                "use_disk_threshold": true
+                                            }
+                                        },
+                                        "instance_configuration_id": "ml",
+                                        "node_type": {
+                                            "data": false,
+                                            "ingest": false,
+                                            "master": false,
+                                            "ml": true
+                                        },
+                                        "size": {
+                                            "resource": "memory",
+                                            "value": 0
+                                        },
+                                        "zone_count": 1
+                                    }
+                                ],
+                                "deployment_template": {
+                                    "id": "default"
+                                },
+                                "elasticsearch": {
+                                    "system_settings": {
+                                        "enable_close_index": false,
+                                        "reindex_whitelist": null,
+                                        "use_disk_threshold": true
+                                    },
+                                    "version": "6.8.5"
+                                },
+                                "tiebreaker_topology": {
+                                    "memory_per_node": 1024
+                                },
+                                "transient": {
+                                    "plan_configuration": {
+                                        "calm_wait_time": 5,
+                                        "extended_maintenance": false,
+                                        "max_snapshot_age": 300,
+                                        "max_snapshot_attempts": 3,
+                                        "move_allocators": [
+                                            {
+                                                "allocator_down": true,
+                                                "from": "ece-allocator-3",
+                                                "to": null
+                                            }
+                                        ],
+                                        "move_instances": null,
+                                        "move_only": true,
+                                        "override_failsafe": false,
+                                        "preferred_allocators": [],
+                                        "reallocate_instances": false,
+                                        "skip_data_migration": true,
+                                        "skip_post_upgrade_steps": false,
+                                        "skip_snapshot": true,
+                                        "skip_snapshot_post_major_upgrade": false,
+                                        "skip_upgrade_checker": false,
+                                        "timeout": 65536
+                                    },
+                                    "strategy": {
+                                        "grow_and_shrink": {}
+                                    }
+                                }
+                            },
+                            "plan_attempt_id": "x",
+                            "plan_attempt_log": [],
+                            "plan_end_time": "0001-01-01T00:00:00.000Z",
+                            "source": {
+                                "action": "elasticsearch.move-instances",
+                                "admin_id": "x",
+                                "date": "2020-11-17T10:48:56.817Z",
+                                "facilitator": "adminconsole",
+                                "remote_addresses": [
+                                    "x"
+                                ]
+                            }
+                        },
+                        "healthy": true,
+                        "history": []
+                    },
+                    "snapshots": {
+                        "count": 101,
+                        "healthy": true,
+                        "latest_end_time": "2020-12-17T18:45:36.575Z",
+                        "latest_status": "SUCCESS",
+                        "latest_successful": true,
+                        "latest_successful_end_time": "2020-12-17T18:45:36.575Z",
+                        "recent_success": true,
+                        "scheduled_time": "2020-12-17T19:23:03.700Z"
+                    },
+                    "status": "started",
+                    "system_alerts": []
+                },
+                "ref_id": "elasticsearch",
+                "region": "ece-region"
+            }
+        ],
+        "enterprise_search": null,
+        "kibana": [
+            {
+                "elasticsearch_cluster_ref_id": "elasticsearch",
+                "id": "x",
+                "info": {
+                    "cluster_id": "x",
+                    "cluster_name": "logging-and-metrics",
+                    "deployment_id": "x",
+                    "elasticsearch_cluster": {
+                        "elasticsearch_id": "x"
+                    },
+                    "external_links": [
+                        {
+                            "id": "cluster-logs",
+                            "label": "Elasticsearch Logs",
+                            "uri": "https://x:9243/app/kibana#/discover?_a=(columns:!(message),index:'cluster-logs-*',query:(query_string:(query:'ece.cluster:%22x%22')))\u0026_g=(time:(from:now-1h,mode:quick,to:now))"
+                        },
+                        {
+                            "id": "metricbeat",
+                            "label": "Elasticsearch Metrics",
+                            "uri": "https://x:9243/app/kibana#/dashboard/x?_a=(filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'metricbeat-*',key:ece.cluster,negate:!f,params:(query:'x',type:phrase),type:phrase,value:'x'),query:(match:(ece.cluster:(query:'x',type:phrase))))))\u0026_g=(time:(from:now-1h,mode:quick,to:now))"
+                        },
+                        {
+                            "id": "proxy-logs",
+                            "label": "Proxy logs",
+                            "uri": "https://x:9243/app/kibana#/discover?_a=(columns:!(status_code,request_method,request_path,request_length,response_length,response_time),index:'proxy-logs-*',query:(query_string:(query:'handling_cluster:%x%22')))\u0026_g=(time:(from:now-1h,mode:quick,to:now))"
+                        }
+                    ],
+                    "healthy": true,
+                    "metadata": {
+                        "endpoint": "x",
+                        "last_modified": "2020-11-16T12:36:07.055Z",
+                        "ports": {
+                            "http": 9200,
+                            "https": 9243,
+                            "transport_passthrough": null
+                        },
+                        "version": 28
+                    },
+                    "plan_info": {
+                        "current": {
+                            "attempt_end_time": "2020-11-16T12:36:07.725Z",
+                            "attempt_start_time": "2020-11-16T12:36:06.979Z",
+                            "healthy": true,
+                            "plan": {
+                                "cluster_topology": [
+                                    {
+                                        "instance_configuration_id": "kibana",
+                                        "kibana": {
+                                            "system_settings": {
+                                                "elasticsearch_password": "-x",
+                                                "elasticsearch_url": "http://x.containerhost:9244",
+                                                "elasticsearch_username": "found-internal-kibana4-server"
+                                            },
+                                            "user_settings_json": {},
+                                            "user_settings_override_json": {}
+                                        },
+                                        "memory_per_node": 1024,
+                                        "node_count_per_zone": 1,
+                                        "zone_count": 2
+                                    }
+                                ],
+                                "kibana": {
+                                    "system_settings": {
+                                        "elasticsearch_password": "-x",
+                                        "elasticsearch_url": "http://x.containerhost:9244",
+                                        "elasticsearch_username": "found-internal-kibana4-server"
+                                    },
+                                    "version": "6.8.5"
+                                },
+                                "transient": {
+                                    "strategy": {
+                                        "autodetect": {}
+                                    }
+                                }
+                            },
+                            "plan_attempt_id": "x",
+                            "plan_attempt_log": [],
+                            "plan_end_time": "0001-01-01T00:00:00.000Z",
+                            "source": {
+                                "action": "deployments.update-deployment",
+                                "admin_id": "x",
+                                "date": "2020-11-16T12:36:06.865Z",
+                                "facilitator": "adminconsole",
+                                "remote_addresses": [
+                                    "x"
+                                ]
+                            }
+                        },
+                        "healthy": true,
+                        "history": []
+                    },
+                    "status": "started"
+                },
+                "ref_id": "kibana",
+                "region": "ece-region"
+            }
+        ]
+    }
+}
