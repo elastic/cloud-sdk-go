@@ -9,6 +9,8 @@
   "host" : "api.elastic-cloud.com",
   "basePath" : "/api/v1/",
   "tags" : [ {
+    "name" : "Authentication"
+  }, {
     "name" : "DeploymentTemplates"
   }, {
     "name" : "Deployments"
@@ -4756,6 +4758,231 @@
           "tag" : "Stack - Versions - CRUD"
         }
       }
+    },
+    "/users/auth/keys" : {
+      "get" : {
+        "tags" : [ "Authentication" ],
+        "summary" : "Get all API keys",
+        "description" : "Retrieves the metadata for all of the API keys that the user generated.",
+        "operationId" : "get-api-keys",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "The metadata for the API keys is retrieved.",
+            "schema" : {
+              "$ref" : "#/definitions/ApiKeysResponse"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Authentication"
+        }
+      },
+      "post" : {
+        "tags" : [ "Authentication" ],
+        "summary" : "Create API key",
+        "description" : "Creates a new API key.",
+        "operationId" : "create-api-key",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "The request to create the API key",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/CreateApiKeyRequest"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "The API key is created and returned in the body of the response.",
+            "schema" : {
+              "$ref" : "#/definitions/ApiKeyResponse"
+            }
+          },
+          "400" : {
+            "description" : "The request is invalid. Specify a different request, then try again. (code: `api_keys.invalid_input`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "api_keys.invalid_input" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "449" : {
+            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Authentication"
+        }
+      },
+      "delete" : {
+        "tags" : [ "Authentication" ],
+        "summary" : "Delete API keys",
+        "description" : "Delete or invalidate API keys.",
+        "operationId" : "delete-api-keys",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "The request to delete API keys",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/DeleteApiKeysRequest"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The API keys are deleted.",
+            "schema" : {
+              "$ref" : "#/definitions/EmptyResponse"
+            }
+          },
+          "449" : {
+            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Authentication"
+        }
+      }
+    },
+    "/users/auth/keys/{api_key_id}" : {
+      "get" : {
+        "tags" : [ "Authentication" ],
+        "summary" : "Get API key",
+        "description" : "Retrieves the metadata for an API key.",
+        "operationId" : "get-api-key",
+        "parameters" : [ {
+          "name" : "api_key_id",
+          "in" : "path",
+          "description" : "The API Key ID.",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The API key metadata is retrieved.",
+            "schema" : {
+              "$ref" : "#/definitions/ApiKeyResponse"
+            }
+          },
+          "404" : {
+            "description" : "The {api_key_id} can't be found. (code: `api_keys.key_not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "api_keys.key_not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Authentication"
+        }
+      },
+      "delete" : {
+        "tags" : [ "Authentication" ],
+        "summary" : "Delete API key",
+        "description" : "Delete or invalidate the API key.",
+        "operationId" : "delete-api-key",
+        "parameters" : [ {
+          "name" : "api_key_id",
+          "in" : "path",
+          "description" : "The API Key ID.",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The API key is deleted.",
+            "schema" : {
+              "$ref" : "#/definitions/EmptyResponse"
+            }
+          },
+          "404" : {
+            "description" : "The {api_key_id} can't be found. (code: `api_keys.key_not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "api_keys.key_not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "449" : {
+            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "security" : [ {
+          "basicAuth" : [ ]
+        }, {
+          "apiKey" : [ ]
+        } ],
+        "x-doc" : {
+          "tag" : "Authentication"
+        }
+      }
     }
   },
   "securityDefinitions" : {
@@ -4827,6 +5054,48 @@
         }
       },
       "description" : "As part of the upgrade plan, identifies the move requests for the Kibana instances or APM Servers on the allocators."
+    },
+    "ApiKeyResponse" : {
+      "type" : "object",
+      "required" : [ "creation_date", "description", "id" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "The API key ID."
+        },
+        "user_id" : {
+          "type" : "string",
+          "description" : "The user ID."
+        },
+        "description" : {
+          "type" : "string",
+          "description" : "The API key description. TIP: Useful when you have multiple API keys."
+        },
+        "key" : {
+          "type" : "string",
+          "description" : "The API key. TIP: Since the API key is returned only once, save it in a safe place."
+        },
+        "creation_date" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "The date/time for when the API key is created."
+        }
+      },
+      "description" : "The response model for an API key."
+    },
+    "ApiKeysResponse" : {
+      "type" : "object",
+      "required" : [ "keys" ],
+      "properties" : {
+        "keys" : {
+          "type" : "array",
+          "description" : "The list of API keys.",
+          "items" : {
+            "$ref" : "#/definitions/ApiKeyResponse"
+          }
+        }
+      },
+      "description" : "The response model for the API keys."
     },
     "Apm" : {
       "type" : "object",
@@ -6127,6 +6396,21 @@
       },
       "description" : "The topology for Elasticsearch clusters, multiple Kibana instances, or multiple APM Servers. The `ClusterTopologyInfo` also includes the instances and containers, and where they are located."
     },
+    "CreateApiKeyRequest" : {
+      "type" : "object",
+      "required" : [ "description" ],
+      "properties" : {
+        "description" : {
+          "type" : "string",
+          "description" : "API key description. Useful if there are multiple keys"
+        },
+        "authentication_token" : {
+          "type" : "string",
+          "description" : "Deprecated. The security token from reauthenticate API"
+        }
+      },
+      "description" : "The request payload that creates the API keys."
+    },
     "CreateExtensionRequest" : {
       "type" : "object",
       "required" : [ "extension_type", "name", "version" ],
@@ -6227,6 +6511,20 @@
         }
       },
       "description" : "The configuration settings for the cross-cluster search."
+    },
+    "DeleteApiKeysRequest" : {
+      "type" : "object",
+      "required" : [ "keys" ],
+      "properties" : {
+        "keys" : {
+          "type" : "array",
+          "description" : "The list of API key IDs.",
+          "items" : {
+            "type" : "string"
+          }
+        }
+      },
+      "description" : "The request payload that deletes the API keys."
     },
     "DeploymentCreateMetadata" : {
       "type" : "object",
