@@ -81,6 +81,32 @@ func TestCreate(t *testing.T) {
 			err: `{"deployments":null,"description":"Why hello there","download_url":"https://www.example.com","extension_type":"sometype","id":"someid","name":"Boop","url":null,"version":"v1.0"}` + "\n",
 		},
 		{
+			name: "succeeds without download URL",
+			args: args{params: CreateParams{
+				Name:        "Boop",
+				Version:     "v1.0",
+				Type:        "sometype",
+				Description: "Why hello there",
+				API: api.NewMock(mock.New200ResponseAssertion(
+					&mock.RequestAssertion{
+						Header: api.DefaultWriteMockHeaders,
+						Method: "POST",
+						Host:   api.DefaultMockHost,
+						Path:   "/api/v1/deployments/extensions",
+						Body:   mock.NewStringBody(`{"description":"Why hello there","extension_type":"sometype","name":"Boop","version":"v1.0"}` + "\n"),
+					},
+					mock.NewStructBody(models.Extension{
+						ID:            ec.String("someid"),
+						Name:          ec.String("Boop"),
+						Version:       ec.String("v1.0"),
+						ExtensionType: ec.String("sometype"),
+						Description:   "Why hello there",
+					}),
+				)),
+			}},
+			err: `{"deployments":null,"description":"Why hello there","extension_type":"sometype","id":"someid","name":"Boop","url":null,"version":"v1.0"}` + "\n",
+		},
+		{
 			name: "fails on API error",
 			args: args{params: CreateParams{
 				Type: "sometype",
