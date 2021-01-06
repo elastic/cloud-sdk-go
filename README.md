@@ -12,41 +12,60 @@ go get -u github.com/elastic/cloud-sdk-go
 
 ## Usage
 
-See the [`pkg/api`](https://github.com/elastic/cloud-sdk-go/tree/master/pkg/api) package for more in depth documentation.
+See the [`pkg/api`](https://pkg.go.dev/github.com/elastic/cloud-sdk-go/pkg/api) package for more in depth documentation.
 
 ```go
 package main
 
 import (
-    "encoding/json"
-    "net/http"
-    "os"
+	"encoding/json"
+	"log"
+	"net/http"
+	"os"
 
-    "github.com/elastic/cloud-sdk-go/pkg/api"
-    "github.com/elastic/cloud-sdk-go/pkg/api/deploymentapi"
-    "github.com/elastic/cloud-sdk-go/pkg/auth"
+	"github.com/elastic/cloud-sdk-go/pkg/api"
+	"github.com/elastic/cloud-sdk-go/pkg/api/deploymentapi"
+	"github.com/elastic/cloud-sdk-go/pkg/auth"
+)
+
+var (
+	logFormat = log.Lmsgprefix | log.Llongfile
+
+	errLog  = log.New(os.Stderr, "ERROR ", logFormat)
+	warnLog = log.New(os.Stdout, "WARN ", logFormat)
+	infoLog = log.New(os.Stdout, "INFO ", logFormat)
 )
 
 func main() {
-    // Create a API instance with an API key as means of authentication.
-    ess, err := api.NewAPI(api.Config{
-        Client:        new(http.Client),
-        AuthWriter:    auth.APIKey("some-apikey"),
-    })
-    if err != nil {
-        panic(err)
-    }
+	// Export your apikey as an environment variable as EC_API_KEY. To generate
+	// a new API key go to ESS or ECE Web UI > API Keys > Generate API Key.
+	apiKey := os.Getenv("EC_API_KEY")
+	if apiKey == "" {
+		warnLog.Print("unable to obtain value from EC_API_KEY environment variable")
+	}
 
-    // List the user's deployments via the `deploymentapi` package (Recommended).
-    res, err := deploymentapi.List(deploymentapi.ListParams{API: ess.V1API})
-    if err != nil {
-        panic(err)
-    }
+	// Create a API instance with an API key as means of authentication.
+	ess, err := api.NewAPI(api.Config{
+		Client:     new(http.Client),
+		AuthWriter: auth.APIKey(apiKey),
+	})
+	if err != nil {
+		errLog.Fatal(err)
+	}
 
-    var encoder = json.NewEncoder(os.Stdout)
-    if err := encoder.Encode(res); err != nil {
-        panic(err)
-    }
+	// List the user's deployments via the `deploymentapi` package (Recommended).
+	res, err := deploymentapi.List(deploymentapi.ListParams{API: ess})
+	if err != nil {
+		errLog.Fatal(err)
+	}
+	infoLog.Printf("found %d deployents", len(res.Deployments))
+
+	encoder := json.NewEncoder(infoLog.Writer())
+	encoder.SetIndent("", "  ")
+
+	if err := encoder.Encode(res); err != nil {
+		errLog.Fatal(err)
+	}
 }
 ```
 
