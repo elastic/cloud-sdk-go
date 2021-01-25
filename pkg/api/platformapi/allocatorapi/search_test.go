@@ -51,7 +51,7 @@ func TestSearch(t *testing.T) {
 					StatusCode: 200,
 				}}),
 			}},
-			err: "invalid allocator search params: 2 errors occurred:\n\t* validation failure list:\nvalidation failure list:\nvalidation failure list:\nfield in body is required\n\t* region not specified and is required for this operation\n\n",
+			err: "invalid allocator search params: 2 errors occurred:\n\t* region not specified and is required for this operation\n\t* validation failure list:\nvalidation failure list:\nvalidation failure list:\nfield in body is required\n\n",
 		},
 		{
 			name: "fails if api reference is empty",

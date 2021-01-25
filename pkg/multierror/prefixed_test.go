@@ -22,9 +22,11 @@ import (
 	"fmt"
 	"reflect"
 	"strings"
+	"sync"
 	"testing"
 
 	"github.com/hashicorp/go-multierror"
+	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/client/authentication"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
@@ -165,7 +167,7 @@ func TestNewPrefixed(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := NewPrefixed(tt.args.prefix, tt.args.errs...); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("New() = %+v, want %+v", *got, *tt.want)
+				t.Errorf("New() = %+v, want %+v", got, tt.want)
 			}
 		})
 	}
@@ -337,8 +339,8 @@ func TestPrefixed_Error(t *testing.T) {
 				},
 			},
 			want: "prefix: " + multierror.ListFormatFunc([]error{
-				errors.New("some error"),
 				errors.New("another error"),
+				errors.New("some error"),
 			}),
 		},
 		{
@@ -367,4 +369,24 @@ func TestPrefixed_Error(t *testing.T) {
 			}
 		})
 	}
+}
+
+func TestPrefixed_Concurrent(t *testing.T) {
+	merr := NewPrefixed("someprefix", errors.New("an error"))
+	ctr := 10
+
+	var wg sync.WaitGroup
+	wg.Add(ctr)
+	for i := 0; i < 10; i++ {
+		go func(counter int) {
+			defer wg.Done()
+			_ = merr.Append(fmt.Errorf("error %d", counter))
+		}(i)
+	}
+
+	wg.Wait()
+
+	assert.EqualError(t, merr,
+		"someprefix: 11 errors occurred:\n\t* an error\n\t* error 0\n\t* error 1\n\t* error 2\n\t* error 3\n\t* error 4\n\t* error 5\n\t* error 6\n\t* error 7\n\t* error 8\n\t* error 9\n\n",
+	)
 }
