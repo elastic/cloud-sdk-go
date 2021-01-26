@@ -21,6 +21,8 @@ import (
 	"errors"
 	"fmt"
 	"runtime"
+	"sort"
+	"sync"
 
 	"github.com/hashicorp/go-multierror"
 )
@@ -34,7 +36,9 @@ type asMulti interface {
 type FormatFunc func(es []error) string
 
 // Prefixed is a multierror which will prefix the error output message with the
-// specified prefix.
+// specified prefix. The output will be sorted so the errors can be asserted on
+// test functions in case the multierror has been used in different goroutines.
+// This structure is concurrently safe, avoid using value semantics.
 type Prefixed struct {
 	Prefix     string
 	Errors     []error
@@ -44,6 +48,8 @@ type Prefixed struct {
 	// prefixed. This is particularly useful multierrors which contain JSON
 	// marshaleable errors.
 	SkipPrefixing bool
+
+	mu sync.RWMutex
 }
 
 // NewPrefixed creates a new pointer to Prefixed.
@@ -65,6 +71,9 @@ func NewJSONPrefixed(prefix string, errs ...error) *Prefixed {
 // Append appends a number of errors to the current instance of Prefixed. It'll
 // unwrap any wrapped errors in the form of *Prefixed or *multierror.Error.
 func (p *Prefixed) Append(errs ...error) *Prefixed {
+	defer p.mu.Unlock()
+	p.mu.Lock()
+
 	p.Errors = append(p.Errors, unpackErrors(p.Prefix, errs...)...)
 	return p
 }
@@ -72,6 +81,9 @@ func (p *Prefixed) Append(errs ...error) *Prefixed {
 // ErrorOrNil either returns nil when the type is nil or when there's no Errors.
 // Otherwise, the type is returned.
 func (p *Prefixed) ErrorOrNil() error {
+	defer p.mu.RUnlock()
+	p.mu.RLock()
+
 	if len(p.Errors) > 0 {
 		return p
 	}
@@ -82,9 +94,17 @@ func (p *Prefixed) ErrorOrNil() error {
 // Error returns the stored slice of error formatted using a set FormatFunc or
 // multierror.ListFormatFunc when no FormatFunc is specified.
 func (p *Prefixed) Error() string {
+	defer p.mu.Unlock()
+	p.mu.Lock()
+
 	if len(p.Errors) == 0 {
 		return ""
 	}
+
+	// Sort the errors so there's some consistency on the output.
+	sort.SliceStable(p.Errors, func(i, j int) bool {
+		return p.Errors[i].Error() < p.Errors[j].Error()
+	})
 
 	if p.FormatFunc == nil {
 		p.FormatFunc = wrapPrefix(p.Prefix, multierror.ListFormatFunc)
