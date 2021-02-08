@@ -12,7 +12,7 @@ require (
 	github.com/go-openapi/runtime v0.19.26
 	github.com/go-openapi/spec v0.20.2
 	github.com/go-openapi/strfmt v0.20.0
-	github.com/go-openapi/swag v0.19.13
+	github.com/go-openapi/swag v0.19.14
 	github.com/go-openapi/validate v0.20.1
 	github.com/hashicorp/go-multierror v1.1.0
 	github.com/mitchellh/mapstructure v1.4.1
