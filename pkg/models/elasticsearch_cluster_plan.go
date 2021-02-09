@@ -36,6 +36,9 @@ import (
 // swagger:model ElasticsearchClusterPlan
 type ElasticsearchClusterPlan struct {
 
+	// Enable autoscaling for this Elasticsearch cluster.
+	AutoscalingEnabled *bool `json:"autoscaling_enabled,omitempty"`
+
 	// cluster topology
 	// Required: true
 	ClusterTopology []*ElasticsearchClusterTopologyElement `json:"cluster_topology"`

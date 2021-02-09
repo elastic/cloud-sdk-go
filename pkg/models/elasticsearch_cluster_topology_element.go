@@ -23,9 +23,13 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
+	"strconv"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // ElasticsearchClusterTopologyElement The topology of the Elasticsearch nodes, including the number, capacity, and type of nodes, and where they can be allocated.
@@ -38,8 +42,20 @@ type ElasticsearchClusterTopologyElement struct {
 	// Controls the allocation strategy of this node type using a simplified version of the Elasticsearch filter DSL (together with 'node_configuration')
 	AllocatorFilter interface{} `json:"allocator_filter,omitempty"`
 
+	// The maximum size of this topology element when autoscaling is enabled. This property is only supported, and must be provided, for data and ML topology elements.
+	AutoscalingMax *TopologySize `json:"autoscaling_max,omitempty"`
+
+	// The minimum size of this topology element when autoscaling is enabled. This property is only supported, and must be provided, for ML topology elements.
+	AutoscalingMin *TopologySize `json:"autoscaling_min,omitempty"`
+
+	// An arbitrary JSON object overriding the default autoscaling policy. Don't set unless you really know what you are doing.
+	AutoscalingPolicyOverrideJSON interface{} `json:"autoscaling_policy_override_json,omitempty"`
+
 	// elasticsearch
 	Elasticsearch *ElasticsearchConfiguration `json:"elasticsearch,omitempty"`
+
+	// Unique identifier of this topology element
+	ID string `json:"id,omitempty"`
 
 	// Controls the allocation of this topology element as well as allowed sizes and node_types. It needs to match the id of an existing instance configuration.
 	InstanceConfigurationID string `json:"instance_configuration_id,omitempty"`
@@ -55,11 +71,17 @@ type ElasticsearchClusterTopologyElement struct {
 	// The number of nodes of this type that are allocated within each zone. (i.e. total capacity per zone = `node_count_per_zone` * `memory_per_node` in MB). Cannot be set for tiebreaker topologies. For dedicated master nodes, must be 1 if an entry exists.
 	NodeCountPerZone int32 `json:"node_count_per_zone,omitempty"`
 
+	// The list of node roles for this topology element (ES version >= 7.10). Allowable values are: master, ingest, ml, data_hot, data_content, data_warm, data_cold, remote_cluster_client, transform
+	NodeRoles []string `json:"node_roles"`
+
 	// node type
 	NodeType *ElasticsearchNodeType `json:"node_type,omitempty"`
 
 	// size
 	Size *TopologySize `json:"size,omitempty"`
+
+	// topology element control
+	TopologyElementControl *TopologyElementControl `json:"topology_element_control,omitempty"`
 
 	// The default number of zones in which data nodes will be placed
 	ZoneCount int32 `json:"zone_count,omitempty"`
@@ -69,7 +91,19 @@ type ElasticsearchClusterTopologyElement struct {
 func (m *ElasticsearchClusterTopologyElement) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateAutoscalingMax(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateAutoscalingMin(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateElasticsearch(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateNodeRoles(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -81,9 +115,49 @@ func (m *ElasticsearchClusterTopologyElement) Validate(formats strfmt.Registry) 
 		res = append(res, err)
 	}
 
+	if err := m.validateTopologyElementControl(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *ElasticsearchClusterTopologyElement) validateAutoscalingMax(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.AutoscalingMax) { // not required
+		return nil
+	}
+
+	if m.AutoscalingMax != nil {
+		if err := m.AutoscalingMax.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("autoscaling_max")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ElasticsearchClusterTopologyElement) validateAutoscalingMin(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.AutoscalingMin) { // not required
+		return nil
+	}
+
+	if m.AutoscalingMin != nil {
+		if err := m.AutoscalingMin.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("autoscaling_min")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -100,6 +174,43 @@ func (m *ElasticsearchClusterTopologyElement) validateElasticsearch(formats strf
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+var elasticsearchClusterTopologyElementNodeRolesItemsEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["master","ingest","ml","data_hot","data_content","data_warm","data_cold","remote_cluster_client","transform"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		elasticsearchClusterTopologyElementNodeRolesItemsEnum = append(elasticsearchClusterTopologyElementNodeRolesItemsEnum, v)
+	}
+}
+
+func (m *ElasticsearchClusterTopologyElement) validateNodeRolesItemsEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, elasticsearchClusterTopologyElementNodeRolesItemsEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *ElasticsearchClusterTopologyElement) validateNodeRoles(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.NodeRoles) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.NodeRoles); i++ {
+
+		// value enum
+		if err := m.validateNodeRolesItemsEnum("node_roles"+"."+strconv.Itoa(i), "body", m.NodeRoles[i]); err != nil {
+			return err
+		}
+
 	}
 
 	return nil
@@ -133,6 +244,24 @@ func (m *ElasticsearchClusterTopologyElement) validateSize(formats strfmt.Regist
 		if err := m.Size.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("size")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ElasticsearchClusterTopologyElement) validateTopologyElementControl(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.TopologyElementControl) { // not required
+		return nil
+	}
+
+	if m.TopologyElementControl != nil {
+		if err := m.TopologyElementControl.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("topology_element_control")
 			}
 			return err
 		}

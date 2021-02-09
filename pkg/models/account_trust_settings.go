@@ -29,24 +29,21 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// DeploymentMetricsSettings The metrics settings for a deployment
+// AccountTrustSettings Settings related to the level of trust of the clusters in this account
 //
-// swagger:model DeploymentMetricsSettings
-type DeploymentMetricsSettings struct {
+// swagger:model AccountTrustSettings
+type AccountTrustSettings struct {
 
-	// The destination deployment that this deployment's metrics will be sent to
+	// If true, all clusters in this account will by default trust all other clusters in the same account
 	// Required: true
-	Destination *AbsoluteRefID `json:"destination"`
-
-	// Set to true to force the deployment to use legacy monitoring instead of Metricbeat-based monitoring.
-	ForceLegacyMonitoring *bool `json:"force_legacy_monitoring,omitempty"`
+	TrustAll *bool `json:"trust_all"`
 }
 
-// Validate validates this deployment metrics settings
-func (m *DeploymentMetricsSettings) Validate(formats strfmt.Registry) error {
+// Validate validates this account trust settings
+func (m *AccountTrustSettings) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateDestination(formats); err != nil {
+	if err := m.validateTrustAll(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -56,26 +53,17 @@ func (m *DeploymentMetricsSettings) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *DeploymentMetricsSettings) validateDestination(formats strfmt.Registry) error {
+func (m *AccountTrustSettings) validateTrustAll(formats strfmt.Registry) error {
 
-	if err := validate.Required("destination", "body", m.Destination); err != nil {
+	if err := validate.Required("trust_all", "body", m.TrustAll); err != nil {
 		return err
-	}
-
-	if m.Destination != nil {
-		if err := m.Destination.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("destination")
-			}
-			return err
-		}
 	}
 
 	return nil
 }
 
 // MarshalBinary interface implementation
-func (m *DeploymentMetricsSettings) MarshalBinary() ([]byte, error) {
+func (m *AccountTrustSettings) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -83,8 +71,8 @@ func (m *DeploymentMetricsSettings) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *DeploymentMetricsSettings) UnmarshalBinary(b []byte) error {
-	var res DeploymentMetricsSettings
+func (m *AccountTrustSettings) UnmarshalBinary(b []byte) error {
+	var res AccountTrustSettings
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

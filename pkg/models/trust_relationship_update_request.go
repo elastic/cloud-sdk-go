@@ -27,31 +27,34 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// ElasticsearchNodeType Controls the combinations of Elasticsearch node types. TIP: By default, the Elasticsearch node is master eligible, can hold data, and run ingest pipelines. WARNING: Do not set for tiebreaker topologies.
+// TrustRelationshipUpdateRequest A request for updating a trust relationship with another environment
 //
-// swagger:model ElasticsearchNodeType
-type ElasticsearchNodeType struct {
+// swagger:model TrustRelationshipUpdateRequest
+type TrustRelationshipUpdateRequest struct {
 
-	// Defines whether this node can hold data (default: false)
-	Data *bool `json:"data,omitempty"`
+	// The ID of the accounts to trust by this relationship.
+	AccountIds []string `json:"account_ids"`
 
-	// Defines whether this node can run an ingest pipeline (default: false)
-	Ingest *bool `json:"ingest,omitempty"`
+	// The installation ID of the environment to trust
+	InstallationID string `json:"installation_id,omitempty"`
 
-	// Defines whether this node can be elected master (default: false)
-	Master *bool `json:"master,omitempty"`
+	// A name for the trust relationship
+	Name string `json:"name,omitempty"`
 
-	// Defines whether this node can run ml jobs, valid only for versions 5.4.0 or greater (default: false)
-	Ml *bool `json:"ml,omitempty"`
+	// The public CA certificate of the environment to trust
+	PublicCaCert string `json:"public_ca_cert,omitempty"`
+
+	// If this relationship is trusted by default by all deployments in the current environment.
+	TrustByDefault *bool `json:"trust_by_default,omitempty"`
 }
 
-// Validate validates this elasticsearch node type
-func (m *ElasticsearchNodeType) Validate(formats strfmt.Registry) error {
+// Validate validates this trust relationship update request
+func (m *TrustRelationshipUpdateRequest) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
 // MarshalBinary interface implementation
-func (m *ElasticsearchNodeType) MarshalBinary() ([]byte, error) {
+func (m *TrustRelationshipUpdateRequest) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -59,8 +62,8 @@ func (m *ElasticsearchNodeType) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *ElasticsearchNodeType) UnmarshalBinary(b []byte) error {
-	var res ElasticsearchNodeType
+func (m *TrustRelationshipUpdateRequest) UnmarshalBinary(b []byte) error {
+	var res TrustRelationshipUpdateRequest
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

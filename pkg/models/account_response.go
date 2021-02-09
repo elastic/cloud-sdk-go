@@ -29,24 +29,28 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// DeploymentMetricsSettings The metrics settings for a deployment
+// AccountResponse An account is the entity that owns deployments, and it is accessed by users. Accounts are isolated from each other.
 //
-// swagger:model DeploymentMetricsSettings
-type DeploymentMetricsSettings struct {
+// swagger:model AccountResponse
+type AccountResponse struct {
 
-	// The destination deployment that this deployment's metrics will be sent to
+	// The account's identifier
 	// Required: true
-	Destination *AbsoluteRefID `json:"destination"`
+	ID *string `json:"id"`
 
-	// Set to true to force the deployment to use legacy monitoring instead of Metricbeat-based monitoring.
-	ForceLegacyMonitoring *bool `json:"force_legacy_monitoring,omitempty"`
+	// Settings related to the level of trust of the clusters in this account
+	Trust *AccountTrustSettings `json:"trust,omitempty"`
 }
 
-// Validate validates this deployment metrics settings
-func (m *DeploymentMetricsSettings) Validate(formats strfmt.Registry) error {
+// Validate validates this account response
+func (m *AccountResponse) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateDestination(formats); err != nil {
+	if err := m.validateID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateTrust(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -56,16 +60,25 @@ func (m *DeploymentMetricsSettings) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *DeploymentMetricsSettings) validateDestination(formats strfmt.Registry) error {
+func (m *AccountResponse) validateID(formats strfmt.Registry) error {
 
-	if err := validate.Required("destination", "body", m.Destination); err != nil {
+	if err := validate.Required("id", "body", m.ID); err != nil {
 		return err
 	}
 
-	if m.Destination != nil {
-		if err := m.Destination.Validate(formats); err != nil {
+	return nil
+}
+
+func (m *AccountResponse) validateTrust(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Trust) { // not required
+		return nil
+	}
+
+	if m.Trust != nil {
+		if err := m.Trust.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("destination")
+				return ve.ValidateName("trust")
 			}
 			return err
 		}
@@ -75,7 +88,7 @@ func (m *DeploymentMetricsSettings) validateDestination(formats strfmt.Registry)
 }
 
 // MarshalBinary interface implementation
-func (m *DeploymentMetricsSettings) MarshalBinary() ([]byte, error) {
+func (m *AccountResponse) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -83,8 +96,8 @@ func (m *DeploymentMetricsSettings) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *DeploymentMetricsSettings) UnmarshalBinary(b []byte) error {
-	var res DeploymentMetricsSettings
+func (m *AccountResponse) UnmarshalBinary(b []byte) error {
+	var res AccountResponse
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

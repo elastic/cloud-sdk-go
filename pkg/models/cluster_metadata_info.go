@@ -34,6 +34,12 @@ import (
 // swagger:model ClusterMetadataInfo
 type ClusterMetadataInfo struct {
 
+	// The DNS name of the cluster endpoint derived from the deployment alias, if available
+	AliasedEndpoint string `json:"aliased_endpoint,omitempty"`
+
+	// The full aliased URL to access this deployment resource
+	AliasedURL string `json:"aliased_url,omitempty"`
+
 	// The cloud ID, an encoded string that provides other Elastic services with the necessary information to connect to this Elasticsearch and Kibana (only present if both exist)
 	CloudID string `json:"cloud_id,omitempty"`
 

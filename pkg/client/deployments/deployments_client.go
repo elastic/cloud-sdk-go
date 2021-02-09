@@ -54,6 +54,8 @@ type ClientService interface {
 
 	DeploymentApmResetSecretToken(params *DeploymentApmResetSecretTokenParams, authInfo runtime.ClientAuthInfoWriter) (*DeploymentApmResetSecretTokenAccepted, error)
 
+	EnableDeploymentResourceCcr(params *EnableDeploymentResourceCcrParams, authInfo runtime.ClientAuthInfoWriter) (*EnableDeploymentResourceCcrOK, error)
+
 	EnableDeploymentResourceIlm(params *EnableDeploymentResourceIlmParams, authInfo runtime.ClientAuthInfoWriter) (*EnableDeploymentResourceIlmOK, error)
 
 	EnableDeploymentResourceSlm(params *EnableDeploymentResourceSlmParams, authInfo runtime.ClientAuthInfoWriter) (*EnableDeploymentResourceSlmOK, error)
@@ -322,6 +324,43 @@ func (a *Client) DeploymentApmResetSecretToken(params *DeploymentApmResetSecretT
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for deployment-apm-reset-secret-token: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  EnableDeploymentResourceCcr migrates elasticsearch and associated kibana resources to enable c c r
+
+  Migrates the specified Elasticsearch resource and its associated Kibana to enable CCR (if supported).
+*/
+func (a *Client) EnableDeploymentResourceCcr(params *EnableDeploymentResourceCcrParams, authInfo runtime.ClientAuthInfoWriter) (*EnableDeploymentResourceCcrOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewEnableDeploymentResourceCcrParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "enable-deployment-resource-ccr",
+		Method:             "POST",
+		PathPattern:        "/deployments/{deployment_id}/elasticsearch/{ref_id}/_enable-ccr",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &EnableDeploymentResourceCcrReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*EnableDeploymentResourceCcrOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for enable-deployment-resource-ccr: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
