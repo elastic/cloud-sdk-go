@@ -133,11 +133,12 @@ func TestNewElasticsearch(t *testing.T) {
 			err: errors.New("deployment: the default template is not configured for Elasticsearch. Please use another template if you wish to start Elasticsearch instances"),
 		},
 		{
-			name: "Returns the default topology",
+			name: "Returns the default topology and any plugins",
 			args: args{params: NewElasticsearchParams{
 				Region:                   "ece-region",
 				Version:                  "7.4.2",
 				TemplateID:               "default",
+				Plugins:                  []string{"some-plugin"},
 				DeploymentTemplateInfoV2: &elasticsearchTemplateResponse,
 			}},
 			want: &models.ElasticsearchPayload{
@@ -146,7 +147,8 @@ func TestNewElasticsearch(t *testing.T) {
 				RefID:       ec.String(DefaultElasticsearchRefID),
 				Plan: &models.ElasticsearchClusterPlan{
 					Elasticsearch: &models.ElasticsearchConfiguration{
-						Version: "7.4.2",
+						Version:               "7.4.2",
+						EnabledBuiltInPlugins: []string{"some-plugin"},
 					},
 					DeploymentTemplate: &models.DeploymentTemplateReference{
 						ID: ec.String(DefaultTemplateID),

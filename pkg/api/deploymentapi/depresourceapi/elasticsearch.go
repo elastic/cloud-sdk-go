@@ -148,7 +148,8 @@ func newElasticsearchPayload(params NewElasticsearchParams) models.Elasticsearch
 		RefID:       ec.String(params.RefID),
 		Plan: &models.ElasticsearchClusterPlan{
 			Elasticsearch: &models.ElasticsearchConfiguration{
-				Version: params.Version,
+				Version:               params.Version,
+				EnabledBuiltInPlugins: params.Plugins,
 			},
 			DeploymentTemplate: &models.DeploymentTemplateReference{
 				ID: ec.String(params.TemplateID),
