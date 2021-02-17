@@ -27,6 +27,7 @@ import (
 	httptransport "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 
+	"github.com/elastic/cloud-sdk-go/pkg/client/accounts"
 	"github.com/elastic/cloud-sdk-go/pkg/client/authentication"
 	"github.com/elastic/cloud-sdk-go/pkg/client/clusters"
 	"github.com/elastic/cloud-sdk-go/pkg/client/clusters_apm"
@@ -45,6 +46,7 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/client/platform_configuration_security"
 	"github.com/elastic/cloud-sdk-go/pkg/client/platform_configuration_snapshots"
 	"github.com/elastic/cloud-sdk-go/pkg/client/platform_configuration_templates"
+	"github.com/elastic/cloud-sdk-go/pkg/client/platform_configuration_trust_relationships"
 	"github.com/elastic/cloud-sdk-go/pkg/client/platform_infrastructure"
 	"github.com/elastic/cloud-sdk-go/pkg/client/stack"
 	"github.com/elastic/cloud-sdk-go/pkg/client/telemetry"
@@ -93,6 +95,7 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Rest {
 
 	cli := new(Rest)
 	cli.Transport = transport
+	cli.Accounts = accounts.New(transport, formats)
 	cli.Authentication = authentication.New(transport, formats)
 	cli.Clusters = clusters.New(transport, formats)
 	cli.ClustersApm = clusters_apm.New(transport, formats)
@@ -111,6 +114,7 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Rest {
 	cli.PlatformConfigurationSecurity = platform_configuration_security.New(transport, formats)
 	cli.PlatformConfigurationSnapshots = platform_configuration_snapshots.New(transport, formats)
 	cli.PlatformConfigurationTemplates = platform_configuration_templates.New(transport, formats)
+	cli.PlatformConfigurationTrustRelationships = platform_configuration_trust_relationships.New(transport, formats)
 	cli.PlatformInfrastructure = platform_infrastructure.New(transport, formats)
 	cli.Stack = stack.New(transport, formats)
 	cli.Telemetry = telemetry.New(transport, formats)
@@ -159,6 +163,8 @@ func (cfg *TransportConfig) WithSchemes(schemes []string) *TransportConfig {
 
 // Rest is a client for rest
 type Rest struct {
+	Accounts accounts.ClientService
+
 	Authentication authentication.ClientService
 
 	Clusters clusters.ClientService
@@ -195,6 +201,8 @@ type Rest struct {
 
 	PlatformConfigurationTemplates platform_configuration_templates.ClientService
 
+	PlatformConfigurationTrustRelationships platform_configuration_trust_relationships.ClientService
+
 	PlatformInfrastructure platform_infrastructure.ClientService
 
 	Stack stack.ClientService
@@ -209,6 +217,7 @@ type Rest struct {
 // SetTransport changes the transport on the client and all its subresources
 func (c *Rest) SetTransport(transport runtime.ClientTransport) {
 	c.Transport = transport
+	c.Accounts.SetTransport(transport)
 	c.Authentication.SetTransport(transport)
 	c.Clusters.SetTransport(transport)
 	c.ClustersApm.SetTransport(transport)
@@ -227,6 +236,7 @@ func (c *Rest) SetTransport(transport runtime.ClientTransport) {
 	c.PlatformConfigurationSecurity.SetTransport(transport)
 	c.PlatformConfigurationSnapshots.SetTransport(transport)
 	c.PlatformConfigurationTemplates.SetTransport(transport)
+	c.PlatformConfigurationTrustRelationships.SetTransport(transport)
 	c.PlatformInfrastructure.SetTransport(transport)
 	c.Stack.SetTransport(transport)
 	c.Telemetry.SetTransport(transport)

@@ -23,6 +23,9 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
+	"strconv"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -61,6 +64,9 @@ type ClusterInstanceInfo struct {
 
 	// memory
 	Memory *ClusterInstanceMemoryInfo `json:"memory,omitempty"`
+
+	// A list of the node roles assigned to the service running in the instance. Currently populated only for Elasticsearch.
+	NodeRoles []string `json:"node_roles"`
 
 	// The service-specific (eg Elasticsearch) id of the node, if available
 	ServiceID string `json:"service_id,omitempty"`
@@ -108,6 +114,10 @@ func (m *ClusterInstanceInfo) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateMemory(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateNodeRoles(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -206,6 +216,43 @@ func (m *ClusterInstanceInfo) validateMemory(formats strfmt.Registry) error {
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+var clusterInstanceInfoNodeRolesItemsEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["master","ingest","ml","data_hot","data_content","data_warm","data_cold","remote_cluster_client","transform","voting_only"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		clusterInstanceInfoNodeRolesItemsEnum = append(clusterInstanceInfoNodeRolesItemsEnum, v)
+	}
+}
+
+func (m *ClusterInstanceInfo) validateNodeRolesItemsEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, clusterInstanceInfoNodeRolesItemsEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *ClusterInstanceInfo) validateNodeRoles(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.NodeRoles) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.NodeRoles); i++ {
+
+		// value enum
+		if err := m.validateNodeRolesItemsEnum("node_roles"+"."+strconv.Itoa(i), "body", m.NodeRoles[i]); err != nil {
+			return err
+		}
+
 	}
 
 	return nil

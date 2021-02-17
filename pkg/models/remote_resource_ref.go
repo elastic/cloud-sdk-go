@@ -46,6 +46,10 @@ type RemoteResourceRef struct {
 	// Required: true
 	ElasticsearchRefID *string `json:"elasticsearch_ref_id"`
 
+	// Information about a Remote Cluster.
+	// Read Only: true
+	Info *RemoteResourceInfo `json:"info,omitempty"`
+
 	// If true, skip this cluster during search if it is disconnected. Default: false
 	SkipUnavailable *bool `json:"skip_unavailable,omitempty"`
 }
@@ -63,6 +67,10 @@ func (m *RemoteResourceRef) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateElasticsearchRefID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateInfo(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -94,6 +102,24 @@ func (m *RemoteResourceRef) validateElasticsearchRefID(formats strfmt.Registry) 
 
 	if err := validate.Required("elasticsearch_ref_id", "body", m.ElasticsearchRefID); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *RemoteResourceRef) validateInfo(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Info) { // not required
+		return nil
+	}
+
+	if m.Info != nil {
+		if err := m.Info.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("info")
+			}
+			return err
+		}
 	}
 
 	return nil

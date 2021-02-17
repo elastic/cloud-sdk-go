@@ -23,30 +23,29 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"strconv"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
-// DeploymentMetricsSettings The metrics settings for a deployment
+// TrustRelationshipsListResponse Contains a list of trust relationships
 //
-// swagger:model DeploymentMetricsSettings
-type DeploymentMetricsSettings struct {
+// swagger:model TrustRelationshipsListResponse
+type TrustRelationshipsListResponse struct {
 
-	// The destination deployment that this deployment's metrics will be sent to
+	// The trust relationships
 	// Required: true
-	Destination *AbsoluteRefID `json:"destination"`
-
-	// Set to true to force the deployment to use legacy monitoring instead of Metricbeat-based monitoring.
-	ForceLegacyMonitoring *bool `json:"force_legacy_monitoring,omitempty"`
+	TrustRelationships []*TrustRelationshipGetResponse `json:"trust_relationships"`
 }
 
-// Validate validates this deployment metrics settings
-func (m *DeploymentMetricsSettings) Validate(formats strfmt.Registry) error {
+// Validate validates this trust relationships list response
+func (m *TrustRelationshipsListResponse) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateDestination(formats); err != nil {
+	if err := m.validateTrustRelationships(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -56,26 +55,33 @@ func (m *DeploymentMetricsSettings) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *DeploymentMetricsSettings) validateDestination(formats strfmt.Registry) error {
+func (m *TrustRelationshipsListResponse) validateTrustRelationships(formats strfmt.Registry) error {
 
-	if err := validate.Required("destination", "body", m.Destination); err != nil {
+	if err := validate.Required("trust_relationships", "body", m.TrustRelationships); err != nil {
 		return err
 	}
 
-	if m.Destination != nil {
-		if err := m.Destination.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("destination")
-			}
-			return err
+	for i := 0; i < len(m.TrustRelationships); i++ {
+		if swag.IsZero(m.TrustRelationships[i]) { // not required
+			continue
 		}
+
+		if m.TrustRelationships[i] != nil {
+			if err := m.TrustRelationships[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("trust_relationships" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil
 }
 
 // MarshalBinary interface implementation
-func (m *DeploymentMetricsSettings) MarshalBinary() ([]byte, error) {
+func (m *TrustRelationshipsListResponse) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -83,8 +89,8 @@ func (m *DeploymentMetricsSettings) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *DeploymentMetricsSettings) UnmarshalBinary(b []byte) error {
-	var res DeploymentMetricsSettings
+func (m *TrustRelationshipsListResponse) UnmarshalBinary(b []byte) error {
+	var res TrustRelationshipsListResponse
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

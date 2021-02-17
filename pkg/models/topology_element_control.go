@@ -29,24 +29,21 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// DeploymentMetricsSettings The metrics settings for a deployment
+// TopologyElementControl Controls for the topology element. Only used as part of the deployment template. Ignored if included as part of a deployment.
 //
-// swagger:model DeploymentMetricsSettings
-type DeploymentMetricsSettings struct {
+// swagger:model TopologyElementControl
+type TopologyElementControl struct {
 
-	// The destination deployment that this deployment's metrics will be sent to
+	// Absolute minimum size limit for a topology element created with a deployment template. If the value is 0, that means the topology element can be disabled.
 	// Required: true
-	Destination *AbsoluteRefID `json:"destination"`
-
-	// Set to true to force the deployment to use legacy monitoring instead of Metricbeat-based monitoring.
-	ForceLegacyMonitoring *bool `json:"force_legacy_monitoring,omitempty"`
+	Min *TopologySize `json:"min"`
 }
 
-// Validate validates this deployment metrics settings
-func (m *DeploymentMetricsSettings) Validate(formats strfmt.Registry) error {
+// Validate validates this topology element control
+func (m *TopologyElementControl) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateDestination(formats); err != nil {
+	if err := m.validateMin(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -56,16 +53,16 @@ func (m *DeploymentMetricsSettings) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *DeploymentMetricsSettings) validateDestination(formats strfmt.Registry) error {
+func (m *TopologyElementControl) validateMin(formats strfmt.Registry) error {
 
-	if err := validate.Required("destination", "body", m.Destination); err != nil {
+	if err := validate.Required("min", "body", m.Min); err != nil {
 		return err
 	}
 
-	if m.Destination != nil {
-		if err := m.Destination.Validate(formats); err != nil {
+	if m.Min != nil {
+		if err := m.Min.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("destination")
+				return ve.ValidateName("min")
 			}
 			return err
 		}
@@ -75,7 +72,7 @@ func (m *DeploymentMetricsSettings) validateDestination(formats strfmt.Registry)
 }
 
 // MarshalBinary interface implementation
-func (m *DeploymentMetricsSettings) MarshalBinary() ([]byte, error) {
+func (m *TopologyElementControl) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -83,8 +80,8 @@ func (m *DeploymentMetricsSettings) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *DeploymentMetricsSettings) UnmarshalBinary(b []byte) error {
-	var res DeploymentMetricsSettings
+func (m *TopologyElementControl) UnmarshalBinary(b []byte) error {
+	var res TopologyElementControl
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

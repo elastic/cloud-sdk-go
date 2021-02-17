@@ -9,6 +9,8 @@
   "host" : "api.elastic-cloud.com",
   "basePath" : "/api/v1/",
   "tags" : [ {
+    "name" : "Accounts"
+  }, {
     "name" : "Authentication"
   }, {
     "name" : "DeploymentTemplates"
@@ -19,10 +21,126 @@
   }, {
     "name" : "Extensions"
   }, {
+    "name" : "PlatformConfigurationTrustRelationships"
+  }, {
     "name" : "Stack"
   } ],
   "schemes" : [ "https" ],
+  "security" : [ {
+    "apiKey" : [ ]
+  } ],
   "paths" : {
+    "/account" : {
+      "get" : {
+        "tags" : [ "Accounts" ],
+        "summary" : "Fetch current account information",
+        "description" : "Fetch current account information.",
+        "operationId" : "get-current-account",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Account fetched successfully",
+            "schema" : {
+              "$ref" : "#/definitions/AccountResponse"
+            }
+          },
+          "404" : {
+            "description" : "Account not found. (code: `accounts.not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "accounts.not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "x-doc" : {
+          "tag" : "Accounts"
+        }
+      },
+      "put" : {
+        "tags" : [ "Accounts" ],
+        "summary" : "Updates the current account",
+        "description" : "Updates the current account.",
+        "operationId" : "update-current-account",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "the current account",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/AccountUpdateRequest"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Account updated successfully",
+            "schema" : {
+              "$ref" : "#/definitions/AccountResponse"
+            }
+          },
+          "404" : {
+            "description" : "Account not found. (code: `accounts.not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "accounts.not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "x-doc" : {
+          "tag" : "Accounts"
+        }
+      },
+      "patch" : {
+        "tags" : [ "Accounts" ],
+        "summary" : "Updates the current account",
+        "description" : "Updates the current account.",
+        "operationId" : "patch-current-account",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "All changes in the specified object are applied to the current account according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Account updated successfully",
+            "schema" : {
+              "$ref" : "#/definitions/AccountResponse"
+            }
+          },
+          "404" : {
+            "description" : "Account not found. (code: `accounts.not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "accounts.not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "x-doc" : {
+          "tag" : "Accounts"
+        }
+      }
+    },
     "/deployments" : {
       "get" : {
         "tags" : [ "Deployments" ],
@@ -44,11 +162,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployment - CRUD"
         }
@@ -126,11 +239,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployment - CRUD"
         }
@@ -173,11 +281,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployment - Commands"
         }
@@ -225,11 +328,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployment - Remote Clusters"
         }
@@ -257,11 +355,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployments - Extensions"
         }
@@ -341,11 +434,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployments - Extensions"
         }
@@ -406,11 +494,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployments - Extensions"
         }
@@ -509,11 +592,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployments - Extensions"
         }
@@ -598,11 +676,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployments - Extensions"
         }
@@ -680,11 +753,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployments - Extensions"
         }
@@ -752,11 +820,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployments - Templates"
         }
@@ -834,11 +897,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployments - Templates"
         }
@@ -897,11 +955,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployments - Traffic Filter - Associations"
         }
@@ -948,11 +1001,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployments - Traffic Filter - CRUD"
         }
@@ -992,11 +1040,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployments - Traffic Filter - CRUD"
         }
@@ -1056,11 +1099,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployments - Traffic Filter - CRUD"
         }
@@ -1119,11 +1157,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployments - Traffic Filter - CRUD"
         }
@@ -1181,11 +1214,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployments - Traffic Filter - CRUD"
         }
@@ -1225,11 +1253,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployments - Traffic Filter - Associations"
         }
@@ -1294,11 +1317,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployments - Traffic Filter - Associations"
         }
@@ -1363,11 +1381,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployments - Traffic Filter - Associations"
         }
@@ -1497,11 +1510,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployment - CRUD"
         }
@@ -1600,11 +1608,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployment - CRUD"
         }
@@ -1662,11 +1665,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployment - CRUD"
         }
@@ -1725,11 +1723,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployment - CRUD"
         }
@@ -1801,11 +1794,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployment - CRUD"
         }
@@ -1906,11 +1894,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployment - Info"
         }
@@ -1982,11 +1965,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "APM routes"
         }
@@ -2087,11 +2065,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployment - Info"
         }
@@ -2150,11 +2123,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "App Search - Read-only"
         }
@@ -2232,11 +2200,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "App Search - Read-only"
         }
@@ -2365,13 +2328,73 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployment - Info"
+        }
+      }
+    },
+    "/deployments/{deployment_id}/elasticsearch/{ref_id}/_enable-ccr" : {
+      "post" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Migrate Elasticsearch and associated Kibana resources to enable CCR",
+        "description" : "Migrates the specified Elasticsearch resource and its associated Kibana to enable CCR (if supported).",
+        "operationId" : "enable-deployment-resource-ccr",
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "ref_id",
+          "in" : "path",
+          "description" : "User-specified RefId for the Resource.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "validate_only",
+          "in" : "query",
+          "description" : "When `true`, will not enable CCR but returns warnings if any elements may lose availability during CCR enablement",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Standard response",
+            "schema" : {
+              "$ref" : "#/definitions/DeploymentResourceCommandResponse"
+            }
+          },
+          "404" : {
+            "description" : "* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)\n* The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.deployment_not_found", "deployments.deployment_resource_not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "449" : {
+            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "x-doc" : {
+          "tag" : "Deployment - Commands"
         }
       }
     },
@@ -2456,11 +2479,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployment - Commands"
         }
@@ -2539,11 +2557,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployment - Commands"
         }
@@ -2615,11 +2628,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployment - Commands"
         }
@@ -2739,11 +2747,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployment - Commands"
         }
@@ -2828,11 +2831,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployment - Commands"
         }
@@ -2899,11 +2897,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployment - Remote Clusters"
         }
@@ -2975,11 +2968,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployment Resources - CRUD"
         }
@@ -3057,11 +3045,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployment Resources - CRUD"
         }
@@ -3107,11 +3090,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployment - Remote Clusters"
         }
@@ -3176,11 +3154,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployment - Remote Clusters"
         }
@@ -3281,11 +3254,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployment - Info"
         }
@@ -3393,11 +3361,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployment - Info"
         }
@@ -3483,11 +3446,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployment Resources - CRUD"
         }
@@ -3578,11 +3536,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployment - Commands"
         }
@@ -3673,11 +3626,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployment - Commands"
         }
@@ -3768,11 +3716,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployment - Commands"
         }
@@ -3863,11 +3806,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployment - Commands"
         }
@@ -3975,11 +3913,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployment - Commands"
         }
@@ -4087,11 +4020,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployment - Commands"
         }
@@ -4199,11 +4127,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployment - Commands"
         }
@@ -4311,11 +4234,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployment - Commands"
         }
@@ -4421,11 +4339,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployment Resources - CRUD"
         }
@@ -4524,11 +4437,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployment - Commands"
         }
@@ -4633,11 +4541,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployment - Commands"
         }
@@ -4710,13 +4613,279 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployment - Commands"
+        }
+      }
+    },
+    "/platform/configuration/trust-relationships" : {
+      "get" : {
+        "tags" : [ "PlatformConfigurationTrustRelationships" ],
+        "summary" : "List trust relationships",
+        "description" : "List trust relationships.",
+        "operationId" : "get-trust-relationships",
+        "parameters" : [ {
+          "name" : "include_certificate",
+          "in" : "query",
+          "description" : "Whether to include the public CA certificates in the response.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The list of trust relationships.",
+            "schema" : {
+              "$ref" : "#/definitions/TrustRelationshipsListResponse"
+            }
+          },
+          "401" : {
+            "description" : "You are not authorized to perform this action.",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "x-doc" : {
+          "tag" : "Platform - Configuration - Trust relationships"
+        }
+      },
+      "post" : {
+        "tags" : [ "PlatformConfigurationTrustRelationships" ],
+        "summary" : "Create trust relationship",
+        "description" : "Creates a trust relationship.",
+        "operationId" : "create-trust-relationship",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "The trust relationship definition",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/TrustRelationshipCreateRequest"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "The request was valid and a new trust relationship was created",
+            "headers" : {
+              "x-cloud-resource-version" : {
+                "type" : "string",
+                "description" : "The resource version, which is used to avoid update conflicts with concurrent operations"
+              },
+              "x-cloud-resource-created" : {
+                "type" : "string",
+                "description" : "The date-time when the resource was created (ISO format relative to UTC)"
+              },
+              "x-cloud-resource-last-modified" : {
+                "type" : "string",
+                "description" : "The date-time when the resource was last modified (ISO format relative to UTC)"
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/TrustRelationshipCreateResponse"
+            }
+          },
+          "400" : {
+            "description" : "The trust relationship request had errors.",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "401" : {
+            "description" : "You are not authorized to perform this action.",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "x-doc" : {
+          "tag" : "Platform - Configuration - Trust relationships"
+        }
+      }
+    },
+    "/platform/configuration/trust-relationships/{trust_relationship_id}" : {
+      "get" : {
+        "tags" : [ "PlatformConfigurationTrustRelationships" ],
+        "summary" : "Get trust relationship",
+        "description" : "Retrieves information about a trust relationship. `local` can be used as the ID to obtain the local trust relationship.",
+        "operationId" : "get-trust-relationship",
+        "parameters" : [ {
+          "name" : "trust_relationship_id",
+          "in" : "path",
+          "description" : "Identifier for the trust relationship",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "include_certificate",
+          "in" : "query",
+          "description" : "Whether to include the public CA certificates in the response.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The trust relationship info response",
+            "headers" : {
+              "x-cloud-resource-version" : {
+                "type" : "string",
+                "description" : "The resource version, which is used to avoid update conflicts with concurrent operations"
+              },
+              "x-cloud-resource-created" : {
+                "type" : "string",
+                "description" : "The date-time when the resource was created (ISO format relative to UTC)"
+              },
+              "x-cloud-resource-last-modified" : {
+                "type" : "string",
+                "description" : "The date-time when the resource was last modified (ISO format relative to UTC)"
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/TrustRelationshipGetResponse"
+            }
+          },
+          "401" : {
+            "description" : "You are not authorized to perform this action.",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "404" : {
+            "description" : "The trust relationship specified by {trust_relationship_id} cannot be found. (code: `trust_relationships.not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "trust_relationships.not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "x-doc" : {
+          "tag" : "Platform - Configuration - Trust relationships"
+        }
+      },
+      "put" : {
+        "tags" : [ "PlatformConfigurationTrustRelationships" ],
+        "summary" : "Update trust relationship",
+        "description" : "Updates a trust relationship.",
+        "operationId" : "update-trust-relationship",
+        "parameters" : [ {
+          "name" : "trust_relationship_id",
+          "in" : "path",
+          "description" : "Identifier for the trust relationship",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "The trust relationship definition",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/TrustRelationshipUpdateRequest"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The request was valid and the trust relationship was updated.",
+            "headers" : {
+              "x-cloud-resource-version" : {
+                "type" : "string",
+                "description" : "The resource version, which is used to avoid update conflicts with concurrent operations"
+              },
+              "x-cloud-resource-created" : {
+                "type" : "string",
+                "description" : "The date-time when the resource was created (ISO format relative to UTC)"
+              },
+              "x-cloud-resource-last-modified" : {
+                "type" : "string",
+                "description" : "The date-time when the resource was last modified (ISO format relative to UTC)"
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/TrustRelationshipUpdateResponse"
+            }
+          },
+          "400" : {
+            "description" : "The trust relationship request had errors.",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "401" : {
+            "description" : "You are not authorized to perform this action.",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "404" : {
+            "description" : "The trust relationship specified by {trust_relationship_id} cannot be found. (code: `trust_relationships.not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "trust_relationships.not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "x-doc" : {
+          "tag" : "Platform - Configuration - Trust relationships"
+        }
+      },
+      "delete" : {
+        "tags" : [ "PlatformConfigurationTrustRelationships" ],
+        "summary" : "Delete trust relationship",
+        "description" : "Deletes a trust relationship.",
+        "operationId" : "delete-trust-relationship",
+        "parameters" : [ {
+          "name" : "trust_relationship_id",
+          "in" : "path",
+          "description" : "Identifier for the trust relationship",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "version",
+          "in" : "query",
+          "description" : "If specified then checks for conflicts against the version stored in the persistent store (returned in 'x-cloud-resource-version' of the GET request)",
+          "required" : false,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The request was valid and the trust relationship was deleted.",
+            "schema" : {
+              "$ref" : "#/definitions/EmptyResponse"
+            }
+          },
+          "401" : {
+            "description" : "You are not authorized to perform this action.",
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "404" : {
+            "description" : "The trust relationship specified by {trust_relationship_id} cannot be found. (code: `trust_relationships.not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "trust_relationships.not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "x-doc" : {
+          "tag" : "Platform - Configuration - Trust relationships"
         }
       }
     },
@@ -4749,11 +4918,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Stack - Versions - CRUD"
         }
@@ -4774,11 +4938,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Authentication"
         }
@@ -4831,11 +4990,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Authentication"
         }
@@ -4875,11 +5029,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Authentication"
         }
@@ -4919,11 +5068,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Authentication"
         }
@@ -4974,11 +5118,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Authentication"
         }
@@ -4990,9 +5129,6 @@
       "type" : "apiKey",
       "name" : "Authorization",
       "in" : "header"
-    },
-    "basicAuth" : {
-      "type" : "basic"
     }
   },
   "definitions" : {
@@ -5010,6 +5146,21 @@
         }
       },
       "description" : "A reference to a specific resource of a deployment"
+    },
+    "AccountResponse" : {
+      "type" : "object",
+      "required" : [ "id" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "The account's identifier"
+        },
+        "trust" : {
+          "description" : "Settings related to the level of trust of the clusters in this account",
+          "$ref" : "#/definitions/AccountTrustSettings"
+        }
+      },
+      "description" : "An account is the entity that owns deployments, and it is accessed by users. Accounts are isolated from each other."
     },
     "AccountTrustRelationship" : {
       "type" : "object",
@@ -5032,6 +5183,27 @@
         }
       },
       "description" : "The trust relationship with the clusters of one account."
+    },
+    "AccountTrustSettings" : {
+      "type" : "object",
+      "required" : [ "trust_all" ],
+      "properties" : {
+        "trust_all" : {
+          "type" : "boolean",
+          "description" : "If true, all clusters in this account will by default trust all other clusters in the same account"
+        }
+      },
+      "description" : "Settings related to the level of trust of the clusters in this account"
+    },
+    "AccountUpdateRequest" : {
+      "type" : "object",
+      "properties" : {
+        "trust" : {
+          "description" : "Settings related to the level of trust of the clusters in this account",
+          "$ref" : "#/definitions/AccountTrustSettings"
+        }
+      },
+      "description" : "A request to update an account"
     },
     "AllocatorMoveRequest" : {
       "type" : "object",
@@ -6142,6 +6314,14 @@
           "items" : {
             "type" : "string"
           }
+        },
+        "node_roles" : {
+          "type" : "array",
+          "description" : "A list of the node roles assigned to the service running in the instance. Currently populated only for Elasticsearch.",
+          "items" : {
+            "type" : "string",
+            "enum" : [ "master", "ingest", "ml", "data_hot", "data_content", "data_warm", "data_cold", "remote_cluster_client", "transform", "voting_only" ]
+          }
         }
       },
       "description" : "Information about each Kibana instance and APM Server in the Elasticsearch cluster."
@@ -6194,6 +6374,14 @@
         "service_url" : {
           "type" : "string",
           "description" : "The full URL to access this deployment resource"
+        },
+        "aliased_endpoint" : {
+          "type" : "string",
+          "description" : "The DNS name of the cluster endpoint derived from the deployment alias, if available"
+        },
+        "aliased_url" : {
+          "type" : "string",
+          "description" : "The full aliased URL to access this deployment resource"
         },
         "cloud_id" : {
           "type" : "string",
@@ -6287,7 +6475,7 @@
     },
     "ClusterPlanStepLogMessageInfo" : {
       "type" : "object",
-      "required" : [ "message", "stage", "timestamp" ],
+      "required" : [ "details", "internal_details", "message", "stage", "timestamp" ],
       "properties" : {
         "timestamp" : {
           "type" : "string",
@@ -6307,6 +6495,21 @@
         "message" : {
           "type" : "string",
           "description" : "Human readable log message"
+        },
+        "details" : {
+          "type" : "object",
+          "description" : "A map with details for the log about what happened during the step execution. Keys and values for are always both strings, representing the name of the detail and its value, respectively.",
+          "additionalProperties" : {
+            "type" : "string"
+          }
+        },
+        "internal_details" : {
+          "type" : "object",
+          "description" : "A json object with sensitive details for the log, visible only to admins. May contain nested json objects."
+        },
+        "failure_type" : {
+          "type" : "string",
+          "description" : "The failure type, in case the step failed"
         }
       },
       "description" : "The log message from a specified stage of an executed step in a plan."
@@ -7479,7 +7682,7 @@
           "description" : "The region that this cluster belongs to. Only populated in SaaS or federated ECE."
         },
         "ccs" : {
-          "description" : "Cross-cluster search settings and status for this cluster.",
+          "description" : "DEPRECATED (Scheduled to be removed in the next major version): Cross-cluster search settings and status for this cluster. Use the /remote-clusters endpoints instead",
           "$ref" : "#/definitions/CrossClusterSearchInfo"
         }
       },
@@ -7504,6 +7707,10 @@
         },
         "transient" : {
           "$ref" : "#/definitions/TransientElasticsearchPlanConfiguration"
+        },
+        "autoscaling_enabled" : {
+          "type" : "boolean",
+          "description" : "Enable autoscaling for this Elasticsearch cluster."
         }
       },
       "description" : "The plan for the Elasticsearch cluster."
@@ -7671,8 +7878,20 @@
     "ElasticsearchClusterTopologyElement" : {
       "type" : "object",
       "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "Unique identifier of this topology element"
+        },
         "node_type" : {
           "$ref" : "#/definitions/ElasticsearchNodeType"
+        },
+        "node_roles" : {
+          "type" : "array",
+          "description" : "The list of node roles for this topology element (ES version >= 7.10). Allowable values are: master, ingest, ml, data_hot, data_content, data_warm, data_cold, remote_cluster_client, transform",
+          "items" : {
+            "type" : "string",
+            "enum" : [ "master", "ingest", "ml", "data_hot", "data_content", "data_warm", "data_cold", "remote_cluster_client", "transform" ]
+          }
         },
         "zone_count" : {
           "type" : "integer",
@@ -7688,6 +7907,21 @@
         },
         "size" : {
           "$ref" : "#/definitions/TopologySize"
+        },
+        "autoscaling_min" : {
+          "description" : "The minimum size of this topology element when autoscaling is enabled. This property is only supported, and must be provided, for ML topology elements.",
+          "$ref" : "#/definitions/TopologySize"
+        },
+        "autoscaling_max" : {
+          "description" : "The maximum size of this topology element when autoscaling is enabled. This property is only supported, and must be provided, for data and ML topology elements.",
+          "$ref" : "#/definitions/TopologySize"
+        },
+        "autoscaling_policy_override_json" : {
+          "type" : "object",
+          "description" : "An arbitrary JSON object overriding the default autoscaling policy. Don't set unless you really know what you are doing."
+        },
+        "topology_element_control" : {
+          "$ref" : "#/definitions/TopologyElementControl"
         }
       },
       "description" : "The topology of the Elasticsearch nodes, including the number, capacity, and type of nodes, and where they can be allocated."
@@ -7942,15 +8176,15 @@
       "properties" : {
         "master" : {
           "type" : "boolean",
-          "description" : "Defines whether this node can be elected master (default: true)"
+          "description" : "Defines whether this node can be elected master (default: false)"
         },
         "data" : {
           "type" : "boolean",
-          "description" : "Defines whether this node can hold data (default: true)"
+          "description" : "Defines whether this node can hold data (default: false)"
         },
         "ingest" : {
           "type" : "boolean",
-          "description" : "Defines whether this node can run an ingest pipeline (default: true)"
+          "description" : "Defines whether this node can run an ingest pipeline (default: false)"
         },
         "ml" : {
           "type" : "boolean",
@@ -9658,6 +9892,33 @@
       },
       "description" : "The Elasticsearch cluster to connect to for cross-cluster search."
     },
+    "RemoteResourceInfo" : {
+      "type" : "object",
+      "required" : [ "compatible", "connected", "healthy", "trusted", "trusted_back" ],
+      "properties" : {
+        "healthy" : {
+          "type" : "boolean",
+          "description" : "Whether or not the remote cluster is healthy"
+        },
+        "connected" : {
+          "type" : "boolean",
+          "description" : "Whether or not there is at least one connection to the remote cluster."
+        },
+        "compatible" : {
+          "type" : "boolean",
+          "description" : "Whether or not the remote cluster version is compatible with this cluster version."
+        },
+        "trusted" : {
+          "type" : "boolean",
+          "description" : "Whether or not the remote cluster is trusted by this cluster."
+        },
+        "trusted_back" : {
+          "type" : "boolean",
+          "description" : "Whether or not the remote cluster trusts this cluster back."
+        }
+      },
+      "description" : "Information about a Remote Cluster."
+    },
     "RemoteResourceRef" : {
       "type" : "object",
       "required" : [ "alias", "deployment_id", "elasticsearch_ref_id" ],
@@ -9677,6 +9938,11 @@
         "skip_unavailable" : {
           "type" : "boolean",
           "description" : "If true, skip this cluster during search if it is disconnected. Default: false"
+        },
+        "info" : {
+          "description" : "Information about a Remote Cluster.",
+          "readOnly" : true,
+          "$ref" : "#/definitions/RemoteResourceInfo"
         }
       },
       "description" : "The Elasticsearch resource used as a Remote Cluster."
@@ -10257,6 +10523,17 @@
       },
       "description" : "A query for documents that contain the specified terms in the inverted index."
     },
+    "TopologyElementControl" : {
+      "type" : "object",
+      "required" : [ "min" ],
+      "properties" : {
+        "min" : {
+          "description" : "Absolute minimum size limit for a topology element created with a deployment template. If the value is 0, that means the topology element can be disabled.",
+          "$ref" : "#/definitions/TopologySize"
+        }
+      },
+      "description" : "Controls for the topology element. Only used as part of the deployment template. Ignored if included as part of a deployment."
+    },
     "TopologySize" : {
       "type" : "object",
       "required" : [ "resource", "value" ],
@@ -10486,6 +10763,189 @@
         }
       },
       "description" : "Defines the configuration parameters that control how the plan is applied. For example, the Elasticsearch cluster topology and Kibana instance settings."
+    },
+    "TrustRelationshipCreateRequest" : {
+      "type" : "object",
+      "required" : [ "name", "public_ca_cert" ],
+      "properties" : {
+        "name" : {
+          "type" : "string",
+          "description" : "A name for the trust relationship"
+        },
+        "trust_by_default" : {
+          "type" : "boolean",
+          "description" : "If this relationship is trusted by default by all deployments in the current environment."
+        },
+        "account_ids" : {
+          "type" : "array",
+          "description" : "The ID of the accounts to trust by this relationship.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "public_ca_cert" : {
+          "type" : "string",
+          "description" : "The public CA certificate of the environment to trust"
+        },
+        "installation_id" : {
+          "type" : "string",
+          "description" : "The installation ID of the environment to trust"
+        }
+      },
+      "description" : "A request for creating a trust relationship with another environment"
+    },
+    "TrustRelationshipCreateResponse" : {
+      "type" : "object",
+      "required" : [ "id", "local", "name", "trust_by_default" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "The id of the trust relationship"
+        },
+        "name" : {
+          "type" : "string",
+          "description" : "The name of the trust relationship"
+        },
+        "trust_by_default" : {
+          "type" : "boolean",
+          "description" : "If this relationship is trusted by default by all deployments in the current environment."
+        },
+        "account_ids" : {
+          "type" : "array",
+          "description" : "The ID of the accounts trusted by this relationship.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "local" : {
+          "type" : "boolean",
+          "description" : "If this is the trust relationship for the local environment"
+        },
+        "installation_id" : {
+          "type" : "string",
+          "description" : "The installation ID of the environment to trust"
+        }
+      },
+      "description" : "A response returned from the trust relationship create endpoint"
+    },
+    "TrustRelationshipGetResponse" : {
+      "type" : "object",
+      "required" : [ "id", "last_modified", "local", "name", "trust_by_default" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "The id of the trust relationship"
+        },
+        "name" : {
+          "type" : "string",
+          "description" : "The name of the trust relationship"
+        },
+        "trust_by_default" : {
+          "type" : "boolean",
+          "description" : "If this relationship is trusted by default by all deployments in the current environment."
+        },
+        "account_ids" : {
+          "type" : "array",
+          "description" : "The ID of the accounts trusted by this relationship.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "public_ca_cert" : {
+          "type" : "string",
+          "description" : "The public CA certificate of the environment to trust"
+        },
+        "local" : {
+          "type" : "boolean",
+          "description" : "If this is the trust relationship for the local environment"
+        },
+        "installation_id" : {
+          "type" : "string",
+          "description" : "The installation ID of the environment to trust"
+        },
+        "last_modified" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "The most recent time the trust relationship was changed (ISO format in UTC)"
+        }
+      }
+    },
+    "TrustRelationshipUpdateRequest" : {
+      "type" : "object",
+      "properties" : {
+        "name" : {
+          "type" : "string",
+          "description" : "A name for the trust relationship"
+        },
+        "trust_by_default" : {
+          "type" : "boolean",
+          "description" : "If this relationship is trusted by default by all deployments in the current environment."
+        },
+        "account_ids" : {
+          "type" : "array",
+          "description" : "The ID of the accounts to trust by this relationship.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "public_ca_cert" : {
+          "type" : "string",
+          "description" : "The public CA certificate of the environment to trust"
+        },
+        "installation_id" : {
+          "type" : "string",
+          "description" : "The installation ID of the environment to trust"
+        }
+      },
+      "description" : "A request for updating a trust relationship with another environment"
+    },
+    "TrustRelationshipUpdateResponse" : {
+      "type" : "object",
+      "required" : [ "id", "local", "name", "trust_by_default" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "The id of the trust relationship"
+        },
+        "name" : {
+          "type" : "string",
+          "description" : "The name of the trust relationship"
+        },
+        "trust_by_default" : {
+          "type" : "boolean",
+          "description" : "If this relationship is trusted by default by all deployments in the current environment."
+        },
+        "account_ids" : {
+          "type" : "array",
+          "description" : "The ID of the accounts trusted by this relationship.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "local" : {
+          "type" : "boolean",
+          "description" : "If this is the trust relationship for the local environment"
+        },
+        "installation_id" : {
+          "type" : "string",
+          "description" : "The installation ID of the environment to trust"
+        }
+      },
+      "description" : "A response returned from the trust relationship update endpoint"
+    },
+    "TrustRelationshipsListResponse" : {
+      "type" : "object",
+      "required" : [ "trust_relationships" ],
+      "properties" : {
+        "trust_relationships" : {
+          "type" : "array",
+          "description" : "The trust relationships",
+          "items" : {
+            "$ref" : "#/definitions/TrustRelationshipGetResponse"
+          }
+        }
+      },
+      "description" : "Contains a list of trust relationships"
     },
     "UpdateExtensionRequest" : {
       "type" : "object",

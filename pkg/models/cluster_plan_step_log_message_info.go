@@ -39,6 +39,17 @@ type ClusterPlanStepLogMessageInfo struct {
 	// Time in milliseconds since previous log message
 	DeltaInMillis int64 `json:"delta_in_millis,omitempty"`
 
+	// A map with details for the log about what happened during the step execution. Keys and values for are always both strings, representing the name of the detail and its value, respectively.
+	// Required: true
+	Details map[string]string `json:"details"`
+
+	// The failure type, in case the step failed
+	FailureType string `json:"failure_type,omitempty"`
+
+	// A json object with sensitive details for the log, visible only to admins. May contain nested json objects.
+	// Required: true
+	InternalDetails interface{} `json:"internal_details"`
+
 	// Human readable log message
 	// Required: true
 	Message *string `json:"message"`
@@ -58,6 +69,14 @@ type ClusterPlanStepLogMessageInfo struct {
 func (m *ClusterPlanStepLogMessageInfo) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateDetails(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateInternalDetails(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateMessage(formats); err != nil {
 		res = append(res, err)
 	}
@@ -73,6 +92,20 @@ func (m *ClusterPlanStepLogMessageInfo) Validate(formats strfmt.Registry) error 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *ClusterPlanStepLogMessageInfo) validateDetails(formats strfmt.Registry) error {
+
+	return nil
+}
+
+func (m *ClusterPlanStepLogMessageInfo) validateInternalDetails(formats strfmt.Registry) error {
+
+	if err := validate.Required("internal_details", "body", m.InternalDetails); err != nil {
+		return err
+	}
+
 	return nil
 }
 

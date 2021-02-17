@@ -47,6 +47,11 @@ type AllocatorInfo struct {
 	// Required: true
 	Capacity *AllocatorCapacity `json:"capacity"`
 
+	// External resources related to this allocator.
+	// Required: true
+	// Unique: true
+	ExternalLinks []*ExternalHyperlink `json:"external_links"`
+
 	// List of features associated with this allocator. Note this is only present for backwards compatibility purposes and is scheduled for removal in the next major version release.
 	// Required: true
 	Features []string `json:"features"`
@@ -96,6 +101,10 @@ func (m *AllocatorInfo) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateCapacity(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateExternalLinks(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -177,6 +186,35 @@ func (m *AllocatorInfo) validateCapacity(formats strfmt.Registry) error {
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *AllocatorInfo) validateExternalLinks(formats strfmt.Registry) error {
+
+	if err := validate.Required("external_links", "body", m.ExternalLinks); err != nil {
+		return err
+	}
+
+	if err := validate.UniqueItems("external_links", "body", m.ExternalLinks); err != nil {
+		return err
+	}
+
+	for i := 0; i < len(m.ExternalLinks); i++ {
+		if swag.IsZero(m.ExternalLinks[i]) { // not required
+			continue
+		}
+
+		if m.ExternalLinks[i] != nil {
+			if err := m.ExternalLinks[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("external_links" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil
