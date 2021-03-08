@@ -62,7 +62,7 @@ func TestGetStepName(t *testing.T) {
 			err:  ErrPlanFinished,
 		},
 		{
-			name: "Get logs for a plan that has errored",
+			name: `Get logs for a plan that has errored but the last step isn't "plan-completed"`,
 			args: args{
 				log: []*models.ClusterPlanStepInfo{
 					planmock.NewPlanStep("step1", "success"),
@@ -73,7 +73,7 @@ func TestGetStepName(t *testing.T) {
 				},
 			},
 			want: "step3",
-			err:  errors.New(planStepLogErrorMessage),
+			err:  nil,
 		},
 		{
 			name: "Get the last step when it is an error, ignores the previous error step",

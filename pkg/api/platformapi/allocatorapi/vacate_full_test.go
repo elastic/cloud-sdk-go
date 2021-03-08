@@ -480,7 +480,10 @@ func TestVacate(t *testing.T) {
 								plan: []*models.ClusterPlanStepInfo{
 									newPlanStep("step1", "success"),
 									newPlanStep("step2", "success"),
-									newPlanStepWithDetails("last step", "error", []*models.ClusterPlanStepLogMessageInfo{{
+									newPlanStepWithDetails("step3", "error", []*models.ClusterPlanStepLogMessageInfo{{
+										Message: ec.String(planStepLogErrorMessage),
+									}}),
+									newPlanStepWithDetails("plan-completed", "error", []*models.ClusterPlanStepLogMessageInfo{{
 										Message: ec.String(planStepLogErrorMessage),
 									}}),
 								},
@@ -511,13 +514,13 @@ func TestVacate(t *testing.T) {
 				"Deployment [DISCOVERED_DEPLOYMENT_ID] - [Kibana][2ee11eb40eda22cac0cce259625c6734]: running step \"step2\" (Plan duration )...",
 				"\x1b[92;mDeployment [DISCOVERED_DEPLOYMENT_ID] - [Kibana][2ee11eb40eda22cac0cce259625c6734]: finished running all the plan steps\x1b[0m (Total plan duration )",
 				"Deployment [DISCOVERED_DEPLOYMENT_ID] - [Elasticsearch][5ee11eb40eda22cac0cce259625c6734]: running step \"step2\" (Plan duration )...",
-				`Deployment [DISCOVERED_DEPLOYMENT_ID] - [Elasticsearch][5ee11eb40eda22cac0cce259625c6734]: running step "step3" caught error: "Unexpected error during step: [perform-snapshot]: [no.found.constructor.models.TimeoutException: Timeout]" (Plan duration )...`,
-				`Deployment [DISCOVERED_DEPLOYMENT_ID] - [Elasticsearch][5ee11eb40eda22cac0cce259625c6734]: running step "last step" caught error: "Unexpected error during step: [perform-snapshot]: [no.found.constructor.models.TimeoutException: Timeout]" (Plan duration )...`,
+				`Deployment [DISCOVERED_DEPLOYMENT_ID] - [Elasticsearch][5ee11eb40eda22cac0cce259625c6734]: running step "step3" (Plan duration )...`,
+				"\x1b[91;1mDeployment [DISCOVERED_DEPLOYMENT_ID] - [Elasticsearch][5ee11eb40eda22cac0cce259625c6734]: caught error: \"Unexpected error during step: [perform-snapshot]: [no.found.constructor.models.TimeoutException: Timeout]\"\x1b[0m (Total plan duration )",
 				"Deployment [DISCOVERED_DEPLOYMENT_ID] - [Kibana][4ee11eb40eda22cac0cce259625c6734]: running step \"step2\" (Plan duration )...",
 				"\x1b[92;mDeployment [DISCOVERED_DEPLOYMENT_ID] - [Kibana][4ee11eb40eda22cac0cce259625c6734]: finished running all the plan steps\x1b[0m (Total plan duration )",
 			),
-			err: `1 error occurred:
-	* resource id [5ee11eb40eda22cac0cce259625c6734][elasticsearch] Unexpected error during step: [perform-snapshot]: [no.found.constructor.models.TimeoutException: Timeout]
+			err: `vacate error: 1 error occurred:
+	* found deployment plan errors: deployment [DISCOVERED_DEPLOYMENT_ID] - [elasticsearch][5ee11eb40eda22cac0cce259625c6734]: caught error: "Unexpected error during step: [perform-snapshot]: [no.found.constructor.models.TimeoutException: Timeout]"
 
 `,
 		},
@@ -604,7 +607,7 @@ func TestVacate(t *testing.T) {
 				"Deployment [DISCOVERED_DEPLOYMENT_ID] - [Kibana][2ee11eb40eda22cac0cce259625c6734]: running step \"step2\" (Plan duration )...",
 				"\x1b[92;mDeployment [DISCOVERED_DEPLOYMENT_ID] - [Kibana][2ee11eb40eda22cac0cce259625c6734]: finished running all the plan steps\x1b[0m (Total plan duration )",
 				"Deployment [DISCOVERED_DEPLOYMENT_ID] - [Elasticsearch][5ee11eb40eda22cac0cce259625c6734]: running step \"step2\" (Plan duration )...",
-				`Deployment [DISCOVERED_DEPLOYMENT_ID] - [Elasticsearch][5ee11eb40eda22cac0cce259625c6734]: running step "step3" caught error: "Unexpected error during step: [perform-snapshot]: [no.found.constructor.models.TimeoutException: Timeout]" (Plan duration )...`,
+				`Deployment [DISCOVERED_DEPLOYMENT_ID] - [Elasticsearch][5ee11eb40eda22cac0cce259625c6734]: running step "step3" (Plan duration )...`,
 				"\x1b[91;1mDeployment [DISCOVERED_DEPLOYMENT_ID] - [Elasticsearch][5ee11eb40eda22cac0cce259625c6734]: caught error: \"Unexpected error during step: [perform-snapshot]: [no.found.constructor.models.TimeoutException: Timeout]\"\x1b[0m (Total plan duration )",
 				"Deployment [DISCOVERED_DEPLOYMENT_ID] - [Kibana][4ee11eb40eda22cac0cce259625c6734]: running step \"step2\" (Plan duration )...",
 				"\x1b[92;mDeployment [DISCOVERED_DEPLOYMENT_ID] - [Kibana][4ee11eb40eda22cac0cce259625c6734]: finished running all the plan steps\x1b[0m (Total plan duration )",
@@ -698,7 +701,7 @@ func TestVacate(t *testing.T) {
 				`{"id":"2ee11eb40eda22cac0cce259625c6734","kind":"kibana","step":"step2","deployment_id":"DISCOVERED_DEPLOYMENT_ID","ref_id":"main-kibana","duration":"s"}`,
 				`{"id":"2ee11eb40eda22cac0cce259625c6734","kind":"kibana","step":"plan-completed","err":{"message":"finished all the plan steps"},"deployment_id":"DISCOVERED_DEPLOYMENT_ID","ref_id":"main-kibana","duration":"s","finished":true}`,
 				`{"id":"5ee11eb40eda22cac0cce259625c6734","kind":"elasticsearch","step":"step2","deployment_id":"DISCOVERED_DEPLOYMENT_ID","ref_id":"main-elasticsearch","duration":"s"}`,
-				`{"id":"5ee11eb40eda22cac0cce259625c6734","kind":"elasticsearch","step":"step3","err":{"message":"Unexpected error during step: [perform-snapshot]: [no.found.constructor.models.TimeoutException: Timeout]"},"deployment_id":"DISCOVERED_DEPLOYMENT_ID","ref_id":"main-elasticsearch","duration":"s"}`,
+				`{"id":"5ee11eb40eda22cac0cce259625c6734","kind":"elasticsearch","step":"step3","deployment_id":"DISCOVERED_DEPLOYMENT_ID","ref_id":"main-elasticsearch","duration":"s"}`,
 				`{"id":"5ee11eb40eda22cac0cce259625c6734","kind":"elasticsearch","step":"plan-completed","err":{"message":"Unexpected error during step: [perform-snapshot]: [no.found.constructor.models.TimeoutException: Timeout]"},"deployment_id":"DISCOVERED_DEPLOYMENT_ID","ref_id":"main-elasticsearch","duration":"s","finished":true}`,
 				`{"id":"4ee11eb40eda22cac0cce259625c6734","kind":"kibana","step":"step2","deployment_id":"DISCOVERED_DEPLOYMENT_ID","ref_id":"main-kibana","duration":"s"}`,
 				`{"id":"4ee11eb40eda22cac0cce259625c6734","kind":"kibana","step":"plan-completed","err":{"message":"finished all the plan steps"},"deployment_id":"DISCOVERED_DEPLOYMENT_ID","ref_id":"main-kibana","duration":"s","finished":true}`,

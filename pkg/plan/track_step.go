@@ -25,54 +25,29 @@ import (
 
 const (
 	planCompleted = "plan-completed"
-	successStatus = "success"
 	errorStatus   = "error"
-	pendingStatus = "pending"
 )
 
-// GetStepName goes over the pending plan logs to locate:
-//
-// 1. Errors that have occurred in the plan
-//
-// 2. Steps that are not "success"
-//
-// 3. If the ID for the last step in the log is plan-completed, it will return the ErrPlanFinished
-//
-// If none of the above are found, it returns the last step ID with the trackpayload.
+// GetStepName analyzes the last step in a plan and returns the step id and:
+// 1. If the ID is plan-completed, and the status == "error", returns the error.
+// 2. If the ID is plan-completed, and the status != "error" returns the ErrPlanFinished.
+// 3. If none of the above, returns no error.
 func GetStepName(log []*models.ClusterPlanStepInfo) (string, error) {
-	// Obtain the last step in the plan log and if its status is "error",
-	// return the plan step log ID with the detailed error message.
-	if stepLog, _ := lastLog(log); stepLog != nil {
-		if *stepLog.Status == errorStatus {
-			return *stepLog.StepID, StepErrorOrUnknownError(stepLog)
+	stepLog, err := lastLog(log)
+	if err != nil {
+		return "", err
+	}
+
+	stepID := *stepLog.StepID
+	stepStatus := *stepLog.Status
+	if stepID == planCompleted {
+		if stepStatus == errorStatus {
+			return stepID, StepErrorOrUnknownError(stepLog)
 		}
+		return stepID, ErrPlanFinished
 	}
 
-	for _, step := range log {
-		if *step.Status == errorStatus {
-			return *step.StepID, StepErrorOrUnknownError(step)
-		}
-		// If the step is not "error" or "success" and is not pending (Cancelled plans)
-		if *step.Status != successStatus && *step.Status != pendingStatus {
-			return *step.StepID, nil
-		}
-	}
-
-	var stepName = lastLogStepID(log)
-	var err error
-	if stepName == planCompleted {
-		err = ErrPlanFinished
-	}
-
-	return stepName, err
-}
-
-func lastLogStepID(log []*models.ClusterPlanStepInfo) string {
-	if len(log) == 0 {
-		return ""
-	}
-
-	return *log[len(log)-1].StepID
+	return stepID, nil
 }
 
 // StepErrorOrUnknownError returns the last step message as an error except when
