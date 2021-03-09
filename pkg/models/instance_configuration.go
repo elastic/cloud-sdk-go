@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -103,7 +105,6 @@ func (m *InstanceConfiguration) Validate(formats strfmt.Registry) error {
 }
 
 func (m *InstanceConfiguration) validateAllocatorFilter(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.AllocatorFilter) { // not required
 		return nil
 	}
@@ -121,7 +122,6 @@ func (m *InstanceConfiguration) validateAllocatorFilter(formats strfmt.Registry)
 }
 
 func (m *InstanceConfiguration) validateDeletedOn(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.DeletedOn) { // not required
 		return nil
 	}
@@ -164,6 +164,52 @@ func (m *InstanceConfiguration) validateName(formats strfmt.Registry) error {
 
 	if err := validate.Required("name", "body", m.Name); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this instance configuration based on the context it is used
+func (m *InstanceConfiguration) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAllocatorFilter(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateDiscreteSizes(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *InstanceConfiguration) contextValidateAllocatorFilter(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.AllocatorFilter != nil {
+		if err := m.AllocatorFilter.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("allocator_filter")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *InstanceConfiguration) contextValidateDiscreteSizes(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.DiscreteSizes != nil {
+		if err := m.DiscreteSizes.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("discrete_sizes")
+			}
+			return err
+		}
 	}
 
 	return nil

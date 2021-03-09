@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -95,6 +96,38 @@ func (m *ApmsInfo) validateReturnCount(formats strfmt.Registry) error {
 
 	if err := validate.Required("return_count", "body", m.ReturnCount); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this apms info based on the context it is used
+func (m *ApmsInfo) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateApms(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ApmsInfo) contextValidateApms(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Apms); i++ {
+
+		if m.Apms[i] != nil {
+			if err := m.Apms[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("apms" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil

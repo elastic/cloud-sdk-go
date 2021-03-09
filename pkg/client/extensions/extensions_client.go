@@ -42,19 +42,22 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientOption is the option for Client methods
+type ClientOption func(*runtime.ClientOperation)
+
 // ClientService is the interface for Client methods
 type ClientService interface {
-	CreateExtension(params *CreateExtensionParams, authInfo runtime.ClientAuthInfoWriter) (*CreateExtensionCreated, error)
+	CreateExtension(params *CreateExtensionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateExtensionCreated, error)
 
-	DeleteExtension(params *DeleteExtensionParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteExtensionOK, error)
+	DeleteExtension(params *DeleteExtensionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteExtensionOK, error)
 
-	GetExtension(params *GetExtensionParams, authInfo runtime.ClientAuthInfoWriter) (*GetExtensionOK, error)
+	GetExtension(params *GetExtensionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetExtensionOK, error)
 
-	ListExtensions(params *ListExtensionsParams, authInfo runtime.ClientAuthInfoWriter) (*ListExtensionsOK, error)
+	ListExtensions(params *ListExtensionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListExtensionsOK, error)
 
-	UpdateExtension(params *UpdateExtensionParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateExtensionOK, error)
+	UpdateExtension(params *UpdateExtensionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateExtensionOK, error)
 
-	UploadExtension(params *UploadExtensionParams, authInfo runtime.ClientAuthInfoWriter) (*UploadExtensionOK, error)
+	UploadExtension(params *UploadExtensionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UploadExtensionOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -68,13 +71,12 @@ type ClientService interface {
  B). Create only the extension metadata using the `POST` endpoint and then use `PUT` to upload the extension file. Leave the `download_url` unspecified in this case.
 
 */
-func (a *Client) CreateExtension(params *CreateExtensionParams, authInfo runtime.ClientAuthInfoWriter) (*CreateExtensionCreated, error) {
+func (a *Client) CreateExtension(params *CreateExtensionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateExtensionCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateExtensionParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "create-extension",
 		Method:             "POST",
 		PathPattern:        "/deployments/extensions",
@@ -86,7 +88,12 @@ func (a *Client) CreateExtension(params *CreateExtensionParams, authInfo runtime
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -105,13 +112,12 @@ func (a *Client) CreateExtension(params *CreateExtensionParams, authInfo runtime
 
   Deletes a Extension.
 */
-func (a *Client) DeleteExtension(params *DeleteExtensionParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteExtensionOK, error) {
+func (a *Client) DeleteExtension(params *DeleteExtensionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteExtensionOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteExtensionParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "delete-extension",
 		Method:             "DELETE",
 		PathPattern:        "/deployments/extensions/{extension_id}",
@@ -123,7 +129,12 @@ func (a *Client) DeleteExtension(params *DeleteExtensionParams, authInfo runtime
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -142,13 +153,12 @@ func (a *Client) DeleteExtension(params *DeleteExtensionParams, authInfo runtime
 
   Retrieves an extension.
 */
-func (a *Client) GetExtension(params *GetExtensionParams, authInfo runtime.ClientAuthInfoWriter) (*GetExtensionOK, error) {
+func (a *Client) GetExtension(params *GetExtensionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetExtensionOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetExtensionParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-extension",
 		Method:             "GET",
 		PathPattern:        "/deployments/extensions/{extension_id}",
@@ -160,7 +170,12 @@ func (a *Client) GetExtension(params *GetExtensionParams, authInfo runtime.Clien
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -179,13 +194,12 @@ func (a *Client) GetExtension(params *GetExtensionParams, authInfo runtime.Clien
 
   Retrieves all of the available extensions.
 */
-func (a *Client) ListExtensions(params *ListExtensionsParams, authInfo runtime.ClientAuthInfoWriter) (*ListExtensionsOK, error) {
+func (a *Client) ListExtensions(params *ListExtensionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListExtensionsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewListExtensionsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "list-extensions",
 		Method:             "GET",
 		PathPattern:        "/deployments/extensions",
@@ -197,7 +211,12 @@ func (a *Client) ListExtensions(params *ListExtensionsParams, authInfo runtime.C
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -216,13 +235,12 @@ func (a *Client) ListExtensions(params *ListExtensionsParams, authInfo runtime.C
 
   Updates an extension.
 */
-func (a *Client) UpdateExtension(params *UpdateExtensionParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateExtensionOK, error) {
+func (a *Client) UpdateExtension(params *UpdateExtensionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateExtensionOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateExtensionParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "update-extension",
 		Method:             "POST",
 		PathPattern:        "/deployments/extensions/{extension_id}",
@@ -234,7 +252,12 @@ func (a *Client) UpdateExtension(params *UpdateExtensionParams, authInfo runtime
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -253,13 +276,12 @@ func (a *Client) UpdateExtension(params *UpdateExtensionParams, authInfo runtime
 
   Uploads archive for an extension.
 */
-func (a *Client) UploadExtension(params *UploadExtensionParams, authInfo runtime.ClientAuthInfoWriter) (*UploadExtensionOK, error) {
+func (a *Client) UploadExtension(params *UploadExtensionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UploadExtensionOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUploadExtensionParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "upload-extension",
 		Method:             "PUT",
 		PathPattern:        "/deployments/extensions/{extension_id}",
@@ -271,7 +293,12 @@ func (a *Client) UploadExtension(params *UploadExtensionParams, authInfo runtime
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}

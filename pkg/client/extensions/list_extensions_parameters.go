@@ -34,66 +34,53 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewListExtensionsParams creates a new ListExtensionsParams object
-// with the default values initialized.
+// NewListExtensionsParams creates a new ListExtensionsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewListExtensionsParams() *ListExtensionsParams {
-	var (
-		includeDeploymentsDefault = bool(false)
-	)
 	return &ListExtensionsParams{
-		IncludeDeployments: &includeDeploymentsDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewListExtensionsParamsWithTimeout creates a new ListExtensionsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewListExtensionsParamsWithTimeout(timeout time.Duration) *ListExtensionsParams {
-	var (
-		includeDeploymentsDefault = bool(false)
-	)
 	return &ListExtensionsParams{
-		IncludeDeployments: &includeDeploymentsDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewListExtensionsParamsWithContext creates a new ListExtensionsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewListExtensionsParamsWithContext(ctx context.Context) *ListExtensionsParams {
-	var (
-		includeDeploymentsDefault = bool(false)
-	)
 	return &ListExtensionsParams{
-		IncludeDeployments: &includeDeploymentsDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewListExtensionsParamsWithHTTPClient creates a new ListExtensionsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewListExtensionsParamsWithHTTPClient(client *http.Client) *ListExtensionsParams {
-	var (
-		includeDeploymentsDefault = bool(false)
-	)
 	return &ListExtensionsParams{
-		IncludeDeployments: &includeDeploymentsDefault,
-		HTTPClient:         client,
+		HTTPClient: client,
 	}
 }
 
-/*ListExtensionsParams contains all the parameters to send to the API endpoint
-for the list extensions operation typically these are written to a http.Request
+/* ListExtensionsParams contains all the parameters to send to the API endpoint
+   for the list extensions operation.
+
+   Typically these are written to a http.Request.
 */
 type ListExtensionsParams struct {
 
-	/*IncludeDeployments
-	  Include deployments referencing this extension.
-	DEPRECATED: To get the list of deployments that reference an extension, use the Get Extension API.
+	/* IncludeDeployments.
 
+	     Include deployments referencing this extension.
+	DEPRECATED: To get the list of deployments that reference an extension, use the Get Extension API.
 
 	*/
 	IncludeDeployments *bool
@@ -101,6 +88,32 @@ type ListExtensionsParams struct {
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the list extensions params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ListExtensionsParams) WithDefaults() *ListExtensionsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the list extensions params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ListExtensionsParams) SetDefaults() {
+	var (
+		includeDeploymentsDefault = bool(false)
+	)
+
+	val := ListExtensionsParams{
+		IncludeDeployments: &includeDeploymentsDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the list extensions params
@@ -159,16 +172,17 @@ func (o *ListExtensionsParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 
 		// query param include_deployments
 		var qrIncludeDeployments bool
+
 		if o.IncludeDeployments != nil {
 			qrIncludeDeployments = *o.IncludeDeployments
 		}
 		qIncludeDeployments := swag.FormatBool(qrIncludeDeployments)
 		if qIncludeDeployments != "" {
+
 			if err := r.SetQueryParam("include_deployments", qIncludeDeployments); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

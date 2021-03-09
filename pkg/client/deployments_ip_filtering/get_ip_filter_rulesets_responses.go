@@ -52,7 +52,6 @@ func (o *GetIPFilterRulesetsReader) ReadResponse(response runtime.ClientResponse
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,7 +62,7 @@ func NewGetIPFilterRulesetsOK() *GetIPFilterRulesetsOK {
 	return &GetIPFilterRulesetsOK{}
 }
 
-/*GetIPFilterRulesetsOK handles this case with default header values.
+/* GetIPFilterRulesetsOK describes a response with status code 200, with default header values.
 
 The IP filter rulesets for the user were successfully returned
 */
@@ -74,7 +73,6 @@ type GetIPFilterRulesetsOK struct {
 func (o *GetIPFilterRulesetsOK) Error() string {
 	return fmt.Sprintf("[GET /deployments/ip-filtering/rulesets][%d] getIpFilterRulesetsOK  %+v", 200, o.Payload)
 }
-
 func (o *GetIPFilterRulesetsOK) GetPayload() *models.IPFilterRulesets {
 	return o.Payload
 }
@@ -96,7 +94,7 @@ func NewGetIPFilterRulesetsInternalServerError() *GetIPFilterRulesetsInternalSer
 	return &GetIPFilterRulesetsInternalServerError{}
 }
 
-/*GetIPFilterRulesetsInternalServerError handles this case with default header values.
+/* GetIPFilterRulesetsInternalServerError describes a response with status code 500, with default header values.
 
 The request execution failed (code: 'ip_filtering.request_execution_failed')
 */
@@ -107,7 +105,6 @@ type GetIPFilterRulesetsInternalServerError struct {
 func (o *GetIPFilterRulesetsInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /deployments/ip-filtering/rulesets][%d] getIpFilterRulesetsInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *GetIPFilterRulesetsInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

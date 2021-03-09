@@ -35,59 +35,73 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewSetTelemetryConfigParams creates a new SetTelemetryConfigParams object
-// with the default values initialized.
+// NewSetTelemetryConfigParams creates a new SetTelemetryConfigParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewSetTelemetryConfigParams() *SetTelemetryConfigParams {
-	var ()
 	return &SetTelemetryConfigParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewSetTelemetryConfigParamsWithTimeout creates a new SetTelemetryConfigParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewSetTelemetryConfigParamsWithTimeout(timeout time.Duration) *SetTelemetryConfigParams {
-	var ()
 	return &SetTelemetryConfigParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewSetTelemetryConfigParamsWithContext creates a new SetTelemetryConfigParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewSetTelemetryConfigParamsWithContext(ctx context.Context) *SetTelemetryConfigParams {
-	var ()
 	return &SetTelemetryConfigParams{
-
 		Context: ctx,
 	}
 }
 
 // NewSetTelemetryConfigParamsWithHTTPClient creates a new SetTelemetryConfigParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewSetTelemetryConfigParamsWithHTTPClient(client *http.Client) *SetTelemetryConfigParams {
-	var ()
 	return &SetTelemetryConfigParams{
 		HTTPClient: client,
 	}
 }
 
-/*SetTelemetryConfigParams contains all the parameters to send to the API endpoint
-for the set telemetry config operation typically these are written to a http.Request
+/* SetTelemetryConfigParams contains all the parameters to send to the API endpoint
+   for the set telemetry config operation.
+
+   Typically these are written to a http.Request.
 */
 type SetTelemetryConfigParams struct {
 
-	/*Body
-	  The desired ECE telemetry configuration
+	/* Body.
 
+	   The desired ECE telemetry configuration
 	*/
 	Body *models.TelemetryConfigRequest
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the set telemetry config params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetTelemetryConfigParams) WithDefaults() *SetTelemetryConfigParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the set telemetry config params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetTelemetryConfigParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the set telemetry config params
@@ -141,7 +155,6 @@ func (o *SetTelemetryConfigParams) WriteToRequest(r runtime.ClientRequest, reg s
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

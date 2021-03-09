@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -139,13 +141,40 @@ func (m *AllocatedInstanceStatus) validateNodeMemory(formats strfmt.Registry) er
 }
 
 func (m *AllocatedInstanceStatus) validatePlansInfo(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.PlansInfo) { // not required
 		return nil
 	}
 
 	if m.PlansInfo != nil {
 		if err := m.PlansInfo.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("plans_info")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this allocated instance status based on the context it is used
+func (m *AllocatedInstanceStatus) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidatePlansInfo(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *AllocatedInstanceStatus) contextValidatePlansInfo(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.PlansInfo != nil {
+		if err := m.PlansInfo.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("plans_info")
 			}

@@ -33,74 +33,91 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewDeleteEsProxyRequestsParams creates a new DeleteEsProxyRequestsParams object
-// with the default values initialized.
+// NewDeleteEsProxyRequestsParams creates a new DeleteEsProxyRequestsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewDeleteEsProxyRequestsParams() *DeleteEsProxyRequestsParams {
-	var ()
 	return &DeleteEsProxyRequestsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteEsProxyRequestsParamsWithTimeout creates a new DeleteEsProxyRequestsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewDeleteEsProxyRequestsParamsWithTimeout(timeout time.Duration) *DeleteEsProxyRequestsParams {
-	var ()
 	return &DeleteEsProxyRequestsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewDeleteEsProxyRequestsParamsWithContext creates a new DeleteEsProxyRequestsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewDeleteEsProxyRequestsParamsWithContext(ctx context.Context) *DeleteEsProxyRequestsParams {
-	var ()
 	return &DeleteEsProxyRequestsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewDeleteEsProxyRequestsParamsWithHTTPClient creates a new DeleteEsProxyRequestsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewDeleteEsProxyRequestsParamsWithHTTPClient(client *http.Client) *DeleteEsProxyRequestsParams {
-	var ()
 	return &DeleteEsProxyRequestsParams{
 		HTTPClient: client,
 	}
 }
 
-/*DeleteEsProxyRequestsParams contains all the parameters to send to the API endpoint
-for the delete es proxy requests operation typically these are written to a http.Request
+/* DeleteEsProxyRequestsParams contains all the parameters to send to the API endpoint
+   for the delete es proxy requests operation.
+
+   Typically these are written to a http.Request.
 */
 type DeleteEsProxyRequestsParams struct {
 
-	/*XManagementRequest
-	  X-Management-Request header value. Needs to be set to true
+	/* XManagementRequest.
 
+	   X-Management-Request header value. Needs to be set to true
 	*/
 	XManagementRequest string
-	/*Body
-	  The JSON payload to proxy to the Elasticsearch cluster
 
+	/* Body.
+
+	   The JSON payload to proxy to the Elasticsearch cluster
 	*/
 	Body string
-	/*ClusterID
-	  Identifier for the Elasticsearch cluster
 
+	/* ClusterID.
+
+	   Identifier for the Elasticsearch cluster
 	*/
 	ClusterID string
-	/*ElasticsearchPath
-	  The URL part to proxy to the Elasticsearch cluster. Example: _search or _cat/indices?v&h=i,tm&s=tm:desc
 
+	/* ElasticsearchPath.
+
+	   The URL part to proxy to the Elasticsearch cluster. Example: _search or _cat/indices?v&h=i,tm&s=tm:desc
 	*/
 	ElasticsearchPath string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the delete es proxy requests params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteEsProxyRequestsParams) WithDefaults() *DeleteEsProxyRequestsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the delete es proxy requests params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteEsProxyRequestsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete es proxy requests params
@@ -192,7 +209,6 @@ func (o *DeleteEsProxyRequestsParams) WriteToRequest(r runtime.ClientRequest, re
 	if err := r.SetHeaderParam("X-Management-Request", o.XManagementRequest); err != nil {
 		return err
 	}
-
 	if err := r.SetBodyParam(o.Body); err != nil {
 		return err
 	}

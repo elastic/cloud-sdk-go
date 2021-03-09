@@ -35,59 +35,73 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewCreateTrafficFilterRulesetParams creates a new CreateTrafficFilterRulesetParams object
-// with the default values initialized.
+// NewCreateTrafficFilterRulesetParams creates a new CreateTrafficFilterRulesetParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewCreateTrafficFilterRulesetParams() *CreateTrafficFilterRulesetParams {
-	var ()
 	return &CreateTrafficFilterRulesetParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewCreateTrafficFilterRulesetParamsWithTimeout creates a new CreateTrafficFilterRulesetParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewCreateTrafficFilterRulesetParamsWithTimeout(timeout time.Duration) *CreateTrafficFilterRulesetParams {
-	var ()
 	return &CreateTrafficFilterRulesetParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewCreateTrafficFilterRulesetParamsWithContext creates a new CreateTrafficFilterRulesetParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewCreateTrafficFilterRulesetParamsWithContext(ctx context.Context) *CreateTrafficFilterRulesetParams {
-	var ()
 	return &CreateTrafficFilterRulesetParams{
-
 		Context: ctx,
 	}
 }
 
 // NewCreateTrafficFilterRulesetParamsWithHTTPClient creates a new CreateTrafficFilterRulesetParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewCreateTrafficFilterRulesetParamsWithHTTPClient(client *http.Client) *CreateTrafficFilterRulesetParams {
-	var ()
 	return &CreateTrafficFilterRulesetParams{
 		HTTPClient: client,
 	}
 }
 
-/*CreateTrafficFilterRulesetParams contains all the parameters to send to the API endpoint
-for the create traffic filter ruleset operation typically these are written to a http.Request
+/* CreateTrafficFilterRulesetParams contains all the parameters to send to the API endpoint
+   for the create traffic filter ruleset operation.
+
+   Typically these are written to a http.Request.
 */
 type CreateTrafficFilterRulesetParams struct {
 
-	/*Body
-	  The specification for traffic filter ruleset.
+	/* Body.
 
+	   The specification for traffic filter ruleset.
 	*/
 	Body *models.TrafficFilterRulesetRequest
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the create traffic filter ruleset params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *CreateTrafficFilterRulesetParams) WithDefaults() *CreateTrafficFilterRulesetParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the create traffic filter ruleset params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *CreateTrafficFilterRulesetParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the create traffic filter ruleset params
@@ -141,7 +155,6 @@ func (o *CreateTrafficFilterRulesetParams) WriteToRequest(r runtime.ClientReques
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

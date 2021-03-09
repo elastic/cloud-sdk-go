@@ -33,52 +33,66 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetUsersAPIKeysParams creates a new GetUsersAPIKeysParams object
-// with the default values initialized.
+// NewGetUsersAPIKeysParams creates a new GetUsersAPIKeysParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetUsersAPIKeysParams() *GetUsersAPIKeysParams {
-
 	return &GetUsersAPIKeysParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetUsersAPIKeysParamsWithTimeout creates a new GetUsersAPIKeysParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetUsersAPIKeysParamsWithTimeout(timeout time.Duration) *GetUsersAPIKeysParams {
-
 	return &GetUsersAPIKeysParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetUsersAPIKeysParamsWithContext creates a new GetUsersAPIKeysParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetUsersAPIKeysParamsWithContext(ctx context.Context) *GetUsersAPIKeysParams {
-
 	return &GetUsersAPIKeysParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetUsersAPIKeysParamsWithHTTPClient creates a new GetUsersAPIKeysParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetUsersAPIKeysParamsWithHTTPClient(client *http.Client) *GetUsersAPIKeysParams {
-
 	return &GetUsersAPIKeysParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetUsersAPIKeysParams contains all the parameters to send to the API endpoint
-for the get users api keys operation typically these are written to a http.Request
+/* GetUsersAPIKeysParams contains all the parameters to send to the API endpoint
+   for the get users api keys operation.
+
+   Typically these are written to a http.Request.
 */
 type GetUsersAPIKeysParams struct {
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get users api keys params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetUsersAPIKeysParams) WithDefaults() *GetUsersAPIKeysParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get users api keys params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetUsersAPIKeysParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get users api keys params

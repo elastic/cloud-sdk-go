@@ -33,59 +33,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetEsClusterCurationSettingsParams creates a new GetEsClusterCurationSettingsParams object
-// with the default values initialized.
+// NewGetEsClusterCurationSettingsParams creates a new GetEsClusterCurationSettingsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetEsClusterCurationSettingsParams() *GetEsClusterCurationSettingsParams {
-	var ()
 	return &GetEsClusterCurationSettingsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetEsClusterCurationSettingsParamsWithTimeout creates a new GetEsClusterCurationSettingsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetEsClusterCurationSettingsParamsWithTimeout(timeout time.Duration) *GetEsClusterCurationSettingsParams {
-	var ()
 	return &GetEsClusterCurationSettingsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetEsClusterCurationSettingsParamsWithContext creates a new GetEsClusterCurationSettingsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetEsClusterCurationSettingsParamsWithContext(ctx context.Context) *GetEsClusterCurationSettingsParams {
-	var ()
 	return &GetEsClusterCurationSettingsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetEsClusterCurationSettingsParamsWithHTTPClient creates a new GetEsClusterCurationSettingsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetEsClusterCurationSettingsParamsWithHTTPClient(client *http.Client) *GetEsClusterCurationSettingsParams {
-	var ()
 	return &GetEsClusterCurationSettingsParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetEsClusterCurationSettingsParams contains all the parameters to send to the API endpoint
-for the get es cluster curation settings operation typically these are written to a http.Request
+/* GetEsClusterCurationSettingsParams contains all the parameters to send to the API endpoint
+   for the get es cluster curation settings operation.
+
+   Typically these are written to a http.Request.
 */
 type GetEsClusterCurationSettingsParams struct {
 
-	/*ClusterID
-	  Elasticsearch cluster identifier
+	/* ClusterID.
 
+	   Elasticsearch cluster identifier
 	*/
 	ClusterID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get es cluster curation settings params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetEsClusterCurationSettingsParams) WithDefaults() *GetEsClusterCurationSettingsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get es cluster curation settings params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetEsClusterCurationSettingsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get es cluster curation settings params

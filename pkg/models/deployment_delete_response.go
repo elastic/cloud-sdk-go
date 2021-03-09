@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -87,13 +89,40 @@ func (m *DeploymentDeleteResponse) validateName(formats strfmt.Registry) error {
 }
 
 func (m *DeploymentDeleteResponse) validateOrphaned(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Orphaned) { // not required
 		return nil
 	}
 
 	if m.Orphaned != nil {
 		if err := m.Orphaned.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("orphaned")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this deployment delete response based on the context it is used
+func (m *DeploymentDeleteResponse) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateOrphaned(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *DeploymentDeleteResponse) contextValidateOrphaned(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Orphaned != nil {
+		if err := m.Orphaned.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("orphaned")
 			}

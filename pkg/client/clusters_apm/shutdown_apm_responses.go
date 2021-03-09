@@ -58,7 +58,6 @@ func (o *ShutdownApmReader) ReadResponse(response runtime.ClientResponse, consum
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,7 +68,7 @@ func NewShutdownApmAccepted() *ShutdownApmAccepted {
 	return &ShutdownApmAccepted{}
 }
 
-/*ShutdownApmAccepted handles this case with default header values.
+/* ShutdownApmAccepted describes a response with status code 202, with default header values.
 
 The shutdown command was issued successfully, use the "GET" command on the /{cluster_id} resource to monitor progress
 */
@@ -80,7 +79,6 @@ type ShutdownApmAccepted struct {
 func (o *ShutdownApmAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/_shutdown][%d] shutdownApmAccepted  %+v", 202, o.Payload)
 }
-
 func (o *ShutdownApmAccepted) GetPayload() *models.ClusterCommandResponse {
 	return o.Payload
 }
@@ -102,12 +100,13 @@ func NewShutdownApmNotFound() *ShutdownApmNotFound {
 	return &ShutdownApmNotFound{}
 }
 
-/*ShutdownApmNotFound handles this case with default header values.
+/* ShutdownApmNotFound describes a response with status code 404, with default header values.
 
 The cluster specified by {cluster_id} cannot be found. (code: `clusters.cluster_not_found`)
 */
 type ShutdownApmNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -117,15 +116,18 @@ type ShutdownApmNotFound struct {
 func (o *ShutdownApmNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/_shutdown][%d] shutdownApmNotFound  %+v", 404, o.Payload)
 }
-
 func (o *ShutdownApmNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *ShutdownApmNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -142,12 +144,13 @@ func NewShutdownApmRetryWith() *ShutdownApmRetryWith {
 	return &ShutdownApmRetryWith{}
 }
 
-/*ShutdownApmRetryWith handles this case with default header values.
+/* ShutdownApmRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type ShutdownApmRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -157,15 +160,18 @@ type ShutdownApmRetryWith struct {
 func (o *ShutdownApmRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/_shutdown][%d] shutdownApmRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *ShutdownApmRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *ShutdownApmRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

@@ -36,69 +36,85 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewSetSnapshotRepositoryParams creates a new SetSnapshotRepositoryParams object
-// with the default values initialized.
+// NewSetSnapshotRepositoryParams creates a new SetSnapshotRepositoryParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewSetSnapshotRepositoryParams() *SetSnapshotRepositoryParams {
-	var ()
 	return &SetSnapshotRepositoryParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewSetSnapshotRepositoryParamsWithTimeout creates a new SetSnapshotRepositoryParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewSetSnapshotRepositoryParamsWithTimeout(timeout time.Duration) *SetSnapshotRepositoryParams {
-	var ()
 	return &SetSnapshotRepositoryParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewSetSnapshotRepositoryParamsWithContext creates a new SetSnapshotRepositoryParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewSetSnapshotRepositoryParamsWithContext(ctx context.Context) *SetSnapshotRepositoryParams {
-	var ()
 	return &SetSnapshotRepositoryParams{
-
 		Context: ctx,
 	}
 }
 
 // NewSetSnapshotRepositoryParamsWithHTTPClient creates a new SetSnapshotRepositoryParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewSetSnapshotRepositoryParamsWithHTTPClient(client *http.Client) *SetSnapshotRepositoryParams {
-	var ()
 	return &SetSnapshotRepositoryParams{
 		HTTPClient: client,
 	}
 }
 
-/*SetSnapshotRepositoryParams contains all the parameters to send to the API endpoint
-for the set snapshot repository operation typically these are written to a http.Request
+/* SetSnapshotRepositoryParams contains all the parameters to send to the API endpoint
+   for the set snapshot repository operation.
+
+   Typically these are written to a http.Request.
 */
 type SetSnapshotRepositoryParams struct {
 
-	/*Body
-	  The Elasticsearch snapshot repository configuration
+	/* Body.
 
+	   The Elasticsearch snapshot repository configuration
 	*/
 	Body *models.SnapshotRepositoryConfiguration
-	/*RepositoryName
-	  The name of the snapshot repository configuration.
 
+	/* RepositoryName.
+
+	   The name of the snapshot repository configuration.
 	*/
 	RepositoryName string
-	/*Version
-	  Checks for conflicts against the metadata version, then returns the value in the `x-cloud-resource-version` header.
 
+	/* Version.
+
+	   Checks for conflicts against the metadata version, then returns the value in the `x-cloud-resource-version` header.
 	*/
 	Version *int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the set snapshot repository params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetSnapshotRepositoryParams) WithDefaults() *SetSnapshotRepositoryParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the set snapshot repository params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetSnapshotRepositoryParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the set snapshot repository params
@@ -174,7 +190,6 @@ func (o *SetSnapshotRepositoryParams) WriteToRequest(r runtime.ClientRequest, re
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err
@@ -190,16 +205,17 @@ func (o *SetSnapshotRepositoryParams) WriteToRequest(r runtime.ClientRequest, re
 
 		// query param version
 		var qrVersion int64
+
 		if o.Version != nil {
 			qrVersion = *o.Version
 		}
 		qVersion := swag.FormatInt64(qrVersion)
 		if qVersion != "" {
+
 			if err := r.SetQueryParam("version", qVersion); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

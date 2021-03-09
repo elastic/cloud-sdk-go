@@ -33,59 +33,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewStartApmInstancesAllMaintenanceModeParams creates a new StartApmInstancesAllMaintenanceModeParams object
-// with the default values initialized.
+// NewStartApmInstancesAllMaintenanceModeParams creates a new StartApmInstancesAllMaintenanceModeParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewStartApmInstancesAllMaintenanceModeParams() *StartApmInstancesAllMaintenanceModeParams {
-	var ()
 	return &StartApmInstancesAllMaintenanceModeParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewStartApmInstancesAllMaintenanceModeParamsWithTimeout creates a new StartApmInstancesAllMaintenanceModeParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewStartApmInstancesAllMaintenanceModeParamsWithTimeout(timeout time.Duration) *StartApmInstancesAllMaintenanceModeParams {
-	var ()
 	return &StartApmInstancesAllMaintenanceModeParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewStartApmInstancesAllMaintenanceModeParamsWithContext creates a new StartApmInstancesAllMaintenanceModeParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewStartApmInstancesAllMaintenanceModeParamsWithContext(ctx context.Context) *StartApmInstancesAllMaintenanceModeParams {
-	var ()
 	return &StartApmInstancesAllMaintenanceModeParams{
-
 		Context: ctx,
 	}
 }
 
 // NewStartApmInstancesAllMaintenanceModeParamsWithHTTPClient creates a new StartApmInstancesAllMaintenanceModeParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewStartApmInstancesAllMaintenanceModeParamsWithHTTPClient(client *http.Client) *StartApmInstancesAllMaintenanceModeParams {
-	var ()
 	return &StartApmInstancesAllMaintenanceModeParams{
 		HTTPClient: client,
 	}
 }
 
-/*StartApmInstancesAllMaintenanceModeParams contains all the parameters to send to the API endpoint
-for the start apm instances all maintenance mode operation typically these are written to a http.Request
+/* StartApmInstancesAllMaintenanceModeParams contains all the parameters to send to the API endpoint
+   for the start apm instances all maintenance mode operation.
+
+   Typically these are written to a http.Request.
 */
 type StartApmInstancesAllMaintenanceModeParams struct {
 
-	/*ClusterID
-	  The APM deployment identifier.
+	/* ClusterID.
 
+	   The APM deployment identifier.
 	*/
 	ClusterID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the start apm instances all maintenance mode params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *StartApmInstancesAllMaintenanceModeParams) WithDefaults() *StartApmInstancesAllMaintenanceModeParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the start apm instances all maintenance mode params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *StartApmInstancesAllMaintenanceModeParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the start apm instances all maintenance mode params

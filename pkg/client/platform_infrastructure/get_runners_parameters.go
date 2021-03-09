@@ -33,59 +33,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetRunnersParams creates a new GetRunnersParams object
-// with the default values initialized.
+// NewGetRunnersParams creates a new GetRunnersParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetRunnersParams() *GetRunnersParams {
-	var ()
 	return &GetRunnersParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetRunnersParamsWithTimeout creates a new GetRunnersParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetRunnersParamsWithTimeout(timeout time.Duration) *GetRunnersParams {
-	var ()
 	return &GetRunnersParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetRunnersParamsWithContext creates a new GetRunnersParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetRunnersParamsWithContext(ctx context.Context) *GetRunnersParams {
-	var ()
 	return &GetRunnersParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetRunnersParamsWithHTTPClient creates a new GetRunnersParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetRunnersParamsWithHTTPClient(client *http.Client) *GetRunnersParams {
-	var ()
 	return &GetRunnersParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetRunnersParams contains all the parameters to send to the API endpoint
-for the get runners operation typically these are written to a http.Request
+/* GetRunnersParams contains all the parameters to send to the API endpoint
+   for the get runners operation.
+
+   Typically these are written to a http.Request.
 */
 type GetRunnersParams struct {
 
-	/*Q
-	  An optional query to filter runners by. Maps to an Elasticsearch query_string query.
+	/* Q.
 
+	   An optional query to filter runners by. Maps to an Elasticsearch query_string query.
 	*/
 	Q *string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get runners params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetRunnersParams) WithDefaults() *GetRunnersParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get runners params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetRunnersParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get runners params
@@ -144,16 +158,17 @@ func (o *GetRunnersParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Re
 
 		// query param q
 		var qrQ string
+
 		if o.Q != nil {
 			qrQ = *o.Q
 		}
 		qQ := qrQ
 		if qQ != "" {
+
 			if err := r.SetQueryParam("q", qQ); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

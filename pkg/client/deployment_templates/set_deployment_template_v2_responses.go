@@ -82,7 +82,6 @@ func (o *SetDeploymentTemplateV2Reader) ReadResponse(response runtime.ClientResp
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -93,7 +92,7 @@ func NewSetDeploymentTemplateV2OK() *SetDeploymentTemplateV2OK {
 	return &SetDeploymentTemplateV2OK{}
 }
 
-/*SetDeploymentTemplateV2OK handles this case with default header values.
+/* SetDeploymentTemplateV2OK describes a response with status code 200, with default header values.
 
 The deployment definition was valid and the template has been updated.
 */
@@ -104,7 +103,6 @@ type SetDeploymentTemplateV2OK struct {
 func (o *SetDeploymentTemplateV2OK) Error() string {
 	return fmt.Sprintf("[PUT /deployments/templates/{template_id}][%d] setDeploymentTemplateV2OK  %+v", 200, o.Payload)
 }
-
 func (o *SetDeploymentTemplateV2OK) GetPayload() *models.IDResponse {
 	return o.Payload
 }
@@ -126,7 +124,7 @@ func NewSetDeploymentTemplateV2Created() *SetDeploymentTemplateV2Created {
 	return &SetDeploymentTemplateV2Created{}
 }
 
-/*SetDeploymentTemplateV2Created handles this case with default header values.
+/* SetDeploymentTemplateV2Created describes a response with status code 201, with default header values.
 
 The deployment definition was valid and the template was created.
 */
@@ -137,7 +135,6 @@ type SetDeploymentTemplateV2Created struct {
 func (o *SetDeploymentTemplateV2Created) Error() string {
 	return fmt.Sprintf("[PUT /deployments/templates/{template_id}][%d] setDeploymentTemplateV2Created  %+v", 201, o.Payload)
 }
-
 func (o *SetDeploymentTemplateV2Created) GetPayload() *models.IDResponse {
 	return o.Payload
 }
@@ -159,12 +156,13 @@ func NewSetDeploymentTemplateV2BadRequest() *SetDeploymentTemplateV2BadRequest {
 	return &SetDeploymentTemplateV2BadRequest{}
 }
 
-/*SetDeploymentTemplateV2BadRequest handles this case with default header values.
+/* SetDeploymentTemplateV2BadRequest describes a response with status code 400, with default header values.
 
 The requested region is not supported. (code: `templates.region_not_found`)
 */
 type SetDeploymentTemplateV2BadRequest struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -174,15 +172,18 @@ type SetDeploymentTemplateV2BadRequest struct {
 func (o *SetDeploymentTemplateV2BadRequest) Error() string {
 	return fmt.Sprintf("[PUT /deployments/templates/{template_id}][%d] setDeploymentTemplateV2BadRequest  %+v", 400, o.Payload)
 }
-
 func (o *SetDeploymentTemplateV2BadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SetDeploymentTemplateV2BadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -199,12 +200,13 @@ func NewSetDeploymentTemplateV2Unauthorized() *SetDeploymentTemplateV2Unauthoriz
 	return &SetDeploymentTemplateV2Unauthorized{}
 }
 
-/*SetDeploymentTemplateV2Unauthorized handles this case with default header values.
+/* SetDeploymentTemplateV2Unauthorized describes a response with status code 401, with default header values.
 
 The user is not authorized to access requested region. (code: `templates.region_not_allowed`)
 */
 type SetDeploymentTemplateV2Unauthorized struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -214,15 +216,18 @@ type SetDeploymentTemplateV2Unauthorized struct {
 func (o *SetDeploymentTemplateV2Unauthorized) Error() string {
 	return fmt.Sprintf("[PUT /deployments/templates/{template_id}][%d] setDeploymentTemplateV2Unauthorized  %+v", 401, o.Payload)
 }
-
 func (o *SetDeploymentTemplateV2Unauthorized) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SetDeploymentTemplateV2Unauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -239,12 +244,13 @@ func NewSetDeploymentTemplateV2NotFound() *SetDeploymentTemplateV2NotFound {
 	return &SetDeploymentTemplateV2NotFound{}
 }
 
-/*SetDeploymentTemplateV2NotFound handles this case with default header values.
+/* SetDeploymentTemplateV2NotFound describes a response with status code 404, with default header values.
 
 The deployment template specified by {template_id} cannot be found. (code: `templates.template_not_found`)
 */
 type SetDeploymentTemplateV2NotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -254,15 +260,18 @@ type SetDeploymentTemplateV2NotFound struct {
 func (o *SetDeploymentTemplateV2NotFound) Error() string {
 	return fmt.Sprintf("[PUT /deployments/templates/{template_id}][%d] setDeploymentTemplateV2NotFound  %+v", 404, o.Payload)
 }
-
 func (o *SetDeploymentTemplateV2NotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SetDeploymentTemplateV2NotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -279,12 +288,13 @@ func NewSetDeploymentTemplateV2Conflict() *SetDeploymentTemplateV2Conflict {
 	return &SetDeploymentTemplateV2Conflict{}
 }
 
-/*SetDeploymentTemplateV2Conflict handles this case with default header values.
+/* SetDeploymentTemplateV2Conflict describes a response with status code 409, with default header values.
 
 The version supplied in the request conflicted with the version found on the server. (code: `templates.version_conflict`)
 */
 type SetDeploymentTemplateV2Conflict struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -294,15 +304,18 @@ type SetDeploymentTemplateV2Conflict struct {
 func (o *SetDeploymentTemplateV2Conflict) Error() string {
 	return fmt.Sprintf("[PUT /deployments/templates/{template_id}][%d] setDeploymentTemplateV2Conflict  %+v", 409, o.Payload)
 }
-
 func (o *SetDeploymentTemplateV2Conflict) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SetDeploymentTemplateV2Conflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -319,12 +332,13 @@ func NewSetDeploymentTemplateV2RetryWith() *SetDeploymentTemplateV2RetryWith {
 	return &SetDeploymentTemplateV2RetryWith{}
 }
 
-/*SetDeploymentTemplateV2RetryWith handles this case with default header values.
+/* SetDeploymentTemplateV2RetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type SetDeploymentTemplateV2RetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -334,15 +348,18 @@ type SetDeploymentTemplateV2RetryWith struct {
 func (o *SetDeploymentTemplateV2RetryWith) Error() string {
 	return fmt.Sprintf("[PUT /deployments/templates/{template_id}][%d] setDeploymentTemplateV2RetryWith  %+v", 449, o.Payload)
 }
-
 func (o *SetDeploymentTemplateV2RetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SetDeploymentTemplateV2RetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

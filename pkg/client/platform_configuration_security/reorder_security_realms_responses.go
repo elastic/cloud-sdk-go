@@ -58,7 +58,6 @@ func (o *ReorderSecurityRealmsReader) ReadResponse(response runtime.ClientRespon
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,7 +68,7 @@ func NewReorderSecurityRealmsOK() *ReorderSecurityRealmsOK {
 	return &ReorderSecurityRealmsOK{}
 }
 
-/*ReorderSecurityRealmsOK handles this case with default header values.
+/* ReorderSecurityRealmsOK describes a response with status code 200, with default header values.
 
 The reorder request was successful
 */
@@ -80,7 +79,6 @@ type ReorderSecurityRealmsOK struct {
 func (o *ReorderSecurityRealmsOK) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/realms/_reorder][%d] reorderSecurityRealmsOK  %+v", 200, o.Payload)
 }
-
 func (o *ReorderSecurityRealmsOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -100,13 +98,14 @@ func NewReorderSecurityRealmsBadRequest() *ReorderSecurityRealmsBadRequest {
 	return &ReorderSecurityRealmsBadRequest{}
 }
 
-/*ReorderSecurityRealmsBadRequest handles this case with default header values.
+/* ReorderSecurityRealmsBadRequest describes a response with status code 400, with default header values.
 
-* Invalid ids . (code: `security_realm.invalid_ids`)
+ * Invalid ids . (code: `security_realm.invalid_ids`)
 * Missing ids . (code: `security_realm.missing_ids`)
- */
+*/
 type ReorderSecurityRealmsBadRequest struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -116,15 +115,18 @@ type ReorderSecurityRealmsBadRequest struct {
 func (o *ReorderSecurityRealmsBadRequest) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/realms/_reorder][%d] reorderSecurityRealmsBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *ReorderSecurityRealmsBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *ReorderSecurityRealmsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -141,12 +143,13 @@ func NewReorderSecurityRealmsRetryWith() *ReorderSecurityRealmsRetryWith {
 	return &ReorderSecurityRealmsRetryWith{}
 }
 
-/*ReorderSecurityRealmsRetryWith handles this case with default header values.
+/* ReorderSecurityRealmsRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type ReorderSecurityRealmsRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -156,15 +159,18 @@ type ReorderSecurityRealmsRetryWith struct {
 func (o *ReorderSecurityRealmsRetryWith) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/realms/_reorder][%d] reorderSecurityRealmsRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *ReorderSecurityRealmsRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *ReorderSecurityRealmsRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

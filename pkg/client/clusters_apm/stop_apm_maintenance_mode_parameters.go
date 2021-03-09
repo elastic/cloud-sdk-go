@@ -34,81 +34,96 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewStopApmMaintenanceModeParams creates a new StopApmMaintenanceModeParams object
-// with the default values initialized.
+// NewStopApmMaintenanceModeParams creates a new StopApmMaintenanceModeParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewStopApmMaintenanceModeParams() *StopApmMaintenanceModeParams {
-	var (
-		ignoreMissingDefault = bool(false)
-	)
 	return &StopApmMaintenanceModeParams{
-		IgnoreMissing: &ignoreMissingDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewStopApmMaintenanceModeParamsWithTimeout creates a new StopApmMaintenanceModeParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewStopApmMaintenanceModeParamsWithTimeout(timeout time.Duration) *StopApmMaintenanceModeParams {
-	var (
-		ignoreMissingDefault = bool(false)
-	)
 	return &StopApmMaintenanceModeParams{
-		IgnoreMissing: &ignoreMissingDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewStopApmMaintenanceModeParamsWithContext creates a new StopApmMaintenanceModeParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewStopApmMaintenanceModeParamsWithContext(ctx context.Context) *StopApmMaintenanceModeParams {
-	var (
-		ignoreMissingDefault = bool(false)
-	)
 	return &StopApmMaintenanceModeParams{
-		IgnoreMissing: &ignoreMissingDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewStopApmMaintenanceModeParamsWithHTTPClient creates a new StopApmMaintenanceModeParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewStopApmMaintenanceModeParamsWithHTTPClient(client *http.Client) *StopApmMaintenanceModeParams {
-	var (
-		ignoreMissingDefault = bool(false)
-	)
 	return &StopApmMaintenanceModeParams{
-		IgnoreMissing: &ignoreMissingDefault,
-		HTTPClient:    client,
+		HTTPClient: client,
 	}
 }
 
-/*StopApmMaintenanceModeParams contains all the parameters to send to the API endpoint
-for the stop apm maintenance mode operation typically these are written to a http.Request
+/* StopApmMaintenanceModeParams contains all the parameters to send to the API endpoint
+   for the stop apm maintenance mode operation.
+
+   Typically these are written to a http.Request.
 */
 type StopApmMaintenanceModeParams struct {
 
-	/*ClusterID
-	  The APM deployment identifier.
+	/* ClusterID.
 
+	   The APM deployment identifier.
 	*/
 	ClusterID string
-	/*IgnoreMissing
-	  When `true` and the instance does not exist, proceeds to the next instance, or treats the instance as an error.
 
+	/* IgnoreMissing.
+
+	   When `true` and the instance does not exist, proceeds to the next instance, or treats the instance as an error.
 	*/
 	IgnoreMissing *bool
-	/*InstanceIds
-	  A comma-separated list of instance identifiers.
 
+	/* InstanceIds.
+
+	   A comma-separated list of instance identifiers.
 	*/
 	InstanceIds []string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the stop apm maintenance mode params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *StopApmMaintenanceModeParams) WithDefaults() *StopApmMaintenanceModeParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the stop apm maintenance mode params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *StopApmMaintenanceModeParams) SetDefaults() {
+	var (
+		ignoreMissingDefault = bool(false)
+	)
+
+	val := StopApmMaintenanceModeParams{
+		IgnoreMissing: &ignoreMissingDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the stop apm maintenance mode params
@@ -194,28 +209,32 @@ func (o *StopApmMaintenanceModeParams) WriteToRequest(r runtime.ClientRequest, r
 
 		// query param ignore_missing
 		var qrIgnoreMissing bool
+
 		if o.IgnoreMissing != nil {
 			qrIgnoreMissing = *o.IgnoreMissing
 		}
 		qIgnoreMissing := swag.FormatBool(qrIgnoreMissing)
 		if qIgnoreMissing != "" {
+
 			if err := r.SetQueryParam("ignore_missing", qIgnoreMissing); err != nil {
 				return err
 			}
 		}
-
 	}
 
-	valuesInstanceIds := o.InstanceIds
+	if o.InstanceIds != nil {
 
-	joinedInstanceIds := swag.JoinByFormat(valuesInstanceIds, "csv")
-	// path array param instance_ids
-	// SetPathParam does not support variadric arguments, since we used JoinByFormat
-	// we can send the first item in the array as it's all the items of the previous
-	// array joined together
-	if len(joinedInstanceIds) > 0 {
-		if err := r.SetPathParam("instance_ids", joinedInstanceIds[0]); err != nil {
-			return err
+		// binding items for instance_ids
+		joinedInstanceIds := o.bindParamInstanceIds(reg)
+
+		// path array param instance_ids
+		// SetPathParam does not support variadic arguments, since we used JoinByFormat
+		// we can send the first item in the array as it's all the items of the previous
+		// array joined together
+		if len(joinedInstanceIds) > 0 {
+			if err := r.SetPathParam("instance_ids", joinedInstanceIds[0]); err != nil {
+				return err
+			}
 		}
 	}
 
@@ -223,4 +242,21 @@ func (o *StopApmMaintenanceModeParams) WriteToRequest(r runtime.ClientRequest, r
 		return errors.CompositeValidationError(res...)
 	}
 	return nil
+}
+
+// bindParamStopApmMaintenanceMode binds the parameter instance_ids
+func (o *StopApmMaintenanceModeParams) bindParamInstanceIds(formats strfmt.Registry) []string {
+	instanceIdsIR := o.InstanceIds
+
+	var instanceIdsIC []string
+	for _, instanceIdsIIR := range instanceIdsIR { // explode []string
+
+		instanceIdsIIV := instanceIdsIIR // string as string
+		instanceIdsIC = append(instanceIdsIC, instanceIdsIIV)
+	}
+
+	// items.CollectionFormat: "csv"
+	instanceIdsIS := swag.JoinByFormat(instanceIdsIC, "csv")
+
+	return instanceIdsIS
 }

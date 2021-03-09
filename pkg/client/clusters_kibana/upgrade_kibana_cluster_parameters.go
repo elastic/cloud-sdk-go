@@ -34,76 +34,90 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewUpgradeKibanaClusterParams creates a new UpgradeKibanaClusterParams object
-// with the default values initialized.
+// NewUpgradeKibanaClusterParams creates a new UpgradeKibanaClusterParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewUpgradeKibanaClusterParams() *UpgradeKibanaClusterParams {
-	var (
-		validateOnlyDefault = bool(false)
-	)
 	return &UpgradeKibanaClusterParams{
-		ValidateOnly: &validateOnlyDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewUpgradeKibanaClusterParamsWithTimeout creates a new UpgradeKibanaClusterParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewUpgradeKibanaClusterParamsWithTimeout(timeout time.Duration) *UpgradeKibanaClusterParams {
-	var (
-		validateOnlyDefault = bool(false)
-	)
 	return &UpgradeKibanaClusterParams{
-		ValidateOnly: &validateOnlyDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewUpgradeKibanaClusterParamsWithContext creates a new UpgradeKibanaClusterParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewUpgradeKibanaClusterParamsWithContext(ctx context.Context) *UpgradeKibanaClusterParams {
-	var (
-		validateOnlyDefault = bool(false)
-	)
 	return &UpgradeKibanaClusterParams{
-		ValidateOnly: &validateOnlyDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewUpgradeKibanaClusterParamsWithHTTPClient creates a new UpgradeKibanaClusterParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewUpgradeKibanaClusterParamsWithHTTPClient(client *http.Client) *UpgradeKibanaClusterParams {
-	var (
-		validateOnlyDefault = bool(false)
-	)
 	return &UpgradeKibanaClusterParams{
-		ValidateOnly: &validateOnlyDefault,
-		HTTPClient:   client,
+		HTTPClient: client,
 	}
 }
 
-/*UpgradeKibanaClusterParams contains all the parameters to send to the API endpoint
-for the upgrade kibana cluster operation typically these are written to a http.Request
+/* UpgradeKibanaClusterParams contains all the parameters to send to the API endpoint
+   for the upgrade kibana cluster operation.
+
+   Typically these are written to a http.Request.
 */
 type UpgradeKibanaClusterParams struct {
 
-	/*ClusterID
-	  The Kibana deployment identifier.
+	/* ClusterID.
 
+	   The Kibana deployment identifier.
 	*/
 	ClusterID string
-	/*ValidateOnly
-	  When `true`, returns the update version without performing the upgrade
 
+	/* ValidateOnly.
+
+	   When `true`, returns the update version without performing the upgrade
 	*/
 	ValidateOnly *bool
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the upgrade kibana cluster params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpgradeKibanaClusterParams) WithDefaults() *UpgradeKibanaClusterParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the upgrade kibana cluster params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpgradeKibanaClusterParams) SetDefaults() {
+	var (
+		validateOnlyDefault = bool(false)
+	)
+
+	val := UpgradeKibanaClusterParams{
+		ValidateOnly: &validateOnlyDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the upgrade kibana cluster params
@@ -178,16 +192,17 @@ func (o *UpgradeKibanaClusterParams) WriteToRequest(r runtime.ClientRequest, reg
 
 		// query param validate_only
 		var qrValidateOnly bool
+
 		if o.ValidateOnly != nil {
 			qrValidateOnly = *o.ValidateOnly
 		}
 		qValidateOnly := swag.FormatBool(qrValidateOnly)
 		if qValidateOnly != "" {
+
 			if err := r.SetQueryParam("validate_only", qValidateOnly); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

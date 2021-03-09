@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -90,7 +92,6 @@ func (m *StackVersionConfigPost) Validate(formats strfmt.Registry) error {
 }
 
 func (m *StackVersionConfigPost) validateApm(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Apm) { // not required
 		return nil
 	}
@@ -108,7 +109,6 @@ func (m *StackVersionConfigPost) validateApm(formats strfmt.Registry) error {
 }
 
 func (m *StackVersionConfigPost) validateAppsearch(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Appsearch) { // not required
 		return nil
 	}
@@ -144,7 +144,6 @@ func (m *StackVersionConfigPost) validateElasticsearch(formats strfmt.Registry) 
 }
 
 func (m *StackVersionConfigPost) validateEnterpriseSearch(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.EnterpriseSearch) { // not required
 		return nil
 	}
@@ -180,13 +179,130 @@ func (m *StackVersionConfigPost) validateKibana(formats strfmt.Registry) error {
 }
 
 func (m *StackVersionConfigPost) validateMetadata(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Metadata) { // not required
 		return nil
 	}
 
 	if m.Metadata != nil {
 		if err := m.Metadata.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("metadata")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this stack version config post based on the context it is used
+func (m *StackVersionConfigPost) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateApm(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateAppsearch(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateElasticsearch(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateEnterpriseSearch(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateKibana(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateMetadata(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *StackVersionConfigPost) contextValidateApm(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Apm != nil {
+		if err := m.Apm.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("apm")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *StackVersionConfigPost) contextValidateAppsearch(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Appsearch != nil {
+		if err := m.Appsearch.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("appsearch")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *StackVersionConfigPost) contextValidateElasticsearch(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Elasticsearch != nil {
+		if err := m.Elasticsearch.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("elasticsearch")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *StackVersionConfigPost) contextValidateEnterpriseSearch(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.EnterpriseSearch != nil {
+		if err := m.EnterpriseSearch.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("enterprise_search")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *StackVersionConfigPost) contextValidateKibana(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Kibana != nil {
+		if err := m.Kibana.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("kibana")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *StackVersionConfigPost) contextValidateMetadata(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Metadata != nil {
+		if err := m.Metadata.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("metadata")
 			}

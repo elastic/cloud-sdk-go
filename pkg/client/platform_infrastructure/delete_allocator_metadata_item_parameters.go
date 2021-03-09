@@ -33,69 +33,85 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewDeleteAllocatorMetadataItemParams creates a new DeleteAllocatorMetadataItemParams object
-// with the default values initialized.
+// NewDeleteAllocatorMetadataItemParams creates a new DeleteAllocatorMetadataItemParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewDeleteAllocatorMetadataItemParams() *DeleteAllocatorMetadataItemParams {
-	var ()
 	return &DeleteAllocatorMetadataItemParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteAllocatorMetadataItemParamsWithTimeout creates a new DeleteAllocatorMetadataItemParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewDeleteAllocatorMetadataItemParamsWithTimeout(timeout time.Duration) *DeleteAllocatorMetadataItemParams {
-	var ()
 	return &DeleteAllocatorMetadataItemParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewDeleteAllocatorMetadataItemParamsWithContext creates a new DeleteAllocatorMetadataItemParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewDeleteAllocatorMetadataItemParamsWithContext(ctx context.Context) *DeleteAllocatorMetadataItemParams {
-	var ()
 	return &DeleteAllocatorMetadataItemParams{
-
 		Context: ctx,
 	}
 }
 
 // NewDeleteAllocatorMetadataItemParamsWithHTTPClient creates a new DeleteAllocatorMetadataItemParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewDeleteAllocatorMetadataItemParamsWithHTTPClient(client *http.Client) *DeleteAllocatorMetadataItemParams {
-	var ()
 	return &DeleteAllocatorMetadataItemParams{
 		HTTPClient: client,
 	}
 }
 
-/*DeleteAllocatorMetadataItemParams contains all the parameters to send to the API endpoint
-for the delete allocator metadata item operation typically these are written to a http.Request
+/* DeleteAllocatorMetadataItemParams contains all the parameters to send to the API endpoint
+   for the delete allocator metadata item operation.
+
+   Typically these are written to a http.Request.
 */
 type DeleteAllocatorMetadataItemParams struct {
 
-	/*AllocatorID
-	  The allocator identifier.
+	/* AllocatorID.
 
+	   The allocator identifier.
 	*/
 	AllocatorID string
-	/*Key
-	  The metadata item key.
 
+	/* Key.
+
+	   The metadata item key.
 	*/
 	Key string
-	/*Version
-	  Checks for conflicts against the metadata version, then returns the value in the `x-cloud-resource-version` header.
 
+	/* Version.
+
+	   Checks for conflicts against the metadata version, then returns the value in the `x-cloud-resource-version` header.
 	*/
 	Version *string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the delete allocator metadata item params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteAllocatorMetadataItemParams) WithDefaults() *DeleteAllocatorMetadataItemParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the delete allocator metadata item params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteAllocatorMetadataItemParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete allocator metadata item params
@@ -186,16 +202,17 @@ func (o *DeleteAllocatorMetadataItemParams) WriteToRequest(r runtime.ClientReque
 
 		// query param version
 		var qrVersion string
+
 		if o.Version != nil {
 			qrVersion = *o.Version
 		}
 		qVersion := qrVersion
 		if qVersion != "" {
+
 			if err := r.SetQueryParam("version", qVersion); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

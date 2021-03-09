@@ -64,7 +64,6 @@ func (o *StopEsClusterInstancesAllReader) ReadResponse(response runtime.ClientRe
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,7 +74,7 @@ func NewStopEsClusterInstancesAllAccepted() *StopEsClusterInstancesAllAccepted {
 	return &StopEsClusterInstancesAllAccepted{}
 }
 
-/*StopEsClusterInstancesAllAccepted handles this case with default header values.
+/* StopEsClusterInstancesAllAccepted describes a response with status code 202, with default header values.
 
 The stop command was issued successfully, use the "GET" command on the /{cluster_id} resource to monitor progress
 */
@@ -86,7 +85,6 @@ type StopEsClusterInstancesAllAccepted struct {
 func (o *StopEsClusterInstancesAllAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/instances/_stop][%d] stopEsClusterInstancesAllAccepted  %+v", 202, o.Payload)
 }
-
 func (o *StopEsClusterInstancesAllAccepted) GetPayload() *models.ClusterCommandResponse {
 	return o.Payload
 }
@@ -108,12 +106,13 @@ func NewStopEsClusterInstancesAllForbidden() *StopEsClusterInstancesAllForbidden
 	return &StopEsClusterInstancesAllForbidden{}
 }
 
-/*StopEsClusterInstancesAllForbidden handles this case with default header values.
+/* StopEsClusterInstancesAllForbidden describes a response with status code 403, with default header values.
 
 The stop command was prohibited for the given cluster. (code: `clusters.command_prohibited`)
 */
 type StopEsClusterInstancesAllForbidden struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -123,15 +122,18 @@ type StopEsClusterInstancesAllForbidden struct {
 func (o *StopEsClusterInstancesAllForbidden) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/instances/_stop][%d] stopEsClusterInstancesAllForbidden  %+v", 403, o.Payload)
 }
-
 func (o *StopEsClusterInstancesAllForbidden) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *StopEsClusterInstancesAllForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -148,12 +150,13 @@ func NewStopEsClusterInstancesAllNotFound() *StopEsClusterInstancesAllNotFound {
 	return &StopEsClusterInstancesAllNotFound{}
 }
 
-/*StopEsClusterInstancesAllNotFound handles this case with default header values.
+/* StopEsClusterInstancesAllNotFound describes a response with status code 404, with default header values.
 
 The cluster specified by {cluster_id} cannot be found. (code: `clusters.cluster_not_found`)
 */
 type StopEsClusterInstancesAllNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -163,15 +166,18 @@ type StopEsClusterInstancesAllNotFound struct {
 func (o *StopEsClusterInstancesAllNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/instances/_stop][%d] stopEsClusterInstancesAllNotFound  %+v", 404, o.Payload)
 }
-
 func (o *StopEsClusterInstancesAllNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *StopEsClusterInstancesAllNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -188,12 +194,13 @@ func NewStopEsClusterInstancesAllRetryWith() *StopEsClusterInstancesAllRetryWith
 	return &StopEsClusterInstancesAllRetryWith{}
 }
 
-/*StopEsClusterInstancesAllRetryWith handles this case with default header values.
+/* StopEsClusterInstancesAllRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type StopEsClusterInstancesAllRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -203,15 +210,18 @@ type StopEsClusterInstancesAllRetryWith struct {
 func (o *StopEsClusterInstancesAllRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/instances/_stop][%d] stopEsClusterInstancesAllRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *StopEsClusterInstancesAllRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *StopEsClusterInstancesAllRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

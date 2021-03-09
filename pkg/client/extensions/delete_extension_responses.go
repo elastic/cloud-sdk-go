@@ -64,7 +64,6 @@ func (o *DeleteExtensionReader) ReadResponse(response runtime.ClientResponse, co
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,18 +74,21 @@ func NewDeleteExtensionOK() *DeleteExtensionOK {
 	return &DeleteExtensionOK{}
 }
 
-/*DeleteExtensionOK handles this case with default header values.
+/* DeleteExtensionOK describes a response with status code 200, with default header values.
 
 Extension deleted successfully.
 */
 type DeleteExtensionOK struct {
-	/*The date-time when the resource was created (ISO format relative to UTC)
+
+	/* The date-time when the resource was created (ISO format relative to UTC)
 	 */
 	XCloudResourceCreated string
-	/*The date-time when the resource was last modified (ISO format relative to UTC)
+
+	/* The date-time when the resource was last modified (ISO format relative to UTC)
 	 */
 	XCloudResourceLastModified string
-	/*The resource version, which is used to avoid update conflicts with concurrent operations
+
+	/* The resource version, which is used to avoid update conflicts with concurrent operations
 	 */
 	XCloudResourceVersion string
 
@@ -96,21 +98,32 @@ type DeleteExtensionOK struct {
 func (o *DeleteExtensionOK) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/extensions/{extension_id}][%d] deleteExtensionOK  %+v", 200, o.Payload)
 }
-
 func (o *DeleteExtensionOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
 
 func (o *DeleteExtensionOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-resource-created
-	o.XCloudResourceCreated = response.GetHeader("x-cloud-resource-created")
+	// hydrates response header x-cloud-resource-created
+	hdrXCloudResourceCreated := response.GetHeader("x-cloud-resource-created")
 
-	// response header x-cloud-resource-last-modified
-	o.XCloudResourceLastModified = response.GetHeader("x-cloud-resource-last-modified")
+	if hdrXCloudResourceCreated != "" {
+		o.XCloudResourceCreated = hdrXCloudResourceCreated
+	}
 
-	// response header x-cloud-resource-version
-	o.XCloudResourceVersion = response.GetHeader("x-cloud-resource-version")
+	// hydrates response header x-cloud-resource-last-modified
+	hdrXCloudResourceLastModified := response.GetHeader("x-cloud-resource-last-modified")
+
+	if hdrXCloudResourceLastModified != "" {
+		o.XCloudResourceLastModified = hdrXCloudResourceLastModified
+	}
+
+	// hydrates response header x-cloud-resource-version
+	hdrXCloudResourceVersion := response.GetHeader("x-cloud-resource-version")
+
+	if hdrXCloudResourceVersion != "" {
+		o.XCloudResourceVersion = hdrXCloudResourceVersion
+	}
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
@@ -125,13 +138,14 @@ func NewDeleteExtensionUnauthorized() *DeleteExtensionUnauthorized {
 	return &DeleteExtensionUnauthorized{}
 }
 
-/*DeleteExtensionUnauthorized handles this case with default header values.
+/* DeleteExtensionUnauthorized describes a response with status code 401, with default header values.
 
-* The extension does not belong to you. (code: `extensions.unauthorised`)
+ * The extension does not belong to you. (code: `extensions.unauthorised`)
 * Your current session does not have a user id associated with it. (code: `extensions.no_user_id`)
- */
+*/
 type DeleteExtensionUnauthorized struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -141,15 +155,18 @@ type DeleteExtensionUnauthorized struct {
 func (o *DeleteExtensionUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/extensions/{extension_id}][%d] deleteExtensionUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *DeleteExtensionUnauthorized) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *DeleteExtensionUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -166,12 +183,13 @@ func NewDeleteExtensionNotFound() *DeleteExtensionNotFound {
 	return &DeleteExtensionNotFound{}
 }
 
-/*DeleteExtensionNotFound handles this case with default header values.
+/* DeleteExtensionNotFound describes a response with status code 404, with default header values.
 
 The extension requested does not exist. (code: `extensions.not_found`)
 */
 type DeleteExtensionNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -181,15 +199,18 @@ type DeleteExtensionNotFound struct {
 func (o *DeleteExtensionNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/extensions/{extension_id}][%d] deleteExtensionNotFound  %+v", 404, o.Payload)
 }
-
 func (o *DeleteExtensionNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *DeleteExtensionNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -206,12 +227,13 @@ func NewDeleteExtensionConflict() *DeleteExtensionConflict {
 	return &DeleteExtensionConflict{}
 }
 
-/*DeleteExtensionConflict handles this case with default header values.
+/* DeleteExtensionConflict describes a response with status code 409, with default header values.
 
 The version you sent does not match the persisted version. (code: `extensions.version_conflict`)
 */
 type DeleteExtensionConflict struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -221,15 +243,18 @@ type DeleteExtensionConflict struct {
 func (o *DeleteExtensionConflict) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/extensions/{extension_id}][%d] deleteExtensionConflict  %+v", 409, o.Payload)
 }
-
 func (o *DeleteExtensionConflict) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *DeleteExtensionConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

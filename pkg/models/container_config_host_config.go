@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -112,6 +113,10 @@ func (m *ContainerConfigHostConfig) validateExtraHosts(formats strfmt.Registry) 
 
 func (m *ContainerConfigHostConfig) validatePortBindings(formats strfmt.Registry) error {
 
+	if err := validate.Required("port_bindings", "body", m.PortBindings); err != nil {
+		return err
+	}
+
 	for k := range m.PortBindings {
 
 		if err := validate.Required("port_bindings"+"."+k, "body", m.PortBindings[k]); err != nil {
@@ -144,13 +149,68 @@ func (m *ContainerConfigHostConfig) validatePrivileged(formats strfmt.Registry) 
 }
 
 func (m *ContainerConfigHostConfig) validateRestartPolicy(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.RestartPolicy) { // not required
 		return nil
 	}
 
 	if m.RestartPolicy != nil {
 		if err := m.RestartPolicy.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("restart_policy")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this container config host config based on the context it is used
+func (m *ContainerConfigHostConfig) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidatePortBindings(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateRestartPolicy(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ContainerConfigHostConfig) contextValidatePortBindings(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := validate.Required("port_bindings", "body", m.PortBindings); err != nil {
+		return err
+	}
+
+	for k := range m.PortBindings {
+
+		for i := 0; i < len(m.PortBindings[k]); i++ {
+
+			if err := m.PortBindings[k][i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("port_bindings" + "." + k + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+
+		}
+
+	}
+
+	return nil
+}
+
+func (m *ContainerConfigHostConfig) contextValidateRestartPolicy(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.RestartPolicy != nil {
+		if err := m.RestartPolicy.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("restart_policy")
 			}

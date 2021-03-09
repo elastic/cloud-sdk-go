@@ -35,64 +35,79 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewCreateTrafficFilterRulesetAssociationParams creates a new CreateTrafficFilterRulesetAssociationParams object
-// with the default values initialized.
+// NewCreateTrafficFilterRulesetAssociationParams creates a new CreateTrafficFilterRulesetAssociationParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewCreateTrafficFilterRulesetAssociationParams() *CreateTrafficFilterRulesetAssociationParams {
-	var ()
 	return &CreateTrafficFilterRulesetAssociationParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewCreateTrafficFilterRulesetAssociationParamsWithTimeout creates a new CreateTrafficFilterRulesetAssociationParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewCreateTrafficFilterRulesetAssociationParamsWithTimeout(timeout time.Duration) *CreateTrafficFilterRulesetAssociationParams {
-	var ()
 	return &CreateTrafficFilterRulesetAssociationParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewCreateTrafficFilterRulesetAssociationParamsWithContext creates a new CreateTrafficFilterRulesetAssociationParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewCreateTrafficFilterRulesetAssociationParamsWithContext(ctx context.Context) *CreateTrafficFilterRulesetAssociationParams {
-	var ()
 	return &CreateTrafficFilterRulesetAssociationParams{
-
 		Context: ctx,
 	}
 }
 
 // NewCreateTrafficFilterRulesetAssociationParamsWithHTTPClient creates a new CreateTrafficFilterRulesetAssociationParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewCreateTrafficFilterRulesetAssociationParamsWithHTTPClient(client *http.Client) *CreateTrafficFilterRulesetAssociationParams {
-	var ()
 	return &CreateTrafficFilterRulesetAssociationParams{
 		HTTPClient: client,
 	}
 }
 
-/*CreateTrafficFilterRulesetAssociationParams contains all the parameters to send to the API endpoint
-for the create traffic filter ruleset association operation typically these are written to a http.Request
+/* CreateTrafficFilterRulesetAssociationParams contains all the parameters to send to the API endpoint
+   for the create traffic filter ruleset association operation.
+
+   Typically these are written to a http.Request.
 */
 type CreateTrafficFilterRulesetAssociationParams struct {
 
-	/*Body
-	  Mandatory ruleset association description
+	/* Body.
 
+	   Mandatory ruleset association description
 	*/
 	Body *models.FilterAssociation
-	/*RulesetID
-	  The mandatory ruleset ID.
 
+	/* RulesetID.
+
+	   The mandatory ruleset ID.
 	*/
 	RulesetID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the create traffic filter ruleset association params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *CreateTrafficFilterRulesetAssociationParams) WithDefaults() *CreateTrafficFilterRulesetAssociationParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the create traffic filter ruleset association params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *CreateTrafficFilterRulesetAssociationParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the create traffic filter ruleset association params
@@ -157,7 +172,6 @@ func (o *CreateTrafficFilterRulesetAssociationParams) WriteToRequest(r runtime.C
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -81,7 +83,6 @@ func (m *KibanaClusterTopologyElement) Validate(formats strfmt.Registry) error {
 }
 
 func (m *KibanaClusterTopologyElement) validateKibana(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Kibana) { // not required
 		return nil
 	}
@@ -99,13 +100,58 @@ func (m *KibanaClusterTopologyElement) validateKibana(formats strfmt.Registry) e
 }
 
 func (m *KibanaClusterTopologyElement) validateSize(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Size) { // not required
 		return nil
 	}
 
 	if m.Size != nil {
 		if err := m.Size.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("size")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this kibana cluster topology element based on the context it is used
+func (m *KibanaClusterTopologyElement) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateKibana(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateSize(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *KibanaClusterTopologyElement) contextValidateKibana(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Kibana != nil {
+		if err := m.Kibana.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("kibana")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *KibanaClusterTopologyElement) contextValidateSize(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Size != nil {
+		if err := m.Size.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("size")
 			}

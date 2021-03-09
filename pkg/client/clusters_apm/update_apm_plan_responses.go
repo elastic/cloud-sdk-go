@@ -70,7 +70,6 @@ func (o *UpdateApmPlanReader) ReadResponse(response runtime.ClientResponse, cons
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -81,7 +80,7 @@ func NewUpdateApmPlanOK() *UpdateApmPlanOK {
 	return &UpdateApmPlanOK{}
 }
 
-/*UpdateApmPlanOK handles this case with default header values.
+/* UpdateApmPlanOK describes a response with status code 200, with default header values.
 
 The APM server plan is valid. The return object contains an internal representation of the plan that you can use for debugging.
 */
@@ -92,7 +91,6 @@ type UpdateApmPlanOK struct {
 func (o *UpdateApmPlanOK) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/plan][%d] updateApmPlanOK  %+v", 200, o.Payload)
 }
-
 func (o *UpdateApmPlanOK) GetPayload() *models.ApmCrudResponse {
 	return o.Payload
 }
@@ -114,7 +112,7 @@ func NewUpdateApmPlanAccepted() *UpdateApmPlanAccepted {
 	return &UpdateApmPlanAccepted{}
 }
 
-/*UpdateApmPlanAccepted handles this case with default header values.
+/* UpdateApmPlanAccepted describes a response with status code 202, with default header values.
 
 The APM server plan is valid and the plan update is in progress.
 */
@@ -125,7 +123,6 @@ type UpdateApmPlanAccepted struct {
 func (o *UpdateApmPlanAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/plan][%d] updateApmPlanAccepted  %+v", 202, o.Payload)
 }
-
 func (o *UpdateApmPlanAccepted) GetPayload() *models.ApmCrudResponse {
 	return o.Payload
 }
@@ -147,7 +144,7 @@ func NewUpdateApmPlanBadRequest() *UpdateApmPlanBadRequest {
 	return &UpdateApmPlanBadRequest{}
 }
 
-/*UpdateApmPlanBadRequest handles this case with default header values.
+/* UpdateApmPlanBadRequest describes a response with status code 400, with default header values.
 
 The APM server plan contains errors. (code: 'clusters.cluster_invalid_plan' and 'clusters.plan_feature_not_implemented')
 */
@@ -158,7 +155,6 @@ type UpdateApmPlanBadRequest struct {
 func (o *UpdateApmPlanBadRequest) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/plan][%d] updateApmPlanBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *UpdateApmPlanBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -180,7 +176,7 @@ func NewUpdateApmPlanNotFound() *UpdateApmPlanNotFound {
 	return &UpdateApmPlanNotFound{}
 }
 
-/*UpdateApmPlanNotFound handles this case with default header values.
+/* UpdateApmPlanNotFound describes a response with status code 404, with default header values.
 
 The {cluster_id} can't be found. (code: 'clusters.cluster_not_found')
 */
@@ -191,7 +187,6 @@ type UpdateApmPlanNotFound struct {
 func (o *UpdateApmPlanNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/plan][%d] updateApmPlanNotFound  %+v", 404, o.Payload)
 }
-
 func (o *UpdateApmPlanNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -213,7 +208,7 @@ func NewUpdateApmPlanRetryWith() *UpdateApmPlanRetryWith {
 	return &UpdateApmPlanRetryWith{}
 }
 
-/*UpdateApmPlanRetryWith handles this case with default header values.
+/* UpdateApmPlanRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: '"root.needs_elevated_permissions"')
 */
@@ -224,7 +219,6 @@ type UpdateApmPlanRetryWith struct {
 func (o *UpdateApmPlanRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/plan][%d] updateApmPlanRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *UpdateApmPlanRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

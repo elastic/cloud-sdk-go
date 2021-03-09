@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -83,6 +85,34 @@ func (m *StackVersionArchiveProcessingError) validateStackVersion(formats strfmt
 
 	if err := validate.Required("stack_version", "body", m.StackVersion); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this stack version archive processing error based on the context it is used
+func (m *StackVersionArchiveProcessingError) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateErrors(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *StackVersionArchiveProcessingError) contextValidateErrors(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Errors != nil {
+		if err := m.Errors.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("errors")
+			}
+			return err
+		}
 	}
 
 	return nil

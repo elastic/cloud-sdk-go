@@ -33,59 +33,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewUpdateStackPacksParams creates a new UpdateStackPacksParams object
-// with the default values initialized.
+// NewUpdateStackPacksParams creates a new UpdateStackPacksParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewUpdateStackPacksParams() *UpdateStackPacksParams {
-	var ()
 	return &UpdateStackPacksParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewUpdateStackPacksParamsWithTimeout creates a new UpdateStackPacksParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewUpdateStackPacksParamsWithTimeout(timeout time.Duration) *UpdateStackPacksParams {
-	var ()
 	return &UpdateStackPacksParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewUpdateStackPacksParamsWithContext creates a new UpdateStackPacksParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewUpdateStackPacksParamsWithContext(ctx context.Context) *UpdateStackPacksParams {
-	var ()
 	return &UpdateStackPacksParams{
-
 		Context: ctx,
 	}
 }
 
 // NewUpdateStackPacksParamsWithHTTPClient creates a new UpdateStackPacksParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewUpdateStackPacksParamsWithHTTPClient(client *http.Client) *UpdateStackPacksParams {
-	var ()
 	return &UpdateStackPacksParams{
 		HTTPClient: client,
 	}
 }
 
-/*UpdateStackPacksParams contains all the parameters to send to the API endpoint
-for the update stack packs operation typically these are written to a http.Request
+/* UpdateStackPacksParams contains all the parameters to send to the API endpoint
+   for the update stack packs operation.
+
+   Typically these are written to a http.Request.
 */
 type UpdateStackPacksParams struct {
 
-	/*File
-	  Zip file that contains one or multiple stack configurations
+	/* File.
 
+	   Zip file that contains one or multiple stack configurations
 	*/
 	File runtime.NamedReadCloser
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the update stack packs params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdateStackPacksParams) WithDefaults() *UpdateStackPacksParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the update stack packs params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdateStackPacksParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the update stack packs params
@@ -139,7 +153,6 @@ func (o *UpdateStackPacksParams) WriteToRequest(r runtime.ClientRequest, reg str
 		return err
 	}
 	var res []error
-
 	// form file param file
 	if err := r.SetFileParam("file", o.File); err != nil {
 		return err

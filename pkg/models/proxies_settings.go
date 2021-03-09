@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -117,6 +119,34 @@ func (m *ProxiesSettings) validateSignatureValidForMillis(formats strfmt.Registr
 
 	if err := validate.Required("signature_valid_for_millis", "body", m.SignatureValidForMillis); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this proxies settings based on the context it is used
+func (m *ProxiesSettings) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateHTTPSettings(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ProxiesSettings) contextValidateHTTPSettings(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.HTTPSettings != nil {
+		if err := m.HTTPSettings.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("http_settings")
+			}
+			return err
+		}
 	}
 
 	return nil

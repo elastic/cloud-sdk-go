@@ -42,13 +42,16 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientOption is the option for Client methods
+type ClientOption func(*runtime.ClientOperation)
+
 // ClientService is the interface for Client methods
 type ClientService interface {
-	GetCurrentAccount(params *GetCurrentAccountParams, authInfo runtime.ClientAuthInfoWriter) (*GetCurrentAccountOK, error)
+	GetCurrentAccount(params *GetCurrentAccountParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCurrentAccountOK, error)
 
-	PatchCurrentAccount(params *PatchCurrentAccountParams, authInfo runtime.ClientAuthInfoWriter) (*PatchCurrentAccountOK, error)
+	PatchCurrentAccount(params *PatchCurrentAccountParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PatchCurrentAccountOK, error)
 
-	UpdateCurrentAccount(params *UpdateCurrentAccountParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateCurrentAccountOK, error)
+	UpdateCurrentAccount(params *UpdateCurrentAccountParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateCurrentAccountOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -58,13 +61,12 @@ type ClientService interface {
 
   Fetch current account information.
 */
-func (a *Client) GetCurrentAccount(params *GetCurrentAccountParams, authInfo runtime.ClientAuthInfoWriter) (*GetCurrentAccountOK, error) {
+func (a *Client) GetCurrentAccount(params *GetCurrentAccountParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCurrentAccountOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetCurrentAccountParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-current-account",
 		Method:             "GET",
 		PathPattern:        "/account",
@@ -76,7 +78,12 @@ func (a *Client) GetCurrentAccount(params *GetCurrentAccountParams, authInfo run
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -95,13 +102,12 @@ func (a *Client) GetCurrentAccount(params *GetCurrentAccountParams, authInfo run
 
   Updates the current account.
 */
-func (a *Client) PatchCurrentAccount(params *PatchCurrentAccountParams, authInfo runtime.ClientAuthInfoWriter) (*PatchCurrentAccountOK, error) {
+func (a *Client) PatchCurrentAccount(params *PatchCurrentAccountParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PatchCurrentAccountOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPatchCurrentAccountParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "patch-current-account",
 		Method:             "PATCH",
 		PathPattern:        "/account",
@@ -113,7 +119,12 @@ func (a *Client) PatchCurrentAccount(params *PatchCurrentAccountParams, authInfo
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -132,13 +143,12 @@ func (a *Client) PatchCurrentAccount(params *PatchCurrentAccountParams, authInfo
 
   Updates the current account.
 */
-func (a *Client) UpdateCurrentAccount(params *UpdateCurrentAccountParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateCurrentAccountOK, error) {
+func (a *Client) UpdateCurrentAccount(params *UpdateCurrentAccountParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateCurrentAccountOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateCurrentAccountParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "update-current-account",
 		Method:             "PUT",
 		PathPattern:        "/account",
@@ -150,7 +160,12 @@ func (a *Client) UpdateCurrentAccount(params *UpdateCurrentAccountParams, authIn
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}

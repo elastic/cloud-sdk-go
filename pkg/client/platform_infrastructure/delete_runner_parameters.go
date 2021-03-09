@@ -33,59 +33,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewDeleteRunnerParams creates a new DeleteRunnerParams object
-// with the default values initialized.
+// NewDeleteRunnerParams creates a new DeleteRunnerParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewDeleteRunnerParams() *DeleteRunnerParams {
-	var ()
 	return &DeleteRunnerParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteRunnerParamsWithTimeout creates a new DeleteRunnerParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewDeleteRunnerParamsWithTimeout(timeout time.Duration) *DeleteRunnerParams {
-	var ()
 	return &DeleteRunnerParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewDeleteRunnerParamsWithContext creates a new DeleteRunnerParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewDeleteRunnerParamsWithContext(ctx context.Context) *DeleteRunnerParams {
-	var ()
 	return &DeleteRunnerParams{
-
 		Context: ctx,
 	}
 }
 
 // NewDeleteRunnerParamsWithHTTPClient creates a new DeleteRunnerParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewDeleteRunnerParamsWithHTTPClient(client *http.Client) *DeleteRunnerParams {
-	var ()
 	return &DeleteRunnerParams{
 		HTTPClient: client,
 	}
 }
 
-/*DeleteRunnerParams contains all the parameters to send to the API endpoint
-for the delete runner operation typically these are written to a http.Request
+/* DeleteRunnerParams contains all the parameters to send to the API endpoint
+   for the delete runner operation.
+
+   Typically these are written to a http.Request.
 */
 type DeleteRunnerParams struct {
 
-	/*RunnerID
-	  The identifier for the runner
+	/* RunnerID.
 
+	   The identifier for the runner
 	*/
 	RunnerID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the delete runner params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteRunnerParams) WithDefaults() *DeleteRunnerParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the delete runner params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteRunnerParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete runner params

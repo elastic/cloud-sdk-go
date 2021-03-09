@@ -36,112 +36,120 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewMoveApmInstancesParams creates a new MoveApmInstancesParams object
-// with the default values initialized.
+// NewMoveApmInstancesParams creates a new MoveApmInstancesParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewMoveApmInstancesParams() *MoveApmInstancesParams {
-	var (
-		forceUpdateDefault   = bool(false)
-		ignoreMissingDefault = bool(false)
-		validateOnlyDefault  = bool(false)
-	)
 	return &MoveApmInstancesParams{
-		ForceUpdate:   &forceUpdateDefault,
-		IgnoreMissing: &ignoreMissingDefault,
-		ValidateOnly:  &validateOnlyDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewMoveApmInstancesParamsWithTimeout creates a new MoveApmInstancesParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewMoveApmInstancesParamsWithTimeout(timeout time.Duration) *MoveApmInstancesParams {
-	var (
-		forceUpdateDefault   = bool(false)
-		ignoreMissingDefault = bool(false)
-		validateOnlyDefault  = bool(false)
-	)
 	return &MoveApmInstancesParams{
-		ForceUpdate:   &forceUpdateDefault,
-		IgnoreMissing: &ignoreMissingDefault,
-		ValidateOnly:  &validateOnlyDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewMoveApmInstancesParamsWithContext creates a new MoveApmInstancesParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewMoveApmInstancesParamsWithContext(ctx context.Context) *MoveApmInstancesParams {
-	var (
-		forceUpdateDefault   = bool(false)
-		ignoreMissingDefault = bool(false)
-		validateOnlyDefault  = bool(false)
-	)
 	return &MoveApmInstancesParams{
-		ForceUpdate:   &forceUpdateDefault,
-		IgnoreMissing: &ignoreMissingDefault,
-		ValidateOnly:  &validateOnlyDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewMoveApmInstancesParamsWithHTTPClient creates a new MoveApmInstancesParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewMoveApmInstancesParamsWithHTTPClient(client *http.Client) *MoveApmInstancesParams {
-	var (
-		forceUpdateDefault   = bool(false)
-		ignoreMissingDefault = bool(false)
-		validateOnlyDefault  = bool(false)
-	)
 	return &MoveApmInstancesParams{
-		ForceUpdate:   &forceUpdateDefault,
-		IgnoreMissing: &ignoreMissingDefault,
-		ValidateOnly:  &validateOnlyDefault,
-		HTTPClient:    client,
+		HTTPClient: client,
 	}
 }
 
-/*MoveApmInstancesParams contains all the parameters to send to the API endpoint
-for the move apm instances operation typically these are written to a http.Request
+/* MoveApmInstancesParams contains all the parameters to send to the API endpoint
+   for the move apm instances operation.
+
+   Typically these are written to a http.Request.
 */
 type MoveApmInstancesParams struct {
 
-	/*Body
-	  Overrides defaults for the move, including setting the configuration of instances specified in the path
+	/* Body.
 
+	   Overrides defaults for the move, including setting the configuration of instances specified in the path
 	*/
 	Body *models.TransientApmPlanConfiguration
-	/*ClusterID
-	  The APM deployment identifier.
 
+	/* ClusterID.
+
+	   The APM deployment identifier.
 	*/
 	ClusterID string
-	/*ForceUpdate
-	  When `true`, cancels and overwrites the pending plans, or treats the instance as an error.
 
+	/* ForceUpdate.
+
+	   When `true`, cancels and overwrites the pending plans, or treats the instance as an error.
 	*/
 	ForceUpdate *bool
-	/*IgnoreMissing
-	  When `true` and the instance does not exist, proceeds to the next instance, or treats the instance as an error.
 
+	/* IgnoreMissing.
+
+	   When `true` and the instance does not exist, proceeds to the next instance, or treats the instance as an error.
 	*/
 	IgnoreMissing *bool
-	/*InstanceIds
-	  A comma-separated list of instance identifiers.
 
+	/* InstanceIds.
+
+	   A comma-separated list of instance identifiers.
 	*/
 	InstanceIds []string
-	/*ValidateOnly
-	  When `true`, validates the move request, then returns the calculated plan without applying the plan.
 
+	/* ValidateOnly.
+
+	   When `true`, validates the move request, then returns the calculated plan without applying the plan.
 	*/
 	ValidateOnly *bool
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the move apm instances params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *MoveApmInstancesParams) WithDefaults() *MoveApmInstancesParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the move apm instances params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *MoveApmInstancesParams) SetDefaults() {
+	var (
+		forceUpdateDefault = bool(false)
+
+		ignoreMissingDefault = bool(false)
+
+		validateOnlyDefault = bool(false)
+	)
+
+	val := MoveApmInstancesParams{
+		ForceUpdate:   &forceUpdateDefault,
+		IgnoreMissing: &ignoreMissingDefault,
+		ValidateOnly:  &validateOnlyDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the move apm instances params
@@ -250,7 +258,6 @@ func (o *MoveApmInstancesParams) WriteToRequest(r runtime.ClientRequest, reg str
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err
@@ -266,44 +273,49 @@ func (o *MoveApmInstancesParams) WriteToRequest(r runtime.ClientRequest, reg str
 
 		// query param force_update
 		var qrForceUpdate bool
+
 		if o.ForceUpdate != nil {
 			qrForceUpdate = *o.ForceUpdate
 		}
 		qForceUpdate := swag.FormatBool(qrForceUpdate)
 		if qForceUpdate != "" {
+
 			if err := r.SetQueryParam("force_update", qForceUpdate); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.IgnoreMissing != nil {
 
 		// query param ignore_missing
 		var qrIgnoreMissing bool
+
 		if o.IgnoreMissing != nil {
 			qrIgnoreMissing = *o.IgnoreMissing
 		}
 		qIgnoreMissing := swag.FormatBool(qrIgnoreMissing)
 		if qIgnoreMissing != "" {
+
 			if err := r.SetQueryParam("ignore_missing", qIgnoreMissing); err != nil {
 				return err
 			}
 		}
-
 	}
 
-	valuesInstanceIds := o.InstanceIds
+	if o.InstanceIds != nil {
 
-	joinedInstanceIds := swag.JoinByFormat(valuesInstanceIds, "csv")
-	// path array param instance_ids
-	// SetPathParam does not support variadric arguments, since we used JoinByFormat
-	// we can send the first item in the array as it's all the items of the previous
-	// array joined together
-	if len(joinedInstanceIds) > 0 {
-		if err := r.SetPathParam("instance_ids", joinedInstanceIds[0]); err != nil {
-			return err
+		// binding items for instance_ids
+		joinedInstanceIds := o.bindParamInstanceIds(reg)
+
+		// path array param instance_ids
+		// SetPathParam does not support variadic arguments, since we used JoinByFormat
+		// we can send the first item in the array as it's all the items of the previous
+		// array joined together
+		if len(joinedInstanceIds) > 0 {
+			if err := r.SetPathParam("instance_ids", joinedInstanceIds[0]); err != nil {
+				return err
+			}
 		}
 	}
 
@@ -311,20 +323,38 @@ func (o *MoveApmInstancesParams) WriteToRequest(r runtime.ClientRequest, reg str
 
 		// query param validate_only
 		var qrValidateOnly bool
+
 		if o.ValidateOnly != nil {
 			qrValidateOnly = *o.ValidateOnly
 		}
 		qValidateOnly := swag.FormatBool(qrValidateOnly)
 		if qValidateOnly != "" {
+
 			if err := r.SetQueryParam("validate_only", qValidateOnly); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
 	return nil
+}
+
+// bindParamMoveApmInstances binds the parameter instance_ids
+func (o *MoveApmInstancesParams) bindParamInstanceIds(formats strfmt.Registry) []string {
+	instanceIdsIR := o.InstanceIds
+
+	var instanceIdsIC []string
+	for _, instanceIdsIIR := range instanceIdsIR { // explode []string
+
+		instanceIdsIIV := instanceIdsIIR // string as string
+		instanceIdsIC = append(instanceIdsIC, instanceIdsIIV)
+	}
+
+	// items.CollectionFormat: "csv"
+	instanceIdsIS := swag.JoinByFormat(instanceIdsIC, "csv")
+
+	return instanceIdsIS
 }

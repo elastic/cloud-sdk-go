@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -61,7 +62,6 @@ func (m *ElasticsearchClusterTrustSettings) Validate(formats strfmt.Registry) er
 }
 
 func (m *ElasticsearchClusterTrustSettings) validateAccounts(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Accounts) { // not required
 		return nil
 	}
@@ -86,7 +86,6 @@ func (m *ElasticsearchClusterTrustSettings) validateAccounts(formats strfmt.Regi
 }
 
 func (m *ElasticsearchClusterTrustSettings) validateExternal(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.External) { // not required
 		return nil
 	}
@@ -98,6 +97,60 @@ func (m *ElasticsearchClusterTrustSettings) validateExternal(formats strfmt.Regi
 
 		if m.External[i] != nil {
 			if err := m.External[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("external" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this elasticsearch cluster trust settings based on the context it is used
+func (m *ElasticsearchClusterTrustSettings) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAccounts(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateExternal(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ElasticsearchClusterTrustSettings) contextValidateAccounts(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Accounts); i++ {
+
+		if m.Accounts[i] != nil {
+			if err := m.Accounts[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("accounts" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *ElasticsearchClusterTrustSettings) contextValidateExternal(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.External); i++ {
+
+		if m.External[i] != nil {
+			if err := m.External[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("external" + "." + strconv.Itoa(i))
 				}

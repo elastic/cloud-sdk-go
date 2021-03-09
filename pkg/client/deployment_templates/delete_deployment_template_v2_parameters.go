@@ -33,64 +33,79 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewDeleteDeploymentTemplateV2Params creates a new DeleteDeploymentTemplateV2Params object
-// with the default values initialized.
+// NewDeleteDeploymentTemplateV2Params creates a new DeleteDeploymentTemplateV2Params object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewDeleteDeploymentTemplateV2Params() *DeleteDeploymentTemplateV2Params {
-	var ()
 	return &DeleteDeploymentTemplateV2Params{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteDeploymentTemplateV2ParamsWithTimeout creates a new DeleteDeploymentTemplateV2Params object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewDeleteDeploymentTemplateV2ParamsWithTimeout(timeout time.Duration) *DeleteDeploymentTemplateV2Params {
-	var ()
 	return &DeleteDeploymentTemplateV2Params{
-
 		timeout: timeout,
 	}
 }
 
 // NewDeleteDeploymentTemplateV2ParamsWithContext creates a new DeleteDeploymentTemplateV2Params object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewDeleteDeploymentTemplateV2ParamsWithContext(ctx context.Context) *DeleteDeploymentTemplateV2Params {
-	var ()
 	return &DeleteDeploymentTemplateV2Params{
-
 		Context: ctx,
 	}
 }
 
 // NewDeleteDeploymentTemplateV2ParamsWithHTTPClient creates a new DeleteDeploymentTemplateV2Params object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewDeleteDeploymentTemplateV2ParamsWithHTTPClient(client *http.Client) *DeleteDeploymentTemplateV2Params {
-	var ()
 	return &DeleteDeploymentTemplateV2Params{
 		HTTPClient: client,
 	}
 }
 
-/*DeleteDeploymentTemplateV2Params contains all the parameters to send to the API endpoint
-for the delete deployment template v2 operation typically these are written to a http.Request
+/* DeleteDeploymentTemplateV2Params contains all the parameters to send to the API endpoint
+   for the delete deployment template v2 operation.
+
+   Typically these are written to a http.Request.
 */
 type DeleteDeploymentTemplateV2Params struct {
 
-	/*Region
-	  Region of the deployment template
+	/* Region.
 
+	   Region of the deployment template
 	*/
 	Region string
-	/*TemplateID
-	  The identifier for the deployment template.
 
+	/* TemplateID.
+
+	   The identifier for the deployment template.
 	*/
 	TemplateID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the delete deployment template v2 params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteDeploymentTemplateV2Params) WithDefaults() *DeleteDeploymentTemplateV2Params {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the delete deployment template v2 params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteDeploymentTemplateV2Params) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete deployment template v2 params
@@ -160,6 +175,7 @@ func (o *DeleteDeploymentTemplateV2Params) WriteToRequest(r runtime.ClientReques
 	qrRegion := o.Region
 	qRegion := qrRegion
 	if qRegion != "" {
+
 		if err := r.SetQueryParam("region", qRegion); err != nil {
 			return err
 		}

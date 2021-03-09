@@ -33,64 +33,79 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewListCommentParams creates a new ListCommentParams object
-// with the default values initialized.
+// NewListCommentParams creates a new ListCommentParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewListCommentParams() *ListCommentParams {
-	var ()
 	return &ListCommentParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewListCommentParamsWithTimeout creates a new ListCommentParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewListCommentParamsWithTimeout(timeout time.Duration) *ListCommentParams {
-	var ()
 	return &ListCommentParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewListCommentParamsWithContext creates a new ListCommentParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewListCommentParamsWithContext(ctx context.Context) *ListCommentParams {
-	var ()
 	return &ListCommentParams{
-
 		Context: ctx,
 	}
 }
 
 // NewListCommentParamsWithHTTPClient creates a new ListCommentParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewListCommentParamsWithHTTPClient(client *http.Client) *ListCommentParams {
-	var ()
 	return &ListCommentParams{
 		HTTPClient: client,
 	}
 }
 
-/*ListCommentParams contains all the parameters to send to the API endpoint
-for the list comment operation typically these are written to a http.Request
+/* ListCommentParams contains all the parameters to send to the API endpoint
+   for the list comment operation.
+
+   Typically these are written to a http.Request.
 */
 type ListCommentParams struct {
 
-	/*ResourceID
-	  Id of the Resource that a Comment belongs to.
+	/* ResourceID.
 
+	   Id of the Resource that a Comment belongs to.
 	*/
 	ResourceID string
-	/*ResourceType
-	  The kind of Resource that a Comment belongs to. Should be one of [elasticsearch, kibana, apm, appsearch, enterprise_search, allocator, constructor, runner, proxy].
 
+	/* ResourceType.
+
+	   The kind of Resource that a Comment belongs to. Should be one of [elasticsearch, kibana, apm, appsearch, enterprise_search, allocator, constructor, runner, proxy].
 	*/
 	ResourceType string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the list comment params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ListCommentParams) WithDefaults() *ListCommentParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the list comment params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ListCommentParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the list comment params

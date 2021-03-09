@@ -58,7 +58,6 @@ func (o *CreateSamlConfigurationReader) ReadResponse(response runtime.ClientResp
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,18 +68,21 @@ func NewCreateSamlConfigurationCreated() *CreateSamlConfigurationCreated {
 	return &CreateSamlConfigurationCreated{}
 }
 
-/*CreateSamlConfigurationCreated handles this case with default header values.
+/* CreateSamlConfigurationCreated describes a response with status code 201, with default header values.
 
 The SAML configuration was successfully created
 */
 type CreateSamlConfigurationCreated struct {
-	/*The date-time when the resource was created (ISO format relative to UTC)
+
+	/* The date-time when the resource was created (ISO format relative to UTC)
 	 */
 	XCloudResourceCreated string
-	/*The date-time when the resource was last modified (ISO format relative to UTC)
+
+	/* The date-time when the resource was last modified (ISO format relative to UTC)
 	 */
 	XCloudResourceLastModified string
-	/*The resource version, which is used to avoid update conflicts with concurrent operations
+
+	/* The resource version, which is used to avoid update conflicts with concurrent operations
 	 */
 	XCloudResourceVersion string
 
@@ -90,21 +92,32 @@ type CreateSamlConfigurationCreated struct {
 func (o *CreateSamlConfigurationCreated) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/realms/saml][%d] createSamlConfigurationCreated  %+v", 201, o.Payload)
 }
-
 func (o *CreateSamlConfigurationCreated) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
 
 func (o *CreateSamlConfigurationCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-resource-created
-	o.XCloudResourceCreated = response.GetHeader("x-cloud-resource-created")
+	// hydrates response header x-cloud-resource-created
+	hdrXCloudResourceCreated := response.GetHeader("x-cloud-resource-created")
 
-	// response header x-cloud-resource-last-modified
-	o.XCloudResourceLastModified = response.GetHeader("x-cloud-resource-last-modified")
+	if hdrXCloudResourceCreated != "" {
+		o.XCloudResourceCreated = hdrXCloudResourceCreated
+	}
 
-	// response header x-cloud-resource-version
-	o.XCloudResourceVersion = response.GetHeader("x-cloud-resource-version")
+	// hydrates response header x-cloud-resource-last-modified
+	hdrXCloudResourceLastModified := response.GetHeader("x-cloud-resource-last-modified")
+
+	if hdrXCloudResourceLastModified != "" {
+		o.XCloudResourceLastModified = hdrXCloudResourceLastModified
+	}
+
+	// hydrates response header x-cloud-resource-version
+	hdrXCloudResourceVersion := response.GetHeader("x-cloud-resource-version")
+
+	if hdrXCloudResourceVersion != "" {
+		o.XCloudResourceVersion = hdrXCloudResourceVersion
+	}
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
@@ -119,9 +132,9 @@ func NewCreateSamlConfigurationBadRequest() *CreateSamlConfigurationBadRequest {
 	return &CreateSamlConfigurationBadRequest{}
 }
 
-/*CreateSamlConfigurationBadRequest handles this case with default header values.
+/* CreateSamlConfigurationBadRequest describes a response with status code 400, with default header values.
 
-* The realm id is already in use. (code: `security_realm.id_conflict`)
+ * The realm id is already in use. (code: `security_realm.id_conflict`)
 * The selected id is not valid. (code: `security_realm.invalid_id`)
 * Order must be greater than zero. (code: `security_realm.invalid_order`)
 * Invalid Elasticsearch Security realm type. (code: `security_realm.invalid_type`)
@@ -129,9 +142,10 @@ func NewCreateSamlConfigurationBadRequest() *CreateSamlConfigurationBadRequest {
 * Advanced YAML format is invalid. (code: `security_realm.invalid_yaml`)
 * The SAML IDP metadata endpoint returned an error response code 200 OK. (code: `security_realm.saml.invalid_idp_metadata_url`)
 * Invalid certificate bundle URL. (code: `security_realm.invalid_bundle_url`)
- */
+*/
 type CreateSamlConfigurationBadRequest struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -141,15 +155,18 @@ type CreateSamlConfigurationBadRequest struct {
 func (o *CreateSamlConfigurationBadRequest) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/realms/saml][%d] createSamlConfigurationBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *CreateSamlConfigurationBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *CreateSamlConfigurationBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -166,12 +183,13 @@ func NewCreateSamlConfigurationRetryWith() *CreateSamlConfigurationRetryWith {
 	return &CreateSamlConfigurationRetryWith{}
 }
 
-/*CreateSamlConfigurationRetryWith handles this case with default header values.
+/* CreateSamlConfigurationRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type CreateSamlConfigurationRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -181,15 +199,18 @@ type CreateSamlConfigurationRetryWith struct {
 func (o *CreateSamlConfigurationRetryWith) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/realms/saml][%d] createSamlConfigurationRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *CreateSamlConfigurationRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *CreateSamlConfigurationRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

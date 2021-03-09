@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -70,7 +72,6 @@ func (m *TargetElasticsearchCluster) validateElasticsearchID(formats strfmt.Regi
 }
 
 func (m *TargetElasticsearchCluster) validateLinks(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Links) { // not required
 		return nil
 	}
@@ -82,6 +83,35 @@ func (m *TargetElasticsearchCluster) validateLinks(formats strfmt.Registry) erro
 		}
 		if val, ok := m.Links[k]; ok {
 			if err := val.Validate(formats); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this target elasticsearch cluster based on the context it is used
+func (m *TargetElasticsearchCluster) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateLinks(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *TargetElasticsearchCluster) contextValidateLinks(ctx context.Context, formats strfmt.Registry) error {
+
+	for k := range m.Links {
+
+		if val, ok := m.Links[k]; ok {
+			if err := val.ContextValidate(ctx, formats); err != nil {
 				return err
 			}
 		}

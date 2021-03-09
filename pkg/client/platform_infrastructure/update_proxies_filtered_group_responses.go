@@ -64,7 +64,6 @@ func (o *UpdateProxiesFilteredGroupReader) ReadResponse(response runtime.ClientR
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,18 +74,21 @@ func NewUpdateProxiesFilteredGroupOK() *UpdateProxiesFilteredGroupOK {
 	return &UpdateProxiesFilteredGroupOK{}
 }
 
-/*UpdateProxiesFilteredGroupOK handles this case with default header values.
+/* UpdateProxiesFilteredGroupOK describes a response with status code 200, with default header values.
 
 Returns the created or updated filtered group of proxies
 */
 type UpdateProxiesFilteredGroupOK struct {
-	/*The date-time when the resource was created (ISO format relative to UTC)
+
+	/* The date-time when the resource was created (ISO format relative to UTC)
 	 */
 	XCloudResourceCreated string
-	/*The date-time when the resource was last modified (ISO format relative to UTC)
+
+	/* The date-time when the resource was last modified (ISO format relative to UTC)
 	 */
 	XCloudResourceLastModified string
-	/*The resource version, which is used to avoid update conflicts with concurrent operations
+
+	/* The resource version, which is used to avoid update conflicts with concurrent operations
 	 */
 	XCloudResourceVersion string
 
@@ -96,21 +98,32 @@ type UpdateProxiesFilteredGroupOK struct {
 func (o *UpdateProxiesFilteredGroupOK) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}][%d] updateProxiesFilteredGroupOK  %+v", 200, o.Payload)
 }
-
 func (o *UpdateProxiesFilteredGroupOK) GetPayload() *models.ProxiesFilteredGroup {
 	return o.Payload
 }
 
 func (o *UpdateProxiesFilteredGroupOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-resource-created
-	o.XCloudResourceCreated = response.GetHeader("x-cloud-resource-created")
+	// hydrates response header x-cloud-resource-created
+	hdrXCloudResourceCreated := response.GetHeader("x-cloud-resource-created")
 
-	// response header x-cloud-resource-last-modified
-	o.XCloudResourceLastModified = response.GetHeader("x-cloud-resource-last-modified")
+	if hdrXCloudResourceCreated != "" {
+		o.XCloudResourceCreated = hdrXCloudResourceCreated
+	}
 
-	// response header x-cloud-resource-version
-	o.XCloudResourceVersion = response.GetHeader("x-cloud-resource-version")
+	// hydrates response header x-cloud-resource-last-modified
+	hdrXCloudResourceLastModified := response.GetHeader("x-cloud-resource-last-modified")
+
+	if hdrXCloudResourceLastModified != "" {
+		o.XCloudResourceLastModified = hdrXCloudResourceLastModified
+	}
+
+	// hydrates response header x-cloud-resource-version
+	hdrXCloudResourceVersion := response.GetHeader("x-cloud-resource-version")
+
+	if hdrXCloudResourceVersion != "" {
+		o.XCloudResourceVersion = hdrXCloudResourceVersion
+	}
 
 	o.Payload = new(models.ProxiesFilteredGroup)
 
@@ -127,12 +140,13 @@ func NewUpdateProxiesFilteredGroupBadRequest() *UpdateProxiesFilteredGroupBadReq
 	return &UpdateProxiesFilteredGroupBadRequest{}
 }
 
-/*UpdateProxiesFilteredGroupBadRequest handles this case with default header values.
+/* UpdateProxiesFilteredGroupBadRequest describes a response with status code 400, with default header values.
 
 The provided identifier doesn't match the identifier in the object. (code: `proxies.proxies_filtered_group_id_conflict`)
 */
 type UpdateProxiesFilteredGroupBadRequest struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -142,15 +156,18 @@ type UpdateProxiesFilteredGroupBadRequest struct {
 func (o *UpdateProxiesFilteredGroupBadRequest) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}][%d] updateProxiesFilteredGroupBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *UpdateProxiesFilteredGroupBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *UpdateProxiesFilteredGroupBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -167,12 +184,13 @@ func NewUpdateProxiesFilteredGroupConflict() *UpdateProxiesFilteredGroupConflict
 	return &UpdateProxiesFilteredGroupConflict{}
 }
 
-/*UpdateProxiesFilteredGroupConflict handles this case with default header values.
+/* UpdateProxiesFilteredGroupConflict describes a response with status code 409, with default header values.
 
 There is a version conflict. (code: `proxies.proxies_filtered_group_version_conflict`)
 */
 type UpdateProxiesFilteredGroupConflict struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -182,15 +200,18 @@ type UpdateProxiesFilteredGroupConflict struct {
 func (o *UpdateProxiesFilteredGroupConflict) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}][%d] updateProxiesFilteredGroupConflict  %+v", 409, o.Payload)
 }
-
 func (o *UpdateProxiesFilteredGroupConflict) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *UpdateProxiesFilteredGroupConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -207,12 +228,13 @@ func NewUpdateProxiesFilteredGroupRetryWith() *UpdateProxiesFilteredGroupRetryWi
 	return &UpdateProxiesFilteredGroupRetryWith{}
 }
 
-/*UpdateProxiesFilteredGroupRetryWith handles this case with default header values.
+/* UpdateProxiesFilteredGroupRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type UpdateProxiesFilteredGroupRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -222,15 +244,18 @@ type UpdateProxiesFilteredGroupRetryWith struct {
 func (o *UpdateProxiesFilteredGroupRetryWith) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}][%d] updateProxiesFilteredGroupRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *UpdateProxiesFilteredGroupRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *UpdateProxiesFilteredGroupRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

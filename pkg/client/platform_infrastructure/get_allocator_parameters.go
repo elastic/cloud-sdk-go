@@ -33,59 +33,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetAllocatorParams creates a new GetAllocatorParams object
-// with the default values initialized.
+// NewGetAllocatorParams creates a new GetAllocatorParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetAllocatorParams() *GetAllocatorParams {
-	var ()
 	return &GetAllocatorParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetAllocatorParamsWithTimeout creates a new GetAllocatorParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetAllocatorParamsWithTimeout(timeout time.Duration) *GetAllocatorParams {
-	var ()
 	return &GetAllocatorParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetAllocatorParamsWithContext creates a new GetAllocatorParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetAllocatorParamsWithContext(ctx context.Context) *GetAllocatorParams {
-	var ()
 	return &GetAllocatorParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetAllocatorParamsWithHTTPClient creates a new GetAllocatorParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetAllocatorParamsWithHTTPClient(client *http.Client) *GetAllocatorParams {
-	var ()
 	return &GetAllocatorParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetAllocatorParams contains all the parameters to send to the API endpoint
-for the get allocator operation typically these are written to a http.Request
+/* GetAllocatorParams contains all the parameters to send to the API endpoint
+   for the get allocator operation.
+
+   Typically these are written to a http.Request.
 */
 type GetAllocatorParams struct {
 
-	/*AllocatorID
-	  The allocator identifier.
+	/* AllocatorID.
 
+	   The allocator identifier.
 	*/
 	AllocatorID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get allocator params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetAllocatorParams) WithDefaults() *GetAllocatorParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get allocator params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetAllocatorParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get allocator params

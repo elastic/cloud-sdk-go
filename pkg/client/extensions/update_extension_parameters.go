@@ -35,64 +35,79 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewUpdateExtensionParams creates a new UpdateExtensionParams object
-// with the default values initialized.
+// NewUpdateExtensionParams creates a new UpdateExtensionParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewUpdateExtensionParams() *UpdateExtensionParams {
-	var ()
 	return &UpdateExtensionParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewUpdateExtensionParamsWithTimeout creates a new UpdateExtensionParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewUpdateExtensionParamsWithTimeout(timeout time.Duration) *UpdateExtensionParams {
-	var ()
 	return &UpdateExtensionParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewUpdateExtensionParamsWithContext creates a new UpdateExtensionParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewUpdateExtensionParamsWithContext(ctx context.Context) *UpdateExtensionParams {
-	var ()
 	return &UpdateExtensionParams{
-
 		Context: ctx,
 	}
 }
 
 // NewUpdateExtensionParamsWithHTTPClient creates a new UpdateExtensionParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewUpdateExtensionParamsWithHTTPClient(client *http.Client) *UpdateExtensionParams {
-	var ()
 	return &UpdateExtensionParams{
 		HTTPClient: client,
 	}
 }
 
-/*UpdateExtensionParams contains all the parameters to send to the API endpoint
-for the update extension operation typically these are written to a http.Request
+/* UpdateExtensionParams contains all the parameters to send to the API endpoint
+   for the update extension operation.
+
+   Typically these are written to a http.Request.
 */
 type UpdateExtensionParams struct {
 
-	/*Body
-	  The extension update data.
+	/* Body.
 
+	   The extension update data.
 	*/
 	Body *models.UpdateExtensionRequest
-	/*ExtensionID
-	  Id of an extension
 
+	/* ExtensionID.
+
+	   Id of an extension
 	*/
 	ExtensionID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the update extension params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdateExtensionParams) WithDefaults() *UpdateExtensionParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the update extension params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdateExtensionParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the update extension params
@@ -157,7 +172,6 @@ func (o *UpdateExtensionParams) WriteToRequest(r runtime.ClientRequest, reg strf
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

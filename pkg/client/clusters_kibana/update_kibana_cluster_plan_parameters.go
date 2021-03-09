@@ -36,81 +36,96 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewUpdateKibanaClusterPlanParams creates a new UpdateKibanaClusterPlanParams object
-// with the default values initialized.
+// NewUpdateKibanaClusterPlanParams creates a new UpdateKibanaClusterPlanParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewUpdateKibanaClusterPlanParams() *UpdateKibanaClusterPlanParams {
-	var (
-		validateOnlyDefault = bool(false)
-	)
 	return &UpdateKibanaClusterPlanParams{
-		ValidateOnly: &validateOnlyDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewUpdateKibanaClusterPlanParamsWithTimeout creates a new UpdateKibanaClusterPlanParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewUpdateKibanaClusterPlanParamsWithTimeout(timeout time.Duration) *UpdateKibanaClusterPlanParams {
-	var (
-		validateOnlyDefault = bool(false)
-	)
 	return &UpdateKibanaClusterPlanParams{
-		ValidateOnly: &validateOnlyDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewUpdateKibanaClusterPlanParamsWithContext creates a new UpdateKibanaClusterPlanParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewUpdateKibanaClusterPlanParamsWithContext(ctx context.Context) *UpdateKibanaClusterPlanParams {
-	var (
-		validateOnlyDefault = bool(false)
-	)
 	return &UpdateKibanaClusterPlanParams{
-		ValidateOnly: &validateOnlyDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewUpdateKibanaClusterPlanParamsWithHTTPClient creates a new UpdateKibanaClusterPlanParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewUpdateKibanaClusterPlanParamsWithHTTPClient(client *http.Client) *UpdateKibanaClusterPlanParams {
-	var (
-		validateOnlyDefault = bool(false)
-	)
 	return &UpdateKibanaClusterPlanParams{
-		ValidateOnly: &validateOnlyDefault,
-		HTTPClient:   client,
+		HTTPClient: client,
 	}
 }
 
-/*UpdateKibanaClusterPlanParams contains all the parameters to send to the API endpoint
-for the update kibana cluster plan operation typically these are written to a http.Request
+/* UpdateKibanaClusterPlanParams contains all the parameters to send to the API endpoint
+   for the update kibana cluster plan operation.
+
+   Typically these are written to a http.Request.
 */
 type UpdateKibanaClusterPlanParams struct {
 
-	/*Body
-	  The update plan definition
+	/* Body.
 
+	   The update plan definition
 	*/
 	Body *models.KibanaClusterPlan
-	/*ClusterID
-	  The Kibana deployment identifier.
 
+	/* ClusterID.
+
+	   The Kibana deployment identifier.
 	*/
 	ClusterID string
-	/*ValidateOnly
-	  When `true`, validates the cluster definition without performing the update.
 
+	/* ValidateOnly.
+
+	   When `true`, validates the cluster definition without performing the update.
 	*/
 	ValidateOnly *bool
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the update kibana cluster plan params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdateKibanaClusterPlanParams) WithDefaults() *UpdateKibanaClusterPlanParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the update kibana cluster plan params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdateKibanaClusterPlanParams) SetDefaults() {
+	var (
+		validateOnlyDefault = bool(false)
+	)
+
+	val := UpdateKibanaClusterPlanParams{
+		ValidateOnly: &validateOnlyDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the update kibana cluster plan params
@@ -186,7 +201,6 @@ func (o *UpdateKibanaClusterPlanParams) WriteToRequest(r runtime.ClientRequest, 
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err
@@ -202,16 +216,17 @@ func (o *UpdateKibanaClusterPlanParams) WriteToRequest(r runtime.ClientRequest, 
 
 		// query param validate_only
 		var qrValidateOnly bool
+
 		if o.ValidateOnly != nil {
 			qrValidateOnly = *o.ValidateOnly
 		}
 		qValidateOnly := swag.FormatBool(qrValidateOnly)
 		if qValidateOnly != "" {
+
 			if err := r.SetQueryParam("validate_only", qValidateOnly); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

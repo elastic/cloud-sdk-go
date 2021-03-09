@@ -58,7 +58,6 @@ func (o *DeleteVersionStackReader) ReadResponse(response runtime.ClientResponse,
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,7 +68,7 @@ func NewDeleteVersionStackOK() *DeleteVersionStackOK {
 	return &DeleteVersionStackOK{}
 }
 
-/*DeleteVersionStackOK handles this case with default header values.
+/* DeleteVersionStackOK describes a response with status code 200, with default header values.
 
 The `deleted` flag is applied to the specified Elastic Stack version.
 */
@@ -80,7 +79,6 @@ type DeleteVersionStackOK struct {
 func (o *DeleteVersionStackOK) Error() string {
 	return fmt.Sprintf("[DELETE /stack/versions/{version}][%d] deleteVersionStackOK  %+v", 200, o.Payload)
 }
-
 func (o *DeleteVersionStackOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -100,12 +98,13 @@ func NewDeleteVersionStackNotFound() *DeleteVersionStackNotFound {
 	return &DeleteVersionStackNotFound{}
 }
 
-/*DeleteVersionStackNotFound handles this case with default header values.
+/* DeleteVersionStackNotFound describes a response with status code 404, with default header values.
 
 The Elastic Stack version can't be found. (code: `stackpack.version_not_found`)
 */
 type DeleteVersionStackNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -115,15 +114,18 @@ type DeleteVersionStackNotFound struct {
 func (o *DeleteVersionStackNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /stack/versions/{version}][%d] deleteVersionStackNotFound  %+v", 404, o.Payload)
 }
-
 func (o *DeleteVersionStackNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *DeleteVersionStackNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -140,12 +142,13 @@ func NewDeleteVersionStackRetryWith() *DeleteVersionStackRetryWith {
 	return &DeleteVersionStackRetryWith{}
 }
 
-/*DeleteVersionStackRetryWith handles this case with default header values.
+/* DeleteVersionStackRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type DeleteVersionStackRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -155,15 +158,18 @@ type DeleteVersionStackRetryWith struct {
 func (o *DeleteVersionStackRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /stack/versions/{version}][%d] deleteVersionStackRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *DeleteVersionStackRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *DeleteVersionStackRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

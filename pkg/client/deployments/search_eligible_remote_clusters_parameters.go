@@ -35,64 +35,79 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewSearchEligibleRemoteClustersParams creates a new SearchEligibleRemoteClustersParams object
-// with the default values initialized.
+// NewSearchEligibleRemoteClustersParams creates a new SearchEligibleRemoteClustersParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewSearchEligibleRemoteClustersParams() *SearchEligibleRemoteClustersParams {
-	var ()
 	return &SearchEligibleRemoteClustersParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewSearchEligibleRemoteClustersParamsWithTimeout creates a new SearchEligibleRemoteClustersParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewSearchEligibleRemoteClustersParamsWithTimeout(timeout time.Duration) *SearchEligibleRemoteClustersParams {
-	var ()
 	return &SearchEligibleRemoteClustersParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewSearchEligibleRemoteClustersParamsWithContext creates a new SearchEligibleRemoteClustersParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewSearchEligibleRemoteClustersParamsWithContext(ctx context.Context) *SearchEligibleRemoteClustersParams {
-	var ()
 	return &SearchEligibleRemoteClustersParams{
-
 		Context: ctx,
 	}
 }
 
 // NewSearchEligibleRemoteClustersParamsWithHTTPClient creates a new SearchEligibleRemoteClustersParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewSearchEligibleRemoteClustersParamsWithHTTPClient(client *http.Client) *SearchEligibleRemoteClustersParams {
-	var ()
 	return &SearchEligibleRemoteClustersParams{
 		HTTPClient: client,
 	}
 }
 
-/*SearchEligibleRemoteClustersParams contains all the parameters to send to the API endpoint
-for the search eligible remote clusters operation typically these are written to a http.Request
+/* SearchEligibleRemoteClustersParams contains all the parameters to send to the API endpoint
+   for the search eligible remote clusters operation.
+
+   Typically these are written to a http.Request.
 */
 type SearchEligibleRemoteClustersParams struct {
 
-	/*Body
-	  (Optional) The search query to run against all deployments containing eligible remote clusters. When not specified, all the eligible deployments are matched.
+	/* Body.
 
+	   (Optional) The search query to run against all deployments containing eligible remote clusters. When not specified, all the eligible deployments are matched.
 	*/
 	Body *models.SearchRequest
-	/*Version
-	  The version of the Elasticsearch cluster cluster that will potentially be configured to have remote clusters.
 
+	/* Version.
+
+	   The version of the Elasticsearch cluster cluster that will potentially be configured to have remote clusters.
 	*/
 	Version string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the search eligible remote clusters params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SearchEligibleRemoteClustersParams) WithDefaults() *SearchEligibleRemoteClustersParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the search eligible remote clusters params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SearchEligibleRemoteClustersParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the search eligible remote clusters params
@@ -157,7 +172,6 @@ func (o *SearchEligibleRemoteClustersParams) WriteToRequest(r runtime.ClientRequ
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err
@@ -168,6 +182,7 @@ func (o *SearchEligibleRemoteClustersParams) WriteToRequest(r runtime.ClientRequ
 	qrVersion := o.Version
 	qVersion := qrVersion
 	if qVersion != "" {
+
 		if err := r.SetQueryParam("version", qVersion); err != nil {
 			return err
 		}

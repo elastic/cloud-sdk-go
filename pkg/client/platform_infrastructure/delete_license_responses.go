@@ -58,7 +58,6 @@ func (o *DeleteLicenseReader) ReadResponse(response runtime.ClientResponse, cons
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,7 +68,7 @@ func NewDeleteLicenseOK() *DeleteLicenseOK {
 	return &DeleteLicenseOK{}
 }
 
-/*DeleteLicenseOK handles this case with default header values.
+/* DeleteLicenseOK describes a response with status code 200, with default header values.
 
 The license was deleted.
 */
@@ -80,7 +79,6 @@ type DeleteLicenseOK struct {
 func (o *DeleteLicenseOK) Error() string {
 	return fmt.Sprintf("[DELETE /platform/license][%d] deleteLicenseOK  %+v", 200, o.Payload)
 }
-
 func (o *DeleteLicenseOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -100,12 +98,13 @@ func NewDeleteLicenseNotFound() *DeleteLicenseNotFound {
 	return &DeleteLicenseNotFound{}
 }
 
-/*DeleteLicenseNotFound handles this case with default header values.
+/* DeleteLicenseNotFound describes a response with status code 404, with default header values.
 
 The license cannot be found. (code: `license.license_not_found`)
 */
 type DeleteLicenseNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -115,15 +114,18 @@ type DeleteLicenseNotFound struct {
 func (o *DeleteLicenseNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /platform/license][%d] deleteLicenseNotFound  %+v", 404, o.Payload)
 }
-
 func (o *DeleteLicenseNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *DeleteLicenseNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -140,12 +142,13 @@ func NewDeleteLicenseRetryWith() *DeleteLicenseRetryWith {
 	return &DeleteLicenseRetryWith{}
 }
 
-/*DeleteLicenseRetryWith handles this case with default header values.
+/* DeleteLicenseRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type DeleteLicenseRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -155,15 +158,18 @@ type DeleteLicenseRetryWith struct {
 func (o *DeleteLicenseRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /platform/license][%d] deleteLicenseRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *DeleteLicenseRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *DeleteLicenseRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

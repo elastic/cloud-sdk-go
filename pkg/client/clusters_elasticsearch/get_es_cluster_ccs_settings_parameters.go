@@ -33,59 +33,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetEsClusterCcsSettingsParams creates a new GetEsClusterCcsSettingsParams object
-// with the default values initialized.
+// NewGetEsClusterCcsSettingsParams creates a new GetEsClusterCcsSettingsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetEsClusterCcsSettingsParams() *GetEsClusterCcsSettingsParams {
-	var ()
 	return &GetEsClusterCcsSettingsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetEsClusterCcsSettingsParamsWithTimeout creates a new GetEsClusterCcsSettingsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetEsClusterCcsSettingsParamsWithTimeout(timeout time.Duration) *GetEsClusterCcsSettingsParams {
-	var ()
 	return &GetEsClusterCcsSettingsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetEsClusterCcsSettingsParamsWithContext creates a new GetEsClusterCcsSettingsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetEsClusterCcsSettingsParamsWithContext(ctx context.Context) *GetEsClusterCcsSettingsParams {
-	var ()
 	return &GetEsClusterCcsSettingsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetEsClusterCcsSettingsParamsWithHTTPClient creates a new GetEsClusterCcsSettingsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetEsClusterCcsSettingsParamsWithHTTPClient(client *http.Client) *GetEsClusterCcsSettingsParams {
-	var ()
 	return &GetEsClusterCcsSettingsParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetEsClusterCcsSettingsParams contains all the parameters to send to the API endpoint
-for the get es cluster ccs settings operation typically these are written to a http.Request
+/* GetEsClusterCcsSettingsParams contains all the parameters to send to the API endpoint
+   for the get es cluster ccs settings operation.
+
+   Typically these are written to a http.Request.
 */
 type GetEsClusterCcsSettingsParams struct {
 
-	/*ClusterID
-	  Elasticsearch cluster identifier
+	/* ClusterID.
 
+	   Elasticsearch cluster identifier
 	*/
 	ClusterID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get es cluster ccs settings params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetEsClusterCcsSettingsParams) WithDefaults() *GetEsClusterCcsSettingsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get es cluster ccs settings params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetEsClusterCcsSettingsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get es cluster ccs settings params

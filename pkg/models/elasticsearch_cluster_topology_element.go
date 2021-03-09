@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"encoding/json"
 	"strconv"
 
@@ -126,7 +127,6 @@ func (m *ElasticsearchClusterTopologyElement) Validate(formats strfmt.Registry) 
 }
 
 func (m *ElasticsearchClusterTopologyElement) validateAutoscalingMax(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.AutoscalingMax) { // not required
 		return nil
 	}
@@ -144,7 +144,6 @@ func (m *ElasticsearchClusterTopologyElement) validateAutoscalingMax(formats str
 }
 
 func (m *ElasticsearchClusterTopologyElement) validateAutoscalingMin(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.AutoscalingMin) { // not required
 		return nil
 	}
@@ -162,7 +161,6 @@ func (m *ElasticsearchClusterTopologyElement) validateAutoscalingMin(formats str
 }
 
 func (m *ElasticsearchClusterTopologyElement) validateElasticsearch(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Elasticsearch) { // not required
 		return nil
 	}
@@ -199,7 +197,6 @@ func (m *ElasticsearchClusterTopologyElement) validateNodeRolesItemsEnum(path, l
 }
 
 func (m *ElasticsearchClusterTopologyElement) validateNodeRoles(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.NodeRoles) { // not required
 		return nil
 	}
@@ -217,7 +214,6 @@ func (m *ElasticsearchClusterTopologyElement) validateNodeRoles(formats strfmt.R
 }
 
 func (m *ElasticsearchClusterTopologyElement) validateNodeType(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.NodeType) { // not required
 		return nil
 	}
@@ -235,7 +231,6 @@ func (m *ElasticsearchClusterTopologyElement) validateNodeType(formats strfmt.Re
 }
 
 func (m *ElasticsearchClusterTopologyElement) validateSize(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Size) { // not required
 		return nil
 	}
@@ -253,13 +248,130 @@ func (m *ElasticsearchClusterTopologyElement) validateSize(formats strfmt.Regist
 }
 
 func (m *ElasticsearchClusterTopologyElement) validateTopologyElementControl(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.TopologyElementControl) { // not required
 		return nil
 	}
 
 	if m.TopologyElementControl != nil {
 		if err := m.TopologyElementControl.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("topology_element_control")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this elasticsearch cluster topology element based on the context it is used
+func (m *ElasticsearchClusterTopologyElement) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAutoscalingMax(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateAutoscalingMin(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateElasticsearch(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateNodeType(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateSize(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateTopologyElementControl(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ElasticsearchClusterTopologyElement) contextValidateAutoscalingMax(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.AutoscalingMax != nil {
+		if err := m.AutoscalingMax.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("autoscaling_max")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ElasticsearchClusterTopologyElement) contextValidateAutoscalingMin(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.AutoscalingMin != nil {
+		if err := m.AutoscalingMin.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("autoscaling_min")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ElasticsearchClusterTopologyElement) contextValidateElasticsearch(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Elasticsearch != nil {
+		if err := m.Elasticsearch.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("elasticsearch")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ElasticsearchClusterTopologyElement) contextValidateNodeType(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.NodeType != nil {
+		if err := m.NodeType.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("node_type")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ElasticsearchClusterTopologyElement) contextValidateSize(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Size != nil {
+		if err := m.Size.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("size")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ElasticsearchClusterTopologyElement) contextValidateTopologyElementControl(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.TopologyElementControl != nil {
+		if err := m.TopologyElementControl.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("topology_element_control")
 			}

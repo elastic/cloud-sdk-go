@@ -33,59 +33,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetEsClusterMetadataRawParams creates a new GetEsClusterMetadataRawParams object
-// with the default values initialized.
+// NewGetEsClusterMetadataRawParams creates a new GetEsClusterMetadataRawParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetEsClusterMetadataRawParams() *GetEsClusterMetadataRawParams {
-	var ()
 	return &GetEsClusterMetadataRawParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetEsClusterMetadataRawParamsWithTimeout creates a new GetEsClusterMetadataRawParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetEsClusterMetadataRawParamsWithTimeout(timeout time.Duration) *GetEsClusterMetadataRawParams {
-	var ()
 	return &GetEsClusterMetadataRawParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetEsClusterMetadataRawParamsWithContext creates a new GetEsClusterMetadataRawParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetEsClusterMetadataRawParamsWithContext(ctx context.Context) *GetEsClusterMetadataRawParams {
-	var ()
 	return &GetEsClusterMetadataRawParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetEsClusterMetadataRawParamsWithHTTPClient creates a new GetEsClusterMetadataRawParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetEsClusterMetadataRawParamsWithHTTPClient(client *http.Client) *GetEsClusterMetadataRawParams {
-	var ()
 	return &GetEsClusterMetadataRawParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetEsClusterMetadataRawParams contains all the parameters to send to the API endpoint
-for the get es cluster metadata raw operation typically these are written to a http.Request
+/* GetEsClusterMetadataRawParams contains all the parameters to send to the API endpoint
+   for the get es cluster metadata raw operation.
+
+   Typically these are written to a http.Request.
 */
 type GetEsClusterMetadataRawParams struct {
 
-	/*ClusterID
-	  Elasticsearch cluster identifier
+	/* ClusterID.
 
+	   Elasticsearch cluster identifier
 	*/
 	ClusterID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get es cluster metadata raw params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetEsClusterMetadataRawParams) WithDefaults() *GetEsClusterMetadataRawParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get es cluster metadata raw params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetEsClusterMetadataRawParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get es cluster metadata raw params

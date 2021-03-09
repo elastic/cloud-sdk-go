@@ -58,7 +58,6 @@ func (o *CreateTrustRelationshipReader) ReadResponse(response runtime.ClientResp
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,18 +68,21 @@ func NewCreateTrustRelationshipCreated() *CreateTrustRelationshipCreated {
 	return &CreateTrustRelationshipCreated{}
 }
 
-/*CreateTrustRelationshipCreated handles this case with default header values.
+/* CreateTrustRelationshipCreated describes a response with status code 201, with default header values.
 
 The request was valid and a new trust relationship was created
 */
 type CreateTrustRelationshipCreated struct {
-	/*The date-time when the resource was created (ISO format relative to UTC)
+
+	/* The date-time when the resource was created (ISO format relative to UTC)
 	 */
 	XCloudResourceCreated string
-	/*The date-time when the resource was last modified (ISO format relative to UTC)
+
+	/* The date-time when the resource was last modified (ISO format relative to UTC)
 	 */
 	XCloudResourceLastModified string
-	/*The resource version, which is used to avoid update conflicts with concurrent operations
+
+	/* The resource version, which is used to avoid update conflicts with concurrent operations
 	 */
 	XCloudResourceVersion string
 
@@ -90,21 +92,32 @@ type CreateTrustRelationshipCreated struct {
 func (o *CreateTrustRelationshipCreated) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/trust-relationships][%d] createTrustRelationshipCreated  %+v", 201, o.Payload)
 }
-
 func (o *CreateTrustRelationshipCreated) GetPayload() *models.TrustRelationshipCreateResponse {
 	return o.Payload
 }
 
 func (o *CreateTrustRelationshipCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-resource-created
-	o.XCloudResourceCreated = response.GetHeader("x-cloud-resource-created")
+	// hydrates response header x-cloud-resource-created
+	hdrXCloudResourceCreated := response.GetHeader("x-cloud-resource-created")
 
-	// response header x-cloud-resource-last-modified
-	o.XCloudResourceLastModified = response.GetHeader("x-cloud-resource-last-modified")
+	if hdrXCloudResourceCreated != "" {
+		o.XCloudResourceCreated = hdrXCloudResourceCreated
+	}
 
-	// response header x-cloud-resource-version
-	o.XCloudResourceVersion = response.GetHeader("x-cloud-resource-version")
+	// hydrates response header x-cloud-resource-last-modified
+	hdrXCloudResourceLastModified := response.GetHeader("x-cloud-resource-last-modified")
+
+	if hdrXCloudResourceLastModified != "" {
+		o.XCloudResourceLastModified = hdrXCloudResourceLastModified
+	}
+
+	// hydrates response header x-cloud-resource-version
+	hdrXCloudResourceVersion := response.GetHeader("x-cloud-resource-version")
+
+	if hdrXCloudResourceVersion != "" {
+		o.XCloudResourceVersion = hdrXCloudResourceVersion
+	}
 
 	o.Payload = new(models.TrustRelationshipCreateResponse)
 
@@ -121,7 +134,7 @@ func NewCreateTrustRelationshipBadRequest() *CreateTrustRelationshipBadRequest {
 	return &CreateTrustRelationshipBadRequest{}
 }
 
-/*CreateTrustRelationshipBadRequest handles this case with default header values.
+/* CreateTrustRelationshipBadRequest describes a response with status code 400, with default header values.
 
 The trust relationship request had errors.
 */
@@ -132,7 +145,6 @@ type CreateTrustRelationshipBadRequest struct {
 func (o *CreateTrustRelationshipBadRequest) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/trust-relationships][%d] createTrustRelationshipBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *CreateTrustRelationshipBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -154,7 +166,7 @@ func NewCreateTrustRelationshipUnauthorized() *CreateTrustRelationshipUnauthoriz
 	return &CreateTrustRelationshipUnauthorized{}
 }
 
-/*CreateTrustRelationshipUnauthorized handles this case with default header values.
+/* CreateTrustRelationshipUnauthorized describes a response with status code 401, with default header values.
 
 You are not authorized to perform this action.
 */
@@ -165,7 +177,6 @@ type CreateTrustRelationshipUnauthorized struct {
 func (o *CreateTrustRelationshipUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/trust-relationships][%d] createTrustRelationshipUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *CreateTrustRelationshipUnauthorized) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

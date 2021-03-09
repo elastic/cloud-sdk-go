@@ -33,52 +33,66 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetDefaultDeploymentDomainNameParams creates a new GetDefaultDeploymentDomainNameParams object
-// with the default values initialized.
+// NewGetDefaultDeploymentDomainNameParams creates a new GetDefaultDeploymentDomainNameParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetDefaultDeploymentDomainNameParams() *GetDefaultDeploymentDomainNameParams {
-
 	return &GetDefaultDeploymentDomainNameParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetDefaultDeploymentDomainNameParamsWithTimeout creates a new GetDefaultDeploymentDomainNameParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetDefaultDeploymentDomainNameParamsWithTimeout(timeout time.Duration) *GetDefaultDeploymentDomainNameParams {
-
 	return &GetDefaultDeploymentDomainNameParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetDefaultDeploymentDomainNameParamsWithContext creates a new GetDefaultDeploymentDomainNameParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetDefaultDeploymentDomainNameParamsWithContext(ctx context.Context) *GetDefaultDeploymentDomainNameParams {
-
 	return &GetDefaultDeploymentDomainNameParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetDefaultDeploymentDomainNameParamsWithHTTPClient creates a new GetDefaultDeploymentDomainNameParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetDefaultDeploymentDomainNameParamsWithHTTPClient(client *http.Client) *GetDefaultDeploymentDomainNameParams {
-
 	return &GetDefaultDeploymentDomainNameParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetDefaultDeploymentDomainNameParams contains all the parameters to send to the API endpoint
-for the get default deployment domain name operation typically these are written to a http.Request
+/* GetDefaultDeploymentDomainNameParams contains all the parameters to send to the API endpoint
+   for the get default deployment domain name operation.
+
+   Typically these are written to a http.Request.
 */
 type GetDefaultDeploymentDomainNameParams struct {
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get default deployment domain name params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetDefaultDeploymentDomainNameParams) WithDefaults() *GetDefaultDeploymentDomainNameParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get default deployment domain name params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetDefaultDeploymentDomainNameParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get default deployment domain name params

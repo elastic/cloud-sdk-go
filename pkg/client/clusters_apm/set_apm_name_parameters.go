@@ -33,64 +33,79 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewSetApmNameParams creates a new SetApmNameParams object
-// with the default values initialized.
+// NewSetApmNameParams creates a new SetApmNameParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewSetApmNameParams() *SetApmNameParams {
-	var ()
 	return &SetApmNameParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewSetApmNameParamsWithTimeout creates a new SetApmNameParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewSetApmNameParamsWithTimeout(timeout time.Duration) *SetApmNameParams {
-	var ()
 	return &SetApmNameParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewSetApmNameParamsWithContext creates a new SetApmNameParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewSetApmNameParamsWithContext(ctx context.Context) *SetApmNameParams {
-	var ()
 	return &SetApmNameParams{
-
 		Context: ctx,
 	}
 }
 
 // NewSetApmNameParamsWithHTTPClient creates a new SetApmNameParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewSetApmNameParamsWithHTTPClient(client *http.Client) *SetApmNameParams {
-	var ()
 	return &SetApmNameParams{
 		HTTPClient: client,
 	}
 }
 
-/*SetApmNameParams contains all the parameters to send to the API endpoint
-for the set apm name operation typically these are written to a http.Request
+/* SetApmNameParams contains all the parameters to send to the API endpoint
+   for the set apm name operation.
+
+   Typically these are written to a http.Request.
 */
 type SetApmNameParams struct {
 
-	/*ClusterID
-	  The APM deployment identifier.
+	/* ClusterID.
 
+	   The APM deployment identifier.
 	*/
 	ClusterID string
-	/*NewName
-	  The new name for the cluster.
 
+	/* NewName.
+
+	   The new name for the cluster.
 	*/
 	NewName string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the set apm name params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetApmNameParams) WithDefaults() *SetApmNameParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the set apm name params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetApmNameParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the set apm name params

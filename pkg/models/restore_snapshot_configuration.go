@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
@@ -84,7 +85,6 @@ func (m *RestoreSnapshotConfiguration) Validate(formats strfmt.Registry) error {
 }
 
 func (m *RestoreSnapshotConfiguration) validateRepositoryConfig(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.RepositoryConfig) { // not required
 		return nil
 	}
@@ -102,7 +102,6 @@ func (m *RestoreSnapshotConfiguration) validateRepositoryConfig(formats strfmt.R
 }
 
 func (m *RestoreSnapshotConfiguration) validateRestorePayload(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.RestorePayload) { // not required
 		return nil
 	}
@@ -161,7 +160,6 @@ func (m *RestoreSnapshotConfiguration) validateStrategyEnum(path, location strin
 }
 
 func (m *RestoreSnapshotConfiguration) validateStrategy(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Strategy) { // not required
 		return nil
 	}
@@ -169,6 +167,52 @@ func (m *RestoreSnapshotConfiguration) validateStrategy(formats strfmt.Registry)
 	// value enum
 	if err := m.validateStrategyEnum("strategy", "body", m.Strategy); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this restore snapshot configuration based on the context it is used
+func (m *RestoreSnapshotConfiguration) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateRepositoryConfig(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateRestorePayload(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *RestoreSnapshotConfiguration) contextValidateRepositoryConfig(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.RepositoryConfig != nil {
+		if err := m.RepositoryConfig.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("repository_config")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *RestoreSnapshotConfiguration) contextValidateRestorePayload(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.RestorePayload != nil {
+		if err := m.RestorePayload.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("restore_payload")
+			}
+			return err
+		}
 	}
 
 	return nil

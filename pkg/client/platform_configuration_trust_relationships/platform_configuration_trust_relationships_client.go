@@ -42,17 +42,20 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientOption is the option for Client methods
+type ClientOption func(*runtime.ClientOperation)
+
 // ClientService is the interface for Client methods
 type ClientService interface {
-	CreateTrustRelationship(params *CreateTrustRelationshipParams, authInfo runtime.ClientAuthInfoWriter) (*CreateTrustRelationshipCreated, error)
+	CreateTrustRelationship(params *CreateTrustRelationshipParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateTrustRelationshipCreated, error)
 
-	DeleteTrustRelationship(params *DeleteTrustRelationshipParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteTrustRelationshipOK, error)
+	DeleteTrustRelationship(params *DeleteTrustRelationshipParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteTrustRelationshipOK, error)
 
-	GetTrustRelationship(params *GetTrustRelationshipParams, authInfo runtime.ClientAuthInfoWriter) (*GetTrustRelationshipOK, error)
+	GetTrustRelationship(params *GetTrustRelationshipParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTrustRelationshipOK, error)
 
-	GetTrustRelationships(params *GetTrustRelationshipsParams, authInfo runtime.ClientAuthInfoWriter) (*GetTrustRelationshipsOK, error)
+	GetTrustRelationships(params *GetTrustRelationshipsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTrustRelationshipsOK, error)
 
-	UpdateTrustRelationship(params *UpdateTrustRelationshipParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateTrustRelationshipOK, error)
+	UpdateTrustRelationship(params *UpdateTrustRelationshipParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateTrustRelationshipOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -62,13 +65,12 @@ type ClientService interface {
 
   Creates a trust relationship.
 */
-func (a *Client) CreateTrustRelationship(params *CreateTrustRelationshipParams, authInfo runtime.ClientAuthInfoWriter) (*CreateTrustRelationshipCreated, error) {
+func (a *Client) CreateTrustRelationship(params *CreateTrustRelationshipParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateTrustRelationshipCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateTrustRelationshipParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "create-trust-relationship",
 		Method:             "POST",
 		PathPattern:        "/platform/configuration/trust-relationships",
@@ -80,7 +82,12 @@ func (a *Client) CreateTrustRelationship(params *CreateTrustRelationshipParams, 
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -99,13 +106,12 @@ func (a *Client) CreateTrustRelationship(params *CreateTrustRelationshipParams, 
 
   Deletes a trust relationship.
 */
-func (a *Client) DeleteTrustRelationship(params *DeleteTrustRelationshipParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteTrustRelationshipOK, error) {
+func (a *Client) DeleteTrustRelationship(params *DeleteTrustRelationshipParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteTrustRelationshipOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteTrustRelationshipParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "delete-trust-relationship",
 		Method:             "DELETE",
 		PathPattern:        "/platform/configuration/trust-relationships/{trust_relationship_id}",
@@ -117,7 +123,12 @@ func (a *Client) DeleteTrustRelationship(params *DeleteTrustRelationshipParams, 
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -136,13 +147,12 @@ func (a *Client) DeleteTrustRelationship(params *DeleteTrustRelationshipParams, 
 
   Retrieves information about a trust relationship. `local` can be used as the ID to obtain the local trust relationship.
 */
-func (a *Client) GetTrustRelationship(params *GetTrustRelationshipParams, authInfo runtime.ClientAuthInfoWriter) (*GetTrustRelationshipOK, error) {
+func (a *Client) GetTrustRelationship(params *GetTrustRelationshipParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTrustRelationshipOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetTrustRelationshipParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-trust-relationship",
 		Method:             "GET",
 		PathPattern:        "/platform/configuration/trust-relationships/{trust_relationship_id}",
@@ -154,7 +164,12 @@ func (a *Client) GetTrustRelationship(params *GetTrustRelationshipParams, authIn
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -173,13 +188,12 @@ func (a *Client) GetTrustRelationship(params *GetTrustRelationshipParams, authIn
 
   List trust relationships.
 */
-func (a *Client) GetTrustRelationships(params *GetTrustRelationshipsParams, authInfo runtime.ClientAuthInfoWriter) (*GetTrustRelationshipsOK, error) {
+func (a *Client) GetTrustRelationships(params *GetTrustRelationshipsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTrustRelationshipsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetTrustRelationshipsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-trust-relationships",
 		Method:             "GET",
 		PathPattern:        "/platform/configuration/trust-relationships",
@@ -191,7 +205,12 @@ func (a *Client) GetTrustRelationships(params *GetTrustRelationshipsParams, auth
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -210,13 +229,12 @@ func (a *Client) GetTrustRelationships(params *GetTrustRelationshipsParams, auth
 
   Updates a trust relationship.
 */
-func (a *Client) UpdateTrustRelationship(params *UpdateTrustRelationshipParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateTrustRelationshipOK, error) {
+func (a *Client) UpdateTrustRelationship(params *UpdateTrustRelationshipParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateTrustRelationshipOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateTrustRelationshipParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "update-trust-relationship",
 		Method:             "PUT",
 		PathPattern:        "/platform/configuration/trust-relationships/{trust_relationship_id}",
@@ -228,7 +246,12 @@ func (a *Client) UpdateTrustRelationship(params *UpdateTrustRelationshipParams, 
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}

@@ -35,59 +35,73 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewCreateProxiesFilteredGroupParams creates a new CreateProxiesFilteredGroupParams object
-// with the default values initialized.
+// NewCreateProxiesFilteredGroupParams creates a new CreateProxiesFilteredGroupParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewCreateProxiesFilteredGroupParams() *CreateProxiesFilteredGroupParams {
-	var ()
 	return &CreateProxiesFilteredGroupParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewCreateProxiesFilteredGroupParamsWithTimeout creates a new CreateProxiesFilteredGroupParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewCreateProxiesFilteredGroupParamsWithTimeout(timeout time.Duration) *CreateProxiesFilteredGroupParams {
-	var ()
 	return &CreateProxiesFilteredGroupParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewCreateProxiesFilteredGroupParamsWithContext creates a new CreateProxiesFilteredGroupParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewCreateProxiesFilteredGroupParamsWithContext(ctx context.Context) *CreateProxiesFilteredGroupParams {
-	var ()
 	return &CreateProxiesFilteredGroupParams{
-
 		Context: ctx,
 	}
 }
 
 // NewCreateProxiesFilteredGroupParamsWithHTTPClient creates a new CreateProxiesFilteredGroupParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewCreateProxiesFilteredGroupParamsWithHTTPClient(client *http.Client) *CreateProxiesFilteredGroupParams {
-	var ()
 	return &CreateProxiesFilteredGroupParams{
 		HTTPClient: client,
 	}
 }
 
-/*CreateProxiesFilteredGroupParams contains all the parameters to send to the API endpoint
-for the create proxies filtered group operation typically these are written to a http.Request
+/* CreateProxiesFilteredGroupParams contains all the parameters to send to the API endpoint
+   for the create proxies filtered group operation.
+
+   Typically these are written to a http.Request.
 */
 type CreateProxiesFilteredGroupParams struct {
 
-	/*Body
-	  Data for the filtered group of proxies to create
+	/* Body.
 
+	   Data for the filtered group of proxies to create
 	*/
 	Body *models.ProxiesFilteredGroup
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the create proxies filtered group params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *CreateProxiesFilteredGroupParams) WithDefaults() *CreateProxiesFilteredGroupParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the create proxies filtered group params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *CreateProxiesFilteredGroupParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the create proxies filtered group params
@@ -141,7 +155,6 @@ func (o *CreateProxiesFilteredGroupParams) WriteToRequest(r runtime.ClientReques
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

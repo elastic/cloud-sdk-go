@@ -70,7 +70,6 @@ func (o *EnableElevatedPermissionsReader) ReadResponse(response runtime.ClientRe
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -81,7 +80,7 @@ func NewEnableElevatedPermissionsOK() *EnableElevatedPermissionsOK {
 	return &EnableElevatedPermissionsOK{}
 }
 
-/*EnableElevatedPermissionsOK handles this case with default header values.
+/* EnableElevatedPermissionsOK describes a response with status code 200, with default header values.
 
 Elevated permissions are enabled and the authorization token was generated.
 */
@@ -92,7 +91,6 @@ type EnableElevatedPermissionsOK struct {
 func (o *EnableElevatedPermissionsOK) Error() string {
 	return fmt.Sprintf("[POST /users/auth/_elevate][%d] enableElevatedPermissionsOK  %+v", 200, o.Payload)
 }
-
 func (o *EnableElevatedPermissionsOK) GetPayload() *models.TokenResponse {
 	return o.Payload
 }
@@ -114,12 +112,13 @@ func NewEnableElevatedPermissionsBadRequest() *EnableElevatedPermissionsBadReque
 	return &EnableElevatedPermissionsBadRequest{}
 }
 
-/*EnableElevatedPermissionsBadRequest handles this case with default header values.
+/* EnableElevatedPermissionsBadRequest describes a response with status code 400, with default header values.
 
 Missed or invalid MFA token. (code: `authc.invalid_token`)
 */
 type EnableElevatedPermissionsBadRequest struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -129,15 +128,18 @@ type EnableElevatedPermissionsBadRequest struct {
 func (o *EnableElevatedPermissionsBadRequest) Error() string {
 	return fmt.Sprintf("[POST /users/auth/_elevate][%d] enableElevatedPermissionsBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *EnableElevatedPermissionsBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *EnableElevatedPermissionsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -154,12 +156,13 @@ func NewEnableElevatedPermissionsUnauthorized() *EnableElevatedPermissionsUnauth
 	return &EnableElevatedPermissionsUnauthorized{}
 }
 
-/*EnableElevatedPermissionsUnauthorized handles this case with default header values.
+/* EnableElevatedPermissionsUnauthorized describes a response with status code 401, with default header values.
 
 The authentication token is invalid or expired. (code: `root.unauthorized`)
 */
 type EnableElevatedPermissionsUnauthorized struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -169,15 +172,18 @@ type EnableElevatedPermissionsUnauthorized struct {
 func (o *EnableElevatedPermissionsUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /users/auth/_elevate][%d] enableElevatedPermissionsUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *EnableElevatedPermissionsUnauthorized) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *EnableElevatedPermissionsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -194,12 +200,13 @@ func NewEnableElevatedPermissionsNotImplemented() *EnableElevatedPermissionsNotI
 	return &EnableElevatedPermissionsNotImplemented{}
 }
 
-/*EnableElevatedPermissionsNotImplemented handles this case with default header values.
+/* EnableElevatedPermissionsNotImplemented describes a response with status code 501, with default header values.
 
 The administrator needs to configure the authentication cluster. (code: `authc.no_authentication_cluster`)
 */
 type EnableElevatedPermissionsNotImplemented struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -209,15 +216,18 @@ type EnableElevatedPermissionsNotImplemented struct {
 func (o *EnableElevatedPermissionsNotImplemented) Error() string {
 	return fmt.Sprintf("[POST /users/auth/_elevate][%d] enableElevatedPermissionsNotImplemented  %+v", 501, o.Payload)
 }
-
 func (o *EnableElevatedPermissionsNotImplemented) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *EnableElevatedPermissionsNotImplemented) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -234,12 +244,13 @@ func NewEnableElevatedPermissionsBadGateway() *EnableElevatedPermissionsBadGatew
 	return &EnableElevatedPermissionsBadGateway{}
 }
 
-/*EnableElevatedPermissionsBadGateway handles this case with default header values.
+/* EnableElevatedPermissionsBadGateway describes a response with status code 502, with default header values.
 
 The authentication cluster failed to process the request. The response body contains details about the error. (code: `authc.authentication_cluster_error`)
 */
 type EnableElevatedPermissionsBadGateway struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -249,15 +260,18 @@ type EnableElevatedPermissionsBadGateway struct {
 func (o *EnableElevatedPermissionsBadGateway) Error() string {
 	return fmt.Sprintf("[POST /users/auth/_elevate][%d] enableElevatedPermissionsBadGateway  %+v", 502, o.Payload)
 }
-
 func (o *EnableElevatedPermissionsBadGateway) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *EnableElevatedPermissionsBadGateway) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

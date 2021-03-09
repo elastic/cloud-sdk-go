@@ -36,112 +36,122 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewMoveClustersParams creates a new MoveClustersParams object
-// with the default values initialized.
+// NewMoveClustersParams creates a new MoveClustersParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewMoveClustersParams() *MoveClustersParams {
-	var (
-		forceUpdateDefault  = bool(false)
-		moveOnlyDefault     = bool(true)
-		validateOnlyDefault = bool(false)
-	)
 	return &MoveClustersParams{
-		ForceUpdate:  &forceUpdateDefault,
-		MoveOnly:     &moveOnlyDefault,
-		ValidateOnly: &validateOnlyDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewMoveClustersParamsWithTimeout creates a new MoveClustersParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewMoveClustersParamsWithTimeout(timeout time.Duration) *MoveClustersParams {
-	var (
-		forceUpdateDefault  = bool(false)
-		moveOnlyDefault     = bool(true)
-		validateOnlyDefault = bool(false)
-	)
 	return &MoveClustersParams{
-		ForceUpdate:  &forceUpdateDefault,
-		MoveOnly:     &moveOnlyDefault,
-		ValidateOnly: &validateOnlyDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewMoveClustersParamsWithContext creates a new MoveClustersParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewMoveClustersParamsWithContext(ctx context.Context) *MoveClustersParams {
-	var (
-		forceUpdateDefault  = bool(false)
-		moveOnlyDefault     = bool(true)
-		validateOnlyDefault = bool(false)
-	)
 	return &MoveClustersParams{
-		ForceUpdate:  &forceUpdateDefault,
-		MoveOnly:     &moveOnlyDefault,
-		ValidateOnly: &validateOnlyDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewMoveClustersParamsWithHTTPClient creates a new MoveClustersParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewMoveClustersParamsWithHTTPClient(client *http.Client) *MoveClustersParams {
-	var (
-		forceUpdateDefault  = bool(false)
-		moveOnlyDefault     = bool(true)
-		validateOnlyDefault = bool(false)
-	)
 	return &MoveClustersParams{
-		ForceUpdate:  &forceUpdateDefault,
-		MoveOnly:     &moveOnlyDefault,
-		ValidateOnly: &validateOnlyDefault,
-		HTTPClient:   client,
+		HTTPClient: client,
 	}
 }
 
-/*MoveClustersParams contains all the parameters to send to the API endpoint
-for the move clusters operation typically these are written to a http.Request
+/* MoveClustersParams contains all the parameters to send to the API endpoint
+   for the move clusters operation.
+
+   Typically these are written to a http.Request.
 */
 type MoveClustersParams struct {
 
-	/*AllocatorDown
-	  When `true`, considers all instances on the allocator as permanently shut down when deciding how to migrate data to new nodes.When left blank, the system automatically decides. NOTE: The default treats the allocator as up.
+	/* AllocatorDown.
 
+	   When `true`, considers all instances on the allocator as permanently shut down when deciding how to migrate data to new nodes.When left blank, the system automatically decides. NOTE: The default treats the allocator as up.
 	*/
 	AllocatorDown *bool
-	/*AllocatorID
-	  The allocator identifier.
 
+	/* AllocatorID.
+
+	   The allocator identifier.
 	*/
 	AllocatorID string
-	/*Body
-	  Overrides defaults for the move of each cluster
 
+	/* Body.
+
+	   Overrides defaults for the move of each cluster
 	*/
 	Body *models.MoveClustersRequest
-	/*ForceUpdate
-	  When `true`, cancels and overwrites the pending plans, or treats the instance as an error.
 
+	/* ForceUpdate.
+
+	   When `true`, cancels and overwrites the pending plans, or treats the instance as an error.
 	*/
 	ForceUpdate *bool
-	/*MoveOnly
-	  When `true`, moves the specified instances and ignores the changes for the cluster state.
 
+	/* MoveOnly.
+
+	   When `true`, moves the specified instances and ignores the changes for the cluster state.
+
+	   Default: true
 	*/
 	MoveOnly *bool
-	/*ValidateOnly
-	  When `true`, validates the plan overrides, then returns the plan without performing the move.
 
+	/* ValidateOnly.
+
+	   When `true`, validates the plan overrides, then returns the plan without performing the move.
 	*/
 	ValidateOnly *bool
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the move clusters params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *MoveClustersParams) WithDefaults() *MoveClustersParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the move clusters params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *MoveClustersParams) SetDefaults() {
+	var (
+		forceUpdateDefault = bool(false)
+
+		moveOnlyDefault = bool(true)
+
+		validateOnlyDefault = bool(false)
+	)
+
+	val := MoveClustersParams{
+		ForceUpdate:  &forceUpdateDefault,
+		MoveOnly:     &moveOnlyDefault,
+		ValidateOnly: &validateOnlyDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the move clusters params
@@ -255,23 +265,23 @@ func (o *MoveClustersParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.
 
 		// query param allocator_down
 		var qrAllocatorDown bool
+
 		if o.AllocatorDown != nil {
 			qrAllocatorDown = *o.AllocatorDown
 		}
 		qAllocatorDown := swag.FormatBool(qrAllocatorDown)
 		if qAllocatorDown != "" {
+
 			if err := r.SetQueryParam("allocator_down", qAllocatorDown); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	// path param allocator_id
 	if err := r.SetPathParam("allocator_id", o.AllocatorID); err != nil {
 		return err
 	}
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err
@@ -282,48 +292,51 @@ func (o *MoveClustersParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.
 
 		// query param force_update
 		var qrForceUpdate bool
+
 		if o.ForceUpdate != nil {
 			qrForceUpdate = *o.ForceUpdate
 		}
 		qForceUpdate := swag.FormatBool(qrForceUpdate)
 		if qForceUpdate != "" {
+
 			if err := r.SetQueryParam("force_update", qForceUpdate); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.MoveOnly != nil {
 
 		// query param move_only
 		var qrMoveOnly bool
+
 		if o.MoveOnly != nil {
 			qrMoveOnly = *o.MoveOnly
 		}
 		qMoveOnly := swag.FormatBool(qrMoveOnly)
 		if qMoveOnly != "" {
+
 			if err := r.SetQueryParam("move_only", qMoveOnly); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.ValidateOnly != nil {
 
 		// query param validate_only
 		var qrValidateOnly bool
+
 		if o.ValidateOnly != nil {
 			qrValidateOnly = *o.ValidateOnly
 		}
 		qValidateOnly := swag.FormatBool(qrValidateOnly)
 		if qValidateOnly != "" {
+
 			if err := r.SetQueryParam("validate_only", qValidateOnly); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

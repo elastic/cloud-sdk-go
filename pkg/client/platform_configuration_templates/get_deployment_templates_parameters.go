@@ -34,107 +34,116 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetDeploymentTemplatesParams creates a new GetDeploymentTemplatesParams object
-// with the default values initialized.
+// NewGetDeploymentTemplatesParams creates a new GetDeploymentTemplatesParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetDeploymentTemplatesParams() *GetDeploymentTemplatesParams {
-	var (
-		formatDefault                     = string("cluster")
-		showHiddenDefault                 = bool(false)
-		showInstanceConfigurationsDefault = bool(false)
-	)
 	return &GetDeploymentTemplatesParams{
-		Format:                     &formatDefault,
-		ShowHidden:                 &showHiddenDefault,
-		ShowInstanceConfigurations: &showInstanceConfigurationsDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetDeploymentTemplatesParamsWithTimeout creates a new GetDeploymentTemplatesParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetDeploymentTemplatesParamsWithTimeout(timeout time.Duration) *GetDeploymentTemplatesParams {
-	var (
-		formatDefault                     = string("cluster")
-		showHiddenDefault                 = bool(false)
-		showInstanceConfigurationsDefault = bool(false)
-	)
 	return &GetDeploymentTemplatesParams{
-		Format:                     &formatDefault,
-		ShowHidden:                 &showHiddenDefault,
-		ShowInstanceConfigurations: &showInstanceConfigurationsDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewGetDeploymentTemplatesParamsWithContext creates a new GetDeploymentTemplatesParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetDeploymentTemplatesParamsWithContext(ctx context.Context) *GetDeploymentTemplatesParams {
-	var (
-		formatDefault                     = string("cluster")
-		showHiddenDefault                 = bool(false)
-		showInstanceConfigurationsDefault = bool(false)
-	)
 	return &GetDeploymentTemplatesParams{
-		Format:                     &formatDefault,
-		ShowHidden:                 &showHiddenDefault,
-		ShowInstanceConfigurations: &showInstanceConfigurationsDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewGetDeploymentTemplatesParamsWithHTTPClient creates a new GetDeploymentTemplatesParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetDeploymentTemplatesParamsWithHTTPClient(client *http.Client) *GetDeploymentTemplatesParams {
-	var (
-		formatDefault                     = string("cluster")
-		showHiddenDefault                 = bool(false)
-		showInstanceConfigurationsDefault = bool(false)
-	)
 	return &GetDeploymentTemplatesParams{
-		Format:                     &formatDefault,
-		ShowHidden:                 &showHiddenDefault,
-		ShowInstanceConfigurations: &showInstanceConfigurationsDefault,
-		HTTPClient:                 client,
+		HTTPClient: client,
 	}
 }
 
-/*GetDeploymentTemplatesParams contains all the parameters to send to the API endpoint
-for the get deployment templates operation typically these are written to a http.Request
+/* GetDeploymentTemplatesParams contains all the parameters to send to the API endpoint
+   for the get deployment templates operation.
+
+   Typically these are written to a http.Request.
 */
 type GetDeploymentTemplatesParams struct {
 
-	/*Format
-	  If cluster is specified populates cluster_template in the response, if deployment is specified populates deployment_template in the response
+	/* Format.
 
+	   If cluster is specified populates cluster_template in the response, if deployment is specified populates deployment_template in the response
+
+	   Default: "cluster"
 	*/
 	Format *string
-	/*Metadata
-	  An optional key/value pair in the form of (key:value) that will act as a filter and exclude any templates that do not have a matching metadata item associated.
 
+	/* Metadata.
+
+	   An optional key/value pair in the form of (key:value) that will act as a filter and exclude any templates that do not have a matching metadata item associated.
 	*/
 	Metadata *string
-	/*ShowHidden
-	  If true, templates flagged as hidden will be returned.
 
+	/* ShowHidden.
+
+	   If true, templates flagged as hidden will be returned.
 	*/
 	ShowHidden *bool
-	/*ShowInstanceConfigurations
-	  If true, will return details for each instance configuration referenced by the template.
 
+	/* ShowInstanceConfigurations.
+
+	   If true, will return details for each instance configuration referenced by the template.
 	*/
 	ShowInstanceConfigurations *bool
-	/*StackVersion
-	  If present, it will cause the returned deployment templates to be adapted to return only the elements allowed in that version.
 
+	/* StackVersion.
+
+	   If present, it will cause the returned deployment templates to be adapted to return only the elements allowed in that version.
 	*/
 	StackVersion *string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get deployment templates params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetDeploymentTemplatesParams) WithDefaults() *GetDeploymentTemplatesParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get deployment templates params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetDeploymentTemplatesParams) SetDefaults() {
+	var (
+		formatDefault = string("cluster")
+
+		showHiddenDefault = bool(false)
+
+		showInstanceConfigurationsDefault = bool(false)
+	)
+
+	val := GetDeploymentTemplatesParams{
+		Format:                     &formatDefault,
+		ShowHidden:                 &showHiddenDefault,
+		ShowInstanceConfigurations: &showInstanceConfigurationsDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the get deployment templates params
@@ -237,80 +246,85 @@ func (o *GetDeploymentTemplatesParams) WriteToRequest(r runtime.ClientRequest, r
 
 		// query param format
 		var qrFormat string
+
 		if o.Format != nil {
 			qrFormat = *o.Format
 		}
 		qFormat := qrFormat
 		if qFormat != "" {
+
 			if err := r.SetQueryParam("format", qFormat); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.Metadata != nil {
 
 		// query param metadata
 		var qrMetadata string
+
 		if o.Metadata != nil {
 			qrMetadata = *o.Metadata
 		}
 		qMetadata := qrMetadata
 		if qMetadata != "" {
+
 			if err := r.SetQueryParam("metadata", qMetadata); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.ShowHidden != nil {
 
 		// query param show_hidden
 		var qrShowHidden bool
+
 		if o.ShowHidden != nil {
 			qrShowHidden = *o.ShowHidden
 		}
 		qShowHidden := swag.FormatBool(qrShowHidden)
 		if qShowHidden != "" {
+
 			if err := r.SetQueryParam("show_hidden", qShowHidden); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.ShowInstanceConfigurations != nil {
 
 		// query param show_instance_configurations
 		var qrShowInstanceConfigurations bool
+
 		if o.ShowInstanceConfigurations != nil {
 			qrShowInstanceConfigurations = *o.ShowInstanceConfigurations
 		}
 		qShowInstanceConfigurations := swag.FormatBool(qrShowInstanceConfigurations)
 		if qShowInstanceConfigurations != "" {
+
 			if err := r.SetQueryParam("show_instance_configurations", qShowInstanceConfigurations); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.StackVersion != nil {
 
 		// query param stack_version
 		var qrStackVersion string
+
 		if o.StackVersion != nil {
 			qrStackVersion = *o.StackVersion
 		}
 		qStackVersion := qrStackVersion
 		if qStackVersion != "" {
+
 			if err := r.SetQueryParam("stack_version", qStackVersion); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

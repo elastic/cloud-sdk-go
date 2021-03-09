@@ -33,74 +33,91 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewPutKibProxyRequestsParams creates a new PutKibProxyRequestsParams object
-// with the default values initialized.
+// NewPutKibProxyRequestsParams creates a new PutKibProxyRequestsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPutKibProxyRequestsParams() *PutKibProxyRequestsParams {
-	var ()
 	return &PutKibProxyRequestsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPutKibProxyRequestsParamsWithTimeout creates a new PutKibProxyRequestsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPutKibProxyRequestsParamsWithTimeout(timeout time.Duration) *PutKibProxyRequestsParams {
-	var ()
 	return &PutKibProxyRequestsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPutKibProxyRequestsParamsWithContext creates a new PutKibProxyRequestsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPutKibProxyRequestsParamsWithContext(ctx context.Context) *PutKibProxyRequestsParams {
-	var ()
 	return &PutKibProxyRequestsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPutKibProxyRequestsParamsWithHTTPClient creates a new PutKibProxyRequestsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPutKibProxyRequestsParamsWithHTTPClient(client *http.Client) *PutKibProxyRequestsParams {
-	var ()
 	return &PutKibProxyRequestsParams{
 		HTTPClient: client,
 	}
 }
 
-/*PutKibProxyRequestsParams contains all the parameters to send to the API endpoint
-for the put kib proxy requests operation typically these are written to a http.Request
+/* PutKibProxyRequestsParams contains all the parameters to send to the API endpoint
+   for the put kib proxy requests operation.
+
+   Typically these are written to a http.Request.
 */
 type PutKibProxyRequestsParams struct {
 
-	/*XManagementRequest
-	  When set to `true`, includes the X-Management-Request header value.
+	/* XManagementRequest.
 
+	   When set to `true`, includes the X-Management-Request header value.
 	*/
 	XManagementRequest string
-	/*Body
-	  The JSON payload that is used to proxy the Kibana deployment.
 
+	/* Body.
+
+	   The JSON payload that is used to proxy the Kibana deployment.
 	*/
 	Body string
-	/*ClusterID
-	  The Kibana deployment identifier
 
+	/* ClusterID.
+
+	   The Kibana deployment identifier
 	*/
 	ClusterID string
-	/*KibanaPath
-	  The URL part to proxy to the Kibana cluster. Example: /api/spaces/space or /api/upgrade_assistant/status
 
+	/* KibanaPath.
+
+	   The URL part to proxy to the Kibana cluster. Example: /api/spaces/space or /api/upgrade_assistant/status
 	*/
 	KibanaPath string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the put kib proxy requests params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PutKibProxyRequestsParams) WithDefaults() *PutKibProxyRequestsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the put kib proxy requests params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PutKibProxyRequestsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the put kib proxy requests params
@@ -192,7 +209,6 @@ func (o *PutKibProxyRequestsParams) WriteToRequest(r runtime.ClientRequest, reg 
 	if err := r.SetHeaderParam("X-Management-Request", o.XManagementRequest); err != nil {
 		return err
 	}
-
 	if err := r.SetBodyParam(o.Body); err != nil {
 		return err
 	}

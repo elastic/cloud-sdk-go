@@ -42,157 +42,160 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientOption is the option for Client methods
+type ClientOption func(*runtime.ClientOperation)
+
 // ClientService is the interface for Client methods
 type ClientService interface {
-	AddBlueprinterBlessing(params *AddBlueprinterBlessingParams, authInfo runtime.ClientAuthInfoWriter) (*AddBlueprinterBlessingOK, error)
+	AddBlueprinterBlessing(params *AddBlueprinterBlessingParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*AddBlueprinterBlessingOK, error)
 
-	CreateBlueprinterRole(params *CreateBlueprinterRoleParams, authInfo runtime.ClientAuthInfoWriter) (*CreateBlueprinterRoleCreated, error)
+	CreateBlueprinterRole(params *CreateBlueprinterRoleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateBlueprinterRoleCreated, error)
 
-	CreateConfigStoreOption(params *CreateConfigStoreOptionParams, authInfo runtime.ClientAuthInfoWriter) (*CreateConfigStoreOptionCreated, error)
+	CreateConfigStoreOption(params *CreateConfigStoreOptionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateConfigStoreOptionCreated, error)
 
-	CreateProxiesFilteredGroup(params *CreateProxiesFilteredGroupParams, authInfo runtime.ClientAuthInfoWriter) (*CreateProxiesFilteredGroupOK, error)
+	CreateProxiesFilteredGroup(params *CreateProxiesFilteredGroupParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateProxiesFilteredGroupOK, error)
 
-	DeleteAdminconsoleLoggingSettings(params *DeleteAdminconsoleLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteAdminconsoleLoggingSettingsOK, error)
+	DeleteAdminconsoleLoggingSettings(params *DeleteAdminconsoleLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteAdminconsoleLoggingSettingsOK, error)
 
-	DeleteAllocator(params *DeleteAllocatorParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteAllocatorOK, error)
+	DeleteAllocator(params *DeleteAllocatorParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteAllocatorOK, error)
 
-	DeleteAllocatorLoggingSettings(params *DeleteAllocatorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteAllocatorLoggingSettingsOK, error)
+	DeleteAllocatorLoggingSettings(params *DeleteAllocatorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteAllocatorLoggingSettingsOK, error)
 
-	DeleteAllocatorMetadataItem(params *DeleteAllocatorMetadataItemParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteAllocatorMetadataItemOK, error)
+	DeleteAllocatorMetadataItem(params *DeleteAllocatorMetadataItemParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteAllocatorMetadataItemOK, error)
 
-	DeleteBlueprinterRole(params *DeleteBlueprinterRoleParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteBlueprinterRoleOK, error)
+	DeleteBlueprinterRole(params *DeleteBlueprinterRoleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteBlueprinterRoleOK, error)
 
-	DeleteConfigStoreOption(params *DeleteConfigStoreOptionParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteConfigStoreOptionOK, error)
+	DeleteConfigStoreOption(params *DeleteConfigStoreOptionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteConfigStoreOptionOK, error)
 
-	DeleteConstructorLoggingSettings(params *DeleteConstructorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteConstructorLoggingSettingsOK, error)
+	DeleteConstructorLoggingSettings(params *DeleteConstructorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteConstructorLoggingSettingsOK, error)
 
-	DeleteLicense(params *DeleteLicenseParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteLicenseOK, error)
+	DeleteLicense(params *DeleteLicenseParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteLicenseOK, error)
 
-	DeleteProxiesFilteredGroup(params *DeleteProxiesFilteredGroupParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteProxiesFilteredGroupOK, error)
+	DeleteProxiesFilteredGroup(params *DeleteProxiesFilteredGroupParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteProxiesFilteredGroupOK, error)
 
-	DeleteRunner(params *DeleteRunnerParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteRunnerOK, error)
+	DeleteRunner(params *DeleteRunnerParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteRunnerOK, error)
 
-	DeleteRunnerLoggingSettings(params *DeleteRunnerLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteRunnerLoggingSettingsOK, error)
+	DeleteRunnerLoggingSettings(params *DeleteRunnerLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteRunnerLoggingSettingsOK, error)
 
-	GetAdminconsoleLoggingSettings(params *GetAdminconsoleLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*GetAdminconsoleLoggingSettingsOK, error)
+	GetAdminconsoleLoggingSettings(params *GetAdminconsoleLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAdminconsoleLoggingSettingsOK, error)
 
-	GetAdminconsoles(params *GetAdminconsolesParams, authInfo runtime.ClientAuthInfoWriter) (*GetAdminconsolesOK, error)
+	GetAdminconsoles(params *GetAdminconsolesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAdminconsolesOK, error)
 
-	GetAllocator(params *GetAllocatorParams, authInfo runtime.ClientAuthInfoWriter) (*GetAllocatorOK, error)
+	GetAllocator(params *GetAllocatorParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAllocatorOK, error)
 
-	GetAllocatorLoggingSettings(params *GetAllocatorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*GetAllocatorLoggingSettingsOK, error)
+	GetAllocatorLoggingSettings(params *GetAllocatorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAllocatorLoggingSettingsOK, error)
 
-	GetAllocatorMetadata(params *GetAllocatorMetadataParams, authInfo runtime.ClientAuthInfoWriter) (*GetAllocatorMetadataOK, error)
+	GetAllocatorMetadata(params *GetAllocatorMetadataParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAllocatorMetadataOK, error)
 
-	GetAllocatorSettings(params *GetAllocatorSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*GetAllocatorSettingsOK, error)
+	GetAllocatorSettings(params *GetAllocatorSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAllocatorSettingsOK, error)
 
-	GetAllocators(params *GetAllocatorsParams, authInfo runtime.ClientAuthInfoWriter) (*GetAllocatorsOK, error)
+	GetAllocators(params *GetAllocatorsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAllocatorsOK, error)
 
-	GetAPIBaseURL(params *GetAPIBaseURLParams, authInfo runtime.ClientAuthInfoWriter) (*GetAPIBaseURLOK, error)
+	GetAPIBaseURL(params *GetAPIBaseURLParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAPIBaseURLOK, error)
 
-	GetBlueprinterRole(params *GetBlueprinterRoleParams, authInfo runtime.ClientAuthInfoWriter) (*GetBlueprinterRoleOK, error)
+	GetBlueprinterRole(params *GetBlueprinterRoleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetBlueprinterRoleOK, error)
 
-	GetConfigStoreOption(params *GetConfigStoreOptionParams, authInfo runtime.ClientAuthInfoWriter) (*GetConfigStoreOptionOK, error)
+	GetConfigStoreOption(params *GetConfigStoreOptionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetConfigStoreOptionOK, error)
 
-	GetConstructor(params *GetConstructorParams, authInfo runtime.ClientAuthInfoWriter) (*GetConstructorOK, error)
+	GetConstructor(params *GetConstructorParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetConstructorOK, error)
 
-	GetConstructorLoggingSettings(params *GetConstructorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*GetConstructorLoggingSettingsOK, error)
+	GetConstructorLoggingSettings(params *GetConstructorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetConstructorLoggingSettingsOK, error)
 
-	GetConstructors(params *GetConstructorsParams, authInfo runtime.ClientAuthInfoWriter) (*GetConstructorsOK, error)
+	GetConstructors(params *GetConstructorsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetConstructorsOK, error)
 
-	GetLicense(params *GetLicenseParams, authInfo runtime.ClientAuthInfoWriter) (*GetLicenseOK, error)
+	GetLicense(params *GetLicenseParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetLicenseOK, error)
 
-	GetProxies(params *GetProxiesParams, authInfo runtime.ClientAuthInfoWriter) (*GetProxiesOK, error)
+	GetProxies(params *GetProxiesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProxiesOK, error)
 
-	GetProxiesFilteredGroup(params *GetProxiesFilteredGroupParams, authInfo runtime.ClientAuthInfoWriter) (*GetProxiesFilteredGroupOK, error)
+	GetProxiesFilteredGroup(params *GetProxiesFilteredGroupParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProxiesFilteredGroupOK, error)
 
-	GetProxiesFilteredGroupHealth(params *GetProxiesFilteredGroupHealthParams, authInfo runtime.ClientAuthInfoWriter) (*GetProxiesFilteredGroupHealthOK, error)
+	GetProxiesFilteredGroupHealth(params *GetProxiesFilteredGroupHealthParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProxiesFilteredGroupHealthOK, error)
 
-	GetProxiesHealth(params *GetProxiesHealthParams, authInfo runtime.ClientAuthInfoWriter) (*GetProxiesHealthOK, error)
+	GetProxiesHealth(params *GetProxiesHealthParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProxiesHealthOK, error)
 
-	GetProxiesSettings(params *GetProxiesSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*GetProxiesSettingsOK, error)
+	GetProxiesSettings(params *GetProxiesSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProxiesSettingsOK, error)
 
-	GetProxy(params *GetProxyParams, authInfo runtime.ClientAuthInfoWriter) (*GetProxyOK, error)
+	GetProxy(params *GetProxyParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProxyOK, error)
 
-	GetRunner(params *GetRunnerParams, authInfo runtime.ClientAuthInfoWriter) (*GetRunnerOK, error)
+	GetRunner(params *GetRunnerParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRunnerOK, error)
 
-	GetRunnerLoggingSettings(params *GetRunnerLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*GetRunnerLoggingSettingsOK, error)
+	GetRunnerLoggingSettings(params *GetRunnerLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRunnerLoggingSettingsOK, error)
 
-	GetRunners(params *GetRunnersParams, authInfo runtime.ClientAuthInfoWriter) (*GetRunnersOK, error)
+	GetRunners(params *GetRunnersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRunnersOK, error)
 
-	ListBlueprinterRoles(params *ListBlueprinterRolesParams, authInfo runtime.ClientAuthInfoWriter) (*ListBlueprinterRolesOK, error)
+	ListBlueprinterRoles(params *ListBlueprinterRolesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListBlueprinterRolesOK, error)
 
-	ListConfigStoreOption(params *ListConfigStoreOptionParams, authInfo runtime.ClientAuthInfoWriter) (*ListConfigStoreOptionOK, error)
+	ListConfigStoreOption(params *ListConfigStoreOptionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListConfigStoreOptionOK, error)
 
-	MoveClusters(params *MoveClustersParams, authInfo runtime.ClientAuthInfoWriter) (*MoveClustersAccepted, error)
+	MoveClusters(params *MoveClustersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MoveClustersAccepted, error)
 
-	MoveClustersByType(params *MoveClustersByTypeParams, authInfo runtime.ClientAuthInfoWriter) (*MoveClustersByTypeAccepted, error)
+	MoveClustersByType(params *MoveClustersByTypeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MoveClustersByTypeAccepted, error)
 
-	PutConfigStoreOption(params *PutConfigStoreOptionParams, authInfo runtime.ClientAuthInfoWriter) (*PutConfigStoreOptionOK, error)
+	PutConfigStoreOption(params *PutConfigStoreOptionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutConfigStoreOptionOK, error)
 
-	ResyncAllocator(params *ResyncAllocatorParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncAllocatorOK, error)
+	ResyncAllocator(params *ResyncAllocatorParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ResyncAllocatorOK, error)
 
-	ResyncAllocators(params *ResyncAllocatorsParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncAllocatorsAccepted, error)
+	ResyncAllocators(params *ResyncAllocatorsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ResyncAllocatorsAccepted, error)
 
-	ResyncConstructor(params *ResyncConstructorParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncConstructorOK, error)
+	ResyncConstructor(params *ResyncConstructorParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ResyncConstructorOK, error)
 
-	ResyncConstructors(params *ResyncConstructorsParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncConstructorsAccepted, error)
+	ResyncConstructors(params *ResyncConstructorsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ResyncConstructorsAccepted, error)
 
-	ResyncRunner(params *ResyncRunnerParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncRunnerOK, error)
+	ResyncRunner(params *ResyncRunnerParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ResyncRunnerOK, error)
 
-	ResyncRunners(params *ResyncRunnersParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncRunnersAccepted, error)
+	ResyncRunners(params *ResyncRunnersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ResyncRunnersAccepted, error)
 
-	SearchAllocators(params *SearchAllocatorsParams, authInfo runtime.ClientAuthInfoWriter) (*SearchAllocatorsOK, error)
+	SearchAllocators(params *SearchAllocatorsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SearchAllocatorsOK, error)
 
-	SearchRunners(params *SearchRunnersParams, authInfo runtime.ClientAuthInfoWriter) (*SearchRunnersOK, error)
+	SearchRunners(params *SearchRunnersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SearchRunnersOK, error)
 
-	SetAdminconsoleLoggingSettings(params *SetAdminconsoleLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*SetAdminconsoleLoggingSettingsOK, error)
+	SetAdminconsoleLoggingSettings(params *SetAdminconsoleLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetAdminconsoleLoggingSettingsOK, error)
 
-	SetAllocatorLoggingSettings(params *SetAllocatorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*SetAllocatorLoggingSettingsOK, error)
+	SetAllocatorLoggingSettings(params *SetAllocatorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetAllocatorLoggingSettingsOK, error)
 
-	SetAllocatorMetadata(params *SetAllocatorMetadataParams, authInfo runtime.ClientAuthInfoWriter) (*SetAllocatorMetadataOK, error)
+	SetAllocatorMetadata(params *SetAllocatorMetadataParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetAllocatorMetadataOK, error)
 
-	SetAllocatorMetadataItem(params *SetAllocatorMetadataItemParams, authInfo runtime.ClientAuthInfoWriter) (*SetAllocatorMetadataItemOK, error)
+	SetAllocatorMetadataItem(params *SetAllocatorMetadataItemParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetAllocatorMetadataItemOK, error)
 
-	SetAllocatorSettings(params *SetAllocatorSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*SetAllocatorSettingsOK, error)
+	SetAllocatorSettings(params *SetAllocatorSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetAllocatorSettingsOK, error)
 
-	SetAPIBaseURL(params *SetAPIBaseURLParams, authInfo runtime.ClientAuthInfoWriter) (*SetAPIBaseURLOK, error)
+	SetAPIBaseURL(params *SetAPIBaseURLParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetAPIBaseURLOK, error)
 
-	SetBlueprinterBlessings(params *SetBlueprinterBlessingsParams, authInfo runtime.ClientAuthInfoWriter) (*SetBlueprinterBlessingsOK, error)
+	SetBlueprinterBlessings(params *SetBlueprinterBlessingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetBlueprinterBlessingsOK, error)
 
-	SetConstructorLoggingSettings(params *SetConstructorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*SetConstructorLoggingSettingsOK, error)
+	SetConstructorLoggingSettings(params *SetConstructorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetConstructorLoggingSettingsOK, error)
 
-	SetLicense(params *SetLicenseParams, authInfo runtime.ClientAuthInfoWriter) (*SetLicenseOK, error)
+	SetLicense(params *SetLicenseParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetLicenseOK, error)
 
-	SetProxiesSettings(params *SetProxiesSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*SetProxiesSettingsOK, error)
+	SetProxiesSettings(params *SetProxiesSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetProxiesSettingsOK, error)
 
-	SetRunnerLoggingSettings(params *SetRunnerLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*SetRunnerLoggingSettingsOK, error)
+	SetRunnerLoggingSettings(params *SetRunnerLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetRunnerLoggingSettingsOK, error)
 
-	SetRunnerRoles(params *SetRunnerRolesParams, authInfo runtime.ClientAuthInfoWriter) (*SetRunnerRolesOK, error)
+	SetRunnerRoles(params *SetRunnerRolesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetRunnerRolesOK, error)
 
-	StartAllocatorMaintenanceMode(params *StartAllocatorMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StartAllocatorMaintenanceModeAccepted, error)
+	StartAllocatorMaintenanceMode(params *StartAllocatorMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StartAllocatorMaintenanceModeAccepted, error)
 
-	StartConstructorMaintenanceMode(params *StartConstructorMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StartConstructorMaintenanceModeAccepted, error)
+	StartConstructorMaintenanceMode(params *StartConstructorMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StartConstructorMaintenanceModeAccepted, error)
 
-	StopAllocatorMaintenanceMode(params *StopAllocatorMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StopAllocatorMaintenanceModeAccepted, error)
+	StopAllocatorMaintenanceMode(params *StopAllocatorMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StopAllocatorMaintenanceModeAccepted, error)
 
-	StopConstructorMaintenanceMode(params *StopConstructorMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StopConstructorMaintenanceModeAccepted, error)
+	StopConstructorMaintenanceMode(params *StopConstructorMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StopConstructorMaintenanceModeAccepted, error)
 
-	UpdateAdminconsoleLoggingSettings(params *UpdateAdminconsoleLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateAdminconsoleLoggingSettingsOK, error)
+	UpdateAdminconsoleLoggingSettings(params *UpdateAdminconsoleLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateAdminconsoleLoggingSettingsOK, error)
 
-	UpdateAllocatorLoggingSettings(params *UpdateAllocatorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateAllocatorLoggingSettingsOK, error)
+	UpdateAllocatorLoggingSettings(params *UpdateAllocatorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateAllocatorLoggingSettingsOK, error)
 
-	UpdateAllocatorSettings(params *UpdateAllocatorSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateAllocatorSettingsOK, error)
+	UpdateAllocatorSettings(params *UpdateAllocatorSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateAllocatorSettingsOK, error)
 
-	UpdateBlueprinterRole(params *UpdateBlueprinterRoleParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateBlueprinterRoleOK, error)
+	UpdateBlueprinterRole(params *UpdateBlueprinterRoleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateBlueprinterRoleOK, error)
 
-	UpdateConstructorLoggingSettings(params *UpdateConstructorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateConstructorLoggingSettingsOK, error)
+	UpdateConstructorLoggingSettings(params *UpdateConstructorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateConstructorLoggingSettingsOK, error)
 
-	UpdateProxiesFilteredGroup(params *UpdateProxiesFilteredGroupParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateProxiesFilteredGroupOK, error)
+	UpdateProxiesFilteredGroup(params *UpdateProxiesFilteredGroupParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateProxiesFilteredGroupOK, error)
 
-	UpdateProxiesSettings(params *UpdateProxiesSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateProxiesSettingsOK, error)
+	UpdateProxiesSettings(params *UpdateProxiesSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateProxiesSettingsOK, error)
 
-	UpdateRunnerLoggingSettings(params *UpdateRunnerLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateRunnerLoggingSettingsOK, error)
+	UpdateRunnerLoggingSettings(params *UpdateRunnerLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateRunnerLoggingSettingsOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -202,13 +205,12 @@ type ClientService interface {
 
   Add a Blessing for a runner to a role.
 */
-func (a *Client) AddBlueprinterBlessing(params *AddBlueprinterBlessingParams, authInfo runtime.ClientAuthInfoWriter) (*AddBlueprinterBlessingOK, error) {
+func (a *Client) AddBlueprinterBlessing(params *AddBlueprinterBlessingParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*AddBlueprinterBlessingOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewAddBlueprinterBlessingParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "add-blueprinter-blessing",
 		Method:             "PUT",
 		PathPattern:        "/platform/infrastructure/blueprinter/roles/{blueprinter_role_id}/blessings/{runner_id}",
@@ -220,7 +222,12 @@ func (a *Client) AddBlueprinterBlessing(params *AddBlueprinterBlessingParams, au
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -239,13 +246,12 @@ func (a *Client) AddBlueprinterBlessing(params *AddBlueprinterBlessingParams, au
 
   Create a Blueprinter role.
 */
-func (a *Client) CreateBlueprinterRole(params *CreateBlueprinterRoleParams, authInfo runtime.ClientAuthInfoWriter) (*CreateBlueprinterRoleCreated, error) {
+func (a *Client) CreateBlueprinterRole(params *CreateBlueprinterRoleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateBlueprinterRoleCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateBlueprinterRoleParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "create-blueprinter-role",
 		Method:             "POST",
 		PathPattern:        "/platform/infrastructure/blueprinter/roles",
@@ -257,7 +263,12 @@ func (a *Client) CreateBlueprinterRole(params *CreateBlueprinterRoleParams, auth
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -276,13 +287,12 @@ func (a *Client) CreateBlueprinterRole(params *CreateBlueprinterRoleParams, auth
 
   Inserts new Config Store Option.
 */
-func (a *Client) CreateConfigStoreOption(params *CreateConfigStoreOptionParams, authInfo runtime.ClientAuthInfoWriter) (*CreateConfigStoreOptionCreated, error) {
+func (a *Client) CreateConfigStoreOption(params *CreateConfigStoreOptionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateConfigStoreOptionCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateConfigStoreOptionParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "create-config-store-option",
 		Method:             "POST",
 		PathPattern:        "/platform/configuration/store/{config_option_id}",
@@ -294,7 +304,12 @@ func (a *Client) CreateConfigStoreOption(params *CreateConfigStoreOptionParams, 
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -313,13 +328,12 @@ func (a *Client) CreateConfigStoreOption(params *CreateConfigStoreOptionParams, 
 
   Create the settings for a filtered group of proxies.
 */
-func (a *Client) CreateProxiesFilteredGroup(params *CreateProxiesFilteredGroupParams, authInfo runtime.ClientAuthInfoWriter) (*CreateProxiesFilteredGroupOK, error) {
+func (a *Client) CreateProxiesFilteredGroup(params *CreateProxiesFilteredGroupParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateProxiesFilteredGroupOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateProxiesFilteredGroupParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "create-proxies-filtered-group",
 		Method:             "POST",
 		PathPattern:        "/platform/infrastructure/proxies/filtered-groups",
@@ -331,7 +345,12 @@ func (a *Client) CreateProxiesFilteredGroup(params *CreateProxiesFilteredGroupPa
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -350,13 +369,12 @@ func (a *Client) CreateProxiesFilteredGroup(params *CreateProxiesFilteredGroupPa
 
   Reset the default logging settings for this adminconsole instance.
 */
-func (a *Client) DeleteAdminconsoleLoggingSettings(params *DeleteAdminconsoleLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteAdminconsoleLoggingSettingsOK, error) {
+func (a *Client) DeleteAdminconsoleLoggingSettings(params *DeleteAdminconsoleLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteAdminconsoleLoggingSettingsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteAdminconsoleLoggingSettingsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "delete-adminconsole-logging-settings",
 		Method:             "DELETE",
 		PathPattern:        "/platform/infrastructure/adminconsoles/{adminconsole_id}/logging_settings",
@@ -368,7 +386,12 @@ func (a *Client) DeleteAdminconsoleLoggingSettings(params *DeleteAdminconsoleLog
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -387,13 +410,12 @@ func (a *Client) DeleteAdminconsoleLoggingSettings(params *DeleteAdminconsoleLog
 
   Deletes the allocator.
 */
-func (a *Client) DeleteAllocator(params *DeleteAllocatorParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteAllocatorOK, error) {
+func (a *Client) DeleteAllocator(params *DeleteAllocatorParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteAllocatorOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteAllocatorParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "delete-allocator",
 		Method:             "DELETE",
 		PathPattern:        "/platform/infrastructure/allocators/{allocator_id}",
@@ -405,7 +427,12 @@ func (a *Client) DeleteAllocator(params *DeleteAllocatorParams, authInfo runtime
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -424,13 +451,12 @@ func (a *Client) DeleteAllocator(params *DeleteAllocatorParams, authInfo runtime
 
   Reset the default logging settings for this allocator instance.
 */
-func (a *Client) DeleteAllocatorLoggingSettings(params *DeleteAllocatorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteAllocatorLoggingSettingsOK, error) {
+func (a *Client) DeleteAllocatorLoggingSettings(params *DeleteAllocatorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteAllocatorLoggingSettingsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteAllocatorLoggingSettingsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "delete-allocator-logging-settings",
 		Method:             "DELETE",
 		PathPattern:        "/platform/infrastructure/allocators/{allocator_id}/logging_settings",
@@ -442,7 +468,12 @@ func (a *Client) DeleteAllocatorLoggingSettings(params *DeleteAllocatorLoggingSe
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -461,13 +492,12 @@ func (a *Client) DeleteAllocatorLoggingSettings(params *DeleteAllocatorLoggingSe
 
   Removes a single item from the allocator metadata.
 */
-func (a *Client) DeleteAllocatorMetadataItem(params *DeleteAllocatorMetadataItemParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteAllocatorMetadataItemOK, error) {
+func (a *Client) DeleteAllocatorMetadataItem(params *DeleteAllocatorMetadataItemParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteAllocatorMetadataItemOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteAllocatorMetadataItemParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "delete-allocator-metadata-item",
 		Method:             "DELETE",
 		PathPattern:        "/platform/infrastructure/allocators/{allocator_id}/metadata/{key}",
@@ -479,7 +509,12 @@ func (a *Client) DeleteAllocatorMetadataItem(params *DeleteAllocatorMetadataItem
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -498,13 +533,12 @@ func (a *Client) DeleteAllocatorMetadataItem(params *DeleteAllocatorMetadataItem
 
   Delete a role.
 */
-func (a *Client) DeleteBlueprinterRole(params *DeleteBlueprinterRoleParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteBlueprinterRoleOK, error) {
+func (a *Client) DeleteBlueprinterRole(params *DeleteBlueprinterRoleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteBlueprinterRoleOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteBlueprinterRoleParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "delete-blueprinter-role",
 		Method:             "DELETE",
 		PathPattern:        "/platform/infrastructure/blueprinter/roles/{blueprinter_role_id}",
@@ -516,7 +550,12 @@ func (a *Client) DeleteBlueprinterRole(params *DeleteBlueprinterRoleParams, auth
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -535,13 +574,12 @@ func (a *Client) DeleteBlueprinterRole(params *DeleteBlueprinterRoleParams, auth
 
   Delete Config Store Option by name.
 */
-func (a *Client) DeleteConfigStoreOption(params *DeleteConfigStoreOptionParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteConfigStoreOptionOK, error) {
+func (a *Client) DeleteConfigStoreOption(params *DeleteConfigStoreOptionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteConfigStoreOptionOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteConfigStoreOptionParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "delete-config-store-option",
 		Method:             "DELETE",
 		PathPattern:        "/platform/configuration/store/{config_option_id}",
@@ -553,7 +591,12 @@ func (a *Client) DeleteConfigStoreOption(params *DeleteConfigStoreOptionParams, 
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -572,13 +615,12 @@ func (a *Client) DeleteConfigStoreOption(params *DeleteConfigStoreOptionParams, 
 
   Reset the default logging settings for this constructor instance.
 */
-func (a *Client) DeleteConstructorLoggingSettings(params *DeleteConstructorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteConstructorLoggingSettingsOK, error) {
+func (a *Client) DeleteConstructorLoggingSettings(params *DeleteConstructorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteConstructorLoggingSettingsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteConstructorLoggingSettingsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "delete-constructor-logging-settings",
 		Method:             "DELETE",
 		PathPattern:        "/platform/infrastructure/constructors/{constructor_id}/logging_settings",
@@ -590,7 +632,12 @@ func (a *Client) DeleteConstructorLoggingSettings(params *DeleteConstructorLoggi
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -609,13 +656,12 @@ func (a *Client) DeleteConstructorLoggingSettings(params *DeleteConstructorLoggi
 
   Deletes the license.
 */
-func (a *Client) DeleteLicense(params *DeleteLicenseParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteLicenseOK, error) {
+func (a *Client) DeleteLicense(params *DeleteLicenseParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteLicenseOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteLicenseParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "delete-license",
 		Method:             "DELETE",
 		PathPattern:        "/platform/license",
@@ -627,7 +673,12 @@ func (a *Client) DeleteLicense(params *DeleteLicenseParams, authInfo runtime.Cli
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -646,13 +697,12 @@ func (a *Client) DeleteLicense(params *DeleteLicenseParams, authInfo runtime.Cli
 
   Deletes a filtered group of proxies by ID.
 */
-func (a *Client) DeleteProxiesFilteredGroup(params *DeleteProxiesFilteredGroupParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteProxiesFilteredGroupOK, error) {
+func (a *Client) DeleteProxiesFilteredGroup(params *DeleteProxiesFilteredGroupParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteProxiesFilteredGroupOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteProxiesFilteredGroupParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "delete-proxies-filtered-group",
 		Method:             "DELETE",
 		PathPattern:        "/platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}",
@@ -664,7 +714,12 @@ func (a *Client) DeleteProxiesFilteredGroup(params *DeleteProxiesFilteredGroupPa
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -683,13 +738,12 @@ func (a *Client) DeleteProxiesFilteredGroup(params *DeleteProxiesFilteredGroupPa
 
   Delete a runner by id.
 */
-func (a *Client) DeleteRunner(params *DeleteRunnerParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteRunnerOK, error) {
+func (a *Client) DeleteRunner(params *DeleteRunnerParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteRunnerOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteRunnerParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "delete-runner",
 		Method:             "DELETE",
 		PathPattern:        "/platform/infrastructure/runners/{runner_id}",
@@ -701,7 +755,12 @@ func (a *Client) DeleteRunner(params *DeleteRunnerParams, authInfo runtime.Clien
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -720,13 +779,12 @@ func (a *Client) DeleteRunner(params *DeleteRunnerParams, authInfo runtime.Clien
 
   Reset the default logging settings for this runner instance.
 */
-func (a *Client) DeleteRunnerLoggingSettings(params *DeleteRunnerLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteRunnerLoggingSettingsOK, error) {
+func (a *Client) DeleteRunnerLoggingSettings(params *DeleteRunnerLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteRunnerLoggingSettingsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteRunnerLoggingSettingsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "delete-runner-logging-settings",
 		Method:             "DELETE",
 		PathPattern:        "/platform/infrastructure/runners/{runner_id}/logging_settings",
@@ -738,7 +796,12 @@ func (a *Client) DeleteRunnerLoggingSettings(params *DeleteRunnerLoggingSettings
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -757,13 +820,12 @@ func (a *Client) DeleteRunnerLoggingSettings(params *DeleteRunnerLoggingSettings
 
   Get the logging settings for this adminconsole instance.
 */
-func (a *Client) GetAdminconsoleLoggingSettings(params *GetAdminconsoleLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*GetAdminconsoleLoggingSettingsOK, error) {
+func (a *Client) GetAdminconsoleLoggingSettings(params *GetAdminconsoleLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAdminconsoleLoggingSettingsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetAdminconsoleLoggingSettingsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-adminconsole-logging-settings",
 		Method:             "GET",
 		PathPattern:        "/platform/infrastructure/adminconsoles/{adminconsole_id}/logging_settings",
@@ -775,7 +837,12 @@ func (a *Client) GetAdminconsoleLoggingSettings(params *GetAdminconsoleLoggingSe
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -794,13 +861,12 @@ func (a *Client) GetAdminconsoleLoggingSettings(params *GetAdminconsoleLoggingSe
 
   Retrieves an overview of all adminconsoles.
 */
-func (a *Client) GetAdminconsoles(params *GetAdminconsolesParams, authInfo runtime.ClientAuthInfoWriter) (*GetAdminconsolesOK, error) {
+func (a *Client) GetAdminconsoles(params *GetAdminconsolesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAdminconsolesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetAdminconsolesParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-adminconsoles",
 		Method:             "GET",
 		PathPattern:        "/platform/infrastructure/adminconsoles",
@@ -812,7 +878,12 @@ func (a *Client) GetAdminconsoles(params *GetAdminconsolesParams, authInfo runti
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -831,13 +902,12 @@ func (a *Client) GetAdminconsoles(params *GetAdminconsolesParams, authInfo runti
 
   Retrieves the allocator by the ID.
 */
-func (a *Client) GetAllocator(params *GetAllocatorParams, authInfo runtime.ClientAuthInfoWriter) (*GetAllocatorOK, error) {
+func (a *Client) GetAllocator(params *GetAllocatorParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAllocatorOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetAllocatorParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-allocator",
 		Method:             "GET",
 		PathPattern:        "/platform/infrastructure/allocators/{allocator_id}",
@@ -849,7 +919,12 @@ func (a *Client) GetAllocator(params *GetAllocatorParams, authInfo runtime.Clien
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -868,13 +943,12 @@ func (a *Client) GetAllocator(params *GetAllocatorParams, authInfo runtime.Clien
 
   Get the logging settings for this allocator instance.
 */
-func (a *Client) GetAllocatorLoggingSettings(params *GetAllocatorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*GetAllocatorLoggingSettingsOK, error) {
+func (a *Client) GetAllocatorLoggingSettings(params *GetAllocatorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAllocatorLoggingSettingsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetAllocatorLoggingSettingsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-allocator-logging-settings",
 		Method:             "GET",
 		PathPattern:        "/platform/infrastructure/allocators/{allocator_id}/logging_settings",
@@ -886,7 +960,12 @@ func (a *Client) GetAllocatorLoggingSettings(params *GetAllocatorLoggingSettings
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -905,13 +984,12 @@ func (a *Client) GetAllocatorLoggingSettings(params *GetAllocatorLoggingSettings
 
   Retrieves the allocator metadata.
 */
-func (a *Client) GetAllocatorMetadata(params *GetAllocatorMetadataParams, authInfo runtime.ClientAuthInfoWriter) (*GetAllocatorMetadataOK, error) {
+func (a *Client) GetAllocatorMetadata(params *GetAllocatorMetadataParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAllocatorMetadataOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetAllocatorMetadataParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-allocator-metadata",
 		Method:             "GET",
 		PathPattern:        "/platform/infrastructure/allocators/{allocator_id}/metadata",
@@ -923,7 +1001,12 @@ func (a *Client) GetAllocatorMetadata(params *GetAllocatorMetadataParams, authIn
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -942,13 +1025,12 @@ func (a *Client) GetAllocatorMetadata(params *GetAllocatorMetadataParams, authIn
 
   Retrieves the allocator override settings.
 */
-func (a *Client) GetAllocatorSettings(params *GetAllocatorSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*GetAllocatorSettingsOK, error) {
+func (a *Client) GetAllocatorSettings(params *GetAllocatorSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAllocatorSettingsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetAllocatorSettingsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-allocator-settings",
 		Method:             "GET",
 		PathPattern:        "/platform/infrastructure/allocators/{allocator_id}/settings",
@@ -960,7 +1042,12 @@ func (a *Client) GetAllocatorSettings(params *GetAllocatorSettingsParams, authIn
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -979,13 +1066,12 @@ func (a *Client) GetAllocatorSettings(params *GetAllocatorSettingsParams, authIn
 
   Retrieves the information for all of the allocators in the platform.
 */
-func (a *Client) GetAllocators(params *GetAllocatorsParams, authInfo runtime.ClientAuthInfoWriter) (*GetAllocatorsOK, error) {
+func (a *Client) GetAllocators(params *GetAllocatorsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAllocatorsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetAllocatorsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-allocators",
 		Method:             "GET",
 		PathPattern:        "/platform/infrastructure/allocators",
@@ -997,7 +1083,12 @@ func (a *Client) GetAllocators(params *GetAllocatorsParams, authInfo runtime.Cli
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1016,13 +1107,12 @@ func (a *Client) GetAllocators(params *GetAllocatorsParams, authInfo runtime.Cli
 
   Gets the API base Url configuration value.
 */
-func (a *Client) GetAPIBaseURL(params *GetAPIBaseURLParams, authInfo runtime.ClientAuthInfoWriter) (*GetAPIBaseURLOK, error) {
+func (a *Client) GetAPIBaseURL(params *GetAPIBaseURLParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAPIBaseURLOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetAPIBaseURLParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-api-base-url",
 		Method:             "GET",
 		PathPattern:        "/platform/configuration/api_base_url",
@@ -1034,7 +1124,12 @@ func (a *Client) GetAPIBaseURL(params *GetAPIBaseURLParams, authInfo runtime.Cli
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1053,13 +1148,12 @@ func (a *Client) GetAPIBaseURL(params *GetAPIBaseURLParams, authInfo runtime.Cli
 
   Retrieve a role.
 */
-func (a *Client) GetBlueprinterRole(params *GetBlueprinterRoleParams, authInfo runtime.ClientAuthInfoWriter) (*GetBlueprinterRoleOK, error) {
+func (a *Client) GetBlueprinterRole(params *GetBlueprinterRoleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetBlueprinterRoleOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetBlueprinterRoleParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-blueprinter-role",
 		Method:             "GET",
 		PathPattern:        "/platform/infrastructure/blueprinter/roles/{blueprinter_role_id}",
@@ -1071,7 +1165,12 @@ func (a *Client) GetBlueprinterRole(params *GetBlueprinterRoleParams, authInfo r
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1090,13 +1189,12 @@ func (a *Client) GetBlueprinterRole(params *GetBlueprinterRoleParams, authInfo r
 
   Find Config Store Option by name.
 */
-func (a *Client) GetConfigStoreOption(params *GetConfigStoreOptionParams, authInfo runtime.ClientAuthInfoWriter) (*GetConfigStoreOptionOK, error) {
+func (a *Client) GetConfigStoreOption(params *GetConfigStoreOptionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetConfigStoreOptionOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetConfigStoreOptionParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-config-store-option",
 		Method:             "GET",
 		PathPattern:        "/platform/configuration/store/{config_option_id}",
@@ -1108,7 +1206,12 @@ func (a *Client) GetConfigStoreOption(params *GetConfigStoreOptionParams, authIn
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1127,13 +1230,12 @@ func (a *Client) GetConfigStoreOption(params *GetConfigStoreOptionParams, authIn
 
   Retrieves a constructor by id.
 */
-func (a *Client) GetConstructor(params *GetConstructorParams, authInfo runtime.ClientAuthInfoWriter) (*GetConstructorOK, error) {
+func (a *Client) GetConstructor(params *GetConstructorParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetConstructorOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetConstructorParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-constructor",
 		Method:             "GET",
 		PathPattern:        "/platform/infrastructure/constructors/{constructor_id}",
@@ -1145,7 +1247,12 @@ func (a *Client) GetConstructor(params *GetConstructorParams, authInfo runtime.C
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1164,13 +1271,12 @@ func (a *Client) GetConstructor(params *GetConstructorParams, authInfo runtime.C
 
   Get the logging settings for this constructor instance.
 */
-func (a *Client) GetConstructorLoggingSettings(params *GetConstructorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*GetConstructorLoggingSettingsOK, error) {
+func (a *Client) GetConstructorLoggingSettings(params *GetConstructorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetConstructorLoggingSettingsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetConstructorLoggingSettingsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-constructor-logging-settings",
 		Method:             "GET",
 		PathPattern:        "/platform/infrastructure/constructors/{constructor_id}/logging_settings",
@@ -1182,7 +1288,12 @@ func (a *Client) GetConstructorLoggingSettings(params *GetConstructorLoggingSett
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1201,13 +1312,12 @@ func (a *Client) GetConstructorLoggingSettings(params *GetConstructorLoggingSett
 
   Retrieves an overview of all constructors in an ECE installation.
 */
-func (a *Client) GetConstructors(params *GetConstructorsParams, authInfo runtime.ClientAuthInfoWriter) (*GetConstructorsOK, error) {
+func (a *Client) GetConstructors(params *GetConstructorsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetConstructorsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetConstructorsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-constructors",
 		Method:             "GET",
 		PathPattern:        "/platform/infrastructure/constructors",
@@ -1219,7 +1329,12 @@ func (a *Client) GetConstructors(params *GetConstructorsParams, authInfo runtime
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1238,13 +1353,12 @@ func (a *Client) GetConstructors(params *GetConstructorsParams, authInfo runtime
 
   Retrieves the license.
 */
-func (a *Client) GetLicense(params *GetLicenseParams, authInfo runtime.ClientAuthInfoWriter) (*GetLicenseOK, error) {
+func (a *Client) GetLicense(params *GetLicenseParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetLicenseOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetLicenseParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-license",
 		Method:             "GET",
 		PathPattern:        "/platform/license",
@@ -1256,7 +1370,12 @@ func (a *Client) GetLicense(params *GetLicenseParams, authInfo runtime.ClientAut
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1275,13 +1394,12 @@ func (a *Client) GetLicense(params *GetLicenseParams, authInfo runtime.ClientAut
 
   Retrieves an overview of all proxies.
 */
-func (a *Client) GetProxies(params *GetProxiesParams, authInfo runtime.ClientAuthInfoWriter) (*GetProxiesOK, error) {
+func (a *Client) GetProxies(params *GetProxiesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProxiesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetProxiesParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-proxies",
 		Method:             "GET",
 		PathPattern:        "/platform/infrastructure/proxies",
@@ -1293,7 +1411,12 @@ func (a *Client) GetProxies(params *GetProxiesParams, authInfo runtime.ClientAut
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1312,13 +1435,12 @@ func (a *Client) GetProxies(params *GetProxiesParams, authInfo runtime.ClientAut
 
   Get data for a filtered group of proxies.
 */
-func (a *Client) GetProxiesFilteredGroup(params *GetProxiesFilteredGroupParams, authInfo runtime.ClientAuthInfoWriter) (*GetProxiesFilteredGroupOK, error) {
+func (a *Client) GetProxiesFilteredGroup(params *GetProxiesFilteredGroupParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProxiesFilteredGroupOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetProxiesFilteredGroupParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-proxies-filtered-group",
 		Method:             "GET",
 		PathPattern:        "/platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}",
@@ -1330,7 +1452,12 @@ func (a *Client) GetProxiesFilteredGroup(params *GetProxiesFilteredGroupParams, 
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1349,13 +1476,12 @@ func (a *Client) GetProxiesFilteredGroup(params *GetProxiesFilteredGroupParams, 
 
   Get the health status of a filtered group of proxies.
 */
-func (a *Client) GetProxiesFilteredGroupHealth(params *GetProxiesFilteredGroupHealthParams, authInfo runtime.ClientAuthInfoWriter) (*GetProxiesFilteredGroupHealthOK, error) {
+func (a *Client) GetProxiesFilteredGroupHealth(params *GetProxiesFilteredGroupHealthParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProxiesFilteredGroupHealthOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetProxiesFilteredGroupHealthParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-proxies-filtered-group-health",
 		Method:             "GET",
 		PathPattern:        "/platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}/health",
@@ -1367,7 +1493,12 @@ func (a *Client) GetProxiesFilteredGroupHealth(params *GetProxiesFilteredGroupHe
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1386,13 +1517,12 @@ func (a *Client) GetProxiesFilteredGroupHealth(params *GetProxiesFilteredGroupHe
 
   Get the health status of all proxies.
 */
-func (a *Client) GetProxiesHealth(params *GetProxiesHealthParams, authInfo runtime.ClientAuthInfoWriter) (*GetProxiesHealthOK, error) {
+func (a *Client) GetProxiesHealth(params *GetProxiesHealthParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProxiesHealthOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetProxiesHealthParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-proxies-health",
 		Method:             "GET",
 		PathPattern:        "/platform/infrastructure/proxies/health",
@@ -1404,7 +1534,12 @@ func (a *Client) GetProxiesHealth(params *GetProxiesHealthParams, authInfo runti
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1423,13 +1558,12 @@ func (a *Client) GetProxiesHealth(params *GetProxiesHealthParams, authInfo runti
 
   Retrieves the settings for all proxies.
 */
-func (a *Client) GetProxiesSettings(params *GetProxiesSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*GetProxiesSettingsOK, error) {
+func (a *Client) GetProxiesSettings(params *GetProxiesSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProxiesSettingsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetProxiesSettingsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-proxies-settings",
 		Method:             "GET",
 		PathPattern:        "/platform/infrastructure/proxies/settings",
@@ -1441,7 +1575,12 @@ func (a *Client) GetProxiesSettings(params *GetProxiesSettingsParams, authInfo r
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1460,13 +1599,12 @@ func (a *Client) GetProxiesSettings(params *GetProxiesSettingsParams, authInfo r
 
   Retrieves a single proxy by ID.
 */
-func (a *Client) GetProxy(params *GetProxyParams, authInfo runtime.ClientAuthInfoWriter) (*GetProxyOK, error) {
+func (a *Client) GetProxy(params *GetProxyParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProxyOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetProxyParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-proxy",
 		Method:             "GET",
 		PathPattern:        "/platform/infrastructure/proxies/{proxy_id}",
@@ -1478,7 +1616,12 @@ func (a *Client) GetProxy(params *GetProxyParams, authInfo runtime.ClientAuthInf
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1497,13 +1640,12 @@ func (a *Client) GetProxy(params *GetProxyParams, authInfo runtime.ClientAuthInf
 
   Retrieves a runner by id.
 */
-func (a *Client) GetRunner(params *GetRunnerParams, authInfo runtime.ClientAuthInfoWriter) (*GetRunnerOK, error) {
+func (a *Client) GetRunner(params *GetRunnerParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRunnerOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetRunnerParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-runner",
 		Method:             "GET",
 		PathPattern:        "/platform/infrastructure/runners/{runner_id}",
@@ -1515,7 +1657,12 @@ func (a *Client) GetRunner(params *GetRunnerParams, authInfo runtime.ClientAuthI
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1534,13 +1681,12 @@ func (a *Client) GetRunner(params *GetRunnerParams, authInfo runtime.ClientAuthI
 
   Get the logging settings for this runner instance.
 */
-func (a *Client) GetRunnerLoggingSettings(params *GetRunnerLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*GetRunnerLoggingSettingsOK, error) {
+func (a *Client) GetRunnerLoggingSettings(params *GetRunnerLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRunnerLoggingSettingsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetRunnerLoggingSettingsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-runner-logging-settings",
 		Method:             "GET",
 		PathPattern:        "/platform/infrastructure/runners/{runner_id}/logging_settings",
@@ -1552,7 +1698,12 @@ func (a *Client) GetRunnerLoggingSettings(params *GetRunnerLoggingSettingsParams
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1571,13 +1722,12 @@ func (a *Client) GetRunnerLoggingSettings(params *GetRunnerLoggingSettingsParams
 
   Retrieves an overview of all runners.
 */
-func (a *Client) GetRunners(params *GetRunnersParams, authInfo runtime.ClientAuthInfoWriter) (*GetRunnersOK, error) {
+func (a *Client) GetRunners(params *GetRunnersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRunnersOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetRunnersParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-runners",
 		Method:             "GET",
 		PathPattern:        "/platform/infrastructure/runners",
@@ -1589,7 +1739,12 @@ func (a *Client) GetRunners(params *GetRunnersParams, authInfo runtime.ClientAut
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1608,13 +1763,12 @@ func (a *Client) GetRunners(params *GetRunnersParams, authInfo runtime.ClientAut
 
   Retrieve all persisted roles.
 */
-func (a *Client) ListBlueprinterRoles(params *ListBlueprinterRolesParams, authInfo runtime.ClientAuthInfoWriter) (*ListBlueprinterRolesOK, error) {
+func (a *Client) ListBlueprinterRoles(params *ListBlueprinterRolesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListBlueprinterRolesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewListBlueprinterRolesParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "list-blueprinter-roles",
 		Method:             "GET",
 		PathPattern:        "/platform/infrastructure/blueprinter/roles",
@@ -1626,7 +1780,12 @@ func (a *Client) ListBlueprinterRoles(params *ListBlueprinterRolesParams, authIn
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1645,13 +1804,12 @@ func (a *Client) ListBlueprinterRoles(params *ListBlueprinterRolesParams, authIn
 
   List all existing Config Store Option.
 */
-func (a *Client) ListConfigStoreOption(params *ListConfigStoreOptionParams, authInfo runtime.ClientAuthInfoWriter) (*ListConfigStoreOptionOK, error) {
+func (a *Client) ListConfigStoreOption(params *ListConfigStoreOptionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListConfigStoreOptionOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewListConfigStoreOptionParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "list-config-store-option",
 		Method:             "GET",
 		PathPattern:        "/platform/configuration/store",
@@ -1663,7 +1821,12 @@ func (a *Client) ListConfigStoreOption(params *ListConfigStoreOptionParams, auth
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1682,13 +1845,12 @@ func (a *Client) ListConfigStoreOption(params *ListConfigStoreOptionParams, auth
 
   Moves the clusters to a different allocator.
 */
-func (a *Client) MoveClusters(params *MoveClustersParams, authInfo runtime.ClientAuthInfoWriter) (*MoveClustersAccepted, error) {
+func (a *Client) MoveClusters(params *MoveClustersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MoveClustersAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewMoveClustersParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "move-clusters",
 		Method:             "POST",
 		PathPattern:        "/platform/infrastructure/allocators/{allocator_id}/clusters/_move",
@@ -1700,7 +1862,12 @@ func (a *Client) MoveClusters(params *MoveClustersParams, authInfo runtime.Clien
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1719,13 +1886,12 @@ func (a *Client) MoveClusters(params *MoveClustersParams, authInfo runtime.Clien
 
   Moves the clusters, by type, to a different allocator.
 */
-func (a *Client) MoveClustersByType(params *MoveClustersByTypeParams, authInfo runtime.ClientAuthInfoWriter) (*MoveClustersByTypeAccepted, error) {
+func (a *Client) MoveClustersByType(params *MoveClustersByTypeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MoveClustersByTypeAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewMoveClustersByTypeParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "move-clusters-by-type",
 		Method:             "POST",
 		PathPattern:        "/platform/infrastructure/allocators/{allocator_id}/clusters/{cluster_type}/_move",
@@ -1737,7 +1903,12 @@ func (a *Client) MoveClustersByType(params *MoveClustersByTypeParams, authInfo r
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1756,13 +1927,12 @@ func (a *Client) MoveClustersByType(params *MoveClustersByTypeParams, authInfo r
 
   Update existing Config Store Option.
 */
-func (a *Client) PutConfigStoreOption(params *PutConfigStoreOptionParams, authInfo runtime.ClientAuthInfoWriter) (*PutConfigStoreOptionOK, error) {
+func (a *Client) PutConfigStoreOption(params *PutConfigStoreOptionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutConfigStoreOptionOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPutConfigStoreOptionParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "put-config-store-option",
 		Method:             "PUT",
 		PathPattern:        "/platform/configuration/store/{config_option_id}",
@@ -1774,7 +1944,12 @@ func (a *Client) PutConfigStoreOption(params *PutConfigStoreOptionParams, authIn
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1793,13 +1968,12 @@ func (a *Client) PutConfigStoreOption(params *PutConfigStoreOptionParams, authIn
 
   Immediately synchronizes the allocator information in the back-end search index and caches.
 */
-func (a *Client) ResyncAllocator(params *ResyncAllocatorParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncAllocatorOK, error) {
+func (a *Client) ResyncAllocator(params *ResyncAllocatorParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ResyncAllocatorOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewResyncAllocatorParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "resync-allocator",
 		Method:             "POST",
 		PathPattern:        "/platform/infrastructure/allocators/{allocator_id}/_resync",
@@ -1811,7 +1985,12 @@ func (a *Client) ResyncAllocator(params *ResyncAllocatorParams, authInfo runtime
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1830,13 +2009,12 @@ func (a *Client) ResyncAllocator(params *ResyncAllocatorParams, authInfo runtime
 
   Asynchronously synchronizes all allocator information in the back-end search index.
 */
-func (a *Client) ResyncAllocators(params *ResyncAllocatorsParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncAllocatorsAccepted, error) {
+func (a *Client) ResyncAllocators(params *ResyncAllocatorsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ResyncAllocatorsAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewResyncAllocatorsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "resync-allocators",
 		Method:             "POST",
 		PathPattern:        "/platform/infrastructure/allocators/_resync",
@@ -1848,7 +2026,12 @@ func (a *Client) ResyncAllocators(params *ResyncAllocatorsParams, authInfo runti
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1867,13 +2050,12 @@ func (a *Client) ResyncAllocators(params *ResyncAllocatorsParams, authInfo runti
 
   Immediately resynchronizes the search index and cache for the selected constructor.
 */
-func (a *Client) ResyncConstructor(params *ResyncConstructorParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncConstructorOK, error) {
+func (a *Client) ResyncConstructor(params *ResyncConstructorParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ResyncConstructorOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewResyncConstructorParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "resync-constructor",
 		Method:             "POST",
 		PathPattern:        "/platform/infrastructure/constructors/{constructor_id}/_resync",
@@ -1885,7 +2067,12 @@ func (a *Client) ResyncConstructor(params *ResyncConstructorParams, authInfo run
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1904,13 +2091,12 @@ func (a *Client) ResyncConstructor(params *ResyncConstructorParams, authInfo run
 
   Asynchronously synchronizes all constructor information in the back-end search index.
 */
-func (a *Client) ResyncConstructors(params *ResyncConstructorsParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncConstructorsAccepted, error) {
+func (a *Client) ResyncConstructors(params *ResyncConstructorsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ResyncConstructorsAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewResyncConstructorsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "resync-constructors",
 		Method:             "POST",
 		PathPattern:        "/platform/infrastructure/constructors/_resync",
@@ -1922,7 +2108,12 @@ func (a *Client) ResyncConstructors(params *ResyncConstructorsParams, authInfo r
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1941,13 +2132,12 @@ func (a *Client) ResyncConstructors(params *ResyncConstructorsParams, authInfo r
 
   Immediately resynchronizes the search index and cache for the selected runner.
 */
-func (a *Client) ResyncRunner(params *ResyncRunnerParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncRunnerOK, error) {
+func (a *Client) ResyncRunner(params *ResyncRunnerParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ResyncRunnerOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewResyncRunnerParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "resync-runner",
 		Method:             "POST",
 		PathPattern:        "/platform/infrastructure/runners/{runner_id}/_resync",
@@ -1959,7 +2149,12 @@ func (a *Client) ResyncRunner(params *ResyncRunnerParams, authInfo runtime.Clien
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1978,13 +2173,12 @@ func (a *Client) ResyncRunner(params *ResyncRunnerParams, authInfo runtime.Clien
 
   Asynchronously synchronizes all runner information in the search index.
 */
-func (a *Client) ResyncRunners(params *ResyncRunnersParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncRunnersAccepted, error) {
+func (a *Client) ResyncRunners(params *ResyncRunnersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ResyncRunnersAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewResyncRunnersParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "resync-runners",
 		Method:             "POST",
 		PathPattern:        "/platform/infrastructure/runners/_resync",
@@ -1996,7 +2190,12 @@ func (a *Client) ResyncRunners(params *ResyncRunnersParams, authInfo runtime.Cli
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -2015,13 +2214,12 @@ func (a *Client) ResyncRunners(params *ResyncRunnersParams, authInfo runtime.Cli
 
   Retrieves the information for all of the allocators in the platform that match the specified query.
 */
-func (a *Client) SearchAllocators(params *SearchAllocatorsParams, authInfo runtime.ClientAuthInfoWriter) (*SearchAllocatorsOK, error) {
+func (a *Client) SearchAllocators(params *SearchAllocatorsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SearchAllocatorsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSearchAllocatorsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "search-allocators",
 		Method:             "POST",
 		PathPattern:        "/platform/infrastructure/allocators/_search",
@@ -2033,7 +2231,12 @@ func (a *Client) SearchAllocators(params *SearchAllocatorsParams, authInfo runti
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -2052,13 +2255,12 @@ func (a *Client) SearchAllocators(params *SearchAllocatorsParams, authInfo runti
 
   Retrieves runners that match a given query.
 */
-func (a *Client) SearchRunners(params *SearchRunnersParams, authInfo runtime.ClientAuthInfoWriter) (*SearchRunnersOK, error) {
+func (a *Client) SearchRunners(params *SearchRunnersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SearchRunnersOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSearchRunnersParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "search-runners",
 		Method:             "POST",
 		PathPattern:        "/platform/infrastructure/runners/_search",
@@ -2070,7 +2272,12 @@ func (a *Client) SearchRunners(params *SearchRunnersParams, authInfo runtime.Cli
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -2089,13 +2296,12 @@ func (a *Client) SearchRunners(params *SearchRunnersParams, authInfo runtime.Cli
 
   Set the logging settings for this adminconsole instance.
 */
-func (a *Client) SetAdminconsoleLoggingSettings(params *SetAdminconsoleLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*SetAdminconsoleLoggingSettingsOK, error) {
+func (a *Client) SetAdminconsoleLoggingSettings(params *SetAdminconsoleLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetAdminconsoleLoggingSettingsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSetAdminconsoleLoggingSettingsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "set-adminconsole-logging-settings",
 		Method:             "PUT",
 		PathPattern:        "/platform/infrastructure/adminconsoles/{adminconsole_id}/logging_settings",
@@ -2107,7 +2313,12 @@ func (a *Client) SetAdminconsoleLoggingSettings(params *SetAdminconsoleLoggingSe
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -2126,13 +2337,12 @@ func (a *Client) SetAdminconsoleLoggingSettings(params *SetAdminconsoleLoggingSe
 
   Set the logging settings for this allocator instance.
 */
-func (a *Client) SetAllocatorLoggingSettings(params *SetAllocatorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*SetAllocatorLoggingSettingsOK, error) {
+func (a *Client) SetAllocatorLoggingSettings(params *SetAllocatorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetAllocatorLoggingSettingsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSetAllocatorLoggingSettingsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "set-allocator-logging-settings",
 		Method:             "PUT",
 		PathPattern:        "/platform/infrastructure/allocators/{allocator_id}/logging_settings",
@@ -2144,7 +2354,12 @@ func (a *Client) SetAllocatorLoggingSettings(params *SetAllocatorLoggingSettings
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -2163,13 +2378,12 @@ func (a *Client) SetAllocatorLoggingSettings(params *SetAllocatorLoggingSettings
 
   Sets the allocator metadata.
 */
-func (a *Client) SetAllocatorMetadata(params *SetAllocatorMetadataParams, authInfo runtime.ClientAuthInfoWriter) (*SetAllocatorMetadataOK, error) {
+func (a *Client) SetAllocatorMetadata(params *SetAllocatorMetadataParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetAllocatorMetadataOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSetAllocatorMetadataParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "set-allocator-metadata",
 		Method:             "PUT",
 		PathPattern:        "/platform/infrastructure/allocators/{allocator_id}/metadata",
@@ -2181,7 +2395,12 @@ func (a *Client) SetAllocatorMetadata(params *SetAllocatorMetadataParams, authIn
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -2200,13 +2419,12 @@ func (a *Client) SetAllocatorMetadata(params *SetAllocatorMetadataParams, authIn
 
   Adds or updates a single item in the allocator metadata.
 */
-func (a *Client) SetAllocatorMetadataItem(params *SetAllocatorMetadataItemParams, authInfo runtime.ClientAuthInfoWriter) (*SetAllocatorMetadataItemOK, error) {
+func (a *Client) SetAllocatorMetadataItem(params *SetAllocatorMetadataItemParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetAllocatorMetadataItemOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSetAllocatorMetadataItemParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "set-allocator-metadata-item",
 		Method:             "PUT",
 		PathPattern:        "/platform/infrastructure/allocators/{allocator_id}/metadata/{key}",
@@ -2218,7 +2436,12 @@ func (a *Client) SetAllocatorMetadataItem(params *SetAllocatorMetadataItemParams
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -2237,13 +2460,12 @@ func (a *Client) SetAllocatorMetadataItem(params *SetAllocatorMetadataItemParams
 
   Overwrites the allocator settings with the specified settings. WARNING: Any unspecified fields are deleted.
 */
-func (a *Client) SetAllocatorSettings(params *SetAllocatorSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*SetAllocatorSettingsOK, error) {
+func (a *Client) SetAllocatorSettings(params *SetAllocatorSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetAllocatorSettingsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSetAllocatorSettingsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "set-allocator-settings",
 		Method:             "PUT",
 		PathPattern:        "/platform/infrastructure/allocators/{allocator_id}/settings",
@@ -2255,7 +2477,12 @@ func (a *Client) SetAllocatorSettings(params *SetAllocatorSettingsParams, authIn
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -2274,13 +2501,12 @@ func (a *Client) SetAllocatorSettings(params *SetAllocatorSettingsParams, authIn
 
   Saves the API base Url configuration value.
 */
-func (a *Client) SetAPIBaseURL(params *SetAPIBaseURLParams, authInfo runtime.ClientAuthInfoWriter) (*SetAPIBaseURLOK, error) {
+func (a *Client) SetAPIBaseURL(params *SetAPIBaseURLParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetAPIBaseURLOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSetAPIBaseURLParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "set-api-base-url",
 		Method:             "PUT",
 		PathPattern:        "/platform/configuration/api_base_url",
@@ -2292,7 +2518,12 @@ func (a *Client) SetAPIBaseURL(params *SetAPIBaseURLParams, authInfo runtime.Cli
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -2311,13 +2542,12 @@ func (a *Client) SetAPIBaseURL(params *SetAPIBaseURLParams, authInfo runtime.Cli
 
   Set blessings for a role.
 */
-func (a *Client) SetBlueprinterBlessings(params *SetBlueprinterBlessingsParams, authInfo runtime.ClientAuthInfoWriter) (*SetBlueprinterBlessingsOK, error) {
+func (a *Client) SetBlueprinterBlessings(params *SetBlueprinterBlessingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetBlueprinterBlessingsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSetBlueprinterBlessingsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "set-blueprinter-blessings",
 		Method:             "PUT",
 		PathPattern:        "/platform/infrastructure/blueprinter/roles/{blueprinter_role_id}/blessings",
@@ -2329,7 +2559,12 @@ func (a *Client) SetBlueprinterBlessings(params *SetBlueprinterBlessingsParams, 
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -2348,13 +2583,12 @@ func (a *Client) SetBlueprinterBlessings(params *SetBlueprinterBlessingsParams, 
 
   Set the logging settings for this constructor instance.
 */
-func (a *Client) SetConstructorLoggingSettings(params *SetConstructorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*SetConstructorLoggingSettingsOK, error) {
+func (a *Client) SetConstructorLoggingSettings(params *SetConstructorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetConstructorLoggingSettingsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSetConstructorLoggingSettingsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "set-constructor-logging-settings",
 		Method:             "PUT",
 		PathPattern:        "/platform/infrastructure/constructors/{constructor_id}/logging_settings",
@@ -2366,7 +2600,12 @@ func (a *Client) SetConstructorLoggingSettings(params *SetConstructorLoggingSett
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -2385,13 +2624,12 @@ func (a *Client) SetConstructorLoggingSettings(params *SetConstructorLoggingSett
 
   Adds a new or updates an existing license.
 */
-func (a *Client) SetLicense(params *SetLicenseParams, authInfo runtime.ClientAuthInfoWriter) (*SetLicenseOK, error) {
+func (a *Client) SetLicense(params *SetLicenseParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetLicenseOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSetLicenseParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "set-license",
 		Method:             "PUT",
 		PathPattern:        "/platform/license",
@@ -2403,7 +2641,12 @@ func (a *Client) SetLicense(params *SetLicenseParams, authInfo runtime.ClientAut
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -2422,13 +2665,12 @@ func (a *Client) SetLicense(params *SetLicenseParams, authInfo runtime.ClientAut
 
   Overwrites the proxy settings. All unspecified fields are deleted.
 */
-func (a *Client) SetProxiesSettings(params *SetProxiesSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*SetProxiesSettingsOK, error) {
+func (a *Client) SetProxiesSettings(params *SetProxiesSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetProxiesSettingsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSetProxiesSettingsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "set-proxies-settings",
 		Method:             "PUT",
 		PathPattern:        "/platform/infrastructure/proxies/settings",
@@ -2440,7 +2682,12 @@ func (a *Client) SetProxiesSettings(params *SetProxiesSettingsParams, authInfo r
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -2459,13 +2706,12 @@ func (a *Client) SetProxiesSettings(params *SetProxiesSettingsParams, authInfo r
 
   Set the logging settings for this runner instance.
 */
-func (a *Client) SetRunnerLoggingSettings(params *SetRunnerLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*SetRunnerLoggingSettingsOK, error) {
+func (a *Client) SetRunnerLoggingSettings(params *SetRunnerLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetRunnerLoggingSettingsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSetRunnerLoggingSettingsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "set-runner-logging-settings",
 		Method:             "PUT",
 		PathPattern:        "/platform/infrastructure/runners/{runner_id}/logging_settings",
@@ -2477,7 +2723,12 @@ func (a *Client) SetRunnerLoggingSettings(params *SetRunnerLoggingSettingsParams
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -2496,13 +2747,12 @@ func (a *Client) SetRunnerLoggingSettings(params *SetRunnerLoggingSettingsParams
 
   Set runner roles.
 */
-func (a *Client) SetRunnerRoles(params *SetRunnerRolesParams, authInfo runtime.ClientAuthInfoWriter) (*SetRunnerRolesOK, error) {
+func (a *Client) SetRunnerRoles(params *SetRunnerRolesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetRunnerRolesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSetRunnerRolesParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "set-runner-roles",
 		Method:             "PUT",
 		PathPattern:        "/platform/infrastructure/runners/{runner_id}/roles",
@@ -2514,7 +2764,12 @@ func (a *Client) SetRunnerRoles(params *SetRunnerRolesParams, authInfo runtime.C
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -2533,13 +2788,12 @@ func (a *Client) SetRunnerRoles(params *SetRunnerRolesParams, authInfo runtime.C
 
   Starts maintenance mode on the allocator.
 */
-func (a *Client) StartAllocatorMaintenanceMode(params *StartAllocatorMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StartAllocatorMaintenanceModeAccepted, error) {
+func (a *Client) StartAllocatorMaintenanceMode(params *StartAllocatorMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StartAllocatorMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStartAllocatorMaintenanceModeParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "start-allocator-maintenance-mode",
 		Method:             "POST",
 		PathPattern:        "/platform/infrastructure/allocators/{allocator_id}/maintenance-mode/_start",
@@ -2551,7 +2805,12 @@ func (a *Client) StartAllocatorMaintenanceMode(params *StartAllocatorMaintenance
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -2570,13 +2829,12 @@ func (a *Client) StartAllocatorMaintenanceMode(params *StartAllocatorMaintenance
 
   Start maintenance mode of a constructor. It will stop constructing new plans while continuing with on-going ones.
 */
-func (a *Client) StartConstructorMaintenanceMode(params *StartConstructorMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StartConstructorMaintenanceModeAccepted, error) {
+func (a *Client) StartConstructorMaintenanceMode(params *StartConstructorMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StartConstructorMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStartConstructorMaintenanceModeParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "start-constructor-maintenance-mode",
 		Method:             "POST",
 		PathPattern:        "/platform/infrastructure/constructors/{constructor_id}/maintenance-mode/_start",
@@ -2588,7 +2846,12 @@ func (a *Client) StartConstructorMaintenanceMode(params *StartConstructorMainten
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -2607,13 +2870,12 @@ func (a *Client) StartConstructorMaintenanceMode(params *StartConstructorMainten
 
   Stops maintenance mode on the allocator.
 */
-func (a *Client) StopAllocatorMaintenanceMode(params *StopAllocatorMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StopAllocatorMaintenanceModeAccepted, error) {
+func (a *Client) StopAllocatorMaintenanceMode(params *StopAllocatorMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StopAllocatorMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStopAllocatorMaintenanceModeParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "stop-allocator-maintenance-mode",
 		Method:             "POST",
 		PathPattern:        "/platform/infrastructure/allocators/{allocator_id}/maintenance-mode/_stop",
@@ -2625,7 +2887,12 @@ func (a *Client) StopAllocatorMaintenanceMode(params *StopAllocatorMaintenanceMo
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -2644,13 +2911,12 @@ func (a *Client) StopAllocatorMaintenanceMode(params *StopAllocatorMaintenanceMo
 
   Stop maintenance mode of a constructor. It will resume the construction of submitted plans.
 */
-func (a *Client) StopConstructorMaintenanceMode(params *StopConstructorMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StopConstructorMaintenanceModeAccepted, error) {
+func (a *Client) StopConstructorMaintenanceMode(params *StopConstructorMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StopConstructorMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStopConstructorMaintenanceModeParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "stop-constructor-maintenance-mode",
 		Method:             "POST",
 		PathPattern:        "/platform/infrastructure/constructors/{constructor_id}/maintenance-mode/_stop",
@@ -2662,7 +2928,12 @@ func (a *Client) StopConstructorMaintenanceMode(params *StopConstructorMaintenan
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -2681,13 +2952,12 @@ func (a *Client) StopConstructorMaintenanceMode(params *StopConstructorMaintenan
 
   All changes in the specified object are applied to the logging settings for this adminconsole instance according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.
 */
-func (a *Client) UpdateAdminconsoleLoggingSettings(params *UpdateAdminconsoleLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateAdminconsoleLoggingSettingsOK, error) {
+func (a *Client) UpdateAdminconsoleLoggingSettings(params *UpdateAdminconsoleLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateAdminconsoleLoggingSettingsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateAdminconsoleLoggingSettingsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "update-adminconsole-logging-settings",
 		Method:             "PATCH",
 		PathPattern:        "/platform/infrastructure/adminconsoles/{adminconsole_id}/logging_settings",
@@ -2699,7 +2969,12 @@ func (a *Client) UpdateAdminconsoleLoggingSettings(params *UpdateAdminconsoleLog
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -2718,13 +2993,12 @@ func (a *Client) UpdateAdminconsoleLoggingSettings(params *UpdateAdminconsoleLog
 
   All changes in the specified object are applied to the logging settings for this allocator instance according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.
 */
-func (a *Client) UpdateAllocatorLoggingSettings(params *UpdateAllocatorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateAllocatorLoggingSettingsOK, error) {
+func (a *Client) UpdateAllocatorLoggingSettings(params *UpdateAllocatorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateAllocatorLoggingSettingsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateAllocatorLoggingSettingsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "update-allocator-logging-settings",
 		Method:             "PATCH",
 		PathPattern:        "/platform/infrastructure/allocators/{allocator_id}/logging_settings",
@@ -2736,7 +3010,12 @@ func (a *Client) UpdateAllocatorLoggingSettings(params *UpdateAllocatorLoggingSe
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -2755,13 +3034,12 @@ func (a *Client) UpdateAllocatorLoggingSettings(params *UpdateAllocatorLoggingSe
 
   Applies the settings as a patch. Only the fields that are referenced in the update are altered.
 */
-func (a *Client) UpdateAllocatorSettings(params *UpdateAllocatorSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateAllocatorSettingsOK, error) {
+func (a *Client) UpdateAllocatorSettings(params *UpdateAllocatorSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateAllocatorSettingsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateAllocatorSettingsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "update-allocator-settings",
 		Method:             "PATCH",
 		PathPattern:        "/platform/infrastructure/allocators/{allocator_id}/settings",
@@ -2773,7 +3051,12 @@ func (a *Client) UpdateAllocatorSettings(params *UpdateAllocatorSettingsParams, 
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -2792,13 +3075,12 @@ func (a *Client) UpdateAllocatorSettings(params *UpdateAllocatorSettingsParams, 
 
   Update a role.
 */
-func (a *Client) UpdateBlueprinterRole(params *UpdateBlueprinterRoleParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateBlueprinterRoleOK, error) {
+func (a *Client) UpdateBlueprinterRole(params *UpdateBlueprinterRoleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateBlueprinterRoleOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateBlueprinterRoleParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "update-blueprinter-role",
 		Method:             "PUT",
 		PathPattern:        "/platform/infrastructure/blueprinter/roles/{blueprinter_role_id}",
@@ -2810,7 +3092,12 @@ func (a *Client) UpdateBlueprinterRole(params *UpdateBlueprinterRoleParams, auth
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -2829,13 +3116,12 @@ func (a *Client) UpdateBlueprinterRole(params *UpdateBlueprinterRoleParams, auth
 
   All changes in the specified object are applied to the logging settings for this constructor instance according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.
 */
-func (a *Client) UpdateConstructorLoggingSettings(params *UpdateConstructorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateConstructorLoggingSettingsOK, error) {
+func (a *Client) UpdateConstructorLoggingSettings(params *UpdateConstructorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateConstructorLoggingSettingsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateConstructorLoggingSettingsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "update-constructor-logging-settings",
 		Method:             "PATCH",
 		PathPattern:        "/platform/infrastructure/constructors/{constructor_id}/logging_settings",
@@ -2847,7 +3133,12 @@ func (a *Client) UpdateConstructorLoggingSettings(params *UpdateConstructorLoggi
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -2866,13 +3157,12 @@ func (a *Client) UpdateConstructorLoggingSettings(params *UpdateConstructorLoggi
 
   Update the settings for a filtered group of proxies.
 */
-func (a *Client) UpdateProxiesFilteredGroup(params *UpdateProxiesFilteredGroupParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateProxiesFilteredGroupOK, error) {
+func (a *Client) UpdateProxiesFilteredGroup(params *UpdateProxiesFilteredGroupParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateProxiesFilteredGroupOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateProxiesFilteredGroupParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "update-proxies-filtered-group",
 		Method:             "PUT",
 		PathPattern:        "/platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}",
@@ -2884,7 +3174,12 @@ func (a *Client) UpdateProxiesFilteredGroup(params *UpdateProxiesFilteredGroupPa
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -2903,13 +3198,12 @@ func (a *Client) UpdateProxiesFilteredGroup(params *UpdateProxiesFilteredGroupPa
 
   Applies the settings as a patch. Only the fields that are referenced in the update are changed.
 */
-func (a *Client) UpdateProxiesSettings(params *UpdateProxiesSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateProxiesSettingsOK, error) {
+func (a *Client) UpdateProxiesSettings(params *UpdateProxiesSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateProxiesSettingsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateProxiesSettingsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "update-proxies-settings",
 		Method:             "PATCH",
 		PathPattern:        "/platform/infrastructure/proxies/settings",
@@ -2921,7 +3215,12 @@ func (a *Client) UpdateProxiesSettings(params *UpdateProxiesSettingsParams, auth
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -2940,13 +3239,12 @@ func (a *Client) UpdateProxiesSettings(params *UpdateProxiesSettingsParams, auth
 
   All changes in the specified object are applied to the logging settings for this runner instance according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.
 */
-func (a *Client) UpdateRunnerLoggingSettings(params *UpdateRunnerLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateRunnerLoggingSettingsOK, error) {
+func (a *Client) UpdateRunnerLoggingSettings(params *UpdateRunnerLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateRunnerLoggingSettingsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateRunnerLoggingSettingsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "update-runner-logging-settings",
 		Method:             "PATCH",
 		PathPattern:        "/platform/infrastructure/runners/{runner_id}/logging_settings",
@@ -2958,7 +3256,12 @@ func (a *Client) UpdateRunnerLoggingSettings(params *UpdateRunnerLoggingSettings
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}

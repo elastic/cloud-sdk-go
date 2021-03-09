@@ -58,7 +58,6 @@ func (o *ResyncKibanaClusterReader) ReadResponse(response runtime.ClientResponse
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,7 +68,7 @@ func NewResyncKibanaClusterOK() *ResyncKibanaClusterOK {
 	return &ResyncKibanaClusterOK{}
 }
 
-/*ResyncKibanaClusterOK handles this case with default header values.
+/* ResyncKibanaClusterOK describes a response with status code 200, with default header values.
 
 The cluster resync operation executed successfully
 */
@@ -80,7 +79,6 @@ type ResyncKibanaClusterOK struct {
 func (o *ResyncKibanaClusterOK) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/_resync][%d] resyncKibanaClusterOK  %+v", 200, o.Payload)
 }
-
 func (o *ResyncKibanaClusterOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -100,12 +98,13 @@ func NewResyncKibanaClusterRetryWith() *ResyncKibanaClusterRetryWith {
 	return &ResyncKibanaClusterRetryWith{}
 }
 
-/*ResyncKibanaClusterRetryWith handles this case with default header values.
+/* ResyncKibanaClusterRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type ResyncKibanaClusterRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -115,15 +114,18 @@ type ResyncKibanaClusterRetryWith struct {
 func (o *ResyncKibanaClusterRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/_resync][%d] resyncKibanaClusterRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *ResyncKibanaClusterRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *ResyncKibanaClusterRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -140,12 +142,13 @@ func NewResyncKibanaClusterInternalServerError() *ResyncKibanaClusterInternalSer
 	return &ResyncKibanaClusterInternalServerError{}
 }
 
-/*ResyncKibanaClusterInternalServerError handles this case with default header values.
+/* ResyncKibanaClusterInternalServerError describes a response with status code 500, with default header values.
 
 The cluster resync operation failed for cluster {cluster_id}. (code: `clusters.resync_failed`)
 */
 type ResyncKibanaClusterInternalServerError struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -155,15 +158,18 @@ type ResyncKibanaClusterInternalServerError struct {
 func (o *ResyncKibanaClusterInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/_resync][%d] resyncKibanaClusterInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *ResyncKibanaClusterInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *ResyncKibanaClusterInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

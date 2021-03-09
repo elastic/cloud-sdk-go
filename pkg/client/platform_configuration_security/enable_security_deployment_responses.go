@@ -64,7 +64,6 @@ func (o *EnableSecurityDeploymentReader) ReadResponse(response runtime.ClientRes
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,18 +74,21 @@ func NewEnableSecurityDeploymentOK() *EnableSecurityDeploymentOK {
 	return &EnableSecurityDeploymentOK{}
 }
 
-/*EnableSecurityDeploymentOK handles this case with default header values.
+/* EnableSecurityDeploymentOK describes a response with status code 200, with default header values.
 
 The security deployment was successfully enabled
 */
 type EnableSecurityDeploymentOK struct {
-	/*The date-time when the resource was created (ISO format relative to UTC)
+
+	/* The date-time when the resource was created (ISO format relative to UTC)
 	 */
 	XCloudResourceCreated string
-	/*The date-time when the resource was last modified (ISO format relative to UTC)
+
+	/* The date-time when the resource was last modified (ISO format relative to UTC)
 	 */
 	XCloudResourceLastModified string
-	/*The resource version, which is used to avoid update conflicts with concurrent operations
+
+	/* The resource version, which is used to avoid update conflicts with concurrent operations
 	 */
 	XCloudResourceVersion string
 
@@ -96,21 +98,32 @@ type EnableSecurityDeploymentOK struct {
 func (o *EnableSecurityDeploymentOK) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/deployment/_enable][%d] enableSecurityDeploymentOK  %+v", 200, o.Payload)
 }
-
 func (o *EnableSecurityDeploymentOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
 
 func (o *EnableSecurityDeploymentOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-resource-created
-	o.XCloudResourceCreated = response.GetHeader("x-cloud-resource-created")
+	// hydrates response header x-cloud-resource-created
+	hdrXCloudResourceCreated := response.GetHeader("x-cloud-resource-created")
 
-	// response header x-cloud-resource-last-modified
-	o.XCloudResourceLastModified = response.GetHeader("x-cloud-resource-last-modified")
+	if hdrXCloudResourceCreated != "" {
+		o.XCloudResourceCreated = hdrXCloudResourceCreated
+	}
 
-	// response header x-cloud-resource-version
-	o.XCloudResourceVersion = response.GetHeader("x-cloud-resource-version")
+	// hydrates response header x-cloud-resource-last-modified
+	hdrXCloudResourceLastModified := response.GetHeader("x-cloud-resource-last-modified")
+
+	if hdrXCloudResourceLastModified != "" {
+		o.XCloudResourceLastModified = hdrXCloudResourceLastModified
+	}
+
+	// hydrates response header x-cloud-resource-version
+	hdrXCloudResourceVersion := response.GetHeader("x-cloud-resource-version")
+
+	if hdrXCloudResourceVersion != "" {
+		o.XCloudResourceVersion = hdrXCloudResourceVersion
+	}
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
@@ -125,12 +138,13 @@ func NewEnableSecurityDeploymentNotFound() *EnableSecurityDeploymentNotFound {
 	return &EnableSecurityDeploymentNotFound{}
 }
 
-/*EnableSecurityDeploymentNotFound handles this case with default header values.
+/* EnableSecurityDeploymentNotFound describes a response with status code 404, with default header values.
 
 The realm specified by {realm_id} cannot be found. (code: `security_deployment.not_found`)
 */
 type EnableSecurityDeploymentNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -140,15 +154,18 @@ type EnableSecurityDeploymentNotFound struct {
 func (o *EnableSecurityDeploymentNotFound) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/deployment/_enable][%d] enableSecurityDeploymentNotFound  %+v", 404, o.Payload)
 }
-
 func (o *EnableSecurityDeploymentNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *EnableSecurityDeploymentNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -165,12 +182,13 @@ func NewEnableSecurityDeploymentConflict() *EnableSecurityDeploymentConflict {
 	return &EnableSecurityDeploymentConflict{}
 }
 
-/*EnableSecurityDeploymentConflict handles this case with default header values.
+/* EnableSecurityDeploymentConflict describes a response with status code 409, with default header values.
 
 There is a version conflict. (code: `security_deployment.version_conflict`)
 */
 type EnableSecurityDeploymentConflict struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -180,15 +198,18 @@ type EnableSecurityDeploymentConflict struct {
 func (o *EnableSecurityDeploymentConflict) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/deployment/_enable][%d] enableSecurityDeploymentConflict  %+v", 409, o.Payload)
 }
-
 func (o *EnableSecurityDeploymentConflict) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *EnableSecurityDeploymentConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -205,12 +226,13 @@ func NewEnableSecurityDeploymentRetryWith() *EnableSecurityDeploymentRetryWith {
 	return &EnableSecurityDeploymentRetryWith{}
 }
 
-/*EnableSecurityDeploymentRetryWith handles this case with default header values.
+/* EnableSecurityDeploymentRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type EnableSecurityDeploymentRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -220,15 +242,18 @@ type EnableSecurityDeploymentRetryWith struct {
 func (o *EnableSecurityDeploymentRetryWith) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/deployment/_enable][%d] enableSecurityDeploymentRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *EnableSecurityDeploymentRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *EnableSecurityDeploymentRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

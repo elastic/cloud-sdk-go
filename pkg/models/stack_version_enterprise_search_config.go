@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -96,7 +97,6 @@ func (m *StackVersionEnterpriseSearchConfig) validateBlacklist(formats strfmt.Re
 }
 
 func (m *StackVersionEnterpriseSearchConfig) validateCapacityConstraints(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.CapacityConstraints) { // not required
 		return nil
 	}
@@ -123,7 +123,6 @@ func (m *StackVersionEnterpriseSearchConfig) validateDockerImage(formats strfmt.
 }
 
 func (m *StackVersionEnterpriseSearchConfig) validateNodeTypes(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.NodeTypes) { // not required
 		return nil
 	}
@@ -135,6 +134,56 @@ func (m *StackVersionEnterpriseSearchConfig) validateNodeTypes(formats strfmt.Re
 
 		if m.NodeTypes[i] != nil {
 			if err := m.NodeTypes[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("node_types" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this stack version enterprise search config based on the context it is used
+func (m *StackVersionEnterpriseSearchConfig) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateCapacityConstraints(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateNodeTypes(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *StackVersionEnterpriseSearchConfig) contextValidateCapacityConstraints(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.CapacityConstraints != nil {
+		if err := m.CapacityConstraints.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("capacity_constraints")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *StackVersionEnterpriseSearchConfig) contextValidateNodeTypes(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.NodeTypes); i++ {
+
+		if m.NodeTypes[i] != nil {
+			if err := m.NodeTypes[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("node_types" + "." + strconv.Itoa(i))
 				}

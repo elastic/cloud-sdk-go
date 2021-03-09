@@ -34,76 +34,90 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewShutdownApmParams creates a new ShutdownApmParams object
-// with the default values initialized.
+// NewShutdownApmParams creates a new ShutdownApmParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewShutdownApmParams() *ShutdownApmParams {
-	var (
-		hideDefault = bool(false)
-	)
 	return &ShutdownApmParams{
-		Hide: &hideDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewShutdownApmParamsWithTimeout creates a new ShutdownApmParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewShutdownApmParamsWithTimeout(timeout time.Duration) *ShutdownApmParams {
-	var (
-		hideDefault = bool(false)
-	)
 	return &ShutdownApmParams{
-		Hide: &hideDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewShutdownApmParamsWithContext creates a new ShutdownApmParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewShutdownApmParamsWithContext(ctx context.Context) *ShutdownApmParams {
-	var (
-		hideDefault = bool(false)
-	)
 	return &ShutdownApmParams{
-		Hide: &hideDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewShutdownApmParamsWithHTTPClient creates a new ShutdownApmParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewShutdownApmParamsWithHTTPClient(client *http.Client) *ShutdownApmParams {
-	var (
-		hideDefault = bool(false)
-	)
 	return &ShutdownApmParams{
-		Hide:       &hideDefault,
 		HTTPClient: client,
 	}
 }
 
-/*ShutdownApmParams contains all the parameters to send to the API endpoint
-for the shutdown apm operation typically these are written to a http.Request
+/* ShutdownApmParams contains all the parameters to send to the API endpoint
+   for the shutdown apm operation.
+
+   Typically these are written to a http.Request.
 */
 type ShutdownApmParams struct {
 
-	/*ClusterID
-	  The APM deployment identifier.
+	/* ClusterID.
 
+	   The APM deployment identifier.
 	*/
 	ClusterID string
-	/*Hide
-	  Hides the clusters during shutdown. NOTE: By default, hidden clusters are not listed.
 
+	/* Hide.
+
+	   Hides the clusters during shutdown. NOTE: By default, hidden clusters are not listed.
 	*/
 	Hide *bool
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the shutdown apm params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ShutdownApmParams) WithDefaults() *ShutdownApmParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the shutdown apm params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ShutdownApmParams) SetDefaults() {
+	var (
+		hideDefault = bool(false)
+	)
+
+	val := ShutdownApmParams{
+		Hide: &hideDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the shutdown apm params
@@ -178,16 +192,17 @@ func (o *ShutdownApmParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.R
 
 		// query param hide
 		var qrHide bool
+
 		if o.Hide != nil {
 			qrHide = *o.Hide
 		}
 		qHide := swag.FormatBool(qrHide)
 		if qHide != "" {
+
 			if err := r.SetQueryParam("hide", qHide); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

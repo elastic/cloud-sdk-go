@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -103,8 +104,8 @@ func (m *ElasticsearchClusterSecurityInfo) validateLastModified(formats strfmt.R
 
 func (m *ElasticsearchClusterSecurityInfo) validateRoles(formats strfmt.Registry) error {
 
-	if err := validate.Required("roles", "body", m.Roles); err != nil {
-		return err
+	if m.Roles == nil {
+		return errors.Required("roles", "body", nil)
 	}
 
 	return nil
@@ -164,6 +165,60 @@ func (m *ElasticsearchClusterSecurityInfo) validateVersion(formats strfmt.Regist
 
 	if err := validate.Required("version", "body", m.Version); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this elasticsearch cluster security info based on the context it is used
+func (m *ElasticsearchClusterSecurityInfo) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateUsers(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateUsersRoles(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ElasticsearchClusterSecurityInfo) contextValidateUsers(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Users); i++ {
+
+		if m.Users[i] != nil {
+			if err := m.Users[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("users" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *ElasticsearchClusterSecurityInfo) contextValidateUsersRoles(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.UsersRoles); i++ {
+
+		if m.UsersRoles[i] != nil {
+			if err := m.UsersRoles[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("users_roles" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil

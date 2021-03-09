@@ -70,7 +70,6 @@ func (o *UpdateActiveDirectoryConfigurationReader) ReadResponse(response runtime
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -81,18 +80,21 @@ func NewUpdateActiveDirectoryConfigurationOK() *UpdateActiveDirectoryConfigurati
 	return &UpdateActiveDirectoryConfigurationOK{}
 }
 
-/*UpdateActiveDirectoryConfigurationOK handles this case with default header values.
+/* UpdateActiveDirectoryConfigurationOK describes a response with status code 200, with default header values.
 
 The Active Directory configuration was successfully updated
 */
 type UpdateActiveDirectoryConfigurationOK struct {
-	/*The date-time when the resource was created (ISO format relative to UTC)
+
+	/* The date-time when the resource was created (ISO format relative to UTC)
 	 */
 	XCloudResourceCreated string
-	/*The date-time when the resource was last modified (ISO format relative to UTC)
+
+	/* The date-time when the resource was last modified (ISO format relative to UTC)
 	 */
 	XCloudResourceLastModified string
-	/*The resource version, which is used to avoid update conflicts with concurrent operations
+
+	/* The resource version, which is used to avoid update conflicts with concurrent operations
 	 */
 	XCloudResourceVersion string
 
@@ -102,21 +104,32 @@ type UpdateActiveDirectoryConfigurationOK struct {
 func (o *UpdateActiveDirectoryConfigurationOK) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/security/realms/active-directory/{realm_id}][%d] updateActiveDirectoryConfigurationOK  %+v", 200, o.Payload)
 }
-
 func (o *UpdateActiveDirectoryConfigurationOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
 
 func (o *UpdateActiveDirectoryConfigurationOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-resource-created
-	o.XCloudResourceCreated = response.GetHeader("x-cloud-resource-created")
+	// hydrates response header x-cloud-resource-created
+	hdrXCloudResourceCreated := response.GetHeader("x-cloud-resource-created")
 
-	// response header x-cloud-resource-last-modified
-	o.XCloudResourceLastModified = response.GetHeader("x-cloud-resource-last-modified")
+	if hdrXCloudResourceCreated != "" {
+		o.XCloudResourceCreated = hdrXCloudResourceCreated
+	}
 
-	// response header x-cloud-resource-version
-	o.XCloudResourceVersion = response.GetHeader("x-cloud-resource-version")
+	// hydrates response header x-cloud-resource-last-modified
+	hdrXCloudResourceLastModified := response.GetHeader("x-cloud-resource-last-modified")
+
+	if hdrXCloudResourceLastModified != "" {
+		o.XCloudResourceLastModified = hdrXCloudResourceLastModified
+	}
+
+	// hydrates response header x-cloud-resource-version
+	hdrXCloudResourceVersion := response.GetHeader("x-cloud-resource-version")
+
+	if hdrXCloudResourceVersion != "" {
+		o.XCloudResourceVersion = hdrXCloudResourceVersion
+	}
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
@@ -131,9 +144,9 @@ func NewUpdateActiveDirectoryConfigurationBadRequest() *UpdateActiveDirectoryCon
 	return &UpdateActiveDirectoryConfigurationBadRequest{}
 }
 
-/*UpdateActiveDirectoryConfigurationBadRequest handles this case with default header values.
+/* UpdateActiveDirectoryConfigurationBadRequest describes a response with status code 400, with default header values.
 
-* The realm id is already in use. (code: `security_realm.id_conflict`)
+ * The realm id is already in use. (code: `security_realm.id_conflict`)
 * The selected id is not valid. (code: `security_realm.invalid_id`)
 * Order must be greater than zero. (code: `security_realm.invalid_order`)
 * Invalid Elasticsearch Security realm type. (code: `security_realm.invalid_type`)
@@ -142,9 +155,10 @@ func NewUpdateActiveDirectoryConfigurationBadRequest() *UpdateActiveDirectoryCon
 * The url format is invalid. (code: `security_realm.invalid_url`)
 * Invalid Active Directory URL. (code: `security_realm.active_directory.invalid_url`)
 * Invalid certificate bundle URL. (code: `security_realm.invalid_bundle_url`)
- */
+*/
 type UpdateActiveDirectoryConfigurationBadRequest struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -154,15 +168,18 @@ type UpdateActiveDirectoryConfigurationBadRequest struct {
 func (o *UpdateActiveDirectoryConfigurationBadRequest) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/security/realms/active-directory/{realm_id}][%d] updateActiveDirectoryConfigurationBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *UpdateActiveDirectoryConfigurationBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *UpdateActiveDirectoryConfigurationBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -179,12 +196,13 @@ func NewUpdateActiveDirectoryConfigurationNotFound() *UpdateActiveDirectoryConfi
 	return &UpdateActiveDirectoryConfigurationNotFound{}
 }
 
-/*UpdateActiveDirectoryConfigurationNotFound handles this case with default header values.
+/* UpdateActiveDirectoryConfigurationNotFound describes a response with status code 404, with default header values.
 
 The realm specified by {realm_id} cannot be found. (code: `security_realm.not_found`)
 */
 type UpdateActiveDirectoryConfigurationNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -194,15 +212,18 @@ type UpdateActiveDirectoryConfigurationNotFound struct {
 func (o *UpdateActiveDirectoryConfigurationNotFound) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/security/realms/active-directory/{realm_id}][%d] updateActiveDirectoryConfigurationNotFound  %+v", 404, o.Payload)
 }
-
 func (o *UpdateActiveDirectoryConfigurationNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *UpdateActiveDirectoryConfigurationNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -219,12 +240,13 @@ func NewUpdateActiveDirectoryConfigurationConflict() *UpdateActiveDirectoryConfi
 	return &UpdateActiveDirectoryConfigurationConflict{}
 }
 
-/*UpdateActiveDirectoryConfigurationConflict handles this case with default header values.
+/* UpdateActiveDirectoryConfigurationConflict describes a response with status code 409, with default header values.
 
 There is a version conflict. (code: `security_realm.version_conflict`)
 */
 type UpdateActiveDirectoryConfigurationConflict struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -234,15 +256,18 @@ type UpdateActiveDirectoryConfigurationConflict struct {
 func (o *UpdateActiveDirectoryConfigurationConflict) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/security/realms/active-directory/{realm_id}][%d] updateActiveDirectoryConfigurationConflict  %+v", 409, o.Payload)
 }
-
 func (o *UpdateActiveDirectoryConfigurationConflict) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *UpdateActiveDirectoryConfigurationConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -259,12 +284,13 @@ func NewUpdateActiveDirectoryConfigurationRetryWith() *UpdateActiveDirectoryConf
 	return &UpdateActiveDirectoryConfigurationRetryWith{}
 }
 
-/*UpdateActiveDirectoryConfigurationRetryWith handles this case with default header values.
+/* UpdateActiveDirectoryConfigurationRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type UpdateActiveDirectoryConfigurationRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -274,15 +300,18 @@ type UpdateActiveDirectoryConfigurationRetryWith struct {
 func (o *UpdateActiveDirectoryConfigurationRetryWith) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/security/realms/active-directory/{realm_id}][%d] updateActiveDirectoryConfigurationRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *UpdateActiveDirectoryConfigurationRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *UpdateActiveDirectoryConfigurationRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

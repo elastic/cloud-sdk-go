@@ -35,64 +35,79 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewSnapshotEsClusterParams creates a new SnapshotEsClusterParams object
-// with the default values initialized.
+// NewSnapshotEsClusterParams creates a new SnapshotEsClusterParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewSnapshotEsClusterParams() *SnapshotEsClusterParams {
-	var ()
 	return &SnapshotEsClusterParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewSnapshotEsClusterParamsWithTimeout creates a new SnapshotEsClusterParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewSnapshotEsClusterParamsWithTimeout(timeout time.Duration) *SnapshotEsClusterParams {
-	var ()
 	return &SnapshotEsClusterParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewSnapshotEsClusterParamsWithContext creates a new SnapshotEsClusterParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewSnapshotEsClusterParamsWithContext(ctx context.Context) *SnapshotEsClusterParams {
-	var ()
 	return &SnapshotEsClusterParams{
-
 		Context: ctx,
 	}
 }
 
 // NewSnapshotEsClusterParamsWithHTTPClient creates a new SnapshotEsClusterParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewSnapshotEsClusterParamsWithHTTPClient(client *http.Client) *SnapshotEsClusterParams {
-	var ()
 	return &SnapshotEsClusterParams{
 		HTTPClient: client,
 	}
 }
 
-/*SnapshotEsClusterParams contains all the parameters to send to the API endpoint
-for the snapshot es cluster operation typically these are written to a http.Request
+/* SnapshotEsClusterParams contains all the parameters to send to the API endpoint
+   for the snapshot es cluster operation.
+
+   Typically these are written to a http.Request.
 */
 type SnapshotEsClusterParams struct {
 
-	/*Body
-	  Overrides default settings for the snapshot
+	/* Body.
 
+	   Overrides default settings for the snapshot
 	*/
 	Body *models.ClusterSnapshotRequest
-	/*ClusterID
-	  The Elasticsearch cluster identifier.
 
+	/* ClusterID.
+
+	   The Elasticsearch cluster identifier.
 	*/
 	ClusterID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the snapshot es cluster params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SnapshotEsClusterParams) WithDefaults() *SnapshotEsClusterParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the snapshot es cluster params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SnapshotEsClusterParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the snapshot es cluster params
@@ -157,7 +172,6 @@ func (o *SnapshotEsClusterParams) WriteToRequest(r runtime.ClientRequest, reg st
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

@@ -70,7 +70,6 @@ func (o *MoveApmInstancesReader) ReadResponse(response runtime.ClientResponse, c
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -81,7 +80,7 @@ func NewMoveApmInstancesAccepted() *MoveApmInstancesAccepted {
 	return &MoveApmInstancesAccepted{}
 }
 
-/*MoveApmInstancesAccepted handles this case with default header values.
+/* MoveApmInstancesAccepted describes a response with status code 202, with default header values.
 
 The move command was issued successfully, use the "GET" command on the /{cluster_id} resource to monitor progress
 */
@@ -92,7 +91,6 @@ type MoveApmInstancesAccepted struct {
 func (o *MoveApmInstancesAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/instances/{instance_ids}/_move][%d] moveApmInstancesAccepted  %+v", 202, o.Payload)
 }
-
 func (o *MoveApmInstancesAccepted) GetPayload() *models.ClusterCommandResponse {
 	return o.Payload
 }
@@ -114,13 +112,14 @@ func NewMoveApmInstancesBadRequest() *MoveApmInstancesBadRequest {
 	return &MoveApmInstancesBadRequest{}
 }
 
-/*MoveApmInstancesBadRequest handles this case with default header values.
+/* MoveApmInstancesBadRequest describes a response with status code 400, with default header values.
 
-* The cluster definition contained errors. (code: `clusters.cluster_invalid_plan`)
+ * The cluster definition contained errors. (code: `clusters.cluster_invalid_plan`)
 * The cluster definition contained errors. (code: `clusters.plan_feature_not_implemented`)
- */
+*/
 type MoveApmInstancesBadRequest struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -130,15 +129,18 @@ type MoveApmInstancesBadRequest struct {
 func (o *MoveApmInstancesBadRequest) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/instances/{instance_ids}/_move][%d] moveApmInstancesBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *MoveApmInstancesBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *MoveApmInstancesBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -155,12 +157,13 @@ func NewMoveApmInstancesForbidden() *MoveApmInstancesForbidden {
 	return &MoveApmInstancesForbidden{}
 }
 
-/*MoveApmInstancesForbidden handles this case with default header values.
+/* MoveApmInstancesForbidden describes a response with status code 403, with default header values.
 
 The move command was prohibited for the given cluster. (code: `clusters.command_prohibited`)
 */
 type MoveApmInstancesForbidden struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -170,15 +173,18 @@ type MoveApmInstancesForbidden struct {
 func (o *MoveApmInstancesForbidden) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/instances/{instance_ids}/_move][%d] moveApmInstancesForbidden  %+v", 403, o.Payload)
 }
-
 func (o *MoveApmInstancesForbidden) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *MoveApmInstancesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -195,13 +201,14 @@ func NewMoveApmInstancesNotFound() *MoveApmInstancesNotFound {
 	return &MoveApmInstancesNotFound{}
 }
 
-/*MoveApmInstancesNotFound handles this case with default header values.
+/* MoveApmInstancesNotFound describes a response with status code 404, with default header values.
 
-* The cluster specified by {cluster_id} cannot be found. (code: `clusters.cluster_not_found`)
+ * The cluster specified by {cluster_id} cannot be found. (code: `clusters.cluster_not_found`)
 * One or more of the instances specified at {instance_ids} could not be found. (code: `clusters.instances_not_found`)
- */
+*/
 type MoveApmInstancesNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -211,15 +218,18 @@ type MoveApmInstancesNotFound struct {
 func (o *MoveApmInstancesNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/instances/{instance_ids}/_move][%d] moveApmInstancesNotFound  %+v", 404, o.Payload)
 }
-
 func (o *MoveApmInstancesNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *MoveApmInstancesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -236,12 +246,13 @@ func NewMoveApmInstancesRetryWith() *MoveApmInstancesRetryWith {
 	return &MoveApmInstancesRetryWith{}
 }
 
-/*MoveApmInstancesRetryWith handles this case with default header values.
+/* MoveApmInstancesRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type MoveApmInstancesRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -251,15 +262,18 @@ type MoveApmInstancesRetryWith struct {
 func (o *MoveApmInstancesRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/instances/{instance_ids}/_move][%d] moveApmInstancesRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *MoveApmInstancesRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *MoveApmInstancesRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

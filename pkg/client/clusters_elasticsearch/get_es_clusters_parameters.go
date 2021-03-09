@@ -34,198 +34,179 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetEsClustersParams creates a new GetEsClustersParams object
-// with the default values initialized.
+// NewGetEsClustersParams creates a new GetEsClustersParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetEsClustersParams() *GetEsClustersParams {
-	var (
-		convertLegacyPlansDefault = bool(false)
-		enrichWithTemplateDefault = bool(false)
-		fromDefault               = int64(0)
-		showMetadataDefault       = bool(false)
-		showPlanDefaultsDefault   = bool(false)
-		showPlansDefault          = bool(false)
-		showSecurityDefault       = bool(false)
-		showSettingsDefault       = bool(false)
-		showSystemAlertsDefault   = int64(0)
-		sizeDefault               = int64(100)
-	)
 	return &GetEsClustersParams{
-		ConvertLegacyPlans: &convertLegacyPlansDefault,
-		EnrichWithTemplate: &enrichWithTemplateDefault,
-		From:               &fromDefault,
-		ShowMetadata:       &showMetadataDefault,
-		ShowPlanDefaults:   &showPlanDefaultsDefault,
-		ShowPlans:          &showPlansDefault,
-		ShowSecurity:       &showSecurityDefault,
-		ShowSettings:       &showSettingsDefault,
-		ShowSystemAlerts:   &showSystemAlertsDefault,
-		Size:               &sizeDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetEsClustersParamsWithTimeout creates a new GetEsClustersParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetEsClustersParamsWithTimeout(timeout time.Duration) *GetEsClustersParams {
-	var (
-		convertLegacyPlansDefault = bool(false)
-		enrichWithTemplateDefault = bool(false)
-		fromDefault               = int64(0)
-		showMetadataDefault       = bool(false)
-		showPlanDefaultsDefault   = bool(false)
-		showPlansDefault          = bool(false)
-		showSecurityDefault       = bool(false)
-		showSettingsDefault       = bool(false)
-		showSystemAlertsDefault   = int64(0)
-		sizeDefault               = int64(100)
-	)
 	return &GetEsClustersParams{
-		ConvertLegacyPlans: &convertLegacyPlansDefault,
-		EnrichWithTemplate: &enrichWithTemplateDefault,
-		From:               &fromDefault,
-		ShowMetadata:       &showMetadataDefault,
-		ShowPlanDefaults:   &showPlanDefaultsDefault,
-		ShowPlans:          &showPlansDefault,
-		ShowSecurity:       &showSecurityDefault,
-		ShowSettings:       &showSettingsDefault,
-		ShowSystemAlerts:   &showSystemAlertsDefault,
-		Size:               &sizeDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewGetEsClustersParamsWithContext creates a new GetEsClustersParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetEsClustersParamsWithContext(ctx context.Context) *GetEsClustersParams {
-	var (
-		convertLegacyPlansDefault = bool(false)
-		enrichWithTemplateDefault = bool(false)
-		fromDefault               = int64(0)
-		showMetadataDefault       = bool(false)
-		showPlanDefaultsDefault   = bool(false)
-		showPlansDefault          = bool(false)
-		showSecurityDefault       = bool(false)
-		showSettingsDefault       = bool(false)
-		showSystemAlertsDefault   = int64(0)
-		sizeDefault               = int64(100)
-	)
 	return &GetEsClustersParams{
-		ConvertLegacyPlans: &convertLegacyPlansDefault,
-		EnrichWithTemplate: &enrichWithTemplateDefault,
-		From:               &fromDefault,
-		ShowMetadata:       &showMetadataDefault,
-		ShowPlanDefaults:   &showPlanDefaultsDefault,
-		ShowPlans:          &showPlansDefault,
-		ShowSecurity:       &showSecurityDefault,
-		ShowSettings:       &showSettingsDefault,
-		ShowSystemAlerts:   &showSystemAlertsDefault,
-		Size:               &sizeDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewGetEsClustersParamsWithHTTPClient creates a new GetEsClustersParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetEsClustersParamsWithHTTPClient(client *http.Client) *GetEsClustersParams {
-	var (
-		convertLegacyPlansDefault = bool(false)
-		enrichWithTemplateDefault = bool(false)
-		fromDefault               = int64(0)
-		showMetadataDefault       = bool(false)
-		showPlanDefaultsDefault   = bool(false)
-		showPlansDefault          = bool(false)
-		showSecurityDefault       = bool(false)
-		showSettingsDefault       = bool(false)
-		showSystemAlertsDefault   = int64(0)
-		sizeDefault               = int64(100)
-	)
 	return &GetEsClustersParams{
-		ConvertLegacyPlans: &convertLegacyPlansDefault,
-		EnrichWithTemplate: &enrichWithTemplateDefault,
-		From:               &fromDefault,
-		ShowMetadata:       &showMetadataDefault,
-		ShowPlanDefaults:   &showPlanDefaultsDefault,
-		ShowPlans:          &showPlansDefault,
-		ShowSecurity:       &showSecurityDefault,
-		ShowSettings:       &showSettingsDefault,
-		ShowSystemAlerts:   &showSystemAlertsDefault,
-		Size:               &sizeDefault,
-		HTTPClient:         client,
+		HTTPClient: client,
 	}
 }
 
-/*GetEsClustersParams contains all the parameters to send to the API endpoint
-for the get es clusters operation typically these are written to a http.Request
+/* GetEsClustersParams contains all the parameters to send to the API endpoint
+   for the get es clusters operation.
+
+   Typically these are written to a http.Request.
 */
 type GetEsClustersParams struct {
 
-	/*ConvertLegacyPlans
-	  When `true`, converts the plans to the 2.0.x format. When `false`, uses the 1.x format. The default is `false`.
+	/* ConvertLegacyPlans.
 
+	   When `true`, converts the plans to the 2.0.x format. When `false`, uses the 1.x format. The default is `false`.
 	*/
 	ConvertLegacyPlans *bool
-	/*EnrichWithTemplate
-	  When plans are shown, includes the missing elements from the applicable deployment template.
 
+	/* EnrichWithTemplate.
+
+	   When plans are shown, includes the missing elements from the applicable deployment template.
 	*/
 	EnrichWithTemplate *bool
-	/*From
-	  The number of clusters to skip.
 
+	/* From.
+
+	   The number of clusters to skip.
 	*/
 	From *int64
-	/*Q
-	  An optional query to filter Elasticsearch clusters by. Maps to an Elasticsearch query_string query.
 
+	/* Q.
+
+	   An optional query to filter Elasticsearch clusters by. Maps to an Elasticsearch query_string query.
 	*/
 	Q *string
-	/*ShowHidden
-	  Includes the hidden clusters in the response.
 
+	/* ShowHidden.
+
+	   Includes the hidden clusters in the response.
 	*/
 	ShowHidden *bool
-	/*ShowMetadata
-	  Includes all of the cluster metadata in the response. NOTE: Responses can include a large amount of metadata, as well as credentials.
 
+	/* ShowMetadata.
+
+	   Includes all of the cluster metadata in the response. NOTE: Responses can include a large amount of metadata, as well as credentials.
 	*/
 	ShowMetadata *bool
-	/*ShowPlanDefaults
-	  When plans are shown, includes the default values in the response. NOTE: This option results in large responses.
 
+	/* ShowPlanDefaults.
+
+	   When plans are shown, includes the default values in the response. NOTE: This option results in large responses.
 	*/
 	ShowPlanDefaults *bool
-	/*ShowPlans
-	  Includes the active and pending plan information in the response. NOTE: This option can result in large responses.
 
+	/* ShowPlans.
+
+	   Includes the active and pending plan information in the response. NOTE: This option can result in large responses.
 	*/
 	ShowPlans *bool
-	/*ShowSecurity
-	  Includes the Elasticsearch 2.x security information in the response. NOTE: Responses can include a large amount of metadata, as well as credentials.
 
+	/* ShowSecurity.
+
+	   Includes the Elasticsearch 2.x security information in the response. NOTE: Responses can include a large amount of metadata, as well as credentials.
 	*/
 	ShowSecurity *bool
-	/*ShowSettings
-	  Includes the cluster settings in the response.
 
+	/* ShowSettings.
+
+	   Includes the cluster settings in the response.
 	*/
 	ShowSettings *bool
-	/*ShowSystemAlerts
-	  The number of system alerts to include in the response. For example, the number of forced restarts caused from a limited amount of memory. Only numbers greater than zero return a field. NOTE: Responses can include a large number of system alerts.
 
+	/* ShowSystemAlerts.
+
+	   The number of system alerts to include in the response. For example, the number of forced restarts caused from a limited amount of memory. Only numbers greater than zero return a field. NOTE: Responses can include a large number of system alerts.
 	*/
 	ShowSystemAlerts *int64
-	/*Size
-	  Maximum number of clusters to include in the response. For all clusters, use -1. NOTE: This option can result in large responses and is not supported if a query is also specified.
 
+	/* Size.
+
+	   Maximum number of clusters to include in the response. For all clusters, use -1. NOTE: This option can result in large responses and is not supported if a query is also specified.
+
+	   Default: 100
 	*/
 	Size *int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get es clusters params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetEsClustersParams) WithDefaults() *GetEsClustersParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get es clusters params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetEsClustersParams) SetDefaults() {
+	var (
+		convertLegacyPlansDefault = bool(false)
+
+		enrichWithTemplateDefault = bool(false)
+
+		fromDefault = int64(0)
+
+		showMetadataDefault = bool(false)
+
+		showPlanDefaultsDefault = bool(false)
+
+		showPlansDefault = bool(false)
+
+		showSecurityDefault = bool(false)
+
+		showSettingsDefault = bool(false)
+
+		showSystemAlertsDefault = int64(0)
+
+		sizeDefault = int64(100)
+	)
+
+	val := GetEsClustersParams{
+		ConvertLegacyPlans: &convertLegacyPlansDefault,
+		EnrichWithTemplate: &enrichWithTemplateDefault,
+		From:               &fromDefault,
+		ShowMetadata:       &showMetadataDefault,
+		ShowPlanDefaults:   &showPlanDefaultsDefault,
+		ShowPlans:          &showPlansDefault,
+		ShowSecurity:       &showSecurityDefault,
+		ShowSettings:       &showSettingsDefault,
+		ShowSystemAlerts:   &showSystemAlertsDefault,
+		Size:               &sizeDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the get es clusters params
@@ -405,192 +386,204 @@ func (o *GetEsClustersParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 
 		// query param convert_legacy_plans
 		var qrConvertLegacyPlans bool
+
 		if o.ConvertLegacyPlans != nil {
 			qrConvertLegacyPlans = *o.ConvertLegacyPlans
 		}
 		qConvertLegacyPlans := swag.FormatBool(qrConvertLegacyPlans)
 		if qConvertLegacyPlans != "" {
+
 			if err := r.SetQueryParam("convert_legacy_plans", qConvertLegacyPlans); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.EnrichWithTemplate != nil {
 
 		// query param enrich_with_template
 		var qrEnrichWithTemplate bool
+
 		if o.EnrichWithTemplate != nil {
 			qrEnrichWithTemplate = *o.EnrichWithTemplate
 		}
 		qEnrichWithTemplate := swag.FormatBool(qrEnrichWithTemplate)
 		if qEnrichWithTemplate != "" {
+
 			if err := r.SetQueryParam("enrich_with_template", qEnrichWithTemplate); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.From != nil {
 
 		// query param from
 		var qrFrom int64
+
 		if o.From != nil {
 			qrFrom = *o.From
 		}
 		qFrom := swag.FormatInt64(qrFrom)
 		if qFrom != "" {
+
 			if err := r.SetQueryParam("from", qFrom); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.Q != nil {
 
 		// query param q
 		var qrQ string
+
 		if o.Q != nil {
 			qrQ = *o.Q
 		}
 		qQ := qrQ
 		if qQ != "" {
+
 			if err := r.SetQueryParam("q", qQ); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.ShowHidden != nil {
 
 		// query param show_hidden
 		var qrShowHidden bool
+
 		if o.ShowHidden != nil {
 			qrShowHidden = *o.ShowHidden
 		}
 		qShowHidden := swag.FormatBool(qrShowHidden)
 		if qShowHidden != "" {
+
 			if err := r.SetQueryParam("show_hidden", qShowHidden); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.ShowMetadata != nil {
 
 		// query param show_metadata
 		var qrShowMetadata bool
+
 		if o.ShowMetadata != nil {
 			qrShowMetadata = *o.ShowMetadata
 		}
 		qShowMetadata := swag.FormatBool(qrShowMetadata)
 		if qShowMetadata != "" {
+
 			if err := r.SetQueryParam("show_metadata", qShowMetadata); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.ShowPlanDefaults != nil {
 
 		// query param show_plan_defaults
 		var qrShowPlanDefaults bool
+
 		if o.ShowPlanDefaults != nil {
 			qrShowPlanDefaults = *o.ShowPlanDefaults
 		}
 		qShowPlanDefaults := swag.FormatBool(qrShowPlanDefaults)
 		if qShowPlanDefaults != "" {
+
 			if err := r.SetQueryParam("show_plan_defaults", qShowPlanDefaults); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.ShowPlans != nil {
 
 		// query param show_plans
 		var qrShowPlans bool
+
 		if o.ShowPlans != nil {
 			qrShowPlans = *o.ShowPlans
 		}
 		qShowPlans := swag.FormatBool(qrShowPlans)
 		if qShowPlans != "" {
+
 			if err := r.SetQueryParam("show_plans", qShowPlans); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.ShowSecurity != nil {
 
 		// query param show_security
 		var qrShowSecurity bool
+
 		if o.ShowSecurity != nil {
 			qrShowSecurity = *o.ShowSecurity
 		}
 		qShowSecurity := swag.FormatBool(qrShowSecurity)
 		if qShowSecurity != "" {
+
 			if err := r.SetQueryParam("show_security", qShowSecurity); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.ShowSettings != nil {
 
 		// query param show_settings
 		var qrShowSettings bool
+
 		if o.ShowSettings != nil {
 			qrShowSettings = *o.ShowSettings
 		}
 		qShowSettings := swag.FormatBool(qrShowSettings)
 		if qShowSettings != "" {
+
 			if err := r.SetQueryParam("show_settings", qShowSettings); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.ShowSystemAlerts != nil {
 
 		// query param show_system_alerts
 		var qrShowSystemAlerts int64
+
 		if o.ShowSystemAlerts != nil {
 			qrShowSystemAlerts = *o.ShowSystemAlerts
 		}
 		qShowSystemAlerts := swag.FormatInt64(qrShowSystemAlerts)
 		if qShowSystemAlerts != "" {
+
 			if err := r.SetQueryParam("show_system_alerts", qShowSystemAlerts); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.Size != nil {
 
 		// query param size
 		var qrSize int64
+
 		if o.Size != nil {
 			qrSize = *o.Size
 		}
 		qSize := swag.FormatInt64(qrSize)
 		if qSize != "" {
+
 			if err := r.SetQueryParam("size", qSize); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

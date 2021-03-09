@@ -52,7 +52,6 @@ func (o *UpdateStackPacksReader) ReadResponse(response runtime.ClientResponse, c
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,7 +62,7 @@ func NewUpdateStackPacksOK() *UpdateStackPacksOK {
 	return &UpdateStackPacksOK{}
 }
 
-/*UpdateStackPacksOK handles this case with default header values.
+/* UpdateStackPacksOK describes a response with status code 200, with default header values.
 
 The Elastic Stack pack successfully processed.
 */
@@ -74,7 +73,6 @@ type UpdateStackPacksOK struct {
 func (o *UpdateStackPacksOK) Error() string {
 	return fmt.Sprintf("[POST /stack/versions][%d] updateStackPacksOK  %+v", 200, o.Payload)
 }
-
 func (o *UpdateStackPacksOK) GetPayload() *models.StackVersionArchiveProcessingResult {
 	return o.Payload
 }
@@ -96,13 +94,14 @@ func NewUpdateStackPacksBadRequest() *UpdateStackPacksBadRequest {
 	return &UpdateStackPacksBadRequest{}
 }
 
-/*UpdateStackPacksBadRequest handles this case with default header values.
+/* UpdateStackPacksBadRequest describes a response with status code 400, with default header values.
 
-* There is an error in the file. Choose a different file, then try again. (code: `stackpack.bad_archive`)
+ * There is an error in the file. Choose a different file, then try again. (code: `stackpack.bad_archive`)
 * Some unexpected error occurred. (code: `stackpack.unknown_internal_error`)
- */
+*/
 type UpdateStackPacksBadRequest struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -112,15 +111,18 @@ type UpdateStackPacksBadRequest struct {
 func (o *UpdateStackPacksBadRequest) Error() string {
 	return fmt.Sprintf("[POST /stack/versions][%d] updateStackPacksBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *UpdateStackPacksBadRequest) GetPayload() *models.StackVersionArchiveProcessingResult {
 	return o.Payload
 }
 
 func (o *UpdateStackPacksBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.StackVersionArchiveProcessingResult)
 

@@ -64,7 +64,6 @@ func (o *DeleteInstanceConfigurationReader) ReadResponse(response runtime.Client
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,7 +74,7 @@ func NewDeleteInstanceConfigurationOK() *DeleteInstanceConfigurationOK {
 	return &DeleteInstanceConfigurationOK{}
 }
 
-/*DeleteInstanceConfigurationOK handles this case with default header values.
+/* DeleteInstanceConfigurationOK describes a response with status code 200, with default header values.
 
 Instance configuration specified by {id} was deleted
 */
@@ -86,7 +85,6 @@ type DeleteInstanceConfigurationOK struct {
 func (o *DeleteInstanceConfigurationOK) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/instances/{id}][%d] deleteInstanceConfigurationOK  %+v", 200, o.Payload)
 }
-
 func (o *DeleteInstanceConfigurationOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -106,7 +104,7 @@ func NewDeleteInstanceConfigurationForbidden() *DeleteInstanceConfigurationForbi
 	return &DeleteInstanceConfigurationForbidden{}
 }
 
-/*DeleteInstanceConfigurationForbidden handles this case with default header values.
+/* DeleteInstanceConfigurationForbidden describes a response with status code 403, with default header values.
 
 Instance configuration specified by {id} is system owned (code: 'configuration.system_owned')
 */
@@ -117,7 +115,6 @@ type DeleteInstanceConfigurationForbidden struct {
 func (o *DeleteInstanceConfigurationForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/instances/{id}][%d] deleteInstanceConfigurationForbidden  %+v", 403, o.Payload)
 }
-
 func (o *DeleteInstanceConfigurationForbidden) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -139,7 +136,7 @@ func NewDeleteInstanceConfigurationNotFound() *DeleteInstanceConfigurationNotFou
 	return &DeleteInstanceConfigurationNotFound{}
 }
 
-/*DeleteInstanceConfigurationNotFound handles this case with default header values.
+/* DeleteInstanceConfigurationNotFound describes a response with status code 404, with default header values.
 
 Instance configuration specified by {id} cannot be found or the operation failed (code: 'configuration.instance_configuration_not_found')
 */
@@ -150,7 +147,6 @@ type DeleteInstanceConfigurationNotFound struct {
 func (o *DeleteInstanceConfigurationNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/instances/{id}][%d] deleteInstanceConfigurationNotFound  %+v", 404, o.Payload)
 }
-
 func (o *DeleteInstanceConfigurationNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -172,7 +168,7 @@ func NewDeleteInstanceConfigurationRetryWith() *DeleteInstanceConfigurationRetry
 	return &DeleteInstanceConfigurationRetryWith{}
 }
 
-/*DeleteInstanceConfigurationRetryWith handles this case with default header values.
+/* DeleteInstanceConfigurationRetryWith describes a response with status code 449, with default header values.
 
 elevated permissions are required. (code: '"root.unauthorized.rbac.elevated_permissions_required"')
 */
@@ -183,7 +179,6 @@ type DeleteInstanceConfigurationRetryWith struct {
 func (o *DeleteInstanceConfigurationRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/instances/{id}][%d] deleteInstanceConfigurationRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *DeleteInstanceConfigurationRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

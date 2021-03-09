@@ -46,7 +46,6 @@ func (o *GetSnapshotRepositoryReader) ReadResponse(response runtime.ClientRespon
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,7 +56,7 @@ func NewGetSnapshotRepositoryOK() *GetSnapshotRepositoryOK {
 	return &GetSnapshotRepositoryOK{}
 }
 
-/*GetSnapshotRepositoryOK handles this case with default header values.
+/* GetSnapshotRepositoryOK describes a response with status code 200, with default header values.
 
 Retrieve snapshot repository config
 */
@@ -68,7 +67,6 @@ type GetSnapshotRepositoryOK struct {
 func (o *GetSnapshotRepositoryOK) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/snapshots/repositories/{repository_name}][%d] getSnapshotRepositoryOK  %+v", 200, o.Payload)
 }
-
 func (o *GetSnapshotRepositoryOK) GetPayload() *models.RepositoryConfig {
 	return o.Payload
 }

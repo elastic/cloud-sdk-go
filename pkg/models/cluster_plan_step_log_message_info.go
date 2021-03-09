@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
@@ -97,13 +98,17 @@ func (m *ClusterPlanStepLogMessageInfo) Validate(formats strfmt.Registry) error 
 
 func (m *ClusterPlanStepLogMessageInfo) validateDetails(formats strfmt.Registry) error {
 
+	if err := validate.Required("details", "body", m.Details); err != nil {
+		return err
+	}
+
 	return nil
 }
 
 func (m *ClusterPlanStepLogMessageInfo) validateInternalDetails(formats strfmt.Registry) error {
 
-	if err := validate.Required("internal_details", "body", m.InternalDetails); err != nil {
-		return err
+	if m.InternalDetails == nil {
+		return errors.Required("internal_details", "body", nil)
 	}
 
 	return nil
@@ -174,6 +179,11 @@ func (m *ClusterPlanStepLogMessageInfo) validateTimestamp(formats strfmt.Registr
 		return err
 	}
 
+	return nil
+}
+
+// ContextValidate validates this cluster plan step log message info based on context it is used
+func (m *ClusterPlanStepLogMessageInfo) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

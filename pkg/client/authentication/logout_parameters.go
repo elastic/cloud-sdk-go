@@ -33,59 +33,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewLogoutParams creates a new LogoutParams object
-// with the default values initialized.
+// NewLogoutParams creates a new LogoutParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewLogoutParams() *LogoutParams {
-	var ()
 	return &LogoutParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewLogoutParamsWithTimeout creates a new LogoutParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewLogoutParamsWithTimeout(timeout time.Duration) *LogoutParams {
-	var ()
 	return &LogoutParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewLogoutParamsWithContext creates a new LogoutParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewLogoutParamsWithContext(ctx context.Context) *LogoutParams {
-	var ()
 	return &LogoutParams{
-
 		Context: ctx,
 	}
 }
 
 // NewLogoutParamsWithHTTPClient creates a new LogoutParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewLogoutParamsWithHTTPClient(client *http.Client) *LogoutParams {
-	var ()
 	return &LogoutParams{
 		HTTPClient: client,
 	}
 }
 
-/*LogoutParams contains all the parameters to send to the API endpoint
-for the logout operation typically these are written to a http.Request
+/* LogoutParams contains all the parameters to send to the API endpoint
+   for the logout operation.
+
+   Typically these are written to a http.Request.
 */
 type LogoutParams struct {
 
-	/*Cookie
-	  Cookie header containing the ec-sso-session-id session cookie.
+	/* Cookie.
 
+	   Cookie header containing the ec-sso-session-id session cookie.
 	*/
 	Cookie *string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the logout params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *LogoutParams) WithDefaults() *LogoutParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the logout params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *LogoutParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the logout params
@@ -146,7 +160,6 @@ func (o *LogoutParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Regist
 		if err := r.SetHeaderParam("Cookie", *o.Cookie); err != nil {
 			return err
 		}
-
 	}
 
 	if len(res) > 0 {

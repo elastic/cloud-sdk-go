@@ -33,59 +33,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetIPFilterRulesetDeploymentAssociationsParams creates a new GetIPFilterRulesetDeploymentAssociationsParams object
-// with the default values initialized.
+// NewGetIPFilterRulesetDeploymentAssociationsParams creates a new GetIPFilterRulesetDeploymentAssociationsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetIPFilterRulesetDeploymentAssociationsParams() *GetIPFilterRulesetDeploymentAssociationsParams {
-	var ()
 	return &GetIPFilterRulesetDeploymentAssociationsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetIPFilterRulesetDeploymentAssociationsParamsWithTimeout creates a new GetIPFilterRulesetDeploymentAssociationsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetIPFilterRulesetDeploymentAssociationsParamsWithTimeout(timeout time.Duration) *GetIPFilterRulesetDeploymentAssociationsParams {
-	var ()
 	return &GetIPFilterRulesetDeploymentAssociationsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetIPFilterRulesetDeploymentAssociationsParamsWithContext creates a new GetIPFilterRulesetDeploymentAssociationsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetIPFilterRulesetDeploymentAssociationsParamsWithContext(ctx context.Context) *GetIPFilterRulesetDeploymentAssociationsParams {
-	var ()
 	return &GetIPFilterRulesetDeploymentAssociationsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetIPFilterRulesetDeploymentAssociationsParamsWithHTTPClient creates a new GetIPFilterRulesetDeploymentAssociationsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetIPFilterRulesetDeploymentAssociationsParamsWithHTTPClient(client *http.Client) *GetIPFilterRulesetDeploymentAssociationsParams {
-	var ()
 	return &GetIPFilterRulesetDeploymentAssociationsParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetIPFilterRulesetDeploymentAssociationsParams contains all the parameters to send to the API endpoint
-for the get ip filter ruleset deployment associations operation typically these are written to a http.Request
+/* GetIPFilterRulesetDeploymentAssociationsParams contains all the parameters to send to the API endpoint
+   for the get ip filter ruleset deployment associations operation.
+
+   Typically these are written to a http.Request.
 */
 type GetIPFilterRulesetDeploymentAssociationsParams struct {
 
-	/*RulesetID
-	  Mandatory ruleset ID
+	/* RulesetID.
 
+	   Mandatory ruleset ID
 	*/
 	RulesetID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get ip filter ruleset deployment associations params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetIPFilterRulesetDeploymentAssociationsParams) WithDefaults() *GetIPFilterRulesetDeploymentAssociationsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get ip filter ruleset deployment associations params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetIPFilterRulesetDeploymentAssociationsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get ip filter ruleset deployment associations params

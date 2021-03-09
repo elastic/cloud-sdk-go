@@ -52,7 +52,6 @@ func (o *GetEsClusterSnapshotSettingsReader) ReadResponse(response runtime.Clien
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,18 +62,21 @@ func NewGetEsClusterSnapshotSettingsOK() *GetEsClusterSnapshotSettingsOK {
 	return &GetEsClusterSnapshotSettingsOK{}
 }
 
-/*GetEsClusterSnapshotSettingsOK handles this case with default header values.
+/* GetEsClusterSnapshotSettingsOK describes a response with status code 200, with default header values.
 
 The cluster snapshot settings were successfully returned
 */
 type GetEsClusterSnapshotSettingsOK struct {
-	/*The date-time when the resource was created (ISO format relative to UTC)
+
+	/* The date-time when the resource was created (ISO format relative to UTC)
 	 */
 	XCloudResourceCreated string
-	/*The date-time when the resource was last modified (ISO format relative to UTC)
+
+	/* The date-time when the resource was last modified (ISO format relative to UTC)
 	 */
 	XCloudResourceLastModified string
-	/*The resource version, which is used to avoid update conflicts with concurrent operations
+
+	/* The resource version, which is used to avoid update conflicts with concurrent operations
 	 */
 	XCloudResourceVersion string
 
@@ -84,21 +86,32 @@ type GetEsClusterSnapshotSettingsOK struct {
 func (o *GetEsClusterSnapshotSettingsOK) Error() string {
 	return fmt.Sprintf("[GET /clusters/elasticsearch/{cluster_id}/snapshot/settings][%d] getEsClusterSnapshotSettingsOK  %+v", 200, o.Payload)
 }
-
 func (o *GetEsClusterSnapshotSettingsOK) GetPayload() *models.ClusterSnapshotSettings {
 	return o.Payload
 }
 
 func (o *GetEsClusterSnapshotSettingsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-resource-created
-	o.XCloudResourceCreated = response.GetHeader("x-cloud-resource-created")
+	// hydrates response header x-cloud-resource-created
+	hdrXCloudResourceCreated := response.GetHeader("x-cloud-resource-created")
 
-	// response header x-cloud-resource-last-modified
-	o.XCloudResourceLastModified = response.GetHeader("x-cloud-resource-last-modified")
+	if hdrXCloudResourceCreated != "" {
+		o.XCloudResourceCreated = hdrXCloudResourceCreated
+	}
 
-	// response header x-cloud-resource-version
-	o.XCloudResourceVersion = response.GetHeader("x-cloud-resource-version")
+	// hydrates response header x-cloud-resource-last-modified
+	hdrXCloudResourceLastModified := response.GetHeader("x-cloud-resource-last-modified")
+
+	if hdrXCloudResourceLastModified != "" {
+		o.XCloudResourceLastModified = hdrXCloudResourceLastModified
+	}
+
+	// hydrates response header x-cloud-resource-version
+	hdrXCloudResourceVersion := response.GetHeader("x-cloud-resource-version")
+
+	if hdrXCloudResourceVersion != "" {
+		o.XCloudResourceVersion = hdrXCloudResourceVersion
+	}
 
 	o.Payload = new(models.ClusterSnapshotSettings)
 
@@ -115,7 +128,7 @@ func NewGetEsClusterSnapshotSettingsNotFound() *GetEsClusterSnapshotSettingsNotF
 	return &GetEsClusterSnapshotSettingsNotFound{}
 }
 
-/*GetEsClusterSnapshotSettingsNotFound handles this case with default header values.
+/* GetEsClusterSnapshotSettingsNotFound describes a response with status code 404, with default header values.
 
 The cluster specified by {cluster_id} cannot be found (code: 'clusters.cluster_not_found')
 */
@@ -126,7 +139,6 @@ type GetEsClusterSnapshotSettingsNotFound struct {
 func (o *GetEsClusterSnapshotSettingsNotFound) Error() string {
 	return fmt.Sprintf("[GET /clusters/elasticsearch/{cluster_id}/snapshot/settings][%d] getEsClusterSnapshotSettingsNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetEsClusterSnapshotSettingsNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

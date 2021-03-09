@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -118,6 +119,60 @@ func (m *ElasticsearchClusterBlockingIssues) validateIndexLevel(formats strfmt.R
 
 		if m.IndexLevel[i] != nil {
 			if err := m.IndexLevel[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("index_level" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this elasticsearch cluster blocking issues based on the context it is used
+func (m *ElasticsearchClusterBlockingIssues) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateClusterLevel(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateIndexLevel(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ElasticsearchClusterBlockingIssues) contextValidateClusterLevel(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.ClusterLevel); i++ {
+
+		if m.ClusterLevel[i] != nil {
+			if err := m.ClusterLevel[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("cluster_level" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *ElasticsearchClusterBlockingIssues) contextValidateIndexLevel(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.IndexLevel); i++ {
+
+		if m.IndexLevel[i] != nil {
+			if err := m.IndexLevel[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("index_level" + "." + strconv.Itoa(i))
 				}

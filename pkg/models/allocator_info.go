@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -156,7 +157,6 @@ func (m *AllocatorInfo) validateAllocatorID(formats strfmt.Registry) error {
 }
 
 func (m *AllocatorInfo) validateBuildInfo(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.BuildInfo) { // not required
 		return nil
 	}
@@ -337,6 +337,154 @@ func (m *AllocatorInfo) validateZoneID(formats strfmt.Registry) error {
 
 	if err := validate.Required("zone_id", "body", m.ZoneID); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this allocator info based on the context it is used
+func (m *AllocatorInfo) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateBuildInfo(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateCapacity(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateExternalLinks(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateInstances(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateMetadata(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateSettings(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateStatus(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *AllocatorInfo) contextValidateBuildInfo(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.BuildInfo != nil {
+		if err := m.BuildInfo.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("build_info")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *AllocatorInfo) contextValidateCapacity(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Capacity != nil {
+		if err := m.Capacity.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("capacity")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *AllocatorInfo) contextValidateExternalLinks(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.ExternalLinks); i++ {
+
+		if m.ExternalLinks[i] != nil {
+			if err := m.ExternalLinks[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("external_links" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *AllocatorInfo) contextValidateInstances(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Instances); i++ {
+
+		if m.Instances[i] != nil {
+			if err := m.Instances[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("instances" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *AllocatorInfo) contextValidateMetadata(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Metadata); i++ {
+
+		if m.Metadata[i] != nil {
+			if err := m.Metadata[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("metadata" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *AllocatorInfo) contextValidateSettings(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Settings != nil {
+		if err := m.Settings.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("settings")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *AllocatorInfo) contextValidateStatus(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Status != nil {
+		if err := m.Status.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("status")
+			}
+			return err
+		}
 	}
 
 	return nil

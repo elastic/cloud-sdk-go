@@ -35,64 +35,79 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewSetProxiesSettingsParams creates a new SetProxiesSettingsParams object
-// with the default values initialized.
+// NewSetProxiesSettingsParams creates a new SetProxiesSettingsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewSetProxiesSettingsParams() *SetProxiesSettingsParams {
-	var ()
 	return &SetProxiesSettingsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewSetProxiesSettingsParamsWithTimeout creates a new SetProxiesSettingsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewSetProxiesSettingsParamsWithTimeout(timeout time.Duration) *SetProxiesSettingsParams {
-	var ()
 	return &SetProxiesSettingsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewSetProxiesSettingsParamsWithContext creates a new SetProxiesSettingsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewSetProxiesSettingsParamsWithContext(ctx context.Context) *SetProxiesSettingsParams {
-	var ()
 	return &SetProxiesSettingsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewSetProxiesSettingsParamsWithHTTPClient creates a new SetProxiesSettingsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewSetProxiesSettingsParamsWithHTTPClient(client *http.Client) *SetProxiesSettingsParams {
-	var ()
 	return &SetProxiesSettingsParams{
 		HTTPClient: client,
 	}
 }
 
-/*SetProxiesSettingsParams contains all the parameters to send to the API endpoint
-for the set proxies settings operation typically these are written to a http.Request
+/* SetProxiesSettingsParams contains all the parameters to send to the API endpoint
+   for the set proxies settings operation.
+
+   Typically these are written to a http.Request.
 */
 type SetProxiesSettingsParams struct {
 
-	/*Body
-	  The proxy settings to apply
+	/* Body.
 
+	   The proxy settings to apply
 	*/
 	Body *models.ProxiesSettings
-	/*Version
-	  If specified, checks for conflicts against the version of the settings (returned in 'x-cloud-resource-version' of the GET request)
 
+	/* Version.
+
+	   If specified, checks for conflicts against the version of the settings (returned in 'x-cloud-resource-version' of the GET request)
 	*/
 	Version *string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the set proxies settings params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetProxiesSettingsParams) WithDefaults() *SetProxiesSettingsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the set proxies settings params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetProxiesSettingsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the set proxies settings params
@@ -157,7 +172,6 @@ func (o *SetProxiesSettingsParams) WriteToRequest(r runtime.ClientRequest, reg s
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err
@@ -168,16 +182,17 @@ func (o *SetProxiesSettingsParams) WriteToRequest(r runtime.ClientRequest, reg s
 
 		// query param version
 		var qrVersion string
+
 		if o.Version != nil {
 			qrVersion = *o.Version
 		}
 		qVersion := qrVersion
 		if qVersion != "" {
+
 			if err := r.SetQueryParam("version", qVersion); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

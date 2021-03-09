@@ -33,64 +33,79 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewDeleteLdapConfigurationParams creates a new DeleteLdapConfigurationParams object
-// with the default values initialized.
+// NewDeleteLdapConfigurationParams creates a new DeleteLdapConfigurationParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewDeleteLdapConfigurationParams() *DeleteLdapConfigurationParams {
-	var ()
 	return &DeleteLdapConfigurationParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteLdapConfigurationParamsWithTimeout creates a new DeleteLdapConfigurationParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewDeleteLdapConfigurationParamsWithTimeout(timeout time.Duration) *DeleteLdapConfigurationParams {
-	var ()
 	return &DeleteLdapConfigurationParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewDeleteLdapConfigurationParamsWithContext creates a new DeleteLdapConfigurationParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewDeleteLdapConfigurationParamsWithContext(ctx context.Context) *DeleteLdapConfigurationParams {
-	var ()
 	return &DeleteLdapConfigurationParams{
-
 		Context: ctx,
 	}
 }
 
 // NewDeleteLdapConfigurationParamsWithHTTPClient creates a new DeleteLdapConfigurationParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewDeleteLdapConfigurationParamsWithHTTPClient(client *http.Client) *DeleteLdapConfigurationParams {
-	var ()
 	return &DeleteLdapConfigurationParams{
 		HTTPClient: client,
 	}
 }
 
-/*DeleteLdapConfigurationParams contains all the parameters to send to the API endpoint
-for the delete ldap configuration operation typically these are written to a http.Request
+/* DeleteLdapConfigurationParams contains all the parameters to send to the API endpoint
+   for the delete ldap configuration operation.
+
+   Typically these are written to a http.Request.
 */
 type DeleteLdapConfigurationParams struct {
 
-	/*RealmID
-	  The Elasticsearch Security realm identifier.
+	/* RealmID.
 
+	   The Elasticsearch Security realm identifier.
 	*/
 	RealmID string
-	/*Version
-	  When specified, checks for conflicts against the version stored in the persistent store (returned in 'x-cloud-resource-version' of the GET request)
 
+	/* Version.
+
+	   When specified, checks for conflicts against the version stored in the persistent store (returned in 'x-cloud-resource-version' of the GET request)
 	*/
 	Version *string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the delete ldap configuration params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteLdapConfigurationParams) WithDefaults() *DeleteLdapConfigurationParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the delete ldap configuration params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteLdapConfigurationParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete ldap configuration params
@@ -165,16 +180,17 @@ func (o *DeleteLdapConfigurationParams) WriteToRequest(r runtime.ClientRequest, 
 
 		// query param version
 		var qrVersion string
+
 		if o.Version != nil {
 			qrVersion = *o.Version
 		}
 		qVersion := qrVersion
 		if qVersion != "" {
+
 			if err := r.SetQueryParam("version", qVersion); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

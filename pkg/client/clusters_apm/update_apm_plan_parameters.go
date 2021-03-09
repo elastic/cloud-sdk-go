@@ -36,81 +36,96 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewUpdateApmPlanParams creates a new UpdateApmPlanParams object
-// with the default values initialized.
+// NewUpdateApmPlanParams creates a new UpdateApmPlanParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewUpdateApmPlanParams() *UpdateApmPlanParams {
-	var (
-		validateOnlyDefault = bool(false)
-	)
 	return &UpdateApmPlanParams{
-		ValidateOnly: &validateOnlyDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewUpdateApmPlanParamsWithTimeout creates a new UpdateApmPlanParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewUpdateApmPlanParamsWithTimeout(timeout time.Duration) *UpdateApmPlanParams {
-	var (
-		validateOnlyDefault = bool(false)
-	)
 	return &UpdateApmPlanParams{
-		ValidateOnly: &validateOnlyDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewUpdateApmPlanParamsWithContext creates a new UpdateApmPlanParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewUpdateApmPlanParamsWithContext(ctx context.Context) *UpdateApmPlanParams {
-	var (
-		validateOnlyDefault = bool(false)
-	)
 	return &UpdateApmPlanParams{
-		ValidateOnly: &validateOnlyDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewUpdateApmPlanParamsWithHTTPClient creates a new UpdateApmPlanParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewUpdateApmPlanParamsWithHTTPClient(client *http.Client) *UpdateApmPlanParams {
-	var (
-		validateOnlyDefault = bool(false)
-	)
 	return &UpdateApmPlanParams{
-		ValidateOnly: &validateOnlyDefault,
-		HTTPClient:   client,
+		HTTPClient: client,
 	}
 }
 
-/*UpdateApmPlanParams contains all the parameters to send to the API endpoint
-for the update apm plan operation typically these are written to a http.Request
+/* UpdateApmPlanParams contains all the parameters to send to the API endpoint
+   for the update apm plan operation.
+
+   Typically these are written to a http.Request.
 */
 type UpdateApmPlanParams struct {
 
-	/*Body
-	  The update plan definition
+	/* Body.
 
+	   The update plan definition
 	*/
 	Body *models.ApmPlan
-	/*ClusterID
-	  The APM deployment identifier.
 
+	/* ClusterID.
+
+	   The APM deployment identifier.
 	*/
 	ClusterID string
-	/*ValidateOnly
-	  When `true`, validates the cluster definition without performing the update.
 
+	/* ValidateOnly.
+
+	   When `true`, validates the cluster definition without performing the update.
 	*/
 	ValidateOnly *bool
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the update apm plan params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdateApmPlanParams) WithDefaults() *UpdateApmPlanParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the update apm plan params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdateApmPlanParams) SetDefaults() {
+	var (
+		validateOnlyDefault = bool(false)
+	)
+
+	val := UpdateApmPlanParams{
+		ValidateOnly: &validateOnlyDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the update apm plan params
@@ -186,7 +201,6 @@ func (o *UpdateApmPlanParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err
@@ -202,16 +216,17 @@ func (o *UpdateApmPlanParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 
 		// query param validate_only
 		var qrValidateOnly bool
+
 		if o.ValidateOnly != nil {
 			qrValidateOnly = *o.ValidateOnly
 		}
 		qValidateOnly := swag.FormatBool(qrValidateOnly)
 		if qValidateOnly != "" {
+
 			if err := r.SetQueryParam("validate_only", qValidateOnly); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

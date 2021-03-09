@@ -64,7 +64,6 @@ func (o *MoveClustersReader) ReadResponse(response runtime.ClientResponse, consu
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,7 +74,7 @@ func NewMoveClustersAccepted() *MoveClustersAccepted {
 	return &MoveClustersAccepted{}
 }
 
-/*MoveClustersAccepted handles this case with default header values.
+/* MoveClustersAccepted describes a response with status code 202, with default header values.
 
 The move command was issued successfully, use the "GET" command on each /{cluster_id} resource to monitor progress
 */
@@ -86,7 +85,6 @@ type MoveClustersAccepted struct {
 func (o *MoveClustersAccepted) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/allocators/{allocator_id}/clusters/_move][%d] moveClustersAccepted  %+v", 202, o.Payload)
 }
-
 func (o *MoveClustersAccepted) GetPayload() *models.MoveClustersCommandResponse {
 	return o.Payload
 }
@@ -108,13 +106,14 @@ func NewMoveClustersBadRequest() *MoveClustersBadRequest {
 	return &MoveClustersBadRequest{}
 }
 
-/*MoveClustersBadRequest handles this case with default header values.
+/* MoveClustersBadRequest describes a response with status code 400, with default header values.
 
-* The cluster definition contained errors. (code: `clusters.cluster_invalid_plan`)
+ * The cluster definition contained errors. (code: `clusters.cluster_invalid_plan`)
 * The cluster definition contained errors. (code: `clusters.plan_feature_not_implemented`)
- */
+*/
 type MoveClustersBadRequest struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -124,15 +123,18 @@ type MoveClustersBadRequest struct {
 func (o *MoveClustersBadRequest) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/allocators/{allocator_id}/clusters/_move][%d] moveClustersBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *MoveClustersBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *MoveClustersBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -149,12 +151,13 @@ func NewMoveClustersForbidden() *MoveClustersForbidden {
 	return &MoveClustersForbidden{}
 }
 
-/*MoveClustersForbidden handles this case with default header values.
+/* MoveClustersForbidden describes a response with status code 403, with default header values.
 
 The move command was prohibited for the given cluster. (code: `clusters.command_prohibited`)
 */
 type MoveClustersForbidden struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -164,15 +167,18 @@ type MoveClustersForbidden struct {
 func (o *MoveClustersForbidden) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/allocators/{allocator_id}/clusters/_move][%d] moveClustersForbidden  %+v", 403, o.Payload)
 }
-
 func (o *MoveClustersForbidden) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *MoveClustersForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -189,12 +195,13 @@ func NewMoveClustersRetryWith() *MoveClustersRetryWith {
 	return &MoveClustersRetryWith{}
 }
 
-/*MoveClustersRetryWith handles this case with default header values.
+/* MoveClustersRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type MoveClustersRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -204,15 +211,18 @@ type MoveClustersRetryWith struct {
 func (o *MoveClustersRetryWith) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/allocators/{allocator_id}/clusters/_move][%d] moveClustersRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *MoveClustersRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *MoveClustersRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

@@ -52,7 +52,6 @@ func (o *UpdateVersionStackReader) ReadResponse(response runtime.ClientResponse,
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,7 +62,7 @@ func NewUpdateVersionStackOK() *UpdateVersionStackOK {
 	return &UpdateVersionStackOK{}
 }
 
-/*UpdateVersionStackOK handles this case with default header values.
+/* UpdateVersionStackOK describes a response with status code 200, with default header values.
 
 The Elastic Stack version successfully updated.
 */
@@ -74,7 +73,6 @@ type UpdateVersionStackOK struct {
 func (o *UpdateVersionStackOK) Error() string {
 	return fmt.Sprintf("[PUT /stack/versions/{version}][%d] updateVersionStackOK  %+v", 200, o.Payload)
 }
-
 func (o *UpdateVersionStackOK) GetPayload() *models.StackVersionConfig {
 	return o.Payload
 }
@@ -96,12 +94,13 @@ func NewUpdateVersionStackNotFound() *UpdateVersionStackNotFound {
 	return &UpdateVersionStackNotFound{}
 }
 
-/*UpdateVersionStackNotFound handles this case with default header values.
+/* UpdateVersionStackNotFound describes a response with status code 404, with default header values.
 
 The Elastic Stack version can't be found. (code: `stackpack.missing_platform_version`)
 */
 type UpdateVersionStackNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -111,15 +110,18 @@ type UpdateVersionStackNotFound struct {
 func (o *UpdateVersionStackNotFound) Error() string {
 	return fmt.Sprintf("[PUT /stack/versions/{version}][%d] updateVersionStackNotFound  %+v", 404, o.Payload)
 }
-
 func (o *UpdateVersionStackNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *UpdateVersionStackNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

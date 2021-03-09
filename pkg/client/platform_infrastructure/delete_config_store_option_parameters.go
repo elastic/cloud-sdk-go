@@ -33,59 +33,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewDeleteConfigStoreOptionParams creates a new DeleteConfigStoreOptionParams object
-// with the default values initialized.
+// NewDeleteConfigStoreOptionParams creates a new DeleteConfigStoreOptionParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewDeleteConfigStoreOptionParams() *DeleteConfigStoreOptionParams {
-	var ()
 	return &DeleteConfigStoreOptionParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteConfigStoreOptionParamsWithTimeout creates a new DeleteConfigStoreOptionParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewDeleteConfigStoreOptionParamsWithTimeout(timeout time.Duration) *DeleteConfigStoreOptionParams {
-	var ()
 	return &DeleteConfigStoreOptionParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewDeleteConfigStoreOptionParamsWithContext creates a new DeleteConfigStoreOptionParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewDeleteConfigStoreOptionParamsWithContext(ctx context.Context) *DeleteConfigStoreOptionParams {
-	var ()
 	return &DeleteConfigStoreOptionParams{
-
 		Context: ctx,
 	}
 }
 
 // NewDeleteConfigStoreOptionParamsWithHTTPClient creates a new DeleteConfigStoreOptionParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewDeleteConfigStoreOptionParamsWithHTTPClient(client *http.Client) *DeleteConfigStoreOptionParams {
-	var ()
 	return &DeleteConfigStoreOptionParams{
 		HTTPClient: client,
 	}
 }
 
-/*DeleteConfigStoreOptionParams contains all the parameters to send to the API endpoint
-for the delete config store option operation typically these are written to a http.Request
+/* DeleteConfigStoreOptionParams contains all the parameters to send to the API endpoint
+   for the delete config store option operation.
+
+   Typically these are written to a http.Request.
 */
 type DeleteConfigStoreOptionParams struct {
 
-	/*ConfigOptionID
-	  Name of the Config Store Option that you would like to delete
+	/* ConfigOptionID.
 
+	   Name of the Config Store Option that you would like to delete
 	*/
 	ConfigOptionID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the delete config store option params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteConfigStoreOptionParams) WithDefaults() *DeleteConfigStoreOptionParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the delete config store option params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteConfigStoreOptionParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete config store option params

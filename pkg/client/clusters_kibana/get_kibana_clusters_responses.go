@@ -46,7 +46,6 @@ func (o *GetKibanaClustersReader) ReadResponse(response runtime.ClientResponse, 
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,7 +56,7 @@ func NewGetKibanaClustersOK() *GetKibanaClustersOK {
 	return &GetKibanaClustersOK{}
 }
 
-/*GetKibanaClustersOK handles this case with default header values.
+/* GetKibanaClustersOK describes a response with status code 200, with default header values.
 
 Returning the specified set of clusters from the platform
 */
@@ -68,7 +67,6 @@ type GetKibanaClustersOK struct {
 func (o *GetKibanaClustersOK) Error() string {
 	return fmt.Sprintf("[GET /clusters/kibana][%d] getKibanaClustersOK  %+v", 200, o.Payload)
 }
-
 func (o *GetKibanaClustersOK) GetPayload() *models.KibanaClustersInfo {
 	return o.Payload
 }

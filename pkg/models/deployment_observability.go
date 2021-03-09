@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -86,7 +87,6 @@ func (m *DeploymentObservability) validateHealthy(formats strfmt.Registry) error
 }
 
 func (m *DeploymentObservability) validateIssues(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Issues) { // not required
 		return nil
 	}
@@ -111,7 +111,6 @@ func (m *DeploymentObservability) validateIssues(formats strfmt.Registry) error 
 }
 
 func (m *DeploymentObservability) validateLogging(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Logging) { // not required
 		return nil
 	}
@@ -129,13 +128,80 @@ func (m *DeploymentObservability) validateLogging(formats strfmt.Registry) error
 }
 
 func (m *DeploymentObservability) validateMetrics(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Metrics) { // not required
 		return nil
 	}
 
 	if m.Metrics != nil {
 		if err := m.Metrics.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("metrics")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this deployment observability based on the context it is used
+func (m *DeploymentObservability) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateIssues(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateLogging(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateMetrics(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *DeploymentObservability) contextValidateIssues(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Issues); i++ {
+
+		if m.Issues[i] != nil {
+			if err := m.Issues[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("issues" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *DeploymentObservability) contextValidateLogging(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Logging != nil {
+		if err := m.Logging.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("logging")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *DeploymentObservability) contextValidateMetrics(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Metrics != nil {
+		if err := m.Metrics.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("metrics")
 			}

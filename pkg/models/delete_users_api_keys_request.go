@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -68,6 +69,38 @@ func (m *DeleteUsersAPIKeysRequest) validateUserAPIKeys(formats strfmt.Registry)
 
 		if m.UserAPIKeys[i] != nil {
 			if err := m.UserAPIKeys[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("user_api_keys" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this delete users Api keys request based on the context it is used
+func (m *DeleteUsersAPIKeysRequest) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateUserAPIKeys(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *DeleteUsersAPIKeysRequest) contextValidateUserAPIKeys(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.UserAPIKeys); i++ {
+
+		if m.UserAPIKeys[i] != nil {
+			if err := m.UserAPIKeys[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("user_api_keys" + "." + strconv.Itoa(i))
 				}

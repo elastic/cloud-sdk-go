@@ -34,76 +34,90 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetIPFilterRulesetParams creates a new GetIPFilterRulesetParams object
-// with the default values initialized.
+// NewGetIPFilterRulesetParams creates a new GetIPFilterRulesetParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetIPFilterRulesetParams() *GetIPFilterRulesetParams {
-	var (
-		includeAssociationsDefault = bool(false)
-	)
 	return &GetIPFilterRulesetParams{
-		IncludeAssociations: &includeAssociationsDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetIPFilterRulesetParamsWithTimeout creates a new GetIPFilterRulesetParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetIPFilterRulesetParamsWithTimeout(timeout time.Duration) *GetIPFilterRulesetParams {
-	var (
-		includeAssociationsDefault = bool(false)
-	)
 	return &GetIPFilterRulesetParams{
-		IncludeAssociations: &includeAssociationsDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewGetIPFilterRulesetParamsWithContext creates a new GetIPFilterRulesetParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetIPFilterRulesetParamsWithContext(ctx context.Context) *GetIPFilterRulesetParams {
-	var (
-		includeAssociationsDefault = bool(false)
-	)
 	return &GetIPFilterRulesetParams{
-		IncludeAssociations: &includeAssociationsDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewGetIPFilterRulesetParamsWithHTTPClient creates a new GetIPFilterRulesetParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetIPFilterRulesetParamsWithHTTPClient(client *http.Client) *GetIPFilterRulesetParams {
-	var (
-		includeAssociationsDefault = bool(false)
-	)
 	return &GetIPFilterRulesetParams{
-		IncludeAssociations: &includeAssociationsDefault,
-		HTTPClient:          client,
+		HTTPClient: client,
 	}
 }
 
-/*GetIPFilterRulesetParams contains all the parameters to send to the API endpoint
-for the get ip filter ruleset operation typically these are written to a http.Request
+/* GetIPFilterRulesetParams contains all the parameters to send to the API endpoint
+   for the get ip filter ruleset operation.
+
+   Typically these are written to a http.Request.
 */
 type GetIPFilterRulesetParams struct {
 
-	/*IncludeAssociations
-	  Retrieves a list of resources that are associated to the specified ruleset.
+	/* IncludeAssociations.
 
+	   Retrieves a list of resources that are associated to the specified ruleset.
 	*/
 	IncludeAssociations *bool
-	/*RulesetID
-	  The mandatory ruleset ID
 
+	/* RulesetID.
+
+	   The mandatory ruleset ID
 	*/
 	RulesetID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get ip filter ruleset params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetIPFilterRulesetParams) WithDefaults() *GetIPFilterRulesetParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get ip filter ruleset params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetIPFilterRulesetParams) SetDefaults() {
+	var (
+		includeAssociationsDefault = bool(false)
+	)
+
+	val := GetIPFilterRulesetParams{
+		IncludeAssociations: &includeAssociationsDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the get ip filter ruleset params
@@ -173,16 +187,17 @@ func (o *GetIPFilterRulesetParams) WriteToRequest(r runtime.ClientRequest, reg s
 
 		// query param include_associations
 		var qrIncludeAssociations bool
+
 		if o.IncludeAssociations != nil {
 			qrIncludeAssociations = *o.IncludeAssociations
 		}
 		qIncludeAssociations := swag.FormatBool(qrIncludeAssociations)
 		if qIncludeAssociations != "" {
+
 			if err := r.SetQueryParam("include_associations", qIncludeAssociations); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	// path param ruleset_id

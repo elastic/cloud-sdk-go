@@ -52,7 +52,6 @@ func (o *GetApmMetadataSettingsReader) ReadResponse(response runtime.ClientRespo
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,18 +62,21 @@ func NewGetApmMetadataSettingsOK() *GetApmMetadataSettingsOK {
 	return &GetApmMetadataSettingsOK{}
 }
 
-/*GetApmMetadataSettingsOK handles this case with default header values.
+/* GetApmMetadataSettingsOK describes a response with status code 200, with default header values.
 
 The cluster metadata was successfully returned
 */
 type GetApmMetadataSettingsOK struct {
-	/*The date-time when the resource was created (ISO format relative to UTC)
+
+	/* The date-time when the resource was created (ISO format relative to UTC)
 	 */
 	XCloudResourceCreated string
-	/*The date-time when the resource was last modified (ISO format relative to UTC)
+
+	/* The date-time when the resource was last modified (ISO format relative to UTC)
 	 */
 	XCloudResourceLastModified string
-	/*The resource version, which is used to avoid update conflicts with concurrent operations
+
+	/* The resource version, which is used to avoid update conflicts with concurrent operations
 	 */
 	XCloudResourceVersion string
 
@@ -84,21 +86,32 @@ type GetApmMetadataSettingsOK struct {
 func (o *GetApmMetadataSettingsOK) Error() string {
 	return fmt.Sprintf("[GET /clusters/apm/{cluster_id}/metadata/settings][%d] getApmMetadataSettingsOK  %+v", 200, o.Payload)
 }
-
 func (o *GetApmMetadataSettingsOK) GetPayload() *models.ClusterMetadataSettings {
 	return o.Payload
 }
 
 func (o *GetApmMetadataSettingsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-resource-created
-	o.XCloudResourceCreated = response.GetHeader("x-cloud-resource-created")
+	// hydrates response header x-cloud-resource-created
+	hdrXCloudResourceCreated := response.GetHeader("x-cloud-resource-created")
 
-	// response header x-cloud-resource-last-modified
-	o.XCloudResourceLastModified = response.GetHeader("x-cloud-resource-last-modified")
+	if hdrXCloudResourceCreated != "" {
+		o.XCloudResourceCreated = hdrXCloudResourceCreated
+	}
 
-	// response header x-cloud-resource-version
-	o.XCloudResourceVersion = response.GetHeader("x-cloud-resource-version")
+	// hydrates response header x-cloud-resource-last-modified
+	hdrXCloudResourceLastModified := response.GetHeader("x-cloud-resource-last-modified")
+
+	if hdrXCloudResourceLastModified != "" {
+		o.XCloudResourceLastModified = hdrXCloudResourceLastModified
+	}
+
+	// hydrates response header x-cloud-resource-version
+	hdrXCloudResourceVersion := response.GetHeader("x-cloud-resource-version")
+
+	if hdrXCloudResourceVersion != "" {
+		o.XCloudResourceVersion = hdrXCloudResourceVersion
+	}
 
 	o.Payload = new(models.ClusterMetadataSettings)
 
@@ -115,7 +128,7 @@ func NewGetApmMetadataSettingsNotFound() *GetApmMetadataSettingsNotFound {
 	return &GetApmMetadataSettingsNotFound{}
 }
 
-/*GetApmMetadataSettingsNotFound handles this case with default header values.
+/* GetApmMetadataSettingsNotFound describes a response with status code 404, with default header values.
 
 The cluster specified by {cluster_id} cannot be found (code: 'clusters.cluster_not_found')
 */
@@ -126,7 +139,6 @@ type GetApmMetadataSettingsNotFound struct {
 func (o *GetApmMetadataSettingsNotFound) Error() string {
 	return fmt.Sprintf("[GET /clusters/apm/{cluster_id}/metadata/settings][%d] getApmMetadataSettingsNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetApmMetadataSettingsNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

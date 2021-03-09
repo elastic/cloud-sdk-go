@@ -64,7 +64,6 @@ func (o *StartKibanaClusterInstancesAllReader) ReadResponse(response runtime.Cli
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,7 +74,7 @@ func NewStartKibanaClusterInstancesAllAccepted() *StartKibanaClusterInstancesAll
 	return &StartKibanaClusterInstancesAllAccepted{}
 }
 
-/*StartKibanaClusterInstancesAllAccepted handles this case with default header values.
+/* StartKibanaClusterInstancesAllAccepted describes a response with status code 202, with default header values.
 
 The start command was issued successfully, use the "GET" command on the /{cluster_id} resource to monitor progress
 */
@@ -86,7 +85,6 @@ type StartKibanaClusterInstancesAllAccepted struct {
 func (o *StartKibanaClusterInstancesAllAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/instances/_start][%d] startKibanaClusterInstancesAllAccepted  %+v", 202, o.Payload)
 }
-
 func (o *StartKibanaClusterInstancesAllAccepted) GetPayload() *models.ClusterCommandResponse {
 	return o.Payload
 }
@@ -108,12 +106,13 @@ func NewStartKibanaClusterInstancesAllForbidden() *StartKibanaClusterInstancesAl
 	return &StartKibanaClusterInstancesAllForbidden{}
 }
 
-/*StartKibanaClusterInstancesAllForbidden handles this case with default header values.
+/* StartKibanaClusterInstancesAllForbidden describes a response with status code 403, with default header values.
 
 The start command was prohibited for the given cluster. (code: `clusters.command_prohibited`)
 */
 type StartKibanaClusterInstancesAllForbidden struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -123,15 +122,18 @@ type StartKibanaClusterInstancesAllForbidden struct {
 func (o *StartKibanaClusterInstancesAllForbidden) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/instances/_start][%d] startKibanaClusterInstancesAllForbidden  %+v", 403, o.Payload)
 }
-
 func (o *StartKibanaClusterInstancesAllForbidden) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *StartKibanaClusterInstancesAllForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -148,12 +150,13 @@ func NewStartKibanaClusterInstancesAllNotFound() *StartKibanaClusterInstancesAll
 	return &StartKibanaClusterInstancesAllNotFound{}
 }
 
-/*StartKibanaClusterInstancesAllNotFound handles this case with default header values.
+/* StartKibanaClusterInstancesAllNotFound describes a response with status code 404, with default header values.
 
 The cluster specified by {cluster_id} cannot be found. (code: `clusters.cluster_not_found`)
 */
 type StartKibanaClusterInstancesAllNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -163,15 +166,18 @@ type StartKibanaClusterInstancesAllNotFound struct {
 func (o *StartKibanaClusterInstancesAllNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/instances/_start][%d] startKibanaClusterInstancesAllNotFound  %+v", 404, o.Payload)
 }
-
 func (o *StartKibanaClusterInstancesAllNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *StartKibanaClusterInstancesAllNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -188,12 +194,13 @@ func NewStartKibanaClusterInstancesAllRetryWith() *StartKibanaClusterInstancesAl
 	return &StartKibanaClusterInstancesAllRetryWith{}
 }
 
-/*StartKibanaClusterInstancesAllRetryWith handles this case with default header values.
+/* StartKibanaClusterInstancesAllRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type StartKibanaClusterInstancesAllRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -203,15 +210,18 @@ type StartKibanaClusterInstancesAllRetryWith struct {
 func (o *StartKibanaClusterInstancesAllRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/instances/_start][%d] startKibanaClusterInstancesAllRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *StartKibanaClusterInstancesAllRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *StartKibanaClusterInstancesAllRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

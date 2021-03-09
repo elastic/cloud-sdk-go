@@ -64,7 +64,6 @@ func (o *SetRunnerRolesReader) ReadResponse(response runtime.ClientResponse, con
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,7 +74,7 @@ func NewSetRunnerRolesOK() *SetRunnerRolesOK {
 	return &SetRunnerRolesOK{}
 }
 
-/*SetRunnerRolesOK handles this case with default header values.
+/* SetRunnerRolesOK describes a response with status code 200, with default header values.
 
 The roles for the {runner_id} specified runner are assigned.
 */
@@ -86,7 +85,6 @@ type SetRunnerRolesOK struct {
 func (o *SetRunnerRolesOK) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/runners/{runner_id}/roles][%d] setRunnerRolesOK  %+v", 200, o.Payload)
 }
-
 func (o *SetRunnerRolesOK) GetPayload() *models.RunnerRolesInfo {
 	return o.Payload
 }
@@ -108,12 +106,13 @@ func NewSetRunnerRolesBadRequest() *SetRunnerRolesBadRequest {
 	return &SetRunnerRolesBadRequest{}
 }
 
-/*SetRunnerRolesBadRequest handles this case with default header values.
+/* SetRunnerRolesBadRequest describes a response with status code 400, with default header values.
 
 There was an error while assigning the roles for the {runner_id} specified runner. Try your request again. (code: `runners.runner_set_roles_failed`)
 */
 type SetRunnerRolesBadRequest struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -123,15 +122,18 @@ type SetRunnerRolesBadRequest struct {
 func (o *SetRunnerRolesBadRequest) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/runners/{runner_id}/roles][%d] setRunnerRolesBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *SetRunnerRolesBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SetRunnerRolesBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -148,12 +150,13 @@ func NewSetRunnerRolesNotFound() *SetRunnerRolesNotFound {
 	return &SetRunnerRolesNotFound{}
 }
 
-/*SetRunnerRolesNotFound handles this case with default header values.
+/* SetRunnerRolesNotFound describes a response with status code 404, with default header values.
 
 Unable to find the {runner_id} specified runner. Edit your request, then try again. (code: `runners.runner_not_found`)
 */
 type SetRunnerRolesNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -163,15 +166,18 @@ type SetRunnerRolesNotFound struct {
 func (o *SetRunnerRolesNotFound) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/runners/{runner_id}/roles][%d] setRunnerRolesNotFound  %+v", 404, o.Payload)
 }
-
 func (o *SetRunnerRolesNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SetRunnerRolesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -188,12 +194,13 @@ func NewSetRunnerRolesRetryWith() *SetRunnerRolesRetryWith {
 	return &SetRunnerRolesRetryWith{}
 }
 
-/*SetRunnerRolesRetryWith handles this case with default header values.
+/* SetRunnerRolesRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type SetRunnerRolesRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -203,15 +210,18 @@ type SetRunnerRolesRetryWith struct {
 func (o *SetRunnerRolesRetryWith) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/runners/{runner_id}/roles][%d] setRunnerRolesRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *SetRunnerRolesRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SetRunnerRolesRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
@@ -41,6 +43,11 @@ type KeystoreSecret struct {
 
 // Validate validates this keystore secret
 func (m *KeystoreSecret) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this keystore secret based on context it is used
+func (m *KeystoreSecret) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

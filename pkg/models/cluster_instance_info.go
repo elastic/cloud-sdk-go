@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"encoding/json"
 	"strconv"
 
@@ -141,7 +142,6 @@ func (m *ClusterInstanceInfo) validateContainerStarted(formats strfmt.Registry) 
 }
 
 func (m *ClusterInstanceInfo) validateDisk(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Disk) { // not required
 		return nil
 	}
@@ -168,7 +168,6 @@ func (m *ClusterInstanceInfo) validateHealthy(formats strfmt.Registry) error {
 }
 
 func (m *ClusterInstanceInfo) validateInstanceConfiguration(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.InstanceConfiguration) { // not required
 		return nil
 	}
@@ -204,7 +203,6 @@ func (m *ClusterInstanceInfo) validateMaintenanceMode(formats strfmt.Registry) e
 }
 
 func (m *ClusterInstanceInfo) validateMemory(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Memory) { // not required
 		return nil
 	}
@@ -241,7 +239,6 @@ func (m *ClusterInstanceInfo) validateNodeRolesItemsEnum(path, location string, 
 }
 
 func (m *ClusterInstanceInfo) validateNodeRoles(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.NodeRoles) { // not required
 		return nil
 	}
@@ -262,6 +259,70 @@ func (m *ClusterInstanceInfo) validateServiceRunning(formats strfmt.Registry) er
 
 	if err := validate.Required("service_running", "body", m.ServiceRunning); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this cluster instance info based on the context it is used
+func (m *ClusterInstanceInfo) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateDisk(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateInstanceConfiguration(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateMemory(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ClusterInstanceInfo) contextValidateDisk(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Disk != nil {
+		if err := m.Disk.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("disk")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ClusterInstanceInfo) contextValidateInstanceConfiguration(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.InstanceConfiguration != nil {
+		if err := m.InstanceConfiguration.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("instance_configuration")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ClusterInstanceInfo) contextValidateMemory(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Memory != nil {
+		if err := m.Memory.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("memory")
+			}
+			return err
+		}
 	}
 
 	return nil

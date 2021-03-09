@@ -33,59 +33,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewStopEsClusterInstancesAllParams creates a new StopEsClusterInstancesAllParams object
-// with the default values initialized.
+// NewStopEsClusterInstancesAllParams creates a new StopEsClusterInstancesAllParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewStopEsClusterInstancesAllParams() *StopEsClusterInstancesAllParams {
-	var ()
 	return &StopEsClusterInstancesAllParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewStopEsClusterInstancesAllParamsWithTimeout creates a new StopEsClusterInstancesAllParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewStopEsClusterInstancesAllParamsWithTimeout(timeout time.Duration) *StopEsClusterInstancesAllParams {
-	var ()
 	return &StopEsClusterInstancesAllParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewStopEsClusterInstancesAllParamsWithContext creates a new StopEsClusterInstancesAllParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewStopEsClusterInstancesAllParamsWithContext(ctx context.Context) *StopEsClusterInstancesAllParams {
-	var ()
 	return &StopEsClusterInstancesAllParams{
-
 		Context: ctx,
 	}
 }
 
 // NewStopEsClusterInstancesAllParamsWithHTTPClient creates a new StopEsClusterInstancesAllParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewStopEsClusterInstancesAllParamsWithHTTPClient(client *http.Client) *StopEsClusterInstancesAllParams {
-	var ()
 	return &StopEsClusterInstancesAllParams{
 		HTTPClient: client,
 	}
 }
 
-/*StopEsClusterInstancesAllParams contains all the parameters to send to the API endpoint
-for the stop es cluster instances all operation typically these are written to a http.Request
+/* StopEsClusterInstancesAllParams contains all the parameters to send to the API endpoint
+   for the stop es cluster instances all operation.
+
+   Typically these are written to a http.Request.
 */
 type StopEsClusterInstancesAllParams struct {
 
-	/*ClusterID
-	  The Elasticsearch cluster identifier.
+	/* ClusterID.
 
+	   The Elasticsearch cluster identifier.
 	*/
 	ClusterID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the stop es cluster instances all params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *StopEsClusterInstancesAllParams) WithDefaults() *StopEsClusterInstancesAllParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the stop es cluster instances all params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *StopEsClusterInstancesAllParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the stop es cluster instances all params

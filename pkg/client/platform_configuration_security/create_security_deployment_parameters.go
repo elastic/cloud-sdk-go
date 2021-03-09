@@ -35,59 +35,73 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewCreateSecurityDeploymentParams creates a new CreateSecurityDeploymentParams object
-// with the default values initialized.
+// NewCreateSecurityDeploymentParams creates a new CreateSecurityDeploymentParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewCreateSecurityDeploymentParams() *CreateSecurityDeploymentParams {
-	var ()
 	return &CreateSecurityDeploymentParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewCreateSecurityDeploymentParamsWithTimeout creates a new CreateSecurityDeploymentParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewCreateSecurityDeploymentParamsWithTimeout(timeout time.Duration) *CreateSecurityDeploymentParams {
-	var ()
 	return &CreateSecurityDeploymentParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewCreateSecurityDeploymentParamsWithContext creates a new CreateSecurityDeploymentParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewCreateSecurityDeploymentParamsWithContext(ctx context.Context) *CreateSecurityDeploymentParams {
-	var ()
 	return &CreateSecurityDeploymentParams{
-
 		Context: ctx,
 	}
 }
 
 // NewCreateSecurityDeploymentParamsWithHTTPClient creates a new CreateSecurityDeploymentParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewCreateSecurityDeploymentParamsWithHTTPClient(client *http.Client) *CreateSecurityDeploymentParams {
-	var ()
 	return &CreateSecurityDeploymentParams{
 		HTTPClient: client,
 	}
 }
 
-/*CreateSecurityDeploymentParams contains all the parameters to send to the API endpoint
-for the create security deployment operation typically these are written to a http.Request
+/* CreateSecurityDeploymentParams contains all the parameters to send to the API endpoint
+   for the create security deployment operation.
+
+   Typically these are written to a http.Request.
 */
 type CreateSecurityDeploymentParams struct {
 
-	/*Body
-	  The deployment request
+	/* Body.
 
+	   The deployment request
 	*/
 	Body *models.SecurityDeploymentCreateRequest
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the create security deployment params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *CreateSecurityDeploymentParams) WithDefaults() *CreateSecurityDeploymentParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the create security deployment params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *CreateSecurityDeploymentParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the create security deployment params
@@ -141,7 +155,6 @@ func (o *CreateSecurityDeploymentParams) WriteToRequest(r runtime.ClientRequest,
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

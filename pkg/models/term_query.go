@@ -23,10 +23,11 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
-	"github.com/go-openapi/validate"
 )
 
 // TermQuery A query for documents that contain the specified terms in the inverted index.
@@ -55,10 +56,15 @@ func (m *TermQuery) Validate(formats strfmt.Registry) error {
 
 func (m *TermQuery) validateValue(formats strfmt.Registry) error {
 
-	if err := validate.Required("value", "body", m.Value); err != nil {
-		return err
+	if m.Value == nil {
+		return errors.Required("value", "body", nil)
 	}
 
+	return nil
+}
+
+// ContextValidate validates this term query based on context it is used
+func (m *TermQuery) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

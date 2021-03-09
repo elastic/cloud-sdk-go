@@ -42,17 +42,20 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientOption is the option for Client methods
+type ClientOption func(*runtime.ClientOperation)
+
 // ClientService is the interface for Client methods
 type ClientService interface {
-	CreateInstanceConfiguration(params *CreateInstanceConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*CreateInstanceConfigurationCreated, error)
+	CreateInstanceConfiguration(params *CreateInstanceConfigurationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateInstanceConfigurationCreated, error)
 
-	DeleteInstanceConfiguration(params *DeleteInstanceConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteInstanceConfigurationOK, error)
+	DeleteInstanceConfiguration(params *DeleteInstanceConfigurationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteInstanceConfigurationOK, error)
 
-	GetInstanceConfiguration(params *GetInstanceConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*GetInstanceConfigurationOK, error)
+	GetInstanceConfiguration(params *GetInstanceConfigurationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetInstanceConfigurationOK, error)
 
-	GetInstanceConfigurations(params *GetInstanceConfigurationsParams, authInfo runtime.ClientAuthInfoWriter) (*GetInstanceConfigurationsOK, error)
+	GetInstanceConfigurations(params *GetInstanceConfigurationsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetInstanceConfigurationsOK, error)
 
-	SetInstanceConfiguration(params *SetInstanceConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*SetInstanceConfigurationOK, *SetInstanceConfigurationCreated, error)
+	SetInstanceConfiguration(params *SetInstanceConfigurationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetInstanceConfigurationOK, *SetInstanceConfigurationCreated, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -62,13 +65,12 @@ type ClientService interface {
 
   Create instance configuration and return the auto-generated ID.
 */
-func (a *Client) CreateInstanceConfiguration(params *CreateInstanceConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*CreateInstanceConfigurationCreated, error) {
+func (a *Client) CreateInstanceConfiguration(params *CreateInstanceConfigurationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateInstanceConfigurationCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateInstanceConfigurationParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "create-instance-configuration",
 		Method:             "POST",
 		PathPattern:        "/platform/configuration/instances",
@@ -80,7 +82,12 @@ func (a *Client) CreateInstanceConfiguration(params *CreateInstanceConfiguration
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -99,13 +106,12 @@ func (a *Client) CreateInstanceConfiguration(params *CreateInstanceConfiguration
 
   Delete the instance configuration with the given id.
 */
-func (a *Client) DeleteInstanceConfiguration(params *DeleteInstanceConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteInstanceConfigurationOK, error) {
+func (a *Client) DeleteInstanceConfiguration(params *DeleteInstanceConfigurationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteInstanceConfigurationOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteInstanceConfigurationParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "delete-instance-configuration",
 		Method:             "DELETE",
 		PathPattern:        "/platform/configuration/instances/{id}",
@@ -117,7 +123,12 @@ func (a *Client) DeleteInstanceConfiguration(params *DeleteInstanceConfiguration
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -136,13 +147,12 @@ func (a *Client) DeleteInstanceConfiguration(params *DeleteInstanceConfiguration
 
   Get instance configuration by id.
 */
-func (a *Client) GetInstanceConfiguration(params *GetInstanceConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*GetInstanceConfigurationOK, error) {
+func (a *Client) GetInstanceConfiguration(params *GetInstanceConfigurationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetInstanceConfigurationOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetInstanceConfigurationParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-instance-configuration",
 		Method:             "GET",
 		PathPattern:        "/platform/configuration/instances/{id}",
@@ -154,7 +164,12 @@ func (a *Client) GetInstanceConfiguration(params *GetInstanceConfigurationParams
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -173,13 +188,12 @@ func (a *Client) GetInstanceConfiguration(params *GetInstanceConfigurationParams
 
   Get instance configurations.
 */
-func (a *Client) GetInstanceConfigurations(params *GetInstanceConfigurationsParams, authInfo runtime.ClientAuthInfoWriter) (*GetInstanceConfigurationsOK, error) {
+func (a *Client) GetInstanceConfigurations(params *GetInstanceConfigurationsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetInstanceConfigurationsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetInstanceConfigurationsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-instance-configurations",
 		Method:             "GET",
 		PathPattern:        "/platform/configuration/instances",
@@ -191,7 +205,12 @@ func (a *Client) GetInstanceConfigurations(params *GetInstanceConfigurationsPara
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -210,13 +229,12 @@ func (a *Client) GetInstanceConfigurations(params *GetInstanceConfigurationsPara
 
   Creates or updates an instance configuration.
 */
-func (a *Client) SetInstanceConfiguration(params *SetInstanceConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*SetInstanceConfigurationOK, *SetInstanceConfigurationCreated, error) {
+func (a *Client) SetInstanceConfiguration(params *SetInstanceConfigurationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetInstanceConfigurationOK, *SetInstanceConfigurationCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSetInstanceConfigurationParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "set-instance-configuration",
 		Method:             "PUT",
 		PathPattern:        "/platform/configuration/instances/{id}",
@@ -228,7 +246,12 @@ func (a *Client) SetInstanceConfiguration(params *SetInstanceConfigurationParams
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, nil, err
 	}

@@ -35,59 +35,73 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewReAuthenticateParams creates a new ReAuthenticateParams object
-// with the default values initialized.
+// NewReAuthenticateParams creates a new ReAuthenticateParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewReAuthenticateParams() *ReAuthenticateParams {
-	var ()
 	return &ReAuthenticateParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewReAuthenticateParamsWithTimeout creates a new ReAuthenticateParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewReAuthenticateParamsWithTimeout(timeout time.Duration) *ReAuthenticateParams {
-	var ()
 	return &ReAuthenticateParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewReAuthenticateParamsWithContext creates a new ReAuthenticateParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewReAuthenticateParamsWithContext(ctx context.Context) *ReAuthenticateParams {
-	var ()
 	return &ReAuthenticateParams{
-
 		Context: ctx,
 	}
 }
 
 // NewReAuthenticateParamsWithHTTPClient creates a new ReAuthenticateParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewReAuthenticateParamsWithHTTPClient(client *http.Client) *ReAuthenticateParams {
-	var ()
 	return &ReAuthenticateParams{
 		HTTPClient: client,
 	}
 }
 
-/*ReAuthenticateParams contains all the parameters to send to the API endpoint
-for the re authenticate operation typically these are written to a http.Request
+/* ReAuthenticateParams contains all the parameters to send to the API endpoint
+   for the re authenticate operation.
+
+   Typically these are written to a http.Request.
 */
 type ReAuthenticateParams struct {
 
-	/*Body
-	  The request to reauthenticate
+	/* Body.
 
+	   The request to reauthenticate
 	*/
 	Body *models.ReAuthenticationRequest
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the re authenticate params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ReAuthenticateParams) WithDefaults() *ReAuthenticateParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the re authenticate params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ReAuthenticateParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the re authenticate params
@@ -141,7 +155,6 @@ func (o *ReAuthenticateParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

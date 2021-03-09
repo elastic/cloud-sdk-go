@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -64,6 +66,34 @@ func (m *CreateEnterpriseSearchRequest) validatePlan(formats strfmt.Registry) er
 
 	if m.Plan != nil {
 		if err := m.Plan.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("plan")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this create enterprise search request based on the context it is used
+func (m *CreateEnterpriseSearchRequest) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidatePlan(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *CreateEnterpriseSearchRequest) contextValidatePlan(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Plan != nil {
+		if err := m.Plan.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("plan")
 			}

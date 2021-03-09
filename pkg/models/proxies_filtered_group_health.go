@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -100,6 +102,34 @@ func (m *ProxiesFilteredGroupHealth) validateStatus(formats strfmt.Registry) err
 
 	if err := validate.Required("status", "body", m.Status); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this proxies filtered group health based on the context it is used
+func (m *ProxiesFilteredGroupHealth) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateGroup(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ProxiesFilteredGroupHealth) contextValidateGroup(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Group != nil {
+		if err := m.Group.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("group")
+			}
+			return err
+		}
 	}
 
 	return nil

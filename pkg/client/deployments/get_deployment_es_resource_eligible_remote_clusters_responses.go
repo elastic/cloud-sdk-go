@@ -58,7 +58,6 @@ func (o *GetDeploymentEsResourceEligibleRemoteClustersReader) ReadResponse(respo
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,7 +68,7 @@ func NewGetDeploymentEsResourceEligibleRemoteClustersOK() *GetDeploymentEsResour
 	return &GetDeploymentEsResourceEligibleRemoteClustersOK{}
 }
 
-/*GetDeploymentEsResourceEligibleRemoteClustersOK handles this case with default header values.
+/* GetDeploymentEsResourceEligibleRemoteClustersOK describes a response with status code 200, with default header values.
 
 List of deployments which contains eligible remote clusters for the resource
 */
@@ -80,7 +79,6 @@ type GetDeploymentEsResourceEligibleRemoteClustersOK struct {
 func (o *GetDeploymentEsResourceEligibleRemoteClustersOK) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/eligible-remote-clusters][%d] getDeploymentEsResourceEligibleRemoteClustersOK  %+v", 200, o.Payload)
 }
-
 func (o *GetDeploymentEsResourceEligibleRemoteClustersOK) GetPayload() *models.DeploymentsSearchResponse {
 	return o.Payload
 }
@@ -102,12 +100,13 @@ func NewGetDeploymentEsResourceEligibleRemoteClustersBadRequest() *GetDeployment
 	return &GetDeploymentEsResourceEligibleRemoteClustersBadRequest{}
 }
 
-/*GetDeploymentEsResourceEligibleRemoteClustersBadRequest handles this case with default header values.
+/* GetDeploymentEsResourceEligibleRemoteClustersBadRequest describes a response with status code 400, with default header values.
 
 The resource specified doesn't yet have a valid version for the current plan or the pending plan. (code: `deployments.resource_does_not_have_a_valid_version`)
 */
 type GetDeploymentEsResourceEligibleRemoteClustersBadRequest struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -117,15 +116,18 @@ type GetDeploymentEsResourceEligibleRemoteClustersBadRequest struct {
 func (o *GetDeploymentEsResourceEligibleRemoteClustersBadRequest) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/eligible-remote-clusters][%d] getDeploymentEsResourceEligibleRemoteClustersBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *GetDeploymentEsResourceEligibleRemoteClustersBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *GetDeploymentEsResourceEligibleRemoteClustersBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -142,13 +144,14 @@ func NewGetDeploymentEsResourceEligibleRemoteClustersNotFound() *GetDeploymentEs
 	return &GetDeploymentEsResourceEligibleRemoteClustersNotFound{}
 }
 
-/*GetDeploymentEsResourceEligibleRemoteClustersNotFound handles this case with default header values.
+/* GetDeploymentEsResourceEligibleRemoteClustersNotFound describes a response with status code 404, with default header values.
 
-* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+ * The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
 * The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)
- */
+*/
 type GetDeploymentEsResourceEligibleRemoteClustersNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -158,15 +161,18 @@ type GetDeploymentEsResourceEligibleRemoteClustersNotFound struct {
 func (o *GetDeploymentEsResourceEligibleRemoteClustersNotFound) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/eligible-remote-clusters][%d] getDeploymentEsResourceEligibleRemoteClustersNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetDeploymentEsResourceEligibleRemoteClustersNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *GetDeploymentEsResourceEligibleRemoteClustersNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

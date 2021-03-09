@@ -33,74 +33,91 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetEsProxyRequestsParams creates a new GetEsProxyRequestsParams object
-// with the default values initialized.
+// NewGetEsProxyRequestsParams creates a new GetEsProxyRequestsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetEsProxyRequestsParams() *GetEsProxyRequestsParams {
-	var ()
 	return &GetEsProxyRequestsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetEsProxyRequestsParamsWithTimeout creates a new GetEsProxyRequestsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetEsProxyRequestsParamsWithTimeout(timeout time.Duration) *GetEsProxyRequestsParams {
-	var ()
 	return &GetEsProxyRequestsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetEsProxyRequestsParamsWithContext creates a new GetEsProxyRequestsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetEsProxyRequestsParamsWithContext(ctx context.Context) *GetEsProxyRequestsParams {
-	var ()
 	return &GetEsProxyRequestsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetEsProxyRequestsParamsWithHTTPClient creates a new GetEsProxyRequestsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetEsProxyRequestsParamsWithHTTPClient(client *http.Client) *GetEsProxyRequestsParams {
-	var ()
 	return &GetEsProxyRequestsParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetEsProxyRequestsParams contains all the parameters to send to the API endpoint
-for the get es proxy requests operation typically these are written to a http.Request
+/* GetEsProxyRequestsParams contains all the parameters to send to the API endpoint
+   for the get es proxy requests operation.
+
+   Typically these are written to a http.Request.
 */
 type GetEsProxyRequestsParams struct {
 
-	/*XManagementRequest
-	  X-Management-Request header value. Needs to be set to true
+	/* XManagementRequest.
 
+	   X-Management-Request header value. Needs to be set to true
 	*/
 	XManagementRequest string
-	/*Body
-	  The JSON payload to proxy to the Elasticsearch cluster
 
+	/* Body.
+
+	   The JSON payload to proxy to the Elasticsearch cluster
 	*/
 	Body string
-	/*ClusterID
-	  Identifier for the Elasticsearch cluster
 
+	/* ClusterID.
+
+	   Identifier for the Elasticsearch cluster
 	*/
 	ClusterID string
-	/*ElasticsearchPath
-	  The URL part to proxy to the Elasticsearch cluster. Example: _search or _cat/indices?v&h=i,tm&s=tm:desc
 
+	/* ElasticsearchPath.
+
+	   The URL part to proxy to the Elasticsearch cluster. Example: _search or _cat/indices?v&h=i,tm&s=tm:desc
 	*/
 	ElasticsearchPath string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get es proxy requests params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetEsProxyRequestsParams) WithDefaults() *GetEsProxyRequestsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get es proxy requests params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetEsProxyRequestsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get es proxy requests params
@@ -192,7 +209,6 @@ func (o *GetEsProxyRequestsParams) WriteToRequest(r runtime.ClientRequest, reg s
 	if err := r.SetHeaderParam("X-Management-Request", o.XManagementRequest); err != nil {
 		return err
 	}
-
 	if err := r.SetBodyParam(o.Body); err != nil {
 		return err
 	}

@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -58,13 +60,40 @@ func (m *SecurityDeploymentCreateRequest) Validate(formats strfmt.Registry) erro
 }
 
 func (m *SecurityDeploymentCreateRequest) validateTopology(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Topology) { // not required
 		return nil
 	}
 
 	if m.Topology != nil {
 		if err := m.Topology.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("topology")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this security deployment create request based on the context it is used
+func (m *SecurityDeploymentCreateRequest) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateTopology(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *SecurityDeploymentCreateRequest) contextValidateTopology(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Topology != nil {
+		if err := m.Topology.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("topology")
 			}

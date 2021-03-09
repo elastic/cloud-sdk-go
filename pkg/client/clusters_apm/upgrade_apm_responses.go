@@ -58,7 +58,6 @@ func (o *UpgradeApmReader) ReadResponse(response runtime.ClientResponse, consume
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,7 +68,7 @@ func NewUpgradeApmAccepted() *UpgradeApmAccepted {
 	return &UpgradeApmAccepted{}
 }
 
-/*UpgradeApmAccepted handles this case with default header values.
+/* UpgradeApmAccepted describes a response with status code 202, with default header values.
 
 The upgrade command was issued successfully, use the "GET" command on the /{cluster_id} resource to monitor progress
 */
@@ -80,7 +79,6 @@ type UpgradeApmAccepted struct {
 func (o *UpgradeApmAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/_upgrade][%d] upgradeApmAccepted  %+v", 202, o.Payload)
 }
-
 func (o *UpgradeApmAccepted) GetPayload() *models.ClusterUpgradeInfo {
 	return o.Payload
 }
@@ -102,12 +100,13 @@ func NewUpgradeApmNotFound() *UpgradeApmNotFound {
 	return &UpgradeApmNotFound{}
 }
 
-/*UpgradeApmNotFound handles this case with default header values.
+/* UpgradeApmNotFound describes a response with status code 404, with default header values.
 
 The cluster specified by {cluster_id} cannot be found. (code: `clusters.cluster_not_found`)
 */
 type UpgradeApmNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -117,15 +116,18 @@ type UpgradeApmNotFound struct {
 func (o *UpgradeApmNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/_upgrade][%d] upgradeApmNotFound  %+v", 404, o.Payload)
 }
-
 func (o *UpgradeApmNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *UpgradeApmNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -142,12 +144,13 @@ func NewUpgradeApmRetryWith() *UpgradeApmRetryWith {
 	return &UpgradeApmRetryWith{}
 }
 
-/*UpgradeApmRetryWith handles this case with default header values.
+/* UpgradeApmRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type UpgradeApmRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -157,15 +160,18 @@ type UpgradeApmRetryWith struct {
 func (o *UpgradeApmRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/_upgrade][%d] upgradeApmRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *UpgradeApmRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *UpgradeApmRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

@@ -36,112 +36,120 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewMoveKibanaClusterInstancesParams creates a new MoveKibanaClusterInstancesParams object
-// with the default values initialized.
+// NewMoveKibanaClusterInstancesParams creates a new MoveKibanaClusterInstancesParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewMoveKibanaClusterInstancesParams() *MoveKibanaClusterInstancesParams {
-	var (
-		forceUpdateDefault   = bool(false)
-		ignoreMissingDefault = bool(false)
-		validateOnlyDefault  = bool(false)
-	)
 	return &MoveKibanaClusterInstancesParams{
-		ForceUpdate:   &forceUpdateDefault,
-		IgnoreMissing: &ignoreMissingDefault,
-		ValidateOnly:  &validateOnlyDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewMoveKibanaClusterInstancesParamsWithTimeout creates a new MoveKibanaClusterInstancesParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewMoveKibanaClusterInstancesParamsWithTimeout(timeout time.Duration) *MoveKibanaClusterInstancesParams {
-	var (
-		forceUpdateDefault   = bool(false)
-		ignoreMissingDefault = bool(false)
-		validateOnlyDefault  = bool(false)
-	)
 	return &MoveKibanaClusterInstancesParams{
-		ForceUpdate:   &forceUpdateDefault,
-		IgnoreMissing: &ignoreMissingDefault,
-		ValidateOnly:  &validateOnlyDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewMoveKibanaClusterInstancesParamsWithContext creates a new MoveKibanaClusterInstancesParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewMoveKibanaClusterInstancesParamsWithContext(ctx context.Context) *MoveKibanaClusterInstancesParams {
-	var (
-		forceUpdateDefault   = bool(false)
-		ignoreMissingDefault = bool(false)
-		validateOnlyDefault  = bool(false)
-	)
 	return &MoveKibanaClusterInstancesParams{
-		ForceUpdate:   &forceUpdateDefault,
-		IgnoreMissing: &ignoreMissingDefault,
-		ValidateOnly:  &validateOnlyDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewMoveKibanaClusterInstancesParamsWithHTTPClient creates a new MoveKibanaClusterInstancesParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewMoveKibanaClusterInstancesParamsWithHTTPClient(client *http.Client) *MoveKibanaClusterInstancesParams {
-	var (
-		forceUpdateDefault   = bool(false)
-		ignoreMissingDefault = bool(false)
-		validateOnlyDefault  = bool(false)
-	)
 	return &MoveKibanaClusterInstancesParams{
-		ForceUpdate:   &forceUpdateDefault,
-		IgnoreMissing: &ignoreMissingDefault,
-		ValidateOnly:  &validateOnlyDefault,
-		HTTPClient:    client,
+		HTTPClient: client,
 	}
 }
 
-/*MoveKibanaClusterInstancesParams contains all the parameters to send to the API endpoint
-for the move kibana cluster instances operation typically these are written to a http.Request
+/* MoveKibanaClusterInstancesParams contains all the parameters to send to the API endpoint
+   for the move kibana cluster instances operation.
+
+   Typically these are written to a http.Request.
 */
 type MoveKibanaClusterInstancesParams struct {
 
-	/*Body
-	  Overrides defaults for the move, including setting the configuration of instances specified in the path
+	/* Body.
 
+	   Overrides defaults for the move, including setting the configuration of instances specified in the path
 	*/
 	Body *models.TransientKibanaPlanConfiguration
-	/*ClusterID
-	  The Kibana deployment identifier.
 
+	/* ClusterID.
+
+	   The Kibana deployment identifier.
 	*/
 	ClusterID string
-	/*ForceUpdate
-	  When `true`, cancels and overwrites the pending plans, or treats the instance as an error.
 
+	/* ForceUpdate.
+
+	   When `true`, cancels and overwrites the pending plans, or treats the instance as an error.
 	*/
 	ForceUpdate *bool
-	/*IgnoreMissing
-	  When `true` and the instance does not exist, proceeds to the next instance, or treats the instance as an error.
 
+	/* IgnoreMissing.
+
+	   When `true` and the instance does not exist, proceeds to the next instance, or treats the instance as an error.
 	*/
 	IgnoreMissing *bool
-	/*InstanceIds
-	  A comma-separated list of instance identifiers.
 
+	/* InstanceIds.
+
+	   A comma-separated list of instance identifiers.
 	*/
 	InstanceIds []string
-	/*ValidateOnly
-	  When `true`, validates the move request, then returns the calculated plan without applying the plan.
 
+	/* ValidateOnly.
+
+	   When `true`, validates the move request, then returns the calculated plan without applying the plan.
 	*/
 	ValidateOnly *bool
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the move kibana cluster instances params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *MoveKibanaClusterInstancesParams) WithDefaults() *MoveKibanaClusterInstancesParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the move kibana cluster instances params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *MoveKibanaClusterInstancesParams) SetDefaults() {
+	var (
+		forceUpdateDefault = bool(false)
+
+		ignoreMissingDefault = bool(false)
+
+		validateOnlyDefault = bool(false)
+	)
+
+	val := MoveKibanaClusterInstancesParams{
+		ForceUpdate:   &forceUpdateDefault,
+		IgnoreMissing: &ignoreMissingDefault,
+		ValidateOnly:  &validateOnlyDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the move kibana cluster instances params
@@ -250,7 +258,6 @@ func (o *MoveKibanaClusterInstancesParams) WriteToRequest(r runtime.ClientReques
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err
@@ -266,44 +273,49 @@ func (o *MoveKibanaClusterInstancesParams) WriteToRequest(r runtime.ClientReques
 
 		// query param force_update
 		var qrForceUpdate bool
+
 		if o.ForceUpdate != nil {
 			qrForceUpdate = *o.ForceUpdate
 		}
 		qForceUpdate := swag.FormatBool(qrForceUpdate)
 		if qForceUpdate != "" {
+
 			if err := r.SetQueryParam("force_update", qForceUpdate); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.IgnoreMissing != nil {
 
 		// query param ignore_missing
 		var qrIgnoreMissing bool
+
 		if o.IgnoreMissing != nil {
 			qrIgnoreMissing = *o.IgnoreMissing
 		}
 		qIgnoreMissing := swag.FormatBool(qrIgnoreMissing)
 		if qIgnoreMissing != "" {
+
 			if err := r.SetQueryParam("ignore_missing", qIgnoreMissing); err != nil {
 				return err
 			}
 		}
-
 	}
 
-	valuesInstanceIds := o.InstanceIds
+	if o.InstanceIds != nil {
 
-	joinedInstanceIds := swag.JoinByFormat(valuesInstanceIds, "csv")
-	// path array param instance_ids
-	// SetPathParam does not support variadric arguments, since we used JoinByFormat
-	// we can send the first item in the array as it's all the items of the previous
-	// array joined together
-	if len(joinedInstanceIds) > 0 {
-		if err := r.SetPathParam("instance_ids", joinedInstanceIds[0]); err != nil {
-			return err
+		// binding items for instance_ids
+		joinedInstanceIds := o.bindParamInstanceIds(reg)
+
+		// path array param instance_ids
+		// SetPathParam does not support variadic arguments, since we used JoinByFormat
+		// we can send the first item in the array as it's all the items of the previous
+		// array joined together
+		if len(joinedInstanceIds) > 0 {
+			if err := r.SetPathParam("instance_ids", joinedInstanceIds[0]); err != nil {
+				return err
+			}
 		}
 	}
 
@@ -311,20 +323,38 @@ func (o *MoveKibanaClusterInstancesParams) WriteToRequest(r runtime.ClientReques
 
 		// query param validate_only
 		var qrValidateOnly bool
+
 		if o.ValidateOnly != nil {
 			qrValidateOnly = *o.ValidateOnly
 		}
 		qValidateOnly := swag.FormatBool(qrValidateOnly)
 		if qValidateOnly != "" {
+
 			if err := r.SetQueryParam("validate_only", qValidateOnly); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
 	return nil
+}
+
+// bindParamMoveKibanaClusterInstances binds the parameter instance_ids
+func (o *MoveKibanaClusterInstancesParams) bindParamInstanceIds(formats strfmt.Registry) []string {
+	instanceIdsIR := o.InstanceIds
+
+	var instanceIdsIC []string
+	for _, instanceIdsIIR := range instanceIdsIR { // explode []string
+
+		instanceIdsIIV := instanceIdsIIR // string as string
+		instanceIdsIC = append(instanceIdsIC, instanceIdsIIV)
+	}
+
+	// items.CollectionFormat: "csv"
+	instanceIdsIS := swag.JoinByFormat(instanceIdsIC, "csv")
+
+	return instanceIdsIS
 }

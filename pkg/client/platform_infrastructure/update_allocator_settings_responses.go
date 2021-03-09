@@ -58,7 +58,6 @@ func (o *UpdateAllocatorSettingsReader) ReadResponse(response runtime.ClientResp
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,7 +68,7 @@ func NewUpdateAllocatorSettingsOK() *UpdateAllocatorSettingsOK {
 	return &UpdateAllocatorSettingsOK{}
 }
 
-/*UpdateAllocatorSettingsOK handles this case with default header values.
+/* UpdateAllocatorSettingsOK describes a response with status code 200, with default header values.
 
 Returns the updated settings for the specified allocator
 */
@@ -80,7 +79,6 @@ type UpdateAllocatorSettingsOK struct {
 func (o *UpdateAllocatorSettingsOK) Error() string {
 	return fmt.Sprintf("[PATCH /platform/infrastructure/allocators/{allocator_id}/settings][%d] updateAllocatorSettingsOK  %+v", 200, o.Payload)
 }
-
 func (o *UpdateAllocatorSettingsOK) GetPayload() *models.AllocatorSettings {
 	return o.Payload
 }
@@ -102,12 +100,13 @@ func NewUpdateAllocatorSettingsNotFound() *UpdateAllocatorSettingsNotFound {
 	return &UpdateAllocatorSettingsNotFound{}
 }
 
-/*UpdateAllocatorSettingsNotFound handles this case with default header values.
+/* UpdateAllocatorSettingsNotFound describes a response with status code 404, with default header values.
 
 The allocator specified by {allocator_id} cannot be found. (code: `allocators.allocator_not_found`)
 */
 type UpdateAllocatorSettingsNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -117,15 +116,18 @@ type UpdateAllocatorSettingsNotFound struct {
 func (o *UpdateAllocatorSettingsNotFound) Error() string {
 	return fmt.Sprintf("[PATCH /platform/infrastructure/allocators/{allocator_id}/settings][%d] updateAllocatorSettingsNotFound  %+v", 404, o.Payload)
 }
-
 func (o *UpdateAllocatorSettingsNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *UpdateAllocatorSettingsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -142,12 +144,13 @@ func NewUpdateAllocatorSettingsRetryWith() *UpdateAllocatorSettingsRetryWith {
 	return &UpdateAllocatorSettingsRetryWith{}
 }
 
-/*UpdateAllocatorSettingsRetryWith handles this case with default header values.
+/* UpdateAllocatorSettingsRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type UpdateAllocatorSettingsRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -157,15 +160,18 @@ type UpdateAllocatorSettingsRetryWith struct {
 func (o *UpdateAllocatorSettingsRetryWith) Error() string {
 	return fmt.Sprintf("[PATCH /platform/infrastructure/allocators/{allocator_id}/settings][%d] updateAllocatorSettingsRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *UpdateAllocatorSettingsRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *UpdateAllocatorSettingsRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

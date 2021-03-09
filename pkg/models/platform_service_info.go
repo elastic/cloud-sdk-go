@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -92,6 +93,38 @@ func (m *PlatformServiceInfo) validateType(formats strfmt.Registry) error {
 
 	if err := validate.Required("type", "body", m.Type); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this platform service info based on the context it is used
+func (m *PlatformServiceInfo) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateImage(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *PlatformServiceInfo) contextValidateImage(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Image); i++ {
+
+		if m.Image[i] != nil {
+			if err := m.Image[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("image" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil

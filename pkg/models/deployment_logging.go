@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -75,7 +76,6 @@ func (m *DeploymentLogging) validateHealthy(formats strfmt.Registry) error {
 }
 
 func (m *DeploymentLogging) validateIssues(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Issues) { // not required
 		return nil
 	}
@@ -87,6 +87,38 @@ func (m *DeploymentLogging) validateIssues(formats strfmt.Registry) error {
 
 		if m.Issues[i] != nil {
 			if err := m.Issues[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("issues" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this deployment logging based on the context it is used
+func (m *DeploymentLogging) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateIssues(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *DeploymentLogging) contextValidateIssues(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Issues); i++ {
+
+		if m.Issues[i] != nil {
+			if err := m.Issues[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("issues" + "." + strconv.Itoa(i))
 				}

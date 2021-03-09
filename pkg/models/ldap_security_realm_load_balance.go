@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
@@ -94,7 +95,6 @@ func (m *LdapSecurityRealmLoadBalance) validateTypeEnum(path, location string, v
 }
 
 func (m *LdapSecurityRealmLoadBalance) validateType(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Type) { // not required
 		return nil
 	}
@@ -104,6 +104,11 @@ func (m *LdapSecurityRealmLoadBalance) validateType(formats strfmt.Registry) err
 		return err
 	}
 
+	return nil
+}
+
+// ContextValidate validates this ldap security realm load balance based on context it is used
+func (m *LdapSecurityRealmLoadBalance) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

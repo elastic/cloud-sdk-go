@@ -58,7 +58,6 @@ func (o *ResyncConstructorReader) ReadResponse(response runtime.ClientResponse, 
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,7 +68,7 @@ func NewResyncConstructorOK() *ResyncConstructorOK {
 	return &ResyncConstructorOK{}
 }
 
-/*ResyncConstructorOK handles this case with default header values.
+/* ResyncConstructorOK describes a response with status code 200, with default header values.
 
 The constructor resync operation executed successfully
 */
@@ -80,7 +79,6 @@ type ResyncConstructorOK struct {
 func (o *ResyncConstructorOK) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/constructors/{constructor_id}/_resync][%d] resyncConstructorOK  %+v", 200, o.Payload)
 }
-
 func (o *ResyncConstructorOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -100,12 +98,13 @@ func NewResyncConstructorRetryWith() *ResyncConstructorRetryWith {
 	return &ResyncConstructorRetryWith{}
 }
 
-/*ResyncConstructorRetryWith handles this case with default header values.
+/* ResyncConstructorRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type ResyncConstructorRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -115,15 +114,18 @@ type ResyncConstructorRetryWith struct {
 func (o *ResyncConstructorRetryWith) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/constructors/{constructor_id}/_resync][%d] resyncConstructorRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *ResyncConstructorRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *ResyncConstructorRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -140,12 +142,13 @@ func NewResyncConstructorInternalServerError() *ResyncConstructorInternalServerE
 	return &ResyncConstructorInternalServerError{}
 }
 
-/*ResyncConstructorInternalServerError handles this case with default header values.
+/* ResyncConstructorInternalServerError describes a response with status code 500, with default header values.
 
 The constructor resync operation failed for allocator {constructor_id}. (code: `constructors.resync_failed`)
 */
 type ResyncConstructorInternalServerError struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -155,15 +158,18 @@ type ResyncConstructorInternalServerError struct {
 func (o *ResyncConstructorInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/constructors/{constructor_id}/_resync][%d] resyncConstructorInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *ResyncConstructorInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *ResyncConstructorInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

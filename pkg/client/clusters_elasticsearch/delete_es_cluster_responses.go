@@ -64,7 +64,6 @@ func (o *DeleteEsClusterReader) ReadResponse(response runtime.ClientResponse, co
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,7 +74,7 @@ func NewDeleteEsClusterOK() *DeleteEsClusterOK {
 	return &DeleteEsClusterOK{}
 }
 
-/*DeleteEsClusterOK handles this case with default header values.
+/* DeleteEsClusterOK describes a response with status code 200, with default header values.
 
 The cluster has been successfully deleted
 */
@@ -86,7 +85,6 @@ type DeleteEsClusterOK struct {
 func (o *DeleteEsClusterOK) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/elasticsearch/{cluster_id}][%d] deleteEsClusterOK  %+v", 200, o.Payload)
 }
-
 func (o *DeleteEsClusterOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -106,12 +104,13 @@ func NewDeleteEsClusterNotFound() *DeleteEsClusterNotFound {
 	return &DeleteEsClusterNotFound{}
 }
 
-/*DeleteEsClusterNotFound handles this case with default header values.
+/* DeleteEsClusterNotFound describes a response with status code 404, with default header values.
 
 The cluster specified by {cluster_id} cannot be found. (code: `clusters.cluster_not_found`)
 */
 type DeleteEsClusterNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -121,15 +120,18 @@ type DeleteEsClusterNotFound struct {
 func (o *DeleteEsClusterNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/elasticsearch/{cluster_id}][%d] deleteEsClusterNotFound  %+v", 404, o.Payload)
 }
-
 func (o *DeleteEsClusterNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *DeleteEsClusterNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -146,12 +148,13 @@ func NewDeleteEsClusterPreconditionFailed() *DeleteEsClusterPreconditionFailed {
 	return &DeleteEsClusterPreconditionFailed{}
 }
 
-/*DeleteEsClusterPreconditionFailed handles this case with default header values.
+/* DeleteEsClusterPreconditionFailed describes a response with status code 412, with default header values.
 
 The Elasticsearch cluster has not been shutdown yet. (code: `clusters.cluster_plan_state_error`)
 */
 type DeleteEsClusterPreconditionFailed struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -161,15 +164,18 @@ type DeleteEsClusterPreconditionFailed struct {
 func (o *DeleteEsClusterPreconditionFailed) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/elasticsearch/{cluster_id}][%d] deleteEsClusterPreconditionFailed  %+v", 412, o.Payload)
 }
-
 func (o *DeleteEsClusterPreconditionFailed) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *DeleteEsClusterPreconditionFailed) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -186,12 +192,13 @@ func NewDeleteEsClusterRetryWith() *DeleteEsClusterRetryWith {
 	return &DeleteEsClusterRetryWith{}
 }
 
-/*DeleteEsClusterRetryWith handles this case with default header values.
+/* DeleteEsClusterRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type DeleteEsClusterRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -201,15 +208,18 @@ type DeleteEsClusterRetryWith struct {
 func (o *DeleteEsClusterRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/elasticsearch/{cluster_id}][%d] deleteEsClusterRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *DeleteEsClusterRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *DeleteEsClusterRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

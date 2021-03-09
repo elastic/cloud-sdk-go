@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -87,7 +89,6 @@ func (m *StackVersionApmConfig) validateBlacklist(formats strfmt.Registry) error
 }
 
 func (m *StackVersionApmConfig) validateCapacityConstraints(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.CapacityConstraints) { // not required
 		return nil
 	}
@@ -108,6 +109,34 @@ func (m *StackVersionApmConfig) validateDockerImage(formats strfmt.Registry) err
 
 	if err := validate.Required("docker_image", "body", m.DockerImage); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this stack version apm config based on the context it is used
+func (m *StackVersionApmConfig) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateCapacityConstraints(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *StackVersionApmConfig) contextValidateCapacityConstraints(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.CapacityConstraints != nil {
+		if err := m.CapacityConstraints.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("capacity_constraints")
+			}
+			return err
+		}
 	}
 
 	return nil

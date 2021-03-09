@@ -64,7 +64,6 @@ func (o *DeleteIPFilterRulesetReader) ReadResponse(response runtime.ClientRespon
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,7 +74,7 @@ func NewDeleteIPFilterRulesetOK() *DeleteIPFilterRulesetOK {
 	return &DeleteIPFilterRulesetOK{}
 }
 
-/*DeleteIPFilterRulesetOK handles this case with default header values.
+/* DeleteIPFilterRulesetOK describes a response with status code 200, with default header values.
 
 The IP filter ruleset was successfully deleted
 */
@@ -86,7 +85,6 @@ type DeleteIPFilterRulesetOK struct {
 func (o *DeleteIPFilterRulesetOK) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/ip-filtering/rulesets/{ruleset_id}][%d] deleteIpFilterRulesetOK  %+v", 200, o.Payload)
 }
-
 func (o *DeleteIPFilterRulesetOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -106,7 +104,7 @@ func NewDeleteIPFilterRulesetNotFound() *DeleteIPFilterRulesetNotFound {
 	return &DeleteIPFilterRulesetNotFound{}
 }
 
-/*DeleteIPFilterRulesetNotFound handles this case with default header values.
+/* DeleteIPFilterRulesetNotFound describes a response with status code 404, with default header values.
 
 The IP filter ruleset specified by {ruleset_id} cannot be found (code: 'ip_filtering.ruleset_not_found')
 */
@@ -117,7 +115,6 @@ type DeleteIPFilterRulesetNotFound struct {
 func (o *DeleteIPFilterRulesetNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/ip-filtering/rulesets/{ruleset_id}][%d] deleteIpFilterRulesetNotFound  %+v", 404, o.Payload)
 }
-
 func (o *DeleteIPFilterRulesetNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -139,7 +136,7 @@ func NewDeleteIPFilterRulesetRetryWith() *DeleteIPFilterRulesetRetryWith {
 	return &DeleteIPFilterRulesetRetryWith{}
 }
 
-/*DeleteIPFilterRulesetRetryWith handles this case with default header values.
+/* DeleteIPFilterRulesetRetryWith describes a response with status code 449, with default header values.
 
 elevated permissions are required. (code: '"root.unauthorized.rbac.elevated_permissions_required"')
 */
@@ -150,7 +147,6 @@ type DeleteIPFilterRulesetRetryWith struct {
 func (o *DeleteIPFilterRulesetRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/ip-filtering/rulesets/{ruleset_id}][%d] deleteIpFilterRulesetRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *DeleteIPFilterRulesetRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -172,7 +168,7 @@ func NewDeleteIPFilterRulesetInternalServerError() *DeleteIPFilterRulesetInterna
 	return &DeleteIPFilterRulesetInternalServerError{}
 }
 
-/*DeleteIPFilterRulesetInternalServerError handles this case with default header values.
+/* DeleteIPFilterRulesetInternalServerError describes a response with status code 500, with default header values.
 
 The request execution failed (code: 'ip_filtering.request_execution_failed')
 */
@@ -183,7 +179,6 @@ type DeleteIPFilterRulesetInternalServerError struct {
 func (o *DeleteIPFilterRulesetInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/ip-filtering/rulesets/{ruleset_id}][%d] deleteIpFilterRulesetInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *DeleteIPFilterRulesetInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

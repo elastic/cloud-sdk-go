@@ -33,59 +33,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewStartAllocatorMaintenanceModeParams creates a new StartAllocatorMaintenanceModeParams object
-// with the default values initialized.
+// NewStartAllocatorMaintenanceModeParams creates a new StartAllocatorMaintenanceModeParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewStartAllocatorMaintenanceModeParams() *StartAllocatorMaintenanceModeParams {
-	var ()
 	return &StartAllocatorMaintenanceModeParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewStartAllocatorMaintenanceModeParamsWithTimeout creates a new StartAllocatorMaintenanceModeParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewStartAllocatorMaintenanceModeParamsWithTimeout(timeout time.Duration) *StartAllocatorMaintenanceModeParams {
-	var ()
 	return &StartAllocatorMaintenanceModeParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewStartAllocatorMaintenanceModeParamsWithContext creates a new StartAllocatorMaintenanceModeParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewStartAllocatorMaintenanceModeParamsWithContext(ctx context.Context) *StartAllocatorMaintenanceModeParams {
-	var ()
 	return &StartAllocatorMaintenanceModeParams{
-
 		Context: ctx,
 	}
 }
 
 // NewStartAllocatorMaintenanceModeParamsWithHTTPClient creates a new StartAllocatorMaintenanceModeParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewStartAllocatorMaintenanceModeParamsWithHTTPClient(client *http.Client) *StartAllocatorMaintenanceModeParams {
-	var ()
 	return &StartAllocatorMaintenanceModeParams{
 		HTTPClient: client,
 	}
 }
 
-/*StartAllocatorMaintenanceModeParams contains all the parameters to send to the API endpoint
-for the start allocator maintenance mode operation typically these are written to a http.Request
+/* StartAllocatorMaintenanceModeParams contains all the parameters to send to the API endpoint
+   for the start allocator maintenance mode operation.
+
+   Typically these are written to a http.Request.
 */
 type StartAllocatorMaintenanceModeParams struct {
 
-	/*AllocatorID
-	  The allocator identifier.
+	/* AllocatorID.
 
+	   The allocator identifier.
 	*/
 	AllocatorID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the start allocator maintenance mode params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *StartAllocatorMaintenanceModeParams) WithDefaults() *StartAllocatorMaintenanceModeParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the start allocator maintenance mode params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *StartAllocatorMaintenanceModeParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the start allocator maintenance mode params

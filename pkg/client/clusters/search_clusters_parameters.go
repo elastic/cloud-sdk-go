@@ -35,59 +35,73 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewSearchClustersParams creates a new SearchClustersParams object
-// with the default values initialized.
+// NewSearchClustersParams creates a new SearchClustersParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewSearchClustersParams() *SearchClustersParams {
-	var ()
 	return &SearchClustersParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewSearchClustersParamsWithTimeout creates a new SearchClustersParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewSearchClustersParamsWithTimeout(timeout time.Duration) *SearchClustersParams {
-	var ()
 	return &SearchClustersParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewSearchClustersParamsWithContext creates a new SearchClustersParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewSearchClustersParamsWithContext(ctx context.Context) *SearchClustersParams {
-	var ()
 	return &SearchClustersParams{
-
 		Context: ctx,
 	}
 }
 
 // NewSearchClustersParamsWithHTTPClient creates a new SearchClustersParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewSearchClustersParamsWithHTTPClient(client *http.Client) *SearchClustersParams {
-	var ()
 	return &SearchClustersParams{
 		HTTPClient: client,
 	}
 }
 
-/*SearchClustersParams contains all the parameters to send to the API endpoint
-for the search clusters operation typically these are written to a http.Request
+/* SearchClustersParams contains all the parameters to send to the API endpoint
+   for the search clusters operation.
+
+   Typically these are written to a http.Request.
 */
 type SearchClustersParams struct {
 
-	/*Body
-	  (Optional) The search query to run. When not specified, all of the clusters are matched.
+	/* Body.
 
+	   (Optional) The search query to run. When not specified, all of the clusters are matched.
 	*/
 	Body *models.SearchRequest
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the search clusters params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SearchClustersParams) WithDefaults() *SearchClustersParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the search clusters params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SearchClustersParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the search clusters params
@@ -141,7 +155,6 @@ func (o *SearchClustersParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

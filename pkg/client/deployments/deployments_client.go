@@ -42,99 +42,102 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientOption is the option for Client methods
+type ClientOption func(*runtime.ClientOperation)
+
 // ClientService is the interface for Client methods
 type ClientService interface {
-	CancelDeploymentResourcePendingPlan(params *CancelDeploymentResourcePendingPlanParams, authInfo runtime.ClientAuthInfoWriter) (*CancelDeploymentResourcePendingPlanOK, error)
+	CancelDeploymentResourcePendingPlan(params *CancelDeploymentResourcePendingPlanParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CancelDeploymentResourcePendingPlanOK, error)
 
-	CreateDeployment(params *CreateDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*CreateDeploymentOK, *CreateDeploymentCreated, *CreateDeploymentAccepted, error)
+	CreateDeployment(params *CreateDeploymentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateDeploymentOK, *CreateDeploymentCreated, *CreateDeploymentAccepted, error)
 
-	DeleteDeployment(params *DeleteDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteDeploymentOK, error)
+	DeleteDeployment(params *DeleteDeploymentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteDeploymentOK, error)
 
-	DeleteDeploymentStatelessResource(params *DeleteDeploymentStatelessResourceParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteDeploymentStatelessResourceOK, error)
+	DeleteDeploymentStatelessResource(params *DeleteDeploymentStatelessResourceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteDeploymentStatelessResourceOK, error)
 
-	DeploymentApmResetSecretToken(params *DeploymentApmResetSecretTokenParams, authInfo runtime.ClientAuthInfoWriter) (*DeploymentApmResetSecretTokenAccepted, error)
+	DeploymentApmResetSecretToken(params *DeploymentApmResetSecretTokenParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeploymentApmResetSecretTokenAccepted, error)
 
-	EnableDeploymentResourceCcr(params *EnableDeploymentResourceCcrParams, authInfo runtime.ClientAuthInfoWriter) (*EnableDeploymentResourceCcrOK, error)
+	EnableDeploymentResourceCcr(params *EnableDeploymentResourceCcrParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*EnableDeploymentResourceCcrOK, error)
 
-	EnableDeploymentResourceIlm(params *EnableDeploymentResourceIlmParams, authInfo runtime.ClientAuthInfoWriter) (*EnableDeploymentResourceIlmOK, error)
+	EnableDeploymentResourceIlm(params *EnableDeploymentResourceIlmParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*EnableDeploymentResourceIlmOK, error)
 
-	EnableDeploymentResourceSlm(params *EnableDeploymentResourceSlmParams, authInfo runtime.ClientAuthInfoWriter) (*EnableDeploymentResourceSlmOK, error)
+	EnableDeploymentResourceSlm(params *EnableDeploymentResourceSlmParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*EnableDeploymentResourceSlmOK, error)
 
-	GetAppsearchReadOnlyMode(params *GetAppsearchReadOnlyModeParams, authInfo runtime.ClientAuthInfoWriter) (*GetAppsearchReadOnlyModeOK, error)
+	GetAppsearchReadOnlyMode(params *GetAppsearchReadOnlyModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAppsearchReadOnlyModeOK, error)
 
-	GetDeployment(params *GetDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentOK, error)
+	GetDeployment(params *GetDeploymentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentOK, error)
 
-	GetDeploymentApmResourceInfo(params *GetDeploymentApmResourceInfoParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentApmResourceInfoOK, error)
+	GetDeploymentApmResourceInfo(params *GetDeploymentApmResourceInfoParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentApmResourceInfoOK, error)
 
-	GetDeploymentAppsearchResourceInfo(params *GetDeploymentAppsearchResourceInfoParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentAppsearchResourceInfoOK, error)
+	GetDeploymentAppsearchResourceInfo(params *GetDeploymentAppsearchResourceInfoParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentAppsearchResourceInfoOK, error)
 
-	GetDeploymentEnterpriseSearchResourceInfo(params *GetDeploymentEnterpriseSearchResourceInfoParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentEnterpriseSearchResourceInfoOK, error)
+	GetDeploymentEnterpriseSearchResourceInfo(params *GetDeploymentEnterpriseSearchResourceInfoParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentEnterpriseSearchResourceInfoOK, error)
 
-	GetDeploymentEsResourceEligibleRemoteClusters(params *GetDeploymentEsResourceEligibleRemoteClustersParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentEsResourceEligibleRemoteClustersOK, error)
+	GetDeploymentEsResourceEligibleRemoteClusters(params *GetDeploymentEsResourceEligibleRemoteClustersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentEsResourceEligibleRemoteClustersOK, error)
 
-	GetDeploymentEsResourceInfo(params *GetDeploymentEsResourceInfoParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentEsResourceInfoOK, error)
+	GetDeploymentEsResourceInfo(params *GetDeploymentEsResourceInfoParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentEsResourceInfoOK, error)
 
-	GetDeploymentEsResourceKeystore(params *GetDeploymentEsResourceKeystoreParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentEsResourceKeystoreOK, error)
+	GetDeploymentEsResourceKeystore(params *GetDeploymentEsResourceKeystoreParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentEsResourceKeystoreOK, error)
 
-	GetDeploymentEsResourceRemoteClusters(params *GetDeploymentEsResourceRemoteClustersParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentEsResourceRemoteClustersOK, error)
+	GetDeploymentEsResourceRemoteClusters(params *GetDeploymentEsResourceRemoteClustersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentEsResourceRemoteClustersOK, error)
 
-	GetDeploymentKibResourceInfo(params *GetDeploymentKibResourceInfoParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentKibResourceInfoOK, error)
+	GetDeploymentKibResourceInfo(params *GetDeploymentKibResourceInfoParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentKibResourceInfoOK, error)
 
-	ListDeployments(params *ListDeploymentsParams, authInfo runtime.ClientAuthInfoWriter) (*ListDeploymentsOK, error)
+	ListDeployments(params *ListDeploymentsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListDeploymentsOK, error)
 
-	MigrateDeployment(params *MigrateDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*MigrateDeploymentOK, error)
+	MigrateDeployment(params *MigrateDeploymentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MigrateDeploymentOK, error)
 
-	ResetElasticsearchUserPassword(params *ResetElasticsearchUserPasswordParams, authInfo runtime.ClientAuthInfoWriter) (*ResetElasticsearchUserPasswordOK, error)
+	ResetElasticsearchUserPassword(params *ResetElasticsearchUserPasswordParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ResetElasticsearchUserPasswordOK, error)
 
-	RestartDeploymentEsResource(params *RestartDeploymentEsResourceParams, authInfo runtime.ClientAuthInfoWriter) (*RestartDeploymentEsResourceAccepted, error)
+	RestartDeploymentEsResource(params *RestartDeploymentEsResourceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*RestartDeploymentEsResourceAccepted, error)
 
-	RestartDeploymentStatelessResource(params *RestartDeploymentStatelessResourceParams, authInfo runtime.ClientAuthInfoWriter) (*RestartDeploymentStatelessResourceAccepted, error)
+	RestartDeploymentStatelessResource(params *RestartDeploymentStatelessResourceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*RestartDeploymentStatelessResourceAccepted, error)
 
-	RestoreDeployment(params *RestoreDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*RestoreDeploymentOK, error)
+	RestoreDeployment(params *RestoreDeploymentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*RestoreDeploymentOK, error)
 
-	RestoreDeploymentResource(params *RestoreDeploymentResourceParams, authInfo runtime.ClientAuthInfoWriter) (*RestoreDeploymentResourceOK, error)
+	RestoreDeploymentResource(params *RestoreDeploymentResourceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*RestoreDeploymentResourceOK, error)
 
-	ResyncDeployment(params *ResyncDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncDeploymentOK, error)
+	ResyncDeployment(params *ResyncDeploymentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ResyncDeploymentOK, error)
 
-	ResyncDeployments(params *ResyncDeploymentsParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncDeploymentsOK, error)
+	ResyncDeployments(params *ResyncDeploymentsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ResyncDeploymentsOK, error)
 
-	SearchDeployments(params *SearchDeploymentsParams, authInfo runtime.ClientAuthInfoWriter) (*SearchDeploymentsOK, error)
+	SearchDeployments(params *SearchDeploymentsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SearchDeploymentsOK, error)
 
-	SearchEligibleRemoteClusters(params *SearchEligibleRemoteClustersParams, authInfo runtime.ClientAuthInfoWriter) (*SearchEligibleRemoteClustersOK, error)
+	SearchEligibleRemoteClusters(params *SearchEligibleRemoteClustersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SearchEligibleRemoteClustersOK, error)
 
-	SetAppsearchReadOnlyMode(params *SetAppsearchReadOnlyModeParams, authInfo runtime.ClientAuthInfoWriter) (*SetAppsearchReadOnlyModeOK, error)
+	SetAppsearchReadOnlyMode(params *SetAppsearchReadOnlyModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetAppsearchReadOnlyModeOK, error)
 
-	SetDeploymentEsResourceKeystore(params *SetDeploymentEsResourceKeystoreParams, authInfo runtime.ClientAuthInfoWriter) (*SetDeploymentEsResourceKeystoreOK, error)
+	SetDeploymentEsResourceKeystore(params *SetDeploymentEsResourceKeystoreParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetDeploymentEsResourceKeystoreOK, error)
 
-	SetDeploymentEsResourceRemoteClusters(params *SetDeploymentEsResourceRemoteClustersParams, authInfo runtime.ClientAuthInfoWriter) (*SetDeploymentEsResourceRemoteClustersAccepted, error)
+	SetDeploymentEsResourceRemoteClusters(params *SetDeploymentEsResourceRemoteClustersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetDeploymentEsResourceRemoteClustersAccepted, error)
 
-	SetDeploymentResourceRawMetadata(params *SetDeploymentResourceRawMetadataParams, authInfo runtime.ClientAuthInfoWriter) (*SetDeploymentResourceRawMetadataOK, error)
+	SetDeploymentResourceRawMetadata(params *SetDeploymentResourceRawMetadataParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetDeploymentResourceRawMetadataOK, error)
 
-	ShutdownDeployment(params *ShutdownDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*ShutdownDeploymentOK, error)
+	ShutdownDeployment(params *ShutdownDeploymentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ShutdownDeploymentOK, error)
 
-	ShutdownDeploymentEsResource(params *ShutdownDeploymentEsResourceParams, authInfo runtime.ClientAuthInfoWriter) (*ShutdownDeploymentEsResourceOK, error)
+	ShutdownDeploymentEsResource(params *ShutdownDeploymentEsResourceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ShutdownDeploymentEsResourceOK, error)
 
-	ShutdownDeploymentStatelessResource(params *ShutdownDeploymentStatelessResourceParams, authInfo runtime.ClientAuthInfoWriter) (*ShutdownDeploymentStatelessResourceOK, error)
+	ShutdownDeploymentStatelessResource(params *ShutdownDeploymentStatelessResourceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ShutdownDeploymentStatelessResourceOK, error)
 
-	StartDeploymentResourceInstances(params *StartDeploymentResourceInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*StartDeploymentResourceInstancesAccepted, error)
+	StartDeploymentResourceInstances(params *StartDeploymentResourceInstancesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StartDeploymentResourceInstancesAccepted, error)
 
-	StartDeploymentResourceInstancesAll(params *StartDeploymentResourceInstancesAllParams, authInfo runtime.ClientAuthInfoWriter) (*StartDeploymentResourceInstancesAllAccepted, error)
+	StartDeploymentResourceInstancesAll(params *StartDeploymentResourceInstancesAllParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StartDeploymentResourceInstancesAllAccepted, error)
 
-	StartDeploymentResourceInstancesAllMaintenanceMode(params *StartDeploymentResourceInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StartDeploymentResourceInstancesAllMaintenanceModeAccepted, error)
+	StartDeploymentResourceInstancesAllMaintenanceMode(params *StartDeploymentResourceInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StartDeploymentResourceInstancesAllMaintenanceModeAccepted, error)
 
-	StartDeploymentResourceMaintenanceMode(params *StartDeploymentResourceMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StartDeploymentResourceMaintenanceModeAccepted, error)
+	StartDeploymentResourceMaintenanceMode(params *StartDeploymentResourceMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StartDeploymentResourceMaintenanceModeAccepted, error)
 
-	StopDeploymentResourceInstances(params *StopDeploymentResourceInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*StopDeploymentResourceInstancesAccepted, error)
+	StopDeploymentResourceInstances(params *StopDeploymentResourceInstancesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StopDeploymentResourceInstancesAccepted, error)
 
-	StopDeploymentResourceInstancesAll(params *StopDeploymentResourceInstancesAllParams, authInfo runtime.ClientAuthInfoWriter) (*StopDeploymentResourceInstancesAllAccepted, error)
+	StopDeploymentResourceInstancesAll(params *StopDeploymentResourceInstancesAllParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StopDeploymentResourceInstancesAllAccepted, error)
 
-	StopDeploymentResourceInstancesAllMaintenanceMode(params *StopDeploymentResourceInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StopDeploymentResourceInstancesAllMaintenanceModeAccepted, error)
+	StopDeploymentResourceInstancesAllMaintenanceMode(params *StopDeploymentResourceInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StopDeploymentResourceInstancesAllMaintenanceModeAccepted, error)
 
-	StopDeploymentResourceMaintenanceMode(params *StopDeploymentResourceMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StopDeploymentResourceMaintenanceModeAccepted, error)
+	StopDeploymentResourceMaintenanceMode(params *StopDeploymentResourceMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StopDeploymentResourceMaintenanceModeAccepted, error)
 
-	UpdateDeployment(params *UpdateDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateDeploymentOK, error)
+	UpdateDeployment(params *UpdateDeploymentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateDeploymentOK, error)
 
-	UpgradeDeploymentStatelessResource(params *UpgradeDeploymentStatelessResourceParams, authInfo runtime.ClientAuthInfoWriter) (*UpgradeDeploymentStatelessResourceAccepted, error)
+	UpgradeDeploymentStatelessResource(params *UpgradeDeploymentStatelessResourceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpgradeDeploymentStatelessResourceAccepted, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -144,13 +147,12 @@ type ClientService interface {
 
   Cancels the pending plan of a Resource belonging to a given Deployment.
 */
-func (a *Client) CancelDeploymentResourcePendingPlan(params *CancelDeploymentResourcePendingPlanParams, authInfo runtime.ClientAuthInfoWriter) (*CancelDeploymentResourcePendingPlanOK, error) {
+func (a *Client) CancelDeploymentResourcePendingPlan(params *CancelDeploymentResourcePendingPlanParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CancelDeploymentResourcePendingPlanOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCancelDeploymentResourcePendingPlanParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "cancel-deployment-resource-pending-plan",
 		Method:             "DELETE",
 		PathPattern:        "/deployments/{deployment_id}/{resource_kind}/{ref_id}/plan/pending",
@@ -162,7 +164,12 @@ func (a *Client) CancelDeploymentResourcePendingPlan(params *CancelDeploymentRes
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -181,13 +188,12 @@ func (a *Client) CancelDeploymentResourcePendingPlan(params *CancelDeploymentRes
 
   Creates a Deployment.
 */
-func (a *Client) CreateDeployment(params *CreateDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*CreateDeploymentOK, *CreateDeploymentCreated, *CreateDeploymentAccepted, error) {
+func (a *Client) CreateDeployment(params *CreateDeploymentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateDeploymentOK, *CreateDeploymentCreated, *CreateDeploymentAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateDeploymentParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "create-deployment",
 		Method:             "POST",
 		PathPattern:        "/deployments",
@@ -199,7 +205,12 @@ func (a *Client) CreateDeployment(params *CreateDeploymentParams, authInfo runti
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, nil, nil, err
 	}
@@ -221,13 +232,12 @@ func (a *Client) CreateDeployment(params *CreateDeploymentParams, authInfo runti
 
   Deletes a Deployment and all its resources.
 */
-func (a *Client) DeleteDeployment(params *DeleteDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteDeploymentOK, error) {
+func (a *Client) DeleteDeployment(params *DeleteDeploymentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteDeploymentOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteDeploymentParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "delete-deployment",
 		Method:             "DELETE",
 		PathPattern:        "/deployments/{deployment_id}",
@@ -239,7 +249,12 @@ func (a *Client) DeleteDeployment(params *DeleteDeploymentParams, authInfo runti
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -258,13 +273,12 @@ func (a *Client) DeleteDeployment(params *DeleteDeploymentParams, authInfo runti
 
   Delete Stateless Resource belonging to a given Deployment. Deployment must be shutdown already.
 */
-func (a *Client) DeleteDeploymentStatelessResource(params *DeleteDeploymentStatelessResourceParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteDeploymentStatelessResourceOK, error) {
+func (a *Client) DeleteDeploymentStatelessResource(params *DeleteDeploymentStatelessResourceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteDeploymentStatelessResourceOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteDeploymentStatelessResourceParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "delete-deployment-stateless-resource",
 		Method:             "DELETE",
 		PathPattern:        "/deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}",
@@ -276,7 +290,12 @@ func (a *Client) DeleteDeploymentStatelessResource(params *DeleteDeploymentState
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -295,13 +314,12 @@ func (a *Client) DeleteDeploymentStatelessResource(params *DeleteDeploymentState
 
   Reset the token of an APM resource.
 */
-func (a *Client) DeploymentApmResetSecretToken(params *DeploymentApmResetSecretTokenParams, authInfo runtime.ClientAuthInfoWriter) (*DeploymentApmResetSecretTokenAccepted, error) {
+func (a *Client) DeploymentApmResetSecretToken(params *DeploymentApmResetSecretTokenParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeploymentApmResetSecretTokenAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeploymentApmResetSecretTokenParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "deployment-apm-reset-secret-token",
 		Method:             "POST",
 		PathPattern:        "/deployments/{deployment_id}/apm/{ref_id}/_reset-token",
@@ -313,7 +331,12 @@ func (a *Client) DeploymentApmResetSecretToken(params *DeploymentApmResetSecretT
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -332,13 +355,12 @@ func (a *Client) DeploymentApmResetSecretToken(params *DeploymentApmResetSecretT
 
   Migrates the specified Elasticsearch resource and its associated Kibana to enable CCR (if supported).
 */
-func (a *Client) EnableDeploymentResourceCcr(params *EnableDeploymentResourceCcrParams, authInfo runtime.ClientAuthInfoWriter) (*EnableDeploymentResourceCcrOK, error) {
+func (a *Client) EnableDeploymentResourceCcr(params *EnableDeploymentResourceCcrParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*EnableDeploymentResourceCcrOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewEnableDeploymentResourceCcrParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "enable-deployment-resource-ccr",
 		Method:             "POST",
 		PathPattern:        "/deployments/{deployment_id}/elasticsearch/{ref_id}/_enable-ccr",
@@ -350,7 +372,12 @@ func (a *Client) EnableDeploymentResourceCcr(params *EnableDeploymentResourceCcr
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -369,13 +396,12 @@ func (a *Client) EnableDeploymentResourceCcr(params *EnableDeploymentResourceCcr
 
   Migrates the specified Elasticsearch resource to use ILM.
 */
-func (a *Client) EnableDeploymentResourceIlm(params *EnableDeploymentResourceIlmParams, authInfo runtime.ClientAuthInfoWriter) (*EnableDeploymentResourceIlmOK, error) {
+func (a *Client) EnableDeploymentResourceIlm(params *EnableDeploymentResourceIlmParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*EnableDeploymentResourceIlmOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewEnableDeploymentResourceIlmParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "enable-deployment-resource-ilm",
 		Method:             "POST",
 		PathPattern:        "/deployments/{deployment_id}/elasticsearch/{ref_id}/_enable-ilm",
@@ -387,7 +413,12 @@ func (a *Client) EnableDeploymentResourceIlm(params *EnableDeploymentResourceIlm
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -406,13 +437,12 @@ func (a *Client) EnableDeploymentResourceIlm(params *EnableDeploymentResourceIlm
 
   Migrates the specified Elasticsearch resource to use SLM.
 */
-func (a *Client) EnableDeploymentResourceSlm(params *EnableDeploymentResourceSlmParams, authInfo runtime.ClientAuthInfoWriter) (*EnableDeploymentResourceSlmOK, error) {
+func (a *Client) EnableDeploymentResourceSlm(params *EnableDeploymentResourceSlmParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*EnableDeploymentResourceSlmOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewEnableDeploymentResourceSlmParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "enable-deployment-resource-slm",
 		Method:             "POST",
 		PathPattern:        "/deployments/{deployment_id}/elasticsearch/{ref_id}/_enable-slm",
@@ -424,7 +454,12 @@ func (a *Client) EnableDeploymentResourceSlm(params *EnableDeploymentResourceSlm
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -443,13 +478,12 @@ func (a *Client) EnableDeploymentResourceSlm(params *EnableDeploymentResourceSlm
 
   Enable/Disable read-only mode on the given App Search resource.
 */
-func (a *Client) GetAppsearchReadOnlyMode(params *GetAppsearchReadOnlyModeParams, authInfo runtime.ClientAuthInfoWriter) (*GetAppsearchReadOnlyModeOK, error) {
+func (a *Client) GetAppsearchReadOnlyMode(params *GetAppsearchReadOnlyModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAppsearchReadOnlyModeOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetAppsearchReadOnlyModeParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-appsearch-read-only-mode",
 		Method:             "GET",
 		PathPattern:        "/deployments/{deployment_id}/appsearch/{ref_id}/read_only_mode",
@@ -461,7 +495,12 @@ func (a *Client) GetAppsearchReadOnlyMode(params *GetAppsearchReadOnlyModeParams
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -480,13 +519,12 @@ func (a *Client) GetAppsearchReadOnlyMode(params *GetAppsearchReadOnlyModeParams
 
   Retrieves information about a Deployment.
 */
-func (a *Client) GetDeployment(params *GetDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentOK, error) {
+func (a *Client) GetDeployment(params *GetDeploymentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetDeploymentParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-deployment",
 		Method:             "GET",
 		PathPattern:        "/deployments/{deployment_id}",
@@ -498,7 +536,12 @@ func (a *Client) GetDeployment(params *GetDeploymentParams, authInfo runtime.Cli
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -517,13 +560,12 @@ func (a *Client) GetDeployment(params *GetDeploymentParams, authInfo runtime.Cli
 
   Get info about an APM Resource belonging to a given Deployment.
 */
-func (a *Client) GetDeploymentApmResourceInfo(params *GetDeploymentApmResourceInfoParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentApmResourceInfoOK, error) {
+func (a *Client) GetDeploymentApmResourceInfo(params *GetDeploymentApmResourceInfoParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentApmResourceInfoOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetDeploymentApmResourceInfoParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-deployment-apm-resource-info",
 		Method:             "GET",
 		PathPattern:        "/deployments/{deployment_id}/apm/{ref_id}",
@@ -535,7 +577,12 @@ func (a *Client) GetDeploymentApmResourceInfo(params *GetDeploymentApmResourceIn
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -554,13 +601,12 @@ func (a *Client) GetDeploymentApmResourceInfo(params *GetDeploymentApmResourceIn
 
   Get info about an App Search Resource belonging to a given Deployment.
 */
-func (a *Client) GetDeploymentAppsearchResourceInfo(params *GetDeploymentAppsearchResourceInfoParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentAppsearchResourceInfoOK, error) {
+func (a *Client) GetDeploymentAppsearchResourceInfo(params *GetDeploymentAppsearchResourceInfoParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentAppsearchResourceInfoOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetDeploymentAppsearchResourceInfoParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-deployment-appsearch-resource-info",
 		Method:             "GET",
 		PathPattern:        "/deployments/{deployment_id}/appsearch/{ref_id}",
@@ -572,7 +618,12 @@ func (a *Client) GetDeploymentAppsearchResourceInfo(params *GetDeploymentAppsear
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -591,13 +642,12 @@ func (a *Client) GetDeploymentAppsearchResourceInfo(params *GetDeploymentAppsear
 
   Get info about an Enterprise Search Resource belonging to a given Deployment.
 */
-func (a *Client) GetDeploymentEnterpriseSearchResourceInfo(params *GetDeploymentEnterpriseSearchResourceInfoParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentEnterpriseSearchResourceInfoOK, error) {
+func (a *Client) GetDeploymentEnterpriseSearchResourceInfo(params *GetDeploymentEnterpriseSearchResourceInfoParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentEnterpriseSearchResourceInfoOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetDeploymentEnterpriseSearchResourceInfoParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-deployment-enterprise-search-resource-info",
 		Method:             "GET",
 		PathPattern:        "/deployments/{deployment_id}/enterprise_search/{ref_id}",
@@ -609,7 +659,12 @@ func (a *Client) GetDeploymentEnterpriseSearchResourceInfo(params *GetDeployment
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -628,13 +683,12 @@ func (a *Client) GetDeploymentEnterpriseSearchResourceInfo(params *GetDeployment
 
   Returns the list of deployments which contain eligible remote clusters for the elasticsearch resource.
 */
-func (a *Client) GetDeploymentEsResourceEligibleRemoteClusters(params *GetDeploymentEsResourceEligibleRemoteClustersParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentEsResourceEligibleRemoteClustersOK, error) {
+func (a *Client) GetDeploymentEsResourceEligibleRemoteClusters(params *GetDeploymentEsResourceEligibleRemoteClustersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentEsResourceEligibleRemoteClustersOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetDeploymentEsResourceEligibleRemoteClustersParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-deployment-es-resource-eligible-remote-clusters",
 		Method:             "POST",
 		PathPattern:        "/deployments/{deployment_id}/elasticsearch/{ref_id}/eligible-remote-clusters",
@@ -646,7 +700,12 @@ func (a *Client) GetDeploymentEsResourceEligibleRemoteClusters(params *GetDeploy
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -665,13 +724,12 @@ func (a *Client) GetDeploymentEsResourceEligibleRemoteClusters(params *GetDeploy
 
   Get info about an Elasticsearch Resource belonging to a given Deployment.
 */
-func (a *Client) GetDeploymentEsResourceInfo(params *GetDeploymentEsResourceInfoParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentEsResourceInfoOK, error) {
+func (a *Client) GetDeploymentEsResourceInfo(params *GetDeploymentEsResourceInfoParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentEsResourceInfoOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetDeploymentEsResourceInfoParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-deployment-es-resource-info",
 		Method:             "GET",
 		PathPattern:        "/deployments/{deployment_id}/elasticsearch/{ref_id}",
@@ -683,7 +741,12 @@ func (a *Client) GetDeploymentEsResourceInfo(params *GetDeploymentEsResourceInfo
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -702,13 +765,12 @@ func (a *Client) GetDeploymentEsResourceInfo(params *GetDeploymentEsResourceInfo
 
   Adds the specified values to the Elasticsearch keystore, or removes the keys for the unspecified values.
 */
-func (a *Client) GetDeploymentEsResourceKeystore(params *GetDeploymentEsResourceKeystoreParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentEsResourceKeystoreOK, error) {
+func (a *Client) GetDeploymentEsResourceKeystore(params *GetDeploymentEsResourceKeystoreParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentEsResourceKeystoreOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetDeploymentEsResourceKeystoreParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-deployment-es-resource-keystore",
 		Method:             "GET",
 		PathPattern:        "/deployments/{deployment_id}/elasticsearch/{ref_id}/keystore",
@@ -720,7 +782,12 @@ func (a *Client) GetDeploymentEsResourceKeystore(params *GetDeploymentEsResource
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -739,13 +806,12 @@ func (a *Client) GetDeploymentEsResourceKeystore(params *GetDeploymentEsResource
 
   Returns the list of remote clusters for the elasticsearch resource.
 */
-func (a *Client) GetDeploymentEsResourceRemoteClusters(params *GetDeploymentEsResourceRemoteClustersParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentEsResourceRemoteClustersOK, error) {
+func (a *Client) GetDeploymentEsResourceRemoteClusters(params *GetDeploymentEsResourceRemoteClustersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentEsResourceRemoteClustersOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetDeploymentEsResourceRemoteClustersParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-deployment-es-resource-remote-clusters",
 		Method:             "GET",
 		PathPattern:        "/deployments/{deployment_id}/elasticsearch/{ref_id}/remote-clusters",
@@ -757,7 +823,12 @@ func (a *Client) GetDeploymentEsResourceRemoteClusters(params *GetDeploymentEsRe
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -776,13 +847,12 @@ func (a *Client) GetDeploymentEsResourceRemoteClusters(params *GetDeploymentEsRe
 
   Get info about a Kibana Resource belonging to a given Deployment.
 */
-func (a *Client) GetDeploymentKibResourceInfo(params *GetDeploymentKibResourceInfoParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentKibResourceInfoOK, error) {
+func (a *Client) GetDeploymentKibResourceInfo(params *GetDeploymentKibResourceInfoParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentKibResourceInfoOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetDeploymentKibResourceInfoParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-deployment-kib-resource-info",
 		Method:             "GET",
 		PathPattern:        "/deployments/{deployment_id}/kibana/{ref_id}",
@@ -794,7 +864,12 @@ func (a *Client) GetDeploymentKibResourceInfo(params *GetDeploymentKibResourceIn
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -813,13 +888,12 @@ func (a *Client) GetDeploymentKibResourceInfo(params *GetDeploymentKibResourceIn
 
   List Deployments.
 */
-func (a *Client) ListDeployments(params *ListDeploymentsParams, authInfo runtime.ClientAuthInfoWriter) (*ListDeploymentsOK, error) {
+func (a *Client) ListDeployments(params *ListDeploymentsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListDeploymentsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewListDeploymentsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "list-deployments",
 		Method:             "GET",
 		PathPattern:        "/deployments",
@@ -831,7 +905,12 @@ func (a *Client) ListDeployments(params *ListDeploymentsParams, authInfo runtime
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -850,13 +929,12 @@ func (a *Client) ListDeployments(params *ListDeploymentsParams, authInfo runtime
 
   Returns a deployment update request that would transform this deployment from its template to the provided one.
 */
-func (a *Client) MigrateDeployment(params *MigrateDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*MigrateDeploymentOK, error) {
+func (a *Client) MigrateDeployment(params *MigrateDeploymentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MigrateDeploymentOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewMigrateDeploymentParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "migrate-deployment",
 		Method:             "POST",
 		PathPattern:        "/deployments/{deployment_id}/_migrate",
@@ -868,7 +946,12 @@ func (a *Client) MigrateDeployment(params *MigrateDeploymentParams, authInfo run
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -887,13 +970,12 @@ func (a *Client) MigrateDeployment(params *MigrateDeploymentParams, authInfo run
 
   Resets the password of the 'elastic' user.
 */
-func (a *Client) ResetElasticsearchUserPassword(params *ResetElasticsearchUserPasswordParams, authInfo runtime.ClientAuthInfoWriter) (*ResetElasticsearchUserPasswordOK, error) {
+func (a *Client) ResetElasticsearchUserPassword(params *ResetElasticsearchUserPasswordParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ResetElasticsearchUserPasswordOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewResetElasticsearchUserPasswordParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "reset-elasticsearch-user-password",
 		Method:             "POST",
 		PathPattern:        "/deployments/{deployment_id}/elasticsearch/{ref_id}/_reset-password",
@@ -905,7 +987,12 @@ func (a *Client) ResetElasticsearchUserPassword(params *ResetElasticsearchUserPa
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -924,13 +1011,12 @@ func (a *Client) ResetElasticsearchUserPassword(params *ResetElasticsearchUserPa
 
   Restarts an Elasticsearch Resource. If a Resource is active: this command re-applies the existing plan but applies a "cluster_reboot", which issues a restart command and waits for it to complete. If a Resource is inactive: this command starts it up with the most recent successful plan.
 */
-func (a *Client) RestartDeploymentEsResource(params *RestartDeploymentEsResourceParams, authInfo runtime.ClientAuthInfoWriter) (*RestartDeploymentEsResourceAccepted, error) {
+func (a *Client) RestartDeploymentEsResource(params *RestartDeploymentEsResourceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*RestartDeploymentEsResourceAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewRestartDeploymentEsResourceParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "restart-deployment-es-resource",
 		Method:             "POST",
 		PathPattern:        "/deployments/{deployment_id}/elasticsearch/{ref_id}/_restart",
@@ -942,7 +1028,12 @@ func (a *Client) RestartDeploymentEsResource(params *RestartDeploymentEsResource
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -961,13 +1052,12 @@ func (a *Client) RestartDeploymentEsResource(params *RestartDeploymentEsResource
 
   Restarts a Stateless Resource. If a Resource is active: this command re-applies the existing plan but applies a "cluster_reboot", which issues a restart command and waits for it to complete. If a Resource is inactive: this command starts it up with the most recent successful plan.
 */
-func (a *Client) RestartDeploymentStatelessResource(params *RestartDeploymentStatelessResourceParams, authInfo runtime.ClientAuthInfoWriter) (*RestartDeploymentStatelessResourceAccepted, error) {
+func (a *Client) RestartDeploymentStatelessResource(params *RestartDeploymentStatelessResourceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*RestartDeploymentStatelessResourceAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewRestartDeploymentStatelessResourceParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "restart-deployment-stateless-resource",
 		Method:             "POST",
 		PathPattern:        "/deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_restart",
@@ -979,7 +1069,12 @@ func (a *Client) RestartDeploymentStatelessResource(params *RestartDeploymentSta
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -998,13 +1093,12 @@ func (a *Client) RestartDeploymentStatelessResource(params *RestartDeploymentSta
 
   Restores all resources in a Deployment.
 */
-func (a *Client) RestoreDeployment(params *RestoreDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*RestoreDeploymentOK, error) {
+func (a *Client) RestoreDeployment(params *RestoreDeploymentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*RestoreDeploymentOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewRestoreDeploymentParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "restore-deployment",
 		Method:             "POST",
 		PathPattern:        "/deployments/{deployment_id}/_restore",
@@ -1016,7 +1110,12 @@ func (a *Client) RestoreDeployment(params *RestoreDeploymentParams, authInfo run
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1035,13 +1134,12 @@ func (a *Client) RestoreDeployment(params *RestoreDeploymentParams, authInfo run
 
   Restores a shutdown resource belonging to a given Deployment.
 */
-func (a *Client) RestoreDeploymentResource(params *RestoreDeploymentResourceParams, authInfo runtime.ClientAuthInfoWriter) (*RestoreDeploymentResourceOK, error) {
+func (a *Client) RestoreDeploymentResource(params *RestoreDeploymentResourceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*RestoreDeploymentResourceOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewRestoreDeploymentResourceParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "restore-deployment-resource",
 		Method:             "POST",
 		PathPattern:        "/deployments/{deployment_id}/{resource_kind}/{ref_id}/_restore",
@@ -1053,7 +1151,12 @@ func (a *Client) RestoreDeploymentResource(params *RestoreDeploymentResourcePara
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1072,13 +1175,12 @@ func (a *Client) RestoreDeploymentResource(params *RestoreDeploymentResourcePara
 
   Immediately resynchronizes the search index for the selected deployment.
 */
-func (a *Client) ResyncDeployment(params *ResyncDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncDeploymentOK, error) {
+func (a *Client) ResyncDeployment(params *ResyncDeploymentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ResyncDeploymentOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewResyncDeploymentParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "resync-deployment",
 		Method:             "POST",
 		PathPattern:        "/deployments/{deployment_id}/_resync",
@@ -1090,7 +1192,12 @@ func (a *Client) ResyncDeployment(params *ResyncDeploymentParams, authInfo runti
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1109,13 +1216,12 @@ func (a *Client) ResyncDeployment(params *ResyncDeploymentParams, authInfo runti
 
   Resynchronizes the search index for all the deployments.
 */
-func (a *Client) ResyncDeployments(params *ResyncDeploymentsParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncDeploymentsOK, error) {
+func (a *Client) ResyncDeployments(params *ResyncDeploymentsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ResyncDeploymentsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewResyncDeploymentsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "resync-deployments",
 		Method:             "POST",
 		PathPattern:        "/deployments/_resync",
@@ -1127,7 +1233,12 @@ func (a *Client) ResyncDeployments(params *ResyncDeploymentsParams, authInfo run
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1146,13 +1257,12 @@ func (a *Client) ResyncDeployments(params *ResyncDeploymentsParams, authInfo run
 
   Retrieves the information for all of the deployments that match the specified query.
 */
-func (a *Client) SearchDeployments(params *SearchDeploymentsParams, authInfo runtime.ClientAuthInfoWriter) (*SearchDeploymentsOK, error) {
+func (a *Client) SearchDeployments(params *SearchDeploymentsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SearchDeploymentsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSearchDeploymentsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "search-deployments",
 		Method:             "POST",
 		PathPattern:        "/deployments/_search",
@@ -1164,7 +1274,12 @@ func (a *Client) SearchDeployments(params *SearchDeploymentsParams, authInfo run
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1183,13 +1298,12 @@ func (a *Client) SearchDeployments(params *SearchDeploymentsParams, authInfo run
 
   Returns the list of deployments which contain eligible remote clusters for a specific version.
 */
-func (a *Client) SearchEligibleRemoteClusters(params *SearchEligibleRemoteClustersParams, authInfo runtime.ClientAuthInfoWriter) (*SearchEligibleRemoteClustersOK, error) {
+func (a *Client) SearchEligibleRemoteClusters(params *SearchEligibleRemoteClustersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SearchEligibleRemoteClustersOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSearchEligibleRemoteClustersParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "search-eligible-remote-clusters",
 		Method:             "POST",
 		PathPattern:        "/deployments/eligible-remote-clusters",
@@ -1201,7 +1315,12 @@ func (a *Client) SearchEligibleRemoteClusters(params *SearchEligibleRemoteCluste
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1220,13 +1339,12 @@ func (a *Client) SearchEligibleRemoteClusters(params *SearchEligibleRemoteCluste
 
   Enable/Disable read-only mode on the given App Search resource.
 */
-func (a *Client) SetAppsearchReadOnlyMode(params *SetAppsearchReadOnlyModeParams, authInfo runtime.ClientAuthInfoWriter) (*SetAppsearchReadOnlyModeOK, error) {
+func (a *Client) SetAppsearchReadOnlyMode(params *SetAppsearchReadOnlyModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetAppsearchReadOnlyModeOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSetAppsearchReadOnlyModeParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "set-appsearch-read-only-mode",
 		Method:             "PUT",
 		PathPattern:        "/deployments/{deployment_id}/appsearch/{ref_id}/read_only_mode",
@@ -1238,7 +1356,12 @@ func (a *Client) SetAppsearchReadOnlyMode(params *SetAppsearchReadOnlyModeParams
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1257,13 +1380,12 @@ func (a *Client) SetAppsearchReadOnlyMode(params *SetAppsearchReadOnlyModeParams
 
   Fetches the current values of the keystore for the Elasticsearch resource.
 */
-func (a *Client) SetDeploymentEsResourceKeystore(params *SetDeploymentEsResourceKeystoreParams, authInfo runtime.ClientAuthInfoWriter) (*SetDeploymentEsResourceKeystoreOK, error) {
+func (a *Client) SetDeploymentEsResourceKeystore(params *SetDeploymentEsResourceKeystoreParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetDeploymentEsResourceKeystoreOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSetDeploymentEsResourceKeystoreParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "set-deployment-es-resource-keystore",
 		Method:             "PATCH",
 		PathPattern:        "/deployments/{deployment_id}/elasticsearch/{ref_id}/keystore",
@@ -1275,7 +1397,12 @@ func (a *Client) SetDeploymentEsResourceKeystore(params *SetDeploymentEsResource
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1294,13 +1421,12 @@ func (a *Client) SetDeploymentEsResourceKeystore(params *SetDeploymentEsResource
 
   Overwrites or creates the remote clusters for the elasticsearch resource.
 */
-func (a *Client) SetDeploymentEsResourceRemoteClusters(params *SetDeploymentEsResourceRemoteClustersParams, authInfo runtime.ClientAuthInfoWriter) (*SetDeploymentEsResourceRemoteClustersAccepted, error) {
+func (a *Client) SetDeploymentEsResourceRemoteClusters(params *SetDeploymentEsResourceRemoteClustersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetDeploymentEsResourceRemoteClustersAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSetDeploymentEsResourceRemoteClustersParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "set-deployment-es-resource-remote-clusters",
 		Method:             "PUT",
 		PathPattern:        "/deployments/{deployment_id}/elasticsearch/{ref_id}/remote-clusters",
@@ -1312,7 +1438,12 @@ func (a *Client) SetDeploymentEsResourceRemoteClusters(params *SetDeploymentEsRe
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1332,13 +1463,12 @@ func (a *Client) SetDeploymentEsResourceRemoteClusters(params *SetDeploymentEsRe
   Advanced use only. Sets the internal metadata, in free-form JSON, for the resource.
 Only use the parameter to set the modified JSON that is returned from the get version of the metadata.
 */
-func (a *Client) SetDeploymentResourceRawMetadata(params *SetDeploymentResourceRawMetadataParams, authInfo runtime.ClientAuthInfoWriter) (*SetDeploymentResourceRawMetadataOK, error) {
+func (a *Client) SetDeploymentResourceRawMetadata(params *SetDeploymentResourceRawMetadataParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetDeploymentResourceRawMetadataOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSetDeploymentResourceRawMetadataParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "set-deployment-resource-raw-metadata",
 		Method:             "POST",
 		PathPattern:        "/deployments/{deployment_id}/{resource_kind}/{ref_id}/metadata/raw",
@@ -1350,7 +1480,12 @@ func (a *Client) SetDeploymentResourceRawMetadata(params *SetDeploymentResourceR
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1369,13 +1504,12 @@ func (a *Client) SetDeploymentResourceRawMetadata(params *SetDeploymentResourceR
 
   Shuts down all resources in a Deployment.
 */
-func (a *Client) ShutdownDeployment(params *ShutdownDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*ShutdownDeploymentOK, error) {
+func (a *Client) ShutdownDeployment(params *ShutdownDeploymentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ShutdownDeploymentOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewShutdownDeploymentParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "shutdown-deployment",
 		Method:             "POST",
 		PathPattern:        "/deployments/{deployment_id}/_shutdown",
@@ -1387,7 +1521,12 @@ func (a *Client) ShutdownDeployment(params *ShutdownDeploymentParams, authInfo r
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1406,13 +1545,12 @@ func (a *Client) ShutdownDeployment(params *ShutdownDeploymentParams, authInfo r
 
   Shutdown Elasticsearch Resource belonging to a given Deployment.
 */
-func (a *Client) ShutdownDeploymentEsResource(params *ShutdownDeploymentEsResourceParams, authInfo runtime.ClientAuthInfoWriter) (*ShutdownDeploymentEsResourceOK, error) {
+func (a *Client) ShutdownDeploymentEsResource(params *ShutdownDeploymentEsResourceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ShutdownDeploymentEsResourceOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewShutdownDeploymentEsResourceParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "shutdown-deployment-es-resource",
 		Method:             "POST",
 		PathPattern:        "/deployments/{deployment_id}/elasticsearch/{ref_id}/_shutdown",
@@ -1424,7 +1562,12 @@ func (a *Client) ShutdownDeploymentEsResource(params *ShutdownDeploymentEsResour
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1444,13 +1587,12 @@ func (a *Client) ShutdownDeploymentEsResource(params *ShutdownDeploymentEsResour
   Shut down Stateless Resource belonging to a given Deployment.
 Kibana cannot be shut down on Elasticsearch Service as it is required for Elasticsearch administrative functions, such as Snapshot Lifecycle Management and version upgrades.
 */
-func (a *Client) ShutdownDeploymentStatelessResource(params *ShutdownDeploymentStatelessResourceParams, authInfo runtime.ClientAuthInfoWriter) (*ShutdownDeploymentStatelessResourceOK, error) {
+func (a *Client) ShutdownDeploymentStatelessResource(params *ShutdownDeploymentStatelessResourceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ShutdownDeploymentStatelessResourceOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewShutdownDeploymentStatelessResourceParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "shutdown-deployment-stateless-resource",
 		Method:             "POST",
 		PathPattern:        "/deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_shutdown",
@@ -1462,7 +1604,12 @@ func (a *Client) ShutdownDeploymentStatelessResource(params *ShutdownDeploymentS
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1481,13 +1628,12 @@ func (a *Client) ShutdownDeploymentStatelessResource(params *ShutdownDeploymentS
 
   Starts instances belonging to a Deployment Resource.
 */
-func (a *Client) StartDeploymentResourceInstances(params *StartDeploymentResourceInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*StartDeploymentResourceInstancesAccepted, error) {
+func (a *Client) StartDeploymentResourceInstances(params *StartDeploymentResourceInstancesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StartDeploymentResourceInstancesAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStartDeploymentResourceInstancesParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "start-deployment-resource-instances",
 		Method:             "POST",
 		PathPattern:        "/deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_ids}/_start",
@@ -1499,7 +1645,12 @@ func (a *Client) StartDeploymentResourceInstances(params *StartDeploymentResourc
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1518,13 +1669,12 @@ func (a *Client) StartDeploymentResourceInstances(params *StartDeploymentResourc
 
   Starts all instances belonging to a Deployment Resource.
 */
-func (a *Client) StartDeploymentResourceInstancesAll(params *StartDeploymentResourceInstancesAllParams, authInfo runtime.ClientAuthInfoWriter) (*StartDeploymentResourceInstancesAllAccepted, error) {
+func (a *Client) StartDeploymentResourceInstancesAll(params *StartDeploymentResourceInstancesAllParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StartDeploymentResourceInstancesAllAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStartDeploymentResourceInstancesAllParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "start-deployment-resource-instances-all",
 		Method:             "POST",
 		PathPattern:        "/deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/_start",
@@ -1536,7 +1686,12 @@ func (a *Client) StartDeploymentResourceInstancesAll(params *StartDeploymentReso
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1555,13 +1710,12 @@ func (a *Client) StartDeploymentResourceInstancesAll(params *StartDeploymentReso
 
   Starts maintenance mode of all instances belonging to a Deployment Resource.
 */
-func (a *Client) StartDeploymentResourceInstancesAllMaintenanceMode(params *StartDeploymentResourceInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StartDeploymentResourceInstancesAllMaintenanceModeAccepted, error) {
+func (a *Client) StartDeploymentResourceInstancesAllMaintenanceMode(params *StartDeploymentResourceInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StartDeploymentResourceInstancesAllMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStartDeploymentResourceInstancesAllMaintenanceModeParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "start-deployment-resource-instances-all-maintenance-mode",
 		Method:             "POST",
 		PathPattern:        "/deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/maintenance-mode/_start",
@@ -1573,7 +1727,12 @@ func (a *Client) StartDeploymentResourceInstancesAllMaintenanceMode(params *Star
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1592,13 +1751,12 @@ func (a *Client) StartDeploymentResourceInstancesAllMaintenanceMode(params *Star
 
   Starts maintenance mode of instances belonging to a Deployment Resource.
 */
-func (a *Client) StartDeploymentResourceMaintenanceMode(params *StartDeploymentResourceMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StartDeploymentResourceMaintenanceModeAccepted, error) {
+func (a *Client) StartDeploymentResourceMaintenanceMode(params *StartDeploymentResourceMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StartDeploymentResourceMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStartDeploymentResourceMaintenanceModeParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "start-deployment-resource-maintenance-mode",
 		Method:             "POST",
 		PathPattern:        "/deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_ids}/maintenance-mode/_start",
@@ -1610,7 +1768,12 @@ func (a *Client) StartDeploymentResourceMaintenanceMode(params *StartDeploymentR
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1629,13 +1792,12 @@ func (a *Client) StartDeploymentResourceMaintenanceMode(params *StartDeploymentR
 
   Stops instances belonging to a Deployment Resource.
 */
-func (a *Client) StopDeploymentResourceInstances(params *StopDeploymentResourceInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*StopDeploymentResourceInstancesAccepted, error) {
+func (a *Client) StopDeploymentResourceInstances(params *StopDeploymentResourceInstancesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StopDeploymentResourceInstancesAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStopDeploymentResourceInstancesParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "stop-deployment-resource-instances",
 		Method:             "POST",
 		PathPattern:        "/deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_ids}/_stop",
@@ -1647,7 +1809,12 @@ func (a *Client) StopDeploymentResourceInstances(params *StopDeploymentResourceI
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1666,13 +1833,12 @@ func (a *Client) StopDeploymentResourceInstances(params *StopDeploymentResourceI
 
   Stops all instances belonging to a Deployment Resource.
 */
-func (a *Client) StopDeploymentResourceInstancesAll(params *StopDeploymentResourceInstancesAllParams, authInfo runtime.ClientAuthInfoWriter) (*StopDeploymentResourceInstancesAllAccepted, error) {
+func (a *Client) StopDeploymentResourceInstancesAll(params *StopDeploymentResourceInstancesAllParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StopDeploymentResourceInstancesAllAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStopDeploymentResourceInstancesAllParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "stop-deployment-resource-instances-all",
 		Method:             "POST",
 		PathPattern:        "/deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/_stop",
@@ -1684,7 +1850,12 @@ func (a *Client) StopDeploymentResourceInstancesAll(params *StopDeploymentResour
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1703,13 +1874,12 @@ func (a *Client) StopDeploymentResourceInstancesAll(params *StopDeploymentResour
 
   Stops maintenance mode of all instances belonging to a Deployment Resource.
 */
-func (a *Client) StopDeploymentResourceInstancesAllMaintenanceMode(params *StopDeploymentResourceInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StopDeploymentResourceInstancesAllMaintenanceModeAccepted, error) {
+func (a *Client) StopDeploymentResourceInstancesAllMaintenanceMode(params *StopDeploymentResourceInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StopDeploymentResourceInstancesAllMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStopDeploymentResourceInstancesAllMaintenanceModeParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "stop-deployment-resource-instances-all-maintenance-mode",
 		Method:             "POST",
 		PathPattern:        "/deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/maintenance-mode/_stop",
@@ -1721,7 +1891,12 @@ func (a *Client) StopDeploymentResourceInstancesAllMaintenanceMode(params *StopD
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1740,13 +1915,12 @@ func (a *Client) StopDeploymentResourceInstancesAllMaintenanceMode(params *StopD
 
   Stops maintenance mode of instances belonging to a Resource.
 */
-func (a *Client) StopDeploymentResourceMaintenanceMode(params *StopDeploymentResourceMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StopDeploymentResourceMaintenanceModeAccepted, error) {
+func (a *Client) StopDeploymentResourceMaintenanceMode(params *StopDeploymentResourceMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StopDeploymentResourceMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStopDeploymentResourceMaintenanceModeParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "stop-deployment-resource-maintenance-mode",
 		Method:             "POST",
 		PathPattern:        "/deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_ids}/maintenance-mode/_stop",
@@ -1758,7 +1932,12 @@ func (a *Client) StopDeploymentResourceMaintenanceMode(params *StopDeploymentRes
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1777,13 +1956,12 @@ func (a *Client) StopDeploymentResourceMaintenanceMode(params *StopDeploymentRes
 
   Updates a Deployment.
 */
-func (a *Client) UpdateDeployment(params *UpdateDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateDeploymentOK, error) {
+func (a *Client) UpdateDeployment(params *UpdateDeploymentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateDeploymentOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateDeploymentParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "update-deployment",
 		Method:             "PUT",
 		PathPattern:        "/deployments/{deployment_id}",
@@ -1795,7 +1973,12 @@ func (a *Client) UpdateDeployment(params *UpdateDeploymentParams, authInfo runti
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1814,13 +1997,12 @@ func (a *Client) UpdateDeployment(params *UpdateDeploymentParams, authInfo runti
 
   Upgrades a running cluster.
 */
-func (a *Client) UpgradeDeploymentStatelessResource(params *UpgradeDeploymentStatelessResourceParams, authInfo runtime.ClientAuthInfoWriter) (*UpgradeDeploymentStatelessResourceAccepted, error) {
+func (a *Client) UpgradeDeploymentStatelessResource(params *UpgradeDeploymentStatelessResourceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpgradeDeploymentStatelessResourceAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpgradeDeploymentStatelessResourceParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "upgrade-deployment-stateless-resource",
 		Method:             "POST",
 		PathPattern:        "/deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_upgrade",
@@ -1832,7 +2014,12 @@ func (a *Client) UpgradeDeploymentStatelessResource(params *UpgradeDeploymentSta
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}

@@ -33,52 +33,66 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewDisableElevatedPermissionsParams creates a new DisableElevatedPermissionsParams object
-// with the default values initialized.
+// NewDisableElevatedPermissionsParams creates a new DisableElevatedPermissionsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewDisableElevatedPermissionsParams() *DisableElevatedPermissionsParams {
-
 	return &DisableElevatedPermissionsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDisableElevatedPermissionsParamsWithTimeout creates a new DisableElevatedPermissionsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewDisableElevatedPermissionsParamsWithTimeout(timeout time.Duration) *DisableElevatedPermissionsParams {
-
 	return &DisableElevatedPermissionsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewDisableElevatedPermissionsParamsWithContext creates a new DisableElevatedPermissionsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewDisableElevatedPermissionsParamsWithContext(ctx context.Context) *DisableElevatedPermissionsParams {
-
 	return &DisableElevatedPermissionsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewDisableElevatedPermissionsParamsWithHTTPClient creates a new DisableElevatedPermissionsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewDisableElevatedPermissionsParamsWithHTTPClient(client *http.Client) *DisableElevatedPermissionsParams {
-
 	return &DisableElevatedPermissionsParams{
 		HTTPClient: client,
 	}
 }
 
-/*DisableElevatedPermissionsParams contains all the parameters to send to the API endpoint
-for the disable elevated permissions operation typically these are written to a http.Request
+/* DisableElevatedPermissionsParams contains all the parameters to send to the API endpoint
+   for the disable elevated permissions operation.
+
+   Typically these are written to a http.Request.
 */
 type DisableElevatedPermissionsParams struct {
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the disable elevated permissions params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DisableElevatedPermissionsParams) WithDefaults() *DisableElevatedPermissionsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the disable elevated permissions params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DisableElevatedPermissionsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the disable elevated permissions params

@@ -33,59 +33,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewStartKibanaClusterInstancesAllMaintenanceModeParams creates a new StartKibanaClusterInstancesAllMaintenanceModeParams object
-// with the default values initialized.
+// NewStartKibanaClusterInstancesAllMaintenanceModeParams creates a new StartKibanaClusterInstancesAllMaintenanceModeParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewStartKibanaClusterInstancesAllMaintenanceModeParams() *StartKibanaClusterInstancesAllMaintenanceModeParams {
-	var ()
 	return &StartKibanaClusterInstancesAllMaintenanceModeParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewStartKibanaClusterInstancesAllMaintenanceModeParamsWithTimeout creates a new StartKibanaClusterInstancesAllMaintenanceModeParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewStartKibanaClusterInstancesAllMaintenanceModeParamsWithTimeout(timeout time.Duration) *StartKibanaClusterInstancesAllMaintenanceModeParams {
-	var ()
 	return &StartKibanaClusterInstancesAllMaintenanceModeParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewStartKibanaClusterInstancesAllMaintenanceModeParamsWithContext creates a new StartKibanaClusterInstancesAllMaintenanceModeParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewStartKibanaClusterInstancesAllMaintenanceModeParamsWithContext(ctx context.Context) *StartKibanaClusterInstancesAllMaintenanceModeParams {
-	var ()
 	return &StartKibanaClusterInstancesAllMaintenanceModeParams{
-
 		Context: ctx,
 	}
 }
 
 // NewStartKibanaClusterInstancesAllMaintenanceModeParamsWithHTTPClient creates a new StartKibanaClusterInstancesAllMaintenanceModeParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewStartKibanaClusterInstancesAllMaintenanceModeParamsWithHTTPClient(client *http.Client) *StartKibanaClusterInstancesAllMaintenanceModeParams {
-	var ()
 	return &StartKibanaClusterInstancesAllMaintenanceModeParams{
 		HTTPClient: client,
 	}
 }
 
-/*StartKibanaClusterInstancesAllMaintenanceModeParams contains all the parameters to send to the API endpoint
-for the start kibana cluster instances all maintenance mode operation typically these are written to a http.Request
+/* StartKibanaClusterInstancesAllMaintenanceModeParams contains all the parameters to send to the API endpoint
+   for the start kibana cluster instances all maintenance mode operation.
+
+   Typically these are written to a http.Request.
 */
 type StartKibanaClusterInstancesAllMaintenanceModeParams struct {
 
-	/*ClusterID
-	  The Kibana deployment identifier.
+	/* ClusterID.
 
+	   The Kibana deployment identifier.
 	*/
 	ClusterID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the start kibana cluster instances all maintenance mode params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *StartKibanaClusterInstancesAllMaintenanceModeParams) WithDefaults() *StartKibanaClusterInstancesAllMaintenanceModeParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the start kibana cluster instances all maintenance mode params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *StartKibanaClusterInstancesAllMaintenanceModeParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the start kibana cluster instances all maintenance mode params

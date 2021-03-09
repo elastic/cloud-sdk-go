@@ -33,59 +33,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewStartEsClusterInstancesAllParams creates a new StartEsClusterInstancesAllParams object
-// with the default values initialized.
+// NewStartEsClusterInstancesAllParams creates a new StartEsClusterInstancesAllParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewStartEsClusterInstancesAllParams() *StartEsClusterInstancesAllParams {
-	var ()
 	return &StartEsClusterInstancesAllParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewStartEsClusterInstancesAllParamsWithTimeout creates a new StartEsClusterInstancesAllParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewStartEsClusterInstancesAllParamsWithTimeout(timeout time.Duration) *StartEsClusterInstancesAllParams {
-	var ()
 	return &StartEsClusterInstancesAllParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewStartEsClusterInstancesAllParamsWithContext creates a new StartEsClusterInstancesAllParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewStartEsClusterInstancesAllParamsWithContext(ctx context.Context) *StartEsClusterInstancesAllParams {
-	var ()
 	return &StartEsClusterInstancesAllParams{
-
 		Context: ctx,
 	}
 }
 
 // NewStartEsClusterInstancesAllParamsWithHTTPClient creates a new StartEsClusterInstancesAllParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewStartEsClusterInstancesAllParamsWithHTTPClient(client *http.Client) *StartEsClusterInstancesAllParams {
-	var ()
 	return &StartEsClusterInstancesAllParams{
 		HTTPClient: client,
 	}
 }
 
-/*StartEsClusterInstancesAllParams contains all the parameters to send to the API endpoint
-for the start es cluster instances all operation typically these are written to a http.Request
+/* StartEsClusterInstancesAllParams contains all the parameters to send to the API endpoint
+   for the start es cluster instances all operation.
+
+   Typically these are written to a http.Request.
 */
 type StartEsClusterInstancesAllParams struct {
 
-	/*ClusterID
-	  The Elasticsearch cluster identifier.
+	/* ClusterID.
 
+	   The Elasticsearch cluster identifier.
 	*/
 	ClusterID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the start es cluster instances all params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *StartEsClusterInstancesAllParams) WithDefaults() *StartEsClusterInstancesAllParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the start es cluster instances all params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *StartEsClusterInstancesAllParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the start es cluster instances all params

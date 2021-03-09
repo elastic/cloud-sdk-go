@@ -35,59 +35,73 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewCreateDeploymentTemplateParams creates a new CreateDeploymentTemplateParams object
-// with the default values initialized.
+// NewCreateDeploymentTemplateParams creates a new CreateDeploymentTemplateParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewCreateDeploymentTemplateParams() *CreateDeploymentTemplateParams {
-	var ()
 	return &CreateDeploymentTemplateParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewCreateDeploymentTemplateParamsWithTimeout creates a new CreateDeploymentTemplateParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewCreateDeploymentTemplateParamsWithTimeout(timeout time.Duration) *CreateDeploymentTemplateParams {
-	var ()
 	return &CreateDeploymentTemplateParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewCreateDeploymentTemplateParamsWithContext creates a new CreateDeploymentTemplateParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewCreateDeploymentTemplateParamsWithContext(ctx context.Context) *CreateDeploymentTemplateParams {
-	var ()
 	return &CreateDeploymentTemplateParams{
-
 		Context: ctx,
 	}
 }
 
 // NewCreateDeploymentTemplateParamsWithHTTPClient creates a new CreateDeploymentTemplateParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewCreateDeploymentTemplateParamsWithHTTPClient(client *http.Client) *CreateDeploymentTemplateParams {
-	var ()
 	return &CreateDeploymentTemplateParams{
 		HTTPClient: client,
 	}
 }
 
-/*CreateDeploymentTemplateParams contains all the parameters to send to the API endpoint
-for the create deployment template operation typically these are written to a http.Request
+/* CreateDeploymentTemplateParams contains all the parameters to send to the API endpoint
+   for the create deployment template operation.
+
+   Typically these are written to a http.Request.
 */
 type CreateDeploymentTemplateParams struct {
 
-	/*Body
-	  The deployment template definition.
+	/* Body.
 
+	   The deployment template definition.
 	*/
 	Body *models.DeploymentTemplateInfo
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the create deployment template params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *CreateDeploymentTemplateParams) WithDefaults() *CreateDeploymentTemplateParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the create deployment template params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *CreateDeploymentTemplateParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the create deployment template params
@@ -141,7 +155,6 @@ func (o *CreateDeploymentTemplateParams) WriteToRequest(r runtime.ClientRequest,
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

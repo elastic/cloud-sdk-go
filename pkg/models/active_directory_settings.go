@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
@@ -183,7 +184,6 @@ func (m *ActiveDirectorySettings) validateCertificateURLTruststoreTypeEnum(path,
 }
 
 func (m *ActiveDirectorySettings) validateCertificateURLTruststoreType(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.CertificateURLTruststoreType) { // not required
 		return nil
 	}
@@ -206,7 +206,6 @@ func (m *ActiveDirectorySettings) validateDomainName(formats strfmt.Registry) er
 }
 
 func (m *ActiveDirectorySettings) validateGroupSearch(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.GroupSearch) { // not required
 		return nil
 	}
@@ -233,7 +232,6 @@ func (m *ActiveDirectorySettings) validateID(formats strfmt.Registry) error {
 }
 
 func (m *ActiveDirectorySettings) validateLoadBalance(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.LoadBalance) { // not required
 		return nil
 	}
@@ -260,7 +258,6 @@ func (m *ActiveDirectorySettings) validateName(formats strfmt.Registry) error {
 }
 
 func (m *ActiveDirectorySettings) validateRoleMappings(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.RoleMappings) { // not required
 		return nil
 	}
@@ -287,13 +284,94 @@ func (m *ActiveDirectorySettings) validateUrls(formats strfmt.Registry) error {
 }
 
 func (m *ActiveDirectorySettings) validateUserSearch(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.UserSearch) { // not required
 		return nil
 	}
 
 	if m.UserSearch != nil {
 		if err := m.UserSearch.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("user_search")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this active directory settings based on the context it is used
+func (m *ActiveDirectorySettings) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateGroupSearch(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateLoadBalance(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateRoleMappings(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateUserSearch(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ActiveDirectorySettings) contextValidateGroupSearch(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.GroupSearch != nil {
+		if err := m.GroupSearch.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("group_search")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ActiveDirectorySettings) contextValidateLoadBalance(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.LoadBalance != nil {
+		if err := m.LoadBalance.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("load_balance")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ActiveDirectorySettings) contextValidateRoleMappings(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.RoleMappings != nil {
+		if err := m.RoleMappings.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("role_mappings")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ActiveDirectorySettings) contextValidateUserSearch(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.UserSearch != nil {
+		if err := m.UserSearch.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("user_search")
 			}

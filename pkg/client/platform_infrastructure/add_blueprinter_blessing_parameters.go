@@ -36,74 +36,91 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewAddBlueprinterBlessingParams creates a new AddBlueprinterBlessingParams object
-// with the default values initialized.
+// NewAddBlueprinterBlessingParams creates a new AddBlueprinterBlessingParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewAddBlueprinterBlessingParams() *AddBlueprinterBlessingParams {
-	var ()
 	return &AddBlueprinterBlessingParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewAddBlueprinterBlessingParamsWithTimeout creates a new AddBlueprinterBlessingParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewAddBlueprinterBlessingParamsWithTimeout(timeout time.Duration) *AddBlueprinterBlessingParams {
-	var ()
 	return &AddBlueprinterBlessingParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewAddBlueprinterBlessingParamsWithContext creates a new AddBlueprinterBlessingParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewAddBlueprinterBlessingParamsWithContext(ctx context.Context) *AddBlueprinterBlessingParams {
-	var ()
 	return &AddBlueprinterBlessingParams{
-
 		Context: ctx,
 	}
 }
 
 // NewAddBlueprinterBlessingParamsWithHTTPClient creates a new AddBlueprinterBlessingParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewAddBlueprinterBlessingParamsWithHTTPClient(client *http.Client) *AddBlueprinterBlessingParams {
-	var ()
 	return &AddBlueprinterBlessingParams{
 		HTTPClient: client,
 	}
 }
 
-/*AddBlueprinterBlessingParams contains all the parameters to send to the API endpoint
-for the add blueprinter blessing operation typically these are written to a http.Request
+/* AddBlueprinterBlessingParams contains all the parameters to send to the API endpoint
+   for the add blueprinter blessing operation.
+
+   Typically these are written to a http.Request.
 */
 type AddBlueprinterBlessingParams struct {
 
-	/*BlueprinterRoleID
-	  User-specified Blueprinter role ID.
+	/* BlueprinterRoleID.
 
+	   User-specified Blueprinter role ID.
 	*/
 	BlueprinterRoleID string
-	/*Body
-	  The blessing to add.
 
+	/* Body.
+
+	   The blessing to add.
 	*/
 	Body *models.Blessing
-	/*RunnerID
-	  Runner ID for a blessing associated with a role.
 
+	/* RunnerID.
+
+	   Runner ID for a blessing associated with a role.
 	*/
 	RunnerID string
-	/*Version
-	  When specified, checks for conflicts against the version stored in the persistent store (returned in 'x-cloud-resource-version' of the GET request)
 
+	/* Version.
+
+	   When specified, checks for conflicts against the version stored in the persistent store (returned in 'x-cloud-resource-version' of the GET request)
 	*/
 	Version *int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the add blueprinter blessing params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *AddBlueprinterBlessingParams) WithDefaults() *AddBlueprinterBlessingParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the add blueprinter blessing params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *AddBlueprinterBlessingParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the add blueprinter blessing params
@@ -195,7 +212,6 @@ func (o *AddBlueprinterBlessingParams) WriteToRequest(r runtime.ClientRequest, r
 	if err := r.SetPathParam("blueprinter_role_id", o.BlueprinterRoleID); err != nil {
 		return err
 	}
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err
@@ -211,16 +227,17 @@ func (o *AddBlueprinterBlessingParams) WriteToRequest(r runtime.ClientRequest, r
 
 		// query param version
 		var qrVersion int64
+
 		if o.Version != nil {
 			qrVersion = *o.Version
 		}
 		qVersion := swag.FormatInt64(qrVersion)
 		if qVersion != "" {
+
 			if err := r.SetQueryParam("version", qVersion); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

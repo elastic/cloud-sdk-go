@@ -46,7 +46,6 @@ func (o *GetVersionStacksReader) ReadResponse(response runtime.ClientResponse, c
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,7 +56,7 @@ func NewGetVersionStacksOK() *GetVersionStacksOK {
 	return &GetVersionStacksOK{}
 }
 
-/*GetVersionStacksOK handles this case with default header values.
+/* GetVersionStacksOK describes a response with status code 200, with default header values.
 
 The list of all available Elastic Stack versions are retrieved, including the template version and structure.
 */
@@ -68,7 +67,6 @@ type GetVersionStacksOK struct {
 func (o *GetVersionStacksOK) Error() string {
 	return fmt.Sprintf("[GET /stack/versions][%d] getVersionStacksOK  %+v", 200, o.Payload)
 }
-
 func (o *GetVersionStacksOK) GetPayload() *models.StackVersionConfigs {
 	return o.Payload
 }

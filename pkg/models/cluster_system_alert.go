@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
@@ -144,6 +145,11 @@ func (m *ClusterSystemAlert) validateTimestamp(formats strfmt.Registry) error {
 		return err
 	}
 
+	return nil
+}
+
+// ContextValidate validates this cluster system alert based on context it is used
+func (m *ClusterSystemAlert) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

@@ -76,7 +76,6 @@ func (o *UpdateEsClusterPlanReader) ReadResponse(response runtime.ClientResponse
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -87,7 +86,7 @@ func NewUpdateEsClusterPlanOK() *UpdateEsClusterPlanOK {
 	return &UpdateEsClusterPlanOK{}
 }
 
-/*UpdateEsClusterPlanOK handles this case with default header values.
+/* UpdateEsClusterPlanOK describes a response with status code 200, with default header values.
 
 The cluster definition was valid - no further action was requested. The return object contains an internal representation of the plan, for use in debugging
 */
@@ -98,7 +97,6 @@ type UpdateEsClusterPlanOK struct {
 func (o *UpdateEsClusterPlanOK) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/plan][%d] updateEsClusterPlanOK  %+v", 200, o.Payload)
 }
-
 func (o *UpdateEsClusterPlanOK) GetPayload() *models.ClusterCrudResponse {
 	return o.Payload
 }
@@ -120,7 +118,7 @@ func NewUpdateEsClusterPlanAccepted() *UpdateEsClusterPlanAccepted {
 	return &UpdateEsClusterPlanAccepted{}
 }
 
-/*UpdateEsClusterPlanAccepted handles this case with default header values.
+/* UpdateEsClusterPlanAccepted describes a response with status code 202, with default header values.
 
 The plan definition was valid and the updated plan is in progress
 */
@@ -131,7 +129,6 @@ type UpdateEsClusterPlanAccepted struct {
 func (o *UpdateEsClusterPlanAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/plan][%d] updateEsClusterPlanAccepted  %+v", 202, o.Payload)
 }
-
 func (o *UpdateEsClusterPlanAccepted) GetPayload() *models.ClusterCrudResponse {
 	return o.Payload
 }
@@ -153,13 +150,14 @@ func NewUpdateEsClusterPlanBadRequest() *UpdateEsClusterPlanBadRequest {
 	return &UpdateEsClusterPlanBadRequest{}
 }
 
-/*UpdateEsClusterPlanBadRequest handles this case with default header values.
+/* UpdateEsClusterPlanBadRequest describes a response with status code 400, with default header values.
 
-* The cluster definition contained errors. (code: `clusters.cluster_invalid_plan`)
+ * The cluster definition contained errors. (code: `clusters.cluster_invalid_plan`)
 * The features used in the cluster definition have not been implemented yet. (code: `clusters.plan_feature_not_implemented`)
- */
+*/
 type UpdateEsClusterPlanBadRequest struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -169,15 +167,18 @@ type UpdateEsClusterPlanBadRequest struct {
 func (o *UpdateEsClusterPlanBadRequest) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/plan][%d] updateEsClusterPlanBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *UpdateEsClusterPlanBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *UpdateEsClusterPlanBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -194,12 +195,13 @@ func NewUpdateEsClusterPlanNotFound() *UpdateEsClusterPlanNotFound {
 	return &UpdateEsClusterPlanNotFound{}
 }
 
-/*UpdateEsClusterPlanNotFound handles this case with default header values.
+/* UpdateEsClusterPlanNotFound describes a response with status code 404, with default header values.
 
 The cluster specified by {cluster_id} cannot be found. (code: `clusters.cluster_not_found`)
 */
 type UpdateEsClusterPlanNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -209,15 +211,18 @@ type UpdateEsClusterPlanNotFound struct {
 func (o *UpdateEsClusterPlanNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/plan][%d] updateEsClusterPlanNotFound  %+v", 404, o.Payload)
 }
-
 func (o *UpdateEsClusterPlanNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *UpdateEsClusterPlanNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -234,12 +239,13 @@ func NewUpdateEsClusterPlanPreconditionFailed() *UpdateEsClusterPlanPrecondition
 	return &UpdateEsClusterPlanPreconditionFailed{}
 }
 
-/*UpdateEsClusterPlanPreconditionFailed handles this case with default header values.
+/* UpdateEsClusterPlanPreconditionFailed describes a response with status code 412, with default header values.
 
 Potential risky settings have been specified. (code: `clusters.cluster_plan_state_error`)
 */
 type UpdateEsClusterPlanPreconditionFailed struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -249,15 +255,18 @@ type UpdateEsClusterPlanPreconditionFailed struct {
 func (o *UpdateEsClusterPlanPreconditionFailed) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/plan][%d] updateEsClusterPlanPreconditionFailed  %+v", 412, o.Payload)
 }
-
 func (o *UpdateEsClusterPlanPreconditionFailed) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *UpdateEsClusterPlanPreconditionFailed) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -274,12 +283,13 @@ func NewUpdateEsClusterPlanRetryWith() *UpdateEsClusterPlanRetryWith {
 	return &UpdateEsClusterPlanRetryWith{}
 }
 
-/*UpdateEsClusterPlanRetryWith handles this case with default header values.
+/* UpdateEsClusterPlanRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type UpdateEsClusterPlanRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -289,15 +299,18 @@ type UpdateEsClusterPlanRetryWith struct {
 func (o *UpdateEsClusterPlanRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/plan][%d] updateEsClusterPlanRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *UpdateEsClusterPlanRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *UpdateEsClusterPlanRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

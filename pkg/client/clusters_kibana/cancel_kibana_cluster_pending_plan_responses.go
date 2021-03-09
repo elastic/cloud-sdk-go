@@ -64,7 +64,6 @@ func (o *CancelKibanaClusterPendingPlanReader) ReadResponse(response runtime.Cli
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,7 +74,7 @@ func NewCancelKibanaClusterPendingPlanOK() *CancelKibanaClusterPendingPlanOK {
 	return &CancelKibanaClusterPendingPlanOK{}
 }
 
-/*CancelKibanaClusterPendingPlanOK handles this case with default header values.
+/* CancelKibanaClusterPendingPlanOK describes a response with status code 200, with default header values.
 
 The pending plan has been successfully cancelled
 */
@@ -86,7 +85,6 @@ type CancelKibanaClusterPendingPlanOK struct {
 func (o *CancelKibanaClusterPendingPlanOK) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/kibana/{cluster_id}/plan/pending][%d] cancelKibanaClusterPendingPlanOK  %+v", 200, o.Payload)
 }
-
 func (o *CancelKibanaClusterPendingPlanOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -106,7 +104,7 @@ func NewCancelKibanaClusterPendingPlanNotFound() *CancelKibanaClusterPendingPlan
 	return &CancelKibanaClusterPendingPlanNotFound{}
 }
 
-/*CancelKibanaClusterPendingPlanNotFound handles this case with default header values.
+/* CancelKibanaClusterPendingPlanNotFound describes a response with status code 404, with default header values.
 
 The cluster specified by {cluster_id} cannot be found (code: 'clusters.cluster_not_found')
 */
@@ -117,7 +115,6 @@ type CancelKibanaClusterPendingPlanNotFound struct {
 func (o *CancelKibanaClusterPendingPlanNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/kibana/{cluster_id}/plan/pending][%d] cancelKibanaClusterPendingPlanNotFound  %+v", 404, o.Payload)
 }
-
 func (o *CancelKibanaClusterPendingPlanNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -139,7 +136,7 @@ func NewCancelKibanaClusterPendingPlanPreconditionFailed() *CancelKibanaClusterP
 	return &CancelKibanaClusterPendingPlanPreconditionFailed{}
 }
 
-/*CancelKibanaClusterPendingPlanPreconditionFailed handles this case with default header values.
+/* CancelKibanaClusterPendingPlanPreconditionFailed describes a response with status code 412, with default header values.
 
 There is not currently applied plan - eg the cluster has not finished provisioning, or the provisioning failed (code: 'clusters.cluster_plan_state_error')
 */
@@ -150,7 +147,6 @@ type CancelKibanaClusterPendingPlanPreconditionFailed struct {
 func (o *CancelKibanaClusterPendingPlanPreconditionFailed) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/kibana/{cluster_id}/plan/pending][%d] cancelKibanaClusterPendingPlanPreconditionFailed  %+v", 412, o.Payload)
 }
-
 func (o *CancelKibanaClusterPendingPlanPreconditionFailed) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -172,7 +168,7 @@ func NewCancelKibanaClusterPendingPlanRetryWith() *CancelKibanaClusterPendingPla
 	return &CancelKibanaClusterPendingPlanRetryWith{}
 }
 
-/*CancelKibanaClusterPendingPlanRetryWith handles this case with default header values.
+/* CancelKibanaClusterPendingPlanRetryWith describes a response with status code 449, with default header values.
 
 elevated permissions are required. (code: '"root.unauthorized.rbac.elevated_permissions_required"')
 */
@@ -183,7 +179,6 @@ type CancelKibanaClusterPendingPlanRetryWith struct {
 func (o *CancelKibanaClusterPendingPlanRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/kibana/{cluster_id}/plan/pending][%d] cancelKibanaClusterPendingPlanRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *CancelKibanaClusterPendingPlanRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

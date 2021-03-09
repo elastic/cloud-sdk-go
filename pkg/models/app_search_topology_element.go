@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -72,7 +74,6 @@ func (m *AppSearchTopologyElement) Validate(formats strfmt.Registry) error {
 }
 
 func (m *AppSearchTopologyElement) validateAppsearch(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Appsearch) { // not required
 		return nil
 	}
@@ -90,7 +91,6 @@ func (m *AppSearchTopologyElement) validateAppsearch(formats strfmt.Registry) er
 }
 
 func (m *AppSearchTopologyElement) validateNodeType(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.NodeType) { // not required
 		return nil
 	}
@@ -108,13 +108,76 @@ func (m *AppSearchTopologyElement) validateNodeType(formats strfmt.Registry) err
 }
 
 func (m *AppSearchTopologyElement) validateSize(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Size) { // not required
 		return nil
 	}
 
 	if m.Size != nil {
 		if err := m.Size.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("size")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this app search topology element based on the context it is used
+func (m *AppSearchTopologyElement) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAppsearch(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateNodeType(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateSize(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *AppSearchTopologyElement) contextValidateAppsearch(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Appsearch != nil {
+		if err := m.Appsearch.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("appsearch")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *AppSearchTopologyElement) contextValidateNodeType(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.NodeType != nil {
+		if err := m.NodeType.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("node_type")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *AppSearchTopologyElement) contextValidateSize(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Size != nil {
+		if err := m.Size.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("size")
 			}

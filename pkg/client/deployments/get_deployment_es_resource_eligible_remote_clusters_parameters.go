@@ -35,69 +35,85 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewGetDeploymentEsResourceEligibleRemoteClustersParams creates a new GetDeploymentEsResourceEligibleRemoteClustersParams object
-// with the default values initialized.
+// NewGetDeploymentEsResourceEligibleRemoteClustersParams creates a new GetDeploymentEsResourceEligibleRemoteClustersParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetDeploymentEsResourceEligibleRemoteClustersParams() *GetDeploymentEsResourceEligibleRemoteClustersParams {
-	var ()
 	return &GetDeploymentEsResourceEligibleRemoteClustersParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetDeploymentEsResourceEligibleRemoteClustersParamsWithTimeout creates a new GetDeploymentEsResourceEligibleRemoteClustersParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetDeploymentEsResourceEligibleRemoteClustersParamsWithTimeout(timeout time.Duration) *GetDeploymentEsResourceEligibleRemoteClustersParams {
-	var ()
 	return &GetDeploymentEsResourceEligibleRemoteClustersParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetDeploymentEsResourceEligibleRemoteClustersParamsWithContext creates a new GetDeploymentEsResourceEligibleRemoteClustersParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetDeploymentEsResourceEligibleRemoteClustersParamsWithContext(ctx context.Context) *GetDeploymentEsResourceEligibleRemoteClustersParams {
-	var ()
 	return &GetDeploymentEsResourceEligibleRemoteClustersParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetDeploymentEsResourceEligibleRemoteClustersParamsWithHTTPClient creates a new GetDeploymentEsResourceEligibleRemoteClustersParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetDeploymentEsResourceEligibleRemoteClustersParamsWithHTTPClient(client *http.Client) *GetDeploymentEsResourceEligibleRemoteClustersParams {
-	var ()
 	return &GetDeploymentEsResourceEligibleRemoteClustersParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetDeploymentEsResourceEligibleRemoteClustersParams contains all the parameters to send to the API endpoint
-for the get deployment es resource eligible remote clusters operation typically these are written to a http.Request
+/* GetDeploymentEsResourceEligibleRemoteClustersParams contains all the parameters to send to the API endpoint
+   for the get deployment es resource eligible remote clusters operation.
+
+   Typically these are written to a http.Request.
 */
 type GetDeploymentEsResourceEligibleRemoteClustersParams struct {
 
-	/*Body
-	  (Optional) The search query to run against all deployments containing eligible remote clusters. When not specified, all the eligible deployments are matched.
+	/* Body.
 
+	   (Optional) The search query to run against all deployments containing eligible remote clusters. When not specified, all the eligible deployments are matched.
 	*/
 	Body *models.SearchRequest
-	/*DeploymentID
-	  Identifier for the Deployment.
 
+	/* DeploymentID.
+
+	   Identifier for the Deployment.
 	*/
 	DeploymentID string
-	/*RefID
-	  User-specified RefId for the Resource.
 
+	/* RefID.
+
+	   User-specified RefId for the Resource.
 	*/
 	RefID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get deployment es resource eligible remote clusters params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetDeploymentEsResourceEligibleRemoteClustersParams) WithDefaults() *GetDeploymentEsResourceEligibleRemoteClustersParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get deployment es resource eligible remote clusters params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetDeploymentEsResourceEligibleRemoteClustersParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get deployment es resource eligible remote clusters params
@@ -173,7 +189,6 @@ func (o *GetDeploymentEsResourceEligibleRemoteClustersParams) WriteToRequest(r r
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

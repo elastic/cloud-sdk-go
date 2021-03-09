@@ -70,7 +70,6 @@ func (o *SetDeploymentResourceRawMetadataReader) ReadResponse(response runtime.C
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -81,18 +80,21 @@ func NewSetDeploymentResourceRawMetadataOK() *SetDeploymentResourceRawMetadataOK
 	return &SetDeploymentResourceRawMetadataOK{}
 }
 
-/*SetDeploymentResourceRawMetadataOK handles this case with default header values.
+/* SetDeploymentResourceRawMetadataOK describes a response with status code 200, with default header values.
 
 The resource metadata was successfully changed (the updated JSON is returned)
 */
 type SetDeploymentResourceRawMetadataOK struct {
-	/*The date-time when the resource was created (ISO format relative to UTC)
+
+	/* The date-time when the resource was created (ISO format relative to UTC)
 	 */
 	XCloudResourceCreated string
-	/*The date-time when the resource was last modified (ISO format relative to UTC)
+
+	/* The date-time when the resource was last modified (ISO format relative to UTC)
 	 */
 	XCloudResourceLastModified string
-	/*The resource version, which is used to avoid update conflicts with concurrent operations
+
+	/* The resource version, which is used to avoid update conflicts with concurrent operations
 	 */
 	XCloudResourceVersion string
 
@@ -102,21 +104,32 @@ type SetDeploymentResourceRawMetadataOK struct {
 func (o *SetDeploymentResourceRawMetadataOK) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/metadata/raw][%d] setDeploymentResourceRawMetadataOK  %+v", 200, o.Payload)
 }
-
 func (o *SetDeploymentResourceRawMetadataOK) GetPayload() string {
 	return o.Payload
 }
 
 func (o *SetDeploymentResourceRawMetadataOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-resource-created
-	o.XCloudResourceCreated = response.GetHeader("x-cloud-resource-created")
+	// hydrates response header x-cloud-resource-created
+	hdrXCloudResourceCreated := response.GetHeader("x-cloud-resource-created")
 
-	// response header x-cloud-resource-last-modified
-	o.XCloudResourceLastModified = response.GetHeader("x-cloud-resource-last-modified")
+	if hdrXCloudResourceCreated != "" {
+		o.XCloudResourceCreated = hdrXCloudResourceCreated
+	}
 
-	// response header x-cloud-resource-version
-	o.XCloudResourceVersion = response.GetHeader("x-cloud-resource-version")
+	// hydrates response header x-cloud-resource-last-modified
+	hdrXCloudResourceLastModified := response.GetHeader("x-cloud-resource-last-modified")
+
+	if hdrXCloudResourceLastModified != "" {
+		o.XCloudResourceLastModified = hdrXCloudResourceLastModified
+	}
+
+	// hydrates response header x-cloud-resource-version
+	hdrXCloudResourceVersion := response.GetHeader("x-cloud-resource-version")
+
+	if hdrXCloudResourceVersion != "" {
+		o.XCloudResourceVersion = hdrXCloudResourceVersion
+	}
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
@@ -131,12 +144,13 @@ func NewSetDeploymentResourceRawMetadataBadRequest() *SetDeploymentResourceRawMe
 	return &SetDeploymentResourceRawMetadataBadRequest{}
 }
 
-/*SetDeploymentResourceRawMetadataBadRequest handles this case with default header values.
+/* SetDeploymentResourceRawMetadataBadRequest describes a response with status code 400, with default header values.
 
 The metadata is invalid. (code: `deployments.invalid_metadata`)
 */
 type SetDeploymentResourceRawMetadataBadRequest struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -146,15 +160,18 @@ type SetDeploymentResourceRawMetadataBadRequest struct {
 func (o *SetDeploymentResourceRawMetadataBadRequest) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/metadata/raw][%d] setDeploymentResourceRawMetadataBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *SetDeploymentResourceRawMetadataBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SetDeploymentResourceRawMetadataBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -171,13 +188,14 @@ func NewSetDeploymentResourceRawMetadataNotFound() *SetDeploymentResourceRawMeta
 	return &SetDeploymentResourceRawMetadataNotFound{}
 }
 
-/*SetDeploymentResourceRawMetadataNotFound handles this case with default header values.
+/* SetDeploymentResourceRawMetadataNotFound describes a response with status code 404, with default header values.
 
-* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+ * The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
 * The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)
- */
+*/
 type SetDeploymentResourceRawMetadataNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -187,15 +205,18 @@ type SetDeploymentResourceRawMetadataNotFound struct {
 func (o *SetDeploymentResourceRawMetadataNotFound) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/metadata/raw][%d] setDeploymentResourceRawMetadataNotFound  %+v", 404, o.Payload)
 }
-
 func (o *SetDeploymentResourceRawMetadataNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SetDeploymentResourceRawMetadataNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -212,12 +233,13 @@ func NewSetDeploymentResourceRawMetadataRetryWith() *SetDeploymentResourceRawMet
 	return &SetDeploymentResourceRawMetadataRetryWith{}
 }
 
-/*SetDeploymentResourceRawMetadataRetryWith handles this case with default header values.
+/* SetDeploymentResourceRawMetadataRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type SetDeploymentResourceRawMetadataRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -227,15 +249,18 @@ type SetDeploymentResourceRawMetadataRetryWith struct {
 func (o *SetDeploymentResourceRawMetadataRetryWith) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/metadata/raw][%d] setDeploymentResourceRawMetadataRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *SetDeploymentResourceRawMetadataRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SetDeploymentResourceRawMetadataRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -252,12 +277,13 @@ func NewSetDeploymentResourceRawMetadataInternalServerError() *SetDeploymentReso
 	return &SetDeploymentResourceRawMetadataInternalServerError{}
 }
 
-/*SetDeploymentResourceRawMetadataInternalServerError handles this case with default header values.
+/* SetDeploymentResourceRawMetadataInternalServerError describes a response with status code 500, with default header values.
 
 We have failed you. (code: `deployments.metadata_internal_error`)
 */
 type SetDeploymentResourceRawMetadataInternalServerError struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -267,15 +293,18 @@ type SetDeploymentResourceRawMetadataInternalServerError struct {
 func (o *SetDeploymentResourceRawMetadataInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/metadata/raw][%d] setDeploymentResourceRawMetadataInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *SetDeploymentResourceRawMetadataInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SetDeploymentResourceRawMetadataInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

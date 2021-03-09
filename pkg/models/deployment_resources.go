@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -200,6 +201,126 @@ func (m *DeploymentResources) validateKibana(formats strfmt.Registry) error {
 
 		if m.Kibana[i] != nil {
 			if err := m.Kibana[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("kibana" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this deployment resources based on the context it is used
+func (m *DeploymentResources) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateApm(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateAppsearch(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateElasticsearch(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateEnterpriseSearch(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateKibana(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *DeploymentResources) contextValidateApm(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Apm); i++ {
+
+		if m.Apm[i] != nil {
+			if err := m.Apm[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("apm" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *DeploymentResources) contextValidateAppsearch(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Appsearch); i++ {
+
+		if m.Appsearch[i] != nil {
+			if err := m.Appsearch[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("appsearch" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *DeploymentResources) contextValidateElasticsearch(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Elasticsearch); i++ {
+
+		if m.Elasticsearch[i] != nil {
+			if err := m.Elasticsearch[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("elasticsearch" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *DeploymentResources) contextValidateEnterpriseSearch(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.EnterpriseSearch); i++ {
+
+		if m.EnterpriseSearch[i] != nil {
+			if err := m.EnterpriseSearch[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("enterprise_search" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *DeploymentResources) contextValidateKibana(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Kibana); i++ {
+
+		if m.Kibana[i] != nil {
+			if err := m.Kibana[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("kibana" + "." + strconv.Itoa(i))
 				}

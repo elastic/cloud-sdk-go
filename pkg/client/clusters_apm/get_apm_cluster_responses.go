@@ -52,7 +52,6 @@ func (o *GetApmClusterReader) ReadResponse(response runtime.ClientResponse, cons
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,7 +62,7 @@ func NewGetApmClusterOK() *GetApmClusterOK {
 	return &GetApmClusterOK{}
 }
 
-/*GetApmClusterOK handles this case with default header values.
+/* GetApmClusterOK describes a response with status code 200, with default header values.
 
 Returning the information for the specified APM cluster
 */
@@ -74,7 +73,6 @@ type GetApmClusterOK struct {
 func (o *GetApmClusterOK) Error() string {
 	return fmt.Sprintf("[GET /clusters/apm/{cluster_id}][%d] getApmClusterOK  %+v", 200, o.Payload)
 }
-
 func (o *GetApmClusterOK) GetPayload() *models.ApmInfo {
 	return o.Payload
 }
@@ -96,12 +94,13 @@ func NewGetApmClusterNotFound() *GetApmClusterNotFound {
 	return &GetApmClusterNotFound{}
 }
 
-/*GetApmClusterNotFound handles this case with default header values.
+/* GetApmClusterNotFound describes a response with status code 404, with default header values.
 
 The cluster specified by {cluster_id} cannot be found. (code: `clusters.cluster_not_found`)
 */
 type GetApmClusterNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -111,15 +110,18 @@ type GetApmClusterNotFound struct {
 func (o *GetApmClusterNotFound) Error() string {
 	return fmt.Sprintf("[GET /clusters/apm/{cluster_id}][%d] getApmClusterNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetApmClusterNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *GetApmClusterNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

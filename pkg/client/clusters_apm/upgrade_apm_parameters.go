@@ -34,76 +34,90 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewUpgradeApmParams creates a new UpgradeApmParams object
-// with the default values initialized.
+// NewUpgradeApmParams creates a new UpgradeApmParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewUpgradeApmParams() *UpgradeApmParams {
-	var (
-		validateOnlyDefault = bool(false)
-	)
 	return &UpgradeApmParams{
-		ValidateOnly: &validateOnlyDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewUpgradeApmParamsWithTimeout creates a new UpgradeApmParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewUpgradeApmParamsWithTimeout(timeout time.Duration) *UpgradeApmParams {
-	var (
-		validateOnlyDefault = bool(false)
-	)
 	return &UpgradeApmParams{
-		ValidateOnly: &validateOnlyDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewUpgradeApmParamsWithContext creates a new UpgradeApmParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewUpgradeApmParamsWithContext(ctx context.Context) *UpgradeApmParams {
-	var (
-		validateOnlyDefault = bool(false)
-	)
 	return &UpgradeApmParams{
-		ValidateOnly: &validateOnlyDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewUpgradeApmParamsWithHTTPClient creates a new UpgradeApmParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewUpgradeApmParamsWithHTTPClient(client *http.Client) *UpgradeApmParams {
-	var (
-		validateOnlyDefault = bool(false)
-	)
 	return &UpgradeApmParams{
-		ValidateOnly: &validateOnlyDefault,
-		HTTPClient:   client,
+		HTTPClient: client,
 	}
 }
 
-/*UpgradeApmParams contains all the parameters to send to the API endpoint
-for the upgrade apm operation typically these are written to a http.Request
+/* UpgradeApmParams contains all the parameters to send to the API endpoint
+   for the upgrade apm operation.
+
+   Typically these are written to a http.Request.
 */
 type UpgradeApmParams struct {
 
-	/*ClusterID
-	  The APM deployment identifier.
+	/* ClusterID.
 
+	   The APM deployment identifier.
 	*/
 	ClusterID string
-	/*ValidateOnly
-	  When `true`, returns the update version without performing the upgrade
 
+	/* ValidateOnly.
+
+	   When `true`, returns the update version without performing the upgrade
 	*/
 	ValidateOnly *bool
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the upgrade apm params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpgradeApmParams) WithDefaults() *UpgradeApmParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the upgrade apm params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpgradeApmParams) SetDefaults() {
+	var (
+		validateOnlyDefault = bool(false)
+	)
+
+	val := UpgradeApmParams{
+		ValidateOnly: &validateOnlyDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the upgrade apm params
@@ -178,16 +192,17 @@ func (o *UpgradeApmParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Re
 
 		// query param validate_only
 		var qrValidateOnly bool
+
 		if o.ValidateOnly != nil {
 			qrValidateOnly = *o.ValidateOnly
 		}
 		qValidateOnly := swag.FormatBool(qrValidateOnly)
 		if qValidateOnly != "" {
+
 			if err := r.SetQueryParam("validate_only", qValidateOnly); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

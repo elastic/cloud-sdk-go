@@ -33,59 +33,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewSamlInitParams creates a new SamlInitParams object
-// with the default values initialized.
+// NewSamlInitParams creates a new SamlInitParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewSamlInitParams() *SamlInitParams {
-	var ()
 	return &SamlInitParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewSamlInitParamsWithTimeout creates a new SamlInitParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewSamlInitParamsWithTimeout(timeout time.Duration) *SamlInitParams {
-	var ()
 	return &SamlInitParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewSamlInitParamsWithContext creates a new SamlInitParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewSamlInitParamsWithContext(ctx context.Context) *SamlInitParams {
-	var ()
 	return &SamlInitParams{
-
 		Context: ctx,
 	}
 }
 
 // NewSamlInitParamsWithHTTPClient creates a new SamlInitParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewSamlInitParamsWithHTTPClient(client *http.Client) *SamlInitParams {
-	var ()
 	return &SamlInitParams{
 		HTTPClient: client,
 	}
 }
 
-/*SamlInitParams contains all the parameters to send to the API endpoint
-for the saml init operation typically these are written to a http.Request
+/* SamlInitParams contains all the parameters to send to the API endpoint
+   for the saml init operation.
+
+   Typically these are written to a http.Request.
 */
 type SamlInitParams struct {
 
-	/*State
-	  An optional relay state that is sent back to the client after the user is authenticated
+	/* State.
 
+	   An optional relay state that is sent back to the client after the user is authenticated
 	*/
 	State *string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the saml init params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SamlInitParams) WithDefaults() *SamlInitParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the saml init params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SamlInitParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the saml init params
@@ -144,16 +158,17 @@ func (o *SamlInitParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Regi
 
 		// query param state
 		var qrState string
+
 		if o.State != nil {
 			qrState = *o.State
 		}
 		qState := qrState
 		if qState != "" {
+
 			if err := r.SetQueryParam("state", qState); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

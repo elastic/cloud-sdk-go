@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"encoding/json"
 	"strconv"
 
@@ -103,7 +104,6 @@ func (m *ClusterPlanStepInfo) Validate(formats strfmt.Registry) error {
 }
 
 func (m *ClusterPlanStepInfo) validateCompleted(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Completed) { // not required
 		return nil
 	}
@@ -252,6 +252,38 @@ func (m *ClusterPlanStepInfo) validateStepID(formats strfmt.Registry) error {
 
 	if err := validate.Required("step_id", "body", m.StepID); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this cluster plan step info based on the context it is used
+func (m *ClusterPlanStepInfo) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateInfoLog(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ClusterPlanStepInfo) contextValidateInfoLog(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.InfoLog); i++ {
+
+		if m.InfoLog[i] != nil {
+			if err := m.InfoLog[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("info_log" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil

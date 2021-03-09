@@ -52,7 +52,6 @@ func (o *SetConstructorLoggingSettingsReader) ReadResponse(response runtime.Clie
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,18 +62,21 @@ func NewSetConstructorLoggingSettingsOK() *SetConstructorLoggingSettingsOK {
 	return &SetConstructorLoggingSettingsOK{}
 }
 
-/*SetConstructorLoggingSettingsOK handles this case with default header values.
+/* SetConstructorLoggingSettingsOK describes a response with status code 200, with default header values.
 
 The updated logging settings for the constructor instance
 */
 type SetConstructorLoggingSettingsOK struct {
-	/*The date-time when the resource was created (ISO format relative to UTC)
+
+	/* The date-time when the resource was created (ISO format relative to UTC)
 	 */
 	XCloudResourceCreated string
-	/*The date-time when the resource was last modified (ISO format relative to UTC)
+
+	/* The date-time when the resource was last modified (ISO format relative to UTC)
 	 */
 	XCloudResourceLastModified string
-	/*The resource version, which is used to avoid update conflicts with concurrent operations
+
+	/* The resource version, which is used to avoid update conflicts with concurrent operations
 	 */
 	XCloudResourceVersion string
 
@@ -84,21 +86,32 @@ type SetConstructorLoggingSettingsOK struct {
 func (o *SetConstructorLoggingSettingsOK) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/constructors/{constructor_id}/logging_settings][%d] setConstructorLoggingSettingsOK  %+v", 200, o.Payload)
 }
-
 func (o *SetConstructorLoggingSettingsOK) GetPayload() *models.LoggingSettings {
 	return o.Payload
 }
 
 func (o *SetConstructorLoggingSettingsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-resource-created
-	o.XCloudResourceCreated = response.GetHeader("x-cloud-resource-created")
+	// hydrates response header x-cloud-resource-created
+	hdrXCloudResourceCreated := response.GetHeader("x-cloud-resource-created")
 
-	// response header x-cloud-resource-last-modified
-	o.XCloudResourceLastModified = response.GetHeader("x-cloud-resource-last-modified")
+	if hdrXCloudResourceCreated != "" {
+		o.XCloudResourceCreated = hdrXCloudResourceCreated
+	}
 
-	// response header x-cloud-resource-version
-	o.XCloudResourceVersion = response.GetHeader("x-cloud-resource-version")
+	// hydrates response header x-cloud-resource-last-modified
+	hdrXCloudResourceLastModified := response.GetHeader("x-cloud-resource-last-modified")
+
+	if hdrXCloudResourceLastModified != "" {
+		o.XCloudResourceLastModified = hdrXCloudResourceLastModified
+	}
+
+	// hydrates response header x-cloud-resource-version
+	hdrXCloudResourceVersion := response.GetHeader("x-cloud-resource-version")
+
+	if hdrXCloudResourceVersion != "" {
+		o.XCloudResourceVersion = hdrXCloudResourceVersion
+	}
 
 	o.Payload = new(models.LoggingSettings)
 
@@ -115,12 +128,13 @@ func NewSetConstructorLoggingSettingsNotFound() *SetConstructorLoggingSettingsNo
 	return &SetConstructorLoggingSettingsNotFound{}
 }
 
-/*SetConstructorLoggingSettingsNotFound handles this case with default header values.
+/* SetConstructorLoggingSettingsNotFound describes a response with status code 404, with default header values.
 
 The logging settings for this constructor were not found. (code: `constructors.logging_settings.not_found`)
 */
 type SetConstructorLoggingSettingsNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -130,15 +144,18 @@ type SetConstructorLoggingSettingsNotFound struct {
 func (o *SetConstructorLoggingSettingsNotFound) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/constructors/{constructor_id}/logging_settings][%d] setConstructorLoggingSettingsNotFound  %+v", 404, o.Payload)
 }
-
 func (o *SetConstructorLoggingSettingsNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SetConstructorLoggingSettingsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

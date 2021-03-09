@@ -58,7 +58,6 @@ func (o *ResyncDeploymentReader) ReadResponse(response runtime.ClientResponse, c
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,7 +68,7 @@ func NewResyncDeploymentOK() *ResyncDeploymentOK {
 	return &ResyncDeploymentOK{}
 }
 
-/*ResyncDeploymentOK handles this case with default header values.
+/* ResyncDeploymentOK describes a response with status code 200, with default header values.
 
 The deployment resync operation executed successfully.
 */
@@ -80,7 +79,6 @@ type ResyncDeploymentOK struct {
 func (o *ResyncDeploymentOK) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/_resync][%d] resyncDeploymentOK  %+v", 200, o.Payload)
 }
-
 func (o *ResyncDeploymentOK) GetPayload() *models.IndexSynchronizationResults {
 	return o.Payload
 }
@@ -102,12 +100,13 @@ func NewResyncDeploymentRetryWith() *ResyncDeploymentRetryWith {
 	return &ResyncDeploymentRetryWith{}
 }
 
-/*ResyncDeploymentRetryWith handles this case with default header values.
+/* ResyncDeploymentRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type ResyncDeploymentRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -117,15 +116,18 @@ type ResyncDeploymentRetryWith struct {
 func (o *ResyncDeploymentRetryWith) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/_resync][%d] resyncDeploymentRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *ResyncDeploymentRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *ResyncDeploymentRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -142,12 +144,13 @@ func NewResyncDeploymentInternalServerError() *ResyncDeploymentInternalServerErr
 	return &ResyncDeploymentInternalServerError{}
 }
 
-/*ResyncDeploymentInternalServerError handles this case with default header values.
+/* ResyncDeploymentInternalServerError describes a response with status code 500, with default header values.
 
 The deployment resync operation failed for deployment {deployment_id}. (code: `deployments.resync_failed`)
 */
 type ResyncDeploymentInternalServerError struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -157,15 +160,18 @@ type ResyncDeploymentInternalServerError struct {
 func (o *ResyncDeploymentInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/_resync][%d] resyncDeploymentInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *ResyncDeploymentInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *ResyncDeploymentInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

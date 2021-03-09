@@ -35,59 +35,73 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewCreateUserParams creates a new CreateUserParams object
-// with the default values initialized.
+// NewCreateUserParams creates a new CreateUserParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewCreateUserParams() *CreateUserParams {
-	var ()
 	return &CreateUserParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewCreateUserParamsWithTimeout creates a new CreateUserParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewCreateUserParamsWithTimeout(timeout time.Duration) *CreateUserParams {
-	var ()
 	return &CreateUserParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewCreateUserParamsWithContext creates a new CreateUserParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewCreateUserParamsWithContext(ctx context.Context) *CreateUserParams {
-	var ()
 	return &CreateUserParams{
-
 		Context: ctx,
 	}
 }
 
 // NewCreateUserParamsWithHTTPClient creates a new CreateUserParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewCreateUserParamsWithHTTPClient(client *http.Client) *CreateUserParams {
-	var ()
 	return &CreateUserParams{
 		HTTPClient: client,
 	}
 }
 
-/*CreateUserParams contains all the parameters to send to the API endpoint
-for the create user operation typically these are written to a http.Request
+/* CreateUserParams contains all the parameters to send to the API endpoint
+   for the create user operation.
+
+   Typically these are written to a http.Request.
 */
 type CreateUserParams struct {
 
-	/*Body
-	  The user to create
+	/* Body.
 
+	   The user to create
 	*/
 	Body *models.User
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the create user params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *CreateUserParams) WithDefaults() *CreateUserParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the create user params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *CreateUserParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the create user params
@@ -141,7 +155,6 @@ func (o *CreateUserParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Re
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

@@ -52,7 +52,6 @@ func (o *SetTLSCertificateReader) ReadResponse(response runtime.ClientResponse, 
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,7 +62,7 @@ func NewSetTLSCertificateAccepted() *SetTLSCertificateAccepted {
 	return &SetTLSCertificateAccepted{}
 }
 
-/*SetTLSCertificateAccepted handles this case with default header values.
+/* SetTLSCertificateAccepted describes a response with status code 202, with default header values.
 
 The TLS update has been accepted for the given service and will take effect throughout the system
 */
@@ -74,7 +73,6 @@ type SetTLSCertificateAccepted struct {
 func (o *SetTLSCertificateAccepted) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/tls/{service_name}][%d] setTlsCertificateAccepted  %+v", 202, o.Payload)
 }
-
 func (o *SetTLSCertificateAccepted) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -94,7 +92,7 @@ func NewSetTLSCertificateRetryWith() *SetTLSCertificateRetryWith {
 	return &SetTLSCertificateRetryWith{}
 }
 
-/*SetTLSCertificateRetryWith handles this case with default header values.
+/* SetTLSCertificateRetryWith describes a response with status code 449, with default header values.
 
 elevated permissions are required. (code: '"root.unauthorized.rbac.elevated_permissions_required"')
 */
@@ -105,7 +103,6 @@ type SetTLSCertificateRetryWith struct {
 func (o *SetTLSCertificateRetryWith) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/tls/{service_name}][%d] setTlsCertificateRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *SetTLSCertificateRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

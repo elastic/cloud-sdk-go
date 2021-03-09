@@ -35,69 +35,85 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewPutConfigStoreOptionParams creates a new PutConfigStoreOptionParams object
-// with the default values initialized.
+// NewPutConfigStoreOptionParams creates a new PutConfigStoreOptionParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPutConfigStoreOptionParams() *PutConfigStoreOptionParams {
-	var ()
 	return &PutConfigStoreOptionParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPutConfigStoreOptionParamsWithTimeout creates a new PutConfigStoreOptionParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPutConfigStoreOptionParamsWithTimeout(timeout time.Duration) *PutConfigStoreOptionParams {
-	var ()
 	return &PutConfigStoreOptionParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPutConfigStoreOptionParamsWithContext creates a new PutConfigStoreOptionParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPutConfigStoreOptionParamsWithContext(ctx context.Context) *PutConfigStoreOptionParams {
-	var ()
 	return &PutConfigStoreOptionParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPutConfigStoreOptionParamsWithHTTPClient creates a new PutConfigStoreOptionParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPutConfigStoreOptionParamsWithHTTPClient(client *http.Client) *PutConfigStoreOptionParams {
-	var ()
 	return &PutConfigStoreOptionParams{
 		HTTPClient: client,
 	}
 }
 
-/*PutConfigStoreOptionParams contains all the parameters to send to the API endpoint
-for the put config store option operation typically these are written to a http.Request
+/* PutConfigStoreOptionParams contains all the parameters to send to the API endpoint
+   for the put config store option operation.
+
+   Typically these are written to a http.Request.
 */
 type PutConfigStoreOptionParams struct {
 
-	/*Body
-	  The Config Store Option definition
+	/* Body.
 
+	   The Config Store Option definition
 	*/
 	Body *models.ConfigStoreOptionData
-	/*ConfigOptionID
-	  Name of the Config Store Option that you would like to modify
 
+	/* ConfigOptionID.
+
+	   Name of the Config Store Option that you would like to modify
 	*/
 	ConfigOptionID string
-	/*Version
-	  If specified then checks for conflicts against the version stored in the persistent store (returned in 'x-cloud-resource-version' of the GET request)
 
+	/* Version.
+
+	   If specified then checks for conflicts against the version stored in the persistent store (returned in 'x-cloud-resource-version' of the GET request)
 	*/
 	Version *string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the put config store option params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PutConfigStoreOptionParams) WithDefaults() *PutConfigStoreOptionParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the put config store option params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PutConfigStoreOptionParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the put config store option params
@@ -173,7 +189,6 @@ func (o *PutConfigStoreOptionParams) WriteToRequest(r runtime.ClientRequest, reg
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err
@@ -189,16 +204,17 @@ func (o *PutConfigStoreOptionParams) WriteToRequest(r runtime.ClientRequest, reg
 
 		// query param version
 		var qrVersion string
+
 		if o.Version != nil {
 			qrVersion = *o.Version
 		}
 		qVersion := qrVersion
 		if qVersion != "" {
+
 			if err := r.SetQueryParam("version", qVersion); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

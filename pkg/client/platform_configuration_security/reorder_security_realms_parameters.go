@@ -35,59 +35,73 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewReorderSecurityRealmsParams creates a new ReorderSecurityRealmsParams object
-// with the default values initialized.
+// NewReorderSecurityRealmsParams creates a new ReorderSecurityRealmsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewReorderSecurityRealmsParams() *ReorderSecurityRealmsParams {
-	var ()
 	return &ReorderSecurityRealmsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewReorderSecurityRealmsParamsWithTimeout creates a new ReorderSecurityRealmsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewReorderSecurityRealmsParamsWithTimeout(timeout time.Duration) *ReorderSecurityRealmsParams {
-	var ()
 	return &ReorderSecurityRealmsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewReorderSecurityRealmsParamsWithContext creates a new ReorderSecurityRealmsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewReorderSecurityRealmsParamsWithContext(ctx context.Context) *ReorderSecurityRealmsParams {
-	var ()
 	return &ReorderSecurityRealmsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewReorderSecurityRealmsParamsWithHTTPClient creates a new ReorderSecurityRealmsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewReorderSecurityRealmsParamsWithHTTPClient(client *http.Client) *ReorderSecurityRealmsParams {
-	var ()
 	return &ReorderSecurityRealmsParams{
 		HTTPClient: client,
 	}
 }
 
-/*ReorderSecurityRealmsParams contains all the parameters to send to the API endpoint
-for the reorder security realms operation typically these are written to a http.Request
+/* ReorderSecurityRealmsParams contains all the parameters to send to the API endpoint
+   for the reorder security realms operation.
+
+   Typically these are written to a http.Request.
 */
 type ReorderSecurityRealmsParams struct {
 
-	/*Body
-	  The reorder request
+	/* Body.
 
+	   The reorder request
 	*/
 	Body *models.SecurityRealmsReorderRequest
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the reorder security realms params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ReorderSecurityRealmsParams) WithDefaults() *ReorderSecurityRealmsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the reorder security realms params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ReorderSecurityRealmsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the reorder security realms params
@@ -141,7 +155,6 @@ func (o *ReorderSecurityRealmsParams) WriteToRequest(r runtime.ClientRequest, re
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

@@ -35,64 +35,79 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewSetEsClusterKeystoreParams creates a new SetEsClusterKeystoreParams object
-// with the default values initialized.
+// NewSetEsClusterKeystoreParams creates a new SetEsClusterKeystoreParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewSetEsClusterKeystoreParams() *SetEsClusterKeystoreParams {
-	var ()
 	return &SetEsClusterKeystoreParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewSetEsClusterKeystoreParamsWithTimeout creates a new SetEsClusterKeystoreParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewSetEsClusterKeystoreParamsWithTimeout(timeout time.Duration) *SetEsClusterKeystoreParams {
-	var ()
 	return &SetEsClusterKeystoreParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewSetEsClusterKeystoreParamsWithContext creates a new SetEsClusterKeystoreParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewSetEsClusterKeystoreParamsWithContext(ctx context.Context) *SetEsClusterKeystoreParams {
-	var ()
 	return &SetEsClusterKeystoreParams{
-
 		Context: ctx,
 	}
 }
 
 // NewSetEsClusterKeystoreParamsWithHTTPClient creates a new SetEsClusterKeystoreParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewSetEsClusterKeystoreParamsWithHTTPClient(client *http.Client) *SetEsClusterKeystoreParams {
-	var ()
 	return &SetEsClusterKeystoreParams{
 		HTTPClient: client,
 	}
 }
 
-/*SetEsClusterKeystoreParams contains all the parameters to send to the API endpoint
-for the set es cluster keystore operation typically these are written to a http.Request
+/* SetEsClusterKeystoreParams contains all the parameters to send to the API endpoint
+   for the set es cluster keystore operation.
+
+   Typically these are written to a http.Request.
 */
 type SetEsClusterKeystoreParams struct {
 
-	/*Body
-	  Keystore settings to update
+	/* Body.
 
+	   Keystore settings to update
 	*/
 	Body *models.KeystoreContents
-	/*ClusterID
-	  Identifier for the Elasticsearch cluster
 
+	/* ClusterID.
+
+	   Identifier for the Elasticsearch cluster
 	*/
 	ClusterID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the set es cluster keystore params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetEsClusterKeystoreParams) WithDefaults() *SetEsClusterKeystoreParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the set es cluster keystore params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetEsClusterKeystoreParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the set es cluster keystore params
@@ -157,7 +172,6 @@ func (o *SetEsClusterKeystoreParams) WriteToRequest(r runtime.ClientRequest, reg
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

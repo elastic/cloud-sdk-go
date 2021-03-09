@@ -34,71 +34,86 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewResyncEsClustersParams creates a new ResyncEsClustersParams object
-// with the default values initialized.
+// NewResyncEsClustersParams creates a new ResyncEsClustersParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewResyncEsClustersParams() *ResyncEsClustersParams {
-	var (
-		skipMatchingVersionDefault = bool(true)
-	)
 	return &ResyncEsClustersParams{
-		SkipMatchingVersion: &skipMatchingVersionDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewResyncEsClustersParamsWithTimeout creates a new ResyncEsClustersParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewResyncEsClustersParamsWithTimeout(timeout time.Duration) *ResyncEsClustersParams {
-	var (
-		skipMatchingVersionDefault = bool(true)
-	)
 	return &ResyncEsClustersParams{
-		SkipMatchingVersion: &skipMatchingVersionDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewResyncEsClustersParamsWithContext creates a new ResyncEsClustersParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewResyncEsClustersParamsWithContext(ctx context.Context) *ResyncEsClustersParams {
-	var (
-		skipMatchingVersionDefault = bool(true)
-	)
 	return &ResyncEsClustersParams{
-		SkipMatchingVersion: &skipMatchingVersionDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewResyncEsClustersParamsWithHTTPClient creates a new ResyncEsClustersParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewResyncEsClustersParamsWithHTTPClient(client *http.Client) *ResyncEsClustersParams {
-	var (
-		skipMatchingVersionDefault = bool(true)
-	)
 	return &ResyncEsClustersParams{
-		SkipMatchingVersion: &skipMatchingVersionDefault,
-		HTTPClient:          client,
+		HTTPClient: client,
 	}
 }
 
-/*ResyncEsClustersParams contains all the parameters to send to the API endpoint
-for the resync es clusters operation typically these are written to a http.Request
+/* ResyncEsClustersParams contains all the parameters to send to the API endpoint
+   for the resync es clusters operation.
+
+   Typically these are written to a http.Request.
 */
 type ResyncEsClustersParams struct {
 
-	/*SkipMatchingVersion
-	  When true, skips the document indexing when the version matches the in-memory copy.
+	/* SkipMatchingVersion.
 
+	   When true, skips the document indexing when the version matches the in-memory copy.
+
+	   Default: true
 	*/
 	SkipMatchingVersion *bool
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the resync es clusters params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ResyncEsClustersParams) WithDefaults() *ResyncEsClustersParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the resync es clusters params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ResyncEsClustersParams) SetDefaults() {
+	var (
+		skipMatchingVersionDefault = bool(true)
+	)
+
+	val := ResyncEsClustersParams{
+		SkipMatchingVersion: &skipMatchingVersionDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the resync es clusters params
@@ -157,16 +172,17 @@ func (o *ResyncEsClustersParams) WriteToRequest(r runtime.ClientRequest, reg str
 
 		// query param skip_matching_version
 		var qrSkipMatchingVersion bool
+
 		if o.SkipMatchingVersion != nil {
 			qrSkipMatchingVersion = *o.SkipMatchingVersion
 		}
 		qSkipMatchingVersion := swag.FormatBool(qrSkipMatchingVersion)
 		if qSkipMatchingVersion != "" {
+
 			if err := r.SetQueryParam("skip_matching_version", qSkipMatchingVersion); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

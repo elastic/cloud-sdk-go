@@ -64,7 +64,6 @@ func (o *UpdateTrustRelationshipReader) ReadResponse(response runtime.ClientResp
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,18 +74,21 @@ func NewUpdateTrustRelationshipOK() *UpdateTrustRelationshipOK {
 	return &UpdateTrustRelationshipOK{}
 }
 
-/*UpdateTrustRelationshipOK handles this case with default header values.
+/* UpdateTrustRelationshipOK describes a response with status code 200, with default header values.
 
 The request was valid and the trust relationship was updated.
 */
 type UpdateTrustRelationshipOK struct {
-	/*The date-time when the resource was created (ISO format relative to UTC)
+
+	/* The date-time when the resource was created (ISO format relative to UTC)
 	 */
 	XCloudResourceCreated string
-	/*The date-time when the resource was last modified (ISO format relative to UTC)
+
+	/* The date-time when the resource was last modified (ISO format relative to UTC)
 	 */
 	XCloudResourceLastModified string
-	/*The resource version, which is used to avoid update conflicts with concurrent operations
+
+	/* The resource version, which is used to avoid update conflicts with concurrent operations
 	 */
 	XCloudResourceVersion string
 
@@ -96,21 +98,32 @@ type UpdateTrustRelationshipOK struct {
 func (o *UpdateTrustRelationshipOK) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/trust-relationships/{trust_relationship_id}][%d] updateTrustRelationshipOK  %+v", 200, o.Payload)
 }
-
 func (o *UpdateTrustRelationshipOK) GetPayload() *models.TrustRelationshipUpdateResponse {
 	return o.Payload
 }
 
 func (o *UpdateTrustRelationshipOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-resource-created
-	o.XCloudResourceCreated = response.GetHeader("x-cloud-resource-created")
+	// hydrates response header x-cloud-resource-created
+	hdrXCloudResourceCreated := response.GetHeader("x-cloud-resource-created")
 
-	// response header x-cloud-resource-last-modified
-	o.XCloudResourceLastModified = response.GetHeader("x-cloud-resource-last-modified")
+	if hdrXCloudResourceCreated != "" {
+		o.XCloudResourceCreated = hdrXCloudResourceCreated
+	}
 
-	// response header x-cloud-resource-version
-	o.XCloudResourceVersion = response.GetHeader("x-cloud-resource-version")
+	// hydrates response header x-cloud-resource-last-modified
+	hdrXCloudResourceLastModified := response.GetHeader("x-cloud-resource-last-modified")
+
+	if hdrXCloudResourceLastModified != "" {
+		o.XCloudResourceLastModified = hdrXCloudResourceLastModified
+	}
+
+	// hydrates response header x-cloud-resource-version
+	hdrXCloudResourceVersion := response.GetHeader("x-cloud-resource-version")
+
+	if hdrXCloudResourceVersion != "" {
+		o.XCloudResourceVersion = hdrXCloudResourceVersion
+	}
 
 	o.Payload = new(models.TrustRelationshipUpdateResponse)
 
@@ -127,7 +140,7 @@ func NewUpdateTrustRelationshipBadRequest() *UpdateTrustRelationshipBadRequest {
 	return &UpdateTrustRelationshipBadRequest{}
 }
 
-/*UpdateTrustRelationshipBadRequest handles this case with default header values.
+/* UpdateTrustRelationshipBadRequest describes a response with status code 400, with default header values.
 
 The trust relationship request had errors.
 */
@@ -138,7 +151,6 @@ type UpdateTrustRelationshipBadRequest struct {
 func (o *UpdateTrustRelationshipBadRequest) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/trust-relationships/{trust_relationship_id}][%d] updateTrustRelationshipBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *UpdateTrustRelationshipBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -160,7 +172,7 @@ func NewUpdateTrustRelationshipUnauthorized() *UpdateTrustRelationshipUnauthoriz
 	return &UpdateTrustRelationshipUnauthorized{}
 }
 
-/*UpdateTrustRelationshipUnauthorized handles this case with default header values.
+/* UpdateTrustRelationshipUnauthorized describes a response with status code 401, with default header values.
 
 You are not authorized to perform this action.
 */
@@ -171,7 +183,6 @@ type UpdateTrustRelationshipUnauthorized struct {
 func (o *UpdateTrustRelationshipUnauthorized) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/trust-relationships/{trust_relationship_id}][%d] updateTrustRelationshipUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *UpdateTrustRelationshipUnauthorized) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -193,12 +204,13 @@ func NewUpdateTrustRelationshipNotFound() *UpdateTrustRelationshipNotFound {
 	return &UpdateTrustRelationshipNotFound{}
 }
 
-/*UpdateTrustRelationshipNotFound handles this case with default header values.
+/* UpdateTrustRelationshipNotFound describes a response with status code 404, with default header values.
 
 The trust relationship specified by {trust_relationship_id} cannot be found. (code: `trust_relationships.not_found`)
 */
 type UpdateTrustRelationshipNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -208,15 +220,18 @@ type UpdateTrustRelationshipNotFound struct {
 func (o *UpdateTrustRelationshipNotFound) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/trust-relationships/{trust_relationship_id}][%d] updateTrustRelationshipNotFound  %+v", 404, o.Payload)
 }
-
 func (o *UpdateTrustRelationshipNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *UpdateTrustRelationshipNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

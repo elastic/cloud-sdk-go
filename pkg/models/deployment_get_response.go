@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -117,7 +119,6 @@ func (m *DeploymentGetResponse) validateID(formats strfmt.Registry) error {
 }
 
 func (m *DeploymentGetResponse) validateMetadata(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Metadata) { // not required
 		return nil
 	}
@@ -144,7 +145,6 @@ func (m *DeploymentGetResponse) validateName(formats strfmt.Registry) error {
 }
 
 func (m *DeploymentGetResponse) validateObservability(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Observability) { // not required
 		return nil
 	}
@@ -180,13 +180,94 @@ func (m *DeploymentGetResponse) validateResources(formats strfmt.Registry) error
 }
 
 func (m *DeploymentGetResponse) validateSettings(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Settings) { // not required
 		return nil
 	}
 
 	if m.Settings != nil {
 		if err := m.Settings.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("settings")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this deployment get response based on the context it is used
+func (m *DeploymentGetResponse) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateMetadata(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateObservability(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateResources(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateSettings(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *DeploymentGetResponse) contextValidateMetadata(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Metadata != nil {
+		if err := m.Metadata.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("metadata")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *DeploymentGetResponse) contextValidateObservability(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Observability != nil {
+		if err := m.Observability.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("observability")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *DeploymentGetResponse) contextValidateResources(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Resources != nil {
+		if err := m.Resources.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("resources")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *DeploymentGetResponse) contextValidateSettings(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Settings != nil {
+		if err := m.Settings.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("settings")
 			}

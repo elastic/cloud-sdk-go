@@ -33,64 +33,79 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetDeploymentNoteParams creates a new GetDeploymentNoteParams object
-// with the default values initialized.
+// NewGetDeploymentNoteParams creates a new GetDeploymentNoteParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetDeploymentNoteParams() *GetDeploymentNoteParams {
-	var ()
 	return &GetDeploymentNoteParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetDeploymentNoteParamsWithTimeout creates a new GetDeploymentNoteParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetDeploymentNoteParamsWithTimeout(timeout time.Duration) *GetDeploymentNoteParams {
-	var ()
 	return &GetDeploymentNoteParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetDeploymentNoteParamsWithContext creates a new GetDeploymentNoteParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetDeploymentNoteParamsWithContext(ctx context.Context) *GetDeploymentNoteParams {
-	var ()
 	return &GetDeploymentNoteParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetDeploymentNoteParamsWithHTTPClient creates a new GetDeploymentNoteParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetDeploymentNoteParamsWithHTTPClient(client *http.Client) *GetDeploymentNoteParams {
-	var ()
 	return &GetDeploymentNoteParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetDeploymentNoteParams contains all the parameters to send to the API endpoint
-for the get deployment note operation typically these are written to a http.Request
+/* GetDeploymentNoteParams contains all the parameters to send to the API endpoint
+   for the get deployment note operation.
+
+   Typically these are written to a http.Request.
 */
 type GetDeploymentNoteParams struct {
 
-	/*DeploymentID
-	  Identifier for the deployment
+	/* DeploymentID.
 
+	   Identifier for the deployment
 	*/
 	DeploymentID string
-	/*NoteID
-	  Identifier of the note to be fetched
 
+	/* NoteID.
+
+	   Identifier of the note to be fetched
 	*/
 	NoteID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get deployment note params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetDeploymentNoteParams) WithDefaults() *GetDeploymentNoteParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get deployment note params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetDeploymentNoteParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get deployment note params

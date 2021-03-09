@@ -33,64 +33,79 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetAppsearchReadOnlyModeParams creates a new GetAppsearchReadOnlyModeParams object
-// with the default values initialized.
+// NewGetAppsearchReadOnlyModeParams creates a new GetAppsearchReadOnlyModeParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetAppsearchReadOnlyModeParams() *GetAppsearchReadOnlyModeParams {
-	var ()
 	return &GetAppsearchReadOnlyModeParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetAppsearchReadOnlyModeParamsWithTimeout creates a new GetAppsearchReadOnlyModeParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetAppsearchReadOnlyModeParamsWithTimeout(timeout time.Duration) *GetAppsearchReadOnlyModeParams {
-	var ()
 	return &GetAppsearchReadOnlyModeParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetAppsearchReadOnlyModeParamsWithContext creates a new GetAppsearchReadOnlyModeParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetAppsearchReadOnlyModeParamsWithContext(ctx context.Context) *GetAppsearchReadOnlyModeParams {
-	var ()
 	return &GetAppsearchReadOnlyModeParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetAppsearchReadOnlyModeParamsWithHTTPClient creates a new GetAppsearchReadOnlyModeParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetAppsearchReadOnlyModeParamsWithHTTPClient(client *http.Client) *GetAppsearchReadOnlyModeParams {
-	var ()
 	return &GetAppsearchReadOnlyModeParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetAppsearchReadOnlyModeParams contains all the parameters to send to the API endpoint
-for the get appsearch read only mode operation typically these are written to a http.Request
+/* GetAppsearchReadOnlyModeParams contains all the parameters to send to the API endpoint
+   for the get appsearch read only mode operation.
+
+   Typically these are written to a http.Request.
 */
 type GetAppsearchReadOnlyModeParams struct {
 
-	/*DeploymentID
-	  Identifier for the Deployment.
+	/* DeploymentID.
 
+	   Identifier for the Deployment.
 	*/
 	DeploymentID string
-	/*RefID
-	  User-specified RefId for the Resource.
 
+	/* RefID.
+
+	   User-specified RefId for the Resource.
 	*/
 	RefID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get appsearch read only mode params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetAppsearchReadOnlyModeParams) WithDefaults() *GetAppsearchReadOnlyModeParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get appsearch read only mode params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetAppsearchReadOnlyModeParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get appsearch read only mode params

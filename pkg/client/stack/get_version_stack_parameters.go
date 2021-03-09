@@ -33,59 +33,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetVersionStackParams creates a new GetVersionStackParams object
-// with the default values initialized.
+// NewGetVersionStackParams creates a new GetVersionStackParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetVersionStackParams() *GetVersionStackParams {
-	var ()
 	return &GetVersionStackParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetVersionStackParamsWithTimeout creates a new GetVersionStackParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetVersionStackParamsWithTimeout(timeout time.Duration) *GetVersionStackParams {
-	var ()
 	return &GetVersionStackParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetVersionStackParamsWithContext creates a new GetVersionStackParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetVersionStackParamsWithContext(ctx context.Context) *GetVersionStackParams {
-	var ()
 	return &GetVersionStackParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetVersionStackParamsWithHTTPClient creates a new GetVersionStackParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetVersionStackParamsWithHTTPClient(client *http.Client) *GetVersionStackParams {
-	var ()
 	return &GetVersionStackParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetVersionStackParams contains all the parameters to send to the API endpoint
-for the get version stack operation typically these are written to a http.Request
+/* GetVersionStackParams contains all the parameters to send to the API endpoint
+   for the get version stack operation.
+
+   Typically these are written to a http.Request.
 */
 type GetVersionStackParams struct {
 
-	/*Version
-	  The Elastic Stack version. For example, `5.3.1` or `5.0.0-RC4`.
+	/* Version.
 
+	   The Elastic Stack version. For example, `5.3.1` or `5.0.0-RC4`.
 	*/
 	Version string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get version stack params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetVersionStackParams) WithDefaults() *GetVersionStackParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get version stack params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetVersionStackParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get version stack params

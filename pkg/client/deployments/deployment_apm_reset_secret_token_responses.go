@@ -64,7 +64,6 @@ func (o *DeploymentApmResetSecretTokenReader) ReadResponse(response runtime.Clie
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,7 +74,7 @@ func NewDeploymentApmResetSecretTokenAccepted() *DeploymentApmResetSecretTokenAc
 	return &DeploymentApmResetSecretTokenAccepted{}
 }
 
-/*DeploymentApmResetSecretTokenAccepted handles this case with default header values.
+/* DeploymentApmResetSecretTokenAccepted describes a response with status code 202, with default header values.
 
 Response containing the new secret token, plan to apply it starts
 */
@@ -86,7 +85,6 @@ type DeploymentApmResetSecretTokenAccepted struct {
 func (o *DeploymentApmResetSecretTokenAccepted) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/apm/{ref_id}/_reset-token][%d] deploymentApmResetSecretTokenAccepted  %+v", 202, o.Payload)
 }
-
 func (o *DeploymentApmResetSecretTokenAccepted) GetPayload() *models.ApmCrudResponse {
 	return o.Payload
 }
@@ -108,13 +106,14 @@ func NewDeploymentApmResetSecretTokenNotFound() *DeploymentApmResetSecretTokenNo
 	return &DeploymentApmResetSecretTokenNotFound{}
 }
 
-/*DeploymentApmResetSecretTokenNotFound handles this case with default header values.
+/* DeploymentApmResetSecretTokenNotFound describes a response with status code 404, with default header values.
 
-* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+ * The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
 * The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)
- */
+*/
 type DeploymentApmResetSecretTokenNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -124,15 +123,18 @@ type DeploymentApmResetSecretTokenNotFound struct {
 func (o *DeploymentApmResetSecretTokenNotFound) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/apm/{ref_id}/_reset-token][%d] deploymentApmResetSecretTokenNotFound  %+v", 404, o.Payload)
 }
-
 func (o *DeploymentApmResetSecretTokenNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *DeploymentApmResetSecretTokenNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -149,12 +151,13 @@ func NewDeploymentApmResetSecretTokenRetryWith() *DeploymentApmResetSecretTokenR
 	return &DeploymentApmResetSecretTokenRetryWith{}
 }
 
-/*DeploymentApmResetSecretTokenRetryWith handles this case with default header values.
+/* DeploymentApmResetSecretTokenRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type DeploymentApmResetSecretTokenRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -164,15 +167,18 @@ type DeploymentApmResetSecretTokenRetryWith struct {
 func (o *DeploymentApmResetSecretTokenRetryWith) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/apm/{ref_id}/_reset-token][%d] deploymentApmResetSecretTokenRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *DeploymentApmResetSecretTokenRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *DeploymentApmResetSecretTokenRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -189,12 +195,13 @@ func NewDeploymentApmResetSecretTokenInternalServerError() *DeploymentApmResetSe
 	return &DeploymentApmResetSecretTokenInternalServerError{}
 }
 
-/*DeploymentApmResetSecretTokenInternalServerError handles this case with default header values.
+/* DeploymentApmResetSecretTokenInternalServerError describes a response with status code 500, with default header values.
 
 We have failed you. (code: `deployments.deployment_resource_no_longer_exists`)
 */
 type DeploymentApmResetSecretTokenInternalServerError struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -204,15 +211,18 @@ type DeploymentApmResetSecretTokenInternalServerError struct {
 func (o *DeploymentApmResetSecretTokenInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/apm/{ref_id}/_reset-token][%d] deploymentApmResetSecretTokenInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *DeploymentApmResetSecretTokenInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *DeploymentApmResetSecretTokenInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

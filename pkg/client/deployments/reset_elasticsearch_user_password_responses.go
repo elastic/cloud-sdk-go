@@ -64,7 +64,6 @@ func (o *ResetElasticsearchUserPasswordReader) ReadResponse(response runtime.Cli
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,7 +74,7 @@ func NewResetElasticsearchUserPasswordOK() *ResetElasticsearchUserPasswordOK {
 	return &ResetElasticsearchUserPasswordOK{}
 }
 
-/*ResetElasticsearchUserPasswordOK handles this case with default header values.
+/* ResetElasticsearchUserPasswordOK describes a response with status code 200, with default header values.
 
 The password reset was out carried successfully
 */
@@ -86,7 +85,6 @@ type ResetElasticsearchUserPasswordOK struct {
 func (o *ResetElasticsearchUserPasswordOK) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_reset-password][%d] resetElasticsearchUserPasswordOK  %+v", 200, o.Payload)
 }
-
 func (o *ResetElasticsearchUserPasswordOK) GetPayload() *models.ElasticsearchElasticUserPasswordResetResponse {
 	return o.Payload
 }
@@ -108,13 +106,14 @@ func NewResetElasticsearchUserPasswordNotFound() *ResetElasticsearchUserPassword
 	return &ResetElasticsearchUserPasswordNotFound{}
 }
 
-/*ResetElasticsearchUserPasswordNotFound handles this case with default header values.
+/* ResetElasticsearchUserPasswordNotFound describes a response with status code 404, with default header values.
 
-* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+ * The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
 * The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)
- */
+*/
 type ResetElasticsearchUserPasswordNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -124,15 +123,18 @@ type ResetElasticsearchUserPasswordNotFound struct {
 func (o *ResetElasticsearchUserPasswordNotFound) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_reset-password][%d] resetElasticsearchUserPasswordNotFound  %+v", 404, o.Payload)
 }
-
 func (o *ResetElasticsearchUserPasswordNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *ResetElasticsearchUserPasswordNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -149,12 +151,13 @@ func NewResetElasticsearchUserPasswordRetryWith() *ResetElasticsearchUserPasswor
 	return &ResetElasticsearchUserPasswordRetryWith{}
 }
 
-/*ResetElasticsearchUserPasswordRetryWith handles this case with default header values.
+/* ResetElasticsearchUserPasswordRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type ResetElasticsearchUserPasswordRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -164,15 +167,18 @@ type ResetElasticsearchUserPasswordRetryWith struct {
 func (o *ResetElasticsearchUserPasswordRetryWith) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_reset-password][%d] resetElasticsearchUserPasswordRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *ResetElasticsearchUserPasswordRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *ResetElasticsearchUserPasswordRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -189,12 +195,13 @@ func NewResetElasticsearchUserPasswordInternalServerError() *ResetElasticsearchU
 	return &ResetElasticsearchUserPasswordInternalServerError{}
 }
 
-/*ResetElasticsearchUserPasswordInternalServerError handles this case with default header values.
+/* ResetElasticsearchUserPasswordInternalServerError describes a response with status code 500, with default header values.
 
 Failed to reset the 'elastic' user's password. (code: `deployments.elasticsearch.password_reset_error`)
 */
 type ResetElasticsearchUserPasswordInternalServerError struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -204,15 +211,18 @@ type ResetElasticsearchUserPasswordInternalServerError struct {
 func (o *ResetElasticsearchUserPasswordInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_reset-password][%d] resetElasticsearchUserPasswordInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *ResetElasticsearchUserPasswordInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *ResetElasticsearchUserPasswordInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

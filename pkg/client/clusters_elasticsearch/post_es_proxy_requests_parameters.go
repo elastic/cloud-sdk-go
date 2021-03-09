@@ -33,74 +33,91 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewPostEsProxyRequestsParams creates a new PostEsProxyRequestsParams object
-// with the default values initialized.
+// NewPostEsProxyRequestsParams creates a new PostEsProxyRequestsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPostEsProxyRequestsParams() *PostEsProxyRequestsParams {
-	var ()
 	return &PostEsProxyRequestsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPostEsProxyRequestsParamsWithTimeout creates a new PostEsProxyRequestsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPostEsProxyRequestsParamsWithTimeout(timeout time.Duration) *PostEsProxyRequestsParams {
-	var ()
 	return &PostEsProxyRequestsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPostEsProxyRequestsParamsWithContext creates a new PostEsProxyRequestsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPostEsProxyRequestsParamsWithContext(ctx context.Context) *PostEsProxyRequestsParams {
-	var ()
 	return &PostEsProxyRequestsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPostEsProxyRequestsParamsWithHTTPClient creates a new PostEsProxyRequestsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPostEsProxyRequestsParamsWithHTTPClient(client *http.Client) *PostEsProxyRequestsParams {
-	var ()
 	return &PostEsProxyRequestsParams{
 		HTTPClient: client,
 	}
 }
 
-/*PostEsProxyRequestsParams contains all the parameters to send to the API endpoint
-for the post es proxy requests operation typically these are written to a http.Request
+/* PostEsProxyRequestsParams contains all the parameters to send to the API endpoint
+   for the post es proxy requests operation.
+
+   Typically these are written to a http.Request.
 */
 type PostEsProxyRequestsParams struct {
 
-	/*XManagementRequest
-	  X-Management-Request header value. Needs to be set to true
+	/* XManagementRequest.
 
+	   X-Management-Request header value. Needs to be set to true
 	*/
 	XManagementRequest string
-	/*Body
-	  The JSON payload to proxy to the Elasticsearch cluster
 
+	/* Body.
+
+	   The JSON payload to proxy to the Elasticsearch cluster
 	*/
 	Body string
-	/*ClusterID
-	  Identifier for the Elasticsearch cluster
 
+	/* ClusterID.
+
+	   Identifier for the Elasticsearch cluster
 	*/
 	ClusterID string
-	/*ElasticsearchPath
-	  The URL part to proxy to the Elasticsearch cluster. Example: _search or _cat/indices?v&h=i,tm&s=tm:desc
 
+	/* ElasticsearchPath.
+
+	   The URL part to proxy to the Elasticsearch cluster. Example: _search or _cat/indices?v&h=i,tm&s=tm:desc
 	*/
 	ElasticsearchPath string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the post es proxy requests params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostEsProxyRequestsParams) WithDefaults() *PostEsProxyRequestsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the post es proxy requests params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PostEsProxyRequestsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the post es proxy requests params
@@ -192,7 +209,6 @@ func (o *PostEsProxyRequestsParams) WriteToRequest(r runtime.ClientRequest, reg 
 	if err := r.SetHeaderParam("X-Management-Request", o.XManagementRequest); err != nil {
 		return err
 	}
-
 	if err := r.SetBodyParam(o.Body); err != nil {
 		return err
 	}

@@ -34,89 +34,99 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewShutdownEsClusterParams creates a new ShutdownEsClusterParams object
-// with the default values initialized.
+// NewShutdownEsClusterParams creates a new ShutdownEsClusterParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewShutdownEsClusterParams() *ShutdownEsClusterParams {
-	var (
-		hideDefault         = bool(false)
-		skipSnapshotDefault = bool(false)
-	)
 	return &ShutdownEsClusterParams{
-		Hide:         &hideDefault,
-		SkipSnapshot: &skipSnapshotDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewShutdownEsClusterParamsWithTimeout creates a new ShutdownEsClusterParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewShutdownEsClusterParamsWithTimeout(timeout time.Duration) *ShutdownEsClusterParams {
-	var (
-		hideDefault         = bool(false)
-		skipSnapshotDefault = bool(false)
-	)
 	return &ShutdownEsClusterParams{
-		Hide:         &hideDefault,
-		SkipSnapshot: &skipSnapshotDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewShutdownEsClusterParamsWithContext creates a new ShutdownEsClusterParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewShutdownEsClusterParamsWithContext(ctx context.Context) *ShutdownEsClusterParams {
-	var (
-		hideDefault         = bool(false)
-		skipSnapshotDefault = bool(false)
-	)
 	return &ShutdownEsClusterParams{
-		Hide:         &hideDefault,
-		SkipSnapshot: &skipSnapshotDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewShutdownEsClusterParamsWithHTTPClient creates a new ShutdownEsClusterParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewShutdownEsClusterParamsWithHTTPClient(client *http.Client) *ShutdownEsClusterParams {
-	var (
-		hideDefault         = bool(false)
-		skipSnapshotDefault = bool(false)
-	)
 	return &ShutdownEsClusterParams{
-		Hide:         &hideDefault,
-		SkipSnapshot: &skipSnapshotDefault,
-		HTTPClient:   client,
+		HTTPClient: client,
 	}
 }
 
-/*ShutdownEsClusterParams contains all the parameters to send to the API endpoint
-for the shutdown es cluster operation typically these are written to a http.Request
+/* ShutdownEsClusterParams contains all the parameters to send to the API endpoint
+   for the shutdown es cluster operation.
+
+   Typically these are written to a http.Request.
 */
 type ShutdownEsClusterParams struct {
 
-	/*ClusterID
-	  The Elasticsearch cluster identifier.
+	/* ClusterID.
 
+	   The Elasticsearch cluster identifier.
 	*/
 	ClusterID string
-	/*Hide
-	  Hides the clusters during shutdown. NOTE: By default, hidden clusters are not listed.
 
+	/* Hide.
+
+	   Hides the clusters during shutdown. NOTE: By default, hidden clusters are not listed.
 	*/
 	Hide *bool
-	/*SkipSnapshot
-	  When `true`, skips the snapshot when the cluster is shut down.
 
+	/* SkipSnapshot.
+
+	   When `true`, skips the snapshot when the cluster is shut down.
 	*/
 	SkipSnapshot *bool
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the shutdown es cluster params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ShutdownEsClusterParams) WithDefaults() *ShutdownEsClusterParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the shutdown es cluster params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ShutdownEsClusterParams) SetDefaults() {
+	var (
+		hideDefault = bool(false)
+
+		skipSnapshotDefault = bool(false)
+	)
+
+	val := ShutdownEsClusterParams{
+		Hide:         &hideDefault,
+		SkipSnapshot: &skipSnapshotDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the shutdown es cluster params
@@ -202,32 +212,34 @@ func (o *ShutdownEsClusterParams) WriteToRequest(r runtime.ClientRequest, reg st
 
 		// query param hide
 		var qrHide bool
+
 		if o.Hide != nil {
 			qrHide = *o.Hide
 		}
 		qHide := swag.FormatBool(qrHide)
 		if qHide != "" {
+
 			if err := r.SetQueryParam("hide", qHide); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.SkipSnapshot != nil {
 
 		// query param skip_snapshot
 		var qrSkipSnapshot bool
+
 		if o.SkipSnapshot != nil {
 			qrSkipSnapshot = *o.SkipSnapshot
 		}
 		qSkipSnapshot := swag.FormatBool(qrSkipSnapshot)
 		if qSkipSnapshot != "" {
+
 			if err := r.SetQueryParam("skip_snapshot", qSkipSnapshot); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

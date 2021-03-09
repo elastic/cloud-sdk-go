@@ -52,7 +52,6 @@ func (o *GetApmMetadataRawReader) ReadResponse(response runtime.ClientResponse, 
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,7 +62,7 @@ func NewGetApmMetadataRawOK() *GetApmMetadataRawOK {
 	return &GetApmMetadataRawOK{}
 }
 
-/*GetApmMetadataRawOK handles this case with default header values.
+/* GetApmMetadataRawOK describes a response with status code 200, with default header values.
 
 The cluster metadata was successfully returned
 */
@@ -74,7 +73,6 @@ type GetApmMetadataRawOK struct {
 func (o *GetApmMetadataRawOK) Error() string {
 	return fmt.Sprintf("[GET /clusters/apm/{cluster_id}/metadata/raw][%d] getApmMetadataRawOK  %+v", 200, o.Payload)
 }
-
 func (o *GetApmMetadataRawOK) GetPayload() interface{} {
 	return o.Payload
 }
@@ -94,7 +92,7 @@ func NewGetApmMetadataRawNotFound() *GetApmMetadataRawNotFound {
 	return &GetApmMetadataRawNotFound{}
 }
 
-/*GetApmMetadataRawNotFound handles this case with default header values.
+/* GetApmMetadataRawNotFound describes a response with status code 404, with default header values.
 
 The cluster specified by {cluster_id} cannot be found (code: 'clusters.cluster_not_found')
 */
@@ -105,7 +103,6 @@ type GetApmMetadataRawNotFound struct {
 func (o *GetApmMetadataRawNotFound) Error() string {
 	return fmt.Sprintf("[GET /clusters/apm/{cluster_id}/metadata/raw][%d] getApmMetadataRawNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetApmMetadataRawNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

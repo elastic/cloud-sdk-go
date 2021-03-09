@@ -52,7 +52,6 @@ func (o *GetEnrollmentTokensReader) ReadResponse(response runtime.ClientResponse
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,7 +62,7 @@ func NewGetEnrollmentTokensOK() *GetEnrollmentTokensOK {
 	return &GetEnrollmentTokensOK{}
 }
 
-/*GetEnrollmentTokensOK handles this case with default header values.
+/* GetEnrollmentTokensOK describes a response with status code 200, with default header values.
 
 A token has been generated that can be used to start new servers with the requested roles
 */
@@ -74,7 +73,6 @@ type GetEnrollmentTokensOK struct {
 func (o *GetEnrollmentTokensOK) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/security/enrollment-tokens][%d] getEnrollmentTokensOK  %+v", 200, o.Payload)
 }
-
 func (o *GetEnrollmentTokensOK) GetPayload() *models.ListEnrollmentTokenReply {
 	return o.Payload
 }
@@ -96,7 +94,7 @@ func NewGetEnrollmentTokensRetryWith() *GetEnrollmentTokensRetryWith {
 	return &GetEnrollmentTokensRetryWith{}
 }
 
-/*GetEnrollmentTokensRetryWith handles this case with default header values.
+/* GetEnrollmentTokensRetryWith describes a response with status code 449, with default header values.
 
 elevated permissions are required. (code: '"root.unauthorized.rbac.elevated_permissions_required"')
 */
@@ -107,7 +105,6 @@ type GetEnrollmentTokensRetryWith struct {
 func (o *GetEnrollmentTokensRetryWith) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/security/enrollment-tokens][%d] getEnrollmentTokensRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *GetEnrollmentTokensRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

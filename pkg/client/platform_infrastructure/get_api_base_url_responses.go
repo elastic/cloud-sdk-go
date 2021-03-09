@@ -58,7 +58,6 @@ func (o *GetAPIBaseURLReader) ReadResponse(response runtime.ClientResponse, cons
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,18 +68,21 @@ func NewGetAPIBaseURLOK() *GetAPIBaseURLOK {
 	return &GetAPIBaseURLOK{}
 }
 
-/*GetAPIBaseURLOK handles this case with default header values.
+/* GetAPIBaseURLOK describes a response with status code 200, with default header values.
 
 The API base Url was successfully retrieved
 */
 type GetAPIBaseURLOK struct {
-	/*The date-time when the resource was created (ISO format relative to UTC)
+
+	/* The date-time when the resource was created (ISO format relative to UTC)
 	 */
 	XCloudResourceCreated string
-	/*The date-time when the resource was last modified (ISO format relative to UTC)
+
+	/* The date-time when the resource was last modified (ISO format relative to UTC)
 	 */
 	XCloudResourceLastModified string
-	/*The resource version, which is used to avoid update conflicts with concurrent operations
+
+	/* The resource version, which is used to avoid update conflicts with concurrent operations
 	 */
 	XCloudResourceVersion string
 
@@ -90,21 +92,32 @@ type GetAPIBaseURLOK struct {
 func (o *GetAPIBaseURLOK) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/api_base_url][%d] getApiBaseUrlOK  %+v", 200, o.Payload)
 }
-
 func (o *GetAPIBaseURLOK) GetPayload() *models.APIBaseURLData {
 	return o.Payload
 }
 
 func (o *GetAPIBaseURLOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-resource-created
-	o.XCloudResourceCreated = response.GetHeader("x-cloud-resource-created")
+	// hydrates response header x-cloud-resource-created
+	hdrXCloudResourceCreated := response.GetHeader("x-cloud-resource-created")
 
-	// response header x-cloud-resource-last-modified
-	o.XCloudResourceLastModified = response.GetHeader("x-cloud-resource-last-modified")
+	if hdrXCloudResourceCreated != "" {
+		o.XCloudResourceCreated = hdrXCloudResourceCreated
+	}
 
-	// response header x-cloud-resource-version
-	o.XCloudResourceVersion = response.GetHeader("x-cloud-resource-version")
+	// hydrates response header x-cloud-resource-last-modified
+	hdrXCloudResourceLastModified := response.GetHeader("x-cloud-resource-last-modified")
+
+	if hdrXCloudResourceLastModified != "" {
+		o.XCloudResourceLastModified = hdrXCloudResourceLastModified
+	}
+
+	// hydrates response header x-cloud-resource-version
+	hdrXCloudResourceVersion := response.GetHeader("x-cloud-resource-version")
+
+	if hdrXCloudResourceVersion != "" {
+		o.XCloudResourceVersion = hdrXCloudResourceVersion
+	}
 
 	o.Payload = new(models.APIBaseURLData)
 
@@ -121,12 +134,13 @@ func NewGetAPIBaseURLNotFound() *GetAPIBaseURLNotFound {
 	return &GetAPIBaseURLNotFound{}
 }
 
-/*GetAPIBaseURLNotFound handles this case with default header values.
+/* GetAPIBaseURLNotFound describes a response with status code 404, with default header values.
 
 There is no configured API base value but optimistic locking was sent. (code: `adminconsole.base_url.not_found`)
 */
 type GetAPIBaseURLNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -136,15 +150,18 @@ type GetAPIBaseURLNotFound struct {
 func (o *GetAPIBaseURLNotFound) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/api_base_url][%d] getApiBaseUrlNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetAPIBaseURLNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *GetAPIBaseURLNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -161,12 +178,13 @@ func NewGetAPIBaseURLInternalServerError() *GetAPIBaseURLInternalServerError {
 	return &GetAPIBaseURLInternalServerError{}
 }
 
-/*GetAPIBaseURLInternalServerError handles this case with default header values.
+/* GetAPIBaseURLInternalServerError describes a response with status code 500, with default header values.
 
 The persisted Url is malformed. (code: `adminconsole.base_url.invalid_persisted_data`)
 */
 type GetAPIBaseURLInternalServerError struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -176,15 +194,18 @@ type GetAPIBaseURLInternalServerError struct {
 func (o *GetAPIBaseURLInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/api_base_url][%d] getApiBaseUrlInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *GetAPIBaseURLInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *GetAPIBaseURLInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

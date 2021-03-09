@@ -52,7 +52,6 @@ func (o *GetAPIKeyReader) ReadResponse(response runtime.ClientResponse, consumer
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,7 +62,7 @@ func NewGetAPIKeyOK() *GetAPIKeyOK {
 	return &GetAPIKeyOK{}
 }
 
-/*GetAPIKeyOK handles this case with default header values.
+/* GetAPIKeyOK describes a response with status code 200, with default header values.
 
 The API key metadata is retrieved.
 */
@@ -74,7 +73,6 @@ type GetAPIKeyOK struct {
 func (o *GetAPIKeyOK) Error() string {
 	return fmt.Sprintf("[GET /users/auth/keys/{api_key_id}][%d] getApiKeyOK  %+v", 200, o.Payload)
 }
-
 func (o *GetAPIKeyOK) GetPayload() *models.APIKeyResponse {
 	return o.Payload
 }
@@ -96,12 +94,13 @@ func NewGetAPIKeyNotFound() *GetAPIKeyNotFound {
 	return &GetAPIKeyNotFound{}
 }
 
-/*GetAPIKeyNotFound handles this case with default header values.
+/* GetAPIKeyNotFound describes a response with status code 404, with default header values.
 
 The {api_key_id} can't be found. (code: `api_keys.key_not_found`)
 */
 type GetAPIKeyNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -111,15 +110,18 @@ type GetAPIKeyNotFound struct {
 func (o *GetAPIKeyNotFound) Error() string {
 	return fmt.Sprintf("[GET /users/auth/keys/{api_key_id}][%d] getApiKeyNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetAPIKeyNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *GetAPIKeyNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

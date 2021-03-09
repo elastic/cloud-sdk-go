@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -95,6 +96,38 @@ func (m *ElasticsearchClustersInfo) validateReturnCount(formats strfmt.Registry)
 
 	if err := validate.Required("return_count", "body", m.ReturnCount); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this elasticsearch clusters info based on the context it is used
+func (m *ElasticsearchClustersInfo) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateElasticsearchClusters(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ElasticsearchClustersInfo) contextValidateElasticsearchClusters(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.ElasticsearchClusters); i++ {
+
+		if m.ElasticsearchClusters[i] != nil {
+			if err := m.ElasticsearchClusters[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("elasticsearch_clusters" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil

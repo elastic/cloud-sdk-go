@@ -52,7 +52,6 @@ func (o *DeleteKibProxyRequestsReader) ReadResponse(response runtime.ClientRespo
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,7 +62,7 @@ func NewDeleteKibProxyRequestsOK() *DeleteKibProxyRequestsOK {
 	return &DeleteKibProxyRequestsOK{}
 }
 
-/*DeleteKibProxyRequestsOK handles this case with default header values.
+/* DeleteKibProxyRequestsOK describes a response with status code 200, with default header values.
 
 The request has been processed successfully through the proxy
 */
@@ -84,7 +83,7 @@ func NewDeleteKibProxyRequestsNotFound() *DeleteKibProxyRequestsNotFound {
 	return &DeleteKibProxyRequestsNotFound{}
 }
 
-/*DeleteKibProxyRequestsNotFound handles this case with default header values.
+/* DeleteKibProxyRequestsNotFound describes a response with status code 404, with default header values.
 
 The cluster specified by {cluster_id} cannot be found (code: 'clusters.cluster_not_found')
 */
@@ -95,7 +94,6 @@ type DeleteKibProxyRequestsNotFound struct {
 func (o *DeleteKibProxyRequestsNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/kibana/{cluster_id}/proxy/{kibana_path}][%d] deleteKibProxyRequestsNotFound  %+v", 404, o.Payload)
 }
-
 func (o *DeleteKibProxyRequestsNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

@@ -58,7 +58,6 @@ func (o *AddBlueprinterBlessingReader) ReadResponse(response runtime.ClientRespo
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,7 +68,7 @@ func NewAddBlueprinterBlessingOK() *AddBlueprinterBlessingOK {
 	return &AddBlueprinterBlessingOK{}
 }
 
-/*AddBlueprinterBlessingOK handles this case with default header values.
+/* AddBlueprinterBlessingOK describes a response with status code 200, with default header values.
 
 Blessing added successfully.
 */
@@ -80,7 +79,6 @@ type AddBlueprinterBlessingOK struct {
 func (o *AddBlueprinterBlessingOK) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/blueprinter/roles/{blueprinter_role_id}/blessings/{runner_id}][%d] addBlueprinterBlessingOK  %+v", 200, o.Payload)
 }
-
 func (o *AddBlueprinterBlessingOK) GetPayload() *models.RoleAggregate {
 	return o.Payload
 }
@@ -102,12 +100,13 @@ func NewAddBlueprinterBlessingNotFound() *AddBlueprinterBlessingNotFound {
 	return &AddBlueprinterBlessingNotFound{}
 }
 
-/*AddBlueprinterBlessingNotFound handles this case with default header values.
+/* AddBlueprinterBlessingNotFound describes a response with status code 404, with default header values.
 
 The role can't be found. (code: `roles.not_found`)
 */
 type AddBlueprinterBlessingNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -117,15 +116,18 @@ type AddBlueprinterBlessingNotFound struct {
 func (o *AddBlueprinterBlessingNotFound) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/blueprinter/roles/{blueprinter_role_id}/blessings/{runner_id}][%d] addBlueprinterBlessingNotFound  %+v", 404, o.Payload)
 }
-
 func (o *AddBlueprinterBlessingNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *AddBlueprinterBlessingNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -142,12 +144,13 @@ func NewAddBlueprinterBlessingConflict() *AddBlueprinterBlessingConflict {
 	return &AddBlueprinterBlessingConflict{}
 }
 
-/*AddBlueprinterBlessingConflict handles this case with default header values.
+/* AddBlueprinterBlessingConflict describes a response with status code 409, with default header values.
 
 Your request failed because the specified version does not match the persisted version. (code: `roles.version_conflict`)
 */
 type AddBlueprinterBlessingConflict struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -157,15 +160,18 @@ type AddBlueprinterBlessingConflict struct {
 func (o *AddBlueprinterBlessingConflict) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/blueprinter/roles/{blueprinter_role_id}/blessings/{runner_id}][%d] addBlueprinterBlessingConflict  %+v", 409, o.Payload)
 }
-
 func (o *AddBlueprinterBlessingConflict) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *AddBlueprinterBlessingConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

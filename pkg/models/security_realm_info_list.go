@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -68,6 +69,38 @@ func (m *SecurityRealmInfoList) validateRealms(formats strfmt.Registry) error {
 
 		if m.Realms[i] != nil {
 			if err := m.Realms[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("realms" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this security realm info list based on the context it is used
+func (m *SecurityRealmInfoList) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateRealms(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *SecurityRealmInfoList) contextValidateRealms(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Realms); i++ {
+
+		if m.Realms[i] != nil {
+			if err := m.Realms[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("realms" + "." + strconv.Itoa(i))
 				}

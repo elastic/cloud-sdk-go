@@ -64,7 +64,6 @@ func (o *StopAllocatorMaintenanceModeReader) ReadResponse(response runtime.Clien
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,7 +74,7 @@ func NewStopAllocatorMaintenanceModeAccepted() *StopAllocatorMaintenanceModeAcce
 	return &StopAllocatorMaintenanceModeAccepted{}
 }
 
-/*StopAllocatorMaintenanceModeAccepted handles this case with default header values.
+/* StopAllocatorMaintenanceModeAccepted describes a response with status code 202, with default header values.
 
 The stop maintenance mode command was issued successfully
 */
@@ -86,7 +85,6 @@ type StopAllocatorMaintenanceModeAccepted struct {
 func (o *StopAllocatorMaintenanceModeAccepted) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/allocators/{allocator_id}/maintenance-mode/_stop][%d] stopAllocatorMaintenanceModeAccepted  %+v", 202, o.Payload)
 }
-
 func (o *StopAllocatorMaintenanceModeAccepted) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -106,12 +104,13 @@ func NewStopAllocatorMaintenanceModeForbidden() *StopAllocatorMaintenanceModeFor
 	return &StopAllocatorMaintenanceModeForbidden{}
 }
 
-/*StopAllocatorMaintenanceModeForbidden handles this case with default header values.
+/* StopAllocatorMaintenanceModeForbidden describes a response with status code 403, with default header values.
 
 The stop maintenance mode command was prohibited for the given allocator. (code: `root.unauthorized.rbac`)
 */
 type StopAllocatorMaintenanceModeForbidden struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -121,15 +120,18 @@ type StopAllocatorMaintenanceModeForbidden struct {
 func (o *StopAllocatorMaintenanceModeForbidden) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/allocators/{allocator_id}/maintenance-mode/_stop][%d] stopAllocatorMaintenanceModeForbidden  %+v", 403, o.Payload)
 }
-
 func (o *StopAllocatorMaintenanceModeForbidden) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *StopAllocatorMaintenanceModeForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -146,12 +148,13 @@ func NewStopAllocatorMaintenanceModeNotFound() *StopAllocatorMaintenanceModeNotF
 	return &StopAllocatorMaintenanceModeNotFound{}
 }
 
-/*StopAllocatorMaintenanceModeNotFound handles this case with default header values.
+/* StopAllocatorMaintenanceModeNotFound describes a response with status code 404, with default header values.
 
 The allocator specified by {allocator_id} cannot be found. (code: `allocators.allocator_not_found`)
 */
 type StopAllocatorMaintenanceModeNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -161,15 +164,18 @@ type StopAllocatorMaintenanceModeNotFound struct {
 func (o *StopAllocatorMaintenanceModeNotFound) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/allocators/{allocator_id}/maintenance-mode/_stop][%d] stopAllocatorMaintenanceModeNotFound  %+v", 404, o.Payload)
 }
-
 func (o *StopAllocatorMaintenanceModeNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *StopAllocatorMaintenanceModeNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -186,12 +192,13 @@ func NewStopAllocatorMaintenanceModeRetryWith() *StopAllocatorMaintenanceModeRet
 	return &StopAllocatorMaintenanceModeRetryWith{}
 }
 
-/*StopAllocatorMaintenanceModeRetryWith handles this case with default header values.
+/* StopAllocatorMaintenanceModeRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type StopAllocatorMaintenanceModeRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -201,15 +208,18 @@ type StopAllocatorMaintenanceModeRetryWith struct {
 func (o *StopAllocatorMaintenanceModeRetryWith) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/allocators/{allocator_id}/maintenance-mode/_stop][%d] stopAllocatorMaintenanceModeRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *StopAllocatorMaintenanceModeRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *StopAllocatorMaintenanceModeRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

@@ -70,7 +70,6 @@ func (o *DeleteDeploymentTemplateV2Reader) ReadResponse(response runtime.ClientR
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -81,7 +80,7 @@ func NewDeleteDeploymentTemplateV2OK() *DeleteDeploymentTemplateV2OK {
 	return &DeleteDeploymentTemplateV2OK{}
 }
 
-/*DeleteDeploymentTemplateV2OK handles this case with default header values.
+/* DeleteDeploymentTemplateV2OK describes a response with status code 200, with default header values.
 
 The deployment template was successfully deleted.
 */
@@ -92,7 +91,6 @@ type DeleteDeploymentTemplateV2OK struct {
 func (o *DeleteDeploymentTemplateV2OK) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/templates/{template_id}][%d] deleteDeploymentTemplateV2OK  %+v", 200, o.Payload)
 }
-
 func (o *DeleteDeploymentTemplateV2OK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -112,12 +110,13 @@ func NewDeleteDeploymentTemplateV2BadRequest() *DeleteDeploymentTemplateV2BadReq
 	return &DeleteDeploymentTemplateV2BadRequest{}
 }
 
-/*DeleteDeploymentTemplateV2BadRequest handles this case with default header values.
+/* DeleteDeploymentTemplateV2BadRequest describes a response with status code 400, with default header values.
 
 The requested region is not supported. (code: `templates.region_not_found`)
 */
 type DeleteDeploymentTemplateV2BadRequest struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -127,15 +126,18 @@ type DeleteDeploymentTemplateV2BadRequest struct {
 func (o *DeleteDeploymentTemplateV2BadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/templates/{template_id}][%d] deleteDeploymentTemplateV2BadRequest  %+v", 400, o.Payload)
 }
-
 func (o *DeleteDeploymentTemplateV2BadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *DeleteDeploymentTemplateV2BadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -152,12 +154,13 @@ func NewDeleteDeploymentTemplateV2Unauthorized() *DeleteDeploymentTemplateV2Unau
 	return &DeleteDeploymentTemplateV2Unauthorized{}
 }
 
-/*DeleteDeploymentTemplateV2Unauthorized handles this case with default header values.
+/* DeleteDeploymentTemplateV2Unauthorized describes a response with status code 401, with default header values.
 
 The user is not authorized to access requested region. (code: `templates.region_not_allowed`)
 */
 type DeleteDeploymentTemplateV2Unauthorized struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -167,15 +170,18 @@ type DeleteDeploymentTemplateV2Unauthorized struct {
 func (o *DeleteDeploymentTemplateV2Unauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/templates/{template_id}][%d] deleteDeploymentTemplateV2Unauthorized  %+v", 401, o.Payload)
 }
-
 func (o *DeleteDeploymentTemplateV2Unauthorized) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *DeleteDeploymentTemplateV2Unauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -192,12 +198,13 @@ func NewDeleteDeploymentTemplateV2NotFound() *DeleteDeploymentTemplateV2NotFound
 	return &DeleteDeploymentTemplateV2NotFound{}
 }
 
-/*DeleteDeploymentTemplateV2NotFound handles this case with default header values.
+/* DeleteDeploymentTemplateV2NotFound describes a response with status code 404, with default header values.
 
 The deployment template specified by {template_id} cannot be found. (code: `templates.template_not_found`)
 */
 type DeleteDeploymentTemplateV2NotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -207,15 +214,18 @@ type DeleteDeploymentTemplateV2NotFound struct {
 func (o *DeleteDeploymentTemplateV2NotFound) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/templates/{template_id}][%d] deleteDeploymentTemplateV2NotFound  %+v", 404, o.Payload)
 }
-
 func (o *DeleteDeploymentTemplateV2NotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *DeleteDeploymentTemplateV2NotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -232,12 +242,13 @@ func NewDeleteDeploymentTemplateV2RetryWith() *DeleteDeploymentTemplateV2RetryWi
 	return &DeleteDeploymentTemplateV2RetryWith{}
 }
 
-/*DeleteDeploymentTemplateV2RetryWith handles this case with default header values.
+/* DeleteDeploymentTemplateV2RetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type DeleteDeploymentTemplateV2RetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -247,15 +258,18 @@ type DeleteDeploymentTemplateV2RetryWith struct {
 func (o *DeleteDeploymentTemplateV2RetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/templates/{template_id}][%d] deleteDeploymentTemplateV2RetryWith  %+v", 449, o.Payload)
 }
-
 func (o *DeleteDeploymentTemplateV2RetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *DeleteDeploymentTemplateV2RetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

@@ -33,52 +33,66 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetCurrentAccountParams creates a new GetCurrentAccountParams object
-// with the default values initialized.
+// NewGetCurrentAccountParams creates a new GetCurrentAccountParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetCurrentAccountParams() *GetCurrentAccountParams {
-
 	return &GetCurrentAccountParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetCurrentAccountParamsWithTimeout creates a new GetCurrentAccountParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetCurrentAccountParamsWithTimeout(timeout time.Duration) *GetCurrentAccountParams {
-
 	return &GetCurrentAccountParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetCurrentAccountParamsWithContext creates a new GetCurrentAccountParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetCurrentAccountParamsWithContext(ctx context.Context) *GetCurrentAccountParams {
-
 	return &GetCurrentAccountParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetCurrentAccountParamsWithHTTPClient creates a new GetCurrentAccountParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetCurrentAccountParamsWithHTTPClient(client *http.Client) *GetCurrentAccountParams {
-
 	return &GetCurrentAccountParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetCurrentAccountParams contains all the parameters to send to the API endpoint
-for the get current account operation typically these are written to a http.Request
+/* GetCurrentAccountParams contains all the parameters to send to the API endpoint
+   for the get current account operation.
+
+   Typically these are written to a http.Request.
 */
 type GetCurrentAccountParams struct {
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get current account params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetCurrentAccountParams) WithDefaults() *GetCurrentAccountParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get current account params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetCurrentAccountParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get current account params

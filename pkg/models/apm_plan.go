@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -88,7 +89,6 @@ func (m *ApmPlan) validateApm(formats strfmt.Registry) error {
 }
 
 func (m *ApmPlan) validateClusterTopology(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.ClusterTopology) { // not required
 		return nil
 	}
@@ -113,13 +113,80 @@ func (m *ApmPlan) validateClusterTopology(formats strfmt.Registry) error {
 }
 
 func (m *ApmPlan) validateTransient(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Transient) { // not required
 		return nil
 	}
 
 	if m.Transient != nil {
 		if err := m.Transient.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("transient")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this apm plan based on the context it is used
+func (m *ApmPlan) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateApm(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateClusterTopology(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateTransient(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ApmPlan) contextValidateApm(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Apm != nil {
+		if err := m.Apm.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("apm")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ApmPlan) contextValidateClusterTopology(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.ClusterTopology); i++ {
+
+		if m.ClusterTopology[i] != nil {
+			if err := m.ClusterTopology[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("cluster_topology" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *ApmPlan) contextValidateTransient(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Transient != nil {
+		if err := m.Transient.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("transient")
 			}

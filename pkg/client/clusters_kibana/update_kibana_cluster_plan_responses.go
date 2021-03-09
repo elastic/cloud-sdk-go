@@ -70,7 +70,6 @@ func (o *UpdateKibanaClusterPlanReader) ReadResponse(response runtime.ClientResp
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -81,7 +80,7 @@ func NewUpdateKibanaClusterPlanOK() *UpdateKibanaClusterPlanOK {
 	return &UpdateKibanaClusterPlanOK{}
 }
 
-/*UpdateKibanaClusterPlanOK handles this case with default header values.
+/* UpdateKibanaClusterPlanOK describes a response with status code 200, with default header values.
 
 The cluster definition was valid - no further action was requested. The return object contains an internal representation of the plan, for use in debugging
 */
@@ -92,7 +91,6 @@ type UpdateKibanaClusterPlanOK struct {
 func (o *UpdateKibanaClusterPlanOK) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/plan][%d] updateKibanaClusterPlanOK  %+v", 200, o.Payload)
 }
-
 func (o *UpdateKibanaClusterPlanOK) GetPayload() *models.ClusterCrudResponse {
 	return o.Payload
 }
@@ -114,7 +112,7 @@ func NewUpdateKibanaClusterPlanAccepted() *UpdateKibanaClusterPlanAccepted {
 	return &UpdateKibanaClusterPlanAccepted{}
 }
 
-/*UpdateKibanaClusterPlanAccepted handles this case with default header values.
+/* UpdateKibanaClusterPlanAccepted describes a response with status code 202, with default header values.
 
 The plan definition was valid and the updated plan is in progress
 */
@@ -125,7 +123,6 @@ type UpdateKibanaClusterPlanAccepted struct {
 func (o *UpdateKibanaClusterPlanAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/plan][%d] updateKibanaClusterPlanAccepted  %+v", 202, o.Payload)
 }
-
 func (o *UpdateKibanaClusterPlanAccepted) GetPayload() *models.ClusterCrudResponse {
 	return o.Payload
 }
@@ -147,7 +144,7 @@ func NewUpdateKibanaClusterPlanBadRequest() *UpdateKibanaClusterPlanBadRequest {
 	return &UpdateKibanaClusterPlanBadRequest{}
 }
 
-/*UpdateKibanaClusterPlanBadRequest handles this case with default header values.
+/* UpdateKibanaClusterPlanBadRequest describes a response with status code 400, with default header values.
 
 The cluster definition contained errors (code: 'clusters.cluster_invalid_plan' and 'clusters.plan_feature_not_implemented')
 */
@@ -158,7 +155,6 @@ type UpdateKibanaClusterPlanBadRequest struct {
 func (o *UpdateKibanaClusterPlanBadRequest) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/plan][%d] updateKibanaClusterPlanBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *UpdateKibanaClusterPlanBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -180,7 +176,7 @@ func NewUpdateKibanaClusterPlanNotFound() *UpdateKibanaClusterPlanNotFound {
 	return &UpdateKibanaClusterPlanNotFound{}
 }
 
-/*UpdateKibanaClusterPlanNotFound handles this case with default header values.
+/* UpdateKibanaClusterPlanNotFound describes a response with status code 404, with default header values.
 
 The cluster specified by {cluster_id} cannot be found (code: 'clusters.cluster_not_found')
 */
@@ -191,7 +187,6 @@ type UpdateKibanaClusterPlanNotFound struct {
 func (o *UpdateKibanaClusterPlanNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/plan][%d] updateKibanaClusterPlanNotFound  %+v", 404, o.Payload)
 }
-
 func (o *UpdateKibanaClusterPlanNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -213,7 +208,7 @@ func NewUpdateKibanaClusterPlanRetryWith() *UpdateKibanaClusterPlanRetryWith {
 	return &UpdateKibanaClusterPlanRetryWith{}
 }
 
-/*UpdateKibanaClusterPlanRetryWith handles this case with default header values.
+/* UpdateKibanaClusterPlanRetryWith describes a response with status code 449, with default header values.
 
 elevated permissions are required. (code: '"root.unauthorized.rbac.elevated_permissions_required"')
 */
@@ -224,7 +219,6 @@ type UpdateKibanaClusterPlanRetryWith struct {
 func (o *UpdateKibanaClusterPlanRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/plan][%d] updateKibanaClusterPlanRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *UpdateKibanaClusterPlanRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
@@ -94,7 +95,6 @@ func (m *ActiveDirectoryUserSearch) validateScopeEnum(path, location string, val
 }
 
 func (m *ActiveDirectoryUserSearch) validateScope(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Scope) { // not required
 		return nil
 	}
@@ -104,6 +104,11 @@ func (m *ActiveDirectoryUserSearch) validateScope(formats strfmt.Registry) error
 		return err
 	}
 
+	return nil
+}
+
+// ContextValidate validates this active directory user search based on context it is used
+func (m *ActiveDirectoryUserSearch) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

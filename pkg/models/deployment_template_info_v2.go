@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -171,7 +172,6 @@ func (m *DeploymentTemplateInfoV2) validateInstanceConfigurations(formats strfmt
 }
 
 func (m *DeploymentTemplateInfoV2) validateKibanaDeeplink(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.KibanaDeeplink) { // not required
 		return nil
 	}
@@ -196,7 +196,6 @@ func (m *DeploymentTemplateInfoV2) validateKibanaDeeplink(formats strfmt.Registr
 }
 
 func (m *DeploymentTemplateInfoV2) validateMetadata(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Metadata) { // not required
 		return nil
 	}
@@ -230,13 +229,124 @@ func (m *DeploymentTemplateInfoV2) validateName(formats strfmt.Registry) error {
 }
 
 func (m *DeploymentTemplateInfoV2) validateSource(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Source) { // not required
 		return nil
 	}
 
 	if m.Source != nil {
 		if err := m.Source.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("source")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this deployment template info v2 based on the context it is used
+func (m *DeploymentTemplateInfoV2) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateDeploymentTemplate(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateInstanceConfigurations(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateKibanaDeeplink(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateMetadata(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateSource(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *DeploymentTemplateInfoV2) contextValidateDeploymentTemplate(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.DeploymentTemplate != nil {
+		if err := m.DeploymentTemplate.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("deployment_template")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *DeploymentTemplateInfoV2) contextValidateInstanceConfigurations(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.InstanceConfigurations); i++ {
+
+		if m.InstanceConfigurations[i] != nil {
+			if err := m.InstanceConfigurations[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("instance_configurations" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *DeploymentTemplateInfoV2) contextValidateKibanaDeeplink(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.KibanaDeeplink); i++ {
+
+		if m.KibanaDeeplink[i] != nil {
+			if err := m.KibanaDeeplink[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("kibana_deeplink" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *DeploymentTemplateInfoV2) contextValidateMetadata(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Metadata); i++ {
+
+		if m.Metadata[i] != nil {
+			if err := m.Metadata[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("metadata" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *DeploymentTemplateInfoV2) contextValidateSource(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Source != nil {
+		if err := m.Source.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("source")
 			}

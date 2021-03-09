@@ -52,7 +52,6 @@ func (o *GetIPFilterRulesetDeploymentAssociationsReader) ReadResponse(response r
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,7 +62,7 @@ func NewGetIPFilterRulesetDeploymentAssociationsOK() *GetIPFilterRulesetDeployme
 	return &GetIPFilterRulesetDeploymentAssociationsOK{}
 }
 
-/*GetIPFilterRulesetDeploymentAssociationsOK handles this case with default header values.
+/* GetIPFilterRulesetDeploymentAssociationsOK describes a response with status code 200, with default header values.
 
 Associations referred by IP filter rulesets were successfully returned
 */
@@ -74,7 +73,6 @@ type GetIPFilterRulesetDeploymentAssociationsOK struct {
 func (o *GetIPFilterRulesetDeploymentAssociationsOK) Error() string {
 	return fmt.Sprintf("[GET /deployments/ip-filtering/rulesets/{ruleset_id}/associations][%d] getIpFilterRulesetDeploymentAssociationsOK  %+v", 200, o.Payload)
 }
-
 func (o *GetIPFilterRulesetDeploymentAssociationsOK) GetPayload() *models.RulesetAssociations {
 	return o.Payload
 }
@@ -96,7 +94,7 @@ func NewGetIPFilterRulesetDeploymentAssociationsInternalServerError() *GetIPFilt
 	return &GetIPFilterRulesetDeploymentAssociationsInternalServerError{}
 }
 
-/*GetIPFilterRulesetDeploymentAssociationsInternalServerError handles this case with default header values.
+/* GetIPFilterRulesetDeploymentAssociationsInternalServerError describes a response with status code 500, with default header values.
 
 Request execution failed (code: 'ip_filtering.request_execution_failed')
 */
@@ -107,7 +105,6 @@ type GetIPFilterRulesetDeploymentAssociationsInternalServerError struct {
 func (o *GetIPFilterRulesetDeploymentAssociationsInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /deployments/ip-filtering/rulesets/{ruleset_id}/associations][%d] getIpFilterRulesetDeploymentAssociationsInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *GetIPFilterRulesetDeploymentAssociationsInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

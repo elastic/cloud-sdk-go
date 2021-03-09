@@ -33,52 +33,66 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewDeleteLicenseParams creates a new DeleteLicenseParams object
-// with the default values initialized.
+// NewDeleteLicenseParams creates a new DeleteLicenseParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewDeleteLicenseParams() *DeleteLicenseParams {
-
 	return &DeleteLicenseParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteLicenseParamsWithTimeout creates a new DeleteLicenseParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewDeleteLicenseParamsWithTimeout(timeout time.Duration) *DeleteLicenseParams {
-
 	return &DeleteLicenseParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewDeleteLicenseParamsWithContext creates a new DeleteLicenseParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewDeleteLicenseParamsWithContext(ctx context.Context) *DeleteLicenseParams {
-
 	return &DeleteLicenseParams{
-
 		Context: ctx,
 	}
 }
 
 // NewDeleteLicenseParamsWithHTTPClient creates a new DeleteLicenseParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewDeleteLicenseParamsWithHTTPClient(client *http.Client) *DeleteLicenseParams {
-
 	return &DeleteLicenseParams{
 		HTTPClient: client,
 	}
 }
 
-/*DeleteLicenseParams contains all the parameters to send to the API endpoint
-for the delete license operation typically these are written to a http.Request
+/* DeleteLicenseParams contains all the parameters to send to the API endpoint
+   for the delete license operation.
+
+   Typically these are written to a http.Request.
 */
 type DeleteLicenseParams struct {
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the delete license params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteLicenseParams) WithDefaults() *DeleteLicenseParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the delete license params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteLicenseParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete license params

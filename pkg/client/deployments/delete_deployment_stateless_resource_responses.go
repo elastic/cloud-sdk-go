@@ -70,7 +70,6 @@ func (o *DeleteDeploymentStatelessResourceReader) ReadResponse(response runtime.
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -81,7 +80,7 @@ func NewDeleteDeploymentStatelessResourceOK() *DeleteDeploymentStatelessResource
 	return &DeleteDeploymentStatelessResourceOK{}
 }
 
-/*DeleteDeploymentStatelessResourceOK handles this case with default header values.
+/* DeleteDeploymentStatelessResourceOK describes a response with status code 200, with default header values.
 
 Standard Deployment Resource Crud Response
 */
@@ -92,7 +91,6 @@ type DeleteDeploymentStatelessResourceOK struct {
 func (o *DeleteDeploymentStatelessResourceOK) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}][%d] deleteDeploymentStatelessResourceOK  %+v", 200, o.Payload)
 }
-
 func (o *DeleteDeploymentStatelessResourceOK) GetPayload() *models.DeploymentResourceCrudResponse {
 	return o.Payload
 }
@@ -114,12 +112,13 @@ func NewDeleteDeploymentStatelessResourceBadRequest() *DeleteDeploymentStateless
 	return &DeleteDeploymentStatelessResourceBadRequest{}
 }
 
-/*DeleteDeploymentStatelessResourceBadRequest handles this case with default header values.
+/* DeleteDeploymentStatelessResourceBadRequest describes a response with status code 400, with default header values.
 
 Resource has still instances. (code: `deployments.resource_has_instances`)
 */
 type DeleteDeploymentStatelessResourceBadRequest struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -129,15 +128,18 @@ type DeleteDeploymentStatelessResourceBadRequest struct {
 func (o *DeleteDeploymentStatelessResourceBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}][%d] deleteDeploymentStatelessResourceBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *DeleteDeploymentStatelessResourceBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *DeleteDeploymentStatelessResourceBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -154,13 +156,14 @@ func NewDeleteDeploymentStatelessResourceNotFound() *DeleteDeploymentStatelessRe
 	return &DeleteDeploymentStatelessResourceNotFound{}
 }
 
-/*DeleteDeploymentStatelessResourceNotFound handles this case with default header values.
+/* DeleteDeploymentStatelessResourceNotFound describes a response with status code 404, with default header values.
 
-* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+ * The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
 * The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)
- */
+*/
 type DeleteDeploymentStatelessResourceNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -170,15 +173,18 @@ type DeleteDeploymentStatelessResourceNotFound struct {
 func (o *DeleteDeploymentStatelessResourceNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}][%d] deleteDeploymentStatelessResourceNotFound  %+v", 404, o.Payload)
 }
-
 func (o *DeleteDeploymentStatelessResourceNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *DeleteDeploymentStatelessResourceNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -195,12 +201,13 @@ func NewDeleteDeploymentStatelessResourceRetryWith() *DeleteDeploymentStatelessR
 	return &DeleteDeploymentStatelessResourceRetryWith{}
 }
 
-/*DeleteDeploymentStatelessResourceRetryWith handles this case with default header values.
+/* DeleteDeploymentStatelessResourceRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type DeleteDeploymentStatelessResourceRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -210,15 +217,18 @@ type DeleteDeploymentStatelessResourceRetryWith struct {
 func (o *DeleteDeploymentStatelessResourceRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}][%d] deleteDeploymentStatelessResourceRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *DeleteDeploymentStatelessResourceRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *DeleteDeploymentStatelessResourceRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -235,12 +245,13 @@ func NewDeleteDeploymentStatelessResourceInternalServerError() *DeleteDeployment
 	return &DeleteDeploymentStatelessResourceInternalServerError{}
 }
 
-/*DeleteDeploymentStatelessResourceInternalServerError handles this case with default header values.
+/* DeleteDeploymentStatelessResourceInternalServerError describes a response with status code 500, with default header values.
 
 We have failed you. (code: `deployments.deployment_resource_no_longer_exists`)
 */
 type DeleteDeploymentStatelessResourceInternalServerError struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -250,15 +261,18 @@ type DeleteDeploymentStatelessResourceInternalServerError struct {
 func (o *DeleteDeploymentStatelessResourceInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}][%d] deleteDeploymentStatelessResourceInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *DeleteDeploymentStatelessResourceInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *DeleteDeploymentStatelessResourceInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

@@ -33,59 +33,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetConfigStoreOptionParams creates a new GetConfigStoreOptionParams object
-// with the default values initialized.
+// NewGetConfigStoreOptionParams creates a new GetConfigStoreOptionParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetConfigStoreOptionParams() *GetConfigStoreOptionParams {
-	var ()
 	return &GetConfigStoreOptionParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetConfigStoreOptionParamsWithTimeout creates a new GetConfigStoreOptionParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetConfigStoreOptionParamsWithTimeout(timeout time.Duration) *GetConfigStoreOptionParams {
-	var ()
 	return &GetConfigStoreOptionParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetConfigStoreOptionParamsWithContext creates a new GetConfigStoreOptionParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetConfigStoreOptionParamsWithContext(ctx context.Context) *GetConfigStoreOptionParams {
-	var ()
 	return &GetConfigStoreOptionParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetConfigStoreOptionParamsWithHTTPClient creates a new GetConfigStoreOptionParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetConfigStoreOptionParamsWithHTTPClient(client *http.Client) *GetConfigStoreOptionParams {
-	var ()
 	return &GetConfigStoreOptionParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetConfigStoreOptionParams contains all the parameters to send to the API endpoint
-for the get config store option operation typically these are written to a http.Request
+/* GetConfigStoreOptionParams contains all the parameters to send to the API endpoint
+   for the get config store option operation.
+
+   Typically these are written to a http.Request.
 */
 type GetConfigStoreOptionParams struct {
 
-	/*ConfigOptionID
-	  Name of the Config Store Option that you would like to find
+	/* ConfigOptionID.
 
+	   Name of the Config Store Option that you would like to find
 	*/
 	ConfigOptionID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get config store option params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetConfigStoreOptionParams) WithDefaults() *GetConfigStoreOptionParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get config store option params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetConfigStoreOptionParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get config store option params

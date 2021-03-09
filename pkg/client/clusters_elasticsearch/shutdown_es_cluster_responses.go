@@ -58,7 +58,6 @@ func (o *ShutdownEsClusterReader) ReadResponse(response runtime.ClientResponse, 
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,7 +68,7 @@ func NewShutdownEsClusterAccepted() *ShutdownEsClusterAccepted {
 	return &ShutdownEsClusterAccepted{}
 }
 
-/*ShutdownEsClusterAccepted handles this case with default header values.
+/* ShutdownEsClusterAccepted describes a response with status code 202, with default header values.
 
 The shutdown command was issued successfully, use the "GET" command on the /{cluster_id} resource to monitor progress
 */
@@ -80,7 +79,6 @@ type ShutdownEsClusterAccepted struct {
 func (o *ShutdownEsClusterAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/_shutdown][%d] shutdownEsClusterAccepted  %+v", 202, o.Payload)
 }
-
 func (o *ShutdownEsClusterAccepted) GetPayload() *models.ClusterCommandResponse {
 	return o.Payload
 }
@@ -102,12 +100,13 @@ func NewShutdownEsClusterNotFound() *ShutdownEsClusterNotFound {
 	return &ShutdownEsClusterNotFound{}
 }
 
-/*ShutdownEsClusterNotFound handles this case with default header values.
+/* ShutdownEsClusterNotFound describes a response with status code 404, with default header values.
 
 The cluster specified by {cluster_id} cannot be found. (code: `clusters.cluster_not_found`)
 */
 type ShutdownEsClusterNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -117,15 +116,18 @@ type ShutdownEsClusterNotFound struct {
 func (o *ShutdownEsClusterNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/_shutdown][%d] shutdownEsClusterNotFound  %+v", 404, o.Payload)
 }
-
 func (o *ShutdownEsClusterNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *ShutdownEsClusterNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -142,12 +144,13 @@ func NewShutdownEsClusterRetryWith() *ShutdownEsClusterRetryWith {
 	return &ShutdownEsClusterRetryWith{}
 }
 
-/*ShutdownEsClusterRetryWith handles this case with default header values.
+/* ShutdownEsClusterRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type ShutdownEsClusterRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -157,15 +160,18 @@ type ShutdownEsClusterRetryWith struct {
 func (o *ShutdownEsClusterRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/_shutdown][%d] shutdownEsClusterRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *ShutdownEsClusterRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *ShutdownEsClusterRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

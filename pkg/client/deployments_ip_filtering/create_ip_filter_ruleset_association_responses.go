@@ -64,7 +64,6 @@ func (o *CreateIPFilterRulesetAssociationReader) ReadResponse(response runtime.C
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,7 +74,7 @@ func NewCreateIPFilterRulesetAssociationCreated() *CreateIPFilterRulesetAssociat
 	return &CreateIPFilterRulesetAssociationCreated{}
 }
 
-/*CreateIPFilterRulesetAssociationCreated handles this case with default header values.
+/* CreateIPFilterRulesetAssociationCreated describes a response with status code 201, with default header values.
 
 Create association request was valid and the association has been created
 */
@@ -86,7 +85,6 @@ type CreateIPFilterRulesetAssociationCreated struct {
 func (o *CreateIPFilterRulesetAssociationCreated) Error() string {
 	return fmt.Sprintf("[POST /deployments/ip-filtering/rulesets/{ruleset_id}/associations][%d] createIpFilterRulesetAssociationCreated  %+v", 201, o.Payload)
 }
-
 func (o *CreateIPFilterRulesetAssociationCreated) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -106,7 +104,7 @@ func NewCreateIPFilterRulesetAssociationNotFound() *CreateIPFilterRulesetAssocia
 	return &CreateIPFilterRulesetAssociationNotFound{}
 }
 
-/*CreateIPFilterRulesetAssociationNotFound handles this case with default header values.
+/* CreateIPFilterRulesetAssociationNotFound describes a response with status code 404, with default header values.
 
 Associated entity specified by {id} cannot be found (code: 'ip_filtering.associated_entity_not_found')
 */
@@ -117,7 +115,6 @@ type CreateIPFilterRulesetAssociationNotFound struct {
 func (o *CreateIPFilterRulesetAssociationNotFound) Error() string {
 	return fmt.Sprintf("[POST /deployments/ip-filtering/rulesets/{ruleset_id}/associations][%d] createIpFilterRulesetAssociationNotFound  %+v", 404, o.Payload)
 }
-
 func (o *CreateIPFilterRulesetAssociationNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -139,7 +136,7 @@ func NewCreateIPFilterRulesetAssociationRetryWith() *CreateIPFilterRulesetAssoci
 	return &CreateIPFilterRulesetAssociationRetryWith{}
 }
 
-/*CreateIPFilterRulesetAssociationRetryWith handles this case with default header values.
+/* CreateIPFilterRulesetAssociationRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: '"root.unauthorized.rbac.elevated_permissions_required"')
 */
@@ -150,7 +147,6 @@ type CreateIPFilterRulesetAssociationRetryWith struct {
 func (o *CreateIPFilterRulesetAssociationRetryWith) Error() string {
 	return fmt.Sprintf("[POST /deployments/ip-filtering/rulesets/{ruleset_id}/associations][%d] createIpFilterRulesetAssociationRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *CreateIPFilterRulesetAssociationRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -172,7 +168,7 @@ func NewCreateIPFilterRulesetAssociationInternalServerError() *CreateIPFilterRul
 	return &CreateIPFilterRulesetAssociationInternalServerError{}
 }
 
-/*CreateIPFilterRulesetAssociationInternalServerError handles this case with default header values.
+/* CreateIPFilterRulesetAssociationInternalServerError describes a response with status code 500, with default header values.
 
 Request execution failed (code: 'ip_filtering.request_execution_failed')
 */
@@ -183,7 +179,6 @@ type CreateIPFilterRulesetAssociationInternalServerError struct {
 func (o *CreateIPFilterRulesetAssociationInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /deployments/ip-filtering/rulesets/{ruleset_id}/associations][%d] createIpFilterRulesetAssociationInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *CreateIPFilterRulesetAssociationInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

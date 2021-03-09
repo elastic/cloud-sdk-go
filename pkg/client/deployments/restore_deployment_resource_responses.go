@@ -64,7 +64,6 @@ func (o *RestoreDeploymentResourceReader) ReadResponse(response runtime.ClientRe
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,7 +74,7 @@ func NewRestoreDeploymentResourceOK() *RestoreDeploymentResourceOK {
 	return &RestoreDeploymentResourceOK{}
 }
 
-/*RestoreDeploymentResourceOK handles this case with default header values.
+/* RestoreDeploymentResourceOK describes a response with status code 200, with default header values.
 
 Standard Deployment Resource Crud Response
 */
@@ -86,7 +85,6 @@ type RestoreDeploymentResourceOK struct {
 func (o *RestoreDeploymentResourceOK) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/_restore][%d] restoreDeploymentResourceOK  %+v", 200, o.Payload)
 }
-
 func (o *RestoreDeploymentResourceOK) GetPayload() *models.DeploymentResourceCrudResponse {
 	return o.Payload
 }
@@ -108,13 +106,14 @@ func NewRestoreDeploymentResourceBadRequest() *RestoreDeploymentResourceBadReque
 	return &RestoreDeploymentResourceBadRequest{}
 }
 
-/*RestoreDeploymentResourceBadRequest handles this case with default header values.
+/* RestoreDeploymentResourceBadRequest describes a response with status code 400, with default header values.
 
-* The Resource does not have a pending plan. (code: `deployments.resource_does_not_have_a_pending_plan`)
+ * The Resource does not have a pending plan. (code: `deployments.resource_does_not_have_a_pending_plan`)
 * The resource is not shut down. (code: `deployments.resource_not_shutdown`)
- */
+*/
 type RestoreDeploymentResourceBadRequest struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -124,15 +123,18 @@ type RestoreDeploymentResourceBadRequest struct {
 func (o *RestoreDeploymentResourceBadRequest) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/_restore][%d] restoreDeploymentResourceBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *RestoreDeploymentResourceBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *RestoreDeploymentResourceBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -149,12 +151,13 @@ func NewRestoreDeploymentResourceNotFound() *RestoreDeploymentResourceNotFound {
 	return &RestoreDeploymentResourceNotFound{}
 }
 
-/*RestoreDeploymentResourceNotFound handles this case with default header values.
+/* RestoreDeploymentResourceNotFound describes a response with status code 404, with default header values.
 
 The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
 */
 type RestoreDeploymentResourceNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -164,15 +167,18 @@ type RestoreDeploymentResourceNotFound struct {
 func (o *RestoreDeploymentResourceNotFound) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/_restore][%d] restoreDeploymentResourceNotFound  %+v", 404, o.Payload)
 }
-
 func (o *RestoreDeploymentResourceNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *RestoreDeploymentResourceNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -189,12 +195,13 @@ func NewRestoreDeploymentResourceRetryWith() *RestoreDeploymentResourceRetryWith
 	return &RestoreDeploymentResourceRetryWith{}
 }
 
-/*RestoreDeploymentResourceRetryWith handles this case with default header values.
+/* RestoreDeploymentResourceRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type RestoreDeploymentResourceRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -204,15 +211,18 @@ type RestoreDeploymentResourceRetryWith struct {
 func (o *RestoreDeploymentResourceRetryWith) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/_restore][%d] restoreDeploymentResourceRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *RestoreDeploymentResourceRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *RestoreDeploymentResourceRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

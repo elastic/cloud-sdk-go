@@ -35,69 +35,85 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewSetDeploymentEsResourceKeystoreParams creates a new SetDeploymentEsResourceKeystoreParams object
-// with the default values initialized.
+// NewSetDeploymentEsResourceKeystoreParams creates a new SetDeploymentEsResourceKeystoreParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewSetDeploymentEsResourceKeystoreParams() *SetDeploymentEsResourceKeystoreParams {
-	var ()
 	return &SetDeploymentEsResourceKeystoreParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewSetDeploymentEsResourceKeystoreParamsWithTimeout creates a new SetDeploymentEsResourceKeystoreParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewSetDeploymentEsResourceKeystoreParamsWithTimeout(timeout time.Duration) *SetDeploymentEsResourceKeystoreParams {
-	var ()
 	return &SetDeploymentEsResourceKeystoreParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewSetDeploymentEsResourceKeystoreParamsWithContext creates a new SetDeploymentEsResourceKeystoreParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewSetDeploymentEsResourceKeystoreParamsWithContext(ctx context.Context) *SetDeploymentEsResourceKeystoreParams {
-	var ()
 	return &SetDeploymentEsResourceKeystoreParams{
-
 		Context: ctx,
 	}
 }
 
 // NewSetDeploymentEsResourceKeystoreParamsWithHTTPClient creates a new SetDeploymentEsResourceKeystoreParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewSetDeploymentEsResourceKeystoreParamsWithHTTPClient(client *http.Client) *SetDeploymentEsResourceKeystoreParams {
-	var ()
 	return &SetDeploymentEsResourceKeystoreParams{
 		HTTPClient: client,
 	}
 }
 
-/*SetDeploymentEsResourceKeystoreParams contains all the parameters to send to the API endpoint
-for the set deployment es resource keystore operation typically these are written to a http.Request
+/* SetDeploymentEsResourceKeystoreParams contains all the parameters to send to the API endpoint
+   for the set deployment es resource keystore operation.
+
+   Typically these are written to a http.Request.
 */
 type SetDeploymentEsResourceKeystoreParams struct {
 
-	/*Body
-	  The new settings that will be applied to the keystore of the Elasticsearch resource.
+	/* Body.
 
+	   The new settings that will be applied to the keystore of the Elasticsearch resource.
 	*/
 	Body *models.KeystoreContents
-	/*DeploymentID
-	  Identifier for the Deployment
 
+	/* DeploymentID.
+
+	   Identifier for the Deployment
 	*/
 	DeploymentID string
-	/*RefID
-	  User-specified RefId for the Resource
 
+	/* RefID.
+
+	   User-specified RefId for the Resource
 	*/
 	RefID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the set deployment es resource keystore params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetDeploymentEsResourceKeystoreParams) WithDefaults() *SetDeploymentEsResourceKeystoreParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the set deployment es resource keystore params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetDeploymentEsResourceKeystoreParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the set deployment es resource keystore params
@@ -173,7 +189,6 @@ func (o *SetDeploymentEsResourceKeystoreParams) WriteToRequest(r runtime.ClientR
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

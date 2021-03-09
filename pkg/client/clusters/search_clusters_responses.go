@@ -52,7 +52,6 @@ func (o *SearchClustersReader) ReadResponse(response runtime.ClientResponse, con
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,7 +62,7 @@ func NewSearchClustersOK() *SearchClustersOK {
 	return &SearchClustersOK{}
 }
 
-/*SearchClustersOK handles this case with default header values.
+/* SearchClustersOK describes a response with status code 200, with default header values.
 
 A list of clusters that matched the given search query.
 */
@@ -74,7 +73,6 @@ type SearchClustersOK struct {
 func (o *SearchClustersOK) Error() string {
 	return fmt.Sprintf("[POST /clusters/_search][%d] searchClustersOK  %+v", 200, o.Payload)
 }
-
 func (o *SearchClustersOK) GetPayload() *models.ClustersInfo {
 	return o.Payload
 }
@@ -96,12 +94,13 @@ func NewSearchClustersBadRequest() *SearchClustersBadRequest {
 	return &SearchClustersBadRequest{}
 }
 
-/*SearchClustersBadRequest handles this case with default header values.
+/* SearchClustersBadRequest describes a response with status code 400, with default header values.
 
 The search request failed. (code: `search.invalid_request`)
 */
 type SearchClustersBadRequest struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -111,15 +110,18 @@ type SearchClustersBadRequest struct {
 func (o *SearchClustersBadRequest) Error() string {
 	return fmt.Sprintf("[POST /clusters/_search][%d] searchClustersBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *SearchClustersBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SearchClustersBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

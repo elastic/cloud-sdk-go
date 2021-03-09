@@ -70,7 +70,6 @@ func (o *SetResourceKindDeploymentDomainNameReader) ReadResponse(response runtim
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -81,18 +80,21 @@ func NewSetResourceKindDeploymentDomainNameOK() *SetResourceKindDeploymentDomain
 	return &SetResourceKindDeploymentDomainNameOK{}
 }
 
-/*SetResourceKindDeploymentDomainNameOK handles this case with default header values.
+/* SetResourceKindDeploymentDomainNameOK describes a response with status code 200, with default header values.
 
 The Deployment Domain Name was successfully saved.
 */
 type SetResourceKindDeploymentDomainNameOK struct {
-	/*The date-time when the resource was created (ISO format relative to UTC)
+
+	/* The date-time when the resource was created (ISO format relative to UTC)
 	 */
 	XCloudResourceCreated string
-	/*The date-time when the resource was last modified (ISO format relative to UTC)
+
+	/* The date-time when the resource was last modified (ISO format relative to UTC)
 	 */
 	XCloudResourceLastModified string
-	/*The resource version, which is used to avoid update conflicts with concurrent operations
+
+	/* The resource version, which is used to avoid update conflicts with concurrent operations
 	 */
 	XCloudResourceVersion string
 
@@ -102,21 +104,32 @@ type SetResourceKindDeploymentDomainNameOK struct {
 func (o *SetResourceKindDeploymentDomainNameOK) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/networking/deployment_domain_name/{resource_kind}][%d] setResourceKindDeploymentDomainNameOK  %+v", 200, o.Payload)
 }
-
 func (o *SetResourceKindDeploymentDomainNameOK) GetPayload() *models.DeploymentDomainName {
 	return o.Payload
 }
 
 func (o *SetResourceKindDeploymentDomainNameOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-resource-created
-	o.XCloudResourceCreated = response.GetHeader("x-cloud-resource-created")
+	// hydrates response header x-cloud-resource-created
+	hdrXCloudResourceCreated := response.GetHeader("x-cloud-resource-created")
 
-	// response header x-cloud-resource-last-modified
-	o.XCloudResourceLastModified = response.GetHeader("x-cloud-resource-last-modified")
+	if hdrXCloudResourceCreated != "" {
+		o.XCloudResourceCreated = hdrXCloudResourceCreated
+	}
 
-	// response header x-cloud-resource-version
-	o.XCloudResourceVersion = response.GetHeader("x-cloud-resource-version")
+	// hydrates response header x-cloud-resource-last-modified
+	hdrXCloudResourceLastModified := response.GetHeader("x-cloud-resource-last-modified")
+
+	if hdrXCloudResourceLastModified != "" {
+		o.XCloudResourceLastModified = hdrXCloudResourceLastModified
+	}
+
+	// hydrates response header x-cloud-resource-version
+	hdrXCloudResourceVersion := response.GetHeader("x-cloud-resource-version")
+
+	if hdrXCloudResourceVersion != "" {
+		o.XCloudResourceVersion = hdrXCloudResourceVersion
+	}
 
 	o.Payload = new(models.DeploymentDomainName)
 
@@ -133,12 +146,13 @@ func NewSetResourceKindDeploymentDomainNameBadRequest() *SetResourceKindDeployme
 	return &SetResourceKindDeploymentDomainNameBadRequest{}
 }
 
-/*SetResourceKindDeploymentDomainNameBadRequest handles this case with default header values.
+/* SetResourceKindDeploymentDomainNameBadRequest describes a response with status code 400, with default header values.
 
 The optimistic locking version format was wrong. (code: `networking.cname.bad_version_format`)
 */
 type SetResourceKindDeploymentDomainNameBadRequest struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -148,15 +162,18 @@ type SetResourceKindDeploymentDomainNameBadRequest struct {
 func (o *SetResourceKindDeploymentDomainNameBadRequest) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/networking/deployment_domain_name/{resource_kind}][%d] setResourceKindDeploymentDomainNameBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *SetResourceKindDeploymentDomainNameBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SetResourceKindDeploymentDomainNameBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -173,12 +190,13 @@ func NewSetResourceKindDeploymentDomainNameNotFound() *SetResourceKindDeployment
 	return &SetResourceKindDeploymentDomainNameNotFound{}
 }
 
-/*SetResourceKindDeploymentDomainNameNotFound handles this case with default header values.
+/* SetResourceKindDeploymentDomainNameNotFound describes a response with status code 404, with default header values.
 
 There is no configured Deployment Domain Name but optimistic locking was sent. (code: `networking.cname.not_found`)
 */
 type SetResourceKindDeploymentDomainNameNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -188,15 +206,18 @@ type SetResourceKindDeploymentDomainNameNotFound struct {
 func (o *SetResourceKindDeploymentDomainNameNotFound) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/networking/deployment_domain_name/{resource_kind}][%d] setResourceKindDeploymentDomainNameNotFound  %+v", 404, o.Payload)
 }
-
 func (o *SetResourceKindDeploymentDomainNameNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SetResourceKindDeploymentDomainNameNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -213,12 +234,13 @@ func NewSetResourceKindDeploymentDomainNameConflict() *SetResourceKindDeployment
 	return &SetResourceKindDeploymentDomainNameConflict{}
 }
 
-/*SetResourceKindDeploymentDomainNameConflict handles this case with default header values.
+/* SetResourceKindDeploymentDomainNameConflict describes a response with status code 409, with default header values.
 
 There was an optimistic locking version conflict. (code: `networking.cname.version_conflict`)
 */
 type SetResourceKindDeploymentDomainNameConflict struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -228,15 +250,18 @@ type SetResourceKindDeploymentDomainNameConflict struct {
 func (o *SetResourceKindDeploymentDomainNameConflict) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/networking/deployment_domain_name/{resource_kind}][%d] setResourceKindDeploymentDomainNameConflict  %+v", 409, o.Payload)
 }
-
 func (o *SetResourceKindDeploymentDomainNameConflict) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SetResourceKindDeploymentDomainNameConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -253,12 +278,13 @@ func NewSetResourceKindDeploymentDomainNamePreconditionFailed() *SetResourceKind
 	return &SetResourceKindDeploymentDomainNamePreconditionFailed{}
 }
 
-/*SetResourceKindDeploymentDomainNamePreconditionFailed handles this case with default header values.
+/* SetResourceKindDeploymentDomainNamePreconditionFailed describes a response with status code 412, with default header values.
 
 skip_cascading_operations was false but the Security Deployment already had a pending plan. (code: `security_deployment.cluster_pending_plan_exists`)
 */
 type SetResourceKindDeploymentDomainNamePreconditionFailed struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -268,15 +294,18 @@ type SetResourceKindDeploymentDomainNamePreconditionFailed struct {
 func (o *SetResourceKindDeploymentDomainNamePreconditionFailed) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/networking/deployment_domain_name/{resource_kind}][%d] setResourceKindDeploymentDomainNamePreconditionFailed  %+v", 412, o.Payload)
 }
-
 func (o *SetResourceKindDeploymentDomainNamePreconditionFailed) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SetResourceKindDeploymentDomainNamePreconditionFailed) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

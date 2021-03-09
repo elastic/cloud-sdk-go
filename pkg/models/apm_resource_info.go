@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -134,6 +136,34 @@ func (m *ApmResourceInfo) validateRegion(formats strfmt.Registry) error {
 
 	if err := validate.Required("region", "body", m.Region); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this apm resource info based on the context it is used
+func (m *ApmResourceInfo) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateInfo(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ApmResourceInfo) contextValidateInfo(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Info != nil {
+		if err := m.Info.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("info")
+			}
+			return err
+		}
 	}
 
 	return nil

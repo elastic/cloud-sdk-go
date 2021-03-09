@@ -33,59 +33,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewStartEsClusterInstancesAllMaintenanceModeParams creates a new StartEsClusterInstancesAllMaintenanceModeParams object
-// with the default values initialized.
+// NewStartEsClusterInstancesAllMaintenanceModeParams creates a new StartEsClusterInstancesAllMaintenanceModeParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewStartEsClusterInstancesAllMaintenanceModeParams() *StartEsClusterInstancesAllMaintenanceModeParams {
-	var ()
 	return &StartEsClusterInstancesAllMaintenanceModeParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewStartEsClusterInstancesAllMaintenanceModeParamsWithTimeout creates a new StartEsClusterInstancesAllMaintenanceModeParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewStartEsClusterInstancesAllMaintenanceModeParamsWithTimeout(timeout time.Duration) *StartEsClusterInstancesAllMaintenanceModeParams {
-	var ()
 	return &StartEsClusterInstancesAllMaintenanceModeParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewStartEsClusterInstancesAllMaintenanceModeParamsWithContext creates a new StartEsClusterInstancesAllMaintenanceModeParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewStartEsClusterInstancesAllMaintenanceModeParamsWithContext(ctx context.Context) *StartEsClusterInstancesAllMaintenanceModeParams {
-	var ()
 	return &StartEsClusterInstancesAllMaintenanceModeParams{
-
 		Context: ctx,
 	}
 }
 
 // NewStartEsClusterInstancesAllMaintenanceModeParamsWithHTTPClient creates a new StartEsClusterInstancesAllMaintenanceModeParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewStartEsClusterInstancesAllMaintenanceModeParamsWithHTTPClient(client *http.Client) *StartEsClusterInstancesAllMaintenanceModeParams {
-	var ()
 	return &StartEsClusterInstancesAllMaintenanceModeParams{
 		HTTPClient: client,
 	}
 }
 
-/*StartEsClusterInstancesAllMaintenanceModeParams contains all the parameters to send to the API endpoint
-for the start es cluster instances all maintenance mode operation typically these are written to a http.Request
+/* StartEsClusterInstancesAllMaintenanceModeParams contains all the parameters to send to the API endpoint
+   for the start es cluster instances all maintenance mode operation.
+
+   Typically these are written to a http.Request.
 */
 type StartEsClusterInstancesAllMaintenanceModeParams struct {
 
-	/*ClusterID
-	  The Elasticsearch cluster identifier.
+	/* ClusterID.
 
+	   The Elasticsearch cluster identifier.
 	*/
 	ClusterID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the start es cluster instances all maintenance mode params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *StartEsClusterInstancesAllMaintenanceModeParams) WithDefaults() *StartEsClusterInstancesAllMaintenanceModeParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the start es cluster instances all maintenance mode params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *StartEsClusterInstancesAllMaintenanceModeParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the start es cluster instances all maintenance mode params

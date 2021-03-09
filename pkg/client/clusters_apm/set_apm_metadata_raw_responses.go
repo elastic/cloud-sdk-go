@@ -58,7 +58,6 @@ func (o *SetApmMetadataRawReader) ReadResponse(response runtime.ClientResponse, 
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,18 +68,21 @@ func NewSetApmMetadataRawOK() *SetApmMetadataRawOK {
 	return &SetApmMetadataRawOK{}
 }
 
-/*SetApmMetadataRawOK handles this case with default header values.
+/* SetApmMetadataRawOK describes a response with status code 200, with default header values.
 
 The cluster metadata was successfully changed (the updated JSON is returned)
 */
 type SetApmMetadataRawOK struct {
-	/*The date-time when the resource was created (ISO format relative to UTC)
+
+	/* The date-time when the resource was created (ISO format relative to UTC)
 	 */
 	XCloudResourceCreated string
-	/*The date-time when the resource was last modified (ISO format relative to UTC)
+
+	/* The date-time when the resource was last modified (ISO format relative to UTC)
 	 */
 	XCloudResourceLastModified string
-	/*The resource version, which is used to avoid update conflicts with concurrent operations
+
+	/* The resource version, which is used to avoid update conflicts with concurrent operations
 	 */
 	XCloudResourceVersion string
 
@@ -90,21 +92,32 @@ type SetApmMetadataRawOK struct {
 func (o *SetApmMetadataRawOK) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/metadata/raw][%d] setApmMetadataRawOK  %+v", 200, o.Payload)
 }
-
 func (o *SetApmMetadataRawOK) GetPayload() interface{} {
 	return o.Payload
 }
 
 func (o *SetApmMetadataRawOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-resource-created
-	o.XCloudResourceCreated = response.GetHeader("x-cloud-resource-created")
+	// hydrates response header x-cloud-resource-created
+	hdrXCloudResourceCreated := response.GetHeader("x-cloud-resource-created")
 
-	// response header x-cloud-resource-last-modified
-	o.XCloudResourceLastModified = response.GetHeader("x-cloud-resource-last-modified")
+	if hdrXCloudResourceCreated != "" {
+		o.XCloudResourceCreated = hdrXCloudResourceCreated
+	}
 
-	// response header x-cloud-resource-version
-	o.XCloudResourceVersion = response.GetHeader("x-cloud-resource-version")
+	// hydrates response header x-cloud-resource-last-modified
+	hdrXCloudResourceLastModified := response.GetHeader("x-cloud-resource-last-modified")
+
+	if hdrXCloudResourceLastModified != "" {
+		o.XCloudResourceLastModified = hdrXCloudResourceLastModified
+	}
+
+	// hydrates response header x-cloud-resource-version
+	hdrXCloudResourceVersion := response.GetHeader("x-cloud-resource-version")
+
+	if hdrXCloudResourceVersion != "" {
+		o.XCloudResourceVersion = hdrXCloudResourceVersion
+	}
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
@@ -119,7 +132,7 @@ func NewSetApmMetadataRawNotFound() *SetApmMetadataRawNotFound {
 	return &SetApmMetadataRawNotFound{}
 }
 
-/*SetApmMetadataRawNotFound handles this case with default header values.
+/* SetApmMetadataRawNotFound describes a response with status code 404, with default header values.
 
 The cluster specified by {cluster_id} cannot be found (code: 'clusters.cluster_not_found')
 */
@@ -130,7 +143,6 @@ type SetApmMetadataRawNotFound struct {
 func (o *SetApmMetadataRawNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/metadata/raw][%d] setApmMetadataRawNotFound  %+v", 404, o.Payload)
 }
-
 func (o *SetApmMetadataRawNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -152,7 +164,7 @@ func NewSetApmMetadataRawRetryWith() *SetApmMetadataRawRetryWith {
 	return &SetApmMetadataRawRetryWith{}
 }
 
-/*SetApmMetadataRawRetryWith handles this case with default header values.
+/* SetApmMetadataRawRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: '"root.unauthorized.rbac.elevated_permissions_required"')
 */
@@ -163,7 +175,6 @@ type SetApmMetadataRawRetryWith struct {
 func (o *SetApmMetadataRawRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/metadata/raw][%d] setApmMetadataRawRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *SetApmMetadataRawRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

@@ -34,86 +34,102 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewRestartDeploymentStatelessResourceParams creates a new RestartDeploymentStatelessResourceParams object
-// with the default values initialized.
+// NewRestartDeploymentStatelessResourceParams creates a new RestartDeploymentStatelessResourceParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewRestartDeploymentStatelessResourceParams() *RestartDeploymentStatelessResourceParams {
-	var (
-		cancelPendingDefault = bool(false)
-	)
 	return &RestartDeploymentStatelessResourceParams{
-		CancelPending: &cancelPendingDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewRestartDeploymentStatelessResourceParamsWithTimeout creates a new RestartDeploymentStatelessResourceParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewRestartDeploymentStatelessResourceParamsWithTimeout(timeout time.Duration) *RestartDeploymentStatelessResourceParams {
-	var (
-		cancelPendingDefault = bool(false)
-	)
 	return &RestartDeploymentStatelessResourceParams{
-		CancelPending: &cancelPendingDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewRestartDeploymentStatelessResourceParamsWithContext creates a new RestartDeploymentStatelessResourceParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewRestartDeploymentStatelessResourceParamsWithContext(ctx context.Context) *RestartDeploymentStatelessResourceParams {
-	var (
-		cancelPendingDefault = bool(false)
-	)
 	return &RestartDeploymentStatelessResourceParams{
-		CancelPending: &cancelPendingDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewRestartDeploymentStatelessResourceParamsWithHTTPClient creates a new RestartDeploymentStatelessResourceParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewRestartDeploymentStatelessResourceParamsWithHTTPClient(client *http.Client) *RestartDeploymentStatelessResourceParams {
-	var (
-		cancelPendingDefault = bool(false)
-	)
 	return &RestartDeploymentStatelessResourceParams{
-		CancelPending: &cancelPendingDefault,
-		HTTPClient:    client,
+		HTTPClient: client,
 	}
 }
 
-/*RestartDeploymentStatelessResourceParams contains all the parameters to send to the API endpoint
-for the restart deployment stateless resource operation typically these are written to a http.Request
+/* RestartDeploymentStatelessResourceParams contains all the parameters to send to the API endpoint
+   for the restart deployment stateless resource operation.
+
+   Typically these are written to a http.Request.
 */
 type RestartDeploymentStatelessResourceParams struct {
 
-	/*CancelPending
-	  If true, cancels any pending plans before restarting. If false and there are pending plans, returns an error.
+	/* CancelPending.
 
+	   If true, cancels any pending plans before restarting. If false and there are pending plans, returns an error.
 	*/
 	CancelPending *bool
-	/*DeploymentID
-	  Identifier for the Deployment.
 
+	/* DeploymentID.
+
+	   Identifier for the Deployment.
 	*/
 	DeploymentID string
-	/*RefID
-	  User-specified RefId for the Resource.
 
+	/* RefID.
+
+	   User-specified RefId for the Resource.
 	*/
 	RefID string
-	/*StatelessResourceKind
-	  The kind of stateless resource
 
+	/* StatelessResourceKind.
+
+	   The kind of stateless resource
 	*/
 	StatelessResourceKind string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the restart deployment stateless resource params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *RestartDeploymentStatelessResourceParams) WithDefaults() *RestartDeploymentStatelessResourceParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the restart deployment stateless resource params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *RestartDeploymentStatelessResourceParams) SetDefaults() {
+	var (
+		cancelPendingDefault = bool(false)
+	)
+
+	val := RestartDeploymentStatelessResourceParams{
+		CancelPending: &cancelPendingDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the restart deployment stateless resource params
@@ -205,16 +221,17 @@ func (o *RestartDeploymentStatelessResourceParams) WriteToRequest(r runtime.Clie
 
 		// query param cancel_pending
 		var qrCancelPending bool
+
 		if o.CancelPending != nil {
 			qrCancelPending = *o.CancelPending
 		}
 		qCancelPending := swag.FormatBool(qrCancelPending)
 		if qCancelPending != "" {
+
 			if err := r.SetQueryParam("cancel_pending", qCancelPending); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	// path param deployment_id

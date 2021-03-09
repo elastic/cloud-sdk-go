@@ -34,76 +34,90 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetTrafficFilterRulesetParams creates a new GetTrafficFilterRulesetParams object
-// with the default values initialized.
+// NewGetTrafficFilterRulesetParams creates a new GetTrafficFilterRulesetParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetTrafficFilterRulesetParams() *GetTrafficFilterRulesetParams {
-	var (
-		includeAssociationsDefault = bool(false)
-	)
 	return &GetTrafficFilterRulesetParams{
-		IncludeAssociations: &includeAssociationsDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetTrafficFilterRulesetParamsWithTimeout creates a new GetTrafficFilterRulesetParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetTrafficFilterRulesetParamsWithTimeout(timeout time.Duration) *GetTrafficFilterRulesetParams {
-	var (
-		includeAssociationsDefault = bool(false)
-	)
 	return &GetTrafficFilterRulesetParams{
-		IncludeAssociations: &includeAssociationsDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewGetTrafficFilterRulesetParamsWithContext creates a new GetTrafficFilterRulesetParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetTrafficFilterRulesetParamsWithContext(ctx context.Context) *GetTrafficFilterRulesetParams {
-	var (
-		includeAssociationsDefault = bool(false)
-	)
 	return &GetTrafficFilterRulesetParams{
-		IncludeAssociations: &includeAssociationsDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewGetTrafficFilterRulesetParamsWithHTTPClient creates a new GetTrafficFilterRulesetParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetTrafficFilterRulesetParamsWithHTTPClient(client *http.Client) *GetTrafficFilterRulesetParams {
-	var (
-		includeAssociationsDefault = bool(false)
-	)
 	return &GetTrafficFilterRulesetParams{
-		IncludeAssociations: &includeAssociationsDefault,
-		HTTPClient:          client,
+		HTTPClient: client,
 	}
 }
 
-/*GetTrafficFilterRulesetParams contains all the parameters to send to the API endpoint
-for the get traffic filter ruleset operation typically these are written to a http.Request
+/* GetTrafficFilterRulesetParams contains all the parameters to send to the API endpoint
+   for the get traffic filter ruleset operation.
+
+   Typically these are written to a http.Request.
 */
 type GetTrafficFilterRulesetParams struct {
 
-	/*IncludeAssociations
-	  Retrieves a list of resources that are associated to the specified ruleset.
+	/* IncludeAssociations.
 
+	   Retrieves a list of resources that are associated to the specified ruleset.
 	*/
 	IncludeAssociations *bool
-	/*RulesetID
-	  The mandatory ruleset ID.
 
+	/* RulesetID.
+
+	   The mandatory ruleset ID.
 	*/
 	RulesetID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get traffic filter ruleset params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetTrafficFilterRulesetParams) WithDefaults() *GetTrafficFilterRulesetParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get traffic filter ruleset params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetTrafficFilterRulesetParams) SetDefaults() {
+	var (
+		includeAssociationsDefault = bool(false)
+	)
+
+	val := GetTrafficFilterRulesetParams{
+		IncludeAssociations: &includeAssociationsDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the get traffic filter ruleset params
@@ -173,16 +187,17 @@ func (o *GetTrafficFilterRulesetParams) WriteToRequest(r runtime.ClientRequest, 
 
 		// query param include_associations
 		var qrIncludeAssociations bool
+
 		if o.IncludeAssociations != nil {
 			qrIncludeAssociations = *o.IncludeAssociations
 		}
 		qIncludeAssociations := swag.FormatBool(qrIncludeAssociations)
 		if qIncludeAssociations != "" {
+
 			if err := r.SetQueryParam("include_associations", qIncludeAssociations); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	// path param ruleset_id

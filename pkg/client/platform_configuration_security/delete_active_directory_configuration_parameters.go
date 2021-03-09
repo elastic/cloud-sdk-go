@@ -33,64 +33,79 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewDeleteActiveDirectoryConfigurationParams creates a new DeleteActiveDirectoryConfigurationParams object
-// with the default values initialized.
+// NewDeleteActiveDirectoryConfigurationParams creates a new DeleteActiveDirectoryConfigurationParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewDeleteActiveDirectoryConfigurationParams() *DeleteActiveDirectoryConfigurationParams {
-	var ()
 	return &DeleteActiveDirectoryConfigurationParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteActiveDirectoryConfigurationParamsWithTimeout creates a new DeleteActiveDirectoryConfigurationParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewDeleteActiveDirectoryConfigurationParamsWithTimeout(timeout time.Duration) *DeleteActiveDirectoryConfigurationParams {
-	var ()
 	return &DeleteActiveDirectoryConfigurationParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewDeleteActiveDirectoryConfigurationParamsWithContext creates a new DeleteActiveDirectoryConfigurationParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewDeleteActiveDirectoryConfigurationParamsWithContext(ctx context.Context) *DeleteActiveDirectoryConfigurationParams {
-	var ()
 	return &DeleteActiveDirectoryConfigurationParams{
-
 		Context: ctx,
 	}
 }
 
 // NewDeleteActiveDirectoryConfigurationParamsWithHTTPClient creates a new DeleteActiveDirectoryConfigurationParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewDeleteActiveDirectoryConfigurationParamsWithHTTPClient(client *http.Client) *DeleteActiveDirectoryConfigurationParams {
-	var ()
 	return &DeleteActiveDirectoryConfigurationParams{
 		HTTPClient: client,
 	}
 }
 
-/*DeleteActiveDirectoryConfigurationParams contains all the parameters to send to the API endpoint
-for the delete active directory configuration operation typically these are written to a http.Request
+/* DeleteActiveDirectoryConfigurationParams contains all the parameters to send to the API endpoint
+   for the delete active directory configuration operation.
+
+   Typically these are written to a http.Request.
 */
 type DeleteActiveDirectoryConfigurationParams struct {
 
-	/*RealmID
-	  The Elasticsearch Security realm identifier.
+	/* RealmID.
 
+	   The Elasticsearch Security realm identifier.
 	*/
 	RealmID string
-	/*Version
-	  When specified, checks for conflicts against the version stored in the persistent store (returned in 'x-cloud-resource-version' of the GET request)
 
+	/* Version.
+
+	   When specified, checks for conflicts against the version stored in the persistent store (returned in 'x-cloud-resource-version' of the GET request)
 	*/
 	Version *string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the delete active directory configuration params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteActiveDirectoryConfigurationParams) WithDefaults() *DeleteActiveDirectoryConfigurationParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the delete active directory configuration params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteActiveDirectoryConfigurationParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete active directory configuration params
@@ -165,16 +180,17 @@ func (o *DeleteActiveDirectoryConfigurationParams) WriteToRequest(r runtime.Clie
 
 		// query param version
 		var qrVersion string
+
 		if o.Version != nil {
 			qrVersion = *o.Version
 		}
 		qVersion := qrVersion
 		if qVersion != "" {
+
 			if err := r.SetQueryParam("version", qVersion); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

@@ -36,81 +36,96 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewSetDefaultDeploymentDomainNameParams creates a new SetDefaultDeploymentDomainNameParams object
-// with the default values initialized.
+// NewSetDefaultDeploymentDomainNameParams creates a new SetDefaultDeploymentDomainNameParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewSetDefaultDeploymentDomainNameParams() *SetDefaultDeploymentDomainNameParams {
-	var (
-		skipCascadingOperationsDefault = bool(false)
-	)
 	return &SetDefaultDeploymentDomainNameParams{
-		SkipCascadingOperations: &skipCascadingOperationsDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewSetDefaultDeploymentDomainNameParamsWithTimeout creates a new SetDefaultDeploymentDomainNameParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewSetDefaultDeploymentDomainNameParamsWithTimeout(timeout time.Duration) *SetDefaultDeploymentDomainNameParams {
-	var (
-		skipCascadingOperationsDefault = bool(false)
-	)
 	return &SetDefaultDeploymentDomainNameParams{
-		SkipCascadingOperations: &skipCascadingOperationsDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewSetDefaultDeploymentDomainNameParamsWithContext creates a new SetDefaultDeploymentDomainNameParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewSetDefaultDeploymentDomainNameParamsWithContext(ctx context.Context) *SetDefaultDeploymentDomainNameParams {
-	var (
-		skipCascadingOperationsDefault = bool(false)
-	)
 	return &SetDefaultDeploymentDomainNameParams{
-		SkipCascadingOperations: &skipCascadingOperationsDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewSetDefaultDeploymentDomainNameParamsWithHTTPClient creates a new SetDefaultDeploymentDomainNameParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewSetDefaultDeploymentDomainNameParamsWithHTTPClient(client *http.Client) *SetDefaultDeploymentDomainNameParams {
-	var (
-		skipCascadingOperationsDefault = bool(false)
-	)
 	return &SetDefaultDeploymentDomainNameParams{
-		SkipCascadingOperations: &skipCascadingOperationsDefault,
-		HTTPClient:              client,
+		HTTPClient: client,
 	}
 }
 
-/*SetDefaultDeploymentDomainNameParams contains all the parameters to send to the API endpoint
-for the set default deployment domain name operation typically these are written to a http.Request
+/* SetDefaultDeploymentDomainNameParams contains all the parameters to send to the API endpoint
+   for the set default deployment domain name operation.
+
+   Typically these are written to a http.Request.
 */
 type SetDefaultDeploymentDomainNameParams struct {
 
-	/*Body
-	  Data containing the Deployment Domain Name to set
+	/* Body.
 
+	   Data containing the Deployment Domain Name to set
 	*/
 	Body *models.DeploymentDomainName
-	/*SkipCascadingOperations
-	  Whether or not to skip cascading operations, such as re-provisioning the Security Deployment.
 
+	/* SkipCascadingOperations.
+
+	   Whether or not to skip cascading operations, such as re-provisioning the Security Deployment.
 	*/
 	SkipCascadingOperations *bool
-	/*Version
-	  If specified, then checks for conflicts against the version stored in the persistent store (returned in 'x-cloud-resource-version' of the GET request). If not specified, will unconditionally upsert.
 
+	/* Version.
+
+	   If specified, then checks for conflicts against the version stored in the persistent store (returned in 'x-cloud-resource-version' of the GET request). If not specified, will unconditionally upsert.
 	*/
 	Version *string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the set default deployment domain name params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetDefaultDeploymentDomainNameParams) WithDefaults() *SetDefaultDeploymentDomainNameParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the set default deployment domain name params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetDefaultDeploymentDomainNameParams) SetDefaults() {
+	var (
+		skipCascadingOperationsDefault = bool(false)
+	)
+
+	val := SetDefaultDeploymentDomainNameParams{
+		SkipCascadingOperations: &skipCascadingOperationsDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the set default deployment domain name params
@@ -186,7 +201,6 @@ func (o *SetDefaultDeploymentDomainNameParams) WriteToRequest(r runtime.ClientRe
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err
@@ -197,32 +211,34 @@ func (o *SetDefaultDeploymentDomainNameParams) WriteToRequest(r runtime.ClientRe
 
 		// query param skip_cascading_operations
 		var qrSkipCascadingOperations bool
+
 		if o.SkipCascadingOperations != nil {
 			qrSkipCascadingOperations = *o.SkipCascadingOperations
 		}
 		qSkipCascadingOperations := swag.FormatBool(qrSkipCascadingOperations)
 		if qSkipCascadingOperations != "" {
+
 			if err := r.SetQueryParam("skip_cascading_operations", qSkipCascadingOperations); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.Version != nil {
 
 		// query param version
 		var qrVersion string
+
 		if o.Version != nil {
 			qrVersion = *o.Version
 		}
 		qVersion := qrVersion
 		if qVersion != "" {
+
 			if err := r.SetQueryParam("version", qVersion); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

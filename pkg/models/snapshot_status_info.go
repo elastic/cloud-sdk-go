@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -118,7 +120,6 @@ func (m *SnapshotStatusInfo) validateHealthy(formats strfmt.Registry) error {
 }
 
 func (m *SnapshotStatusInfo) validateLatestEndTime(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.LatestEndTime) { // not required
 		return nil
 	}
@@ -131,7 +132,6 @@ func (m *SnapshotStatusInfo) validateLatestEndTime(formats strfmt.Registry) erro
 }
 
 func (m *SnapshotStatusInfo) validateLatestSuccessfulEndTime(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.LatestSuccessfulEndTime) { // not required
 		return nil
 	}
@@ -153,7 +153,6 @@ func (m *SnapshotStatusInfo) validateRecentSuccess(formats strfmt.Registry) erro
 }
 
 func (m *SnapshotStatusInfo) validateScheduledTime(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.ScheduledTime) { // not required
 		return nil
 	}
@@ -162,6 +161,11 @@ func (m *SnapshotStatusInfo) validateScheduledTime(formats strfmt.Registry) erro
 		return err
 	}
 
+	return nil
+}
+
+// ContextValidate validates this snapshot status info based on context it is used
+func (m *SnapshotStatusInfo) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

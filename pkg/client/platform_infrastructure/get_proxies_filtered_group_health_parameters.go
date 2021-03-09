@@ -33,64 +33,79 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetProxiesFilteredGroupHealthParams creates a new GetProxiesFilteredGroupHealthParams object
-// with the default values initialized.
+// NewGetProxiesFilteredGroupHealthParams creates a new GetProxiesFilteredGroupHealthParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetProxiesFilteredGroupHealthParams() *GetProxiesFilteredGroupHealthParams {
-	var ()
 	return &GetProxiesFilteredGroupHealthParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetProxiesFilteredGroupHealthParamsWithTimeout creates a new GetProxiesFilteredGroupHealthParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetProxiesFilteredGroupHealthParamsWithTimeout(timeout time.Duration) *GetProxiesFilteredGroupHealthParams {
-	var ()
 	return &GetProxiesFilteredGroupHealthParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetProxiesFilteredGroupHealthParamsWithContext creates a new GetProxiesFilteredGroupHealthParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetProxiesFilteredGroupHealthParamsWithContext(ctx context.Context) *GetProxiesFilteredGroupHealthParams {
-	var ()
 	return &GetProxiesFilteredGroupHealthParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetProxiesFilteredGroupHealthParamsWithHTTPClient creates a new GetProxiesFilteredGroupHealthParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetProxiesFilteredGroupHealthParamsWithHTTPClient(client *http.Client) *GetProxiesFilteredGroupHealthParams {
-	var ()
 	return &GetProxiesFilteredGroupHealthParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetProxiesFilteredGroupHealthParams contains all the parameters to send to the API endpoint
-for the get proxies filtered group health operation typically these are written to a http.Request
+/* GetProxiesFilteredGroupHealthParams contains all the parameters to send to the API endpoint
+   for the get proxies filtered group health operation.
+
+   Typically these are written to a http.Request.
 */
 type GetProxiesFilteredGroupHealthParams struct {
 
-	/*ExpectStatus
-	  The expected status
+	/* ExpectStatus.
 
+	   The expected status
 	*/
 	ExpectStatus *string
-	/*ProxiesFilteredGroupID
-	  "The identifier for the filtered group of proxies
 
+	/* ProxiesFilteredGroupID.
+
+	   "The identifier for the filtered group of proxies
 	*/
 	ProxiesFilteredGroupID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get proxies filtered group health params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetProxiesFilteredGroupHealthParams) WithDefaults() *GetProxiesFilteredGroupHealthParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get proxies filtered group health params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetProxiesFilteredGroupHealthParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get proxies filtered group health params
@@ -160,16 +175,17 @@ func (o *GetProxiesFilteredGroupHealthParams) WriteToRequest(r runtime.ClientReq
 
 		// query param expect_status
 		var qrExpectStatus string
+
 		if o.ExpectStatus != nil {
 			qrExpectStatus = *o.ExpectStatus
 		}
 		qExpectStatus := qrExpectStatus
 		if qExpectStatus != "" {
+
 			if err := r.SetQueryParam("expect_status", qExpectStatus); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	// path param proxies_filtered_group_id

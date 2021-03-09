@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -126,7 +127,6 @@ func (m *ElasticsearchClusterPlan) validateClusterTopology(formats strfmt.Regist
 }
 
 func (m *ElasticsearchClusterPlan) validateDeploymentTemplate(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.DeploymentTemplate) { // not required
 		return nil
 	}
@@ -162,7 +162,6 @@ func (m *ElasticsearchClusterPlan) validateElasticsearch(formats strfmt.Registry
 }
 
 func (m *ElasticsearchClusterPlan) validateTiebreakerTopology(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.TiebreakerTopology) { // not required
 		return nil
 	}
@@ -180,13 +179,116 @@ func (m *ElasticsearchClusterPlan) validateTiebreakerTopology(formats strfmt.Reg
 }
 
 func (m *ElasticsearchClusterPlan) validateTransient(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Transient) { // not required
 		return nil
 	}
 
 	if m.Transient != nil {
 		if err := m.Transient.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("transient")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this elasticsearch cluster plan based on the context it is used
+func (m *ElasticsearchClusterPlan) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateClusterTopology(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateDeploymentTemplate(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateElasticsearch(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateTiebreakerTopology(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateTransient(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ElasticsearchClusterPlan) contextValidateClusterTopology(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.ClusterTopology); i++ {
+
+		if m.ClusterTopology[i] != nil {
+			if err := m.ClusterTopology[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("cluster_topology" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *ElasticsearchClusterPlan) contextValidateDeploymentTemplate(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.DeploymentTemplate != nil {
+		if err := m.DeploymentTemplate.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("deployment_template")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ElasticsearchClusterPlan) contextValidateElasticsearch(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Elasticsearch != nil {
+		if err := m.Elasticsearch.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("elasticsearch")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ElasticsearchClusterPlan) contextValidateTiebreakerTopology(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.TiebreakerTopology != nil {
+		if err := m.TiebreakerTopology.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("tiebreaker_topology")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ElasticsearchClusterPlan) contextValidateTransient(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Transient != nil {
+		if err := m.Transient.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("transient")
 			}

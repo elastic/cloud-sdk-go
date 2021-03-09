@@ -33,59 +33,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetKibanaClusterMetadataRawParams creates a new GetKibanaClusterMetadataRawParams object
-// with the default values initialized.
+// NewGetKibanaClusterMetadataRawParams creates a new GetKibanaClusterMetadataRawParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetKibanaClusterMetadataRawParams() *GetKibanaClusterMetadataRawParams {
-	var ()
 	return &GetKibanaClusterMetadataRawParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetKibanaClusterMetadataRawParamsWithTimeout creates a new GetKibanaClusterMetadataRawParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetKibanaClusterMetadataRawParamsWithTimeout(timeout time.Duration) *GetKibanaClusterMetadataRawParams {
-	var ()
 	return &GetKibanaClusterMetadataRawParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetKibanaClusterMetadataRawParamsWithContext creates a new GetKibanaClusterMetadataRawParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetKibanaClusterMetadataRawParamsWithContext(ctx context.Context) *GetKibanaClusterMetadataRawParams {
-	var ()
 	return &GetKibanaClusterMetadataRawParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetKibanaClusterMetadataRawParamsWithHTTPClient creates a new GetKibanaClusterMetadataRawParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetKibanaClusterMetadataRawParamsWithHTTPClient(client *http.Client) *GetKibanaClusterMetadataRawParams {
-	var ()
 	return &GetKibanaClusterMetadataRawParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetKibanaClusterMetadataRawParams contains all the parameters to send to the API endpoint
-for the get kibana cluster metadata raw operation typically these are written to a http.Request
+/* GetKibanaClusterMetadataRawParams contains all the parameters to send to the API endpoint
+   for the get kibana cluster metadata raw operation.
+
+   Typically these are written to a http.Request.
 */
 type GetKibanaClusterMetadataRawParams struct {
 
-	/*ClusterID
-	  The Kibana deployment identifier.
+	/* ClusterID.
 
+	   The Kibana deployment identifier.
 	*/
 	ClusterID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get kibana cluster metadata raw params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetKibanaClusterMetadataRawParams) WithDefaults() *GetKibanaClusterMetadataRawParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get kibana cluster metadata raw params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetKibanaClusterMetadataRawParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get kibana cluster metadata raw params

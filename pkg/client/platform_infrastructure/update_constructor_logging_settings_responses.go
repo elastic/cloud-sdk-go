@@ -58,7 +58,6 @@ func (o *UpdateConstructorLoggingSettingsReader) ReadResponse(response runtime.C
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,18 +68,21 @@ func NewUpdateConstructorLoggingSettingsOK() *UpdateConstructorLoggingSettingsOK
 	return &UpdateConstructorLoggingSettingsOK{}
 }
 
-/*UpdateConstructorLoggingSettingsOK handles this case with default header values.
+/* UpdateConstructorLoggingSettingsOK describes a response with status code 200, with default header values.
 
 The updated logging settings for the constructor instance
 */
 type UpdateConstructorLoggingSettingsOK struct {
-	/*The date-time when the resource was created (ISO format relative to UTC)
+
+	/* The date-time when the resource was created (ISO format relative to UTC)
 	 */
 	XCloudResourceCreated string
-	/*The date-time when the resource was last modified (ISO format relative to UTC)
+
+	/* The date-time when the resource was last modified (ISO format relative to UTC)
 	 */
 	XCloudResourceLastModified string
-	/*The resource version, which is used to avoid update conflicts with concurrent operations
+
+	/* The resource version, which is used to avoid update conflicts with concurrent operations
 	 */
 	XCloudResourceVersion string
 
@@ -90,21 +92,32 @@ type UpdateConstructorLoggingSettingsOK struct {
 func (o *UpdateConstructorLoggingSettingsOK) Error() string {
 	return fmt.Sprintf("[PATCH /platform/infrastructure/constructors/{constructor_id}/logging_settings][%d] updateConstructorLoggingSettingsOK  %+v", 200, o.Payload)
 }
-
 func (o *UpdateConstructorLoggingSettingsOK) GetPayload() *models.LoggingSettings {
 	return o.Payload
 }
 
 func (o *UpdateConstructorLoggingSettingsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-resource-created
-	o.XCloudResourceCreated = response.GetHeader("x-cloud-resource-created")
+	// hydrates response header x-cloud-resource-created
+	hdrXCloudResourceCreated := response.GetHeader("x-cloud-resource-created")
 
-	// response header x-cloud-resource-last-modified
-	o.XCloudResourceLastModified = response.GetHeader("x-cloud-resource-last-modified")
+	if hdrXCloudResourceCreated != "" {
+		o.XCloudResourceCreated = hdrXCloudResourceCreated
+	}
 
-	// response header x-cloud-resource-version
-	o.XCloudResourceVersion = response.GetHeader("x-cloud-resource-version")
+	// hydrates response header x-cloud-resource-last-modified
+	hdrXCloudResourceLastModified := response.GetHeader("x-cloud-resource-last-modified")
+
+	if hdrXCloudResourceLastModified != "" {
+		o.XCloudResourceLastModified = hdrXCloudResourceLastModified
+	}
+
+	// hydrates response header x-cloud-resource-version
+	hdrXCloudResourceVersion := response.GetHeader("x-cloud-resource-version")
+
+	if hdrXCloudResourceVersion != "" {
+		o.XCloudResourceVersion = hdrXCloudResourceVersion
+	}
 
 	o.Payload = new(models.LoggingSettings)
 
@@ -121,12 +134,13 @@ func NewUpdateConstructorLoggingSettingsBadRequest() *UpdateConstructorLoggingSe
 	return &UpdateConstructorLoggingSettingsBadRequest{}
 }
 
-/*UpdateConstructorLoggingSettingsBadRequest handles this case with default header values.
+/* UpdateConstructorLoggingSettingsBadRequest describes a response with status code 400, with default header values.
 
 The update request is invalid. (code: `patch.request_malformed`)
 */
 type UpdateConstructorLoggingSettingsBadRequest struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -136,15 +150,18 @@ type UpdateConstructorLoggingSettingsBadRequest struct {
 func (o *UpdateConstructorLoggingSettingsBadRequest) Error() string {
 	return fmt.Sprintf("[PATCH /platform/infrastructure/constructors/{constructor_id}/logging_settings][%d] updateConstructorLoggingSettingsBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *UpdateConstructorLoggingSettingsBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *UpdateConstructorLoggingSettingsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -161,12 +178,13 @@ func NewUpdateConstructorLoggingSettingsNotFound() *UpdateConstructorLoggingSett
 	return &UpdateConstructorLoggingSettingsNotFound{}
 }
 
-/*UpdateConstructorLoggingSettingsNotFound handles this case with default header values.
+/* UpdateConstructorLoggingSettingsNotFound describes a response with status code 404, with default header values.
 
 The logging settings for this constructor were not found. (code: `constructors.logging_settings.not_found`)
 */
 type UpdateConstructorLoggingSettingsNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -176,15 +194,18 @@ type UpdateConstructorLoggingSettingsNotFound struct {
 func (o *UpdateConstructorLoggingSettingsNotFound) Error() string {
 	return fmt.Sprintf("[PATCH /platform/infrastructure/constructors/{constructor_id}/logging_settings][%d] updateConstructorLoggingSettingsNotFound  %+v", 404, o.Payload)
 }
-
 func (o *UpdateConstructorLoggingSettingsNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *UpdateConstructorLoggingSettingsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

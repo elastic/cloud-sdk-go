@@ -33,59 +33,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewStopApmInstancesAllParams creates a new StopApmInstancesAllParams object
-// with the default values initialized.
+// NewStopApmInstancesAllParams creates a new StopApmInstancesAllParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewStopApmInstancesAllParams() *StopApmInstancesAllParams {
-	var ()
 	return &StopApmInstancesAllParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewStopApmInstancesAllParamsWithTimeout creates a new StopApmInstancesAllParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewStopApmInstancesAllParamsWithTimeout(timeout time.Duration) *StopApmInstancesAllParams {
-	var ()
 	return &StopApmInstancesAllParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewStopApmInstancesAllParamsWithContext creates a new StopApmInstancesAllParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewStopApmInstancesAllParamsWithContext(ctx context.Context) *StopApmInstancesAllParams {
-	var ()
 	return &StopApmInstancesAllParams{
-
 		Context: ctx,
 	}
 }
 
 // NewStopApmInstancesAllParamsWithHTTPClient creates a new StopApmInstancesAllParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewStopApmInstancesAllParamsWithHTTPClient(client *http.Client) *StopApmInstancesAllParams {
-	var ()
 	return &StopApmInstancesAllParams{
 		HTTPClient: client,
 	}
 }
 
-/*StopApmInstancesAllParams contains all the parameters to send to the API endpoint
-for the stop apm instances all operation typically these are written to a http.Request
+/* StopApmInstancesAllParams contains all the parameters to send to the API endpoint
+   for the stop apm instances all operation.
+
+   Typically these are written to a http.Request.
 */
 type StopApmInstancesAllParams struct {
 
-	/*ClusterID
-	  The APM deployment identifier.
+	/* ClusterID.
 
+	   The APM deployment identifier.
 	*/
 	ClusterID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the stop apm instances all params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *StopApmInstancesAllParams) WithDefaults() *StopApmInstancesAllParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the stop apm instances all params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *StopApmInstancesAllParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the stop apm instances all params

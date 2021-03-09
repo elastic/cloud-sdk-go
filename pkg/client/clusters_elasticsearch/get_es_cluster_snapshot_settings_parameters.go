@@ -33,59 +33,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetEsClusterSnapshotSettingsParams creates a new GetEsClusterSnapshotSettingsParams object
-// with the default values initialized.
+// NewGetEsClusterSnapshotSettingsParams creates a new GetEsClusterSnapshotSettingsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetEsClusterSnapshotSettingsParams() *GetEsClusterSnapshotSettingsParams {
-	var ()
 	return &GetEsClusterSnapshotSettingsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetEsClusterSnapshotSettingsParamsWithTimeout creates a new GetEsClusterSnapshotSettingsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetEsClusterSnapshotSettingsParamsWithTimeout(timeout time.Duration) *GetEsClusterSnapshotSettingsParams {
-	var ()
 	return &GetEsClusterSnapshotSettingsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetEsClusterSnapshotSettingsParamsWithContext creates a new GetEsClusterSnapshotSettingsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetEsClusterSnapshotSettingsParamsWithContext(ctx context.Context) *GetEsClusterSnapshotSettingsParams {
-	var ()
 	return &GetEsClusterSnapshotSettingsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetEsClusterSnapshotSettingsParamsWithHTTPClient creates a new GetEsClusterSnapshotSettingsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetEsClusterSnapshotSettingsParamsWithHTTPClient(client *http.Client) *GetEsClusterSnapshotSettingsParams {
-	var ()
 	return &GetEsClusterSnapshotSettingsParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetEsClusterSnapshotSettingsParams contains all the parameters to send to the API endpoint
-for the get es cluster snapshot settings operation typically these are written to a http.Request
+/* GetEsClusterSnapshotSettingsParams contains all the parameters to send to the API endpoint
+   for the get es cluster snapshot settings operation.
+
+   Typically these are written to a http.Request.
 */
 type GetEsClusterSnapshotSettingsParams struct {
 
-	/*ClusterID
-	  Identifier for the Elasticsearch cluster
+	/* ClusterID.
 
+	   Identifier for the Elasticsearch cluster
 	*/
 	ClusterID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get es cluster snapshot settings params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetEsClusterSnapshotSettingsParams) WithDefaults() *GetEsClusterSnapshotSettingsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get es cluster snapshot settings params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetEsClusterSnapshotSettingsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get es cluster snapshot settings params

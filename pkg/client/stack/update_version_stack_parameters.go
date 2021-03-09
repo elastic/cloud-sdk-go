@@ -35,64 +35,79 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewUpdateVersionStackParams creates a new UpdateVersionStackParams object
-// with the default values initialized.
+// NewUpdateVersionStackParams creates a new UpdateVersionStackParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewUpdateVersionStackParams() *UpdateVersionStackParams {
-	var ()
 	return &UpdateVersionStackParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewUpdateVersionStackParamsWithTimeout creates a new UpdateVersionStackParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewUpdateVersionStackParamsWithTimeout(timeout time.Duration) *UpdateVersionStackParams {
-	var ()
 	return &UpdateVersionStackParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewUpdateVersionStackParamsWithContext creates a new UpdateVersionStackParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewUpdateVersionStackParamsWithContext(ctx context.Context) *UpdateVersionStackParams {
-	var ()
 	return &UpdateVersionStackParams{
-
 		Context: ctx,
 	}
 }
 
 // NewUpdateVersionStackParamsWithHTTPClient creates a new UpdateVersionStackParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewUpdateVersionStackParamsWithHTTPClient(client *http.Client) *UpdateVersionStackParams {
-	var ()
 	return &UpdateVersionStackParams{
 		HTTPClient: client,
 	}
 }
 
-/*UpdateVersionStackParams contains all the parameters to send to the API endpoint
-for the update version stack operation typically these are written to a http.Request
+/* UpdateVersionStackParams contains all the parameters to send to the API endpoint
+   for the update version stack operation.
+
+   Typically these are written to a http.Request.
 */
 type UpdateVersionStackParams struct {
 
-	/*Body
-	  Elastic Stack configuration object
+	/* Body.
 
+	   Elastic Stack configuration object
 	*/
 	Body *models.StackVersionConfigPost
-	/*Version
-	  The Elastic Stack version. For example, `5.3.1` or `5.0.0-RC4`.
 
+	/* Version.
+
+	   The Elastic Stack version. For example, `5.3.1` or `5.0.0-RC4`.
 	*/
 	Version string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the update version stack params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdateVersionStackParams) WithDefaults() *UpdateVersionStackParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the update version stack params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdateVersionStackParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the update version stack params
@@ -157,7 +172,6 @@ func (o *UpdateVersionStackParams) WriteToRequest(r runtime.ClientRequest, reg s
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

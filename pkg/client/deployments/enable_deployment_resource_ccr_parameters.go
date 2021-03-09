@@ -34,81 +34,96 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewEnableDeploymentResourceCcrParams creates a new EnableDeploymentResourceCcrParams object
-// with the default values initialized.
+// NewEnableDeploymentResourceCcrParams creates a new EnableDeploymentResourceCcrParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewEnableDeploymentResourceCcrParams() *EnableDeploymentResourceCcrParams {
-	var (
-		validateOnlyDefault = bool(false)
-	)
 	return &EnableDeploymentResourceCcrParams{
-		ValidateOnly: &validateOnlyDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewEnableDeploymentResourceCcrParamsWithTimeout creates a new EnableDeploymentResourceCcrParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewEnableDeploymentResourceCcrParamsWithTimeout(timeout time.Duration) *EnableDeploymentResourceCcrParams {
-	var (
-		validateOnlyDefault = bool(false)
-	)
 	return &EnableDeploymentResourceCcrParams{
-		ValidateOnly: &validateOnlyDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewEnableDeploymentResourceCcrParamsWithContext creates a new EnableDeploymentResourceCcrParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewEnableDeploymentResourceCcrParamsWithContext(ctx context.Context) *EnableDeploymentResourceCcrParams {
-	var (
-		validateOnlyDefault = bool(false)
-	)
 	return &EnableDeploymentResourceCcrParams{
-		ValidateOnly: &validateOnlyDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewEnableDeploymentResourceCcrParamsWithHTTPClient creates a new EnableDeploymentResourceCcrParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewEnableDeploymentResourceCcrParamsWithHTTPClient(client *http.Client) *EnableDeploymentResourceCcrParams {
-	var (
-		validateOnlyDefault = bool(false)
-	)
 	return &EnableDeploymentResourceCcrParams{
-		ValidateOnly: &validateOnlyDefault,
-		HTTPClient:   client,
+		HTTPClient: client,
 	}
 }
 
-/*EnableDeploymentResourceCcrParams contains all the parameters to send to the API endpoint
-for the enable deployment resource ccr operation typically these are written to a http.Request
+/* EnableDeploymentResourceCcrParams contains all the parameters to send to the API endpoint
+   for the enable deployment resource ccr operation.
+
+   Typically these are written to a http.Request.
 */
 type EnableDeploymentResourceCcrParams struct {
 
-	/*DeploymentID
-	  Identifier for the Deployment.
+	/* DeploymentID.
 
+	   Identifier for the Deployment.
 	*/
 	DeploymentID string
-	/*RefID
-	  User-specified RefId for the Resource.
 
+	/* RefID.
+
+	   User-specified RefId for the Resource.
 	*/
 	RefID string
-	/*ValidateOnly
-	  When `true`, will not enable CCR but returns warnings if any elements may lose availability during CCR enablement
 
+	/* ValidateOnly.
+
+	   When `true`, will not enable CCR but returns warnings if any elements may lose availability during CCR enablement
 	*/
 	ValidateOnly *bool
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the enable deployment resource ccr params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *EnableDeploymentResourceCcrParams) WithDefaults() *EnableDeploymentResourceCcrParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the enable deployment resource ccr params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *EnableDeploymentResourceCcrParams) SetDefaults() {
+	var (
+		validateOnlyDefault = bool(false)
+	)
+
+	val := EnableDeploymentResourceCcrParams{
+		ValidateOnly: &validateOnlyDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the enable deployment resource ccr params
@@ -199,16 +214,17 @@ func (o *EnableDeploymentResourceCcrParams) WriteToRequest(r runtime.ClientReque
 
 		// query param validate_only
 		var qrValidateOnly bool
+
 		if o.ValidateOnly != nil {
 			qrValidateOnly = *o.ValidateOnly
 		}
 		qValidateOnly := swag.FormatBool(qrValidateOnly)
 		if qValidateOnly != "" {
+
 			if err := r.SetQueryParam("validate_only", qValidateOnly); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

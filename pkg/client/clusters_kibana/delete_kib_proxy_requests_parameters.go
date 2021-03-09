@@ -33,69 +33,85 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewDeleteKibProxyRequestsParams creates a new DeleteKibProxyRequestsParams object
-// with the default values initialized.
+// NewDeleteKibProxyRequestsParams creates a new DeleteKibProxyRequestsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewDeleteKibProxyRequestsParams() *DeleteKibProxyRequestsParams {
-	var ()
 	return &DeleteKibProxyRequestsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteKibProxyRequestsParamsWithTimeout creates a new DeleteKibProxyRequestsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewDeleteKibProxyRequestsParamsWithTimeout(timeout time.Duration) *DeleteKibProxyRequestsParams {
-	var ()
 	return &DeleteKibProxyRequestsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewDeleteKibProxyRequestsParamsWithContext creates a new DeleteKibProxyRequestsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewDeleteKibProxyRequestsParamsWithContext(ctx context.Context) *DeleteKibProxyRequestsParams {
-	var ()
 	return &DeleteKibProxyRequestsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewDeleteKibProxyRequestsParamsWithHTTPClient creates a new DeleteKibProxyRequestsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewDeleteKibProxyRequestsParamsWithHTTPClient(client *http.Client) *DeleteKibProxyRequestsParams {
-	var ()
 	return &DeleteKibProxyRequestsParams{
 		HTTPClient: client,
 	}
 }
 
-/*DeleteKibProxyRequestsParams contains all the parameters to send to the API endpoint
-for the delete kib proxy requests operation typically these are written to a http.Request
+/* DeleteKibProxyRequestsParams contains all the parameters to send to the API endpoint
+   for the delete kib proxy requests operation.
+
+   Typically these are written to a http.Request.
 */
 type DeleteKibProxyRequestsParams struct {
 
-	/*XManagementRequest
-	  When set to `true`, includes the X-Management-Request header value.
+	/* XManagementRequest.
 
+	   When set to `true`, includes the X-Management-Request header value.
 	*/
 	XManagementRequest string
-	/*ClusterID
-	  The Kibana deployment identifier
 
+	/* ClusterID.
+
+	   The Kibana deployment identifier
 	*/
 	ClusterID string
-	/*KibanaPath
-	  The URL part to proxy to the Kibana cluster. Example: /api/spaces/space or /api/upgrade_assistant/status
 
+	/* KibanaPath.
+
+	   The URL part to proxy to the Kibana cluster. Example: /api/spaces/space or /api/upgrade_assistant/status
 	*/
 	KibanaPath string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the delete kib proxy requests params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteKibProxyRequestsParams) WithDefaults() *DeleteKibProxyRequestsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the delete kib proxy requests params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteKibProxyRequestsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete kib proxy requests params

@@ -35,69 +35,85 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewSetDeploymentEsResourceRemoteClustersParams creates a new SetDeploymentEsResourceRemoteClustersParams object
-// with the default values initialized.
+// NewSetDeploymentEsResourceRemoteClustersParams creates a new SetDeploymentEsResourceRemoteClustersParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewSetDeploymentEsResourceRemoteClustersParams() *SetDeploymentEsResourceRemoteClustersParams {
-	var ()
 	return &SetDeploymentEsResourceRemoteClustersParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewSetDeploymentEsResourceRemoteClustersParamsWithTimeout creates a new SetDeploymentEsResourceRemoteClustersParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewSetDeploymentEsResourceRemoteClustersParamsWithTimeout(timeout time.Duration) *SetDeploymentEsResourceRemoteClustersParams {
-	var ()
 	return &SetDeploymentEsResourceRemoteClustersParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewSetDeploymentEsResourceRemoteClustersParamsWithContext creates a new SetDeploymentEsResourceRemoteClustersParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewSetDeploymentEsResourceRemoteClustersParamsWithContext(ctx context.Context) *SetDeploymentEsResourceRemoteClustersParams {
-	var ()
 	return &SetDeploymentEsResourceRemoteClustersParams{
-
 		Context: ctx,
 	}
 }
 
 // NewSetDeploymentEsResourceRemoteClustersParamsWithHTTPClient creates a new SetDeploymentEsResourceRemoteClustersParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewSetDeploymentEsResourceRemoteClustersParamsWithHTTPClient(client *http.Client) *SetDeploymentEsResourceRemoteClustersParams {
-	var ()
 	return &SetDeploymentEsResourceRemoteClustersParams{
 		HTTPClient: client,
 	}
 }
 
-/*SetDeploymentEsResourceRemoteClustersParams contains all the parameters to send to the API endpoint
-for the set deployment es resource remote clusters operation typically these are written to a http.Request
+/* SetDeploymentEsResourceRemoteClustersParams contains all the parameters to send to the API endpoint
+   for the set deployment es resource remote clusters operation.
+
+   Typically these are written to a http.Request.
 */
 type SetDeploymentEsResourceRemoteClustersParams struct {
 
-	/*Body
-	  List of remote clusters for the resource
+	/* Body.
 
+	   List of remote clusters for the resource
 	*/
 	Body *models.RemoteResources
-	/*DeploymentID
-	  Identifier for the Deployment.
 
+	/* DeploymentID.
+
+	   Identifier for the Deployment.
 	*/
 	DeploymentID string
-	/*RefID
-	  User-specified RefId for the Resource.
 
+	/* RefID.
+
+	   User-specified RefId for the Resource.
 	*/
 	RefID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the set deployment es resource remote clusters params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetDeploymentEsResourceRemoteClustersParams) WithDefaults() *SetDeploymentEsResourceRemoteClustersParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the set deployment es resource remote clusters params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetDeploymentEsResourceRemoteClustersParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the set deployment es resource remote clusters params
@@ -173,7 +189,6 @@ func (o *SetDeploymentEsResourceRemoteClustersParams) WriteToRequest(r runtime.C
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

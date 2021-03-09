@@ -70,7 +70,6 @@ func (o *RestartDeploymentEsResourceReader) ReadResponse(response runtime.Client
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -81,7 +80,7 @@ func NewRestartDeploymentEsResourceAccepted() *RestartDeploymentEsResourceAccept
 	return &RestartDeploymentEsResourceAccepted{}
 }
 
-/*RestartDeploymentEsResourceAccepted handles this case with default header values.
+/* RestartDeploymentEsResourceAccepted describes a response with status code 202, with default header values.
 
 The restart command was issued successfully.
 */
@@ -92,7 +91,6 @@ type RestartDeploymentEsResourceAccepted struct {
 func (o *RestartDeploymentEsResourceAccepted) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_restart][%d] restartDeploymentEsResourceAccepted  %+v", 202, o.Payload)
 }
-
 func (o *RestartDeploymentEsResourceAccepted) GetPayload() *models.DeploymentResourceCommandResponse {
 	return o.Payload
 }
@@ -114,13 +112,14 @@ func NewRestartDeploymentEsResourceNotFound() *RestartDeploymentEsResourceNotFou
 	return &RestartDeploymentEsResourceNotFound{}
 }
 
-/*RestartDeploymentEsResourceNotFound handles this case with default header values.
+/* RestartDeploymentEsResourceNotFound describes a response with status code 404, with default header values.
 
-* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+ * The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
 * The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)
- */
+*/
 type RestartDeploymentEsResourceNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -130,15 +129,18 @@ type RestartDeploymentEsResourceNotFound struct {
 func (o *RestartDeploymentEsResourceNotFound) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_restart][%d] restartDeploymentEsResourceNotFound  %+v", 404, o.Payload)
 }
-
 func (o *RestartDeploymentEsResourceNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *RestartDeploymentEsResourceNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -155,12 +157,13 @@ func NewRestartDeploymentEsResourceUnprocessableEntity() *RestartDeploymentEsRes
 	return &RestartDeploymentEsResourceUnprocessableEntity{}
 }
 
-/*RestartDeploymentEsResourceUnprocessableEntity handles this case with default header values.
+/* RestartDeploymentEsResourceUnprocessableEntity describes a response with status code 422, with default header values.
 
 The command sent to a Resource found the Resource in an illegal state, the error message gives more details. (code: `deployments.deployment_resource_plan_change_error`)
 */
 type RestartDeploymentEsResourceUnprocessableEntity struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -170,15 +173,18 @@ type RestartDeploymentEsResourceUnprocessableEntity struct {
 func (o *RestartDeploymentEsResourceUnprocessableEntity) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_restart][%d] restartDeploymentEsResourceUnprocessableEntity  %+v", 422, o.Payload)
 }
-
 func (o *RestartDeploymentEsResourceUnprocessableEntity) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *RestartDeploymentEsResourceUnprocessableEntity) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -195,12 +201,13 @@ func NewRestartDeploymentEsResourceRetryWith() *RestartDeploymentEsResourceRetry
 	return &RestartDeploymentEsResourceRetryWith{}
 }
 
-/*RestartDeploymentEsResourceRetryWith handles this case with default header values.
+/* RestartDeploymentEsResourceRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type RestartDeploymentEsResourceRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -210,15 +217,18 @@ type RestartDeploymentEsResourceRetryWith struct {
 func (o *RestartDeploymentEsResourceRetryWith) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_restart][%d] restartDeploymentEsResourceRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *RestartDeploymentEsResourceRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *RestartDeploymentEsResourceRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -235,12 +245,13 @@ func NewRestartDeploymentEsResourceInternalServerError() *RestartDeploymentEsRes
 	return &RestartDeploymentEsResourceInternalServerError{}
 }
 
-/*RestartDeploymentEsResourceInternalServerError handles this case with default header values.
+/* RestartDeploymentEsResourceInternalServerError describes a response with status code 500, with default header values.
 
 A Resource that was previously stored no longer exists. (code: `deployments.deployment_resource_no_longer_exists`)
 */
 type RestartDeploymentEsResourceInternalServerError struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -250,15 +261,18 @@ type RestartDeploymentEsResourceInternalServerError struct {
 func (o *RestartDeploymentEsResourceInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_restart][%d] restartDeploymentEsResourceInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *RestartDeploymentEsResourceInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *RestartDeploymentEsResourceInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

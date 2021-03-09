@@ -34,146 +34,143 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetApmClustersParams creates a new GetApmClustersParams object
-// with the default values initialized.
+// NewGetApmClustersParams creates a new GetApmClustersParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetApmClustersParams() *GetApmClustersParams {
-	var (
-		fromDefault             = int64(0)
-		showHiddenDefault       = bool(false)
-		showMetadataDefault     = bool(false)
-		showPlanDefaultsDefault = bool(false)
-		showSettingsDefault     = bool(false)
-		sizeDefault             = int64(100)
-	)
 	return &GetApmClustersParams{
-		From:             &fromDefault,
-		ShowHidden:       &showHiddenDefault,
-		ShowMetadata:     &showMetadataDefault,
-		ShowPlanDefaults: &showPlanDefaultsDefault,
-		ShowSettings:     &showSettingsDefault,
-		Size:             &sizeDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetApmClustersParamsWithTimeout creates a new GetApmClustersParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetApmClustersParamsWithTimeout(timeout time.Duration) *GetApmClustersParams {
-	var (
-		fromDefault             = int64(0)
-		showHiddenDefault       = bool(false)
-		showMetadataDefault     = bool(false)
-		showPlanDefaultsDefault = bool(false)
-		showSettingsDefault     = bool(false)
-		sizeDefault             = int64(100)
-	)
 	return &GetApmClustersParams{
-		From:             &fromDefault,
-		ShowHidden:       &showHiddenDefault,
-		ShowMetadata:     &showMetadataDefault,
-		ShowPlanDefaults: &showPlanDefaultsDefault,
-		ShowSettings:     &showSettingsDefault,
-		Size:             &sizeDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewGetApmClustersParamsWithContext creates a new GetApmClustersParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetApmClustersParamsWithContext(ctx context.Context) *GetApmClustersParams {
-	var (
-		fromDefault             = int64(0)
-		showHiddenDefault       = bool(false)
-		showMetadataDefault     = bool(false)
-		showPlanDefaultsDefault = bool(false)
-		showSettingsDefault     = bool(false)
-		sizeDefault             = int64(100)
-	)
 	return &GetApmClustersParams{
-		From:             &fromDefault,
-		ShowHidden:       &showHiddenDefault,
-		ShowMetadata:     &showMetadataDefault,
-		ShowPlanDefaults: &showPlanDefaultsDefault,
-		ShowSettings:     &showSettingsDefault,
-		Size:             &sizeDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewGetApmClustersParamsWithHTTPClient creates a new GetApmClustersParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetApmClustersParamsWithHTTPClient(client *http.Client) *GetApmClustersParams {
-	var (
-		fromDefault             = int64(0)
-		showHiddenDefault       = bool(false)
-		showMetadataDefault     = bool(false)
-		showPlanDefaultsDefault = bool(false)
-		showSettingsDefault     = bool(false)
-		sizeDefault             = int64(100)
-	)
 	return &GetApmClustersParams{
-		From:             &fromDefault,
-		ShowHidden:       &showHiddenDefault,
-		ShowMetadata:     &showMetadataDefault,
-		ShowPlanDefaults: &showPlanDefaultsDefault,
-		ShowSettings:     &showSettingsDefault,
-		Size:             &sizeDefault,
-		HTTPClient:       client,
+		HTTPClient: client,
 	}
 }
 
-/*GetApmClustersParams contains all the parameters to send to the API endpoint
-for the get apm clusters operation typically these are written to a http.Request
+/* GetApmClustersParams contains all the parameters to send to the API endpoint
+   for the get apm clusters operation.
+
+   Typically these are written to a http.Request.
 */
 type GetApmClustersParams struct {
 
-	/*From
-	  The number of clusters to skip.
+	/* From.
 
+	   The number of clusters to skip.
 	*/
 	From *int64
-	/*Q
-	  An optional query to filter APM clusters by. Maps to an Elasticsearch query_string query.
 
+	/* Q.
+
+	   An optional query to filter APM clusters by. Maps to an Elasticsearch query_string query.
 	*/
 	Q *string
-	/*ShowHidden
-	  Includes the hidden clusters in the response.
 
+	/* ShowHidden.
+
+	   Includes the hidden clusters in the response.
 	*/
 	ShowHidden *bool
-	/*ShowMetadata
-	  Includes all of the cluster metadata in the response. NOTE: Responses can include a large amount of metadata, as well as credentials.
 
+	/* ShowMetadata.
+
+	   Includes all of the cluster metadata in the response. NOTE: Responses can include a large amount of metadata, as well as credentials.
 	*/
 	ShowMetadata *bool
-	/*ShowPlanDefaults
-	  When plans are shown, includes the default values in the response. NOTE: This option results in large responses.
 
+	/* ShowPlanDefaults.
+
+	   When plans are shown, includes the default values in the response. NOTE: This option results in large responses.
 	*/
 	ShowPlanDefaults *bool
-	/*ShowPlans
-	  Includes the active and pending plan information in the response. NOTE: This option can result in large responses.
 
+	/* ShowPlans.
+
+	   Includes the active and pending plan information in the response. NOTE: This option can result in large responses.
 	*/
 	ShowPlans *bool
-	/*ShowSettings
-	  Includes the cluster settings in the response.
 
+	/* ShowSettings.
+
+	   Includes the cluster settings in the response.
 	*/
 	ShowSettings *bool
-	/*Size
-	  The maximum number of clusters to include in the response. For all clusters, use -1. NOTE: This option can result in large responses.
 
+	/* Size.
+
+	   The maximum number of clusters to include in the response. For all clusters, use -1. NOTE: This option can result in large responses.
+
+	   Default: 100
 	*/
 	Size *int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get apm clusters params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetApmClustersParams) WithDefaults() *GetApmClustersParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get apm clusters params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetApmClustersParams) SetDefaults() {
+	var (
+		fromDefault = int64(0)
+
+		showHiddenDefault = bool(false)
+
+		showMetadataDefault = bool(false)
+
+		showPlanDefaultsDefault = bool(false)
+
+		showSettingsDefault = bool(false)
+
+		sizeDefault = int64(100)
+	)
+
+	val := GetApmClustersParams{
+		From:             &fromDefault,
+		ShowHidden:       &showHiddenDefault,
+		ShowMetadata:     &showMetadataDefault,
+		ShowPlanDefaults: &showPlanDefaultsDefault,
+		ShowSettings:     &showSettingsDefault,
+		Size:             &sizeDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the get apm clusters params
@@ -309,128 +306,136 @@ func (o *GetApmClustersParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 
 		// query param from
 		var qrFrom int64
+
 		if o.From != nil {
 			qrFrom = *o.From
 		}
 		qFrom := swag.FormatInt64(qrFrom)
 		if qFrom != "" {
+
 			if err := r.SetQueryParam("from", qFrom); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.Q != nil {
 
 		// query param q
 		var qrQ string
+
 		if o.Q != nil {
 			qrQ = *o.Q
 		}
 		qQ := qrQ
 		if qQ != "" {
+
 			if err := r.SetQueryParam("q", qQ); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.ShowHidden != nil {
 
 		// query param show_hidden
 		var qrShowHidden bool
+
 		if o.ShowHidden != nil {
 			qrShowHidden = *o.ShowHidden
 		}
 		qShowHidden := swag.FormatBool(qrShowHidden)
 		if qShowHidden != "" {
+
 			if err := r.SetQueryParam("show_hidden", qShowHidden); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.ShowMetadata != nil {
 
 		// query param show_metadata
 		var qrShowMetadata bool
+
 		if o.ShowMetadata != nil {
 			qrShowMetadata = *o.ShowMetadata
 		}
 		qShowMetadata := swag.FormatBool(qrShowMetadata)
 		if qShowMetadata != "" {
+
 			if err := r.SetQueryParam("show_metadata", qShowMetadata); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.ShowPlanDefaults != nil {
 
 		// query param show_plan_defaults
 		var qrShowPlanDefaults bool
+
 		if o.ShowPlanDefaults != nil {
 			qrShowPlanDefaults = *o.ShowPlanDefaults
 		}
 		qShowPlanDefaults := swag.FormatBool(qrShowPlanDefaults)
 		if qShowPlanDefaults != "" {
+
 			if err := r.SetQueryParam("show_plan_defaults", qShowPlanDefaults); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.ShowPlans != nil {
 
 		// query param show_plans
 		var qrShowPlans bool
+
 		if o.ShowPlans != nil {
 			qrShowPlans = *o.ShowPlans
 		}
 		qShowPlans := swag.FormatBool(qrShowPlans)
 		if qShowPlans != "" {
+
 			if err := r.SetQueryParam("show_plans", qShowPlans); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.ShowSettings != nil {
 
 		// query param show_settings
 		var qrShowSettings bool
+
 		if o.ShowSettings != nil {
 			qrShowSettings = *o.ShowSettings
 		}
 		qShowSettings := swag.FormatBool(qrShowSettings)
 		if qShowSettings != "" {
+
 			if err := r.SetQueryParam("show_settings", qShowSettings); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.Size != nil {
 
 		// query param size
 		var qrSize int64
+
 		if o.Size != nil {
 			qrSize = *o.Size
 		}
 		qSize := swag.FormatInt64(qrSize)
 		if qSize != "" {
+
 			if err := r.SetQueryParam("size", qSize); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

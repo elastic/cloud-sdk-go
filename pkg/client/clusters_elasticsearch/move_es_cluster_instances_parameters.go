@@ -36,138 +36,138 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewMoveEsClusterInstancesParams creates a new MoveEsClusterInstancesParams object
-// with the default values initialized.
+// NewMoveEsClusterInstancesParams creates a new MoveEsClusterInstancesParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewMoveEsClusterInstancesParams() *MoveEsClusterInstancesParams {
-	var (
-		forceUpdateDefault   = bool(false)
-		ignoreMissingDefault = bool(false)
-		instancesDownDefault = bool(false)
-		moveOnlyDefault      = bool(false)
-		validateOnlyDefault  = bool(false)
-	)
 	return &MoveEsClusterInstancesParams{
-		ForceUpdate:   &forceUpdateDefault,
-		IgnoreMissing: &ignoreMissingDefault,
-		InstancesDown: &instancesDownDefault,
-		MoveOnly:      &moveOnlyDefault,
-		ValidateOnly:  &validateOnlyDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewMoveEsClusterInstancesParamsWithTimeout creates a new MoveEsClusterInstancesParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewMoveEsClusterInstancesParamsWithTimeout(timeout time.Duration) *MoveEsClusterInstancesParams {
-	var (
-		forceUpdateDefault   = bool(false)
-		ignoreMissingDefault = bool(false)
-		instancesDownDefault = bool(false)
-		moveOnlyDefault      = bool(false)
-		validateOnlyDefault  = bool(false)
-	)
 	return &MoveEsClusterInstancesParams{
-		ForceUpdate:   &forceUpdateDefault,
-		IgnoreMissing: &ignoreMissingDefault,
-		InstancesDown: &instancesDownDefault,
-		MoveOnly:      &moveOnlyDefault,
-		ValidateOnly:  &validateOnlyDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewMoveEsClusterInstancesParamsWithContext creates a new MoveEsClusterInstancesParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewMoveEsClusterInstancesParamsWithContext(ctx context.Context) *MoveEsClusterInstancesParams {
-	var (
-		forceUpdateDefault   = bool(false)
-		ignoreMissingDefault = bool(false)
-		instancesDownDefault = bool(false)
-		moveOnlyDefault      = bool(false)
-		validateOnlyDefault  = bool(false)
-	)
 	return &MoveEsClusterInstancesParams{
-		ForceUpdate:   &forceUpdateDefault,
-		IgnoreMissing: &ignoreMissingDefault,
-		InstancesDown: &instancesDownDefault,
-		MoveOnly:      &moveOnlyDefault,
-		ValidateOnly:  &validateOnlyDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewMoveEsClusterInstancesParamsWithHTTPClient creates a new MoveEsClusterInstancesParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewMoveEsClusterInstancesParamsWithHTTPClient(client *http.Client) *MoveEsClusterInstancesParams {
-	var (
-		forceUpdateDefault   = bool(false)
-		ignoreMissingDefault = bool(false)
-		instancesDownDefault = bool(false)
-		moveOnlyDefault      = bool(false)
-		validateOnlyDefault  = bool(false)
-	)
 	return &MoveEsClusterInstancesParams{
-		ForceUpdate:   &forceUpdateDefault,
-		IgnoreMissing: &ignoreMissingDefault,
-		InstancesDown: &instancesDownDefault,
-		MoveOnly:      &moveOnlyDefault,
-		ValidateOnly:  &validateOnlyDefault,
-		HTTPClient:    client,
+		HTTPClient: client,
 	}
 }
 
-/*MoveEsClusterInstancesParams contains all the parameters to send to the API endpoint
-for the move es cluster instances operation typically these are written to a http.Request
+/* MoveEsClusterInstancesParams contains all the parameters to send to the API endpoint
+   for the move es cluster instances operation.
+
+   Typically these are written to a http.Request.
 */
 type MoveEsClusterInstancesParams struct {
 
-	/*Body
-	  Overrides defaults for the move, including setting the configuration of instances specified in the path
+	/* Body.
 
+	   Overrides defaults for the move, including setting the configuration of instances specified in the path
 	*/
 	Body *models.TransientElasticsearchPlanConfiguration
-	/*ClusterID
-	  The Elasticsearch cluster identifier.
 
+	/* ClusterID.
+
+	   The Elasticsearch cluster identifier.
 	*/
 	ClusterID string
-	/*ForceUpdate
-	  When `true`, cancels and overwrites the pending plans, or treats the instance as an error.
 
+	/* ForceUpdate.
+
+	   When `true`, cancels and overwrites the pending plans, or treats the instance as an error.
 	*/
 	ForceUpdate *bool
-	/*IgnoreMissing
-	  When `true` and the instance does not exist, proceeds to the next instance, or treats the instance as an error.
 
+	/* IgnoreMissing.
+
+	   When `true` and the instance does not exist, proceeds to the next instance, or treats the instance as an error.
 	*/
 	IgnoreMissing *bool
-	/*InstanceIds
-	  A comma-separated list of instance identifiers.
 
+	/* InstanceIds.
+
+	   A comma-separated list of instance identifiers.
 	*/
 	InstanceIds []string
-	/*InstancesDown
-	  When `true`, the instances specified by `instance_ids` permanently shut down for data migration logic.
 
+	/* InstancesDown.
+
+	   When `true`, the instances specified by `instance_ids` permanently shut down for data migration logic.
 	*/
 	InstancesDown *bool
-	/*MoveOnly
-	  When `true`, moves the specified instances and ignores the changes for the cluster state.
 
+	/* MoveOnly.
+
+	   When `true`, moves the specified instances and ignores the changes for the cluster state.
 	*/
 	MoveOnly *bool
-	/*ValidateOnly
-	  When `true`, validates the move request, then returns the calculated plan without applying the plan.
 
+	/* ValidateOnly.
+
+	   When `true`, validates the move request, then returns the calculated plan without applying the plan.
 	*/
 	ValidateOnly *bool
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the move es cluster instances params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *MoveEsClusterInstancesParams) WithDefaults() *MoveEsClusterInstancesParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the move es cluster instances params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *MoveEsClusterInstancesParams) SetDefaults() {
+	var (
+		forceUpdateDefault = bool(false)
+
+		ignoreMissingDefault = bool(false)
+
+		instancesDownDefault = bool(false)
+
+		moveOnlyDefault = bool(false)
+
+		validateOnlyDefault = bool(false)
+	)
+
+	val := MoveEsClusterInstancesParams{
+		ForceUpdate:   &forceUpdateDefault,
+		IgnoreMissing: &ignoreMissingDefault,
+		InstancesDown: &instancesDownDefault,
+		MoveOnly:      &moveOnlyDefault,
+		ValidateOnly:  &validateOnlyDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the move es cluster instances params
@@ -298,7 +298,6 @@ func (o *MoveEsClusterInstancesParams) WriteToRequest(r runtime.ClientRequest, r
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err
@@ -314,44 +313,49 @@ func (o *MoveEsClusterInstancesParams) WriteToRequest(r runtime.ClientRequest, r
 
 		// query param force_update
 		var qrForceUpdate bool
+
 		if o.ForceUpdate != nil {
 			qrForceUpdate = *o.ForceUpdate
 		}
 		qForceUpdate := swag.FormatBool(qrForceUpdate)
 		if qForceUpdate != "" {
+
 			if err := r.SetQueryParam("force_update", qForceUpdate); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.IgnoreMissing != nil {
 
 		// query param ignore_missing
 		var qrIgnoreMissing bool
+
 		if o.IgnoreMissing != nil {
 			qrIgnoreMissing = *o.IgnoreMissing
 		}
 		qIgnoreMissing := swag.FormatBool(qrIgnoreMissing)
 		if qIgnoreMissing != "" {
+
 			if err := r.SetQueryParam("ignore_missing", qIgnoreMissing); err != nil {
 				return err
 			}
 		}
-
 	}
 
-	valuesInstanceIds := o.InstanceIds
+	if o.InstanceIds != nil {
 
-	joinedInstanceIds := swag.JoinByFormat(valuesInstanceIds, "csv")
-	// path array param instance_ids
-	// SetPathParam does not support variadric arguments, since we used JoinByFormat
-	// we can send the first item in the array as it's all the items of the previous
-	// array joined together
-	if len(joinedInstanceIds) > 0 {
-		if err := r.SetPathParam("instance_ids", joinedInstanceIds[0]); err != nil {
-			return err
+		// binding items for instance_ids
+		joinedInstanceIds := o.bindParamInstanceIds(reg)
+
+		// path array param instance_ids
+		// SetPathParam does not support variadic arguments, since we used JoinByFormat
+		// we can send the first item in the array as it's all the items of the previous
+		// array joined together
+		if len(joinedInstanceIds) > 0 {
+			if err := r.SetPathParam("instance_ids", joinedInstanceIds[0]); err != nil {
+				return err
+			}
 		}
 	}
 
@@ -359,52 +363,72 @@ func (o *MoveEsClusterInstancesParams) WriteToRequest(r runtime.ClientRequest, r
 
 		// query param instances_down
 		var qrInstancesDown bool
+
 		if o.InstancesDown != nil {
 			qrInstancesDown = *o.InstancesDown
 		}
 		qInstancesDown := swag.FormatBool(qrInstancesDown)
 		if qInstancesDown != "" {
+
 			if err := r.SetQueryParam("instances_down", qInstancesDown); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.MoveOnly != nil {
 
 		// query param move_only
 		var qrMoveOnly bool
+
 		if o.MoveOnly != nil {
 			qrMoveOnly = *o.MoveOnly
 		}
 		qMoveOnly := swag.FormatBool(qrMoveOnly)
 		if qMoveOnly != "" {
+
 			if err := r.SetQueryParam("move_only", qMoveOnly); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.ValidateOnly != nil {
 
 		// query param validate_only
 		var qrValidateOnly bool
+
 		if o.ValidateOnly != nil {
 			qrValidateOnly = *o.ValidateOnly
 		}
 		qValidateOnly := swag.FormatBool(qrValidateOnly)
 		if qValidateOnly != "" {
+
 			if err := r.SetQueryParam("validate_only", qValidateOnly); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
 	return nil
+}
+
+// bindParamMoveEsClusterInstances binds the parameter instance_ids
+func (o *MoveEsClusterInstancesParams) bindParamInstanceIds(formats strfmt.Registry) []string {
+	instanceIdsIR := o.InstanceIds
+
+	var instanceIdsIC []string
+	for _, instanceIdsIIR := range instanceIdsIR { // explode []string
+
+		instanceIdsIIV := instanceIdsIIR // string as string
+		instanceIdsIC = append(instanceIdsIC, instanceIdsIIV)
+	}
+
+	// items.CollectionFormat: "csv"
+	instanceIdsIS := swag.JoinByFormat(instanceIdsIC, "csv")
+
+	return instanceIdsIS
 }

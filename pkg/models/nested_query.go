@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
@@ -137,7 +138,6 @@ func (m *NestedQuery) validateScoreModeEnum(path, location string, value string)
 }
 
 func (m *NestedQuery) validateScoreMode(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.ScoreMode) { // not required
 		return nil
 	}
@@ -145,6 +145,34 @@ func (m *NestedQuery) validateScoreMode(formats strfmt.Registry) error {
 	// value enum
 	if err := m.validateScoreModeEnum("score_mode", "body", m.ScoreMode); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this nested query based on the context it is used
+func (m *NestedQuery) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateQuery(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *NestedQuery) contextValidateQuery(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Query != nil {
+		if err := m.Query.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("query")
+			}
+			return err
+		}
 	}
 
 	return nil

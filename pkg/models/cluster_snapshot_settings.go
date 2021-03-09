@@ -23,9 +23,12 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // ClusterSnapshotSettings The snapshot configuration settings for an Elasticsearch cluster.
@@ -84,7 +87,6 @@ func (m *ClusterSnapshotSettings) Validate(formats strfmt.Registry) error {
 }
 
 func (m *ClusterSnapshotSettings) validateRepository(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Repository) { // not required
 		return nil
 	}
@@ -102,7 +104,6 @@ func (m *ClusterSnapshotSettings) validateRepository(formats strfmt.Registry) er
 }
 
 func (m *ClusterSnapshotSettings) validateRetention(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Retention) { // not required
 		return nil
 	}
@@ -114,6 +115,65 @@ func (m *ClusterSnapshotSettings) validateRetention(formats strfmt.Registry) err
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this cluster snapshot settings based on the context it is used
+func (m *ClusterSnapshotSettings) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateRepository(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateRetention(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateSlm(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ClusterSnapshotSettings) contextValidateRepository(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Repository != nil {
+		if err := m.Repository.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("repository")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ClusterSnapshotSettings) contextValidateRetention(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Retention != nil {
+		if err := m.Retention.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("retention")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ClusterSnapshotSettings) contextValidateSlm(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := validate.ReadOnly(ctx, "slm", "body", m.Slm); err != nil {
+		return err
 	}
 
 	return nil

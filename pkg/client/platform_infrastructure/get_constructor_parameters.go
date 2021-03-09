@@ -33,59 +33,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetConstructorParams creates a new GetConstructorParams object
-// with the default values initialized.
+// NewGetConstructorParams creates a new GetConstructorParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetConstructorParams() *GetConstructorParams {
-	var ()
 	return &GetConstructorParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetConstructorParamsWithTimeout creates a new GetConstructorParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetConstructorParamsWithTimeout(timeout time.Duration) *GetConstructorParams {
-	var ()
 	return &GetConstructorParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetConstructorParamsWithContext creates a new GetConstructorParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetConstructorParamsWithContext(ctx context.Context) *GetConstructorParams {
-	var ()
 	return &GetConstructorParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetConstructorParamsWithHTTPClient creates a new GetConstructorParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetConstructorParamsWithHTTPClient(client *http.Client) *GetConstructorParams {
-	var ()
 	return &GetConstructorParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetConstructorParams contains all the parameters to send to the API endpoint
-for the get constructor operation typically these are written to a http.Request
+/* GetConstructorParams contains all the parameters to send to the API endpoint
+   for the get constructor operation.
+
+   Typically these are written to a http.Request.
 */
 type GetConstructorParams struct {
 
-	/*ConstructorID
-	  Identifier for the constructor
+	/* ConstructorID.
 
+	   Identifier for the constructor
 	*/
 	ConstructorID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get constructor params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetConstructorParams) WithDefaults() *GetConstructorParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get constructor params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetConstructorParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get constructor params

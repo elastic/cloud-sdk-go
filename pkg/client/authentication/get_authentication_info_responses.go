@@ -46,7 +46,6 @@ func (o *GetAuthenticationInfoReader) ReadResponse(response runtime.ClientRespon
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,7 +56,7 @@ func NewGetAuthenticationInfoOK() *GetAuthenticationInfoOK {
 	return &GetAuthenticationInfoOK{}
 }
 
-/*GetAuthenticationInfoOK handles this case with default header values.
+/* GetAuthenticationInfoOK describes a response with status code 200, with default header values.
 
 User authentication information response
 */
@@ -68,7 +67,6 @@ type GetAuthenticationInfoOK struct {
 func (o *GetAuthenticationInfoOK) Error() string {
 	return fmt.Sprintf("[GET /users/auth][%d] getAuthenticationInfoOK  %+v", 200, o.Payload)
 }
-
 func (o *GetAuthenticationInfoOK) GetPayload() *models.AuthenticationInfo {
 	return o.Payload
 }

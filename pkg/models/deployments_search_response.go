@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -95,6 +96,38 @@ func (m *DeploymentsSearchResponse) validateReturnCount(formats strfmt.Registry)
 
 	if err := validate.Required("return_count", "body", m.ReturnCount); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this deployments search response based on the context it is used
+func (m *DeploymentsSearchResponse) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateDeployments(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *DeploymentsSearchResponse) contextValidateDeployments(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Deployments); i++ {
+
+		if m.Deployments[i] != nil {
+			if err := m.Deployments[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("deployments" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil

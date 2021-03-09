@@ -33,64 +33,79 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewSamlCallbackParams creates a new SamlCallbackParams object
-// with the default values initialized.
+// NewSamlCallbackParams creates a new SamlCallbackParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewSamlCallbackParams() *SamlCallbackParams {
-	var ()
 	return &SamlCallbackParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewSamlCallbackParamsWithTimeout creates a new SamlCallbackParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewSamlCallbackParamsWithTimeout(timeout time.Duration) *SamlCallbackParams {
-	var ()
 	return &SamlCallbackParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewSamlCallbackParamsWithContext creates a new SamlCallbackParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewSamlCallbackParamsWithContext(ctx context.Context) *SamlCallbackParams {
-	var ()
 	return &SamlCallbackParams{
-
 		Context: ctx,
 	}
 }
 
 // NewSamlCallbackParamsWithHTTPClient creates a new SamlCallbackParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewSamlCallbackParamsWithHTTPClient(client *http.Client) *SamlCallbackParams {
-	var ()
 	return &SamlCallbackParams{
 		HTTPClient: client,
 	}
 }
 
-/*SamlCallbackParams contains all the parameters to send to the API endpoint
-for the saml callback operation typically these are written to a http.Request
+/* SamlCallbackParams contains all the parameters to send to the API endpoint
+   for the saml callback operation.
+
+   Typically these are written to a http.Request.
 */
 type SamlCallbackParams struct {
 
-	/*RelayState
-	  The optional relay state that the API (service provider) sent to the identity provider.
+	/* RelayState.
 
+	   The optional relay state that the API (service provider) sent to the identity provider.
 	*/
 	RelayState *string
-	/*SAMLResponse
-	  A message issued by the identity provider to the service provider
 
+	/* SAMLResponse.
+
+	   A message issued by the identity provider to the service provider
 	*/
 	SAMLResponse string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the saml callback params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SamlCallbackParams) WithDefaults() *SamlCallbackParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the saml callback params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SamlCallbackParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the saml callback params
@@ -169,7 +184,6 @@ func (o *SamlCallbackParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.
 				return err
 			}
 		}
-
 	}
 
 	// form param SAMLResponse

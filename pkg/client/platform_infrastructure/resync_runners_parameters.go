@@ -34,71 +34,86 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewResyncRunnersParams creates a new ResyncRunnersParams object
-// with the default values initialized.
+// NewResyncRunnersParams creates a new ResyncRunnersParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewResyncRunnersParams() *ResyncRunnersParams {
-	var (
-		skipMatchingVersionDefault = bool(true)
-	)
 	return &ResyncRunnersParams{
-		SkipMatchingVersion: &skipMatchingVersionDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewResyncRunnersParamsWithTimeout creates a new ResyncRunnersParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewResyncRunnersParamsWithTimeout(timeout time.Duration) *ResyncRunnersParams {
-	var (
-		skipMatchingVersionDefault = bool(true)
-	)
 	return &ResyncRunnersParams{
-		SkipMatchingVersion: &skipMatchingVersionDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewResyncRunnersParamsWithContext creates a new ResyncRunnersParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewResyncRunnersParamsWithContext(ctx context.Context) *ResyncRunnersParams {
-	var (
-		skipMatchingVersionDefault = bool(true)
-	)
 	return &ResyncRunnersParams{
-		SkipMatchingVersion: &skipMatchingVersionDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewResyncRunnersParamsWithHTTPClient creates a new ResyncRunnersParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewResyncRunnersParamsWithHTTPClient(client *http.Client) *ResyncRunnersParams {
-	var (
-		skipMatchingVersionDefault = bool(true)
-	)
 	return &ResyncRunnersParams{
-		SkipMatchingVersion: &skipMatchingVersionDefault,
-		HTTPClient:          client,
+		HTTPClient: client,
 	}
 }
 
-/*ResyncRunnersParams contains all the parameters to send to the API endpoint
-for the resync runners operation typically these are written to a http.Request
+/* ResyncRunnersParams contains all the parameters to send to the API endpoint
+   for the resync runners operation.
+
+   Typically these are written to a http.Request.
 */
 type ResyncRunnersParams struct {
 
-	/*SkipMatchingVersion
-	  When true, skips the document indexing when the version matches the in-memory copy.
+	/* SkipMatchingVersion.
 
+	   When true, skips the document indexing when the version matches the in-memory copy.
+
+	   Default: true
 	*/
 	SkipMatchingVersion *bool
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the resync runners params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ResyncRunnersParams) WithDefaults() *ResyncRunnersParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the resync runners params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ResyncRunnersParams) SetDefaults() {
+	var (
+		skipMatchingVersionDefault = bool(true)
+	)
+
+	val := ResyncRunnersParams{
+		SkipMatchingVersion: &skipMatchingVersionDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the resync runners params
@@ -157,16 +172,17 @@ func (o *ResyncRunnersParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 
 		// query param skip_matching_version
 		var qrSkipMatchingVersion bool
+
 		if o.SkipMatchingVersion != nil {
 			qrSkipMatchingVersion = *o.SkipMatchingVersion
 		}
 		qSkipMatchingVersion := swag.FormatBool(qrSkipMatchingVersion)
 		if qSkipMatchingVersion != "" {
+
 			if err := r.SetQueryParam("skip_matching_version", qSkipMatchingVersion); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

@@ -34,198 +34,181 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetDeploymentEsResourceInfoParams creates a new GetDeploymentEsResourceInfoParams object
-// with the default values initialized.
+// NewGetDeploymentEsResourceInfoParams creates a new GetDeploymentEsResourceInfoParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetDeploymentEsResourceInfoParams() *GetDeploymentEsResourceInfoParams {
-	var (
-		convertLegacyPlansDefault = bool(false)
-		enrichWithTemplateDefault = bool(true)
-		showMetadataDefault       = bool(false)
-		showPlanDefaultsDefault   = bool(false)
-		showPlanHistoryDefault    = bool(false)
-		showPlanLogsDefault       = bool(false)
-		showPlansDefault          = bool(true)
-		showSecurityDefault       = bool(false)
-		showSettingsDefault       = bool(false)
-		showSystemAlertsDefault   = int64(0)
-	)
 	return &GetDeploymentEsResourceInfoParams{
-		ConvertLegacyPlans: &convertLegacyPlansDefault,
-		EnrichWithTemplate: &enrichWithTemplateDefault,
-		ShowMetadata:       &showMetadataDefault,
-		ShowPlanDefaults:   &showPlanDefaultsDefault,
-		ShowPlanHistory:    &showPlanHistoryDefault,
-		ShowPlanLogs:       &showPlanLogsDefault,
-		ShowPlans:          &showPlansDefault,
-		ShowSecurity:       &showSecurityDefault,
-		ShowSettings:       &showSettingsDefault,
-		ShowSystemAlerts:   &showSystemAlertsDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetDeploymentEsResourceInfoParamsWithTimeout creates a new GetDeploymentEsResourceInfoParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetDeploymentEsResourceInfoParamsWithTimeout(timeout time.Duration) *GetDeploymentEsResourceInfoParams {
-	var (
-		convertLegacyPlansDefault = bool(false)
-		enrichWithTemplateDefault = bool(true)
-		showMetadataDefault       = bool(false)
-		showPlanDefaultsDefault   = bool(false)
-		showPlanHistoryDefault    = bool(false)
-		showPlanLogsDefault       = bool(false)
-		showPlansDefault          = bool(true)
-		showSecurityDefault       = bool(false)
-		showSettingsDefault       = bool(false)
-		showSystemAlertsDefault   = int64(0)
-	)
 	return &GetDeploymentEsResourceInfoParams{
-		ConvertLegacyPlans: &convertLegacyPlansDefault,
-		EnrichWithTemplate: &enrichWithTemplateDefault,
-		ShowMetadata:       &showMetadataDefault,
-		ShowPlanDefaults:   &showPlanDefaultsDefault,
-		ShowPlanHistory:    &showPlanHistoryDefault,
-		ShowPlanLogs:       &showPlanLogsDefault,
-		ShowPlans:          &showPlansDefault,
-		ShowSecurity:       &showSecurityDefault,
-		ShowSettings:       &showSettingsDefault,
-		ShowSystemAlerts:   &showSystemAlertsDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewGetDeploymentEsResourceInfoParamsWithContext creates a new GetDeploymentEsResourceInfoParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetDeploymentEsResourceInfoParamsWithContext(ctx context.Context) *GetDeploymentEsResourceInfoParams {
-	var (
-		convertLegacyPlansDefault = bool(false)
-		enrichWithTemplateDefault = bool(true)
-		showMetadataDefault       = bool(false)
-		showPlanDefaultsDefault   = bool(false)
-		showPlanHistoryDefault    = bool(false)
-		showPlanLogsDefault       = bool(false)
-		showPlansDefault          = bool(true)
-		showSecurityDefault       = bool(false)
-		showSettingsDefault       = bool(false)
-		showSystemAlertsDefault   = int64(0)
-	)
 	return &GetDeploymentEsResourceInfoParams{
-		ConvertLegacyPlans: &convertLegacyPlansDefault,
-		EnrichWithTemplate: &enrichWithTemplateDefault,
-		ShowMetadata:       &showMetadataDefault,
-		ShowPlanDefaults:   &showPlanDefaultsDefault,
-		ShowPlanHistory:    &showPlanHistoryDefault,
-		ShowPlanLogs:       &showPlanLogsDefault,
-		ShowPlans:          &showPlansDefault,
-		ShowSecurity:       &showSecurityDefault,
-		ShowSettings:       &showSettingsDefault,
-		ShowSystemAlerts:   &showSystemAlertsDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewGetDeploymentEsResourceInfoParamsWithHTTPClient creates a new GetDeploymentEsResourceInfoParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetDeploymentEsResourceInfoParamsWithHTTPClient(client *http.Client) *GetDeploymentEsResourceInfoParams {
-	var (
-		convertLegacyPlansDefault = bool(false)
-		enrichWithTemplateDefault = bool(true)
-		showMetadataDefault       = bool(false)
-		showPlanDefaultsDefault   = bool(false)
-		showPlanHistoryDefault    = bool(false)
-		showPlanLogsDefault       = bool(false)
-		showPlansDefault          = bool(true)
-		showSecurityDefault       = bool(false)
-		showSettingsDefault       = bool(false)
-		showSystemAlertsDefault   = int64(0)
-	)
 	return &GetDeploymentEsResourceInfoParams{
-		ConvertLegacyPlans: &convertLegacyPlansDefault,
-		EnrichWithTemplate: &enrichWithTemplateDefault,
-		ShowMetadata:       &showMetadataDefault,
-		ShowPlanDefaults:   &showPlanDefaultsDefault,
-		ShowPlanHistory:    &showPlanHistoryDefault,
-		ShowPlanLogs:       &showPlanLogsDefault,
-		ShowPlans:          &showPlansDefault,
-		ShowSecurity:       &showSecurityDefault,
-		ShowSettings:       &showSettingsDefault,
-		ShowSystemAlerts:   &showSystemAlertsDefault,
-		HTTPClient:         client,
+		HTTPClient: client,
 	}
 }
 
-/*GetDeploymentEsResourceInfoParams contains all the parameters to send to the API endpoint
-for the get deployment es resource info operation typically these are written to a http.Request
+/* GetDeploymentEsResourceInfoParams contains all the parameters to send to the API endpoint
+   for the get deployment es resource info operation.
+
+   Typically these are written to a http.Request.
 */
 type GetDeploymentEsResourceInfoParams struct {
 
-	/*ConvertLegacyPlans
-	  If showing plans, whether to leave pre-2.0.0 plans in their legacy format (the default), or whether to update them to 2.0.x+ format (if 'true').
+	/* ConvertLegacyPlans.
 
+	   If showing plans, whether to leave pre-2.0.0 plans in their legacy format (the default), or whether to update them to 2.0.x+ format (if 'true').
 	*/
 	ConvertLegacyPlans *bool
-	/*DeploymentID
-	  Identifier for the Deployment
 
+	/* DeploymentID.
+
+	   Identifier for the Deployment
 	*/
 	DeploymentID string
-	/*EnrichWithTemplate
-	  If showing plans, whether to enrich the plan by including the missing elements from the deployment template it is based on.
 
+	/* EnrichWithTemplate.
+
+	   If showing plans, whether to enrich the plan by including the missing elements from the deployment template it is based on.
+
+	   Default: true
 	*/
 	EnrichWithTemplate *bool
-	/*RefID
-	  User-specified RefId for the Resource
 
+	/* RefID.
+
+	   User-specified RefId for the Resource
 	*/
 	RefID string
-	/*ShowMetadata
-	  Whether to include the full cluster metadata in the response - can be large per cluster and also include credentials.
 
+	/* ShowMetadata.
+
+	   Whether to include the full cluster metadata in the response - can be large per cluster and also include credentials.
 	*/
 	ShowMetadata *bool
-	/*ShowPlanDefaults
-	  If showing plans, whether to show values that are left at their default value (less readable but more informative).
 
+	/* ShowPlanDefaults.
+
+	   If showing plans, whether to show values that are left at their default value (less readable but more informative).
 	*/
 	ShowPlanDefaults *bool
-	/*ShowPlanHistory
-	  Whether to include with the current and pending plan information the plan history- can be very large per cluster.
 
+	/* ShowPlanHistory.
+
+	   Whether to include with the current and pending plan information the plan history- can be very large per cluster.
 	*/
 	ShowPlanHistory *bool
-	/*ShowPlanLogs
-	  Whether to include with the current and pending plan information the attempt log - can be very large per cluster.
 
+	/* ShowPlanLogs.
+
+	   Whether to include with the current and pending plan information the attempt log - can be very large per cluster.
 	*/
 	ShowPlanLogs *bool
-	/*ShowPlans
-	  Whether to include the full current and pending plan information in the response - can be large per cluster.
 
+	/* ShowPlans.
+
+	   Whether to include the full current and pending plan information in the response - can be large per cluster.
+
+	   Default: true
 	*/
 	ShowPlans *bool
-	/*ShowSecurity
-	  Whether to include the Elasticsearch 2.x security information in the response - can be large per cluster and also include credentials.
 
+	/* ShowSecurity.
+
+	   Whether to include the Elasticsearch 2.x security information in the response - can be large per cluster and also include credentials.
 	*/
 	ShowSecurity *bool
-	/*ShowSettings
-	  Whether to show cluster settings in the response.
 
+	/* ShowSettings.
+
+	   Whether to show cluster settings in the response.
 	*/
 	ShowSettings *bool
-	/*ShowSystemAlerts
-	  Number of system alerts (such as forced restarts due to memory limits) to be included in the response - can be large per cluster. Negative numbers or 0 will not return field.
 
+	/* ShowSystemAlerts.
+
+	   Number of system alerts (such as forced restarts due to memory limits) to be included in the response - can be large per cluster. Negative numbers or 0 will not return field.
 	*/
 	ShowSystemAlerts *int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get deployment es resource info params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetDeploymentEsResourceInfoParams) WithDefaults() *GetDeploymentEsResourceInfoParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get deployment es resource info params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetDeploymentEsResourceInfoParams) SetDefaults() {
+	var (
+		convertLegacyPlansDefault = bool(false)
+
+		enrichWithTemplateDefault = bool(true)
+
+		showMetadataDefault = bool(false)
+
+		showPlanDefaultsDefault = bool(false)
+
+		showPlanHistoryDefault = bool(false)
+
+		showPlanLogsDefault = bool(false)
+
+		showPlansDefault = bool(true)
+
+		showSecurityDefault = bool(false)
+
+		showSettingsDefault = bool(false)
+
+		showSystemAlertsDefault = int64(0)
+	)
+
+	val := GetDeploymentEsResourceInfoParams{
+		ConvertLegacyPlans: &convertLegacyPlansDefault,
+		EnrichWithTemplate: &enrichWithTemplateDefault,
+		ShowMetadata:       &showMetadataDefault,
+		ShowPlanDefaults:   &showPlanDefaultsDefault,
+		ShowPlanHistory:    &showPlanHistoryDefault,
+		ShowPlanLogs:       &showPlanLogsDefault,
+		ShowPlans:          &showPlansDefault,
+		ShowSecurity:       &showSecurityDefault,
+		ShowSettings:       &showSettingsDefault,
+		ShowSystemAlerts:   &showSystemAlertsDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the get deployment es resource info params
@@ -405,16 +388,17 @@ func (o *GetDeploymentEsResourceInfoParams) WriteToRequest(r runtime.ClientReque
 
 		// query param convert_legacy_plans
 		var qrConvertLegacyPlans bool
+
 		if o.ConvertLegacyPlans != nil {
 			qrConvertLegacyPlans = *o.ConvertLegacyPlans
 		}
 		qConvertLegacyPlans := swag.FormatBool(qrConvertLegacyPlans)
 		if qConvertLegacyPlans != "" {
+
 			if err := r.SetQueryParam("convert_legacy_plans", qConvertLegacyPlans); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	// path param deployment_id
@@ -426,16 +410,17 @@ func (o *GetDeploymentEsResourceInfoParams) WriteToRequest(r runtime.ClientReque
 
 		// query param enrich_with_template
 		var qrEnrichWithTemplate bool
+
 		if o.EnrichWithTemplate != nil {
 			qrEnrichWithTemplate = *o.EnrichWithTemplate
 		}
 		qEnrichWithTemplate := swag.FormatBool(qrEnrichWithTemplate)
 		if qEnrichWithTemplate != "" {
+
 			if err := r.SetQueryParam("enrich_with_template", qEnrichWithTemplate); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	// path param ref_id
@@ -447,128 +432,136 @@ func (o *GetDeploymentEsResourceInfoParams) WriteToRequest(r runtime.ClientReque
 
 		// query param show_metadata
 		var qrShowMetadata bool
+
 		if o.ShowMetadata != nil {
 			qrShowMetadata = *o.ShowMetadata
 		}
 		qShowMetadata := swag.FormatBool(qrShowMetadata)
 		if qShowMetadata != "" {
+
 			if err := r.SetQueryParam("show_metadata", qShowMetadata); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.ShowPlanDefaults != nil {
 
 		// query param show_plan_defaults
 		var qrShowPlanDefaults bool
+
 		if o.ShowPlanDefaults != nil {
 			qrShowPlanDefaults = *o.ShowPlanDefaults
 		}
 		qShowPlanDefaults := swag.FormatBool(qrShowPlanDefaults)
 		if qShowPlanDefaults != "" {
+
 			if err := r.SetQueryParam("show_plan_defaults", qShowPlanDefaults); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.ShowPlanHistory != nil {
 
 		// query param show_plan_history
 		var qrShowPlanHistory bool
+
 		if o.ShowPlanHistory != nil {
 			qrShowPlanHistory = *o.ShowPlanHistory
 		}
 		qShowPlanHistory := swag.FormatBool(qrShowPlanHistory)
 		if qShowPlanHistory != "" {
+
 			if err := r.SetQueryParam("show_plan_history", qShowPlanHistory); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.ShowPlanLogs != nil {
 
 		// query param show_plan_logs
 		var qrShowPlanLogs bool
+
 		if o.ShowPlanLogs != nil {
 			qrShowPlanLogs = *o.ShowPlanLogs
 		}
 		qShowPlanLogs := swag.FormatBool(qrShowPlanLogs)
 		if qShowPlanLogs != "" {
+
 			if err := r.SetQueryParam("show_plan_logs", qShowPlanLogs); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.ShowPlans != nil {
 
 		// query param show_plans
 		var qrShowPlans bool
+
 		if o.ShowPlans != nil {
 			qrShowPlans = *o.ShowPlans
 		}
 		qShowPlans := swag.FormatBool(qrShowPlans)
 		if qShowPlans != "" {
+
 			if err := r.SetQueryParam("show_plans", qShowPlans); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.ShowSecurity != nil {
 
 		// query param show_security
 		var qrShowSecurity bool
+
 		if o.ShowSecurity != nil {
 			qrShowSecurity = *o.ShowSecurity
 		}
 		qShowSecurity := swag.FormatBool(qrShowSecurity)
 		if qShowSecurity != "" {
+
 			if err := r.SetQueryParam("show_security", qShowSecurity); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.ShowSettings != nil {
 
 		// query param show_settings
 		var qrShowSettings bool
+
 		if o.ShowSettings != nil {
 			qrShowSettings = *o.ShowSettings
 		}
 		qShowSettings := swag.FormatBool(qrShowSettings)
 		if qShowSettings != "" {
+
 			if err := r.SetQueryParam("show_settings", qShowSettings); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.ShowSystemAlerts != nil {
 
 		// query param show_system_alerts
 		var qrShowSystemAlerts int64
+
 		if o.ShowSystemAlerts != nil {
 			qrShowSystemAlerts = *o.ShowSystemAlerts
 		}
 		qShowSystemAlerts := swag.FormatInt64(qrShowSystemAlerts)
 		if qShowSystemAlerts != "" {
+
 			if err := r.SetQueryParam("show_system_alerts", qShowSystemAlerts); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

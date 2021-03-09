@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -119,7 +120,6 @@ func (m *DeploymentTemplateInfo) Validate(formats strfmt.Registry) error {
 }
 
 func (m *DeploymentTemplateInfo) validateClusterTemplate(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.ClusterTemplate) { // not required
 		return nil
 	}
@@ -137,7 +137,6 @@ func (m *DeploymentTemplateInfo) validateClusterTemplate(formats strfmt.Registry
 }
 
 func (m *DeploymentTemplateInfo) validateDeploymentTemplate(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.DeploymentTemplate) { // not required
 		return nil
 	}
@@ -155,7 +154,6 @@ func (m *DeploymentTemplateInfo) validateDeploymentTemplate(formats strfmt.Regis
 }
 
 func (m *DeploymentTemplateInfo) validateInstanceConfigurations(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.InstanceConfigurations) { // not required
 		return nil
 	}
@@ -180,7 +178,6 @@ func (m *DeploymentTemplateInfo) validateInstanceConfigurations(formats strfmt.R
 }
 
 func (m *DeploymentTemplateInfo) validateKibanaDeeplink(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.KibanaDeeplink) { // not required
 		return nil
 	}
@@ -205,7 +202,6 @@ func (m *DeploymentTemplateInfo) validateKibanaDeeplink(formats strfmt.Registry)
 }
 
 func (m *DeploymentTemplateInfo) validateMetadata(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Metadata) { // not required
 		return nil
 	}
@@ -239,13 +235,142 @@ func (m *DeploymentTemplateInfo) validateName(formats strfmt.Registry) error {
 }
 
 func (m *DeploymentTemplateInfo) validateSource(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Source) { // not required
 		return nil
 	}
 
 	if m.Source != nil {
 		if err := m.Source.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("source")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this deployment template info based on the context it is used
+func (m *DeploymentTemplateInfo) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateClusterTemplate(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateDeploymentTemplate(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateInstanceConfigurations(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateKibanaDeeplink(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateMetadata(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateSource(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *DeploymentTemplateInfo) contextValidateClusterTemplate(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.ClusterTemplate != nil {
+		if err := m.ClusterTemplate.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("cluster_template")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *DeploymentTemplateInfo) contextValidateDeploymentTemplate(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.DeploymentTemplate != nil {
+		if err := m.DeploymentTemplate.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("deployment_template")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *DeploymentTemplateInfo) contextValidateInstanceConfigurations(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.InstanceConfigurations); i++ {
+
+		if m.InstanceConfigurations[i] != nil {
+			if err := m.InstanceConfigurations[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("instance_configurations" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *DeploymentTemplateInfo) contextValidateKibanaDeeplink(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.KibanaDeeplink); i++ {
+
+		if m.KibanaDeeplink[i] != nil {
+			if err := m.KibanaDeeplink[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("kibana_deeplink" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *DeploymentTemplateInfo) contextValidateMetadata(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Metadata); i++ {
+
+		if m.Metadata[i] != nil {
+			if err := m.Metadata[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("metadata" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *DeploymentTemplateInfo) contextValidateSource(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Source != nil {
+		if err := m.Source.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("source")
 			}

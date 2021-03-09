@@ -42,75 +42,78 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientOption is the option for Client methods
+type ClientOption func(*runtime.ClientOperation)
+
 // ClientService is the interface for Client methods
 type ClientService interface {
-	CancelKibanaClusterPendingPlan(params *CancelKibanaClusterPendingPlanParams, authInfo runtime.ClientAuthInfoWriter) (*CancelKibanaClusterPendingPlanOK, error)
+	CancelKibanaClusterPendingPlan(params *CancelKibanaClusterPendingPlanParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CancelKibanaClusterPendingPlanOK, error)
 
-	CreateKibanaCluster(params *CreateKibanaClusterParams, authInfo runtime.ClientAuthInfoWriter) (*CreateKibanaClusterOK, *CreateKibanaClusterCreated, error)
+	CreateKibanaCluster(params *CreateKibanaClusterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateKibanaClusterOK, *CreateKibanaClusterCreated, error)
 
-	DeleteKibProxyRequests(params *DeleteKibProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteKibProxyRequestsOK, error)
+	DeleteKibProxyRequests(params *DeleteKibProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteKibProxyRequestsOK, error)
 
-	DeleteKibanaCluster(params *DeleteKibanaClusterParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteKibanaClusterOK, error)
+	DeleteKibanaCluster(params *DeleteKibanaClusterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteKibanaClusterOK, error)
 
-	GetKibProxyRequests(params *GetKibProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter) (*GetKibProxyRequestsOK, error)
+	GetKibProxyRequests(params *GetKibProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetKibProxyRequestsOK, error)
 
-	GetKibanaCluster(params *GetKibanaClusterParams, authInfo runtime.ClientAuthInfoWriter) (*GetKibanaClusterOK, error)
+	GetKibanaCluster(params *GetKibanaClusterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetKibanaClusterOK, error)
 
-	GetKibanaClusterMetadataRaw(params *GetKibanaClusterMetadataRawParams, authInfo runtime.ClientAuthInfoWriter) (*GetKibanaClusterMetadataRawOK, error)
+	GetKibanaClusterMetadataRaw(params *GetKibanaClusterMetadataRawParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetKibanaClusterMetadataRawOK, error)
 
-	GetKibanaClusterMetadataSettings(params *GetKibanaClusterMetadataSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*GetKibanaClusterMetadataSettingsOK, error)
+	GetKibanaClusterMetadataSettings(params *GetKibanaClusterMetadataSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetKibanaClusterMetadataSettingsOK, error)
 
-	GetKibanaClusterPendingPlan(params *GetKibanaClusterPendingPlanParams, authInfo runtime.ClientAuthInfoWriter) (*GetKibanaClusterPendingPlanOK, error)
+	GetKibanaClusterPendingPlan(params *GetKibanaClusterPendingPlanParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetKibanaClusterPendingPlanOK, error)
 
-	GetKibanaClusterPlan(params *GetKibanaClusterPlanParams, authInfo runtime.ClientAuthInfoWriter) (*GetKibanaClusterPlanOK, error)
+	GetKibanaClusterPlan(params *GetKibanaClusterPlanParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetKibanaClusterPlanOK, error)
 
-	GetKibanaClusterPlanActivity(params *GetKibanaClusterPlanActivityParams, authInfo runtime.ClientAuthInfoWriter) (*GetKibanaClusterPlanActivityOK, error)
+	GetKibanaClusterPlanActivity(params *GetKibanaClusterPlanActivityParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetKibanaClusterPlanActivityOK, error)
 
-	GetKibanaClusters(params *GetKibanaClustersParams, authInfo runtime.ClientAuthInfoWriter) (*GetKibanaClustersOK, error)
+	GetKibanaClusters(params *GetKibanaClustersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetKibanaClustersOK, error)
 
-	MoveKibanaClusterInstances(params *MoveKibanaClusterInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*MoveKibanaClusterInstancesAccepted, error)
+	MoveKibanaClusterInstances(params *MoveKibanaClusterInstancesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MoveKibanaClusterInstancesAccepted, error)
 
-	MoveKibanaClusterInstancesAdvanced(params *MoveKibanaClusterInstancesAdvancedParams, authInfo runtime.ClientAuthInfoWriter) (*MoveKibanaClusterInstancesAdvancedAccepted, error)
+	MoveKibanaClusterInstancesAdvanced(params *MoveKibanaClusterInstancesAdvancedParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MoveKibanaClusterInstancesAdvancedAccepted, error)
 
-	PostKibProxyRequests(params *PostKibProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter) (*PostKibProxyRequestsOK, error)
+	PostKibProxyRequests(params *PostKibProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostKibProxyRequestsOK, error)
 
-	PutKibProxyRequests(params *PutKibProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter) (*PutKibProxyRequestsOK, error)
+	PutKibProxyRequests(params *PutKibProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutKibProxyRequestsOK, error)
 
-	RestartKibanaCluster(params *RestartKibanaClusterParams, authInfo runtime.ClientAuthInfoWriter) (*RestartKibanaClusterAccepted, error)
+	RestartKibanaCluster(params *RestartKibanaClusterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*RestartKibanaClusterAccepted, error)
 
-	ResyncKibanaCluster(params *ResyncKibanaClusterParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncKibanaClusterOK, error)
+	ResyncKibanaCluster(params *ResyncKibanaClusterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ResyncKibanaClusterOK, error)
 
-	ResyncKibanaClusters(params *ResyncKibanaClustersParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncKibanaClustersAccepted, error)
+	ResyncKibanaClusters(params *ResyncKibanaClustersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ResyncKibanaClustersAccepted, error)
 
-	SearchKibanaClusters(params *SearchKibanaClustersParams, authInfo runtime.ClientAuthInfoWriter) (*SearchKibanaClustersOK, error)
+	SearchKibanaClusters(params *SearchKibanaClustersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SearchKibanaClustersOK, error)
 
-	SetKibanaClusterMetadataRaw(params *SetKibanaClusterMetadataRawParams, authInfo runtime.ClientAuthInfoWriter) (*SetKibanaClusterMetadataRawOK, error)
+	SetKibanaClusterMetadataRaw(params *SetKibanaClusterMetadataRawParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetKibanaClusterMetadataRawOK, error)
 
-	SetKibanaClusterName(params *SetKibanaClusterNameParams, authInfo runtime.ClientAuthInfoWriter) (*SetKibanaClusterNameOK, error)
+	SetKibanaClusterName(params *SetKibanaClusterNameParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetKibanaClusterNameOK, error)
 
-	ShutdownKibanaCluster(params *ShutdownKibanaClusterParams, authInfo runtime.ClientAuthInfoWriter) (*ShutdownKibanaClusterAccepted, error)
+	ShutdownKibanaCluster(params *ShutdownKibanaClusterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ShutdownKibanaClusterAccepted, error)
 
-	StartKibanaClusterInstances(params *StartKibanaClusterInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*StartKibanaClusterInstancesAccepted, error)
+	StartKibanaClusterInstances(params *StartKibanaClusterInstancesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StartKibanaClusterInstancesAccepted, error)
 
-	StartKibanaClusterInstancesAll(params *StartKibanaClusterInstancesAllParams, authInfo runtime.ClientAuthInfoWriter) (*StartKibanaClusterInstancesAllAccepted, error)
+	StartKibanaClusterInstancesAll(params *StartKibanaClusterInstancesAllParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StartKibanaClusterInstancesAllAccepted, error)
 
-	StartKibanaClusterInstancesAllMaintenanceMode(params *StartKibanaClusterInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StartKibanaClusterInstancesAllMaintenanceModeAccepted, error)
+	StartKibanaClusterInstancesAllMaintenanceMode(params *StartKibanaClusterInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StartKibanaClusterInstancesAllMaintenanceModeAccepted, error)
 
-	StartKibanaClusterMaintenanceMode(params *StartKibanaClusterMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StartKibanaClusterMaintenanceModeAccepted, error)
+	StartKibanaClusterMaintenanceMode(params *StartKibanaClusterMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StartKibanaClusterMaintenanceModeAccepted, error)
 
-	StopKibanaClusterInstances(params *StopKibanaClusterInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*StopKibanaClusterInstancesAccepted, error)
+	StopKibanaClusterInstances(params *StopKibanaClusterInstancesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StopKibanaClusterInstancesAccepted, error)
 
-	StopKibanaClusterInstancesAll(params *StopKibanaClusterInstancesAllParams, authInfo runtime.ClientAuthInfoWriter) (*StopKibanaClusterInstancesAllAccepted, error)
+	StopKibanaClusterInstancesAll(params *StopKibanaClusterInstancesAllParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StopKibanaClusterInstancesAllAccepted, error)
 
-	StopKibanaClusterInstancesAllMaintenanceMode(params *StopKibanaClusterInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StopKibanaClusterInstancesAllMaintenanceModeAccepted, error)
+	StopKibanaClusterInstancesAllMaintenanceMode(params *StopKibanaClusterInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StopKibanaClusterInstancesAllMaintenanceModeAccepted, error)
 
-	StopKibanaClusterMaintenanceMode(params *StopKibanaClusterMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StopKibanaClusterMaintenanceModeAccepted, error)
+	StopKibanaClusterMaintenanceMode(params *StopKibanaClusterMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StopKibanaClusterMaintenanceModeAccepted, error)
 
-	UpdateKibanaClusterMetadataSettings(params *UpdateKibanaClusterMetadataSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateKibanaClusterMetadataSettingsOK, error)
+	UpdateKibanaClusterMetadataSettings(params *UpdateKibanaClusterMetadataSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateKibanaClusterMetadataSettingsOK, error)
 
-	UpdateKibanaClusterPlan(params *UpdateKibanaClusterPlanParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateKibanaClusterPlanOK, *UpdateKibanaClusterPlanAccepted, error)
+	UpdateKibanaClusterPlan(params *UpdateKibanaClusterPlanParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateKibanaClusterPlanOK, *UpdateKibanaClusterPlanAccepted, error)
 
-	UpgradeKibanaCluster(params *UpgradeKibanaClusterParams, authInfo runtime.ClientAuthInfoWriter) (*UpgradeKibanaClusterAccepted, error)
+	UpgradeKibanaCluster(params *UpgradeKibanaClusterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpgradeKibanaClusterAccepted, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -120,13 +123,12 @@ type ClientService interface {
 
   DEPRECATED (Scheduled to be removed in the next major version): Cancels the pending plan of the Kibana instance.
 */
-func (a *Client) CancelKibanaClusterPendingPlan(params *CancelKibanaClusterPendingPlanParams, authInfo runtime.ClientAuthInfoWriter) (*CancelKibanaClusterPendingPlanOK, error) {
+func (a *Client) CancelKibanaClusterPendingPlan(params *CancelKibanaClusterPendingPlanParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CancelKibanaClusterPendingPlanOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCancelKibanaClusterPendingPlanParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "cancel-kibana-cluster-pending-plan",
 		Method:             "DELETE",
 		PathPattern:        "/clusters/kibana/{cluster_id}/plan/pending",
@@ -138,7 +140,12 @@ func (a *Client) CancelKibanaClusterPendingPlan(params *CancelKibanaClusterPendi
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -157,13 +164,12 @@ func (a *Client) CancelKibanaClusterPendingPlan(params *CancelKibanaClusterPendi
 
   DEPRECATED (Scheduled to be removed in the next major version): Creates a Kibana instance for the Elasticsearch cluster.
 */
-func (a *Client) CreateKibanaCluster(params *CreateKibanaClusterParams, authInfo runtime.ClientAuthInfoWriter) (*CreateKibanaClusterOK, *CreateKibanaClusterCreated, error) {
+func (a *Client) CreateKibanaCluster(params *CreateKibanaClusterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateKibanaClusterOK, *CreateKibanaClusterCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateKibanaClusterParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "create-kibana-cluster",
 		Method:             "POST",
 		PathPattern:        "/clusters/kibana",
@@ -175,7 +181,12 @@ func (a *Client) CreateKibanaCluster(params *CreateKibanaClusterParams, authInfo
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -195,13 +206,12 @@ func (a *Client) CreateKibanaCluster(params *CreateKibanaClusterParams, authInfo
 
   DEPRECATED (Scheduled to be removed in the next major version): Proxies the HTTP DELETE request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.
 */
-func (a *Client) DeleteKibProxyRequests(params *DeleteKibProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteKibProxyRequestsOK, error) {
+func (a *Client) DeleteKibProxyRequests(params *DeleteKibProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteKibProxyRequestsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteKibProxyRequestsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "delete-kib-proxy-requests",
 		Method:             "DELETE",
 		PathPattern:        "/clusters/kibana/{cluster_id}/proxy/{kibana_path}",
@@ -213,7 +223,12 @@ func (a *Client) DeleteKibProxyRequests(params *DeleteKibProxyRequestsParams, au
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -233,13 +248,12 @@ func (a *Client) DeleteKibProxyRequests(params *DeleteKibProxyRequestsParams, au
   DEPRECATED (Scheduled to be removed in the next major version): Deletes the Kibana instance.
 Before you delete the Kibana instance, you must first successfully issue a `_shutdown` command.
 */
-func (a *Client) DeleteKibanaCluster(params *DeleteKibanaClusterParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteKibanaClusterOK, error) {
+func (a *Client) DeleteKibanaCluster(params *DeleteKibanaClusterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteKibanaClusterOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteKibanaClusterParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "delete-kibana-cluster",
 		Method:             "DELETE",
 		PathPattern:        "/clusters/kibana/{cluster_id}",
@@ -251,7 +265,12 @@ func (a *Client) DeleteKibanaCluster(params *DeleteKibanaClusterParams, authInfo
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -270,13 +289,12 @@ func (a *Client) DeleteKibanaCluster(params *DeleteKibanaClusterParams, authInfo
 
   DEPRECATED (Scheduled to be removed in the next major version): Proxies the HTTP GET request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.
 */
-func (a *Client) GetKibProxyRequests(params *GetKibProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter) (*GetKibProxyRequestsOK, error) {
+func (a *Client) GetKibProxyRequests(params *GetKibProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetKibProxyRequestsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetKibProxyRequestsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-kib-proxy-requests",
 		Method:             "GET",
 		PathPattern:        "/clusters/kibana/{cluster_id}/proxy/{kibana_path}",
@@ -288,7 +306,12 @@ func (a *Client) GetKibProxyRequests(params *GetKibProxyRequestsParams, authInfo
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -307,13 +330,12 @@ func (a *Client) GetKibProxyRequests(params *GetKibProxyRequestsParams, authInfo
 
   DEPRECATED (Scheduled to be removed in the next major version): Retrieves the Kibana instance information.
 */
-func (a *Client) GetKibanaCluster(params *GetKibanaClusterParams, authInfo runtime.ClientAuthInfoWriter) (*GetKibanaClusterOK, error) {
+func (a *Client) GetKibanaCluster(params *GetKibanaClusterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetKibanaClusterOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetKibanaClusterParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-kibana-cluster",
 		Method:             "GET",
 		PathPattern:        "/clusters/kibana/{cluster_id}",
@@ -325,7 +347,12 @@ func (a *Client) GetKibanaCluster(params *GetKibanaClusterParams, authInfo runti
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -344,13 +371,12 @@ func (a *Client) GetKibanaCluster(params *GetKibanaClusterParams, authInfo runti
 
   DEPRECATED (Scheduled to be removed in the next major version): Advanced use only. Retrieves the internal metadata, in free-form JSON, for the Kibana instance.
 */
-func (a *Client) GetKibanaClusterMetadataRaw(params *GetKibanaClusterMetadataRawParams, authInfo runtime.ClientAuthInfoWriter) (*GetKibanaClusterMetadataRawOK, error) {
+func (a *Client) GetKibanaClusterMetadataRaw(params *GetKibanaClusterMetadataRawParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetKibanaClusterMetadataRawOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetKibanaClusterMetadataRawParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-kibana-cluster-metadata-raw",
 		Method:             "GET",
 		PathPattern:        "/clusters/kibana/{cluster_id}/metadata/raw",
@@ -362,7 +388,12 @@ func (a *Client) GetKibanaClusterMetadataRaw(params *GetKibanaClusterMetadataRaw
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -381,13 +412,12 @@ func (a *Client) GetKibanaClusterMetadataRaw(params *GetKibanaClusterMetadataRaw
 
   DEPRECATED (Scheduled to be removed in the next major version): Retrieves a structured version of the cluster metadata as a collection of top-level settings. If a particular setting isn't returned, then the free-form JSON endpoint (`/metadata/raw`) must be used.
 */
-func (a *Client) GetKibanaClusterMetadataSettings(params *GetKibanaClusterMetadataSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*GetKibanaClusterMetadataSettingsOK, error) {
+func (a *Client) GetKibanaClusterMetadataSettings(params *GetKibanaClusterMetadataSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetKibanaClusterMetadataSettingsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetKibanaClusterMetadataSettingsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-kibana-cluster-metadata-settings",
 		Method:             "GET",
 		PathPattern:        "/clusters/kibana/{cluster_id}/metadata/settings",
@@ -399,7 +429,12 @@ func (a *Client) GetKibanaClusterMetadataSettings(params *GetKibanaClusterMetada
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -418,13 +453,12 @@ func (a *Client) GetKibanaClusterMetadataSettings(params *GetKibanaClusterMetada
 
   DEPRECATED (Scheduled to be removed in the next major version): Retrieves the pending plan of the Kibana instance.
 */
-func (a *Client) GetKibanaClusterPendingPlan(params *GetKibanaClusterPendingPlanParams, authInfo runtime.ClientAuthInfoWriter) (*GetKibanaClusterPendingPlanOK, error) {
+func (a *Client) GetKibanaClusterPendingPlan(params *GetKibanaClusterPendingPlanParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetKibanaClusterPendingPlanOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetKibanaClusterPendingPlanParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-kibana-cluster-pending-plan",
 		Method:             "GET",
 		PathPattern:        "/clusters/kibana/{cluster_id}/plan/pending",
@@ -436,7 +470,12 @@ func (a *Client) GetKibanaClusterPendingPlan(params *GetKibanaClusterPendingPlan
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -455,13 +494,12 @@ func (a *Client) GetKibanaClusterPendingPlan(params *GetKibanaClusterPendingPlan
 
   DEPRECATED (Scheduled to be removed in the next major version): Retrieves the active plan of the Kibana instance. Transient settings are not show by this endpoint. To view the transient settings that have been applied with a specific plan, use the activity endpoint.
 */
-func (a *Client) GetKibanaClusterPlan(params *GetKibanaClusterPlanParams, authInfo runtime.ClientAuthInfoWriter) (*GetKibanaClusterPlanOK, error) {
+func (a *Client) GetKibanaClusterPlan(params *GetKibanaClusterPlanParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetKibanaClusterPlanOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetKibanaClusterPlanParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-kibana-cluster-plan",
 		Method:             "GET",
 		PathPattern:        "/clusters/kibana/{cluster_id}/plan",
@@ -473,7 +511,12 @@ func (a *Client) GetKibanaClusterPlan(params *GetKibanaClusterPlanParams, authIn
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -492,13 +535,12 @@ func (a *Client) GetKibanaClusterPlan(params *GetKibanaClusterPlanParams, authIn
 
   DEPRECATED (Scheduled to be removed in the next major version): Retrieves the active and historical plan information for the Kibana instance.
 */
-func (a *Client) GetKibanaClusterPlanActivity(params *GetKibanaClusterPlanActivityParams, authInfo runtime.ClientAuthInfoWriter) (*GetKibanaClusterPlanActivityOK, error) {
+func (a *Client) GetKibanaClusterPlanActivity(params *GetKibanaClusterPlanActivityParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetKibanaClusterPlanActivityOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetKibanaClusterPlanActivityParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-kibana-cluster-plan-activity",
 		Method:             "GET",
 		PathPattern:        "/clusters/kibana/{cluster_id}/plan/activity",
@@ -510,7 +552,12 @@ func (a *Client) GetKibanaClusterPlanActivity(params *GetKibanaClusterPlanActivi
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -529,13 +576,12 @@ func (a *Client) GetKibanaClusterPlanActivity(params *GetKibanaClusterPlanActivi
 
   DEPRECATED (Scheduled to be removed in the next major version): Retrieves the information for all Kibana instances.
 */
-func (a *Client) GetKibanaClusters(params *GetKibanaClustersParams, authInfo runtime.ClientAuthInfoWriter) (*GetKibanaClustersOK, error) {
+func (a *Client) GetKibanaClusters(params *GetKibanaClustersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetKibanaClustersOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetKibanaClustersParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-kibana-clusters",
 		Method:             "GET",
 		PathPattern:        "/clusters/kibana",
@@ -547,7 +593,12 @@ func (a *Client) GetKibanaClusters(params *GetKibanaClustersParams, authInfo run
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -566,13 +617,12 @@ func (a *Client) GetKibanaClusters(params *GetKibanaClustersParams, authInfo run
 
   DEPRECATED (Scheduled to be removed in the next major version): Moves one or more Kibana instances.
 */
-func (a *Client) MoveKibanaClusterInstances(params *MoveKibanaClusterInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*MoveKibanaClusterInstancesAccepted, error) {
+func (a *Client) MoveKibanaClusterInstances(params *MoveKibanaClusterInstancesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MoveKibanaClusterInstancesAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewMoveKibanaClusterInstancesParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "move-kibana-cluster-instances",
 		Method:             "POST",
 		PathPattern:        "/clusters/kibana/{cluster_id}/instances/{instance_ids}/_move",
@@ -584,7 +634,12 @@ func (a *Client) MoveKibanaClusterInstances(params *MoveKibanaClusterInstancesPa
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -603,13 +658,12 @@ func (a *Client) MoveKibanaClusterInstances(params *MoveKibanaClusterInstancesPa
 
   DEPRECATED (Scheduled to be removed in the next major version): Moves one or more Kibana instances. The custom configuration settings are posted in the body.
 */
-func (a *Client) MoveKibanaClusterInstancesAdvanced(params *MoveKibanaClusterInstancesAdvancedParams, authInfo runtime.ClientAuthInfoWriter) (*MoveKibanaClusterInstancesAdvancedAccepted, error) {
+func (a *Client) MoveKibanaClusterInstancesAdvanced(params *MoveKibanaClusterInstancesAdvancedParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MoveKibanaClusterInstancesAdvancedAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewMoveKibanaClusterInstancesAdvancedParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "move-kibana-cluster-instances-advanced",
 		Method:             "POST",
 		PathPattern:        "/clusters/kibana/{cluster_id}/instances/_move",
@@ -621,7 +675,12 @@ func (a *Client) MoveKibanaClusterInstancesAdvanced(params *MoveKibanaClusterIns
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -640,13 +699,12 @@ func (a *Client) MoveKibanaClusterInstancesAdvanced(params *MoveKibanaClusterIns
 
   DEPRECATED (Scheduled to be removed in the next major version): Proxies the HTTP POST request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.
 */
-func (a *Client) PostKibProxyRequests(params *PostKibProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter) (*PostKibProxyRequestsOK, error) {
+func (a *Client) PostKibProxyRequests(params *PostKibProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostKibProxyRequestsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostKibProxyRequestsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "post-kib-proxy-requests",
 		Method:             "POST",
 		PathPattern:        "/clusters/kibana/{cluster_id}/proxy/{kibana_path}",
@@ -658,7 +716,12 @@ func (a *Client) PostKibProxyRequests(params *PostKibProxyRequestsParams, authIn
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -677,13 +740,12 @@ func (a *Client) PostKibProxyRequests(params *PostKibProxyRequestsParams, authIn
 
   DEPRECATED (Scheduled to be removed in the next major version): Proxies the HTTP PUT request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.
 */
-func (a *Client) PutKibProxyRequests(params *PutKibProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter) (*PutKibProxyRequestsOK, error) {
+func (a *Client) PutKibProxyRequests(params *PutKibProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutKibProxyRequestsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPutKibProxyRequestsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "put-kib-proxy-requests",
 		Method:             "PUT",
 		PathPattern:        "/clusters/kibana/{cluster_id}/proxy/{kibana_path}",
@@ -695,7 +757,12 @@ func (a *Client) PutKibProxyRequests(params *PutKibProxyRequestsParams, authInfo
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -714,13 +781,12 @@ func (a *Client) PutKibProxyRequests(params *PutKibProxyRequestsParams, authInfo
 
   DEPRECATED (Scheduled to be removed in the next major version): Restarts the Kibana instance. When you restart an active instance, the existing plan is used and a `cluster_reboot` is applied. A `cluster_reboot` issues a Kibana restart command, then waits for the command to complete. When you restart an inactive instance, the most recent successful plan is applied.
 */
-func (a *Client) RestartKibanaCluster(params *RestartKibanaClusterParams, authInfo runtime.ClientAuthInfoWriter) (*RestartKibanaClusterAccepted, error) {
+func (a *Client) RestartKibanaCluster(params *RestartKibanaClusterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*RestartKibanaClusterAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewRestartKibanaClusterParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "restart-kibana-cluster",
 		Method:             "POST",
 		PathPattern:        "/clusters/kibana/{cluster_id}/_restart",
@@ -732,7 +798,12 @@ func (a *Client) RestartKibanaCluster(params *RestartKibanaClusterParams, authIn
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -751,13 +822,12 @@ func (a *Client) RestartKibanaCluster(params *RestartKibanaClusterParams, authIn
 
   DEPRECATED (Scheduled to be removed in the next major version): Immediately resynchronizes the search index and cache for the selected Kibana instance.
 */
-func (a *Client) ResyncKibanaCluster(params *ResyncKibanaClusterParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncKibanaClusterOK, error) {
+func (a *Client) ResyncKibanaCluster(params *ResyncKibanaClusterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ResyncKibanaClusterOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewResyncKibanaClusterParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "resync-kibana-cluster",
 		Method:             "POST",
 		PathPattern:        "/clusters/kibana/{cluster_id}/_resync",
@@ -769,7 +839,12 @@ func (a *Client) ResyncKibanaCluster(params *ResyncKibanaClusterParams, authInfo
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -788,13 +863,12 @@ func (a *Client) ResyncKibanaCluster(params *ResyncKibanaClusterParams, authInfo
 
   DEPRECATED (Scheduled to be removed in the next major version): Asynchronously resynchronizes the search index for all Kibana instances.
 */
-func (a *Client) ResyncKibanaClusters(params *ResyncKibanaClustersParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncKibanaClustersAccepted, error) {
+func (a *Client) ResyncKibanaClusters(params *ResyncKibanaClustersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ResyncKibanaClustersAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewResyncKibanaClustersParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "resync-kibana-clusters",
 		Method:             "POST",
 		PathPattern:        "/clusters/kibana/_resync",
@@ -806,7 +880,12 @@ func (a *Client) ResyncKibanaClusters(params *ResyncKibanaClustersParams, authIn
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -825,13 +904,12 @@ func (a *Client) ResyncKibanaClusters(params *ResyncKibanaClustersParams, authIn
 
   DEPRECATED (Scheduled to be removed in the next major version): Retrieves the information for all of the Kibana instances that match the specified query.
 */
-func (a *Client) SearchKibanaClusters(params *SearchKibanaClustersParams, authInfo runtime.ClientAuthInfoWriter) (*SearchKibanaClustersOK, error) {
+func (a *Client) SearchKibanaClusters(params *SearchKibanaClustersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SearchKibanaClustersOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSearchKibanaClustersParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "search-kibana-clusters",
 		Method:             "POST",
 		PathPattern:        "/clusters/kibana/_search",
@@ -843,7 +921,12 @@ func (a *Client) SearchKibanaClusters(params *SearchKibanaClustersParams, authIn
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -863,13 +946,12 @@ func (a *Client) SearchKibanaClusters(params *SearchKibanaClustersParams, authIn
   DEPRECATED (Scheduled to be removed in the next major version): Advanced use only. Sets the internal metadata, in free-form JSON, for the Kibana instance.
 Only use the parameter to set the modified JSON that is returned from the get version of the metadata.
 */
-func (a *Client) SetKibanaClusterMetadataRaw(params *SetKibanaClusterMetadataRawParams, authInfo runtime.ClientAuthInfoWriter) (*SetKibanaClusterMetadataRawOK, error) {
+func (a *Client) SetKibanaClusterMetadataRaw(params *SetKibanaClusterMetadataRawParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetKibanaClusterMetadataRawOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSetKibanaClusterMetadataRawParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "set-kibana-cluster-metadata-raw",
 		Method:             "POST",
 		PathPattern:        "/clusters/kibana/{cluster_id}/metadata/raw",
@@ -881,7 +963,12 @@ func (a *Client) SetKibanaClusterMetadataRaw(params *SetKibanaClusterMetadataRaw
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -900,13 +987,12 @@ func (a *Client) SetKibanaClusterMetadataRaw(params *SetKibanaClusterMetadataRaw
 
   DEPRECATED (Scheduled to be removed in the next major version): Assigns a name to the Kibana instance.
 */
-func (a *Client) SetKibanaClusterName(params *SetKibanaClusterNameParams, authInfo runtime.ClientAuthInfoWriter) (*SetKibanaClusterNameOK, error) {
+func (a *Client) SetKibanaClusterName(params *SetKibanaClusterNameParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetKibanaClusterNameOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSetKibanaClusterNameParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "set-kibana-cluster-name",
 		Method:             "PUT",
 		PathPattern:        "/clusters/kibana/{cluster_id}/metadata/name/{new_name}",
@@ -918,7 +1004,12 @@ func (a *Client) SetKibanaClusterName(params *SetKibanaClusterNameParams, authIn
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -937,13 +1028,12 @@ func (a *Client) SetKibanaClusterName(params *SetKibanaClusterNameParams, authIn
 
   DEPRECATED (Scheduled to be removed in the next major version): Shuts down the active Kibana instance and removes all of the instance nodes. The instance definition is retained. WARNING: To avoid data loss, save the snapshot repository before you shut down the instance.
 */
-func (a *Client) ShutdownKibanaCluster(params *ShutdownKibanaClusterParams, authInfo runtime.ClientAuthInfoWriter) (*ShutdownKibanaClusterAccepted, error) {
+func (a *Client) ShutdownKibanaCluster(params *ShutdownKibanaClusterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ShutdownKibanaClusterAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewShutdownKibanaClusterParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "shutdown-kibana-cluster",
 		Method:             "POST",
 		PathPattern:        "/clusters/kibana/{cluster_id}/_shutdown",
@@ -955,7 +1045,12 @@ func (a *Client) ShutdownKibanaCluster(params *ShutdownKibanaClusterParams, auth
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -974,13 +1069,12 @@ func (a *Client) ShutdownKibanaCluster(params *ShutdownKibanaClusterParams, auth
 
   DEPRECATED (Scheduled to be removed in the next major version): Starts the specified Kibana instances.
 */
-func (a *Client) StartKibanaClusterInstances(params *StartKibanaClusterInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*StartKibanaClusterInstancesAccepted, error) {
+func (a *Client) StartKibanaClusterInstances(params *StartKibanaClusterInstancesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StartKibanaClusterInstancesAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStartKibanaClusterInstancesParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "start-kibana-cluster-instances",
 		Method:             "POST",
 		PathPattern:        "/clusters/kibana/{cluster_id}/instances/{instance_ids}/_start",
@@ -992,7 +1086,12 @@ func (a *Client) StartKibanaClusterInstances(params *StartKibanaClusterInstances
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1011,13 +1110,12 @@ func (a *Client) StartKibanaClusterInstances(params *StartKibanaClusterInstances
 
   DEPRECATED (Scheduled to be removed in the next major version): Starts all of the Kibana instances.
 */
-func (a *Client) StartKibanaClusterInstancesAll(params *StartKibanaClusterInstancesAllParams, authInfo runtime.ClientAuthInfoWriter) (*StartKibanaClusterInstancesAllAccepted, error) {
+func (a *Client) StartKibanaClusterInstancesAll(params *StartKibanaClusterInstancesAllParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StartKibanaClusterInstancesAllAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStartKibanaClusterInstancesAllParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "start-kibana-cluster-instances-all",
 		Method:             "POST",
 		PathPattern:        "/clusters/kibana/{cluster_id}/instances/_start",
@@ -1029,7 +1127,12 @@ func (a *Client) StartKibanaClusterInstancesAll(params *StartKibanaClusterInstan
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1048,13 +1151,12 @@ func (a *Client) StartKibanaClusterInstancesAll(params *StartKibanaClusterInstan
 
   DEPRECATED (Scheduled to be removed in the next major version): Starts maintenance mode on all of the Kibana instances.
 */
-func (a *Client) StartKibanaClusterInstancesAllMaintenanceMode(params *StartKibanaClusterInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StartKibanaClusterInstancesAllMaintenanceModeAccepted, error) {
+func (a *Client) StartKibanaClusterInstancesAllMaintenanceMode(params *StartKibanaClusterInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StartKibanaClusterInstancesAllMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStartKibanaClusterInstancesAllMaintenanceModeParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "start-kibana-cluster-instances-all-maintenance-mode",
 		Method:             "POST",
 		PathPattern:        "/clusters/kibana/{cluster_id}/instances/maintenance-mode/_start",
@@ -1066,7 +1168,12 @@ func (a *Client) StartKibanaClusterInstancesAllMaintenanceMode(params *StartKiba
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1085,13 +1192,12 @@ func (a *Client) StartKibanaClusterInstancesAllMaintenanceMode(params *StartKiba
 
   DEPRECATED (Scheduled to be removed in the next major version): Starts maintenance mode on the specified Kibana instances.
 */
-func (a *Client) StartKibanaClusterMaintenanceMode(params *StartKibanaClusterMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StartKibanaClusterMaintenanceModeAccepted, error) {
+func (a *Client) StartKibanaClusterMaintenanceMode(params *StartKibanaClusterMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StartKibanaClusterMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStartKibanaClusterMaintenanceModeParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "start-kibana-cluster-maintenance-mode",
 		Method:             "POST",
 		PathPattern:        "/clusters/kibana/{cluster_id}/instances/{instance_ids}/maintenance-mode/_start",
@@ -1103,7 +1209,12 @@ func (a *Client) StartKibanaClusterMaintenanceMode(params *StartKibanaClusterMai
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1122,13 +1233,12 @@ func (a *Client) StartKibanaClusterMaintenanceMode(params *StartKibanaClusterMai
 
   DEPRECATED (Scheduled to be removed in the next major version): Stops the specified Kibana instances.
 */
-func (a *Client) StopKibanaClusterInstances(params *StopKibanaClusterInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*StopKibanaClusterInstancesAccepted, error) {
+func (a *Client) StopKibanaClusterInstances(params *StopKibanaClusterInstancesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StopKibanaClusterInstancesAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStopKibanaClusterInstancesParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "stop-kibana-cluster-instances",
 		Method:             "POST",
 		PathPattern:        "/clusters/kibana/{cluster_id}/instances/{instance_ids}/_stop",
@@ -1140,7 +1250,12 @@ func (a *Client) StopKibanaClusterInstances(params *StopKibanaClusterInstancesPa
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1159,13 +1274,12 @@ func (a *Client) StopKibanaClusterInstances(params *StopKibanaClusterInstancesPa
 
   DEPRECATED (Scheduled to be removed in the next major version): Stops all of the Kibana instances.
 */
-func (a *Client) StopKibanaClusterInstancesAll(params *StopKibanaClusterInstancesAllParams, authInfo runtime.ClientAuthInfoWriter) (*StopKibanaClusterInstancesAllAccepted, error) {
+func (a *Client) StopKibanaClusterInstancesAll(params *StopKibanaClusterInstancesAllParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StopKibanaClusterInstancesAllAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStopKibanaClusterInstancesAllParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "stop-kibana-cluster-instances-all",
 		Method:             "POST",
 		PathPattern:        "/clusters/kibana/{cluster_id}/instances/_stop",
@@ -1177,7 +1291,12 @@ func (a *Client) StopKibanaClusterInstancesAll(params *StopKibanaClusterInstance
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1196,13 +1315,12 @@ func (a *Client) StopKibanaClusterInstancesAll(params *StopKibanaClusterInstance
 
   DEPRECATED (Scheduled to be removed in the next major version): Stops maintenance mode on all of the Kibana instances.
 */
-func (a *Client) StopKibanaClusterInstancesAllMaintenanceMode(params *StopKibanaClusterInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StopKibanaClusterInstancesAllMaintenanceModeAccepted, error) {
+func (a *Client) StopKibanaClusterInstancesAllMaintenanceMode(params *StopKibanaClusterInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StopKibanaClusterInstancesAllMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStopKibanaClusterInstancesAllMaintenanceModeParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "stop-kibana-cluster-instances-all-maintenance-mode",
 		Method:             "POST",
 		PathPattern:        "/clusters/kibana/{cluster_id}/instances/maintenance-mode/_stop",
@@ -1214,7 +1332,12 @@ func (a *Client) StopKibanaClusterInstancesAllMaintenanceMode(params *StopKibana
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1233,13 +1356,12 @@ func (a *Client) StopKibanaClusterInstancesAllMaintenanceMode(params *StopKibana
 
   DEPRECATED (Scheduled to be removed in the next major version): Stops maintenance mode on the specified Kibana instances.
 */
-func (a *Client) StopKibanaClusterMaintenanceMode(params *StopKibanaClusterMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StopKibanaClusterMaintenanceModeAccepted, error) {
+func (a *Client) StopKibanaClusterMaintenanceMode(params *StopKibanaClusterMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StopKibanaClusterMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStopKibanaClusterMaintenanceModeParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "stop-kibana-cluster-maintenance-mode",
 		Method:             "POST",
 		PathPattern:        "/clusters/kibana/{cluster_id}/instances/{instance_ids}/maintenance-mode/_stop",
@@ -1251,7 +1373,12 @@ func (a *Client) StopKibanaClusterMaintenanceMode(params *StopKibanaClusterMaint
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1270,13 +1397,12 @@ func (a *Client) StopKibanaClusterMaintenanceMode(params *StopKibanaClusterMaint
 
   DEPRECATED (Scheduled to be removed in the next major version): All changes in the specified object are applied to the metadata object according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.
 */
-func (a *Client) UpdateKibanaClusterMetadataSettings(params *UpdateKibanaClusterMetadataSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateKibanaClusterMetadataSettingsOK, error) {
+func (a *Client) UpdateKibanaClusterMetadataSettings(params *UpdateKibanaClusterMetadataSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateKibanaClusterMetadataSettingsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateKibanaClusterMetadataSettingsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "update-kibana-cluster-metadata-settings",
 		Method:             "PATCH",
 		PathPattern:        "/clusters/kibana/{cluster_id}/metadata/settings",
@@ -1288,7 +1414,12 @@ func (a *Client) UpdateKibanaClusterMetadataSettings(params *UpdateKibanaCluster
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1307,13 +1438,12 @@ func (a *Client) UpdateKibanaClusterMetadataSettings(params *UpdateKibanaCluster
 
   DEPRECATED (Scheduled to be removed in the next major version): Updates the configuration of the Kibana instance.
 */
-func (a *Client) UpdateKibanaClusterPlan(params *UpdateKibanaClusterPlanParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateKibanaClusterPlanOK, *UpdateKibanaClusterPlanAccepted, error) {
+func (a *Client) UpdateKibanaClusterPlan(params *UpdateKibanaClusterPlanParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateKibanaClusterPlanOK, *UpdateKibanaClusterPlanAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateKibanaClusterPlanParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "update-kibana-cluster-plan",
 		Method:             "POST",
 		PathPattern:        "/clusters/kibana/{cluster_id}/plan",
@@ -1325,7 +1455,12 @@ func (a *Client) UpdateKibanaClusterPlan(params *UpdateKibanaClusterPlanParams, 
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -1345,13 +1480,12 @@ func (a *Client) UpdateKibanaClusterPlan(params *UpdateKibanaClusterPlanParams, 
 
   DEPRECATED (Scheduled to be removed in the next major version): Upgrades an active Kibana instance.
 */
-func (a *Client) UpgradeKibanaCluster(params *UpgradeKibanaClusterParams, authInfo runtime.ClientAuthInfoWriter) (*UpgradeKibanaClusterAccepted, error) {
+func (a *Client) UpgradeKibanaCluster(params *UpgradeKibanaClusterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpgradeKibanaClusterAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpgradeKibanaClusterParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "upgrade-kibana-cluster",
 		Method:             "POST",
 		PathPattern:        "/clusters/kibana/{cluster_id}/_upgrade",
@@ -1363,7 +1497,12 @@ func (a *Client) UpgradeKibanaCluster(params *UpgradeKibanaClusterParams, authIn
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}

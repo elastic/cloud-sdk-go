@@ -70,7 +70,6 @@ func (o *LoginReader) ReadResponse(response runtime.ClientResponse, consumer run
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -81,7 +80,7 @@ func NewLoginOK() *LoginOK {
 	return &LoginOK{}
 }
 
-/*LoginOK handles this case with default header values.
+/* LoginOK describes a response with status code 200, with default header values.
 
 Login successful, returns the token in the body (if 'login_state.path' not specified)
 */
@@ -92,7 +91,6 @@ type LoginOK struct {
 func (o *LoginOK) Error() string {
 	return fmt.Sprintf("[POST /users/auth/_login][%d] loginOK  %+v", 200, o.Payload)
 }
-
 func (o *LoginOK) GetPayload() *models.TokenResponse {
 	return o.Payload
 }
@@ -114,7 +112,7 @@ func NewLoginFound() *LoginFound {
 	return &LoginFound{}
 }
 
-/*LoginFound handles this case with default header values.
+/* LoginFound describes a response with status code 302, with default header values.
 
 Redirects to '/sso/token#BEARER_TOKEN?state=LOGIN_STATE' with the fragment containing a bearer token  (if 'login_state.path' is specified)
 */
@@ -125,7 +123,6 @@ type LoginFound struct {
 func (o *LoginFound) Error() string {
 	return fmt.Sprintf("[POST /users/auth/_login][%d] loginFound  %+v", 302, o.Payload)
 }
-
 func (o *LoginFound) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -145,12 +142,13 @@ func NewLoginUnauthorized() *LoginUnauthorized {
 	return &LoginUnauthorized{}
 }
 
-/*LoginUnauthorized handles this case with default header values.
+/* LoginUnauthorized describes a response with status code 401, with default header values.
 
 The supplied authentication is invalid. (code: `root.unauthenticated`)
 */
 type LoginUnauthorized struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -160,15 +158,18 @@ type LoginUnauthorized struct {
 func (o *LoginUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /users/auth/_login][%d] loginUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *LoginUnauthorized) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *LoginUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -185,12 +186,13 @@ func NewLoginNotImplemented() *LoginNotImplemented {
 	return &LoginNotImplemented{}
 }
 
-/*LoginNotImplemented handles this case with default header values.
+/* LoginNotImplemented describes a response with status code 501, with default header values.
 
 The administrator needs to configure the authentication cluster. (code: `authc.no_authentication_cluster`)
 */
 type LoginNotImplemented struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -200,15 +202,18 @@ type LoginNotImplemented struct {
 func (o *LoginNotImplemented) Error() string {
 	return fmt.Sprintf("[POST /users/auth/_login][%d] loginNotImplemented  %+v", 501, o.Payload)
 }
-
 func (o *LoginNotImplemented) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *LoginNotImplemented) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -225,12 +230,13 @@ func NewLoginBadGateway() *LoginBadGateway {
 	return &LoginBadGateway{}
 }
 
-/*LoginBadGateway handles this case with default header values.
+/* LoginBadGateway describes a response with status code 502, with default header values.
 
 The authentication cluster failed to process the request. The response body contains details about the error. (code: `authc.authentication_cluster_error`)
 */
 type LoginBadGateway struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -240,15 +246,18 @@ type LoginBadGateway struct {
 func (o *LoginBadGateway) Error() string {
 	return fmt.Sprintf("[POST /users/auth/_login][%d] loginBadGateway  %+v", 502, o.Payload)
 }
-
 func (o *LoginBadGateway) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *LoginBadGateway) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

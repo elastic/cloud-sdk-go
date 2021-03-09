@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -68,6 +69,38 @@ func (m *RepositoryConfigs) validateConfigs(formats strfmt.Registry) error {
 
 		if m.Configs[i] != nil {
 			if err := m.Configs[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("configs" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this repository configs based on the context it is used
+func (m *RepositoryConfigs) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateConfigs(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *RepositoryConfigs) contextValidateConfigs(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Configs); i++ {
+
+		if m.Configs[i] != nil {
+			if err := m.Configs[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("configs" + "." + strconv.Itoa(i))
 				}

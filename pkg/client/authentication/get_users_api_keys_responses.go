@@ -46,7 +46,6 @@ func (o *GetUsersAPIKeysReader) ReadResponse(response runtime.ClientResponse, co
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,7 +56,7 @@ func NewGetUsersAPIKeysOK() *GetUsersAPIKeysOK {
 	return &GetUsersAPIKeysOK{}
 }
 
-/*GetUsersAPIKeysOK handles this case with default header values.
+/* GetUsersAPIKeysOK describes a response with status code 200, with default header values.
 
 The metadata for the API keys is retrieved.
 */
@@ -68,7 +67,6 @@ type GetUsersAPIKeysOK struct {
 func (o *GetUsersAPIKeysOK) Error() string {
 	return fmt.Sprintf("[GET /users/auth/keys/_all][%d] getUsersApiKeysOK  %+v", 200, o.Payload)
 }
-
 func (o *GetUsersAPIKeysOK) GetPayload() *models.APIKeysResponse {
 	return o.Payload
 }

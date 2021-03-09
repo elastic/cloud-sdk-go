@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -155,6 +156,60 @@ func (m *InstanceTypeResource) validateNodeTypes(formats strfmt.Registry) error 
 
 		if m.NodeTypes[i] != nil {
 			if err := m.NodeTypes[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("node_types" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this instance type resource based on the context it is used
+func (m *InstanceTypeResource) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateCompatibility(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateNodeTypes(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *InstanceTypeResource) contextValidateCompatibility(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Compatibility); i++ {
+
+		if m.Compatibility[i] != nil {
+			if err := m.Compatibility[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("compatibility" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *InstanceTypeResource) contextValidateNodeTypes(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.NodeTypes); i++ {
+
+		if m.NodeTypes[i] != nil {
+			if err := m.NodeTypes[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("node_types" + "." + strconv.Itoa(i))
 				}

@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -78,7 +80,6 @@ func (m *User) Validate(formats strfmt.Registry) error {
 }
 
 func (m *User) validateMetadata(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Metadata) { // not required
 		return nil
 	}
@@ -117,6 +118,52 @@ func (m *User) validateUserName(formats strfmt.Registry) error {
 
 	if err := validate.Required("user_name", "body", m.UserName); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this user based on the context it is used
+func (m *User) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateMetadata(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateSecurity(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *User) contextValidateMetadata(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Metadata != nil {
+		if err := m.Metadata.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("metadata")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *User) contextValidateSecurity(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Security != nil {
+		if err := m.Security.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("security")
+			}
+			return err
+		}
 	}
 
 	return nil

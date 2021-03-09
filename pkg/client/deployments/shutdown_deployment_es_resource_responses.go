@@ -64,7 +64,6 @@ func (o *ShutdownDeploymentEsResourceReader) ReadResponse(response runtime.Clien
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,7 +74,7 @@ func NewShutdownDeploymentEsResourceOK() *ShutdownDeploymentEsResourceOK {
 	return &ShutdownDeploymentEsResourceOK{}
 }
 
-/*ShutdownDeploymentEsResourceOK handles this case with default header values.
+/* ShutdownDeploymentEsResourceOK describes a response with status code 200, with default header values.
 
 Standard response.
 */
@@ -86,7 +85,6 @@ type ShutdownDeploymentEsResourceOK struct {
 func (o *ShutdownDeploymentEsResourceOK) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_shutdown][%d] shutdownDeploymentEsResourceOK  %+v", 200, o.Payload)
 }
-
 func (o *ShutdownDeploymentEsResourceOK) GetPayload() *models.DeploymentResourceCommandResponse {
 	return o.Payload
 }
@@ -108,12 +106,13 @@ func NewShutdownDeploymentEsResourceBadRequest() *ShutdownDeploymentEsResourceBa
 	return &ShutdownDeploymentEsResourceBadRequest{}
 }
 
-/*ShutdownDeploymentEsResourceBadRequest handles this case with default header values.
+/* ShutdownDeploymentEsResourceBadRequest describes a response with status code 400, with default header values.
 
 Parameter is restricted and can only be set by a Platform administrator. (code: `deployments.restricted_parameter`)
 */
 type ShutdownDeploymentEsResourceBadRequest struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -123,15 +122,18 @@ type ShutdownDeploymentEsResourceBadRequest struct {
 func (o *ShutdownDeploymentEsResourceBadRequest) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_shutdown][%d] shutdownDeploymentEsResourceBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *ShutdownDeploymentEsResourceBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *ShutdownDeploymentEsResourceBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -148,13 +150,14 @@ func NewShutdownDeploymentEsResourceNotFound() *ShutdownDeploymentEsResourceNotF
 	return &ShutdownDeploymentEsResourceNotFound{}
 }
 
-/*ShutdownDeploymentEsResourceNotFound handles this case with default header values.
+/* ShutdownDeploymentEsResourceNotFound describes a response with status code 404, with default header values.
 
-* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+ * The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
 * The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)
- */
+*/
 type ShutdownDeploymentEsResourceNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -164,15 +167,18 @@ type ShutdownDeploymentEsResourceNotFound struct {
 func (o *ShutdownDeploymentEsResourceNotFound) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_shutdown][%d] shutdownDeploymentEsResourceNotFound  %+v", 404, o.Payload)
 }
-
 func (o *ShutdownDeploymentEsResourceNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *ShutdownDeploymentEsResourceNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -189,12 +195,13 @@ func NewShutdownDeploymentEsResourceInternalServerError() *ShutdownDeploymentEsR
 	return &ShutdownDeploymentEsResourceInternalServerError{}
 }
 
-/*ShutdownDeploymentEsResourceInternalServerError handles this case with default header values.
+/* ShutdownDeploymentEsResourceInternalServerError describes a response with status code 500, with default header values.
 
 A Resource that was previously stored no longer exists. (code: `deployments.deployment_resource_no_longer_exists`)
 */
 type ShutdownDeploymentEsResourceInternalServerError struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -204,15 +211,18 @@ type ShutdownDeploymentEsResourceInternalServerError struct {
 func (o *ShutdownDeploymentEsResourceInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_shutdown][%d] shutdownDeploymentEsResourceInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *ShutdownDeploymentEsResourceInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *ShutdownDeploymentEsResourceInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

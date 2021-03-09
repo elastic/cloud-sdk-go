@@ -64,7 +64,6 @@ func (o *SetDeploymentEsResourceKeystoreReader) ReadResponse(response runtime.Cl
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,7 +74,7 @@ func NewSetDeploymentEsResourceKeystoreOK() *SetDeploymentEsResourceKeystoreOK {
 	return &SetDeploymentEsResourceKeystoreOK{}
 }
 
-/*SetDeploymentEsResourceKeystoreOK handles this case with default header values.
+/* SetDeploymentEsResourceKeystoreOK describes a response with status code 200, with default header values.
 
 The new value for the keystore contents
 */
@@ -86,7 +85,6 @@ type SetDeploymentEsResourceKeystoreOK struct {
 func (o *SetDeploymentEsResourceKeystoreOK) Error() string {
 	return fmt.Sprintf("[PATCH /deployments/{deployment_id}/elasticsearch/{ref_id}/keystore][%d] setDeploymentEsResourceKeystoreOK  %+v", 200, o.Payload)
 }
-
 func (o *SetDeploymentEsResourceKeystoreOK) GetPayload() *models.KeystoreContents {
 	return o.Payload
 }
@@ -108,13 +106,14 @@ func NewSetDeploymentEsResourceKeystoreNotFound() *SetDeploymentEsResourceKeysto
 	return &SetDeploymentEsResourceKeystoreNotFound{}
 }
 
-/*SetDeploymentEsResourceKeystoreNotFound handles this case with default header values.
+/* SetDeploymentEsResourceKeystoreNotFound describes a response with status code 404, with default header values.
 
-* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+ * The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
 * The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)
- */
+*/
 type SetDeploymentEsResourceKeystoreNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -124,15 +123,18 @@ type SetDeploymentEsResourceKeystoreNotFound struct {
 func (o *SetDeploymentEsResourceKeystoreNotFound) Error() string {
 	return fmt.Sprintf("[PATCH /deployments/{deployment_id}/elasticsearch/{ref_id}/keystore][%d] setDeploymentEsResourceKeystoreNotFound  %+v", 404, o.Payload)
 }
-
 func (o *SetDeploymentEsResourceKeystoreNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SetDeploymentEsResourceKeystoreNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -149,12 +151,13 @@ func NewSetDeploymentEsResourceKeystoreRetryWith() *SetDeploymentEsResourceKeyst
 	return &SetDeploymentEsResourceKeystoreRetryWith{}
 }
 
-/*SetDeploymentEsResourceKeystoreRetryWith handles this case with default header values.
+/* SetDeploymentEsResourceKeystoreRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type SetDeploymentEsResourceKeystoreRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -164,15 +167,18 @@ type SetDeploymentEsResourceKeystoreRetryWith struct {
 func (o *SetDeploymentEsResourceKeystoreRetryWith) Error() string {
 	return fmt.Sprintf("[PATCH /deployments/{deployment_id}/elasticsearch/{ref_id}/keystore][%d] setDeploymentEsResourceKeystoreRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *SetDeploymentEsResourceKeystoreRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SetDeploymentEsResourceKeystoreRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -189,12 +195,13 @@ func NewSetDeploymentEsResourceKeystoreInternalServerError() *SetDeploymentEsRes
 	return &SetDeploymentEsResourceKeystoreInternalServerError{}
 }
 
-/*SetDeploymentEsResourceKeystoreInternalServerError handles this case with default header values.
+/* SetDeploymentEsResourceKeystoreInternalServerError describes a response with status code 500, with default header values.
 
 We have failed you. (code: `deployments.metadata_internal_error`)
 */
 type SetDeploymentEsResourceKeystoreInternalServerError struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -204,15 +211,18 @@ type SetDeploymentEsResourceKeystoreInternalServerError struct {
 func (o *SetDeploymentEsResourceKeystoreInternalServerError) Error() string {
 	return fmt.Sprintf("[PATCH /deployments/{deployment_id}/elasticsearch/{ref_id}/keystore][%d] setDeploymentEsResourceKeystoreInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *SetDeploymentEsResourceKeystoreInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SetDeploymentEsResourceKeystoreInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

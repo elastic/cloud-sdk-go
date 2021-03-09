@@ -52,7 +52,6 @@ func (o *DeleteEsProxyRequestsReader) ReadResponse(response runtime.ClientRespon
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,7 +62,7 @@ func NewDeleteEsProxyRequestsOK() *DeleteEsProxyRequestsOK {
 	return &DeleteEsProxyRequestsOK{}
 }
 
-/*DeleteEsProxyRequestsOK handles this case with default header values.
+/* DeleteEsProxyRequestsOK describes a response with status code 200, with default header values.
 
 The request has been processed successfully through the proxy
 */
@@ -84,7 +83,7 @@ func NewDeleteEsProxyRequestsNotFound() *DeleteEsProxyRequestsNotFound {
 	return &DeleteEsProxyRequestsNotFound{}
 }
 
-/*DeleteEsProxyRequestsNotFound handles this case with default header values.
+/* DeleteEsProxyRequestsNotFound describes a response with status code 404, with default header values.
 
 The cluster specified by {cluster_id} cannot be found (code: 'clusters.cluster_not_found')
 */
@@ -95,7 +94,6 @@ type DeleteEsProxyRequestsNotFound struct {
 func (o *DeleteEsProxyRequestsNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/elasticsearch/{cluster_id}/proxy/{elasticsearch_path}][%d] deleteEsProxyRequestsNotFound  %+v", 404, o.Payload)
 }
-
 func (o *DeleteEsProxyRequestsNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

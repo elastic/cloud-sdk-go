@@ -52,7 +52,6 @@ func (o *GetConstructorReader) ReadResponse(response runtime.ClientResponse, con
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,7 +62,7 @@ func NewGetConstructorOK() *GetConstructorOK {
 	return &GetConstructorOK{}
 }
 
-/*GetConstructorOK handles this case with default header values.
+/* GetConstructorOK describes a response with status code 200, with default header values.
 
 The information for the constructor specified by {constructor_id}.
 */
@@ -74,7 +73,6 @@ type GetConstructorOK struct {
 func (o *GetConstructorOK) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/constructors/{constructor_id}][%d] getConstructorOK  %+v", 200, o.Payload)
 }
-
 func (o *GetConstructorOK) GetPayload() *models.ConstructorInfo {
 	return o.Payload
 }
@@ -96,12 +94,13 @@ func NewGetConstructorNotFound() *GetConstructorNotFound {
 	return &GetConstructorNotFound{}
 }
 
-/*GetConstructorNotFound handles this case with default header values.
+/* GetConstructorNotFound describes a response with status code 404, with default header values.
 
 The constructor specified by {constructor_id} cannot be found. (code: `constructors.constructor_not_found`)
 */
 type GetConstructorNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -111,15 +110,18 @@ type GetConstructorNotFound struct {
 func (o *GetConstructorNotFound) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/constructors/{constructor_id}][%d] getConstructorNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetConstructorNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *GetConstructorNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

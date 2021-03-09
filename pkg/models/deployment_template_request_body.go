@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -114,7 +115,6 @@ func (m *DeploymentTemplateRequestBody) validateDeploymentTemplate(formats strfm
 }
 
 func (m *DeploymentTemplateRequestBody) validateKibanaDeeplink(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.KibanaDeeplink) { // not required
 		return nil
 	}
@@ -139,7 +139,6 @@ func (m *DeploymentTemplateRequestBody) validateKibanaDeeplink(formats strfmt.Re
 }
 
 func (m *DeploymentTemplateRequestBody) validateMetadata(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Metadata) { // not required
 		return nil
 	}
@@ -167,6 +166,78 @@ func (m *DeploymentTemplateRequestBody) validateName(formats strfmt.Registry) er
 
 	if err := validate.Required("name", "body", m.Name); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this deployment template request body based on the context it is used
+func (m *DeploymentTemplateRequestBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateDeploymentTemplate(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateKibanaDeeplink(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateMetadata(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *DeploymentTemplateRequestBody) contextValidateDeploymentTemplate(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.DeploymentTemplate != nil {
+		if err := m.DeploymentTemplate.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("deployment_template")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *DeploymentTemplateRequestBody) contextValidateKibanaDeeplink(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.KibanaDeeplink); i++ {
+
+		if m.KibanaDeeplink[i] != nil {
+			if err := m.KibanaDeeplink[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("kibana_deeplink" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *DeploymentTemplateRequestBody) contextValidateMetadata(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Metadata); i++ {
+
+		if m.Metadata[i] != nil {
+			if err := m.Metadata[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("metadata" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil

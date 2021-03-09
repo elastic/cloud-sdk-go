@@ -64,7 +64,6 @@ func (o *SetAllocatorMetadataReader) ReadResponse(response runtime.ClientRespons
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,7 +74,7 @@ func NewSetAllocatorMetadataOK() *SetAllocatorMetadataOK {
 	return &SetAllocatorMetadataOK{}
 }
 
-/*SetAllocatorMetadataOK handles this case with default header values.
+/* SetAllocatorMetadataOK describes a response with status code 200, with default header values.
 
 The allocator metadata was successfully changed (the updated JSON is returned)
 */
@@ -86,7 +85,6 @@ type SetAllocatorMetadataOK struct {
 func (o *SetAllocatorMetadataOK) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/allocators/{allocator_id}/metadata][%d] setAllocatorMetadataOK  %+v", 200, o.Payload)
 }
-
 func (o *SetAllocatorMetadataOK) GetPayload() []*models.MetadataItem {
 	return o.Payload
 }
@@ -106,12 +104,13 @@ func NewSetAllocatorMetadataBadRequest() *SetAllocatorMetadataBadRequest {
 	return &SetAllocatorMetadataBadRequest{}
 }
 
-/*SetAllocatorMetadataBadRequest handles this case with default header values.
+/* SetAllocatorMetadataBadRequest describes a response with status code 400, with default header values.
 
 The value specified is empty for at least one of the metadata tags. (code: `allocators.invalid_empty_metadata_items`)
 */
 type SetAllocatorMetadataBadRequest struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -121,15 +120,18 @@ type SetAllocatorMetadataBadRequest struct {
 func (o *SetAllocatorMetadataBadRequest) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/allocators/{allocator_id}/metadata][%d] setAllocatorMetadataBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *SetAllocatorMetadataBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SetAllocatorMetadataBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -146,12 +148,13 @@ func NewSetAllocatorMetadataNotFound() *SetAllocatorMetadataNotFound {
 	return &SetAllocatorMetadataNotFound{}
 }
 
-/*SetAllocatorMetadataNotFound handles this case with default header values.
+/* SetAllocatorMetadataNotFound describes a response with status code 404, with default header values.
 
 The allocator specified by {allocator_id} cannot be found. (code: `allocators.allocator_not_found`)
 */
 type SetAllocatorMetadataNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -161,15 +164,18 @@ type SetAllocatorMetadataNotFound struct {
 func (o *SetAllocatorMetadataNotFound) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/allocators/{allocator_id}/metadata][%d] setAllocatorMetadataNotFound  %+v", 404, o.Payload)
 }
-
 func (o *SetAllocatorMetadataNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SetAllocatorMetadataNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -186,12 +192,13 @@ func NewSetAllocatorMetadataRetryWith() *SetAllocatorMetadataRetryWith {
 	return &SetAllocatorMetadataRetryWith{}
 }
 
-/*SetAllocatorMetadataRetryWith handles this case with default header values.
+/* SetAllocatorMetadataRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type SetAllocatorMetadataRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -201,15 +208,18 @@ type SetAllocatorMetadataRetryWith struct {
 func (o *SetAllocatorMetadataRetryWith) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/allocators/{allocator_id}/metadata][%d] setAllocatorMetadataRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *SetAllocatorMetadataRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SetAllocatorMetadataRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

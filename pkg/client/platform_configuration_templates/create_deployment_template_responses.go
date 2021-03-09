@@ -58,7 +58,6 @@ func (o *CreateDeploymentTemplateReader) ReadResponse(response runtime.ClientRes
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,7 +68,7 @@ func NewCreateDeploymentTemplateCreated() *CreateDeploymentTemplateCreated {
 	return &CreateDeploymentTemplateCreated{}
 }
 
-/*CreateDeploymentTemplateCreated handles this case with default header values.
+/* CreateDeploymentTemplateCreated describes a response with status code 201, with default header values.
 
 The deployment definition was valid and the template has been created.
 */
@@ -80,7 +79,6 @@ type CreateDeploymentTemplateCreated struct {
 func (o *CreateDeploymentTemplateCreated) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/templates/deployments][%d] createDeploymentTemplateCreated  %+v", 201, o.Payload)
 }
-
 func (o *CreateDeploymentTemplateCreated) GetPayload() *models.IDResponse {
 	return o.Payload
 }
@@ -102,12 +100,13 @@ func NewCreateDeploymentTemplateBadRequest() *CreateDeploymentTemplateBadRequest
 	return &CreateDeploymentTemplateBadRequest{}
 }
 
-/*CreateDeploymentTemplateBadRequest handles this case with default header values.
+/* CreateDeploymentTemplateBadRequest describes a response with status code 400, with default header values.
 
 The template definition contained errors. (code: `templates.invalid_template`)
 */
 type CreateDeploymentTemplateBadRequest struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -117,15 +116,18 @@ type CreateDeploymentTemplateBadRequest struct {
 func (o *CreateDeploymentTemplateBadRequest) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/templates/deployments][%d] createDeploymentTemplateBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *CreateDeploymentTemplateBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *CreateDeploymentTemplateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -142,12 +144,13 @@ func NewCreateDeploymentTemplateRetryWith() *CreateDeploymentTemplateRetryWith {
 	return &CreateDeploymentTemplateRetryWith{}
 }
 
-/*CreateDeploymentTemplateRetryWith handles this case with default header values.
+/* CreateDeploymentTemplateRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type CreateDeploymentTemplateRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -157,15 +160,18 @@ type CreateDeploymentTemplateRetryWith struct {
 func (o *CreateDeploymentTemplateRetryWith) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/templates/deployments][%d] createDeploymentTemplateRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *CreateDeploymentTemplateRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *CreateDeploymentTemplateRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

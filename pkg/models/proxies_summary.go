@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -126,6 +127,38 @@ func (m *ProxiesSummary) validateProxiesCount(formats strfmt.Registry) error {
 
 	if err := validate.Required("proxies_count", "body", m.ProxiesCount); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this proxies summary based on the context it is used
+func (m *ProxiesSummary) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateProxies(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ProxiesSummary) contextValidateProxies(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Proxies); i++ {
+
+		if m.Proxies[i] != nil {
+			if err := m.Proxies[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("proxies" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil

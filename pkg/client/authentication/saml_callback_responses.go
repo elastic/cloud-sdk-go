@@ -64,7 +64,6 @@ func (o *SamlCallbackReader) ReadResponse(response runtime.ClientResponse, consu
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,7 +74,7 @@ func NewSamlCallbackFound() *SamlCallbackFound {
 	return &SamlCallbackFound{}
 }
 
-/*SamlCallbackFound handles this case with default header values.
+/* SamlCallbackFound describes a response with status code 302, with default header values.
 
 Redirects to the UI endpoint with an authorization token in the fragment and the relay state, if it was specified during the initialization.
 */
@@ -86,7 +85,6 @@ type SamlCallbackFound struct {
 func (o *SamlCallbackFound) Error() string {
 	return fmt.Sprintf("[POST /users/auth/saml/_callback][%d] samlCallbackFound  %+v", 302, o.Payload)
 }
-
 func (o *SamlCallbackFound) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -106,12 +104,13 @@ func NewSamlCallbackUnauthorized() *SamlCallbackUnauthorized {
 	return &SamlCallbackUnauthorized{}
 }
 
-/*SamlCallbackUnauthorized handles this case with default header values.
+/* SamlCallbackUnauthorized describes a response with status code 401, with default header values.
 
 The supplied SAML response is invalid. (code: `root.unauthenticated`)
 */
 type SamlCallbackUnauthorized struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -121,15 +120,18 @@ type SamlCallbackUnauthorized struct {
 func (o *SamlCallbackUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /users/auth/saml/_callback][%d] samlCallbackUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *SamlCallbackUnauthorized) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SamlCallbackUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -146,12 +148,13 @@ func NewSamlCallbackNotImplemented() *SamlCallbackNotImplemented {
 	return &SamlCallbackNotImplemented{}
 }
 
-/*SamlCallbackNotImplemented handles this case with default header values.
+/* SamlCallbackNotImplemented describes a response with status code 501, with default header values.
 
 The administrator needs to configure the authentication cluster. (code: `authc.no_authentication_cluster`)
 */
 type SamlCallbackNotImplemented struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -161,15 +164,18 @@ type SamlCallbackNotImplemented struct {
 func (o *SamlCallbackNotImplemented) Error() string {
 	return fmt.Sprintf("[POST /users/auth/saml/_callback][%d] samlCallbackNotImplemented  %+v", 501, o.Payload)
 }
-
 func (o *SamlCallbackNotImplemented) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SamlCallbackNotImplemented) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -186,12 +192,13 @@ func NewSamlCallbackBadGateway() *SamlCallbackBadGateway {
 	return &SamlCallbackBadGateway{}
 }
 
-/*SamlCallbackBadGateway handles this case with default header values.
+/* SamlCallbackBadGateway describes a response with status code 502, with default header values.
 
 The authentication cluster failed to process the request. The response body contains details about the error. (code: `authc.authentication_cluster_error`)
 */
 type SamlCallbackBadGateway struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -201,15 +208,18 @@ type SamlCallbackBadGateway struct {
 func (o *SamlCallbackBadGateway) Error() string {
 	return fmt.Sprintf("[POST /users/auth/saml/_callback][%d] samlCallbackBadGateway  %+v", 502, o.Payload)
 }
-
 func (o *SamlCallbackBadGateway) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SamlCallbackBadGateway) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

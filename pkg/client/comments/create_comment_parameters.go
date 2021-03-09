@@ -35,69 +35,85 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewCreateCommentParams creates a new CreateCommentParams object
-// with the default values initialized.
+// NewCreateCommentParams creates a new CreateCommentParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewCreateCommentParams() *CreateCommentParams {
-	var ()
 	return &CreateCommentParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewCreateCommentParamsWithTimeout creates a new CreateCommentParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewCreateCommentParamsWithTimeout(timeout time.Duration) *CreateCommentParams {
-	var ()
 	return &CreateCommentParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewCreateCommentParamsWithContext creates a new CreateCommentParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewCreateCommentParamsWithContext(ctx context.Context) *CreateCommentParams {
-	var ()
 	return &CreateCommentParams{
-
 		Context: ctx,
 	}
 }
 
 // NewCreateCommentParamsWithHTTPClient creates a new CreateCommentParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewCreateCommentParamsWithHTTPClient(client *http.Client) *CreateCommentParams {
-	var ()
 	return &CreateCommentParams{
 		HTTPClient: client,
 	}
 }
 
-/*CreateCommentParams contains all the parameters to send to the API endpoint
-for the create comment operation typically these are written to a http.Request
+/* CreateCommentParams contains all the parameters to send to the API endpoint
+   for the create comment operation.
+
+   Typically these are written to a http.Request.
 */
 type CreateCommentParams struct {
 
-	/*Body
-	  Data for comment creation
+	/* Body.
 
+	   Data for comment creation
 	*/
 	Body *models.CommentCreateRequest
-	/*ResourceID
-	  Id of the Resource that a Comment belongs to.
 
+	/* ResourceID.
+
+	   Id of the Resource that a Comment belongs to.
 	*/
 	ResourceID string
-	/*ResourceType
-	  The kind of Resource that a Comment belongs to. Should be one of [elasticsearch, kibana, apm, appsearch, enterprise_search, allocator, constructor, runner, proxy].
 
+	/* ResourceType.
+
+	   The kind of Resource that a Comment belongs to. Should be one of [elasticsearch, kibana, apm, appsearch, enterprise_search, allocator, constructor, runner, proxy].
 	*/
 	ResourceType string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the create comment params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *CreateCommentParams) WithDefaults() *CreateCommentParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the create comment params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *CreateCommentParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the create comment params
@@ -173,7 +189,6 @@ func (o *CreateCommentParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

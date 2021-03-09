@@ -58,7 +58,6 @@ func (o *GetKibanaClusterPlanReader) ReadResponse(response runtime.ClientRespons
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,18 +68,21 @@ func NewGetKibanaClusterPlanOK() *GetKibanaClusterPlanOK {
 	return &GetKibanaClusterPlanOK{}
 }
 
-/*GetKibanaClusterPlanOK handles this case with default header values.
+/* GetKibanaClusterPlanOK describes a response with status code 200, with default header values.
 
 The cluster has a current applied plan
 */
 type GetKibanaClusterPlanOK struct {
-	/*The date-time when the resource was created (ISO format relative to UTC)
+
+	/* The date-time when the resource was created (ISO format relative to UTC)
 	 */
 	XCloudResourceCreated string
-	/*The date-time when the resource was last modified (ISO format relative to UTC)
+
+	/* The date-time when the resource was last modified (ISO format relative to UTC)
 	 */
 	XCloudResourceLastModified string
-	/*The resource version, which is used to avoid update conflicts with concurrent operations
+
+	/* The resource version, which is used to avoid update conflicts with concurrent operations
 	 */
 	XCloudResourceVersion string
 
@@ -90,21 +92,32 @@ type GetKibanaClusterPlanOK struct {
 func (o *GetKibanaClusterPlanOK) Error() string {
 	return fmt.Sprintf("[GET /clusters/kibana/{cluster_id}/plan][%d] getKibanaClusterPlanOK  %+v", 200, o.Payload)
 }
-
 func (o *GetKibanaClusterPlanOK) GetPayload() *models.KibanaClusterPlan {
 	return o.Payload
 }
 
 func (o *GetKibanaClusterPlanOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-resource-created
-	o.XCloudResourceCreated = response.GetHeader("x-cloud-resource-created")
+	// hydrates response header x-cloud-resource-created
+	hdrXCloudResourceCreated := response.GetHeader("x-cloud-resource-created")
 
-	// response header x-cloud-resource-last-modified
-	o.XCloudResourceLastModified = response.GetHeader("x-cloud-resource-last-modified")
+	if hdrXCloudResourceCreated != "" {
+		o.XCloudResourceCreated = hdrXCloudResourceCreated
+	}
 
-	// response header x-cloud-resource-version
-	o.XCloudResourceVersion = response.GetHeader("x-cloud-resource-version")
+	// hydrates response header x-cloud-resource-last-modified
+	hdrXCloudResourceLastModified := response.GetHeader("x-cloud-resource-last-modified")
+
+	if hdrXCloudResourceLastModified != "" {
+		o.XCloudResourceLastModified = hdrXCloudResourceLastModified
+	}
+
+	// hydrates response header x-cloud-resource-version
+	hdrXCloudResourceVersion := response.GetHeader("x-cloud-resource-version")
+
+	if hdrXCloudResourceVersion != "" {
+		o.XCloudResourceVersion = hdrXCloudResourceVersion
+	}
 
 	o.Payload = new(models.KibanaClusterPlan)
 
@@ -121,7 +134,7 @@ func NewGetKibanaClusterPlanNotFound() *GetKibanaClusterPlanNotFound {
 	return &GetKibanaClusterPlanNotFound{}
 }
 
-/*GetKibanaClusterPlanNotFound handles this case with default header values.
+/* GetKibanaClusterPlanNotFound describes a response with status code 404, with default header values.
 
 The cluster specified by {cluster_id} cannot be found (code: 'clusters.cluster_not_found')
 */
@@ -132,7 +145,6 @@ type GetKibanaClusterPlanNotFound struct {
 func (o *GetKibanaClusterPlanNotFound) Error() string {
 	return fmt.Sprintf("[GET /clusters/kibana/{cluster_id}/plan][%d] getKibanaClusterPlanNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetKibanaClusterPlanNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -154,7 +166,7 @@ func NewGetKibanaClusterPlanPreconditionFailed() *GetKibanaClusterPlanPreconditi
 	return &GetKibanaClusterPlanPreconditionFailed{}
 }
 
-/*GetKibanaClusterPlanPreconditionFailed handles this case with default header values.
+/* GetKibanaClusterPlanPreconditionFailed describes a response with status code 412, with default header values.
 
 There is not currently applied plan - eg the cluster has not finished provisioning, or the provisioning failed (code: 'clusters.cluster_plan_state_error')
 */
@@ -165,7 +177,6 @@ type GetKibanaClusterPlanPreconditionFailed struct {
 func (o *GetKibanaClusterPlanPreconditionFailed) Error() string {
 	return fmt.Sprintf("[GET /clusters/kibana/{cluster_id}/plan][%d] getKibanaClusterPlanPreconditionFailed  %+v", 412, o.Payload)
 }
-
 func (o *GetKibanaClusterPlanPreconditionFailed) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

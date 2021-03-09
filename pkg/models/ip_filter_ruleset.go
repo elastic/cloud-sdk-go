@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -80,7 +81,6 @@ func (m *IPFilterRuleset) Validate(formats strfmt.Registry) error {
 }
 
 func (m *IPFilterRuleset) validateAssociations(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Associations) { // not required
 		return nil
 	}
@@ -126,6 +126,60 @@ func (m *IPFilterRuleset) validateRules(formats strfmt.Registry) error {
 
 		if m.Rules[i] != nil {
 			if err := m.Rules[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("rules" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this Ip filter ruleset based on the context it is used
+func (m *IPFilterRuleset) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAssociations(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateRules(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *IPFilterRuleset) contextValidateAssociations(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Associations); i++ {
+
+		if m.Associations[i] != nil {
+			if err := m.Associations[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("associations" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *IPFilterRuleset) contextValidateRules(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Rules); i++ {
+
+		if m.Rules[i] != nil {
+			if err := m.Rules[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("rules" + "." + strconv.Itoa(i))
 				}

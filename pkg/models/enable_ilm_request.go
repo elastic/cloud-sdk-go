@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -68,6 +69,38 @@ func (m *EnableIlmRequest) validateIndexPatterns(formats strfmt.Registry) error 
 
 		if m.IndexPatterns[i] != nil {
 			if err := m.IndexPatterns[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("index_patterns" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this enable ilm request based on the context it is used
+func (m *EnableIlmRequest) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateIndexPatterns(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *EnableIlmRequest) contextValidateIndexPatterns(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.IndexPatterns); i++ {
+
+		if m.IndexPatterns[i] != nil {
+			if err := m.IndexPatterns[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("index_patterns" + "." + strconv.Itoa(i))
 				}

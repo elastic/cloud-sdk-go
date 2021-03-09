@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -192,6 +193,82 @@ func (m *PlatformInfo) validateVersion(formats strfmt.Registry) error {
 
 	if err := validate.Required("version", "body", m.Version); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this platform info based on the context it is used
+func (m *PlatformInfo) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateRegions(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateServices(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateUnreachableRegions(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *PlatformInfo) contextValidateRegions(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Regions); i++ {
+
+		if m.Regions[i] != nil {
+			if err := m.Regions[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("regions" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *PlatformInfo) contextValidateServices(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Services); i++ {
+
+		if m.Services[i] != nil {
+			if err := m.Services[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("services" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *PlatformInfo) contextValidateUnreachableRegions(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.UnreachableRegions); i++ {
+
+		if m.UnreachableRegions[i] != nil {
+			if err := m.UnreachableRegions[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("unreachable_regions" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil

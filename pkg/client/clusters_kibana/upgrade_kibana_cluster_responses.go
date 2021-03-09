@@ -58,7 +58,6 @@ func (o *UpgradeKibanaClusterReader) ReadResponse(response runtime.ClientRespons
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,7 +68,7 @@ func NewUpgradeKibanaClusterAccepted() *UpgradeKibanaClusterAccepted {
 	return &UpgradeKibanaClusterAccepted{}
 }
 
-/*UpgradeKibanaClusterAccepted handles this case with default header values.
+/* UpgradeKibanaClusterAccepted describes a response with status code 202, with default header values.
 
 The upgrade command was issued successfully, use the "GET" command on the /{cluster_id} resource to monitor progress
 */
@@ -80,7 +79,6 @@ type UpgradeKibanaClusterAccepted struct {
 func (o *UpgradeKibanaClusterAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/_upgrade][%d] upgradeKibanaClusterAccepted  %+v", 202, o.Payload)
 }
-
 func (o *UpgradeKibanaClusterAccepted) GetPayload() *models.ClusterUpgradeInfo {
 	return o.Payload
 }
@@ -102,12 +100,13 @@ func NewUpgradeKibanaClusterNotFound() *UpgradeKibanaClusterNotFound {
 	return &UpgradeKibanaClusterNotFound{}
 }
 
-/*UpgradeKibanaClusterNotFound handles this case with default header values.
+/* UpgradeKibanaClusterNotFound describes a response with status code 404, with default header values.
 
 The cluster specified by {cluster_id} cannot be found. (code: `clusters.cluster_not_found`)
 */
 type UpgradeKibanaClusterNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -117,15 +116,18 @@ type UpgradeKibanaClusterNotFound struct {
 func (o *UpgradeKibanaClusterNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/_upgrade][%d] upgradeKibanaClusterNotFound  %+v", 404, o.Payload)
 }
-
 func (o *UpgradeKibanaClusterNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *UpgradeKibanaClusterNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -142,12 +144,13 @@ func NewUpgradeKibanaClusterRetryWith() *UpgradeKibanaClusterRetryWith {
 	return &UpgradeKibanaClusterRetryWith{}
 }
 
-/*UpgradeKibanaClusterRetryWith handles this case with default header values.
+/* UpgradeKibanaClusterRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type UpgradeKibanaClusterRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -157,15 +160,18 @@ type UpgradeKibanaClusterRetryWith struct {
 func (o *UpgradeKibanaClusterRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/_upgrade][%d] upgradeKibanaClusterRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *UpgradeKibanaClusterRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *UpgradeKibanaClusterRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

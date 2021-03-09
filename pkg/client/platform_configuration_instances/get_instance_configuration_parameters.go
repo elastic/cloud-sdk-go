@@ -34,64 +34,79 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetInstanceConfigurationParams creates a new GetInstanceConfigurationParams object
-// with the default values initialized.
+// NewGetInstanceConfigurationParams creates a new GetInstanceConfigurationParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetInstanceConfigurationParams() *GetInstanceConfigurationParams {
-	var ()
 	return &GetInstanceConfigurationParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetInstanceConfigurationParamsWithTimeout creates a new GetInstanceConfigurationParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetInstanceConfigurationParamsWithTimeout(timeout time.Duration) *GetInstanceConfigurationParams {
-	var ()
 	return &GetInstanceConfigurationParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetInstanceConfigurationParamsWithContext creates a new GetInstanceConfigurationParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetInstanceConfigurationParamsWithContext(ctx context.Context) *GetInstanceConfigurationParams {
-	var ()
 	return &GetInstanceConfigurationParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetInstanceConfigurationParamsWithHTTPClient creates a new GetInstanceConfigurationParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetInstanceConfigurationParamsWithHTTPClient(client *http.Client) *GetInstanceConfigurationParams {
-	var ()
 	return &GetInstanceConfigurationParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetInstanceConfigurationParams contains all the parameters to send to the API endpoint
-for the get instance configuration operation typically these are written to a http.Request
+/* GetInstanceConfigurationParams contains all the parameters to send to the API endpoint
+   for the get instance configuration operation.
+
+   Typically these are written to a http.Request.
 */
 type GetInstanceConfigurationParams struct {
 
-	/*ID
-	  ID of the instance configuration
+	/* ID.
 
+	   ID of the instance configuration
 	*/
 	ID string
-	/*ShowDeleted
-	  If true, if the instance configuration has been marked for deletion it is still returned. Otherwise, instance configurations marked for deletion generate a 404
 
+	/* ShowDeleted.
+
+	   If true, if the instance configuration has been marked for deletion it is still returned. Otherwise, instance configurations marked for deletion generate a 404
 	*/
 	ShowDeleted *bool
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get instance configuration params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetInstanceConfigurationParams) WithDefaults() *GetInstanceConfigurationParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get instance configuration params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetInstanceConfigurationParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get instance configuration params
@@ -166,16 +181,17 @@ func (o *GetInstanceConfigurationParams) WriteToRequest(r runtime.ClientRequest,
 
 		// query param show_deleted
 		var qrShowDeleted bool
+
 		if o.ShowDeleted != nil {
 			qrShowDeleted = *o.ShowDeleted
 		}
 		qShowDeleted := swag.FormatBool(qrShowDeleted)
 		if qShowDeleted != "" {
+
 			if err := r.SetQueryParam("show_deleted", qShowDeleted); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -55,6 +57,10 @@ func (m *ModelVersionIndexSynchronizationResults) Validate(formats strfmt.Regist
 
 func (m *ModelVersionIndexSynchronizationResults) validateResults(formats strfmt.Registry) error {
 
+	if err := validate.Required("results", "body", m.Results); err != nil {
+		return err
+	}
+
 	for k := range m.Results {
 
 		if err := validate.Required("results"+"."+k, "body", m.Results[k]); err != nil {
@@ -62,6 +68,39 @@ func (m *ModelVersionIndexSynchronizationResults) validateResults(formats strfmt
 		}
 		if val, ok := m.Results[k]; ok {
 			if err := val.Validate(formats); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this model version index synchronization results based on the context it is used
+func (m *ModelVersionIndexSynchronizationResults) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateResults(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ModelVersionIndexSynchronizationResults) contextValidateResults(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := validate.Required("results", "body", m.Results); err != nil {
+		return err
+	}
+
+	for k := range m.Results {
+
+		if val, ok := m.Results[k]; ok {
+			if err := val.ContextValidate(ctx, formats); err != nil {
 				return err
 			}
 		}

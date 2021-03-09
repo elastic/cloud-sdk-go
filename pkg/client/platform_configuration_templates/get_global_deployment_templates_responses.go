@@ -46,7 +46,6 @@ func (o *GetGlobalDeploymentTemplatesReader) ReadResponse(response runtime.Clien
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,7 +56,7 @@ func NewGetGlobalDeploymentTemplatesOK() *GetGlobalDeploymentTemplatesOK {
 	return &GetGlobalDeploymentTemplatesOK{}
 }
 
-/*GetGlobalDeploymentTemplatesOK handles this case with default header values.
+/* GetGlobalDeploymentTemplatesOK describes a response with status code 200, with default header values.
 
 The deployment templates were returned successfully.
 */
@@ -68,7 +67,6 @@ type GetGlobalDeploymentTemplatesOK struct {
 func (o *GetGlobalDeploymentTemplatesOK) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/templates/deployments/global][%d] getGlobalDeploymentTemplatesOK  %+v", 200, o.Payload)
 }
-
 func (o *GetGlobalDeploymentTemplatesOK) GetPayload() []*models.GlobalDeploymentTemplateInfo {
 	return o.Payload
 }

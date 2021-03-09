@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -260,6 +262,160 @@ func (m *RegionInfo) validateZookeeperStates(formats strfmt.Registry) error {
 
 	if m.ZookeeperStates != nil {
 		if err := m.ZookeeperStates.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("zookeeper_states")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this region info based on the context it is used
+func (m *RegionInfo) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAllocators(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateConstructors(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateContainerSetsStatus(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateCoordinators(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateProxies(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateResources(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateRunners(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateZookeeperStates(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *RegionInfo) contextValidateAllocators(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Allocators != nil {
+		if err := m.Allocators.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("allocators")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *RegionInfo) contextValidateConstructors(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Constructors != nil {
+		if err := m.Constructors.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("constructors")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *RegionInfo) contextValidateContainerSetsStatus(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.ContainerSetsStatus != nil {
+		if err := m.ContainerSetsStatus.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("container_sets_status")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *RegionInfo) contextValidateCoordinators(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Coordinators != nil {
+		if err := m.Coordinators.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("coordinators")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *RegionInfo) contextValidateProxies(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Proxies != nil {
+		if err := m.Proxies.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("proxies")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *RegionInfo) contextValidateResources(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Resources != nil {
+		if err := m.Resources.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("resources")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *RegionInfo) contextValidateRunners(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Runners != nil {
+		if err := m.Runners.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("runners")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *RegionInfo) contextValidateZookeeperStates(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.ZookeeperStates != nil {
+		if err := m.ZookeeperStates.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("zookeeper_states")
 			}

@@ -33,64 +33,79 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewResetElasticsearchUserPasswordParams creates a new ResetElasticsearchUserPasswordParams object
-// with the default values initialized.
+// NewResetElasticsearchUserPasswordParams creates a new ResetElasticsearchUserPasswordParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewResetElasticsearchUserPasswordParams() *ResetElasticsearchUserPasswordParams {
-	var ()
 	return &ResetElasticsearchUserPasswordParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewResetElasticsearchUserPasswordParamsWithTimeout creates a new ResetElasticsearchUserPasswordParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewResetElasticsearchUserPasswordParamsWithTimeout(timeout time.Duration) *ResetElasticsearchUserPasswordParams {
-	var ()
 	return &ResetElasticsearchUserPasswordParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewResetElasticsearchUserPasswordParamsWithContext creates a new ResetElasticsearchUserPasswordParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewResetElasticsearchUserPasswordParamsWithContext(ctx context.Context) *ResetElasticsearchUserPasswordParams {
-	var ()
 	return &ResetElasticsearchUserPasswordParams{
-
 		Context: ctx,
 	}
 }
 
 // NewResetElasticsearchUserPasswordParamsWithHTTPClient creates a new ResetElasticsearchUserPasswordParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewResetElasticsearchUserPasswordParamsWithHTTPClient(client *http.Client) *ResetElasticsearchUserPasswordParams {
-	var ()
 	return &ResetElasticsearchUserPasswordParams{
 		HTTPClient: client,
 	}
 }
 
-/*ResetElasticsearchUserPasswordParams contains all the parameters to send to the API endpoint
-for the reset elasticsearch user password operation typically these are written to a http.Request
+/* ResetElasticsearchUserPasswordParams contains all the parameters to send to the API endpoint
+   for the reset elasticsearch user password operation.
+
+   Typically these are written to a http.Request.
 */
 type ResetElasticsearchUserPasswordParams struct {
 
-	/*DeploymentID
-	  Identifier for the Deployment.
+	/* DeploymentID.
 
+	   Identifier for the Deployment.
 	*/
 	DeploymentID string
-	/*RefID
-	  User-specified RefId for the Resource.
 
+	/* RefID.
+
+	   User-specified RefId for the Resource.
 	*/
 	RefID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the reset elasticsearch user password params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ResetElasticsearchUserPasswordParams) WithDefaults() *ResetElasticsearchUserPasswordParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the reset elasticsearch user password params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ResetElasticsearchUserPasswordParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the reset elasticsearch user password params

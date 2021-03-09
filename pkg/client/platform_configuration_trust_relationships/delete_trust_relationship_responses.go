@@ -58,7 +58,6 @@ func (o *DeleteTrustRelationshipReader) ReadResponse(response runtime.ClientResp
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,7 +68,7 @@ func NewDeleteTrustRelationshipOK() *DeleteTrustRelationshipOK {
 	return &DeleteTrustRelationshipOK{}
 }
 
-/*DeleteTrustRelationshipOK handles this case with default header values.
+/* DeleteTrustRelationshipOK describes a response with status code 200, with default header values.
 
 The request was valid and the trust relationship was deleted.
 */
@@ -80,7 +79,6 @@ type DeleteTrustRelationshipOK struct {
 func (o *DeleteTrustRelationshipOK) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/trust-relationships/{trust_relationship_id}][%d] deleteTrustRelationshipOK  %+v", 200, o.Payload)
 }
-
 func (o *DeleteTrustRelationshipOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -100,7 +98,7 @@ func NewDeleteTrustRelationshipUnauthorized() *DeleteTrustRelationshipUnauthoriz
 	return &DeleteTrustRelationshipUnauthorized{}
 }
 
-/*DeleteTrustRelationshipUnauthorized handles this case with default header values.
+/* DeleteTrustRelationshipUnauthorized describes a response with status code 401, with default header values.
 
 You are not authorized to perform this action.
 */
@@ -111,7 +109,6 @@ type DeleteTrustRelationshipUnauthorized struct {
 func (o *DeleteTrustRelationshipUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/trust-relationships/{trust_relationship_id}][%d] deleteTrustRelationshipUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *DeleteTrustRelationshipUnauthorized) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -133,12 +130,13 @@ func NewDeleteTrustRelationshipNotFound() *DeleteTrustRelationshipNotFound {
 	return &DeleteTrustRelationshipNotFound{}
 }
 
-/*DeleteTrustRelationshipNotFound handles this case with default header values.
+/* DeleteTrustRelationshipNotFound describes a response with status code 404, with default header values.
 
 The trust relationship specified by {trust_relationship_id} cannot be found. (code: `trust_relationships.not_found`)
 */
 type DeleteTrustRelationshipNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -148,15 +146,18 @@ type DeleteTrustRelationshipNotFound struct {
 func (o *DeleteTrustRelationshipNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/trust-relationships/{trust_relationship_id}][%d] deleteTrustRelationshipNotFound  %+v", 404, o.Payload)
 }
-
 func (o *DeleteTrustRelationshipNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *DeleteTrustRelationshipNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

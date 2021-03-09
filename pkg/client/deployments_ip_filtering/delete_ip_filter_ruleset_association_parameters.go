@@ -33,69 +33,85 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewDeleteIPFilterRulesetAssociationParams creates a new DeleteIPFilterRulesetAssociationParams object
-// with the default values initialized.
+// NewDeleteIPFilterRulesetAssociationParams creates a new DeleteIPFilterRulesetAssociationParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewDeleteIPFilterRulesetAssociationParams() *DeleteIPFilterRulesetAssociationParams {
-	var ()
 	return &DeleteIPFilterRulesetAssociationParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteIPFilterRulesetAssociationParamsWithTimeout creates a new DeleteIPFilterRulesetAssociationParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewDeleteIPFilterRulesetAssociationParamsWithTimeout(timeout time.Duration) *DeleteIPFilterRulesetAssociationParams {
-	var ()
 	return &DeleteIPFilterRulesetAssociationParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewDeleteIPFilterRulesetAssociationParamsWithContext creates a new DeleteIPFilterRulesetAssociationParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewDeleteIPFilterRulesetAssociationParamsWithContext(ctx context.Context) *DeleteIPFilterRulesetAssociationParams {
-	var ()
 	return &DeleteIPFilterRulesetAssociationParams{
-
 		Context: ctx,
 	}
 }
 
 // NewDeleteIPFilterRulesetAssociationParamsWithHTTPClient creates a new DeleteIPFilterRulesetAssociationParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewDeleteIPFilterRulesetAssociationParamsWithHTTPClient(client *http.Client) *DeleteIPFilterRulesetAssociationParams {
-	var ()
 	return &DeleteIPFilterRulesetAssociationParams{
 		HTTPClient: client,
 	}
 }
 
-/*DeleteIPFilterRulesetAssociationParams contains all the parameters to send to the API endpoint
-for the delete ip filter ruleset association operation typically these are written to a http.Request
+/* DeleteIPFilterRulesetAssociationParams contains all the parameters to send to the API endpoint
+   for the delete ip filter ruleset association operation.
+
+   Typically these are written to a http.Request.
 */
 type DeleteIPFilterRulesetAssociationParams struct {
 
-	/*AssociatedEntityID
-	  Mandatory associated entity ID
+	/* AssociatedEntityID.
 
+	   Mandatory associated entity ID
 	*/
 	AssociatedEntityID string
-	/*AssociationType
-	  Mandatory association type ID
 
+	/* AssociationType.
+
+	   Mandatory association type ID
 	*/
 	AssociationType string
-	/*RulesetID
-	  Mandatory ruleset ID
 
+	/* RulesetID.
+
+	   Mandatory ruleset ID
 	*/
 	RulesetID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the delete ip filter ruleset association params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteIPFilterRulesetAssociationParams) WithDefaults() *DeleteIPFilterRulesetAssociationParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the delete ip filter ruleset association params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteIPFilterRulesetAssociationParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete ip filter ruleset association params

@@ -33,79 +33,97 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewSetDeploymentResourceRawMetadataParams creates a new SetDeploymentResourceRawMetadataParams object
-// with the default values initialized.
+// NewSetDeploymentResourceRawMetadataParams creates a new SetDeploymentResourceRawMetadataParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewSetDeploymentResourceRawMetadataParams() *SetDeploymentResourceRawMetadataParams {
-	var ()
 	return &SetDeploymentResourceRawMetadataParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewSetDeploymentResourceRawMetadataParamsWithTimeout creates a new SetDeploymentResourceRawMetadataParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewSetDeploymentResourceRawMetadataParamsWithTimeout(timeout time.Duration) *SetDeploymentResourceRawMetadataParams {
-	var ()
 	return &SetDeploymentResourceRawMetadataParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewSetDeploymentResourceRawMetadataParamsWithContext creates a new SetDeploymentResourceRawMetadataParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewSetDeploymentResourceRawMetadataParamsWithContext(ctx context.Context) *SetDeploymentResourceRawMetadataParams {
-	var ()
 	return &SetDeploymentResourceRawMetadataParams{
-
 		Context: ctx,
 	}
 }
 
 // NewSetDeploymentResourceRawMetadataParamsWithHTTPClient creates a new SetDeploymentResourceRawMetadataParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewSetDeploymentResourceRawMetadataParamsWithHTTPClient(client *http.Client) *SetDeploymentResourceRawMetadataParams {
-	var ()
 	return &SetDeploymentResourceRawMetadataParams{
 		HTTPClient: client,
 	}
 }
 
-/*SetDeploymentResourceRawMetadataParams contains all the parameters to send to the API endpoint
-for the set deployment resource raw metadata operation typically these are written to a http.Request
+/* SetDeploymentResourceRawMetadataParams contains all the parameters to send to the API endpoint
+   for the set deployment resource raw metadata operation.
+
+   Typically these are written to a http.Request.
 */
 type SetDeploymentResourceRawMetadataParams struct {
 
-	/*Body
-	  The freeform JSON for the cluster (should always be based on the current version retrieved from the GET)
+	/* Body.
 
+	   The freeform JSON for the cluster (should always be based on the current version retrieved from the GET)
 	*/
 	Body string
-	/*DeploymentID
-	  Identifier for the Deployment
 
+	/* DeploymentID.
+
+	   Identifier for the Deployment
 	*/
 	DeploymentID string
-	/*RefID
-	  User-specified RefId for the Resource
 
+	/* RefID.
+
+	   User-specified RefId for the Resource
 	*/
 	RefID string
-	/*ResourceKind
-	  The kind of resource
 
+	/* ResourceKind.
+
+	   The kind of resource
 	*/
 	ResourceKind string
-	/*Version
-	  If specified, checks for conflicts against the metadata version (returned in 'x-cloud-resource-version' of the GET request)
 
+	/* Version.
+
+	   If specified, checks for conflicts against the metadata version (returned in 'x-cloud-resource-version' of the GET request)
 	*/
 	Version *string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the set deployment resource raw metadata params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetDeploymentResourceRawMetadataParams) WithDefaults() *SetDeploymentResourceRawMetadataParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the set deployment resource raw metadata params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetDeploymentResourceRawMetadataParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the set deployment resource raw metadata params
@@ -203,7 +221,6 @@ func (o *SetDeploymentResourceRawMetadataParams) WriteToRequest(r runtime.Client
 		return err
 	}
 	var res []error
-
 	if err := r.SetBodyParam(o.Body); err != nil {
 		return err
 	}
@@ -227,16 +244,17 @@ func (o *SetDeploymentResourceRawMetadataParams) WriteToRequest(r runtime.Client
 
 		// query param version
 		var qrVersion string
+
 		if o.Version != nil {
 			qrVersion = *o.Version
 		}
 		qVersion := qrVersion
 		if qVersion != "" {
+
 			if err := r.SetQueryParam("version", qVersion); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

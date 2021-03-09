@@ -70,7 +70,6 @@ func (o *RestartDeploymentStatelessResourceReader) ReadResponse(response runtime
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -81,7 +80,7 @@ func NewRestartDeploymentStatelessResourceAccepted() *RestartDeploymentStateless
 	return &RestartDeploymentStatelessResourceAccepted{}
 }
 
-/*RestartDeploymentStatelessResourceAccepted handles this case with default header values.
+/* RestartDeploymentStatelessResourceAccepted describes a response with status code 202, with default header values.
 
 The restart command was issued successfully
 */
@@ -92,7 +91,6 @@ type RestartDeploymentStatelessResourceAccepted struct {
 func (o *RestartDeploymentStatelessResourceAccepted) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_restart][%d] restartDeploymentStatelessResourceAccepted  %+v", 202, o.Payload)
 }
-
 func (o *RestartDeploymentStatelessResourceAccepted) GetPayload() *models.DeploymentResourceCommandResponse {
 	return o.Payload
 }
@@ -114,13 +112,14 @@ func NewRestartDeploymentStatelessResourceNotFound() *RestartDeploymentStateless
 	return &RestartDeploymentStatelessResourceNotFound{}
 }
 
-/*RestartDeploymentStatelessResourceNotFound handles this case with default header values.
+/* RestartDeploymentStatelessResourceNotFound describes a response with status code 404, with default header values.
 
-* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+ * The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
 * The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)
- */
+*/
 type RestartDeploymentStatelessResourceNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -130,15 +129,18 @@ type RestartDeploymentStatelessResourceNotFound struct {
 func (o *RestartDeploymentStatelessResourceNotFound) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_restart][%d] restartDeploymentStatelessResourceNotFound  %+v", 404, o.Payload)
 }
-
 func (o *RestartDeploymentStatelessResourceNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *RestartDeploymentStatelessResourceNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -155,12 +157,13 @@ func NewRestartDeploymentStatelessResourceUnprocessableEntity() *RestartDeployme
 	return &RestartDeploymentStatelessResourceUnprocessableEntity{}
 }
 
-/*RestartDeploymentStatelessResourceUnprocessableEntity handles this case with default header values.
+/* RestartDeploymentStatelessResourceUnprocessableEntity describes a response with status code 422, with default header values.
 
 The command sent to a Resource found the Resource in an illegal state, the error message gives more details. (code: `deployments.deployment_resource_plan_change_error`)
 */
 type RestartDeploymentStatelessResourceUnprocessableEntity struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -170,15 +173,18 @@ type RestartDeploymentStatelessResourceUnprocessableEntity struct {
 func (o *RestartDeploymentStatelessResourceUnprocessableEntity) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_restart][%d] restartDeploymentStatelessResourceUnprocessableEntity  %+v", 422, o.Payload)
 }
-
 func (o *RestartDeploymentStatelessResourceUnprocessableEntity) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *RestartDeploymentStatelessResourceUnprocessableEntity) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -195,12 +201,13 @@ func NewRestartDeploymentStatelessResourceRetryWith() *RestartDeploymentStateles
 	return &RestartDeploymentStatelessResourceRetryWith{}
 }
 
-/*RestartDeploymentStatelessResourceRetryWith handles this case with default header values.
+/* RestartDeploymentStatelessResourceRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type RestartDeploymentStatelessResourceRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -210,15 +217,18 @@ type RestartDeploymentStatelessResourceRetryWith struct {
 func (o *RestartDeploymentStatelessResourceRetryWith) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_restart][%d] restartDeploymentStatelessResourceRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *RestartDeploymentStatelessResourceRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *RestartDeploymentStatelessResourceRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -235,12 +245,13 @@ func NewRestartDeploymentStatelessResourceInternalServerError() *RestartDeployme
 	return &RestartDeploymentStatelessResourceInternalServerError{}
 }
 
-/*RestartDeploymentStatelessResourceInternalServerError handles this case with default header values.
+/* RestartDeploymentStatelessResourceInternalServerError describes a response with status code 500, with default header values.
 
 We have failed you. (code: `deployments.deployment_resource_no_longer_exists`)
 */
 type RestartDeploymentStatelessResourceInternalServerError struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -250,15 +261,18 @@ type RestartDeploymentStatelessResourceInternalServerError struct {
 func (o *RestartDeploymentStatelessResourceInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_restart][%d] restartDeploymentStatelessResourceInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *RestartDeploymentStatelessResourceInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *RestartDeploymentStatelessResourceInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

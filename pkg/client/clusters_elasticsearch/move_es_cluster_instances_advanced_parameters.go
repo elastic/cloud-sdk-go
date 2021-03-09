@@ -36,120 +36,123 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewMoveEsClusterInstancesAdvancedParams creates a new MoveEsClusterInstancesAdvancedParams object
-// with the default values initialized.
+// NewMoveEsClusterInstancesAdvancedParams creates a new MoveEsClusterInstancesAdvancedParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewMoveEsClusterInstancesAdvancedParams() *MoveEsClusterInstancesAdvancedParams {
-	var (
-		forceUpdateDefault   = bool(false)
-		instancesDownDefault = bool(false)
-		moveOnlyDefault      = bool(false)
-		validateOnlyDefault  = bool(false)
-	)
 	return &MoveEsClusterInstancesAdvancedParams{
-		ForceUpdate:   &forceUpdateDefault,
-		InstancesDown: &instancesDownDefault,
-		MoveOnly:      &moveOnlyDefault,
-		ValidateOnly:  &validateOnlyDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewMoveEsClusterInstancesAdvancedParamsWithTimeout creates a new MoveEsClusterInstancesAdvancedParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewMoveEsClusterInstancesAdvancedParamsWithTimeout(timeout time.Duration) *MoveEsClusterInstancesAdvancedParams {
-	var (
-		forceUpdateDefault   = bool(false)
-		instancesDownDefault = bool(false)
-		moveOnlyDefault      = bool(false)
-		validateOnlyDefault  = bool(false)
-	)
 	return &MoveEsClusterInstancesAdvancedParams{
-		ForceUpdate:   &forceUpdateDefault,
-		InstancesDown: &instancesDownDefault,
-		MoveOnly:      &moveOnlyDefault,
-		ValidateOnly:  &validateOnlyDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewMoveEsClusterInstancesAdvancedParamsWithContext creates a new MoveEsClusterInstancesAdvancedParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewMoveEsClusterInstancesAdvancedParamsWithContext(ctx context.Context) *MoveEsClusterInstancesAdvancedParams {
-	var (
-		forceUpdateDefault   = bool(false)
-		instancesDownDefault = bool(false)
-		moveOnlyDefault      = bool(false)
-		validateOnlyDefault  = bool(false)
-	)
 	return &MoveEsClusterInstancesAdvancedParams{
-		ForceUpdate:   &forceUpdateDefault,
-		InstancesDown: &instancesDownDefault,
-		MoveOnly:      &moveOnlyDefault,
-		ValidateOnly:  &validateOnlyDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewMoveEsClusterInstancesAdvancedParamsWithHTTPClient creates a new MoveEsClusterInstancesAdvancedParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewMoveEsClusterInstancesAdvancedParamsWithHTTPClient(client *http.Client) *MoveEsClusterInstancesAdvancedParams {
-	var (
-		forceUpdateDefault   = bool(false)
-		instancesDownDefault = bool(false)
-		moveOnlyDefault      = bool(false)
-		validateOnlyDefault  = bool(false)
-	)
 	return &MoveEsClusterInstancesAdvancedParams{
-		ForceUpdate:   &forceUpdateDefault,
-		InstancesDown: &instancesDownDefault,
-		MoveOnly:      &moveOnlyDefault,
-		ValidateOnly:  &validateOnlyDefault,
-		HTTPClient:    client,
+		HTTPClient: client,
 	}
 }
 
-/*MoveEsClusterInstancesAdvancedParams contains all the parameters to send to the API endpoint
-for the move es cluster instances advanced operation typically these are written to a http.Request
+/* MoveEsClusterInstancesAdvancedParams contains all the parameters to send to the API endpoint
+   for the move es cluster instances advanced operation.
+
+   Typically these are written to a http.Request.
 */
 type MoveEsClusterInstancesAdvancedParams struct {
 
-	/*Body
-	  Overrides defaults for the move, including setting the configuration of instances specified in the path
+	/* Body.
 
+	   Overrides defaults for the move, including setting the configuration of instances specified in the path
 	*/
 	Body *models.TransientElasticsearchPlanConfiguration
-	/*ClusterID
-	  The Elasticsearch cluster identifier.
 
+	/* ClusterID.
+
+	   The Elasticsearch cluster identifier.
 	*/
 	ClusterID string
-	/*ForceUpdate
-	  When `true`, cancels and overwrites the pending plans, or treats the instance as an error.
 
+	/* ForceUpdate.
+
+	   When `true`, cancels and overwrites the pending plans, or treats the instance as an error.
 	*/
 	ForceUpdate *bool
-	/*InstancesDown
-	  When `true`, the instances specified by `instance_ids` permanently shut down for data migration logic.
 
+	/* InstancesDown.
+
+	   When `true`, the instances specified by `instance_ids` permanently shut down for data migration logic.
 	*/
 	InstancesDown *bool
-	/*MoveOnly
-	  When `true`, moves the instances and ignores the changes for the cluster state.
 
+	/* MoveOnly.
+
+	   When `true`, moves the instances and ignores the changes for the cluster state.
 	*/
 	MoveOnly *bool
-	/*ValidateOnly
-	  When `true`, validates the move request, then returns the calculated plan without applying the plan.
 
+	/* ValidateOnly.
+
+	   When `true`, validates the move request, then returns the calculated plan without applying the plan.
 	*/
 	ValidateOnly *bool
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the move es cluster instances advanced params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *MoveEsClusterInstancesAdvancedParams) WithDefaults() *MoveEsClusterInstancesAdvancedParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the move es cluster instances advanced params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *MoveEsClusterInstancesAdvancedParams) SetDefaults() {
+	var (
+		forceUpdateDefault = bool(false)
+
+		instancesDownDefault = bool(false)
+
+		moveOnlyDefault = bool(false)
+
+		validateOnlyDefault = bool(false)
+	)
+
+	val := MoveEsClusterInstancesAdvancedParams{
+		ForceUpdate:   &forceUpdateDefault,
+		InstancesDown: &instancesDownDefault,
+		MoveOnly:      &moveOnlyDefault,
+		ValidateOnly:  &validateOnlyDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the move es cluster instances advanced params
@@ -258,7 +261,6 @@ func (o *MoveEsClusterInstancesAdvancedParams) WriteToRequest(r runtime.ClientRe
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err
@@ -274,64 +276,68 @@ func (o *MoveEsClusterInstancesAdvancedParams) WriteToRequest(r runtime.ClientRe
 
 		// query param force_update
 		var qrForceUpdate bool
+
 		if o.ForceUpdate != nil {
 			qrForceUpdate = *o.ForceUpdate
 		}
 		qForceUpdate := swag.FormatBool(qrForceUpdate)
 		if qForceUpdate != "" {
+
 			if err := r.SetQueryParam("force_update", qForceUpdate); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.InstancesDown != nil {
 
 		// query param instances_down
 		var qrInstancesDown bool
+
 		if o.InstancesDown != nil {
 			qrInstancesDown = *o.InstancesDown
 		}
 		qInstancesDown := swag.FormatBool(qrInstancesDown)
 		if qInstancesDown != "" {
+
 			if err := r.SetQueryParam("instances_down", qInstancesDown); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.MoveOnly != nil {
 
 		// query param move_only
 		var qrMoveOnly bool
+
 		if o.MoveOnly != nil {
 			qrMoveOnly = *o.MoveOnly
 		}
 		qMoveOnly := swag.FormatBool(qrMoveOnly)
 		if qMoveOnly != "" {
+
 			if err := r.SetQueryParam("move_only", qMoveOnly); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.ValidateOnly != nil {
 
 		// query param validate_only
 		var qrValidateOnly bool
+
 		if o.ValidateOnly != nil {
 			qrValidateOnly = *o.ValidateOnly
 		}
 		qValidateOnly := swag.FormatBool(qrValidateOnly)
 		if qValidateOnly != "" {
+
 			if err := r.SetQueryParam("validate_only", qValidateOnly); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

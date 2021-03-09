@@ -42,17 +42,20 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientOption is the option for Client methods
+type ClientOption func(*runtime.ClientOperation)
+
 // ClientService is the interface for Client methods
 type ClientService interface {
-	CreateDeploymentNote(params *CreateDeploymentNoteParams, authInfo runtime.ClientAuthInfoWriter) (*CreateDeploymentNoteCreated, error)
+	CreateDeploymentNote(params *CreateDeploymentNoteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateDeploymentNoteCreated, error)
 
-	DeleteDeploymentNote(params *DeleteDeploymentNoteParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteDeploymentNoteOK, error)
+	DeleteDeploymentNote(params *DeleteDeploymentNoteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteDeploymentNoteOK, error)
 
-	GetDeploymentNote(params *GetDeploymentNoteParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentNoteOK, error)
+	GetDeploymentNote(params *GetDeploymentNoteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentNoteOK, error)
 
-	GetDeploymentNotes(params *GetDeploymentNotesParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentNotesOK, error)
+	GetDeploymentNotes(params *GetDeploymentNotesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentNotesOK, error)
 
-	UpdateDeploymentNote(params *UpdateDeploymentNoteParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateDeploymentNoteOK, error)
+	UpdateDeploymentNote(params *UpdateDeploymentNoteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateDeploymentNoteOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -62,13 +65,12 @@ type ClientService interface {
 
   Create note for the running deployment.
 */
-func (a *Client) CreateDeploymentNote(params *CreateDeploymentNoteParams, authInfo runtime.ClientAuthInfoWriter) (*CreateDeploymentNoteCreated, error) {
+func (a *Client) CreateDeploymentNote(params *CreateDeploymentNoteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateDeploymentNoteCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateDeploymentNoteParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "create-deployment-note",
 		Method:             "POST",
 		PathPattern:        "/deployments/{deployment_id}/notes",
@@ -80,7 +82,12 @@ func (a *Client) CreateDeploymentNote(params *CreateDeploymentNoteParams, authIn
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -99,13 +106,12 @@ func (a *Client) CreateDeploymentNote(params *CreateDeploymentNoteParams, authIn
 
   Delete note for the running deployment.
 */
-func (a *Client) DeleteDeploymentNote(params *DeleteDeploymentNoteParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteDeploymentNoteOK, error) {
+func (a *Client) DeleteDeploymentNote(params *DeleteDeploymentNoteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteDeploymentNoteOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteDeploymentNoteParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "delete-deployment-note",
 		Method:             "DELETE",
 		PathPattern:        "/deployments/{deployment_id}/notes/{note_id}",
@@ -117,7 +123,12 @@ func (a *Client) DeleteDeploymentNote(params *DeleteDeploymentNoteParams, authIn
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -136,13 +147,12 @@ func (a *Client) DeleteDeploymentNote(params *DeleteDeploymentNoteParams, authIn
 
   Gets a deployment note.
 */
-func (a *Client) GetDeploymentNote(params *GetDeploymentNoteParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentNoteOK, error) {
+func (a *Client) GetDeploymentNote(params *GetDeploymentNoteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentNoteOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetDeploymentNoteParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-deployment-note",
 		Method:             "GET",
 		PathPattern:        "/deployments/{deployment_id}/notes/{note_id}",
@@ -154,7 +164,12 @@ func (a *Client) GetDeploymentNote(params *GetDeploymentNoteParams, authInfo run
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -173,13 +188,12 @@ func (a *Client) GetDeploymentNote(params *GetDeploymentNoteParams, authInfo run
 
   Get deployment notes.
 */
-func (a *Client) GetDeploymentNotes(params *GetDeploymentNotesParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentNotesOK, error) {
+func (a *Client) GetDeploymentNotes(params *GetDeploymentNotesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentNotesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetDeploymentNotesParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-deployment-notes",
 		Method:             "GET",
 		PathPattern:        "/deployments/{deployment_id}/notes",
@@ -191,7 +205,12 @@ func (a *Client) GetDeploymentNotes(params *GetDeploymentNotesParams, authInfo r
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -210,13 +229,12 @@ func (a *Client) GetDeploymentNotes(params *GetDeploymentNotesParams, authInfo r
 
   Update note for the running deployment.
 */
-func (a *Client) UpdateDeploymentNote(params *UpdateDeploymentNoteParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateDeploymentNoteOK, error) {
+func (a *Client) UpdateDeploymentNote(params *UpdateDeploymentNoteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateDeploymentNoteOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateDeploymentNoteParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "update-deployment-note",
 		Method:             "PUT",
 		PathPattern:        "/deployments/{deployment_id}/notes/{note_id}",
@@ -228,7 +246,12 @@ func (a *Client) UpdateDeploymentNote(params *UpdateDeploymentNoteParams, authIn
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}

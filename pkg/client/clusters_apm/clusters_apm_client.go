@@ -42,69 +42,72 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientOption is the option for Client methods
+type ClientOption func(*runtime.ClientOperation)
+
 // ClientService is the interface for Client methods
 type ClientService interface {
-	CancelApmPendingPlan(params *CancelApmPendingPlanParams, authInfo runtime.ClientAuthInfoWriter) (*CancelApmPendingPlanOK, error)
+	CancelApmPendingPlan(params *CancelApmPendingPlanParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CancelApmPendingPlanOK, error)
 
-	CreateApm(params *CreateApmParams, authInfo runtime.ClientAuthInfoWriter) (*CreateApmOK, *CreateApmCreated, error)
+	CreateApm(params *CreateApmParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateApmOK, *CreateApmCreated, error)
 
-	DeleteApm(params *DeleteApmParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteApmOK, error)
+	DeleteApm(params *DeleteApmParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteApmOK, error)
 
-	GetApmCluster(params *GetApmClusterParams, authInfo runtime.ClientAuthInfoWriter) (*GetApmClusterOK, error)
+	GetApmCluster(params *GetApmClusterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetApmClusterOK, error)
 
-	GetApmClusterPlanActivity(params *GetApmClusterPlanActivityParams, authInfo runtime.ClientAuthInfoWriter) (*GetApmClusterPlanActivityOK, error)
+	GetApmClusterPlanActivity(params *GetApmClusterPlanActivityParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetApmClusterPlanActivityOK, error)
 
-	GetApmClusters(params *GetApmClustersParams, authInfo runtime.ClientAuthInfoWriter) (*GetApmClustersOK, error)
+	GetApmClusters(params *GetApmClustersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetApmClustersOK, error)
 
-	GetApmMetadataRaw(params *GetApmMetadataRawParams, authInfo runtime.ClientAuthInfoWriter) (*GetApmMetadataRawOK, error)
+	GetApmMetadataRaw(params *GetApmMetadataRawParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetApmMetadataRawOK, error)
 
-	GetApmMetadataSettings(params *GetApmMetadataSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*GetApmMetadataSettingsOK, error)
+	GetApmMetadataSettings(params *GetApmMetadataSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetApmMetadataSettingsOK, error)
 
-	GetApmPendingPlan(params *GetApmPendingPlanParams, authInfo runtime.ClientAuthInfoWriter) (*GetApmPendingPlanOK, error)
+	GetApmPendingPlan(params *GetApmPendingPlanParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetApmPendingPlanOK, error)
 
-	GetApmPlan(params *GetApmPlanParams, authInfo runtime.ClientAuthInfoWriter) (*GetApmPlanOK, error)
+	GetApmPlan(params *GetApmPlanParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetApmPlanOK, error)
 
-	MoveApmInstances(params *MoveApmInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*MoveApmInstancesAccepted, error)
+	MoveApmInstances(params *MoveApmInstancesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MoveApmInstancesAccepted, error)
 
-	MoveApmInstancesAdvanced(params *MoveApmInstancesAdvancedParams, authInfo runtime.ClientAuthInfoWriter) (*MoveApmInstancesAdvancedAccepted, error)
+	MoveApmInstancesAdvanced(params *MoveApmInstancesAdvancedParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MoveApmInstancesAdvancedAccepted, error)
 
-	ResetApmSecretToken(params *ResetApmSecretTokenParams, authInfo runtime.ClientAuthInfoWriter) (*ResetApmSecretTokenOK, error)
+	ResetApmSecretToken(params *ResetApmSecretTokenParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ResetApmSecretTokenOK, error)
 
-	RestartApm(params *RestartApmParams, authInfo runtime.ClientAuthInfoWriter) (*RestartApmAccepted, error)
+	RestartApm(params *RestartApmParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*RestartApmAccepted, error)
 
-	ResyncApmCluster(params *ResyncApmClusterParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncApmClusterOK, error)
+	ResyncApmCluster(params *ResyncApmClusterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ResyncApmClusterOK, error)
 
-	ResyncApmClusters(params *ResyncApmClustersParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncApmClustersAccepted, error)
+	ResyncApmClusters(params *ResyncApmClustersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ResyncApmClustersAccepted, error)
 
-	SearchApms(params *SearchApmsParams, authInfo runtime.ClientAuthInfoWriter) (*SearchApmsOK, error)
+	SearchApms(params *SearchApmsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SearchApmsOK, error)
 
-	SetApmMetadataRaw(params *SetApmMetadataRawParams, authInfo runtime.ClientAuthInfoWriter) (*SetApmMetadataRawOK, error)
+	SetApmMetadataRaw(params *SetApmMetadataRawParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetApmMetadataRawOK, error)
 
-	SetApmName(params *SetApmNameParams, authInfo runtime.ClientAuthInfoWriter) (*SetApmNameOK, error)
+	SetApmName(params *SetApmNameParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetApmNameOK, error)
 
-	ShutdownApm(params *ShutdownApmParams, authInfo runtime.ClientAuthInfoWriter) (*ShutdownApmAccepted, error)
+	ShutdownApm(params *ShutdownApmParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ShutdownApmAccepted, error)
 
-	StartApmInstances(params *StartApmInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*StartApmInstancesAccepted, error)
+	StartApmInstances(params *StartApmInstancesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StartApmInstancesAccepted, error)
 
-	StartApmInstancesAll(params *StartApmInstancesAllParams, authInfo runtime.ClientAuthInfoWriter) (*StartApmInstancesAllAccepted, error)
+	StartApmInstancesAll(params *StartApmInstancesAllParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StartApmInstancesAllAccepted, error)
 
-	StartApmInstancesAllMaintenanceMode(params *StartApmInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StartApmInstancesAllMaintenanceModeAccepted, error)
+	StartApmInstancesAllMaintenanceMode(params *StartApmInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StartApmInstancesAllMaintenanceModeAccepted, error)
 
-	StartApmMaintenanceMode(params *StartApmMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StartApmMaintenanceModeAccepted, error)
+	StartApmMaintenanceMode(params *StartApmMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StartApmMaintenanceModeAccepted, error)
 
-	StopApmInstances(params *StopApmInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*StopApmInstancesAccepted, error)
+	StopApmInstances(params *StopApmInstancesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StopApmInstancesAccepted, error)
 
-	StopApmInstancesAll(params *StopApmInstancesAllParams, authInfo runtime.ClientAuthInfoWriter) (*StopApmInstancesAllAccepted, error)
+	StopApmInstancesAll(params *StopApmInstancesAllParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StopApmInstancesAllAccepted, error)
 
-	StopApmInstancesAllMaintenanceMode(params *StopApmInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StopApmInstancesAllMaintenanceModeAccepted, error)
+	StopApmInstancesAllMaintenanceMode(params *StopApmInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StopApmInstancesAllMaintenanceModeAccepted, error)
 
-	StopApmMaintenanceMode(params *StopApmMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StopApmMaintenanceModeAccepted, error)
+	StopApmMaintenanceMode(params *StopApmMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StopApmMaintenanceModeAccepted, error)
 
-	UpdateApmMetadataSettings(params *UpdateApmMetadataSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateApmMetadataSettingsOK, error)
+	UpdateApmMetadataSettings(params *UpdateApmMetadataSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateApmMetadataSettingsOK, error)
 
-	UpdateApmPlan(params *UpdateApmPlanParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateApmPlanOK, *UpdateApmPlanAccepted, error)
+	UpdateApmPlan(params *UpdateApmPlanParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateApmPlanOK, *UpdateApmPlanAccepted, error)
 
-	UpgradeApm(params *UpgradeApmParams, authInfo runtime.ClientAuthInfoWriter) (*UpgradeApmAccepted, error)
+	UpgradeApm(params *UpgradeApmParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpgradeApmAccepted, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -114,13 +117,12 @@ type ClientService interface {
 
   DEPRECATED (Scheduled to be removed in the next major version): Cancels the pending plan of an APM cluster.
 */
-func (a *Client) CancelApmPendingPlan(params *CancelApmPendingPlanParams, authInfo runtime.ClientAuthInfoWriter) (*CancelApmPendingPlanOK, error) {
+func (a *Client) CancelApmPendingPlan(params *CancelApmPendingPlanParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CancelApmPendingPlanOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCancelApmPendingPlanParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "cancel-apm-pending-plan",
 		Method:             "DELETE",
 		PathPattern:        "/clusters/apm/{cluster_id}/plan/pending",
@@ -132,7 +134,12 @@ func (a *Client) CancelApmPendingPlan(params *CancelApmPendingPlanParams, authIn
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -151,13 +158,12 @@ func (a *Client) CancelApmPendingPlan(params *CancelApmPendingPlanParams, authIn
 
   DEPRECATED (Scheduled to be removed in the next major version): Creates an APM cluster for a given Elasticsearch cluster.
 */
-func (a *Client) CreateApm(params *CreateApmParams, authInfo runtime.ClientAuthInfoWriter) (*CreateApmOK, *CreateApmCreated, error) {
+func (a *Client) CreateApm(params *CreateApmParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateApmOK, *CreateApmCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateApmParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "create-apm",
 		Method:             "POST",
 		PathPattern:        "/clusters/apm",
@@ -169,7 +175,12 @@ func (a *Client) CreateApm(params *CreateApmParams, authInfo runtime.ClientAuthI
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -190,13 +201,12 @@ func (a *Client) CreateApm(params *CreateApmParams, authInfo runtime.ClientAuthI
   DEPRECATED (Scheduled to be removed in the next major version): Deletes an APM cluster.
 Requires that you have already successfully issued `_shutdown` command against the cluster.
 */
-func (a *Client) DeleteApm(params *DeleteApmParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteApmOK, error) {
+func (a *Client) DeleteApm(params *DeleteApmParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteApmOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteApmParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "delete-apm",
 		Method:             "DELETE",
 		PathPattern:        "/clusters/apm/{cluster_id}",
@@ -208,7 +218,12 @@ func (a *Client) DeleteApm(params *DeleteApmParams, authInfo runtime.ClientAuthI
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -227,13 +242,12 @@ func (a *Client) DeleteApm(params *DeleteApmParams, authInfo runtime.ClientAuthI
 
   DEPRECATED (Scheduled to be removed in the next major version): Retrieves cluster information for a APM cluster.
 */
-func (a *Client) GetApmCluster(params *GetApmClusterParams, authInfo runtime.ClientAuthInfoWriter) (*GetApmClusterOK, error) {
+func (a *Client) GetApmCluster(params *GetApmClusterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetApmClusterOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetApmClusterParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-apm-cluster",
 		Method:             "GET",
 		PathPattern:        "/clusters/apm/{cluster_id}",
@@ -245,7 +259,12 @@ func (a *Client) GetApmCluster(params *GetApmClusterParams, authInfo runtime.Cli
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -264,13 +283,12 @@ func (a *Client) GetApmCluster(params *GetApmClusterParams, authInfo runtime.Cli
 
   DEPRECATED (Scheduled to be removed in the next major version): Retrieves the current and historical plan information for a APM cluster.
 */
-func (a *Client) GetApmClusterPlanActivity(params *GetApmClusterPlanActivityParams, authInfo runtime.ClientAuthInfoWriter) (*GetApmClusterPlanActivityOK, error) {
+func (a *Client) GetApmClusterPlanActivity(params *GetApmClusterPlanActivityParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetApmClusterPlanActivityOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetApmClusterPlanActivityParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-apm-cluster-plan-activity",
 		Method:             "GET",
 		PathPattern:        "/clusters/apm/{cluster_id}/plan/activity",
@@ -282,7 +300,12 @@ func (a *Client) GetApmClusterPlanActivity(params *GetApmClusterPlanActivityPara
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -301,13 +324,12 @@ func (a *Client) GetApmClusterPlanActivity(params *GetApmClusterPlanActivityPara
 
   DEPRECATED (Scheduled to be removed in the next major version): Retrieves cluster information for all APM clusters.
 */
-func (a *Client) GetApmClusters(params *GetApmClustersParams, authInfo runtime.ClientAuthInfoWriter) (*GetApmClustersOK, error) {
+func (a *Client) GetApmClusters(params *GetApmClustersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetApmClustersOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetApmClustersParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-apm-clusters",
 		Method:             "GET",
 		PathPattern:        "/clusters/apm",
@@ -319,7 +341,12 @@ func (a *Client) GetApmClusters(params *GetApmClustersParams, authInfo runtime.C
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -338,13 +365,12 @@ func (a *Client) GetApmClusters(params *GetApmClustersParams, authInfo runtime.C
 
   DEPRECATED (Scheduled to be removed in the next major version): Advanced use only. Retrieves the internal metadata, in free-form JSON, for the APM instance.
 */
-func (a *Client) GetApmMetadataRaw(params *GetApmMetadataRawParams, authInfo runtime.ClientAuthInfoWriter) (*GetApmMetadataRawOK, error) {
+func (a *Client) GetApmMetadataRaw(params *GetApmMetadataRawParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetApmMetadataRawOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetApmMetadataRawParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-apm-metadata-raw",
 		Method:             "GET",
 		PathPattern:        "/clusters/apm/{cluster_id}/metadata/raw",
@@ -356,7 +382,12 @@ func (a *Client) GetApmMetadataRaw(params *GetApmMetadataRawParams, authInfo run
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -375,13 +406,12 @@ func (a *Client) GetApmMetadataRaw(params *GetApmMetadataRawParams, authInfo run
 
   DEPRECATED (Scheduled to be removed in the next major version): Retrieves a structured version of the cluster metadata as a collection of top-level settings. If a particular setting isn't returned, then the free-form JSON endpoint (`/metadata/raw`) must be used.
 */
-func (a *Client) GetApmMetadataSettings(params *GetApmMetadataSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*GetApmMetadataSettingsOK, error) {
+func (a *Client) GetApmMetadataSettings(params *GetApmMetadataSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetApmMetadataSettingsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetApmMetadataSettingsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-apm-metadata-settings",
 		Method:             "GET",
 		PathPattern:        "/clusters/apm/{cluster_id}/metadata/settings",
@@ -393,7 +423,12 @@ func (a *Client) GetApmMetadataSettings(params *GetApmMetadataSettingsParams, au
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -412,13 +447,12 @@ func (a *Client) GetApmMetadataSettings(params *GetApmMetadataSettingsParams, au
 
   DEPRECATED (Scheduled to be removed in the next major version): Retrieves the pending plan of an APM cluster.
 */
-func (a *Client) GetApmPendingPlan(params *GetApmPendingPlanParams, authInfo runtime.ClientAuthInfoWriter) (*GetApmPendingPlanOK, error) {
+func (a *Client) GetApmPendingPlan(params *GetApmPendingPlanParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetApmPendingPlanOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetApmPendingPlanParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-apm-pending-plan",
 		Method:             "GET",
 		PathPattern:        "/clusters/apm/{cluster_id}/plan/pending",
@@ -430,7 +464,12 @@ func (a *Client) GetApmPendingPlan(params *GetApmPendingPlanParams, authInfo run
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -449,13 +488,12 @@ func (a *Client) GetApmPendingPlan(params *GetApmPendingPlanParams, authInfo run
 
   DEPRECATED (Scheduled to be removed in the next major version): Retrieves the active plan of an APM cluster. Transient settings are not show by this endpoint. To view the transient settings that have been applied with a specific plan, use the activity endpoint.
 */
-func (a *Client) GetApmPlan(params *GetApmPlanParams, authInfo runtime.ClientAuthInfoWriter) (*GetApmPlanOK, error) {
+func (a *Client) GetApmPlan(params *GetApmPlanParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetApmPlanOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetApmPlanParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-apm-plan",
 		Method:             "GET",
 		PathPattern:        "/clusters/apm/{cluster_id}/plan",
@@ -467,7 +505,12 @@ func (a *Client) GetApmPlan(params *GetApmPlanParams, authInfo runtime.ClientAut
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -486,13 +529,12 @@ func (a *Client) GetApmPlan(params *GetApmPlanParams, authInfo runtime.ClientAut
 
   DEPRECATED (Scheduled to be removed in the next major version): Moves one or more instances belonging to a Apm cluster.
 */
-func (a *Client) MoveApmInstances(params *MoveApmInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*MoveApmInstancesAccepted, error) {
+func (a *Client) MoveApmInstances(params *MoveApmInstancesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MoveApmInstancesAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewMoveApmInstancesParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "move-apm-instances",
 		Method:             "POST",
 		PathPattern:        "/clusters/apm/{cluster_id}/instances/{instance_ids}/_move",
@@ -504,7 +546,12 @@ func (a *Client) MoveApmInstances(params *MoveApmInstancesParams, authInfo runti
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -523,13 +570,12 @@ func (a *Client) MoveApmInstances(params *MoveApmInstancesParams, authInfo runti
 
   DEPRECATED (Scheduled to be removed in the next major version): Moves instances belonging to a Apm cluster, with custom configuration posted in the body.
 */
-func (a *Client) MoveApmInstancesAdvanced(params *MoveApmInstancesAdvancedParams, authInfo runtime.ClientAuthInfoWriter) (*MoveApmInstancesAdvancedAccepted, error) {
+func (a *Client) MoveApmInstancesAdvanced(params *MoveApmInstancesAdvancedParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MoveApmInstancesAdvancedAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewMoveApmInstancesAdvancedParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "move-apm-instances-advanced",
 		Method:             "POST",
 		PathPattern:        "/clusters/apm/{cluster_id}/instances/_move",
@@ -541,7 +587,12 @@ func (a *Client) MoveApmInstancesAdvanced(params *MoveApmInstancesAdvancedParams
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -560,13 +611,12 @@ func (a *Client) MoveApmInstancesAdvanced(params *MoveApmInstancesAdvancedParams
 
   DEPRECATED (Scheduled to be removed in the next major version): Resets the secret token for a given APM cluster.
 */
-func (a *Client) ResetApmSecretToken(params *ResetApmSecretTokenParams, authInfo runtime.ClientAuthInfoWriter) (*ResetApmSecretTokenOK, error) {
+func (a *Client) ResetApmSecretToken(params *ResetApmSecretTokenParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ResetApmSecretTokenOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewResetApmSecretTokenParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "reset-apm-secret-token",
 		Method:             "POST",
 		PathPattern:        "/clusters/apm/{cluster_id}/_reset-token",
@@ -578,7 +628,12 @@ func (a *Client) ResetApmSecretToken(params *ResetApmSecretTokenParams, authInfo
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -597,13 +652,12 @@ func (a *Client) ResetApmSecretToken(params *ResetApmSecretTokenParams, authInfo
 
   DEPRECATED (Scheduled to be removed in the next major version): Restarts a Apm cluster. If a cluster is active: this command re-applies the existing plan but applies a "cluster_reboot", which issues a Apm restart command and waits for it to complete. If a cluster is inactive: this command starts it up with the most recent successful plan.
 */
-func (a *Client) RestartApm(params *RestartApmParams, authInfo runtime.ClientAuthInfoWriter) (*RestartApmAccepted, error) {
+func (a *Client) RestartApm(params *RestartApmParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*RestartApmAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewRestartApmParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "restart-apm",
 		Method:             "POST",
 		PathPattern:        "/clusters/apm/{cluster_id}/_restart",
@@ -615,7 +669,12 @@ func (a *Client) RestartApm(params *RestartApmParams, authInfo runtime.ClientAut
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -634,13 +693,12 @@ func (a *Client) RestartApm(params *RestartApmParams, authInfo runtime.ClientAut
 
   DEPRECATED (Scheduled to be removed in the next major version): Immediately resynchronizes the search index and cache for the selected APM cluster.
 */
-func (a *Client) ResyncApmCluster(params *ResyncApmClusterParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncApmClusterOK, error) {
+func (a *Client) ResyncApmCluster(params *ResyncApmClusterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ResyncApmClusterOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewResyncApmClusterParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "resync-apm-cluster",
 		Method:             "POST",
 		PathPattern:        "/clusters/apm/{cluster_id}/_resync",
@@ -652,7 +710,12 @@ func (a *Client) ResyncApmCluster(params *ResyncApmClusterParams, authInfo runti
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -671,13 +734,12 @@ func (a *Client) ResyncApmCluster(params *ResyncApmClusterParams, authInfo runti
 
   DEPRECATED (Scheduled to be removed in the next major version): Asynchronously resynchronizes the search index for all APM clusters.
 */
-func (a *Client) ResyncApmClusters(params *ResyncApmClustersParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncApmClustersAccepted, error) {
+func (a *Client) ResyncApmClusters(params *ResyncApmClustersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ResyncApmClustersAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewResyncApmClustersParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "resync-apm-clusters",
 		Method:             "POST",
 		PathPattern:        "/clusters/apm/_resync",
@@ -689,7 +751,12 @@ func (a *Client) ResyncApmClusters(params *ResyncApmClustersParams, authInfo run
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -708,13 +775,12 @@ func (a *Client) ResyncApmClusters(params *ResyncApmClustersParams, authInfo run
 
   DEPRECATED (Scheduled to be removed in the next major version): Retrieves cluster information for all Apm clusters that match a given query.
 */
-func (a *Client) SearchApms(params *SearchApmsParams, authInfo runtime.ClientAuthInfoWriter) (*SearchApmsOK, error) {
+func (a *Client) SearchApms(params *SearchApmsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SearchApmsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSearchApmsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "search-apms",
 		Method:             "POST",
 		PathPattern:        "/clusters/apm/_search",
@@ -726,7 +792,12 @@ func (a *Client) SearchApms(params *SearchApmsParams, authInfo runtime.ClientAut
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -746,13 +817,12 @@ func (a *Client) SearchApms(params *SearchApmsParams, authInfo runtime.ClientAut
   DEPRECATED (Scheduled to be removed in the next major version): Advanced use only. Sets the internal metadata, in free-form JSON, for the APM instance.
 Only use the parameters to set the modified JSON that is returned from the get version of the metadata.
 */
-func (a *Client) SetApmMetadataRaw(params *SetApmMetadataRawParams, authInfo runtime.ClientAuthInfoWriter) (*SetApmMetadataRawOK, error) {
+func (a *Client) SetApmMetadataRaw(params *SetApmMetadataRawParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetApmMetadataRawOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSetApmMetadataRawParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "set-apm-metadata-raw",
 		Method:             "POST",
 		PathPattern:        "/clusters/apm/{cluster_id}/metadata/raw",
@@ -764,7 +834,12 @@ func (a *Client) SetApmMetadataRaw(params *SetApmMetadataRawParams, authInfo run
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -783,13 +858,12 @@ func (a *Client) SetApmMetadataRaw(params *SetApmMetadataRawParams, authInfo run
 
   DEPRECATED (Scheduled to be removed in the next major version): Assigns a name to the APM instance.
 */
-func (a *Client) SetApmName(params *SetApmNameParams, authInfo runtime.ClientAuthInfoWriter) (*SetApmNameOK, error) {
+func (a *Client) SetApmName(params *SetApmNameParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetApmNameOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSetApmNameParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "set-apm-name",
 		Method:             "PUT",
 		PathPattern:        "/clusters/apm/{cluster_id}/metadata/name/{new_name}",
@@ -801,7 +875,12 @@ func (a *Client) SetApmName(params *SetApmNameParams, authInfo runtime.ClientAut
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -820,13 +899,12 @@ func (a *Client) SetApmName(params *SetApmNameParams, authInfo runtime.ClientAut
 
   DEPRECATED (Scheduled to be removed in the next major version): Shuts down a running cluster and removes all nodes belonging to the cluster. The cluster definition is retained. Warning: this will lose all cluster data that is not saved in a snapshot repository.
 */
-func (a *Client) ShutdownApm(params *ShutdownApmParams, authInfo runtime.ClientAuthInfoWriter) (*ShutdownApmAccepted, error) {
+func (a *Client) ShutdownApm(params *ShutdownApmParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ShutdownApmAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewShutdownApmParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "shutdown-apm",
 		Method:             "POST",
 		PathPattern:        "/clusters/apm/{cluster_id}/_shutdown",
@@ -838,7 +916,12 @@ func (a *Client) ShutdownApm(params *ShutdownApmParams, authInfo runtime.ClientA
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -857,13 +940,12 @@ func (a *Client) ShutdownApm(params *ShutdownApmParams, authInfo runtime.ClientA
 
   DEPRECATED (Scheduled to be removed in the next major version): Starts the instances belonging to a Apm cluster.
 */
-func (a *Client) StartApmInstances(params *StartApmInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*StartApmInstancesAccepted, error) {
+func (a *Client) StartApmInstances(params *StartApmInstancesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StartApmInstancesAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStartApmInstancesParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "start-apm-instances",
 		Method:             "POST",
 		PathPattern:        "/clusters/apm/{cluster_id}/instances/{instance_ids}/_start",
@@ -875,7 +957,12 @@ func (a *Client) StartApmInstances(params *StartApmInstancesParams, authInfo run
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -894,13 +981,12 @@ func (a *Client) StartApmInstances(params *StartApmInstancesParams, authInfo run
 
   DEPRECATED (Scheduled to be removed in the next major version): Starts all the instances belonging to a Apm cluster.
 */
-func (a *Client) StartApmInstancesAll(params *StartApmInstancesAllParams, authInfo runtime.ClientAuthInfoWriter) (*StartApmInstancesAllAccepted, error) {
+func (a *Client) StartApmInstancesAll(params *StartApmInstancesAllParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StartApmInstancesAllAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStartApmInstancesAllParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "start-apm-instances-all",
 		Method:             "POST",
 		PathPattern:        "/clusters/apm/{cluster_id}/instances/_start",
@@ -912,7 +998,12 @@ func (a *Client) StartApmInstancesAll(params *StartApmInstancesAllParams, authIn
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -931,13 +1022,12 @@ func (a *Client) StartApmInstancesAll(params *StartApmInstancesAllParams, authIn
 
   DEPRECATED (Scheduled to be removed in the next major version): Starts maintenance mode of all instances belonging to a Apm cluster.
 */
-func (a *Client) StartApmInstancesAllMaintenanceMode(params *StartApmInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StartApmInstancesAllMaintenanceModeAccepted, error) {
+func (a *Client) StartApmInstancesAllMaintenanceMode(params *StartApmInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StartApmInstancesAllMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStartApmInstancesAllMaintenanceModeParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "start-apm-instances-all-maintenance-mode",
 		Method:             "POST",
 		PathPattern:        "/clusters/apm/{cluster_id}/instances/maintenance-mode/_start",
@@ -949,7 +1039,12 @@ func (a *Client) StartApmInstancesAllMaintenanceMode(params *StartApmInstancesAl
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -968,13 +1063,12 @@ func (a *Client) StartApmInstancesAllMaintenanceMode(params *StartApmInstancesAl
 
   DEPRECATED (Scheduled to be removed in the next major version): Starts maintenance mode of instances belonging to a Apm cluster.
 */
-func (a *Client) StartApmMaintenanceMode(params *StartApmMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StartApmMaintenanceModeAccepted, error) {
+func (a *Client) StartApmMaintenanceMode(params *StartApmMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StartApmMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStartApmMaintenanceModeParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "start-apm-maintenance-mode",
 		Method:             "POST",
 		PathPattern:        "/clusters/apm/{cluster_id}/instances/{instance_ids}/maintenance-mode/_start",
@@ -986,7 +1080,12 @@ func (a *Client) StartApmMaintenanceMode(params *StartApmMaintenanceModeParams, 
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1005,13 +1104,12 @@ func (a *Client) StartApmMaintenanceMode(params *StartApmMaintenanceModeParams, 
 
   DEPRECATED (Scheduled to be removed in the next major version): Stops the instances belonging to a Apm cluster.
 */
-func (a *Client) StopApmInstances(params *StopApmInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*StopApmInstancesAccepted, error) {
+func (a *Client) StopApmInstances(params *StopApmInstancesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StopApmInstancesAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStopApmInstancesParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "stop-apm-instances",
 		Method:             "POST",
 		PathPattern:        "/clusters/apm/{cluster_id}/instances/{instance_ids}/_stop",
@@ -1023,7 +1121,12 @@ func (a *Client) StopApmInstances(params *StopApmInstancesParams, authInfo runti
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1042,13 +1145,12 @@ func (a *Client) StopApmInstances(params *StopApmInstancesParams, authInfo runti
 
   DEPRECATED (Scheduled to be removed in the next major version): Stops all the instances belonging to a Apm cluster.
 */
-func (a *Client) StopApmInstancesAll(params *StopApmInstancesAllParams, authInfo runtime.ClientAuthInfoWriter) (*StopApmInstancesAllAccepted, error) {
+func (a *Client) StopApmInstancesAll(params *StopApmInstancesAllParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StopApmInstancesAllAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStopApmInstancesAllParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "stop-apm-instances-all",
 		Method:             "POST",
 		PathPattern:        "/clusters/apm/{cluster_id}/instances/_stop",
@@ -1060,7 +1162,12 @@ func (a *Client) StopApmInstancesAll(params *StopApmInstancesAllParams, authInfo
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1079,13 +1186,12 @@ func (a *Client) StopApmInstancesAll(params *StopApmInstancesAllParams, authInfo
 
   DEPRECATED (Scheduled to be removed in the next major version): Stops maintenance mode of all instances belonging to a Apm cluster.
 */
-func (a *Client) StopApmInstancesAllMaintenanceMode(params *StopApmInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StopApmInstancesAllMaintenanceModeAccepted, error) {
+func (a *Client) StopApmInstancesAllMaintenanceMode(params *StopApmInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StopApmInstancesAllMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStopApmInstancesAllMaintenanceModeParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "stop-apm-instances-all-maintenance-mode",
 		Method:             "POST",
 		PathPattern:        "/clusters/apm/{cluster_id}/instances/maintenance-mode/_stop",
@@ -1097,7 +1203,12 @@ func (a *Client) StopApmInstancesAllMaintenanceMode(params *StopApmInstancesAllM
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1116,13 +1227,12 @@ func (a *Client) StopApmInstancesAllMaintenanceMode(params *StopApmInstancesAllM
 
   DEPRECATED (Scheduled to be removed in the next major version): Stops maintenance mode of instances belonging to a Apm cluster.
 */
-func (a *Client) StopApmMaintenanceMode(params *StopApmMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StopApmMaintenanceModeAccepted, error) {
+func (a *Client) StopApmMaintenanceMode(params *StopApmMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StopApmMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStopApmMaintenanceModeParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "stop-apm-maintenance-mode",
 		Method:             "POST",
 		PathPattern:        "/clusters/apm/{cluster_id}/instances/{instance_ids}/maintenance-mode/_stop",
@@ -1134,7 +1244,12 @@ func (a *Client) StopApmMaintenanceMode(params *StopApmMaintenanceModeParams, au
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1153,13 +1268,12 @@ func (a *Client) StopApmMaintenanceMode(params *StopApmMaintenanceModeParams, au
 
   DEPRECATED (Scheduled to be removed in the next major version): All changes in the specified object are applied to the metadata object according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.
 */
-func (a *Client) UpdateApmMetadataSettings(params *UpdateApmMetadataSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateApmMetadataSettingsOK, error) {
+func (a *Client) UpdateApmMetadataSettings(params *UpdateApmMetadataSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateApmMetadataSettingsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateApmMetadataSettingsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "update-apm-metadata-settings",
 		Method:             "PATCH",
 		PathPattern:        "/clusters/apm/{cluster_id}/metadata/settings",
@@ -1171,7 +1285,12 @@ func (a *Client) UpdateApmMetadataSettings(params *UpdateApmMetadataSettingsPara
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1190,13 +1309,12 @@ func (a *Client) UpdateApmMetadataSettings(params *UpdateApmMetadataSettingsPara
 
   DEPRECATED (Scheduled to be removed in the next major version): Updates the configuration of an existing Apm cluster.
 */
-func (a *Client) UpdateApmPlan(params *UpdateApmPlanParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateApmPlanOK, *UpdateApmPlanAccepted, error) {
+func (a *Client) UpdateApmPlan(params *UpdateApmPlanParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateApmPlanOK, *UpdateApmPlanAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateApmPlanParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "update-apm-plan",
 		Method:             "POST",
 		PathPattern:        "/clusters/apm/{cluster_id}/plan",
@@ -1208,7 +1326,12 @@ func (a *Client) UpdateApmPlan(params *UpdateApmPlanParams, authInfo runtime.Cli
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -1228,13 +1351,12 @@ func (a *Client) UpdateApmPlan(params *UpdateApmPlanParams, authInfo runtime.Cli
 
   DEPRECATED (Scheduled to be removed in the next major version): Upgrades a running cluster.
 */
-func (a *Client) UpgradeApm(params *UpgradeApmParams, authInfo runtime.ClientAuthInfoWriter) (*UpgradeApmAccepted, error) {
+func (a *Client) UpgradeApm(params *UpgradeApmParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpgradeApmAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpgradeApmParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "upgrade-apm",
 		Method:             "POST",
 		PathPattern:        "/clusters/apm/{cluster_id}/_upgrade",
@@ -1246,7 +1368,12 @@ func (a *Client) UpgradeApm(params *UpgradeApmParams, authInfo runtime.ClientAut
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}

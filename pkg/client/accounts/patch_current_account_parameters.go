@@ -33,59 +33,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewPatchCurrentAccountParams creates a new PatchCurrentAccountParams object
-// with the default values initialized.
+// NewPatchCurrentAccountParams creates a new PatchCurrentAccountParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewPatchCurrentAccountParams() *PatchCurrentAccountParams {
-	var ()
 	return &PatchCurrentAccountParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewPatchCurrentAccountParamsWithTimeout creates a new PatchCurrentAccountParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewPatchCurrentAccountParamsWithTimeout(timeout time.Duration) *PatchCurrentAccountParams {
-	var ()
 	return &PatchCurrentAccountParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewPatchCurrentAccountParamsWithContext creates a new PatchCurrentAccountParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewPatchCurrentAccountParamsWithContext(ctx context.Context) *PatchCurrentAccountParams {
-	var ()
 	return &PatchCurrentAccountParams{
-
 		Context: ctx,
 	}
 }
 
 // NewPatchCurrentAccountParamsWithHTTPClient creates a new PatchCurrentAccountParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewPatchCurrentAccountParamsWithHTTPClient(client *http.Client) *PatchCurrentAccountParams {
-	var ()
 	return &PatchCurrentAccountParams{
 		HTTPClient: client,
 	}
 }
 
-/*PatchCurrentAccountParams contains all the parameters to send to the API endpoint
-for the patch current account operation typically these are written to a http.Request
+/* PatchCurrentAccountParams contains all the parameters to send to the API endpoint
+   for the patch current account operation.
+
+   Typically these are written to a http.Request.
 */
 type PatchCurrentAccountParams struct {
 
-	/*Body
-	  All changes in the specified object are applied to the current account according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.
+	/* Body.
 
+	   All changes in the specified object are applied to the current account according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.
 	*/
 	Body string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the patch current account params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PatchCurrentAccountParams) WithDefaults() *PatchCurrentAccountParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the patch current account params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *PatchCurrentAccountParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the patch current account params
@@ -139,7 +153,6 @@ func (o *PatchCurrentAccountParams) WriteToRequest(r runtime.ClientRequest, reg 
 		return err
 	}
 	var res []error
-
 	if err := r.SetBodyParam(o.Body); err != nil {
 		return err
 	}

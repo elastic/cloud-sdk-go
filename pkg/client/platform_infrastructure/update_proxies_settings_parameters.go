@@ -33,64 +33,79 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewUpdateProxiesSettingsParams creates a new UpdateProxiesSettingsParams object
-// with the default values initialized.
+// NewUpdateProxiesSettingsParams creates a new UpdateProxiesSettingsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewUpdateProxiesSettingsParams() *UpdateProxiesSettingsParams {
-	var ()
 	return &UpdateProxiesSettingsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewUpdateProxiesSettingsParamsWithTimeout creates a new UpdateProxiesSettingsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewUpdateProxiesSettingsParamsWithTimeout(timeout time.Duration) *UpdateProxiesSettingsParams {
-	var ()
 	return &UpdateProxiesSettingsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewUpdateProxiesSettingsParamsWithContext creates a new UpdateProxiesSettingsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewUpdateProxiesSettingsParamsWithContext(ctx context.Context) *UpdateProxiesSettingsParams {
-	var ()
 	return &UpdateProxiesSettingsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewUpdateProxiesSettingsParamsWithHTTPClient creates a new UpdateProxiesSettingsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewUpdateProxiesSettingsParamsWithHTTPClient(client *http.Client) *UpdateProxiesSettingsParams {
-	var ()
 	return &UpdateProxiesSettingsParams{
 		HTTPClient: client,
 	}
 }
 
-/*UpdateProxiesSettingsParams contains all the parameters to send to the API endpoint
-for the update proxies settings operation typically these are written to a http.Request
+/* UpdateProxiesSettingsParams contains all the parameters to send to the API endpoint
+   for the update proxies settings operation.
+
+   Typically these are written to a http.Request.
 */
 type UpdateProxiesSettingsParams struct {
 
-	/*Body
-	  A JSON to merge with the existing settings
+	/* Body.
 
+	   A JSON to merge with the existing settings
 	*/
 	Body string
-	/*Version
-	  If specified, checks for conflicts against the version of the repository configuration (returned in 'x-cloud-resource-version' of the GET request)
 
+	/* Version.
+
+	   If specified, checks for conflicts against the version of the repository configuration (returned in 'x-cloud-resource-version' of the GET request)
 	*/
 	Version *string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the update proxies settings params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdateProxiesSettingsParams) WithDefaults() *UpdateProxiesSettingsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the update proxies settings params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdateProxiesSettingsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the update proxies settings params
@@ -155,7 +170,6 @@ func (o *UpdateProxiesSettingsParams) WriteToRequest(r runtime.ClientRequest, re
 		return err
 	}
 	var res []error
-
 	if err := r.SetBodyParam(o.Body); err != nil {
 		return err
 	}
@@ -164,16 +178,17 @@ func (o *UpdateProxiesSettingsParams) WriteToRequest(r runtime.ClientRequest, re
 
 		// query param version
 		var qrVersion string
+
 		if o.Version != nil {
 			qrVersion = *o.Version
 		}
 		qVersion := qrVersion
 		if qVersion != "" {
+
 			if err := r.SetQueryParam("version", qVersion); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

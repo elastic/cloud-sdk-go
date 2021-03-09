@@ -34,76 +34,90 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewRestoreDeploymentParams creates a new RestoreDeploymentParams object
-// with the default values initialized.
+// NewRestoreDeploymentParams creates a new RestoreDeploymentParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewRestoreDeploymentParams() *RestoreDeploymentParams {
-	var (
-		restoreSnapshotDefault = bool(false)
-	)
 	return &RestoreDeploymentParams{
-		RestoreSnapshot: &restoreSnapshotDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewRestoreDeploymentParamsWithTimeout creates a new RestoreDeploymentParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewRestoreDeploymentParamsWithTimeout(timeout time.Duration) *RestoreDeploymentParams {
-	var (
-		restoreSnapshotDefault = bool(false)
-	)
 	return &RestoreDeploymentParams{
-		RestoreSnapshot: &restoreSnapshotDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewRestoreDeploymentParamsWithContext creates a new RestoreDeploymentParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewRestoreDeploymentParamsWithContext(ctx context.Context) *RestoreDeploymentParams {
-	var (
-		restoreSnapshotDefault = bool(false)
-	)
 	return &RestoreDeploymentParams{
-		RestoreSnapshot: &restoreSnapshotDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewRestoreDeploymentParamsWithHTTPClient creates a new RestoreDeploymentParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewRestoreDeploymentParamsWithHTTPClient(client *http.Client) *RestoreDeploymentParams {
-	var (
-		restoreSnapshotDefault = bool(false)
-	)
 	return &RestoreDeploymentParams{
-		RestoreSnapshot: &restoreSnapshotDefault,
-		HTTPClient:      client,
+		HTTPClient: client,
 	}
 }
 
-/*RestoreDeploymentParams contains all the parameters to send to the API endpoint
-for the restore deployment operation typically these are written to a http.Request
+/* RestoreDeploymentParams contains all the parameters to send to the API endpoint
+   for the restore deployment operation.
+
+   Typically these are written to a http.Request.
 */
 type RestoreDeploymentParams struct {
 
-	/*DeploymentID
-	  Identifier for the Deployment
+	/* DeploymentID.
 
+	   Identifier for the Deployment
 	*/
 	DeploymentID string
-	/*RestoreSnapshot
-	  Whether or not to restore a snapshot for those resources that allow it.
 
+	/* RestoreSnapshot.
+
+	   Whether or not to restore a snapshot for those resources that allow it.
 	*/
 	RestoreSnapshot *bool
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the restore deployment params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *RestoreDeploymentParams) WithDefaults() *RestoreDeploymentParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the restore deployment params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *RestoreDeploymentParams) SetDefaults() {
+	var (
+		restoreSnapshotDefault = bool(false)
+	)
+
+	val := RestoreDeploymentParams{
+		RestoreSnapshot: &restoreSnapshotDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the restore deployment params
@@ -178,16 +192,17 @@ func (o *RestoreDeploymentParams) WriteToRequest(r runtime.ClientRequest, reg st
 
 		// query param restore_snapshot
 		var qrRestoreSnapshot bool
+
 		if o.RestoreSnapshot != nil {
 			qrRestoreSnapshot = *o.RestoreSnapshot
 		}
 		qRestoreSnapshot := swag.FormatBool(qrRestoreSnapshot)
 		if qRestoreSnapshot != "" {
+
 			if err := r.SetQueryParam("restore_snapshot", qRestoreSnapshot); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

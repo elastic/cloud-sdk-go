@@ -42,25 +42,28 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientOption is the option for Client methods
+type ClientOption func(*runtime.ClientOperation)
+
 // ClientService is the interface for Client methods
 type ClientService interface {
-	CreateTrafficFilterRuleset(params *CreateTrafficFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter) (*CreateTrafficFilterRulesetCreated, error)
+	CreateTrafficFilterRuleset(params *CreateTrafficFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateTrafficFilterRulesetCreated, error)
 
-	CreateTrafficFilterRulesetAssociation(params *CreateTrafficFilterRulesetAssociationParams, authInfo runtime.ClientAuthInfoWriter) (*CreateTrafficFilterRulesetAssociationOK, *CreateTrafficFilterRulesetAssociationCreated, error)
+	CreateTrafficFilterRulesetAssociation(params *CreateTrafficFilterRulesetAssociationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateTrafficFilterRulesetAssociationOK, *CreateTrafficFilterRulesetAssociationCreated, error)
 
-	DeleteTrafficFilterRuleset(params *DeleteTrafficFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteTrafficFilterRulesetOK, error)
+	DeleteTrafficFilterRuleset(params *DeleteTrafficFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteTrafficFilterRulesetOK, error)
 
-	DeleteTrafficFilterRulesetAssociation(params *DeleteTrafficFilterRulesetAssociationParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteTrafficFilterRulesetAssociationOK, error)
+	DeleteTrafficFilterRulesetAssociation(params *DeleteTrafficFilterRulesetAssociationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteTrafficFilterRulesetAssociationOK, error)
 
-	GetTrafficFilterDeploymentRulesetAssociations(params *GetTrafficFilterDeploymentRulesetAssociationsParams, authInfo runtime.ClientAuthInfoWriter) (*GetTrafficFilterDeploymentRulesetAssociationsOK, error)
+	GetTrafficFilterDeploymentRulesetAssociations(params *GetTrafficFilterDeploymentRulesetAssociationsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTrafficFilterDeploymentRulesetAssociationsOK, error)
 
-	GetTrafficFilterRuleset(params *GetTrafficFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter) (*GetTrafficFilterRulesetOK, error)
+	GetTrafficFilterRuleset(params *GetTrafficFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTrafficFilterRulesetOK, error)
 
-	GetTrafficFilterRulesetDeploymentAssociations(params *GetTrafficFilterRulesetDeploymentAssociationsParams, authInfo runtime.ClientAuthInfoWriter) (*GetTrafficFilterRulesetDeploymentAssociationsOK, error)
+	GetTrafficFilterRulesetDeploymentAssociations(params *GetTrafficFilterRulesetDeploymentAssociationsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTrafficFilterRulesetDeploymentAssociationsOK, error)
 
-	GetTrafficFilterRulesets(params *GetTrafficFilterRulesetsParams, authInfo runtime.ClientAuthInfoWriter) (*GetTrafficFilterRulesetsOK, error)
+	GetTrafficFilterRulesets(params *GetTrafficFilterRulesetsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTrafficFilterRulesetsOK, error)
 
-	UpdateTrafficFilterRuleset(params *UpdateTrafficFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateTrafficFilterRulesetOK, error)
+	UpdateTrafficFilterRuleset(params *UpdateTrafficFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateTrafficFilterRulesetOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -70,13 +73,12 @@ type ClientService interface {
 
   Creates a ruleset that consists of a set of rules.
 */
-func (a *Client) CreateTrafficFilterRuleset(params *CreateTrafficFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter) (*CreateTrafficFilterRulesetCreated, error) {
+func (a *Client) CreateTrafficFilterRuleset(params *CreateTrafficFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateTrafficFilterRulesetCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateTrafficFilterRulesetParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "create-traffic-filter-ruleset",
 		Method:             "POST",
 		PathPattern:        "/deployments/traffic-filter/rulesets",
@@ -88,7 +90,12 @@ func (a *Client) CreateTrafficFilterRuleset(params *CreateTrafficFilterRulesetPa
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -107,13 +114,12 @@ func (a *Client) CreateTrafficFilterRuleset(params *CreateTrafficFilterRulesetPa
 
   Applies the ruleset to the specified deployment.
 */
-func (a *Client) CreateTrafficFilterRulesetAssociation(params *CreateTrafficFilterRulesetAssociationParams, authInfo runtime.ClientAuthInfoWriter) (*CreateTrafficFilterRulesetAssociationOK, *CreateTrafficFilterRulesetAssociationCreated, error) {
+func (a *Client) CreateTrafficFilterRulesetAssociation(params *CreateTrafficFilterRulesetAssociationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateTrafficFilterRulesetAssociationOK, *CreateTrafficFilterRulesetAssociationCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateTrafficFilterRulesetAssociationParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "create-traffic-filter-ruleset-association",
 		Method:             "POST",
 		PathPattern:        "/deployments/traffic-filter/rulesets/{ruleset_id}/associations",
@@ -125,7 +131,12 @@ func (a *Client) CreateTrafficFilterRulesetAssociation(params *CreateTrafficFilt
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -145,13 +156,12 @@ func (a *Client) CreateTrafficFilterRulesetAssociation(params *CreateTrafficFilt
 
   Deletes the ruleset by ID.
 */
-func (a *Client) DeleteTrafficFilterRuleset(params *DeleteTrafficFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteTrafficFilterRulesetOK, error) {
+func (a *Client) DeleteTrafficFilterRuleset(params *DeleteTrafficFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteTrafficFilterRulesetOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteTrafficFilterRulesetParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "delete-traffic-filter-ruleset",
 		Method:             "DELETE",
 		PathPattern:        "/deployments/traffic-filter/rulesets/{ruleset_id}",
@@ -163,7 +173,12 @@ func (a *Client) DeleteTrafficFilterRuleset(params *DeleteTrafficFilterRulesetPa
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -182,13 +197,12 @@ func (a *Client) DeleteTrafficFilterRuleset(params *DeleteTrafficFilterRulesetPa
 
   Deletes the traffic rules in the ruleset from the deployment.
 */
-func (a *Client) DeleteTrafficFilterRulesetAssociation(params *DeleteTrafficFilterRulesetAssociationParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteTrafficFilterRulesetAssociationOK, error) {
+func (a *Client) DeleteTrafficFilterRulesetAssociation(params *DeleteTrafficFilterRulesetAssociationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteTrafficFilterRulesetAssociationOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteTrafficFilterRulesetAssociationParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "delete-traffic-filter-ruleset-association",
 		Method:             "DELETE",
 		PathPattern:        "/deployments/traffic-filter/rulesets/{ruleset_id}/associations/{association_type}/{associated_entity_id}",
@@ -200,7 +214,12 @@ func (a *Client) DeleteTrafficFilterRulesetAssociation(params *DeleteTrafficFilt
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -219,13 +238,12 @@ func (a *Client) DeleteTrafficFilterRulesetAssociation(params *DeleteTrafficFilt
 
   Retrieves the rulesets associated with a deployment.
 */
-func (a *Client) GetTrafficFilterDeploymentRulesetAssociations(params *GetTrafficFilterDeploymentRulesetAssociationsParams, authInfo runtime.ClientAuthInfoWriter) (*GetTrafficFilterDeploymentRulesetAssociationsOK, error) {
+func (a *Client) GetTrafficFilterDeploymentRulesetAssociations(params *GetTrafficFilterDeploymentRulesetAssociationsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTrafficFilterDeploymentRulesetAssociationsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetTrafficFilterDeploymentRulesetAssociationsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-traffic-filter-deployment-ruleset-associations",
 		Method:             "GET",
 		PathPattern:        "/deployments/traffic-filter/associations/{association_type}/{associated_entity_id}/rulesets",
@@ -237,7 +255,12 @@ func (a *Client) GetTrafficFilterDeploymentRulesetAssociations(params *GetTraffi
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -256,13 +279,12 @@ func (a *Client) GetTrafficFilterDeploymentRulesetAssociations(params *GetTraffi
 
   Retrieves a list of resources that are associated to the specified ruleset.
 */
-func (a *Client) GetTrafficFilterRuleset(params *GetTrafficFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter) (*GetTrafficFilterRulesetOK, error) {
+func (a *Client) GetTrafficFilterRuleset(params *GetTrafficFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTrafficFilterRulesetOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetTrafficFilterRulesetParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-traffic-filter-ruleset",
 		Method:             "GET",
 		PathPattern:        "/deployments/traffic-filter/rulesets/{ruleset_id}",
@@ -274,7 +296,12 @@ func (a *Client) GetTrafficFilterRuleset(params *GetTrafficFilterRulesetParams, 
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -293,13 +320,12 @@ func (a *Client) GetTrafficFilterRuleset(params *GetTrafficFilterRulesetParams, 
 
   Retrieves a list of deployments that are associated to the specified ruleset.
 */
-func (a *Client) GetTrafficFilterRulesetDeploymentAssociations(params *GetTrafficFilterRulesetDeploymentAssociationsParams, authInfo runtime.ClientAuthInfoWriter) (*GetTrafficFilterRulesetDeploymentAssociationsOK, error) {
+func (a *Client) GetTrafficFilterRulesetDeploymentAssociations(params *GetTrafficFilterRulesetDeploymentAssociationsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTrafficFilterRulesetDeploymentAssociationsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetTrafficFilterRulesetDeploymentAssociationsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-traffic-filter-ruleset-deployment-associations",
 		Method:             "GET",
 		PathPattern:        "/deployments/traffic-filter/rulesets/{ruleset_id}/associations",
@@ -311,7 +337,12 @@ func (a *Client) GetTrafficFilterRulesetDeploymentAssociations(params *GetTraffi
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -330,13 +361,12 @@ func (a *Client) GetTrafficFilterRulesetDeploymentAssociations(params *GetTraffi
 
   List all of the traffic filter rulesets.
 */
-func (a *Client) GetTrafficFilterRulesets(params *GetTrafficFilterRulesetsParams, authInfo runtime.ClientAuthInfoWriter) (*GetTrafficFilterRulesetsOK, error) {
+func (a *Client) GetTrafficFilterRulesets(params *GetTrafficFilterRulesetsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTrafficFilterRulesetsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetTrafficFilterRulesetsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-traffic-filter-rulesets",
 		Method:             "GET",
 		PathPattern:        "/deployments/traffic-filter/rulesets",
@@ -348,7 +378,12 @@ func (a *Client) GetTrafficFilterRulesets(params *GetTrafficFilterRulesetsParams
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -367,13 +402,12 @@ func (a *Client) GetTrafficFilterRulesets(params *GetTrafficFilterRulesetsParams
 
   Updates the ruleset with the definition.
 */
-func (a *Client) UpdateTrafficFilterRuleset(params *UpdateTrafficFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateTrafficFilterRulesetOK, error) {
+func (a *Client) UpdateTrafficFilterRuleset(params *UpdateTrafficFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateTrafficFilterRulesetOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateTrafficFilterRulesetParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "update-traffic-filter-ruleset",
 		Method:             "PUT",
 		PathPattern:        "/deployments/traffic-filter/rulesets/{ruleset_id}",
@@ -385,7 +419,12 @@ func (a *Client) UpdateTrafficFilterRuleset(params *UpdateTrafficFilterRulesetPa
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}

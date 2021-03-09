@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -96,7 +97,6 @@ func (m *DeploymentCreateResponse) validateCreated(formats strfmt.Registry) erro
 }
 
 func (m *DeploymentCreateResponse) validateDiagnostics(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Diagnostics) { // not required
 		return nil
 	}
@@ -144,6 +144,56 @@ func (m *DeploymentCreateResponse) validateResources(formats strfmt.Registry) er
 
 		if m.Resources[i] != nil {
 			if err := m.Resources[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("resources" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this deployment create response based on the context it is used
+func (m *DeploymentCreateResponse) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateDiagnostics(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateResources(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *DeploymentCreateResponse) contextValidateDiagnostics(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Diagnostics != nil {
+		if err := m.Diagnostics.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("diagnostics")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *DeploymentCreateResponse) contextValidateResources(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Resources); i++ {
+
+		if m.Resources[i] != nil {
+			if err := m.Resources[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("resources" + "." + strconv.Itoa(i))
 				}

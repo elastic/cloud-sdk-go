@@ -42,17 +42,20 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientOption is the option for Client methods
+type ClientOption func(*runtime.ClientOperation)
+
 // ClientService is the interface for Client methods
 type ClientService interface {
-	DeleteExtraCertificate(params *DeleteExtraCertificateParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteExtraCertificateOK, error)
+	DeleteExtraCertificate(params *DeleteExtraCertificateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteExtraCertificateOK, error)
 
-	GetExtraCertificate(params *GetExtraCertificateParams, authInfo runtime.ClientAuthInfoWriter) (*GetExtraCertificateOK, error)
+	GetExtraCertificate(params *GetExtraCertificateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetExtraCertificateOK, error)
 
-	GetExtraCertificates(params *GetExtraCertificatesParams, authInfo runtime.ClientAuthInfoWriter) (*GetExtraCertificatesOK, error)
+	GetExtraCertificates(params *GetExtraCertificatesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetExtraCertificatesOK, error)
 
-	GetPlatform(params *GetPlatformParams, authInfo runtime.ClientAuthInfoWriter) (*GetPlatformOK, error)
+	GetPlatform(params *GetPlatformParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetPlatformOK, error)
 
-	SetExtraCertificate(params *SetExtraCertificateParams, authInfo runtime.ClientAuthInfoWriter) (*SetExtraCertificateOK, error)
+	SetExtraCertificate(params *SetExtraCertificateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetExtraCertificateOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -62,13 +65,12 @@ type ClientService interface {
 
   Delete an extra certificate.
 */
-func (a *Client) DeleteExtraCertificate(params *DeleteExtraCertificateParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteExtraCertificateOK, error) {
+func (a *Client) DeleteExtraCertificate(params *DeleteExtraCertificateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteExtraCertificateOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteExtraCertificateParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "delete-extra-certificate",
 		Method:             "DELETE",
 		PathPattern:        "/platform/configuration/security/extra_certs/{cert_id}",
@@ -80,7 +82,12 @@ func (a *Client) DeleteExtraCertificate(params *DeleteExtraCertificateParams, au
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -99,13 +106,12 @@ func (a *Client) DeleteExtraCertificate(params *DeleteExtraCertificateParams, au
 
   Read an extra certificate.
 */
-func (a *Client) GetExtraCertificate(params *GetExtraCertificateParams, authInfo runtime.ClientAuthInfoWriter) (*GetExtraCertificateOK, error) {
+func (a *Client) GetExtraCertificate(params *GetExtraCertificateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetExtraCertificateOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetExtraCertificateParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-extra-certificate",
 		Method:             "GET",
 		PathPattern:        "/platform/configuration/security/extra_certs/{cert_id}",
@@ -117,7 +123,12 @@ func (a *Client) GetExtraCertificate(params *GetExtraCertificateParams, authInfo
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -136,13 +147,12 @@ func (a *Client) GetExtraCertificate(params *GetExtraCertificateParams, authInfo
 
   List all of the extra certificates.
 */
-func (a *Client) GetExtraCertificates(params *GetExtraCertificatesParams, authInfo runtime.ClientAuthInfoWriter) (*GetExtraCertificatesOK, error) {
+func (a *Client) GetExtraCertificates(params *GetExtraCertificatesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetExtraCertificatesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetExtraCertificatesParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-extra-certificates",
 		Method:             "GET",
 		PathPattern:        "/platform/configuration/security/extra_certs",
@@ -154,7 +164,12 @@ func (a *Client) GetExtraCertificates(params *GetExtraCertificatesParams, authIn
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -173,13 +188,12 @@ func (a *Client) GetExtraCertificates(params *GetExtraCertificatesParams, authIn
 
   Retrieves information about the active platform.
 */
-func (a *Client) GetPlatform(params *GetPlatformParams, authInfo runtime.ClientAuthInfoWriter) (*GetPlatformOK, error) {
+func (a *Client) GetPlatform(params *GetPlatformParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetPlatformOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetPlatformParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-platform",
 		Method:             "GET",
 		PathPattern:        "/platform",
@@ -191,7 +205,12 @@ func (a *Client) GetPlatform(params *GetPlatformParams, authInfo runtime.ClientA
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -210,13 +229,12 @@ func (a *Client) GetPlatform(params *GetPlatformParams, authInfo runtime.ClientA
 
   Add or update an extra certificate.
 */
-func (a *Client) SetExtraCertificate(params *SetExtraCertificateParams, authInfo runtime.ClientAuthInfoWriter) (*SetExtraCertificateOK, error) {
+func (a *Client) SetExtraCertificate(params *SetExtraCertificateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetExtraCertificateOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSetExtraCertificateParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "set-extra-certificate",
 		Method:             "PUT",
 		PathPattern:        "/platform/configuration/security/extra_certs/{cert_id}",
@@ -228,7 +246,12 @@ func (a *Client) SetExtraCertificate(params *SetExtraCertificateParams, authInfo
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}

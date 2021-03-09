@@ -64,7 +64,6 @@ func (o *UpdateEsClusterMetadataSettingsReader) ReadResponse(response runtime.Cl
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,18 +74,21 @@ func NewUpdateEsClusterMetadataSettingsOK() *UpdateEsClusterMetadataSettingsOK {
 	return &UpdateEsClusterMetadataSettingsOK{}
 }
 
-/*UpdateEsClusterMetadataSettingsOK handles this case with default header values.
+/* UpdateEsClusterMetadataSettingsOK describes a response with status code 200, with default header values.
 
 The cluster metadata was successfully updated
 */
 type UpdateEsClusterMetadataSettingsOK struct {
-	/*The date-time when the resource was created (ISO format relative to UTC)
+
+	/* The date-time when the resource was created (ISO format relative to UTC)
 	 */
 	XCloudResourceCreated string
-	/*The date-time when the resource was last modified (ISO format relative to UTC)
+
+	/* The date-time when the resource was last modified (ISO format relative to UTC)
 	 */
 	XCloudResourceLastModified string
-	/*The resource version, which is used to avoid update conflicts with concurrent operations
+
+	/* The resource version, which is used to avoid update conflicts with concurrent operations
 	 */
 	XCloudResourceVersion string
 
@@ -96,21 +98,32 @@ type UpdateEsClusterMetadataSettingsOK struct {
 func (o *UpdateEsClusterMetadataSettingsOK) Error() string {
 	return fmt.Sprintf("[PATCH /clusters/elasticsearch/{cluster_id}/metadata/settings][%d] updateEsClusterMetadataSettingsOK  %+v", 200, o.Payload)
 }
-
 func (o *UpdateEsClusterMetadataSettingsOK) GetPayload() *models.ClusterMetadataSettings {
 	return o.Payload
 }
 
 func (o *UpdateEsClusterMetadataSettingsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-resource-created
-	o.XCloudResourceCreated = response.GetHeader("x-cloud-resource-created")
+	// hydrates response header x-cloud-resource-created
+	hdrXCloudResourceCreated := response.GetHeader("x-cloud-resource-created")
 
-	// response header x-cloud-resource-last-modified
-	o.XCloudResourceLastModified = response.GetHeader("x-cloud-resource-last-modified")
+	if hdrXCloudResourceCreated != "" {
+		o.XCloudResourceCreated = hdrXCloudResourceCreated
+	}
 
-	// response header x-cloud-resource-version
-	o.XCloudResourceVersion = response.GetHeader("x-cloud-resource-version")
+	// hydrates response header x-cloud-resource-last-modified
+	hdrXCloudResourceLastModified := response.GetHeader("x-cloud-resource-last-modified")
+
+	if hdrXCloudResourceLastModified != "" {
+		o.XCloudResourceLastModified = hdrXCloudResourceLastModified
+	}
+
+	// hydrates response header x-cloud-resource-version
+	hdrXCloudResourceVersion := response.GetHeader("x-cloud-resource-version")
+
+	if hdrXCloudResourceVersion != "" {
+		o.XCloudResourceVersion = hdrXCloudResourceVersion
+	}
 
 	o.Payload = new(models.ClusterMetadataSettings)
 
@@ -127,7 +140,7 @@ func NewUpdateEsClusterMetadataSettingsForbidden() *UpdateEsClusterMetadataSetti
 	return &UpdateEsClusterMetadataSettingsForbidden{}
 }
 
-/*UpdateEsClusterMetadataSettingsForbidden handles this case with default header values.
+/* UpdateEsClusterMetadataSettingsForbidden describes a response with status code 403, with default header values.
 
 The provided action was prohibited for the given cluster
 */
@@ -138,7 +151,6 @@ type UpdateEsClusterMetadataSettingsForbidden struct {
 func (o *UpdateEsClusterMetadataSettingsForbidden) Error() string {
 	return fmt.Sprintf("[PATCH /clusters/elasticsearch/{cluster_id}/metadata/settings][%d] updateEsClusterMetadataSettingsForbidden  %+v", 403, o.Payload)
 }
-
 func (o *UpdateEsClusterMetadataSettingsForbidden) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -160,7 +172,7 @@ func NewUpdateEsClusterMetadataSettingsNotFound() *UpdateEsClusterMetadataSettin
 	return &UpdateEsClusterMetadataSettingsNotFound{}
 }
 
-/*UpdateEsClusterMetadataSettingsNotFound handles this case with default header values.
+/* UpdateEsClusterMetadataSettingsNotFound describes a response with status code 404, with default header values.
 
 The cluster specified by {cluster_id} cannot be found (code: 'clusters.cluster_not_found')
 */
@@ -171,7 +183,6 @@ type UpdateEsClusterMetadataSettingsNotFound struct {
 func (o *UpdateEsClusterMetadataSettingsNotFound) Error() string {
 	return fmt.Sprintf("[PATCH /clusters/elasticsearch/{cluster_id}/metadata/settings][%d] updateEsClusterMetadataSettingsNotFound  %+v", 404, o.Payload)
 }
-
 func (o *UpdateEsClusterMetadataSettingsNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -193,7 +204,7 @@ func NewUpdateEsClusterMetadataSettingsRetryWith() *UpdateEsClusterMetadataSetti
 	return &UpdateEsClusterMetadataSettingsRetryWith{}
 }
 
-/*UpdateEsClusterMetadataSettingsRetryWith handles this case with default header values.
+/* UpdateEsClusterMetadataSettingsRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: '"root.unauthorized.rbac.elevated_permissions_required"')
 */
@@ -204,7 +215,6 @@ type UpdateEsClusterMetadataSettingsRetryWith struct {
 func (o *UpdateEsClusterMetadataSettingsRetryWith) Error() string {
 	return fmt.Sprintf("[PATCH /clusters/elasticsearch/{cluster_id}/metadata/settings][%d] updateEsClusterMetadataSettingsRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *UpdateEsClusterMetadataSettingsRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

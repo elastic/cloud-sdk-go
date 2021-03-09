@@ -58,7 +58,6 @@ func (o *UpdateCurrentUserReader) ReadResponse(response runtime.ClientResponse, 
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,7 +68,7 @@ func NewUpdateCurrentUserOK() *UpdateCurrentUserOK {
 	return &UpdateCurrentUserOK{}
 }
 
-/*UpdateCurrentUserOK handles this case with default header values.
+/* UpdateCurrentUserOK describes a response with status code 200, with default header values.
 
 User successfully updated
 */
@@ -80,7 +79,6 @@ type UpdateCurrentUserOK struct {
 func (o *UpdateCurrentUserOK) Error() string {
 	return fmt.Sprintf("[PATCH /user][%d] updateCurrentUserOK  %+v", 200, o.Payload)
 }
-
 func (o *UpdateCurrentUserOK) GetPayload() *models.User {
 	return o.Payload
 }
@@ -102,16 +100,17 @@ func NewUpdateCurrentUserBadRequest() *UpdateCurrentUserBadRequest {
 	return &UpdateCurrentUserBadRequest{}
 }
 
-/*UpdateCurrentUserBadRequest handles this case with default header values.
+/* UpdateCurrentUserBadRequest describes a response with status code 400, with default header values.
 
-* Some of the provided roles are invalid. (code: `user.roles.invalid`)
+ * Some of the provided roles are invalid. (code: `user.roles.invalid`)
 * Some of the provided roles are forbidden. (code: `user.roles.forbidden`)
 * Trying to set a restricted field. (code: `user.restricted_field`)
 * External users cannot be modified. (code: `user.cannot_modify_external`)
 * Built-in users cannot be modified. (code: `user.cannot_modify`)
- */
+*/
 type UpdateCurrentUserBadRequest struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -121,15 +120,18 @@ type UpdateCurrentUserBadRequest struct {
 func (o *UpdateCurrentUserBadRequest) Error() string {
 	return fmt.Sprintf("[PATCH /user][%d] updateCurrentUserBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *UpdateCurrentUserBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *UpdateCurrentUserBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -146,12 +148,13 @@ func NewUpdateCurrentUserNotFound() *UpdateCurrentUserNotFound {
 	return &UpdateCurrentUserNotFound{}
 }
 
-/*UpdateCurrentUserNotFound handles this case with default header values.
+/* UpdateCurrentUserNotFound describes a response with status code 404, with default header values.
 
 User not found. (code: `user.not_found`)
 */
 type UpdateCurrentUserNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -161,15 +164,18 @@ type UpdateCurrentUserNotFound struct {
 func (o *UpdateCurrentUserNotFound) Error() string {
 	return fmt.Sprintf("[PATCH /user][%d] updateCurrentUserNotFound  %+v", 404, o.Payload)
 }
-
 func (o *UpdateCurrentUserNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *UpdateCurrentUserNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

@@ -64,7 +64,6 @@ func (o *CancelApmPendingPlanReader) ReadResponse(response runtime.ClientRespons
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,7 +74,7 @@ func NewCancelApmPendingPlanOK() *CancelApmPendingPlanOK {
 	return &CancelApmPendingPlanOK{}
 }
 
-/*CancelApmPendingPlanOK handles this case with default header values.
+/* CancelApmPendingPlanOK describes a response with status code 200, with default header values.
 
 The pending plan is cancelled.
 */
@@ -86,7 +85,6 @@ type CancelApmPendingPlanOK struct {
 func (o *CancelApmPendingPlanOK) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/apm/{cluster_id}/plan/pending][%d] cancelApmPendingPlanOK  %+v", 200, o.Payload)
 }
-
 func (o *CancelApmPendingPlanOK) GetPayload() *models.ApmCrudResponse {
 	return o.Payload
 }
@@ -108,7 +106,7 @@ func NewCancelApmPendingPlanNotFound() *CancelApmPendingPlanNotFound {
 	return &CancelApmPendingPlanNotFound{}
 }
 
-/*CancelApmPendingPlanNotFound handles this case with default header values.
+/* CancelApmPendingPlanNotFound describes a response with status code 404, with default header values.
 
 The {cluster_id} can't be found. (code: 'clusters.cluster_not_found')
 */
@@ -119,7 +117,6 @@ type CancelApmPendingPlanNotFound struct {
 func (o *CancelApmPendingPlanNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/apm/{cluster_id}/plan/pending][%d] cancelApmPendingPlanNotFound  %+v", 404, o.Payload)
 }
-
 func (o *CancelApmPendingPlanNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -141,7 +138,7 @@ func NewCancelApmPendingPlanPreconditionFailed() *CancelApmPendingPlanPreconditi
 	return &CancelApmPendingPlanPreconditionFailed{}
 }
 
-/*CancelApmPendingPlanPreconditionFailed handles this case with default header values.
+/* CancelApmPendingPlanPreconditionFailed describes a response with status code 412, with default header values.
 
 The APM server is unable to finish provisioning, or the provisioning failed. Apply a plan, then try again. (code: 'clusters.cluster_plan_state_error')
 */
@@ -152,7 +149,6 @@ type CancelApmPendingPlanPreconditionFailed struct {
 func (o *CancelApmPendingPlanPreconditionFailed) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/apm/{cluster_id}/plan/pending][%d] cancelApmPendingPlanPreconditionFailed  %+v", 412, o.Payload)
 }
-
 func (o *CancelApmPendingPlanPreconditionFailed) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -174,7 +170,7 @@ func NewCancelApmPendingPlanRetryWith() *CancelApmPendingPlanRetryWith {
 	return &CancelApmPendingPlanRetryWith{}
 }
 
-/*CancelApmPendingPlanRetryWith handles this case with default header values.
+/* CancelApmPendingPlanRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: '"root.needs_elevated_permissions"')
 */
@@ -185,7 +181,6 @@ type CancelApmPendingPlanRetryWith struct {
 func (o *CancelApmPendingPlanRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/apm/{cluster_id}/plan/pending][%d] cancelApmPendingPlanRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *CancelApmPendingPlanRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

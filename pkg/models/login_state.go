@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
@@ -38,6 +40,11 @@ type LoginState struct {
 
 // Validate validates this login state
 func (m *LoginState) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this login state based on context it is used
+func (m *LoginState) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

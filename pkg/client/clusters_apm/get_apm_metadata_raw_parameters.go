@@ -33,59 +33,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetApmMetadataRawParams creates a new GetApmMetadataRawParams object
-// with the default values initialized.
+// NewGetApmMetadataRawParams creates a new GetApmMetadataRawParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetApmMetadataRawParams() *GetApmMetadataRawParams {
-	var ()
 	return &GetApmMetadataRawParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetApmMetadataRawParamsWithTimeout creates a new GetApmMetadataRawParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetApmMetadataRawParamsWithTimeout(timeout time.Duration) *GetApmMetadataRawParams {
-	var ()
 	return &GetApmMetadataRawParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetApmMetadataRawParamsWithContext creates a new GetApmMetadataRawParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetApmMetadataRawParamsWithContext(ctx context.Context) *GetApmMetadataRawParams {
-	var ()
 	return &GetApmMetadataRawParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetApmMetadataRawParamsWithHTTPClient creates a new GetApmMetadataRawParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetApmMetadataRawParamsWithHTTPClient(client *http.Client) *GetApmMetadataRawParams {
-	var ()
 	return &GetApmMetadataRawParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetApmMetadataRawParams contains all the parameters to send to the API endpoint
-for the get apm metadata raw operation typically these are written to a http.Request
+/* GetApmMetadataRawParams contains all the parameters to send to the API endpoint
+   for the get apm metadata raw operation.
+
+   Typically these are written to a http.Request.
 */
 type GetApmMetadataRawParams struct {
 
-	/*ClusterID
-	  The APM deployment identifier.
+	/* ClusterID.
 
+	   The APM deployment identifier.
 	*/
 	ClusterID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get apm metadata raw params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetApmMetadataRawParams) WithDefaults() *GetApmMetadataRawParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get apm metadata raw params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetApmMetadataRawParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get apm metadata raw params

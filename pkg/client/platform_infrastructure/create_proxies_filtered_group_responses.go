@@ -58,7 +58,6 @@ func (o *CreateProxiesFilteredGroupReader) ReadResponse(response runtime.ClientR
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,18 +68,21 @@ func NewCreateProxiesFilteredGroupOK() *CreateProxiesFilteredGroupOK {
 	return &CreateProxiesFilteredGroupOK{}
 }
 
-/*CreateProxiesFilteredGroupOK handles this case with default header values.
+/* CreateProxiesFilteredGroupOK describes a response with status code 200, with default header values.
 
 Returns the created or updated filtered group of proxies
 */
 type CreateProxiesFilteredGroupOK struct {
-	/*The date-time when the resource was created (ISO format relative to UTC)
+
+	/* The date-time when the resource was created (ISO format relative to UTC)
 	 */
 	XCloudResourceCreated string
-	/*The date-time when the resource was last modified (ISO format relative to UTC)
+
+	/* The date-time when the resource was last modified (ISO format relative to UTC)
 	 */
 	XCloudResourceLastModified string
-	/*The resource version, which is used to avoid update conflicts with concurrent operations
+
+	/* The resource version, which is used to avoid update conflicts with concurrent operations
 	 */
 	XCloudResourceVersion string
 
@@ -90,21 +92,32 @@ type CreateProxiesFilteredGroupOK struct {
 func (o *CreateProxiesFilteredGroupOK) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/proxies/filtered-groups][%d] createProxiesFilteredGroupOK  %+v", 200, o.Payload)
 }
-
 func (o *CreateProxiesFilteredGroupOK) GetPayload() *models.ProxiesFilteredGroup {
 	return o.Payload
 }
 
 func (o *CreateProxiesFilteredGroupOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-resource-created
-	o.XCloudResourceCreated = response.GetHeader("x-cloud-resource-created")
+	// hydrates response header x-cloud-resource-created
+	hdrXCloudResourceCreated := response.GetHeader("x-cloud-resource-created")
 
-	// response header x-cloud-resource-last-modified
-	o.XCloudResourceLastModified = response.GetHeader("x-cloud-resource-last-modified")
+	if hdrXCloudResourceCreated != "" {
+		o.XCloudResourceCreated = hdrXCloudResourceCreated
+	}
 
-	// response header x-cloud-resource-version
-	o.XCloudResourceVersion = response.GetHeader("x-cloud-resource-version")
+	// hydrates response header x-cloud-resource-last-modified
+	hdrXCloudResourceLastModified := response.GetHeader("x-cloud-resource-last-modified")
+
+	if hdrXCloudResourceLastModified != "" {
+		o.XCloudResourceLastModified = hdrXCloudResourceLastModified
+	}
+
+	// hydrates response header x-cloud-resource-version
+	hdrXCloudResourceVersion := response.GetHeader("x-cloud-resource-version")
+
+	if hdrXCloudResourceVersion != "" {
+		o.XCloudResourceVersion = hdrXCloudResourceVersion
+	}
 
 	o.Payload = new(models.ProxiesFilteredGroup)
 
@@ -121,13 +134,14 @@ func NewCreateProxiesFilteredGroupBadRequest() *CreateProxiesFilteredGroupBadReq
 	return &CreateProxiesFilteredGroupBadRequest{}
 }
 
-/*CreateProxiesFilteredGroupBadRequest handles this case with default header values.
+/* CreateProxiesFilteredGroupBadRequest describes a response with status code 400, with default header values.
 
-* The filtered group of proxies has empty id. (code: `proxies.proxies_filtered_group_empty_id`)
+ * The filtered group of proxies has empty id. (code: `proxies.proxies_filtered_group_empty_id`)
 * A filtered group of proxies with the same identifier already exists. (code: `proxies.proxies_filtered_group_already_exists`)
- */
+*/
 type CreateProxiesFilteredGroupBadRequest struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -137,15 +151,18 @@ type CreateProxiesFilteredGroupBadRequest struct {
 func (o *CreateProxiesFilteredGroupBadRequest) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/proxies/filtered-groups][%d] createProxiesFilteredGroupBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *CreateProxiesFilteredGroupBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *CreateProxiesFilteredGroupBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -162,12 +179,13 @@ func NewCreateProxiesFilteredGroupRetryWith() *CreateProxiesFilteredGroupRetryWi
 	return &CreateProxiesFilteredGroupRetryWith{}
 }
 
-/*CreateProxiesFilteredGroupRetryWith handles this case with default header values.
+/* CreateProxiesFilteredGroupRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type CreateProxiesFilteredGroupRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -177,15 +195,18 @@ type CreateProxiesFilteredGroupRetryWith struct {
 func (o *CreateProxiesFilteredGroupRetryWith) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/proxies/filtered-groups][%d] createProxiesFilteredGroupRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *CreateProxiesFilteredGroupRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *CreateProxiesFilteredGroupRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

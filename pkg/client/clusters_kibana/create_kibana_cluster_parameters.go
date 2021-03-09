@@ -36,76 +36,90 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewCreateKibanaClusterParams creates a new CreateKibanaClusterParams object
-// with the default values initialized.
+// NewCreateKibanaClusterParams creates a new CreateKibanaClusterParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewCreateKibanaClusterParams() *CreateKibanaClusterParams {
-	var (
-		validateOnlyDefault = bool(false)
-	)
 	return &CreateKibanaClusterParams{
-		ValidateOnly: &validateOnlyDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewCreateKibanaClusterParamsWithTimeout creates a new CreateKibanaClusterParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewCreateKibanaClusterParamsWithTimeout(timeout time.Duration) *CreateKibanaClusterParams {
-	var (
-		validateOnlyDefault = bool(false)
-	)
 	return &CreateKibanaClusterParams{
-		ValidateOnly: &validateOnlyDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewCreateKibanaClusterParamsWithContext creates a new CreateKibanaClusterParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewCreateKibanaClusterParamsWithContext(ctx context.Context) *CreateKibanaClusterParams {
-	var (
-		validateOnlyDefault = bool(false)
-	)
 	return &CreateKibanaClusterParams{
-		ValidateOnly: &validateOnlyDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewCreateKibanaClusterParamsWithHTTPClient creates a new CreateKibanaClusterParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewCreateKibanaClusterParamsWithHTTPClient(client *http.Client) *CreateKibanaClusterParams {
-	var (
-		validateOnlyDefault = bool(false)
-	)
 	return &CreateKibanaClusterParams{
-		ValidateOnly: &validateOnlyDefault,
-		HTTPClient:   client,
+		HTTPClient: client,
 	}
 }
 
-/*CreateKibanaClusterParams contains all the parameters to send to the API endpoint
-for the create kibana cluster operation typically these are written to a http.Request
+/* CreateKibanaClusterParams contains all the parameters to send to the API endpoint
+   for the create kibana cluster operation.
+
+   Typically these are written to a http.Request.
 */
 type CreateKibanaClusterParams struct {
 
-	/*Body
-	  The cluster definition
+	/* Body.
 
+	   The cluster definition
 	*/
 	Body *models.CreateKibanaRequest
-	/*ValidateOnly
-	  When `true`, validates the cluster definition without creating the cluster.
 
+	/* ValidateOnly.
+
+	   When `true`, validates the cluster definition without creating the cluster.
 	*/
 	ValidateOnly *bool
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the create kibana cluster params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *CreateKibanaClusterParams) WithDefaults() *CreateKibanaClusterParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the create kibana cluster params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *CreateKibanaClusterParams) SetDefaults() {
+	var (
+		validateOnlyDefault = bool(false)
+	)
+
+	val := CreateKibanaClusterParams{
+		ValidateOnly: &validateOnlyDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the create kibana cluster params
@@ -170,7 +184,6 @@ func (o *CreateKibanaClusterParams) WriteToRequest(r runtime.ClientRequest, reg 
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err
@@ -181,16 +194,17 @@ func (o *CreateKibanaClusterParams) WriteToRequest(r runtime.ClientRequest, reg 
 
 		// query param validate_only
 		var qrValidateOnly bool
+
 		if o.ValidateOnly != nil {
 			qrValidateOnly = *o.ValidateOnly
 		}
 		qValidateOnly := swag.FormatBool(qrValidateOnly)
 		if qValidateOnly != "" {
+
 			if err := r.SetQueryParam("validate_only", qValidateOnly); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -97,7 +99,6 @@ func (m *DeprecatedElasticsearchClusterSettings) Validate(formats strfmt.Registr
 }
 
 func (m *DeprecatedElasticsearchClusterSettings) validateCcs(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Ccs) { // not required
 		return nil
 	}
@@ -115,7 +116,6 @@ func (m *DeprecatedElasticsearchClusterSettings) validateCcs(formats strfmt.Regi
 }
 
 func (m *DeprecatedElasticsearchClusterSettings) validateCuration(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Curation) { // not required
 		return nil
 	}
@@ -133,7 +133,6 @@ func (m *DeprecatedElasticsearchClusterSettings) validateCuration(formats strfmt
 }
 
 func (m *DeprecatedElasticsearchClusterSettings) validateIPFiltering(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.IPFiltering) { // not required
 		return nil
 	}
@@ -151,7 +150,6 @@ func (m *DeprecatedElasticsearchClusterSettings) validateIPFiltering(formats str
 }
 
 func (m *DeprecatedElasticsearchClusterSettings) validateMetadata(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Metadata) { // not required
 		return nil
 	}
@@ -169,7 +167,6 @@ func (m *DeprecatedElasticsearchClusterSettings) validateMetadata(formats strfmt
 }
 
 func (m *DeprecatedElasticsearchClusterSettings) validateMonitoring(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Monitoring) { // not required
 		return nil
 	}
@@ -187,7 +184,6 @@ func (m *DeprecatedElasticsearchClusterSettings) validateMonitoring(formats strf
 }
 
 func (m *DeprecatedElasticsearchClusterSettings) validateSnapshot(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Snapshot) { // not required
 		return nil
 	}
@@ -205,13 +201,148 @@ func (m *DeprecatedElasticsearchClusterSettings) validateSnapshot(formats strfmt
 }
 
 func (m *DeprecatedElasticsearchClusterSettings) validateTrafficFilter(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.TrafficFilter) { // not required
 		return nil
 	}
 
 	if m.TrafficFilter != nil {
 		if err := m.TrafficFilter.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("traffic_filter")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this deprecated elasticsearch cluster settings based on the context it is used
+func (m *DeprecatedElasticsearchClusterSettings) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateCcs(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateCuration(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateIPFiltering(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateMetadata(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateMonitoring(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateSnapshot(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateTrafficFilter(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *DeprecatedElasticsearchClusterSettings) contextValidateCcs(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Ccs != nil {
+		if err := m.Ccs.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("ccs")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *DeprecatedElasticsearchClusterSettings) contextValidateCuration(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Curation != nil {
+		if err := m.Curation.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("curation")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *DeprecatedElasticsearchClusterSettings) contextValidateIPFiltering(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.IPFiltering != nil {
+		if err := m.IPFiltering.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("ip_filtering")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *DeprecatedElasticsearchClusterSettings) contextValidateMetadata(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Metadata != nil {
+		if err := m.Metadata.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("metadata")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *DeprecatedElasticsearchClusterSettings) contextValidateMonitoring(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Monitoring != nil {
+		if err := m.Monitoring.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("monitoring")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *DeprecatedElasticsearchClusterSettings) contextValidateSnapshot(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Snapshot != nil {
+		if err := m.Snapshot.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("snapshot")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *DeprecatedElasticsearchClusterSettings) contextValidateTrafficFilter(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.TrafficFilter != nil {
+		if err := m.TrafficFilter.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("traffic_filter")
 			}

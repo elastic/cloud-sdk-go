@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -87,6 +89,52 @@ func (m *MoveClustersCommandResponse) validateMoves(formats strfmt.Registry) err
 
 	if m.Moves != nil {
 		if err := m.Moves.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("moves")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this move clusters command response based on the context it is used
+func (m *MoveClustersCommandResponse) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateFailures(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateMoves(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *MoveClustersCommandResponse) contextValidateFailures(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Failures != nil {
+		if err := m.Failures.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("failures")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *MoveClustersCommandResponse) contextValidateMoves(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Moves != nil {
+		if err := m.Moves.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("moves")
 			}

@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -70,7 +71,6 @@ func (m *MoveElasticsearchClusterDetails) Validate(formats strfmt.Registry) erro
 }
 
 func (m *MoveElasticsearchClusterDetails) validateCalculatedPlan(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.CalculatedPlan) { // not required
 		return nil
 	}
@@ -97,7 +97,6 @@ func (m *MoveElasticsearchClusterDetails) validateClusterID(formats strfmt.Regis
 }
 
 func (m *MoveElasticsearchClusterDetails) validateErrors(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Errors) { // not required
 		return nil
 	}
@@ -109,6 +108,56 @@ func (m *MoveElasticsearchClusterDetails) validateErrors(formats strfmt.Registry
 
 		if m.Errors[i] != nil {
 			if err := m.Errors[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("errors" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this move elasticsearch cluster details based on the context it is used
+func (m *MoveElasticsearchClusterDetails) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateCalculatedPlan(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateErrors(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *MoveElasticsearchClusterDetails) contextValidateCalculatedPlan(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.CalculatedPlan != nil {
+		if err := m.CalculatedPlan.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("calculated_plan")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *MoveElasticsearchClusterDetails) contextValidateErrors(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Errors); i++ {
+
+		if m.Errors[i] != nil {
+			if err := m.Errors[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("errors" + "." + strconv.Itoa(i))
 				}

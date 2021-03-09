@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -99,7 +100,6 @@ func (m *ElasticsearchConfiguration) Validate(formats strfmt.Registry) error {
 }
 
 func (m *ElasticsearchConfiguration) validateCuration(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Curation) { // not required
 		return nil
 	}
@@ -117,7 +117,6 @@ func (m *ElasticsearchConfiguration) validateCuration(formats strfmt.Registry) e
 }
 
 func (m *ElasticsearchConfiguration) validateSystemSettings(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.SystemSettings) { // not required
 		return nil
 	}
@@ -135,7 +134,6 @@ func (m *ElasticsearchConfiguration) validateSystemSettings(formats strfmt.Regis
 }
 
 func (m *ElasticsearchConfiguration) validateUserBundles(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.UserBundles) { // not required
 		return nil
 	}
@@ -160,7 +158,6 @@ func (m *ElasticsearchConfiguration) validateUserBundles(formats strfmt.Registry
 }
 
 func (m *ElasticsearchConfiguration) validateUserPlugins(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.UserPlugins) { // not required
 		return nil
 	}
@@ -172,6 +169,96 @@ func (m *ElasticsearchConfiguration) validateUserPlugins(formats strfmt.Registry
 
 		if m.UserPlugins[i] != nil {
 			if err := m.UserPlugins[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("user_plugins" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this elasticsearch configuration based on the context it is used
+func (m *ElasticsearchConfiguration) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateCuration(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateSystemSettings(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateUserBundles(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateUserPlugins(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ElasticsearchConfiguration) contextValidateCuration(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Curation != nil {
+		if err := m.Curation.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("curation")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ElasticsearchConfiguration) contextValidateSystemSettings(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.SystemSettings != nil {
+		if err := m.SystemSettings.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("system_settings")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ElasticsearchConfiguration) contextValidateUserBundles(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.UserBundles); i++ {
+
+		if m.UserBundles[i] != nil {
+			if err := m.UserBundles[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("user_bundles" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *ElasticsearchConfiguration) contextValidateUserPlugins(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.UserPlugins); i++ {
+
+		if m.UserPlugins[i] != nil {
+			if err := m.UserPlugins[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("user_plugins" + "." + strconv.Itoa(i))
 				}

@@ -34,128 +34,134 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewRestartEsClusterParams creates a new RestartEsClusterParams object
-// with the default values initialized.
+// NewRestartEsClusterParams creates a new RestartEsClusterParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewRestartEsClusterParams() *RestartEsClusterParams {
-	var (
-		cancelPendingDefault     = bool(false)
-		groupAttributeDefault    = string("__zone__")
-		restoreSnapshotDefault   = bool(true)
-		shardInitWaitTimeDefault = int64(600)
-		skipSnapshotDefault      = bool(true)
-	)
 	return &RestartEsClusterParams{
-		CancelPending:     &cancelPendingDefault,
-		GroupAttribute:    &groupAttributeDefault,
-		RestoreSnapshot:   &restoreSnapshotDefault,
-		ShardInitWaitTime: &shardInitWaitTimeDefault,
-		SkipSnapshot:      &skipSnapshotDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewRestartEsClusterParamsWithTimeout creates a new RestartEsClusterParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewRestartEsClusterParamsWithTimeout(timeout time.Duration) *RestartEsClusterParams {
-	var (
-		cancelPendingDefault     = bool(false)
-		groupAttributeDefault    = string("__zone__")
-		restoreSnapshotDefault   = bool(true)
-		shardInitWaitTimeDefault = int64(600)
-		skipSnapshotDefault      = bool(true)
-	)
 	return &RestartEsClusterParams{
-		CancelPending:     &cancelPendingDefault,
-		GroupAttribute:    &groupAttributeDefault,
-		RestoreSnapshot:   &restoreSnapshotDefault,
-		ShardInitWaitTime: &shardInitWaitTimeDefault,
-		SkipSnapshot:      &skipSnapshotDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewRestartEsClusterParamsWithContext creates a new RestartEsClusterParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewRestartEsClusterParamsWithContext(ctx context.Context) *RestartEsClusterParams {
-	var (
-		cancelPendingDefault     = bool(false)
-		groupAttributeDefault    = string("__zone__")
-		restoreSnapshotDefault   = bool(true)
-		shardInitWaitTimeDefault = int64(600)
-		skipSnapshotDefault      = bool(true)
-	)
 	return &RestartEsClusterParams{
-		CancelPending:     &cancelPendingDefault,
-		GroupAttribute:    &groupAttributeDefault,
-		RestoreSnapshot:   &restoreSnapshotDefault,
-		ShardInitWaitTime: &shardInitWaitTimeDefault,
-		SkipSnapshot:      &skipSnapshotDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewRestartEsClusterParamsWithHTTPClient creates a new RestartEsClusterParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewRestartEsClusterParamsWithHTTPClient(client *http.Client) *RestartEsClusterParams {
-	var (
-		cancelPendingDefault     = bool(false)
-		groupAttributeDefault    = string("__zone__")
-		restoreSnapshotDefault   = bool(true)
-		shardInitWaitTimeDefault = int64(600)
-		skipSnapshotDefault      = bool(true)
-	)
 	return &RestartEsClusterParams{
-		CancelPending:     &cancelPendingDefault,
-		GroupAttribute:    &groupAttributeDefault,
-		RestoreSnapshot:   &restoreSnapshotDefault,
-		ShardInitWaitTime: &shardInitWaitTimeDefault,
-		SkipSnapshot:      &skipSnapshotDefault,
-		HTTPClient:        client,
+		HTTPClient: client,
 	}
 }
 
-/*RestartEsClusterParams contains all the parameters to send to the API endpoint
-for the restart es cluster operation typically these are written to a http.Request
+/* RestartEsClusterParams contains all the parameters to send to the API endpoint
+   for the restart es cluster operation.
+
+   Typically these are written to a http.Request.
 */
 type RestartEsClusterParams struct {
 
-	/*CancelPending
-	  When `true`, cancels the pending plans, then restarts the cluster.
+	/* CancelPending.
 
+	   When `true`, cancels the pending plans, then restarts the cluster.
 	*/
 	CancelPending *bool
-	/*ClusterID
-	  The Elasticsearch cluster identifier.
 
+	/* ClusterID.
+
+	   The Elasticsearch cluster identifier.
 	*/
 	ClusterID string
-	/*GroupAttribute
-	  Specifies the properties that divide the instances into groups. To restart all of the instances, use '\_\_all\_\_'. To restart the instances by logical zone, use '\_\_zone\_\_'. To restart one instance at a time, use '\_\_name\_\_', or use a comma-separated list of instance attributes.
 
+	/* GroupAttribute.
+
+	   Specifies the properties that divide the instances into groups. To restart all of the instances, use '\_\_all\_\_'. To restart the instances by logical zone, use '\_\_zone\_\_'. To restart one instance at a time, use '\_\_name\_\_', or use a comma-separated list of instance attributes.
+
+	   Default: "__zone__"
 	*/
 	GroupAttribute *string
-	/*RestoreSnapshot
-	  When `true` and restoring from a shutdown, restores the cluster from the last available snapshot.
 
+	/* RestoreSnapshot.
+
+	   When `true` and restoring from a shutdown, restores the cluster from the last available snapshot.
+
+	   Default: true
 	*/
 	RestoreSnapshot *bool
-	/*ShardInitWaitTime
-	  The time, in seconds, to wait for shards that show no progress of initializing, before rolling the next group (default: 10 minutes)
 
+	/* ShardInitWaitTime.
+
+	   The time, in seconds, to wait for shards that show no progress of initializing, before rolling the next group (default: 10 minutes)
+
+	   Default: 600
 	*/
 	ShardInitWaitTime *int64
-	/*SkipSnapshot
-	  When `true`, does not capture a snapshot before restarting the cluster.
 
+	/* SkipSnapshot.
+
+	   When `true`, does not capture a snapshot before restarting the cluster.
+
+	   Default: true
 	*/
 	SkipSnapshot *bool
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the restart es cluster params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *RestartEsClusterParams) WithDefaults() *RestartEsClusterParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the restart es cluster params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *RestartEsClusterParams) SetDefaults() {
+	var (
+		cancelPendingDefault = bool(false)
+
+		groupAttributeDefault = string("__zone__")
+
+		restoreSnapshotDefault = bool(true)
+
+		shardInitWaitTimeDefault = int64(600)
+
+		skipSnapshotDefault = bool(true)
+	)
+
+	val := RestartEsClusterParams{
+		CancelPending:     &cancelPendingDefault,
+		GroupAttribute:    &groupAttributeDefault,
+		RestoreSnapshot:   &restoreSnapshotDefault,
+		ShardInitWaitTime: &shardInitWaitTimeDefault,
+		SkipSnapshot:      &skipSnapshotDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the restart es cluster params
@@ -269,16 +275,17 @@ func (o *RestartEsClusterParams) WriteToRequest(r runtime.ClientRequest, reg str
 
 		// query param cancel_pending
 		var qrCancelPending bool
+
 		if o.CancelPending != nil {
 			qrCancelPending = *o.CancelPending
 		}
 		qCancelPending := swag.FormatBool(qrCancelPending)
 		if qCancelPending != "" {
+
 			if err := r.SetQueryParam("cancel_pending", qCancelPending); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	// path param cluster_id
@@ -290,64 +297,68 @@ func (o *RestartEsClusterParams) WriteToRequest(r runtime.ClientRequest, reg str
 
 		// query param group_attribute
 		var qrGroupAttribute string
+
 		if o.GroupAttribute != nil {
 			qrGroupAttribute = *o.GroupAttribute
 		}
 		qGroupAttribute := qrGroupAttribute
 		if qGroupAttribute != "" {
+
 			if err := r.SetQueryParam("group_attribute", qGroupAttribute); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.RestoreSnapshot != nil {
 
 		// query param restore_snapshot
 		var qrRestoreSnapshot bool
+
 		if o.RestoreSnapshot != nil {
 			qrRestoreSnapshot = *o.RestoreSnapshot
 		}
 		qRestoreSnapshot := swag.FormatBool(qrRestoreSnapshot)
 		if qRestoreSnapshot != "" {
+
 			if err := r.SetQueryParam("restore_snapshot", qRestoreSnapshot); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.ShardInitWaitTime != nil {
 
 		// query param shard_init_wait_time
 		var qrShardInitWaitTime int64
+
 		if o.ShardInitWaitTime != nil {
 			qrShardInitWaitTime = *o.ShardInitWaitTime
 		}
 		qShardInitWaitTime := swag.FormatInt64(qrShardInitWaitTime)
 		if qShardInitWaitTime != "" {
+
 			if err := r.SetQueryParam("shard_init_wait_time", qShardInitWaitTime); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.SkipSnapshot != nil {
 
 		// query param skip_snapshot
 		var qrSkipSnapshot bool
+
 		if o.SkipSnapshot != nil {
 			qrSkipSnapshot = *o.SkipSnapshot
 		}
 		qSkipSnapshot := swag.FormatBool(qrSkipSnapshot)
 		if qSkipSnapshot != "" {
+
 			if err := r.SetQueryParam("skip_snapshot", qSkipSnapshot); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

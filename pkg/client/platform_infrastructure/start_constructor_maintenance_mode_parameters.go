@@ -33,59 +33,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewStartConstructorMaintenanceModeParams creates a new StartConstructorMaintenanceModeParams object
-// with the default values initialized.
+// NewStartConstructorMaintenanceModeParams creates a new StartConstructorMaintenanceModeParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewStartConstructorMaintenanceModeParams() *StartConstructorMaintenanceModeParams {
-	var ()
 	return &StartConstructorMaintenanceModeParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewStartConstructorMaintenanceModeParamsWithTimeout creates a new StartConstructorMaintenanceModeParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewStartConstructorMaintenanceModeParamsWithTimeout(timeout time.Duration) *StartConstructorMaintenanceModeParams {
-	var ()
 	return &StartConstructorMaintenanceModeParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewStartConstructorMaintenanceModeParamsWithContext creates a new StartConstructorMaintenanceModeParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewStartConstructorMaintenanceModeParamsWithContext(ctx context.Context) *StartConstructorMaintenanceModeParams {
-	var ()
 	return &StartConstructorMaintenanceModeParams{
-
 		Context: ctx,
 	}
 }
 
 // NewStartConstructorMaintenanceModeParamsWithHTTPClient creates a new StartConstructorMaintenanceModeParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewStartConstructorMaintenanceModeParamsWithHTTPClient(client *http.Client) *StartConstructorMaintenanceModeParams {
-	var ()
 	return &StartConstructorMaintenanceModeParams{
 		HTTPClient: client,
 	}
 }
 
-/*StartConstructorMaintenanceModeParams contains all the parameters to send to the API endpoint
-for the start constructor maintenance mode operation typically these are written to a http.Request
+/* StartConstructorMaintenanceModeParams contains all the parameters to send to the API endpoint
+   for the start constructor maintenance mode operation.
+
+   Typically these are written to a http.Request.
 */
 type StartConstructorMaintenanceModeParams struct {
 
-	/*ConstructorID
-	  Identifier for the constructor
+	/* ConstructorID.
 
+	   Identifier for the constructor
 	*/
 	ConstructorID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the start constructor maintenance mode params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *StartConstructorMaintenanceModeParams) WithDefaults() *StartConstructorMaintenanceModeParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the start constructor maintenance mode params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *StartConstructorMaintenanceModeParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the start constructor maintenance mode params

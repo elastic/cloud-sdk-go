@@ -64,7 +64,6 @@ func (o *ResetApmSecretTokenReader) ReadResponse(response runtime.ClientResponse
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,7 +74,7 @@ func NewResetApmSecretTokenOK() *ResetApmSecretTokenOK {
 	return &ResetApmSecretTokenOK{}
 }
 
-/*ResetApmSecretTokenOK handles this case with default header values.
+/* ResetApmSecretTokenOK describes a response with status code 200, with default header values.
 
 The token was successfully reset
 */
@@ -86,7 +85,6 @@ type ResetApmSecretTokenOK struct {
 func (o *ResetApmSecretTokenOK) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/_reset-token][%d] resetApmSecretTokenOK  %+v", 200, o.Payload)
 }
-
 func (o *ResetApmSecretTokenOK) GetPayload() *models.ApmCrudResponse {
 	return o.Payload
 }
@@ -108,7 +106,7 @@ func NewResetApmSecretTokenNotFound() *ResetApmSecretTokenNotFound {
 	return &ResetApmSecretTokenNotFound{}
 }
 
-/*ResetApmSecretTokenNotFound handles this case with default header values.
+/* ResetApmSecretTokenNotFound describes a response with status code 404, with default header values.
 
 The cluster specified by {cluster_id} cannot be found (code: 'clusters.cluster_not_found')
 */
@@ -119,7 +117,6 @@ type ResetApmSecretTokenNotFound struct {
 func (o *ResetApmSecretTokenNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/_reset-token][%d] resetApmSecretTokenNotFound  %+v", 404, o.Payload)
 }
-
 func (o *ResetApmSecretTokenNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -141,7 +138,7 @@ func NewResetApmSecretTokenPreconditionFailed() *ResetApmSecretTokenPrecondition
 	return &ResetApmSecretTokenPreconditionFailed{}
 }
 
-/*ResetApmSecretTokenPreconditionFailed handles this case with default header values.
+/* ResetApmSecretTokenPreconditionFailed describes a response with status code 412, with default header values.
 
 There is not currently applied plan - eg the cluster has not finished provisioning, or the provisioning failed (code: 'clusters.cluster_plan_state_error')
 */
@@ -152,7 +149,6 @@ type ResetApmSecretTokenPreconditionFailed struct {
 func (o *ResetApmSecretTokenPreconditionFailed) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/_reset-token][%d] resetApmSecretTokenPreconditionFailed  %+v", 412, o.Payload)
 }
-
 func (o *ResetApmSecretTokenPreconditionFailed) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -174,7 +170,7 @@ func NewResetApmSecretTokenRetryWith() *ResetApmSecretTokenRetryWith {
 	return &ResetApmSecretTokenRetryWith{}
 }
 
-/*ResetApmSecretTokenRetryWith handles this case with default header values.
+/* ResetApmSecretTokenRetryWith describes a response with status code 449, with default header values.
 
 elevated permissions are required. (code: '"root.unauthorized.rbac.elevated_permissions_required"')
 */
@@ -185,7 +181,6 @@ type ResetApmSecretTokenRetryWith struct {
 func (o *ResetApmSecretTokenRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/_reset-token][%d] resetApmSecretTokenRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *ResetApmSecretTokenRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

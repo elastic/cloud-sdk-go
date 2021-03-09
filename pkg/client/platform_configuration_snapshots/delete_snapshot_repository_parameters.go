@@ -34,76 +34,90 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewDeleteSnapshotRepositoryParams creates a new DeleteSnapshotRepositoryParams object
-// with the default values initialized.
+// NewDeleteSnapshotRepositoryParams creates a new DeleteSnapshotRepositoryParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewDeleteSnapshotRepositoryParams() *DeleteSnapshotRepositoryParams {
-	var (
-		cleanupDeploymentsDefault = bool(false)
-	)
 	return &DeleteSnapshotRepositoryParams{
-		CleanupDeployments: &cleanupDeploymentsDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteSnapshotRepositoryParamsWithTimeout creates a new DeleteSnapshotRepositoryParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewDeleteSnapshotRepositoryParamsWithTimeout(timeout time.Duration) *DeleteSnapshotRepositoryParams {
-	var (
-		cleanupDeploymentsDefault = bool(false)
-	)
 	return &DeleteSnapshotRepositoryParams{
-		CleanupDeployments: &cleanupDeploymentsDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewDeleteSnapshotRepositoryParamsWithContext creates a new DeleteSnapshotRepositoryParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewDeleteSnapshotRepositoryParamsWithContext(ctx context.Context) *DeleteSnapshotRepositoryParams {
-	var (
-		cleanupDeploymentsDefault = bool(false)
-	)
 	return &DeleteSnapshotRepositoryParams{
-		CleanupDeployments: &cleanupDeploymentsDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewDeleteSnapshotRepositoryParamsWithHTTPClient creates a new DeleteSnapshotRepositoryParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewDeleteSnapshotRepositoryParamsWithHTTPClient(client *http.Client) *DeleteSnapshotRepositoryParams {
-	var (
-		cleanupDeploymentsDefault = bool(false)
-	)
 	return &DeleteSnapshotRepositoryParams{
-		CleanupDeployments: &cleanupDeploymentsDefault,
-		HTTPClient:         client,
+		HTTPClient: client,
 	}
 }
 
-/*DeleteSnapshotRepositoryParams contains all the parameters to send to the API endpoint
-for the delete snapshot repository operation typically these are written to a http.Request
+/* DeleteSnapshotRepositoryParams contains all the parameters to send to the API endpoint
+   for the delete snapshot repository operation.
+
+   Typically these are written to a http.Request.
 */
 type DeleteSnapshotRepositoryParams struct {
 
-	/*CleanupDeployments
-	  Removes references to this snapshot repository configuration and disables snapshots on the clusters that were referencing this configuration. If a request is made to delete a repository configuration that has already been deleted and this parameter is set to true and clusters still reference the configuration, then the request will have the side effects of removing references and disabling snapshots for clusters that reference the previously deleted configuration.
+	/* CleanupDeployments.
 
+	   Removes references to this snapshot repository configuration and disables snapshots on the clusters that were referencing this configuration. If a request is made to delete a repository configuration that has already been deleted and this parameter is set to true and clusters still reference the configuration, then the request will have the side effects of removing references and disabling snapshots for clusters that reference the previously deleted configuration.
 	*/
 	CleanupDeployments *bool
-	/*RepositoryName
-	  The name of the snapshot repository configuration.
 
+	/* RepositoryName.
+
+	   The name of the snapshot repository configuration.
 	*/
 	RepositoryName string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the delete snapshot repository params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteSnapshotRepositoryParams) WithDefaults() *DeleteSnapshotRepositoryParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the delete snapshot repository params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteSnapshotRepositoryParams) SetDefaults() {
+	var (
+		cleanupDeploymentsDefault = bool(false)
+	)
+
+	val := DeleteSnapshotRepositoryParams{
+		CleanupDeployments: &cleanupDeploymentsDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the delete snapshot repository params
@@ -173,16 +187,17 @@ func (o *DeleteSnapshotRepositoryParams) WriteToRequest(r runtime.ClientRequest,
 
 		// query param cleanup_deployments
 		var qrCleanupDeployments bool
+
 		if o.CleanupDeployments != nil {
 			qrCleanupDeployments = *o.CleanupDeployments
 		}
 		qCleanupDeployments := swag.FormatBool(qrCleanupDeployments)
 		if qCleanupDeployments != "" {
+
 			if err := r.SetQueryParam("cleanup_deployments", qCleanupDeployments); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	// path param repository_name

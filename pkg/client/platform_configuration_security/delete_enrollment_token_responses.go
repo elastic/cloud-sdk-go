@@ -58,7 +58,6 @@ func (o *DeleteEnrollmentTokenReader) ReadResponse(response runtime.ClientRespon
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,7 +68,7 @@ func NewDeleteEnrollmentTokenOK() *DeleteEnrollmentTokenOK {
 	return &DeleteEnrollmentTokenOK{}
 }
 
-/*DeleteEnrollmentTokenOK handles this case with default header values.
+/* DeleteEnrollmentTokenOK describes a response with status code 200, with default header values.
 
 The supplied token has been revoked and can no longer be used to start services on new servers
 */
@@ -80,7 +79,6 @@ type DeleteEnrollmentTokenOK struct {
 func (o *DeleteEnrollmentTokenOK) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/security/enrollment-tokens/{token}][%d] deleteEnrollmentTokenOK  %+v", 200, o.Payload)
 }
-
 func (o *DeleteEnrollmentTokenOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -100,7 +98,7 @@ func NewDeleteEnrollmentTokenNotFound() *DeleteEnrollmentTokenNotFound {
 	return &DeleteEnrollmentTokenNotFound{}
 }
 
-/*DeleteEnrollmentTokenNotFound handles this case with default header values.
+/* DeleteEnrollmentTokenNotFound describes a response with status code 404, with default header values.
 
 Token not found (code: 'enrollment_tokens.invalid_token_id')
 */
@@ -111,7 +109,6 @@ type DeleteEnrollmentTokenNotFound struct {
 func (o *DeleteEnrollmentTokenNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/security/enrollment-tokens/{token}][%d] deleteEnrollmentTokenNotFound  %+v", 404, o.Payload)
 }
-
 func (o *DeleteEnrollmentTokenNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -133,7 +130,7 @@ func NewDeleteEnrollmentTokenRetryWith() *DeleteEnrollmentTokenRetryWith {
 	return &DeleteEnrollmentTokenRetryWith{}
 }
 
-/*DeleteEnrollmentTokenRetryWith handles this case with default header values.
+/* DeleteEnrollmentTokenRetryWith describes a response with status code 449, with default header values.
 
 elevated permissions are required. (code: '"root.unauthorized.rbac.elevated_permissions_required"')
 */
@@ -144,7 +141,6 @@ type DeleteEnrollmentTokenRetryWith struct {
 func (o *DeleteEnrollmentTokenRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/security/enrollment-tokens/{token}][%d] deleteEnrollmentTokenRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *DeleteEnrollmentTokenRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

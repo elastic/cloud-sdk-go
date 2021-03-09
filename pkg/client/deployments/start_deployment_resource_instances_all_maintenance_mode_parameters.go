@@ -33,69 +33,85 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewStartDeploymentResourceInstancesAllMaintenanceModeParams creates a new StartDeploymentResourceInstancesAllMaintenanceModeParams object
-// with the default values initialized.
+// NewStartDeploymentResourceInstancesAllMaintenanceModeParams creates a new StartDeploymentResourceInstancesAllMaintenanceModeParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewStartDeploymentResourceInstancesAllMaintenanceModeParams() *StartDeploymentResourceInstancesAllMaintenanceModeParams {
-	var ()
 	return &StartDeploymentResourceInstancesAllMaintenanceModeParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewStartDeploymentResourceInstancesAllMaintenanceModeParamsWithTimeout creates a new StartDeploymentResourceInstancesAllMaintenanceModeParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewStartDeploymentResourceInstancesAllMaintenanceModeParamsWithTimeout(timeout time.Duration) *StartDeploymentResourceInstancesAllMaintenanceModeParams {
-	var ()
 	return &StartDeploymentResourceInstancesAllMaintenanceModeParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewStartDeploymentResourceInstancesAllMaintenanceModeParamsWithContext creates a new StartDeploymentResourceInstancesAllMaintenanceModeParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewStartDeploymentResourceInstancesAllMaintenanceModeParamsWithContext(ctx context.Context) *StartDeploymentResourceInstancesAllMaintenanceModeParams {
-	var ()
 	return &StartDeploymentResourceInstancesAllMaintenanceModeParams{
-
 		Context: ctx,
 	}
 }
 
 // NewStartDeploymentResourceInstancesAllMaintenanceModeParamsWithHTTPClient creates a new StartDeploymentResourceInstancesAllMaintenanceModeParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewStartDeploymentResourceInstancesAllMaintenanceModeParamsWithHTTPClient(client *http.Client) *StartDeploymentResourceInstancesAllMaintenanceModeParams {
-	var ()
 	return &StartDeploymentResourceInstancesAllMaintenanceModeParams{
 		HTTPClient: client,
 	}
 }
 
-/*StartDeploymentResourceInstancesAllMaintenanceModeParams contains all the parameters to send to the API endpoint
-for the start deployment resource instances all maintenance mode operation typically these are written to a http.Request
+/* StartDeploymentResourceInstancesAllMaintenanceModeParams contains all the parameters to send to the API endpoint
+   for the start deployment resource instances all maintenance mode operation.
+
+   Typically these are written to a http.Request.
 */
 type StartDeploymentResourceInstancesAllMaintenanceModeParams struct {
 
-	/*DeploymentID
-	  Identifier for the Deployment.
+	/* DeploymentID.
 
+	   Identifier for the Deployment.
 	*/
 	DeploymentID string
-	/*RefID
-	  User-specified RefId for the Resource.
 
+	/* RefID.
+
+	   User-specified RefId for the Resource.
 	*/
 	RefID string
-	/*ResourceKind
-	  The kind of resource (one of elasticsearch, kibana or apm).
 
+	/* ResourceKind.
+
+	   The kind of resource (one of elasticsearch, kibana or apm).
 	*/
 	ResourceKind string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the start deployment resource instances all maintenance mode params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *StartDeploymentResourceInstancesAllMaintenanceModeParams) WithDefaults() *StartDeploymentResourceInstancesAllMaintenanceModeParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the start deployment resource instances all maintenance mode params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *StartDeploymentResourceInstancesAllMaintenanceModeParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the start deployment resource instances all maintenance mode params

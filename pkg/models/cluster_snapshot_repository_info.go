@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -62,7 +64,6 @@ func (m *ClusterSnapshotRepositoryInfo) Validate(formats strfmt.Registry) error 
 }
 
 func (m *ClusterSnapshotRepositoryInfo) validateReference(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Reference) { // not required
 		return nil
 	}
@@ -80,13 +81,58 @@ func (m *ClusterSnapshotRepositoryInfo) validateReference(formats strfmt.Registr
 }
 
 func (m *ClusterSnapshotRepositoryInfo) validateStatic(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Static) { // not required
 		return nil
 	}
 
 	if m.Static != nil {
 		if err := m.Static.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("static")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this cluster snapshot repository info based on the context it is used
+func (m *ClusterSnapshotRepositoryInfo) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateReference(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateStatic(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ClusterSnapshotRepositoryInfo) contextValidateReference(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Reference != nil {
+		if err := m.Reference.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("reference")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ClusterSnapshotRepositoryInfo) contextValidateStatic(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Static != nil {
+		if err := m.Static.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("static")
 			}

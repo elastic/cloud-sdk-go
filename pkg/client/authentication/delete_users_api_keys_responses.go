@@ -52,7 +52,6 @@ func (o *DeleteUsersAPIKeysReader) ReadResponse(response runtime.ClientResponse,
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,7 +62,7 @@ func NewDeleteUsersAPIKeysOK() *DeleteUsersAPIKeysOK {
 	return &DeleteUsersAPIKeysOK{}
 }
 
-/*DeleteUsersAPIKeysOK handles this case with default header values.
+/* DeleteUsersAPIKeysOK describes a response with status code 200, with default header values.
 
 The API keys are deleted.
 */
@@ -74,7 +73,6 @@ type DeleteUsersAPIKeysOK struct {
 func (o *DeleteUsersAPIKeysOK) Error() string {
 	return fmt.Sprintf("[DELETE /users/auth/keys/_all][%d] deleteUsersApiKeysOK  %+v", 200, o.Payload)
 }
-
 func (o *DeleteUsersAPIKeysOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -94,12 +92,13 @@ func NewDeleteUsersAPIKeysRetryWith() *DeleteUsersAPIKeysRetryWith {
 	return &DeleteUsersAPIKeysRetryWith{}
 }
 
-/*DeleteUsersAPIKeysRetryWith handles this case with default header values.
+/* DeleteUsersAPIKeysRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type DeleteUsersAPIKeysRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -109,15 +108,18 @@ type DeleteUsersAPIKeysRetryWith struct {
 func (o *DeleteUsersAPIKeysRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /users/auth/keys/_all][%d] deleteUsersApiKeysRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *DeleteUsersAPIKeysRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *DeleteUsersAPIKeysRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

@@ -64,7 +64,6 @@ func (o *StartEsClusterMaintenanceModeReader) ReadResponse(response runtime.Clie
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,7 +74,7 @@ func NewStartEsClusterMaintenanceModeAccepted() *StartEsClusterMaintenanceModeAc
 	return &StartEsClusterMaintenanceModeAccepted{}
 }
 
-/*StartEsClusterMaintenanceModeAccepted handles this case with default header values.
+/* StartEsClusterMaintenanceModeAccepted describes a response with status code 202, with default header values.
 
 The start maintenance mode command was issued successfully, use the "GET" command on the /{cluster_id} resource to monitor progress
 */
@@ -86,7 +85,6 @@ type StartEsClusterMaintenanceModeAccepted struct {
 func (o *StartEsClusterMaintenanceModeAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/instances/{instance_ids}/maintenance-mode/_start][%d] startEsClusterMaintenanceModeAccepted  %+v", 202, o.Payload)
 }
-
 func (o *StartEsClusterMaintenanceModeAccepted) GetPayload() *models.ClusterCommandResponse {
 	return o.Payload
 }
@@ -108,12 +106,13 @@ func NewStartEsClusterMaintenanceModeForbidden() *StartEsClusterMaintenanceModeF
 	return &StartEsClusterMaintenanceModeForbidden{}
 }
 
-/*StartEsClusterMaintenanceModeForbidden handles this case with default header values.
+/* StartEsClusterMaintenanceModeForbidden describes a response with status code 403, with default header values.
 
 The start maintenance mode command was prohibited for the given cluster. (code: `clusters.command_prohibited`)
 */
 type StartEsClusterMaintenanceModeForbidden struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -123,15 +122,18 @@ type StartEsClusterMaintenanceModeForbidden struct {
 func (o *StartEsClusterMaintenanceModeForbidden) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/instances/{instance_ids}/maintenance-mode/_start][%d] startEsClusterMaintenanceModeForbidden  %+v", 403, o.Payload)
 }
-
 func (o *StartEsClusterMaintenanceModeForbidden) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *StartEsClusterMaintenanceModeForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -148,13 +150,14 @@ func NewStartEsClusterMaintenanceModeNotFound() *StartEsClusterMaintenanceModeNo
 	return &StartEsClusterMaintenanceModeNotFound{}
 }
 
-/*StartEsClusterMaintenanceModeNotFound handles this case with default header values.
+/* StartEsClusterMaintenanceModeNotFound describes a response with status code 404, with default header values.
 
-* The cluster specified by {cluster_id} cannot be found. (code: `clusters.cluster_not_found`)
+ * The cluster specified by {cluster_id} cannot be found. (code: `clusters.cluster_not_found`)
 * One or more of the instances specified at {instance_ids} could not be found. (code: `clusters.instances_not_found`)
- */
+*/
 type StartEsClusterMaintenanceModeNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -164,15 +167,18 @@ type StartEsClusterMaintenanceModeNotFound struct {
 func (o *StartEsClusterMaintenanceModeNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/instances/{instance_ids}/maintenance-mode/_start][%d] startEsClusterMaintenanceModeNotFound  %+v", 404, o.Payload)
 }
-
 func (o *StartEsClusterMaintenanceModeNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *StartEsClusterMaintenanceModeNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -189,12 +195,13 @@ func NewStartEsClusterMaintenanceModeRetryWith() *StartEsClusterMaintenanceModeR
 	return &StartEsClusterMaintenanceModeRetryWith{}
 }
 
-/*StartEsClusterMaintenanceModeRetryWith handles this case with default header values.
+/* StartEsClusterMaintenanceModeRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type StartEsClusterMaintenanceModeRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -204,15 +211,18 @@ type StartEsClusterMaintenanceModeRetryWith struct {
 func (o *StartEsClusterMaintenanceModeRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/instances/{instance_ids}/maintenance-mode/_start][%d] startEsClusterMaintenanceModeRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *StartEsClusterMaintenanceModeRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *StartEsClusterMaintenanceModeRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

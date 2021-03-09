@@ -64,7 +64,6 @@ func (o *DeleteSnapshotRepositoryReader) ReadResponse(response runtime.ClientRes
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,7 +74,7 @@ func NewDeleteSnapshotRepositoryOK() *DeleteSnapshotRepositoryOK {
 	return &DeleteSnapshotRepositoryOK{}
 }
 
-/*DeleteSnapshotRepositoryOK handles this case with default header values.
+/* DeleteSnapshotRepositoryOK describes a response with status code 200, with default header values.
 
 successful operation
 */
@@ -86,7 +85,6 @@ type DeleteSnapshotRepositoryOK struct {
 func (o *DeleteSnapshotRepositoryOK) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/snapshots/repositories/{repository_name}][%d] deleteSnapshotRepositoryOK  %+v", 200, o.Payload)
 }
-
 func (o *DeleteSnapshotRepositoryOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -106,7 +104,7 @@ func NewDeleteSnapshotRepositoryAccepted() *DeleteSnapshotRepositoryAccepted {
 	return &DeleteSnapshotRepositoryAccepted{}
 }
 
-/*DeleteSnapshotRepositoryAccepted handles this case with default header values.
+/* DeleteSnapshotRepositoryAccepted describes a response with status code 202, with default header values.
 
 Delete snapshot repository config
 */
@@ -117,7 +115,6 @@ type DeleteSnapshotRepositoryAccepted struct {
 func (o *DeleteSnapshotRepositoryAccepted) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/snapshots/repositories/{repository_name}][%d] deleteSnapshotRepositoryAccepted  %+v", 202, o.Payload)
 }
-
 func (o *DeleteSnapshotRepositoryAccepted) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -137,7 +134,7 @@ func NewDeleteSnapshotRepositoryRetryWith() *DeleteSnapshotRepositoryRetryWith {
 	return &DeleteSnapshotRepositoryRetryWith{}
 }
 
-/*DeleteSnapshotRepositoryRetryWith handles this case with default header values.
+/* DeleteSnapshotRepositoryRetryWith describes a response with status code 449, with default header values.
 
 elevated permissions are required. (code: '"root.unauthorized.rbac.elevated_permissions_required"')
 */
@@ -148,7 +145,6 @@ type DeleteSnapshotRepositoryRetryWith struct {
 func (o *DeleteSnapshotRepositoryRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/snapshots/repositories/{repository_name}][%d] deleteSnapshotRepositoryRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *DeleteSnapshotRepositoryRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -170,7 +166,7 @@ func NewDeleteSnapshotRepositoryInternalServerError() *DeleteSnapshotRepositoryI
 	return &DeleteSnapshotRepositoryInternalServerError{}
 }
 
-/*DeleteSnapshotRepositoryInternalServerError handles this case with default header values.
+/* DeleteSnapshotRepositoryInternalServerError describes a response with status code 500, with default header values.
 
 Failed to delete references and disable snapshots in one or more referencing clusters.
 */
@@ -181,7 +177,6 @@ type DeleteSnapshotRepositoryInternalServerError struct {
 func (o *DeleteSnapshotRepositoryInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/snapshots/repositories/{repository_name}][%d] deleteSnapshotRepositoryInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *DeleteSnapshotRepositoryInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

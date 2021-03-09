@@ -70,7 +70,6 @@ func (o *SetTelemetryConfigReader) ReadResponse(response runtime.ClientResponse,
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -81,7 +80,7 @@ func NewSetTelemetryConfigOK() *SetTelemetryConfigOK {
 	return &SetTelemetryConfigOK{}
 }
 
-/*SetTelemetryConfigOK handles this case with default header values.
+/* SetTelemetryConfigOK describes a response with status code 200, with default header values.
 
 Telemetry configuration updated successfully
 */
@@ -92,7 +91,6 @@ type SetTelemetryConfigOK struct {
 func (o *SetTelemetryConfigOK) Error() string {
 	return fmt.Sprintf("[PUT /phone-home/config][%d] setTelemetryConfigOK  %+v", 200, o.Payload)
 }
-
 func (o *SetTelemetryConfigOK) GetPayload() *models.TelemetryConfig {
 	return o.Payload
 }
@@ -114,12 +112,13 @@ func NewSetTelemetryConfigForbidden() *SetTelemetryConfigForbidden {
 	return &SetTelemetryConfigForbidden{}
 }
 
-/*SetTelemetryConfigForbidden handles this case with default header values.
+/* SetTelemetryConfigForbidden describes a response with status code 403, with default header values.
 
 User must have Platform level permissions. (code: `root.unauthorized.rbac`)
 */
 type SetTelemetryConfigForbidden struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -129,15 +128,18 @@ type SetTelemetryConfigForbidden struct {
 func (o *SetTelemetryConfigForbidden) Error() string {
 	return fmt.Sprintf("[PUT /phone-home/config][%d] setTelemetryConfigForbidden  %+v", 403, o.Payload)
 }
-
 func (o *SetTelemetryConfigForbidden) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SetTelemetryConfigForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -154,12 +156,13 @@ func NewSetTelemetryConfigConflict() *SetTelemetryConfigConflict {
 	return &SetTelemetryConfigConflict{}
 }
 
-/*SetTelemetryConfigConflict handles this case with default header values.
+/* SetTelemetryConfigConflict describes a response with status code 409, with default header values.
 
 The telemetry configuration did not exist so there was an attempt to create one. Another request resulted in the creation of a telemetry configuration before this request completed, resulting in the failure of this request to create a configuration. Please retry. (code: `telemetry.already_exists`)
 */
 type SetTelemetryConfigConflict struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -169,15 +172,18 @@ type SetTelemetryConfigConflict struct {
 func (o *SetTelemetryConfigConflict) Error() string {
 	return fmt.Sprintf("[PUT /phone-home/config][%d] setTelemetryConfigConflict  %+v", 409, o.Payload)
 }
-
 func (o *SetTelemetryConfigConflict) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SetTelemetryConfigConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -194,12 +200,13 @@ func NewSetTelemetryConfigRetryWith() *SetTelemetryConfigRetryWith {
 	return &SetTelemetryConfigRetryWith{}
 }
 
-/*SetTelemetryConfigRetryWith handles this case with default header values.
+/* SetTelemetryConfigRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type SetTelemetryConfigRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -209,15 +216,18 @@ type SetTelemetryConfigRetryWith struct {
 func (o *SetTelemetryConfigRetryWith) Error() string {
 	return fmt.Sprintf("[PUT /phone-home/config][%d] setTelemetryConfigRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *SetTelemetryConfigRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SetTelemetryConfigRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -234,12 +244,13 @@ func NewSetTelemetryConfigInternalServerError() *SetTelemetryConfigInternalServe
 	return &SetTelemetryConfigInternalServerError{}
 }
 
-/*SetTelemetryConfigInternalServerError handles this case with default header values.
+/* SetTelemetryConfigInternalServerError describes a response with status code 500, with default header values.
 
 Failed to set the configuration due to an internal server error. (code: `telemetry.request_execution_failed`)
 */
 type SetTelemetryConfigInternalServerError struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -249,15 +260,18 @@ type SetTelemetryConfigInternalServerError struct {
 func (o *SetTelemetryConfigInternalServerError) Error() string {
 	return fmt.Sprintf("[PUT /phone-home/config][%d] setTelemetryConfigInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *SetTelemetryConfigInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SetTelemetryConfigInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

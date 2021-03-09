@@ -33,59 +33,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewResyncEsClusterParams creates a new ResyncEsClusterParams object
-// with the default values initialized.
+// NewResyncEsClusterParams creates a new ResyncEsClusterParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewResyncEsClusterParams() *ResyncEsClusterParams {
-	var ()
 	return &ResyncEsClusterParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewResyncEsClusterParamsWithTimeout creates a new ResyncEsClusterParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewResyncEsClusterParamsWithTimeout(timeout time.Duration) *ResyncEsClusterParams {
-	var ()
 	return &ResyncEsClusterParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewResyncEsClusterParamsWithContext creates a new ResyncEsClusterParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewResyncEsClusterParamsWithContext(ctx context.Context) *ResyncEsClusterParams {
-	var ()
 	return &ResyncEsClusterParams{
-
 		Context: ctx,
 	}
 }
 
 // NewResyncEsClusterParamsWithHTTPClient creates a new ResyncEsClusterParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewResyncEsClusterParamsWithHTTPClient(client *http.Client) *ResyncEsClusterParams {
-	var ()
 	return &ResyncEsClusterParams{
 		HTTPClient: client,
 	}
 }
 
-/*ResyncEsClusterParams contains all the parameters to send to the API endpoint
-for the resync es cluster operation typically these are written to a http.Request
+/* ResyncEsClusterParams contains all the parameters to send to the API endpoint
+   for the resync es cluster operation.
+
+   Typically these are written to a http.Request.
 */
 type ResyncEsClusterParams struct {
 
-	/*ClusterID
-	  The Elasticsearch cluster identifier.
+	/* ClusterID.
 
+	   The Elasticsearch cluster identifier.
 	*/
 	ClusterID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the resync es cluster params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ResyncEsClusterParams) WithDefaults() *ResyncEsClusterParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the resync es cluster params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ResyncEsClusterParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the resync es cluster params

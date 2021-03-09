@@ -33,59 +33,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetSnapshotRepositoryParams creates a new GetSnapshotRepositoryParams object
-// with the default values initialized.
+// NewGetSnapshotRepositoryParams creates a new GetSnapshotRepositoryParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetSnapshotRepositoryParams() *GetSnapshotRepositoryParams {
-	var ()
 	return &GetSnapshotRepositoryParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetSnapshotRepositoryParamsWithTimeout creates a new GetSnapshotRepositoryParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetSnapshotRepositoryParamsWithTimeout(timeout time.Duration) *GetSnapshotRepositoryParams {
-	var ()
 	return &GetSnapshotRepositoryParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetSnapshotRepositoryParamsWithContext creates a new GetSnapshotRepositoryParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetSnapshotRepositoryParamsWithContext(ctx context.Context) *GetSnapshotRepositoryParams {
-	var ()
 	return &GetSnapshotRepositoryParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetSnapshotRepositoryParamsWithHTTPClient creates a new GetSnapshotRepositoryParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetSnapshotRepositoryParamsWithHTTPClient(client *http.Client) *GetSnapshotRepositoryParams {
-	var ()
 	return &GetSnapshotRepositoryParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetSnapshotRepositoryParams contains all the parameters to send to the API endpoint
-for the get snapshot repository operation typically these are written to a http.Request
+/* GetSnapshotRepositoryParams contains all the parameters to send to the API endpoint
+   for the get snapshot repository operation.
+
+   Typically these are written to a http.Request.
 */
 type GetSnapshotRepositoryParams struct {
 
-	/*RepositoryName
-	  The name of the snapshot repository configuration.
+	/* RepositoryName.
 
+	   The name of the snapshot repository configuration.
 	*/
 	RepositoryName string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get snapshot repository params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetSnapshotRepositoryParams) WithDefaults() *GetSnapshotRepositoryParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get snapshot repository params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetSnapshotRepositoryParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get snapshot repository params

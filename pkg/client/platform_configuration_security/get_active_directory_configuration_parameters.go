@@ -33,59 +33,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetActiveDirectoryConfigurationParams creates a new GetActiveDirectoryConfigurationParams object
-// with the default values initialized.
+// NewGetActiveDirectoryConfigurationParams creates a new GetActiveDirectoryConfigurationParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetActiveDirectoryConfigurationParams() *GetActiveDirectoryConfigurationParams {
-	var ()
 	return &GetActiveDirectoryConfigurationParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetActiveDirectoryConfigurationParamsWithTimeout creates a new GetActiveDirectoryConfigurationParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetActiveDirectoryConfigurationParamsWithTimeout(timeout time.Duration) *GetActiveDirectoryConfigurationParams {
-	var ()
 	return &GetActiveDirectoryConfigurationParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetActiveDirectoryConfigurationParamsWithContext creates a new GetActiveDirectoryConfigurationParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetActiveDirectoryConfigurationParamsWithContext(ctx context.Context) *GetActiveDirectoryConfigurationParams {
-	var ()
 	return &GetActiveDirectoryConfigurationParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetActiveDirectoryConfigurationParamsWithHTTPClient creates a new GetActiveDirectoryConfigurationParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetActiveDirectoryConfigurationParamsWithHTTPClient(client *http.Client) *GetActiveDirectoryConfigurationParams {
-	var ()
 	return &GetActiveDirectoryConfigurationParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetActiveDirectoryConfigurationParams contains all the parameters to send to the API endpoint
-for the get active directory configuration operation typically these are written to a http.Request
+/* GetActiveDirectoryConfigurationParams contains all the parameters to send to the API endpoint
+   for the get active directory configuration operation.
+
+   Typically these are written to a http.Request.
 */
 type GetActiveDirectoryConfigurationParams struct {
 
-	/*RealmID
-	  The Elasticsearch Security realm identifier.
+	/* RealmID.
 
+	   The Elasticsearch Security realm identifier.
 	*/
 	RealmID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get active directory configuration params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetActiveDirectoryConfigurationParams) WithDefaults() *GetActiveDirectoryConfigurationParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get active directory configuration params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetActiveDirectoryConfigurationParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get active directory configuration params

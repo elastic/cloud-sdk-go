@@ -64,7 +64,6 @@ func (o *CreateIPFilterRulesetReader) ReadResponse(response runtime.ClientRespon
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,7 +74,7 @@ func NewCreateIPFilterRulesetCreated() *CreateIPFilterRulesetCreated {
 	return &CreateIPFilterRulesetCreated{}
 }
 
-/*CreateIPFilterRulesetCreated handles this case with default header values.
+/* CreateIPFilterRulesetCreated describes a response with status code 201, with default header values.
 
 The ruleset definition is valid and the creation has started
 */
@@ -86,7 +85,6 @@ type CreateIPFilterRulesetCreated struct {
 func (o *CreateIPFilterRulesetCreated) Error() string {
 	return fmt.Sprintf("[POST /deployments/ip-filtering/rulesets][%d] createIpFilterRulesetCreated  %+v", 201, o.Payload)
 }
-
 func (o *CreateIPFilterRulesetCreated) GetPayload() *models.RuleSetResponse {
 	return o.Payload
 }
@@ -108,7 +106,7 @@ func NewCreateIPFilterRulesetBadRequest() *CreateIPFilterRulesetBadRequest {
 	return &CreateIPFilterRulesetBadRequest{}
 }
 
-/*CreateIPFilterRulesetBadRequest handles this case with default header values.
+/* CreateIPFilterRulesetBadRequest describes a response with status code 400, with default header values.
 
 The ruleset definition contains errors (code: 'ip_filtering.ruleset_invalid')
 */
@@ -119,7 +117,6 @@ type CreateIPFilterRulesetBadRequest struct {
 func (o *CreateIPFilterRulesetBadRequest) Error() string {
 	return fmt.Sprintf("[POST /deployments/ip-filtering/rulesets][%d] createIpFilterRulesetBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *CreateIPFilterRulesetBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -141,7 +138,7 @@ func NewCreateIPFilterRulesetRetryWith() *CreateIPFilterRulesetRetryWith {
 	return &CreateIPFilterRulesetRetryWith{}
 }
 
-/*CreateIPFilterRulesetRetryWith handles this case with default header values.
+/* CreateIPFilterRulesetRetryWith describes a response with status code 449, with default header values.
 
 elevated permissions are required. (code: '"root.unauthorized.rbac.elevated_permissions_required"')
 */
@@ -152,7 +149,6 @@ type CreateIPFilterRulesetRetryWith struct {
 func (o *CreateIPFilterRulesetRetryWith) Error() string {
 	return fmt.Sprintf("[POST /deployments/ip-filtering/rulesets][%d] createIpFilterRulesetRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *CreateIPFilterRulesetRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -174,7 +170,7 @@ func NewCreateIPFilterRulesetInternalServerError() *CreateIPFilterRulesetInterna
 	return &CreateIPFilterRulesetInternalServerError{}
 }
 
-/*CreateIPFilterRulesetInternalServerError handles this case with default header values.
+/* CreateIPFilterRulesetInternalServerError describes a response with status code 500, with default header values.
 
 The request execution failed (code: 'ip_filtering.request_execution_failed')
 */
@@ -185,7 +181,6 @@ type CreateIPFilterRulesetInternalServerError struct {
 func (o *CreateIPFilterRulesetInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /deployments/ip-filtering/rulesets][%d] createIpFilterRulesetInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *CreateIPFilterRulesetInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

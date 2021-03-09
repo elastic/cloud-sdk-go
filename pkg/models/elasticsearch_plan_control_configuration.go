@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"encoding/json"
 	"strconv"
 
@@ -139,7 +140,6 @@ func (m *ElasticsearchPlanControlConfiguration) validateClusterRebootEnum(path, 
 }
 
 func (m *ElasticsearchPlanControlConfiguration) validateClusterReboot(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.ClusterReboot) { // not required
 		return nil
 	}
@@ -153,7 +153,6 @@ func (m *ElasticsearchPlanControlConfiguration) validateClusterReboot(formats st
 }
 
 func (m *ElasticsearchPlanControlConfiguration) validateMoveAllocators(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.MoveAllocators) { // not required
 		return nil
 	}
@@ -178,7 +177,6 @@ func (m *ElasticsearchPlanControlConfiguration) validateMoveAllocators(formats s
 }
 
 func (m *ElasticsearchPlanControlConfiguration) validateMoveInstances(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.MoveInstances) { // not required
 		return nil
 	}
@@ -190,6 +188,60 @@ func (m *ElasticsearchPlanControlConfiguration) validateMoveInstances(formats st
 
 		if m.MoveInstances[i] != nil {
 			if err := m.MoveInstances[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("move_instances" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this elasticsearch plan control configuration based on the context it is used
+func (m *ElasticsearchPlanControlConfiguration) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateMoveAllocators(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateMoveInstances(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ElasticsearchPlanControlConfiguration) contextValidateMoveAllocators(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.MoveAllocators); i++ {
+
+		if m.MoveAllocators[i] != nil {
+			if err := m.MoveAllocators[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("move_allocators" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *ElasticsearchPlanControlConfiguration) contextValidateMoveInstances(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.MoveInstances); i++ {
+
+		if m.MoveInstances[i] != nil {
+			if err := m.MoveInstances[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("move_instances" + "." + strconv.Itoa(i))
 				}

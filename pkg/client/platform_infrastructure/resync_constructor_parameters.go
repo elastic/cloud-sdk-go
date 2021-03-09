@@ -33,59 +33,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewResyncConstructorParams creates a new ResyncConstructorParams object
-// with the default values initialized.
+// NewResyncConstructorParams creates a new ResyncConstructorParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewResyncConstructorParams() *ResyncConstructorParams {
-	var ()
 	return &ResyncConstructorParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewResyncConstructorParamsWithTimeout creates a new ResyncConstructorParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewResyncConstructorParamsWithTimeout(timeout time.Duration) *ResyncConstructorParams {
-	var ()
 	return &ResyncConstructorParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewResyncConstructorParamsWithContext creates a new ResyncConstructorParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewResyncConstructorParamsWithContext(ctx context.Context) *ResyncConstructorParams {
-	var ()
 	return &ResyncConstructorParams{
-
 		Context: ctx,
 	}
 }
 
 // NewResyncConstructorParamsWithHTTPClient creates a new ResyncConstructorParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewResyncConstructorParamsWithHTTPClient(client *http.Client) *ResyncConstructorParams {
-	var ()
 	return &ResyncConstructorParams{
 		HTTPClient: client,
 	}
 }
 
-/*ResyncConstructorParams contains all the parameters to send to the API endpoint
-for the resync constructor operation typically these are written to a http.Request
+/* ResyncConstructorParams contains all the parameters to send to the API endpoint
+   for the resync constructor operation.
+
+   Typically these are written to a http.Request.
 */
 type ResyncConstructorParams struct {
 
-	/*ConstructorID
-	  Identifier for the constructor
+	/* ConstructorID.
 
+	   Identifier for the constructor
 	*/
 	ConstructorID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the resync constructor params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ResyncConstructorParams) WithDefaults() *ResyncConstructorParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the resync constructor params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ResyncConstructorParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the resync constructor params

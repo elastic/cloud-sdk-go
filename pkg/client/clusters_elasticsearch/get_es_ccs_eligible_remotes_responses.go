@@ -52,7 +52,6 @@ func (o *GetEsCcsEligibleRemotesReader) ReadResponse(response runtime.ClientResp
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,7 +62,7 @@ func NewGetEsCcsEligibleRemotesOK() *GetEsCcsEligibleRemotesOK {
 	return &GetEsCcsEligibleRemotesOK{}
 }
 
-/*GetEsCcsEligibleRemotesOK handles this case with default header values.
+/* GetEsCcsEligibleRemotesOK describes a response with status code 200, with default header values.
 
 A list of Elasticsearch clusters that can be used as cross-cluster search remotes in deployments with the provided version
 */
@@ -74,7 +73,6 @@ type GetEsCcsEligibleRemotesOK struct {
 func (o *GetEsCcsEligibleRemotesOK) Error() string {
 	return fmt.Sprintf("[GET /clusters/elasticsearch/ccs/eligible_remotes][%d] getEsCcsEligibleRemotesOK  %+v", 200, o.Payload)
 }
-
 func (o *GetEsCcsEligibleRemotesOK) GetPayload() *models.ElasticsearchClustersInfo {
 	return o.Payload
 }
@@ -96,7 +94,7 @@ func NewGetEsCcsEligibleRemotesBadRequest() *GetEsCcsEligibleRemotesBadRequest {
 	return &GetEsCcsEligibleRemotesBadRequest{}
 }
 
-/*GetEsCcsEligibleRemotesBadRequest handles this case with default header values.
+/* GetEsCcsEligibleRemotesBadRequest describes a response with status code 400, with default header values.
 
 The search request failed.
 */
@@ -107,7 +105,6 @@ type GetEsCcsEligibleRemotesBadRequest struct {
 func (o *GetEsCcsEligibleRemotesBadRequest) Error() string {
 	return fmt.Sprintf("[GET /clusters/elasticsearch/ccs/eligible_remotes][%d] getEsCcsEligibleRemotesBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *GetEsCcsEligibleRemotesBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

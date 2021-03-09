@@ -46,7 +46,6 @@ func (o *MethodsReader) ReadResponse(response runtime.ClientResponse, consumer r
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,7 +56,7 @@ func NewMethodsOK() *MethodsOK {
 	return &MethodsOK{}
 }
 
-/*MethodsOK handles this case with default header values.
+/* MethodsOK describes a response with status code 200, with default header values.
 
 Available authentication methods response
 */
@@ -68,7 +67,6 @@ type MethodsOK struct {
 func (o *MethodsOK) Error() string {
 	return fmt.Sprintf("[GET /users/auth/methods][%d] methodsOK  %+v", 200, o.Payload)
 }
-
 func (o *MethodsOK) GetPayload() *models.AvailableAuthenticationMethods {
 	return o.Payload
 }

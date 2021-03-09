@@ -52,7 +52,6 @@ func (o *SearchEligibleRemoteClustersReader) ReadResponse(response runtime.Clien
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,7 +62,7 @@ func NewSearchEligibleRemoteClustersOK() *SearchEligibleRemoteClustersOK {
 	return &SearchEligibleRemoteClustersOK{}
 }
 
-/*SearchEligibleRemoteClustersOK handles this case with default header values.
+/* SearchEligibleRemoteClustersOK describes a response with status code 200, with default header values.
 
 List of deployments which contains eligible remote clusters for a specific version
 */
@@ -74,7 +73,6 @@ type SearchEligibleRemoteClustersOK struct {
 func (o *SearchEligibleRemoteClustersOK) Error() string {
 	return fmt.Sprintf("[POST /deployments/eligible-remote-clusters][%d] searchEligibleRemoteClustersOK  %+v", 200, o.Payload)
 }
-
 func (o *SearchEligibleRemoteClustersOK) GetPayload() *models.DeploymentsSearchResponse {
 	return o.Payload
 }
@@ -96,12 +94,13 @@ func NewSearchEligibleRemoteClustersBadRequest() *SearchEligibleRemoteClustersBa
 	return &SearchEligibleRemoteClustersBadRequest{}
 }
 
-/*SearchEligibleRemoteClustersBadRequest handles this case with default header values.
+/* SearchEligibleRemoteClustersBadRequest describes a response with status code 400, with default header values.
 
 The provided version is invalid. (code: `stackpack.invalid_version`)
 */
 type SearchEligibleRemoteClustersBadRequest struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -111,15 +110,18 @@ type SearchEligibleRemoteClustersBadRequest struct {
 func (o *SearchEligibleRemoteClustersBadRequest) Error() string {
 	return fmt.Sprintf("[POST /deployments/eligible-remote-clusters][%d] searchEligibleRemoteClustersBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *SearchEligibleRemoteClustersBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SearchEligibleRemoteClustersBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

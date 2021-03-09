@@ -64,7 +64,6 @@ func (o *DeleteRunnerReader) ReadResponse(response runtime.ClientResponse, consu
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,7 +74,7 @@ func NewDeleteRunnerOK() *DeleteRunnerOK {
 	return &DeleteRunnerOK{}
 }
 
-/*DeleteRunnerOK handles this case with default header values.
+/* DeleteRunnerOK describes a response with status code 200, with default header values.
 
 The runner specified by {runner_id} was deleted.
 */
@@ -86,7 +85,6 @@ type DeleteRunnerOK struct {
 func (o *DeleteRunnerOK) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/runners/{runner_id}][%d] deleteRunnerOK  %+v", 200, o.Payload)
 }
-
 func (o *DeleteRunnerOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -106,12 +104,13 @@ func NewDeleteRunnerBadRequest() *DeleteRunnerBadRequest {
 	return &DeleteRunnerBadRequest{}
 }
 
-/*DeleteRunnerBadRequest handles this case with default header values.
+/* DeleteRunnerBadRequest describes a response with status code 400, with default header values.
 
 The runner specified by {runner_id} could not be deleted. (code: `runners.runner_deletion_failed`)
 */
 type DeleteRunnerBadRequest struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -121,15 +120,18 @@ type DeleteRunnerBadRequest struct {
 func (o *DeleteRunnerBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/runners/{runner_id}][%d] deleteRunnerBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *DeleteRunnerBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *DeleteRunnerBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -146,12 +148,13 @@ func NewDeleteRunnerNotFound() *DeleteRunnerNotFound {
 	return &DeleteRunnerNotFound{}
 }
 
-/*DeleteRunnerNotFound handles this case with default header values.
+/* DeleteRunnerNotFound describes a response with status code 404, with default header values.
 
 The runner specified by {runner_id} cannot be found. (code: `runners.runner_not_found`)
 */
 type DeleteRunnerNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -161,15 +164,18 @@ type DeleteRunnerNotFound struct {
 func (o *DeleteRunnerNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/runners/{runner_id}][%d] deleteRunnerNotFound  %+v", 404, o.Payload)
 }
-
 func (o *DeleteRunnerNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *DeleteRunnerNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -186,12 +192,13 @@ func NewDeleteRunnerRetryWith() *DeleteRunnerRetryWith {
 	return &DeleteRunnerRetryWith{}
 }
 
-/*DeleteRunnerRetryWith handles this case with default header values.
+/* DeleteRunnerRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type DeleteRunnerRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -201,15 +208,18 @@ type DeleteRunnerRetryWith struct {
 func (o *DeleteRunnerRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/runners/{runner_id}][%d] deleteRunnerRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *DeleteRunnerRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *DeleteRunnerRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

@@ -34,76 +34,90 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewDeleteAllocatorParams creates a new DeleteAllocatorParams object
-// with the default values initialized.
+// NewDeleteAllocatorParams creates a new DeleteAllocatorParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewDeleteAllocatorParams() *DeleteAllocatorParams {
-	var (
-		removeInstancesDefault = bool(false)
-	)
 	return &DeleteAllocatorParams{
-		RemoveInstances: &removeInstancesDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteAllocatorParamsWithTimeout creates a new DeleteAllocatorParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewDeleteAllocatorParamsWithTimeout(timeout time.Duration) *DeleteAllocatorParams {
-	var (
-		removeInstancesDefault = bool(false)
-	)
 	return &DeleteAllocatorParams{
-		RemoveInstances: &removeInstancesDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewDeleteAllocatorParamsWithContext creates a new DeleteAllocatorParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewDeleteAllocatorParamsWithContext(ctx context.Context) *DeleteAllocatorParams {
-	var (
-		removeInstancesDefault = bool(false)
-	)
 	return &DeleteAllocatorParams{
-		RemoveInstances: &removeInstancesDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewDeleteAllocatorParamsWithHTTPClient creates a new DeleteAllocatorParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewDeleteAllocatorParamsWithHTTPClient(client *http.Client) *DeleteAllocatorParams {
-	var (
-		removeInstancesDefault = bool(false)
-	)
 	return &DeleteAllocatorParams{
-		RemoveInstances: &removeInstancesDefault,
-		HTTPClient:      client,
+		HTTPClient: client,
 	}
 }
 
-/*DeleteAllocatorParams contains all the parameters to send to the API endpoint
-for the delete allocator operation typically these are written to a http.Request
+/* DeleteAllocatorParams contains all the parameters to send to the API endpoint
+   for the delete allocator operation.
+
+   Typically these are written to a http.Request.
 */
 type DeleteAllocatorParams struct {
 
-	/*AllocatorID
-	  The allocator identifier.
+	/* AllocatorID.
 
+	   The allocator identifier.
 	*/
 	AllocatorID string
-	/*RemoveInstances
-	  Removes the instances from the deleted allocator.
 
+	/* RemoveInstances.
+
+	   Removes the instances from the deleted allocator.
 	*/
 	RemoveInstances *bool
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the delete allocator params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteAllocatorParams) WithDefaults() *DeleteAllocatorParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the delete allocator params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteAllocatorParams) SetDefaults() {
+	var (
+		removeInstancesDefault = bool(false)
+	)
+
+	val := DeleteAllocatorParams{
+		RemoveInstances: &removeInstancesDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the delete allocator params
@@ -178,16 +192,17 @@ func (o *DeleteAllocatorParams) WriteToRequest(r runtime.ClientRequest, reg strf
 
 		// query param remove_instances
 		var qrRemoveInstances bool
+
 		if o.RemoveInstances != nil {
 			qrRemoveInstances = *o.RemoveInstances
 		}
 		qRemoveInstances := swag.FormatBool(qrRemoveInstances)
 		if qRemoveInstances != "" {
+
 			if err := r.SetQueryParam("remove_instances", qRemoveInstances); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

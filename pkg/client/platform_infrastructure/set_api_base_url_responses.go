@@ -70,7 +70,6 @@ func (o *SetAPIBaseURLReader) ReadResponse(response runtime.ClientResponse, cons
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -81,18 +80,21 @@ func NewSetAPIBaseURLOK() *SetAPIBaseURLOK {
 	return &SetAPIBaseURLOK{}
 }
 
-/*SetAPIBaseURLOK handles this case with default header values.
+/* SetAPIBaseURLOK describes a response with status code 200, with default header values.
 
 The API base Url was successfully saved.
 */
 type SetAPIBaseURLOK struct {
-	/*The date-time when the resource was created (ISO format relative to UTC)
+
+	/* The date-time when the resource was created (ISO format relative to UTC)
 	 */
 	XCloudResourceCreated string
-	/*The date-time when the resource was last modified (ISO format relative to UTC)
+
+	/* The date-time when the resource was last modified (ISO format relative to UTC)
 	 */
 	XCloudResourceLastModified string
-	/*The resource version, which is used to avoid update conflicts with concurrent operations
+
+	/* The resource version, which is used to avoid update conflicts with concurrent operations
 	 */
 	XCloudResourceVersion string
 
@@ -102,21 +104,32 @@ type SetAPIBaseURLOK struct {
 func (o *SetAPIBaseURLOK) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/api_base_url][%d] setApiBaseUrlOK  %+v", 200, o.Payload)
 }
-
 func (o *SetAPIBaseURLOK) GetPayload() *models.APIBaseURLData {
 	return o.Payload
 }
 
 func (o *SetAPIBaseURLOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-resource-created
-	o.XCloudResourceCreated = response.GetHeader("x-cloud-resource-created")
+	// hydrates response header x-cloud-resource-created
+	hdrXCloudResourceCreated := response.GetHeader("x-cloud-resource-created")
 
-	// response header x-cloud-resource-last-modified
-	o.XCloudResourceLastModified = response.GetHeader("x-cloud-resource-last-modified")
+	if hdrXCloudResourceCreated != "" {
+		o.XCloudResourceCreated = hdrXCloudResourceCreated
+	}
 
-	// response header x-cloud-resource-version
-	o.XCloudResourceVersion = response.GetHeader("x-cloud-resource-version")
+	// hydrates response header x-cloud-resource-last-modified
+	hdrXCloudResourceLastModified := response.GetHeader("x-cloud-resource-last-modified")
+
+	if hdrXCloudResourceLastModified != "" {
+		o.XCloudResourceLastModified = hdrXCloudResourceLastModified
+	}
+
+	// hydrates response header x-cloud-resource-version
+	hdrXCloudResourceVersion := response.GetHeader("x-cloud-resource-version")
+
+	if hdrXCloudResourceVersion != "" {
+		o.XCloudResourceVersion = hdrXCloudResourceVersion
+	}
 
 	o.Payload = new(models.APIBaseURLData)
 
@@ -133,12 +146,13 @@ func NewSetAPIBaseURLBadRequest() *SetAPIBaseURLBadRequest {
 	return &SetAPIBaseURLBadRequest{}
 }
 
-/*SetAPIBaseURLBadRequest handles this case with default header values.
+/* SetAPIBaseURLBadRequest describes a response with status code 400, with default header values.
 
 The optimistic locking version format was wrong. (code: `adminconsole.base_url.bad_version_format`)
 */
 type SetAPIBaseURLBadRequest struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -148,15 +162,18 @@ type SetAPIBaseURLBadRequest struct {
 func (o *SetAPIBaseURLBadRequest) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/api_base_url][%d] setApiBaseUrlBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *SetAPIBaseURLBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SetAPIBaseURLBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -173,12 +190,13 @@ func NewSetAPIBaseURLNotFound() *SetAPIBaseURLNotFound {
 	return &SetAPIBaseURLNotFound{}
 }
 
-/*SetAPIBaseURLNotFound handles this case with default header values.
+/* SetAPIBaseURLNotFound describes a response with status code 404, with default header values.
 
 There is no configured API base value but optimistic locking was sent. (code: `adminconsole.base_url.not_found`)
 */
 type SetAPIBaseURLNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -188,15 +206,18 @@ type SetAPIBaseURLNotFound struct {
 func (o *SetAPIBaseURLNotFound) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/api_base_url][%d] setApiBaseUrlNotFound  %+v", 404, o.Payload)
 }
-
 func (o *SetAPIBaseURLNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SetAPIBaseURLNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -213,12 +234,13 @@ func NewSetAPIBaseURLConflict() *SetAPIBaseURLConflict {
 	return &SetAPIBaseURLConflict{}
 }
 
-/*SetAPIBaseURLConflict handles this case with default header values.
+/* SetAPIBaseURLConflict describes a response with status code 409, with default header values.
 
 There was an optimistic locking version conflict. (code: `adminconsole.base_url.version_conflict`)
 */
 type SetAPIBaseURLConflict struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -228,15 +250,18 @@ type SetAPIBaseURLConflict struct {
 func (o *SetAPIBaseURLConflict) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/api_base_url][%d] setApiBaseUrlConflict  %+v", 409, o.Payload)
 }
-
 func (o *SetAPIBaseURLConflict) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SetAPIBaseURLConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -253,12 +278,13 @@ func NewSetAPIBaseURLPreconditionFailed() *SetAPIBaseURLPreconditionFailed {
 	return &SetAPIBaseURLPreconditionFailed{}
 }
 
-/*SetAPIBaseURLPreconditionFailed handles this case with default header values.
+/* SetAPIBaseURLPreconditionFailed describes a response with status code 412, with default header values.
 
 skip_cascading_operations was false but the Security Deployment already had a pending plan. (code: `security_deployment.cluster_pending_plan_exists`)
 */
 type SetAPIBaseURLPreconditionFailed struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -268,15 +294,18 @@ type SetAPIBaseURLPreconditionFailed struct {
 func (o *SetAPIBaseURLPreconditionFailed) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/api_base_url][%d] setApiBaseUrlPreconditionFailed  %+v", 412, o.Payload)
 }
-
 func (o *SetAPIBaseURLPreconditionFailed) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SetAPIBaseURLPreconditionFailed) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

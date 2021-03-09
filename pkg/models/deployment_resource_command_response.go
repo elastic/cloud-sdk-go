@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -54,7 +55,6 @@ func (m *DeploymentResourceCommandResponse) Validate(formats strfmt.Registry) er
 }
 
 func (m *DeploymentResourceCommandResponse) validateWarnings(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Warnings) { // not required
 		return nil
 	}
@@ -66,6 +66,38 @@ func (m *DeploymentResourceCommandResponse) validateWarnings(formats strfmt.Regi
 
 		if m.Warnings[i] != nil {
 			if err := m.Warnings[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("warnings" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this deployment resource command response based on the context it is used
+func (m *DeploymentResourceCommandResponse) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateWarnings(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *DeploymentResourceCommandResponse) contextValidateWarnings(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Warnings); i++ {
+
+		if m.Warnings[i] != nil {
+			if err := m.Warnings[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("warnings" + "." + strconv.Itoa(i))
 				}

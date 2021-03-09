@@ -33,64 +33,79 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewSetKibanaClusterNameParams creates a new SetKibanaClusterNameParams object
-// with the default values initialized.
+// NewSetKibanaClusterNameParams creates a new SetKibanaClusterNameParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewSetKibanaClusterNameParams() *SetKibanaClusterNameParams {
-	var ()
 	return &SetKibanaClusterNameParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewSetKibanaClusterNameParamsWithTimeout creates a new SetKibanaClusterNameParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewSetKibanaClusterNameParamsWithTimeout(timeout time.Duration) *SetKibanaClusterNameParams {
-	var ()
 	return &SetKibanaClusterNameParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewSetKibanaClusterNameParamsWithContext creates a new SetKibanaClusterNameParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewSetKibanaClusterNameParamsWithContext(ctx context.Context) *SetKibanaClusterNameParams {
-	var ()
 	return &SetKibanaClusterNameParams{
-
 		Context: ctx,
 	}
 }
 
 // NewSetKibanaClusterNameParamsWithHTTPClient creates a new SetKibanaClusterNameParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewSetKibanaClusterNameParamsWithHTTPClient(client *http.Client) *SetKibanaClusterNameParams {
-	var ()
 	return &SetKibanaClusterNameParams{
 		HTTPClient: client,
 	}
 }
 
-/*SetKibanaClusterNameParams contains all the parameters to send to the API endpoint
-for the set kibana cluster name operation typically these are written to a http.Request
+/* SetKibanaClusterNameParams contains all the parameters to send to the API endpoint
+   for the set kibana cluster name operation.
+
+   Typically these are written to a http.Request.
 */
 type SetKibanaClusterNameParams struct {
 
-	/*ClusterID
-	  The Kibana deployment identifier.
+	/* ClusterID.
 
+	   The Kibana deployment identifier.
 	*/
 	ClusterID string
-	/*NewName
-	  The new name for the cluster.
 
+	/* NewName.
+
+	   The new name for the cluster.
 	*/
 	NewName string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the set kibana cluster name params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetKibanaClusterNameParams) WithDefaults() *SetKibanaClusterNameParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the set kibana cluster name params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetKibanaClusterNameParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the set kibana cluster name params

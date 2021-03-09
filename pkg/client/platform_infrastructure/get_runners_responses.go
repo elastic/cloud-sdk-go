@@ -46,7 +46,6 @@ func (o *GetRunnersReader) ReadResponse(response runtime.ClientResponse, consume
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,7 +56,7 @@ func NewGetRunnersOK() *GetRunnersOK {
 	return &GetRunnersOK{}
 }
 
-/*GetRunnersOK handles this case with default header values.
+/* GetRunnersOK describes a response with status code 200, with default header values.
 
 An overview of all runners.
 */
@@ -68,7 +67,6 @@ type GetRunnersOK struct {
 func (o *GetRunnersOK) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/runners][%d] getRunnersOK  %+v", 200, o.Payload)
 }
-
 func (o *GetRunnersOK) GetPayload() *models.RunnerOverview {
 	return o.Payload
 }

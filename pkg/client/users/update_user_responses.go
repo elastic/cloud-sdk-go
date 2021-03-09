@@ -64,7 +64,6 @@ func (o *UpdateUserReader) ReadResponse(response runtime.ClientResponse, consume
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,7 +74,7 @@ func NewUpdateUserOK() *UpdateUserOK {
 	return &UpdateUserOK{}
 }
 
-/*UpdateUserOK handles this case with default header values.
+/* UpdateUserOK describes a response with status code 200, with default header values.
 
 User successfully updated
 */
@@ -86,7 +85,6 @@ type UpdateUserOK struct {
 func (o *UpdateUserOK) Error() string {
 	return fmt.Sprintf("[PATCH /users/{user_name}][%d] updateUserOK  %+v", 200, o.Payload)
 }
-
 func (o *UpdateUserOK) GetPayload() *models.User {
 	return o.Payload
 }
@@ -108,16 +106,17 @@ func NewUpdateUserBadRequest() *UpdateUserBadRequest {
 	return &UpdateUserBadRequest{}
 }
 
-/*UpdateUserBadRequest handles this case with default header values.
+/* UpdateUserBadRequest describes a response with status code 400, with default header values.
 
-* Some of the provided roles are invalid. (code: `user.roles.invalid`)
+ * Some of the provided roles are invalid. (code: `user.roles.invalid`)
 * Some of the provided roles are forbidden. (code: `user.roles.forbidden`)
 * Trying to set a restricted field. (code: `user.restricted_field`)
 * External users cannot be modified. (code: `user.cannot_modify_external`)
 * Built-in users cannot be modified. (code: `user.cannot_modify`)
- */
+*/
 type UpdateUserBadRequest struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -127,15 +126,18 @@ type UpdateUserBadRequest struct {
 func (o *UpdateUserBadRequest) Error() string {
 	return fmt.Sprintf("[PATCH /users/{user_name}][%d] updateUserBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *UpdateUserBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *UpdateUserBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -152,12 +154,13 @@ func NewUpdateUserNotFound() *UpdateUserNotFound {
 	return &UpdateUserNotFound{}
 }
 
-/*UpdateUserNotFound handles this case with default header values.
+/* UpdateUserNotFound describes a response with status code 404, with default header values.
 
 User not found. (code: `user.not_found`)
 */
 type UpdateUserNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -167,15 +170,18 @@ type UpdateUserNotFound struct {
 func (o *UpdateUserNotFound) Error() string {
 	return fmt.Sprintf("[PATCH /users/{user_name}][%d] updateUserNotFound  %+v", 404, o.Payload)
 }
-
 func (o *UpdateUserNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *UpdateUserNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -192,12 +198,13 @@ func NewUpdateUserRetryWith() *UpdateUserRetryWith {
 	return &UpdateUserRetryWith{}
 }
 
-/*UpdateUserRetryWith handles this case with default header values.
+/* UpdateUserRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type UpdateUserRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -207,15 +214,18 @@ type UpdateUserRetryWith struct {
 func (o *UpdateUserRetryWith) Error() string {
 	return fmt.Sprintf("[PATCH /users/{user_name}][%d] updateUserRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *UpdateUserRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *UpdateUserRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

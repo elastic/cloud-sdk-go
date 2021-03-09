@@ -70,7 +70,6 @@ func (o *UpdateExtensionReader) ReadResponse(response runtime.ClientResponse, co
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -81,18 +80,21 @@ func NewUpdateExtensionOK() *UpdateExtensionOK {
 	return &UpdateExtensionOK{}
 }
 
-/*UpdateExtensionOK handles this case with default header values.
+/* UpdateExtensionOK describes a response with status code 200, with default header values.
 
 Extension updated successfully.
 */
 type UpdateExtensionOK struct {
-	/*The date-time when the resource was created (ISO format relative to UTC)
+
+	/* The date-time when the resource was created (ISO format relative to UTC)
 	 */
 	XCloudResourceCreated string
-	/*The date-time when the resource was last modified (ISO format relative to UTC)
+
+	/* The date-time when the resource was last modified (ISO format relative to UTC)
 	 */
 	XCloudResourceLastModified string
-	/*The resource version, which is used to avoid update conflicts with concurrent operations
+
+	/* The resource version, which is used to avoid update conflicts with concurrent operations
 	 */
 	XCloudResourceVersion string
 
@@ -102,21 +104,32 @@ type UpdateExtensionOK struct {
 func (o *UpdateExtensionOK) Error() string {
 	return fmt.Sprintf("[POST /deployments/extensions/{extension_id}][%d] updateExtensionOK  %+v", 200, o.Payload)
 }
-
 func (o *UpdateExtensionOK) GetPayload() *models.Extension {
 	return o.Payload
 }
 
 func (o *UpdateExtensionOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-resource-created
-	o.XCloudResourceCreated = response.GetHeader("x-cloud-resource-created")
+	// hydrates response header x-cloud-resource-created
+	hdrXCloudResourceCreated := response.GetHeader("x-cloud-resource-created")
 
-	// response header x-cloud-resource-last-modified
-	o.XCloudResourceLastModified = response.GetHeader("x-cloud-resource-last-modified")
+	if hdrXCloudResourceCreated != "" {
+		o.XCloudResourceCreated = hdrXCloudResourceCreated
+	}
 
-	// response header x-cloud-resource-version
-	o.XCloudResourceVersion = response.GetHeader("x-cloud-resource-version")
+	// hydrates response header x-cloud-resource-last-modified
+	hdrXCloudResourceLastModified := response.GetHeader("x-cloud-resource-last-modified")
+
+	if hdrXCloudResourceLastModified != "" {
+		o.XCloudResourceLastModified = hdrXCloudResourceLastModified
+	}
+
+	// hydrates response header x-cloud-resource-version
+	hdrXCloudResourceVersion := response.GetHeader("x-cloud-resource-version")
+
+	if hdrXCloudResourceVersion != "" {
+		o.XCloudResourceVersion = hdrXCloudResourceVersion
+	}
 
 	o.Payload = new(models.Extension)
 
@@ -133,12 +146,13 @@ func NewUpdateExtensionBadRequest() *UpdateExtensionBadRequest {
 	return &UpdateExtensionBadRequest{}
 }
 
-/*UpdateExtensionBadRequest handles this case with default header values.
+/* UpdateExtensionBadRequest describes a response with status code 400, with default header values.
 
 Could not download the extension from the specified URL. (code: `extensions.request_execution_failed`)
 */
 type UpdateExtensionBadRequest struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -148,15 +162,18 @@ type UpdateExtensionBadRequest struct {
 func (o *UpdateExtensionBadRequest) Error() string {
 	return fmt.Sprintf("[POST /deployments/extensions/{extension_id}][%d] updateExtensionBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *UpdateExtensionBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *UpdateExtensionBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -173,13 +190,14 @@ func NewUpdateExtensionUnauthorized() *UpdateExtensionUnauthorized {
 	return &UpdateExtensionUnauthorized{}
 }
 
-/*UpdateExtensionUnauthorized handles this case with default header values.
+/* UpdateExtensionUnauthorized describes a response with status code 401, with default header values.
 
-* The extension does not belong to you. (code: `extensions.unauthorised`)
+ * The extension does not belong to you. (code: `extensions.unauthorised`)
 * Your current session does not have a user id associated with it. (code: `extensions.no_user_id`)
- */
+*/
 type UpdateExtensionUnauthorized struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -189,15 +207,18 @@ type UpdateExtensionUnauthorized struct {
 func (o *UpdateExtensionUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /deployments/extensions/{extension_id}][%d] updateExtensionUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *UpdateExtensionUnauthorized) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *UpdateExtensionUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -214,12 +235,13 @@ func NewUpdateExtensionNotFound() *UpdateExtensionNotFound {
 	return &UpdateExtensionNotFound{}
 }
 
-/*UpdateExtensionNotFound handles this case with default header values.
+/* UpdateExtensionNotFound describes a response with status code 404, with default header values.
 
 The extension you want does not exist. (code: `extensions.not_found`)
 */
 type UpdateExtensionNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -229,15 +251,18 @@ type UpdateExtensionNotFound struct {
 func (o *UpdateExtensionNotFound) Error() string {
 	return fmt.Sprintf("[POST /deployments/extensions/{extension_id}][%d] updateExtensionNotFound  %+v", 404, o.Payload)
 }
-
 func (o *UpdateExtensionNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *UpdateExtensionNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -254,12 +279,13 @@ func NewUpdateExtensionConflict() *UpdateExtensionConflict {
 	return &UpdateExtensionConflict{}
 }
 
-/*UpdateExtensionConflict handles this case with default header values.
+/* UpdateExtensionConflict describes a response with status code 409, with default header values.
 
 The version you sent does not match the persisted version. (code: `extensions.version_conflict`)
 */
 type UpdateExtensionConflict struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -269,15 +295,18 @@ type UpdateExtensionConflict struct {
 func (o *UpdateExtensionConflict) Error() string {
 	return fmt.Sprintf("[POST /deployments/extensions/{extension_id}][%d] updateExtensionConflict  %+v", 409, o.Payload)
 }
-
 func (o *UpdateExtensionConflict) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *UpdateExtensionConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
