@@ -111,7 +111,7 @@ func TestResync(t *testing.T) {
 func TestResyncAll(t *testing.T) {
 	urlError := url.Error{
 		Op:  "Post",
-		URL: "https://mock.elastic.co/api/v1/regions/us-east-1/platform/infrastructure/runners/_resync?skip_matching_version=true",
+		URL: "https://mock.elastic.co/api/v1/regions/us-east-1/platform/infrastructure/runners/_resync",
 		Err: errors.New("error with API"),
 	}
 	type args struct {
@@ -166,9 +166,6 @@ func TestResyncAll(t *testing.T) {
 						Method: "POST",
 						Host:   api.DefaultMockHost,
 						Path:   "/api/v1/regions/us-east-1/platform/infrastructure/runners/_resync",
-						Query: url.Values{
-							"skip_matching_version": []string{"true"},
-						},
 					},
 				}),
 			}},

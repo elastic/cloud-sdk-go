@@ -327,7 +327,7 @@ func TestRoundTripper_RoundTrip(t *testing.T) {
 			}},
 			want: []want{
 				{err: multierror.NewPrefixed("request assertion",
-					errors.New(`got body {"some":"body"}, want {"some":"nonmatch"}`),
+					errors.New(`actual body {"some":"body"}, expected {"some":"nonmatch"}`),
 				)},
 				{want: &http.Response{
 					Status:     http.StatusText(http.StatusOK),

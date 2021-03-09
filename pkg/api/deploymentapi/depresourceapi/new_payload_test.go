@@ -18,7 +18,6 @@
 package depresourceapi
 
 import (
-	"errors"
 	"net/url"
 	"testing"
 
@@ -173,7 +172,7 @@ func TestNewPayload(t *testing.T) {
 		name string
 		args args
 		want *models.DeploymentCreateRequest
-		err  error
+		err  string
 	}{
 		{
 			name: "Fails due to API error",
@@ -195,7 +194,7 @@ func TestNewPayload(t *testing.T) {
 					mock.NewStringBody("error"),
 				)),
 			}},
-			err: errors.New("error"),
+			err: "error",
 		},
 		{
 			name: "Fails to create a deployment payload with ES and Kibana instances",
@@ -217,7 +216,7 @@ func TestNewPayload(t *testing.T) {
 					mock.New200Response(mock.NewStructBody(defaultTemplateResponse)),
 				),
 			}},
-			err: errors.New("deployment: the default template is not configured for Kibana. Please use another template if you wish to start Kibana instances"),
+			err: "deployment: the default template is not configured for Kibana. Please use another template if you wish to start Kibana instances",
 		},
 		{
 			name: "Fails to create a deployment payload with ES, Kibana and APM instances",
@@ -245,7 +244,7 @@ func TestNewPayload(t *testing.T) {
 					mock.New200Response(mock.NewStructBody(appsearchKibanaTemplateResponse)),
 				),
 			}},
-			err: errors.New("deployment: the default template is not configured for APM. Please use another template if you wish to start APM instances"),
+			err: "deployment: the default template is not configured for APM. Please use another template if you wish to start APM instances",
 		},
 		{
 			name: "Fails to create a deployment payload with ES, Kibana and App Search instances",
@@ -273,7 +272,7 @@ func TestNewPayload(t *testing.T) {
 					mock.New200Response(mock.NewStructBody(apmKibanaTemplateResponse)),
 				),
 			}},
-			err: errors.New("deployment: the default template is not configured for App Search. Please use another template if you wish to start App Search instances"),
+			err: "deployment: the default template is not configured for App Search. Please use another template if you wish to start App Search instances",
 		},
 		{
 			name: "Fails to create a deployment payload with ES, Kibana and App Search instances with version auto-discover",
@@ -305,8 +304,7 @@ func TestNewPayload(t *testing.T) {
 							Path:   "/api/v1/regions/ece-region/stack/versions",
 							Method: "GET",
 							Query: url.Values{
-								"show_deleted":  {"false"},
-								"show_unusable": {"false"},
+								"show_deleted": {"false"},
 							},
 						},
 						mock.NewStructBody(models.StackVersionConfigs{Stacks: []*models.StackVersionConfig{
@@ -315,7 +313,7 @@ func TestNewPayload(t *testing.T) {
 					),
 				),
 			}},
-			err: errors.New("deployment: the default template is not configured for App Search. Please use another template if you wish to start App Search instances"),
+			err: "deployment: the default template is not configured for App Search. Please use another template if you wish to start App Search instances",
 		},
 		{
 			name: "Succeeds to create a deployment payload with ES and Kibana instances with version auto-discovery",
@@ -341,8 +339,7 @@ func TestNewPayload(t *testing.T) {
 							Path:   "/api/v1/regions/ece-region/stack/versions",
 							Method: "GET",
 							Query: url.Values{
-								"show_deleted":  {"false"},
-								"show_unusable": {"false"},
+								"show_deleted": {"false"},
 							},
 						},
 						mock.NewStructBody(models.StackVersionConfigs{Stacks: []*models.StackVersionConfig{
@@ -735,8 +732,10 @@ func TestNewPayload(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := NewPayload(tt.args.params)
-			if err != nil && !assert.EqualError(t, err, tt.err.Error()) {
-				t.Error(err)
+			if err != nil {
+				if !assert.EqualError(t, err, tt.err) {
+					t.Error(err)
+				}
 			}
 			if !assert.Equal(t, tt.want, got) {
 				t.Error(err)

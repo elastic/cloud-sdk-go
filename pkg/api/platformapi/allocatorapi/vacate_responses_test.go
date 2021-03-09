@@ -558,7 +558,6 @@ func newVacateTestCase(t *testing.T, tc vacateCase) *VacateParams {
 					"/api/v1/regions/%s/platform/infrastructure/allocators/%s/clusters/_move", tc.region, alloc,
 				),
 				Query: url.Values{
-					"force_update":  {"false"},
 					"validate_only": {"true"},
 				},
 			},
@@ -637,7 +636,6 @@ func newAPMVacateMove(t *testing.T, alloc string, move vacateCaseClusterConfig, 
 			),
 			Query: url.Values{
 				"allocator_down": {"false"},
-				"force_update":   {"false"},
 				"validate_only":  {"true"},
 			},
 		},
@@ -692,9 +690,6 @@ func newAPMVacateMove(t *testing.T, alloc string, move vacateCaseClusterConfig, 
 			),
 			Query: url.Values{
 				"allocator_down": {"false"},
-				"force_update":   {"false"},
-				"move_only":      {"true"},
-				"validate_only":  {"false"},
 			},
 		},
 	}, newDeploymentDiscovery())
@@ -756,7 +751,6 @@ func newKibanaVacateMove(t *testing.T, alloc string, move vacateCaseClusterConfi
 			),
 			Query: url.Values{
 				"allocator_down": {"false"},
-				"force_update":   {"false"},
 				"validate_only":  {"true"},
 			},
 		},
@@ -811,9 +805,6 @@ func newKibanaVacateMove(t *testing.T, alloc string, move vacateCaseClusterConfi
 			),
 			Query: url.Values{
 				"allocator_down": {"false"},
-				"force_update":   {"false"},
-				"move_only":      {"true"},
-				"validate_only":  {"false"},
 			},
 		},
 	}, newDeploymentDiscovery())
@@ -874,7 +865,6 @@ func newElasticsearchVacateMove(t *testing.T, alloc string, move vacateCaseClust
 			),
 			Query: url.Values{
 				"allocator_down": {"false"},
-				"force_update":   {"false"},
 				"validate_only":  {"true"},
 			},
 		},
@@ -927,9 +917,6 @@ func newElasticsearchVacateMove(t *testing.T, alloc string, move vacateCaseClust
 			),
 			Query: url.Values{
 				"allocator_down": {"false"},
-				"force_update":   {"false"},
-				"move_only":      {"true"},
-				"validate_only":  {"false"},
 			},
 		},
 	}, newDeploymentDiscovery())
@@ -991,7 +978,6 @@ func newAppsearchVacateMove(t *testing.T, alloc string, move vacateCaseClusterCo
 			),
 			Query: url.Values{
 				"allocator_down": {"false"},
-				"force_update":   {"false"},
 				"validate_only":  {"true"},
 			},
 		},
@@ -1046,9 +1032,6 @@ func newAppsearchVacateMove(t *testing.T, alloc string, move vacateCaseClusterCo
 				),
 				Query: url.Values{
 					"allocator_down": {"false"},
-					"force_update":   {"false"},
-					"move_only":      {"true"},
-					"validate_only":  {"false"},
 				},
 			},
 		}, newDeploymentDiscovery())
@@ -1110,7 +1093,6 @@ func newEnterpriseSearchVacateMove(t *testing.T, alloc string, move vacateCaseCl
 			),
 			Query: url.Values{
 				"allocator_down": {"false"},
-				"force_update":   {"false"},
 				"validate_only":  {"true"},
 			},
 		},
@@ -1165,9 +1147,6 @@ func newEnterpriseSearchVacateMove(t *testing.T, alloc string, move vacateCaseCl
 				),
 				Query: url.Values{
 					"allocator_down": {"false"},
-					"force_update":   {"false"},
-					"move_only":      {"true"},
-					"validate_only":  {"false"},
 				},
 			},
 		}, newDeploymentDiscovery())

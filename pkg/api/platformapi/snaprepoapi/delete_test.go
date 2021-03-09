@@ -20,7 +20,6 @@ package snaprepoapi
 import (
 	"errors"
 	"net/http"
-	"net/url"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -55,9 +54,6 @@ func TestDelete(t *testing.T) {
 							Method: "DELETE",
 							Host:   api.DefaultMockHost,
 							Path:   "/api/v1/regions/us-east-1/platform/configuration/snapshots/repositories/my_repo",
-							Query: url.Values{
-								"cleanup_deployments": []string{"false"},
-							},
 						},
 					}),
 				},
