@@ -166,13 +166,17 @@ func checkCurrentStatus(params TrackChangeParams, c chan<- TrackResponse, change
 	}
 
 	for _, trackResponse := range buildTrackResponse(res.Payload.Resources, true) {
+		trackResponse.DeploymentID = *res.Payload.ID
+		if len(changedResources) == 0 && trackResponse.Err != nil {
+			c <- trackResponse
+			continue
+		}
+
 		if slice.HasString(changedResources, trackResponse.ID) {
 			ignoreChange := params.Kind != trackResponse.Kind && params.IgnoreDownstream
-			if ignoreChange {
-				continue
+			if !ignoreChange {
+				c <- trackResponse
 			}
-			trackResponse.DeploymentID = *res.Payload.ID
-			c <- trackResponse
 		}
 	}
 }
