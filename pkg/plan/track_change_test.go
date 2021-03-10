@@ -21,7 +21,6 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
-	"reflect"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -375,6 +374,20 @@ func TestTrackChange(t *testing.T) {
 			},
 		},
 	})
+	var currentPlanWithFailure = planmock.Generate(planmock.GenerateConfig{
+		ID: "cbb4bc6c09684c86aa5de54c05ea1d38",
+		Elasticsearch: []planmock.GeneratedResourceConfig{
+			{
+				ID: "cde7b6b605424a54ce9d56316eab13a1",
+				CurrentLog: planmock.NewPlanStepLog(
+					planmock.NewPlanStep("something", "success"),
+					planmock.NewPlanStepWithDetailsAndError(planCompleted, []*models.ClusterPlanStepLogMessageInfo{
+						{Message: ec.String("horrible failure")},
+					}),
+				),
+			},
+		},
+	})
 
 	type args struct {
 		params TrackChangeParams
@@ -635,6 +648,24 @@ func TestTrackChange(t *testing.T) {
 				{ID: "cde7b6b605424a54ce9d56316eab13a1", Kind: "elasticsearch", DeploymentID: "cbb4bc6c09684c86aa5de54c05ea1d38", RefID: "main-elasticsearch", Step: "plan-completed", Finished: true, Err: ErrPlanFinished},
 			},
 		},
+		{
+			name: "looks up the deploymentID and on tracking the change, the plan has already finished, returning an error when found",
+			args: args{params: TrackChangeParams{
+				Config: TrackFrequencyConfig{
+					MaxRetries: 1,
+				},
+				API: api.NewMock(
+					mock.New200StructResponse(foundDeploymentIDResponse),
+					mock.New200StructResponse(noMorePendingPlan),
+					mock.New200StructResponse(currentPlanWithFailure),
+				),
+				ResourceID: "cde7b6b605424a54ce9d56316eab13a1",
+				Kind:       "elasticsearch",
+			}},
+			want: []TrackResponse{
+				{ID: "cde7b6b605424a54ce9d56316eab13a1", Kind: "elasticsearch", DeploymentID: "cbb4bc6c09684c86aa5de54c05ea1d38", RefID: "main-elasticsearch", Step: "plan-completed", Finished: true, Err: errors.New("horrible failure")},
+			},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -654,7 +685,7 @@ func TestTrackChange(t *testing.T) {
 					gotResponses = append(gotResponses, res)
 				}
 
-				if !reflect.DeepEqual(gotResponses, tt.want) {
+				if !assert.Equal(t, tt.want, gotResponses) {
 					var wantBuf = new(bytes.Buffer)
 					for _, w := range tt.want {
 						json.NewEncoder(wantBuf).Encode(w)
