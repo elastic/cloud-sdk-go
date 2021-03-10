@@ -387,6 +387,15 @@ func TestTrackChange(t *testing.T) {
 				),
 			},
 		},
+		Kibana: []planmock.GeneratedResourceConfig{
+			{
+				ID: "cde7b6b605424a54ce9d56316eab13a1",
+				CurrentLog: planmock.NewPlanStepLog(
+					planmock.NewPlanStep("something", "success"),
+					planmock.NewPlanStep(planCompleted, "success"),
+				),
+			},
+		},
 	})
 
 	type args struct {
@@ -651,6 +660,26 @@ func TestTrackChange(t *testing.T) {
 		{
 			name: "looks up the deploymentID and on tracking the change, the plan has already finished, returning an error when found",
 			args: args{params: TrackChangeParams{
+				Config: TrackFrequencyConfig{
+					MaxRetries: 1,
+				},
+				API: api.NewMock(
+					mock.New200StructResponse(foundDeploymentIDResponse),
+					mock.New200StructResponse(noMorePendingPlan),
+					mock.New200StructResponse(currentPlanWithFailure),
+				),
+				ResourceID: "cde7b6b605424a54ce9d56316eab13a1",
+				Kind:       "elasticsearch",
+			}},
+			want: []TrackResponse{
+				{ID: "cde7b6b605424a54ce9d56316eab13a1", Kind: "elasticsearch", DeploymentID: "cbb4bc6c09684c86aa5de54c05ea1d38", RefID: "main-elasticsearch", Step: "plan-completed", Finished: true, Err: errors.New("horrible failure")},
+				{ID: "cde7b6b605424a54ce9d56316eab13a1", Kind: "kibana", DeploymentID: "cbb4bc6c09684c86aa5de54c05ea1d38", RefID: "main-kibana", Step: "plan-completed", Finished: true, Err: ErrPlanFinished},
+			},
+		},
+		{
+			name: "looks up the deploymentID and on tracking the change, the plan has already finished, returning an error when found and ignoring downstream changes",
+			args: args{params: TrackChangeParams{
+				IgnoreDownstream: true,
 				Config: TrackFrequencyConfig{
 					MaxRetries: 1,
 				},
