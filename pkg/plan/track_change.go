@@ -167,13 +167,22 @@ func checkCurrentStatus(params TrackChangeParams, c chan<- TrackResponse, change
 
 	for _, trackResponse := range buildTrackResponse(res.Payload.Resources, true) {
 		trackResponse.DeploymentID = *res.Payload.ID
+		ignoreChange := params.Kind != trackResponse.Kind && params.IgnoreDownstream
+
+		// This conditional catches plans that failed but finished before the
+		// plan tracker had the chance to call the API, changedResources will be
+		// 0 length.
+		// Since we'd still like to report on any failures that that plan might
+		// have had, we're effectively sending a message to the plan tracker
+		// when the current plan ended with an error.
 		if len(changedResources) == 0 && trackResponse.Err != nil {
-			c <- trackResponse
+			if !ignoreChange {
+				c <- trackResponse
+			}
 			continue
 		}
 
 		if slice.HasString(changedResources, trackResponse.ID) {
-			ignoreChange := params.Kind != trackResponse.Kind && params.IgnoreDownstream
 			if !ignoreChange {
 				c <- trackResponse
 			}
