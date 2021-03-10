@@ -52,7 +52,6 @@ func (o *ResyncKibanaClustersReader) ReadResponse(response runtime.ClientRespons
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,7 +62,7 @@ func NewResyncKibanaClustersAccepted() *ResyncKibanaClustersAccepted {
 	return &ResyncKibanaClustersAccepted{}
 }
 
-/*ResyncKibanaClustersAccepted handles this case with default header values.
+/* ResyncKibanaClustersAccepted describes a response with status code 202, with default header values.
 
 The ids of documents, organized by model version, that will be synchronized.
 */
@@ -74,7 +73,6 @@ type ResyncKibanaClustersAccepted struct {
 func (o *ResyncKibanaClustersAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/_resync][%d] resyncKibanaClustersAccepted  %+v", 202, o.Payload)
 }
-
 func (o *ResyncKibanaClustersAccepted) GetPayload() *models.ModelVersionIndexSynchronizationResults {
 	return o.Payload
 }
@@ -96,12 +94,13 @@ func NewResyncKibanaClustersRetryWith() *ResyncKibanaClustersRetryWith {
 	return &ResyncKibanaClustersRetryWith{}
 }
 
-/*ResyncKibanaClustersRetryWith handles this case with default header values.
+/* ResyncKibanaClustersRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type ResyncKibanaClustersRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -111,15 +110,18 @@ type ResyncKibanaClustersRetryWith struct {
 func (o *ResyncKibanaClustersRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/_resync][%d] resyncKibanaClustersRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *ResyncKibanaClustersRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *ResyncKibanaClustersRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

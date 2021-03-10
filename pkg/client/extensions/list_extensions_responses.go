@@ -46,7 +46,6 @@ func (o *ListExtensionsReader) ReadResponse(response runtime.ClientResponse, con
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,7 +56,7 @@ func NewListExtensionsOK() *ListExtensionsOK {
 	return &ListExtensionsOK{}
 }
 
-/*ListExtensionsOK handles this case with default header values.
+/* ListExtensionsOK describes a response with status code 200, with default header values.
 
 The extensions that are available
 */
@@ -68,7 +67,6 @@ type ListExtensionsOK struct {
 func (o *ListExtensionsOK) Error() string {
 	return fmt.Sprintf("[GET /deployments/extensions][%d] listExtensionsOK  %+v", 200, o.Payload)
 }
-
 func (o *ListExtensionsOK) GetPayload() *models.Extensions {
 	return o.Payload
 }

@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -86,7 +87,6 @@ func (m *DeploymentUpdateResponse) Validate(formats strfmt.Registry) error {
 }
 
 func (m *DeploymentUpdateResponse) validateDiagnostics(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Diagnostics) { // not required
 		return nil
 	}
@@ -147,13 +147,80 @@ func (m *DeploymentUpdateResponse) validateResources(formats strfmt.Registry) er
 }
 
 func (m *DeploymentUpdateResponse) validateShutdownResources(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.ShutdownResources) { // not required
 		return nil
 	}
 
 	if m.ShutdownResources != nil {
 		if err := m.ShutdownResources.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("shutdown_resources")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this deployment update response based on the context it is used
+func (m *DeploymentUpdateResponse) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateDiagnostics(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateResources(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateShutdownResources(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *DeploymentUpdateResponse) contextValidateDiagnostics(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Diagnostics != nil {
+		if err := m.Diagnostics.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("diagnostics")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *DeploymentUpdateResponse) contextValidateResources(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Resources); i++ {
+
+		if m.Resources[i] != nil {
+			if err := m.Resources[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("resources" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *DeploymentUpdateResponse) contextValidateShutdownResources(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.ShutdownResources != nil {
+		if err := m.ShutdownResources.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("shutdown_resources")
 			}

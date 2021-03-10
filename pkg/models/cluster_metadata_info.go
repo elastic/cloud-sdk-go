@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -101,7 +103,6 @@ func (m *ClusterMetadataInfo) validateLastModified(formats strfmt.Registry) erro
 }
 
 func (m *ClusterMetadataInfo) validatePorts(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Ports) { // not required
 		return nil
 	}
@@ -122,6 +123,34 @@ func (m *ClusterMetadataInfo) validateVersion(formats strfmt.Registry) error {
 
 	if err := validate.Required("version", "body", m.Version); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this cluster metadata info based on the context it is used
+func (m *ClusterMetadataInfo) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidatePorts(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ClusterMetadataInfo) contextValidatePorts(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Ports != nil {
+		if err := m.Ports.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("ports")
+			}
+			return err
+		}
 	}
 
 	return nil

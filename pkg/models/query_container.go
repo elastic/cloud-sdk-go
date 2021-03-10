@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -108,7 +110,6 @@ func (m *QueryContainer) Validate(formats strfmt.Registry) error {
 }
 
 func (m *QueryContainer) validateBool(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Bool) { // not required
 		return nil
 	}
@@ -126,7 +127,6 @@ func (m *QueryContainer) validateBool(formats strfmt.Registry) error {
 }
 
 func (m *QueryContainer) validateExists(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Exists) { // not required
 		return nil
 	}
@@ -144,7 +144,6 @@ func (m *QueryContainer) validateExists(formats strfmt.Registry) error {
 }
 
 func (m *QueryContainer) validateMatch(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Match) { // not required
 		return nil
 	}
@@ -166,7 +165,6 @@ func (m *QueryContainer) validateMatch(formats strfmt.Registry) error {
 }
 
 func (m *QueryContainer) validateNested(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Nested) { // not required
 		return nil
 	}
@@ -184,7 +182,6 @@ func (m *QueryContainer) validateNested(formats strfmt.Registry) error {
 }
 
 func (m *QueryContainer) validatePrefix(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Prefix) { // not required
 		return nil
 	}
@@ -206,7 +203,6 @@ func (m *QueryContainer) validatePrefix(formats strfmt.Registry) error {
 }
 
 func (m *QueryContainer) validateQueryString(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.QueryString) { // not required
 		return nil
 	}
@@ -224,7 +220,6 @@ func (m *QueryContainer) validateQueryString(formats strfmt.Registry) error {
 }
 
 func (m *QueryContainer) validateRange(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Range) { // not required
 		return nil
 	}
@@ -246,7 +241,6 @@ func (m *QueryContainer) validateRange(formats strfmt.Registry) error {
 }
 
 func (m *QueryContainer) validateTerm(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Term) { // not required
 		return nil
 	}
@@ -258,6 +252,164 @@ func (m *QueryContainer) validateTerm(formats strfmt.Registry) error {
 		}
 		if val, ok := m.Term[k]; ok {
 			if err := val.Validate(formats); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this query container based on the context it is used
+func (m *QueryContainer) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateBool(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateExists(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateMatch(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateNested(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidatePrefix(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateQueryString(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateRange(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateTerm(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *QueryContainer) contextValidateBool(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Bool != nil {
+		if err := m.Bool.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("bool")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *QueryContainer) contextValidateExists(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Exists != nil {
+		if err := m.Exists.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("exists")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *QueryContainer) contextValidateMatch(ctx context.Context, formats strfmt.Registry) error {
+
+	for k := range m.Match {
+
+		if val, ok := m.Match[k]; ok {
+			if err := val.ContextValidate(ctx, formats); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *QueryContainer) contextValidateNested(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Nested != nil {
+		if err := m.Nested.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("nested")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *QueryContainer) contextValidatePrefix(ctx context.Context, formats strfmt.Registry) error {
+
+	for k := range m.Prefix {
+
+		if val, ok := m.Prefix[k]; ok {
+			if err := val.ContextValidate(ctx, formats); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *QueryContainer) contextValidateQueryString(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.QueryString != nil {
+		if err := m.QueryString.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("query_string")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *QueryContainer) contextValidateRange(ctx context.Context, formats strfmt.Registry) error {
+
+	for k := range m.Range {
+
+		if val, ok := m.Range[k]; ok {
+			if err := val.ContextValidate(ctx, formats); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *QueryContainer) contextValidateTerm(ctx context.Context, formats strfmt.Registry) error {
+
+	for k := range m.Term {
+
+		if val, ok := m.Term[k]; ok {
+			if err := val.ContextValidate(ctx, formats); err != nil {
 				return err
 			}
 		}

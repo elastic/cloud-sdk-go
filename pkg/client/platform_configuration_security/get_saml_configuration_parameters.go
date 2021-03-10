@@ -33,59 +33,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetSamlConfigurationParams creates a new GetSamlConfigurationParams object
-// with the default values initialized.
+// NewGetSamlConfigurationParams creates a new GetSamlConfigurationParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetSamlConfigurationParams() *GetSamlConfigurationParams {
-	var ()
 	return &GetSamlConfigurationParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetSamlConfigurationParamsWithTimeout creates a new GetSamlConfigurationParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetSamlConfigurationParamsWithTimeout(timeout time.Duration) *GetSamlConfigurationParams {
-	var ()
 	return &GetSamlConfigurationParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetSamlConfigurationParamsWithContext creates a new GetSamlConfigurationParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetSamlConfigurationParamsWithContext(ctx context.Context) *GetSamlConfigurationParams {
-	var ()
 	return &GetSamlConfigurationParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetSamlConfigurationParamsWithHTTPClient creates a new GetSamlConfigurationParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetSamlConfigurationParamsWithHTTPClient(client *http.Client) *GetSamlConfigurationParams {
-	var ()
 	return &GetSamlConfigurationParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetSamlConfigurationParams contains all the parameters to send to the API endpoint
-for the get saml configuration operation typically these are written to a http.Request
+/* GetSamlConfigurationParams contains all the parameters to send to the API endpoint
+   for the get saml configuration operation.
+
+   Typically these are written to a http.Request.
 */
 type GetSamlConfigurationParams struct {
 
-	/*RealmID
-	  The Elasticsearch Security realm identifier.
+	/* RealmID.
 
+	   The Elasticsearch Security realm identifier.
 	*/
 	RealmID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get saml configuration params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetSamlConfigurationParams) WithDefaults() *GetSamlConfigurationParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get saml configuration params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetSamlConfigurationParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get saml configuration params

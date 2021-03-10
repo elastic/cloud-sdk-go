@@ -64,7 +64,6 @@ func (o *ShutdownDeploymentReader) ReadResponse(response runtime.ClientResponse,
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,7 +74,7 @@ func NewShutdownDeploymentOK() *ShutdownDeploymentOK {
 	return &ShutdownDeploymentOK{}
 }
 
-/*ShutdownDeploymentOK handles this case with default header values.
+/* ShutdownDeploymentOK describes a response with status code 200, with default header values.
 
 The request was valid and the resources of the deployment were shutdown.
 */
@@ -86,7 +85,6 @@ type ShutdownDeploymentOK struct {
 func (o *ShutdownDeploymentOK) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/_shutdown][%d] shutdownDeploymentOK  %+v", 200, o.Payload)
 }
-
 func (o *ShutdownDeploymentOK) GetPayload() *models.DeploymentShutdownResponse {
 	return o.Payload
 }
@@ -108,12 +106,13 @@ func NewShutdownDeploymentBadRequest() *ShutdownDeploymentBadRequest {
 	return &ShutdownDeploymentBadRequest{}
 }
 
-/*ShutdownDeploymentBadRequest handles this case with default header values.
+/* ShutdownDeploymentBadRequest describes a response with status code 400, with default header values.
 
 Parameter is restricted and can only be set by a Platform administrator. (code: `deployments.restricted_parameter`)
 */
 type ShutdownDeploymentBadRequest struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -123,15 +122,18 @@ type ShutdownDeploymentBadRequest struct {
 func (o *ShutdownDeploymentBadRequest) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/_shutdown][%d] shutdownDeploymentBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *ShutdownDeploymentBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *ShutdownDeploymentBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -148,7 +150,7 @@ func NewShutdownDeploymentUnauthorized() *ShutdownDeploymentUnauthorized {
 	return &ShutdownDeploymentUnauthorized{}
 }
 
-/*ShutdownDeploymentUnauthorized handles this case with default header values.
+/* ShutdownDeploymentUnauthorized describes a response with status code 401, with default header values.
 
 You are not authorized to perform this action.
 */
@@ -159,7 +161,6 @@ type ShutdownDeploymentUnauthorized struct {
 func (o *ShutdownDeploymentUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/_shutdown][%d] shutdownDeploymentUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *ShutdownDeploymentUnauthorized) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -181,12 +182,13 @@ func NewShutdownDeploymentNotFound() *ShutdownDeploymentNotFound {
 	return &ShutdownDeploymentNotFound{}
 }
 
-/*ShutdownDeploymentNotFound handles this case with default header values.
+/* ShutdownDeploymentNotFound describes a response with status code 404, with default header values.
 
 The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
 */
 type ShutdownDeploymentNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -196,15 +198,18 @@ type ShutdownDeploymentNotFound struct {
 func (o *ShutdownDeploymentNotFound) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/_shutdown][%d] shutdownDeploymentNotFound  %+v", 404, o.Payload)
 }
-
 func (o *ShutdownDeploymentNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *ShutdownDeploymentNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

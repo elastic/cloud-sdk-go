@@ -42,17 +42,20 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientOption is the option for Client methods
+type ClientOption func(*runtime.ClientOperation)
+
 // ClientService is the interface for Client methods
 type ClientService interface {
-	CreateComment(params *CreateCommentParams, authInfo runtime.ClientAuthInfoWriter) (*CreateCommentCreated, error)
+	CreateComment(params *CreateCommentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateCommentCreated, error)
 
-	DeleteComment(params *DeleteCommentParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteCommentOK, error)
+	DeleteComment(params *DeleteCommentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteCommentOK, error)
 
-	GetComment(params *GetCommentParams, authInfo runtime.ClientAuthInfoWriter) (*GetCommentOK, error)
+	GetComment(params *GetCommentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCommentOK, error)
 
-	ListComment(params *ListCommentParams, authInfo runtime.ClientAuthInfoWriter) (*ListCommentOK, error)
+	ListComment(params *ListCommentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListCommentOK, error)
 
-	UpdateComment(params *UpdateCommentParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateCommentOK, error)
+	UpdateComment(params *UpdateCommentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateCommentOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -62,13 +65,12 @@ type ClientService interface {
 
   Creates a comment for the given Resource.
 */
-func (a *Client) CreateComment(params *CreateCommentParams, authInfo runtime.ClientAuthInfoWriter) (*CreateCommentCreated, error) {
+func (a *Client) CreateComment(params *CreateCommentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateCommentCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateCommentParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "create-comment",
 		Method:             "POST",
 		PathPattern:        "/comments/{resource_type}/{resource_id}",
@@ -80,7 +82,12 @@ func (a *Client) CreateComment(params *CreateCommentParams, authInfo runtime.Cli
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -99,13 +106,12 @@ func (a *Client) CreateComment(params *CreateCommentParams, authInfo runtime.Cli
 
   Deletes a Comment.
 */
-func (a *Client) DeleteComment(params *DeleteCommentParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteCommentOK, error) {
+func (a *Client) DeleteComment(params *DeleteCommentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteCommentOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteCommentParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "delete-comment",
 		Method:             "DELETE",
 		PathPattern:        "/comments/{resource_type}/{resource_id}/{comment_id}",
@@ -117,7 +123,12 @@ func (a *Client) DeleteComment(params *DeleteCommentParams, authInfo runtime.Cli
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -136,13 +147,12 @@ func (a *Client) DeleteComment(params *DeleteCommentParams, authInfo runtime.Cli
 
   Retrieves a Comment.
 */
-func (a *Client) GetComment(params *GetCommentParams, authInfo runtime.ClientAuthInfoWriter) (*GetCommentOK, error) {
+func (a *Client) GetComment(params *GetCommentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCommentOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetCommentParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-comment",
 		Method:             "GET",
 		PathPattern:        "/comments/{resource_type}/{resource_id}/{comment_id}",
@@ -154,7 +164,12 @@ func (a *Client) GetComment(params *GetCommentParams, authInfo runtime.ClientAut
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -173,13 +188,12 @@ func (a *Client) GetComment(params *GetCommentParams, authInfo runtime.ClientAut
 
   Retrieves all the comments for a given Resource, in reverse modified time order.
 */
-func (a *Client) ListComment(params *ListCommentParams, authInfo runtime.ClientAuthInfoWriter) (*ListCommentOK, error) {
+func (a *Client) ListComment(params *ListCommentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListCommentOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewListCommentParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "list-comment",
 		Method:             "GET",
 		PathPattern:        "/comments/{resource_type}/{resource_id}",
@@ -191,7 +205,12 @@ func (a *Client) ListComment(params *ListCommentParams, authInfo runtime.ClientA
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -210,13 +229,12 @@ func (a *Client) ListComment(params *ListCommentParams, authInfo runtime.ClientA
 
   Updates a Comment.
 */
-func (a *Client) UpdateComment(params *UpdateCommentParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateCommentOK, error) {
+func (a *Client) UpdateComment(params *UpdateCommentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateCommentOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateCommentParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "update-comment",
 		Method:             "PUT",
 		PathPattern:        "/comments/{resource_type}/{resource_id}/{comment_id}",
@@ -228,7 +246,12 @@ func (a *Client) UpdateComment(params *UpdateCommentParams, authInfo runtime.Cli
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}

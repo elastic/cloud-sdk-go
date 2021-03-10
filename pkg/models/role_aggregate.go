@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -38,6 +40,7 @@ type RoleAggregate struct {
 	Blessings *BlessingsWithMeta `json:"blessings,omitempty"`
 
 	// The unique id of this role
+	// Example: constructor
 	// Required: true
 	ID *string `json:"id"`
 
@@ -76,7 +79,6 @@ func (m *RoleAggregate) Validate(formats strfmt.Registry) error {
 }
 
 func (m *RoleAggregate) validateBlessings(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Blessings) { // not required
 		return nil
 	}
@@ -103,7 +105,6 @@ func (m *RoleAggregate) validateID(formats strfmt.Registry) error {
 }
 
 func (m *RoleAggregate) validatePending(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Pending) { // not required
 		return nil
 	}
@@ -128,6 +129,70 @@ func (m *RoleAggregate) validateRole(formats strfmt.Registry) error {
 
 	if m.Role != nil {
 		if err := m.Role.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("role")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this role aggregate based on the context it is used
+func (m *RoleAggregate) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateBlessings(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidatePending(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateRole(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *RoleAggregate) contextValidateBlessings(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Blessings != nil {
+		if err := m.Blessings.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("blessings")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *RoleAggregate) contextValidatePending(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Pending != nil {
+		if err := m.Pending.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("pending")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *RoleAggregate) contextValidateRole(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Role != nil {
+		if err := m.Role.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("role")
 			}

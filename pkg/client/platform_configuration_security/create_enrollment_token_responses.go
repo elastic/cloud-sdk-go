@@ -64,7 +64,6 @@ func (o *CreateEnrollmentTokenReader) ReadResponse(response runtime.ClientRespon
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,7 +74,7 @@ func NewCreateEnrollmentTokenOK() *CreateEnrollmentTokenOK {
 	return &CreateEnrollmentTokenOK{}
 }
 
-/*CreateEnrollmentTokenOK handles this case with default header values.
+/* CreateEnrollmentTokenOK describes a response with status code 200, with default header values.
 
 A token has been generated that can be used to start new servers with the requested roles
 */
@@ -86,7 +85,6 @@ type CreateEnrollmentTokenOK struct {
 func (o *CreateEnrollmentTokenOK) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/enrollment-tokens][%d] createEnrollmentTokenOK  %+v", 200, o.Payload)
 }
-
 func (o *CreateEnrollmentTokenOK) GetPayload() *models.RequestEnrollmentTokenReply {
 	return o.Payload
 }
@@ -108,7 +106,7 @@ func NewCreateEnrollmentTokenBadRequest() *CreateEnrollmentTokenBadRequest {
 	return &CreateEnrollmentTokenBadRequest{}
 }
 
-/*CreateEnrollmentTokenBadRequest handles this case with default header values.
+/* CreateEnrollmentTokenBadRequest describes a response with status code 400, with default header values.
 
 The token request format was invalid, details in the error (code: 'enrollment_tokens.invalid_token_request')
 */
@@ -119,7 +117,6 @@ type CreateEnrollmentTokenBadRequest struct {
 func (o *CreateEnrollmentTokenBadRequest) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/enrollment-tokens][%d] createEnrollmentTokenBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *CreateEnrollmentTokenBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -141,7 +138,7 @@ func NewCreateEnrollmentTokenForbidden() *CreateEnrollmentTokenForbidden {
 	return &CreateEnrollmentTokenForbidden{}
 }
 
-/*CreateEnrollmentTokenForbidden handles this case with default header values.
+/* CreateEnrollmentTokenForbidden describes a response with status code 403, with default header values.
 
 No signing key is available to generate a token (code: 'enrollment_tokens.signing_key_not_found')
 */
@@ -152,7 +149,6 @@ type CreateEnrollmentTokenForbidden struct {
 func (o *CreateEnrollmentTokenForbidden) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/enrollment-tokens][%d] createEnrollmentTokenForbidden  %+v", 403, o.Payload)
 }
-
 func (o *CreateEnrollmentTokenForbidden) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -174,7 +170,7 @@ func NewCreateEnrollmentTokenRetryWith() *CreateEnrollmentTokenRetryWith {
 	return &CreateEnrollmentTokenRetryWith{}
 }
 
-/*CreateEnrollmentTokenRetryWith handles this case with default header values.
+/* CreateEnrollmentTokenRetryWith describes a response with status code 449, with default header values.
 
 elevated permissions are required. (code: '"root.unauthorized.rbac.elevated_permissions_required"')
 */
@@ -185,7 +181,6 @@ type CreateEnrollmentTokenRetryWith struct {
 func (o *CreateEnrollmentTokenRetryWith) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/enrollment-tokens][%d] createEnrollmentTokenRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *CreateEnrollmentTokenRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

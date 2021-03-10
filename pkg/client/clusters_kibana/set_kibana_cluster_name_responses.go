@@ -58,7 +58,6 @@ func (o *SetKibanaClusterNameReader) ReadResponse(response runtime.ClientRespons
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,7 +68,7 @@ func NewSetKibanaClusterNameOK() *SetKibanaClusterNameOK {
 	return &SetKibanaClusterNameOK{}
 }
 
-/*SetKibanaClusterNameOK handles this case with default header values.
+/* SetKibanaClusterNameOK describes a response with status code 200, with default header values.
 
 The cluster name was successfully changed
 */
@@ -80,7 +79,6 @@ type SetKibanaClusterNameOK struct {
 func (o *SetKibanaClusterNameOK) Error() string {
 	return fmt.Sprintf("[PUT /clusters/kibana/{cluster_id}/metadata/name/{new_name}][%d] setKibanaClusterNameOK  %+v", 200, o.Payload)
 }
-
 func (o *SetKibanaClusterNameOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -100,7 +98,7 @@ func NewSetKibanaClusterNameNotFound() *SetKibanaClusterNameNotFound {
 	return &SetKibanaClusterNameNotFound{}
 }
 
-/*SetKibanaClusterNameNotFound handles this case with default header values.
+/* SetKibanaClusterNameNotFound describes a response with status code 404, with default header values.
 
 The cluster specified by {cluster_id} cannot be found (code: 'clusters.cluster_not_found')
 */
@@ -111,7 +109,6 @@ type SetKibanaClusterNameNotFound struct {
 func (o *SetKibanaClusterNameNotFound) Error() string {
 	return fmt.Sprintf("[PUT /clusters/kibana/{cluster_id}/metadata/name/{new_name}][%d] setKibanaClusterNameNotFound  %+v", 404, o.Payload)
 }
-
 func (o *SetKibanaClusterNameNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -133,7 +130,7 @@ func NewSetKibanaClusterNameRetryWith() *SetKibanaClusterNameRetryWith {
 	return &SetKibanaClusterNameRetryWith{}
 }
 
-/*SetKibanaClusterNameRetryWith handles this case with default header values.
+/* SetKibanaClusterNameRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: '"root.unauthorized.rbac.elevated_permissions_required"')
 */
@@ -144,7 +141,6 @@ type SetKibanaClusterNameRetryWith struct {
 func (o *SetKibanaClusterNameRetryWith) Error() string {
 	return fmt.Sprintf("[PUT /clusters/kibana/{cluster_id}/metadata/name/{new_name}][%d] setKibanaClusterNameRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *SetKibanaClusterNameRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

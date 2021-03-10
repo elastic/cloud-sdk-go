@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"encoding/json"
 	"strconv"
 
@@ -314,7 +315,6 @@ func (m *ElasticsearchClusterInfo) validateAssociatedKibanaClusters(formats strf
 }
 
 func (m *ElasticsearchClusterInfo) validateCcs(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Ccs) { // not required
 		return nil
 	}
@@ -368,7 +368,6 @@ func (m *ElasticsearchClusterInfo) validateElasticsearch(formats strfmt.Registry
 }
 
 func (m *ElasticsearchClusterInfo) validateElasticsearchMonitoringInfo(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.ElasticsearchMonitoringInfo) { // not required
 		return nil
 	}
@@ -424,7 +423,6 @@ func (m *ElasticsearchClusterInfo) validateHealthy(formats strfmt.Registry) erro
 }
 
 func (m *ElasticsearchClusterInfo) validateLinks(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Links) { // not required
 		return nil
 	}
@@ -482,7 +480,6 @@ func (m *ElasticsearchClusterInfo) validatePlanInfo(formats strfmt.Registry) err
 }
 
 func (m *ElasticsearchClusterInfo) validateSecurity(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Security) { // not required
 		return nil
 	}
@@ -500,7 +497,6 @@ func (m *ElasticsearchClusterInfo) validateSecurity(formats strfmt.Registry) err
 }
 
 func (m *ElasticsearchClusterInfo) validateSettings(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Settings) { // not required
 		return nil
 	}
@@ -594,7 +590,6 @@ func (m *ElasticsearchClusterInfo) validateStatus(formats strfmt.Registry) error
 }
 
 func (m *ElasticsearchClusterInfo) validateSystemAlerts(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.SystemAlerts) { // not required
 		return nil
 	}
@@ -626,6 +621,329 @@ func (m *ElasticsearchClusterInfo) validateTopology(formats strfmt.Registry) err
 
 	if m.Topology != nil {
 		if err := m.Topology.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("topology")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this elasticsearch cluster info based on the context it is used
+func (m *ElasticsearchClusterInfo) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAssociatedApmClusters(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateAssociatedAppsearchClusters(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateAssociatedEnterpriseSearchClusters(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateAssociatedKibanaClusters(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateCcs(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateElasticsearch(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateElasticsearchMonitoringInfo(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateExternalLinks(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateLinks(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateMetadata(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidatePlanInfo(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateSecurity(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateSettings(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateSnapshots(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateSystemAlerts(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateTopology(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ElasticsearchClusterInfo) contextValidateAssociatedApmClusters(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.AssociatedApmClusters); i++ {
+
+		if m.AssociatedApmClusters[i] != nil {
+			if err := m.AssociatedApmClusters[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("associated_apm_clusters" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *ElasticsearchClusterInfo) contextValidateAssociatedAppsearchClusters(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.AssociatedAppsearchClusters); i++ {
+
+		if m.AssociatedAppsearchClusters[i] != nil {
+			if err := m.AssociatedAppsearchClusters[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("associated_appsearch_clusters" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *ElasticsearchClusterInfo) contextValidateAssociatedEnterpriseSearchClusters(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.AssociatedEnterpriseSearchClusters); i++ {
+
+		if m.AssociatedEnterpriseSearchClusters[i] != nil {
+			if err := m.AssociatedEnterpriseSearchClusters[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("associated_enterprise_search_clusters" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *ElasticsearchClusterInfo) contextValidateAssociatedKibanaClusters(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.AssociatedKibanaClusters); i++ {
+
+		if m.AssociatedKibanaClusters[i] != nil {
+			if err := m.AssociatedKibanaClusters[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("associated_kibana_clusters" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *ElasticsearchClusterInfo) contextValidateCcs(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Ccs != nil {
+		if err := m.Ccs.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("ccs")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ElasticsearchClusterInfo) contextValidateElasticsearch(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Elasticsearch != nil {
+		if err := m.Elasticsearch.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("elasticsearch")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ElasticsearchClusterInfo) contextValidateElasticsearchMonitoringInfo(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.ElasticsearchMonitoringInfo != nil {
+		if err := m.ElasticsearchMonitoringInfo.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("elasticsearch_monitoring_info")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ElasticsearchClusterInfo) contextValidateExternalLinks(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.ExternalLinks); i++ {
+
+		if m.ExternalLinks[i] != nil {
+			if err := m.ExternalLinks[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("external_links" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *ElasticsearchClusterInfo) contextValidateLinks(ctx context.Context, formats strfmt.Registry) error {
+
+	for k := range m.Links {
+
+		if val, ok := m.Links[k]; ok {
+			if err := val.ContextValidate(ctx, formats); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *ElasticsearchClusterInfo) contextValidateMetadata(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Metadata != nil {
+		if err := m.Metadata.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("metadata")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ElasticsearchClusterInfo) contextValidatePlanInfo(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.PlanInfo != nil {
+		if err := m.PlanInfo.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("plan_info")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ElasticsearchClusterInfo) contextValidateSecurity(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Security != nil {
+		if err := m.Security.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("security")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ElasticsearchClusterInfo) contextValidateSettings(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Settings != nil {
+		if err := m.Settings.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("settings")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ElasticsearchClusterInfo) contextValidateSnapshots(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Snapshots != nil {
+		if err := m.Snapshots.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("snapshots")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ElasticsearchClusterInfo) contextValidateSystemAlerts(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.SystemAlerts); i++ {
+
+		if m.SystemAlerts[i] != nil {
+			if err := m.SystemAlerts[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("system_alerts" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *ElasticsearchClusterInfo) contextValidateTopology(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Topology != nil {
+		if err := m.Topology.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("topology")
 			}

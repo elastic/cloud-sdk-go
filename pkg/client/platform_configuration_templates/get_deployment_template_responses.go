@@ -58,7 +58,6 @@ func (o *GetDeploymentTemplateReader) ReadResponse(response runtime.ClientRespon
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,7 +68,7 @@ func NewGetDeploymentTemplateOK() *GetDeploymentTemplateOK {
 	return &GetDeploymentTemplateOK{}
 }
 
-/*GetDeploymentTemplateOK handles this case with default header values.
+/* GetDeploymentTemplateOK describes a response with status code 200, with default header values.
 
 The deployment template was found and returned successfully.
 */
@@ -80,7 +79,6 @@ type GetDeploymentTemplateOK struct {
 func (o *GetDeploymentTemplateOK) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/templates/deployments/{template_id}][%d] getDeploymentTemplateOK  %+v", 200, o.Payload)
 }
-
 func (o *GetDeploymentTemplateOK) GetPayload() *models.DeploymentTemplateInfo {
 	return o.Payload
 }
@@ -102,12 +100,13 @@ func NewGetDeploymentTemplateBadRequest() *GetDeploymentTemplateBadRequest {
 	return &GetDeploymentTemplateBadRequest{}
 }
 
-/*GetDeploymentTemplateBadRequest handles this case with default header values.
+/* GetDeploymentTemplateBadRequest describes a response with status code 400, with default header values.
 
 The template is not compatible with the [cluster] format. (code: `deployment.migration_invalid`)
 */
 type GetDeploymentTemplateBadRequest struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -117,15 +116,18 @@ type GetDeploymentTemplateBadRequest struct {
 func (o *GetDeploymentTemplateBadRequest) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/templates/deployments/{template_id}][%d] getDeploymentTemplateBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *GetDeploymentTemplateBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *GetDeploymentTemplateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -142,12 +144,13 @@ func NewGetDeploymentTemplateNotFound() *GetDeploymentTemplateNotFound {
 	return &GetDeploymentTemplateNotFound{}
 }
 
-/*GetDeploymentTemplateNotFound handles this case with default header values.
+/* GetDeploymentTemplateNotFound describes a response with status code 404, with default header values.
 
 The deployment template specified by {template_id} cannot be found. (code: `templates.template_not_found`)
 */
 type GetDeploymentTemplateNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -157,15 +160,18 @@ type GetDeploymentTemplateNotFound struct {
 func (o *GetDeploymentTemplateNotFound) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/templates/deployments/{template_id}][%d] getDeploymentTemplateNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetDeploymentTemplateNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *GetDeploymentTemplateNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

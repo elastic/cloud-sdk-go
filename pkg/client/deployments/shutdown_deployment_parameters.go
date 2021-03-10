@@ -34,81 +34,96 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewShutdownDeploymentParams creates a new ShutdownDeploymentParams object
-// with the default values initialized.
+// NewShutdownDeploymentParams creates a new ShutdownDeploymentParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewShutdownDeploymentParams() *ShutdownDeploymentParams {
-	var (
-		skipSnapshotDefault = bool(false)
-	)
 	return &ShutdownDeploymentParams{
-		SkipSnapshot: &skipSnapshotDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewShutdownDeploymentParamsWithTimeout creates a new ShutdownDeploymentParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewShutdownDeploymentParamsWithTimeout(timeout time.Duration) *ShutdownDeploymentParams {
-	var (
-		skipSnapshotDefault = bool(false)
-	)
 	return &ShutdownDeploymentParams{
-		SkipSnapshot: &skipSnapshotDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewShutdownDeploymentParamsWithContext creates a new ShutdownDeploymentParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewShutdownDeploymentParamsWithContext(ctx context.Context) *ShutdownDeploymentParams {
-	var (
-		skipSnapshotDefault = bool(false)
-	)
 	return &ShutdownDeploymentParams{
-		SkipSnapshot: &skipSnapshotDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewShutdownDeploymentParamsWithHTTPClient creates a new ShutdownDeploymentParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewShutdownDeploymentParamsWithHTTPClient(client *http.Client) *ShutdownDeploymentParams {
-	var (
-		skipSnapshotDefault = bool(false)
-	)
 	return &ShutdownDeploymentParams{
-		SkipSnapshot: &skipSnapshotDefault,
-		HTTPClient:   client,
+		HTTPClient: client,
 	}
 }
 
-/*ShutdownDeploymentParams contains all the parameters to send to the API endpoint
-for the shutdown deployment operation typically these are written to a http.Request
+/* ShutdownDeploymentParams contains all the parameters to send to the API endpoint
+   for the shutdown deployment operation.
+
+   Typically these are written to a http.Request.
 */
 type ShutdownDeploymentParams struct {
 
-	/*DeploymentID
-	  Identifier for the Deployment
+	/* DeploymentID.
 
+	   Identifier for the Deployment
 	*/
 	DeploymentID string
-	/*Hide
-	  Whether or not to hide the deployment and its resources.Only applicable for Platform administrators.
 
+	/* Hide.
+
+	   Whether or not to hide the deployment and its resources.Only applicable for Platform administrators.
 	*/
 	Hide *bool
-	/*SkipSnapshot
-	  Whether or not to skip snapshots before shutting down the resources
 
+	/* SkipSnapshot.
+
+	   Whether or not to skip snapshots before shutting down the resources
 	*/
 	SkipSnapshot *bool
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the shutdown deployment params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ShutdownDeploymentParams) WithDefaults() *ShutdownDeploymentParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the shutdown deployment params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ShutdownDeploymentParams) SetDefaults() {
+	var (
+		skipSnapshotDefault = bool(false)
+	)
+
+	val := ShutdownDeploymentParams{
+		SkipSnapshot: &skipSnapshotDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the shutdown deployment params
@@ -194,32 +209,34 @@ func (o *ShutdownDeploymentParams) WriteToRequest(r runtime.ClientRequest, reg s
 
 		// query param hide
 		var qrHide bool
+
 		if o.Hide != nil {
 			qrHide = *o.Hide
 		}
 		qHide := swag.FormatBool(qrHide)
 		if qHide != "" {
+
 			if err := r.SetQueryParam("hide", qHide); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.SkipSnapshot != nil {
 
 		// query param skip_snapshot
 		var qrSkipSnapshot bool
+
 		if o.SkipSnapshot != nil {
 			qrSkipSnapshot = *o.SkipSnapshot
 		}
 		qSkipSnapshot := swag.FormatBool(qrSkipSnapshot)
 		if qSkipSnapshot != "" {
+
 			if err := r.SetQueryParam("skip_snapshot", qSkipSnapshot); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

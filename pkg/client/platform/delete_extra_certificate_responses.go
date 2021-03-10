@@ -52,7 +52,6 @@ func (o *DeleteExtraCertificateReader) ReadResponse(response runtime.ClientRespo
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,7 +62,7 @@ func NewDeleteExtraCertificateOK() *DeleteExtraCertificateOK {
 	return &DeleteExtraCertificateOK{}
 }
 
-/*DeleteExtraCertificateOK handles this case with default header values.
+/* DeleteExtraCertificateOK describes a response with status code 200, with default header values.
 
 Extra certificate under the given id is deleted if exists
 */
@@ -74,7 +73,6 @@ type DeleteExtraCertificateOK struct {
 func (o *DeleteExtraCertificateOK) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/security/extra_certs/{cert_id}][%d] deleteExtraCertificateOK  %+v", 200, o.Payload)
 }
-
 func (o *DeleteExtraCertificateOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -94,12 +92,13 @@ func NewDeleteExtraCertificateNotFound() *DeleteExtraCertificateNotFound {
 	return &DeleteExtraCertificateNotFound{}
 }
 
-/*DeleteExtraCertificateNotFound handles this case with default header values.
+/* DeleteExtraCertificateNotFound describes a response with status code 404, with default header values.
 
 The extra certificate cannot be found. (code: `cert.not_found`)
 */
 type DeleteExtraCertificateNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -109,15 +108,18 @@ type DeleteExtraCertificateNotFound struct {
 func (o *DeleteExtraCertificateNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/security/extra_certs/{cert_id}][%d] deleteExtraCertificateNotFound  %+v", 404, o.Payload)
 }
-
 func (o *DeleteExtraCertificateNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *DeleteExtraCertificateNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

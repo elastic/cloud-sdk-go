@@ -64,7 +64,6 @@ func (o *UpdateEsClusterSnapshotSettingsReader) ReadResponse(response runtime.Cl
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,18 +74,21 @@ func NewUpdateEsClusterSnapshotSettingsOK() *UpdateEsClusterSnapshotSettingsOK {
 	return &UpdateEsClusterSnapshotSettingsOK{}
 }
 
-/*UpdateEsClusterSnapshotSettingsOK handles this case with default header values.
+/* UpdateEsClusterSnapshotSettingsOK describes a response with status code 200, with default header values.
 
 The cluster snapshot settings were successfully updated
 */
 type UpdateEsClusterSnapshotSettingsOK struct {
-	/*The date-time when the resource was created (ISO format relative to UTC)
+
+	/* The date-time when the resource was created (ISO format relative to UTC)
 	 */
 	XCloudResourceCreated string
-	/*The date-time when the resource was last modified (ISO format relative to UTC)
+
+	/* The date-time when the resource was last modified (ISO format relative to UTC)
 	 */
 	XCloudResourceLastModified string
-	/*The resource version, which is used to avoid update conflicts with concurrent operations
+
+	/* The resource version, which is used to avoid update conflicts with concurrent operations
 	 */
 	XCloudResourceVersion string
 
@@ -96,21 +98,32 @@ type UpdateEsClusterSnapshotSettingsOK struct {
 func (o *UpdateEsClusterSnapshotSettingsOK) Error() string {
 	return fmt.Sprintf("[PATCH /clusters/elasticsearch/{cluster_id}/snapshot/settings][%d] updateEsClusterSnapshotSettingsOK  %+v", 200, o.Payload)
 }
-
 func (o *UpdateEsClusterSnapshotSettingsOK) GetPayload() *models.ClusterSnapshotSettings {
 	return o.Payload
 }
 
 func (o *UpdateEsClusterSnapshotSettingsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-resource-created
-	o.XCloudResourceCreated = response.GetHeader("x-cloud-resource-created")
+	// hydrates response header x-cloud-resource-created
+	hdrXCloudResourceCreated := response.GetHeader("x-cloud-resource-created")
 
-	// response header x-cloud-resource-last-modified
-	o.XCloudResourceLastModified = response.GetHeader("x-cloud-resource-last-modified")
+	if hdrXCloudResourceCreated != "" {
+		o.XCloudResourceCreated = hdrXCloudResourceCreated
+	}
 
-	// response header x-cloud-resource-version
-	o.XCloudResourceVersion = response.GetHeader("x-cloud-resource-version")
+	// hydrates response header x-cloud-resource-last-modified
+	hdrXCloudResourceLastModified := response.GetHeader("x-cloud-resource-last-modified")
+
+	if hdrXCloudResourceLastModified != "" {
+		o.XCloudResourceLastModified = hdrXCloudResourceLastModified
+	}
+
+	// hydrates response header x-cloud-resource-version
+	hdrXCloudResourceVersion := response.GetHeader("x-cloud-resource-version")
+
+	if hdrXCloudResourceVersion != "" {
+		o.XCloudResourceVersion = hdrXCloudResourceVersion
+	}
 
 	o.Payload = new(models.ClusterSnapshotSettings)
 
@@ -127,7 +140,7 @@ func NewUpdateEsClusterSnapshotSettingsForbidden() *UpdateEsClusterSnapshotSetti
 	return &UpdateEsClusterSnapshotSettingsForbidden{}
 }
 
-/*UpdateEsClusterSnapshotSettingsForbidden handles this case with default header values.
+/* UpdateEsClusterSnapshotSettingsForbidden describes a response with status code 403, with default header values.
 
 The provided action was prohibited for the given cluster.
 */
@@ -138,7 +151,6 @@ type UpdateEsClusterSnapshotSettingsForbidden struct {
 func (o *UpdateEsClusterSnapshotSettingsForbidden) Error() string {
 	return fmt.Sprintf("[PATCH /clusters/elasticsearch/{cluster_id}/snapshot/settings][%d] updateEsClusterSnapshotSettingsForbidden  %+v", 403, o.Payload)
 }
-
 func (o *UpdateEsClusterSnapshotSettingsForbidden) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -160,7 +172,7 @@ func NewUpdateEsClusterSnapshotSettingsNotFound() *UpdateEsClusterSnapshotSettin
 	return &UpdateEsClusterSnapshotSettingsNotFound{}
 }
 
-/*UpdateEsClusterSnapshotSettingsNotFound handles this case with default header values.
+/* UpdateEsClusterSnapshotSettingsNotFound describes a response with status code 404, with default header values.
 
 The cluster specified by {cluster_id} cannot be found (code: 'clusters.cluster_not_found')
 */
@@ -171,7 +183,6 @@ type UpdateEsClusterSnapshotSettingsNotFound struct {
 func (o *UpdateEsClusterSnapshotSettingsNotFound) Error() string {
 	return fmt.Sprintf("[PATCH /clusters/elasticsearch/{cluster_id}/snapshot/settings][%d] updateEsClusterSnapshotSettingsNotFound  %+v", 404, o.Payload)
 }
-
 func (o *UpdateEsClusterSnapshotSettingsNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -193,7 +204,7 @@ func NewUpdateEsClusterSnapshotSettingsRetryWith() *UpdateEsClusterSnapshotSetti
 	return &UpdateEsClusterSnapshotSettingsRetryWith{}
 }
 
-/*UpdateEsClusterSnapshotSettingsRetryWith handles this case with default header values.
+/* UpdateEsClusterSnapshotSettingsRetryWith describes a response with status code 449, with default header values.
 
 elevated permissions are required. (code: '"root.unauthorized.rbac.elevated_permissions_required"')
 */
@@ -204,7 +215,6 @@ type UpdateEsClusterSnapshotSettingsRetryWith struct {
 func (o *UpdateEsClusterSnapshotSettingsRetryWith) Error() string {
 	return fmt.Sprintf("[PATCH /clusters/elasticsearch/{cluster_id}/snapshot/settings][%d] updateEsClusterSnapshotSettingsRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *UpdateEsClusterSnapshotSettingsRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

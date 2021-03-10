@@ -58,7 +58,6 @@ func (o *GetProxiesFilteredGroupHealthReader) ReadResponse(response runtime.Clie
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,7 +68,7 @@ func NewGetProxiesFilteredGroupHealthOK() *GetProxiesFilteredGroupHealthOK {
 	return &GetProxiesFilteredGroupHealthOK{}
 }
 
-/*GetProxiesFilteredGroupHealthOK handles this case with default header values.
+/* GetProxiesFilteredGroupHealthOK describes a response with status code 200, with default header values.
 
 Returns health information on a filtered group of proxies
 */
@@ -80,7 +79,6 @@ type GetProxiesFilteredGroupHealthOK struct {
 func (o *GetProxiesFilteredGroupHealthOK) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}/health][%d] getProxiesFilteredGroupHealthOK  %+v", 200, o.Payload)
 }
-
 func (o *GetProxiesFilteredGroupHealthOK) GetPayload() *models.ProxiesFilteredGroupHealth {
 	return o.Payload
 }
@@ -102,7 +100,7 @@ func NewGetProxiesFilteredGroupHealthExpectationFailed() *GetProxiesFilteredGrou
 	return &GetProxiesFilteredGroupHealthExpectationFailed{}
 }
 
-/*GetProxiesFilteredGroupHealthExpectationFailed handles this case with default header values.
+/* GetProxiesFilteredGroupHealthExpectationFailed describes a response with status code 417, with default header values.
 
 The health status is worse than the expected one.
 */
@@ -113,7 +111,6 @@ type GetProxiesFilteredGroupHealthExpectationFailed struct {
 func (o *GetProxiesFilteredGroupHealthExpectationFailed) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}/health][%d] getProxiesFilteredGroupHealthExpectationFailed  %+v", 417, o.Payload)
 }
-
 func (o *GetProxiesFilteredGroupHealthExpectationFailed) GetPayload() *models.ProxiesFilteredGroupHealth {
 	return o.Payload
 }
@@ -135,12 +132,13 @@ func NewGetProxiesFilteredGroupHealthRetryWith() *GetProxiesFilteredGroupHealthR
 	return &GetProxiesFilteredGroupHealthRetryWith{}
 }
 
-/*GetProxiesFilteredGroupHealthRetryWith handles this case with default header values.
+/* GetProxiesFilteredGroupHealthRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type GetProxiesFilteredGroupHealthRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -150,15 +148,18 @@ type GetProxiesFilteredGroupHealthRetryWith struct {
 func (o *GetProxiesFilteredGroupHealthRetryWith) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}/health][%d] getProxiesFilteredGroupHealthRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *GetProxiesFilteredGroupHealthRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *GetProxiesFilteredGroupHealthRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

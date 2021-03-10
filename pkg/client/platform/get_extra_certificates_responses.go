@@ -46,7 +46,6 @@ func (o *GetExtraCertificatesReader) ReadResponse(response runtime.ClientRespons
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,7 +56,7 @@ func NewGetExtraCertificatesOK() *GetExtraCertificatesOK {
 	return &GetExtraCertificatesOK{}
 }
 
-/*GetExtraCertificatesOK handles this case with default header values.
+/* GetExtraCertificatesOK describes a response with status code 200, with default header values.
 
 The collection of all available extra certificates public chains
 */
@@ -68,7 +67,6 @@ type GetExtraCertificatesOK struct {
 func (o *GetExtraCertificatesOK) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/security/extra_certs][%d] getExtraCertificatesOK  %+v", 200, o.Payload)
 }
-
 func (o *GetExtraCertificatesOK) GetPayload() *models.PublicCertChainCollection {
 	return o.Payload
 }

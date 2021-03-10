@@ -64,7 +64,6 @@ func (o *UpdateKibanaClusterMetadataSettingsReader) ReadResponse(response runtim
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,18 +74,21 @@ func NewUpdateKibanaClusterMetadataSettingsOK() *UpdateKibanaClusterMetadataSett
 	return &UpdateKibanaClusterMetadataSettingsOK{}
 }
 
-/*UpdateKibanaClusterMetadataSettingsOK handles this case with default header values.
+/* UpdateKibanaClusterMetadataSettingsOK describes a response with status code 200, with default header values.
 
 The cluster metadata was successfully updated
 */
 type UpdateKibanaClusterMetadataSettingsOK struct {
-	/*The date-time when the resource was created (ISO format relative to UTC)
+
+	/* The date-time when the resource was created (ISO format relative to UTC)
 	 */
 	XCloudResourceCreated string
-	/*The date-time when the resource was last modified (ISO format relative to UTC)
+
+	/* The date-time when the resource was last modified (ISO format relative to UTC)
 	 */
 	XCloudResourceLastModified string
-	/*The resource version, which is used to avoid update conflicts with concurrent operations
+
+	/* The resource version, which is used to avoid update conflicts with concurrent operations
 	 */
 	XCloudResourceVersion string
 
@@ -96,21 +98,32 @@ type UpdateKibanaClusterMetadataSettingsOK struct {
 func (o *UpdateKibanaClusterMetadataSettingsOK) Error() string {
 	return fmt.Sprintf("[PATCH /clusters/kibana/{cluster_id}/metadata/settings][%d] updateKibanaClusterMetadataSettingsOK  %+v", 200, o.Payload)
 }
-
 func (o *UpdateKibanaClusterMetadataSettingsOK) GetPayload() *models.ClusterMetadataSettings {
 	return o.Payload
 }
 
 func (o *UpdateKibanaClusterMetadataSettingsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-resource-created
-	o.XCloudResourceCreated = response.GetHeader("x-cloud-resource-created")
+	// hydrates response header x-cloud-resource-created
+	hdrXCloudResourceCreated := response.GetHeader("x-cloud-resource-created")
 
-	// response header x-cloud-resource-last-modified
-	o.XCloudResourceLastModified = response.GetHeader("x-cloud-resource-last-modified")
+	if hdrXCloudResourceCreated != "" {
+		o.XCloudResourceCreated = hdrXCloudResourceCreated
+	}
 
-	// response header x-cloud-resource-version
-	o.XCloudResourceVersion = response.GetHeader("x-cloud-resource-version")
+	// hydrates response header x-cloud-resource-last-modified
+	hdrXCloudResourceLastModified := response.GetHeader("x-cloud-resource-last-modified")
+
+	if hdrXCloudResourceLastModified != "" {
+		o.XCloudResourceLastModified = hdrXCloudResourceLastModified
+	}
+
+	// hydrates response header x-cloud-resource-version
+	hdrXCloudResourceVersion := response.GetHeader("x-cloud-resource-version")
+
+	if hdrXCloudResourceVersion != "" {
+		o.XCloudResourceVersion = hdrXCloudResourceVersion
+	}
 
 	o.Payload = new(models.ClusterMetadataSettings)
 
@@ -127,7 +140,7 @@ func NewUpdateKibanaClusterMetadataSettingsForbidden() *UpdateKibanaClusterMetad
 	return &UpdateKibanaClusterMetadataSettingsForbidden{}
 }
 
-/*UpdateKibanaClusterMetadataSettingsForbidden handles this case with default header values.
+/* UpdateKibanaClusterMetadataSettingsForbidden describes a response with status code 403, with default header values.
 
 The provided action was prohibited for the given cluster
 */
@@ -138,7 +151,6 @@ type UpdateKibanaClusterMetadataSettingsForbidden struct {
 func (o *UpdateKibanaClusterMetadataSettingsForbidden) Error() string {
 	return fmt.Sprintf("[PATCH /clusters/kibana/{cluster_id}/metadata/settings][%d] updateKibanaClusterMetadataSettingsForbidden  %+v", 403, o.Payload)
 }
-
 func (o *UpdateKibanaClusterMetadataSettingsForbidden) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -160,7 +172,7 @@ func NewUpdateKibanaClusterMetadataSettingsNotFound() *UpdateKibanaClusterMetada
 	return &UpdateKibanaClusterMetadataSettingsNotFound{}
 }
 
-/*UpdateKibanaClusterMetadataSettingsNotFound handles this case with default header values.
+/* UpdateKibanaClusterMetadataSettingsNotFound describes a response with status code 404, with default header values.
 
 The cluster specified by {cluster_id} cannot be found (code: 'clusters.cluster_not_found')
 */
@@ -171,7 +183,6 @@ type UpdateKibanaClusterMetadataSettingsNotFound struct {
 func (o *UpdateKibanaClusterMetadataSettingsNotFound) Error() string {
 	return fmt.Sprintf("[PATCH /clusters/kibana/{cluster_id}/metadata/settings][%d] updateKibanaClusterMetadataSettingsNotFound  %+v", 404, o.Payload)
 }
-
 func (o *UpdateKibanaClusterMetadataSettingsNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -193,7 +204,7 @@ func NewUpdateKibanaClusterMetadataSettingsRetryWith() *UpdateKibanaClusterMetad
 	return &UpdateKibanaClusterMetadataSettingsRetryWith{}
 }
 
-/*UpdateKibanaClusterMetadataSettingsRetryWith handles this case with default header values.
+/* UpdateKibanaClusterMetadataSettingsRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: '"root.unauthorized.rbac.elevated_permissions_required"')
 */
@@ -204,7 +215,6 @@ type UpdateKibanaClusterMetadataSettingsRetryWith struct {
 func (o *UpdateKibanaClusterMetadataSettingsRetryWith) Error() string {
 	return fmt.Sprintf("[PATCH /clusters/kibana/{cluster_id}/metadata/settings][%d] updateKibanaClusterMetadataSettingsRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *UpdateKibanaClusterMetadataSettingsRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

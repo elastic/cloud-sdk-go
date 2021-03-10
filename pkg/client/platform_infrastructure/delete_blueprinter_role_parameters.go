@@ -34,81 +34,96 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewDeleteBlueprinterRoleParams creates a new DeleteBlueprinterRoleParams object
-// with the default values initialized.
+// NewDeleteBlueprinterRoleParams creates a new DeleteBlueprinterRoleParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewDeleteBlueprinterRoleParams() *DeleteBlueprinterRoleParams {
-	var (
-		skipValidationsDefault = bool(false)
-	)
 	return &DeleteBlueprinterRoleParams{
-		SkipValidations: &skipValidationsDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteBlueprinterRoleParamsWithTimeout creates a new DeleteBlueprinterRoleParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewDeleteBlueprinterRoleParamsWithTimeout(timeout time.Duration) *DeleteBlueprinterRoleParams {
-	var (
-		skipValidationsDefault = bool(false)
-	)
 	return &DeleteBlueprinterRoleParams{
-		SkipValidations: &skipValidationsDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewDeleteBlueprinterRoleParamsWithContext creates a new DeleteBlueprinterRoleParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewDeleteBlueprinterRoleParamsWithContext(ctx context.Context) *DeleteBlueprinterRoleParams {
-	var (
-		skipValidationsDefault = bool(false)
-	)
 	return &DeleteBlueprinterRoleParams{
-		SkipValidations: &skipValidationsDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewDeleteBlueprinterRoleParamsWithHTTPClient creates a new DeleteBlueprinterRoleParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewDeleteBlueprinterRoleParamsWithHTTPClient(client *http.Client) *DeleteBlueprinterRoleParams {
-	var (
-		skipValidationsDefault = bool(false)
-	)
 	return &DeleteBlueprinterRoleParams{
-		SkipValidations: &skipValidationsDefault,
-		HTTPClient:      client,
+		HTTPClient: client,
 	}
 }
 
-/*DeleteBlueprinterRoleParams contains all the parameters to send to the API endpoint
-for the delete blueprinter role operation typically these are written to a http.Request
+/* DeleteBlueprinterRoleParams contains all the parameters to send to the API endpoint
+   for the delete blueprinter role operation.
+
+   Typically these are written to a http.Request.
 */
 type DeleteBlueprinterRoleParams struct {
 
-	/*BlueprinterRoleID
-	  User-specified Blueprinter role ID.
+	/* BlueprinterRoleID.
 
+	   User-specified Blueprinter role ID.
 	*/
 	BlueprinterRoleID string
-	/*SkipValidations
-	  When sent as true, ignores validation errors.
 
+	/* SkipValidations.
+
+	   When sent as true, ignores validation errors.
 	*/
 	SkipValidations *bool
-	/*Version
-	  When specified, checks for conflicts against the version stored in the persistent store (returned in 'x-cloud-resource-version' of the GET request)
 
+	/* Version.
+
+	   When specified, checks for conflicts against the version stored in the persistent store (returned in 'x-cloud-resource-version' of the GET request)
 	*/
 	Version *int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the delete blueprinter role params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteBlueprinterRoleParams) WithDefaults() *DeleteBlueprinterRoleParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the delete blueprinter role params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteBlueprinterRoleParams) SetDefaults() {
+	var (
+		skipValidationsDefault = bool(false)
+	)
+
+	val := DeleteBlueprinterRoleParams{
+		SkipValidations: &skipValidationsDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the delete blueprinter role params
@@ -194,32 +209,34 @@ func (o *DeleteBlueprinterRoleParams) WriteToRequest(r runtime.ClientRequest, re
 
 		// query param skip_validations
 		var qrSkipValidations bool
+
 		if o.SkipValidations != nil {
 			qrSkipValidations = *o.SkipValidations
 		}
 		qSkipValidations := swag.FormatBool(qrSkipValidations)
 		if qSkipValidations != "" {
+
 			if err := r.SetQueryParam("skip_validations", qSkipValidations); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.Version != nil {
 
 		// query param version
 		var qrVersion int64
+
 		if o.Version != nil {
 			qrVersion = *o.Version
 		}
 		qVersion := swag.FormatInt64(qrVersion)
 		if qVersion != "" {
+
 			if err := r.SetQueryParam("version", qVersion); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

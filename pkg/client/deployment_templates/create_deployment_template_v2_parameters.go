@@ -35,64 +35,79 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewCreateDeploymentTemplateV2Params creates a new CreateDeploymentTemplateV2Params object
-// with the default values initialized.
+// NewCreateDeploymentTemplateV2Params creates a new CreateDeploymentTemplateV2Params object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewCreateDeploymentTemplateV2Params() *CreateDeploymentTemplateV2Params {
-	var ()
 	return &CreateDeploymentTemplateV2Params{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewCreateDeploymentTemplateV2ParamsWithTimeout creates a new CreateDeploymentTemplateV2Params object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewCreateDeploymentTemplateV2ParamsWithTimeout(timeout time.Duration) *CreateDeploymentTemplateV2Params {
-	var ()
 	return &CreateDeploymentTemplateV2Params{
-
 		timeout: timeout,
 	}
 }
 
 // NewCreateDeploymentTemplateV2ParamsWithContext creates a new CreateDeploymentTemplateV2Params object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewCreateDeploymentTemplateV2ParamsWithContext(ctx context.Context) *CreateDeploymentTemplateV2Params {
-	var ()
 	return &CreateDeploymentTemplateV2Params{
-
 		Context: ctx,
 	}
 }
 
 // NewCreateDeploymentTemplateV2ParamsWithHTTPClient creates a new CreateDeploymentTemplateV2Params object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewCreateDeploymentTemplateV2ParamsWithHTTPClient(client *http.Client) *CreateDeploymentTemplateV2Params {
-	var ()
 	return &CreateDeploymentTemplateV2Params{
 		HTTPClient: client,
 	}
 }
 
-/*CreateDeploymentTemplateV2Params contains all the parameters to send to the API endpoint
-for the create deployment template v2 operation typically these are written to a http.Request
+/* CreateDeploymentTemplateV2Params contains all the parameters to send to the API endpoint
+   for the create deployment template v2 operation.
+
+   Typically these are written to a http.Request.
 */
 type CreateDeploymentTemplateV2Params struct {
 
-	/*Body
-	  The deployment template definition.
+	/* Body.
 
+	   The deployment template definition.
 	*/
 	Body *models.DeploymentTemplateRequestBody
-	/*Region
-	  Region of the deployment template
 
+	/* Region.
+
+	   Region of the deployment template
 	*/
 	Region string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the create deployment template v2 params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *CreateDeploymentTemplateV2Params) WithDefaults() *CreateDeploymentTemplateV2Params {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the create deployment template v2 params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *CreateDeploymentTemplateV2Params) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the create deployment template v2 params
@@ -157,7 +172,6 @@ func (o *CreateDeploymentTemplateV2Params) WriteToRequest(r runtime.ClientReques
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err
@@ -168,6 +182,7 @@ func (o *CreateDeploymentTemplateV2Params) WriteToRequest(r runtime.ClientReques
 	qrRegion := o.Region
 	qRegion := qrRegion
 	if qRegion != "" {
+
 		if err := r.SetQueryParam("region", qRegion); err != nil {
 			return err
 		}

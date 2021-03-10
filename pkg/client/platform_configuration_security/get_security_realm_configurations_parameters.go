@@ -33,52 +33,66 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetSecurityRealmConfigurationsParams creates a new GetSecurityRealmConfigurationsParams object
-// with the default values initialized.
+// NewGetSecurityRealmConfigurationsParams creates a new GetSecurityRealmConfigurationsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetSecurityRealmConfigurationsParams() *GetSecurityRealmConfigurationsParams {
-
 	return &GetSecurityRealmConfigurationsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetSecurityRealmConfigurationsParamsWithTimeout creates a new GetSecurityRealmConfigurationsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetSecurityRealmConfigurationsParamsWithTimeout(timeout time.Duration) *GetSecurityRealmConfigurationsParams {
-
 	return &GetSecurityRealmConfigurationsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetSecurityRealmConfigurationsParamsWithContext creates a new GetSecurityRealmConfigurationsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetSecurityRealmConfigurationsParamsWithContext(ctx context.Context) *GetSecurityRealmConfigurationsParams {
-
 	return &GetSecurityRealmConfigurationsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetSecurityRealmConfigurationsParamsWithHTTPClient creates a new GetSecurityRealmConfigurationsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetSecurityRealmConfigurationsParamsWithHTTPClient(client *http.Client) *GetSecurityRealmConfigurationsParams {
-
 	return &GetSecurityRealmConfigurationsParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetSecurityRealmConfigurationsParams contains all the parameters to send to the API endpoint
-for the get security realm configurations operation typically these are written to a http.Request
+/* GetSecurityRealmConfigurationsParams contains all the parameters to send to the API endpoint
+   for the get security realm configurations operation.
+
+   Typically these are written to a http.Request.
 */
 type GetSecurityRealmConfigurationsParams struct {
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get security realm configurations params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetSecurityRealmConfigurationsParams) WithDefaults() *GetSecurityRealmConfigurationsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get security realm configurations params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetSecurityRealmConfigurationsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get security realm configurations params

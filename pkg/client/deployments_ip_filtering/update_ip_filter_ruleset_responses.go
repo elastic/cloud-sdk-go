@@ -64,7 +64,6 @@ func (o *UpdateIPFilterRulesetReader) ReadResponse(response runtime.ClientRespon
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,7 +74,7 @@ func NewUpdateIPFilterRulesetOK() *UpdateIPFilterRulesetOK {
 	return &UpdateIPFilterRulesetOK{}
 }
 
-/*UpdateIPFilterRulesetOK handles this case with default header values.
+/* UpdateIPFilterRulesetOK describes a response with status code 200, with default header values.
 
 The ruleset definition was valid and the update has started
 */
@@ -86,7 +85,6 @@ type UpdateIPFilterRulesetOK struct {
 func (o *UpdateIPFilterRulesetOK) Error() string {
 	return fmt.Sprintf("[PUT /deployments/ip-filtering/rulesets/{ruleset_id}][%d] updateIpFilterRulesetOK  %+v", 200, o.Payload)
 }
-
 func (o *UpdateIPFilterRulesetOK) GetPayload() *models.RuleSetResponse {
 	return o.Payload
 }
@@ -108,7 +106,7 @@ func NewUpdateIPFilterRulesetBadRequest() *UpdateIPFilterRulesetBadRequest {
 	return &UpdateIPFilterRulesetBadRequest{}
 }
 
-/*UpdateIPFilterRulesetBadRequest handles this case with default header values.
+/* UpdateIPFilterRulesetBadRequest describes a response with status code 400, with default header values.
 
 The ruleset definition contains errors (code: 'ip_filtering.ruleset_invalid')
 */
@@ -119,7 +117,6 @@ type UpdateIPFilterRulesetBadRequest struct {
 func (o *UpdateIPFilterRulesetBadRequest) Error() string {
 	return fmt.Sprintf("[PUT /deployments/ip-filtering/rulesets/{ruleset_id}][%d] updateIpFilterRulesetBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *UpdateIPFilterRulesetBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -141,7 +138,7 @@ func NewUpdateIPFilterRulesetRetryWith() *UpdateIPFilterRulesetRetryWith {
 	return &UpdateIPFilterRulesetRetryWith{}
 }
 
-/*UpdateIPFilterRulesetRetryWith handles this case with default header values.
+/* UpdateIPFilterRulesetRetryWith describes a response with status code 449, with default header values.
 
 elevated permissions are required. (code: '"root.unauthorized.rbac.elevated_permissions_required"')
 */
@@ -152,7 +149,6 @@ type UpdateIPFilterRulesetRetryWith struct {
 func (o *UpdateIPFilterRulesetRetryWith) Error() string {
 	return fmt.Sprintf("[PUT /deployments/ip-filtering/rulesets/{ruleset_id}][%d] updateIpFilterRulesetRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *UpdateIPFilterRulesetRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -174,7 +170,7 @@ func NewUpdateIPFilterRulesetInternalServerError() *UpdateIPFilterRulesetInterna
 	return &UpdateIPFilterRulesetInternalServerError{}
 }
 
-/*UpdateIPFilterRulesetInternalServerError handles this case with default header values.
+/* UpdateIPFilterRulesetInternalServerError describes a response with status code 500, with default header values.
 
 The request execution failed (code: 'ip_filtering.request_execution_failed')
 */
@@ -185,7 +181,6 @@ type UpdateIPFilterRulesetInternalServerError struct {
 func (o *UpdateIPFilterRulesetInternalServerError) Error() string {
 	return fmt.Sprintf("[PUT /deployments/ip-filtering/rulesets/{ruleset_id}][%d] updateIpFilterRulesetInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *UpdateIPFilterRulesetInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

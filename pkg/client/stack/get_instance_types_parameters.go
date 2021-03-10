@@ -33,52 +33,66 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetInstanceTypesParams creates a new GetInstanceTypesParams object
-// with the default values initialized.
+// NewGetInstanceTypesParams creates a new GetInstanceTypesParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetInstanceTypesParams() *GetInstanceTypesParams {
-
 	return &GetInstanceTypesParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetInstanceTypesParamsWithTimeout creates a new GetInstanceTypesParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetInstanceTypesParamsWithTimeout(timeout time.Duration) *GetInstanceTypesParams {
-
 	return &GetInstanceTypesParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetInstanceTypesParamsWithContext creates a new GetInstanceTypesParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetInstanceTypesParamsWithContext(ctx context.Context) *GetInstanceTypesParams {
-
 	return &GetInstanceTypesParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetInstanceTypesParamsWithHTTPClient creates a new GetInstanceTypesParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetInstanceTypesParamsWithHTTPClient(client *http.Client) *GetInstanceTypesParams {
-
 	return &GetInstanceTypesParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetInstanceTypesParams contains all the parameters to send to the API endpoint
-for the get instance types operation typically these are written to a http.Request
+/* GetInstanceTypesParams contains all the parameters to send to the API endpoint
+   for the get instance types operation.
+
+   Typically these are written to a http.Request.
 */
 type GetInstanceTypesParams struct {
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get instance types params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetInstanceTypesParams) WithDefaults() *GetInstanceTypesParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get instance types params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetInstanceTypesParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get instance types params

@@ -58,7 +58,6 @@ func (o *SetEsClusterLegacySecuritySettingsReader) ReadResponse(response runtime
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,7 +68,7 @@ func NewSetEsClusterLegacySecuritySettingsOK() *SetEsClusterLegacySecuritySettin
 	return &SetEsClusterLegacySecuritySettingsOK{}
 }
 
-/*SetEsClusterLegacySecuritySettingsOK handles this case with default header values.
+/* SetEsClusterLegacySecuritySettingsOK describes a response with status code 200, with default header values.
 
 Returns the updated legacy security settings for the specified cluster
 */
@@ -80,7 +79,6 @@ type SetEsClusterLegacySecuritySettingsOK struct {
 func (o *SetEsClusterLegacySecuritySettingsOK) Error() string {
 	return fmt.Sprintf("[PUT /clusters/elasticsearch/{cluster_id}/settings/security/legacy][%d] setEsClusterLegacySecuritySettingsOK  %+v", 200, o.Payload)
 }
-
 func (o *SetEsClusterLegacySecuritySettingsOK) GetPayload() *models.LegacySecuritySettings {
 	return o.Payload
 }
@@ -102,12 +100,13 @@ func NewSetEsClusterLegacySecuritySettingsNotFound() *SetEsClusterLegacySecurity
 	return &SetEsClusterLegacySecuritySettingsNotFound{}
 }
 
-/*SetEsClusterLegacySecuritySettingsNotFound handles this case with default header values.
+/* SetEsClusterLegacySecuritySettingsNotFound describes a response with status code 404, with default header values.
 
 The cluster specified at {cluster_id} could not be found. (code: `clusters.cluster_not_found`)
 */
 type SetEsClusterLegacySecuritySettingsNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -117,15 +116,18 @@ type SetEsClusterLegacySecuritySettingsNotFound struct {
 func (o *SetEsClusterLegacySecuritySettingsNotFound) Error() string {
 	return fmt.Sprintf("[PUT /clusters/elasticsearch/{cluster_id}/settings/security/legacy][%d] setEsClusterLegacySecuritySettingsNotFound  %+v", 404, o.Payload)
 }
-
 func (o *SetEsClusterLegacySecuritySettingsNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SetEsClusterLegacySecuritySettingsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -142,12 +144,13 @@ func NewSetEsClusterLegacySecuritySettingsRetryWith() *SetEsClusterLegacySecurit
 	return &SetEsClusterLegacySecuritySettingsRetryWith{}
 }
 
-/*SetEsClusterLegacySecuritySettingsRetryWith handles this case with default header values.
+/* SetEsClusterLegacySecuritySettingsRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type SetEsClusterLegacySecuritySettingsRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -157,15 +160,18 @@ type SetEsClusterLegacySecuritySettingsRetryWith struct {
 func (o *SetEsClusterLegacySecuritySettingsRetryWith) Error() string {
 	return fmt.Sprintf("[PUT /clusters/elasticsearch/{cluster_id}/settings/security/legacy][%d] setEsClusterLegacySecuritySettingsRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *SetEsClusterLegacySecuritySettingsRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SetEsClusterLegacySecuritySettingsRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

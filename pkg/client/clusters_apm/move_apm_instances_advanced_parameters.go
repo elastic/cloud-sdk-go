@@ -36,94 +36,105 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewMoveApmInstancesAdvancedParams creates a new MoveApmInstancesAdvancedParams object
-// with the default values initialized.
+// NewMoveApmInstancesAdvancedParams creates a new MoveApmInstancesAdvancedParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewMoveApmInstancesAdvancedParams() *MoveApmInstancesAdvancedParams {
-	var (
-		forceUpdateDefault  = bool(false)
-		validateOnlyDefault = bool(false)
-	)
 	return &MoveApmInstancesAdvancedParams{
-		ForceUpdate:  &forceUpdateDefault,
-		ValidateOnly: &validateOnlyDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewMoveApmInstancesAdvancedParamsWithTimeout creates a new MoveApmInstancesAdvancedParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewMoveApmInstancesAdvancedParamsWithTimeout(timeout time.Duration) *MoveApmInstancesAdvancedParams {
-	var (
-		forceUpdateDefault  = bool(false)
-		validateOnlyDefault = bool(false)
-	)
 	return &MoveApmInstancesAdvancedParams{
-		ForceUpdate:  &forceUpdateDefault,
-		ValidateOnly: &validateOnlyDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewMoveApmInstancesAdvancedParamsWithContext creates a new MoveApmInstancesAdvancedParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewMoveApmInstancesAdvancedParamsWithContext(ctx context.Context) *MoveApmInstancesAdvancedParams {
-	var (
-		forceUpdateDefault  = bool(false)
-		validateOnlyDefault = bool(false)
-	)
 	return &MoveApmInstancesAdvancedParams{
-		ForceUpdate:  &forceUpdateDefault,
-		ValidateOnly: &validateOnlyDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewMoveApmInstancesAdvancedParamsWithHTTPClient creates a new MoveApmInstancesAdvancedParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewMoveApmInstancesAdvancedParamsWithHTTPClient(client *http.Client) *MoveApmInstancesAdvancedParams {
-	var (
-		forceUpdateDefault  = bool(false)
-		validateOnlyDefault = bool(false)
-	)
 	return &MoveApmInstancesAdvancedParams{
-		ForceUpdate:  &forceUpdateDefault,
-		ValidateOnly: &validateOnlyDefault,
-		HTTPClient:   client,
+		HTTPClient: client,
 	}
 }
 
-/*MoveApmInstancesAdvancedParams contains all the parameters to send to the API endpoint
-for the move apm instances advanced operation typically these are written to a http.Request
+/* MoveApmInstancesAdvancedParams contains all the parameters to send to the API endpoint
+   for the move apm instances advanced operation.
+
+   Typically these are written to a http.Request.
 */
 type MoveApmInstancesAdvancedParams struct {
 
-	/*Body
-	  Overrides defaults for the move, including setting the configuration of instances specified in the path
+	/* Body.
 
+	   Overrides defaults for the move, including setting the configuration of instances specified in the path
 	*/
 	Body *models.TransientApmPlanConfiguration
-	/*ClusterID
-	  The APM deployment identifier.
 
+	/* ClusterID.
+
+	   The APM deployment identifier.
 	*/
 	ClusterID string
-	/*ForceUpdate
-	  When `true`, cancels and overwrites the pending plans, or treats the instance as an error.
 
+	/* ForceUpdate.
+
+	   When `true`, cancels and overwrites the pending plans, or treats the instance as an error.
 	*/
 	ForceUpdate *bool
-	/*ValidateOnly
-	  When `true`, validates the move request, then returns the calculated plan without applying the plan.
 
+	/* ValidateOnly.
+
+	   When `true`, validates the move request, then returns the calculated plan without applying the plan.
 	*/
 	ValidateOnly *bool
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the move apm instances advanced params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *MoveApmInstancesAdvancedParams) WithDefaults() *MoveApmInstancesAdvancedParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the move apm instances advanced params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *MoveApmInstancesAdvancedParams) SetDefaults() {
+	var (
+		forceUpdateDefault = bool(false)
+
+		validateOnlyDefault = bool(false)
+	)
+
+	val := MoveApmInstancesAdvancedParams{
+		ForceUpdate:  &forceUpdateDefault,
+		ValidateOnly: &validateOnlyDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the move apm instances advanced params
@@ -210,7 +221,6 @@ func (o *MoveApmInstancesAdvancedParams) WriteToRequest(r runtime.ClientRequest,
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err
@@ -226,32 +236,34 @@ func (o *MoveApmInstancesAdvancedParams) WriteToRequest(r runtime.ClientRequest,
 
 		// query param force_update
 		var qrForceUpdate bool
+
 		if o.ForceUpdate != nil {
 			qrForceUpdate = *o.ForceUpdate
 		}
 		qForceUpdate := swag.FormatBool(qrForceUpdate)
 		if qForceUpdate != "" {
+
 			if err := r.SetQueryParam("force_update", qForceUpdate); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.ValidateOnly != nil {
 
 		// query param validate_only
 		var qrValidateOnly bool
+
 		if o.ValidateOnly != nil {
 			qrValidateOnly = *o.ValidateOnly
 		}
 		qValidateOnly := swag.FormatBool(qrValidateOnly)
 		if qValidateOnly != "" {
+
 			if err := r.SetQueryParam("validate_only", qValidateOnly); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

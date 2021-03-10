@@ -64,7 +64,6 @@ func (o *EnableDeploymentResourceIlmReader) ReadResponse(response runtime.Client
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,7 +74,7 @@ func NewEnableDeploymentResourceIlmOK() *EnableDeploymentResourceIlmOK {
 	return &EnableDeploymentResourceIlmOK{}
 }
 
-/*EnableDeploymentResourceIlmOK handles this case with default header values.
+/* EnableDeploymentResourceIlmOK describes a response with status code 200, with default header values.
 
 Standard response
 */
@@ -86,7 +85,6 @@ type EnableDeploymentResourceIlmOK struct {
 func (o *EnableDeploymentResourceIlmOK) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_enable-ilm][%d] enableDeploymentResourceIlmOK  %+v", 200, o.Payload)
 }
-
 func (o *EnableDeploymentResourceIlmOK) GetPayload() *models.DeploymentResourceCommandResponse {
 	return o.Payload
 }
@@ -108,13 +106,14 @@ func NewEnableDeploymentResourceIlmNotFound() *EnableDeploymentResourceIlmNotFou
 	return &EnableDeploymentResourceIlmNotFound{}
 }
 
-/*EnableDeploymentResourceIlmNotFound handles this case with default header values.
+/* EnableDeploymentResourceIlmNotFound describes a response with status code 404, with default header values.
 
-* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+ * The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
 * The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)
- */
+*/
 type EnableDeploymentResourceIlmNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -124,15 +123,18 @@ type EnableDeploymentResourceIlmNotFound struct {
 func (o *EnableDeploymentResourceIlmNotFound) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_enable-ilm][%d] enableDeploymentResourceIlmNotFound  %+v", 404, o.Payload)
 }
-
 func (o *EnableDeploymentResourceIlmNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *EnableDeploymentResourceIlmNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -149,12 +151,13 @@ func NewEnableDeploymentResourceIlmRetryWith() *EnableDeploymentResourceIlmRetry
 	return &EnableDeploymentResourceIlmRetryWith{}
 }
 
-/*EnableDeploymentResourceIlmRetryWith handles this case with default header values.
+/* EnableDeploymentResourceIlmRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type EnableDeploymentResourceIlmRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -164,15 +167,18 @@ type EnableDeploymentResourceIlmRetryWith struct {
 func (o *EnableDeploymentResourceIlmRetryWith) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_enable-ilm][%d] enableDeploymentResourceIlmRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *EnableDeploymentResourceIlmRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *EnableDeploymentResourceIlmRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -189,12 +195,13 @@ func NewEnableDeploymentResourceIlmInternalServerError() *EnableDeploymentResour
 	return &EnableDeploymentResourceIlmInternalServerError{}
 }
 
-/*EnableDeploymentResourceIlmInternalServerError handles this case with default header values.
+/* EnableDeploymentResourceIlmInternalServerError describes a response with status code 500, with default header values.
 
 We have failed you. (code: `deployments.deployment_resource_no_longer_exists`)
 */
 type EnableDeploymentResourceIlmInternalServerError struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -204,15 +211,18 @@ type EnableDeploymentResourceIlmInternalServerError struct {
 func (o *EnableDeploymentResourceIlmInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_enable-ilm][%d] enableDeploymentResourceIlmInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *EnableDeploymentResourceIlmInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *EnableDeploymentResourceIlmInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

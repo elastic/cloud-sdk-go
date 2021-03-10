@@ -58,7 +58,6 @@ func (o *CreateAPIKeyReader) ReadResponse(response runtime.ClientResponse, consu
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,7 +68,7 @@ func NewCreateAPIKeyCreated() *CreateAPIKeyCreated {
 	return &CreateAPIKeyCreated{}
 }
 
-/*CreateAPIKeyCreated handles this case with default header values.
+/* CreateAPIKeyCreated describes a response with status code 201, with default header values.
 
 The API key is created and returned in the body of the response.
 */
@@ -80,7 +79,6 @@ type CreateAPIKeyCreated struct {
 func (o *CreateAPIKeyCreated) Error() string {
 	return fmt.Sprintf("[POST /users/auth/keys][%d] createApiKeyCreated  %+v", 201, o.Payload)
 }
-
 func (o *CreateAPIKeyCreated) GetPayload() *models.APIKeyResponse {
 	return o.Payload
 }
@@ -102,12 +100,13 @@ func NewCreateAPIKeyBadRequest() *CreateAPIKeyBadRequest {
 	return &CreateAPIKeyBadRequest{}
 }
 
-/*CreateAPIKeyBadRequest handles this case with default header values.
+/* CreateAPIKeyBadRequest describes a response with status code 400, with default header values.
 
 The request is invalid. Specify a different request, then try again. (code: `api_keys.invalid_input`)
 */
 type CreateAPIKeyBadRequest struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -117,15 +116,18 @@ type CreateAPIKeyBadRequest struct {
 func (o *CreateAPIKeyBadRequest) Error() string {
 	return fmt.Sprintf("[POST /users/auth/keys][%d] createApiKeyBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *CreateAPIKeyBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *CreateAPIKeyBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -142,12 +144,13 @@ func NewCreateAPIKeyRetryWith() *CreateAPIKeyRetryWith {
 	return &CreateAPIKeyRetryWith{}
 }
 
-/*CreateAPIKeyRetryWith handles this case with default header values.
+/* CreateAPIKeyRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type CreateAPIKeyRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -157,15 +160,18 @@ type CreateAPIKeyRetryWith struct {
 func (o *CreateAPIKeyRetryWith) Error() string {
 	return fmt.Sprintf("[POST /users/auth/keys][%d] createApiKeyRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *CreateAPIKeyRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *CreateAPIKeyRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

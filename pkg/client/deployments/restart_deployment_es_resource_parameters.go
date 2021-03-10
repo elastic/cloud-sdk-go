@@ -34,133 +34,140 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewRestartDeploymentEsResourceParams creates a new RestartDeploymentEsResourceParams object
-// with the default values initialized.
+// NewRestartDeploymentEsResourceParams creates a new RestartDeploymentEsResourceParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewRestartDeploymentEsResourceParams() *RestartDeploymentEsResourceParams {
-	var (
-		cancelPendingDefault     = bool(false)
-		groupAttributeDefault    = string("__zone__")
-		restoreSnapshotDefault   = bool(true)
-		shardInitWaitTimeDefault = int64(600)
-		skipSnapshotDefault      = bool(true)
-	)
 	return &RestartDeploymentEsResourceParams{
-		CancelPending:     &cancelPendingDefault,
-		GroupAttribute:    &groupAttributeDefault,
-		RestoreSnapshot:   &restoreSnapshotDefault,
-		ShardInitWaitTime: &shardInitWaitTimeDefault,
-		SkipSnapshot:      &skipSnapshotDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewRestartDeploymentEsResourceParamsWithTimeout creates a new RestartDeploymentEsResourceParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewRestartDeploymentEsResourceParamsWithTimeout(timeout time.Duration) *RestartDeploymentEsResourceParams {
-	var (
-		cancelPendingDefault     = bool(false)
-		groupAttributeDefault    = string("__zone__")
-		restoreSnapshotDefault   = bool(true)
-		shardInitWaitTimeDefault = int64(600)
-		skipSnapshotDefault      = bool(true)
-	)
 	return &RestartDeploymentEsResourceParams{
-		CancelPending:     &cancelPendingDefault,
-		GroupAttribute:    &groupAttributeDefault,
-		RestoreSnapshot:   &restoreSnapshotDefault,
-		ShardInitWaitTime: &shardInitWaitTimeDefault,
-		SkipSnapshot:      &skipSnapshotDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewRestartDeploymentEsResourceParamsWithContext creates a new RestartDeploymentEsResourceParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewRestartDeploymentEsResourceParamsWithContext(ctx context.Context) *RestartDeploymentEsResourceParams {
-	var (
-		cancelPendingDefault     = bool(false)
-		groupAttributeDefault    = string("__zone__")
-		restoreSnapshotDefault   = bool(true)
-		shardInitWaitTimeDefault = int64(600)
-		skipSnapshotDefault      = bool(true)
-	)
 	return &RestartDeploymentEsResourceParams{
-		CancelPending:     &cancelPendingDefault,
-		GroupAttribute:    &groupAttributeDefault,
-		RestoreSnapshot:   &restoreSnapshotDefault,
-		ShardInitWaitTime: &shardInitWaitTimeDefault,
-		SkipSnapshot:      &skipSnapshotDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewRestartDeploymentEsResourceParamsWithHTTPClient creates a new RestartDeploymentEsResourceParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewRestartDeploymentEsResourceParamsWithHTTPClient(client *http.Client) *RestartDeploymentEsResourceParams {
-	var (
-		cancelPendingDefault     = bool(false)
-		groupAttributeDefault    = string("__zone__")
-		restoreSnapshotDefault   = bool(true)
-		shardInitWaitTimeDefault = int64(600)
-		skipSnapshotDefault      = bool(true)
-	)
 	return &RestartDeploymentEsResourceParams{
-		CancelPending:     &cancelPendingDefault,
-		GroupAttribute:    &groupAttributeDefault,
-		RestoreSnapshot:   &restoreSnapshotDefault,
-		ShardInitWaitTime: &shardInitWaitTimeDefault,
-		SkipSnapshot:      &skipSnapshotDefault,
-		HTTPClient:        client,
+		HTTPClient: client,
 	}
 }
 
-/*RestartDeploymentEsResourceParams contains all the parameters to send to the API endpoint
-for the restart deployment es resource operation typically these are written to a http.Request
+/* RestartDeploymentEsResourceParams contains all the parameters to send to the API endpoint
+   for the restart deployment es resource operation.
+
+   Typically these are written to a http.Request.
 */
 type RestartDeploymentEsResourceParams struct {
 
-	/*CancelPending
-	  If true, cancels any pending plans before restarting. If false and there are pending plans, returns an error.
+	/* CancelPending.
 
+	   If true, cancels any pending plans before restarting. If false and there are pending plans, returns an error.
 	*/
 	CancelPending *bool
-	/*DeploymentID
-	  Identifier for the Deployment.
 
+	/* DeploymentID.
+
+	   Identifier for the Deployment.
 	*/
 	DeploymentID string
-	/*GroupAttribute
-	  Indicates the property or properties used to divide the list of instances to restart in groups. Valid options are: '\_\_all\_\_' (restart all at once), '\_\_zone\_\_' by logical zone, '\_\_name\_\_' one instance at a time, or a comma-separated list of attributes of the instances
 
+	/* GroupAttribute.
+
+	   Indicates the property or properties used to divide the list of instances to restart in groups. Valid options are: '\_\_all\_\_' (restart all at once), '\_\_zone\_\_' by logical zone, '\_\_name\_\_' one instance at a time, or a comma-separated list of attributes of the instances
+
+	   Default: "__zone__"
 	*/
 	GroupAttribute *string
-	/*RefID
-	  User-specified RefId for the Resource.
 
+	/* RefID.
+
+	   User-specified RefId for the Resource.
 	*/
 	RefID string
-	/*RestoreSnapshot
-	  When set to true and restoring from shutdown, then will restore the cluster from the last snapshot (if available).
 
+	/* RestoreSnapshot.
+
+	   When set to true and restoring from shutdown, then will restore the cluster from the last snapshot (if available).
+
+	   Default: true
 	*/
 	RestoreSnapshot *bool
-	/*ShardInitWaitTime
-	  The time, in seconds, to wait for shards that show no progress of initializing, before rolling the next group (default: 10 minutes)
 
+	/* ShardInitWaitTime.
+
+	   The time, in seconds, to wait for shards that show no progress of initializing, before rolling the next group (default: 10 minutes)
+
+	   Default: 600
 	*/
 	ShardInitWaitTime *int64
-	/*SkipSnapshot
-	  If true, will not take a snapshot of the cluster before restarting.
 
+	/* SkipSnapshot.
+
+	   If true, will not take a snapshot of the cluster before restarting.
+
+	   Default: true
 	*/
 	SkipSnapshot *bool
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the restart deployment es resource params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *RestartDeploymentEsResourceParams) WithDefaults() *RestartDeploymentEsResourceParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the restart deployment es resource params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *RestartDeploymentEsResourceParams) SetDefaults() {
+	var (
+		cancelPendingDefault = bool(false)
+
+		groupAttributeDefault = string("__zone__")
+
+		restoreSnapshotDefault = bool(true)
+
+		shardInitWaitTimeDefault = int64(600)
+
+		skipSnapshotDefault = bool(true)
+	)
+
+	val := RestartDeploymentEsResourceParams{
+		CancelPending:     &cancelPendingDefault,
+		GroupAttribute:    &groupAttributeDefault,
+		RestoreSnapshot:   &restoreSnapshotDefault,
+		ShardInitWaitTime: &shardInitWaitTimeDefault,
+		SkipSnapshot:      &skipSnapshotDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the restart deployment es resource params
@@ -285,16 +292,17 @@ func (o *RestartDeploymentEsResourceParams) WriteToRequest(r runtime.ClientReque
 
 		// query param cancel_pending
 		var qrCancelPending bool
+
 		if o.CancelPending != nil {
 			qrCancelPending = *o.CancelPending
 		}
 		qCancelPending := swag.FormatBool(qrCancelPending)
 		if qCancelPending != "" {
+
 			if err := r.SetQueryParam("cancel_pending", qCancelPending); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	// path param deployment_id
@@ -306,16 +314,17 @@ func (o *RestartDeploymentEsResourceParams) WriteToRequest(r runtime.ClientReque
 
 		// query param group_attribute
 		var qrGroupAttribute string
+
 		if o.GroupAttribute != nil {
 			qrGroupAttribute = *o.GroupAttribute
 		}
 		qGroupAttribute := qrGroupAttribute
 		if qGroupAttribute != "" {
+
 			if err := r.SetQueryParam("group_attribute", qGroupAttribute); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	// path param ref_id
@@ -327,48 +336,51 @@ func (o *RestartDeploymentEsResourceParams) WriteToRequest(r runtime.ClientReque
 
 		// query param restore_snapshot
 		var qrRestoreSnapshot bool
+
 		if o.RestoreSnapshot != nil {
 			qrRestoreSnapshot = *o.RestoreSnapshot
 		}
 		qRestoreSnapshot := swag.FormatBool(qrRestoreSnapshot)
 		if qRestoreSnapshot != "" {
+
 			if err := r.SetQueryParam("restore_snapshot", qRestoreSnapshot); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.ShardInitWaitTime != nil {
 
 		// query param shard_init_wait_time
 		var qrShardInitWaitTime int64
+
 		if o.ShardInitWaitTime != nil {
 			qrShardInitWaitTime = *o.ShardInitWaitTime
 		}
 		qShardInitWaitTime := swag.FormatInt64(qrShardInitWaitTime)
 		if qShardInitWaitTime != "" {
+
 			if err := r.SetQueryParam("shard_init_wait_time", qShardInitWaitTime); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.SkipSnapshot != nil {
 
 		// query param skip_snapshot
 		var qrSkipSnapshot bool
+
 		if o.SkipSnapshot != nil {
 			qrSkipSnapshot = *o.SkipSnapshot
 		}
 		qSkipSnapshot := swag.FormatBool(qrSkipSnapshot)
 		if qSkipSnapshot != "" {
+
 			if err := r.SetQueryParam("skip_snapshot", qSkipSnapshot); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

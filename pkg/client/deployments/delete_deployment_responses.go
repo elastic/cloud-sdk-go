@@ -64,7 +64,6 @@ func (o *DeleteDeploymentReader) ReadResponse(response runtime.ClientResponse, c
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,7 +74,7 @@ func NewDeleteDeploymentOK() *DeleteDeploymentOK {
 	return &DeleteDeploymentOK{}
 }
 
-/*DeleteDeploymentOK handles this case with default header values.
+/* DeleteDeploymentOK describes a response with status code 200, with default header values.
 
 The request was valid and the deployment was deleted.
 */
@@ -86,7 +85,6 @@ type DeleteDeploymentOK struct {
 func (o *DeleteDeploymentOK) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/{deployment_id}][%d] deleteDeploymentOK  %+v", 200, o.Payload)
 }
-
 func (o *DeleteDeploymentOK) GetPayload() *models.DeploymentDeleteResponse {
 	return o.Payload
 }
@@ -108,7 +106,7 @@ func NewDeleteDeploymentBadRequest() *DeleteDeploymentBadRequest {
 	return &DeleteDeploymentBadRequest{}
 }
 
-/*DeleteDeploymentBadRequest handles this case with default header values.
+/* DeleteDeploymentBadRequest describes a response with status code 400, with default header values.
 
 The Deployment resources have not been shutdown yet.
 */
@@ -119,7 +117,6 @@ type DeleteDeploymentBadRequest struct {
 func (o *DeleteDeploymentBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/{deployment_id}][%d] deleteDeploymentBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *DeleteDeploymentBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -141,7 +138,7 @@ func NewDeleteDeploymentUnauthorized() *DeleteDeploymentUnauthorized {
 	return &DeleteDeploymentUnauthorized{}
 }
 
-/*DeleteDeploymentUnauthorized handles this case with default header values.
+/* DeleteDeploymentUnauthorized describes a response with status code 401, with default header values.
 
 You are not authorized to perform this action.
 */
@@ -152,7 +149,6 @@ type DeleteDeploymentUnauthorized struct {
 func (o *DeleteDeploymentUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/{deployment_id}][%d] deleteDeploymentUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *DeleteDeploymentUnauthorized) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -174,12 +170,13 @@ func NewDeleteDeploymentNotFound() *DeleteDeploymentNotFound {
 	return &DeleteDeploymentNotFound{}
 }
 
-/*DeleteDeploymentNotFound handles this case with default header values.
+/* DeleteDeploymentNotFound describes a response with status code 404, with default header values.
 
 The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
 */
 type DeleteDeploymentNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -189,15 +186,18 @@ type DeleteDeploymentNotFound struct {
 func (o *DeleteDeploymentNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/{deployment_id}][%d] deleteDeploymentNotFound  %+v", 404, o.Payload)
 }
-
 func (o *DeleteDeploymentNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *DeleteDeploymentNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

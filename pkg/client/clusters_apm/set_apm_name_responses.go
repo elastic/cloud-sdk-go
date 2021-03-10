@@ -58,7 +58,6 @@ func (o *SetApmNameReader) ReadResponse(response runtime.ClientResponse, consume
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,7 +68,7 @@ func NewSetApmNameOK() *SetApmNameOK {
 	return &SetApmNameOK{}
 }
 
-/*SetApmNameOK handles this case with default header values.
+/* SetApmNameOK describes a response with status code 200, with default header values.
 
 The cluster name was successfully changed
 */
@@ -80,7 +79,6 @@ type SetApmNameOK struct {
 func (o *SetApmNameOK) Error() string {
 	return fmt.Sprintf("[PUT /clusters/apm/{cluster_id}/metadata/name/{new_name}][%d] setApmNameOK  %+v", 200, o.Payload)
 }
-
 func (o *SetApmNameOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -100,7 +98,7 @@ func NewSetApmNameNotFound() *SetApmNameNotFound {
 	return &SetApmNameNotFound{}
 }
 
-/*SetApmNameNotFound handles this case with default header values.
+/* SetApmNameNotFound describes a response with status code 404, with default header values.
 
 The cluster specified by {cluster_id} cannot be found (code: 'clusters.cluster_not_found')
 */
@@ -111,7 +109,6 @@ type SetApmNameNotFound struct {
 func (o *SetApmNameNotFound) Error() string {
 	return fmt.Sprintf("[PUT /clusters/apm/{cluster_id}/metadata/name/{new_name}][%d] setApmNameNotFound  %+v", 404, o.Payload)
 }
-
 func (o *SetApmNameNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -133,7 +130,7 @@ func NewSetApmNameRetryWith() *SetApmNameRetryWith {
 	return &SetApmNameRetryWith{}
 }
 
-/*SetApmNameRetryWith handles this case with default header values.
+/* SetApmNameRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: '"root.unauthorized.rbac.elevated_permissions_required"')
 */
@@ -144,7 +141,6 @@ type SetApmNameRetryWith struct {
 func (o *SetApmNameRetryWith) Error() string {
 	return fmt.Sprintf("[PUT /clusters/apm/{cluster_id}/metadata/name/{new_name}][%d] setApmNameRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *SetApmNameRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

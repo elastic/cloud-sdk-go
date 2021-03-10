@@ -34,146 +34,143 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetDeploymentEnterpriseSearchResourceInfoParams creates a new GetDeploymentEnterpriseSearchResourceInfoParams object
-// with the default values initialized.
+// NewGetDeploymentEnterpriseSearchResourceInfoParams creates a new GetDeploymentEnterpriseSearchResourceInfoParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetDeploymentEnterpriseSearchResourceInfoParams() *GetDeploymentEnterpriseSearchResourceInfoParams {
-	var (
-		showMetadataDefault     = bool(false)
-		showPlanDefaultsDefault = bool(false)
-		showPlanHistoryDefault  = bool(false)
-		showPlanLogsDefault     = bool(false)
-		showPlansDefault        = bool(true)
-		showSettingsDefault     = bool(false)
-	)
 	return &GetDeploymentEnterpriseSearchResourceInfoParams{
-		ShowMetadata:     &showMetadataDefault,
-		ShowPlanDefaults: &showPlanDefaultsDefault,
-		ShowPlanHistory:  &showPlanHistoryDefault,
-		ShowPlanLogs:     &showPlanLogsDefault,
-		ShowPlans:        &showPlansDefault,
-		ShowSettings:     &showSettingsDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetDeploymentEnterpriseSearchResourceInfoParamsWithTimeout creates a new GetDeploymentEnterpriseSearchResourceInfoParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetDeploymentEnterpriseSearchResourceInfoParamsWithTimeout(timeout time.Duration) *GetDeploymentEnterpriseSearchResourceInfoParams {
-	var (
-		showMetadataDefault     = bool(false)
-		showPlanDefaultsDefault = bool(false)
-		showPlanHistoryDefault  = bool(false)
-		showPlanLogsDefault     = bool(false)
-		showPlansDefault        = bool(true)
-		showSettingsDefault     = bool(false)
-	)
 	return &GetDeploymentEnterpriseSearchResourceInfoParams{
-		ShowMetadata:     &showMetadataDefault,
-		ShowPlanDefaults: &showPlanDefaultsDefault,
-		ShowPlanHistory:  &showPlanHistoryDefault,
-		ShowPlanLogs:     &showPlanLogsDefault,
-		ShowPlans:        &showPlansDefault,
-		ShowSettings:     &showSettingsDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewGetDeploymentEnterpriseSearchResourceInfoParamsWithContext creates a new GetDeploymentEnterpriseSearchResourceInfoParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetDeploymentEnterpriseSearchResourceInfoParamsWithContext(ctx context.Context) *GetDeploymentEnterpriseSearchResourceInfoParams {
-	var (
-		showMetadataDefault     = bool(false)
-		showPlanDefaultsDefault = bool(false)
-		showPlanHistoryDefault  = bool(false)
-		showPlanLogsDefault     = bool(false)
-		showPlansDefault        = bool(true)
-		showSettingsDefault     = bool(false)
-	)
 	return &GetDeploymentEnterpriseSearchResourceInfoParams{
-		ShowMetadata:     &showMetadataDefault,
-		ShowPlanDefaults: &showPlanDefaultsDefault,
-		ShowPlanHistory:  &showPlanHistoryDefault,
-		ShowPlanLogs:     &showPlanLogsDefault,
-		ShowPlans:        &showPlansDefault,
-		ShowSettings:     &showSettingsDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewGetDeploymentEnterpriseSearchResourceInfoParamsWithHTTPClient creates a new GetDeploymentEnterpriseSearchResourceInfoParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetDeploymentEnterpriseSearchResourceInfoParamsWithHTTPClient(client *http.Client) *GetDeploymentEnterpriseSearchResourceInfoParams {
-	var (
-		showMetadataDefault     = bool(false)
-		showPlanDefaultsDefault = bool(false)
-		showPlanHistoryDefault  = bool(false)
-		showPlanLogsDefault     = bool(false)
-		showPlansDefault        = bool(true)
-		showSettingsDefault     = bool(false)
-	)
 	return &GetDeploymentEnterpriseSearchResourceInfoParams{
-		ShowMetadata:     &showMetadataDefault,
-		ShowPlanDefaults: &showPlanDefaultsDefault,
-		ShowPlanHistory:  &showPlanHistoryDefault,
-		ShowPlanLogs:     &showPlanLogsDefault,
-		ShowPlans:        &showPlansDefault,
-		ShowSettings:     &showSettingsDefault,
-		HTTPClient:       client,
+		HTTPClient: client,
 	}
 }
 
-/*GetDeploymentEnterpriseSearchResourceInfoParams contains all the parameters to send to the API endpoint
-for the get deployment enterprise search resource info operation typically these are written to a http.Request
+/* GetDeploymentEnterpriseSearchResourceInfoParams contains all the parameters to send to the API endpoint
+   for the get deployment enterprise search resource info operation.
+
+   Typically these are written to a http.Request.
 */
 type GetDeploymentEnterpriseSearchResourceInfoParams struct {
 
-	/*DeploymentID
-	  Identifier for the Deployment
+	/* DeploymentID.
 
+	   Identifier for the Deployment
 	*/
 	DeploymentID string
-	/*RefID
-	  User-specified RefId for the Resource
 
+	/* RefID.
+
+	   User-specified RefId for the Resource
 	*/
 	RefID string
-	/*ShowMetadata
-	  Whether to include the full cluster metadata in the response - can be large per cluster and also include credentials.
 
+	/* ShowMetadata.
+
+	   Whether to include the full cluster metadata in the response - can be large per cluster and also include credentials.
 	*/
 	ShowMetadata *bool
-	/*ShowPlanDefaults
-	  If showing plans, whether to show values that are left at their default value (less readable but more informative).
 
+	/* ShowPlanDefaults.
+
+	   If showing plans, whether to show values that are left at their default value (less readable but more informative).
 	*/
 	ShowPlanDefaults *bool
-	/*ShowPlanHistory
-	  Whether to include with the current and pending plan information the plan history- can be very large per cluster.
 
+	/* ShowPlanHistory.
+
+	   Whether to include with the current and pending plan information the plan history- can be very large per cluster.
 	*/
 	ShowPlanHistory *bool
-	/*ShowPlanLogs
-	  Whether to include with the current and pending plan information the attempt log - can be very large per cluster.
 
+	/* ShowPlanLogs.
+
+	   Whether to include with the current and pending plan information the attempt log - can be very large per cluster.
 	*/
 	ShowPlanLogs *bool
-	/*ShowPlans
-	  Whether to include the full current and pending plan information in the response - can be large per cluster.
 
+	/* ShowPlans.
+
+	   Whether to include the full current and pending plan information in the response - can be large per cluster.
+
+	   Default: true
 	*/
 	ShowPlans *bool
-	/*ShowSettings
-	  Whether to show cluster settings in the response.
 
+	/* ShowSettings.
+
+	   Whether to show cluster settings in the response.
 	*/
 	ShowSettings *bool
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get deployment enterprise search resource info params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetDeploymentEnterpriseSearchResourceInfoParams) WithDefaults() *GetDeploymentEnterpriseSearchResourceInfoParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get deployment enterprise search resource info params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetDeploymentEnterpriseSearchResourceInfoParams) SetDefaults() {
+	var (
+		showMetadataDefault = bool(false)
+
+		showPlanDefaultsDefault = bool(false)
+
+		showPlanHistoryDefault = bool(false)
+
+		showPlanLogsDefault = bool(false)
+
+		showPlansDefault = bool(true)
+
+		showSettingsDefault = bool(false)
+	)
+
+	val := GetDeploymentEnterpriseSearchResourceInfoParams{
+		ShowMetadata:     &showMetadataDefault,
+		ShowPlanDefaults: &showPlanDefaultsDefault,
+		ShowPlanHistory:  &showPlanHistoryDefault,
+		ShowPlanLogs:     &showPlanLogsDefault,
+		ShowPlans:        &showPlansDefault,
+		ShowSettings:     &showSettingsDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the get deployment enterprise search resource info params
@@ -319,96 +316,102 @@ func (o *GetDeploymentEnterpriseSearchResourceInfoParams) WriteToRequest(r runti
 
 		// query param show_metadata
 		var qrShowMetadata bool
+
 		if o.ShowMetadata != nil {
 			qrShowMetadata = *o.ShowMetadata
 		}
 		qShowMetadata := swag.FormatBool(qrShowMetadata)
 		if qShowMetadata != "" {
+
 			if err := r.SetQueryParam("show_metadata", qShowMetadata); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.ShowPlanDefaults != nil {
 
 		// query param show_plan_defaults
 		var qrShowPlanDefaults bool
+
 		if o.ShowPlanDefaults != nil {
 			qrShowPlanDefaults = *o.ShowPlanDefaults
 		}
 		qShowPlanDefaults := swag.FormatBool(qrShowPlanDefaults)
 		if qShowPlanDefaults != "" {
+
 			if err := r.SetQueryParam("show_plan_defaults", qShowPlanDefaults); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.ShowPlanHistory != nil {
 
 		// query param show_plan_history
 		var qrShowPlanHistory bool
+
 		if o.ShowPlanHistory != nil {
 			qrShowPlanHistory = *o.ShowPlanHistory
 		}
 		qShowPlanHistory := swag.FormatBool(qrShowPlanHistory)
 		if qShowPlanHistory != "" {
+
 			if err := r.SetQueryParam("show_plan_history", qShowPlanHistory); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.ShowPlanLogs != nil {
 
 		// query param show_plan_logs
 		var qrShowPlanLogs bool
+
 		if o.ShowPlanLogs != nil {
 			qrShowPlanLogs = *o.ShowPlanLogs
 		}
 		qShowPlanLogs := swag.FormatBool(qrShowPlanLogs)
 		if qShowPlanLogs != "" {
+
 			if err := r.SetQueryParam("show_plan_logs", qShowPlanLogs); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.ShowPlans != nil {
 
 		// query param show_plans
 		var qrShowPlans bool
+
 		if o.ShowPlans != nil {
 			qrShowPlans = *o.ShowPlans
 		}
 		qShowPlans := swag.FormatBool(qrShowPlans)
 		if qShowPlans != "" {
+
 			if err := r.SetQueryParam("show_plans", qShowPlans); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.ShowSettings != nil {
 
 		// query param show_settings
 		var qrShowSettings bool
+
 		if o.ShowSettings != nil {
 			qrShowSettings = *o.ShowSettings
 		}
 		qShowSettings := swag.FormatBool(qrShowSettings)
 		if qShowSettings != "" {
+
 			if err := r.SetQueryParam("show_settings", qShowSettings); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

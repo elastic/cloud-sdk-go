@@ -58,7 +58,6 @@ func (o *SetEsClusterMonitoringReader) ReadResponse(response runtime.ClientRespo
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,7 +68,7 @@ func NewSetEsClusterMonitoringAccepted() *SetEsClusterMonitoringAccepted {
 	return &SetEsClusterMonitoringAccepted{}
 }
 
-/*SetEsClusterMonitoringAccepted handles this case with default header values.
+/* SetEsClusterMonitoringAccepted describes a response with status code 202, with default header values.
 
 The destination monitoring cluster creation/overwrite request was initiated
 */
@@ -80,7 +79,6 @@ type SetEsClusterMonitoringAccepted struct {
 func (o *SetEsClusterMonitoringAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/monitoring/{dest_cluster_id}][%d] setEsClusterMonitoringAccepted  %+v", 202, o.Payload)
 }
-
 func (o *SetEsClusterMonitoringAccepted) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -100,7 +98,7 @@ func NewSetEsClusterMonitoringNotFound() *SetEsClusterMonitoringNotFound {
 	return &SetEsClusterMonitoringNotFound{}
 }
 
-/*SetEsClusterMonitoringNotFound handles this case with default header values.
+/* SetEsClusterMonitoringNotFound describes a response with status code 404, with default header values.
 
 The cluster specified by {cluster_id} cannot be found (code: 'clusters.cluster_not_found')
 */
@@ -111,7 +109,6 @@ type SetEsClusterMonitoringNotFound struct {
 func (o *SetEsClusterMonitoringNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/monitoring/{dest_cluster_id}][%d] setEsClusterMonitoringNotFound  %+v", 404, o.Payload)
 }
-
 func (o *SetEsClusterMonitoringNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -133,7 +130,7 @@ func NewSetEsClusterMonitoringRetryWith() *SetEsClusterMonitoringRetryWith {
 	return &SetEsClusterMonitoringRetryWith{}
 }
 
-/*SetEsClusterMonitoringRetryWith handles this case with default header values.
+/* SetEsClusterMonitoringRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: '"root.unauthorized.rbac.elevated_permissions_required"')
 */
@@ -144,7 +141,6 @@ type SetEsClusterMonitoringRetryWith struct {
 func (o *SetEsClusterMonitoringRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/monitoring/{dest_cluster_id}][%d] setEsClusterMonitoringRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *SetEsClusterMonitoringRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

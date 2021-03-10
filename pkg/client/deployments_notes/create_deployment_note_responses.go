@@ -58,7 +58,6 @@ func (o *CreateDeploymentNoteReader) ReadResponse(response runtime.ClientRespons
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,7 +68,7 @@ func NewCreateDeploymentNoteCreated() *CreateDeploymentNoteCreated {
 	return &CreateDeploymentNoteCreated{}
 }
 
-/*CreateDeploymentNoteCreated handles this case with default header values.
+/* CreateDeploymentNoteCreated describes a response with status code 201, with default header values.
 
 List of deployment notes after the new deployment note has been added
 */
@@ -80,7 +79,6 @@ type CreateDeploymentNoteCreated struct {
 func (o *CreateDeploymentNoteCreated) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/notes][%d] createDeploymentNoteCreated  %+v", 201, o.Payload)
 }
-
 func (o *CreateDeploymentNoteCreated) GetPayload() *models.Notes {
 	return o.Payload
 }
@@ -102,12 +100,13 @@ func NewCreateDeploymentNoteNotFound() *CreateDeploymentNoteNotFound {
 	return &CreateDeploymentNoteNotFound{}
 }
 
-/*CreateDeploymentNoteNotFound handles this case with default header values.
+/* CreateDeploymentNoteNotFound describes a response with status code 404, with default header values.
 
 The deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
 */
 type CreateDeploymentNoteNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -117,15 +116,18 @@ type CreateDeploymentNoteNotFound struct {
 func (o *CreateDeploymentNoteNotFound) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/notes][%d] createDeploymentNoteNotFound  %+v", 404, o.Payload)
 }
-
 func (o *CreateDeploymentNoteNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *CreateDeploymentNoteNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -142,12 +144,13 @@ func NewCreateDeploymentNoteRetryWith() *CreateDeploymentNoteRetryWith {
 	return &CreateDeploymentNoteRetryWith{}
 }
 
-/*CreateDeploymentNoteRetryWith handles this case with default header values.
+/* CreateDeploymentNoteRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type CreateDeploymentNoteRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -157,15 +160,18 @@ type CreateDeploymentNoteRetryWith struct {
 func (o *CreateDeploymentNoteRetryWith) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/notes][%d] createDeploymentNoteRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *CreateDeploymentNoteRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *CreateDeploymentNoteRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

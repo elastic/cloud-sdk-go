@@ -34,69 +34,85 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewSetKibanaClusterMetadataRawParams creates a new SetKibanaClusterMetadataRawParams object
-// with the default values initialized.
+// NewSetKibanaClusterMetadataRawParams creates a new SetKibanaClusterMetadataRawParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewSetKibanaClusterMetadataRawParams() *SetKibanaClusterMetadataRawParams {
-	var ()
 	return &SetKibanaClusterMetadataRawParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewSetKibanaClusterMetadataRawParamsWithTimeout creates a new SetKibanaClusterMetadataRawParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewSetKibanaClusterMetadataRawParamsWithTimeout(timeout time.Duration) *SetKibanaClusterMetadataRawParams {
-	var ()
 	return &SetKibanaClusterMetadataRawParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewSetKibanaClusterMetadataRawParamsWithContext creates a new SetKibanaClusterMetadataRawParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewSetKibanaClusterMetadataRawParamsWithContext(ctx context.Context) *SetKibanaClusterMetadataRawParams {
-	var ()
 	return &SetKibanaClusterMetadataRawParams{
-
 		Context: ctx,
 	}
 }
 
 // NewSetKibanaClusterMetadataRawParamsWithHTTPClient creates a new SetKibanaClusterMetadataRawParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewSetKibanaClusterMetadataRawParamsWithHTTPClient(client *http.Client) *SetKibanaClusterMetadataRawParams {
-	var ()
 	return &SetKibanaClusterMetadataRawParams{
 		HTTPClient: client,
 	}
 }
 
-/*SetKibanaClusterMetadataRawParams contains all the parameters to send to the API endpoint
-for the set kibana cluster metadata raw operation typically these are written to a http.Request
+/* SetKibanaClusterMetadataRawParams contains all the parameters to send to the API endpoint
+   for the set kibana cluster metadata raw operation.
+
+   Typically these are written to a http.Request.
 */
 type SetKibanaClusterMetadataRawParams struct {
 
-	/*Body
-	  The freeform JSON for the cluster (should always be based on the current version retrieved from the GET)
+	/* Body.
 
+	   The freeform JSON for the cluster (should always be based on the current version retrieved from the GET)
 	*/
 	Body string
-	/*ClusterID
-	  The Kibana deployment identifier.
 
+	/* ClusterID.
+
+	   The Kibana deployment identifier.
 	*/
 	ClusterID string
-	/*Version
-	  Checks for conflicts against the metadata version, then returns the value in the `x-cloud-resource-version` header.
 
+	/* Version.
+
+	   Checks for conflicts against the metadata version, then returns the value in the `x-cloud-resource-version` header.
 	*/
 	Version *int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the set kibana cluster metadata raw params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetKibanaClusterMetadataRawParams) WithDefaults() *SetKibanaClusterMetadataRawParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the set kibana cluster metadata raw params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetKibanaClusterMetadataRawParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the set kibana cluster metadata raw params
@@ -172,7 +188,6 @@ func (o *SetKibanaClusterMetadataRawParams) WriteToRequest(r runtime.ClientReque
 		return err
 	}
 	var res []error
-
 	if err := r.SetBodyParam(o.Body); err != nil {
 		return err
 	}
@@ -186,16 +201,17 @@ func (o *SetKibanaClusterMetadataRawParams) WriteToRequest(r runtime.ClientReque
 
 		// query param version
 		var qrVersion int64
+
 		if o.Version != nil {
 			qrVersion = *o.Version
 		}
 		qVersion := swag.FormatInt64(qrVersion)
 		if qVersion != "" {
+
 			if err := r.SetQueryParam("version", qVersion); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

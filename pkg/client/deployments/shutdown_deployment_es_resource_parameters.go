@@ -34,86 +34,102 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewShutdownDeploymentEsResourceParams creates a new ShutdownDeploymentEsResourceParams object
-// with the default values initialized.
+// NewShutdownDeploymentEsResourceParams creates a new ShutdownDeploymentEsResourceParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewShutdownDeploymentEsResourceParams() *ShutdownDeploymentEsResourceParams {
-	var (
-		skipSnapshotDefault = bool(false)
-	)
 	return &ShutdownDeploymentEsResourceParams{
-		SkipSnapshot: &skipSnapshotDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewShutdownDeploymentEsResourceParamsWithTimeout creates a new ShutdownDeploymentEsResourceParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewShutdownDeploymentEsResourceParamsWithTimeout(timeout time.Duration) *ShutdownDeploymentEsResourceParams {
-	var (
-		skipSnapshotDefault = bool(false)
-	)
 	return &ShutdownDeploymentEsResourceParams{
-		SkipSnapshot: &skipSnapshotDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewShutdownDeploymentEsResourceParamsWithContext creates a new ShutdownDeploymentEsResourceParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewShutdownDeploymentEsResourceParamsWithContext(ctx context.Context) *ShutdownDeploymentEsResourceParams {
-	var (
-		skipSnapshotDefault = bool(false)
-	)
 	return &ShutdownDeploymentEsResourceParams{
-		SkipSnapshot: &skipSnapshotDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewShutdownDeploymentEsResourceParamsWithHTTPClient creates a new ShutdownDeploymentEsResourceParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewShutdownDeploymentEsResourceParamsWithHTTPClient(client *http.Client) *ShutdownDeploymentEsResourceParams {
-	var (
-		skipSnapshotDefault = bool(false)
-	)
 	return &ShutdownDeploymentEsResourceParams{
-		SkipSnapshot: &skipSnapshotDefault,
-		HTTPClient:   client,
+		HTTPClient: client,
 	}
 }
 
-/*ShutdownDeploymentEsResourceParams contains all the parameters to send to the API endpoint
-for the shutdown deployment es resource operation typically these are written to a http.Request
+/* ShutdownDeploymentEsResourceParams contains all the parameters to send to the API endpoint
+   for the shutdown deployment es resource operation.
+
+   Typically these are written to a http.Request.
 */
 type ShutdownDeploymentEsResourceParams struct {
 
-	/*DeploymentID
-	  Identifier for the Deployment.
+	/* DeploymentID.
 
+	   Identifier for the Deployment.
 	*/
 	DeploymentID string
-	/*Hide
-	  Hide cluster on shutdown. Hidden clusters are not listed by default. Only applicable for Platform administrators.
 
+	/* Hide.
+
+	   Hide cluster on shutdown. Hidden clusters are not listed by default. Only applicable for Platform administrators.
 	*/
 	Hide *bool
-	/*RefID
-	  User-specified RefId for the Resource.
 
+	/* RefID.
+
+	   User-specified RefId for the Resource.
 	*/
 	RefID string
-	/*SkipSnapshot
-	  If true, will skip taking a snapshot of the cluster before shutting the cluster down (if even possible).
 
+	/* SkipSnapshot.
+
+	   If true, will skip taking a snapshot of the cluster before shutting the cluster down (if even possible).
 	*/
 	SkipSnapshot *bool
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the shutdown deployment es resource params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ShutdownDeploymentEsResourceParams) WithDefaults() *ShutdownDeploymentEsResourceParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the shutdown deployment es resource params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ShutdownDeploymentEsResourceParams) SetDefaults() {
+	var (
+		skipSnapshotDefault = bool(false)
+	)
+
+	val := ShutdownDeploymentEsResourceParams{
+		SkipSnapshot: &skipSnapshotDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the shutdown deployment es resource params
@@ -210,16 +226,17 @@ func (o *ShutdownDeploymentEsResourceParams) WriteToRequest(r runtime.ClientRequ
 
 		// query param hide
 		var qrHide bool
+
 		if o.Hide != nil {
 			qrHide = *o.Hide
 		}
 		qHide := swag.FormatBool(qrHide)
 		if qHide != "" {
+
 			if err := r.SetQueryParam("hide", qHide); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	// path param ref_id
@@ -231,16 +248,17 @@ func (o *ShutdownDeploymentEsResourceParams) WriteToRequest(r runtime.ClientRequ
 
 		// query param skip_snapshot
 		var qrSkipSnapshot bool
+
 		if o.SkipSnapshot != nil {
 			qrSkipSnapshot = *o.SkipSnapshot
 		}
 		qSkipSnapshot := swag.FormatBool(qrSkipSnapshot)
 		if qSkipSnapshot != "" {
+
 			if err := r.SetQueryParam("skip_snapshot", qSkipSnapshot); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

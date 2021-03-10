@@ -42,15 +42,18 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientOption is the option for Client methods
+type ClientOption func(*runtime.ClientOperation)
+
 // ClientService is the interface for Client methods
 type ClientService interface {
-	GetDefaultDeploymentDomainName(params *GetDefaultDeploymentDomainNameParams, authInfo runtime.ClientAuthInfoWriter) (*GetDefaultDeploymentDomainNameOK, error)
+	GetDefaultDeploymentDomainName(params *GetDefaultDeploymentDomainNameParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDefaultDeploymentDomainNameOK, error)
 
-	GetResourceKindDeploymentDomainName(params *GetResourceKindDeploymentDomainNameParams, authInfo runtime.ClientAuthInfoWriter) (*GetResourceKindDeploymentDomainNameOK, error)
+	GetResourceKindDeploymentDomainName(params *GetResourceKindDeploymentDomainNameParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetResourceKindDeploymentDomainNameOK, error)
 
-	SetDefaultDeploymentDomainName(params *SetDefaultDeploymentDomainNameParams, authInfo runtime.ClientAuthInfoWriter) (*SetDefaultDeploymentDomainNameOK, error)
+	SetDefaultDeploymentDomainName(params *SetDefaultDeploymentDomainNameParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetDefaultDeploymentDomainNameOK, error)
 
-	SetResourceKindDeploymentDomainName(params *SetResourceKindDeploymentDomainNameParams, authInfo runtime.ClientAuthInfoWriter) (*SetResourceKindDeploymentDomainNameOK, error)
+	SetResourceKindDeploymentDomainName(params *SetResourceKindDeploymentDomainNameParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetResourceKindDeploymentDomainNameOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -60,13 +63,12 @@ type ClientService interface {
 
   Gets the default Deployment Domain Name configuration value.
 */
-func (a *Client) GetDefaultDeploymentDomainName(params *GetDefaultDeploymentDomainNameParams, authInfo runtime.ClientAuthInfoWriter) (*GetDefaultDeploymentDomainNameOK, error) {
+func (a *Client) GetDefaultDeploymentDomainName(params *GetDefaultDeploymentDomainNameParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDefaultDeploymentDomainNameOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetDefaultDeploymentDomainNameParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-default-deployment-domain-name",
 		Method:             "GET",
 		PathPattern:        "/platform/configuration/networking/deployment_domain_name",
@@ -78,7 +80,12 @@ func (a *Client) GetDefaultDeploymentDomainName(params *GetDefaultDeploymentDoma
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -97,13 +104,12 @@ func (a *Client) GetDefaultDeploymentDomainName(params *GetDefaultDeploymentDoma
 
   Gets Deployment Domain Name configuration value for a resource kind.
 */
-func (a *Client) GetResourceKindDeploymentDomainName(params *GetResourceKindDeploymentDomainNameParams, authInfo runtime.ClientAuthInfoWriter) (*GetResourceKindDeploymentDomainNameOK, error) {
+func (a *Client) GetResourceKindDeploymentDomainName(params *GetResourceKindDeploymentDomainNameParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetResourceKindDeploymentDomainNameOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetResourceKindDeploymentDomainNameParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-resource-kind-deployment-domain-name",
 		Method:             "GET",
 		PathPattern:        "/platform/configuration/networking/deployment_domain_name/{resource_kind}",
@@ -115,7 +121,12 @@ func (a *Client) GetResourceKindDeploymentDomainName(params *GetResourceKindDepl
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -134,13 +145,12 @@ func (a *Client) GetResourceKindDeploymentDomainName(params *GetResourceKindDepl
 
   Saves the default Deployment Domain Name configuration value.
 */
-func (a *Client) SetDefaultDeploymentDomainName(params *SetDefaultDeploymentDomainNameParams, authInfo runtime.ClientAuthInfoWriter) (*SetDefaultDeploymentDomainNameOK, error) {
+func (a *Client) SetDefaultDeploymentDomainName(params *SetDefaultDeploymentDomainNameParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetDefaultDeploymentDomainNameOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSetDefaultDeploymentDomainNameParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "set-default-deployment-domain-name",
 		Method:             "PUT",
 		PathPattern:        "/platform/configuration/networking/deployment_domain_name",
@@ -152,7 +162,12 @@ func (a *Client) SetDefaultDeploymentDomainName(params *SetDefaultDeploymentDoma
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -171,13 +186,12 @@ func (a *Client) SetDefaultDeploymentDomainName(params *SetDefaultDeploymentDoma
 
   Saves the Deployment Domain Name configuration value for a resource kind.
 */
-func (a *Client) SetResourceKindDeploymentDomainName(params *SetResourceKindDeploymentDomainNameParams, authInfo runtime.ClientAuthInfoWriter) (*SetResourceKindDeploymentDomainNameOK, error) {
+func (a *Client) SetResourceKindDeploymentDomainName(params *SetResourceKindDeploymentDomainNameParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetResourceKindDeploymentDomainNameOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSetResourceKindDeploymentDomainNameParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "set-resource-kind-deployment-domain-name",
 		Method:             "PUT",
 		PathPattern:        "/platform/configuration/networking/deployment_domain_name/{resource_kind}",
@@ -189,7 +203,12 @@ func (a *Client) SetResourceKindDeploymentDomainName(params *SetResourceKindDepl
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}

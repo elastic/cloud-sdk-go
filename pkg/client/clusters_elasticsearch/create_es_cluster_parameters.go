@@ -36,81 +36,96 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewCreateEsClusterParams creates a new CreateEsClusterParams object
-// with the default values initialized.
+// NewCreateEsClusterParams creates a new CreateEsClusterParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewCreateEsClusterParams() *CreateEsClusterParams {
-	var (
-		validateOnlyDefault = bool(false)
-	)
 	return &CreateEsClusterParams{
-		ValidateOnly: &validateOnlyDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewCreateEsClusterParamsWithTimeout creates a new CreateEsClusterParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewCreateEsClusterParamsWithTimeout(timeout time.Duration) *CreateEsClusterParams {
-	var (
-		validateOnlyDefault = bool(false)
-	)
 	return &CreateEsClusterParams{
-		ValidateOnly: &validateOnlyDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewCreateEsClusterParamsWithContext creates a new CreateEsClusterParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewCreateEsClusterParamsWithContext(ctx context.Context) *CreateEsClusterParams {
-	var (
-		validateOnlyDefault = bool(false)
-	)
 	return &CreateEsClusterParams{
-		ValidateOnly: &validateOnlyDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewCreateEsClusterParamsWithHTTPClient creates a new CreateEsClusterParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewCreateEsClusterParamsWithHTTPClient(client *http.Client) *CreateEsClusterParams {
-	var (
-		validateOnlyDefault = bool(false)
-	)
 	return &CreateEsClusterParams{
-		ValidateOnly: &validateOnlyDefault,
-		HTTPClient:   client,
+		HTTPClient: client,
 	}
 }
 
-/*CreateEsClusterParams contains all the parameters to send to the API endpoint
-for the create es cluster operation typically these are written to a http.Request
+/* CreateEsClusterParams contains all the parameters to send to the API endpoint
+   for the create es cluster operation.
+
+   Typically these are written to a http.Request.
 */
 type CreateEsClusterParams struct {
 
-	/*Body
-	  The cluster definition
+	/* Body.
 
+	   The cluster definition
 	*/
 	Body *models.CreateElasticsearchClusterRequest
-	/*RequestID
-	  (Optional) The idempotency token. When two create requests share the same `request_id` (minimum size of 32 characters, maximum size of 128 characters), only one cluster is created. The second request returns the information for that cluster, but the password field is blank.
 
+	/* RequestID.
+
+	   (Optional) The idempotency token. When two create requests share the same `request_id` (minimum size of 32 characters, maximum size of 128 characters), only one cluster is created. The second request returns the information for that cluster, but the password field is blank.
 	*/
 	RequestID *string
-	/*ValidateOnly
-	  When `true`, validates the cluster definition without creating the cluster.
 
+	/* ValidateOnly.
+
+	   When `true`, validates the cluster definition without creating the cluster.
 	*/
 	ValidateOnly *bool
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the create es cluster params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *CreateEsClusterParams) WithDefaults() *CreateEsClusterParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the create es cluster params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *CreateEsClusterParams) SetDefaults() {
+	var (
+		validateOnlyDefault = bool(false)
+	)
+
+	val := CreateEsClusterParams{
+		ValidateOnly: &validateOnlyDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the create es cluster params
@@ -186,7 +201,6 @@ func (o *CreateEsClusterParams) WriteToRequest(r runtime.ClientRequest, reg strf
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err
@@ -197,32 +211,34 @@ func (o *CreateEsClusterParams) WriteToRequest(r runtime.ClientRequest, reg strf
 
 		// query param request_id
 		var qrRequestID string
+
 		if o.RequestID != nil {
 			qrRequestID = *o.RequestID
 		}
 		qRequestID := qrRequestID
 		if qRequestID != "" {
+
 			if err := r.SetQueryParam("request_id", qRequestID); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.ValidateOnly != nil {
 
 		// query param validate_only
 		var qrValidateOnly bool
+
 		if o.ValidateOnly != nil {
 			qrValidateOnly = *o.ValidateOnly
 		}
 		qValidateOnly := swag.FormatBool(qrValidateOnly)
 		if qValidateOnly != "" {
+
 			if err := r.SetQueryParam("validate_only", qValidateOnly); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

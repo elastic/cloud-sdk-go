@@ -34,76 +34,90 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewShutdownKibanaClusterParams creates a new ShutdownKibanaClusterParams object
-// with the default values initialized.
+// NewShutdownKibanaClusterParams creates a new ShutdownKibanaClusterParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewShutdownKibanaClusterParams() *ShutdownKibanaClusterParams {
-	var (
-		hideDefault = bool(false)
-	)
 	return &ShutdownKibanaClusterParams{
-		Hide: &hideDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewShutdownKibanaClusterParamsWithTimeout creates a new ShutdownKibanaClusterParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewShutdownKibanaClusterParamsWithTimeout(timeout time.Duration) *ShutdownKibanaClusterParams {
-	var (
-		hideDefault = bool(false)
-	)
 	return &ShutdownKibanaClusterParams{
-		Hide: &hideDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewShutdownKibanaClusterParamsWithContext creates a new ShutdownKibanaClusterParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewShutdownKibanaClusterParamsWithContext(ctx context.Context) *ShutdownKibanaClusterParams {
-	var (
-		hideDefault = bool(false)
-	)
 	return &ShutdownKibanaClusterParams{
-		Hide: &hideDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewShutdownKibanaClusterParamsWithHTTPClient creates a new ShutdownKibanaClusterParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewShutdownKibanaClusterParamsWithHTTPClient(client *http.Client) *ShutdownKibanaClusterParams {
-	var (
-		hideDefault = bool(false)
-	)
 	return &ShutdownKibanaClusterParams{
-		Hide:       &hideDefault,
 		HTTPClient: client,
 	}
 }
 
-/*ShutdownKibanaClusterParams contains all the parameters to send to the API endpoint
-for the shutdown kibana cluster operation typically these are written to a http.Request
+/* ShutdownKibanaClusterParams contains all the parameters to send to the API endpoint
+   for the shutdown kibana cluster operation.
+
+   Typically these are written to a http.Request.
 */
 type ShutdownKibanaClusterParams struct {
 
-	/*ClusterID
-	  The Kibana deployment identifier.
+	/* ClusterID.
 
+	   The Kibana deployment identifier.
 	*/
 	ClusterID string
-	/*Hide
-	  Hides the clusters during shutdown. NOTE: By default, hidden clusters are not listed.
 
+	/* Hide.
+
+	   Hides the clusters during shutdown. NOTE: By default, hidden clusters are not listed.
 	*/
 	Hide *bool
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the shutdown kibana cluster params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ShutdownKibanaClusterParams) WithDefaults() *ShutdownKibanaClusterParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the shutdown kibana cluster params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ShutdownKibanaClusterParams) SetDefaults() {
+	var (
+		hideDefault = bool(false)
+	)
+
+	val := ShutdownKibanaClusterParams{
+		Hide: &hideDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the shutdown kibana cluster params
@@ -178,16 +192,17 @@ func (o *ShutdownKibanaClusterParams) WriteToRequest(r runtime.ClientRequest, re
 
 		// query param hide
 		var qrHide bool
+
 		if o.Hide != nil {
 			qrHide = *o.Hide
 		}
 		qHide := swag.FormatBool(qrHide)
 		if qHide != "" {
+
 			if err := r.SetQueryParam("hide", qHide); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

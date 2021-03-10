@@ -33,59 +33,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGenerateEsClusterDiagnosticsParams creates a new GenerateEsClusterDiagnosticsParams object
-// with the default values initialized.
+// NewGenerateEsClusterDiagnosticsParams creates a new GenerateEsClusterDiagnosticsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGenerateEsClusterDiagnosticsParams() *GenerateEsClusterDiagnosticsParams {
-	var ()
 	return &GenerateEsClusterDiagnosticsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGenerateEsClusterDiagnosticsParamsWithTimeout creates a new GenerateEsClusterDiagnosticsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGenerateEsClusterDiagnosticsParamsWithTimeout(timeout time.Duration) *GenerateEsClusterDiagnosticsParams {
-	var ()
 	return &GenerateEsClusterDiagnosticsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGenerateEsClusterDiagnosticsParamsWithContext creates a new GenerateEsClusterDiagnosticsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGenerateEsClusterDiagnosticsParamsWithContext(ctx context.Context) *GenerateEsClusterDiagnosticsParams {
-	var ()
 	return &GenerateEsClusterDiagnosticsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGenerateEsClusterDiagnosticsParamsWithHTTPClient creates a new GenerateEsClusterDiagnosticsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGenerateEsClusterDiagnosticsParamsWithHTTPClient(client *http.Client) *GenerateEsClusterDiagnosticsParams {
-	var ()
 	return &GenerateEsClusterDiagnosticsParams{
 		HTTPClient: client,
 	}
 }
 
-/*GenerateEsClusterDiagnosticsParams contains all the parameters to send to the API endpoint
-for the generate es cluster diagnostics operation typically these are written to a http.Request
+/* GenerateEsClusterDiagnosticsParams contains all the parameters to send to the API endpoint
+   for the generate es cluster diagnostics operation.
+
+   Typically these are written to a http.Request.
 */
 type GenerateEsClusterDiagnosticsParams struct {
 
-	/*ClusterID
-	  The Elasticsearch cluster identifier.
+	/* ClusterID.
 
+	   The Elasticsearch cluster identifier.
 	*/
 	ClusterID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the generate es cluster diagnostics params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GenerateEsClusterDiagnosticsParams) WithDefaults() *GenerateEsClusterDiagnosticsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the generate es cluster diagnostics params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GenerateEsClusterDiagnosticsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the generate es cluster diagnostics params

@@ -35,74 +35,91 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewSetAllocatorMetadataItemParams creates a new SetAllocatorMetadataItemParams object
-// with the default values initialized.
+// NewSetAllocatorMetadataItemParams creates a new SetAllocatorMetadataItemParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewSetAllocatorMetadataItemParams() *SetAllocatorMetadataItemParams {
-	var ()
 	return &SetAllocatorMetadataItemParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewSetAllocatorMetadataItemParamsWithTimeout creates a new SetAllocatorMetadataItemParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewSetAllocatorMetadataItemParamsWithTimeout(timeout time.Duration) *SetAllocatorMetadataItemParams {
-	var ()
 	return &SetAllocatorMetadataItemParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewSetAllocatorMetadataItemParamsWithContext creates a new SetAllocatorMetadataItemParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewSetAllocatorMetadataItemParamsWithContext(ctx context.Context) *SetAllocatorMetadataItemParams {
-	var ()
 	return &SetAllocatorMetadataItemParams{
-
 		Context: ctx,
 	}
 }
 
 // NewSetAllocatorMetadataItemParamsWithHTTPClient creates a new SetAllocatorMetadataItemParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewSetAllocatorMetadataItemParamsWithHTTPClient(client *http.Client) *SetAllocatorMetadataItemParams {
-	var ()
 	return &SetAllocatorMetadataItemParams{
 		HTTPClient: client,
 	}
 }
 
-/*SetAllocatorMetadataItemParams contains all the parameters to send to the API endpoint
-for the set allocator metadata item operation typically these are written to a http.Request
+/* SetAllocatorMetadataItemParams contains all the parameters to send to the API endpoint
+   for the set allocator metadata item operation.
+
+   Typically these are written to a http.Request.
 */
 type SetAllocatorMetadataItemParams struct {
 
-	/*AllocatorID
-	  The allocator identifier.
+	/* AllocatorID.
 
+	   The allocator identifier.
 	*/
 	AllocatorID string
-	/*Body
-	  The value of the metadata item to add or update
 
+	/* Body.
+
+	   The value of the metadata item to add or update
 	*/
 	Body *models.MetadataItemValue
-	/*Key
-	  The metadata item key.
 
+	/* Key.
+
+	   The metadata item key.
 	*/
 	Key string
-	/*Version
-	  Checks for conflicts against the metadata version, then returns the value in the `x-cloud-resource-version` header.
 
+	/* Version.
+
+	   Checks for conflicts against the metadata version, then returns the value in the `x-cloud-resource-version` header.
 	*/
 	Version *string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the set allocator metadata item params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetAllocatorMetadataItemParams) WithDefaults() *SetAllocatorMetadataItemParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the set allocator metadata item params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetAllocatorMetadataItemParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the set allocator metadata item params
@@ -194,7 +211,6 @@ func (o *SetAllocatorMetadataItemParams) WriteToRequest(r runtime.ClientRequest,
 	if err := r.SetPathParam("allocator_id", o.AllocatorID); err != nil {
 		return err
 	}
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err
@@ -210,16 +226,17 @@ func (o *SetAllocatorMetadataItemParams) WriteToRequest(r runtime.ClientRequest,
 
 		// query param version
 		var qrVersion string
+
 		if o.Version != nil {
 			qrVersion = *o.Version
 		}
 		qVersion := qrVersion
 		if qVersion != "" {
+
 			if err := r.SetQueryParam("version", qVersion); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

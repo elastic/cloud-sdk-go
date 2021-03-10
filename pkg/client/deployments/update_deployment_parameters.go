@@ -36,112 +36,120 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewUpdateDeploymentParams creates a new UpdateDeploymentParams object
-// with the default values initialized.
+// NewUpdateDeploymentParams creates a new UpdateDeploymentParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewUpdateDeploymentParams() *UpdateDeploymentParams {
-	var (
-		hidePrunedOrphansDefault = bool(false)
-		skipSnapshotDefault      = bool(false)
-		validateOnlyDefault      = bool(false)
-	)
 	return &UpdateDeploymentParams{
-		HidePrunedOrphans: &hidePrunedOrphansDefault,
-		SkipSnapshot:      &skipSnapshotDefault,
-		ValidateOnly:      &validateOnlyDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewUpdateDeploymentParamsWithTimeout creates a new UpdateDeploymentParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewUpdateDeploymentParamsWithTimeout(timeout time.Duration) *UpdateDeploymentParams {
-	var (
-		hidePrunedOrphansDefault = bool(false)
-		skipSnapshotDefault      = bool(false)
-		validateOnlyDefault      = bool(false)
-	)
 	return &UpdateDeploymentParams{
-		HidePrunedOrphans: &hidePrunedOrphansDefault,
-		SkipSnapshot:      &skipSnapshotDefault,
-		ValidateOnly:      &validateOnlyDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewUpdateDeploymentParamsWithContext creates a new UpdateDeploymentParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewUpdateDeploymentParamsWithContext(ctx context.Context) *UpdateDeploymentParams {
-	var (
-		hidePrunedOrphansDefault = bool(false)
-		skipSnapshotDefault      = bool(false)
-		validateOnlyDefault      = bool(false)
-	)
 	return &UpdateDeploymentParams{
-		HidePrunedOrphans: &hidePrunedOrphansDefault,
-		SkipSnapshot:      &skipSnapshotDefault,
-		ValidateOnly:      &validateOnlyDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewUpdateDeploymentParamsWithHTTPClient creates a new UpdateDeploymentParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewUpdateDeploymentParamsWithHTTPClient(client *http.Client) *UpdateDeploymentParams {
-	var (
-		hidePrunedOrphansDefault = bool(false)
-		skipSnapshotDefault      = bool(false)
-		validateOnlyDefault      = bool(false)
-	)
 	return &UpdateDeploymentParams{
-		HidePrunedOrphans: &hidePrunedOrphansDefault,
-		SkipSnapshot:      &skipSnapshotDefault,
-		ValidateOnly:      &validateOnlyDefault,
-		HTTPClient:        client,
+		HTTPClient: client,
 	}
 }
 
-/*UpdateDeploymentParams contains all the parameters to send to the API endpoint
-for the update deployment operation typically these are written to a http.Request
+/* UpdateDeploymentParams contains all the parameters to send to the API endpoint
+   for the update deployment operation.
+
+   Typically these are written to a http.Request.
 */
 type UpdateDeploymentParams struct {
 
-	/*Body
-	  The deployment definition
+	/* Body.
 
+	   The deployment definition
 	*/
 	Body *models.DeploymentUpdateRequest
-	/*DeploymentID
-	  Identifier for the Deployment
 
+	/* DeploymentID.
+
+	   Identifier for the Deployment
 	*/
 	DeploymentID string
-	/*HidePrunedOrphans
-	  Whether or not to hide orphaned resources that were shut down (relevant if prune on the request is true)
 
+	/* HidePrunedOrphans.
+
+	   Whether or not to hide orphaned resources that were shut down (relevant if prune on the request is true)
 	*/
 	HidePrunedOrphans *bool
-	/*SkipSnapshot
-	  Whether or not to skip snapshots before shutting down orphaned resources (relevant if prune on the request is true)
 
+	/* SkipSnapshot.
+
+	   Whether or not to skip snapshots before shutting down orphaned resources (relevant if prune on the request is true)
 	*/
 	SkipSnapshot *bool
-	/*ValidateOnly
-	  If true, will just validate the Deployment definition but will not perform the update
 
+	/* ValidateOnly.
+
+	   If true, will just validate the Deployment definition but will not perform the update
 	*/
 	ValidateOnly *bool
-	/*Version
-	  If specified then checks for conflicts against the version stored in the persistent store (returned in 'x-cloud-resource-version' of the GET request)
 
+	/* Version.
+
+	   If specified then checks for conflicts against the version stored in the persistent store (returned in 'x-cloud-resource-version' of the GET request)
 	*/
 	Version *string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the update deployment params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdateDeploymentParams) WithDefaults() *UpdateDeploymentParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the update deployment params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdateDeploymentParams) SetDefaults() {
+	var (
+		hidePrunedOrphansDefault = bool(false)
+
+		skipSnapshotDefault = bool(false)
+
+		validateOnlyDefault = bool(false)
+	)
+
+	val := UpdateDeploymentParams{
+		HidePrunedOrphans: &hidePrunedOrphansDefault,
+		SkipSnapshot:      &skipSnapshotDefault,
+		ValidateOnly:      &validateOnlyDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the update deployment params
@@ -250,7 +258,6 @@ func (o *UpdateDeploymentParams) WriteToRequest(r runtime.ClientRequest, reg str
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err
@@ -266,64 +273,68 @@ func (o *UpdateDeploymentParams) WriteToRequest(r runtime.ClientRequest, reg str
 
 		// query param hide_pruned_orphans
 		var qrHidePrunedOrphans bool
+
 		if o.HidePrunedOrphans != nil {
 			qrHidePrunedOrphans = *o.HidePrunedOrphans
 		}
 		qHidePrunedOrphans := swag.FormatBool(qrHidePrunedOrphans)
 		if qHidePrunedOrphans != "" {
+
 			if err := r.SetQueryParam("hide_pruned_orphans", qHidePrunedOrphans); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.SkipSnapshot != nil {
 
 		// query param skip_snapshot
 		var qrSkipSnapshot bool
+
 		if o.SkipSnapshot != nil {
 			qrSkipSnapshot = *o.SkipSnapshot
 		}
 		qSkipSnapshot := swag.FormatBool(qrSkipSnapshot)
 		if qSkipSnapshot != "" {
+
 			if err := r.SetQueryParam("skip_snapshot", qSkipSnapshot); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.ValidateOnly != nil {
 
 		// query param validate_only
 		var qrValidateOnly bool
+
 		if o.ValidateOnly != nil {
 			qrValidateOnly = *o.ValidateOnly
 		}
 		qValidateOnly := swag.FormatBool(qrValidateOnly)
 		if qValidateOnly != "" {
+
 			if err := r.SetQueryParam("validate_only", qValidateOnly); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.Version != nil {
 
 		// query param version
 		var qrVersion string
+
 		if o.Version != nil {
 			qrVersion = *o.Version
 		}
 		qVersion := qrVersion
 		if qVersion != "" {
+
 			if err := r.SetQueryParam("version", qVersion); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

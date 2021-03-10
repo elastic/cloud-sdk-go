@@ -64,7 +64,6 @@ func (o *DeleteKibanaClusterReader) ReadResponse(response runtime.ClientResponse
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,7 +74,7 @@ func NewDeleteKibanaClusterOK() *DeleteKibanaClusterOK {
 	return &DeleteKibanaClusterOK{}
 }
 
-/*DeleteKibanaClusterOK handles this case with default header values.
+/* DeleteKibanaClusterOK describes a response with status code 200, with default header values.
 
 The cluster has been successfully deleted
 */
@@ -86,7 +85,6 @@ type DeleteKibanaClusterOK struct {
 func (o *DeleteKibanaClusterOK) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/kibana/{cluster_id}][%d] deleteKibanaClusterOK  %+v", 200, o.Payload)
 }
-
 func (o *DeleteKibanaClusterOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -106,7 +104,7 @@ func NewDeleteKibanaClusterNotFound() *DeleteKibanaClusterNotFound {
 	return &DeleteKibanaClusterNotFound{}
 }
 
-/*DeleteKibanaClusterNotFound handles this case with default header values.
+/* DeleteKibanaClusterNotFound describes a response with status code 404, with default header values.
 
 The cluster specified by {cluster_id} cannot be found (code: 'clusters.cluster_not_found')
 */
@@ -117,7 +115,6 @@ type DeleteKibanaClusterNotFound struct {
 func (o *DeleteKibanaClusterNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/kibana/{cluster_id}][%d] deleteKibanaClusterNotFound  %+v", 404, o.Payload)
 }
-
 func (o *DeleteKibanaClusterNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -139,7 +136,7 @@ func NewDeleteKibanaClusterPreconditionFailed() *DeleteKibanaClusterPrecondition
 	return &DeleteKibanaClusterPreconditionFailed{}
 }
 
-/*DeleteKibanaClusterPreconditionFailed handles this case with default header values.
+/* DeleteKibanaClusterPreconditionFailed describes a response with status code 412, with default header values.
 
 The Kibana cluster has not been shutdown yet (code: 'clusters.cluster_plan_state_error')
 */
@@ -150,7 +147,6 @@ type DeleteKibanaClusterPreconditionFailed struct {
 func (o *DeleteKibanaClusterPreconditionFailed) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/kibana/{cluster_id}][%d] deleteKibanaClusterPreconditionFailed  %+v", 412, o.Payload)
 }
-
 func (o *DeleteKibanaClusterPreconditionFailed) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -172,7 +168,7 @@ func NewDeleteKibanaClusterRetryWith() *DeleteKibanaClusterRetryWith {
 	return &DeleteKibanaClusterRetryWith{}
 }
 
-/*DeleteKibanaClusterRetryWith handles this case with default header values.
+/* DeleteKibanaClusterRetryWith describes a response with status code 449, with default header values.
 
 elevated permissions are required. (code: '"root.unauthorized.rbac.elevated_permissions_required"')
 */
@@ -183,7 +179,6 @@ type DeleteKibanaClusterRetryWith struct {
 func (o *DeleteKibanaClusterRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/kibana/{cluster_id}][%d] deleteKibanaClusterRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *DeleteKibanaClusterRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

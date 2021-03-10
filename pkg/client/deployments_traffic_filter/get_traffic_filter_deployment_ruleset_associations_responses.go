@@ -58,7 +58,6 @@ func (o *GetTrafficFilterDeploymentRulesetAssociationsReader) ReadResponse(respo
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,7 +68,7 @@ func NewGetTrafficFilterDeploymentRulesetAssociationsOK() *GetTrafficFilterDeplo
 	return &GetTrafficFilterDeploymentRulesetAssociationsOK{}
 }
 
-/*GetTrafficFilterDeploymentRulesetAssociationsOK handles this case with default header values.
+/* GetTrafficFilterDeploymentRulesetAssociationsOK describes a response with status code 200, with default header values.
 
 Rulesets in the deployment were successfully returned
 */
@@ -80,7 +79,6 @@ type GetTrafficFilterDeploymentRulesetAssociationsOK struct {
 func (o *GetTrafficFilterDeploymentRulesetAssociationsOK) Error() string {
 	return fmt.Sprintf("[GET /deployments/traffic-filter/associations/{association_type}/{associated_entity_id}/rulesets][%d] getTrafficFilterDeploymentRulesetAssociationsOK  %+v", 200, o.Payload)
 }
-
 func (o *GetTrafficFilterDeploymentRulesetAssociationsOK) GetPayload() *models.TrafficFilterSettings {
 	return o.Payload
 }
@@ -102,12 +100,13 @@ func NewGetTrafficFilterDeploymentRulesetAssociationsBadRequest() *GetTrafficFil
 	return &GetTrafficFilterDeploymentRulesetAssociationsBadRequest{}
 }
 
-/*GetTrafficFilterDeploymentRulesetAssociationsBadRequest handles this case with default header values.
+/* GetTrafficFilterDeploymentRulesetAssociationsBadRequest describes a response with status code 400, with default header values.
 
 Invalid association type. (code: `traffic_filter.invalid_association_type`)
 */
 type GetTrafficFilterDeploymentRulesetAssociationsBadRequest struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -117,15 +116,18 @@ type GetTrafficFilterDeploymentRulesetAssociationsBadRequest struct {
 func (o *GetTrafficFilterDeploymentRulesetAssociationsBadRequest) Error() string {
 	return fmt.Sprintf("[GET /deployments/traffic-filter/associations/{association_type}/{associated_entity_id}/rulesets][%d] getTrafficFilterDeploymentRulesetAssociationsBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *GetTrafficFilterDeploymentRulesetAssociationsBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *GetTrafficFilterDeploymentRulesetAssociationsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -142,12 +144,13 @@ func NewGetTrafficFilterDeploymentRulesetAssociationsInternalServerError() *GetT
 	return &GetTrafficFilterDeploymentRulesetAssociationsInternalServerError{}
 }
 
-/*GetTrafficFilterDeploymentRulesetAssociationsInternalServerError handles this case with default header values.
+/* GetTrafficFilterDeploymentRulesetAssociationsInternalServerError describes a response with status code 500, with default header values.
 
 Error fetching traffic filter rulesets. (code: `traffic_filter.request_execution_failed`)
 */
 type GetTrafficFilterDeploymentRulesetAssociationsInternalServerError struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -157,15 +160,18 @@ type GetTrafficFilterDeploymentRulesetAssociationsInternalServerError struct {
 func (o *GetTrafficFilterDeploymentRulesetAssociationsInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /deployments/traffic-filter/associations/{association_type}/{associated_entity_id}/rulesets][%d] getTrafficFilterDeploymentRulesetAssociationsInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *GetTrafficFilterDeploymentRulesetAssociationsInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *GetTrafficFilterDeploymentRulesetAssociationsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

@@ -34,69 +34,85 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewSetEsClusterMetadataRawParams creates a new SetEsClusterMetadataRawParams object
-// with the default values initialized.
+// NewSetEsClusterMetadataRawParams creates a new SetEsClusterMetadataRawParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewSetEsClusterMetadataRawParams() *SetEsClusterMetadataRawParams {
-	var ()
 	return &SetEsClusterMetadataRawParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewSetEsClusterMetadataRawParamsWithTimeout creates a new SetEsClusterMetadataRawParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewSetEsClusterMetadataRawParamsWithTimeout(timeout time.Duration) *SetEsClusterMetadataRawParams {
-	var ()
 	return &SetEsClusterMetadataRawParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewSetEsClusterMetadataRawParamsWithContext creates a new SetEsClusterMetadataRawParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewSetEsClusterMetadataRawParamsWithContext(ctx context.Context) *SetEsClusterMetadataRawParams {
-	var ()
 	return &SetEsClusterMetadataRawParams{
-
 		Context: ctx,
 	}
 }
 
 // NewSetEsClusterMetadataRawParamsWithHTTPClient creates a new SetEsClusterMetadataRawParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewSetEsClusterMetadataRawParamsWithHTTPClient(client *http.Client) *SetEsClusterMetadataRawParams {
-	var ()
 	return &SetEsClusterMetadataRawParams{
 		HTTPClient: client,
 	}
 }
 
-/*SetEsClusterMetadataRawParams contains all the parameters to send to the API endpoint
-for the set es cluster metadata raw operation typically these are written to a http.Request
+/* SetEsClusterMetadataRawParams contains all the parameters to send to the API endpoint
+   for the set es cluster metadata raw operation.
+
+   Typically these are written to a http.Request.
 */
 type SetEsClusterMetadataRawParams struct {
 
-	/*Body
-	  The freeform JSON for the cluster (should always be based on the current version retrieved from the GET)
+	/* Body.
 
+	   The freeform JSON for the cluster (should always be based on the current version retrieved from the GET)
 	*/
 	Body string
-	/*ClusterID
-	  Elasticsearch cluster identifier
 
+	/* ClusterID.
+
+	   Elasticsearch cluster identifier
 	*/
 	ClusterID string
-	/*Version
-	  Checks for conflicts against the metadata version, then returns the value in the `x-cloud-resource-version` header.
 
+	/* Version.
+
+	   Checks for conflicts against the metadata version, then returns the value in the `x-cloud-resource-version` header.
 	*/
 	Version *int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the set es cluster metadata raw params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetEsClusterMetadataRawParams) WithDefaults() *SetEsClusterMetadataRawParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the set es cluster metadata raw params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetEsClusterMetadataRawParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the set es cluster metadata raw params
@@ -172,7 +188,6 @@ func (o *SetEsClusterMetadataRawParams) WriteToRequest(r runtime.ClientRequest, 
 		return err
 	}
 	var res []error
-
 	if err := r.SetBodyParam(o.Body); err != nil {
 		return err
 	}
@@ -186,16 +201,17 @@ func (o *SetEsClusterMetadataRawParams) WriteToRequest(r runtime.ClientRequest, 
 
 		// query param version
 		var qrVersion int64
+
 		if o.Version != nil {
 			qrVersion = *o.Version
 		}
 		qVersion := swag.FormatInt64(qrVersion)
 		if qVersion != "" {
+
 			if err := r.SetQueryParam("version", qVersion); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

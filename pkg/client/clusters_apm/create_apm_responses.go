@@ -64,7 +64,6 @@ func (o *CreateApmReader) ReadResponse(response runtime.ClientResponse, consumer
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,7 +74,7 @@ func NewCreateApmOK() *CreateApmOK {
 	return &CreateApmOK{}
 }
 
-/*CreateApmOK handles this case with default header values.
+/* CreateApmOK describes a response with status code 200, with default header values.
 
 The APM server plan is valid. The return object contains an internal representation of the plan that you can use for debugging.
 */
@@ -86,7 +85,6 @@ type CreateApmOK struct {
 func (o *CreateApmOK) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm][%d] createApmOK  %+v", 200, o.Payload)
 }
-
 func (o *CreateApmOK) GetPayload() *models.ApmCrudResponse {
 	return o.Payload
 }
@@ -108,7 +106,7 @@ func NewCreateApmCreated() *CreateApmCreated {
 	return &CreateApmCreated{}
 }
 
-/*CreateApmCreated handles this case with default header values.
+/* CreateApmCreated describes a response with status code 201, with default header values.
 
 The APM server plan is valid and the creation process has started.
 */
@@ -119,7 +117,6 @@ type CreateApmCreated struct {
 func (o *CreateApmCreated) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm][%d] createApmCreated  %+v", 201, o.Payload)
 }
-
 func (o *CreateApmCreated) GetPayload() *models.ApmCrudResponse {
 	return o.Payload
 }
@@ -141,7 +138,7 @@ func NewCreateApmBadRequest() *CreateApmBadRequest {
 	return &CreateApmBadRequest{}
 }
 
-/*CreateApmBadRequest handles this case with default header values.
+/* CreateApmBadRequest describes a response with status code 400, with default header values.
 
 The APM server plan contains errors. (code: 'clusters.cluster_invalid_plan' and 'clusters.plan_feature_not_implemented')
 */
@@ -152,7 +149,6 @@ type CreateApmBadRequest struct {
 func (o *CreateApmBadRequest) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm][%d] createApmBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *CreateApmBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -174,7 +170,7 @@ func NewCreateApmRetryWith() *CreateApmRetryWith {
 	return &CreateApmRetryWith{}
 }
 
-/*CreateApmRetryWith handles this case with default header values.
+/* CreateApmRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: '"root.needs_elevated_permissions"')
 */
@@ -185,7 +181,6 @@ type CreateApmRetryWith struct {
 func (o *CreateApmRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm][%d] createApmRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *CreateApmRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

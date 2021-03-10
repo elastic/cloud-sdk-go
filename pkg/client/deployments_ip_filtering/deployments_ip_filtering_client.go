@@ -42,25 +42,28 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientOption is the option for Client methods
+type ClientOption func(*runtime.ClientOperation)
+
 // ClientService is the interface for Client methods
 type ClientService interface {
-	CreateIPFilterRuleset(params *CreateIPFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter) (*CreateIPFilterRulesetCreated, error)
+	CreateIPFilterRuleset(params *CreateIPFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateIPFilterRulesetCreated, error)
 
-	CreateIPFilterRulesetAssociation(params *CreateIPFilterRulesetAssociationParams, authInfo runtime.ClientAuthInfoWriter) (*CreateIPFilterRulesetAssociationCreated, error)
+	CreateIPFilterRulesetAssociation(params *CreateIPFilterRulesetAssociationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateIPFilterRulesetAssociationCreated, error)
 
-	DeleteIPFilterRuleset(params *DeleteIPFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteIPFilterRulesetOK, error)
+	DeleteIPFilterRuleset(params *DeleteIPFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteIPFilterRulesetOK, error)
 
-	DeleteIPFilterRulesetAssociation(params *DeleteIPFilterRulesetAssociationParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteIPFilterRulesetAssociationOK, error)
+	DeleteIPFilterRulesetAssociation(params *DeleteIPFilterRulesetAssociationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteIPFilterRulesetAssociationOK, error)
 
-	GetIPFilterDeploymentRulesetAssociations(params *GetIPFilterDeploymentRulesetAssociationsParams, authInfo runtime.ClientAuthInfoWriter) (*GetIPFilterDeploymentRulesetAssociationsOK, error)
+	GetIPFilterDeploymentRulesetAssociations(params *GetIPFilterDeploymentRulesetAssociationsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetIPFilterDeploymentRulesetAssociationsOK, error)
 
-	GetIPFilterRuleset(params *GetIPFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter) (*GetIPFilterRulesetOK, error)
+	GetIPFilterRuleset(params *GetIPFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetIPFilterRulesetOK, error)
 
-	GetIPFilterRulesetDeploymentAssociations(params *GetIPFilterRulesetDeploymentAssociationsParams, authInfo runtime.ClientAuthInfoWriter) (*GetIPFilterRulesetDeploymentAssociationsOK, error)
+	GetIPFilterRulesetDeploymentAssociations(params *GetIPFilterRulesetDeploymentAssociationsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetIPFilterRulesetDeploymentAssociationsOK, error)
 
-	GetIPFilterRulesets(params *GetIPFilterRulesetsParams, authInfo runtime.ClientAuthInfoWriter) (*GetIPFilterRulesetsOK, error)
+	GetIPFilterRulesets(params *GetIPFilterRulesetsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetIPFilterRulesetsOK, error)
 
-	UpdateIPFilterRuleset(params *UpdateIPFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateIPFilterRulesetOK, error)
+	UpdateIPFilterRuleset(params *UpdateIPFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateIPFilterRulesetOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -70,13 +73,12 @@ type ClientService interface {
 
   DEPRECATED: Creates a ruleset that combines a set of rules. Deprecated in favor of traffic-filter endpoints.
 */
-func (a *Client) CreateIPFilterRuleset(params *CreateIPFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter) (*CreateIPFilterRulesetCreated, error) {
+func (a *Client) CreateIPFilterRuleset(params *CreateIPFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateIPFilterRulesetCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateIPFilterRulesetParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "create-ip-filter-ruleset",
 		Method:             "POST",
 		PathPattern:        "/deployments/ip-filtering/rulesets",
@@ -88,7 +90,12 @@ func (a *Client) CreateIPFilterRuleset(params *CreateIPFilterRulesetParams, auth
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -107,13 +114,12 @@ func (a *Client) CreateIPFilterRuleset(params *CreateIPFilterRulesetParams, auth
 
   DEPRECATED: Applies the ruleset to the specified deployment.
 */
-func (a *Client) CreateIPFilterRulesetAssociation(params *CreateIPFilterRulesetAssociationParams, authInfo runtime.ClientAuthInfoWriter) (*CreateIPFilterRulesetAssociationCreated, error) {
+func (a *Client) CreateIPFilterRulesetAssociation(params *CreateIPFilterRulesetAssociationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateIPFilterRulesetAssociationCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateIPFilterRulesetAssociationParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "create-ip-filter-ruleset-association",
 		Method:             "POST",
 		PathPattern:        "/deployments/ip-filtering/rulesets/{ruleset_id}/associations",
@@ -125,7 +131,12 @@ func (a *Client) CreateIPFilterRulesetAssociation(params *CreateIPFilterRulesetA
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -144,13 +155,12 @@ func (a *Client) CreateIPFilterRulesetAssociation(params *CreateIPFilterRulesetA
 
   DEPRECATED: Deletes the ruleset by ID. Deprecated in favor of traffic-filter endpoints.
 */
-func (a *Client) DeleteIPFilterRuleset(params *DeleteIPFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteIPFilterRulesetOK, error) {
+func (a *Client) DeleteIPFilterRuleset(params *DeleteIPFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteIPFilterRulesetOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteIPFilterRulesetParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "delete-ip-filter-ruleset",
 		Method:             "DELETE",
 		PathPattern:        "/deployments/ip-filtering/rulesets/{ruleset_id}",
@@ -162,7 +172,12 @@ func (a *Client) DeleteIPFilterRuleset(params *DeleteIPFilterRulesetParams, auth
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -181,13 +196,12 @@ func (a *Client) DeleteIPFilterRuleset(params *DeleteIPFilterRulesetParams, auth
 
   DEPRECATED: Deletes the traffic rules in the ruleset from the deployment.
 */
-func (a *Client) DeleteIPFilterRulesetAssociation(params *DeleteIPFilterRulesetAssociationParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteIPFilterRulesetAssociationOK, error) {
+func (a *Client) DeleteIPFilterRulesetAssociation(params *DeleteIPFilterRulesetAssociationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteIPFilterRulesetAssociationOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteIPFilterRulesetAssociationParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "delete-ip-filter-ruleset-association",
 		Method:             "DELETE",
 		PathPattern:        "/deployments/ip-filtering/rulesets/{ruleset_id}/associations/{association_type}/{associated_entity_id}",
@@ -199,7 +213,12 @@ func (a *Client) DeleteIPFilterRulesetAssociation(params *DeleteIPFilterRulesetA
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -218,13 +237,12 @@ func (a *Client) DeleteIPFilterRulesetAssociation(params *DeleteIPFilterRulesetA
 
   DEPRECATED: Retrieves the rulesets associated with a deployment.
 */
-func (a *Client) GetIPFilterDeploymentRulesetAssociations(params *GetIPFilterDeploymentRulesetAssociationsParams, authInfo runtime.ClientAuthInfoWriter) (*GetIPFilterDeploymentRulesetAssociationsOK, error) {
+func (a *Client) GetIPFilterDeploymentRulesetAssociations(params *GetIPFilterDeploymentRulesetAssociationsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetIPFilterDeploymentRulesetAssociationsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetIPFilterDeploymentRulesetAssociationsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-ip-filter-deployment-ruleset-associations",
 		Method:             "GET",
 		PathPattern:        "/deployments/ip-filtering/associations/{association_type}/{associated_entity_id}/rulesets",
@@ -236,7 +254,12 @@ func (a *Client) GetIPFilterDeploymentRulesetAssociations(params *GetIPFilterDep
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -255,13 +278,12 @@ func (a *Client) GetIPFilterDeploymentRulesetAssociations(params *GetIPFilterDep
 
   DEPRECATED: Retrieves the ruleset by ID. Deprecated in favor of traffic-filter endpoints.
 */
-func (a *Client) GetIPFilterRuleset(params *GetIPFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter) (*GetIPFilterRulesetOK, error) {
+func (a *Client) GetIPFilterRuleset(params *GetIPFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetIPFilterRulesetOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetIPFilterRulesetParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-ip-filter-ruleset",
 		Method:             "GET",
 		PathPattern:        "/deployments/ip-filtering/rulesets/{ruleset_id}",
@@ -273,7 +295,12 @@ func (a *Client) GetIPFilterRuleset(params *GetIPFilterRulesetParams, authInfo r
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -292,13 +319,12 @@ func (a *Client) GetIPFilterRuleset(params *GetIPFilterRulesetParams, authInfo r
 
   DEPRECATED: Retrieves a list of deployments that are associated to the specified ruleset.
 */
-func (a *Client) GetIPFilterRulesetDeploymentAssociations(params *GetIPFilterRulesetDeploymentAssociationsParams, authInfo runtime.ClientAuthInfoWriter) (*GetIPFilterRulesetDeploymentAssociationsOK, error) {
+func (a *Client) GetIPFilterRulesetDeploymentAssociations(params *GetIPFilterRulesetDeploymentAssociationsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetIPFilterRulesetDeploymentAssociationsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetIPFilterRulesetDeploymentAssociationsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-ip-filter-ruleset-deployment-associations",
 		Method:             "GET",
 		PathPattern:        "/deployments/ip-filtering/rulesets/{ruleset_id}/associations",
@@ -310,7 +336,12 @@ func (a *Client) GetIPFilterRulesetDeploymentAssociations(params *GetIPFilterRul
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -329,13 +360,12 @@ func (a *Client) GetIPFilterRulesetDeploymentAssociations(params *GetIPFilterRul
 
   DEPRECATED: Retrieves all of the user rulesets. Deprecated in favor of traffic-filter endpoints.
 */
-func (a *Client) GetIPFilterRulesets(params *GetIPFilterRulesetsParams, authInfo runtime.ClientAuthInfoWriter) (*GetIPFilterRulesetsOK, error) {
+func (a *Client) GetIPFilterRulesets(params *GetIPFilterRulesetsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetIPFilterRulesetsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetIPFilterRulesetsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-ip-filter-rulesets",
 		Method:             "GET",
 		PathPattern:        "/deployments/ip-filtering/rulesets",
@@ -347,7 +377,12 @@ func (a *Client) GetIPFilterRulesets(params *GetIPFilterRulesetsParams, authInfo
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -366,13 +401,12 @@ func (a *Client) GetIPFilterRulesets(params *GetIPFilterRulesetsParams, authInfo
 
   DEPRECATED: Updates the ruleset with the definition. Deprecated in favor of traffic-filter endpoints.
 */
-func (a *Client) UpdateIPFilterRuleset(params *UpdateIPFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateIPFilterRulesetOK, error) {
+func (a *Client) UpdateIPFilterRuleset(params *UpdateIPFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateIPFilterRulesetOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateIPFilterRulesetParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "update-ip-filter-ruleset",
 		Method:             "PUT",
 		PathPattern:        "/deployments/ip-filtering/rulesets/{ruleset_id}",
@@ -384,7 +418,12 @@ func (a *Client) UpdateIPFilterRuleset(params *UpdateIPFilterRulesetParams, auth
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}

@@ -35,59 +35,73 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewDeleteAPIKeysParams creates a new DeleteAPIKeysParams object
-// with the default values initialized.
+// NewDeleteAPIKeysParams creates a new DeleteAPIKeysParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewDeleteAPIKeysParams() *DeleteAPIKeysParams {
-	var ()
 	return &DeleteAPIKeysParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteAPIKeysParamsWithTimeout creates a new DeleteAPIKeysParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewDeleteAPIKeysParamsWithTimeout(timeout time.Duration) *DeleteAPIKeysParams {
-	var ()
 	return &DeleteAPIKeysParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewDeleteAPIKeysParamsWithContext creates a new DeleteAPIKeysParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewDeleteAPIKeysParamsWithContext(ctx context.Context) *DeleteAPIKeysParams {
-	var ()
 	return &DeleteAPIKeysParams{
-
 		Context: ctx,
 	}
 }
 
 // NewDeleteAPIKeysParamsWithHTTPClient creates a new DeleteAPIKeysParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewDeleteAPIKeysParamsWithHTTPClient(client *http.Client) *DeleteAPIKeysParams {
-	var ()
 	return &DeleteAPIKeysParams{
 		HTTPClient: client,
 	}
 }
 
-/*DeleteAPIKeysParams contains all the parameters to send to the API endpoint
-for the delete api keys operation typically these are written to a http.Request
+/* DeleteAPIKeysParams contains all the parameters to send to the API endpoint
+   for the delete api keys operation.
+
+   Typically these are written to a http.Request.
 */
 type DeleteAPIKeysParams struct {
 
-	/*Body
-	  The request to delete API keys
+	/* Body.
 
+	   The request to delete API keys
 	*/
 	Body *models.DeleteAPIKeysRequest
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the delete api keys params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteAPIKeysParams) WithDefaults() *DeleteAPIKeysParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the delete api keys params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteAPIKeysParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete api keys params
@@ -141,7 +155,6 @@ func (o *DeleteAPIKeysParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

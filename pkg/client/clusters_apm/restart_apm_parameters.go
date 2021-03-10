@@ -34,76 +34,90 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewRestartApmParams creates a new RestartApmParams object
-// with the default values initialized.
+// NewRestartApmParams creates a new RestartApmParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewRestartApmParams() *RestartApmParams {
-	var (
-		cancelPendingDefault = bool(false)
-	)
 	return &RestartApmParams{
-		CancelPending: &cancelPendingDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewRestartApmParamsWithTimeout creates a new RestartApmParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewRestartApmParamsWithTimeout(timeout time.Duration) *RestartApmParams {
-	var (
-		cancelPendingDefault = bool(false)
-	)
 	return &RestartApmParams{
-		CancelPending: &cancelPendingDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewRestartApmParamsWithContext creates a new RestartApmParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewRestartApmParamsWithContext(ctx context.Context) *RestartApmParams {
-	var (
-		cancelPendingDefault = bool(false)
-	)
 	return &RestartApmParams{
-		CancelPending: &cancelPendingDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewRestartApmParamsWithHTTPClient creates a new RestartApmParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewRestartApmParamsWithHTTPClient(client *http.Client) *RestartApmParams {
-	var (
-		cancelPendingDefault = bool(false)
-	)
 	return &RestartApmParams{
-		CancelPending: &cancelPendingDefault,
-		HTTPClient:    client,
+		HTTPClient: client,
 	}
 }
 
-/*RestartApmParams contains all the parameters to send to the API endpoint
-for the restart apm operation typically these are written to a http.Request
+/* RestartApmParams contains all the parameters to send to the API endpoint
+   for the restart apm operation.
+
+   Typically these are written to a http.Request.
 */
 type RestartApmParams struct {
 
-	/*CancelPending
-	  When `true`, cancels the pending plans, then restarts the cluster.
+	/* CancelPending.
 
+	   When `true`, cancels the pending plans, then restarts the cluster.
 	*/
 	CancelPending *bool
-	/*ClusterID
-	  The APM deployment identifier.
 
+	/* ClusterID.
+
+	   The APM deployment identifier.
 	*/
 	ClusterID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the restart apm params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *RestartApmParams) WithDefaults() *RestartApmParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the restart apm params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *RestartApmParams) SetDefaults() {
+	var (
+		cancelPendingDefault = bool(false)
+	)
+
+	val := RestartApmParams{
+		CancelPending: &cancelPendingDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the restart apm params
@@ -173,16 +187,17 @@ func (o *RestartApmParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Re
 
 		// query param cancel_pending
 		var qrCancelPending bool
+
 		if o.CancelPending != nil {
 			qrCancelPending = *o.CancelPending
 		}
 		qCancelPending := swag.FormatBool(qrCancelPending)
 		if qCancelPending != "" {
+
 			if err := r.SetQueryParam("cancel_pending", qCancelPending); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	// path param cluster_id

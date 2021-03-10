@@ -76,7 +76,6 @@ func (o *SnapshotEsClusterReader) ReadResponse(response runtime.ClientResponse, 
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -87,7 +86,7 @@ func NewSnapshotEsClusterAccepted() *SnapshotEsClusterAccepted {
 	return &SnapshotEsClusterAccepted{}
 }
 
-/*SnapshotEsClusterAccepted handles this case with default header values.
+/* SnapshotEsClusterAccepted describes a response with status code 202, with default header values.
 
 The create command was issued successfully, use the "GET" command on the /{cluster_id} resource to monitor progress
 */
@@ -98,7 +97,6 @@ type SnapshotEsClusterAccepted struct {
 func (o *SnapshotEsClusterAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/_snapshot][%d] snapshotEsClusterAccepted  %+v", 202, o.Payload)
 }
-
 func (o *SnapshotEsClusterAccepted) GetPayload() *models.ClusterSnapshotResponse {
 	return o.Payload
 }
@@ -120,12 +118,13 @@ func NewSnapshotEsClusterUnauthorized() *SnapshotEsClusterUnauthorized {
 	return &SnapshotEsClusterUnauthorized{}
 }
 
-/*SnapshotEsClusterUnauthorized handles this case with default header values.
+/* SnapshotEsClusterUnauthorized describes a response with status code 401, with default header values.
 
 The supplied credentials for the snapshot repository are invalid. (code: `clusters.snapshot.invalid_credentials`)
 */
 type SnapshotEsClusterUnauthorized struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -135,15 +134,18 @@ type SnapshotEsClusterUnauthorized struct {
 func (o *SnapshotEsClusterUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/_snapshot][%d] snapshotEsClusterUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *SnapshotEsClusterUnauthorized) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SnapshotEsClusterUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -160,13 +162,14 @@ func NewSnapshotEsClusterNotFound() *SnapshotEsClusterNotFound {
 	return &SnapshotEsClusterNotFound{}
 }
 
-/*SnapshotEsClusterNotFound handles this case with default header values.
+/* SnapshotEsClusterNotFound describes a response with status code 404, with default header values.
 
-* The cluster specified by {cluster_id} cannot be found. (code: `clusters.cluster_not_found`)
+ * The cluster specified by {cluster_id} cannot be found. (code: `clusters.cluster_not_found`)
 * The snapshot repository was not found. (code: `clusters.snapshot.repository_not_found`)
- */
+*/
 type SnapshotEsClusterNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -176,15 +179,18 @@ type SnapshotEsClusterNotFound struct {
 func (o *SnapshotEsClusterNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/_snapshot][%d] snapshotEsClusterNotFound  %+v", 404, o.Payload)
 }
-
 func (o *SnapshotEsClusterNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SnapshotEsClusterNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -201,12 +207,13 @@ func NewSnapshotEsClusterConflict() *SnapshotEsClusterConflict {
 	return &SnapshotEsClusterConflict{}
 }
 
-/*SnapshotEsClusterConflict handles this case with default header values.
+/* SnapshotEsClusterConflict describes a response with status code 409, with default header values.
 
 The cluster name specified is already in use. (code: `clusters.snapshot.name_conflict`)
 */
 type SnapshotEsClusterConflict struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -216,15 +223,18 @@ type SnapshotEsClusterConflict struct {
 func (o *SnapshotEsClusterConflict) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/_snapshot][%d] snapshotEsClusterConflict  %+v", 409, o.Payload)
 }
-
 func (o *SnapshotEsClusterConflict) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SnapshotEsClusterConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -241,12 +251,13 @@ func NewSnapshotEsClusterRetryWith() *SnapshotEsClusterRetryWith {
 	return &SnapshotEsClusterRetryWith{}
 }
 
-/*SnapshotEsClusterRetryWith handles this case with default header values.
+/* SnapshotEsClusterRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type SnapshotEsClusterRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -256,15 +267,18 @@ type SnapshotEsClusterRetryWith struct {
 func (o *SnapshotEsClusterRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/_snapshot][%d] snapshotEsClusterRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *SnapshotEsClusterRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SnapshotEsClusterRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -281,13 +295,14 @@ func NewSnapshotEsClusterInternalServerError() *SnapshotEsClusterInternalServerE
 	return &SnapshotEsClusterInternalServerError{}
 }
 
-/*SnapshotEsClusterInternalServerError handles this case with default header values.
+/* SnapshotEsClusterInternalServerError describes a response with status code 500, with default header values.
 
-* The snapshot request failed. (code: `clusters.snapshot.failed`)
+ * The snapshot request failed. (code: `clusters.snapshot.failed`)
 * The snapshot request failed. (code: `clusters.snapshot.repository_not_found`)
- */
+*/
 type SnapshotEsClusterInternalServerError struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -297,15 +312,18 @@ type SnapshotEsClusterInternalServerError struct {
 func (o *SnapshotEsClusterInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/_snapshot][%d] snapshotEsClusterInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *SnapshotEsClusterInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SnapshotEsClusterInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

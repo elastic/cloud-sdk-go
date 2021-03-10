@@ -42,19 +42,22 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientOption is the option for Client methods
+type ClientOption func(*runtime.ClientOperation)
+
 // ClientService is the interface for Client methods
 type ClientService interface {
-	CreateDeploymentTemplate(params *CreateDeploymentTemplateParams, authInfo runtime.ClientAuthInfoWriter) (*CreateDeploymentTemplateCreated, error)
+	CreateDeploymentTemplate(params *CreateDeploymentTemplateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateDeploymentTemplateCreated, error)
 
-	DeleteDeploymentTemplate(params *DeleteDeploymentTemplateParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteDeploymentTemplateOK, error)
+	DeleteDeploymentTemplate(params *DeleteDeploymentTemplateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteDeploymentTemplateOK, error)
 
-	GetDeploymentTemplate(params *GetDeploymentTemplateParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentTemplateOK, error)
+	GetDeploymentTemplate(params *GetDeploymentTemplateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentTemplateOK, error)
 
-	GetDeploymentTemplates(params *GetDeploymentTemplatesParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentTemplatesOK, error)
+	GetDeploymentTemplates(params *GetDeploymentTemplatesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentTemplatesOK, error)
 
-	GetGlobalDeploymentTemplates(params *GetGlobalDeploymentTemplatesParams, authInfo runtime.ClientAuthInfoWriter) (*GetGlobalDeploymentTemplatesOK, error)
+	GetGlobalDeploymentTemplates(params *GetGlobalDeploymentTemplatesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetGlobalDeploymentTemplatesOK, error)
 
-	SetDeploymentTemplate(params *SetDeploymentTemplateParams, authInfo runtime.ClientAuthInfoWriter) (*SetDeploymentTemplateOK, *SetDeploymentTemplateCreated, error)
+	SetDeploymentTemplate(params *SetDeploymentTemplateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetDeploymentTemplateOK, *SetDeploymentTemplateCreated, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -64,13 +67,12 @@ type ClientService interface {
 
   Creates a deployment template.
 */
-func (a *Client) CreateDeploymentTemplate(params *CreateDeploymentTemplateParams, authInfo runtime.ClientAuthInfoWriter) (*CreateDeploymentTemplateCreated, error) {
+func (a *Client) CreateDeploymentTemplate(params *CreateDeploymentTemplateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateDeploymentTemplateCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateDeploymentTemplateParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "create-deployment-template",
 		Method:             "POST",
 		PathPattern:        "/platform/configuration/templates/deployments",
@@ -82,7 +84,12 @@ func (a *Client) CreateDeploymentTemplate(params *CreateDeploymentTemplateParams
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -101,13 +108,12 @@ func (a *Client) CreateDeploymentTemplate(params *CreateDeploymentTemplateParams
 
   Deletes a deployment template by id.
 */
-func (a *Client) DeleteDeploymentTemplate(params *DeleteDeploymentTemplateParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteDeploymentTemplateOK, error) {
+func (a *Client) DeleteDeploymentTemplate(params *DeleteDeploymentTemplateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteDeploymentTemplateOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteDeploymentTemplateParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "delete-deployment-template",
 		Method:             "DELETE",
 		PathPattern:        "/platform/configuration/templates/deployments/{template_id}",
@@ -119,7 +125,12 @@ func (a *Client) DeleteDeploymentTemplate(params *DeleteDeploymentTemplateParams
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -138,13 +149,12 @@ func (a *Client) DeleteDeploymentTemplate(params *DeleteDeploymentTemplateParams
 
   Retrieves a deployment template by id.
 */
-func (a *Client) GetDeploymentTemplate(params *GetDeploymentTemplateParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentTemplateOK, error) {
+func (a *Client) GetDeploymentTemplate(params *GetDeploymentTemplateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentTemplateOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetDeploymentTemplateParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-deployment-template",
 		Method:             "GET",
 		PathPattern:        "/platform/configuration/templates/deployments/{template_id}",
@@ -156,7 +166,12 @@ func (a *Client) GetDeploymentTemplate(params *GetDeploymentTemplateParams, auth
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -175,13 +190,12 @@ func (a *Client) GetDeploymentTemplate(params *GetDeploymentTemplateParams, auth
 
   Retrieves all deployment templates.
 */
-func (a *Client) GetDeploymentTemplates(params *GetDeploymentTemplatesParams, authInfo runtime.ClientAuthInfoWriter) (*GetDeploymentTemplatesOK, error) {
+func (a *Client) GetDeploymentTemplates(params *GetDeploymentTemplatesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentTemplatesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetDeploymentTemplatesParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-deployment-templates",
 		Method:             "GET",
 		PathPattern:        "/platform/configuration/templates/deployments",
@@ -193,7 +207,12 @@ func (a *Client) GetDeploymentTemplates(params *GetDeploymentTemplatesParams, au
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -212,13 +231,12 @@ func (a *Client) GetDeploymentTemplates(params *GetDeploymentTemplatesParams, au
 
   Global deployment template endpoint which fetches the deployment templates across all region services.
 */
-func (a *Client) GetGlobalDeploymentTemplates(params *GetGlobalDeploymentTemplatesParams, authInfo runtime.ClientAuthInfoWriter) (*GetGlobalDeploymentTemplatesOK, error) {
+func (a *Client) GetGlobalDeploymentTemplates(params *GetGlobalDeploymentTemplatesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetGlobalDeploymentTemplatesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetGlobalDeploymentTemplatesParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-global-deployment-templates",
 		Method:             "GET",
 		PathPattern:        "/platform/configuration/templates/deployments/global",
@@ -230,7 +248,12 @@ func (a *Client) GetGlobalDeploymentTemplates(params *GetGlobalDeploymentTemplat
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -249,13 +272,12 @@ func (a *Client) GetGlobalDeploymentTemplates(params *GetGlobalDeploymentTemplat
 
   Creates or updates a deployment template.
 */
-func (a *Client) SetDeploymentTemplate(params *SetDeploymentTemplateParams, authInfo runtime.ClientAuthInfoWriter) (*SetDeploymentTemplateOK, *SetDeploymentTemplateCreated, error) {
+func (a *Client) SetDeploymentTemplate(params *SetDeploymentTemplateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetDeploymentTemplateOK, *SetDeploymentTemplateCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSetDeploymentTemplateParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "set-deployment-template",
 		Method:             "PUT",
 		PathPattern:        "/platform/configuration/templates/deployments/{template_id}",
@@ -267,7 +289,12 @@ func (a *Client) SetDeploymentTemplate(params *SetDeploymentTemplateParams, auth
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, nil, err
 	}

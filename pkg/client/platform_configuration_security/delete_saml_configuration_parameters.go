@@ -33,64 +33,79 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewDeleteSamlConfigurationParams creates a new DeleteSamlConfigurationParams object
-// with the default values initialized.
+// NewDeleteSamlConfigurationParams creates a new DeleteSamlConfigurationParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewDeleteSamlConfigurationParams() *DeleteSamlConfigurationParams {
-	var ()
 	return &DeleteSamlConfigurationParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteSamlConfigurationParamsWithTimeout creates a new DeleteSamlConfigurationParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewDeleteSamlConfigurationParamsWithTimeout(timeout time.Duration) *DeleteSamlConfigurationParams {
-	var ()
 	return &DeleteSamlConfigurationParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewDeleteSamlConfigurationParamsWithContext creates a new DeleteSamlConfigurationParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewDeleteSamlConfigurationParamsWithContext(ctx context.Context) *DeleteSamlConfigurationParams {
-	var ()
 	return &DeleteSamlConfigurationParams{
-
 		Context: ctx,
 	}
 }
 
 // NewDeleteSamlConfigurationParamsWithHTTPClient creates a new DeleteSamlConfigurationParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewDeleteSamlConfigurationParamsWithHTTPClient(client *http.Client) *DeleteSamlConfigurationParams {
-	var ()
 	return &DeleteSamlConfigurationParams{
 		HTTPClient: client,
 	}
 }
 
-/*DeleteSamlConfigurationParams contains all the parameters to send to the API endpoint
-for the delete saml configuration operation typically these are written to a http.Request
+/* DeleteSamlConfigurationParams contains all the parameters to send to the API endpoint
+   for the delete saml configuration operation.
+
+   Typically these are written to a http.Request.
 */
 type DeleteSamlConfigurationParams struct {
 
-	/*RealmID
-	  The Elasticsearch Security realm identifier.
+	/* RealmID.
 
+	   The Elasticsearch Security realm identifier.
 	*/
 	RealmID string
-	/*Version
-	  When specified, checks for conflicts against the version stored in the persistent store (returned in 'x-cloud-resource-version' of the GET request)
 
+	/* Version.
+
+	   When specified, checks for conflicts against the version stored in the persistent store (returned in 'x-cloud-resource-version' of the GET request)
 	*/
 	Version *string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the delete saml configuration params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteSamlConfigurationParams) WithDefaults() *DeleteSamlConfigurationParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the delete saml configuration params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteSamlConfigurationParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete saml configuration params
@@ -165,16 +180,17 @@ func (o *DeleteSamlConfigurationParams) WriteToRequest(r runtime.ClientRequest, 
 
 		// query param version
 		var qrVersion string
+
 		if o.Version != nil {
 			qrVersion = *o.Version
 		}
 		qVersion := qrVersion
 		if qVersion != "" {
+
 			if err := r.SetQueryParam("version", qVersion); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

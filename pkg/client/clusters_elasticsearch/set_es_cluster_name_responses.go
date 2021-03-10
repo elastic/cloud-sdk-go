@@ -58,7 +58,6 @@ func (o *SetEsClusterNameReader) ReadResponse(response runtime.ClientResponse, c
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,7 +68,7 @@ func NewSetEsClusterNameOK() *SetEsClusterNameOK {
 	return &SetEsClusterNameOK{}
 }
 
-/*SetEsClusterNameOK handles this case with default header values.
+/* SetEsClusterNameOK describes a response with status code 200, with default header values.
 
 The cluster name was successfully changed
 */
@@ -80,7 +79,6 @@ type SetEsClusterNameOK struct {
 func (o *SetEsClusterNameOK) Error() string {
 	return fmt.Sprintf("[PUT /clusters/elasticsearch/{cluster_id}/metadata/name/{new_name}][%d] setEsClusterNameOK  %+v", 200, o.Payload)
 }
-
 func (o *SetEsClusterNameOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -100,7 +98,7 @@ func NewSetEsClusterNameNotFound() *SetEsClusterNameNotFound {
 	return &SetEsClusterNameNotFound{}
 }
 
-/*SetEsClusterNameNotFound handles this case with default header values.
+/* SetEsClusterNameNotFound describes a response with status code 404, with default header values.
 
 The cluster specified by {cluster_id} cannot be found (code: 'clusters.cluster_not_found')
 */
@@ -111,7 +109,6 @@ type SetEsClusterNameNotFound struct {
 func (o *SetEsClusterNameNotFound) Error() string {
 	return fmt.Sprintf("[PUT /clusters/elasticsearch/{cluster_id}/metadata/name/{new_name}][%d] setEsClusterNameNotFound  %+v", 404, o.Payload)
 }
-
 func (o *SetEsClusterNameNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -133,7 +130,7 @@ func NewSetEsClusterNameRetryWith() *SetEsClusterNameRetryWith {
 	return &SetEsClusterNameRetryWith{}
 }
 
-/*SetEsClusterNameRetryWith handles this case with default header values.
+/* SetEsClusterNameRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: '"root.unauthorized.rbac.elevated_permissions_required"')
 */
@@ -144,7 +141,6 @@ type SetEsClusterNameRetryWith struct {
 func (o *SetEsClusterNameRetryWith) Error() string {
 	return fmt.Sprintf("[PUT /clusters/elasticsearch/{cluster_id}/metadata/name/{new_name}][%d] setEsClusterNameRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *SetEsClusterNameRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

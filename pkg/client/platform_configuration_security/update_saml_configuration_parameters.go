@@ -35,69 +35,85 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewUpdateSamlConfigurationParams creates a new UpdateSamlConfigurationParams object
-// with the default values initialized.
+// NewUpdateSamlConfigurationParams creates a new UpdateSamlConfigurationParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewUpdateSamlConfigurationParams() *UpdateSamlConfigurationParams {
-	var ()
 	return &UpdateSamlConfigurationParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewUpdateSamlConfigurationParamsWithTimeout creates a new UpdateSamlConfigurationParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewUpdateSamlConfigurationParamsWithTimeout(timeout time.Duration) *UpdateSamlConfigurationParams {
-	var ()
 	return &UpdateSamlConfigurationParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewUpdateSamlConfigurationParamsWithContext creates a new UpdateSamlConfigurationParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewUpdateSamlConfigurationParamsWithContext(ctx context.Context) *UpdateSamlConfigurationParams {
-	var ()
 	return &UpdateSamlConfigurationParams{
-
 		Context: ctx,
 	}
 }
 
 // NewUpdateSamlConfigurationParamsWithHTTPClient creates a new UpdateSamlConfigurationParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewUpdateSamlConfigurationParamsWithHTTPClient(client *http.Client) *UpdateSamlConfigurationParams {
-	var ()
 	return &UpdateSamlConfigurationParams{
 		HTTPClient: client,
 	}
 }
 
-/*UpdateSamlConfigurationParams contains all the parameters to send to the API endpoint
-for the update saml configuration operation typically these are written to a http.Request
+/* UpdateSamlConfigurationParams contains all the parameters to send to the API endpoint
+   for the update saml configuration operation.
+
+   Typically these are written to a http.Request.
 */
 type UpdateSamlConfigurationParams struct {
 
-	/*Body
-	  The SAML configuration
+	/* Body.
 
+	   The SAML configuration
 	*/
 	Body *models.SamlSettings
-	/*RealmID
-	  The Elasticsearch Security realm identifier.
 
+	/* RealmID.
+
+	   The Elasticsearch Security realm identifier.
 	*/
 	RealmID string
-	/*Version
-	  When specified, checks for conflicts against the version stored in the persistent store (returned in 'x-cloud-resource-version' of the GET request)
 
+	/* Version.
+
+	   When specified, checks for conflicts against the version stored in the persistent store (returned in 'x-cloud-resource-version' of the GET request)
 	*/
 	Version *string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the update saml configuration params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdateSamlConfigurationParams) WithDefaults() *UpdateSamlConfigurationParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the update saml configuration params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdateSamlConfigurationParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the update saml configuration params
@@ -173,7 +189,6 @@ func (o *UpdateSamlConfigurationParams) WriteToRequest(r runtime.ClientRequest, 
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err
@@ -189,16 +204,17 @@ func (o *UpdateSamlConfigurationParams) WriteToRequest(r runtime.ClientRequest, 
 
 		// query param version
 		var qrVersion string
+
 		if o.Version != nil {
 			qrVersion = *o.Version
 		}
 		qVersion := qrVersion
 		if qVersion != "" {
+
 			if err := r.SetQueryParam("version", qVersion); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

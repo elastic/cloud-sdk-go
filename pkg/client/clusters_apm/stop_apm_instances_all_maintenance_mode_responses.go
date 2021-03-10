@@ -64,7 +64,6 @@ func (o *StopApmInstancesAllMaintenanceModeReader) ReadResponse(response runtime
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,7 +74,7 @@ func NewStopApmInstancesAllMaintenanceModeAccepted() *StopApmInstancesAllMainten
 	return &StopApmInstancesAllMaintenanceModeAccepted{}
 }
 
-/*StopApmInstancesAllMaintenanceModeAccepted handles this case with default header values.
+/* StopApmInstancesAllMaintenanceModeAccepted describes a response with status code 202, with default header values.
 
 The stop maintenance mode command was issued successfully, use the "GET" command on the /{cluster_id} resource to monitor progress
 */
@@ -86,7 +85,6 @@ type StopApmInstancesAllMaintenanceModeAccepted struct {
 func (o *StopApmInstancesAllMaintenanceModeAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/instances/maintenance-mode/_stop][%d] stopApmInstancesAllMaintenanceModeAccepted  %+v", 202, o.Payload)
 }
-
 func (o *StopApmInstancesAllMaintenanceModeAccepted) GetPayload() *models.ClusterCommandResponse {
 	return o.Payload
 }
@@ -108,12 +106,13 @@ func NewStopApmInstancesAllMaintenanceModeForbidden() *StopApmInstancesAllMainte
 	return &StopApmInstancesAllMaintenanceModeForbidden{}
 }
 
-/*StopApmInstancesAllMaintenanceModeForbidden handles this case with default header values.
+/* StopApmInstancesAllMaintenanceModeForbidden describes a response with status code 403, with default header values.
 
 The stop maintenance mode command was prohibited for the given cluster. (code: `clusters.command_prohibited`)
 */
 type StopApmInstancesAllMaintenanceModeForbidden struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -123,15 +122,18 @@ type StopApmInstancesAllMaintenanceModeForbidden struct {
 func (o *StopApmInstancesAllMaintenanceModeForbidden) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/instances/maintenance-mode/_stop][%d] stopApmInstancesAllMaintenanceModeForbidden  %+v", 403, o.Payload)
 }
-
 func (o *StopApmInstancesAllMaintenanceModeForbidden) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *StopApmInstancesAllMaintenanceModeForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -148,12 +150,13 @@ func NewStopApmInstancesAllMaintenanceModeNotFound() *StopApmInstancesAllMainten
 	return &StopApmInstancesAllMaintenanceModeNotFound{}
 }
 
-/*StopApmInstancesAllMaintenanceModeNotFound handles this case with default header values.
+/* StopApmInstancesAllMaintenanceModeNotFound describes a response with status code 404, with default header values.
 
 The cluster specified by {cluster_id} cannot be found. (code: `clusters.cluster_not_found`)
 */
 type StopApmInstancesAllMaintenanceModeNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -163,15 +166,18 @@ type StopApmInstancesAllMaintenanceModeNotFound struct {
 func (o *StopApmInstancesAllMaintenanceModeNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/instances/maintenance-mode/_stop][%d] stopApmInstancesAllMaintenanceModeNotFound  %+v", 404, o.Payload)
 }
-
 func (o *StopApmInstancesAllMaintenanceModeNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *StopApmInstancesAllMaintenanceModeNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -188,12 +194,13 @@ func NewStopApmInstancesAllMaintenanceModeRetryWith() *StopApmInstancesAllMainte
 	return &StopApmInstancesAllMaintenanceModeRetryWith{}
 }
 
-/*StopApmInstancesAllMaintenanceModeRetryWith handles this case with default header values.
+/* StopApmInstancesAllMaintenanceModeRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type StopApmInstancesAllMaintenanceModeRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -203,15 +210,18 @@ type StopApmInstancesAllMaintenanceModeRetryWith struct {
 func (o *StopApmInstancesAllMaintenanceModeRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/instances/maintenance-mode/_stop][%d] stopApmInstancesAllMaintenanceModeRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *StopApmInstancesAllMaintenanceModeRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *StopApmInstancesAllMaintenanceModeRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

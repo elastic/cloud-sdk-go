@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
@@ -47,6 +49,11 @@ type ElasticsearchNodeType struct {
 
 // Validate validates this elasticsearch node type
 func (m *ElasticsearchNodeType) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this elasticsearch node type based on context it is used
+func (m *ElasticsearchNodeType) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

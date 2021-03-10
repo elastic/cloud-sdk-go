@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -92,6 +93,38 @@ func (m *OrphanedElasticsearch) validateID(formats strfmt.Registry) error {
 
 	if err := validate.Required("id", "body", m.ID); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this orphaned elasticsearch based on the context it is used
+func (m *OrphanedElasticsearch) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateDependents(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *OrphanedElasticsearch) contextValidateDependents(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Dependents); i++ {
+
+		if m.Dependents[i] != nil {
+			if err := m.Dependents[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("dependents" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil

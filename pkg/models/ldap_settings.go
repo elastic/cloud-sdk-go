@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
@@ -233,7 +234,6 @@ func (m *LdapSettings) validateCertificateURLTruststoreTypeEnum(path, location s
 }
 
 func (m *LdapSettings) validateCertificateURLTruststoreType(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.CertificateURLTruststoreType) { // not required
 		return nil
 	}
@@ -247,7 +247,6 @@ func (m *LdapSettings) validateCertificateURLTruststoreType(formats strfmt.Regis
 }
 
 func (m *LdapSettings) validateGroupSearch(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.GroupSearch) { // not required
 		return nil
 	}
@@ -274,7 +273,6 @@ func (m *LdapSettings) validateID(formats strfmt.Registry) error {
 }
 
 func (m *LdapSettings) validateLoadBalance(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.LoadBalance) { // not required
 		return nil
 	}
@@ -301,7 +299,6 @@ func (m *LdapSettings) validateName(formats strfmt.Registry) error {
 }
 
 func (m *LdapSettings) validateRoleMappings(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.RoleMappings) { // not required
 		return nil
 	}
@@ -328,13 +325,94 @@ func (m *LdapSettings) validateUrls(formats strfmt.Registry) error {
 }
 
 func (m *LdapSettings) validateUserSearch(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.UserSearch) { // not required
 		return nil
 	}
 
 	if m.UserSearch != nil {
 		if err := m.UserSearch.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("user_search")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this ldap settings based on the context it is used
+func (m *LdapSettings) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateGroupSearch(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateLoadBalance(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateRoleMappings(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateUserSearch(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *LdapSettings) contextValidateGroupSearch(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.GroupSearch != nil {
+		if err := m.GroupSearch.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("group_search")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *LdapSettings) contextValidateLoadBalance(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.LoadBalance != nil {
+		if err := m.LoadBalance.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("load_balance")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *LdapSettings) contextValidateRoleMappings(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.RoleMappings != nil {
+		if err := m.RoleMappings.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("role_mappings")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *LdapSettings) contextValidateUserSearch(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.UserSearch != nil {
+		if err := m.UserSearch.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("user_search")
 			}

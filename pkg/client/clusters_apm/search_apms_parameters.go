@@ -35,59 +35,73 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewSearchApmsParams creates a new SearchApmsParams object
-// with the default values initialized.
+// NewSearchApmsParams creates a new SearchApmsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewSearchApmsParams() *SearchApmsParams {
-	var ()
 	return &SearchApmsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewSearchApmsParamsWithTimeout creates a new SearchApmsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewSearchApmsParamsWithTimeout(timeout time.Duration) *SearchApmsParams {
-	var ()
 	return &SearchApmsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewSearchApmsParamsWithContext creates a new SearchApmsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewSearchApmsParamsWithContext(ctx context.Context) *SearchApmsParams {
-	var ()
 	return &SearchApmsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewSearchApmsParamsWithHTTPClient creates a new SearchApmsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewSearchApmsParamsWithHTTPClient(client *http.Client) *SearchApmsParams {
-	var ()
 	return &SearchApmsParams{
 		HTTPClient: client,
 	}
 }
 
-/*SearchApmsParams contains all the parameters to send to the API endpoint
-for the search apms operation typically these are written to a http.Request
+/* SearchApmsParams contains all the parameters to send to the API endpoint
+   for the search apms operation.
+
+   Typically these are written to a http.Request.
 */
 type SearchApmsParams struct {
 
-	/*Body
-	  (Optional) The search query to run. When not specified, all of the clusters are matched.
+	/* Body.
 
+	   (Optional) The search query to run. When not specified, all of the clusters are matched.
 	*/
 	Body *models.SearchRequest
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the search apms params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SearchApmsParams) WithDefaults() *SearchApmsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the search apms params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SearchApmsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the search apms params
@@ -141,7 +155,6 @@ func (o *SearchApmsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Re
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

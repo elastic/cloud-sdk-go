@@ -42,111 +42,114 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientOption is the option for Client methods
+type ClientOption func(*runtime.ClientOperation)
+
 // ClientService is the interface for Client methods
 type ClientService interface {
-	CancelEsClusterMonitoring(params *CancelEsClusterMonitoringParams, authInfo runtime.ClientAuthInfoWriter) (*CancelEsClusterMonitoringAccepted, error)
+	CancelEsClusterMonitoring(params *CancelEsClusterMonitoringParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CancelEsClusterMonitoringAccepted, error)
 
-	CancelEsClusterPendingPlan(params *CancelEsClusterPendingPlanParams, authInfo runtime.ClientAuthInfoWriter) (*CancelEsClusterPendingPlanOK, error)
+	CancelEsClusterPendingPlan(params *CancelEsClusterPendingPlanParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CancelEsClusterPendingPlanOK, error)
 
-	CreateEsCluster(params *CreateEsClusterParams, authInfo runtime.ClientAuthInfoWriter) (*CreateEsClusterOK, *CreateEsClusterCreated, *CreateEsClusterAccepted, error)
+	CreateEsCluster(params *CreateEsClusterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateEsClusterOK, *CreateEsClusterCreated, *CreateEsClusterAccepted, error)
 
-	DeleteEsCluster(params *DeleteEsClusterParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteEsClusterOK, error)
+	DeleteEsCluster(params *DeleteEsClusterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteEsClusterOK, error)
 
-	DeleteEsProxyRequests(params *DeleteEsProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteEsProxyRequestsOK, error)
+	DeleteEsProxyRequests(params *DeleteEsProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteEsProxyRequestsOK, error)
 
-	GenerateEsClusterDiagnostics(params *GenerateEsClusterDiagnosticsParams, authInfo runtime.ClientAuthInfoWriter) (*GenerateEsClusterDiagnosticsOK, error)
+	GenerateEsClusterDiagnostics(params *GenerateEsClusterDiagnosticsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GenerateEsClusterDiagnosticsOK, error)
 
-	GenerateEsClusterLogs(params *GenerateEsClusterLogsParams, authInfo runtime.ClientAuthInfoWriter) (*GenerateEsClusterLogsOK, error)
+	GenerateEsClusterLogs(params *GenerateEsClusterLogsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GenerateEsClusterLogsOK, error)
 
-	GetEsCcsEligibleRemotes(params *GetEsCcsEligibleRemotesParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsCcsEligibleRemotesOK, error)
+	GetEsCcsEligibleRemotes(params *GetEsCcsEligibleRemotesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEsCcsEligibleRemotesOK, error)
 
-	GetEsCluster(params *GetEsClusterParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsClusterOK, error)
+	GetEsCluster(params *GetEsClusterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEsClusterOK, error)
 
-	GetEsClusterCcs(params *GetEsClusterCcsParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsClusterCcsOK, error)
+	GetEsClusterCcs(params *GetEsClusterCcsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEsClusterCcsOK, error)
 
-	GetEsClusterCcsSettings(params *GetEsClusterCcsSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsClusterCcsSettingsOK, error)
+	GetEsClusterCcsSettings(params *GetEsClusterCcsSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEsClusterCcsSettingsOK, error)
 
-	GetEsClusterCurationSettings(params *GetEsClusterCurationSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsClusterCurationSettingsOK, error)
+	GetEsClusterCurationSettings(params *GetEsClusterCurationSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEsClusterCurationSettingsOK, error)
 
-	GetEsClusterKeystore(params *GetEsClusterKeystoreParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsClusterKeystoreOK, error)
+	GetEsClusterKeystore(params *GetEsClusterKeystoreParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEsClusterKeystoreOK, error)
 
-	GetEsClusterMetadataRaw(params *GetEsClusterMetadataRawParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsClusterMetadataRawOK, error)
+	GetEsClusterMetadataRaw(params *GetEsClusterMetadataRawParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEsClusterMetadataRawOK, error)
 
-	GetEsClusterMetadataSettings(params *GetEsClusterMetadataSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsClusterMetadataSettingsOK, error)
+	GetEsClusterMetadataSettings(params *GetEsClusterMetadataSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEsClusterMetadataSettingsOK, error)
 
-	GetEsClusterPendingPlan(params *GetEsClusterPendingPlanParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsClusterPendingPlanOK, error)
+	GetEsClusterPendingPlan(params *GetEsClusterPendingPlanParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEsClusterPendingPlanOK, error)
 
-	GetEsClusterPlan(params *GetEsClusterPlanParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsClusterPlanOK, error)
+	GetEsClusterPlan(params *GetEsClusterPlanParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEsClusterPlanOK, error)
 
-	GetEsClusterPlanActivity(params *GetEsClusterPlanActivityParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsClusterPlanActivityOK, error)
+	GetEsClusterPlanActivity(params *GetEsClusterPlanActivityParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEsClusterPlanActivityOK, error)
 
-	GetEsClusterSnapshotSettings(params *GetEsClusterSnapshotSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsClusterSnapshotSettingsOK, error)
+	GetEsClusterSnapshotSettings(params *GetEsClusterSnapshotSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEsClusterSnapshotSettingsOK, error)
 
-	GetEsClusters(params *GetEsClustersParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsClustersOK, error)
+	GetEsClusters(params *GetEsClustersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEsClustersOK, error)
 
-	GetEsProxyRequests(params *GetEsProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsProxyRequestsOK, error)
+	GetEsProxyRequests(params *GetEsProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEsProxyRequestsOK, error)
 
-	MigrateEsClusterPlan(params *MigrateEsClusterPlanParams, authInfo runtime.ClientAuthInfoWriter) (*MigrateEsClusterPlanOK, *MigrateEsClusterPlanAccepted, error)
+	MigrateEsClusterPlan(params *MigrateEsClusterPlanParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MigrateEsClusterPlanOK, *MigrateEsClusterPlanAccepted, error)
 
-	MoveEsClusterInstances(params *MoveEsClusterInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*MoveEsClusterInstancesAccepted, error)
+	MoveEsClusterInstances(params *MoveEsClusterInstancesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MoveEsClusterInstancesAccepted, error)
 
-	MoveEsClusterInstancesAdvanced(params *MoveEsClusterInstancesAdvancedParams, authInfo runtime.ClientAuthInfoWriter) (*MoveEsClusterInstancesAdvancedAccepted, error)
+	MoveEsClusterInstancesAdvanced(params *MoveEsClusterInstancesAdvancedParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MoveEsClusterInstancesAdvancedAccepted, error)
 
-	PostEsProxyRequests(params *PostEsProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter) (*PostEsProxyRequestsOK, error)
+	PostEsProxyRequests(params *PostEsProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostEsProxyRequestsOK, error)
 
-	PutEsProxyRequests(params *PutEsProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter) (*PutEsProxyRequestsOK, error)
+	PutEsProxyRequests(params *PutEsProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutEsProxyRequestsOK, error)
 
-	RestartEsCluster(params *RestartEsClusterParams, authInfo runtime.ClientAuthInfoWriter) (*RestartEsClusterAccepted, error)
+	RestartEsCluster(params *RestartEsClusterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*RestartEsClusterAccepted, error)
 
-	ResyncEsCluster(params *ResyncEsClusterParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncEsClusterOK, error)
+	ResyncEsCluster(params *ResyncEsClusterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ResyncEsClusterOK, error)
 
-	ResyncEsClusters(params *ResyncEsClustersParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncEsClustersAccepted, error)
+	ResyncEsClusters(params *ResyncEsClustersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ResyncEsClustersAccepted, error)
 
-	SearchEsClusters(params *SearchEsClustersParams, authInfo runtime.ClientAuthInfoWriter) (*SearchEsClustersOK, error)
+	SearchEsClusters(params *SearchEsClustersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SearchEsClustersOK, error)
 
-	SetEsClusterCcsSettings(params *SetEsClusterCcsSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*SetEsClusterCcsSettingsAccepted, error)
+	SetEsClusterCcsSettings(params *SetEsClusterCcsSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetEsClusterCcsSettingsAccepted, error)
 
-	SetEsClusterInstancesAllSettingsOverrides(params *SetEsClusterInstancesAllSettingsOverridesParams, authInfo runtime.ClientAuthInfoWriter) (*SetEsClusterInstancesAllSettingsOverridesOK, error)
+	SetEsClusterInstancesAllSettingsOverrides(params *SetEsClusterInstancesAllSettingsOverridesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetEsClusterInstancesAllSettingsOverridesOK, error)
 
-	SetEsClusterInstancesSettingsOverrides(params *SetEsClusterInstancesSettingsOverridesParams, authInfo runtime.ClientAuthInfoWriter) (*SetEsClusterInstancesSettingsOverridesOK, error)
+	SetEsClusterInstancesSettingsOverrides(params *SetEsClusterInstancesSettingsOverridesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetEsClusterInstancesSettingsOverridesOK, error)
 
-	SetEsClusterKeystore(params *SetEsClusterKeystoreParams, authInfo runtime.ClientAuthInfoWriter) (*SetEsClusterKeystoreAccepted, error)
+	SetEsClusterKeystore(params *SetEsClusterKeystoreParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetEsClusterKeystoreAccepted, error)
 
-	SetEsClusterLegacySecuritySettings(params *SetEsClusterLegacySecuritySettingsParams, authInfo runtime.ClientAuthInfoWriter) (*SetEsClusterLegacySecuritySettingsOK, error)
+	SetEsClusterLegacySecuritySettings(params *SetEsClusterLegacySecuritySettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetEsClusterLegacySecuritySettingsOK, error)
 
-	SetEsClusterMetadataRaw(params *SetEsClusterMetadataRawParams, authInfo runtime.ClientAuthInfoWriter) (*SetEsClusterMetadataRawOK, error)
+	SetEsClusterMetadataRaw(params *SetEsClusterMetadataRawParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetEsClusterMetadataRawOK, error)
 
-	SetEsClusterMonitoring(params *SetEsClusterMonitoringParams, authInfo runtime.ClientAuthInfoWriter) (*SetEsClusterMonitoringAccepted, error)
+	SetEsClusterMonitoring(params *SetEsClusterMonitoringParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetEsClusterMonitoringAccepted, error)
 
-	SetEsClusterName(params *SetEsClusterNameParams, authInfo runtime.ClientAuthInfoWriter) (*SetEsClusterNameOK, error)
+	SetEsClusterName(params *SetEsClusterNameParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetEsClusterNameOK, error)
 
-	ShutdownEsCluster(params *ShutdownEsClusterParams, authInfo runtime.ClientAuthInfoWriter) (*ShutdownEsClusterAccepted, error)
+	ShutdownEsCluster(params *ShutdownEsClusterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ShutdownEsClusterAccepted, error)
 
-	SnapshotEsCluster(params *SnapshotEsClusterParams, authInfo runtime.ClientAuthInfoWriter) (*SnapshotEsClusterAccepted, error)
+	SnapshotEsCluster(params *SnapshotEsClusterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SnapshotEsClusterAccepted, error)
 
-	StartEsClusterInstances(params *StartEsClusterInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*StartEsClusterInstancesAccepted, error)
+	StartEsClusterInstances(params *StartEsClusterInstancesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StartEsClusterInstancesAccepted, error)
 
-	StartEsClusterInstancesAll(params *StartEsClusterInstancesAllParams, authInfo runtime.ClientAuthInfoWriter) (*StartEsClusterInstancesAllAccepted, error)
+	StartEsClusterInstancesAll(params *StartEsClusterInstancesAllParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StartEsClusterInstancesAllAccepted, error)
 
-	StartEsClusterInstancesAllMaintenanceMode(params *StartEsClusterInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StartEsClusterInstancesAllMaintenanceModeAccepted, error)
+	StartEsClusterInstancesAllMaintenanceMode(params *StartEsClusterInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StartEsClusterInstancesAllMaintenanceModeAccepted, error)
 
-	StartEsClusterMaintenanceMode(params *StartEsClusterMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StartEsClusterMaintenanceModeAccepted, error)
+	StartEsClusterMaintenanceMode(params *StartEsClusterMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StartEsClusterMaintenanceModeAccepted, error)
 
-	StopEsClusterInstances(params *StopEsClusterInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*StopEsClusterInstancesAccepted, error)
+	StopEsClusterInstances(params *StopEsClusterInstancesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StopEsClusterInstancesAccepted, error)
 
-	StopEsClusterInstancesAll(params *StopEsClusterInstancesAllParams, authInfo runtime.ClientAuthInfoWriter) (*StopEsClusterInstancesAllAccepted, error)
+	StopEsClusterInstancesAll(params *StopEsClusterInstancesAllParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StopEsClusterInstancesAllAccepted, error)
 
-	StopEsClusterInstancesAllMaintenanceMode(params *StopEsClusterInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StopEsClusterInstancesAllMaintenanceModeAccepted, error)
+	StopEsClusterInstancesAllMaintenanceMode(params *StopEsClusterInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StopEsClusterInstancesAllMaintenanceModeAccepted, error)
 
-	StopEsClusterMaintenanceMode(params *StopEsClusterMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StopEsClusterMaintenanceModeAccepted, error)
+	StopEsClusterMaintenanceMode(params *StopEsClusterMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StopEsClusterMaintenanceModeAccepted, error)
 
-	UpdateEsClusterCurationSettings(params *UpdateEsClusterCurationSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateEsClusterCurationSettingsOK, error)
+	UpdateEsClusterCurationSettings(params *UpdateEsClusterCurationSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateEsClusterCurationSettingsOK, error)
 
-	UpdateEsClusterMetadataSettings(params *UpdateEsClusterMetadataSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateEsClusterMetadataSettingsOK, error)
+	UpdateEsClusterMetadataSettings(params *UpdateEsClusterMetadataSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateEsClusterMetadataSettingsOK, error)
 
-	UpdateEsClusterPlan(params *UpdateEsClusterPlanParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateEsClusterPlanOK, *UpdateEsClusterPlanAccepted, error)
+	UpdateEsClusterPlan(params *UpdateEsClusterPlanParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateEsClusterPlanOK, *UpdateEsClusterPlanAccepted, error)
 
-	UpdateEsClusterSnapshotSettings(params *UpdateEsClusterSnapshotSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateEsClusterSnapshotSettingsOK, error)
+	UpdateEsClusterSnapshotSettings(params *UpdateEsClusterSnapshotSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateEsClusterSnapshotSettingsOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -156,13 +159,12 @@ type ClientService interface {
 
   DEPRECATED (Scheduled to be removed in the next major version): Deletes all monitoring destinations for the Elasticsearch cluster.
 */
-func (a *Client) CancelEsClusterMonitoring(params *CancelEsClusterMonitoringParams, authInfo runtime.ClientAuthInfoWriter) (*CancelEsClusterMonitoringAccepted, error) {
+func (a *Client) CancelEsClusterMonitoring(params *CancelEsClusterMonitoringParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CancelEsClusterMonitoringAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCancelEsClusterMonitoringParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "cancel-es-cluster-monitoring",
 		Method:             "DELETE",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/monitoring",
@@ -174,7 +176,12 @@ func (a *Client) CancelEsClusterMonitoring(params *CancelEsClusterMonitoringPara
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -193,13 +200,12 @@ func (a *Client) CancelEsClusterMonitoring(params *CancelEsClusterMonitoringPara
 
   DEPRECATED (Scheduled to be removed in the next major version): Cancels the pending plan of the Elasticsearch cluster.
 */
-func (a *Client) CancelEsClusterPendingPlan(params *CancelEsClusterPendingPlanParams, authInfo runtime.ClientAuthInfoWriter) (*CancelEsClusterPendingPlanOK, error) {
+func (a *Client) CancelEsClusterPendingPlan(params *CancelEsClusterPendingPlanParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CancelEsClusterPendingPlanOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCancelEsClusterPendingPlanParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "cancel-es-cluster-pending-plan",
 		Method:             "DELETE",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/plan/pending",
@@ -211,7 +217,12 @@ func (a *Client) CancelEsClusterPendingPlan(params *CancelEsClusterPendingPlanPa
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -230,13 +241,12 @@ func (a *Client) CancelEsClusterPendingPlan(params *CancelEsClusterPendingPlanPa
 
   DEPRECATED (Scheduled to be removed in the next major version): Creates an Elasticsearch cluster.
 */
-func (a *Client) CreateEsCluster(params *CreateEsClusterParams, authInfo runtime.ClientAuthInfoWriter) (*CreateEsClusterOK, *CreateEsClusterCreated, *CreateEsClusterAccepted, error) {
+func (a *Client) CreateEsCluster(params *CreateEsClusterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateEsClusterOK, *CreateEsClusterCreated, *CreateEsClusterAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateEsClusterParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "create-es-cluster",
 		Method:             "POST",
 		PathPattern:        "/clusters/elasticsearch",
@@ -248,7 +258,12 @@ func (a *Client) CreateEsCluster(params *CreateEsClusterParams, authInfo runtime
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, nil, nil, err
 	}
@@ -271,13 +286,12 @@ func (a *Client) CreateEsCluster(params *CreateEsClusterParams, authInfo runtime
   DEPRECATED (Scheduled to be removed in the next major version): Deletes the Elasticsearch cluster.
 Before you delete the Elasticsearch cluster, you must first successfully issue a `_shutdown` command.
 */
-func (a *Client) DeleteEsCluster(params *DeleteEsClusterParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteEsClusterOK, error) {
+func (a *Client) DeleteEsCluster(params *DeleteEsClusterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteEsClusterOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteEsClusterParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "delete-es-cluster",
 		Method:             "DELETE",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}",
@@ -289,7 +303,12 @@ func (a *Client) DeleteEsCluster(params *DeleteEsClusterParams, authInfo runtime
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -308,13 +327,12 @@ func (a *Client) DeleteEsCluster(params *DeleteEsClusterParams, authInfo runtime
 
   DEPRECATED (Scheduled to be removed in the next major version): Proxies HTTP DELETE request to the cluster. Requires that HTTP header X-Management-Request be specified. This endpoint is for management use and does not provide high performance.
 */
-func (a *Client) DeleteEsProxyRequests(params *DeleteEsProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteEsProxyRequestsOK, error) {
+func (a *Client) DeleteEsProxyRequests(params *DeleteEsProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteEsProxyRequestsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteEsProxyRequestsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "delete-es-proxy-requests",
 		Method:             "DELETE",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/proxy/{elasticsearch_path}",
@@ -326,7 +344,12 @@ func (a *Client) DeleteEsProxyRequests(params *DeleteEsProxyRequestsParams, auth
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -345,13 +368,12 @@ func (a *Client) DeleteEsProxyRequests(params *DeleteEsProxyRequestsParams, auth
 
   DEPRECATED (Scheduled to be removed in the next major version): Retrieves a support diagnostic bundle from an active Elasticsearch cluster. To successfully retrieve a support diagnostic bundle, the cluster must be responsive.
 */
-func (a *Client) GenerateEsClusterDiagnostics(params *GenerateEsClusterDiagnosticsParams, authInfo runtime.ClientAuthInfoWriter) (*GenerateEsClusterDiagnosticsOK, error) {
+func (a *Client) GenerateEsClusterDiagnostics(params *GenerateEsClusterDiagnosticsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GenerateEsClusterDiagnosticsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGenerateEsClusterDiagnosticsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "generate-es-cluster-diagnostics",
 		Method:             "GET",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/support/_generate-diagnostics",
@@ -363,7 +385,12 @@ func (a *Client) GenerateEsClusterDiagnostics(params *GenerateEsClusterDiagnosti
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -382,13 +409,12 @@ func (a *Client) GenerateEsClusterDiagnostics(params *GenerateEsClusterDiagnosti
 
   DEPRECATED (Scheduled to be removed in the next major version): Retrieves the log file for the Elasticsearch cluster.
 */
-func (a *Client) GenerateEsClusterLogs(params *GenerateEsClusterLogsParams, authInfo runtime.ClientAuthInfoWriter) (*GenerateEsClusterLogsOK, error) {
+func (a *Client) GenerateEsClusterLogs(params *GenerateEsClusterLogsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GenerateEsClusterLogsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGenerateEsClusterLogsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "generate-es-cluster-logs",
 		Method:             "GET",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/support/_generate-logs",
@@ -400,7 +426,12 @@ func (a *Client) GenerateEsClusterLogs(params *GenerateEsClusterLogsParams, auth
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -419,13 +450,12 @@ func (a *Client) GenerateEsClusterLogs(params *GenerateEsClusterLogsParams, auth
 
   DEPRECATED (Scheduled to be removed in the next major version): Retrieves the information for all of the Elasticsearch clusters that can selected as remotes in a given version.
 */
-func (a *Client) GetEsCcsEligibleRemotes(params *GetEsCcsEligibleRemotesParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsCcsEligibleRemotesOK, error) {
+func (a *Client) GetEsCcsEligibleRemotes(params *GetEsCcsEligibleRemotesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEsCcsEligibleRemotesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetEsCcsEligibleRemotesParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-es-ccs-eligible-remotes",
 		Method:             "GET",
 		PathPattern:        "/clusters/elasticsearch/ccs/eligible_remotes",
@@ -437,7 +467,12 @@ func (a *Client) GetEsCcsEligibleRemotes(params *GetEsCcsEligibleRemotesParams, 
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -456,13 +491,12 @@ func (a *Client) GetEsCcsEligibleRemotes(params *GetEsCcsEligibleRemotesParams, 
 
   DEPRECATED (Scheduled to be removed in the next major version): Retrieves the Elasticsearch cluster information.
 */
-func (a *Client) GetEsCluster(params *GetEsClusterParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsClusterOK, error) {
+func (a *Client) GetEsCluster(params *GetEsClusterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEsClusterOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetEsClusterParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-es-cluster",
 		Method:             "GET",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}",
@@ -474,7 +508,12 @@ func (a *Client) GetEsCluster(params *GetEsClusterParams, authInfo runtime.Clien
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -493,13 +532,12 @@ func (a *Client) GetEsCluster(params *GetEsClusterParams, authInfo runtime.Clien
 
   DEPRECATED (Scheduled to be removed in the next major version): Returns the list of cross-cluster search clusters' IDs for the remote cluster.
 */
-func (a *Client) GetEsClusterCcs(params *GetEsClusterCcsParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsClusterCcsOK, error) {
+func (a *Client) GetEsClusterCcs(params *GetEsClusterCcsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEsClusterCcsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetEsClusterCcsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-es-cluster-ccs",
 		Method:             "GET",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/ccs",
@@ -511,7 +549,12 @@ func (a *Client) GetEsClusterCcs(params *GetEsClusterCcsParams, authInfo runtime
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -530,13 +573,12 @@ func (a *Client) GetEsClusterCcs(params *GetEsClusterCcsParams, authInfo runtime
 
   DEPRECATED (Scheduled to be removed in the next major version): Returns cross-cluster search configuration for the Elasticsearch cluster.
 */
-func (a *Client) GetEsClusterCcsSettings(params *GetEsClusterCcsSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsClusterCcsSettingsOK, error) {
+func (a *Client) GetEsClusterCcsSettings(params *GetEsClusterCcsSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEsClusterCcsSettingsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetEsClusterCcsSettingsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-es-cluster-ccs-settings",
 		Method:             "GET",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/ccs/settings",
@@ -548,7 +590,12 @@ func (a *Client) GetEsClusterCcsSettings(params *GetEsClusterCcsSettingsParams, 
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -567,13 +614,12 @@ func (a *Client) GetEsClusterCcsSettings(params *GetEsClusterCcsSettingsParams, 
 
   DEPRECATED (Scheduled to be removed in the next major version): Retrieves cluster curation settings for an Elasticsearch cluster.
 */
-func (a *Client) GetEsClusterCurationSettings(params *GetEsClusterCurationSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsClusterCurationSettingsOK, error) {
+func (a *Client) GetEsClusterCurationSettings(params *GetEsClusterCurationSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEsClusterCurationSettingsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetEsClusterCurationSettingsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-es-cluster-curation-settings",
 		Method:             "GET",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/curation/settings",
@@ -585,7 +631,12 @@ func (a *Client) GetEsClusterCurationSettings(params *GetEsClusterCurationSettin
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -604,13 +655,12 @@ func (a *Client) GetEsClusterCurationSettings(params *GetEsClusterCurationSettin
 
   DEPRECATED (Scheduled to be removed in the next major version): Returns the available keys in the keystore.
 */
-func (a *Client) GetEsClusterKeystore(params *GetEsClusterKeystoreParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsClusterKeystoreOK, error) {
+func (a *Client) GetEsClusterKeystore(params *GetEsClusterKeystoreParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEsClusterKeystoreOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetEsClusterKeystoreParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-es-cluster-keystore",
 		Method:             "GET",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/keystore",
@@ -622,7 +672,12 @@ func (a *Client) GetEsClusterKeystore(params *GetEsClusterKeystoreParams, authIn
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -641,13 +696,12 @@ func (a *Client) GetEsClusterKeystore(params *GetEsClusterKeystoreParams, authIn
 
   DEPRECATED (Scheduled to be removed in the next major version): Advanced use only. Retrieves the internal cluster metadata, in free-form JSON, for the Elasticsearch cluster.
 */
-func (a *Client) GetEsClusterMetadataRaw(params *GetEsClusterMetadataRawParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsClusterMetadataRawOK, error) {
+func (a *Client) GetEsClusterMetadataRaw(params *GetEsClusterMetadataRawParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEsClusterMetadataRawOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetEsClusterMetadataRawParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-es-cluster-metadata-raw",
 		Method:             "GET",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/metadata/raw",
@@ -659,7 +713,12 @@ func (a *Client) GetEsClusterMetadataRaw(params *GetEsClusterMetadataRawParams, 
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -678,13 +737,12 @@ func (a *Client) GetEsClusterMetadataRaw(params *GetEsClusterMetadataRawParams, 
 
   DEPRECATED (Scheduled to be removed in the next major version): Retrieves a structured version of the cluster metadata as a collection of top-level settings. If a particular setting isn't returned, then the free-form JSON endpoint (`/metadata/raw`) must be used.
 */
-func (a *Client) GetEsClusterMetadataSettings(params *GetEsClusterMetadataSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsClusterMetadataSettingsOK, error) {
+func (a *Client) GetEsClusterMetadataSettings(params *GetEsClusterMetadataSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEsClusterMetadataSettingsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetEsClusterMetadataSettingsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-es-cluster-metadata-settings",
 		Method:             "GET",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/metadata/settings",
@@ -696,7 +754,12 @@ func (a *Client) GetEsClusterMetadataSettings(params *GetEsClusterMetadataSettin
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -715,13 +778,12 @@ func (a *Client) GetEsClusterMetadataSettings(params *GetEsClusterMetadataSettin
 
   DEPRECATED (Scheduled to be removed in the next major version): Retrieves the pending plan of the cluster.
 */
-func (a *Client) GetEsClusterPendingPlan(params *GetEsClusterPendingPlanParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsClusterPendingPlanOK, error) {
+func (a *Client) GetEsClusterPendingPlan(params *GetEsClusterPendingPlanParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEsClusterPendingPlanOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetEsClusterPendingPlanParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-es-cluster-pending-plan",
 		Method:             "GET",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/plan/pending",
@@ -733,7 +795,12 @@ func (a *Client) GetEsClusterPendingPlan(params *GetEsClusterPendingPlanParams, 
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -752,13 +819,12 @@ func (a *Client) GetEsClusterPendingPlan(params *GetEsClusterPendingPlanParams, 
 
   DEPRECATED (Scheduled to be removed in the next major version): Retrieves the active plan of the Elasticsearch cluster. Transient settings are not show by this endpoint. To view the transient settings that have been applied with a specific plan, use the activity endpoint.
 */
-func (a *Client) GetEsClusterPlan(params *GetEsClusterPlanParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsClusterPlanOK, error) {
+func (a *Client) GetEsClusterPlan(params *GetEsClusterPlanParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEsClusterPlanOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetEsClusterPlanParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-es-cluster-plan",
 		Method:             "GET",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/plan",
@@ -770,7 +836,12 @@ func (a *Client) GetEsClusterPlan(params *GetEsClusterPlanParams, authInfo runti
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -789,13 +860,12 @@ func (a *Client) GetEsClusterPlan(params *GetEsClusterPlanParams, authInfo runti
 
   DEPRECATED (Scheduled to be removed in the next major version): Retrieves the active and historical plan information for the Elasticsearch cluster.
 */
-func (a *Client) GetEsClusterPlanActivity(params *GetEsClusterPlanActivityParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsClusterPlanActivityOK, error) {
+func (a *Client) GetEsClusterPlanActivity(params *GetEsClusterPlanActivityParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEsClusterPlanActivityOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetEsClusterPlanActivityParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-es-cluster-plan-activity",
 		Method:             "GET",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/plan/activity",
@@ -807,7 +877,12 @@ func (a *Client) GetEsClusterPlanActivity(params *GetEsClusterPlanActivityParams
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -826,13 +901,12 @@ func (a *Client) GetEsClusterPlanActivity(params *GetEsClusterPlanActivityParams
 
   DEPRECATED (Scheduled to be removed in the next major version): Gets cluster snapshot settings.
 */
-func (a *Client) GetEsClusterSnapshotSettings(params *GetEsClusterSnapshotSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsClusterSnapshotSettingsOK, error) {
+func (a *Client) GetEsClusterSnapshotSettings(params *GetEsClusterSnapshotSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEsClusterSnapshotSettingsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetEsClusterSnapshotSettingsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-es-cluster-snapshot-settings",
 		Method:             "GET",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/snapshot/settings",
@@ -844,7 +918,12 @@ func (a *Client) GetEsClusterSnapshotSettings(params *GetEsClusterSnapshotSettin
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -863,13 +942,12 @@ func (a *Client) GetEsClusterSnapshotSettings(params *GetEsClusterSnapshotSettin
 
   DEPRECATED (Scheduled to be removed in the next major version): Retrieves the information for all Elasticsearch clusters.
 */
-func (a *Client) GetEsClusters(params *GetEsClustersParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsClustersOK, error) {
+func (a *Client) GetEsClusters(params *GetEsClustersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEsClustersOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetEsClustersParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-es-clusters",
 		Method:             "GET",
 		PathPattern:        "/clusters/elasticsearch",
@@ -881,7 +959,12 @@ func (a *Client) GetEsClusters(params *GetEsClustersParams, authInfo runtime.Cli
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -900,13 +983,12 @@ func (a *Client) GetEsClusters(params *GetEsClustersParams, authInfo runtime.Cli
 
   DEPRECATED (Scheduled to be removed in the next major version): Proxies HTTP GET request to the cluster. Requires that HTTP header X-Management-Request be specified. This endpoint is for management use and does not provide high performance.
 */
-func (a *Client) GetEsProxyRequests(params *GetEsProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter) (*GetEsProxyRequestsOK, error) {
+func (a *Client) GetEsProxyRequests(params *GetEsProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEsProxyRequestsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetEsProxyRequestsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-es-proxy-requests",
 		Method:             "GET",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/proxy/{elasticsearch_path}",
@@ -918,7 +1000,12 @@ func (a *Client) GetEsProxyRequests(params *GetEsProxyRequestsParams, authInfo r
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -937,13 +1024,12 @@ func (a *Client) GetEsProxyRequests(params *GetEsProxyRequestsParams, authInfo r
 
   DEPRECATED (Scheduled to be removed in the next major version): Migrates the configuration of the Elasticsearch cluster to a different template.
 */
-func (a *Client) MigrateEsClusterPlan(params *MigrateEsClusterPlanParams, authInfo runtime.ClientAuthInfoWriter) (*MigrateEsClusterPlanOK, *MigrateEsClusterPlanAccepted, error) {
+func (a *Client) MigrateEsClusterPlan(params *MigrateEsClusterPlanParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MigrateEsClusterPlanOK, *MigrateEsClusterPlanAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewMigrateEsClusterPlanParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "migrate-es-cluster-plan",
 		Method:             "POST",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/plan/_migrate",
@@ -955,7 +1041,12 @@ func (a *Client) MigrateEsClusterPlan(params *MigrateEsClusterPlanParams, authIn
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -975,13 +1066,12 @@ func (a *Client) MigrateEsClusterPlan(params *MigrateEsClusterPlanParams, authIn
 
   DEPRECATED (Scheduled to be removed in the next major version): Moves one or more instances in the Elasticsearch cluster.
 */
-func (a *Client) MoveEsClusterInstances(params *MoveEsClusterInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*MoveEsClusterInstancesAccepted, error) {
+func (a *Client) MoveEsClusterInstances(params *MoveEsClusterInstancesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MoveEsClusterInstancesAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewMoveEsClusterInstancesParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "move-es-cluster-instances",
 		Method:             "POST",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/instances/{instance_ids}/_move",
@@ -993,7 +1083,12 @@ func (a *Client) MoveEsClusterInstances(params *MoveEsClusterInstancesParams, au
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1012,13 +1107,12 @@ func (a *Client) MoveEsClusterInstances(params *MoveEsClusterInstancesParams, au
 
   DEPRECATED (Scheduled to be removed in the next major version): Moves one or more instances in the Elasticsearch cluster. The custom configuration settings are posted in the body.
 */
-func (a *Client) MoveEsClusterInstancesAdvanced(params *MoveEsClusterInstancesAdvancedParams, authInfo runtime.ClientAuthInfoWriter) (*MoveEsClusterInstancesAdvancedAccepted, error) {
+func (a *Client) MoveEsClusterInstancesAdvanced(params *MoveEsClusterInstancesAdvancedParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MoveEsClusterInstancesAdvancedAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewMoveEsClusterInstancesAdvancedParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "move-es-cluster-instances-advanced",
 		Method:             "POST",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/instances/_move",
@@ -1030,7 +1124,12 @@ func (a *Client) MoveEsClusterInstancesAdvanced(params *MoveEsClusterInstancesAd
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1049,13 +1148,12 @@ func (a *Client) MoveEsClusterInstancesAdvanced(params *MoveEsClusterInstancesAd
 
   DEPRECATED (Scheduled to be removed in the next major version): Proxies HTTP POST request to the cluster. Requires that HTTP header X-Management-Request be specified. This endpoint is for management use and does not provide high performance.
 */
-func (a *Client) PostEsProxyRequests(params *PostEsProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter) (*PostEsProxyRequestsOK, error) {
+func (a *Client) PostEsProxyRequests(params *PostEsProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostEsProxyRequestsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPostEsProxyRequestsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "post-es-proxy-requests",
 		Method:             "POST",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/proxy/{elasticsearch_path}",
@@ -1067,7 +1165,12 @@ func (a *Client) PostEsProxyRequests(params *PostEsProxyRequestsParams, authInfo
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1086,13 +1189,12 @@ func (a *Client) PostEsProxyRequests(params *PostEsProxyRequestsParams, authInfo
 
   DEPRECATED (Scheduled to be removed in the next major version): Proxies HTTP PUT request to the cluster. Requires that HTTP header X-Management-Request be specified. This endpoint is for management use and does not provide high performance.
 */
-func (a *Client) PutEsProxyRequests(params *PutEsProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter) (*PutEsProxyRequestsOK, error) {
+func (a *Client) PutEsProxyRequests(params *PutEsProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutEsProxyRequestsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPutEsProxyRequestsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "put-es-proxy-requests",
 		Method:             "PUT",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/proxy/{elasticsearch_path}",
@@ -1104,7 +1206,12 @@ func (a *Client) PutEsProxyRequests(params *PutEsProxyRequestsParams, authInfo r
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1123,13 +1230,12 @@ func (a *Client) PutEsProxyRequests(params *PutEsProxyRequestsParams, authInfo r
 
   DEPRECATED (Scheduled to be removed in the next major version): Restarts the Elasticsearch cluster. When you restart an active cluster, the existing plan is used and a `cluster_reboot` is applied. A `cluster_reboot` issues an Elasticsearch restart command, then waits for the command to complete. When you restart an inactive cluster, the most recent successful plan is applied.
 */
-func (a *Client) RestartEsCluster(params *RestartEsClusterParams, authInfo runtime.ClientAuthInfoWriter) (*RestartEsClusterAccepted, error) {
+func (a *Client) RestartEsCluster(params *RestartEsClusterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*RestartEsClusterAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewRestartEsClusterParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "restart-es-cluster",
 		Method:             "POST",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/_restart",
@@ -1141,7 +1247,12 @@ func (a *Client) RestartEsCluster(params *RestartEsClusterParams, authInfo runti
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1160,13 +1271,12 @@ func (a *Client) RestartEsCluster(params *RestartEsClusterParams, authInfo runti
 
   DEPRECATED (Scheduled to be removed in the next major version): Immediately resynchronizes the search index and cache for the selected Elasticsearch cluster.
 */
-func (a *Client) ResyncEsCluster(params *ResyncEsClusterParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncEsClusterOK, error) {
+func (a *Client) ResyncEsCluster(params *ResyncEsClusterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ResyncEsClusterOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewResyncEsClusterParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "resync-es-cluster",
 		Method:             "POST",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/_resync",
@@ -1178,7 +1288,12 @@ func (a *Client) ResyncEsCluster(params *ResyncEsClusterParams, authInfo runtime
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1197,13 +1312,12 @@ func (a *Client) ResyncEsCluster(params *ResyncEsClusterParams, authInfo runtime
 
   DEPRECATED (Scheduled to be removed in the next major version): Asynchronously resynchronizes the search index for all Elasticsearch clusters.
 */
-func (a *Client) ResyncEsClusters(params *ResyncEsClustersParams, authInfo runtime.ClientAuthInfoWriter) (*ResyncEsClustersAccepted, error) {
+func (a *Client) ResyncEsClusters(params *ResyncEsClustersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ResyncEsClustersAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewResyncEsClustersParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "resync-es-clusters",
 		Method:             "POST",
 		PathPattern:        "/clusters/elasticsearch/_resync",
@@ -1215,7 +1329,12 @@ func (a *Client) ResyncEsClusters(params *ResyncEsClustersParams, authInfo runti
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1234,13 +1353,12 @@ func (a *Client) ResyncEsClusters(params *ResyncEsClustersParams, authInfo runti
 
   DEPRECATED (Scheduled to be removed in the next major version): Retrieves the information for all of the Elasticsearch clusters that match the specified query.
 */
-func (a *Client) SearchEsClusters(params *SearchEsClustersParams, authInfo runtime.ClientAuthInfoWriter) (*SearchEsClustersOK, error) {
+func (a *Client) SearchEsClusters(params *SearchEsClustersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SearchEsClustersOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSearchEsClustersParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "search-es-clusters",
 		Method:             "POST",
 		PathPattern:        "/clusters/elasticsearch/_search",
@@ -1252,7 +1370,12 @@ func (a *Client) SearchEsClusters(params *SearchEsClustersParams, authInfo runti
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1271,13 +1394,12 @@ func (a *Client) SearchEsClusters(params *SearchEsClustersParams, authInfo runti
 
   DEPRECATED (Scheduled to be removed in the next major version): Overwrites or creates the cross-cluster search configuration for the Elasticsearch cluster.
 */
-func (a *Client) SetEsClusterCcsSettings(params *SetEsClusterCcsSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*SetEsClusterCcsSettingsAccepted, error) {
+func (a *Client) SetEsClusterCcsSettings(params *SetEsClusterCcsSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetEsClusterCcsSettingsAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSetEsClusterCcsSettingsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "set-es-cluster-ccs-settings",
 		Method:             "PUT",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/ccs/settings",
@@ -1289,7 +1411,12 @@ func (a *Client) SetEsClusterCcsSettings(params *SetEsClusterCcsSettingsParams, 
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1308,13 +1435,12 @@ func (a *Client) SetEsClusterCcsSettings(params *SetEsClusterCcsSettingsParams, 
 
   DEPRECATED (Scheduled to be removed in the next major version): Overrides the settings for all of the instances in the Elasticsearch cluster.
 */
-func (a *Client) SetEsClusterInstancesAllSettingsOverrides(params *SetEsClusterInstancesAllSettingsOverridesParams, authInfo runtime.ClientAuthInfoWriter) (*SetEsClusterInstancesAllSettingsOverridesOK, error) {
+func (a *Client) SetEsClusterInstancesAllSettingsOverrides(params *SetEsClusterInstancesAllSettingsOverridesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetEsClusterInstancesAllSettingsOverridesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSetEsClusterInstancesAllSettingsOverridesParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "set-es-cluster-instances-all-settings-overrides",
 		Method:             "PUT",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/instances/settings",
@@ -1326,7 +1452,12 @@ func (a *Client) SetEsClusterInstancesAllSettingsOverrides(params *SetEsClusterI
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1345,13 +1476,12 @@ func (a *Client) SetEsClusterInstancesAllSettingsOverrides(params *SetEsClusterI
 
   DEPRECATED (Scheduled to be removed in the next major version): Overrides the settings for the specified instances in the Elasticsearch cluster.
 */
-func (a *Client) SetEsClusterInstancesSettingsOverrides(params *SetEsClusterInstancesSettingsOverridesParams, authInfo runtime.ClientAuthInfoWriter) (*SetEsClusterInstancesSettingsOverridesOK, error) {
+func (a *Client) SetEsClusterInstancesSettingsOverrides(params *SetEsClusterInstancesSettingsOverridesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetEsClusterInstancesSettingsOverridesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSetEsClusterInstancesSettingsOverridesParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "set-es-cluster-instances-settings-overrides",
 		Method:             "PUT",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/instances/{instance_ids}/settings",
@@ -1363,7 +1493,12 @@ func (a *Client) SetEsClusterInstancesSettingsOverrides(params *SetEsClusterInst
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1382,13 +1517,12 @@ func (a *Client) SetEsClusterInstancesSettingsOverrides(params *SetEsClusterInst
 
   DEPRECATED (Scheduled to be removed in the next major version): Adds the specified values to the Elasticsearch keystore, or removes the keys for the unspecified values.
 */
-func (a *Client) SetEsClusterKeystore(params *SetEsClusterKeystoreParams, authInfo runtime.ClientAuthInfoWriter) (*SetEsClusterKeystoreAccepted, error) {
+func (a *Client) SetEsClusterKeystore(params *SetEsClusterKeystoreParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetEsClusterKeystoreAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSetEsClusterKeystoreParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "set-es-cluster-keystore",
 		Method:             "PATCH",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/keystore",
@@ -1400,7 +1534,12 @@ func (a *Client) SetEsClusterKeystore(params *SetEsClusterKeystoreParams, authIn
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1419,13 +1558,12 @@ func (a *Client) SetEsClusterKeystore(params *SetEsClusterKeystoreParams, authIn
 
   DEPRECATED (Scheduled to be removed in the next major version): Sets the legacy Shield security settings for a 2.x Elasticsearch cluster.
 */
-func (a *Client) SetEsClusterLegacySecuritySettings(params *SetEsClusterLegacySecuritySettingsParams, authInfo runtime.ClientAuthInfoWriter) (*SetEsClusterLegacySecuritySettingsOK, error) {
+func (a *Client) SetEsClusterLegacySecuritySettings(params *SetEsClusterLegacySecuritySettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetEsClusterLegacySecuritySettingsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSetEsClusterLegacySecuritySettingsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "set-es-cluster-legacy-security-settings",
 		Method:             "PUT",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/settings/security/legacy",
@@ -1437,7 +1575,12 @@ func (a *Client) SetEsClusterLegacySecuritySettings(params *SetEsClusterLegacySe
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1457,13 +1600,12 @@ func (a *Client) SetEsClusterLegacySecuritySettings(params *SetEsClusterLegacySe
   DEPRECATED (Scheduled to be removed in the next major version): Advanced use only. Sets the internal metadata, in free-form JSON, for the Elasticsearch cluster.
 Only use the parameter to set the modified JSON that is returned from the get version of the metadata.
 */
-func (a *Client) SetEsClusterMetadataRaw(params *SetEsClusterMetadataRawParams, authInfo runtime.ClientAuthInfoWriter) (*SetEsClusterMetadataRawOK, error) {
+func (a *Client) SetEsClusterMetadataRaw(params *SetEsClusterMetadataRawParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetEsClusterMetadataRawOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSetEsClusterMetadataRawParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "set-es-cluster-metadata-raw",
 		Method:             "POST",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/metadata/raw",
@@ -1475,7 +1617,12 @@ func (a *Client) SetEsClusterMetadataRaw(params *SetEsClusterMetadataRawParams, 
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1494,13 +1641,12 @@ func (a *Client) SetEsClusterMetadataRaw(params *SetEsClusterMetadataRawParams, 
 
   DEPRECATED (Scheduled to be removed in the next major version): Overwrites or creates the monitoring destination for the Elasticsearch cluster.
 */
-func (a *Client) SetEsClusterMonitoring(params *SetEsClusterMonitoringParams, authInfo runtime.ClientAuthInfoWriter) (*SetEsClusterMonitoringAccepted, error) {
+func (a *Client) SetEsClusterMonitoring(params *SetEsClusterMonitoringParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetEsClusterMonitoringAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSetEsClusterMonitoringParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "set-es-cluster-monitoring",
 		Method:             "POST",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/monitoring/{dest_cluster_id}",
@@ -1512,7 +1658,12 @@ func (a *Client) SetEsClusterMonitoring(params *SetEsClusterMonitoringParams, au
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1531,13 +1682,12 @@ func (a *Client) SetEsClusterMonitoring(params *SetEsClusterMonitoringParams, au
 
   DEPRECATED (Scheduled to be removed in the next major version): Assigns a name to the Elasticsearch cluster.
 */
-func (a *Client) SetEsClusterName(params *SetEsClusterNameParams, authInfo runtime.ClientAuthInfoWriter) (*SetEsClusterNameOK, error) {
+func (a *Client) SetEsClusterName(params *SetEsClusterNameParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetEsClusterNameOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSetEsClusterNameParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "set-es-cluster-name",
 		Method:             "PUT",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/metadata/name/{new_name}",
@@ -1549,7 +1699,12 @@ func (a *Client) SetEsClusterName(params *SetEsClusterNameParams, authInfo runti
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1568,13 +1723,12 @@ func (a *Client) SetEsClusterName(params *SetEsClusterNameParams, authInfo runti
 
   DEPRECATED (Scheduled to be removed in the next major version): Shuts down the active Elasticsearch cluster and removes all of the cluster nodes. The cluster plan is retained. WARNING: To avoid data loss, save the data outside of the cluster before you shut the cluster down.
 */
-func (a *Client) ShutdownEsCluster(params *ShutdownEsClusterParams, authInfo runtime.ClientAuthInfoWriter) (*ShutdownEsClusterAccepted, error) {
+func (a *Client) ShutdownEsCluster(params *ShutdownEsClusterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ShutdownEsClusterAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewShutdownEsClusterParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "shutdown-es-cluster",
 		Method:             "POST",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/_shutdown",
@@ -1586,7 +1740,12 @@ func (a *Client) ShutdownEsCluster(params *ShutdownEsClusterParams, authInfo run
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1605,13 +1764,12 @@ func (a *Client) ShutdownEsCluster(params *ShutdownEsClusterParams, authInfo run
 
   DEPRECATED (Scheduled to be removed in the next major version): To create a snapshot of the specified Elasticsearch cluster, uses the configured snapshot repository.
 */
-func (a *Client) SnapshotEsCluster(params *SnapshotEsClusterParams, authInfo runtime.ClientAuthInfoWriter) (*SnapshotEsClusterAccepted, error) {
+func (a *Client) SnapshotEsCluster(params *SnapshotEsClusterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SnapshotEsClusterAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSnapshotEsClusterParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "snapshot-es-cluster",
 		Method:             "POST",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/_snapshot",
@@ -1623,7 +1781,12 @@ func (a *Client) SnapshotEsCluster(params *SnapshotEsClusterParams, authInfo run
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1642,13 +1805,12 @@ func (a *Client) SnapshotEsCluster(params *SnapshotEsClusterParams, authInfo run
 
   DEPRECATED (Scheduled to be removed in the next major version): Starts the instances in the Elasticsearch cluster.
 */
-func (a *Client) StartEsClusterInstances(params *StartEsClusterInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*StartEsClusterInstancesAccepted, error) {
+func (a *Client) StartEsClusterInstances(params *StartEsClusterInstancesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StartEsClusterInstancesAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStartEsClusterInstancesParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "start-es-cluster-instances",
 		Method:             "POST",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/instances/{instance_ids}/_start",
@@ -1660,7 +1822,12 @@ func (a *Client) StartEsClusterInstances(params *StartEsClusterInstancesParams, 
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1679,13 +1846,12 @@ func (a *Client) StartEsClusterInstances(params *StartEsClusterInstancesParams, 
 
   DEPRECATED (Scheduled to be removed in the next major version): Starts all of the instances in the Elasticsearch cluster.
 */
-func (a *Client) StartEsClusterInstancesAll(params *StartEsClusterInstancesAllParams, authInfo runtime.ClientAuthInfoWriter) (*StartEsClusterInstancesAllAccepted, error) {
+func (a *Client) StartEsClusterInstancesAll(params *StartEsClusterInstancesAllParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StartEsClusterInstancesAllAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStartEsClusterInstancesAllParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "start-es-cluster-instances-all",
 		Method:             "POST",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/instances/_start",
@@ -1697,7 +1863,12 @@ func (a *Client) StartEsClusterInstancesAll(params *StartEsClusterInstancesAllPa
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1716,13 +1887,12 @@ func (a *Client) StartEsClusterInstancesAll(params *StartEsClusterInstancesAllPa
 
   DEPRECATED (Scheduled to be removed in the next major version): Starts maintenance mode on all of the instances in the Elasticsearch cluster.
 */
-func (a *Client) StartEsClusterInstancesAllMaintenanceMode(params *StartEsClusterInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StartEsClusterInstancesAllMaintenanceModeAccepted, error) {
+func (a *Client) StartEsClusterInstancesAllMaintenanceMode(params *StartEsClusterInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StartEsClusterInstancesAllMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStartEsClusterInstancesAllMaintenanceModeParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "start-es-cluster-instances-all-maintenance-mode",
 		Method:             "POST",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/instances/maintenance-mode/_start",
@@ -1734,7 +1904,12 @@ func (a *Client) StartEsClusterInstancesAllMaintenanceMode(params *StartEsCluste
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1753,13 +1928,12 @@ func (a *Client) StartEsClusterInstancesAllMaintenanceMode(params *StartEsCluste
 
   DEPRECATED (Scheduled to be removed in the next major version): Starts maintenance mode on the specified instances in the Elasticsearch cluster.
 */
-func (a *Client) StartEsClusterMaintenanceMode(params *StartEsClusterMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StartEsClusterMaintenanceModeAccepted, error) {
+func (a *Client) StartEsClusterMaintenanceMode(params *StartEsClusterMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StartEsClusterMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStartEsClusterMaintenanceModeParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "start-es-cluster-maintenance-mode",
 		Method:             "POST",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/instances/{instance_ids}/maintenance-mode/_start",
@@ -1771,7 +1945,12 @@ func (a *Client) StartEsClusterMaintenanceMode(params *StartEsClusterMaintenance
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1790,13 +1969,12 @@ func (a *Client) StartEsClusterMaintenanceMode(params *StartEsClusterMaintenance
 
   DEPRECATED (Scheduled to be removed in the next major version): Stops the instances in the Elasticsearch cluster.
 */
-func (a *Client) StopEsClusterInstances(params *StopEsClusterInstancesParams, authInfo runtime.ClientAuthInfoWriter) (*StopEsClusterInstancesAccepted, error) {
+func (a *Client) StopEsClusterInstances(params *StopEsClusterInstancesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StopEsClusterInstancesAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStopEsClusterInstancesParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "stop-es-cluster-instances",
 		Method:             "POST",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/instances/{instance_ids}/_stop",
@@ -1808,7 +1986,12 @@ func (a *Client) StopEsClusterInstances(params *StopEsClusterInstancesParams, au
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1827,13 +2010,12 @@ func (a *Client) StopEsClusterInstances(params *StopEsClusterInstancesParams, au
 
   DEPRECATED (Scheduled to be removed in the next major version): Stops all of the instances in the Elasticsearch cluster..
 */
-func (a *Client) StopEsClusterInstancesAll(params *StopEsClusterInstancesAllParams, authInfo runtime.ClientAuthInfoWriter) (*StopEsClusterInstancesAllAccepted, error) {
+func (a *Client) StopEsClusterInstancesAll(params *StopEsClusterInstancesAllParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StopEsClusterInstancesAllAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStopEsClusterInstancesAllParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "stop-es-cluster-instances-all",
 		Method:             "POST",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/instances/_stop",
@@ -1845,7 +2027,12 @@ func (a *Client) StopEsClusterInstancesAll(params *StopEsClusterInstancesAllPara
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1864,13 +2051,12 @@ func (a *Client) StopEsClusterInstancesAll(params *StopEsClusterInstancesAllPara
 
   DEPRECATED (Scheduled to be removed in the next major version): Stops maintenance mode on all of the instances in the Elasticsearch cluster.
 */
-func (a *Client) StopEsClusterInstancesAllMaintenanceMode(params *StopEsClusterInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StopEsClusterInstancesAllMaintenanceModeAccepted, error) {
+func (a *Client) StopEsClusterInstancesAllMaintenanceMode(params *StopEsClusterInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StopEsClusterInstancesAllMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStopEsClusterInstancesAllMaintenanceModeParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "stop-es-cluster-instances-all-maintenance-mode",
 		Method:             "POST",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/instances/maintenance-mode/_stop",
@@ -1882,7 +2068,12 @@ func (a *Client) StopEsClusterInstancesAllMaintenanceMode(params *StopEsClusterI
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1901,13 +2092,12 @@ func (a *Client) StopEsClusterInstancesAllMaintenanceMode(params *StopEsClusterI
 
   DEPRECATED (Scheduled to be removed in the next major version): Stops maintenance mode on the specified instances in the Elasticsearch cluster.
 */
-func (a *Client) StopEsClusterMaintenanceMode(params *StopEsClusterMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter) (*StopEsClusterMaintenanceModeAccepted, error) {
+func (a *Client) StopEsClusterMaintenanceMode(params *StopEsClusterMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StopEsClusterMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewStopEsClusterMaintenanceModeParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "stop-es-cluster-maintenance-mode",
 		Method:             "POST",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/instances/{instance_ids}/maintenance-mode/_stop",
@@ -1919,7 +2109,12 @@ func (a *Client) StopEsClusterMaintenanceMode(params *StopEsClusterMaintenanceMo
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1938,13 +2133,12 @@ func (a *Client) StopEsClusterMaintenanceMode(params *StopEsClusterMaintenanceMo
 
   DEPRECATED (Scheduled to be removed in the next major version): Overrides cluster curation settings for an Elasticsearch cluster.
 */
-func (a *Client) UpdateEsClusterCurationSettings(params *UpdateEsClusterCurationSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateEsClusterCurationSettingsOK, error) {
+func (a *Client) UpdateEsClusterCurationSettings(params *UpdateEsClusterCurationSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateEsClusterCurationSettingsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateEsClusterCurationSettingsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "update-es-cluster-curation-settings",
 		Method:             "PUT",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/curation/settings",
@@ -1956,7 +2150,12 @@ func (a *Client) UpdateEsClusterCurationSettings(params *UpdateEsClusterCuration
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -1975,13 +2174,12 @@ func (a *Client) UpdateEsClusterCurationSettings(params *UpdateEsClusterCuration
 
   DEPRECATED (Scheduled to be removed in the next major version): All changes in the specified object are applied to the metadata object according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.
 */
-func (a *Client) UpdateEsClusterMetadataSettings(params *UpdateEsClusterMetadataSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateEsClusterMetadataSettingsOK, error) {
+func (a *Client) UpdateEsClusterMetadataSettings(params *UpdateEsClusterMetadataSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateEsClusterMetadataSettingsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateEsClusterMetadataSettingsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "update-es-cluster-metadata-settings",
 		Method:             "PATCH",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/metadata/settings",
@@ -1993,7 +2191,12 @@ func (a *Client) UpdateEsClusterMetadataSettings(params *UpdateEsClusterMetadata
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -2012,13 +2215,12 @@ func (a *Client) UpdateEsClusterMetadataSettings(params *UpdateEsClusterMetadata
 
   DEPRECATED (Scheduled to be removed in the next major version): Updates the configuration of the Elasticsearch cluster.
 */
-func (a *Client) UpdateEsClusterPlan(params *UpdateEsClusterPlanParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateEsClusterPlanOK, *UpdateEsClusterPlanAccepted, error) {
+func (a *Client) UpdateEsClusterPlan(params *UpdateEsClusterPlanParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateEsClusterPlanOK, *UpdateEsClusterPlanAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateEsClusterPlanParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "update-es-cluster-plan",
 		Method:             "POST",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/plan",
@@ -2030,7 +2232,12 @@ func (a *Client) UpdateEsClusterPlan(params *UpdateEsClusterPlanParams, authInfo
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -2050,13 +2257,12 @@ func (a *Client) UpdateEsClusterPlan(params *UpdateEsClusterPlanParams, authInfo
 
   DEPRECATED (Scheduled to be removed in the next major version): All changes in the specified object are applied to the snapshot settings according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.
 */
-func (a *Client) UpdateEsClusterSnapshotSettings(params *UpdateEsClusterSnapshotSettingsParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateEsClusterSnapshotSettingsOK, error) {
+func (a *Client) UpdateEsClusterSnapshotSettings(params *UpdateEsClusterSnapshotSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateEsClusterSnapshotSettingsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateEsClusterSnapshotSettingsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "update-es-cluster-snapshot-settings",
 		Method:             "PATCH",
 		PathPattern:        "/clusters/elasticsearch/{cluster_id}/snapshot/settings",
@@ -2068,7 +2274,12 @@ func (a *Client) UpdateEsClusterSnapshotSettings(params *UpdateEsClusterSnapshot
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}

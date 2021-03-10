@@ -35,13 +35,13 @@ import (
 func TestList(t *testing.T) {
 	urlError := url.Error{
 		Op:  "Get",
-		URL: "https://mock.elastic.co/api/v1/regions/us-east-1/stack/versions?show_deleted=false&show_unusable=false",
+		URL: "https://mock.elastic.co/api/v1/regions/us-east-1/stack/versions?show_deleted=false",
 		Err: errors.New(`{"error": "some error"}`),
 	}
 
 	deleteURLError := url.Error{
 		Op:  "Get",
-		URL: "https://mock.elastic.co/api/v1/regions/us-east-1/stack/versions?show_deleted=true&show_unusable=false",
+		URL: "https://mock.elastic.co/api/v1/regions/us-east-1/stack/versions?show_deleted=true",
 		Err: errors.New(`{"error": "some error"}`),
 	}
 	type args struct {
@@ -132,8 +132,7 @@ func TestList(t *testing.T) {
 						Host:   api.DefaultMockHost,
 						Path:   "/api/v1/regions/us-east-1/stack/versions",
 						Query: url.Values{
-							"show_deleted":  []string{"false"},
-							"show_unusable": []string{"false"},
+							"show_deleted": []string{"false"},
 						},
 					},
 				}),

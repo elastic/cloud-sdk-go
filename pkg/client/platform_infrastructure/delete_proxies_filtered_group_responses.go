@@ -64,7 +64,6 @@ func (o *DeleteProxiesFilteredGroupReader) ReadResponse(response runtime.ClientR
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,7 +74,7 @@ func NewDeleteProxiesFilteredGroupOK() *DeleteProxiesFilteredGroupOK {
 	return &DeleteProxiesFilteredGroupOK{}
 }
 
-/*DeleteProxiesFilteredGroupOK handles this case with default header values.
+/* DeleteProxiesFilteredGroupOK describes a response with status code 200, with default header values.
 
 The filtered group of proxies was successfully deleted
 */
@@ -86,7 +85,6 @@ type DeleteProxiesFilteredGroupOK struct {
 func (o *DeleteProxiesFilteredGroupOK) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}][%d] deleteProxiesFilteredGroupOK  %+v", 200, o.Payload)
 }
-
 func (o *DeleteProxiesFilteredGroupOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -106,12 +104,13 @@ func NewDeleteProxiesFilteredGroupNotFound() *DeleteProxiesFilteredGroupNotFound
 	return &DeleteProxiesFilteredGroupNotFound{}
 }
 
-/*DeleteProxiesFilteredGroupNotFound handles this case with default header values.
+/* DeleteProxiesFilteredGroupNotFound describes a response with status code 404, with default header values.
 
 Unable to find the {proxies_filtered_group_id} specified filtered group of proxies. Edit your request, then try again. (code: `proxies.proxies_filtered_group_not_found`)
 */
 type DeleteProxiesFilteredGroupNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -121,15 +120,18 @@ type DeleteProxiesFilteredGroupNotFound struct {
 func (o *DeleteProxiesFilteredGroupNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}][%d] deleteProxiesFilteredGroupNotFound  %+v", 404, o.Payload)
 }
-
 func (o *DeleteProxiesFilteredGroupNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *DeleteProxiesFilteredGroupNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -146,12 +148,13 @@ func NewDeleteProxiesFilteredGroupConflict() *DeleteProxiesFilteredGroupConflict
 	return &DeleteProxiesFilteredGroupConflict{}
 }
 
-/*DeleteProxiesFilteredGroupConflict handles this case with default header values.
+/* DeleteProxiesFilteredGroupConflict describes a response with status code 409, with default header values.
 
 There is a version conflict. (code: `proxies.proxies_filtered_group_version_conflict`)
 */
 type DeleteProxiesFilteredGroupConflict struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -161,15 +164,18 @@ type DeleteProxiesFilteredGroupConflict struct {
 func (o *DeleteProxiesFilteredGroupConflict) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}][%d] deleteProxiesFilteredGroupConflict  %+v", 409, o.Payload)
 }
-
 func (o *DeleteProxiesFilteredGroupConflict) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *DeleteProxiesFilteredGroupConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -186,12 +192,13 @@ func NewDeleteProxiesFilteredGroupRetryWith() *DeleteProxiesFilteredGroupRetryWi
 	return &DeleteProxiesFilteredGroupRetryWith{}
 }
 
-/*DeleteProxiesFilteredGroupRetryWith handles this case with default header values.
+/* DeleteProxiesFilteredGroupRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type DeleteProxiesFilteredGroupRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -201,15 +208,18 @@ type DeleteProxiesFilteredGroupRetryWith struct {
 func (o *DeleteProxiesFilteredGroupRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}][%d] deleteProxiesFilteredGroupRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *DeleteProxiesFilteredGroupRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *DeleteProxiesFilteredGroupRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

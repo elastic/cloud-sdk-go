@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -69,7 +71,6 @@ func (m *LoginRequest) Validate(formats strfmt.Registry) error {
 }
 
 func (m *LoginRequest) validateLoginState(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.LoginState) { // not required
 		return nil
 	}
@@ -99,6 +100,34 @@ func (m *LoginRequest) validateUsername(formats strfmt.Registry) error {
 
 	if err := validate.Required("username", "body", m.Username); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this login request based on the context it is used
+func (m *LoginRequest) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateLoginState(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *LoginRequest) contextValidateLoginState(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.LoginState != nil {
+		if err := m.LoginState.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("login_state")
+			}
+			return err
+		}
 	}
 
 	return nil

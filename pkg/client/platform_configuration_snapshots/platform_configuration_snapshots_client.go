@@ -42,15 +42,18 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientOption is the option for Client methods
+type ClientOption func(*runtime.ClientOperation)
+
 // ClientService is the interface for Client methods
 type ClientService interface {
-	DeleteSnapshotRepository(params *DeleteSnapshotRepositoryParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteSnapshotRepositoryOK, *DeleteSnapshotRepositoryAccepted, error)
+	DeleteSnapshotRepository(params *DeleteSnapshotRepositoryParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteSnapshotRepositoryOK, *DeleteSnapshotRepositoryAccepted, error)
 
-	GetSnapshotRepositories(params *GetSnapshotRepositoriesParams, authInfo runtime.ClientAuthInfoWriter) (*GetSnapshotRepositoriesOK, error)
+	GetSnapshotRepositories(params *GetSnapshotRepositoriesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSnapshotRepositoriesOK, error)
 
-	GetSnapshotRepository(params *GetSnapshotRepositoryParams, authInfo runtime.ClientAuthInfoWriter) (*GetSnapshotRepositoryOK, error)
+	GetSnapshotRepository(params *GetSnapshotRepositoryParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSnapshotRepositoryOK, error)
 
-	SetSnapshotRepository(params *SetSnapshotRepositoryParams, authInfo runtime.ClientAuthInfoWriter) (*SetSnapshotRepositoryOK, error)
+	SetSnapshotRepository(params *SetSnapshotRepositoryParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetSnapshotRepositoryOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -60,13 +63,12 @@ type ClientService interface {
 
   Deletes the snapshot repository configuration.
 */
-func (a *Client) DeleteSnapshotRepository(params *DeleteSnapshotRepositoryParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteSnapshotRepositoryOK, *DeleteSnapshotRepositoryAccepted, error) {
+func (a *Client) DeleteSnapshotRepository(params *DeleteSnapshotRepositoryParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteSnapshotRepositoryOK, *DeleteSnapshotRepositoryAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteSnapshotRepositoryParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "delete-snapshot-repository",
 		Method:             "DELETE",
 		PathPattern:        "/platform/configuration/snapshots/repositories/{repository_name}",
@@ -78,7 +80,12 @@ func (a *Client) DeleteSnapshotRepository(params *DeleteSnapshotRepositoryParams
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -98,13 +105,12 @@ func (a *Client) DeleteSnapshotRepository(params *DeleteSnapshotRepositoryParams
 
   Retrieves a list of available snapshot repository configurations. To access the configuration contents, you must have privileged permissions.
 */
-func (a *Client) GetSnapshotRepositories(params *GetSnapshotRepositoriesParams, authInfo runtime.ClientAuthInfoWriter) (*GetSnapshotRepositoriesOK, error) {
+func (a *Client) GetSnapshotRepositories(params *GetSnapshotRepositoriesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSnapshotRepositoriesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetSnapshotRepositoriesParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-snapshot-repositories",
 		Method:             "GET",
 		PathPattern:        "/platform/configuration/snapshots/repositories",
@@ -116,7 +122,12 @@ func (a *Client) GetSnapshotRepositories(params *GetSnapshotRepositoriesParams, 
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -135,13 +146,12 @@ func (a *Client) GetSnapshotRepositories(params *GetSnapshotRepositoriesParams, 
 
   Retrieves the snapshot repository configuration. To access the configuration contents, you must have privileged permissions.
 */
-func (a *Client) GetSnapshotRepository(params *GetSnapshotRepositoryParams, authInfo runtime.ClientAuthInfoWriter) (*GetSnapshotRepositoryOK, error) {
+func (a *Client) GetSnapshotRepository(params *GetSnapshotRepositoryParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSnapshotRepositoryOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetSnapshotRepositoryParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-snapshot-repository",
 		Method:             "GET",
 		PathPattern:        "/platform/configuration/snapshots/repositories/{repository_name}",
@@ -153,7 +163,12 @@ func (a *Client) GetSnapshotRepository(params *GetSnapshotRepositoryParams, auth
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -172,13 +187,12 @@ func (a *Client) GetSnapshotRepository(params *GetSnapshotRepositoryParams, auth
 
   Creates or updates the snapshot repository configuration.
 */
-func (a *Client) SetSnapshotRepository(params *SetSnapshotRepositoryParams, authInfo runtime.ClientAuthInfoWriter) (*SetSnapshotRepositoryOK, error) {
+func (a *Client) SetSnapshotRepository(params *SetSnapshotRepositoryParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetSnapshotRepositoryOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSetSnapshotRepositoryParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "set-snapshot-repository",
 		Method:             "PUT",
 		PathPattern:        "/platform/configuration/snapshots/repositories/{repository_name}",
@@ -190,7 +204,12 @@ func (a *Client) SetSnapshotRepository(params *SetSnapshotRepositoryParams, auth
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}

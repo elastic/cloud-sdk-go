@@ -33,64 +33,79 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewUpdateConstructorLoggingSettingsParams creates a new UpdateConstructorLoggingSettingsParams object
-// with the default values initialized.
+// NewUpdateConstructorLoggingSettingsParams creates a new UpdateConstructorLoggingSettingsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewUpdateConstructorLoggingSettingsParams() *UpdateConstructorLoggingSettingsParams {
-	var ()
 	return &UpdateConstructorLoggingSettingsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewUpdateConstructorLoggingSettingsParamsWithTimeout creates a new UpdateConstructorLoggingSettingsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewUpdateConstructorLoggingSettingsParamsWithTimeout(timeout time.Duration) *UpdateConstructorLoggingSettingsParams {
-	var ()
 	return &UpdateConstructorLoggingSettingsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewUpdateConstructorLoggingSettingsParamsWithContext creates a new UpdateConstructorLoggingSettingsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewUpdateConstructorLoggingSettingsParamsWithContext(ctx context.Context) *UpdateConstructorLoggingSettingsParams {
-	var ()
 	return &UpdateConstructorLoggingSettingsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewUpdateConstructorLoggingSettingsParamsWithHTTPClient creates a new UpdateConstructorLoggingSettingsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewUpdateConstructorLoggingSettingsParamsWithHTTPClient(client *http.Client) *UpdateConstructorLoggingSettingsParams {
-	var ()
 	return &UpdateConstructorLoggingSettingsParams{
 		HTTPClient: client,
 	}
 }
 
-/*UpdateConstructorLoggingSettingsParams contains all the parameters to send to the API endpoint
-for the update constructor logging settings operation typically these are written to a http.Request
+/* UpdateConstructorLoggingSettingsParams contains all the parameters to send to the API endpoint
+   for the update constructor logging settings operation.
+
+   Typically these are written to a http.Request.
 */
 type UpdateConstructorLoggingSettingsParams struct {
 
-	/*Body
-	  The logging settings to update
+	/* Body.
 
+	   The logging settings to update
 	*/
 	Body string
-	/*ConstructorID
-	  Identifier for the constructor
 
+	/* ConstructorID.
+
+	   Identifier for the constructor
 	*/
 	ConstructorID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the update constructor logging settings params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdateConstructorLoggingSettingsParams) WithDefaults() *UpdateConstructorLoggingSettingsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the update constructor logging settings params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdateConstructorLoggingSettingsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the update constructor logging settings params
@@ -155,7 +170,6 @@ func (o *UpdateConstructorLoggingSettingsParams) WriteToRequest(r runtime.Client
 		return err
 	}
 	var res []error
-
 	if err := r.SetBodyParam(o.Body); err != nil {
 		return err
 	}

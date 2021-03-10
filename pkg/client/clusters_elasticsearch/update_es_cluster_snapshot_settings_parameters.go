@@ -36,69 +36,85 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewUpdateEsClusterSnapshotSettingsParams creates a new UpdateEsClusterSnapshotSettingsParams object
-// with the default values initialized.
+// NewUpdateEsClusterSnapshotSettingsParams creates a new UpdateEsClusterSnapshotSettingsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewUpdateEsClusterSnapshotSettingsParams() *UpdateEsClusterSnapshotSettingsParams {
-	var ()
 	return &UpdateEsClusterSnapshotSettingsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewUpdateEsClusterSnapshotSettingsParamsWithTimeout creates a new UpdateEsClusterSnapshotSettingsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewUpdateEsClusterSnapshotSettingsParamsWithTimeout(timeout time.Duration) *UpdateEsClusterSnapshotSettingsParams {
-	var ()
 	return &UpdateEsClusterSnapshotSettingsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewUpdateEsClusterSnapshotSettingsParamsWithContext creates a new UpdateEsClusterSnapshotSettingsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewUpdateEsClusterSnapshotSettingsParamsWithContext(ctx context.Context) *UpdateEsClusterSnapshotSettingsParams {
-	var ()
 	return &UpdateEsClusterSnapshotSettingsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewUpdateEsClusterSnapshotSettingsParamsWithHTTPClient creates a new UpdateEsClusterSnapshotSettingsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewUpdateEsClusterSnapshotSettingsParamsWithHTTPClient(client *http.Client) *UpdateEsClusterSnapshotSettingsParams {
-	var ()
 	return &UpdateEsClusterSnapshotSettingsParams{
 		HTTPClient: client,
 	}
 }
 
-/*UpdateEsClusterSnapshotSettingsParams contains all the parameters to send to the API endpoint
-for the update es cluster snapshot settings operation typically these are written to a http.Request
+/* UpdateEsClusterSnapshotSettingsParams contains all the parameters to send to the API endpoint
+   for the update es cluster snapshot settings operation.
+
+   Typically these are written to a http.Request.
 */
 type UpdateEsClusterSnapshotSettingsParams struct {
 
-	/*Body
-	  The cluster snapshot settings including updated values
+	/* Body.
 
+	   The cluster snapshot settings including updated values
 	*/
 	Body *models.ClusterSnapshotSettings
-	/*ClusterID
-	  Identifier for the Elasticsearch cluster
 
+	/* ClusterID.
+
+	   Identifier for the Elasticsearch cluster
 	*/
 	ClusterID string
-	/*Version
-	  If specified then checks for conflicts against the version of the cluster snapshot settings (returned in 'x-cloud-resource-version' of the GET request)
 
+	/* Version.
+
+	   If specified then checks for conflicts against the version of the cluster snapshot settings (returned in 'x-cloud-resource-version' of the GET request)
 	*/
 	Version *int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the update es cluster snapshot settings params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdateEsClusterSnapshotSettingsParams) WithDefaults() *UpdateEsClusterSnapshotSettingsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the update es cluster snapshot settings params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdateEsClusterSnapshotSettingsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the update es cluster snapshot settings params
@@ -174,7 +190,6 @@ func (o *UpdateEsClusterSnapshotSettingsParams) WriteToRequest(r runtime.ClientR
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err
@@ -190,16 +205,17 @@ func (o *UpdateEsClusterSnapshotSettingsParams) WriteToRequest(r runtime.ClientR
 
 		// query param version
 		var qrVersion int64
+
 		if o.Version != nil {
 			qrVersion = *o.Version
 		}
 		qVersion := swag.FormatInt64(qrVersion)
 		if qVersion != "" {
+
 			if err := r.SetQueryParam("version", qVersion); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

@@ -33,59 +33,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetResourceKindDeploymentDomainNameParams creates a new GetResourceKindDeploymentDomainNameParams object
-// with the default values initialized.
+// NewGetResourceKindDeploymentDomainNameParams creates a new GetResourceKindDeploymentDomainNameParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetResourceKindDeploymentDomainNameParams() *GetResourceKindDeploymentDomainNameParams {
-	var ()
 	return &GetResourceKindDeploymentDomainNameParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetResourceKindDeploymentDomainNameParamsWithTimeout creates a new GetResourceKindDeploymentDomainNameParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetResourceKindDeploymentDomainNameParamsWithTimeout(timeout time.Duration) *GetResourceKindDeploymentDomainNameParams {
-	var ()
 	return &GetResourceKindDeploymentDomainNameParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetResourceKindDeploymentDomainNameParamsWithContext creates a new GetResourceKindDeploymentDomainNameParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetResourceKindDeploymentDomainNameParamsWithContext(ctx context.Context) *GetResourceKindDeploymentDomainNameParams {
-	var ()
 	return &GetResourceKindDeploymentDomainNameParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetResourceKindDeploymentDomainNameParamsWithHTTPClient creates a new GetResourceKindDeploymentDomainNameParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetResourceKindDeploymentDomainNameParamsWithHTTPClient(client *http.Client) *GetResourceKindDeploymentDomainNameParams {
-	var ()
 	return &GetResourceKindDeploymentDomainNameParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetResourceKindDeploymentDomainNameParams contains all the parameters to send to the API endpoint
-for the get resource kind deployment domain name operation typically these are written to a http.Request
+/* GetResourceKindDeploymentDomainNameParams contains all the parameters to send to the API endpoint
+   for the get resource kind deployment domain name operation.
+
+   Typically these are written to a http.Request.
 */
 type GetResourceKindDeploymentDomainNameParams struct {
 
-	/*ResourceKind
-	  The kind of resource you want to manage a Deployment Domain Name for.
+	/* ResourceKind.
 
+	   The kind of resource you want to manage a Deployment Domain Name for.
 	*/
 	ResourceKind string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get resource kind deployment domain name params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetResourceKindDeploymentDomainNameParams) WithDefaults() *GetResourceKindDeploymentDomainNameParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get resource kind deployment domain name params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetResourceKindDeploymentDomainNameParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get resource kind deployment domain name params

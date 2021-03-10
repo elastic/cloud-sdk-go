@@ -70,7 +70,6 @@ func (o *MoveKibanaClusterInstancesAdvancedReader) ReadResponse(response runtime
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -81,7 +80,7 @@ func NewMoveKibanaClusterInstancesAdvancedAccepted() *MoveKibanaClusterInstances
 	return &MoveKibanaClusterInstancesAdvancedAccepted{}
 }
 
-/*MoveKibanaClusterInstancesAdvancedAccepted handles this case with default header values.
+/* MoveKibanaClusterInstancesAdvancedAccepted describes a response with status code 202, with default header values.
 
 The move command was issued successfully, use the "GET" command on the /{cluster_id} resource to monitor progress
 */
@@ -92,7 +91,6 @@ type MoveKibanaClusterInstancesAdvancedAccepted struct {
 func (o *MoveKibanaClusterInstancesAdvancedAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/instances/_move][%d] moveKibanaClusterInstancesAdvancedAccepted  %+v", 202, o.Payload)
 }
-
 func (o *MoveKibanaClusterInstancesAdvancedAccepted) GetPayload() *models.ClusterCommandResponse {
 	return o.Payload
 }
@@ -114,13 +112,14 @@ func NewMoveKibanaClusterInstancesAdvancedBadRequest() *MoveKibanaClusterInstanc
 	return &MoveKibanaClusterInstancesAdvancedBadRequest{}
 }
 
-/*MoveKibanaClusterInstancesAdvancedBadRequest handles this case with default header values.
+/* MoveKibanaClusterInstancesAdvancedBadRequest describes a response with status code 400, with default header values.
 
-* The cluster definition contained errors. (code: `clusters.cluster_invalid_plan`)
+ * The cluster definition contained errors. (code: `clusters.cluster_invalid_plan`)
 * The cluster definition contained errors. (code: `clusters.plan_feature_not_implemented`)
- */
+*/
 type MoveKibanaClusterInstancesAdvancedBadRequest struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -130,15 +129,18 @@ type MoveKibanaClusterInstancesAdvancedBadRequest struct {
 func (o *MoveKibanaClusterInstancesAdvancedBadRequest) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/instances/_move][%d] moveKibanaClusterInstancesAdvancedBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *MoveKibanaClusterInstancesAdvancedBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *MoveKibanaClusterInstancesAdvancedBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -155,12 +157,13 @@ func NewMoveKibanaClusterInstancesAdvancedForbidden() *MoveKibanaClusterInstance
 	return &MoveKibanaClusterInstancesAdvancedForbidden{}
 }
 
-/*MoveKibanaClusterInstancesAdvancedForbidden handles this case with default header values.
+/* MoveKibanaClusterInstancesAdvancedForbidden describes a response with status code 403, with default header values.
 
 The move command was prohibited for the given cluster. (code: `clusters.command_prohibited`)
 */
 type MoveKibanaClusterInstancesAdvancedForbidden struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -170,15 +173,18 @@ type MoveKibanaClusterInstancesAdvancedForbidden struct {
 func (o *MoveKibanaClusterInstancesAdvancedForbidden) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/instances/_move][%d] moveKibanaClusterInstancesAdvancedForbidden  %+v", 403, o.Payload)
 }
-
 func (o *MoveKibanaClusterInstancesAdvancedForbidden) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *MoveKibanaClusterInstancesAdvancedForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -195,13 +201,14 @@ func NewMoveKibanaClusterInstancesAdvancedNotFound() *MoveKibanaClusterInstances
 	return &MoveKibanaClusterInstancesAdvancedNotFound{}
 }
 
-/*MoveKibanaClusterInstancesAdvancedNotFound handles this case with default header values.
+/* MoveKibanaClusterInstancesAdvancedNotFound describes a response with status code 404, with default header values.
 
-* The cluster specified by {cluster_id} cannot be found. (code: `clusters.cluster_not_found`)
+ * The cluster specified by {cluster_id} cannot be found. (code: `clusters.cluster_not_found`)
 * One or more of the instances specified at {instance_ids} could not be found. (code: `clusters.instances_not_found`)
- */
+*/
 type MoveKibanaClusterInstancesAdvancedNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -211,15 +218,18 @@ type MoveKibanaClusterInstancesAdvancedNotFound struct {
 func (o *MoveKibanaClusterInstancesAdvancedNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/instances/_move][%d] moveKibanaClusterInstancesAdvancedNotFound  %+v", 404, o.Payload)
 }
-
 func (o *MoveKibanaClusterInstancesAdvancedNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *MoveKibanaClusterInstancesAdvancedNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -236,12 +246,13 @@ func NewMoveKibanaClusterInstancesAdvancedRetryWith() *MoveKibanaClusterInstance
 	return &MoveKibanaClusterInstancesAdvancedRetryWith{}
 }
 
-/*MoveKibanaClusterInstancesAdvancedRetryWith handles this case with default header values.
+/* MoveKibanaClusterInstancesAdvancedRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type MoveKibanaClusterInstancesAdvancedRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -251,15 +262,18 @@ type MoveKibanaClusterInstancesAdvancedRetryWith struct {
 func (o *MoveKibanaClusterInstancesAdvancedRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/instances/_move][%d] moveKibanaClusterInstancesAdvancedRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *MoveKibanaClusterInstancesAdvancedRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *MoveKibanaClusterInstancesAdvancedRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

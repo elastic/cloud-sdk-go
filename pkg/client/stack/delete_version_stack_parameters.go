@@ -33,59 +33,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewDeleteVersionStackParams creates a new DeleteVersionStackParams object
-// with the default values initialized.
+// NewDeleteVersionStackParams creates a new DeleteVersionStackParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewDeleteVersionStackParams() *DeleteVersionStackParams {
-	var ()
 	return &DeleteVersionStackParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteVersionStackParamsWithTimeout creates a new DeleteVersionStackParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewDeleteVersionStackParamsWithTimeout(timeout time.Duration) *DeleteVersionStackParams {
-	var ()
 	return &DeleteVersionStackParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewDeleteVersionStackParamsWithContext creates a new DeleteVersionStackParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewDeleteVersionStackParamsWithContext(ctx context.Context) *DeleteVersionStackParams {
-	var ()
 	return &DeleteVersionStackParams{
-
 		Context: ctx,
 	}
 }
 
 // NewDeleteVersionStackParamsWithHTTPClient creates a new DeleteVersionStackParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewDeleteVersionStackParamsWithHTTPClient(client *http.Client) *DeleteVersionStackParams {
-	var ()
 	return &DeleteVersionStackParams{
 		HTTPClient: client,
 	}
 }
 
-/*DeleteVersionStackParams contains all the parameters to send to the API endpoint
-for the delete version stack operation typically these are written to a http.Request
+/* DeleteVersionStackParams contains all the parameters to send to the API endpoint
+   for the delete version stack operation.
+
+   Typically these are written to a http.Request.
 */
 type DeleteVersionStackParams struct {
 
-	/*Version
-	  The Elastic Stack version. For example, `5.3.1` or `5.0.0-RC4`.
+	/* Version.
 
+	   The Elastic Stack version. For example, `5.3.1` or `5.0.0-RC4`.
 	*/
 	Version string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the delete version stack params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteVersionStackParams) WithDefaults() *DeleteVersionStackParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the delete version stack params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteVersionStackParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete version stack params

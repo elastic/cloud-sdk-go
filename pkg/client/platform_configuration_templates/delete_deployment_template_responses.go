@@ -58,7 +58,6 @@ func (o *DeleteDeploymentTemplateReader) ReadResponse(response runtime.ClientRes
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,7 +68,7 @@ func NewDeleteDeploymentTemplateOK() *DeleteDeploymentTemplateOK {
 	return &DeleteDeploymentTemplateOK{}
 }
 
-/*DeleteDeploymentTemplateOK handles this case with default header values.
+/* DeleteDeploymentTemplateOK describes a response with status code 200, with default header values.
 
 The deployment template was successfully deleted.
 */
@@ -80,7 +79,6 @@ type DeleteDeploymentTemplateOK struct {
 func (o *DeleteDeploymentTemplateOK) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/templates/deployments/{template_id}][%d] deleteDeploymentTemplateOK  %+v", 200, o.Payload)
 }
-
 func (o *DeleteDeploymentTemplateOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -100,12 +98,13 @@ func NewDeleteDeploymentTemplateNotFound() *DeleteDeploymentTemplateNotFound {
 	return &DeleteDeploymentTemplateNotFound{}
 }
 
-/*DeleteDeploymentTemplateNotFound handles this case with default header values.
+/* DeleteDeploymentTemplateNotFound describes a response with status code 404, with default header values.
 
 The deployment template specified by {template_id} cannot be found. (code: `templates.template_not_found`)
 */
 type DeleteDeploymentTemplateNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -115,15 +114,18 @@ type DeleteDeploymentTemplateNotFound struct {
 func (o *DeleteDeploymentTemplateNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/templates/deployments/{template_id}][%d] deleteDeploymentTemplateNotFound  %+v", 404, o.Payload)
 }
-
 func (o *DeleteDeploymentTemplateNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *DeleteDeploymentTemplateNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -140,12 +142,13 @@ func NewDeleteDeploymentTemplateRetryWith() *DeleteDeploymentTemplateRetryWith {
 	return &DeleteDeploymentTemplateRetryWith{}
 }
 
-/*DeleteDeploymentTemplateRetryWith handles this case with default header values.
+/* DeleteDeploymentTemplateRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type DeleteDeploymentTemplateRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -155,15 +158,18 @@ type DeleteDeploymentTemplateRetryWith struct {
 func (o *DeleteDeploymentTemplateRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/templates/deployments/{template_id}][%d] deleteDeploymentTemplateRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *DeleteDeploymentTemplateRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *DeleteDeploymentTemplateRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

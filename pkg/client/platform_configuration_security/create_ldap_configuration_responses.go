@@ -58,7 +58,6 @@ func (o *CreateLdapConfigurationReader) ReadResponse(response runtime.ClientResp
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,18 +68,21 @@ func NewCreateLdapConfigurationCreated() *CreateLdapConfigurationCreated {
 	return &CreateLdapConfigurationCreated{}
 }
 
-/*CreateLdapConfigurationCreated handles this case with default header values.
+/* CreateLdapConfigurationCreated describes a response with status code 201, with default header values.
 
 The LDAP configuration was successfully created
 */
 type CreateLdapConfigurationCreated struct {
-	/*The date-time when the resource was created (ISO format relative to UTC)
+
+	/* The date-time when the resource was created (ISO format relative to UTC)
 	 */
 	XCloudResourceCreated string
-	/*The date-time when the resource was last modified (ISO format relative to UTC)
+
+	/* The date-time when the resource was last modified (ISO format relative to UTC)
 	 */
 	XCloudResourceLastModified string
-	/*The resource version, which is used to avoid update conflicts with concurrent operations
+
+	/* The resource version, which is used to avoid update conflicts with concurrent operations
 	 */
 	XCloudResourceVersion string
 
@@ -90,21 +92,32 @@ type CreateLdapConfigurationCreated struct {
 func (o *CreateLdapConfigurationCreated) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/realms/ldap][%d] createLdapConfigurationCreated  %+v", 201, o.Payload)
 }
-
 func (o *CreateLdapConfigurationCreated) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
 
 func (o *CreateLdapConfigurationCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-resource-created
-	o.XCloudResourceCreated = response.GetHeader("x-cloud-resource-created")
+	// hydrates response header x-cloud-resource-created
+	hdrXCloudResourceCreated := response.GetHeader("x-cloud-resource-created")
 
-	// response header x-cloud-resource-last-modified
-	o.XCloudResourceLastModified = response.GetHeader("x-cloud-resource-last-modified")
+	if hdrXCloudResourceCreated != "" {
+		o.XCloudResourceCreated = hdrXCloudResourceCreated
+	}
 
-	// response header x-cloud-resource-version
-	o.XCloudResourceVersion = response.GetHeader("x-cloud-resource-version")
+	// hydrates response header x-cloud-resource-last-modified
+	hdrXCloudResourceLastModified := response.GetHeader("x-cloud-resource-last-modified")
+
+	if hdrXCloudResourceLastModified != "" {
+		o.XCloudResourceLastModified = hdrXCloudResourceLastModified
+	}
+
+	// hydrates response header x-cloud-resource-version
+	hdrXCloudResourceVersion := response.GetHeader("x-cloud-resource-version")
+
+	if hdrXCloudResourceVersion != "" {
+		o.XCloudResourceVersion = hdrXCloudResourceVersion
+	}
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
@@ -119,9 +132,9 @@ func NewCreateLdapConfigurationBadRequest() *CreateLdapConfigurationBadRequest {
 	return &CreateLdapConfigurationBadRequest{}
 }
 
-/*CreateLdapConfigurationBadRequest handles this case with default header values.
+/* CreateLdapConfigurationBadRequest describes a response with status code 400, with default header values.
 
-* The realm id is already in use. (code: `security_realm.id_conflict`)
+ * The realm id is already in use. (code: `security_realm.id_conflict`)
 * The selected id is not valid. (code: `security_realm.invalid_id`)
 * Order must be greater than zero. (code: `security_realm.invalid_order`)
 * Invalid Elasticsearch Security realm type. (code: `security_realm.invalid_type`)
@@ -130,9 +143,10 @@ func NewCreateLdapConfigurationBadRequest() *CreateLdapConfigurationBadRequest {
 * The url format is invalid. (code: `security_realm.invalid_url`)
 * Invalid LDAP URL. (code: `security_realm.ldap.invalid_url`)
 * Invalid certificate bundle URL. (code: `security_realm.invalid_bundle_url`)
- */
+*/
 type CreateLdapConfigurationBadRequest struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -142,15 +156,18 @@ type CreateLdapConfigurationBadRequest struct {
 func (o *CreateLdapConfigurationBadRequest) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/realms/ldap][%d] createLdapConfigurationBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *CreateLdapConfigurationBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *CreateLdapConfigurationBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -167,12 +184,13 @@ func NewCreateLdapConfigurationRetryWith() *CreateLdapConfigurationRetryWith {
 	return &CreateLdapConfigurationRetryWith{}
 }
 
-/*CreateLdapConfigurationRetryWith handles this case with default header values.
+/* CreateLdapConfigurationRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type CreateLdapConfigurationRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -182,15 +200,18 @@ type CreateLdapConfigurationRetryWith struct {
 func (o *CreateLdapConfigurationRetryWith) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/realms/ldap][%d] createLdapConfigurationRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *CreateLdapConfigurationRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *CreateLdapConfigurationRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

@@ -33,69 +33,85 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewDeleteDeploymentStatelessResourceParams creates a new DeleteDeploymentStatelessResourceParams object
-// with the default values initialized.
+// NewDeleteDeploymentStatelessResourceParams creates a new DeleteDeploymentStatelessResourceParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewDeleteDeploymentStatelessResourceParams() *DeleteDeploymentStatelessResourceParams {
-	var ()
 	return &DeleteDeploymentStatelessResourceParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteDeploymentStatelessResourceParamsWithTimeout creates a new DeleteDeploymentStatelessResourceParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewDeleteDeploymentStatelessResourceParamsWithTimeout(timeout time.Duration) *DeleteDeploymentStatelessResourceParams {
-	var ()
 	return &DeleteDeploymentStatelessResourceParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewDeleteDeploymentStatelessResourceParamsWithContext creates a new DeleteDeploymentStatelessResourceParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewDeleteDeploymentStatelessResourceParamsWithContext(ctx context.Context) *DeleteDeploymentStatelessResourceParams {
-	var ()
 	return &DeleteDeploymentStatelessResourceParams{
-
 		Context: ctx,
 	}
 }
 
 // NewDeleteDeploymentStatelessResourceParamsWithHTTPClient creates a new DeleteDeploymentStatelessResourceParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewDeleteDeploymentStatelessResourceParamsWithHTTPClient(client *http.Client) *DeleteDeploymentStatelessResourceParams {
-	var ()
 	return &DeleteDeploymentStatelessResourceParams{
 		HTTPClient: client,
 	}
 }
 
-/*DeleteDeploymentStatelessResourceParams contains all the parameters to send to the API endpoint
-for the delete deployment stateless resource operation typically these are written to a http.Request
+/* DeleteDeploymentStatelessResourceParams contains all the parameters to send to the API endpoint
+   for the delete deployment stateless resource operation.
+
+   Typically these are written to a http.Request.
 */
 type DeleteDeploymentStatelessResourceParams struct {
 
-	/*DeploymentID
-	  Identifier for the Deployment
+	/* DeploymentID.
 
+	   Identifier for the Deployment
 	*/
 	DeploymentID string
-	/*RefID
-	  User-specified RefId for the Resource
 
+	/* RefID.
+
+	   User-specified RefId for the Resource
 	*/
 	RefID string
-	/*StatelessResourceKind
-	  The kind of stateless resource
 
+	/* StatelessResourceKind.
+
+	   The kind of stateless resource
 	*/
 	StatelessResourceKind string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the delete deployment stateless resource params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteDeploymentStatelessResourceParams) WithDefaults() *DeleteDeploymentStatelessResourceParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the delete deployment stateless resource params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteDeploymentStatelessResourceParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete deployment stateless resource params

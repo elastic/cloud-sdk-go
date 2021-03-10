@@ -52,7 +52,6 @@ func (o *SetExtraCertificateReader) ReadResponse(response runtime.ClientResponse
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,7 +62,7 @@ func NewSetExtraCertificateOK() *SetExtraCertificateOK {
 	return &SetExtraCertificateOK{}
 }
 
-/*SetExtraCertificateOK handles this case with default header values.
+/* SetExtraCertificateOK describes a response with status code 200, with default header values.
 
 Updates extra certificate under given id
 */
@@ -74,7 +73,6 @@ type SetExtraCertificateOK struct {
 func (o *SetExtraCertificateOK) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/security/extra_certs/{cert_id}][%d] setExtraCertificateOK  %+v", 200, o.Payload)
 }
-
 func (o *SetExtraCertificateOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -94,12 +92,13 @@ func NewSetExtraCertificateBadRequest() *SetExtraCertificateBadRequest {
 	return &SetExtraCertificateBadRequest{}
 }
 
-/*SetExtraCertificateBadRequest handles this case with default header values.
+/* SetExtraCertificateBadRequest describes a response with status code 400, with default header values.
 
 Certificate uses unknown cryptographic algorithm. (code: `cert.unknown_cert_algorithm`)
 */
 type SetExtraCertificateBadRequest struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -109,15 +108,18 @@ type SetExtraCertificateBadRequest struct {
 func (o *SetExtraCertificateBadRequest) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/security/extra_certs/{cert_id}][%d] setExtraCertificateBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *SetExtraCertificateBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SetExtraCertificateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

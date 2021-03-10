@@ -58,7 +58,6 @@ func (o *ReAuthenticateReader) ReadResponse(response runtime.ClientResponse, con
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,7 +68,7 @@ func NewReAuthenticateOK() *ReAuthenticateOK {
 	return &ReAuthenticateOK{}
 }
 
-/*ReAuthenticateOK handles this case with default header values.
+/* ReAuthenticateOK describes a response with status code 200, with default header values.
 
 The authentication is successful and token is returned in the body of the response.
 */
@@ -80,7 +79,6 @@ type ReAuthenticateOK struct {
 func (o *ReAuthenticateOK) Error() string {
 	return fmt.Sprintf("[POST /users/auth/reauthenticate][%d] reAuthenticateOK  %+v", 200, o.Payload)
 }
-
 func (o *ReAuthenticateOK) GetPayload() *models.ReAuthenticationResponse {
 	return o.Payload
 }
@@ -102,12 +100,13 @@ func NewReAuthenticateBadRequest() *ReAuthenticateBadRequest {
 	return &ReAuthenticateBadRequest{}
 }
 
-/*ReAuthenticateBadRequest handles this case with default header values.
+/* ReAuthenticateBadRequest describes a response with status code 400, with default header values.
 
 The request is invalid. Specify a different request, then try again. (code: `api_keys.invalid_re_auth_credentials`)
 */
 type ReAuthenticateBadRequest struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -117,15 +116,18 @@ type ReAuthenticateBadRequest struct {
 func (o *ReAuthenticateBadRequest) Error() string {
 	return fmt.Sprintf("[POST /users/auth/reauthenticate][%d] reAuthenticateBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *ReAuthenticateBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *ReAuthenticateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -142,12 +144,13 @@ func NewReAuthenticateRetryWith() *ReAuthenticateRetryWith {
 	return &ReAuthenticateRetryWith{}
 }
 
-/*ReAuthenticateRetryWith handles this case with default header values.
+/* ReAuthenticateRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type ReAuthenticateRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -157,15 +160,18 @@ type ReAuthenticateRetryWith struct {
 func (o *ReAuthenticateRetryWith) Error() string {
 	return fmt.Sprintf("[POST /users/auth/reauthenticate][%d] reAuthenticateRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *ReAuthenticateRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *ReAuthenticateRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

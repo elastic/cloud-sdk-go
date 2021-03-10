@@ -33,69 +33,85 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewDeleteTrafficFilterRulesetAssociationParams creates a new DeleteTrafficFilterRulesetAssociationParams object
-// with the default values initialized.
+// NewDeleteTrafficFilterRulesetAssociationParams creates a new DeleteTrafficFilterRulesetAssociationParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewDeleteTrafficFilterRulesetAssociationParams() *DeleteTrafficFilterRulesetAssociationParams {
-	var ()
 	return &DeleteTrafficFilterRulesetAssociationParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteTrafficFilterRulesetAssociationParamsWithTimeout creates a new DeleteTrafficFilterRulesetAssociationParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewDeleteTrafficFilterRulesetAssociationParamsWithTimeout(timeout time.Duration) *DeleteTrafficFilterRulesetAssociationParams {
-	var ()
 	return &DeleteTrafficFilterRulesetAssociationParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewDeleteTrafficFilterRulesetAssociationParamsWithContext creates a new DeleteTrafficFilterRulesetAssociationParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewDeleteTrafficFilterRulesetAssociationParamsWithContext(ctx context.Context) *DeleteTrafficFilterRulesetAssociationParams {
-	var ()
 	return &DeleteTrafficFilterRulesetAssociationParams{
-
 		Context: ctx,
 	}
 }
 
 // NewDeleteTrafficFilterRulesetAssociationParamsWithHTTPClient creates a new DeleteTrafficFilterRulesetAssociationParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewDeleteTrafficFilterRulesetAssociationParamsWithHTTPClient(client *http.Client) *DeleteTrafficFilterRulesetAssociationParams {
-	var ()
 	return &DeleteTrafficFilterRulesetAssociationParams{
 		HTTPClient: client,
 	}
 }
 
-/*DeleteTrafficFilterRulesetAssociationParams contains all the parameters to send to the API endpoint
-for the delete traffic filter ruleset association operation typically these are written to a http.Request
+/* DeleteTrafficFilterRulesetAssociationParams contains all the parameters to send to the API endpoint
+   for the delete traffic filter ruleset association operation.
+
+   Typically these are written to a http.Request.
 */
 type DeleteTrafficFilterRulesetAssociationParams struct {
 
-	/*AssociatedEntityID
-	  Associated entity ID
+	/* AssociatedEntityID.
 
+	   Associated entity ID
 	*/
 	AssociatedEntityID string
-	/*AssociationType
-	  Association type
 
+	/* AssociationType.
+
+	   Association type
 	*/
 	AssociationType string
-	/*RulesetID
-	  The mandatory ruleset ID.
 
+	/* RulesetID.
+
+	   The mandatory ruleset ID.
 	*/
 	RulesetID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the delete traffic filter ruleset association params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteTrafficFilterRulesetAssociationParams) WithDefaults() *DeleteTrafficFilterRulesetAssociationParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the delete traffic filter ruleset association params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteTrafficFilterRulesetAssociationParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete traffic filter ruleset association params

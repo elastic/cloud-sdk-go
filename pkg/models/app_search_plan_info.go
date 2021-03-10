@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -108,7 +109,6 @@ func (m *AppSearchPlanInfo) Validate(formats strfmt.Registry) error {
 }
 
 func (m *AppSearchPlanInfo) validateAttemptEndTime(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.AttemptEndTime) { // not required
 		return nil
 	}
@@ -121,7 +121,6 @@ func (m *AppSearchPlanInfo) validateAttemptEndTime(formats strfmt.Registry) erro
 }
 
 func (m *AppSearchPlanInfo) validateAttemptStartTime(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.AttemptStartTime) { // not required
 		return nil
 	}
@@ -143,7 +142,6 @@ func (m *AppSearchPlanInfo) validateHealthy(formats strfmt.Registry) error {
 }
 
 func (m *AppSearchPlanInfo) validatePlan(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Plan) { // not required
 		return nil
 	}
@@ -186,7 +184,6 @@ func (m *AppSearchPlanInfo) validatePlanAttemptLog(formats strfmt.Registry) erro
 }
 
 func (m *AppSearchPlanInfo) validatePlanEndTime(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.PlanEndTime) { // not required
 		return nil
 	}
@@ -199,13 +196,80 @@ func (m *AppSearchPlanInfo) validatePlanEndTime(formats strfmt.Registry) error {
 }
 
 func (m *AppSearchPlanInfo) validateSource(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Source) { // not required
 		return nil
 	}
 
 	if m.Source != nil {
 		if err := m.Source.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("source")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this app search plan info based on the context it is used
+func (m *AppSearchPlanInfo) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidatePlan(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidatePlanAttemptLog(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateSource(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *AppSearchPlanInfo) contextValidatePlan(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Plan != nil {
+		if err := m.Plan.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("plan")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *AppSearchPlanInfo) contextValidatePlanAttemptLog(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.PlanAttemptLog); i++ {
+
+		if m.PlanAttemptLog[i] != nil {
+			if err := m.PlanAttemptLog[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("plan_attempt_log" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *AppSearchPlanInfo) contextValidateSource(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Source != nil {
+		if err := m.Source.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("source")
 			}

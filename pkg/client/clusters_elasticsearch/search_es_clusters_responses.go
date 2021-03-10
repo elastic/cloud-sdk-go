@@ -52,7 +52,6 @@ func (o *SearchEsClustersReader) ReadResponse(response runtime.ClientResponse, c
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,7 +62,7 @@ func NewSearchEsClustersOK() *SearchEsClustersOK {
 	return &SearchEsClustersOK{}
 }
 
-/*SearchEsClustersOK handles this case with default header values.
+/* SearchEsClustersOK describes a response with status code 200, with default header values.
 
 A list of Elasticsearch clusters that matched the given search query.
 */
@@ -74,7 +73,6 @@ type SearchEsClustersOK struct {
 func (o *SearchEsClustersOK) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/_search][%d] searchEsClustersOK  %+v", 200, o.Payload)
 }
-
 func (o *SearchEsClustersOK) GetPayload() *models.ElasticsearchClustersInfo {
 	return o.Payload
 }
@@ -96,7 +94,7 @@ func NewSearchEsClustersBadRequest() *SearchEsClustersBadRequest {
 	return &SearchEsClustersBadRequest{}
 }
 
-/*SearchEsClustersBadRequest handles this case with default header values.
+/* SearchEsClustersBadRequest describes a response with status code 400, with default header values.
 
 The search request failed.
 */
@@ -107,7 +105,6 @@ type SearchEsClustersBadRequest struct {
 func (o *SearchEsClustersBadRequest) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/_search][%d] searchEsClustersBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *SearchEsClustersBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

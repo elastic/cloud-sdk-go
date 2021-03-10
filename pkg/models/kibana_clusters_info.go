@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -95,6 +96,38 @@ func (m *KibanaClustersInfo) validateReturnCount(formats strfmt.Registry) error 
 
 	if err := validate.Required("return_count", "body", m.ReturnCount); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this kibana clusters info based on the context it is used
+func (m *KibanaClustersInfo) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateKibanaClusters(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *KibanaClustersInfo) contextValidateKibanaClusters(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.KibanaClusters); i++ {
+
+		if m.KibanaClusters[i] != nil {
+			if err := m.KibanaClusters[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("kibana_clusters" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil

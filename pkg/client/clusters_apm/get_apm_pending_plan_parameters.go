@@ -34,76 +34,90 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetApmPendingPlanParams creates a new GetApmPendingPlanParams object
-// with the default values initialized.
+// NewGetApmPendingPlanParams creates a new GetApmPendingPlanParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetApmPendingPlanParams() *GetApmPendingPlanParams {
-	var (
-		showPlanDefaultsDefault = bool(false)
-	)
 	return &GetApmPendingPlanParams{
-		ShowPlanDefaults: &showPlanDefaultsDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetApmPendingPlanParamsWithTimeout creates a new GetApmPendingPlanParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetApmPendingPlanParamsWithTimeout(timeout time.Duration) *GetApmPendingPlanParams {
-	var (
-		showPlanDefaultsDefault = bool(false)
-	)
 	return &GetApmPendingPlanParams{
-		ShowPlanDefaults: &showPlanDefaultsDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewGetApmPendingPlanParamsWithContext creates a new GetApmPendingPlanParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetApmPendingPlanParamsWithContext(ctx context.Context) *GetApmPendingPlanParams {
-	var (
-		showPlanDefaultsDefault = bool(false)
-	)
 	return &GetApmPendingPlanParams{
-		ShowPlanDefaults: &showPlanDefaultsDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewGetApmPendingPlanParamsWithHTTPClient creates a new GetApmPendingPlanParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetApmPendingPlanParamsWithHTTPClient(client *http.Client) *GetApmPendingPlanParams {
-	var (
-		showPlanDefaultsDefault = bool(false)
-	)
 	return &GetApmPendingPlanParams{
-		ShowPlanDefaults: &showPlanDefaultsDefault,
-		HTTPClient:       client,
+		HTTPClient: client,
 	}
 }
 
-/*GetApmPendingPlanParams contains all the parameters to send to the API endpoint
-for the get apm pending plan operation typically these are written to a http.Request
+/* GetApmPendingPlanParams contains all the parameters to send to the API endpoint
+   for the get apm pending plan operation.
+
+   Typically these are written to a http.Request.
 */
 type GetApmPendingPlanParams struct {
 
-	/*ClusterID
-	  The APM deployment identifier.
+	/* ClusterID.
 
+	   The APM deployment identifier.
 	*/
 	ClusterID string
-	/*ShowPlanDefaults
-	  When plans are shown, includes the default values in the response. NOTE: This option results in large responses.
 
+	/* ShowPlanDefaults.
+
+	   When plans are shown, includes the default values in the response. NOTE: This option results in large responses.
 	*/
 	ShowPlanDefaults *bool
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get apm pending plan params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetApmPendingPlanParams) WithDefaults() *GetApmPendingPlanParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get apm pending plan params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetApmPendingPlanParams) SetDefaults() {
+	var (
+		showPlanDefaultsDefault = bool(false)
+	)
+
+	val := GetApmPendingPlanParams{
+		ShowPlanDefaults: &showPlanDefaultsDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the get apm pending plan params
@@ -178,16 +192,17 @@ func (o *GetApmPendingPlanParams) WriteToRequest(r runtime.ClientRequest, reg st
 
 		// query param show_plan_defaults
 		var qrShowPlanDefaults bool
+
 		if o.ShowPlanDefaults != nil {
 			qrShowPlanDefaults = *o.ShowPlanDefaults
 		}
 		qShowPlanDefaults := swag.FormatBool(qrShowPlanDefaults)
 		if qShowPlanDefaults != "" {
+
 			if err := r.SetQueryParam("show_plan_defaults", qShowPlanDefaults); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

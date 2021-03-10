@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -55,6 +57,10 @@ func (m *Blessings) Validate(formats strfmt.Registry) error {
 
 func (m *Blessings) validateRunnerIdsToBlessing(formats strfmt.Registry) error {
 
+	if err := validate.Required("runner_ids_to_blessing", "body", m.RunnerIdsToBlessing); err != nil {
+		return err
+	}
+
 	for k := range m.RunnerIdsToBlessing {
 
 		if err := validate.Required("runner_ids_to_blessing"+"."+k, "body", m.RunnerIdsToBlessing[k]); err != nil {
@@ -62,6 +68,39 @@ func (m *Blessings) validateRunnerIdsToBlessing(formats strfmt.Registry) error {
 		}
 		if val, ok := m.RunnerIdsToBlessing[k]; ok {
 			if err := val.Validate(formats); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this blessings based on the context it is used
+func (m *Blessings) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateRunnerIdsToBlessing(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *Blessings) contextValidateRunnerIdsToBlessing(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := validate.Required("runner_ids_to_blessing", "body", m.RunnerIdsToBlessing); err != nil {
+		return err
+	}
+
+	for k := range m.RunnerIdsToBlessing {
+
+		if val, ok := m.RunnerIdsToBlessing[k]; ok {
+			if err := val.ContextValidate(ctx, formats); err != nil {
 				return err
 			}
 		}

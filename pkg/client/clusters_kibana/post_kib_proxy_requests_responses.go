@@ -52,7 +52,6 @@ func (o *PostKibProxyRequestsReader) ReadResponse(response runtime.ClientRespons
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,7 +62,7 @@ func NewPostKibProxyRequestsOK() *PostKibProxyRequestsOK {
 	return &PostKibProxyRequestsOK{}
 }
 
-/*PostKibProxyRequestsOK handles this case with default header values.
+/* PostKibProxyRequestsOK describes a response with status code 200, with default header values.
 
 The request has been processed successfully through the proxy
 */
@@ -84,7 +83,7 @@ func NewPostKibProxyRequestsNotFound() *PostKibProxyRequestsNotFound {
 	return &PostKibProxyRequestsNotFound{}
 }
 
-/*PostKibProxyRequestsNotFound handles this case with default header values.
+/* PostKibProxyRequestsNotFound describes a response with status code 404, with default header values.
 
 The cluster specified by {cluster_id} cannot be found (code: 'clusters.cluster_not_found')
 */
@@ -95,7 +94,6 @@ type PostKibProxyRequestsNotFound struct {
 func (o *PostKibProxyRequestsNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/proxy/{kibana_path}][%d] postKibProxyRequestsNotFound  %+v", 404, o.Payload)
 }
-
 func (o *PostKibProxyRequestsNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

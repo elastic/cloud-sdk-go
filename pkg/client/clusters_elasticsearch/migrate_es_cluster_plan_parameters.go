@@ -34,81 +34,96 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewMigrateEsClusterPlanParams creates a new MigrateEsClusterPlanParams object
-// with the default values initialized.
+// NewMigrateEsClusterPlanParams creates a new MigrateEsClusterPlanParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewMigrateEsClusterPlanParams() *MigrateEsClusterPlanParams {
-	var (
-		validateOnlyDefault = bool(false)
-	)
 	return &MigrateEsClusterPlanParams{
-		ValidateOnly: &validateOnlyDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewMigrateEsClusterPlanParamsWithTimeout creates a new MigrateEsClusterPlanParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewMigrateEsClusterPlanParamsWithTimeout(timeout time.Duration) *MigrateEsClusterPlanParams {
-	var (
-		validateOnlyDefault = bool(false)
-	)
 	return &MigrateEsClusterPlanParams{
-		ValidateOnly: &validateOnlyDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewMigrateEsClusterPlanParamsWithContext creates a new MigrateEsClusterPlanParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewMigrateEsClusterPlanParamsWithContext(ctx context.Context) *MigrateEsClusterPlanParams {
-	var (
-		validateOnlyDefault = bool(false)
-	)
 	return &MigrateEsClusterPlanParams{
-		ValidateOnly: &validateOnlyDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewMigrateEsClusterPlanParamsWithHTTPClient creates a new MigrateEsClusterPlanParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewMigrateEsClusterPlanParamsWithHTTPClient(client *http.Client) *MigrateEsClusterPlanParams {
-	var (
-		validateOnlyDefault = bool(false)
-	)
 	return &MigrateEsClusterPlanParams{
-		ValidateOnly: &validateOnlyDefault,
-		HTTPClient:   client,
+		HTTPClient: client,
 	}
 }
 
-/*MigrateEsClusterPlanParams contains all the parameters to send to the API endpoint
-for the migrate es cluster plan operation typically these are written to a http.Request
+/* MigrateEsClusterPlanParams contains all the parameters to send to the API endpoint
+   for the migrate es cluster plan operation.
+
+   Typically these are written to a http.Request.
 */
 type MigrateEsClusterPlanParams struct {
 
-	/*ClusterID
-	  The Elasticsearch cluster identifier.
+	/* ClusterID.
 
+	   The Elasticsearch cluster identifier.
 	*/
 	ClusterID string
-	/*Template
-	  The ID of the deployment template to migrate to
 
+	/* Template.
+
+	   The ID of the deployment template to migrate to
 	*/
 	Template string
-	/*ValidateOnly
-	  When true, validates the cluster definition, but does not perform the update
 
+	/* ValidateOnly.
+
+	   When true, validates the cluster definition, but does not perform the update
 	*/
 	ValidateOnly *bool
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the migrate es cluster plan params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *MigrateEsClusterPlanParams) WithDefaults() *MigrateEsClusterPlanParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the migrate es cluster plan params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *MigrateEsClusterPlanParams) SetDefaults() {
+	var (
+		validateOnlyDefault = bool(false)
+	)
+
+	val := MigrateEsClusterPlanParams{
+		ValidateOnly: &validateOnlyDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the migrate es cluster plan params
@@ -194,6 +209,7 @@ func (o *MigrateEsClusterPlanParams) WriteToRequest(r runtime.ClientRequest, reg
 	qrTemplate := o.Template
 	qTemplate := qrTemplate
 	if qTemplate != "" {
+
 		if err := r.SetQueryParam("template", qTemplate); err != nil {
 			return err
 		}
@@ -203,16 +219,17 @@ func (o *MigrateEsClusterPlanParams) WriteToRequest(r runtime.ClientRequest, reg
 
 		// query param validate_only
 		var qrValidateOnly bool
+
 		if o.ValidateOnly != nil {
 			qrValidateOnly = *o.ValidateOnly
 		}
 		qValidateOnly := swag.FormatBool(qrValidateOnly)
 		if qValidateOnly != "" {
+
 			if err := r.SetQueryParam("validate_only", qValidateOnly); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

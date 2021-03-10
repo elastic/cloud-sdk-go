@@ -70,7 +70,6 @@ func (o *SetDefaultDeploymentDomainNameReader) ReadResponse(response runtime.Cli
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -81,18 +80,21 @@ func NewSetDefaultDeploymentDomainNameOK() *SetDefaultDeploymentDomainNameOK {
 	return &SetDefaultDeploymentDomainNameOK{}
 }
 
-/*SetDefaultDeploymentDomainNameOK handles this case with default header values.
+/* SetDefaultDeploymentDomainNameOK describes a response with status code 200, with default header values.
 
 The Deployment Domain Name was successfully saved.
 */
 type SetDefaultDeploymentDomainNameOK struct {
-	/*The date-time when the resource was created (ISO format relative to UTC)
+
+	/* The date-time when the resource was created (ISO format relative to UTC)
 	 */
 	XCloudResourceCreated string
-	/*The date-time when the resource was last modified (ISO format relative to UTC)
+
+	/* The date-time when the resource was last modified (ISO format relative to UTC)
 	 */
 	XCloudResourceLastModified string
-	/*The resource version, which is used to avoid update conflicts with concurrent operations
+
+	/* The resource version, which is used to avoid update conflicts with concurrent operations
 	 */
 	XCloudResourceVersion string
 
@@ -102,21 +104,32 @@ type SetDefaultDeploymentDomainNameOK struct {
 func (o *SetDefaultDeploymentDomainNameOK) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/networking/deployment_domain_name][%d] setDefaultDeploymentDomainNameOK  %+v", 200, o.Payload)
 }
-
 func (o *SetDefaultDeploymentDomainNameOK) GetPayload() *models.DeploymentDomainName {
 	return o.Payload
 }
 
 func (o *SetDefaultDeploymentDomainNameOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-resource-created
-	o.XCloudResourceCreated = response.GetHeader("x-cloud-resource-created")
+	// hydrates response header x-cloud-resource-created
+	hdrXCloudResourceCreated := response.GetHeader("x-cloud-resource-created")
 
-	// response header x-cloud-resource-last-modified
-	o.XCloudResourceLastModified = response.GetHeader("x-cloud-resource-last-modified")
+	if hdrXCloudResourceCreated != "" {
+		o.XCloudResourceCreated = hdrXCloudResourceCreated
+	}
 
-	// response header x-cloud-resource-version
-	o.XCloudResourceVersion = response.GetHeader("x-cloud-resource-version")
+	// hydrates response header x-cloud-resource-last-modified
+	hdrXCloudResourceLastModified := response.GetHeader("x-cloud-resource-last-modified")
+
+	if hdrXCloudResourceLastModified != "" {
+		o.XCloudResourceLastModified = hdrXCloudResourceLastModified
+	}
+
+	// hydrates response header x-cloud-resource-version
+	hdrXCloudResourceVersion := response.GetHeader("x-cloud-resource-version")
+
+	if hdrXCloudResourceVersion != "" {
+		o.XCloudResourceVersion = hdrXCloudResourceVersion
+	}
 
 	o.Payload = new(models.DeploymentDomainName)
 
@@ -133,12 +146,13 @@ func NewSetDefaultDeploymentDomainNameBadRequest() *SetDefaultDeploymentDomainNa
 	return &SetDefaultDeploymentDomainNameBadRequest{}
 }
 
-/*SetDefaultDeploymentDomainNameBadRequest handles this case with default header values.
+/* SetDefaultDeploymentDomainNameBadRequest describes a response with status code 400, with default header values.
 
 The optimistic locking version format was wrong. (code: `networking.cname.bad_version_format`)
 */
 type SetDefaultDeploymentDomainNameBadRequest struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -148,15 +162,18 @@ type SetDefaultDeploymentDomainNameBadRequest struct {
 func (o *SetDefaultDeploymentDomainNameBadRequest) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/networking/deployment_domain_name][%d] setDefaultDeploymentDomainNameBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *SetDefaultDeploymentDomainNameBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SetDefaultDeploymentDomainNameBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -173,12 +190,13 @@ func NewSetDefaultDeploymentDomainNameNotFound() *SetDefaultDeploymentDomainName
 	return &SetDefaultDeploymentDomainNameNotFound{}
 }
 
-/*SetDefaultDeploymentDomainNameNotFound handles this case with default header values.
+/* SetDefaultDeploymentDomainNameNotFound describes a response with status code 404, with default header values.
 
 There is no configured Deployment Domain Name but optimistic locking was sent. (code: `networking.cname.not_found`)
 */
 type SetDefaultDeploymentDomainNameNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -188,15 +206,18 @@ type SetDefaultDeploymentDomainNameNotFound struct {
 func (o *SetDefaultDeploymentDomainNameNotFound) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/networking/deployment_domain_name][%d] setDefaultDeploymentDomainNameNotFound  %+v", 404, o.Payload)
 }
-
 func (o *SetDefaultDeploymentDomainNameNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SetDefaultDeploymentDomainNameNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -213,12 +234,13 @@ func NewSetDefaultDeploymentDomainNameConflict() *SetDefaultDeploymentDomainName
 	return &SetDefaultDeploymentDomainNameConflict{}
 }
 
-/*SetDefaultDeploymentDomainNameConflict handles this case with default header values.
+/* SetDefaultDeploymentDomainNameConflict describes a response with status code 409, with default header values.
 
 There was an optimistic locking version conflict. (code: `networking.cname.version_conflict`)
 */
 type SetDefaultDeploymentDomainNameConflict struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -228,15 +250,18 @@ type SetDefaultDeploymentDomainNameConflict struct {
 func (o *SetDefaultDeploymentDomainNameConflict) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/networking/deployment_domain_name][%d] setDefaultDeploymentDomainNameConflict  %+v", 409, o.Payload)
 }
-
 func (o *SetDefaultDeploymentDomainNameConflict) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SetDefaultDeploymentDomainNameConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -253,12 +278,13 @@ func NewSetDefaultDeploymentDomainNamePreconditionFailed() *SetDefaultDeployment
 	return &SetDefaultDeploymentDomainNamePreconditionFailed{}
 }
 
-/*SetDefaultDeploymentDomainNamePreconditionFailed handles this case with default header values.
+/* SetDefaultDeploymentDomainNamePreconditionFailed describes a response with status code 412, with default header values.
 
 skip_cascading_operations was false but the Security Deployment already had a pending plan. (code: `security_deployment.cluster_pending_plan_exists`)
 */
 type SetDefaultDeploymentDomainNamePreconditionFailed struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -268,15 +294,18 @@ type SetDefaultDeploymentDomainNamePreconditionFailed struct {
 func (o *SetDefaultDeploymentDomainNamePreconditionFailed) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/networking/deployment_domain_name][%d] setDefaultDeploymentDomainNamePreconditionFailed  %+v", 412, o.Payload)
 }
-
 func (o *SetDefaultDeploymentDomainNamePreconditionFailed) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SetDefaultDeploymentDomainNamePreconditionFailed) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

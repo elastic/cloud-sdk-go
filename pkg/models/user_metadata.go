@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -84,7 +86,6 @@ func (m *UserMetadata) Validate(formats strfmt.Registry) error {
 }
 
 func (m *UserMetadata) validateCreatedAt(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.CreatedAt) { // not required
 		return nil
 	}
@@ -97,7 +98,6 @@ func (m *UserMetadata) validateCreatedAt(formats strfmt.Registry) error {
 }
 
 func (m *UserMetadata) validateFirstLoginAt(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.FirstLoginAt) { // not required
 		return nil
 	}
@@ -110,7 +110,6 @@ func (m *UserMetadata) validateFirstLoginAt(formats strfmt.Registry) error {
 }
 
 func (m *UserMetadata) validateLastLoginAt(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.LastLoginAt) { // not required
 		return nil
 	}
@@ -123,7 +122,6 @@ func (m *UserMetadata) validateLastLoginAt(formats strfmt.Registry) error {
 }
 
 func (m *UserMetadata) validateUpdatedAt(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.UpdatedAt) { // not required
 		return nil
 	}
@@ -132,6 +130,11 @@ func (m *UserMetadata) validateUpdatedAt(formats strfmt.Registry) error {
 		return err
 	}
 
+	return nil
+}
+
+// ContextValidate validates this user metadata based on context it is used
+func (m *UserMetadata) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

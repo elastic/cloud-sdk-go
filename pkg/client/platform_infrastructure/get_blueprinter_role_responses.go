@@ -52,7 +52,6 @@ func (o *GetBlueprinterRoleReader) ReadResponse(response runtime.ClientResponse,
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,7 +62,7 @@ func NewGetBlueprinterRoleOK() *GetBlueprinterRoleOK {
 	return &GetBlueprinterRoleOK{}
 }
 
-/*GetBlueprinterRoleOK handles this case with default header values.
+/* GetBlueprinterRoleOK describes a response with status code 200, with default header values.
 
 The role aggregate definition.
 */
@@ -74,7 +73,6 @@ type GetBlueprinterRoleOK struct {
 func (o *GetBlueprinterRoleOK) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/blueprinter/roles/{blueprinter_role_id}][%d] getBlueprinterRoleOK  %+v", 200, o.Payload)
 }
-
 func (o *GetBlueprinterRoleOK) GetPayload() *models.RoleAggregate {
 	return o.Payload
 }
@@ -96,12 +94,13 @@ func NewGetBlueprinterRoleNotFound() *GetBlueprinterRoleNotFound {
 	return &GetBlueprinterRoleNotFound{}
 }
 
-/*GetBlueprinterRoleNotFound handles this case with default header values.
+/* GetBlueprinterRoleNotFound describes a response with status code 404, with default header values.
 
 The role can't be found. (code: `roles.not_found`)
 */
 type GetBlueprinterRoleNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -111,15 +110,18 @@ type GetBlueprinterRoleNotFound struct {
 func (o *GetBlueprinterRoleNotFound) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/blueprinter/roles/{blueprinter_role_id}][%d] getBlueprinterRoleNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetBlueprinterRoleNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *GetBlueprinterRoleNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

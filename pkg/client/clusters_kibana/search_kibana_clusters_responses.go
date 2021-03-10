@@ -52,7 +52,6 @@ func (o *SearchKibanaClustersReader) ReadResponse(response runtime.ClientRespons
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,7 +62,7 @@ func NewSearchKibanaClustersOK() *SearchKibanaClustersOK {
 	return &SearchKibanaClustersOK{}
 }
 
-/*SearchKibanaClustersOK handles this case with default header values.
+/* SearchKibanaClustersOK describes a response with status code 200, with default header values.
 
 A list of Kibana clusters that matched the given search query.
 */
@@ -74,7 +73,6 @@ type SearchKibanaClustersOK struct {
 func (o *SearchKibanaClustersOK) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/_search][%d] searchKibanaClustersOK  %+v", 200, o.Payload)
 }
-
 func (o *SearchKibanaClustersOK) GetPayload() *models.KibanaClustersInfo {
 	return o.Payload
 }
@@ -96,7 +94,7 @@ func NewSearchKibanaClustersBadRequest() *SearchKibanaClustersBadRequest {
 	return &SearchKibanaClustersBadRequest{}
 }
 
-/*SearchKibanaClustersBadRequest handles this case with default header values.
+/* SearchKibanaClustersBadRequest describes a response with status code 400, with default header values.
 
 The search request failed.
 */
@@ -107,7 +105,6 @@ type SearchKibanaClustersBadRequest struct {
 func (o *SearchKibanaClustersBadRequest) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/_search][%d] searchKibanaClustersBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *SearchKibanaClustersBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

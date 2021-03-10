@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -108,13 +110,40 @@ func (m *RemoteResourceRef) validateElasticsearchRefID(formats strfmt.Registry) 
 }
 
 func (m *RemoteResourceRef) validateInfo(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Info) { // not required
 		return nil
 	}
 
 	if m.Info != nil {
 		if err := m.Info.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("info")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this remote resource ref based on the context it is used
+func (m *RemoteResourceRef) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateInfo(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *RemoteResourceRef) contextValidateInfo(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Info != nil {
+		if err := m.Info.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("info")
 			}

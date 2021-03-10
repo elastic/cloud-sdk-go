@@ -76,7 +76,6 @@ func (o *SetInstanceConfigurationReader) ReadResponse(response runtime.ClientRes
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -87,7 +86,7 @@ func NewSetInstanceConfigurationOK() *SetInstanceConfigurationOK {
 	return &SetInstanceConfigurationOK{}
 }
 
-/*SetInstanceConfigurationOK handles this case with default header values.
+/* SetInstanceConfigurationOK describes a response with status code 200, with default header values.
 
 The instance configuration was updated successfully.
 */
@@ -98,7 +97,6 @@ type SetInstanceConfigurationOK struct {
 func (o *SetInstanceConfigurationOK) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/instances/{id}][%d] setInstanceConfigurationOK  %+v", 200, o.Payload)
 }
-
 func (o *SetInstanceConfigurationOK) GetPayload() *models.IDResponse {
 	return o.Payload
 }
@@ -120,7 +118,7 @@ func NewSetInstanceConfigurationCreated() *SetInstanceConfigurationCreated {
 	return &SetInstanceConfigurationCreated{}
 }
 
-/*SetInstanceConfigurationCreated handles this case with default header values.
+/* SetInstanceConfigurationCreated describes a response with status code 201, with default header values.
 
 The instance configuration was created successfully.
 */
@@ -131,7 +129,6 @@ type SetInstanceConfigurationCreated struct {
 func (o *SetInstanceConfigurationCreated) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/instances/{id}][%d] setInstanceConfigurationCreated  %+v", 201, o.Payload)
 }
-
 func (o *SetInstanceConfigurationCreated) GetPayload() *models.IDResponse {
 	return o.Payload
 }
@@ -153,7 +150,7 @@ func NewSetInstanceConfigurationBadRequest() *SetInstanceConfigurationBadRequest
 	return &SetInstanceConfigurationBadRequest{}
 }
 
-/*SetInstanceConfigurationBadRequest handles this case with default header values.
+/* SetInstanceConfigurationBadRequest describes a response with status code 400, with default header values.
 
 cluster_type in the InstanceConfiguration model is invalid (code: 'configuration.invalid_cluster_type') or the ZooKeeper operation failed due to bad version, etc. (code: 'configuration.instance_configuration_update_failed') or the id in the InstanceConfiguration model is reserved/prohibited (code: 'configuration.configuration_id_reserved') or the discrete_sizes in the InstanceConfiguration model is invalid (code: 'configuration.invalid_discrete_sizes') or the metadata in the InstanceConfiguration model has empty keys or values (code: 'configuration.bad_meta_data')
 */
@@ -164,7 +161,6 @@ type SetInstanceConfigurationBadRequest struct {
 func (o *SetInstanceConfigurationBadRequest) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/instances/{id}][%d] setInstanceConfigurationBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *SetInstanceConfigurationBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -186,7 +182,7 @@ func NewSetInstanceConfigurationForbidden() *SetInstanceConfigurationForbidden {
 	return &SetInstanceConfigurationForbidden{}
 }
 
-/*SetInstanceConfigurationForbidden handles this case with default header values.
+/* SetInstanceConfigurationForbidden describes a response with status code 403, with default header values.
 
 system_owned or deleted_on cannot be set externally (code: 'configuration.system_owned')
 */
@@ -197,7 +193,6 @@ type SetInstanceConfigurationForbidden struct {
 func (o *SetInstanceConfigurationForbidden) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/instances/{id}][%d] setInstanceConfigurationForbidden  %+v", 403, o.Payload)
 }
-
 func (o *SetInstanceConfigurationForbidden) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -219,7 +214,7 @@ func NewSetInstanceConfigurationNotFound() *SetInstanceConfigurationNotFound {
 	return &SetInstanceConfigurationNotFound{}
 }
 
-/*SetInstanceConfigurationNotFound handles this case with default header values.
+/* SetInstanceConfigurationNotFound describes a response with status code 404, with default header values.
 
 Instance configuration specified by {id} cannot be found or the operation failed (code: 'configuration.instance_configuration_not_found')
 */
@@ -230,7 +225,6 @@ type SetInstanceConfigurationNotFound struct {
 func (o *SetInstanceConfigurationNotFound) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/instances/{id}][%d] setInstanceConfigurationNotFound  %+v", 404, o.Payload)
 }
-
 func (o *SetInstanceConfigurationNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -252,7 +246,7 @@ func NewSetInstanceConfigurationRetryWith() *SetInstanceConfigurationRetryWith {
 	return &SetInstanceConfigurationRetryWith{}
 }
 
-/*SetInstanceConfigurationRetryWith handles this case with default header values.
+/* SetInstanceConfigurationRetryWith describes a response with status code 449, with default header values.
 
 elevated permissions are required. (code: '"root.unauthorized.rbac.elevated_permissions_required"')
 */
@@ -263,7 +257,6 @@ type SetInstanceConfigurationRetryWith struct {
 func (o *SetInstanceConfigurationRetryWith) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/instances/{id}][%d] setInstanceConfigurationRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *SetInstanceConfigurationRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

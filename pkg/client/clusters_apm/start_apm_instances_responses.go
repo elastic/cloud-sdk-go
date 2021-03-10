@@ -64,7 +64,6 @@ func (o *StartApmInstancesReader) ReadResponse(response runtime.ClientResponse, 
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,7 +74,7 @@ func NewStartApmInstancesAccepted() *StartApmInstancesAccepted {
 	return &StartApmInstancesAccepted{}
 }
 
-/*StartApmInstancesAccepted handles this case with default header values.
+/* StartApmInstancesAccepted describes a response with status code 202, with default header values.
 
 The start command was issued successfully, use the "GET" command on the /{cluster_id} resource to monitor progress
 */
@@ -86,7 +85,6 @@ type StartApmInstancesAccepted struct {
 func (o *StartApmInstancesAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/instances/{instance_ids}/_start][%d] startApmInstancesAccepted  %+v", 202, o.Payload)
 }
-
 func (o *StartApmInstancesAccepted) GetPayload() *models.ClusterCommandResponse {
 	return o.Payload
 }
@@ -108,12 +106,13 @@ func NewStartApmInstancesForbidden() *StartApmInstancesForbidden {
 	return &StartApmInstancesForbidden{}
 }
 
-/*StartApmInstancesForbidden handles this case with default header values.
+/* StartApmInstancesForbidden describes a response with status code 403, with default header values.
 
 The start command was prohibited for the given cluster. (code: `clusters.command_prohibited`)
 */
 type StartApmInstancesForbidden struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -123,15 +122,18 @@ type StartApmInstancesForbidden struct {
 func (o *StartApmInstancesForbidden) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/instances/{instance_ids}/_start][%d] startApmInstancesForbidden  %+v", 403, o.Payload)
 }
-
 func (o *StartApmInstancesForbidden) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *StartApmInstancesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -148,13 +150,14 @@ func NewStartApmInstancesNotFound() *StartApmInstancesNotFound {
 	return &StartApmInstancesNotFound{}
 }
 
-/*StartApmInstancesNotFound handles this case with default header values.
+/* StartApmInstancesNotFound describes a response with status code 404, with default header values.
 
-* The cluster specified by {cluster_id} cannot be found. (code: `clusters.cluster_not_found`)
+ * The cluster specified by {cluster_id} cannot be found. (code: `clusters.cluster_not_found`)
 * One or more of the instances specified at {instance_ids} could not be found. (code: `clusters.instances_not_found`)
- */
+*/
 type StartApmInstancesNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -164,15 +167,18 @@ type StartApmInstancesNotFound struct {
 func (o *StartApmInstancesNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/instances/{instance_ids}/_start][%d] startApmInstancesNotFound  %+v", 404, o.Payload)
 }
-
 func (o *StartApmInstancesNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *StartApmInstancesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -189,12 +195,13 @@ func NewStartApmInstancesRetryWith() *StartApmInstancesRetryWith {
 	return &StartApmInstancesRetryWith{}
 }
 
-/*StartApmInstancesRetryWith handles this case with default header values.
+/* StartApmInstancesRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type StartApmInstancesRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -204,15 +211,18 @@ type StartApmInstancesRetryWith struct {
 func (o *StartApmInstancesRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/instances/{instance_ids}/_start][%d] startApmInstancesRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *StartApmInstancesRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *StartApmInstancesRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

@@ -42,9 +42,12 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientOption is the option for Client methods
+type ClientOption func(*runtime.ClientOperation)
+
 // ClientService is the interface for Client methods
 type ClientService interface {
-	SearchClusters(params *SearchClustersParams, authInfo runtime.ClientAuthInfoWriter) (*SearchClustersOK, error)
+	SearchClusters(params *SearchClustersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SearchClustersOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -54,13 +57,12 @@ type ClientService interface {
 
   DEPRECATED (Scheduled to be removed in the next major version): Retrieves the information for all of the instances that match the specified query.
 */
-func (a *Client) SearchClusters(params *SearchClustersParams, authInfo runtime.ClientAuthInfoWriter) (*SearchClustersOK, error) {
+func (a *Client) SearchClusters(params *SearchClustersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SearchClustersOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSearchClustersParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "search-clusters",
 		Method:             "POST",
 		PathPattern:        "/clusters/_search",
@@ -72,7 +74,12 @@ func (a *Client) SearchClusters(params *SearchClustersParams, authInfo runtime.C
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}

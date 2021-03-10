@@ -33,64 +33,79 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewSetExtraCertificateParams creates a new SetExtraCertificateParams object
-// with the default values initialized.
+// NewSetExtraCertificateParams creates a new SetExtraCertificateParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewSetExtraCertificateParams() *SetExtraCertificateParams {
-	var ()
 	return &SetExtraCertificateParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewSetExtraCertificateParamsWithTimeout creates a new SetExtraCertificateParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewSetExtraCertificateParamsWithTimeout(timeout time.Duration) *SetExtraCertificateParams {
-	var ()
 	return &SetExtraCertificateParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewSetExtraCertificateParamsWithContext creates a new SetExtraCertificateParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewSetExtraCertificateParamsWithContext(ctx context.Context) *SetExtraCertificateParams {
-	var ()
 	return &SetExtraCertificateParams{
-
 		Context: ctx,
 	}
 }
 
 // NewSetExtraCertificateParamsWithHTTPClient creates a new SetExtraCertificateParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewSetExtraCertificateParamsWithHTTPClient(client *http.Client) *SetExtraCertificateParams {
-	var ()
 	return &SetExtraCertificateParams{
 		HTTPClient: client,
 	}
 }
 
-/*SetExtraCertificateParams contains all the parameters to send to the API endpoint
-for the set extra certificate operation typically these are written to a http.Request
+/* SetExtraCertificateParams contains all the parameters to send to the API endpoint
+   for the set extra certificate operation.
+
+   Typically these are written to a http.Request.
 */
 type SetExtraCertificateParams struct {
 
-	/*Body
-	  Extra certificate bundle
+	/* Body.
 
+	   Extra certificate bundle
 	*/
 	Body string
-	/*CertID
-	  The extra certificate Id. For example, `star_my_domain_com`.
 
+	/* CertID.
+
+	   The extra certificate Id. For example, `star_my_domain_com`.
 	*/
 	CertID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the set extra certificate params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetExtraCertificateParams) WithDefaults() *SetExtraCertificateParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the set extra certificate params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetExtraCertificateParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the set extra certificate params
@@ -155,7 +170,6 @@ func (o *SetExtraCertificateParams) WriteToRequest(r runtime.ClientRequest, reg 
 		return err
 	}
 	var res []error
-
 	if err := r.SetBodyParam(o.Body); err != nil {
 		return err
 	}

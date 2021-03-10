@@ -36,81 +36,96 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewUpdateEsClusterPlanParams creates a new UpdateEsClusterPlanParams object
-// with the default values initialized.
+// NewUpdateEsClusterPlanParams creates a new UpdateEsClusterPlanParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewUpdateEsClusterPlanParams() *UpdateEsClusterPlanParams {
-	var (
-		validateOnlyDefault = bool(false)
-	)
 	return &UpdateEsClusterPlanParams{
-		ValidateOnly: &validateOnlyDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewUpdateEsClusterPlanParamsWithTimeout creates a new UpdateEsClusterPlanParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewUpdateEsClusterPlanParamsWithTimeout(timeout time.Duration) *UpdateEsClusterPlanParams {
-	var (
-		validateOnlyDefault = bool(false)
-	)
 	return &UpdateEsClusterPlanParams{
-		ValidateOnly: &validateOnlyDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewUpdateEsClusterPlanParamsWithContext creates a new UpdateEsClusterPlanParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewUpdateEsClusterPlanParamsWithContext(ctx context.Context) *UpdateEsClusterPlanParams {
-	var (
-		validateOnlyDefault = bool(false)
-	)
 	return &UpdateEsClusterPlanParams{
-		ValidateOnly: &validateOnlyDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewUpdateEsClusterPlanParamsWithHTTPClient creates a new UpdateEsClusterPlanParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewUpdateEsClusterPlanParamsWithHTTPClient(client *http.Client) *UpdateEsClusterPlanParams {
-	var (
-		validateOnlyDefault = bool(false)
-	)
 	return &UpdateEsClusterPlanParams{
-		ValidateOnly: &validateOnlyDefault,
-		HTTPClient:   client,
+		HTTPClient: client,
 	}
 }
 
-/*UpdateEsClusterPlanParams contains all the parameters to send to the API endpoint
-for the update es cluster plan operation typically these are written to a http.Request
+/* UpdateEsClusterPlanParams contains all the parameters to send to the API endpoint
+   for the update es cluster plan operation.
+
+   Typically these are written to a http.Request.
 */
 type UpdateEsClusterPlanParams struct {
 
-	/*Body
-	  The update plan definition
+	/* Body.
 
+	   The update plan definition
 	*/
 	Body *models.ElasticsearchClusterPlan
-	/*ClusterID
-	  The Elasticsearch cluster identifier.
 
+	/* ClusterID.
+
+	   The Elasticsearch cluster identifier.
 	*/
 	ClusterID string
-	/*ValidateOnly
-	  When `true`, validates the cluster definition without performing the update.
 
+	/* ValidateOnly.
+
+	   When `true`, validates the cluster definition without performing the update.
 	*/
 	ValidateOnly *bool
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the update es cluster plan params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdateEsClusterPlanParams) WithDefaults() *UpdateEsClusterPlanParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the update es cluster plan params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdateEsClusterPlanParams) SetDefaults() {
+	var (
+		validateOnlyDefault = bool(false)
+	)
+
+	val := UpdateEsClusterPlanParams{
+		ValidateOnly: &validateOnlyDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the update es cluster plan params
@@ -186,7 +201,6 @@ func (o *UpdateEsClusterPlanParams) WriteToRequest(r runtime.ClientRequest, reg 
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err
@@ -202,16 +216,17 @@ func (o *UpdateEsClusterPlanParams) WriteToRequest(r runtime.ClientRequest, reg 
 
 		// query param validate_only
 		var qrValidateOnly bool
+
 		if o.ValidateOnly != nil {
 			qrValidateOnly = *o.ValidateOnly
 		}
 		qValidateOnly := swag.FormatBool(qrValidateOnly)
 		if qValidateOnly != "" {
+
 			if err := r.SetQueryParam("validate_only", qValidateOnly); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

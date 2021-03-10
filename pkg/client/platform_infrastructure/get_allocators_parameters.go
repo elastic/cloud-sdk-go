@@ -34,74 +34,91 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetAllocatorsParams creates a new GetAllocatorsParams object
-// with the default values initialized.
+// NewGetAllocatorsParams creates a new GetAllocatorsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetAllocatorsParams() *GetAllocatorsParams {
-	var ()
 	return &GetAllocatorsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetAllocatorsParamsWithTimeout creates a new GetAllocatorsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetAllocatorsParamsWithTimeout(timeout time.Duration) *GetAllocatorsParams {
-	var ()
 	return &GetAllocatorsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetAllocatorsParamsWithContext creates a new GetAllocatorsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetAllocatorsParamsWithContext(ctx context.Context) *GetAllocatorsParams {
-	var ()
 	return &GetAllocatorsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetAllocatorsParamsWithHTTPClient creates a new GetAllocatorsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetAllocatorsParamsWithHTTPClient(client *http.Client) *GetAllocatorsParams {
-	var ()
 	return &GetAllocatorsParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetAllocatorsParams contains all the parameters to send to the API endpoint
-for the get allocators operation typically these are written to a http.Request
+/* GetAllocatorsParams contains all the parameters to send to the API endpoint
+   for the get allocators operation.
+
+   Typically these are written to a http.Request.
 */
 type GetAllocatorsParams struct {
 
-	/*From
-	  (Optional) The offset from the first result you want to fetch. Defaults to 0.
+	/* From.
 
+	   (Optional) The offset from the first result you want to fetch. Defaults to 0.
 	*/
 	From *int64
-	/*Q
-	  (Optional) The query that filters the allocators. Maps to an Elasticsearch `query_string` query.
 
+	/* Q.
+
+	   (Optional) The query that filters the allocators. Maps to an Elasticsearch `query_string` query.
 	*/
 	Q *string
-	/*Size
-	  (Optional) The maximum number of search results to return. Defaults to 100.
 
+	/* Size.
+
+	   (Optional) The maximum number of search results to return. Defaults to 100.
 	*/
 	Size *int64
-	/*Sort
-	  (Optional) An comma-separated array of fields to sort the search results by. Defaults to `allocator_id`.
 
+	/* Sort.
+
+	   (Optional) An comma-separated array of fields to sort the search results by. Defaults to `allocator_id`.
 	*/
 	Sort *string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get allocators params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetAllocatorsParams) WithDefaults() *GetAllocatorsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get allocators params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetAllocatorsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get allocators params
@@ -193,64 +210,68 @@ func (o *GetAllocatorsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 
 		// query param from
 		var qrFrom int64
+
 		if o.From != nil {
 			qrFrom = *o.From
 		}
 		qFrom := swag.FormatInt64(qrFrom)
 		if qFrom != "" {
+
 			if err := r.SetQueryParam("from", qFrom); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.Q != nil {
 
 		// query param q
 		var qrQ string
+
 		if o.Q != nil {
 			qrQ = *o.Q
 		}
 		qQ := qrQ
 		if qQ != "" {
+
 			if err := r.SetQueryParam("q", qQ); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.Size != nil {
 
 		// query param size
 		var qrSize int64
+
 		if o.Size != nil {
 			qrSize = *o.Size
 		}
 		qSize := swag.FormatInt64(qrSize)
 		if qSize != "" {
+
 			if err := r.SetQueryParam("size", qSize); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.Sort != nil {
 
 		// query param sort
 		var qrSort string
+
 		if o.Sort != nil {
 			qrSort = *o.Sort
 		}
 		qSort := qrSort
 		if qSort != "" {
+
 			if err := r.SetQueryParam("sort", qSort); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

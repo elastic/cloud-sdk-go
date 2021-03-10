@@ -33,59 +33,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetAllocatorLoggingSettingsParams creates a new GetAllocatorLoggingSettingsParams object
-// with the default values initialized.
+// NewGetAllocatorLoggingSettingsParams creates a new GetAllocatorLoggingSettingsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetAllocatorLoggingSettingsParams() *GetAllocatorLoggingSettingsParams {
-	var ()
 	return &GetAllocatorLoggingSettingsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetAllocatorLoggingSettingsParamsWithTimeout creates a new GetAllocatorLoggingSettingsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetAllocatorLoggingSettingsParamsWithTimeout(timeout time.Duration) *GetAllocatorLoggingSettingsParams {
-	var ()
 	return &GetAllocatorLoggingSettingsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetAllocatorLoggingSettingsParamsWithContext creates a new GetAllocatorLoggingSettingsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetAllocatorLoggingSettingsParamsWithContext(ctx context.Context) *GetAllocatorLoggingSettingsParams {
-	var ()
 	return &GetAllocatorLoggingSettingsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetAllocatorLoggingSettingsParamsWithHTTPClient creates a new GetAllocatorLoggingSettingsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetAllocatorLoggingSettingsParamsWithHTTPClient(client *http.Client) *GetAllocatorLoggingSettingsParams {
-	var ()
 	return &GetAllocatorLoggingSettingsParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetAllocatorLoggingSettingsParams contains all the parameters to send to the API endpoint
-for the get allocator logging settings operation typically these are written to a http.Request
+/* GetAllocatorLoggingSettingsParams contains all the parameters to send to the API endpoint
+   for the get allocator logging settings operation.
+
+   Typically these are written to a http.Request.
 */
 type GetAllocatorLoggingSettingsParams struct {
 
-	/*AllocatorID
-	  The allocator identifier.
+	/* AllocatorID.
 
+	   The allocator identifier.
 	*/
 	AllocatorID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get allocator logging settings params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetAllocatorLoggingSettingsParams) WithDefaults() *GetAllocatorLoggingSettingsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get allocator logging settings params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetAllocatorLoggingSettingsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get allocator logging settings params

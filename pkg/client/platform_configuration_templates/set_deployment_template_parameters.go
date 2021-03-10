@@ -36,86 +36,102 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewSetDeploymentTemplateParams creates a new SetDeploymentTemplateParams object
-// with the default values initialized.
+// NewSetDeploymentTemplateParams creates a new SetDeploymentTemplateParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewSetDeploymentTemplateParams() *SetDeploymentTemplateParams {
-	var (
-		createOnlyDefault = bool(false)
-	)
 	return &SetDeploymentTemplateParams{
-		CreateOnly: &createOnlyDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewSetDeploymentTemplateParamsWithTimeout creates a new SetDeploymentTemplateParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewSetDeploymentTemplateParamsWithTimeout(timeout time.Duration) *SetDeploymentTemplateParams {
-	var (
-		createOnlyDefault = bool(false)
-	)
 	return &SetDeploymentTemplateParams{
-		CreateOnly: &createOnlyDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewSetDeploymentTemplateParamsWithContext creates a new SetDeploymentTemplateParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewSetDeploymentTemplateParamsWithContext(ctx context.Context) *SetDeploymentTemplateParams {
-	var (
-		createOnlyDefault = bool(false)
-	)
 	return &SetDeploymentTemplateParams{
-		CreateOnly: &createOnlyDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewSetDeploymentTemplateParamsWithHTTPClient creates a new SetDeploymentTemplateParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewSetDeploymentTemplateParamsWithHTTPClient(client *http.Client) *SetDeploymentTemplateParams {
-	var (
-		createOnlyDefault = bool(false)
-	)
 	return &SetDeploymentTemplateParams{
-		CreateOnly: &createOnlyDefault,
 		HTTPClient: client,
 	}
 }
 
-/*SetDeploymentTemplateParams contains all the parameters to send to the API endpoint
-for the set deployment template operation typically these are written to a http.Request
+/* SetDeploymentTemplateParams contains all the parameters to send to the API endpoint
+   for the set deployment template operation.
+
+   Typically these are written to a http.Request.
 */
 type SetDeploymentTemplateParams struct {
 
-	/*Body
-	  The deployment template definition.
+	/* Body.
 
+	   The deployment template definition.
 	*/
 	Body *models.DeploymentTemplateInfo
-	/*CreateOnly
-	  If true, will fail if the deployment template already exists at the given id
 
+	/* CreateOnly.
+
+	   If true, will fail if the deployment template already exists at the given id
 	*/
 	CreateOnly *bool
-	/*TemplateID
-	  The identifier for the deployment template.
 
+	/* TemplateID.
+
+	   The identifier for the deployment template.
 	*/
 	TemplateID string
-	/*Version
-	  If specified, checks for conflicts against the version of the template (returned in 'x-cloud-resource-version' of the GET request)
 
+	/* Version.
+
+	   If specified, checks for conflicts against the version of the template (returned in 'x-cloud-resource-version' of the GET request)
 	*/
 	Version *string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the set deployment template params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetDeploymentTemplateParams) WithDefaults() *SetDeploymentTemplateParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the set deployment template params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetDeploymentTemplateParams) SetDefaults() {
+	var (
+		createOnlyDefault = bool(false)
+	)
+
+	val := SetDeploymentTemplateParams{
+		CreateOnly: &createOnlyDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the set deployment template params
@@ -202,7 +218,6 @@ func (o *SetDeploymentTemplateParams) WriteToRequest(r runtime.ClientRequest, re
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err
@@ -213,16 +228,17 @@ func (o *SetDeploymentTemplateParams) WriteToRequest(r runtime.ClientRequest, re
 
 		// query param create_only
 		var qrCreateOnly bool
+
 		if o.CreateOnly != nil {
 			qrCreateOnly = *o.CreateOnly
 		}
 		qCreateOnly := swag.FormatBool(qrCreateOnly)
 		if qCreateOnly != "" {
+
 			if err := r.SetQueryParam("create_only", qCreateOnly); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	// path param template_id
@@ -234,16 +250,17 @@ func (o *SetDeploymentTemplateParams) WriteToRequest(r runtime.ClientRequest, re
 
 		// query param version
 		var qrVersion string
+
 		if o.Version != nil {
 			qrVersion = *o.Version
 		}
 		qVersion := qrVersion
 		if qVersion != "" {
+
 			if err := r.SetQueryParam("version", qVersion); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

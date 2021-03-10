@@ -33,64 +33,79 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewSetTLSCertificateParams creates a new SetTLSCertificateParams object
-// with the default values initialized.
+// NewSetTLSCertificateParams creates a new SetTLSCertificateParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewSetTLSCertificateParams() *SetTLSCertificateParams {
-	var ()
 	return &SetTLSCertificateParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewSetTLSCertificateParamsWithTimeout creates a new SetTLSCertificateParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewSetTLSCertificateParamsWithTimeout(timeout time.Duration) *SetTLSCertificateParams {
-	var ()
 	return &SetTLSCertificateParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewSetTLSCertificateParamsWithContext creates a new SetTLSCertificateParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewSetTLSCertificateParamsWithContext(ctx context.Context) *SetTLSCertificateParams {
-	var ()
 	return &SetTLSCertificateParams{
-
 		Context: ctx,
 	}
 }
 
 // NewSetTLSCertificateParamsWithHTTPClient creates a new SetTLSCertificateParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewSetTLSCertificateParamsWithHTTPClient(client *http.Client) *SetTLSCertificateParams {
-	var ()
 	return &SetTLSCertificateParams{
 		HTTPClient: client,
 	}
 }
 
-/*SetTLSCertificateParams contains all the parameters to send to the API endpoint
-for the set tls certificate operation typically these are written to a http.Request
+/* SetTLSCertificateParams contains all the parameters to send to the API endpoint
+   for the set tls certificate operation.
+
+   Typically these are written to a http.Request.
 */
 type SetTLSCertificateParams struct {
 
-	/*Chain
-	  New certificate chain: the PEM encoded RSA private key, followed by the server certificate, followed by the CA certificate
+	/* Chain.
 
+	   New certificate chain: the PEM encoded RSA private key, followed by the server certificate, followed by the CA certificate
 	*/
 	Chain string
-	/*ServiceName
-	  The service certificate chain to read.
 
+	/* ServiceName.
+
+	   The service certificate chain to read.
 	*/
 	ServiceName string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the set tls certificate params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetTLSCertificateParams) WithDefaults() *SetTLSCertificateParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the set tls certificate params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetTLSCertificateParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the set tls certificate params
@@ -155,7 +170,6 @@ func (o *SetTLSCertificateParams) WriteToRequest(r runtime.ClientRequest, reg st
 		return err
 	}
 	var res []error
-
 	if err := r.SetBodyParam(o.Chain); err != nil {
 		return err
 	}

@@ -34,91 +34,108 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewShutdownDeploymentStatelessResourceParams creates a new ShutdownDeploymentStatelessResourceParams object
-// with the default values initialized.
+// NewShutdownDeploymentStatelessResourceParams creates a new ShutdownDeploymentStatelessResourceParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewShutdownDeploymentStatelessResourceParams() *ShutdownDeploymentStatelessResourceParams {
-	var (
-		skipSnapshotDefault = bool(false)
-	)
 	return &ShutdownDeploymentStatelessResourceParams{
-		SkipSnapshot: &skipSnapshotDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewShutdownDeploymentStatelessResourceParamsWithTimeout creates a new ShutdownDeploymentStatelessResourceParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewShutdownDeploymentStatelessResourceParamsWithTimeout(timeout time.Duration) *ShutdownDeploymentStatelessResourceParams {
-	var (
-		skipSnapshotDefault = bool(false)
-	)
 	return &ShutdownDeploymentStatelessResourceParams{
-		SkipSnapshot: &skipSnapshotDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewShutdownDeploymentStatelessResourceParamsWithContext creates a new ShutdownDeploymentStatelessResourceParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewShutdownDeploymentStatelessResourceParamsWithContext(ctx context.Context) *ShutdownDeploymentStatelessResourceParams {
-	var (
-		skipSnapshotDefault = bool(false)
-	)
 	return &ShutdownDeploymentStatelessResourceParams{
-		SkipSnapshot: &skipSnapshotDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewShutdownDeploymentStatelessResourceParamsWithHTTPClient creates a new ShutdownDeploymentStatelessResourceParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewShutdownDeploymentStatelessResourceParamsWithHTTPClient(client *http.Client) *ShutdownDeploymentStatelessResourceParams {
-	var (
-		skipSnapshotDefault = bool(false)
-	)
 	return &ShutdownDeploymentStatelessResourceParams{
-		SkipSnapshot: &skipSnapshotDefault,
-		HTTPClient:   client,
+		HTTPClient: client,
 	}
 }
 
-/*ShutdownDeploymentStatelessResourceParams contains all the parameters to send to the API endpoint
-for the shutdown deployment stateless resource operation typically these are written to a http.Request
+/* ShutdownDeploymentStatelessResourceParams contains all the parameters to send to the API endpoint
+   for the shutdown deployment stateless resource operation.
+
+   Typically these are written to a http.Request.
 */
 type ShutdownDeploymentStatelessResourceParams struct {
 
-	/*DeploymentID
-	  Identifier for the Deployment.
+	/* DeploymentID.
 
+	   Identifier for the Deployment.
 	*/
 	DeploymentID string
-	/*Hide
-	  Hide cluster on shutdown. Hidden clusters are not listed by default. Only applicable for Platform administrators.
 
+	/* Hide.
+
+	   Hide cluster on shutdown. Hidden clusters are not listed by default. Only applicable for Platform administrators.
 	*/
 	Hide *bool
-	/*RefID
-	  User-specified RefId for the Resource.
 
+	/* RefID.
+
+	   User-specified RefId for the Resource.
 	*/
 	RefID string
-	/*SkipSnapshot
-	  If true, will skip taking a snapshot of the cluster before shutting the cluster down (if even possible)
 
+	/* SkipSnapshot.
+
+	   If true, will skip taking a snapshot of the cluster before shutting the cluster down (if even possible)
 	*/
 	SkipSnapshot *bool
-	/*StatelessResourceKind
-	  The kind of stateless resource
 
+	/* StatelessResourceKind.
+
+	   The kind of stateless resource
 	*/
 	StatelessResourceKind string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the shutdown deployment stateless resource params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ShutdownDeploymentStatelessResourceParams) WithDefaults() *ShutdownDeploymentStatelessResourceParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the shutdown deployment stateless resource params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ShutdownDeploymentStatelessResourceParams) SetDefaults() {
+	var (
+		skipSnapshotDefault = bool(false)
+	)
+
+	val := ShutdownDeploymentStatelessResourceParams{
+		SkipSnapshot: &skipSnapshotDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the shutdown deployment stateless resource params
@@ -226,16 +243,17 @@ func (o *ShutdownDeploymentStatelessResourceParams) WriteToRequest(r runtime.Cli
 
 		// query param hide
 		var qrHide bool
+
 		if o.Hide != nil {
 			qrHide = *o.Hide
 		}
 		qHide := swag.FormatBool(qrHide)
 		if qHide != "" {
+
 			if err := r.SetQueryParam("hide", qHide); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	// path param ref_id
@@ -247,16 +265,17 @@ func (o *ShutdownDeploymentStatelessResourceParams) WriteToRequest(r runtime.Cli
 
 		// query param skip_snapshot
 		var qrSkipSnapshot bool
+
 		if o.SkipSnapshot != nil {
 			qrSkipSnapshot = *o.SkipSnapshot
 		}
 		qSkipSnapshot := swag.FormatBool(qrSkipSnapshot)
 		if qSkipSnapshot != "" {
+
 			if err := r.SetQueryParam("skip_snapshot", qSkipSnapshot); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	// path param stateless_resource_kind

@@ -46,7 +46,6 @@ func (o *GetUsersReader) ReadResponse(response runtime.ClientResponse, consumer 
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,7 +56,7 @@ func NewGetUsersOK() *GetUsersOK {
 	return &GetUsersOK{}
 }
 
-/*GetUsersOK handles this case with default header values.
+/* GetUsersOK describes a response with status code 200, with default header values.
 
 Users successfully fetched
 */
@@ -68,7 +67,6 @@ type GetUsersOK struct {
 func (o *GetUsersOK) Error() string {
 	return fmt.Sprintf("[GET /users][%d] getUsersOK  %+v", 200, o.Payload)
 }
-
 func (o *GetUsersOK) GetPayload() *models.UserList {
 	return o.Payload
 }

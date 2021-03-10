@@ -52,7 +52,6 @@ func (o *GenerateEsClusterDiagnosticsReader) ReadResponse(response runtime.Clien
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,7 +62,7 @@ func NewGenerateEsClusterDiagnosticsOK() *GenerateEsClusterDiagnosticsOK {
 	return &GenerateEsClusterDiagnosticsOK{}
 }
 
-/*GenerateEsClusterDiagnosticsOK handles this case with default header values.
+/* GenerateEsClusterDiagnosticsOK describes a response with status code 200, with default header values.
 
 The support diagnostic bundle was successfully generated
 */
@@ -74,7 +73,6 @@ type GenerateEsClusterDiagnosticsOK struct {
 func (o *GenerateEsClusterDiagnosticsOK) Error() string {
 	return fmt.Sprintf("[GET /clusters/elasticsearch/{cluster_id}/support/_generate-diagnostics][%d] generateEsClusterDiagnosticsOK  %+v", 200, o.Payload)
 }
-
 func (o *GenerateEsClusterDiagnosticsOK) GetPayload() strfmt.Base64 {
 	return o.Payload
 }
@@ -94,12 +92,13 @@ func NewGenerateEsClusterDiagnosticsNotFound() *GenerateEsClusterDiagnosticsNotF
 	return &GenerateEsClusterDiagnosticsNotFound{}
 }
 
-/*GenerateEsClusterDiagnosticsNotFound handles this case with default header values.
+/* GenerateEsClusterDiagnosticsNotFound describes a response with status code 404, with default header values.
 
 The cluster specified by {cluster_id} cannot be found. (code: `clusters.cluster_not_found`)
 */
 type GenerateEsClusterDiagnosticsNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -109,15 +108,18 @@ type GenerateEsClusterDiagnosticsNotFound struct {
 func (o *GenerateEsClusterDiagnosticsNotFound) Error() string {
 	return fmt.Sprintf("[GET /clusters/elasticsearch/{cluster_id}/support/_generate-diagnostics][%d] generateEsClusterDiagnosticsNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GenerateEsClusterDiagnosticsNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *GenerateEsClusterDiagnosticsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

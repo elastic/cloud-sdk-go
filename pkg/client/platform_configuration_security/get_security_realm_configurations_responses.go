@@ -46,7 +46,6 @@ func (o *GetSecurityRealmConfigurationsReader) ReadResponse(response runtime.Cli
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,7 +56,7 @@ func NewGetSecurityRealmConfigurationsOK() *GetSecurityRealmConfigurationsOK {
 	return &GetSecurityRealmConfigurationsOK{}
 }
 
-/*GetSecurityRealmConfigurationsOK handles this case with default header values.
+/* GetSecurityRealmConfigurationsOK describes a response with status code 200, with default header values.
 
 The security realm configurations were successfully returned
 */
@@ -68,7 +67,6 @@ type GetSecurityRealmConfigurationsOK struct {
 func (o *GetSecurityRealmConfigurationsOK) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/security/realms][%d] getSecurityRealmConfigurationsOK  %+v", 200, o.Payload)
 }
-
 func (o *GetSecurityRealmConfigurationsOK) GetPayload() *models.SecurityRealmInfoList {
 	return o.Payload
 }

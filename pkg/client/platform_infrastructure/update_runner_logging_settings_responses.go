@@ -58,7 +58,6 @@ func (o *UpdateRunnerLoggingSettingsReader) ReadResponse(response runtime.Client
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,18 +68,21 @@ func NewUpdateRunnerLoggingSettingsOK() *UpdateRunnerLoggingSettingsOK {
 	return &UpdateRunnerLoggingSettingsOK{}
 }
 
-/*UpdateRunnerLoggingSettingsOK handles this case with default header values.
+/* UpdateRunnerLoggingSettingsOK describes a response with status code 200, with default header values.
 
 The updated logging settings for the runner instance
 */
 type UpdateRunnerLoggingSettingsOK struct {
-	/*The date-time when the resource was created (ISO format relative to UTC)
+
+	/* The date-time when the resource was created (ISO format relative to UTC)
 	 */
 	XCloudResourceCreated string
-	/*The date-time when the resource was last modified (ISO format relative to UTC)
+
+	/* The date-time when the resource was last modified (ISO format relative to UTC)
 	 */
 	XCloudResourceLastModified string
-	/*The resource version, which is used to avoid update conflicts with concurrent operations
+
+	/* The resource version, which is used to avoid update conflicts with concurrent operations
 	 */
 	XCloudResourceVersion string
 
@@ -90,21 +92,32 @@ type UpdateRunnerLoggingSettingsOK struct {
 func (o *UpdateRunnerLoggingSettingsOK) Error() string {
 	return fmt.Sprintf("[PATCH /platform/infrastructure/runners/{runner_id}/logging_settings][%d] updateRunnerLoggingSettingsOK  %+v", 200, o.Payload)
 }
-
 func (o *UpdateRunnerLoggingSettingsOK) GetPayload() *models.LoggingSettings {
 	return o.Payload
 }
 
 func (o *UpdateRunnerLoggingSettingsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-resource-created
-	o.XCloudResourceCreated = response.GetHeader("x-cloud-resource-created")
+	// hydrates response header x-cloud-resource-created
+	hdrXCloudResourceCreated := response.GetHeader("x-cloud-resource-created")
 
-	// response header x-cloud-resource-last-modified
-	o.XCloudResourceLastModified = response.GetHeader("x-cloud-resource-last-modified")
+	if hdrXCloudResourceCreated != "" {
+		o.XCloudResourceCreated = hdrXCloudResourceCreated
+	}
 
-	// response header x-cloud-resource-version
-	o.XCloudResourceVersion = response.GetHeader("x-cloud-resource-version")
+	// hydrates response header x-cloud-resource-last-modified
+	hdrXCloudResourceLastModified := response.GetHeader("x-cloud-resource-last-modified")
+
+	if hdrXCloudResourceLastModified != "" {
+		o.XCloudResourceLastModified = hdrXCloudResourceLastModified
+	}
+
+	// hydrates response header x-cloud-resource-version
+	hdrXCloudResourceVersion := response.GetHeader("x-cloud-resource-version")
+
+	if hdrXCloudResourceVersion != "" {
+		o.XCloudResourceVersion = hdrXCloudResourceVersion
+	}
 
 	o.Payload = new(models.LoggingSettings)
 
@@ -121,12 +134,13 @@ func NewUpdateRunnerLoggingSettingsBadRequest() *UpdateRunnerLoggingSettingsBadR
 	return &UpdateRunnerLoggingSettingsBadRequest{}
 }
 
-/*UpdateRunnerLoggingSettingsBadRequest handles this case with default header values.
+/* UpdateRunnerLoggingSettingsBadRequest describes a response with status code 400, with default header values.
 
 The update request is invalid. (code: `patch.request_malformed`)
 */
 type UpdateRunnerLoggingSettingsBadRequest struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -136,15 +150,18 @@ type UpdateRunnerLoggingSettingsBadRequest struct {
 func (o *UpdateRunnerLoggingSettingsBadRequest) Error() string {
 	return fmt.Sprintf("[PATCH /platform/infrastructure/runners/{runner_id}/logging_settings][%d] updateRunnerLoggingSettingsBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *UpdateRunnerLoggingSettingsBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *UpdateRunnerLoggingSettingsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -161,12 +178,13 @@ func NewUpdateRunnerLoggingSettingsNotFound() *UpdateRunnerLoggingSettingsNotFou
 	return &UpdateRunnerLoggingSettingsNotFound{}
 }
 
-/*UpdateRunnerLoggingSettingsNotFound handles this case with default header values.
+/* UpdateRunnerLoggingSettingsNotFound describes a response with status code 404, with default header values.
 
 The logging settings for this runner were not found. (code: `runners.logging_settings.not_found`)
 */
 type UpdateRunnerLoggingSettingsNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -176,15 +194,18 @@ type UpdateRunnerLoggingSettingsNotFound struct {
 func (o *UpdateRunnerLoggingSettingsNotFound) Error() string {
 	return fmt.Sprintf("[PATCH /platform/infrastructure/runners/{runner_id}/logging_settings][%d] updateRunnerLoggingSettingsNotFound  %+v", 404, o.Payload)
 }
-
 func (o *UpdateRunnerLoggingSettingsNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *UpdateRunnerLoggingSettingsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

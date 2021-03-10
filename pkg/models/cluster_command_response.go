@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -80,7 +82,6 @@ func (m *ClusterCommandResponse) Validate(formats strfmt.Registry) error {
 }
 
 func (m *ClusterCommandResponse) validateCalculatedApmPlan(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.CalculatedApmPlan) { // not required
 		return nil
 	}
@@ -98,7 +99,6 @@ func (m *ClusterCommandResponse) validateCalculatedApmPlan(formats strfmt.Regist
 }
 
 func (m *ClusterCommandResponse) validateCalculatedAppSearchPlan(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.CalculatedAppSearchPlan) { // not required
 		return nil
 	}
@@ -116,7 +116,6 @@ func (m *ClusterCommandResponse) validateCalculatedAppSearchPlan(formats strfmt.
 }
 
 func (m *ClusterCommandResponse) validateCalculatedElasticsearchPlan(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.CalculatedElasticsearchPlan) { // not required
 		return nil
 	}
@@ -134,7 +133,6 @@ func (m *ClusterCommandResponse) validateCalculatedElasticsearchPlan(formats str
 }
 
 func (m *ClusterCommandResponse) validateCalculatedEnterpriseSearchPlan(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.CalculatedEnterpriseSearchPlan) { // not required
 		return nil
 	}
@@ -152,13 +150,112 @@ func (m *ClusterCommandResponse) validateCalculatedEnterpriseSearchPlan(formats 
 }
 
 func (m *ClusterCommandResponse) validateCalculatedKibanaPlan(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.CalculatedKibanaPlan) { // not required
 		return nil
 	}
 
 	if m.CalculatedKibanaPlan != nil {
 		if err := m.CalculatedKibanaPlan.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("calculated_kibana_plan")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this cluster command response based on the context it is used
+func (m *ClusterCommandResponse) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateCalculatedApmPlan(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateCalculatedAppSearchPlan(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateCalculatedElasticsearchPlan(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateCalculatedEnterpriseSearchPlan(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateCalculatedKibanaPlan(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ClusterCommandResponse) contextValidateCalculatedApmPlan(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.CalculatedApmPlan != nil {
+		if err := m.CalculatedApmPlan.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("calculated_apm_plan")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ClusterCommandResponse) contextValidateCalculatedAppSearchPlan(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.CalculatedAppSearchPlan != nil {
+		if err := m.CalculatedAppSearchPlan.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("calculated_app_search_plan")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ClusterCommandResponse) contextValidateCalculatedElasticsearchPlan(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.CalculatedElasticsearchPlan != nil {
+		if err := m.CalculatedElasticsearchPlan.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("calculated_elasticsearch_plan")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ClusterCommandResponse) contextValidateCalculatedEnterpriseSearchPlan(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.CalculatedEnterpriseSearchPlan != nil {
+		if err := m.CalculatedEnterpriseSearchPlan.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("calculated_enterprise_search_plan")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ClusterCommandResponse) contextValidateCalculatedKibanaPlan(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.CalculatedKibanaPlan != nil {
+		if err := m.CalculatedKibanaPlan.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("calculated_kibana_plan")
 			}

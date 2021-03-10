@@ -34,89 +34,99 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewCancelApmPendingPlanParams creates a new CancelApmPendingPlanParams object
-// with the default values initialized.
+// NewCancelApmPendingPlanParams creates a new CancelApmPendingPlanParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewCancelApmPendingPlanParams() *CancelApmPendingPlanParams {
-	var (
-		forceDeleteDefault   = bool(false)
-		ignoreMissingDefault = bool(false)
-	)
 	return &CancelApmPendingPlanParams{
-		ForceDelete:   &forceDeleteDefault,
-		IgnoreMissing: &ignoreMissingDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewCancelApmPendingPlanParamsWithTimeout creates a new CancelApmPendingPlanParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewCancelApmPendingPlanParamsWithTimeout(timeout time.Duration) *CancelApmPendingPlanParams {
-	var (
-		forceDeleteDefault   = bool(false)
-		ignoreMissingDefault = bool(false)
-	)
 	return &CancelApmPendingPlanParams{
-		ForceDelete:   &forceDeleteDefault,
-		IgnoreMissing: &ignoreMissingDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewCancelApmPendingPlanParamsWithContext creates a new CancelApmPendingPlanParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewCancelApmPendingPlanParamsWithContext(ctx context.Context) *CancelApmPendingPlanParams {
-	var (
-		forceDeleteDefault   = bool(false)
-		ignoreMissingDefault = bool(false)
-	)
 	return &CancelApmPendingPlanParams{
-		ForceDelete:   &forceDeleteDefault,
-		IgnoreMissing: &ignoreMissingDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewCancelApmPendingPlanParamsWithHTTPClient creates a new CancelApmPendingPlanParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewCancelApmPendingPlanParamsWithHTTPClient(client *http.Client) *CancelApmPendingPlanParams {
-	var (
-		forceDeleteDefault   = bool(false)
-		ignoreMissingDefault = bool(false)
-	)
 	return &CancelApmPendingPlanParams{
-		ForceDelete:   &forceDeleteDefault,
-		IgnoreMissing: &ignoreMissingDefault,
-		HTTPClient:    client,
+		HTTPClient: client,
 	}
 }
 
-/*CancelApmPendingPlanParams contains all the parameters to send to the API endpoint
-for the cancel apm pending plan operation typically these are written to a http.Request
+/* CancelApmPendingPlanParams contains all the parameters to send to the API endpoint
+   for the cancel apm pending plan operation.
+
+   Typically these are written to a http.Request.
 */
 type CancelApmPendingPlanParams struct {
 
-	/*ClusterID
-	  The APM deployment identifier.
+	/* ClusterID.
 
+	   The APM deployment identifier.
 	*/
 	ClusterID string
-	/*ForceDelete
-	  When `true`, deletes the pending plan instead of attempting a graceful cancellation. The default is `false`.
 
+	/* ForceDelete.
+
+	   When `true`, deletes the pending plan instead of attempting a graceful cancellation. The default is `false`.
 	*/
 	ForceDelete *bool
-	/*IgnoreMissing
-	  When `true`, returns successfully, even when plans are pending. The default is `false`.
 
+	/* IgnoreMissing.
+
+	   When `true`, returns successfully, even when plans are pending. The default is `false`.
 	*/
 	IgnoreMissing *bool
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the cancel apm pending plan params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *CancelApmPendingPlanParams) WithDefaults() *CancelApmPendingPlanParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the cancel apm pending plan params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *CancelApmPendingPlanParams) SetDefaults() {
+	var (
+		forceDeleteDefault = bool(false)
+
+		ignoreMissingDefault = bool(false)
+	)
+
+	val := CancelApmPendingPlanParams{
+		ForceDelete:   &forceDeleteDefault,
+		IgnoreMissing: &ignoreMissingDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the cancel apm pending plan params
@@ -202,32 +212,34 @@ func (o *CancelApmPendingPlanParams) WriteToRequest(r runtime.ClientRequest, reg
 
 		// query param force_delete
 		var qrForceDelete bool
+
 		if o.ForceDelete != nil {
 			qrForceDelete = *o.ForceDelete
 		}
 		qForceDelete := swag.FormatBool(qrForceDelete)
 		if qForceDelete != "" {
+
 			if err := r.SetQueryParam("force_delete", qForceDelete); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.IgnoreMissing != nil {
 
 		// query param ignore_missing
 		var qrIgnoreMissing bool
+
 		if o.IgnoreMissing != nil {
 			qrIgnoreMissing = *o.IgnoreMissing
 		}
 		qIgnoreMissing := swag.FormatBool(qrIgnoreMissing)
 		if qIgnoreMissing != "" {
+
 			if err := r.SetQueryParam("ignore_missing", qIgnoreMissing); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

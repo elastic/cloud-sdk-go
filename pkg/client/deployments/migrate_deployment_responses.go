@@ -64,7 +64,6 @@ func (o *MigrateDeploymentReader) ReadResponse(response runtime.ClientResponse, 
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,7 +74,7 @@ func NewMigrateDeploymentOK() *MigrateDeploymentOK {
 	return &MigrateDeploymentOK{}
 }
 
-/*MigrateDeploymentOK handles this case with default header values.
+/* MigrateDeploymentOK describes a response with status code 200, with default header values.
 
 The request was valid and the deployment can be migrated to the template with the provided id.
 */
@@ -86,7 +85,6 @@ type MigrateDeploymentOK struct {
 func (o *MigrateDeploymentOK) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/_migrate][%d] migrateDeploymentOK  %+v", 200, o.Payload)
 }
-
 func (o *MigrateDeploymentOK) GetPayload() *models.DeploymentTemplateMigrateResponse {
 	return o.Payload
 }
@@ -108,7 +106,7 @@ func NewMigrateDeploymentBadRequest() *MigrateDeploymentBadRequest {
 	return &MigrateDeploymentBadRequest{}
 }
 
-/*MigrateDeploymentBadRequest handles this case with default header values.
+/* MigrateDeploymentBadRequest describes a response with status code 400, with default header values.
 
 The deployment cannot be successfully migrated to the template with the provided id.
 */
@@ -119,7 +117,6 @@ type MigrateDeploymentBadRequest struct {
 func (o *MigrateDeploymentBadRequest) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/_migrate][%d] migrateDeploymentBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *MigrateDeploymentBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -141,7 +138,7 @@ func NewMigrateDeploymentUnauthorized() *MigrateDeploymentUnauthorized {
 	return &MigrateDeploymentUnauthorized{}
 }
 
-/*MigrateDeploymentUnauthorized handles this case with default header values.
+/* MigrateDeploymentUnauthorized describes a response with status code 401, with default header values.
 
 You are not authorized to perform this action.
 */
@@ -152,7 +149,6 @@ type MigrateDeploymentUnauthorized struct {
 func (o *MigrateDeploymentUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/_migrate][%d] migrateDeploymentUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *MigrateDeploymentUnauthorized) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -174,12 +170,13 @@ func NewMigrateDeploymentNotFound() *MigrateDeploymentNotFound {
 	return &MigrateDeploymentNotFound{}
 }
 
-/*MigrateDeploymentNotFound handles this case with default header values.
+/* MigrateDeploymentNotFound describes a response with status code 404, with default header values.
 
 The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
 */
 type MigrateDeploymentNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -189,15 +186,18 @@ type MigrateDeploymentNotFound struct {
 func (o *MigrateDeploymentNotFound) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/_migrate][%d] migrateDeploymentNotFound  %+v", 404, o.Payload)
 }
-
 func (o *MigrateDeploymentNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *MigrateDeploymentNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

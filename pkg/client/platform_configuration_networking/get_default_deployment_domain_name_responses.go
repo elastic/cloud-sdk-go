@@ -52,7 +52,6 @@ func (o *GetDefaultDeploymentDomainNameReader) ReadResponse(response runtime.Cli
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,18 +62,21 @@ func NewGetDefaultDeploymentDomainNameOK() *GetDefaultDeploymentDomainNameOK {
 	return &GetDefaultDeploymentDomainNameOK{}
 }
 
-/*GetDefaultDeploymentDomainNameOK handles this case with default header values.
+/* GetDefaultDeploymentDomainNameOK describes a response with status code 200, with default header values.
 
 The Deployment Domain Name was successfully retrieved
 */
 type GetDefaultDeploymentDomainNameOK struct {
-	/*The date-time when the resource was created (ISO format relative to UTC)
+
+	/* The date-time when the resource was created (ISO format relative to UTC)
 	 */
 	XCloudResourceCreated string
-	/*The date-time when the resource was last modified (ISO format relative to UTC)
+
+	/* The date-time when the resource was last modified (ISO format relative to UTC)
 	 */
 	XCloudResourceLastModified string
-	/*The resource version, which is used to avoid update conflicts with concurrent operations
+
+	/* The resource version, which is used to avoid update conflicts with concurrent operations
 	 */
 	XCloudResourceVersion string
 
@@ -84,21 +86,32 @@ type GetDefaultDeploymentDomainNameOK struct {
 func (o *GetDefaultDeploymentDomainNameOK) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/networking/deployment_domain_name][%d] getDefaultDeploymentDomainNameOK  %+v", 200, o.Payload)
 }
-
 func (o *GetDefaultDeploymentDomainNameOK) GetPayload() *models.DeploymentDomainName {
 	return o.Payload
 }
 
 func (o *GetDefaultDeploymentDomainNameOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-resource-created
-	o.XCloudResourceCreated = response.GetHeader("x-cloud-resource-created")
+	// hydrates response header x-cloud-resource-created
+	hdrXCloudResourceCreated := response.GetHeader("x-cloud-resource-created")
 
-	// response header x-cloud-resource-last-modified
-	o.XCloudResourceLastModified = response.GetHeader("x-cloud-resource-last-modified")
+	if hdrXCloudResourceCreated != "" {
+		o.XCloudResourceCreated = hdrXCloudResourceCreated
+	}
 
-	// response header x-cloud-resource-version
-	o.XCloudResourceVersion = response.GetHeader("x-cloud-resource-version")
+	// hydrates response header x-cloud-resource-last-modified
+	hdrXCloudResourceLastModified := response.GetHeader("x-cloud-resource-last-modified")
+
+	if hdrXCloudResourceLastModified != "" {
+		o.XCloudResourceLastModified = hdrXCloudResourceLastModified
+	}
+
+	// hydrates response header x-cloud-resource-version
+	hdrXCloudResourceVersion := response.GetHeader("x-cloud-resource-version")
+
+	if hdrXCloudResourceVersion != "" {
+		o.XCloudResourceVersion = hdrXCloudResourceVersion
+	}
 
 	o.Payload = new(models.DeploymentDomainName)
 
@@ -115,12 +128,13 @@ func NewGetDefaultDeploymentDomainNameNotFound() *GetDefaultDeploymentDomainName
 	return &GetDefaultDeploymentDomainNameNotFound{}
 }
 
-/*GetDefaultDeploymentDomainNameNotFound handles this case with default header values.
+/* GetDefaultDeploymentDomainNameNotFound describes a response with status code 404, with default header values.
 
 There is no configured Deployment Domain Name but optimistic locking was sent. (code: `networking.cname.not_found`)
 */
 type GetDefaultDeploymentDomainNameNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -130,15 +144,18 @@ type GetDefaultDeploymentDomainNameNotFound struct {
 func (o *GetDefaultDeploymentDomainNameNotFound) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/networking/deployment_domain_name][%d] getDefaultDeploymentDomainNameNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetDefaultDeploymentDomainNameNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *GetDefaultDeploymentDomainNameNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

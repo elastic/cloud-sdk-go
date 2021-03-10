@@ -33,52 +33,66 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewListBlueprinterRolesParams creates a new ListBlueprinterRolesParams object
-// with the default values initialized.
+// NewListBlueprinterRolesParams creates a new ListBlueprinterRolesParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewListBlueprinterRolesParams() *ListBlueprinterRolesParams {
-
 	return &ListBlueprinterRolesParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewListBlueprinterRolesParamsWithTimeout creates a new ListBlueprinterRolesParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewListBlueprinterRolesParamsWithTimeout(timeout time.Duration) *ListBlueprinterRolesParams {
-
 	return &ListBlueprinterRolesParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewListBlueprinterRolesParamsWithContext creates a new ListBlueprinterRolesParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewListBlueprinterRolesParamsWithContext(ctx context.Context) *ListBlueprinterRolesParams {
-
 	return &ListBlueprinterRolesParams{
-
 		Context: ctx,
 	}
 }
 
 // NewListBlueprinterRolesParamsWithHTTPClient creates a new ListBlueprinterRolesParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewListBlueprinterRolesParamsWithHTTPClient(client *http.Client) *ListBlueprinterRolesParams {
-
 	return &ListBlueprinterRolesParams{
 		HTTPClient: client,
 	}
 }
 
-/*ListBlueprinterRolesParams contains all the parameters to send to the API endpoint
-for the list blueprinter roles operation typically these are written to a http.Request
+/* ListBlueprinterRolesParams contains all the parameters to send to the API endpoint
+   for the list blueprinter roles operation.
+
+   Typically these are written to a http.Request.
 */
 type ListBlueprinterRolesParams struct {
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the list blueprinter roles params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ListBlueprinterRolesParams) WithDefaults() *ListBlueprinterRolesParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the list blueprinter roles params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ListBlueprinterRolesParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the list blueprinter roles params

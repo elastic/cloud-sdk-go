@@ -35,59 +35,73 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewCreateExtensionParams creates a new CreateExtensionParams object
-// with the default values initialized.
+// NewCreateExtensionParams creates a new CreateExtensionParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewCreateExtensionParams() *CreateExtensionParams {
-	var ()
 	return &CreateExtensionParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewCreateExtensionParamsWithTimeout creates a new CreateExtensionParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewCreateExtensionParamsWithTimeout(timeout time.Duration) *CreateExtensionParams {
-	var ()
 	return &CreateExtensionParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewCreateExtensionParamsWithContext creates a new CreateExtensionParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewCreateExtensionParamsWithContext(ctx context.Context) *CreateExtensionParams {
-	var ()
 	return &CreateExtensionParams{
-
 		Context: ctx,
 	}
 }
 
 // NewCreateExtensionParamsWithHTTPClient creates a new CreateExtensionParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewCreateExtensionParamsWithHTTPClient(client *http.Client) *CreateExtensionParams {
-	var ()
 	return &CreateExtensionParams{
 		HTTPClient: client,
 	}
 }
 
-/*CreateExtensionParams contains all the parameters to send to the API endpoint
-for the create extension operation typically these are written to a http.Request
+/* CreateExtensionParams contains all the parameters to send to the API endpoint
+   for the create extension operation.
+
+   Typically these are written to a http.Request.
 */
 type CreateExtensionParams struct {
 
-	/*Body
-	  the data that creates the extension
+	/* Body.
 
+	   the data that creates the extension
 	*/
 	Body *models.CreateExtensionRequest
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the create extension params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *CreateExtensionParams) WithDefaults() *CreateExtensionParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the create extension params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *CreateExtensionParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the create extension params
@@ -141,7 +155,6 @@ func (o *CreateExtensionParams) WriteToRequest(r runtime.ClientRequest, reg strf
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

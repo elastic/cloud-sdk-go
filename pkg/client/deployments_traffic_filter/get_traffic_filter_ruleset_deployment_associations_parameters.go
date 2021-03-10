@@ -33,59 +33,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetTrafficFilterRulesetDeploymentAssociationsParams creates a new GetTrafficFilterRulesetDeploymentAssociationsParams object
-// with the default values initialized.
+// NewGetTrafficFilterRulesetDeploymentAssociationsParams creates a new GetTrafficFilterRulesetDeploymentAssociationsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetTrafficFilterRulesetDeploymentAssociationsParams() *GetTrafficFilterRulesetDeploymentAssociationsParams {
-	var ()
 	return &GetTrafficFilterRulesetDeploymentAssociationsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetTrafficFilterRulesetDeploymentAssociationsParamsWithTimeout creates a new GetTrafficFilterRulesetDeploymentAssociationsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetTrafficFilterRulesetDeploymentAssociationsParamsWithTimeout(timeout time.Duration) *GetTrafficFilterRulesetDeploymentAssociationsParams {
-	var ()
 	return &GetTrafficFilterRulesetDeploymentAssociationsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetTrafficFilterRulesetDeploymentAssociationsParamsWithContext creates a new GetTrafficFilterRulesetDeploymentAssociationsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetTrafficFilterRulesetDeploymentAssociationsParamsWithContext(ctx context.Context) *GetTrafficFilterRulesetDeploymentAssociationsParams {
-	var ()
 	return &GetTrafficFilterRulesetDeploymentAssociationsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetTrafficFilterRulesetDeploymentAssociationsParamsWithHTTPClient creates a new GetTrafficFilterRulesetDeploymentAssociationsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetTrafficFilterRulesetDeploymentAssociationsParamsWithHTTPClient(client *http.Client) *GetTrafficFilterRulesetDeploymentAssociationsParams {
-	var ()
 	return &GetTrafficFilterRulesetDeploymentAssociationsParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetTrafficFilterRulesetDeploymentAssociationsParams contains all the parameters to send to the API endpoint
-for the get traffic filter ruleset deployment associations operation typically these are written to a http.Request
+/* GetTrafficFilterRulesetDeploymentAssociationsParams contains all the parameters to send to the API endpoint
+   for the get traffic filter ruleset deployment associations operation.
+
+   Typically these are written to a http.Request.
 */
 type GetTrafficFilterRulesetDeploymentAssociationsParams struct {
 
-	/*RulesetID
-	  The mandatory ruleset ID.
+	/* RulesetID.
 
+	   The mandatory ruleset ID.
 	*/
 	RulesetID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get traffic filter ruleset deployment associations params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetTrafficFilterRulesetDeploymentAssociationsParams) WithDefaults() *GetTrafficFilterRulesetDeploymentAssociationsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get traffic filter ruleset deployment associations params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetTrafficFilterRulesetDeploymentAssociationsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get traffic filter ruleset deployment associations params

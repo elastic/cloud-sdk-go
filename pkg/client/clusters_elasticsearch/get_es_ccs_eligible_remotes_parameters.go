@@ -34,74 +34,91 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetEsCcsEligibleRemotesParams creates a new GetEsCcsEligibleRemotesParams object
-// with the default values initialized.
+// NewGetEsCcsEligibleRemotesParams creates a new GetEsCcsEligibleRemotesParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetEsCcsEligibleRemotesParams() *GetEsCcsEligibleRemotesParams {
-	var ()
 	return &GetEsCcsEligibleRemotesParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetEsCcsEligibleRemotesParamsWithTimeout creates a new GetEsCcsEligibleRemotesParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetEsCcsEligibleRemotesParamsWithTimeout(timeout time.Duration) *GetEsCcsEligibleRemotesParams {
-	var ()
 	return &GetEsCcsEligibleRemotesParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetEsCcsEligibleRemotesParamsWithContext creates a new GetEsCcsEligibleRemotesParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetEsCcsEligibleRemotesParamsWithContext(ctx context.Context) *GetEsCcsEligibleRemotesParams {
-	var ()
 	return &GetEsCcsEligibleRemotesParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetEsCcsEligibleRemotesParamsWithHTTPClient creates a new GetEsCcsEligibleRemotesParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetEsCcsEligibleRemotesParamsWithHTTPClient(client *http.Client) *GetEsCcsEligibleRemotesParams {
-	var ()
 	return &GetEsCcsEligibleRemotesParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetEsCcsEligibleRemotesParams contains all the parameters to send to the API endpoint
-for the get es ccs eligible remotes operation typically these are written to a http.Request
+/* GetEsCcsEligibleRemotesParams contains all the parameters to send to the API endpoint
+   for the get es ccs eligible remotes operation.
+
+   Typically these are written to a http.Request.
 */
 type GetEsCcsEligibleRemotesParams struct {
 
-	/*OwnerID
-	  (Optional) Returns only clusters filtered by the provided owner id.
+	/* OwnerID.
 
+	   (Optional) Returns only clusters filtered by the provided owner id.
 	*/
 	OwnerID *string
-	/*Q
-	  (Optional) Cluster name or id prefix to filters the candidates.
 
+	/* Q.
+
+	   (Optional) Cluster name or id prefix to filters the candidates.
 	*/
 	Q *string
-	/*Size
-	  (Optional) Maximum number of clusters to include in the response.
 
+	/* Size.
+
+	   (Optional) Maximum number of clusters to include in the response.
 	*/
 	Size *int64
-	/*Version
-	  The version of the cross-cluster search cluster that will link with the remote candidates.
 
+	/* Version.
+
+	   The version of the cross-cluster search cluster that will link with the remote candidates.
 	*/
 	Version string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get es ccs eligible remotes params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetEsCcsEligibleRemotesParams) WithDefaults() *GetEsCcsEligibleRemotesParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get es ccs eligible remotes params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetEsCcsEligibleRemotesParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get es ccs eligible remotes params
@@ -193,54 +210,58 @@ func (o *GetEsCcsEligibleRemotesParams) WriteToRequest(r runtime.ClientRequest, 
 
 		// query param owner_id
 		var qrOwnerID string
+
 		if o.OwnerID != nil {
 			qrOwnerID = *o.OwnerID
 		}
 		qOwnerID := qrOwnerID
 		if qOwnerID != "" {
+
 			if err := r.SetQueryParam("owner_id", qOwnerID); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.Q != nil {
 
 		// query param q
 		var qrQ string
+
 		if o.Q != nil {
 			qrQ = *o.Q
 		}
 		qQ := qrQ
 		if qQ != "" {
+
 			if err := r.SetQueryParam("q", qQ); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.Size != nil {
 
 		// query param size
 		var qrSize int64
+
 		if o.Size != nil {
 			qrSize = *o.Size
 		}
 		qSize := swag.FormatInt64(qrSize)
 		if qSize != "" {
+
 			if err := r.SetQueryParam("size", qSize); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	// query param version
 	qrVersion := o.Version
 	qVersion := qrVersion
 	if qVersion != "" {
+
 		if err := r.SetQueryParam("version", qVersion); err != nil {
 			return err
 		}

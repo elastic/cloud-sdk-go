@@ -36,74 +36,91 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewSetInstanceConfigurationParams creates a new SetInstanceConfigurationParams object
-// with the default values initialized.
+// NewSetInstanceConfigurationParams creates a new SetInstanceConfigurationParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewSetInstanceConfigurationParams() *SetInstanceConfigurationParams {
-	var ()
 	return &SetInstanceConfigurationParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewSetInstanceConfigurationParamsWithTimeout creates a new SetInstanceConfigurationParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewSetInstanceConfigurationParamsWithTimeout(timeout time.Duration) *SetInstanceConfigurationParams {
-	var ()
 	return &SetInstanceConfigurationParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewSetInstanceConfigurationParamsWithContext creates a new SetInstanceConfigurationParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewSetInstanceConfigurationParamsWithContext(ctx context.Context) *SetInstanceConfigurationParams {
-	var ()
 	return &SetInstanceConfigurationParams{
-
 		Context: ctx,
 	}
 }
 
 // NewSetInstanceConfigurationParamsWithHTTPClient creates a new SetInstanceConfigurationParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewSetInstanceConfigurationParamsWithHTTPClient(client *http.Client) *SetInstanceConfigurationParams {
-	var ()
 	return &SetInstanceConfigurationParams{
 		HTTPClient: client,
 	}
 }
 
-/*SetInstanceConfigurationParams contains all the parameters to send to the API endpoint
-for the set instance configuration operation typically these are written to a http.Request
+/* SetInstanceConfigurationParams contains all the parameters to send to the API endpoint
+   for the set instance configuration operation.
+
+   Typically these are written to a http.Request.
 */
 type SetInstanceConfigurationParams struct {
 
-	/*CreateOnly
-	  If true, will fail if an instance configuration already exists at the given id
+	/* CreateOnly.
 
+	   If true, will fail if an instance configuration already exists at the given id
 	*/
 	CreateOnly *bool
-	/*ID
-	  ID of the instance configuration
 
+	/* ID.
+
+	   ID of the instance configuration
 	*/
 	ID string
-	/*Instance
-	  the Instance Configuration
 
+	/* Instance.
+
+	   the Instance Configuration
 	*/
 	Instance *models.InstanceConfiguration
-	/*Version
-	  If specified, checks for conflicts against the version of the repository configuration (returned in 'x-cloud-resource-version' of the GET request)
 
+	/* Version.
+
+	   If specified, checks for conflicts against the version of the repository configuration (returned in 'x-cloud-resource-version' of the GET request)
 	*/
 	Version *int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the set instance configuration params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetInstanceConfigurationParams) WithDefaults() *SetInstanceConfigurationParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the set instance configuration params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetInstanceConfigurationParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the set instance configuration params
@@ -195,23 +212,23 @@ func (o *SetInstanceConfigurationParams) WriteToRequest(r runtime.ClientRequest,
 
 		// query param create_only
 		var qrCreateOnly bool
+
 		if o.CreateOnly != nil {
 			qrCreateOnly = *o.CreateOnly
 		}
 		qCreateOnly := swag.FormatBool(qrCreateOnly)
 		if qCreateOnly != "" {
+
 			if err := r.SetQueryParam("create_only", qCreateOnly); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	// path param id
 	if err := r.SetPathParam("id", o.ID); err != nil {
 		return err
 	}
-
 	if o.Instance != nil {
 		if err := r.SetBodyParam(o.Instance); err != nil {
 			return err
@@ -222,16 +239,17 @@ func (o *SetInstanceConfigurationParams) WriteToRequest(r runtime.ClientRequest,
 
 		// query param version
 		var qrVersion int64
+
 		if o.Version != nil {
 			qrVersion = *o.Version
 		}
 		qVersion := swag.FormatInt64(qrVersion)
 		if qVersion != "" {
+
 			if err := r.SetQueryParam("version", qVersion); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

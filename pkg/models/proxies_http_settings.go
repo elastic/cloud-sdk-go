@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -151,6 +153,34 @@ func (m *ProxiesHTTPSettings) validateUserCookieKey(formats strfmt.Registry) err
 
 	if err := validate.Required("user_cookie_key", "body", m.UserCookieKey); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this proxies Http settings based on the context it is used
+func (m *ProxiesHTTPSettings) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateSsoSettings(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ProxiesHTTPSettings) contextValidateSsoSettings(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.SsoSettings != nil {
+		if err := m.SsoSettings.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("sso_settings")
+			}
+			return err
+		}
 	}
 
 	return nil

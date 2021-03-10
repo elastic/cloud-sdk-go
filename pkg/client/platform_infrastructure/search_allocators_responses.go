@@ -52,7 +52,6 @@ func (o *SearchAllocatorsReader) ReadResponse(response runtime.ClientResponse, c
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,7 +62,7 @@ func NewSearchAllocatorsOK() *SearchAllocatorsOK {
 	return &SearchAllocatorsOK{}
 }
 
-/*SearchAllocatorsOK handles this case with default header values.
+/* SearchAllocatorsOK describes a response with status code 200, with default header values.
 
 An overview of allocators that matched the given search query
 */
@@ -74,7 +73,6 @@ type SearchAllocatorsOK struct {
 func (o *SearchAllocatorsOK) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/allocators/_search][%d] searchAllocatorsOK  %+v", 200, o.Payload)
 }
-
 func (o *SearchAllocatorsOK) GetPayload() *models.AllocatorOverview {
 	return o.Payload
 }
@@ -96,7 +94,7 @@ func NewSearchAllocatorsBadRequest() *SearchAllocatorsBadRequest {
 	return &SearchAllocatorsBadRequest{}
 }
 
-/*SearchAllocatorsBadRequest handles this case with default header values.
+/* SearchAllocatorsBadRequest describes a response with status code 400, with default header values.
 
 The search request failed
 */
@@ -107,7 +105,6 @@ type SearchAllocatorsBadRequest struct {
 func (o *SearchAllocatorsBadRequest) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/allocators/_search][%d] searchAllocatorsBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *SearchAllocatorsBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

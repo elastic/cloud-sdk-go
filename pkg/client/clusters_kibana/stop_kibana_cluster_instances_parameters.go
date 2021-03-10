@@ -34,81 +34,96 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewStopKibanaClusterInstancesParams creates a new StopKibanaClusterInstancesParams object
-// with the default values initialized.
+// NewStopKibanaClusterInstancesParams creates a new StopKibanaClusterInstancesParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewStopKibanaClusterInstancesParams() *StopKibanaClusterInstancesParams {
-	var (
-		ignoreMissingDefault = bool(false)
-	)
 	return &StopKibanaClusterInstancesParams{
-		IgnoreMissing: &ignoreMissingDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewStopKibanaClusterInstancesParamsWithTimeout creates a new StopKibanaClusterInstancesParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewStopKibanaClusterInstancesParamsWithTimeout(timeout time.Duration) *StopKibanaClusterInstancesParams {
-	var (
-		ignoreMissingDefault = bool(false)
-	)
 	return &StopKibanaClusterInstancesParams{
-		IgnoreMissing: &ignoreMissingDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewStopKibanaClusterInstancesParamsWithContext creates a new StopKibanaClusterInstancesParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewStopKibanaClusterInstancesParamsWithContext(ctx context.Context) *StopKibanaClusterInstancesParams {
-	var (
-		ignoreMissingDefault = bool(false)
-	)
 	return &StopKibanaClusterInstancesParams{
-		IgnoreMissing: &ignoreMissingDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewStopKibanaClusterInstancesParamsWithHTTPClient creates a new StopKibanaClusterInstancesParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewStopKibanaClusterInstancesParamsWithHTTPClient(client *http.Client) *StopKibanaClusterInstancesParams {
-	var (
-		ignoreMissingDefault = bool(false)
-	)
 	return &StopKibanaClusterInstancesParams{
-		IgnoreMissing: &ignoreMissingDefault,
-		HTTPClient:    client,
+		HTTPClient: client,
 	}
 }
 
-/*StopKibanaClusterInstancesParams contains all the parameters to send to the API endpoint
-for the stop kibana cluster instances operation typically these are written to a http.Request
+/* StopKibanaClusterInstancesParams contains all the parameters to send to the API endpoint
+   for the stop kibana cluster instances operation.
+
+   Typically these are written to a http.Request.
 */
 type StopKibanaClusterInstancesParams struct {
 
-	/*ClusterID
-	  The Kibana deployment identifier.
+	/* ClusterID.
 
+	   The Kibana deployment identifier.
 	*/
 	ClusterID string
-	/*IgnoreMissing
-	  When `true` and the instance does not exist, proceeds to the next instance, or treats the instance as an error.
 
+	/* IgnoreMissing.
+
+	   When `true` and the instance does not exist, proceeds to the next instance, or treats the instance as an error.
 	*/
 	IgnoreMissing *bool
-	/*InstanceIds
-	  A comma-separated list of instance identifiers.
 
+	/* InstanceIds.
+
+	   A comma-separated list of instance identifiers.
 	*/
 	InstanceIds []string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the stop kibana cluster instances params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *StopKibanaClusterInstancesParams) WithDefaults() *StopKibanaClusterInstancesParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the stop kibana cluster instances params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *StopKibanaClusterInstancesParams) SetDefaults() {
+	var (
+		ignoreMissingDefault = bool(false)
+	)
+
+	val := StopKibanaClusterInstancesParams{
+		IgnoreMissing: &ignoreMissingDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the stop kibana cluster instances params
@@ -194,28 +209,32 @@ func (o *StopKibanaClusterInstancesParams) WriteToRequest(r runtime.ClientReques
 
 		// query param ignore_missing
 		var qrIgnoreMissing bool
+
 		if o.IgnoreMissing != nil {
 			qrIgnoreMissing = *o.IgnoreMissing
 		}
 		qIgnoreMissing := swag.FormatBool(qrIgnoreMissing)
 		if qIgnoreMissing != "" {
+
 			if err := r.SetQueryParam("ignore_missing", qIgnoreMissing); err != nil {
 				return err
 			}
 		}
-
 	}
 
-	valuesInstanceIds := o.InstanceIds
+	if o.InstanceIds != nil {
 
-	joinedInstanceIds := swag.JoinByFormat(valuesInstanceIds, "csv")
-	// path array param instance_ids
-	// SetPathParam does not support variadric arguments, since we used JoinByFormat
-	// we can send the first item in the array as it's all the items of the previous
-	// array joined together
-	if len(joinedInstanceIds) > 0 {
-		if err := r.SetPathParam("instance_ids", joinedInstanceIds[0]); err != nil {
-			return err
+		// binding items for instance_ids
+		joinedInstanceIds := o.bindParamInstanceIds(reg)
+
+		// path array param instance_ids
+		// SetPathParam does not support variadic arguments, since we used JoinByFormat
+		// we can send the first item in the array as it's all the items of the previous
+		// array joined together
+		if len(joinedInstanceIds) > 0 {
+			if err := r.SetPathParam("instance_ids", joinedInstanceIds[0]); err != nil {
+				return err
+			}
 		}
 	}
 
@@ -223,4 +242,21 @@ func (o *StopKibanaClusterInstancesParams) WriteToRequest(r runtime.ClientReques
 		return errors.CompositeValidationError(res...)
 	}
 	return nil
+}
+
+// bindParamStopKibanaClusterInstances binds the parameter instance_ids
+func (o *StopKibanaClusterInstancesParams) bindParamInstanceIds(formats strfmt.Registry) []string {
+	instanceIdsIR := o.InstanceIds
+
+	var instanceIdsIC []string
+	for _, instanceIdsIIR := range instanceIdsIR { // explode []string
+
+		instanceIdsIIV := instanceIdsIIR // string as string
+		instanceIdsIC = append(instanceIdsIC, instanceIdsIIV)
+	}
+
+	// items.CollectionFormat: "csv"
+	instanceIdsIS := swag.JoinByFormat(instanceIdsIC, "csv")
+
+	return instanceIdsIS
 }

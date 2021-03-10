@@ -34,64 +34,79 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewDeleteInstanceConfigurationParams creates a new DeleteInstanceConfigurationParams object
-// with the default values initialized.
+// NewDeleteInstanceConfigurationParams creates a new DeleteInstanceConfigurationParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewDeleteInstanceConfigurationParams() *DeleteInstanceConfigurationParams {
-	var ()
 	return &DeleteInstanceConfigurationParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteInstanceConfigurationParamsWithTimeout creates a new DeleteInstanceConfigurationParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewDeleteInstanceConfigurationParamsWithTimeout(timeout time.Duration) *DeleteInstanceConfigurationParams {
-	var ()
 	return &DeleteInstanceConfigurationParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewDeleteInstanceConfigurationParamsWithContext creates a new DeleteInstanceConfigurationParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewDeleteInstanceConfigurationParamsWithContext(ctx context.Context) *DeleteInstanceConfigurationParams {
-	var ()
 	return &DeleteInstanceConfigurationParams{
-
 		Context: ctx,
 	}
 }
 
 // NewDeleteInstanceConfigurationParamsWithHTTPClient creates a new DeleteInstanceConfigurationParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewDeleteInstanceConfigurationParamsWithHTTPClient(client *http.Client) *DeleteInstanceConfigurationParams {
-	var ()
 	return &DeleteInstanceConfigurationParams{
 		HTTPClient: client,
 	}
 }
 
-/*DeleteInstanceConfigurationParams contains all the parameters to send to the API endpoint
-for the delete instance configuration operation typically these are written to a http.Request
+/* DeleteInstanceConfigurationParams contains all the parameters to send to the API endpoint
+   for the delete instance configuration operation.
+
+   Typically these are written to a http.Request.
 */
 type DeleteInstanceConfigurationParams struct {
 
-	/*ID
-	  ID of the instance configuration
+	/* ID.
 
+	   ID of the instance configuration
 	*/
 	ID string
-	/*Version
-	  If specified, checks for conflicts against the version of the repository configuration (returned in 'x-cloud-resource-version' of the GET request)
 
+	/* Version.
+
+	   If specified, checks for conflicts against the version of the repository configuration (returned in 'x-cloud-resource-version' of the GET request)
 	*/
 	Version *int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the delete instance configuration params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteInstanceConfigurationParams) WithDefaults() *DeleteInstanceConfigurationParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the delete instance configuration params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteInstanceConfigurationParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete instance configuration params
@@ -166,16 +181,17 @@ func (o *DeleteInstanceConfigurationParams) WriteToRequest(r runtime.ClientReque
 
 		// query param version
 		var qrVersion int64
+
 		if o.Version != nil {
 			qrVersion = *o.Version
 		}
 		qVersion := swag.FormatInt64(qrVersion)
 		if qVersion != "" {
+
 			if err := r.SetQueryParam("version", qVersion); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

@@ -34,7 +34,7 @@ import (
 func TestUpdateTemplate(t *testing.T) {
 	urlError := url.Error{
 		Op:  "Put",
-		URL: "https://mock.elastic.co/api/v1/regions/us-east-1/platform/configuration/templates/deployments/84e0bd6d69bb44e294809d89cea88a7e?create_only=false",
+		URL: "https://mock.elastic.co/api/v1/regions/us-east-1/platform/configuration/templates/deployments/84e0bd6d69bb44e294809d89cea88a7e",
 		Err: errors.New("error"),
 	}
 	tests := []struct {
@@ -58,10 +58,7 @@ func TestUpdateTemplate(t *testing.T) {
 						Method: "PUT",
 						Host:   api.DefaultMockHost,
 						Body:   mock.NewStringBody(`{"cluster_template":{"plan":{"cluster_topology":[{"instance_configuration_id":"default-elasticsearch","node_roles":null,"node_type":{"data":true,"master":true},"size":{"resource":"memory","value":1024}}],"elasticsearch":{"version":"6.2.3"}}},"kibana_deeplink":null,"metadata":[{"key":"trial","value":"true"}],"name":"(Trial) Default Elasticsearch","source":{"action":"deployments.create-template","admin_id":"admin","date":"2018-04-19T18:16:57.297Z","facilitator":"adminconsole","remote_addresses":["52.205.1.231"],"user_id":"1"},"system_owned":false}` + "\n"),
-						Query: url.Values{
-							"create_only": {"false"},
-						},
-						Path: "/api/v1/regions/us-east-1/platform/configuration/templates/deployments/84e0bd6d69bb44e294809d89cea88a7e",
+						Path:   "/api/v1/regions/us-east-1/platform/configuration/templates/deployments/84e0bd6d69bb44e294809d89cea88a7e",
 					},
 				}),
 			},

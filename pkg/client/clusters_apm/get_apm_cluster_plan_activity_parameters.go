@@ -34,89 +34,101 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetApmClusterPlanActivityParams creates a new GetApmClusterPlanActivityParams object
-// with the default values initialized.
+// NewGetApmClusterPlanActivityParams creates a new GetApmClusterPlanActivityParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetApmClusterPlanActivityParams() *GetApmClusterPlanActivityParams {
-	var (
-		showPlanDefaultsDefault = bool(false)
-		showPlanLogsDefault     = bool(true)
-	)
 	return &GetApmClusterPlanActivityParams{
-		ShowPlanDefaults: &showPlanDefaultsDefault,
-		ShowPlanLogs:     &showPlanLogsDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetApmClusterPlanActivityParamsWithTimeout creates a new GetApmClusterPlanActivityParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetApmClusterPlanActivityParamsWithTimeout(timeout time.Duration) *GetApmClusterPlanActivityParams {
-	var (
-		showPlanDefaultsDefault = bool(false)
-		showPlanLogsDefault     = bool(true)
-	)
 	return &GetApmClusterPlanActivityParams{
-		ShowPlanDefaults: &showPlanDefaultsDefault,
-		ShowPlanLogs:     &showPlanLogsDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewGetApmClusterPlanActivityParamsWithContext creates a new GetApmClusterPlanActivityParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetApmClusterPlanActivityParamsWithContext(ctx context.Context) *GetApmClusterPlanActivityParams {
-	var (
-		showPlanDefaultsDefault = bool(false)
-		showPlanLogsDefault     = bool(true)
-	)
 	return &GetApmClusterPlanActivityParams{
-		ShowPlanDefaults: &showPlanDefaultsDefault,
-		ShowPlanLogs:     &showPlanLogsDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewGetApmClusterPlanActivityParamsWithHTTPClient creates a new GetApmClusterPlanActivityParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetApmClusterPlanActivityParamsWithHTTPClient(client *http.Client) *GetApmClusterPlanActivityParams {
-	var (
-		showPlanDefaultsDefault = bool(false)
-		showPlanLogsDefault     = bool(true)
-	)
 	return &GetApmClusterPlanActivityParams{
-		ShowPlanDefaults: &showPlanDefaultsDefault,
-		ShowPlanLogs:     &showPlanLogsDefault,
-		HTTPClient:       client,
+		HTTPClient: client,
 	}
 }
 
-/*GetApmClusterPlanActivityParams contains all the parameters to send to the API endpoint
-for the get apm cluster plan activity operation typically these are written to a http.Request
+/* GetApmClusterPlanActivityParams contains all the parameters to send to the API endpoint
+   for the get apm cluster plan activity operation.
+
+   Typically these are written to a http.Request.
 */
 type GetApmClusterPlanActivityParams struct {
 
-	/*ClusterID
-	  The APM deployment identifier.
+	/* ClusterID.
 
+	   The APM deployment identifier.
 	*/
 	ClusterID string
-	/*ShowPlanDefaults
-	  When plans are shown, includes the default values in the response. NOTE: This option results in large responses.
 
+	/* ShowPlanDefaults.
+
+	   When plans are shown, includes the default values in the response. NOTE: This option results in large responses.
 	*/
 	ShowPlanDefaults *bool
-	/*ShowPlanLogs
-	  Includes the active, pending, and historical plan information in the attempt log. NOTE: This option can result in large responses.
 
+	/* ShowPlanLogs.
+
+	   Includes the active, pending, and historical plan information in the attempt log. NOTE: This option can result in large responses.
+
+	   Default: true
 	*/
 	ShowPlanLogs *bool
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get apm cluster plan activity params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetApmClusterPlanActivityParams) WithDefaults() *GetApmClusterPlanActivityParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get apm cluster plan activity params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetApmClusterPlanActivityParams) SetDefaults() {
+	var (
+		showPlanDefaultsDefault = bool(false)
+
+		showPlanLogsDefault = bool(true)
+	)
+
+	val := GetApmClusterPlanActivityParams{
+		ShowPlanDefaults: &showPlanDefaultsDefault,
+		ShowPlanLogs:     &showPlanLogsDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the get apm cluster plan activity params
@@ -202,32 +214,34 @@ func (o *GetApmClusterPlanActivityParams) WriteToRequest(r runtime.ClientRequest
 
 		// query param show_plan_defaults
 		var qrShowPlanDefaults bool
+
 		if o.ShowPlanDefaults != nil {
 			qrShowPlanDefaults = *o.ShowPlanDefaults
 		}
 		qShowPlanDefaults := swag.FormatBool(qrShowPlanDefaults)
 		if qShowPlanDefaults != "" {
+
 			if err := r.SetQueryParam("show_plan_defaults", qShowPlanDefaults); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.ShowPlanLogs != nil {
 
 		// query param show_plan_logs
 		var qrShowPlanLogs bool
+
 		if o.ShowPlanLogs != nil {
 			qrShowPlanLogs = *o.ShowPlanLogs
 		}
 		qShowPlanLogs := swag.FormatBool(qrShowPlanLogs)
 		if qShowPlanLogs != "" {
+
 			if err := r.SetQueryParam("show_plan_logs", qShowPlanLogs); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

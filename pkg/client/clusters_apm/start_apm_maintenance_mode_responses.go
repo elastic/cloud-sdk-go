@@ -64,7 +64,6 @@ func (o *StartApmMaintenanceModeReader) ReadResponse(response runtime.ClientResp
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,7 +74,7 @@ func NewStartApmMaintenanceModeAccepted() *StartApmMaintenanceModeAccepted {
 	return &StartApmMaintenanceModeAccepted{}
 }
 
-/*StartApmMaintenanceModeAccepted handles this case with default header values.
+/* StartApmMaintenanceModeAccepted describes a response with status code 202, with default header values.
 
 The start maintenance mode command was issued successfully, use the "GET" command on the /{cluster_id} resource to monitor progress
 */
@@ -86,7 +85,6 @@ type StartApmMaintenanceModeAccepted struct {
 func (o *StartApmMaintenanceModeAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/instances/{instance_ids}/maintenance-mode/_start][%d] startApmMaintenanceModeAccepted  %+v", 202, o.Payload)
 }
-
 func (o *StartApmMaintenanceModeAccepted) GetPayload() *models.ClusterCommandResponse {
 	return o.Payload
 }
@@ -108,12 +106,13 @@ func NewStartApmMaintenanceModeForbidden() *StartApmMaintenanceModeForbidden {
 	return &StartApmMaintenanceModeForbidden{}
 }
 
-/*StartApmMaintenanceModeForbidden handles this case with default header values.
+/* StartApmMaintenanceModeForbidden describes a response with status code 403, with default header values.
 
 The start maintenance mode command was prohibited for the given cluster. (code: `clusters.command_prohibited`)
 */
 type StartApmMaintenanceModeForbidden struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -123,15 +122,18 @@ type StartApmMaintenanceModeForbidden struct {
 func (o *StartApmMaintenanceModeForbidden) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/instances/{instance_ids}/maintenance-mode/_start][%d] startApmMaintenanceModeForbidden  %+v", 403, o.Payload)
 }
-
 func (o *StartApmMaintenanceModeForbidden) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *StartApmMaintenanceModeForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -148,13 +150,14 @@ func NewStartApmMaintenanceModeNotFound() *StartApmMaintenanceModeNotFound {
 	return &StartApmMaintenanceModeNotFound{}
 }
 
-/*StartApmMaintenanceModeNotFound handles this case with default header values.
+/* StartApmMaintenanceModeNotFound describes a response with status code 404, with default header values.
 
-* The cluster specified by {cluster_id} cannot be found. (code: `clusters.cluster_not_found`)
+ * The cluster specified by {cluster_id} cannot be found. (code: `clusters.cluster_not_found`)
 * One or more of the instances specified at {instance_ids} could not be found. (code: `clusters.instances_not_found`)
- */
+*/
 type StartApmMaintenanceModeNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -164,15 +167,18 @@ type StartApmMaintenanceModeNotFound struct {
 func (o *StartApmMaintenanceModeNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/instances/{instance_ids}/maintenance-mode/_start][%d] startApmMaintenanceModeNotFound  %+v", 404, o.Payload)
 }
-
 func (o *StartApmMaintenanceModeNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *StartApmMaintenanceModeNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -189,12 +195,13 @@ func NewStartApmMaintenanceModeRetryWith() *StartApmMaintenanceModeRetryWith {
 	return &StartApmMaintenanceModeRetryWith{}
 }
 
-/*StartApmMaintenanceModeRetryWith handles this case with default header values.
+/* StartApmMaintenanceModeRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type StartApmMaintenanceModeRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -204,15 +211,18 @@ type StartApmMaintenanceModeRetryWith struct {
 func (o *StartApmMaintenanceModeRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/apm/{cluster_id}/instances/{instance_ids}/maintenance-mode/_start][%d] startApmMaintenanceModeRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *StartApmMaintenanceModeRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *StartApmMaintenanceModeRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

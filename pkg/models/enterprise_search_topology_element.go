@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -84,7 +86,6 @@ func (m *EnterpriseSearchTopologyElement) Validate(formats strfmt.Registry) erro
 }
 
 func (m *EnterpriseSearchTopologyElement) validateEnterpriseSearch(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.EnterpriseSearch) { // not required
 		return nil
 	}
@@ -102,7 +103,6 @@ func (m *EnterpriseSearchTopologyElement) validateEnterpriseSearch(formats strfm
 }
 
 func (m *EnterpriseSearchTopologyElement) validateNodeType(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.NodeType) { // not required
 		return nil
 	}
@@ -120,13 +120,76 @@ func (m *EnterpriseSearchTopologyElement) validateNodeType(formats strfmt.Regist
 }
 
 func (m *EnterpriseSearchTopologyElement) validateSize(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Size) { // not required
 		return nil
 	}
 
 	if m.Size != nil {
 		if err := m.Size.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("size")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this enterprise search topology element based on the context it is used
+func (m *EnterpriseSearchTopologyElement) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateEnterpriseSearch(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateNodeType(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateSize(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *EnterpriseSearchTopologyElement) contextValidateEnterpriseSearch(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.EnterpriseSearch != nil {
+		if err := m.EnterpriseSearch.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("enterprise_search")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *EnterpriseSearchTopologyElement) contextValidateNodeType(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.NodeType != nil {
+		if err := m.NodeType.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("node_type")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *EnterpriseSearchTopologyElement) contextValidateSize(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Size != nil {
+		if err := m.Size.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("size")
 			}

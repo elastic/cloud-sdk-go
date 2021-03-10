@@ -64,7 +64,6 @@ func (o *UpdateSecurityDeploymentReader) ReadResponse(response runtime.ClientRes
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,18 +74,21 @@ func NewUpdateSecurityDeploymentOK() *UpdateSecurityDeploymentOK {
 	return &UpdateSecurityDeploymentOK{}
 }
 
-/*UpdateSecurityDeploymentOK handles this case with default header values.
+/* UpdateSecurityDeploymentOK describes a response with status code 200, with default header values.
 
 The security deployment was successfully updated
 */
 type UpdateSecurityDeploymentOK struct {
-	/*The date-time when the resource was created (ISO format relative to UTC)
+
+	/* The date-time when the resource was created (ISO format relative to UTC)
 	 */
 	XCloudResourceCreated string
-	/*The date-time when the resource was last modified (ISO format relative to UTC)
+
+	/* The date-time when the resource was last modified (ISO format relative to UTC)
 	 */
 	XCloudResourceLastModified string
-	/*The resource version, which is used to avoid update conflicts with concurrent operations
+
+	/* The resource version, which is used to avoid update conflicts with concurrent operations
 	 */
 	XCloudResourceVersion string
 
@@ -96,21 +98,32 @@ type UpdateSecurityDeploymentOK struct {
 func (o *UpdateSecurityDeploymentOK) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/security/deployment][%d] updateSecurityDeploymentOK  %+v", 200, o.Payload)
 }
-
 func (o *UpdateSecurityDeploymentOK) GetPayload() *models.IDResponse {
 	return o.Payload
 }
 
 func (o *UpdateSecurityDeploymentOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-resource-created
-	o.XCloudResourceCreated = response.GetHeader("x-cloud-resource-created")
+	// hydrates response header x-cloud-resource-created
+	hdrXCloudResourceCreated := response.GetHeader("x-cloud-resource-created")
 
-	// response header x-cloud-resource-last-modified
-	o.XCloudResourceLastModified = response.GetHeader("x-cloud-resource-last-modified")
+	if hdrXCloudResourceCreated != "" {
+		o.XCloudResourceCreated = hdrXCloudResourceCreated
+	}
 
-	// response header x-cloud-resource-version
-	o.XCloudResourceVersion = response.GetHeader("x-cloud-resource-version")
+	// hydrates response header x-cloud-resource-last-modified
+	hdrXCloudResourceLastModified := response.GetHeader("x-cloud-resource-last-modified")
+
+	if hdrXCloudResourceLastModified != "" {
+		o.XCloudResourceLastModified = hdrXCloudResourceLastModified
+	}
+
+	// hydrates response header x-cloud-resource-version
+	hdrXCloudResourceVersion := response.GetHeader("x-cloud-resource-version")
+
+	if hdrXCloudResourceVersion != "" {
+		o.XCloudResourceVersion = hdrXCloudResourceVersion
+	}
 
 	o.Payload = new(models.IDResponse)
 
@@ -127,12 +140,13 @@ func NewUpdateSecurityDeploymentNotFound() *UpdateSecurityDeploymentNotFound {
 	return &UpdateSecurityDeploymentNotFound{}
 }
 
-/*UpdateSecurityDeploymentNotFound handles this case with default header values.
+/* UpdateSecurityDeploymentNotFound describes a response with status code 404, with default header values.
 
 The security deployment was not found. (code: `security_deployment.not_found`)
 */
 type UpdateSecurityDeploymentNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -142,15 +156,18 @@ type UpdateSecurityDeploymentNotFound struct {
 func (o *UpdateSecurityDeploymentNotFound) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/security/deployment][%d] updateSecurityDeploymentNotFound  %+v", 404, o.Payload)
 }
-
 func (o *UpdateSecurityDeploymentNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *UpdateSecurityDeploymentNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -167,13 +184,14 @@ func NewUpdateSecurityDeploymentConflict() *UpdateSecurityDeploymentConflict {
 	return &UpdateSecurityDeploymentConflict{}
 }
 
-/*UpdateSecurityDeploymentConflict handles this case with default header values.
+/* UpdateSecurityDeploymentConflict describes a response with status code 409, with default header values.
 
-* There is a version conflict. (code: `security_deployment.version_conflict`)
+ * There is a version conflict. (code: `security_deployment.version_conflict`)
 * There is a version conflict. (code: `security_deployment.already_exists`)
- */
+*/
 type UpdateSecurityDeploymentConflict struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -183,15 +201,18 @@ type UpdateSecurityDeploymentConflict struct {
 func (o *UpdateSecurityDeploymentConflict) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/security/deployment][%d] updateSecurityDeploymentConflict  %+v", 409, o.Payload)
 }
-
 func (o *UpdateSecurityDeploymentConflict) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *UpdateSecurityDeploymentConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -208,12 +229,13 @@ func NewUpdateSecurityDeploymentRetryWith() *UpdateSecurityDeploymentRetryWith {
 	return &UpdateSecurityDeploymentRetryWith{}
 }
 
-/*UpdateSecurityDeploymentRetryWith handles this case with default header values.
+/* UpdateSecurityDeploymentRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type UpdateSecurityDeploymentRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -223,15 +245,18 @@ type UpdateSecurityDeploymentRetryWith struct {
 func (o *UpdateSecurityDeploymentRetryWith) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/security/deployment][%d] updateSecurityDeploymentRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *UpdateSecurityDeploymentRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *UpdateSecurityDeploymentRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

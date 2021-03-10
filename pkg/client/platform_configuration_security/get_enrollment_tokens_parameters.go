@@ -33,52 +33,66 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetEnrollmentTokensParams creates a new GetEnrollmentTokensParams object
-// with the default values initialized.
+// NewGetEnrollmentTokensParams creates a new GetEnrollmentTokensParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetEnrollmentTokensParams() *GetEnrollmentTokensParams {
-
 	return &GetEnrollmentTokensParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetEnrollmentTokensParamsWithTimeout creates a new GetEnrollmentTokensParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetEnrollmentTokensParamsWithTimeout(timeout time.Duration) *GetEnrollmentTokensParams {
-
 	return &GetEnrollmentTokensParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetEnrollmentTokensParamsWithContext creates a new GetEnrollmentTokensParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetEnrollmentTokensParamsWithContext(ctx context.Context) *GetEnrollmentTokensParams {
-
 	return &GetEnrollmentTokensParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetEnrollmentTokensParamsWithHTTPClient creates a new GetEnrollmentTokensParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetEnrollmentTokensParamsWithHTTPClient(client *http.Client) *GetEnrollmentTokensParams {
-
 	return &GetEnrollmentTokensParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetEnrollmentTokensParams contains all the parameters to send to the API endpoint
-for the get enrollment tokens operation typically these are written to a http.Request
+/* GetEnrollmentTokensParams contains all the parameters to send to the API endpoint
+   for the get enrollment tokens operation.
+
+   Typically these are written to a http.Request.
 */
 type GetEnrollmentTokensParams struct {
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get enrollment tokens params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetEnrollmentTokensParams) WithDefaults() *GetEnrollmentTokensParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get enrollment tokens params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetEnrollmentTokensParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get enrollment tokens params

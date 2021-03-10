@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -39,6 +41,7 @@ type ContainersEntryOptionsAuth struct {
 	Auth *string `json:"auth"`
 
 	// Scheme identifier, usually "digest"
+	// Example: digest
 	// Required: true
 	Scheme *string `json:"scheme"`
 }
@@ -76,6 +79,11 @@ func (m *ContainersEntryOptionsAuth) validateScheme(formats strfmt.Registry) err
 		return err
 	}
 
+	return nil
+}
+
+// ContextValidate validates this containers entry options auth based on context it is used
+func (m *ContainersEntryOptionsAuth) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

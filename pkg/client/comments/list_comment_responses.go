@@ -46,7 +46,6 @@ func (o *ListCommentReader) ReadResponse(response runtime.ClientResponse, consum
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,7 +56,7 @@ func NewListCommentOK() *ListCommentOK {
 	return &ListCommentOK{}
 }
 
-/*ListCommentOK handles this case with default header values.
+/* ListCommentOK describes a response with status code 200, with default header values.
 
 The Comments
 */
@@ -68,7 +67,6 @@ type ListCommentOK struct {
 func (o *ListCommentOK) Error() string {
 	return fmt.Sprintf("[GET /comments/{resource_type}/{resource_id}][%d] listCommentOK  %+v", 200, o.Payload)
 }
-
 func (o *ListCommentOK) GetPayload() *models.CommentsWithMetas {
 	return o.Payload
 }

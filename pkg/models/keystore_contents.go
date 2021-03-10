@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -55,6 +57,10 @@ func (m *KeystoreContents) Validate(formats strfmt.Registry) error {
 
 func (m *KeystoreContents) validateSecrets(formats strfmt.Registry) error {
 
+	if err := validate.Required("secrets", "body", m.Secrets); err != nil {
+		return err
+	}
+
 	for k := range m.Secrets {
 
 		if err := validate.Required("secrets"+"."+k, "body", m.Secrets[k]); err != nil {
@@ -62,6 +68,39 @@ func (m *KeystoreContents) validateSecrets(formats strfmt.Registry) error {
 		}
 		if val, ok := m.Secrets[k]; ok {
 			if err := val.Validate(formats); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this keystore contents based on the context it is used
+func (m *KeystoreContents) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateSecrets(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *KeystoreContents) contextValidateSecrets(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := validate.Required("secrets", "body", m.Secrets); err != nil {
+		return err
+	}
+
+	for k := range m.Secrets {
+
+		if val, ok := m.Secrets[k]; ok {
+			if err := val.ContextValidate(ctx, formats); err != nil {
 				return err
 			}
 		}

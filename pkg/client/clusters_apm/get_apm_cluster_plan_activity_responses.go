@@ -52,7 +52,6 @@ func (o *GetApmClusterPlanActivityReader) ReadResponse(response runtime.ClientRe
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,7 +62,7 @@ func NewGetApmClusterPlanActivityOK() *GetApmClusterPlanActivityOK {
 	return &GetApmClusterPlanActivityOK{}
 }
 
-/*GetApmClusterPlanActivityOK handles this case with default header values.
+/* GetApmClusterPlanActivityOK describes a response with status code 200, with default header values.
 
 Returning the plan activity for the specified APM cluster
 */
@@ -74,7 +73,6 @@ type GetApmClusterPlanActivityOK struct {
 func (o *GetApmClusterPlanActivityOK) Error() string {
 	return fmt.Sprintf("[GET /clusters/apm/{cluster_id}/plan/activity][%d] getApmClusterPlanActivityOK  %+v", 200, o.Payload)
 }
-
 func (o *GetApmClusterPlanActivityOK) GetPayload() *models.ApmPlansInfo {
 	return o.Payload
 }
@@ -96,12 +94,13 @@ func NewGetApmClusterPlanActivityNotFound() *GetApmClusterPlanActivityNotFound {
 	return &GetApmClusterPlanActivityNotFound{}
 }
 
-/*GetApmClusterPlanActivityNotFound handles this case with default header values.
+/* GetApmClusterPlanActivityNotFound describes a response with status code 404, with default header values.
 
 The cluster specified by {cluster_id} cannot be found. (code: `clusters.cluster_not_found`)
 */
 type GetApmClusterPlanActivityNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -111,15 +110,18 @@ type GetApmClusterPlanActivityNotFound struct {
 func (o *GetApmClusterPlanActivityNotFound) Error() string {
 	return fmt.Sprintf("[GET /clusters/apm/{cluster_id}/plan/activity][%d] getApmClusterPlanActivityNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetApmClusterPlanActivityNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *GetApmClusterPlanActivityNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

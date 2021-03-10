@@ -33,64 +33,79 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewMigrateDeploymentParams creates a new MigrateDeploymentParams object
-// with the default values initialized.
+// NewMigrateDeploymentParams creates a new MigrateDeploymentParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewMigrateDeploymentParams() *MigrateDeploymentParams {
-	var ()
 	return &MigrateDeploymentParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewMigrateDeploymentParamsWithTimeout creates a new MigrateDeploymentParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewMigrateDeploymentParamsWithTimeout(timeout time.Duration) *MigrateDeploymentParams {
-	var ()
 	return &MigrateDeploymentParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewMigrateDeploymentParamsWithContext creates a new MigrateDeploymentParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewMigrateDeploymentParamsWithContext(ctx context.Context) *MigrateDeploymentParams {
-	var ()
 	return &MigrateDeploymentParams{
-
 		Context: ctx,
 	}
 }
 
 // NewMigrateDeploymentParamsWithHTTPClient creates a new MigrateDeploymentParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewMigrateDeploymentParamsWithHTTPClient(client *http.Client) *MigrateDeploymentParams {
-	var ()
 	return &MigrateDeploymentParams{
 		HTTPClient: client,
 	}
 }
 
-/*MigrateDeploymentParams contains all the parameters to send to the API endpoint
-for the migrate deployment operation typically these are written to a http.Request
+/* MigrateDeploymentParams contains all the parameters to send to the API endpoint
+   for the migrate deployment operation.
+
+   Typically these are written to a http.Request.
 */
 type MigrateDeploymentParams struct {
 
-	/*DeploymentID
-	  Identifier for the Deployment
+	/* DeploymentID.
 
+	   Identifier for the Deployment
 	*/
 	DeploymentID string
-	/*Template
-	  The ID of the deployment template to migrate to
 
+	/* Template.
+
+	   The ID of the deployment template to migrate to
 	*/
 	Template string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the migrate deployment params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *MigrateDeploymentParams) WithDefaults() *MigrateDeploymentParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the migrate deployment params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *MigrateDeploymentParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the migrate deployment params
@@ -165,6 +180,7 @@ func (o *MigrateDeploymentParams) WriteToRequest(r runtime.ClientRequest, reg st
 	qrTemplate := o.Template
 	qTemplate := qrTemplate
 	if qTemplate != "" {
+
 		if err := r.SetQueryParam("template", qTemplate); err != nil {
 			return err
 		}

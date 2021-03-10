@@ -33,52 +33,66 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetProxiesSettingsParams creates a new GetProxiesSettingsParams object
-// with the default values initialized.
+// NewGetProxiesSettingsParams creates a new GetProxiesSettingsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetProxiesSettingsParams() *GetProxiesSettingsParams {
-
 	return &GetProxiesSettingsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetProxiesSettingsParamsWithTimeout creates a new GetProxiesSettingsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetProxiesSettingsParamsWithTimeout(timeout time.Duration) *GetProxiesSettingsParams {
-
 	return &GetProxiesSettingsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetProxiesSettingsParamsWithContext creates a new GetProxiesSettingsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetProxiesSettingsParamsWithContext(ctx context.Context) *GetProxiesSettingsParams {
-
 	return &GetProxiesSettingsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetProxiesSettingsParamsWithHTTPClient creates a new GetProxiesSettingsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetProxiesSettingsParamsWithHTTPClient(client *http.Client) *GetProxiesSettingsParams {
-
 	return &GetProxiesSettingsParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetProxiesSettingsParams contains all the parameters to send to the API endpoint
-for the get proxies settings operation typically these are written to a http.Request
+/* GetProxiesSettingsParams contains all the parameters to send to the API endpoint
+   for the get proxies settings operation.
+
+   Typically these are written to a http.Request.
 */
 type GetProxiesSettingsParams struct {
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get proxies settings params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetProxiesSettingsParams) WithDefaults() *GetProxiesSettingsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get proxies settings params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetProxiesSettingsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get proxies settings params

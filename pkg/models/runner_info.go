@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -126,7 +127,6 @@ func (m *RunnerInfo) Validate(formats strfmt.Registry) error {
 }
 
 func (m *RunnerInfo) validateBuildInfo(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.BuildInfo) { // not required
 		return nil
 	}
@@ -233,6 +233,78 @@ func (m *RunnerInfo) validateRunnerID(formats strfmt.Registry) error {
 
 	if err := validate.Required("runner_id", "body", m.RunnerID); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this runner info based on the context it is used
+func (m *RunnerInfo) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateBuildInfo(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateContainers(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateRoles(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *RunnerInfo) contextValidateBuildInfo(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.BuildInfo != nil {
+		if err := m.BuildInfo.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("build_info")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *RunnerInfo) contextValidateContainers(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Containers); i++ {
+
+		if m.Containers[i] != nil {
+			if err := m.Containers[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("containers" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *RunnerInfo) contextValidateRoles(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Roles); i++ {
+
+		if m.Roles[i] != nil {
+			if err := m.Roles[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("roles" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil

@@ -33,52 +33,66 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewResyncDeploymentsParams creates a new ResyncDeploymentsParams object
-// with the default values initialized.
+// NewResyncDeploymentsParams creates a new ResyncDeploymentsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewResyncDeploymentsParams() *ResyncDeploymentsParams {
-
 	return &ResyncDeploymentsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewResyncDeploymentsParamsWithTimeout creates a new ResyncDeploymentsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewResyncDeploymentsParamsWithTimeout(timeout time.Duration) *ResyncDeploymentsParams {
-
 	return &ResyncDeploymentsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewResyncDeploymentsParamsWithContext creates a new ResyncDeploymentsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewResyncDeploymentsParamsWithContext(ctx context.Context) *ResyncDeploymentsParams {
-
 	return &ResyncDeploymentsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewResyncDeploymentsParamsWithHTTPClient creates a new ResyncDeploymentsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewResyncDeploymentsParamsWithHTTPClient(client *http.Client) *ResyncDeploymentsParams {
-
 	return &ResyncDeploymentsParams{
 		HTTPClient: client,
 	}
 }
 
-/*ResyncDeploymentsParams contains all the parameters to send to the API endpoint
-for the resync deployments operation typically these are written to a http.Request
+/* ResyncDeploymentsParams contains all the parameters to send to the API endpoint
+   for the resync deployments operation.
+
+   Typically these are written to a http.Request.
 */
 type ResyncDeploymentsParams struct {
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the resync deployments params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ResyncDeploymentsParams) WithDefaults() *ResyncDeploymentsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the resync deployments params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ResyncDeploymentsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the resync deployments params

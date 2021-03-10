@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -70,13 +72,40 @@ func (m *EnterpriseSearchConfiguration) Validate(formats strfmt.Registry) error 
 }
 
 func (m *EnterpriseSearchConfiguration) validateSystemSettings(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.SystemSettings) { // not required
 		return nil
 	}
 
 	if m.SystemSettings != nil {
 		if err := m.SystemSettings.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("system_settings")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this enterprise search configuration based on the context it is used
+func (m *EnterpriseSearchConfiguration) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateSystemSettings(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *EnterpriseSearchConfiguration) contextValidateSystemSettings(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.SystemSettings != nil {
+		if err := m.SystemSettings.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("system_settings")
 			}

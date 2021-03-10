@@ -33,64 +33,79 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetTrafficFilterDeploymentRulesetAssociationsParams creates a new GetTrafficFilterDeploymentRulesetAssociationsParams object
-// with the default values initialized.
+// NewGetTrafficFilterDeploymentRulesetAssociationsParams creates a new GetTrafficFilterDeploymentRulesetAssociationsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetTrafficFilterDeploymentRulesetAssociationsParams() *GetTrafficFilterDeploymentRulesetAssociationsParams {
-	var ()
 	return &GetTrafficFilterDeploymentRulesetAssociationsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetTrafficFilterDeploymentRulesetAssociationsParamsWithTimeout creates a new GetTrafficFilterDeploymentRulesetAssociationsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetTrafficFilterDeploymentRulesetAssociationsParamsWithTimeout(timeout time.Duration) *GetTrafficFilterDeploymentRulesetAssociationsParams {
-	var ()
 	return &GetTrafficFilterDeploymentRulesetAssociationsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetTrafficFilterDeploymentRulesetAssociationsParamsWithContext creates a new GetTrafficFilterDeploymentRulesetAssociationsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetTrafficFilterDeploymentRulesetAssociationsParamsWithContext(ctx context.Context) *GetTrafficFilterDeploymentRulesetAssociationsParams {
-	var ()
 	return &GetTrafficFilterDeploymentRulesetAssociationsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetTrafficFilterDeploymentRulesetAssociationsParamsWithHTTPClient creates a new GetTrafficFilterDeploymentRulesetAssociationsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetTrafficFilterDeploymentRulesetAssociationsParamsWithHTTPClient(client *http.Client) *GetTrafficFilterDeploymentRulesetAssociationsParams {
-	var ()
 	return &GetTrafficFilterDeploymentRulesetAssociationsParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetTrafficFilterDeploymentRulesetAssociationsParams contains all the parameters to send to the API endpoint
-for the get traffic filter deployment ruleset associations operation typically these are written to a http.Request
+/* GetTrafficFilterDeploymentRulesetAssociationsParams contains all the parameters to send to the API endpoint
+   for the get traffic filter deployment ruleset associations operation.
+
+   Typically these are written to a http.Request.
 */
 type GetTrafficFilterDeploymentRulesetAssociationsParams struct {
 
-	/*AssociatedEntityID
-	  Associated entity ID
+	/* AssociatedEntityID.
 
+	   Associated entity ID
 	*/
 	AssociatedEntityID string
-	/*AssociationType
-	  Association type
 
+	/* AssociationType.
+
+	   Association type
 	*/
 	AssociationType string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get traffic filter deployment ruleset associations params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetTrafficFilterDeploymentRulesetAssociationsParams) WithDefaults() *GetTrafficFilterDeploymentRulesetAssociationsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get traffic filter deployment ruleset associations params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetTrafficFilterDeploymentRulesetAssociationsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get traffic filter deployment ruleset associations params

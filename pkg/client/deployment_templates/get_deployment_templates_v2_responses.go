@@ -58,7 +58,6 @@ func (o *GetDeploymentTemplatesV2Reader) ReadResponse(response runtime.ClientRes
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,7 +68,7 @@ func NewGetDeploymentTemplatesV2OK() *GetDeploymentTemplatesV2OK {
 	return &GetDeploymentTemplatesV2OK{}
 }
 
-/*GetDeploymentTemplatesV2OK handles this case with default header values.
+/* GetDeploymentTemplatesV2OK describes a response with status code 200, with default header values.
 
 The deployment templates were returned successfully.
 */
@@ -80,7 +79,6 @@ type GetDeploymentTemplatesV2OK struct {
 func (o *GetDeploymentTemplatesV2OK) Error() string {
 	return fmt.Sprintf("[GET /deployments/templates][%d] getDeploymentTemplatesV2OK  %+v", 200, o.Payload)
 }
-
 func (o *GetDeploymentTemplatesV2OK) GetPayload() []*models.DeploymentTemplateInfoV2 {
 	return o.Payload
 }
@@ -100,12 +98,13 @@ func NewGetDeploymentTemplatesV2BadRequest() *GetDeploymentTemplatesV2BadRequest
 	return &GetDeploymentTemplatesV2BadRequest{}
 }
 
-/*GetDeploymentTemplatesV2BadRequest handles this case with default header values.
+/* GetDeploymentTemplatesV2BadRequest describes a response with status code 400, with default header values.
 
 The requested region was not found. (code: `templates.region_not_found`)
 */
 type GetDeploymentTemplatesV2BadRequest struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -115,15 +114,18 @@ type GetDeploymentTemplatesV2BadRequest struct {
 func (o *GetDeploymentTemplatesV2BadRequest) Error() string {
 	return fmt.Sprintf("[GET /deployments/templates][%d] getDeploymentTemplatesV2BadRequest  %+v", 400, o.Payload)
 }
-
 func (o *GetDeploymentTemplatesV2BadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *GetDeploymentTemplatesV2BadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -140,12 +142,13 @@ func NewGetDeploymentTemplatesV2Unauthorized() *GetDeploymentTemplatesV2Unauthor
 	return &GetDeploymentTemplatesV2Unauthorized{}
 }
 
-/*GetDeploymentTemplatesV2Unauthorized handles this case with default header values.
+/* GetDeploymentTemplatesV2Unauthorized describes a response with status code 401, with default header values.
 
 The user is not authorized to access requested region. (code: `templates.region_not_allowed`)
 */
 type GetDeploymentTemplatesV2Unauthorized struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -155,15 +158,18 @@ type GetDeploymentTemplatesV2Unauthorized struct {
 func (o *GetDeploymentTemplatesV2Unauthorized) Error() string {
 	return fmt.Sprintf("[GET /deployments/templates][%d] getDeploymentTemplatesV2Unauthorized  %+v", 401, o.Payload)
 }
-
 func (o *GetDeploymentTemplatesV2Unauthorized) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *GetDeploymentTemplatesV2Unauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

@@ -42,11 +42,14 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientOption is the option for Client methods
+type ClientOption func(*runtime.ClientOperation)
+
 // ClientService is the interface for Client methods
 type ClientService interface {
-	GetTelemetryConfig(params *GetTelemetryConfigParams, authInfo runtime.ClientAuthInfoWriter) (*GetTelemetryConfigOK, error)
+	GetTelemetryConfig(params *GetTelemetryConfigParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTelemetryConfigOK, error)
 
-	SetTelemetryConfig(params *SetTelemetryConfigParams, authInfo runtime.ClientAuthInfoWriter) (*SetTelemetryConfigOK, error)
+	SetTelemetryConfig(params *SetTelemetryConfigParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetTelemetryConfigOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -56,13 +59,12 @@ type ClientService interface {
 
   Returns whether ECE telemetry is enabled.
 */
-func (a *Client) GetTelemetryConfig(params *GetTelemetryConfigParams, authInfo runtime.ClientAuthInfoWriter) (*GetTelemetryConfigOK, error) {
+func (a *Client) GetTelemetryConfig(params *GetTelemetryConfigParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTelemetryConfigOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetTelemetryConfigParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-telemetry-config",
 		Method:             "GET",
 		PathPattern:        "/phone-home/config",
@@ -74,7 +76,12 @@ func (a *Client) GetTelemetryConfig(params *GetTelemetryConfigParams, authInfo r
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -93,13 +100,12 @@ func (a *Client) GetTelemetryConfig(params *GetTelemetryConfigParams, authInfo r
 
   Sets whether to enable ECE telemetry.
 */
-func (a *Client) SetTelemetryConfig(params *SetTelemetryConfigParams, authInfo runtime.ClientAuthInfoWriter) (*SetTelemetryConfigOK, error) {
+func (a *Client) SetTelemetryConfig(params *SetTelemetryConfigParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetTelemetryConfigOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSetTelemetryConfigParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "set-telemetry-config",
 		Method:             "PUT",
 		PathPattern:        "/phone-home/config",
@@ -111,7 +117,12 @@ func (a *Client) SetTelemetryConfig(params *SetTelemetryConfigParams, authInfo r
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}

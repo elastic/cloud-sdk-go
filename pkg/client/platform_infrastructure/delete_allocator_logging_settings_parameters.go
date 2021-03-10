@@ -33,59 +33,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewDeleteAllocatorLoggingSettingsParams creates a new DeleteAllocatorLoggingSettingsParams object
-// with the default values initialized.
+// NewDeleteAllocatorLoggingSettingsParams creates a new DeleteAllocatorLoggingSettingsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewDeleteAllocatorLoggingSettingsParams() *DeleteAllocatorLoggingSettingsParams {
-	var ()
 	return &DeleteAllocatorLoggingSettingsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteAllocatorLoggingSettingsParamsWithTimeout creates a new DeleteAllocatorLoggingSettingsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewDeleteAllocatorLoggingSettingsParamsWithTimeout(timeout time.Duration) *DeleteAllocatorLoggingSettingsParams {
-	var ()
 	return &DeleteAllocatorLoggingSettingsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewDeleteAllocatorLoggingSettingsParamsWithContext creates a new DeleteAllocatorLoggingSettingsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewDeleteAllocatorLoggingSettingsParamsWithContext(ctx context.Context) *DeleteAllocatorLoggingSettingsParams {
-	var ()
 	return &DeleteAllocatorLoggingSettingsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewDeleteAllocatorLoggingSettingsParamsWithHTTPClient creates a new DeleteAllocatorLoggingSettingsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewDeleteAllocatorLoggingSettingsParamsWithHTTPClient(client *http.Client) *DeleteAllocatorLoggingSettingsParams {
-	var ()
 	return &DeleteAllocatorLoggingSettingsParams{
 		HTTPClient: client,
 	}
 }
 
-/*DeleteAllocatorLoggingSettingsParams contains all the parameters to send to the API endpoint
-for the delete allocator logging settings operation typically these are written to a http.Request
+/* DeleteAllocatorLoggingSettingsParams contains all the parameters to send to the API endpoint
+   for the delete allocator logging settings operation.
+
+   Typically these are written to a http.Request.
 */
 type DeleteAllocatorLoggingSettingsParams struct {
 
-	/*AllocatorID
-	  The allocator identifier.
+	/* AllocatorID.
 
+	   The allocator identifier.
 	*/
 	AllocatorID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the delete allocator logging settings params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteAllocatorLoggingSettingsParams) WithDefaults() *DeleteAllocatorLoggingSettingsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the delete allocator logging settings params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteAllocatorLoggingSettingsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete allocator logging settings params

@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -80,7 +82,6 @@ func (m *ClusterInfo) Validate(formats strfmt.Registry) error {
 }
 
 func (m *ClusterInfo) validateApm(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Apm) { // not required
 		return nil
 	}
@@ -98,7 +99,6 @@ func (m *ClusterInfo) validateApm(formats strfmt.Registry) error {
 }
 
 func (m *ClusterInfo) validateAppSearch(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.AppSearch) { // not required
 		return nil
 	}
@@ -116,7 +116,6 @@ func (m *ClusterInfo) validateAppSearch(formats strfmt.Registry) error {
 }
 
 func (m *ClusterInfo) validateElasticsearch(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Elasticsearch) { // not required
 		return nil
 	}
@@ -134,7 +133,6 @@ func (m *ClusterInfo) validateElasticsearch(formats strfmt.Registry) error {
 }
 
 func (m *ClusterInfo) validateEnterpriseSearch(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.EnterpriseSearch) { // not required
 		return nil
 	}
@@ -152,13 +150,112 @@ func (m *ClusterInfo) validateEnterpriseSearch(formats strfmt.Registry) error {
 }
 
 func (m *ClusterInfo) validateKibana(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Kibana) { // not required
 		return nil
 	}
 
 	if m.Kibana != nil {
 		if err := m.Kibana.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("kibana")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this cluster info based on the context it is used
+func (m *ClusterInfo) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateApm(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateAppSearch(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateElasticsearch(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateEnterpriseSearch(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateKibana(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ClusterInfo) contextValidateApm(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Apm != nil {
+		if err := m.Apm.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("apm")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ClusterInfo) contextValidateAppSearch(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.AppSearch != nil {
+		if err := m.AppSearch.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("app_search")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ClusterInfo) contextValidateElasticsearch(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Elasticsearch != nil {
+		if err := m.Elasticsearch.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("elasticsearch")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ClusterInfo) contextValidateEnterpriseSearch(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.EnterpriseSearch != nil {
+		if err := m.EnterpriseSearch.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("enterprise_search")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ClusterInfo) contextValidateKibana(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Kibana != nil {
+		if err := m.Kibana.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("kibana")
 			}

@@ -52,7 +52,6 @@ func (o *GetProxiesFilteredGroupReader) ReadResponse(response runtime.ClientResp
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,18 +62,21 @@ func NewGetProxiesFilteredGroupOK() *GetProxiesFilteredGroupOK {
 	return &GetProxiesFilteredGroupOK{}
 }
 
-/*GetProxiesFilteredGroupOK handles this case with default header values.
+/* GetProxiesFilteredGroupOK describes a response with status code 200, with default header values.
 
 Data for the filtered group of proxies identified by {proxies_filtered_group_id}
 */
 type GetProxiesFilteredGroupOK struct {
-	/*The date-time when the resource was created (ISO format relative to UTC)
+
+	/* The date-time when the resource was created (ISO format relative to UTC)
 	 */
 	XCloudResourceCreated string
-	/*The date-time when the resource was last modified (ISO format relative to UTC)
+
+	/* The date-time when the resource was last modified (ISO format relative to UTC)
 	 */
 	XCloudResourceLastModified string
-	/*The resource version, which is used to avoid update conflicts with concurrent operations
+
+	/* The resource version, which is used to avoid update conflicts with concurrent operations
 	 */
 	XCloudResourceVersion string
 
@@ -84,21 +86,32 @@ type GetProxiesFilteredGroupOK struct {
 func (o *GetProxiesFilteredGroupOK) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}][%d] getProxiesFilteredGroupOK  %+v", 200, o.Payload)
 }
-
 func (o *GetProxiesFilteredGroupOK) GetPayload() *models.ProxiesFilteredGroup {
 	return o.Payload
 }
 
 func (o *GetProxiesFilteredGroupOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-resource-created
-	o.XCloudResourceCreated = response.GetHeader("x-cloud-resource-created")
+	// hydrates response header x-cloud-resource-created
+	hdrXCloudResourceCreated := response.GetHeader("x-cloud-resource-created")
 
-	// response header x-cloud-resource-last-modified
-	o.XCloudResourceLastModified = response.GetHeader("x-cloud-resource-last-modified")
+	if hdrXCloudResourceCreated != "" {
+		o.XCloudResourceCreated = hdrXCloudResourceCreated
+	}
 
-	// response header x-cloud-resource-version
-	o.XCloudResourceVersion = response.GetHeader("x-cloud-resource-version")
+	// hydrates response header x-cloud-resource-last-modified
+	hdrXCloudResourceLastModified := response.GetHeader("x-cloud-resource-last-modified")
+
+	if hdrXCloudResourceLastModified != "" {
+		o.XCloudResourceLastModified = hdrXCloudResourceLastModified
+	}
+
+	// hydrates response header x-cloud-resource-version
+	hdrXCloudResourceVersion := response.GetHeader("x-cloud-resource-version")
+
+	if hdrXCloudResourceVersion != "" {
+		o.XCloudResourceVersion = hdrXCloudResourceVersion
+	}
 
 	o.Payload = new(models.ProxiesFilteredGroup)
 
@@ -115,12 +128,13 @@ func NewGetProxiesFilteredGroupNotFound() *GetProxiesFilteredGroupNotFound {
 	return &GetProxiesFilteredGroupNotFound{}
 }
 
-/*GetProxiesFilteredGroupNotFound handles this case with default header values.
+/* GetProxiesFilteredGroupNotFound describes a response with status code 404, with default header values.
 
 Unable to find the {proxies_filtered_group_id} specified filtered group of proxies. Edit your request, then try again. (code: `proxies.proxies_filtered_group_not_found`)
 */
 type GetProxiesFilteredGroupNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -130,15 +144,18 @@ type GetProxiesFilteredGroupNotFound struct {
 func (o *GetProxiesFilteredGroupNotFound) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}][%d] getProxiesFilteredGroupNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetProxiesFilteredGroupNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *GetProxiesFilteredGroupNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

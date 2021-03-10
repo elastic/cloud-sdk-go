@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -130,6 +132,70 @@ func (m *ElasticsearchInfo) validateShardInfo(formats strfmt.Registry) error {
 
 	if m.ShardInfo != nil {
 		if err := m.ShardInfo.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("shard_info")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this elasticsearch info based on the context it is used
+func (m *ElasticsearchInfo) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateBlockingIssues(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateMasterInfo(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateShardInfo(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ElasticsearchInfo) contextValidateBlockingIssues(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.BlockingIssues != nil {
+		if err := m.BlockingIssues.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("blocking_issues")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ElasticsearchInfo) contextValidateMasterInfo(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.MasterInfo != nil {
+		if err := m.MasterInfo.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("master_info")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ElasticsearchInfo) contextValidateShardInfo(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.ShardInfo != nil {
+		if err := m.ShardInfo.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("shard_info")
 			}

@@ -76,7 +76,6 @@ func (o *SetDeploymentTemplateReader) ReadResponse(response runtime.ClientRespon
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -87,7 +86,7 @@ func NewSetDeploymentTemplateOK() *SetDeploymentTemplateOK {
 	return &SetDeploymentTemplateOK{}
 }
 
-/*SetDeploymentTemplateOK handles this case with default header values.
+/* SetDeploymentTemplateOK describes a response with status code 200, with default header values.
 
 The deployment definition was valid and the template has been updated.
 */
@@ -98,7 +97,6 @@ type SetDeploymentTemplateOK struct {
 func (o *SetDeploymentTemplateOK) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/templates/deployments/{template_id}][%d] setDeploymentTemplateOK  %+v", 200, o.Payload)
 }
-
 func (o *SetDeploymentTemplateOK) GetPayload() *models.IDResponse {
 	return o.Payload
 }
@@ -120,7 +118,7 @@ func NewSetDeploymentTemplateCreated() *SetDeploymentTemplateCreated {
 	return &SetDeploymentTemplateCreated{}
 }
 
-/*SetDeploymentTemplateCreated handles this case with default header values.
+/* SetDeploymentTemplateCreated describes a response with status code 201, with default header values.
 
 The deployment definition was valid and the template was created.
 */
@@ -131,7 +129,6 @@ type SetDeploymentTemplateCreated struct {
 func (o *SetDeploymentTemplateCreated) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/templates/deployments/{template_id}][%d] setDeploymentTemplateCreated  %+v", 201, o.Payload)
 }
-
 func (o *SetDeploymentTemplateCreated) GetPayload() *models.IDResponse {
 	return o.Payload
 }
@@ -153,12 +150,13 @@ func NewSetDeploymentTemplateBadRequest() *SetDeploymentTemplateBadRequest {
 	return &SetDeploymentTemplateBadRequest{}
 }
 
-/*SetDeploymentTemplateBadRequest handles this case with default header values.
+/* SetDeploymentTemplateBadRequest describes a response with status code 400, with default header values.
 
 The template definition contained errors. (code: `templates.invalid_template`)
 */
 type SetDeploymentTemplateBadRequest struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -168,15 +166,18 @@ type SetDeploymentTemplateBadRequest struct {
 func (o *SetDeploymentTemplateBadRequest) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/templates/deployments/{template_id}][%d] setDeploymentTemplateBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *SetDeploymentTemplateBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SetDeploymentTemplateBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -193,12 +194,13 @@ func NewSetDeploymentTemplateNotFound() *SetDeploymentTemplateNotFound {
 	return &SetDeploymentTemplateNotFound{}
 }
 
-/*SetDeploymentTemplateNotFound handles this case with default header values.
+/* SetDeploymentTemplateNotFound describes a response with status code 404, with default header values.
 
 The deployment template specified by {template_id} cannot be found. (code: `templates.template_not_found`)
 */
 type SetDeploymentTemplateNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -208,15 +210,18 @@ type SetDeploymentTemplateNotFound struct {
 func (o *SetDeploymentTemplateNotFound) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/templates/deployments/{template_id}][%d] setDeploymentTemplateNotFound  %+v", 404, o.Payload)
 }
-
 func (o *SetDeploymentTemplateNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SetDeploymentTemplateNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -233,12 +238,13 @@ func NewSetDeploymentTemplateConflict() *SetDeploymentTemplateConflict {
 	return &SetDeploymentTemplateConflict{}
 }
 
-/*SetDeploymentTemplateConflict handles this case with default header values.
+/* SetDeploymentTemplateConflict describes a response with status code 409, with default header values.
 
 The version supplied in the request conflicted with the version found on the server. (code: `templates.version_conflict`)
 */
 type SetDeploymentTemplateConflict struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -248,15 +254,18 @@ type SetDeploymentTemplateConflict struct {
 func (o *SetDeploymentTemplateConflict) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/templates/deployments/{template_id}][%d] setDeploymentTemplateConflict  %+v", 409, o.Payload)
 }
-
 func (o *SetDeploymentTemplateConflict) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SetDeploymentTemplateConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -273,12 +282,13 @@ func NewSetDeploymentTemplateRetryWith() *SetDeploymentTemplateRetryWith {
 	return &SetDeploymentTemplateRetryWith{}
 }
 
-/*SetDeploymentTemplateRetryWith handles this case with default header values.
+/* SetDeploymentTemplateRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type SetDeploymentTemplateRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -288,15 +298,18 @@ type SetDeploymentTemplateRetryWith struct {
 func (o *SetDeploymentTemplateRetryWith) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/templates/deployments/{template_id}][%d] setDeploymentTemplateRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *SetDeploymentTemplateRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SetDeploymentTemplateRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

@@ -52,7 +52,6 @@ func (o *GetLicenseReader) ReadResponse(response runtime.ClientResponse, consume
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,7 +62,7 @@ func NewGetLicenseOK() *GetLicenseOK {
 	return &GetLicenseOK{}
 }
 
-/*GetLicenseOK handles this case with default header values.
+/* GetLicenseOK describes a response with status code 200, with default header values.
 
 The information for the license.
 */
@@ -74,7 +73,6 @@ type GetLicenseOK struct {
 func (o *GetLicenseOK) Error() string {
 	return fmt.Sprintf("[GET /platform/license][%d] getLicenseOK  %+v", 200, o.Payload)
 }
-
 func (o *GetLicenseOK) GetPayload() *models.LicenseObject {
 	return o.Payload
 }
@@ -96,12 +94,13 @@ func NewGetLicenseNotFound() *GetLicenseNotFound {
 	return &GetLicenseNotFound{}
 }
 
-/*GetLicenseNotFound handles this case with default header values.
+/* GetLicenseNotFound describes a response with status code 404, with default header values.
 
 The license cannot be found. (code: `license.license_not_found`)
 */
 type GetLicenseNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -111,15 +110,18 @@ type GetLicenseNotFound struct {
 func (o *GetLicenseNotFound) Error() string {
 	return fmt.Sprintf("[GET /platform/license][%d] getLicenseNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetLicenseNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *GetLicenseNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

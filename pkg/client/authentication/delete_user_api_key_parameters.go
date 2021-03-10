@@ -33,64 +33,79 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewDeleteUserAPIKeyParams creates a new DeleteUserAPIKeyParams object
-// with the default values initialized.
+// NewDeleteUserAPIKeyParams creates a new DeleteUserAPIKeyParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewDeleteUserAPIKeyParams() *DeleteUserAPIKeyParams {
-	var ()
 	return &DeleteUserAPIKeyParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteUserAPIKeyParamsWithTimeout creates a new DeleteUserAPIKeyParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewDeleteUserAPIKeyParamsWithTimeout(timeout time.Duration) *DeleteUserAPIKeyParams {
-	var ()
 	return &DeleteUserAPIKeyParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewDeleteUserAPIKeyParamsWithContext creates a new DeleteUserAPIKeyParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewDeleteUserAPIKeyParamsWithContext(ctx context.Context) *DeleteUserAPIKeyParams {
-	var ()
 	return &DeleteUserAPIKeyParams{
-
 		Context: ctx,
 	}
 }
 
 // NewDeleteUserAPIKeyParamsWithHTTPClient creates a new DeleteUserAPIKeyParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewDeleteUserAPIKeyParamsWithHTTPClient(client *http.Client) *DeleteUserAPIKeyParams {
-	var ()
 	return &DeleteUserAPIKeyParams{
 		HTTPClient: client,
 	}
 }
 
-/*DeleteUserAPIKeyParams contains all the parameters to send to the API endpoint
-for the delete user api key operation typically these are written to a http.Request
+/* DeleteUserAPIKeyParams contains all the parameters to send to the API endpoint
+   for the delete user api key operation.
+
+   Typically these are written to a http.Request.
 */
 type DeleteUserAPIKeyParams struct {
 
-	/*APIKeyID
-	  The API Key ID.
+	/* APIKeyID.
 
+	   The API Key ID.
 	*/
 	APIKeyID string
-	/*UserID
-	  The user ID.
 
+	/* UserID.
+
+	   The user ID.
 	*/
 	UserID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the delete user api key params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteUserAPIKeyParams) WithDefaults() *DeleteUserAPIKeyParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the delete user api key params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteUserAPIKeyParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete user api key params

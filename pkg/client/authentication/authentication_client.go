@@ -42,49 +42,52 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientOption is the option for Client methods
+type ClientOption func(*runtime.ClientOperation)
+
 // ClientService is the interface for Client methods
 type ClientService interface {
-	CreateAPIKey(params *CreateAPIKeyParams, authInfo runtime.ClientAuthInfoWriter) (*CreateAPIKeyCreated, error)
+	CreateAPIKey(params *CreateAPIKeyParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateAPIKeyCreated, error)
 
-	DeleteAPIKey(params *DeleteAPIKeyParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteAPIKeyOK, error)
+	DeleteAPIKey(params *DeleteAPIKeyParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteAPIKeyOK, error)
 
-	DeleteAPIKeys(params *DeleteAPIKeysParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteAPIKeysOK, error)
+	DeleteAPIKeys(params *DeleteAPIKeysParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteAPIKeysOK, error)
 
-	DeleteUserAPIKey(params *DeleteUserAPIKeyParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteUserAPIKeyOK, error)
+	DeleteUserAPIKey(params *DeleteUserAPIKeyParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteUserAPIKeyOK, error)
 
-	DeleteUserAPIKeys(params *DeleteUserAPIKeysParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteUserAPIKeysOK, error)
+	DeleteUserAPIKeys(params *DeleteUserAPIKeysParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteUserAPIKeysOK, error)
 
-	DeleteUsersAPIKeys(params *DeleteUsersAPIKeysParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteUsersAPIKeysOK, error)
+	DeleteUsersAPIKeys(params *DeleteUsersAPIKeysParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteUsersAPIKeysOK, error)
 
-	DisableElevatedPermissions(params *DisableElevatedPermissionsParams, authInfo runtime.ClientAuthInfoWriter) (*DisableElevatedPermissionsOK, error)
+	DisableElevatedPermissions(params *DisableElevatedPermissionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DisableElevatedPermissionsOK, error)
 
-	EnableElevatedPermissions(params *EnableElevatedPermissionsParams, authInfo runtime.ClientAuthInfoWriter) (*EnableElevatedPermissionsOK, error)
+	EnableElevatedPermissions(params *EnableElevatedPermissionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*EnableElevatedPermissionsOK, error)
 
-	GetAPIKey(params *GetAPIKeyParams, authInfo runtime.ClientAuthInfoWriter) (*GetAPIKeyOK, error)
+	GetAPIKey(params *GetAPIKeyParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAPIKeyOK, error)
 
-	GetAPIKeys(params *GetAPIKeysParams, authInfo runtime.ClientAuthInfoWriter) (*GetAPIKeysOK, error)
+	GetAPIKeys(params *GetAPIKeysParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAPIKeysOK, error)
 
-	GetAuthenticationInfo(params *GetAuthenticationInfoParams, authInfo runtime.ClientAuthInfoWriter) (*GetAuthenticationInfoOK, error)
+	GetAuthenticationInfo(params *GetAuthenticationInfoParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAuthenticationInfoOK, error)
 
-	GetUserAPIKey(params *GetUserAPIKeyParams, authInfo runtime.ClientAuthInfoWriter) (*GetUserAPIKeyOK, error)
+	GetUserAPIKey(params *GetUserAPIKeyParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetUserAPIKeyOK, error)
 
-	GetUserAPIKeys(params *GetUserAPIKeysParams, authInfo runtime.ClientAuthInfoWriter) (*GetUserAPIKeysOK, error)
+	GetUserAPIKeys(params *GetUserAPIKeysParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetUserAPIKeysOK, error)
 
-	GetUsersAPIKeys(params *GetUsersAPIKeysParams, authInfo runtime.ClientAuthInfoWriter) (*GetUsersAPIKeysOK, error)
+	GetUsersAPIKeys(params *GetUsersAPIKeysParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetUsersAPIKeysOK, error)
 
-	Login(params *LoginParams, authInfo runtime.ClientAuthInfoWriter) (*LoginOK, error)
+	Login(params *LoginParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*LoginOK, error)
 
-	Logout(params *LogoutParams, authInfo runtime.ClientAuthInfoWriter) (*LogoutOK, error)
+	Logout(params *LogoutParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*LogoutOK, error)
 
-	Methods(params *MethodsParams, authInfo runtime.ClientAuthInfoWriter) (*MethodsOK, error)
+	Methods(params *MethodsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MethodsOK, error)
 
-	ReAuthenticate(params *ReAuthenticateParams, authInfo runtime.ClientAuthInfoWriter) (*ReAuthenticateOK, error)
+	ReAuthenticate(params *ReAuthenticateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ReAuthenticateOK, error)
 
-	RefreshToken(params *RefreshTokenParams, authInfo runtime.ClientAuthInfoWriter) (*RefreshTokenOK, error)
+	RefreshToken(params *RefreshTokenParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*RefreshTokenOK, error)
 
-	SamlCallback(params *SamlCallbackParams, authInfo runtime.ClientAuthInfoWriter) error
+	SamlCallback(params *SamlCallbackParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) error
 
-	SamlInit(params *SamlInitParams, authInfo runtime.ClientAuthInfoWriter) error
+	SamlInit(params *SamlInitParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) error
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -94,13 +97,12 @@ type ClientService interface {
 
   Creates a new API key.
 */
-func (a *Client) CreateAPIKey(params *CreateAPIKeyParams, authInfo runtime.ClientAuthInfoWriter) (*CreateAPIKeyCreated, error) {
+func (a *Client) CreateAPIKey(params *CreateAPIKeyParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateAPIKeyCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateAPIKeyParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "create-api-key",
 		Method:             "POST",
 		PathPattern:        "/users/auth/keys",
@@ -112,7 +114,12 @@ func (a *Client) CreateAPIKey(params *CreateAPIKeyParams, authInfo runtime.Clien
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -131,13 +138,12 @@ func (a *Client) CreateAPIKey(params *CreateAPIKeyParams, authInfo runtime.Clien
 
   Delete or invalidate the API key.
 */
-func (a *Client) DeleteAPIKey(params *DeleteAPIKeyParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteAPIKeyOK, error) {
+func (a *Client) DeleteAPIKey(params *DeleteAPIKeyParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteAPIKeyOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteAPIKeyParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "delete-api-key",
 		Method:             "DELETE",
 		PathPattern:        "/users/auth/keys/{api_key_id}",
@@ -149,7 +155,12 @@ func (a *Client) DeleteAPIKey(params *DeleteAPIKeyParams, authInfo runtime.Clien
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -168,13 +179,12 @@ func (a *Client) DeleteAPIKey(params *DeleteAPIKeyParams, authInfo runtime.Clien
 
   Delete or invalidate API keys.
 */
-func (a *Client) DeleteAPIKeys(params *DeleteAPIKeysParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteAPIKeysOK, error) {
+func (a *Client) DeleteAPIKeys(params *DeleteAPIKeysParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteAPIKeysOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteAPIKeysParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "delete-api-keys",
 		Method:             "DELETE",
 		PathPattern:        "/users/auth/keys",
@@ -186,7 +196,12 @@ func (a *Client) DeleteAPIKeys(params *DeleteAPIKeysParams, authInfo runtime.Cli
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -205,13 +220,12 @@ func (a *Client) DeleteAPIKeys(params *DeleteAPIKeysParams, authInfo runtime.Cli
 
   Delete or invalidate an API key for a user.
 */
-func (a *Client) DeleteUserAPIKey(params *DeleteUserAPIKeyParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteUserAPIKeyOK, error) {
+func (a *Client) DeleteUserAPIKey(params *DeleteUserAPIKeyParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteUserAPIKeyOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteUserAPIKeyParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "delete-user-api-key",
 		Method:             "DELETE",
 		PathPattern:        "/users/{user_id}/auth/keys/{api_key_id}",
@@ -223,7 +237,12 @@ func (a *Client) DeleteUserAPIKey(params *DeleteUserAPIKeyParams, authInfo runti
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -242,13 +261,12 @@ func (a *Client) DeleteUserAPIKey(params *DeleteUserAPIKeyParams, authInfo runti
 
   Delete or invalidate all of the API keys for a user.
 */
-func (a *Client) DeleteUserAPIKeys(params *DeleteUserAPIKeysParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteUserAPIKeysOK, error) {
+func (a *Client) DeleteUserAPIKeys(params *DeleteUserAPIKeysParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteUserAPIKeysOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteUserAPIKeysParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "delete-user-api-keys",
 		Method:             "DELETE",
 		PathPattern:        "/users/{user_id}/auth/keys",
@@ -260,7 +278,12 @@ func (a *Client) DeleteUserAPIKeys(params *DeleteUserAPIKeysParams, authInfo run
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -279,13 +302,12 @@ func (a *Client) DeleteUserAPIKeys(params *DeleteUserAPIKeysParams, authInfo run
 
   Delete or invalidate the API keys for multiple users.
 */
-func (a *Client) DeleteUsersAPIKeys(params *DeleteUsersAPIKeysParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteUsersAPIKeysOK, error) {
+func (a *Client) DeleteUsersAPIKeys(params *DeleteUsersAPIKeysParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteUsersAPIKeysOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteUsersAPIKeysParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "delete-users-api-keys",
 		Method:             "DELETE",
 		PathPattern:        "/users/auth/keys/_all",
@@ -297,7 +319,12 @@ func (a *Client) DeleteUsersAPIKeys(params *DeleteUsersAPIKeysParams, authInfo r
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -316,13 +343,12 @@ func (a *Client) DeleteUsersAPIKeys(params *DeleteUsersAPIKeysParams, authInfo r
 
   Disables elevated permissions for the user.
 */
-func (a *Client) DisableElevatedPermissions(params *DisableElevatedPermissionsParams, authInfo runtime.ClientAuthInfoWriter) (*DisableElevatedPermissionsOK, error) {
+func (a *Client) DisableElevatedPermissions(params *DisableElevatedPermissionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DisableElevatedPermissionsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDisableElevatedPermissionsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "disable-elevated-permissions",
 		Method:             "DELETE",
 		PathPattern:        "/users/auth/_elevate",
@@ -334,7 +360,12 @@ func (a *Client) DisableElevatedPermissions(params *DisableElevatedPermissionsPa
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -353,13 +384,12 @@ func (a *Client) DisableElevatedPermissions(params *DisableElevatedPermissionsPa
 
   Enables the elevated permissions for the current user. Elevated permissions allow the user to complete potentially destructive operations on clusters. Elevated permissions are available for a limited period of time and automatically expire if you do not renew them.
 */
-func (a *Client) EnableElevatedPermissions(params *EnableElevatedPermissionsParams, authInfo runtime.ClientAuthInfoWriter) (*EnableElevatedPermissionsOK, error) {
+func (a *Client) EnableElevatedPermissions(params *EnableElevatedPermissionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*EnableElevatedPermissionsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewEnableElevatedPermissionsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "enable-elevated-permissions",
 		Method:             "POST",
 		PathPattern:        "/users/auth/_elevate",
@@ -371,7 +401,12 @@ func (a *Client) EnableElevatedPermissions(params *EnableElevatedPermissionsPara
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -390,13 +425,12 @@ func (a *Client) EnableElevatedPermissions(params *EnableElevatedPermissionsPara
 
   Retrieves the metadata for an API key.
 */
-func (a *Client) GetAPIKey(params *GetAPIKeyParams, authInfo runtime.ClientAuthInfoWriter) (*GetAPIKeyOK, error) {
+func (a *Client) GetAPIKey(params *GetAPIKeyParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAPIKeyOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetAPIKeyParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-api-key",
 		Method:             "GET",
 		PathPattern:        "/users/auth/keys/{api_key_id}",
@@ -408,7 +442,12 @@ func (a *Client) GetAPIKey(params *GetAPIKeyParams, authInfo runtime.ClientAuthI
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -427,13 +466,12 @@ func (a *Client) GetAPIKey(params *GetAPIKeyParams, authInfo runtime.ClientAuthI
 
   Retrieves the metadata for all of the API keys that the user generated.
 */
-func (a *Client) GetAPIKeys(params *GetAPIKeysParams, authInfo runtime.ClientAuthInfoWriter) (*GetAPIKeysOK, error) {
+func (a *Client) GetAPIKeys(params *GetAPIKeysParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAPIKeysOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetAPIKeysParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-api-keys",
 		Method:             "GET",
 		PathPattern:        "/users/auth/keys",
@@ -445,7 +483,12 @@ func (a *Client) GetAPIKeys(params *GetAPIKeysParams, authInfo runtime.ClientAut
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -464,13 +507,12 @@ func (a *Client) GetAPIKeys(params *GetAPIKeysParams, authInfo runtime.ClientAut
 
   Provides authentication information about a user, including elevated permission status and TOTP device availability.
 */
-func (a *Client) GetAuthenticationInfo(params *GetAuthenticationInfoParams, authInfo runtime.ClientAuthInfoWriter) (*GetAuthenticationInfoOK, error) {
+func (a *Client) GetAuthenticationInfo(params *GetAuthenticationInfoParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAuthenticationInfoOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetAuthenticationInfoParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-authentication-info",
 		Method:             "GET",
 		PathPattern:        "/users/auth",
@@ -482,7 +524,12 @@ func (a *Client) GetAuthenticationInfo(params *GetAuthenticationInfoParams, auth
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -501,13 +548,12 @@ func (a *Client) GetAuthenticationInfo(params *GetAuthenticationInfoParams, auth
 
   Retrieves the API key metadata for a user.
 */
-func (a *Client) GetUserAPIKey(params *GetUserAPIKeyParams, authInfo runtime.ClientAuthInfoWriter) (*GetUserAPIKeyOK, error) {
+func (a *Client) GetUserAPIKey(params *GetUserAPIKeyParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetUserAPIKeyOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetUserAPIKeyParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-user-api-key",
 		Method:             "GET",
 		PathPattern:        "/users/{user_id}/auth/keys/{api_key_id}",
@@ -519,7 +565,12 @@ func (a *Client) GetUserAPIKey(params *GetUserAPIKeyParams, authInfo runtime.Cli
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -538,13 +589,12 @@ func (a *Client) GetUserAPIKey(params *GetUserAPIKeyParams, authInfo runtime.Cli
 
   Retrieves all of the API key metadata for a user.
 */
-func (a *Client) GetUserAPIKeys(params *GetUserAPIKeysParams, authInfo runtime.ClientAuthInfoWriter) (*GetUserAPIKeysOK, error) {
+func (a *Client) GetUserAPIKeys(params *GetUserAPIKeysParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetUserAPIKeysOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetUserAPIKeysParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-user-api-keys",
 		Method:             "GET",
 		PathPattern:        "/users/{user_id}/auth/keys",
@@ -556,7 +606,12 @@ func (a *Client) GetUserAPIKeys(params *GetUserAPIKeysParams, authInfo runtime.C
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -575,13 +630,12 @@ func (a *Client) GetUserAPIKeys(params *GetUserAPIKeysParams, authInfo runtime.C
 
   Retrieves the metadata for all of the API keys for all users.
 */
-func (a *Client) GetUsersAPIKeys(params *GetUsersAPIKeysParams, authInfo runtime.ClientAuthInfoWriter) (*GetUsersAPIKeysOK, error) {
+func (a *Client) GetUsersAPIKeys(params *GetUsersAPIKeysParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetUsersAPIKeysOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetUsersAPIKeysParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-users-api-keys",
 		Method:             "GET",
 		PathPattern:        "/users/auth/keys/_all",
@@ -593,7 +647,12 @@ func (a *Client) GetUsersAPIKeys(params *GetUsersAPIKeysParams, authInfo runtime
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -612,13 +671,12 @@ func (a *Client) GetUsersAPIKeys(params *GetUsersAPIKeysParams, authInfo runtime
 
   Authenticates against available users.
 */
-func (a *Client) Login(params *LoginParams, authInfo runtime.ClientAuthInfoWriter) (*LoginOK, error) {
+func (a *Client) Login(params *LoginParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*LoginOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewLoginParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "login",
 		Method:             "POST",
 		PathPattern:        "/users/auth/_login",
@@ -630,7 +688,12 @@ func (a *Client) Login(params *LoginParams, authInfo runtime.ClientAuthInfoWrite
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -649,13 +712,12 @@ func (a *Client) Login(params *LoginParams, authInfo runtime.ClientAuthInfoWrite
 
   Destroys the current session.
 */
-func (a *Client) Logout(params *LogoutParams, authInfo runtime.ClientAuthInfoWriter) (*LogoutOK, error) {
+func (a *Client) Logout(params *LogoutParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*LogoutOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewLogoutParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "logout",
 		Method:             "POST",
 		PathPattern:        "/users/auth/_logout",
@@ -667,7 +729,12 @@ func (a *Client) Logout(params *LogoutParams, authInfo runtime.ClientAuthInfoWri
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -686,13 +753,12 @@ func (a *Client) Logout(params *LogoutParams, authInfo runtime.ClientAuthInfoWri
 
   Provides information about available authentication methods.
 */
-func (a *Client) Methods(params *MethodsParams, authInfo runtime.ClientAuthInfoWriter) (*MethodsOK, error) {
+func (a *Client) Methods(params *MethodsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MethodsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewMethodsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "methods",
 		Method:             "GET",
 		PathPattern:        "/users/auth/methods",
@@ -704,7 +770,12 @@ func (a *Client) Methods(params *MethodsParams, authInfo runtime.ClientAuthInfoW
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -723,13 +794,12 @@ func (a *Client) Methods(params *MethodsParams, authInfo runtime.ClientAuthInfoW
 
   DEPRECATED (Scheduled to be removed in the next major version): Re-authenticate.
 */
-func (a *Client) ReAuthenticate(params *ReAuthenticateParams, authInfo runtime.ClientAuthInfoWriter) (*ReAuthenticateOK, error) {
+func (a *Client) ReAuthenticate(params *ReAuthenticateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ReAuthenticateOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewReAuthenticateParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "re-authenticate",
 		Method:             "POST",
 		PathPattern:        "/users/auth/reauthenticate",
@@ -741,7 +811,12 @@ func (a *Client) ReAuthenticate(params *ReAuthenticateParams, authInfo runtime.C
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -760,13 +835,12 @@ func (a *Client) ReAuthenticate(params *ReAuthenticateParams, authInfo runtime.C
 
   Issues a new authentication token.
 */
-func (a *Client) RefreshToken(params *RefreshTokenParams, authInfo runtime.ClientAuthInfoWriter) (*RefreshTokenOK, error) {
+func (a *Client) RefreshToken(params *RefreshTokenParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*RefreshTokenOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewRefreshTokenParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "refresh-token",
 		Method:             "POST",
 		PathPattern:        "/users/auth/_refresh",
@@ -778,7 +852,12 @@ func (a *Client) RefreshToken(params *RefreshTokenParams, authInfo runtime.Clien
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -797,13 +876,12 @@ func (a *Client) RefreshToken(params *RefreshTokenParams, authInfo runtime.Clien
 
   Accepts a callback request from an identity provider and authenticates the user.
 */
-func (a *Client) SamlCallback(params *SamlCallbackParams, authInfo runtime.ClientAuthInfoWriter) error {
+func (a *Client) SamlCallback(params *SamlCallbackParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) error {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSamlCallbackParams()
 	}
-
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "saml-callback",
 		Method:             "POST",
 		PathPattern:        "/users/auth/saml/_callback",
@@ -815,7 +893,12 @@ func (a *Client) SamlCallback(params *SamlCallbackParams, authInfo runtime.Clien
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	_, err := a.transport.Submit(op)
 	if err != nil {
 		return err
 	}
@@ -827,13 +910,12 @@ func (a *Client) SamlCallback(params *SamlCallbackParams, authInfo runtime.Clien
 
   Calls the authentication cluster to initiate SAML Single Sign-on (Web Browser SSO profile) protocol and redirects the user to the identity provider for authentication. The authentication cluster must be configured prior to initiation.
 */
-func (a *Client) SamlInit(params *SamlInitParams, authInfo runtime.ClientAuthInfoWriter) error {
+func (a *Client) SamlInit(params *SamlInitParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) error {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSamlInitParams()
 	}
-
-	_, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "saml-init",
 		Method:             "GET",
 		PathPattern:        "/users/auth/saml/_init",
@@ -845,7 +927,12 @@ func (a *Client) SamlInit(params *SamlInitParams, authInfo runtime.ClientAuthInf
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	_, err := a.transport.Submit(op)
 	if err != nil {
 		return err
 	}

@@ -33,59 +33,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewResyncApmClusterParams creates a new ResyncApmClusterParams object
-// with the default values initialized.
+// NewResyncApmClusterParams creates a new ResyncApmClusterParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewResyncApmClusterParams() *ResyncApmClusterParams {
-	var ()
 	return &ResyncApmClusterParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewResyncApmClusterParamsWithTimeout creates a new ResyncApmClusterParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewResyncApmClusterParamsWithTimeout(timeout time.Duration) *ResyncApmClusterParams {
-	var ()
 	return &ResyncApmClusterParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewResyncApmClusterParamsWithContext creates a new ResyncApmClusterParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewResyncApmClusterParamsWithContext(ctx context.Context) *ResyncApmClusterParams {
-	var ()
 	return &ResyncApmClusterParams{
-
 		Context: ctx,
 	}
 }
 
 // NewResyncApmClusterParamsWithHTTPClient creates a new ResyncApmClusterParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewResyncApmClusterParamsWithHTTPClient(client *http.Client) *ResyncApmClusterParams {
-	var ()
 	return &ResyncApmClusterParams{
 		HTTPClient: client,
 	}
 }
 
-/*ResyncApmClusterParams contains all the parameters to send to the API endpoint
-for the resync apm cluster operation typically these are written to a http.Request
+/* ResyncApmClusterParams contains all the parameters to send to the API endpoint
+   for the resync apm cluster operation.
+
+   Typically these are written to a http.Request.
 */
 type ResyncApmClusterParams struct {
 
-	/*ClusterID
-	  The APM cluster identifier.
+	/* ClusterID.
 
+	   The APM cluster identifier.
 	*/
 	ClusterID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the resync apm cluster params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ResyncApmClusterParams) WithDefaults() *ResyncApmClusterParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the resync apm cluster params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ResyncApmClusterParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the resync apm cluster params

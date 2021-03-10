@@ -52,7 +52,6 @@ func (o *GetEsClusterPlanActivityReader) ReadResponse(response runtime.ClientRes
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,7 +62,7 @@ func NewGetEsClusterPlanActivityOK() *GetEsClusterPlanActivityOK {
 	return &GetEsClusterPlanActivityOK{}
 }
 
-/*GetEsClusterPlanActivityOK handles this case with default header values.
+/* GetEsClusterPlanActivityOK describes a response with status code 200, with default header values.
 
 Returning the plan activity for the specified Elasticsearch cluster
 */
@@ -74,7 +73,6 @@ type GetEsClusterPlanActivityOK struct {
 func (o *GetEsClusterPlanActivityOK) Error() string {
 	return fmt.Sprintf("[GET /clusters/elasticsearch/{cluster_id}/plan/activity][%d] getEsClusterPlanActivityOK  %+v", 200, o.Payload)
 }
-
 func (o *GetEsClusterPlanActivityOK) GetPayload() *models.ElasticsearchClusterPlansInfo {
 	return o.Payload
 }
@@ -96,12 +94,13 @@ func NewGetEsClusterPlanActivityNotFound() *GetEsClusterPlanActivityNotFound {
 	return &GetEsClusterPlanActivityNotFound{}
 }
 
-/*GetEsClusterPlanActivityNotFound handles this case with default header values.
+/* GetEsClusterPlanActivityNotFound describes a response with status code 404, with default header values.
 
 The cluster specified by {cluster_id} cannot be found. (code: `clusters.cluster_not_found`)
 */
 type GetEsClusterPlanActivityNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -111,15 +110,18 @@ type GetEsClusterPlanActivityNotFound struct {
 func (o *GetEsClusterPlanActivityNotFound) Error() string {
 	return fmt.Sprintf("[GET /clusters/elasticsearch/{cluster_id}/plan/activity][%d] getEsClusterPlanActivityNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetEsClusterPlanActivityNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *GetEsClusterPlanActivityNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

@@ -36,69 +36,85 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewUpdateApmMetadataSettingsParams creates a new UpdateApmMetadataSettingsParams object
-// with the default values initialized.
+// NewUpdateApmMetadataSettingsParams creates a new UpdateApmMetadataSettingsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewUpdateApmMetadataSettingsParams() *UpdateApmMetadataSettingsParams {
-	var ()
 	return &UpdateApmMetadataSettingsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewUpdateApmMetadataSettingsParamsWithTimeout creates a new UpdateApmMetadataSettingsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewUpdateApmMetadataSettingsParamsWithTimeout(timeout time.Duration) *UpdateApmMetadataSettingsParams {
-	var ()
 	return &UpdateApmMetadataSettingsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewUpdateApmMetadataSettingsParamsWithContext creates a new UpdateApmMetadataSettingsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewUpdateApmMetadataSettingsParamsWithContext(ctx context.Context) *UpdateApmMetadataSettingsParams {
-	var ()
 	return &UpdateApmMetadataSettingsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewUpdateApmMetadataSettingsParamsWithHTTPClient creates a new UpdateApmMetadataSettingsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewUpdateApmMetadataSettingsParamsWithHTTPClient(client *http.Client) *UpdateApmMetadataSettingsParams {
-	var ()
 	return &UpdateApmMetadataSettingsParams{
 		HTTPClient: client,
 	}
 }
 
-/*UpdateApmMetadataSettingsParams contains all the parameters to send to the API endpoint
-for the update apm metadata settings operation typically these are written to a http.Request
+/* UpdateApmMetadataSettingsParams contains all the parameters to send to the API endpoint
+   for the update apm metadata settings operation.
+
+   Typically these are written to a http.Request.
 */
 type UpdateApmMetadataSettingsParams struct {
 
-	/*Body
-	  The cluster settings including updated values
+	/* Body.
 
+	   The cluster settings including updated values
 	*/
 	Body *models.ClusterMetadataSettings
-	/*ClusterID
-	  The APM deployment identifier.
 
+	/* ClusterID.
+
+	   The APM deployment identifier.
 	*/
 	ClusterID string
-	/*Version
-	  Checks for conflicts against the metadata version, then returns the value in the `x-cloud-resource-version` header.
 
+	/* Version.
+
+	   Checks for conflicts against the metadata version, then returns the value in the `x-cloud-resource-version` header.
 	*/
 	Version *int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the update apm metadata settings params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdateApmMetadataSettingsParams) WithDefaults() *UpdateApmMetadataSettingsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the update apm metadata settings params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdateApmMetadataSettingsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the update apm metadata settings params
@@ -174,7 +190,6 @@ func (o *UpdateApmMetadataSettingsParams) WriteToRequest(r runtime.ClientRequest
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err
@@ -190,16 +205,17 @@ func (o *UpdateApmMetadataSettingsParams) WriteToRequest(r runtime.ClientRequest
 
 		// query param version
 		var qrVersion int64
+
 		if o.Version != nil {
 			qrVersion = *o.Version
 		}
 		qVersion := swag.FormatInt64(qrVersion)
 		if qVersion != "" {
+
 			if err := r.SetQueryParam("version", qVersion); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

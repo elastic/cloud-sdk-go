@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
@@ -148,7 +149,6 @@ func (m *Extension) validateExtensionType(formats strfmt.Registry) error {
 }
 
 func (m *Extension) validateFileMetadata(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.FileMetadata) { // not required
 		return nil
 	}
@@ -196,6 +196,34 @@ func (m *Extension) validateVersion(formats strfmt.Registry) error {
 
 	if err := validate.Required("version", "body", m.Version); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this extension based on the context it is used
+func (m *Extension) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateFileMetadata(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *Extension) contextValidateFileMetadata(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.FileMetadata != nil {
+		if err := m.FileMetadata.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("file_metadata")
+			}
+			return err
+		}
 	}
 
 	return nil

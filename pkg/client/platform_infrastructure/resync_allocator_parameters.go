@@ -33,59 +33,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewResyncAllocatorParams creates a new ResyncAllocatorParams object
-// with the default values initialized.
+// NewResyncAllocatorParams creates a new ResyncAllocatorParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewResyncAllocatorParams() *ResyncAllocatorParams {
-	var ()
 	return &ResyncAllocatorParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewResyncAllocatorParamsWithTimeout creates a new ResyncAllocatorParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewResyncAllocatorParamsWithTimeout(timeout time.Duration) *ResyncAllocatorParams {
-	var ()
 	return &ResyncAllocatorParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewResyncAllocatorParamsWithContext creates a new ResyncAllocatorParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewResyncAllocatorParamsWithContext(ctx context.Context) *ResyncAllocatorParams {
-	var ()
 	return &ResyncAllocatorParams{
-
 		Context: ctx,
 	}
 }
 
 // NewResyncAllocatorParamsWithHTTPClient creates a new ResyncAllocatorParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewResyncAllocatorParamsWithHTTPClient(client *http.Client) *ResyncAllocatorParams {
-	var ()
 	return &ResyncAllocatorParams{
 		HTTPClient: client,
 	}
 }
 
-/*ResyncAllocatorParams contains all the parameters to send to the API endpoint
-for the resync allocator operation typically these are written to a http.Request
+/* ResyncAllocatorParams contains all the parameters to send to the API endpoint
+   for the resync allocator operation.
+
+   Typically these are written to a http.Request.
 */
 type ResyncAllocatorParams struct {
 
-	/*AllocatorID
-	  The allocator identifier.
+	/* AllocatorID.
 
+	   The allocator identifier.
 	*/
 	AllocatorID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the resync allocator params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ResyncAllocatorParams) WithDefaults() *ResyncAllocatorParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the resync allocator params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ResyncAllocatorParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the resync allocator params

@@ -58,7 +58,6 @@ func (o *DeleteAPIKeyReader) ReadResponse(response runtime.ClientResponse, consu
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,7 +68,7 @@ func NewDeleteAPIKeyOK() *DeleteAPIKeyOK {
 	return &DeleteAPIKeyOK{}
 }
 
-/*DeleteAPIKeyOK handles this case with default header values.
+/* DeleteAPIKeyOK describes a response with status code 200, with default header values.
 
 The API key is deleted.
 */
@@ -80,7 +79,6 @@ type DeleteAPIKeyOK struct {
 func (o *DeleteAPIKeyOK) Error() string {
 	return fmt.Sprintf("[DELETE /users/auth/keys/{api_key_id}][%d] deleteApiKeyOK  %+v", 200, o.Payload)
 }
-
 func (o *DeleteAPIKeyOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -100,12 +98,13 @@ func NewDeleteAPIKeyNotFound() *DeleteAPIKeyNotFound {
 	return &DeleteAPIKeyNotFound{}
 }
 
-/*DeleteAPIKeyNotFound handles this case with default header values.
+/* DeleteAPIKeyNotFound describes a response with status code 404, with default header values.
 
 The {api_key_id} can't be found. (code: `api_keys.key_not_found`)
 */
 type DeleteAPIKeyNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -115,15 +114,18 @@ type DeleteAPIKeyNotFound struct {
 func (o *DeleteAPIKeyNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /users/auth/keys/{api_key_id}][%d] deleteApiKeyNotFound  %+v", 404, o.Payload)
 }
-
 func (o *DeleteAPIKeyNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *DeleteAPIKeyNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -140,12 +142,13 @@ func NewDeleteAPIKeyRetryWith() *DeleteAPIKeyRetryWith {
 	return &DeleteAPIKeyRetryWith{}
 }
 
-/*DeleteAPIKeyRetryWith handles this case with default header values.
+/* DeleteAPIKeyRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type DeleteAPIKeyRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -155,15 +158,18 @@ type DeleteAPIKeyRetryWith struct {
 func (o *DeleteAPIKeyRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /users/auth/keys/{api_key_id}][%d] deleteApiKeyRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *DeleteAPIKeyRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *DeleteAPIKeyRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

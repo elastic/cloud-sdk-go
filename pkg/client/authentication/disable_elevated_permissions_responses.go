@@ -64,7 +64,6 @@ func (o *DisableElevatedPermissionsReader) ReadResponse(response runtime.ClientR
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,7 +74,7 @@ func NewDisableElevatedPermissionsOK() *DisableElevatedPermissionsOK {
 	return &DisableElevatedPermissionsOK{}
 }
 
-/*DisableElevatedPermissionsOK handles this case with default header values.
+/* DisableElevatedPermissionsOK describes a response with status code 200, with default header values.
 
 The elevated permissions are disabled and the authorization token was generated
 */
@@ -86,7 +85,6 @@ type DisableElevatedPermissionsOK struct {
 func (o *DisableElevatedPermissionsOK) Error() string {
 	return fmt.Sprintf("[DELETE /users/auth/_elevate][%d] disableElevatedPermissionsOK  %+v", 200, o.Payload)
 }
-
 func (o *DisableElevatedPermissionsOK) GetPayload() *models.TokenResponse {
 	return o.Payload
 }
@@ -108,12 +106,13 @@ func NewDisableElevatedPermissionsUnauthorized() *DisableElevatedPermissionsUnau
 	return &DisableElevatedPermissionsUnauthorized{}
 }
 
-/*DisableElevatedPermissionsUnauthorized handles this case with default header values.
+/* DisableElevatedPermissionsUnauthorized describes a response with status code 401, with default header values.
 
 The authentication token is invalid or expired. (code: `root.unauthorized`)
 */
 type DisableElevatedPermissionsUnauthorized struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -123,15 +122,18 @@ type DisableElevatedPermissionsUnauthorized struct {
 func (o *DisableElevatedPermissionsUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /users/auth/_elevate][%d] disableElevatedPermissionsUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *DisableElevatedPermissionsUnauthorized) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *DisableElevatedPermissionsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -148,12 +150,13 @@ func NewDisableElevatedPermissionsNotImplemented() *DisableElevatedPermissionsNo
 	return &DisableElevatedPermissionsNotImplemented{}
 }
 
-/*DisableElevatedPermissionsNotImplemented handles this case with default header values.
+/* DisableElevatedPermissionsNotImplemented describes a response with status code 501, with default header values.
 
 The administrator needs to configure the authentication cluster. (code: `authc.no_authentication_cluster`)
 */
 type DisableElevatedPermissionsNotImplemented struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -163,15 +166,18 @@ type DisableElevatedPermissionsNotImplemented struct {
 func (o *DisableElevatedPermissionsNotImplemented) Error() string {
 	return fmt.Sprintf("[DELETE /users/auth/_elevate][%d] disableElevatedPermissionsNotImplemented  %+v", 501, o.Payload)
 }
-
 func (o *DisableElevatedPermissionsNotImplemented) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *DisableElevatedPermissionsNotImplemented) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -188,12 +194,13 @@ func NewDisableElevatedPermissionsBadGateway() *DisableElevatedPermissionsBadGat
 	return &DisableElevatedPermissionsBadGateway{}
 }
 
-/*DisableElevatedPermissionsBadGateway handles this case with default header values.
+/* DisableElevatedPermissionsBadGateway describes a response with status code 502, with default header values.
 
 The authentication cluster failed to process the request. The response body contains details about the error. (code: `authc.authentication_cluster_error`)
 */
 type DisableElevatedPermissionsBadGateway struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -203,15 +210,18 @@ type DisableElevatedPermissionsBadGateway struct {
 func (o *DisableElevatedPermissionsBadGateway) Error() string {
 	return fmt.Sprintf("[DELETE /users/auth/_elevate][%d] disableElevatedPermissionsBadGateway  %+v", 502, o.Payload)
 }
-
 func (o *DisableElevatedPermissionsBadGateway) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *DisableElevatedPermissionsBadGateway) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

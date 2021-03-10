@@ -64,7 +64,6 @@ func (o *UpdateCommentReader) ReadResponse(response runtime.ClientResponse, cons
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,18 +74,21 @@ func NewUpdateCommentOK() *UpdateCommentOK {
 	return &UpdateCommentOK{}
 }
 
-/*UpdateCommentOK handles this case with default header values.
+/* UpdateCommentOK describes a response with status code 200, with default header values.
 
 Comment updated successfully.
 */
 type UpdateCommentOK struct {
-	/*The date-time when the resource was created (ISO format relative to UTC)
+
+	/* The date-time when the resource was created (ISO format relative to UTC)
 	 */
 	XCloudResourceCreated string
-	/*The date-time when the resource was last modified (ISO format relative to UTC)
+
+	/* The date-time when the resource was last modified (ISO format relative to UTC)
 	 */
 	XCloudResourceLastModified string
-	/*The resource version, which is used to avoid update conflicts with concurrent operations
+
+	/* The resource version, which is used to avoid update conflicts with concurrent operations
 	 */
 	XCloudResourceVersion string
 
@@ -96,21 +98,32 @@ type UpdateCommentOK struct {
 func (o *UpdateCommentOK) Error() string {
 	return fmt.Sprintf("[PUT /comments/{resource_type}/{resource_id}/{comment_id}][%d] updateCommentOK  %+v", 200, o.Payload)
 }
-
 func (o *UpdateCommentOK) GetPayload() *models.Comment {
 	return o.Payload
 }
 
 func (o *UpdateCommentOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-resource-created
-	o.XCloudResourceCreated = response.GetHeader("x-cloud-resource-created")
+	// hydrates response header x-cloud-resource-created
+	hdrXCloudResourceCreated := response.GetHeader("x-cloud-resource-created")
 
-	// response header x-cloud-resource-last-modified
-	o.XCloudResourceLastModified = response.GetHeader("x-cloud-resource-last-modified")
+	if hdrXCloudResourceCreated != "" {
+		o.XCloudResourceCreated = hdrXCloudResourceCreated
+	}
 
-	// response header x-cloud-resource-version
-	o.XCloudResourceVersion = response.GetHeader("x-cloud-resource-version")
+	// hydrates response header x-cloud-resource-last-modified
+	hdrXCloudResourceLastModified := response.GetHeader("x-cloud-resource-last-modified")
+
+	if hdrXCloudResourceLastModified != "" {
+		o.XCloudResourceLastModified = hdrXCloudResourceLastModified
+	}
+
+	// hydrates response header x-cloud-resource-version
+	hdrXCloudResourceVersion := response.GetHeader("x-cloud-resource-version")
+
+	if hdrXCloudResourceVersion != "" {
+		o.XCloudResourceVersion = hdrXCloudResourceVersion
+	}
 
 	o.Payload = new(models.Comment)
 
@@ -127,13 +140,14 @@ func NewUpdateCommentUnauthorized() *UpdateCommentUnauthorized {
 	return &UpdateCommentUnauthorized{}
 }
 
-/*UpdateCommentUnauthorized handles this case with default header values.
+/* UpdateCommentUnauthorized describes a response with status code 401, with default header values.
 
-* The Comment does not belong to you. (code: `comments.unauthorised`)
+ * The Comment does not belong to you. (code: `comments.unauthorised`)
 * Your current session does not have a user id associated with it. (code: `comments.no_user_id`)
- */
+*/
 type UpdateCommentUnauthorized struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -143,15 +157,18 @@ type UpdateCommentUnauthorized struct {
 func (o *UpdateCommentUnauthorized) Error() string {
 	return fmt.Sprintf("[PUT /comments/{resource_type}/{resource_id}/{comment_id}][%d] updateCommentUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *UpdateCommentUnauthorized) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *UpdateCommentUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -168,12 +185,13 @@ func NewUpdateCommentNotFound() *UpdateCommentNotFound {
 	return &UpdateCommentNotFound{}
 }
 
-/*UpdateCommentNotFound handles this case with default header values.
+/* UpdateCommentNotFound describes a response with status code 404, with default header values.
 
 The Comment you want does not exist. (code: `comments.comment_does_not_exist`)
 */
 type UpdateCommentNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -183,15 +201,18 @@ type UpdateCommentNotFound struct {
 func (o *UpdateCommentNotFound) Error() string {
 	return fmt.Sprintf("[PUT /comments/{resource_type}/{resource_id}/{comment_id}][%d] updateCommentNotFound  %+v", 404, o.Payload)
 }
-
 func (o *UpdateCommentNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *UpdateCommentNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -208,12 +229,13 @@ func NewUpdateCommentConflict() *UpdateCommentConflict {
 	return &UpdateCommentConflict{}
 }
 
-/*UpdateCommentConflict handles this case with default header values.
+/* UpdateCommentConflict describes a response with status code 409, with default header values.
 
 The version you sent does not match the persisted version. (code: `comments.version_conflict`)
 */
 type UpdateCommentConflict struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -223,15 +245,18 @@ type UpdateCommentConflict struct {
 func (o *UpdateCommentConflict) Error() string {
 	return fmt.Sprintf("[PUT /comments/{resource_type}/{resource_id}/{comment_id}][%d] updateCommentConflict  %+v", 409, o.Payload)
 }
-
 func (o *UpdateCommentConflict) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *UpdateCommentConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

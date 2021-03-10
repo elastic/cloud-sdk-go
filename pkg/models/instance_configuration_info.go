@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -112,6 +114,34 @@ func (m *InstanceConfigurationInfo) validateName(formats strfmt.Registry) error 
 
 	if err := validate.Required("name", "body", m.Name); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this instance configuration info based on the context it is used
+func (m *InstanceConfigurationInfo) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateDiscreteSizes(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *InstanceConfigurationInfo) contextValidateDiscreteSizes(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.DiscreteSizes != nil {
+		if err := m.DiscreteSizes.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("discrete_sizes")
+			}
+			return err
+		}
 	}
 
 	return nil

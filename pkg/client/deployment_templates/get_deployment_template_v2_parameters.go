@@ -34,86 +34,104 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetDeploymentTemplateV2Params creates a new GetDeploymentTemplateV2Params object
-// with the default values initialized.
+// NewGetDeploymentTemplateV2Params creates a new GetDeploymentTemplateV2Params object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetDeploymentTemplateV2Params() *GetDeploymentTemplateV2Params {
-	var (
-		showInstanceConfigurationsDefault = bool(true)
-	)
 	return &GetDeploymentTemplateV2Params{
-		ShowInstanceConfigurations: &showInstanceConfigurationsDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetDeploymentTemplateV2ParamsWithTimeout creates a new GetDeploymentTemplateV2Params object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetDeploymentTemplateV2ParamsWithTimeout(timeout time.Duration) *GetDeploymentTemplateV2Params {
-	var (
-		showInstanceConfigurationsDefault = bool(true)
-	)
 	return &GetDeploymentTemplateV2Params{
-		ShowInstanceConfigurations: &showInstanceConfigurationsDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewGetDeploymentTemplateV2ParamsWithContext creates a new GetDeploymentTemplateV2Params object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetDeploymentTemplateV2ParamsWithContext(ctx context.Context) *GetDeploymentTemplateV2Params {
-	var (
-		showInstanceConfigurationsDefault = bool(true)
-	)
 	return &GetDeploymentTemplateV2Params{
-		ShowInstanceConfigurations: &showInstanceConfigurationsDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewGetDeploymentTemplateV2ParamsWithHTTPClient creates a new GetDeploymentTemplateV2Params object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetDeploymentTemplateV2ParamsWithHTTPClient(client *http.Client) *GetDeploymentTemplateV2Params {
-	var (
-		showInstanceConfigurationsDefault = bool(true)
-	)
 	return &GetDeploymentTemplateV2Params{
-		ShowInstanceConfigurations: &showInstanceConfigurationsDefault,
-		HTTPClient:                 client,
+		HTTPClient: client,
 	}
 }
 
-/*GetDeploymentTemplateV2Params contains all the parameters to send to the API endpoint
-for the get deployment template v2 operation typically these are written to a http.Request
+/* GetDeploymentTemplateV2Params contains all the parameters to send to the API endpoint
+   for the get deployment template v2 operation.
+
+   Typically these are written to a http.Request.
 */
 type GetDeploymentTemplateV2Params struct {
 
-	/*Region
-	  Region of the deployment template
+	/* Region.
 
+	   Region of the deployment template
 	*/
 	Region string
-	/*ShowInstanceConfigurations
-	  If true, will return details for each instance configuration referenced by the template.
 
+	/* ShowInstanceConfigurations.
+
+	   If true, will return details for each instance configuration referenced by the template.
+
+	   Default: true
 	*/
 	ShowInstanceConfigurations *bool
-	/*StackVersion
-	  If present, it will cause the returned deployment template to be adapted to return only the elements allowed in that version.
 
+	/* StackVersion.
+
+	   If present, it will cause the returned deployment template to be adapted to return only the elements allowed in that version.
 	*/
 	StackVersion *string
-	/*TemplateID
-	  The identifier for the deployment template.
 
+	/* TemplateID.
+
+	   The identifier for the deployment template.
 	*/
 	TemplateID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get deployment template v2 params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetDeploymentTemplateV2Params) WithDefaults() *GetDeploymentTemplateV2Params {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get deployment template v2 params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetDeploymentTemplateV2Params) SetDefaults() {
+	var (
+		showInstanceConfigurationsDefault = bool(true)
+	)
+
+	val := GetDeploymentTemplateV2Params{
+		ShowInstanceConfigurations: &showInstanceConfigurationsDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the get deployment template v2 params
@@ -205,6 +223,7 @@ func (o *GetDeploymentTemplateV2Params) WriteToRequest(r runtime.ClientRequest, 
 	qrRegion := o.Region
 	qRegion := qrRegion
 	if qRegion != "" {
+
 		if err := r.SetQueryParam("region", qRegion); err != nil {
 			return err
 		}
@@ -214,32 +233,34 @@ func (o *GetDeploymentTemplateV2Params) WriteToRequest(r runtime.ClientRequest, 
 
 		// query param show_instance_configurations
 		var qrShowInstanceConfigurations bool
+
 		if o.ShowInstanceConfigurations != nil {
 			qrShowInstanceConfigurations = *o.ShowInstanceConfigurations
 		}
 		qShowInstanceConfigurations := swag.FormatBool(qrShowInstanceConfigurations)
 		if qShowInstanceConfigurations != "" {
+
 			if err := r.SetQueryParam("show_instance_configurations", qShowInstanceConfigurations); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.StackVersion != nil {
 
 		// query param stack_version
 		var qrStackVersion string
+
 		if o.StackVersion != nil {
 			qrStackVersion = *o.StackVersion
 		}
 		qStackVersion := qrStackVersion
 		if qStackVersion != "" {
+
 			if err := r.SetQueryParam("stack_version", qStackVersion); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	// path param template_id

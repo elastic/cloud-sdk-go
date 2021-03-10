@@ -70,7 +70,6 @@ func (o *StopDeploymentResourceInstancesAllMaintenanceModeReader) ReadResponse(r
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -81,7 +80,7 @@ func NewStopDeploymentResourceInstancesAllMaintenanceModeAccepted() *StopDeploym
 	return &StopDeploymentResourceInstancesAllMaintenanceModeAccepted{}
 }
 
-/*StopDeploymentResourceInstancesAllMaintenanceModeAccepted handles this case with default header values.
+/* StopDeploymentResourceInstancesAllMaintenanceModeAccepted describes a response with status code 202, with default header values.
 
 The stop maintenance mode command was issued successfully.
 */
@@ -92,7 +91,6 @@ type StopDeploymentResourceInstancesAllMaintenanceModeAccepted struct {
 func (o *StopDeploymentResourceInstancesAllMaintenanceModeAccepted) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/maintenance-mode/_stop][%d] stopDeploymentResourceInstancesAllMaintenanceModeAccepted  %+v", 202, o.Payload)
 }
-
 func (o *StopDeploymentResourceInstancesAllMaintenanceModeAccepted) GetPayload() *models.DeploymentResourceCommandResponse {
 	return o.Payload
 }
@@ -114,12 +112,13 @@ func NewStopDeploymentResourceInstancesAllMaintenanceModeForbidden() *StopDeploy
 	return &StopDeploymentResourceInstancesAllMaintenanceModeForbidden{}
 }
 
-/*StopDeploymentResourceInstancesAllMaintenanceModeForbidden handles this case with default header values.
+/* StopDeploymentResourceInstancesAllMaintenanceModeForbidden describes a response with status code 403, with default header values.
 
 The stop maintenance mode command was prohibited for the given Resource. (code: `deployments.instance_update_prohibited_error`)
 */
 type StopDeploymentResourceInstancesAllMaintenanceModeForbidden struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -129,15 +128,18 @@ type StopDeploymentResourceInstancesAllMaintenanceModeForbidden struct {
 func (o *StopDeploymentResourceInstancesAllMaintenanceModeForbidden) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/maintenance-mode/_stop][%d] stopDeploymentResourceInstancesAllMaintenanceModeForbidden  %+v", 403, o.Payload)
 }
-
 func (o *StopDeploymentResourceInstancesAllMaintenanceModeForbidden) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *StopDeploymentResourceInstancesAllMaintenanceModeForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -154,14 +156,15 @@ func NewStopDeploymentResourceInstancesAllMaintenanceModeNotFound() *StopDeploym
 	return &StopDeploymentResourceInstancesAllMaintenanceModeNotFound{}
 }
 
-/*StopDeploymentResourceInstancesAllMaintenanceModeNotFound handles this case with default header values.
+/* StopDeploymentResourceInstancesAllMaintenanceModeNotFound describes a response with status code 404, with default header values.
 
-* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+ * The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
 * The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)
 * One or more instances of the given resource type are missing. (code: `deployments.instances_missing_on_update_error`)
- */
+*/
 type StopDeploymentResourceInstancesAllMaintenanceModeNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -171,15 +174,18 @@ type StopDeploymentResourceInstancesAllMaintenanceModeNotFound struct {
 func (o *StopDeploymentResourceInstancesAllMaintenanceModeNotFound) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/maintenance-mode/_stop][%d] stopDeploymentResourceInstancesAllMaintenanceModeNotFound  %+v", 404, o.Payload)
 }
-
 func (o *StopDeploymentResourceInstancesAllMaintenanceModeNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *StopDeploymentResourceInstancesAllMaintenanceModeNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -196,12 +202,13 @@ func NewStopDeploymentResourceInstancesAllMaintenanceModeRetryWith() *StopDeploy
 	return &StopDeploymentResourceInstancesAllMaintenanceModeRetryWith{}
 }
 
-/*StopDeploymentResourceInstancesAllMaintenanceModeRetryWith handles this case with default header values.
+/* StopDeploymentResourceInstancesAllMaintenanceModeRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type StopDeploymentResourceInstancesAllMaintenanceModeRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -211,15 +218,18 @@ type StopDeploymentResourceInstancesAllMaintenanceModeRetryWith struct {
 func (o *StopDeploymentResourceInstancesAllMaintenanceModeRetryWith) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/maintenance-mode/_stop][%d] stopDeploymentResourceInstancesAllMaintenanceModeRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *StopDeploymentResourceInstancesAllMaintenanceModeRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *StopDeploymentResourceInstancesAllMaintenanceModeRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -236,12 +246,13 @@ func NewStopDeploymentResourceInstancesAllMaintenanceModeInternalServerError() *
 	return &StopDeploymentResourceInstancesAllMaintenanceModeInternalServerError{}
 }
 
-/*StopDeploymentResourceInstancesAllMaintenanceModeInternalServerError handles this case with default header values.
+/* StopDeploymentResourceInstancesAllMaintenanceModeInternalServerError describes a response with status code 500, with default header values.
 
 A Resource that was previously stored no longer exists. (code: `deployments.deployment_resource_no_longer_exists`)
 */
 type StopDeploymentResourceInstancesAllMaintenanceModeInternalServerError struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -251,15 +262,18 @@ type StopDeploymentResourceInstancesAllMaintenanceModeInternalServerError struct
 func (o *StopDeploymentResourceInstancesAllMaintenanceModeInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/maintenance-mode/_stop][%d] stopDeploymentResourceInstancesAllMaintenanceModeInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *StopDeploymentResourceInstancesAllMaintenanceModeInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *StopDeploymentResourceInstancesAllMaintenanceModeInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

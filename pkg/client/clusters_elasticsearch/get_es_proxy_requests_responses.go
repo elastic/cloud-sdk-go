@@ -52,7 +52,6 @@ func (o *GetEsProxyRequestsReader) ReadResponse(response runtime.ClientResponse,
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,7 +62,7 @@ func NewGetEsProxyRequestsOK() *GetEsProxyRequestsOK {
 	return &GetEsProxyRequestsOK{}
 }
 
-/*GetEsProxyRequestsOK handles this case with default header values.
+/* GetEsProxyRequestsOK describes a response with status code 200, with default header values.
 
 The request has been processed successfully through the proxy
 */
@@ -84,7 +83,7 @@ func NewGetEsProxyRequestsNotFound() *GetEsProxyRequestsNotFound {
 	return &GetEsProxyRequestsNotFound{}
 }
 
-/*GetEsProxyRequestsNotFound handles this case with default header values.
+/* GetEsProxyRequestsNotFound describes a response with status code 404, with default header values.
 
 The cluster specified by {cluster_id} cannot be found (code: 'clusters.cluster_not_found')
 */
@@ -95,7 +94,6 @@ type GetEsProxyRequestsNotFound struct {
 func (o *GetEsProxyRequestsNotFound) Error() string {
 	return fmt.Sprintf("[GET /clusters/elasticsearch/{cluster_id}/proxy/{elasticsearch_path}][%d] getEsProxyRequestsNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetEsProxyRequestsNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

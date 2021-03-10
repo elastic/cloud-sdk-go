@@ -35,69 +35,85 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewSetAllocatorMetadataParams creates a new SetAllocatorMetadataParams object
-// with the default values initialized.
+// NewSetAllocatorMetadataParams creates a new SetAllocatorMetadataParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewSetAllocatorMetadataParams() *SetAllocatorMetadataParams {
-	var ()
 	return &SetAllocatorMetadataParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewSetAllocatorMetadataParamsWithTimeout creates a new SetAllocatorMetadataParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewSetAllocatorMetadataParamsWithTimeout(timeout time.Duration) *SetAllocatorMetadataParams {
-	var ()
 	return &SetAllocatorMetadataParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewSetAllocatorMetadataParamsWithContext creates a new SetAllocatorMetadataParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewSetAllocatorMetadataParamsWithContext(ctx context.Context) *SetAllocatorMetadataParams {
-	var ()
 	return &SetAllocatorMetadataParams{
-
 		Context: ctx,
 	}
 }
 
 // NewSetAllocatorMetadataParamsWithHTTPClient creates a new SetAllocatorMetadataParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewSetAllocatorMetadataParamsWithHTTPClient(client *http.Client) *SetAllocatorMetadataParams {
-	var ()
 	return &SetAllocatorMetadataParams{
 		HTTPClient: client,
 	}
 }
 
-/*SetAllocatorMetadataParams contains all the parameters to send to the API endpoint
-for the set allocator metadata operation typically these are written to a http.Request
+/* SetAllocatorMetadataParams contains all the parameters to send to the API endpoint
+   for the set allocator metadata operation.
+
+   Typically these are written to a http.Request.
 */
 type SetAllocatorMetadataParams struct {
 
-	/*AllocatorID
-	  The allocator identifier.
+	/* AllocatorID.
 
+	   The allocator identifier.
 	*/
 	AllocatorID string
-	/*Body
-	  The metadata to update the allocator with
 
+	/* Body.
+
+	   The metadata to update the allocator with
 	*/
 	Body *models.MetadataItems
-	/*Version
-	  Checks for conflicts against the metadata version, then returns the value in the `x-cloud-resource-version` header.
 
+	/* Version.
+
+	   Checks for conflicts against the metadata version, then returns the value in the `x-cloud-resource-version` header.
 	*/
 	Version *string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the set allocator metadata params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetAllocatorMetadataParams) WithDefaults() *SetAllocatorMetadataParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the set allocator metadata params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetAllocatorMetadataParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the set allocator metadata params
@@ -178,7 +194,6 @@ func (o *SetAllocatorMetadataParams) WriteToRequest(r runtime.ClientRequest, reg
 	if err := r.SetPathParam("allocator_id", o.AllocatorID); err != nil {
 		return err
 	}
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err
@@ -189,16 +204,17 @@ func (o *SetAllocatorMetadataParams) WriteToRequest(r runtime.ClientRequest, reg
 
 		// query param version
 		var qrVersion string
+
 		if o.Version != nil {
 			qrVersion = *o.Version
 		}
 		qVersion := qrVersion
 		if qVersion != "" {
+
 			if err := r.SetQueryParam("version", qVersion); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

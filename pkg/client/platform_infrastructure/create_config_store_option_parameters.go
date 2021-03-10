@@ -35,64 +35,79 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewCreateConfigStoreOptionParams creates a new CreateConfigStoreOptionParams object
-// with the default values initialized.
+// NewCreateConfigStoreOptionParams creates a new CreateConfigStoreOptionParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewCreateConfigStoreOptionParams() *CreateConfigStoreOptionParams {
-	var ()
 	return &CreateConfigStoreOptionParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewCreateConfigStoreOptionParamsWithTimeout creates a new CreateConfigStoreOptionParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewCreateConfigStoreOptionParamsWithTimeout(timeout time.Duration) *CreateConfigStoreOptionParams {
-	var ()
 	return &CreateConfigStoreOptionParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewCreateConfigStoreOptionParamsWithContext creates a new CreateConfigStoreOptionParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewCreateConfigStoreOptionParamsWithContext(ctx context.Context) *CreateConfigStoreOptionParams {
-	var ()
 	return &CreateConfigStoreOptionParams{
-
 		Context: ctx,
 	}
 }
 
 // NewCreateConfigStoreOptionParamsWithHTTPClient creates a new CreateConfigStoreOptionParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewCreateConfigStoreOptionParamsWithHTTPClient(client *http.Client) *CreateConfigStoreOptionParams {
-	var ()
 	return &CreateConfigStoreOptionParams{
 		HTTPClient: client,
 	}
 }
 
-/*CreateConfigStoreOptionParams contains all the parameters to send to the API endpoint
-for the create config store option operation typically these are written to a http.Request
+/* CreateConfigStoreOptionParams contains all the parameters to send to the API endpoint
+   for the create config store option operation.
+
+   Typically these are written to a http.Request.
 */
 type CreateConfigStoreOptionParams struct {
 
-	/*Body
-	  The Config Store Option definition
+	/* Body.
 
+	   The Config Store Option definition
 	*/
 	Body *models.ConfigStoreOptionData
-	/*ConfigOptionID
-	  Name of the Config Store Option that you would like to create
 
+	/* ConfigOptionID.
+
+	   Name of the Config Store Option that you would like to create
 	*/
 	ConfigOptionID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the create config store option params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *CreateConfigStoreOptionParams) WithDefaults() *CreateConfigStoreOptionParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the create config store option params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *CreateConfigStoreOptionParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the create config store option params
@@ -157,7 +172,6 @@ func (o *CreateConfigStoreOptionParams) WriteToRequest(r runtime.ClientRequest, 
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -109,7 +110,6 @@ func (m *StackVersionElasticsearchConfig) validateBlacklist(formats strfmt.Regis
 }
 
 func (m *StackVersionElasticsearchConfig) validateCapacityConstraints(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.CapacityConstraints) { // not required
 		return nil
 	}
@@ -145,7 +145,6 @@ func (m *StackVersionElasticsearchConfig) validateDockerImage(formats strfmt.Reg
 }
 
 func (m *StackVersionElasticsearchConfig) validateNodeTypes(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.NodeTypes) { // not required
 		return nil
 	}
@@ -173,6 +172,56 @@ func (m *StackVersionElasticsearchConfig) validatePlugins(formats strfmt.Registr
 
 	if err := validate.Required("plugins", "body", m.Plugins); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this stack version elasticsearch config based on the context it is used
+func (m *StackVersionElasticsearchConfig) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateCapacityConstraints(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateNodeTypes(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *StackVersionElasticsearchConfig) contextValidateCapacityConstraints(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.CapacityConstraints != nil {
+		if err := m.CapacityConstraints.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("capacity_constraints")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *StackVersionElasticsearchConfig) contextValidateNodeTypes(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.NodeTypes); i++ {
+
+		if m.NodeTypes[i] != nil {
+			if err := m.NodeTypes[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("node_types" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil

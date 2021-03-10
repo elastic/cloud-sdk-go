@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -151,6 +152,82 @@ func (m *ElasticsearchShardsInfo) validateUnavailableShards(formats strfmt.Regis
 
 		if m.UnavailableShards[i] != nil {
 			if err := m.UnavailableShards[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("unavailable_shards" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this elasticsearch shards info based on the context it is used
+func (m *ElasticsearchShardsInfo) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAvailableShards(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateUnavailableReplicas(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateUnavailableShards(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ElasticsearchShardsInfo) contextValidateAvailableShards(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.AvailableShards); i++ {
+
+		if m.AvailableShards[i] != nil {
+			if err := m.AvailableShards[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("available_shards" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *ElasticsearchShardsInfo) contextValidateUnavailableReplicas(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.UnavailableReplicas); i++ {
+
+		if m.UnavailableReplicas[i] != nil {
+			if err := m.UnavailableReplicas[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("unavailable_replicas" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *ElasticsearchShardsInfo) contextValidateUnavailableShards(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.UnavailableShards); i++ {
+
+		if m.UnavailableShards[i] != nil {
+			if err := m.UnavailableShards[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("unavailable_shards" + "." + strconv.Itoa(i))
 				}

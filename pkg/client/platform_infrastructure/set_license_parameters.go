@@ -35,59 +35,73 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewSetLicenseParams creates a new SetLicenseParams object
-// with the default values initialized.
+// NewSetLicenseParams creates a new SetLicenseParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewSetLicenseParams() *SetLicenseParams {
-	var ()
 	return &SetLicenseParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewSetLicenseParamsWithTimeout creates a new SetLicenseParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewSetLicenseParamsWithTimeout(timeout time.Duration) *SetLicenseParams {
-	var ()
 	return &SetLicenseParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewSetLicenseParamsWithContext creates a new SetLicenseParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewSetLicenseParamsWithContext(ctx context.Context) *SetLicenseParams {
-	var ()
 	return &SetLicenseParams{
-
 		Context: ctx,
 	}
 }
 
 // NewSetLicenseParamsWithHTTPClient creates a new SetLicenseParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewSetLicenseParamsWithHTTPClient(client *http.Client) *SetLicenseParams {
-	var ()
 	return &SetLicenseParams{
 		HTTPClient: client,
 	}
 }
 
-/*SetLicenseParams contains all the parameters to send to the API endpoint
-for the set license operation typically these are written to a http.Request
+/* SetLicenseParams contains all the parameters to send to the API endpoint
+   for the set license operation.
+
+   Typically these are written to a http.Request.
 */
 type SetLicenseParams struct {
 
-	/*Body
-	  The license to add or update.
+	/* Body.
 
+	   The license to add or update.
 	*/
 	Body *models.LicenseObject
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the set license params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetLicenseParams) WithDefaults() *SetLicenseParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the set license params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetLicenseParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the set license params
@@ -141,7 +155,6 @@ func (o *SetLicenseParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Re
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

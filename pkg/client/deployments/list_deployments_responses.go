@@ -52,7 +52,6 @@ func (o *ListDeploymentsReader) ReadResponse(response runtime.ClientResponse, co
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,7 +62,7 @@ func NewListDeploymentsOK() *ListDeploymentsOK {
 	return &ListDeploymentsOK{}
 }
 
-/*ListDeploymentsOK handles this case with default header values.
+/* ListDeploymentsOK describes a response with status code 200, with default header values.
 
 The list of deployments that belong to the authenticated user.
 */
@@ -74,7 +73,6 @@ type ListDeploymentsOK struct {
 func (o *ListDeploymentsOK) Error() string {
 	return fmt.Sprintf("[GET /deployments][%d] listDeploymentsOK  %+v", 200, o.Payload)
 }
-
 func (o *ListDeploymentsOK) GetPayload() *models.DeploymentsListResponse {
 	return o.Payload
 }
@@ -96,7 +94,7 @@ func NewListDeploymentsUnauthorized() *ListDeploymentsUnauthorized {
 	return &ListDeploymentsUnauthorized{}
 }
 
-/*ListDeploymentsUnauthorized handles this case with default header values.
+/* ListDeploymentsUnauthorized describes a response with status code 401, with default header values.
 
 You are not authorized to perform this action.
 */
@@ -107,7 +105,6 @@ type ListDeploymentsUnauthorized struct {
 func (o *ListDeploymentsUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /deployments][%d] listDeploymentsUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *ListDeploymentsUnauthorized) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

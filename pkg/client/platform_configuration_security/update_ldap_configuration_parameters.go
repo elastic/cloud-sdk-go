@@ -35,69 +35,85 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewUpdateLdapConfigurationParams creates a new UpdateLdapConfigurationParams object
-// with the default values initialized.
+// NewUpdateLdapConfigurationParams creates a new UpdateLdapConfigurationParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewUpdateLdapConfigurationParams() *UpdateLdapConfigurationParams {
-	var ()
 	return &UpdateLdapConfigurationParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewUpdateLdapConfigurationParamsWithTimeout creates a new UpdateLdapConfigurationParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewUpdateLdapConfigurationParamsWithTimeout(timeout time.Duration) *UpdateLdapConfigurationParams {
-	var ()
 	return &UpdateLdapConfigurationParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewUpdateLdapConfigurationParamsWithContext creates a new UpdateLdapConfigurationParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewUpdateLdapConfigurationParamsWithContext(ctx context.Context) *UpdateLdapConfigurationParams {
-	var ()
 	return &UpdateLdapConfigurationParams{
-
 		Context: ctx,
 	}
 }
 
 // NewUpdateLdapConfigurationParamsWithHTTPClient creates a new UpdateLdapConfigurationParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewUpdateLdapConfigurationParamsWithHTTPClient(client *http.Client) *UpdateLdapConfigurationParams {
-	var ()
 	return &UpdateLdapConfigurationParams{
 		HTTPClient: client,
 	}
 }
 
-/*UpdateLdapConfigurationParams contains all the parameters to send to the API endpoint
-for the update ldap configuration operation typically these are written to a http.Request
+/* UpdateLdapConfigurationParams contains all the parameters to send to the API endpoint
+   for the update ldap configuration operation.
+
+   Typically these are written to a http.Request.
 */
 type UpdateLdapConfigurationParams struct {
 
-	/*Body
-	  The LDAP configuration
+	/* Body.
 
+	   The LDAP configuration
 	*/
 	Body *models.LdapSettings
-	/*RealmID
-	  The Elasticsearch Security realm identifier.
 
+	/* RealmID.
+
+	   The Elasticsearch Security realm identifier.
 	*/
 	RealmID string
-	/*Version
-	  When specified, checks for conflicts against the version stored in the persistent store (returned in 'x-cloud-resource-version' of the GET request)
 
+	/* Version.
+
+	   When specified, checks for conflicts against the version stored in the persistent store (returned in 'x-cloud-resource-version' of the GET request)
 	*/
 	Version *string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the update ldap configuration params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdateLdapConfigurationParams) WithDefaults() *UpdateLdapConfigurationParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the update ldap configuration params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdateLdapConfigurationParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the update ldap configuration params
@@ -173,7 +189,6 @@ func (o *UpdateLdapConfigurationParams) WriteToRequest(r runtime.ClientRequest, 
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err
@@ -189,16 +204,17 @@ func (o *UpdateLdapConfigurationParams) WriteToRequest(r runtime.ClientRequest, 
 
 		// query param version
 		var qrVersion string
+
 		if o.Version != nil {
 			qrVersion = *o.Version
 		}
 		qVersion := qrVersion
 		if qVersion != "" {
+
 			if err := r.SetQueryParam("version", qVersion); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

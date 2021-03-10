@@ -36,69 +36,85 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewSetRunnerRolesParams creates a new SetRunnerRolesParams object
-// with the default values initialized.
+// NewSetRunnerRolesParams creates a new SetRunnerRolesParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewSetRunnerRolesParams() *SetRunnerRolesParams {
-	var ()
 	return &SetRunnerRolesParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewSetRunnerRolesParamsWithTimeout creates a new SetRunnerRolesParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewSetRunnerRolesParamsWithTimeout(timeout time.Duration) *SetRunnerRolesParams {
-	var ()
 	return &SetRunnerRolesParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewSetRunnerRolesParamsWithContext creates a new SetRunnerRolesParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewSetRunnerRolesParamsWithContext(ctx context.Context) *SetRunnerRolesParams {
-	var ()
 	return &SetRunnerRolesParams{
-
 		Context: ctx,
 	}
 }
 
 // NewSetRunnerRolesParamsWithHTTPClient creates a new SetRunnerRolesParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewSetRunnerRolesParamsWithHTTPClient(client *http.Client) *SetRunnerRolesParams {
-	var ()
 	return &SetRunnerRolesParams{
 		HTTPClient: client,
 	}
 }
 
-/*SetRunnerRolesParams contains all the parameters to send to the API endpoint
-for the set runner roles operation typically these are written to a http.Request
+/* SetRunnerRolesParams contains all the parameters to send to the API endpoint
+   for the set runner roles operation.
+
+   Typically these are written to a http.Request.
 */
 type SetRunnerRolesParams struct {
 
-	/*Bless
-	  Assigns the runner to the roles.
+	/* Bless.
 
+	   Assigns the runner to the roles.
 	*/
 	Bless *bool
-	/*Body
-	  The roles for the runner that you want to apply.
 
+	/* Body.
+
+	   The roles for the runner that you want to apply.
 	*/
 	Body *models.RunnerRolesInfo
-	/*RunnerID
-	  The identifier for the runner
 
+	/* RunnerID.
+
+	   The identifier for the runner
 	*/
 	RunnerID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the set runner roles params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetRunnerRolesParams) WithDefaults() *SetRunnerRolesParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the set runner roles params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetRunnerRolesParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the set runner roles params
@@ -179,18 +195,18 @@ func (o *SetRunnerRolesParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 
 		// query param bless
 		var qrBless bool
+
 		if o.Bless != nil {
 			qrBless = *o.Bless
 		}
 		qBless := swag.FormatBool(qrBless)
 		if qBless != "" {
+
 			if err := r.SetQueryParam("bless", qBless); err != nil {
 				return err
 			}
 		}
-
 	}
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

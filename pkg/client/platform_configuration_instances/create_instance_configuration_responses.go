@@ -64,7 +64,6 @@ func (o *CreateInstanceConfigurationReader) ReadResponse(response runtime.Client
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,7 +74,7 @@ func NewCreateInstanceConfigurationCreated() *CreateInstanceConfigurationCreated
 	return &CreateInstanceConfigurationCreated{}
 }
 
-/*CreateInstanceConfigurationCreated handles this case with default header values.
+/* CreateInstanceConfigurationCreated describes a response with status code 201, with default header values.
 
 Instance Configuration added with the auto generated ID returned
 */
@@ -86,7 +85,6 @@ type CreateInstanceConfigurationCreated struct {
 func (o *CreateInstanceConfigurationCreated) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/instances][%d] createInstanceConfigurationCreated  %+v", 201, o.Payload)
 }
-
 func (o *CreateInstanceConfigurationCreated) GetPayload() *models.IDResponse {
 	return o.Payload
 }
@@ -108,7 +106,7 @@ func NewCreateInstanceConfigurationBadRequest() *CreateInstanceConfigurationBadR
 	return &CreateInstanceConfigurationBadRequest{}
 }
 
-/*CreateInstanceConfigurationBadRequest handles this case with default header values.
+/* CreateInstanceConfigurationBadRequest describes a response with status code 400, with default header values.
 
 cluster_type in the InstanceConfiguration model is invalid (code: 'configuration.invalid_cluster_type') or the discrete_sizes in the InstanceConfiguration model is invalid (code: 'configuration.invalid_discrete_sizes') or the metadata in the InstanceConfiguration model has empty keys or values (code: 'configuration.bad_meta_data')
 */
@@ -119,7 +117,6 @@ type CreateInstanceConfigurationBadRequest struct {
 func (o *CreateInstanceConfigurationBadRequest) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/instances][%d] createInstanceConfigurationBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *CreateInstanceConfigurationBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -141,7 +138,7 @@ func NewCreateInstanceConfigurationForbidden() *CreateInstanceConfigurationForbi
 	return &CreateInstanceConfigurationForbidden{}
 }
 
-/*CreateInstanceConfigurationForbidden handles this case with default header values.
+/* CreateInstanceConfigurationForbidden describes a response with status code 403, with default header values.
 
 system_owned or deleted_on cannot be set externally (code: 'configuration.system_owned')
 */
@@ -152,7 +149,6 @@ type CreateInstanceConfigurationForbidden struct {
 func (o *CreateInstanceConfigurationForbidden) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/instances][%d] createInstanceConfigurationForbidden  %+v", 403, o.Payload)
 }
-
 func (o *CreateInstanceConfigurationForbidden) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -174,7 +170,7 @@ func NewCreateInstanceConfigurationRetryWith() *CreateInstanceConfigurationRetry
 	return &CreateInstanceConfigurationRetryWith{}
 }
 
-/*CreateInstanceConfigurationRetryWith handles this case with default header values.
+/* CreateInstanceConfigurationRetryWith describes a response with status code 449, with default header values.
 
 elevated permissions are required. (code: '"root.unauthorized.rbac.elevated_permissions_required"')
 */
@@ -185,7 +181,6 @@ type CreateInstanceConfigurationRetryWith struct {
 func (o *CreateInstanceConfigurationRetryWith) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/instances][%d] createInstanceConfigurationRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *CreateInstanceConfigurationRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

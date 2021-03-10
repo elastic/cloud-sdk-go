@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -70,13 +72,40 @@ func (m *MoveKibanaClusterConfiguration) validateClusterIds(formats strfmt.Regis
 }
 
 func (m *MoveKibanaClusterConfiguration) validatePlanOverride(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.PlanOverride) { // not required
 		return nil
 	}
 
 	if m.PlanOverride != nil {
 		if err := m.PlanOverride.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("plan_override")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this move kibana cluster configuration based on the context it is used
+func (m *MoveKibanaClusterConfiguration) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidatePlanOverride(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *MoveKibanaClusterConfiguration) contextValidatePlanOverride(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.PlanOverride != nil {
+		if err := m.PlanOverride.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("plan_override")
 			}

@@ -23,9 +23,12 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // LoggingSettings Information about logging settings.
@@ -54,6 +57,15 @@ func (m *LoggingSettings) Validate(formats strfmt.Registry) error {
 
 func (m *LoggingSettings) validateLoggingLevels(formats strfmt.Registry) error {
 
+	if err := validate.Required("logging_levels", "body", m.LoggingLevels); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validates this logging settings based on context it is used
+func (m *LoggingSettings) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

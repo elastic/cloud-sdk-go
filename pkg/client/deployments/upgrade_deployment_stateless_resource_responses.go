@@ -58,7 +58,6 @@ func (o *UpgradeDeploymentStatelessResourceReader) ReadResponse(response runtime
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,7 +68,7 @@ func NewUpgradeDeploymentStatelessResourceAccepted() *UpgradeDeploymentStateless
 	return &UpgradeDeploymentStatelessResourceAccepted{}
 }
 
-/*UpgradeDeploymentStatelessResourceAccepted handles this case with default header values.
+/* UpgradeDeploymentStatelessResourceAccepted describes a response with status code 202, with default header values.
 
 The upgrade command was issued successfully, use the "GET" command on the /{cluster_id} resource to monitor progress
 */
@@ -80,7 +79,6 @@ type UpgradeDeploymentStatelessResourceAccepted struct {
 func (o *UpgradeDeploymentStatelessResourceAccepted) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_upgrade][%d] upgradeDeploymentStatelessResourceAccepted  %+v", 202, o.Payload)
 }
-
 func (o *UpgradeDeploymentStatelessResourceAccepted) GetPayload() *models.DeploymentResourceUpgradeResponse {
 	return o.Payload
 }
@@ -102,13 +100,14 @@ func NewUpgradeDeploymentStatelessResourceNotFound() *UpgradeDeploymentStateless
 	return &UpgradeDeploymentStatelessResourceNotFound{}
 }
 
-/*UpgradeDeploymentStatelessResourceNotFound handles this case with default header values.
+/* UpgradeDeploymentStatelessResourceNotFound describes a response with status code 404, with default header values.
 
-* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+ * The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
 * The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)
- */
+*/
 type UpgradeDeploymentStatelessResourceNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -118,15 +117,18 @@ type UpgradeDeploymentStatelessResourceNotFound struct {
 func (o *UpgradeDeploymentStatelessResourceNotFound) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_upgrade][%d] upgradeDeploymentStatelessResourceNotFound  %+v", 404, o.Payload)
 }
-
 func (o *UpgradeDeploymentStatelessResourceNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *UpgradeDeploymentStatelessResourceNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -143,12 +145,13 @@ func NewUpgradeDeploymentStatelessResourceRetryWith() *UpgradeDeploymentStateles
 	return &UpgradeDeploymentStatelessResourceRetryWith{}
 }
 
-/*UpgradeDeploymentStatelessResourceRetryWith handles this case with default header values.
+/* UpgradeDeploymentStatelessResourceRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type UpgradeDeploymentStatelessResourceRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -158,15 +161,18 @@ type UpgradeDeploymentStatelessResourceRetryWith struct {
 func (o *UpgradeDeploymentStatelessResourceRetryWith) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_upgrade][%d] upgradeDeploymentStatelessResourceRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *UpgradeDeploymentStatelessResourceRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *UpgradeDeploymentStatelessResourceRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

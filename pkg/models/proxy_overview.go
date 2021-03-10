@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -113,6 +114,56 @@ func (m *ProxyOverview) validateSettings(formats strfmt.Registry) error {
 
 	if m.Settings != nil {
 		if err := m.Settings.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("settings")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this proxy overview based on the context it is used
+func (m *ProxyOverview) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateProxies(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateSettings(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ProxyOverview) contextValidateProxies(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Proxies); i++ {
+
+		if m.Proxies[i] != nil {
+			if err := m.Proxies[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("proxies" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *ProxyOverview) contextValidateSettings(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Settings != nil {
+		if err := m.Settings.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("settings")
 			}

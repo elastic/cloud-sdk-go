@@ -33,59 +33,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetBlueprinterRoleParams creates a new GetBlueprinterRoleParams object
-// with the default values initialized.
+// NewGetBlueprinterRoleParams creates a new GetBlueprinterRoleParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetBlueprinterRoleParams() *GetBlueprinterRoleParams {
-	var ()
 	return &GetBlueprinterRoleParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetBlueprinterRoleParamsWithTimeout creates a new GetBlueprinterRoleParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetBlueprinterRoleParamsWithTimeout(timeout time.Duration) *GetBlueprinterRoleParams {
-	var ()
 	return &GetBlueprinterRoleParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetBlueprinterRoleParamsWithContext creates a new GetBlueprinterRoleParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetBlueprinterRoleParamsWithContext(ctx context.Context) *GetBlueprinterRoleParams {
-	var ()
 	return &GetBlueprinterRoleParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetBlueprinterRoleParamsWithHTTPClient creates a new GetBlueprinterRoleParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetBlueprinterRoleParamsWithHTTPClient(client *http.Client) *GetBlueprinterRoleParams {
-	var ()
 	return &GetBlueprinterRoleParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetBlueprinterRoleParams contains all the parameters to send to the API endpoint
-for the get blueprinter role operation typically these are written to a http.Request
+/* GetBlueprinterRoleParams contains all the parameters to send to the API endpoint
+   for the get blueprinter role operation.
+
+   Typically these are written to a http.Request.
 */
 type GetBlueprinterRoleParams struct {
 
-	/*BlueprinterRoleID
-	  User-specified Blueprinter role ID.
+	/* BlueprinterRoleID.
 
+	   User-specified Blueprinter role ID.
 	*/
 	BlueprinterRoleID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get blueprinter role params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetBlueprinterRoleParams) WithDefaults() *GetBlueprinterRoleParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get blueprinter role params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetBlueprinterRoleParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get blueprinter role params

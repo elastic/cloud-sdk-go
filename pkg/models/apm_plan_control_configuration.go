@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"encoding/json"
 	"strconv"
 
@@ -112,7 +113,6 @@ func (m *ApmPlanControlConfiguration) validateClusterRebootEnum(path, location s
 }
 
 func (m *ApmPlanControlConfiguration) validateClusterReboot(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.ClusterReboot) { // not required
 		return nil
 	}
@@ -126,7 +126,6 @@ func (m *ApmPlanControlConfiguration) validateClusterReboot(formats strfmt.Regis
 }
 
 func (m *ApmPlanControlConfiguration) validateMoveAllocators(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.MoveAllocators) { // not required
 		return nil
 	}
@@ -151,7 +150,6 @@ func (m *ApmPlanControlConfiguration) validateMoveAllocators(formats strfmt.Regi
 }
 
 func (m *ApmPlanControlConfiguration) validateMoveInstances(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.MoveInstances) { // not required
 		return nil
 	}
@@ -163,6 +161,60 @@ func (m *ApmPlanControlConfiguration) validateMoveInstances(formats strfmt.Regis
 
 		if m.MoveInstances[i] != nil {
 			if err := m.MoveInstances[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("move_instances" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this apm plan control configuration based on the context it is used
+func (m *ApmPlanControlConfiguration) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateMoveAllocators(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateMoveInstances(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ApmPlanControlConfiguration) contextValidateMoveAllocators(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.MoveAllocators); i++ {
+
+		if m.MoveAllocators[i] != nil {
+			if err := m.MoveAllocators[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("move_allocators" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *ApmPlanControlConfiguration) contextValidateMoveInstances(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.MoveInstances); i++ {
+
+		if m.MoveInstances[i] != nil {
+			if err := m.MoveInstances[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("move_instances" + "." + strconv.Itoa(i))
 				}

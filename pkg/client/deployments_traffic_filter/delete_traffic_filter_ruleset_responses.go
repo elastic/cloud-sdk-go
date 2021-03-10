@@ -58,7 +58,6 @@ func (o *DeleteTrafficFilterRulesetReader) ReadResponse(response runtime.ClientR
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,7 +68,7 @@ func NewDeleteTrafficFilterRulesetOK() *DeleteTrafficFilterRulesetOK {
 	return &DeleteTrafficFilterRulesetOK{}
 }
 
-/*DeleteTrafficFilterRulesetOK handles this case with default header values.
+/* DeleteTrafficFilterRulesetOK describes a response with status code 200, with default header values.
 
 The traffic filter ruleset was successfully deleted.
 */
@@ -80,7 +79,6 @@ type DeleteTrafficFilterRulesetOK struct {
 func (o *DeleteTrafficFilterRulesetOK) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/traffic-filter/rulesets/{ruleset_id}][%d] deleteTrafficFilterRulesetOK  %+v", 200, o.Payload)
 }
-
 func (o *DeleteTrafficFilterRulesetOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -100,12 +98,13 @@ func NewDeleteTrafficFilterRulesetNotFound() *DeleteTrafficFilterRulesetNotFound
 	return &DeleteTrafficFilterRulesetNotFound{}
 }
 
-/*DeleteTrafficFilterRulesetNotFound handles this case with default header values.
+/* DeleteTrafficFilterRulesetNotFound describes a response with status code 404, with default header values.
 
 The traffic filter ruleset specified by {ruleset_id} cannot be found. (code: `traffic_filter.not_found`)
 */
 type DeleteTrafficFilterRulesetNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -115,15 +114,18 @@ type DeleteTrafficFilterRulesetNotFound struct {
 func (o *DeleteTrafficFilterRulesetNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/traffic-filter/rulesets/{ruleset_id}][%d] deleteTrafficFilterRulesetNotFound  %+v", 404, o.Payload)
 }
-
 func (o *DeleteTrafficFilterRulesetNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *DeleteTrafficFilterRulesetNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -140,12 +142,13 @@ func NewDeleteTrafficFilterRulesetInternalServerError() *DeleteTrafficFilterRule
 	return &DeleteTrafficFilterRulesetInternalServerError{}
 }
 
-/*DeleteTrafficFilterRulesetInternalServerError handles this case with default header values.
+/* DeleteTrafficFilterRulesetInternalServerError describes a response with status code 500, with default header values.
 
 Error deleting the traffic filter ruleset. (code: `traffic_filter.request_execution_failed`)
 */
 type DeleteTrafficFilterRulesetInternalServerError struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -155,15 +158,18 @@ type DeleteTrafficFilterRulesetInternalServerError struct {
 func (o *DeleteTrafficFilterRulesetInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/traffic-filter/rulesets/{ruleset_id}][%d] deleteTrafficFilterRulesetInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *DeleteTrafficFilterRulesetInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *DeleteTrafficFilterRulesetInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

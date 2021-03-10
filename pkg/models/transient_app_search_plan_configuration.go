@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -59,7 +61,6 @@ func (m *TransientAppSearchPlanConfiguration) Validate(formats strfmt.Registry) 
 }
 
 func (m *TransientAppSearchPlanConfiguration) validatePlanConfiguration(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.PlanConfiguration) { // not required
 		return nil
 	}
@@ -77,13 +78,58 @@ func (m *TransientAppSearchPlanConfiguration) validatePlanConfiguration(formats 
 }
 
 func (m *TransientAppSearchPlanConfiguration) validateStrategy(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Strategy) { // not required
 		return nil
 	}
 
 	if m.Strategy != nil {
 		if err := m.Strategy.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("strategy")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this transient app search plan configuration based on the context it is used
+func (m *TransientAppSearchPlanConfiguration) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidatePlanConfiguration(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateStrategy(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *TransientAppSearchPlanConfiguration) contextValidatePlanConfiguration(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.PlanConfiguration != nil {
+		if err := m.PlanConfiguration.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("plan_configuration")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *TransientAppSearchPlanConfiguration) contextValidateStrategy(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Strategy != nil {
+		if err := m.Strategy.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("strategy")
 			}

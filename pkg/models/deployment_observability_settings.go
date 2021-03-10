@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -59,7 +61,6 @@ func (m *DeploymentObservabilitySettings) Validate(formats strfmt.Registry) erro
 }
 
 func (m *DeploymentObservabilitySettings) validateLogging(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Logging) { // not required
 		return nil
 	}
@@ -77,13 +78,58 @@ func (m *DeploymentObservabilitySettings) validateLogging(formats strfmt.Registr
 }
 
 func (m *DeploymentObservabilitySettings) validateMetrics(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Metrics) { // not required
 		return nil
 	}
 
 	if m.Metrics != nil {
 		if err := m.Metrics.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("metrics")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this deployment observability settings based on the context it is used
+func (m *DeploymentObservabilitySettings) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateLogging(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateMetrics(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *DeploymentObservabilitySettings) contextValidateLogging(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Logging != nil {
+		if err := m.Logging.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("logging")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *DeploymentObservabilitySettings) contextValidateMetrics(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Metrics != nil {
+		if err := m.Metrics.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("metrics")
 			}

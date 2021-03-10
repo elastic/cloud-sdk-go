@@ -34,71 +34,84 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetTrustRelationshipsParams creates a new GetTrustRelationshipsParams object
-// with the default values initialized.
+// NewGetTrustRelationshipsParams creates a new GetTrustRelationshipsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetTrustRelationshipsParams() *GetTrustRelationshipsParams {
-	var (
-		includeCertificateDefault = bool(false)
-	)
 	return &GetTrustRelationshipsParams{
-		IncludeCertificate: &includeCertificateDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetTrustRelationshipsParamsWithTimeout creates a new GetTrustRelationshipsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetTrustRelationshipsParamsWithTimeout(timeout time.Duration) *GetTrustRelationshipsParams {
-	var (
-		includeCertificateDefault = bool(false)
-	)
 	return &GetTrustRelationshipsParams{
-		IncludeCertificate: &includeCertificateDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewGetTrustRelationshipsParamsWithContext creates a new GetTrustRelationshipsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetTrustRelationshipsParamsWithContext(ctx context.Context) *GetTrustRelationshipsParams {
-	var (
-		includeCertificateDefault = bool(false)
-	)
 	return &GetTrustRelationshipsParams{
-		IncludeCertificate: &includeCertificateDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewGetTrustRelationshipsParamsWithHTTPClient creates a new GetTrustRelationshipsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetTrustRelationshipsParamsWithHTTPClient(client *http.Client) *GetTrustRelationshipsParams {
-	var (
-		includeCertificateDefault = bool(false)
-	)
 	return &GetTrustRelationshipsParams{
-		IncludeCertificate: &includeCertificateDefault,
-		HTTPClient:         client,
+		HTTPClient: client,
 	}
 }
 
-/*GetTrustRelationshipsParams contains all the parameters to send to the API endpoint
-for the get trust relationships operation typically these are written to a http.Request
+/* GetTrustRelationshipsParams contains all the parameters to send to the API endpoint
+   for the get trust relationships operation.
+
+   Typically these are written to a http.Request.
 */
 type GetTrustRelationshipsParams struct {
 
-	/*IncludeCertificate
-	  Whether to include the public CA certificates in the response.
+	/* IncludeCertificate.
 
+	   Whether to include the public CA certificates in the response.
 	*/
 	IncludeCertificate *bool
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get trust relationships params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetTrustRelationshipsParams) WithDefaults() *GetTrustRelationshipsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get trust relationships params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetTrustRelationshipsParams) SetDefaults() {
+	var (
+		includeCertificateDefault = bool(false)
+	)
+
+	val := GetTrustRelationshipsParams{
+		IncludeCertificate: &includeCertificateDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the get trust relationships params
@@ -157,16 +170,17 @@ func (o *GetTrustRelationshipsParams) WriteToRequest(r runtime.ClientRequest, re
 
 		// query param include_certificate
 		var qrIncludeCertificate bool
+
 		if o.IncludeCertificate != nil {
 			qrIncludeCertificate = *o.IncludeCertificate
 		}
 		qIncludeCertificate := swag.FormatBool(qrIncludeCertificate)
 		if qIncludeCertificate != "" {
+
 			if err := r.SetQueryParam("include_certificate", qIncludeCertificate); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

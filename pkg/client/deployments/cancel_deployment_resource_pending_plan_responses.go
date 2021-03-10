@@ -70,7 +70,6 @@ func (o *CancelDeploymentResourcePendingPlanReader) ReadResponse(response runtim
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -81,7 +80,7 @@ func NewCancelDeploymentResourcePendingPlanOK() *CancelDeploymentResourcePending
 	return &CancelDeploymentResourcePendingPlanOK{}
 }
 
-/*CancelDeploymentResourcePendingPlanOK handles this case with default header values.
+/* CancelDeploymentResourcePendingPlanOK describes a response with status code 200, with default header values.
 
 Standard Deployment Resource Crud Response
 */
@@ -92,7 +91,6 @@ type CancelDeploymentResourcePendingPlanOK struct {
 func (o *CancelDeploymentResourcePendingPlanOK) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/{deployment_id}/{resource_kind}/{ref_id}/plan/pending][%d] cancelDeploymentResourcePendingPlanOK  %+v", 200, o.Payload)
 }
-
 func (o *CancelDeploymentResourcePendingPlanOK) GetPayload() *models.DeploymentResourceCrudResponse {
 	return o.Payload
 }
@@ -114,12 +112,13 @@ func NewCancelDeploymentResourcePendingPlanBadRequest() *CancelDeploymentResourc
 	return &CancelDeploymentResourcePendingPlanBadRequest{}
 }
 
-/*CancelDeploymentResourcePendingPlanBadRequest handles this case with default header values.
+/* CancelDeploymentResourcePendingPlanBadRequest describes a response with status code 400, with default header values.
 
 The Resource does not have a pending plan. (code: `deployments.resource_does_not_have_a_pending_plan`)
 */
 type CancelDeploymentResourcePendingPlanBadRequest struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -129,15 +128,18 @@ type CancelDeploymentResourcePendingPlanBadRequest struct {
 func (o *CancelDeploymentResourcePendingPlanBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/{deployment_id}/{resource_kind}/{ref_id}/plan/pending][%d] cancelDeploymentResourcePendingPlanBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *CancelDeploymentResourcePendingPlanBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *CancelDeploymentResourcePendingPlanBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -154,12 +156,13 @@ func NewCancelDeploymentResourcePendingPlanNotFound() *CancelDeploymentResourceP
 	return &CancelDeploymentResourcePendingPlanNotFound{}
 }
 
-/*CancelDeploymentResourcePendingPlanNotFound handles this case with default header values.
+/* CancelDeploymentResourcePendingPlanNotFound describes a response with status code 404, with default header values.
 
 The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
 */
 type CancelDeploymentResourcePendingPlanNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -169,15 +172,18 @@ type CancelDeploymentResourcePendingPlanNotFound struct {
 func (o *CancelDeploymentResourcePendingPlanNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/{deployment_id}/{resource_kind}/{ref_id}/plan/pending][%d] cancelDeploymentResourcePendingPlanNotFound  %+v", 404, o.Payload)
 }
-
 func (o *CancelDeploymentResourcePendingPlanNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *CancelDeploymentResourcePendingPlanNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -194,12 +200,13 @@ func NewCancelDeploymentResourcePendingPlanRetryWith() *CancelDeploymentResource
 	return &CancelDeploymentResourcePendingPlanRetryWith{}
 }
 
-/*CancelDeploymentResourcePendingPlanRetryWith handles this case with default header values.
+/* CancelDeploymentResourcePendingPlanRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type CancelDeploymentResourcePendingPlanRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -209,15 +216,18 @@ type CancelDeploymentResourcePendingPlanRetryWith struct {
 func (o *CancelDeploymentResourcePendingPlanRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/{deployment_id}/{resource_kind}/{ref_id}/plan/pending][%d] cancelDeploymentResourcePendingPlanRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *CancelDeploymentResourcePendingPlanRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *CancelDeploymentResourcePendingPlanRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -234,12 +244,13 @@ func NewCancelDeploymentResourcePendingPlanInternalServerError() *CancelDeployme
 	return &CancelDeploymentResourcePendingPlanInternalServerError{}
 }
 
-/*CancelDeploymentResourcePendingPlanInternalServerError handles this case with default header values.
+/* CancelDeploymentResourcePendingPlanInternalServerError describes a response with status code 500, with default header values.
 
 We have failed you. (code: `deployments.deployment_resource_no_longer_exists`)
 */
 type CancelDeploymentResourcePendingPlanInternalServerError struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -249,15 +260,18 @@ type CancelDeploymentResourcePendingPlanInternalServerError struct {
 func (o *CancelDeploymentResourcePendingPlanInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/{deployment_id}/{resource_kind}/{ref_id}/plan/pending][%d] cancelDeploymentResourcePendingPlanInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *CancelDeploymentResourcePendingPlanInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *CancelDeploymentResourcePendingPlanInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

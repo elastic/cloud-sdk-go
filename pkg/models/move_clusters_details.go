@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -200,6 +201,126 @@ func (m *MoveClustersDetails) validateKibanaClusters(formats strfmt.Registry) er
 
 		if m.KibanaClusters[i] != nil {
 			if err := m.KibanaClusters[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("kibana_clusters" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this move clusters details based on the context it is used
+func (m *MoveClustersDetails) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateApmClusters(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateAppsearchClusters(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateElasticsearchClusters(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateEnterpriseSearchClusters(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateKibanaClusters(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *MoveClustersDetails) contextValidateApmClusters(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.ApmClusters); i++ {
+
+		if m.ApmClusters[i] != nil {
+			if err := m.ApmClusters[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("apm_clusters" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *MoveClustersDetails) contextValidateAppsearchClusters(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.AppsearchClusters); i++ {
+
+		if m.AppsearchClusters[i] != nil {
+			if err := m.AppsearchClusters[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("appsearch_clusters" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *MoveClustersDetails) contextValidateElasticsearchClusters(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.ElasticsearchClusters); i++ {
+
+		if m.ElasticsearchClusters[i] != nil {
+			if err := m.ElasticsearchClusters[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("elasticsearch_clusters" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *MoveClustersDetails) contextValidateEnterpriseSearchClusters(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.EnterpriseSearchClusters); i++ {
+
+		if m.EnterpriseSearchClusters[i] != nil {
+			if err := m.EnterpriseSearchClusters[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("enterprise_search_clusters" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *MoveClustersDetails) contextValidateKibanaClusters(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.KibanaClusters); i++ {
+
+		if m.KibanaClusters[i] != nil {
+			if err := m.KibanaClusters[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("kibana_clusters" + "." + strconv.Itoa(i))
 				}

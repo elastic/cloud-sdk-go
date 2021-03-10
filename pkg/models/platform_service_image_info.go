@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -35,18 +37,22 @@ import (
 type PlatformServiceImageInfo struct {
 
 	// Image hash code
+	// Example: sha256:04a5be1ab07de64269ffa52da26044e0ecc36fa1164e7914468e69d65a2090d4
 	// Required: true
 	Hash *string `json:"hash"`
 
 	// Id of runner that hosts the container
+	// Example: docker.elastic.co/elastic-cloud-enterprise:1.0.0-GA
 	// Required: true
 	ID *string `json:"id"`
 
 	// Image tag
+	// Example: docker.elastic.co/elastic-cloud-enterprise:1.0.0-GA
 	// Required: true
 	Tag *string `json:"tag"`
 
 	// Version of service
+	// Example: 1.0.0-GA
 	// Required: true
 	Version *string `json:"version"`
 }
@@ -110,6 +116,11 @@ func (m *PlatformServiceImageInfo) validateVersion(formats strfmt.Registry) erro
 		return err
 	}
 
+	return nil
+}
+
+// ContextValidate validates this platform service image info based on context it is used
+func (m *PlatformServiceImageInfo) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

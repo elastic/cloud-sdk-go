@@ -58,7 +58,6 @@ func (o *GetApmPendingPlanReader) ReadResponse(response runtime.ClientResponse, 
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,18 +68,21 @@ func NewGetApmPendingPlanOK() *GetApmPendingPlanOK {
 	return &GetApmPendingPlanOK{}
 }
 
-/*GetApmPendingPlanOK handles this case with default header values.
+/* GetApmPendingPlanOK describes a response with status code 200, with default header values.
 
 The pending plan is applied to the APM server.
 */
 type GetApmPendingPlanOK struct {
-	/*The date-time when the resource was created (ISO format relative to UTC)
+
+	/* The date-time when the resource was created (ISO format relative to UTC)
 	 */
 	XCloudResourceCreated string
-	/*The date-time when the resource was last modified (ISO format relative to UTC)
+
+	/* The date-time when the resource was last modified (ISO format relative to UTC)
 	 */
 	XCloudResourceLastModified string
-	/*The resource version, which is used to avoid update conflicts with concurrent operations
+
+	/* The resource version, which is used to avoid update conflicts with concurrent operations
 	 */
 	XCloudResourceVersion string
 
@@ -90,21 +92,32 @@ type GetApmPendingPlanOK struct {
 func (o *GetApmPendingPlanOK) Error() string {
 	return fmt.Sprintf("[GET /clusters/apm/{cluster_id}/plan/pending][%d] getApmPendingPlanOK  %+v", 200, o.Payload)
 }
-
 func (o *GetApmPendingPlanOK) GetPayload() *models.ApmPlan {
 	return o.Payload
 }
 
 func (o *GetApmPendingPlanOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-resource-created
-	o.XCloudResourceCreated = response.GetHeader("x-cloud-resource-created")
+	// hydrates response header x-cloud-resource-created
+	hdrXCloudResourceCreated := response.GetHeader("x-cloud-resource-created")
 
-	// response header x-cloud-resource-last-modified
-	o.XCloudResourceLastModified = response.GetHeader("x-cloud-resource-last-modified")
+	if hdrXCloudResourceCreated != "" {
+		o.XCloudResourceCreated = hdrXCloudResourceCreated
+	}
 
-	// response header x-cloud-resource-version
-	o.XCloudResourceVersion = response.GetHeader("x-cloud-resource-version")
+	// hydrates response header x-cloud-resource-last-modified
+	hdrXCloudResourceLastModified := response.GetHeader("x-cloud-resource-last-modified")
+
+	if hdrXCloudResourceLastModified != "" {
+		o.XCloudResourceLastModified = hdrXCloudResourceLastModified
+	}
+
+	// hydrates response header x-cloud-resource-version
+	hdrXCloudResourceVersion := response.GetHeader("x-cloud-resource-version")
+
+	if hdrXCloudResourceVersion != "" {
+		o.XCloudResourceVersion = hdrXCloudResourceVersion
+	}
 
 	o.Payload = new(models.ApmPlan)
 
@@ -121,7 +134,7 @@ func NewGetApmPendingPlanNotFound() *GetApmPendingPlanNotFound {
 	return &GetApmPendingPlanNotFound{}
 }
 
-/*GetApmPendingPlanNotFound handles this case with default header values.
+/* GetApmPendingPlanNotFound describes a response with status code 404, with default header values.
 
 The {cluster_id} can't be found. (code: 'clusters.cluster_not_found')
 */
@@ -132,7 +145,6 @@ type GetApmPendingPlanNotFound struct {
 func (o *GetApmPendingPlanNotFound) Error() string {
 	return fmt.Sprintf("[GET /clusters/apm/{cluster_id}/plan/pending][%d] getApmPendingPlanNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetApmPendingPlanNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -154,7 +166,7 @@ func NewGetApmPendingPlanPreconditionFailed() *GetApmPendingPlanPreconditionFail
 	return &GetApmPendingPlanPreconditionFailed{}
 }
 
-/*GetApmPendingPlanPreconditionFailed handles this case with default header values.
+/* GetApmPendingPlanPreconditionFailed describes a response with status code 412, with default header values.
 
 The APM server is unable to finish provisioning, or the provisioning failed. Apply a plan, then try again. (code: 'clusters.cluster_plan_state_error')
 */
@@ -165,7 +177,6 @@ type GetApmPendingPlanPreconditionFailed struct {
 func (o *GetApmPendingPlanPreconditionFailed) Error() string {
 	return fmt.Sprintf("[GET /clusters/apm/{cluster_id}/plan/pending][%d] getApmPendingPlanPreconditionFailed  %+v", 412, o.Payload)
 }
-
 func (o *GetApmPendingPlanPreconditionFailed) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

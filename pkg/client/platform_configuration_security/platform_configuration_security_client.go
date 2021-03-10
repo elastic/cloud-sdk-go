@@ -42,55 +42,58 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientOption is the option for Client methods
+type ClientOption func(*runtime.ClientOperation)
+
 // ClientService is the interface for Client methods
 type ClientService interface {
-	CreateActiveDirectoryConfiguration(params *CreateActiveDirectoryConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*CreateActiveDirectoryConfigurationCreated, error)
+	CreateActiveDirectoryConfiguration(params *CreateActiveDirectoryConfigurationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateActiveDirectoryConfigurationCreated, error)
 
-	CreateEnrollmentToken(params *CreateEnrollmentTokenParams, authInfo runtime.ClientAuthInfoWriter) (*CreateEnrollmentTokenOK, error)
+	CreateEnrollmentToken(params *CreateEnrollmentTokenParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateEnrollmentTokenOK, error)
 
-	CreateLdapConfiguration(params *CreateLdapConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*CreateLdapConfigurationCreated, error)
+	CreateLdapConfiguration(params *CreateLdapConfigurationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateLdapConfigurationCreated, error)
 
-	CreateSamlConfiguration(params *CreateSamlConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*CreateSamlConfigurationCreated, error)
+	CreateSamlConfiguration(params *CreateSamlConfigurationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateSamlConfigurationCreated, error)
 
-	CreateSecurityDeployment(params *CreateSecurityDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*CreateSecurityDeploymentCreated, error)
+	CreateSecurityDeployment(params *CreateSecurityDeploymentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateSecurityDeploymentCreated, error)
 
-	DeleteActiveDirectoryConfiguration(params *DeleteActiveDirectoryConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteActiveDirectoryConfigurationOK, error)
+	DeleteActiveDirectoryConfiguration(params *DeleteActiveDirectoryConfigurationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteActiveDirectoryConfigurationOK, error)
 
-	DeleteEnrollmentToken(params *DeleteEnrollmentTokenParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteEnrollmentTokenOK, error)
+	DeleteEnrollmentToken(params *DeleteEnrollmentTokenParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteEnrollmentTokenOK, error)
 
-	DeleteLdapConfiguration(params *DeleteLdapConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteLdapConfigurationOK, error)
+	DeleteLdapConfiguration(params *DeleteLdapConfigurationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteLdapConfigurationOK, error)
 
-	DeleteSamlConfiguration(params *DeleteSamlConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteSamlConfigurationOK, error)
+	DeleteSamlConfiguration(params *DeleteSamlConfigurationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteSamlConfigurationOK, error)
 
-	DisableSecurityDeployment(params *DisableSecurityDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*DisableSecurityDeploymentOK, error)
+	DisableSecurityDeployment(params *DisableSecurityDeploymentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DisableSecurityDeploymentOK, error)
 
-	EnableSecurityDeployment(params *EnableSecurityDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*EnableSecurityDeploymentOK, error)
+	EnableSecurityDeployment(params *EnableSecurityDeploymentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*EnableSecurityDeploymentOK, error)
 
-	GetActiveDirectoryConfiguration(params *GetActiveDirectoryConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*GetActiveDirectoryConfigurationOK, error)
+	GetActiveDirectoryConfiguration(params *GetActiveDirectoryConfigurationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetActiveDirectoryConfigurationOK, error)
 
-	GetEnrollmentTokens(params *GetEnrollmentTokensParams, authInfo runtime.ClientAuthInfoWriter) (*GetEnrollmentTokensOK, error)
+	GetEnrollmentTokens(params *GetEnrollmentTokensParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEnrollmentTokensOK, error)
 
-	GetLdapConfiguration(params *GetLdapConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*GetLdapConfigurationOK, error)
+	GetLdapConfiguration(params *GetLdapConfigurationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetLdapConfigurationOK, error)
 
-	GetSamlConfiguration(params *GetSamlConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*GetSamlConfigurationOK, error)
+	GetSamlConfiguration(params *GetSamlConfigurationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSamlConfigurationOK, error)
 
-	GetSecurityDeployment(params *GetSecurityDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*GetSecurityDeploymentOK, error)
+	GetSecurityDeployment(params *GetSecurityDeploymentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSecurityDeploymentOK, error)
 
-	GetSecurityRealmConfigurations(params *GetSecurityRealmConfigurationsParams, authInfo runtime.ClientAuthInfoWriter) (*GetSecurityRealmConfigurationsOK, error)
+	GetSecurityRealmConfigurations(params *GetSecurityRealmConfigurationsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSecurityRealmConfigurationsOK, error)
 
-	GetTLSCertificate(params *GetTLSCertificateParams, authInfo runtime.ClientAuthInfoWriter) (*GetTLSCertificateOK, error)
+	GetTLSCertificate(params *GetTLSCertificateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTLSCertificateOK, error)
 
-	ReorderSecurityRealms(params *ReorderSecurityRealmsParams, authInfo runtime.ClientAuthInfoWriter) (*ReorderSecurityRealmsOK, error)
+	ReorderSecurityRealms(params *ReorderSecurityRealmsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ReorderSecurityRealmsOK, error)
 
-	SetTLSCertificate(params *SetTLSCertificateParams, authInfo runtime.ClientAuthInfoWriter) (*SetTLSCertificateAccepted, error)
+	SetTLSCertificate(params *SetTLSCertificateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetTLSCertificateAccepted, error)
 
-	UpdateActiveDirectoryConfiguration(params *UpdateActiveDirectoryConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateActiveDirectoryConfigurationOK, error)
+	UpdateActiveDirectoryConfiguration(params *UpdateActiveDirectoryConfigurationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateActiveDirectoryConfigurationOK, error)
 
-	UpdateLdapConfiguration(params *UpdateLdapConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateLdapConfigurationOK, error)
+	UpdateLdapConfiguration(params *UpdateLdapConfigurationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateLdapConfigurationOK, error)
 
-	UpdateSamlConfiguration(params *UpdateSamlConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateSamlConfigurationOK, error)
+	UpdateSamlConfiguration(params *UpdateSamlConfigurationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateSamlConfigurationOK, error)
 
-	UpdateSecurityDeployment(params *UpdateSecurityDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateSecurityDeploymentOK, error)
+	UpdateSecurityDeployment(params *UpdateSecurityDeploymentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateSecurityDeploymentOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -100,13 +103,12 @@ type ClientService interface {
 
   Creates a new Active Directory configuration.
 */
-func (a *Client) CreateActiveDirectoryConfiguration(params *CreateActiveDirectoryConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*CreateActiveDirectoryConfigurationCreated, error) {
+func (a *Client) CreateActiveDirectoryConfiguration(params *CreateActiveDirectoryConfigurationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateActiveDirectoryConfigurationCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateActiveDirectoryConfigurationParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "create-active-directory-configuration",
 		Method:             "POST",
 		PathPattern:        "/platform/configuration/security/realms/active-directory",
@@ -118,7 +120,12 @@ func (a *Client) CreateActiveDirectoryConfiguration(params *CreateActiveDirector
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -137,13 +144,12 @@ func (a *Client) CreateActiveDirectoryConfiguration(params *CreateActiveDirector
 
   Creates an enrollment token.
 */
-func (a *Client) CreateEnrollmentToken(params *CreateEnrollmentTokenParams, authInfo runtime.ClientAuthInfoWriter) (*CreateEnrollmentTokenOK, error) {
+func (a *Client) CreateEnrollmentToken(params *CreateEnrollmentTokenParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateEnrollmentTokenOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateEnrollmentTokenParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "create-enrollment-token",
 		Method:             "POST",
 		PathPattern:        "/platform/configuration/security/enrollment-tokens",
@@ -155,7 +161,12 @@ func (a *Client) CreateEnrollmentToken(params *CreateEnrollmentTokenParams, auth
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -174,13 +185,12 @@ func (a *Client) CreateEnrollmentToken(params *CreateEnrollmentTokenParams, auth
 
   Creates a new LDAP configuration.
 */
-func (a *Client) CreateLdapConfiguration(params *CreateLdapConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*CreateLdapConfigurationCreated, error) {
+func (a *Client) CreateLdapConfiguration(params *CreateLdapConfigurationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateLdapConfigurationCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateLdapConfigurationParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "create-ldap-configuration",
 		Method:             "POST",
 		PathPattern:        "/platform/configuration/security/realms/ldap",
@@ -192,7 +202,12 @@ func (a *Client) CreateLdapConfiguration(params *CreateLdapConfigurationParams, 
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -211,13 +226,12 @@ func (a *Client) CreateLdapConfiguration(params *CreateLdapConfigurationParams, 
 
   Creates a new SAML configuration.
 */
-func (a *Client) CreateSamlConfiguration(params *CreateSamlConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*CreateSamlConfigurationCreated, error) {
+func (a *Client) CreateSamlConfiguration(params *CreateSamlConfigurationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateSamlConfigurationCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateSamlConfigurationParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "create-saml-configuration",
 		Method:             "POST",
 		PathPattern:        "/platform/configuration/security/realms/saml",
@@ -229,7 +243,12 @@ func (a *Client) CreateSamlConfiguration(params *CreateSamlConfigurationParams, 
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -248,13 +267,12 @@ func (a *Client) CreateSamlConfiguration(params *CreateSamlConfigurationParams, 
 
   Creates a new security deployment configuration.
 */
-func (a *Client) CreateSecurityDeployment(params *CreateSecurityDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*CreateSecurityDeploymentCreated, error) {
+func (a *Client) CreateSecurityDeployment(params *CreateSecurityDeploymentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateSecurityDeploymentCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateSecurityDeploymentParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "create-security-deployment",
 		Method:             "POST",
 		PathPattern:        "/platform/configuration/security/deployment",
@@ -266,7 +284,12 @@ func (a *Client) CreateSecurityDeployment(params *CreateSecurityDeploymentParams
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -285,13 +308,12 @@ func (a *Client) CreateSecurityDeployment(params *CreateSecurityDeploymentParams
 
   Deletes a single Active Directory configuration.
 */
-func (a *Client) DeleteActiveDirectoryConfiguration(params *DeleteActiveDirectoryConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteActiveDirectoryConfigurationOK, error) {
+func (a *Client) DeleteActiveDirectoryConfiguration(params *DeleteActiveDirectoryConfigurationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteActiveDirectoryConfigurationOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteActiveDirectoryConfigurationParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "delete-active-directory-configuration",
 		Method:             "DELETE",
 		PathPattern:        "/platform/configuration/security/realms/active-directory/{realm_id}",
@@ -303,7 +325,12 @@ func (a *Client) DeleteActiveDirectoryConfiguration(params *DeleteActiveDirector
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -322,13 +349,12 @@ func (a *Client) DeleteActiveDirectoryConfiguration(params *DeleteActiveDirector
 
   Revokes and deletes the enrollment token.
 */
-func (a *Client) DeleteEnrollmentToken(params *DeleteEnrollmentTokenParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteEnrollmentTokenOK, error) {
+func (a *Client) DeleteEnrollmentToken(params *DeleteEnrollmentTokenParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteEnrollmentTokenOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteEnrollmentTokenParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "delete-enrollment-token",
 		Method:             "DELETE",
 		PathPattern:        "/platform/configuration/security/enrollment-tokens/{token}",
@@ -340,7 +366,12 @@ func (a *Client) DeleteEnrollmentToken(params *DeleteEnrollmentTokenParams, auth
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -359,13 +390,12 @@ func (a *Client) DeleteEnrollmentToken(params *DeleteEnrollmentTokenParams, auth
 
   Deletes a single LDAP configuration.
 */
-func (a *Client) DeleteLdapConfiguration(params *DeleteLdapConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteLdapConfigurationOK, error) {
+func (a *Client) DeleteLdapConfiguration(params *DeleteLdapConfigurationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteLdapConfigurationOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteLdapConfigurationParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "delete-ldap-configuration",
 		Method:             "DELETE",
 		PathPattern:        "/platform/configuration/security/realms/ldap/{realm_id}",
@@ -377,7 +407,12 @@ func (a *Client) DeleteLdapConfiguration(params *DeleteLdapConfigurationParams, 
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -396,13 +431,12 @@ func (a *Client) DeleteLdapConfiguration(params *DeleteLdapConfigurationParams, 
 
   Deletes a single SAML configuration.
 */
-func (a *Client) DeleteSamlConfiguration(params *DeleteSamlConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteSamlConfigurationOK, error) {
+func (a *Client) DeleteSamlConfiguration(params *DeleteSamlConfigurationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteSamlConfigurationOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteSamlConfigurationParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "delete-saml-configuration",
 		Method:             "DELETE",
 		PathPattern:        "/platform/configuration/security/realms/saml/{realm_id}",
@@ -414,7 +448,12 @@ func (a *Client) DeleteSamlConfiguration(params *DeleteSamlConfigurationParams, 
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -433,13 +472,12 @@ func (a *Client) DeleteSamlConfiguration(params *DeleteSamlConfigurationParams, 
 
   Disables the existing security deployment configuration.
 */
-func (a *Client) DisableSecurityDeployment(params *DisableSecurityDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*DisableSecurityDeploymentOK, error) {
+func (a *Client) DisableSecurityDeployment(params *DisableSecurityDeploymentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DisableSecurityDeploymentOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDisableSecurityDeploymentParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "disable-security-deployment",
 		Method:             "POST",
 		PathPattern:        "/platform/configuration/security/deployment/_disable",
@@ -451,7 +489,12 @@ func (a *Client) DisableSecurityDeployment(params *DisableSecurityDeploymentPara
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -470,13 +513,12 @@ func (a *Client) DisableSecurityDeployment(params *DisableSecurityDeploymentPara
 
   Enables the existing security deployment configuration.
 */
-func (a *Client) EnableSecurityDeployment(params *EnableSecurityDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*EnableSecurityDeploymentOK, error) {
+func (a *Client) EnableSecurityDeployment(params *EnableSecurityDeploymentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*EnableSecurityDeploymentOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewEnableSecurityDeploymentParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "enable-security-deployment",
 		Method:             "POST",
 		PathPattern:        "/platform/configuration/security/deployment/_enable",
@@ -488,7 +530,12 @@ func (a *Client) EnableSecurityDeployment(params *EnableSecurityDeploymentParams
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -507,13 +554,12 @@ func (a *Client) EnableSecurityDeployment(params *EnableSecurityDeploymentParams
 
   Retrieves a single Active Directory security realm configuration.
 */
-func (a *Client) GetActiveDirectoryConfiguration(params *GetActiveDirectoryConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*GetActiveDirectoryConfigurationOK, error) {
+func (a *Client) GetActiveDirectoryConfiguration(params *GetActiveDirectoryConfigurationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetActiveDirectoryConfigurationOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetActiveDirectoryConfigurationParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-active-directory-configuration",
 		Method:             "GET",
 		PathPattern:        "/platform/configuration/security/realms/active-directory/{realm_id}",
@@ -525,7 +571,12 @@ func (a *Client) GetActiveDirectoryConfiguration(params *GetActiveDirectoryConfi
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -544,13 +595,12 @@ func (a *Client) GetActiveDirectoryConfiguration(params *GetActiveDirectoryConfi
 
   Retrieves a list of active enrollment tokens.
 */
-func (a *Client) GetEnrollmentTokens(params *GetEnrollmentTokensParams, authInfo runtime.ClientAuthInfoWriter) (*GetEnrollmentTokensOK, error) {
+func (a *Client) GetEnrollmentTokens(params *GetEnrollmentTokensParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEnrollmentTokensOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetEnrollmentTokensParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-enrollment-tokens",
 		Method:             "GET",
 		PathPattern:        "/platform/configuration/security/enrollment-tokens",
@@ -562,7 +612,12 @@ func (a *Client) GetEnrollmentTokens(params *GetEnrollmentTokensParams, authInfo
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -581,13 +636,12 @@ func (a *Client) GetEnrollmentTokens(params *GetEnrollmentTokensParams, authInfo
 
   Retrieves a single LDAP security realm configuration.
 */
-func (a *Client) GetLdapConfiguration(params *GetLdapConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*GetLdapConfigurationOK, error) {
+func (a *Client) GetLdapConfiguration(params *GetLdapConfigurationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetLdapConfigurationOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetLdapConfigurationParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-ldap-configuration",
 		Method:             "GET",
 		PathPattern:        "/platform/configuration/security/realms/ldap/{realm_id}",
@@ -599,7 +653,12 @@ func (a *Client) GetLdapConfiguration(params *GetLdapConfigurationParams, authIn
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -618,13 +677,12 @@ func (a *Client) GetLdapConfiguration(params *GetLdapConfigurationParams, authIn
 
   Retrieves a single SAML security realm configuration.
 */
-func (a *Client) GetSamlConfiguration(params *GetSamlConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*GetSamlConfigurationOK, error) {
+func (a *Client) GetSamlConfiguration(params *GetSamlConfigurationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSamlConfigurationOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetSamlConfigurationParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-saml-configuration",
 		Method:             "GET",
 		PathPattern:        "/platform/configuration/security/realms/saml/{realm_id}",
@@ -636,7 +694,12 @@ func (a *Client) GetSamlConfiguration(params *GetSamlConfigurationParams, authIn
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -655,13 +718,12 @@ func (a *Client) GetSamlConfiguration(params *GetSamlConfigurationParams, authIn
 
   Retrieves the current security deployment.
 */
-func (a *Client) GetSecurityDeployment(params *GetSecurityDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*GetSecurityDeploymentOK, error) {
+func (a *Client) GetSecurityDeployment(params *GetSecurityDeploymentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSecurityDeploymentOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetSecurityDeploymentParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-security-deployment",
 		Method:             "GET",
 		PathPattern:        "/platform/configuration/security/deployment",
@@ -673,7 +735,12 @@ func (a *Client) GetSecurityDeployment(params *GetSecurityDeploymentParams, auth
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -692,13 +759,12 @@ func (a *Client) GetSecurityDeployment(params *GetSecurityDeploymentParams, auth
 
   Retrieves a list of security realm configurations.
 */
-func (a *Client) GetSecurityRealmConfigurations(params *GetSecurityRealmConfigurationsParams, authInfo runtime.ClientAuthInfoWriter) (*GetSecurityRealmConfigurationsOK, error) {
+func (a *Client) GetSecurityRealmConfigurations(params *GetSecurityRealmConfigurationsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSecurityRealmConfigurationsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetSecurityRealmConfigurationsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-security-realm-configurations",
 		Method:             "GET",
 		PathPattern:        "/platform/configuration/security/realms",
@@ -710,7 +776,12 @@ func (a *Client) GetSecurityRealmConfigurations(params *GetSecurityRealmConfigur
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -729,13 +800,12 @@ func (a *Client) GetSecurityRealmConfigurations(params *GetSecurityRealmConfigur
 
   Retrieves a certificate in the TLS certificate chain.
 */
-func (a *Client) GetTLSCertificate(params *GetTLSCertificateParams, authInfo runtime.ClientAuthInfoWriter) (*GetTLSCertificateOK, error) {
+func (a *Client) GetTLSCertificate(params *GetTLSCertificateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTLSCertificateOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetTLSCertificateParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-tls-certificate",
 		Method:             "GET",
 		PathPattern:        "/platform/configuration/security/tls/{service_name}",
@@ -747,7 +817,12 @@ func (a *Client) GetTLSCertificate(params *GetTLSCertificateParams, authInfo run
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -766,13 +841,12 @@ func (a *Client) GetTLSCertificate(params *GetTLSCertificateParams, authInfo run
 
   Reorder security realms.
 */
-func (a *Client) ReorderSecurityRealms(params *ReorderSecurityRealmsParams, authInfo runtime.ClientAuthInfoWriter) (*ReorderSecurityRealmsOK, error) {
+func (a *Client) ReorderSecurityRealms(params *ReorderSecurityRealmsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ReorderSecurityRealmsOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewReorderSecurityRealmsParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "reorder-security-realms",
 		Method:             "POST",
 		PathPattern:        "/platform/configuration/security/realms/_reorder",
@@ -784,7 +858,12 @@ func (a *Client) ReorderSecurityRealms(params *ReorderSecurityRealmsParams, auth
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -803,13 +882,12 @@ func (a *Client) ReorderSecurityRealms(params *ReorderSecurityRealmsParams, auth
 
   Creates or updates the TLS certificate chain.
 */
-func (a *Client) SetTLSCertificate(params *SetTLSCertificateParams, authInfo runtime.ClientAuthInfoWriter) (*SetTLSCertificateAccepted, error) {
+func (a *Client) SetTLSCertificate(params *SetTLSCertificateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetTLSCertificateAccepted, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewSetTLSCertificateParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "set-tls-certificate",
 		Method:             "POST",
 		PathPattern:        "/platform/configuration/security/tls/{service_name}",
@@ -821,7 +899,12 @@ func (a *Client) SetTLSCertificate(params *SetTLSCertificateParams, authInfo run
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -840,13 +923,12 @@ func (a *Client) SetTLSCertificate(params *SetTLSCertificateParams, authInfo run
 
   Updates an existing Active Directory configuration.
 */
-func (a *Client) UpdateActiveDirectoryConfiguration(params *UpdateActiveDirectoryConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateActiveDirectoryConfigurationOK, error) {
+func (a *Client) UpdateActiveDirectoryConfiguration(params *UpdateActiveDirectoryConfigurationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateActiveDirectoryConfigurationOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateActiveDirectoryConfigurationParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "update-active-directory-configuration",
 		Method:             "PUT",
 		PathPattern:        "/platform/configuration/security/realms/active-directory/{realm_id}",
@@ -858,7 +940,12 @@ func (a *Client) UpdateActiveDirectoryConfiguration(params *UpdateActiveDirector
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -877,13 +964,12 @@ func (a *Client) UpdateActiveDirectoryConfiguration(params *UpdateActiveDirector
 
   Updates an existing LDAP configuration.
 */
-func (a *Client) UpdateLdapConfiguration(params *UpdateLdapConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateLdapConfigurationOK, error) {
+func (a *Client) UpdateLdapConfiguration(params *UpdateLdapConfigurationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateLdapConfigurationOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateLdapConfigurationParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "update-ldap-configuration",
 		Method:             "PUT",
 		PathPattern:        "/platform/configuration/security/realms/ldap/{realm_id}",
@@ -895,7 +981,12 @@ func (a *Client) UpdateLdapConfiguration(params *UpdateLdapConfigurationParams, 
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -914,13 +1005,12 @@ func (a *Client) UpdateLdapConfiguration(params *UpdateLdapConfigurationParams, 
 
   Updates an existing SAML configuration.
 */
-func (a *Client) UpdateSamlConfiguration(params *UpdateSamlConfigurationParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateSamlConfigurationOK, error) {
+func (a *Client) UpdateSamlConfiguration(params *UpdateSamlConfigurationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateSamlConfigurationOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateSamlConfigurationParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "update-saml-configuration",
 		Method:             "PUT",
 		PathPattern:        "/platform/configuration/security/realms/saml/{realm_id}",
@@ -932,7 +1022,12 @@ func (a *Client) UpdateSamlConfiguration(params *UpdateSamlConfigurationParams, 
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -951,13 +1046,12 @@ func (a *Client) UpdateSamlConfiguration(params *UpdateSamlConfigurationParams, 
 
   Updates an existing security deployment configuration.
 */
-func (a *Client) UpdateSecurityDeployment(params *UpdateSecurityDeploymentParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateSecurityDeploymentOK, error) {
+func (a *Client) UpdateSecurityDeployment(params *UpdateSecurityDeploymentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateSecurityDeploymentOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateSecurityDeploymentParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "update-security-deployment",
 		Method:             "PUT",
 		PathPattern:        "/platform/configuration/security/deployment",
@@ -969,7 +1063,12 @@ func (a *Client) UpdateSecurityDeployment(params *UpdateSecurityDeploymentParams
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}

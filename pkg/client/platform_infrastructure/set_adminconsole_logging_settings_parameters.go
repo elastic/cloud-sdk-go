@@ -35,64 +35,79 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewSetAdminconsoleLoggingSettingsParams creates a new SetAdminconsoleLoggingSettingsParams object
-// with the default values initialized.
+// NewSetAdminconsoleLoggingSettingsParams creates a new SetAdminconsoleLoggingSettingsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewSetAdminconsoleLoggingSettingsParams() *SetAdminconsoleLoggingSettingsParams {
-	var ()
 	return &SetAdminconsoleLoggingSettingsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewSetAdminconsoleLoggingSettingsParamsWithTimeout creates a new SetAdminconsoleLoggingSettingsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewSetAdminconsoleLoggingSettingsParamsWithTimeout(timeout time.Duration) *SetAdminconsoleLoggingSettingsParams {
-	var ()
 	return &SetAdminconsoleLoggingSettingsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewSetAdminconsoleLoggingSettingsParamsWithContext creates a new SetAdminconsoleLoggingSettingsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewSetAdminconsoleLoggingSettingsParamsWithContext(ctx context.Context) *SetAdminconsoleLoggingSettingsParams {
-	var ()
 	return &SetAdminconsoleLoggingSettingsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewSetAdminconsoleLoggingSettingsParamsWithHTTPClient creates a new SetAdminconsoleLoggingSettingsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewSetAdminconsoleLoggingSettingsParamsWithHTTPClient(client *http.Client) *SetAdminconsoleLoggingSettingsParams {
-	var ()
 	return &SetAdminconsoleLoggingSettingsParams{
 		HTTPClient: client,
 	}
 }
 
-/*SetAdminconsoleLoggingSettingsParams contains all the parameters to send to the API endpoint
-for the set adminconsole logging settings operation typically these are written to a http.Request
+/* SetAdminconsoleLoggingSettingsParams contains all the parameters to send to the API endpoint
+   for the set adminconsole logging settings operation.
+
+   Typically these are written to a http.Request.
 */
 type SetAdminconsoleLoggingSettingsParams struct {
 
-	/*AdminconsoleID
-	  The identifier for the adminconsole instance
+	/* AdminconsoleID.
 
+	   The identifier for the adminconsole instance
 	*/
 	AdminconsoleID string
-	/*Body
-	  The new logging settings for the adminconsole instance
 
+	/* Body.
+
+	   The new logging settings for the adminconsole instance
 	*/
 	Body *models.LoggingSettings
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the set adminconsole logging settings params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetAdminconsoleLoggingSettingsParams) WithDefaults() *SetAdminconsoleLoggingSettingsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the set adminconsole logging settings params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetAdminconsoleLoggingSettingsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the set adminconsole logging settings params
@@ -162,7 +177,6 @@ func (o *SetAdminconsoleLoggingSettingsParams) WriteToRequest(r runtime.ClientRe
 	if err := r.SetPathParam("adminconsole_id", o.AdminconsoleID); err != nil {
 		return err
 	}
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

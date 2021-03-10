@@ -34,86 +34,102 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewUpgradeDeploymentStatelessResourceParams creates a new UpgradeDeploymentStatelessResourceParams object
-// with the default values initialized.
+// NewUpgradeDeploymentStatelessResourceParams creates a new UpgradeDeploymentStatelessResourceParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewUpgradeDeploymentStatelessResourceParams() *UpgradeDeploymentStatelessResourceParams {
-	var (
-		validateOnlyDefault = bool(false)
-	)
 	return &UpgradeDeploymentStatelessResourceParams{
-		ValidateOnly: &validateOnlyDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewUpgradeDeploymentStatelessResourceParamsWithTimeout creates a new UpgradeDeploymentStatelessResourceParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewUpgradeDeploymentStatelessResourceParamsWithTimeout(timeout time.Duration) *UpgradeDeploymentStatelessResourceParams {
-	var (
-		validateOnlyDefault = bool(false)
-	)
 	return &UpgradeDeploymentStatelessResourceParams{
-		ValidateOnly: &validateOnlyDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewUpgradeDeploymentStatelessResourceParamsWithContext creates a new UpgradeDeploymentStatelessResourceParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewUpgradeDeploymentStatelessResourceParamsWithContext(ctx context.Context) *UpgradeDeploymentStatelessResourceParams {
-	var (
-		validateOnlyDefault = bool(false)
-	)
 	return &UpgradeDeploymentStatelessResourceParams{
-		ValidateOnly: &validateOnlyDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewUpgradeDeploymentStatelessResourceParamsWithHTTPClient creates a new UpgradeDeploymentStatelessResourceParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewUpgradeDeploymentStatelessResourceParamsWithHTTPClient(client *http.Client) *UpgradeDeploymentStatelessResourceParams {
-	var (
-		validateOnlyDefault = bool(false)
-	)
 	return &UpgradeDeploymentStatelessResourceParams{
-		ValidateOnly: &validateOnlyDefault,
-		HTTPClient:   client,
+		HTTPClient: client,
 	}
 }
 
-/*UpgradeDeploymentStatelessResourceParams contains all the parameters to send to the API endpoint
-for the upgrade deployment stateless resource operation typically these are written to a http.Request
+/* UpgradeDeploymentStatelessResourceParams contains all the parameters to send to the API endpoint
+   for the upgrade deployment stateless resource operation.
+
+   Typically these are written to a http.Request.
 */
 type UpgradeDeploymentStatelessResourceParams struct {
 
-	/*DeploymentID
-	  Identifier for the Deployment.
+	/* DeploymentID.
 
+	   Identifier for the Deployment.
 	*/
 	DeploymentID string
-	/*RefID
-	  User-specified RefId for the Resource.
 
+	/* RefID.
+
+	   User-specified RefId for the Resource.
 	*/
 	RefID string
-	/*StatelessResourceKind
-	  The kind of stateless resource
 
+	/* StatelessResourceKind.
+
+	   The kind of stateless resource
 	*/
 	StatelessResourceKind string
-	/*ValidateOnly
-	  When `true`, returns the update version without performing the upgrade
 
+	/* ValidateOnly.
+
+	   When `true`, returns the update version without performing the upgrade
 	*/
 	ValidateOnly *bool
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the upgrade deployment stateless resource params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpgradeDeploymentStatelessResourceParams) WithDefaults() *UpgradeDeploymentStatelessResourceParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the upgrade deployment stateless resource params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpgradeDeploymentStatelessResourceParams) SetDefaults() {
+	var (
+		validateOnlyDefault = bool(false)
+	)
+
+	val := UpgradeDeploymentStatelessResourceParams{
+		ValidateOnly: &validateOnlyDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the upgrade deployment stateless resource params
@@ -220,16 +236,17 @@ func (o *UpgradeDeploymentStatelessResourceParams) WriteToRequest(r runtime.Clie
 
 		// query param validate_only
 		var qrValidateOnly bool
+
 		if o.ValidateOnly != nil {
 			qrValidateOnly = *o.ValidateOnly
 		}
 		qValidateOnly := swag.FormatBool(qrValidateOnly)
 		if qValidateOnly != "" {
+
 			if err := r.SetQueryParam("validate_only", qValidateOnly); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

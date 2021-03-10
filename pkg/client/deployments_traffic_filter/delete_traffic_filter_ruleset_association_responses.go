@@ -58,7 +58,6 @@ func (o *DeleteTrafficFilterRulesetAssociationReader) ReadResponse(response runt
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,7 +68,7 @@ func NewDeleteTrafficFilterRulesetAssociationOK() *DeleteTrafficFilterRulesetAss
 	return &DeleteTrafficFilterRulesetAssociationOK{}
 }
 
-/*DeleteTrafficFilterRulesetAssociationOK handles this case with default header values.
+/* DeleteTrafficFilterRulesetAssociationOK describes a response with status code 200, with default header values.
 
 Delete association request was valid and the association has been deleted
 */
@@ -80,7 +79,6 @@ type DeleteTrafficFilterRulesetAssociationOK struct {
 func (o *DeleteTrafficFilterRulesetAssociationOK) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/traffic-filter/rulesets/{ruleset_id}/associations/{association_type}/{associated_entity_id}][%d] deleteTrafficFilterRulesetAssociationOK  %+v", 200, o.Payload)
 }
-
 func (o *DeleteTrafficFilterRulesetAssociationOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -100,12 +98,13 @@ func NewDeleteTrafficFilterRulesetAssociationNotFound() *DeleteTrafficFilterRule
 	return &DeleteTrafficFilterRulesetAssociationNotFound{}
 }
 
-/*DeleteTrafficFilterRulesetAssociationNotFound handles this case with default header values.
+/* DeleteTrafficFilterRulesetAssociationNotFound describes a response with status code 404, with default header values.
 
 The traffic filter ruleset association cannot be found. (code: `traffic_filter.not_found`)
 */
 type DeleteTrafficFilterRulesetAssociationNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -115,15 +114,18 @@ type DeleteTrafficFilterRulesetAssociationNotFound struct {
 func (o *DeleteTrafficFilterRulesetAssociationNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/traffic-filter/rulesets/{ruleset_id}/associations/{association_type}/{associated_entity_id}][%d] deleteTrafficFilterRulesetAssociationNotFound  %+v", 404, o.Payload)
 }
-
 func (o *DeleteTrafficFilterRulesetAssociationNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *DeleteTrafficFilterRulesetAssociationNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -140,12 +142,13 @@ func NewDeleteTrafficFilterRulesetAssociationInternalServerError() *DeleteTraffi
 	return &DeleteTrafficFilterRulesetAssociationInternalServerError{}
 }
 
-/*DeleteTrafficFilterRulesetAssociationInternalServerError handles this case with default header values.
+/* DeleteTrafficFilterRulesetAssociationInternalServerError describes a response with status code 500, with default header values.
 
 Deletion failed. (code: `traffic_filter.request_execution_failed`)
 */
 type DeleteTrafficFilterRulesetAssociationInternalServerError struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -155,15 +158,18 @@ type DeleteTrafficFilterRulesetAssociationInternalServerError struct {
 func (o *DeleteTrafficFilterRulesetAssociationInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/traffic-filter/rulesets/{ruleset_id}/associations/{association_type}/{associated_entity_id}][%d] deleteTrafficFilterRulesetAssociationInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *DeleteTrafficFilterRulesetAssociationInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *DeleteTrafficFilterRulesetAssociationInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

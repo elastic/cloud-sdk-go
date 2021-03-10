@@ -35,64 +35,79 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewUpdateTrafficFilterRulesetParams creates a new UpdateTrafficFilterRulesetParams object
-// with the default values initialized.
+// NewUpdateTrafficFilterRulesetParams creates a new UpdateTrafficFilterRulesetParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewUpdateTrafficFilterRulesetParams() *UpdateTrafficFilterRulesetParams {
-	var ()
 	return &UpdateTrafficFilterRulesetParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewUpdateTrafficFilterRulesetParamsWithTimeout creates a new UpdateTrafficFilterRulesetParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewUpdateTrafficFilterRulesetParamsWithTimeout(timeout time.Duration) *UpdateTrafficFilterRulesetParams {
-	var ()
 	return &UpdateTrafficFilterRulesetParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewUpdateTrafficFilterRulesetParamsWithContext creates a new UpdateTrafficFilterRulesetParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewUpdateTrafficFilterRulesetParamsWithContext(ctx context.Context) *UpdateTrafficFilterRulesetParams {
-	var ()
 	return &UpdateTrafficFilterRulesetParams{
-
 		Context: ctx,
 	}
 }
 
 // NewUpdateTrafficFilterRulesetParamsWithHTTPClient creates a new UpdateTrafficFilterRulesetParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewUpdateTrafficFilterRulesetParamsWithHTTPClient(client *http.Client) *UpdateTrafficFilterRulesetParams {
-	var ()
 	return &UpdateTrafficFilterRulesetParams{
 		HTTPClient: client,
 	}
 }
 
-/*UpdateTrafficFilterRulesetParams contains all the parameters to send to the API endpoint
-for the update traffic filter ruleset operation typically these are written to a http.Request
+/* UpdateTrafficFilterRulesetParams contains all the parameters to send to the API endpoint
+   for the update traffic filter ruleset operation.
+
+   Typically these are written to a http.Request.
 */
 type UpdateTrafficFilterRulesetParams struct {
 
-	/*Body
-	  The specification for traffic filter ruleset.
+	/* Body.
 
+	   The specification for traffic filter ruleset.
 	*/
 	Body *models.TrafficFilterRulesetRequest
-	/*RulesetID
-	  The mandatory ruleset ID.
 
+	/* RulesetID.
+
+	   The mandatory ruleset ID.
 	*/
 	RulesetID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the update traffic filter ruleset params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdateTrafficFilterRulesetParams) WithDefaults() *UpdateTrafficFilterRulesetParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the update traffic filter ruleset params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdateTrafficFilterRulesetParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the update traffic filter ruleset params
@@ -157,7 +172,6 @@ func (o *UpdateTrafficFilterRulesetParams) WriteToRequest(r runtime.ClientReques
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

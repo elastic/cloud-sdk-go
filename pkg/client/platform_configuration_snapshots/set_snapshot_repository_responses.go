@@ -52,7 +52,6 @@ func (o *SetSnapshotRepositoryReader) ReadResponse(response runtime.ClientRespon
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,7 +62,7 @@ func NewSetSnapshotRepositoryOK() *SetSnapshotRepositoryOK {
 	return &SetSnapshotRepositoryOK{}
 }
 
-/*SetSnapshotRepositoryOK handles this case with default header values.
+/* SetSnapshotRepositoryOK describes a response with status code 200, with default header values.
 
 New snapshot repository config
 */
@@ -74,7 +73,6 @@ type SetSnapshotRepositoryOK struct {
 func (o *SetSnapshotRepositoryOK) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/snapshots/repositories/{repository_name}][%d] setSnapshotRepositoryOK  %+v", 200, o.Payload)
 }
-
 func (o *SetSnapshotRepositoryOK) GetPayload() *models.RepositoryConfig {
 	return o.Payload
 }
@@ -96,7 +94,7 @@ func NewSetSnapshotRepositoryRetryWith() *SetSnapshotRepositoryRetryWith {
 	return &SetSnapshotRepositoryRetryWith{}
 }
 
-/*SetSnapshotRepositoryRetryWith handles this case with default header values.
+/* SetSnapshotRepositoryRetryWith describes a response with status code 449, with default header values.
 
 elevated permissions are required. (code: '"root.unauthorized.rbac.elevated_permissions_required"')
 */
@@ -107,7 +105,6 @@ type SetSnapshotRepositoryRetryWith struct {
 func (o *SetSnapshotRepositoryRetryWith) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/snapshots/repositories/{repository_name}][%d] setSnapshotRepositoryRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *SetSnapshotRepositoryRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

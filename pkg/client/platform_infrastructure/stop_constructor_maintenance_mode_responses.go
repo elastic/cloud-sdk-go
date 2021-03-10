@@ -64,7 +64,6 @@ func (o *StopConstructorMaintenanceModeReader) ReadResponse(response runtime.Cli
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,7 +74,7 @@ func NewStopConstructorMaintenanceModeAccepted() *StopConstructorMaintenanceMode
 	return &StopConstructorMaintenanceModeAccepted{}
 }
 
-/*StopConstructorMaintenanceModeAccepted handles this case with default header values.
+/* StopConstructorMaintenanceModeAccepted describes a response with status code 202, with default header values.
 
 The stop maintenance mode command was issued successfully
 */
@@ -86,7 +85,6 @@ type StopConstructorMaintenanceModeAccepted struct {
 func (o *StopConstructorMaintenanceModeAccepted) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/constructors/{constructor_id}/maintenance-mode/_stop][%d] stopConstructorMaintenanceModeAccepted  %+v", 202, o.Payload)
 }
-
 func (o *StopConstructorMaintenanceModeAccepted) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -106,12 +104,13 @@ func NewStopConstructorMaintenanceModeForbidden() *StopConstructorMaintenanceMod
 	return &StopConstructorMaintenanceModeForbidden{}
 }
 
-/*StopConstructorMaintenanceModeForbidden handles this case with default header values.
+/* StopConstructorMaintenanceModeForbidden describes a response with status code 403, with default header values.
 
 The stop maintenance mode command was prohibited for the given constructor. (code: `constructors.command_prohibited`)
 */
 type StopConstructorMaintenanceModeForbidden struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -121,15 +120,18 @@ type StopConstructorMaintenanceModeForbidden struct {
 func (o *StopConstructorMaintenanceModeForbidden) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/constructors/{constructor_id}/maintenance-mode/_stop][%d] stopConstructorMaintenanceModeForbidden  %+v", 403, o.Payload)
 }
-
 func (o *StopConstructorMaintenanceModeForbidden) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *StopConstructorMaintenanceModeForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -146,12 +148,13 @@ func NewStopConstructorMaintenanceModeNotFound() *StopConstructorMaintenanceMode
 	return &StopConstructorMaintenanceModeNotFound{}
 }
 
-/*StopConstructorMaintenanceModeNotFound handles this case with default header values.
+/* StopConstructorMaintenanceModeNotFound describes a response with status code 404, with default header values.
 
 The constructor specified by {constructor_id} cannot be found. (code: `constructors.constructor_not_found`)
 */
 type StopConstructorMaintenanceModeNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -161,15 +164,18 @@ type StopConstructorMaintenanceModeNotFound struct {
 func (o *StopConstructorMaintenanceModeNotFound) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/constructors/{constructor_id}/maintenance-mode/_stop][%d] stopConstructorMaintenanceModeNotFound  %+v", 404, o.Payload)
 }
-
 func (o *StopConstructorMaintenanceModeNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *StopConstructorMaintenanceModeNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -186,12 +192,13 @@ func NewStopConstructorMaintenanceModeRetryWith() *StopConstructorMaintenanceMod
 	return &StopConstructorMaintenanceModeRetryWith{}
 }
 
-/*StopConstructorMaintenanceModeRetryWith handles this case with default header values.
+/* StopConstructorMaintenanceModeRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type StopConstructorMaintenanceModeRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -201,15 +208,18 @@ type StopConstructorMaintenanceModeRetryWith struct {
 func (o *StopConstructorMaintenanceModeRetryWith) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/constructors/{constructor_id}/maintenance-mode/_stop][%d] stopConstructorMaintenanceModeRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *StopConstructorMaintenanceModeRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *StopConstructorMaintenanceModeRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

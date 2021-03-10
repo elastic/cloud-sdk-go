@@ -33,59 +33,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewResyncRunnerParams creates a new ResyncRunnerParams object
-// with the default values initialized.
+// NewResyncRunnerParams creates a new ResyncRunnerParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewResyncRunnerParams() *ResyncRunnerParams {
-	var ()
 	return &ResyncRunnerParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewResyncRunnerParamsWithTimeout creates a new ResyncRunnerParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewResyncRunnerParamsWithTimeout(timeout time.Duration) *ResyncRunnerParams {
-	var ()
 	return &ResyncRunnerParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewResyncRunnerParamsWithContext creates a new ResyncRunnerParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewResyncRunnerParamsWithContext(ctx context.Context) *ResyncRunnerParams {
-	var ()
 	return &ResyncRunnerParams{
-
 		Context: ctx,
 	}
 }
 
 // NewResyncRunnerParamsWithHTTPClient creates a new ResyncRunnerParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewResyncRunnerParamsWithHTTPClient(client *http.Client) *ResyncRunnerParams {
-	var ()
 	return &ResyncRunnerParams{
 		HTTPClient: client,
 	}
 }
 
-/*ResyncRunnerParams contains all the parameters to send to the API endpoint
-for the resync runner operation typically these are written to a http.Request
+/* ResyncRunnerParams contains all the parameters to send to the API endpoint
+   for the resync runner operation.
+
+   Typically these are written to a http.Request.
 */
 type ResyncRunnerParams struct {
 
-	/*RunnerID
-	  The identifier for the runner
+	/* RunnerID.
 
+	   The identifier for the runner
 	*/
 	RunnerID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the resync runner params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ResyncRunnerParams) WithDefaults() *ResyncRunnerParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the resync runner params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *ResyncRunnerParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the resync runner params

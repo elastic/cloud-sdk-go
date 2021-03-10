@@ -35,59 +35,73 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewCreateEnrollmentTokenParams creates a new CreateEnrollmentTokenParams object
-// with the default values initialized.
+// NewCreateEnrollmentTokenParams creates a new CreateEnrollmentTokenParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewCreateEnrollmentTokenParams() *CreateEnrollmentTokenParams {
-	var ()
 	return &CreateEnrollmentTokenParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewCreateEnrollmentTokenParamsWithTimeout creates a new CreateEnrollmentTokenParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewCreateEnrollmentTokenParamsWithTimeout(timeout time.Duration) *CreateEnrollmentTokenParams {
-	var ()
 	return &CreateEnrollmentTokenParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewCreateEnrollmentTokenParamsWithContext creates a new CreateEnrollmentTokenParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewCreateEnrollmentTokenParamsWithContext(ctx context.Context) *CreateEnrollmentTokenParams {
-	var ()
 	return &CreateEnrollmentTokenParams{
-
 		Context: ctx,
 	}
 }
 
 // NewCreateEnrollmentTokenParamsWithHTTPClient creates a new CreateEnrollmentTokenParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewCreateEnrollmentTokenParamsWithHTTPClient(client *http.Client) *CreateEnrollmentTokenParams {
-	var ()
 	return &CreateEnrollmentTokenParams{
 		HTTPClient: client,
 	}
 }
 
-/*CreateEnrollmentTokenParams contains all the parameters to send to the API endpoint
-for the create enrollment token operation typically these are written to a http.Request
+/* CreateEnrollmentTokenParams contains all the parameters to send to the API endpoint
+   for the create enrollment token operation.
+
+   Typically these are written to a http.Request.
 */
 type CreateEnrollmentTokenParams struct {
 
-	/*Body
-	  Request parameters for the enrollment token
+	/* Body.
 
+	   Request parameters for the enrollment token
 	*/
 	Body *models.EnrollmentTokenRequest
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the create enrollment token params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *CreateEnrollmentTokenParams) WithDefaults() *CreateEnrollmentTokenParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the create enrollment token params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *CreateEnrollmentTokenParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the create enrollment token params
@@ -141,7 +155,6 @@ func (o *CreateEnrollmentTokenParams) WriteToRequest(r runtime.ClientRequest, re
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

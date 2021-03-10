@@ -35,59 +35,73 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewSearchEsClustersParams creates a new SearchEsClustersParams object
-// with the default values initialized.
+// NewSearchEsClustersParams creates a new SearchEsClustersParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewSearchEsClustersParams() *SearchEsClustersParams {
-	var ()
 	return &SearchEsClustersParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewSearchEsClustersParamsWithTimeout creates a new SearchEsClustersParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewSearchEsClustersParamsWithTimeout(timeout time.Duration) *SearchEsClustersParams {
-	var ()
 	return &SearchEsClustersParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewSearchEsClustersParamsWithContext creates a new SearchEsClustersParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewSearchEsClustersParamsWithContext(ctx context.Context) *SearchEsClustersParams {
-	var ()
 	return &SearchEsClustersParams{
-
 		Context: ctx,
 	}
 }
 
 // NewSearchEsClustersParamsWithHTTPClient creates a new SearchEsClustersParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewSearchEsClustersParamsWithHTTPClient(client *http.Client) *SearchEsClustersParams {
-	var ()
 	return &SearchEsClustersParams{
 		HTTPClient: client,
 	}
 }
 
-/*SearchEsClustersParams contains all the parameters to send to the API endpoint
-for the search es clusters operation typically these are written to a http.Request
+/* SearchEsClustersParams contains all the parameters to send to the API endpoint
+   for the search es clusters operation.
+
+   Typically these are written to a http.Request.
 */
 type SearchEsClustersParams struct {
 
-	/*Body
-	  (Optional) The search query to run. When not specified, all of the clusters are matched.
+	/* Body.
 
+	   (Optional) The search query to run. When not specified, all of the clusters are matched.
 	*/
 	Body *models.SearchRequest
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the search es clusters params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SearchEsClustersParams) WithDefaults() *SearchEsClustersParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the search es clusters params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SearchEsClustersParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the search es clusters params
@@ -141,7 +155,6 @@ func (o *SearchEsClustersParams) WriteToRequest(r runtime.ClientRequest, reg str
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

@@ -76,7 +76,6 @@ func (o *MigrateEsClusterPlanReader) ReadResponse(response runtime.ClientRespons
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -87,7 +86,7 @@ func NewMigrateEsClusterPlanOK() *MigrateEsClusterPlanOK {
 	return &MigrateEsClusterPlanOK{}
 }
 
-/*MigrateEsClusterPlanOK handles this case with default header values.
+/* MigrateEsClusterPlanOK describes a response with status code 200, with default header values.
 
 The current cluster plan migrated to the specified deployment template.
 */
@@ -98,7 +97,6 @@ type MigrateEsClusterPlanOK struct {
 func (o *MigrateEsClusterPlanOK) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/plan/_migrate][%d] migrateEsClusterPlanOK  %+v", 200, o.Payload)
 }
-
 func (o *MigrateEsClusterPlanOK) GetPayload() *models.ClusterPlanMigrationResponse {
 	return o.Payload
 }
@@ -120,7 +118,7 @@ func NewMigrateEsClusterPlanAccepted() *MigrateEsClusterPlanAccepted {
 	return &MigrateEsClusterPlanAccepted{}
 }
 
-/*MigrateEsClusterPlanAccepted handles this case with default header values.
+/* MigrateEsClusterPlanAccepted describes a response with status code 202, with default header values.
 
 The plan definition was valid and the updated plan is in progress
 */
@@ -131,7 +129,6 @@ type MigrateEsClusterPlanAccepted struct {
 func (o *MigrateEsClusterPlanAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/plan/_migrate][%d] migrateEsClusterPlanAccepted  %+v", 202, o.Payload)
 }
-
 func (o *MigrateEsClusterPlanAccepted) GetPayload() *models.ClusterPlanMigrationResponse {
 	return o.Payload
 }
@@ -153,12 +150,13 @@ func NewMigrateEsClusterPlanBadRequest() *MigrateEsClusterPlanBadRequest {
 	return &MigrateEsClusterPlanBadRequest{}
 }
 
-/*MigrateEsClusterPlanBadRequest handles this case with default header values.
+/* MigrateEsClusterPlanBadRequest describes a response with status code 400, with default header values.
 
 Migrating to the specified template would lead to an invalid or unsupported cluster definition. (code: `clusters.cluster_invalid_plan`)
 */
 type MigrateEsClusterPlanBadRequest struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -168,15 +166,18 @@ type MigrateEsClusterPlanBadRequest struct {
 func (o *MigrateEsClusterPlanBadRequest) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/plan/_migrate][%d] migrateEsClusterPlanBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *MigrateEsClusterPlanBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *MigrateEsClusterPlanBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -193,12 +194,13 @@ func NewMigrateEsClusterPlanNotFound() *MigrateEsClusterPlanNotFound {
 	return &MigrateEsClusterPlanNotFound{}
 }
 
-/*MigrateEsClusterPlanNotFound handles this case with default header values.
+/* MigrateEsClusterPlanNotFound describes a response with status code 404, with default header values.
 
 The cluster specified by {cluster_id} cannot be found. (code: `clusters.cluster_not_found`)
 */
 type MigrateEsClusterPlanNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -208,15 +210,18 @@ type MigrateEsClusterPlanNotFound struct {
 func (o *MigrateEsClusterPlanNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/plan/_migrate][%d] migrateEsClusterPlanNotFound  %+v", 404, o.Payload)
 }
-
 func (o *MigrateEsClusterPlanNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *MigrateEsClusterPlanNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -233,12 +238,13 @@ func NewMigrateEsClusterPlanPreconditionFailed() *MigrateEsClusterPlanPreconditi
 	return &MigrateEsClusterPlanPreconditionFailed{}
 }
 
-/*MigrateEsClusterPlanPreconditionFailed handles this case with default header values.
+/* MigrateEsClusterPlanPreconditionFailed describes a response with status code 412, with default header values.
 
 There is not currently applied plan - eg the cluster has not finished provisioning, or the provisioning failed. (code: `clusters.cluster_plan_state_error`)
 */
 type MigrateEsClusterPlanPreconditionFailed struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -248,15 +254,18 @@ type MigrateEsClusterPlanPreconditionFailed struct {
 func (o *MigrateEsClusterPlanPreconditionFailed) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/plan/_migrate][%d] migrateEsClusterPlanPreconditionFailed  %+v", 412, o.Payload)
 }
-
 func (o *MigrateEsClusterPlanPreconditionFailed) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *MigrateEsClusterPlanPreconditionFailed) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -273,12 +282,13 @@ func NewMigrateEsClusterPlanRetryWith() *MigrateEsClusterPlanRetryWith {
 	return &MigrateEsClusterPlanRetryWith{}
 }
 
-/*MigrateEsClusterPlanRetryWith handles this case with default header values.
+/* MigrateEsClusterPlanRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type MigrateEsClusterPlanRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -288,15 +298,18 @@ type MigrateEsClusterPlanRetryWith struct {
 func (o *MigrateEsClusterPlanRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/plan/_migrate][%d] migrateEsClusterPlanRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *MigrateEsClusterPlanRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *MigrateEsClusterPlanRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

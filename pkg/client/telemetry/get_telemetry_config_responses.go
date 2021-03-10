@@ -52,7 +52,6 @@ func (o *GetTelemetryConfigReader) ReadResponse(response runtime.ClientResponse,
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,7 +62,7 @@ func NewGetTelemetryConfigOK() *GetTelemetryConfigOK {
 	return &GetTelemetryConfigOK{}
 }
 
-/*GetTelemetryConfigOK handles this case with default header values.
+/* GetTelemetryConfigOK describes a response with status code 200, with default header values.
 
 The current ECE telemetry configuration
 */
@@ -74,7 +73,6 @@ type GetTelemetryConfigOK struct {
 func (o *GetTelemetryConfigOK) Error() string {
 	return fmt.Sprintf("[GET /phone-home/config][%d] getTelemetryConfigOK  %+v", 200, o.Payload)
 }
-
 func (o *GetTelemetryConfigOK) GetPayload() *models.TelemetryConfig {
 	return o.Payload
 }
@@ -96,12 +94,13 @@ func NewGetTelemetryConfigForbidden() *GetTelemetryConfigForbidden {
 	return &GetTelemetryConfigForbidden{}
 }
 
-/*GetTelemetryConfigForbidden handles this case with default header values.
+/* GetTelemetryConfigForbidden describes a response with status code 403, with default header values.
 
 User must have Platform level permissions. (code: `root.unauthorized.rbac`)
 */
 type GetTelemetryConfigForbidden struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -111,15 +110,18 @@ type GetTelemetryConfigForbidden struct {
 func (o *GetTelemetryConfigForbidden) Error() string {
 	return fmt.Sprintf("[GET /phone-home/config][%d] getTelemetryConfigForbidden  %+v", 403, o.Payload)
 }
-
 func (o *GetTelemetryConfigForbidden) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *GetTelemetryConfigForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

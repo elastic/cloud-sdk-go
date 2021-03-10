@@ -36,69 +36,85 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewUpdateKibanaClusterMetadataSettingsParams creates a new UpdateKibanaClusterMetadataSettingsParams object
-// with the default values initialized.
+// NewUpdateKibanaClusterMetadataSettingsParams creates a new UpdateKibanaClusterMetadataSettingsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewUpdateKibanaClusterMetadataSettingsParams() *UpdateKibanaClusterMetadataSettingsParams {
-	var ()
 	return &UpdateKibanaClusterMetadataSettingsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewUpdateKibanaClusterMetadataSettingsParamsWithTimeout creates a new UpdateKibanaClusterMetadataSettingsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewUpdateKibanaClusterMetadataSettingsParamsWithTimeout(timeout time.Duration) *UpdateKibanaClusterMetadataSettingsParams {
-	var ()
 	return &UpdateKibanaClusterMetadataSettingsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewUpdateKibanaClusterMetadataSettingsParamsWithContext creates a new UpdateKibanaClusterMetadataSettingsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewUpdateKibanaClusterMetadataSettingsParamsWithContext(ctx context.Context) *UpdateKibanaClusterMetadataSettingsParams {
-	var ()
 	return &UpdateKibanaClusterMetadataSettingsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewUpdateKibanaClusterMetadataSettingsParamsWithHTTPClient creates a new UpdateKibanaClusterMetadataSettingsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewUpdateKibanaClusterMetadataSettingsParamsWithHTTPClient(client *http.Client) *UpdateKibanaClusterMetadataSettingsParams {
-	var ()
 	return &UpdateKibanaClusterMetadataSettingsParams{
 		HTTPClient: client,
 	}
 }
 
-/*UpdateKibanaClusterMetadataSettingsParams contains all the parameters to send to the API endpoint
-for the update kibana cluster metadata settings operation typically these are written to a http.Request
+/* UpdateKibanaClusterMetadataSettingsParams contains all the parameters to send to the API endpoint
+   for the update kibana cluster metadata settings operation.
+
+   Typically these are written to a http.Request.
 */
 type UpdateKibanaClusterMetadataSettingsParams struct {
 
-	/*Body
-	  The cluster settings including updated values
+	/* Body.
 
+	   The cluster settings including updated values
 	*/
 	Body *models.ClusterMetadataSettings
-	/*ClusterID
-	  The Kibana deployment identifier.
 
+	/* ClusterID.
+
+	   The Kibana deployment identifier.
 	*/
 	ClusterID string
-	/*Version
-	  Checks for conflicts against the metadata version, then returns the value in the `x-cloud-resource-version` header.
 
+	/* Version.
+
+	   Checks for conflicts against the metadata version, then returns the value in the `x-cloud-resource-version` header.
 	*/
 	Version *int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the update kibana cluster metadata settings params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdateKibanaClusterMetadataSettingsParams) WithDefaults() *UpdateKibanaClusterMetadataSettingsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the update kibana cluster metadata settings params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdateKibanaClusterMetadataSettingsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the update kibana cluster metadata settings params
@@ -174,7 +190,6 @@ func (o *UpdateKibanaClusterMetadataSettingsParams) WriteToRequest(r runtime.Cli
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err
@@ -190,16 +205,17 @@ func (o *UpdateKibanaClusterMetadataSettingsParams) WriteToRequest(r runtime.Cli
 
 		// query param version
 		var qrVersion int64
+
 		if o.Version != nil {
 			qrVersion = *o.Version
 		}
 		qVersion := swag.FormatInt64(qrVersion)
 		if qVersion != "" {
+
 			if err := r.SetQueryParam("version", qVersion); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

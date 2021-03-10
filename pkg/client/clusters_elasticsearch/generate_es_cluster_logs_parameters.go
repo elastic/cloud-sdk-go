@@ -33,64 +33,79 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGenerateEsClusterLogsParams creates a new GenerateEsClusterLogsParams object
-// with the default values initialized.
+// NewGenerateEsClusterLogsParams creates a new GenerateEsClusterLogsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGenerateEsClusterLogsParams() *GenerateEsClusterLogsParams {
-	var ()
 	return &GenerateEsClusterLogsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGenerateEsClusterLogsParamsWithTimeout creates a new GenerateEsClusterLogsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGenerateEsClusterLogsParamsWithTimeout(timeout time.Duration) *GenerateEsClusterLogsParams {
-	var ()
 	return &GenerateEsClusterLogsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGenerateEsClusterLogsParamsWithContext creates a new GenerateEsClusterLogsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGenerateEsClusterLogsParamsWithContext(ctx context.Context) *GenerateEsClusterLogsParams {
-	var ()
 	return &GenerateEsClusterLogsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGenerateEsClusterLogsParamsWithHTTPClient creates a new GenerateEsClusterLogsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGenerateEsClusterLogsParamsWithHTTPClient(client *http.Client) *GenerateEsClusterLogsParams {
-	var ()
 	return &GenerateEsClusterLogsParams{
 		HTTPClient: client,
 	}
 }
 
-/*GenerateEsClusterLogsParams contains all the parameters to send to the API endpoint
-for the generate es cluster logs operation typically these are written to a http.Request
+/* GenerateEsClusterLogsParams contains all the parameters to send to the API endpoint
+   for the generate es cluster logs operation.
+
+   Typically these are written to a http.Request.
 */
 type GenerateEsClusterLogsParams struct {
 
-	/*ClusterID
-	  The Elasticsearch cluster identifier.
+	/* ClusterID.
 
+	   The Elasticsearch cluster identifier.
 	*/
 	ClusterID string
-	/*Date
-	  The log retrieval start date in standard format. For example, `YYYY-MM-DD [THH [:mm] ]`.
 
+	/* Date.
+
+	   The log retrieval start date in standard format. For example, `YYYY-MM-DD [THH [:mm] ]`.
 	*/
 	Date string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the generate es cluster logs params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GenerateEsClusterLogsParams) WithDefaults() *GenerateEsClusterLogsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the generate es cluster logs params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GenerateEsClusterLogsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the generate es cluster logs params
@@ -165,6 +180,7 @@ func (o *GenerateEsClusterLogsParams) WriteToRequest(r runtime.ClientRequest, re
 	qrDate := o.Date
 	qDate := qrDate
 	if qDate != "" {
+
 		if err := r.SetQueryParam("date", qDate); err != nil {
 			return err
 		}

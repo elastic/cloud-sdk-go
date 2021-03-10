@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
@@ -97,7 +98,6 @@ func (m *LdapGroupSearch) validateScopeEnum(path, location string, value string)
 }
 
 func (m *LdapGroupSearch) validateScope(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Scope) { // not required
 		return nil
 	}
@@ -107,6 +107,11 @@ func (m *LdapGroupSearch) validateScope(formats strfmt.Registry) error {
 		return err
 	}
 
+	return nil
+}
+
+// ContextValidate validates this ldap group search based on context it is used
+func (m *LdapGroupSearch) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

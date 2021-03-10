@@ -33,59 +33,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetProxiesHealthParams creates a new GetProxiesHealthParams object
-// with the default values initialized.
+// NewGetProxiesHealthParams creates a new GetProxiesHealthParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetProxiesHealthParams() *GetProxiesHealthParams {
-	var ()
 	return &GetProxiesHealthParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetProxiesHealthParamsWithTimeout creates a new GetProxiesHealthParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetProxiesHealthParamsWithTimeout(timeout time.Duration) *GetProxiesHealthParams {
-	var ()
 	return &GetProxiesHealthParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetProxiesHealthParamsWithContext creates a new GetProxiesHealthParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetProxiesHealthParamsWithContext(ctx context.Context) *GetProxiesHealthParams {
-	var ()
 	return &GetProxiesHealthParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetProxiesHealthParamsWithHTTPClient creates a new GetProxiesHealthParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetProxiesHealthParamsWithHTTPClient(client *http.Client) *GetProxiesHealthParams {
-	var ()
 	return &GetProxiesHealthParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetProxiesHealthParams contains all the parameters to send to the API endpoint
-for the get proxies health operation typically these are written to a http.Request
+/* GetProxiesHealthParams contains all the parameters to send to the API endpoint
+   for the get proxies health operation.
+
+   Typically these are written to a http.Request.
 */
 type GetProxiesHealthParams struct {
 
-	/*ExpectStatus
-	  The expected status
+	/* ExpectStatus.
 
+	   The expected status
 	*/
 	ExpectStatus *string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get proxies health params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetProxiesHealthParams) WithDefaults() *GetProxiesHealthParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get proxies health params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetProxiesHealthParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get proxies health params
@@ -144,16 +158,17 @@ func (o *GetProxiesHealthParams) WriteToRequest(r runtime.ClientRequest, reg str
 
 		// query param expect_status
 		var qrExpectStatus string
+
 		if o.ExpectStatus != nil {
 			qrExpectStatus = *o.ExpectStatus
 		}
 		qExpectStatus := qrExpectStatus
 		if qExpectStatus != "" {
+
 			if err := r.SetQueryParam("expect_status", qExpectStatus); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

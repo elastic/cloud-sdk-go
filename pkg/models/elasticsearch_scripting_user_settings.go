@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -75,7 +77,6 @@ func (m *ElasticsearchScriptingUserSettings) Validate(formats strfmt.Registry) e
 }
 
 func (m *ElasticsearchScriptingUserSettings) validateFile(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.File) { // not required
 		return nil
 	}
@@ -93,7 +94,6 @@ func (m *ElasticsearchScriptingUserSettings) validateFile(formats strfmt.Registr
 }
 
 func (m *ElasticsearchScriptingUserSettings) validateInline(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Inline) { // not required
 		return nil
 	}
@@ -111,13 +111,76 @@ func (m *ElasticsearchScriptingUserSettings) validateInline(formats strfmt.Regis
 }
 
 func (m *ElasticsearchScriptingUserSettings) validateStored(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Stored) { // not required
 		return nil
 	}
 
 	if m.Stored != nil {
 		if err := m.Stored.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("stored")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this elasticsearch scripting user settings based on the context it is used
+func (m *ElasticsearchScriptingUserSettings) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateFile(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateInline(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateStored(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ElasticsearchScriptingUserSettings) contextValidateFile(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.File != nil {
+		if err := m.File.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("file")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ElasticsearchScriptingUserSettings) contextValidateInline(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Inline != nil {
+		if err := m.Inline.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("inline")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ElasticsearchScriptingUserSettings) contextValidateStored(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Stored != nil {
+		if err := m.Stored.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("stored")
 			}

@@ -1242,7 +1242,7 @@ func Test_newMoveClusterParams(t *testing.T) {
 				Ctx:         "failed obtaining default vacate parameters",
 				Err: &url.Error{
 					Op:  "Post",
-					URL: "https://mock.elastic.co/api/v1/regions/us-east-1/platform/infrastructure/allocators/allocator-1/clusters/_move?force_update=false&validate_only=true",
+					URL: "https://mock.elastic.co/api/v1/regions/us-east-1/platform/infrastructure/allocators/allocator-1/clusters/_move?validate_only=true",
 					Err: errors.New("unauthorized"),
 				},
 			}.Error(),

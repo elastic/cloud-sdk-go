@@ -33,59 +33,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewDeleteExtraCertificateParams creates a new DeleteExtraCertificateParams object
-// with the default values initialized.
+// NewDeleteExtraCertificateParams creates a new DeleteExtraCertificateParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewDeleteExtraCertificateParams() *DeleteExtraCertificateParams {
-	var ()
 	return &DeleteExtraCertificateParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteExtraCertificateParamsWithTimeout creates a new DeleteExtraCertificateParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewDeleteExtraCertificateParamsWithTimeout(timeout time.Duration) *DeleteExtraCertificateParams {
-	var ()
 	return &DeleteExtraCertificateParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewDeleteExtraCertificateParamsWithContext creates a new DeleteExtraCertificateParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewDeleteExtraCertificateParamsWithContext(ctx context.Context) *DeleteExtraCertificateParams {
-	var ()
 	return &DeleteExtraCertificateParams{
-
 		Context: ctx,
 	}
 }
 
 // NewDeleteExtraCertificateParamsWithHTTPClient creates a new DeleteExtraCertificateParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewDeleteExtraCertificateParamsWithHTTPClient(client *http.Client) *DeleteExtraCertificateParams {
-	var ()
 	return &DeleteExtraCertificateParams{
 		HTTPClient: client,
 	}
 }
 
-/*DeleteExtraCertificateParams contains all the parameters to send to the API endpoint
-for the delete extra certificate operation typically these are written to a http.Request
+/* DeleteExtraCertificateParams contains all the parameters to send to the API endpoint
+   for the delete extra certificate operation.
+
+   Typically these are written to a http.Request.
 */
 type DeleteExtraCertificateParams struct {
 
-	/*CertID
-	  The extra certificate Id. For example, `star_my_domain_com`.
+	/* CertID.
 
+	   The extra certificate Id. For example, `star_my_domain_com`.
 	*/
 	CertID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the delete extra certificate params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteExtraCertificateParams) WithDefaults() *DeleteExtraCertificateParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the delete extra certificate params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteExtraCertificateParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete extra certificate params

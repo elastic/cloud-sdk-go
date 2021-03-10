@@ -34,84 +34,93 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetVersionStacksParams creates a new GetVersionStacksParams object
-// with the default values initialized.
+// NewGetVersionStacksParams creates a new GetVersionStacksParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetVersionStacksParams() *GetVersionStacksParams {
-	var (
-		showDeletedDefault  = bool(false)
-		showUnusableDefault = bool(false)
-	)
 	return &GetVersionStacksParams{
-		ShowDeleted:  &showDeletedDefault,
-		ShowUnusable: &showUnusableDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetVersionStacksParamsWithTimeout creates a new GetVersionStacksParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetVersionStacksParamsWithTimeout(timeout time.Duration) *GetVersionStacksParams {
-	var (
-		showDeletedDefault  = bool(false)
-		showUnusableDefault = bool(false)
-	)
 	return &GetVersionStacksParams{
-		ShowDeleted:  &showDeletedDefault,
-		ShowUnusable: &showUnusableDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewGetVersionStacksParamsWithContext creates a new GetVersionStacksParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetVersionStacksParamsWithContext(ctx context.Context) *GetVersionStacksParams {
-	var (
-		showDeletedDefault  = bool(false)
-		showUnusableDefault = bool(false)
-	)
 	return &GetVersionStacksParams{
-		ShowDeleted:  &showDeletedDefault,
-		ShowUnusable: &showUnusableDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewGetVersionStacksParamsWithHTTPClient creates a new GetVersionStacksParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetVersionStacksParamsWithHTTPClient(client *http.Client) *GetVersionStacksParams {
-	var (
-		showDeletedDefault  = bool(false)
-		showUnusableDefault = bool(false)
-	)
 	return &GetVersionStacksParams{
-		ShowDeleted:  &showDeletedDefault,
-		ShowUnusable: &showUnusableDefault,
-		HTTPClient:   client,
+		HTTPClient: client,
 	}
 }
 
-/*GetVersionStacksParams contains all the parameters to send to the API endpoint
-for the get version stacks operation typically these are written to a http.Request
+/* GetVersionStacksParams contains all the parameters to send to the API endpoint
+   for the get version stacks operation.
+
+   Typically these are written to a http.Request.
 */
 type GetVersionStacksParams struct {
 
-	/*ShowDeleted
-	  Whether to show deleted stack versions or not
+	/* ShowDeleted.
 
+	   Whether to show deleted stack versions or not
 	*/
 	ShowDeleted *bool
-	/*ShowUnusable
-	  Whether to show versions that are unusable by the authenticated user
 
+	/* ShowUnusable.
+
+	   Whether to show versions that are unusable by the authenticated user
 	*/
 	ShowUnusable *bool
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get version stacks params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetVersionStacksParams) WithDefaults() *GetVersionStacksParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get version stacks params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetVersionStacksParams) SetDefaults() {
+	var (
+		showDeletedDefault = bool(false)
+
+		showUnusableDefault = bool(false)
+	)
+
+	val := GetVersionStacksParams{
+		ShowDeleted:  &showDeletedDefault,
+		ShowUnusable: &showUnusableDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the get version stacks params
@@ -181,32 +190,34 @@ func (o *GetVersionStacksParams) WriteToRequest(r runtime.ClientRequest, reg str
 
 		// query param show_deleted
 		var qrShowDeleted bool
+
 		if o.ShowDeleted != nil {
 			qrShowDeleted = *o.ShowDeleted
 		}
 		qShowDeleted := swag.FormatBool(qrShowDeleted)
 		if qShowDeleted != "" {
+
 			if err := r.SetQueryParam("show_deleted", qShowDeleted); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.ShowUnusable != nil {
 
 		// query param show_unusable
 		var qrShowUnusable bool
+
 		if o.ShowUnusable != nil {
 			qrShowUnusable = *o.ShowUnusable
 		}
 		qShowUnusable := swag.FormatBool(qrShowUnusable)
 		if qShowUnusable != "" {
+
 			if err := r.SetQueryParam("show_unusable", qShowUnusable); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

@@ -52,7 +52,6 @@ func (o *GetEsClusterCcsSettingsReader) ReadResponse(response runtime.ClientResp
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,7 +62,7 @@ func NewGetEsClusterCcsSettingsOK() *GetEsClusterCcsSettingsOK {
 	return &GetEsClusterCcsSettingsOK{}
 }
 
-/*GetEsClusterCcsSettingsOK handles this case with default header values.
+/* GetEsClusterCcsSettingsOK describes a response with status code 200, with default header values.
 
 The configuration for cross-cluster search
 */
@@ -74,7 +73,6 @@ type GetEsClusterCcsSettingsOK struct {
 func (o *GetEsClusterCcsSettingsOK) Error() string {
 	return fmt.Sprintf("[GET /clusters/elasticsearch/{cluster_id}/ccs/settings][%d] getEsClusterCcsSettingsOK  %+v", 200, o.Payload)
 }
-
 func (o *GetEsClusterCcsSettingsOK) GetPayload() *models.CrossClusterSearchSettings {
 	return o.Payload
 }
@@ -96,7 +94,7 @@ func NewGetEsClusterCcsSettingsNotFound() *GetEsClusterCcsSettingsNotFound {
 	return &GetEsClusterCcsSettingsNotFound{}
 }
 
-/*GetEsClusterCcsSettingsNotFound handles this case with default header values.
+/* GetEsClusterCcsSettingsNotFound describes a response with status code 404, with default header values.
 
 The cluster specified by {cluster_id} or a remote cluster cannot be found (code: 'clusters.cluster_not_found')
 */
@@ -107,7 +105,6 @@ type GetEsClusterCcsSettingsNotFound struct {
 func (o *GetEsClusterCcsSettingsNotFound) Error() string {
 	return fmt.Sprintf("[GET /clusters/elasticsearch/{cluster_id}/ccs/settings][%d] getEsClusterCcsSettingsNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetEsClusterCcsSettingsNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"encoding/json"
 	"strconv"
 
@@ -217,7 +218,6 @@ func (m *KibanaClusterInfo) validateHealthy(formats strfmt.Registry) error {
 }
 
 func (m *KibanaClusterInfo) validateLinks(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Links) { // not required
 		return nil
 	}
@@ -275,7 +275,6 @@ func (m *KibanaClusterInfo) validatePlanInfo(formats strfmt.Registry) error {
 }
 
 func (m *KibanaClusterInfo) validateSettings(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Settings) { // not required
 		return nil
 	}
@@ -358,6 +357,147 @@ func (m *KibanaClusterInfo) validateTopology(formats strfmt.Registry) error {
 
 	if m.Topology != nil {
 		if err := m.Topology.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("topology")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this kibana cluster info based on the context it is used
+func (m *KibanaClusterInfo) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateElasticsearchCluster(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateExternalLinks(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateLinks(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateMetadata(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidatePlanInfo(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateSettings(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateTopology(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *KibanaClusterInfo) contextValidateElasticsearchCluster(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.ElasticsearchCluster != nil {
+		if err := m.ElasticsearchCluster.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("elasticsearch_cluster")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *KibanaClusterInfo) contextValidateExternalLinks(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.ExternalLinks); i++ {
+
+		if m.ExternalLinks[i] != nil {
+			if err := m.ExternalLinks[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("external_links" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *KibanaClusterInfo) contextValidateLinks(ctx context.Context, formats strfmt.Registry) error {
+
+	for k := range m.Links {
+
+		if val, ok := m.Links[k]; ok {
+			if err := val.ContextValidate(ctx, formats); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *KibanaClusterInfo) contextValidateMetadata(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Metadata != nil {
+		if err := m.Metadata.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("metadata")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *KibanaClusterInfo) contextValidatePlanInfo(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.PlanInfo != nil {
+		if err := m.PlanInfo.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("plan_info")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *KibanaClusterInfo) contextValidateSettings(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Settings != nil {
+		if err := m.Settings.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("settings")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *KibanaClusterInfo) contextValidateTopology(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Topology != nil {
+		if err := m.Topology.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("topology")
 			}

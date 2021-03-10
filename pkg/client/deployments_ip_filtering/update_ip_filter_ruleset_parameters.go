@@ -35,64 +35,79 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewUpdateIPFilterRulesetParams creates a new UpdateIPFilterRulesetParams object
-// with the default values initialized.
+// NewUpdateIPFilterRulesetParams creates a new UpdateIPFilterRulesetParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewUpdateIPFilterRulesetParams() *UpdateIPFilterRulesetParams {
-	var ()
 	return &UpdateIPFilterRulesetParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewUpdateIPFilterRulesetParamsWithTimeout creates a new UpdateIPFilterRulesetParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewUpdateIPFilterRulesetParamsWithTimeout(timeout time.Duration) *UpdateIPFilterRulesetParams {
-	var ()
 	return &UpdateIPFilterRulesetParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewUpdateIPFilterRulesetParamsWithContext creates a new UpdateIPFilterRulesetParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewUpdateIPFilterRulesetParamsWithContext(ctx context.Context) *UpdateIPFilterRulesetParams {
-	var ()
 	return &UpdateIPFilterRulesetParams{
-
 		Context: ctx,
 	}
 }
 
 // NewUpdateIPFilterRulesetParamsWithHTTPClient creates a new UpdateIPFilterRulesetParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewUpdateIPFilterRulesetParamsWithHTTPClient(client *http.Client) *UpdateIPFilterRulesetParams {
-	var ()
 	return &UpdateIPFilterRulesetParams{
 		HTTPClient: client,
 	}
 }
 
-/*UpdateIPFilterRulesetParams contains all the parameters to send to the API endpoint
-for the update ip filter ruleset operation typically these are written to a http.Request
+/* UpdateIPFilterRulesetParams contains all the parameters to send to the API endpoint
+   for the update ip filter ruleset operation.
+
+   Typically these are written to a http.Request.
 */
 type UpdateIPFilterRulesetParams struct {
 
-	/*Body
-	  The ruleset definition
+	/* Body.
 
+	   The ruleset definition
 	*/
 	Body *models.IPFilterRuleset
-	/*RulesetID
-	  The mandatory ruleset ID
 
+	/* RulesetID.
+
+	   The mandatory ruleset ID
 	*/
 	RulesetID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the update ip filter ruleset params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdateIPFilterRulesetParams) WithDefaults() *UpdateIPFilterRulesetParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the update ip filter ruleset params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdateIPFilterRulesetParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the update ip filter ruleset params
@@ -157,7 +172,6 @@ func (o *UpdateIPFilterRulesetParams) WriteToRequest(r runtime.ClientRequest, re
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

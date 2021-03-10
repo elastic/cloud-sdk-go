@@ -64,7 +64,6 @@ func (o *StartKibanaClusterMaintenanceModeReader) ReadResponse(response runtime.
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,7 +74,7 @@ func NewStartKibanaClusterMaintenanceModeAccepted() *StartKibanaClusterMaintenan
 	return &StartKibanaClusterMaintenanceModeAccepted{}
 }
 
-/*StartKibanaClusterMaintenanceModeAccepted handles this case with default header values.
+/* StartKibanaClusterMaintenanceModeAccepted describes a response with status code 202, with default header values.
 
 The start maintenance mode command was issued successfully, use the "GET" command on the /{cluster_id} resource to monitor progress
 */
@@ -86,7 +85,6 @@ type StartKibanaClusterMaintenanceModeAccepted struct {
 func (o *StartKibanaClusterMaintenanceModeAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/instances/{instance_ids}/maintenance-mode/_start][%d] startKibanaClusterMaintenanceModeAccepted  %+v", 202, o.Payload)
 }
-
 func (o *StartKibanaClusterMaintenanceModeAccepted) GetPayload() *models.ClusterCommandResponse {
 	return o.Payload
 }
@@ -108,12 +106,13 @@ func NewStartKibanaClusterMaintenanceModeForbidden() *StartKibanaClusterMaintena
 	return &StartKibanaClusterMaintenanceModeForbidden{}
 }
 
-/*StartKibanaClusterMaintenanceModeForbidden handles this case with default header values.
+/* StartKibanaClusterMaintenanceModeForbidden describes a response with status code 403, with default header values.
 
 The start maintenance mode command was prohibited for the given cluster. (code: `clusters.command_prohibited`)
 */
 type StartKibanaClusterMaintenanceModeForbidden struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -123,15 +122,18 @@ type StartKibanaClusterMaintenanceModeForbidden struct {
 func (o *StartKibanaClusterMaintenanceModeForbidden) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/instances/{instance_ids}/maintenance-mode/_start][%d] startKibanaClusterMaintenanceModeForbidden  %+v", 403, o.Payload)
 }
-
 func (o *StartKibanaClusterMaintenanceModeForbidden) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *StartKibanaClusterMaintenanceModeForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -148,13 +150,14 @@ func NewStartKibanaClusterMaintenanceModeNotFound() *StartKibanaClusterMaintenan
 	return &StartKibanaClusterMaintenanceModeNotFound{}
 }
 
-/*StartKibanaClusterMaintenanceModeNotFound handles this case with default header values.
+/* StartKibanaClusterMaintenanceModeNotFound describes a response with status code 404, with default header values.
 
-* The cluster specified by {cluster_id} cannot be found. (code: `clusters.cluster_not_found`)
+ * The cluster specified by {cluster_id} cannot be found. (code: `clusters.cluster_not_found`)
 * One or more of the instances specified at {instance_ids} could not be found. (code: `clusters.instances_not_found`)
- */
+*/
 type StartKibanaClusterMaintenanceModeNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -164,15 +167,18 @@ type StartKibanaClusterMaintenanceModeNotFound struct {
 func (o *StartKibanaClusterMaintenanceModeNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/instances/{instance_ids}/maintenance-mode/_start][%d] startKibanaClusterMaintenanceModeNotFound  %+v", 404, o.Payload)
 }
-
 func (o *StartKibanaClusterMaintenanceModeNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *StartKibanaClusterMaintenanceModeNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -189,12 +195,13 @@ func NewStartKibanaClusterMaintenanceModeRetryWith() *StartKibanaClusterMaintena
 	return &StartKibanaClusterMaintenanceModeRetryWith{}
 }
 
-/*StartKibanaClusterMaintenanceModeRetryWith handles this case with default header values.
+/* StartKibanaClusterMaintenanceModeRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type StartKibanaClusterMaintenanceModeRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -204,15 +211,18 @@ type StartKibanaClusterMaintenanceModeRetryWith struct {
 func (o *StartKibanaClusterMaintenanceModeRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/instances/{instance_ids}/maintenance-mode/_start][%d] startKibanaClusterMaintenanceModeRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *StartKibanaClusterMaintenanceModeRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *StartKibanaClusterMaintenanceModeRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

@@ -64,7 +64,6 @@ func (o *DeleteUserReader) ReadResponse(response runtime.ClientResponse, consume
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,7 +74,7 @@ func NewDeleteUserOK() *DeleteUserOK {
 	return &DeleteUserOK{}
 }
 
-/*DeleteUserOK handles this case with default header values.
+/* DeleteUserOK describes a response with status code 200, with default header values.
 
 User successfully deleted
 */
@@ -86,7 +85,6 @@ type DeleteUserOK struct {
 func (o *DeleteUserOK) Error() string {
 	return fmt.Sprintf("[DELETE /users/{user_name}][%d] deleteUserOK  %+v", 200, o.Payload)
 }
-
 func (o *DeleteUserOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -106,14 +104,15 @@ func NewDeleteUserBadRequest() *DeleteUserBadRequest {
 	return &DeleteUserBadRequest{}
 }
 
-/*DeleteUserBadRequest handles this case with default header values.
+/* DeleteUserBadRequest describes a response with status code 400, with default header values.
 
-* The user cannot be deleted. (code: `user.restricted_deletion`)
+ * The user cannot be deleted. (code: `user.restricted_deletion`)
 * External users cannot be modified. (code: `user.cannot_modify_external`)
 * Built-in users cannot be modified. (code: `user.cannot_modify`)
- */
+*/
 type DeleteUserBadRequest struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -123,15 +122,18 @@ type DeleteUserBadRequest struct {
 func (o *DeleteUserBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /users/{user_name}][%d] deleteUserBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *DeleteUserBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *DeleteUserBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -148,12 +150,13 @@ func NewDeleteUserNotFound() *DeleteUserNotFound {
 	return &DeleteUserNotFound{}
 }
 
-/*DeleteUserNotFound handles this case with default header values.
+/* DeleteUserNotFound describes a response with status code 404, with default header values.
 
 User not found. (code: `user.not_found`)
 */
 type DeleteUserNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -163,15 +166,18 @@ type DeleteUserNotFound struct {
 func (o *DeleteUserNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /users/{user_name}][%d] deleteUserNotFound  %+v", 404, o.Payload)
 }
-
 func (o *DeleteUserNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *DeleteUserNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -188,12 +194,13 @@ func NewDeleteUserRetryWith() *DeleteUserRetryWith {
 	return &DeleteUserRetryWith{}
 }
 
-/*DeleteUserRetryWith handles this case with default header values.
+/* DeleteUserRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type DeleteUserRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -203,15 +210,18 @@ type DeleteUserRetryWith struct {
 func (o *DeleteUserRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /users/{user_name}][%d] deleteUserRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *DeleteUserRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *DeleteUserRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

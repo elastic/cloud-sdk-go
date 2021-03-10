@@ -34,59 +34,73 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetInstanceConfigurationsParams creates a new GetInstanceConfigurationsParams object
-// with the default values initialized.
+// NewGetInstanceConfigurationsParams creates a new GetInstanceConfigurationsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetInstanceConfigurationsParams() *GetInstanceConfigurationsParams {
-	var ()
 	return &GetInstanceConfigurationsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetInstanceConfigurationsParamsWithTimeout creates a new GetInstanceConfigurationsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetInstanceConfigurationsParamsWithTimeout(timeout time.Duration) *GetInstanceConfigurationsParams {
-	var ()
 	return &GetInstanceConfigurationsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetInstanceConfigurationsParamsWithContext creates a new GetInstanceConfigurationsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetInstanceConfigurationsParamsWithContext(ctx context.Context) *GetInstanceConfigurationsParams {
-	var ()
 	return &GetInstanceConfigurationsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetInstanceConfigurationsParamsWithHTTPClient creates a new GetInstanceConfigurationsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetInstanceConfigurationsParamsWithHTTPClient(client *http.Client) *GetInstanceConfigurationsParams {
-	var ()
 	return &GetInstanceConfigurationsParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetInstanceConfigurationsParams contains all the parameters to send to the API endpoint
-for the get instance configurations operation typically these are written to a http.Request
+/* GetInstanceConfigurationsParams contains all the parameters to send to the API endpoint
+   for the get instance configurations operation.
+
+   Typically these are written to a http.Request.
 */
 type GetInstanceConfigurationsParams struct {
 
-	/*ShowDeleted
-	  If true, instance configurations marked for deletions are also returned. Otherwise, only instance configurations not marked for deletion are returned
+	/* ShowDeleted.
 
+	   If true, instance configurations marked for deletions are also returned. Otherwise, only instance configurations not marked for deletion are returned
 	*/
 	ShowDeleted *bool
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get instance configurations params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetInstanceConfigurationsParams) WithDefaults() *GetInstanceConfigurationsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get instance configurations params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetInstanceConfigurationsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get instance configurations params
@@ -145,16 +159,17 @@ func (o *GetInstanceConfigurationsParams) WriteToRequest(r runtime.ClientRequest
 
 		// query param show_deleted
 		var qrShowDeleted bool
+
 		if o.ShowDeleted != nil {
 			qrShowDeleted = *o.ShowDeleted
 		}
 		qShowDeleted := swag.FormatBool(qrShowDeleted)
 		if qShowDeleted != "" {
+
 			if err := r.SetQueryParam("show_deleted", qShowDeleted); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

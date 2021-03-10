@@ -52,7 +52,6 @@ func (o *GetConfigStoreOptionReader) ReadResponse(response runtime.ClientRespons
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,18 +62,21 @@ func NewGetConfigStoreOptionOK() *GetConfigStoreOptionOK {
 	return &GetConfigStoreOptionOK{}
 }
 
-/*GetConfigStoreOptionOK handles this case with default header values.
+/* GetConfigStoreOptionOK describes a response with status code 200, with default header values.
 
 Config Store Option retrieved successfully
 */
 type GetConfigStoreOptionOK struct {
-	/*The date-time when the resource was created (ISO format relative to UTC)
+
+	/* The date-time when the resource was created (ISO format relative to UTC)
 	 */
 	XCloudResourceCreated string
-	/*The date-time when the resource was last modified (ISO format relative to UTC)
+
+	/* The date-time when the resource was last modified (ISO format relative to UTC)
 	 */
 	XCloudResourceLastModified string
-	/*The resource version, which is used to avoid update conflicts with concurrent operations
+
+	/* The resource version, which is used to avoid update conflicts with concurrent operations
 	 */
 	XCloudResourceVersion string
 
@@ -84,21 +86,32 @@ type GetConfigStoreOptionOK struct {
 func (o *GetConfigStoreOptionOK) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/store/{config_option_id}][%d] getConfigStoreOptionOK  %+v", 200, o.Payload)
 }
-
 func (o *GetConfigStoreOptionOK) GetPayload() *models.ConfigStoreOption {
 	return o.Payload
 }
 
 func (o *GetConfigStoreOptionOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-resource-created
-	o.XCloudResourceCreated = response.GetHeader("x-cloud-resource-created")
+	// hydrates response header x-cloud-resource-created
+	hdrXCloudResourceCreated := response.GetHeader("x-cloud-resource-created")
 
-	// response header x-cloud-resource-last-modified
-	o.XCloudResourceLastModified = response.GetHeader("x-cloud-resource-last-modified")
+	if hdrXCloudResourceCreated != "" {
+		o.XCloudResourceCreated = hdrXCloudResourceCreated
+	}
 
-	// response header x-cloud-resource-version
-	o.XCloudResourceVersion = response.GetHeader("x-cloud-resource-version")
+	// hydrates response header x-cloud-resource-last-modified
+	hdrXCloudResourceLastModified := response.GetHeader("x-cloud-resource-last-modified")
+
+	if hdrXCloudResourceLastModified != "" {
+		o.XCloudResourceLastModified = hdrXCloudResourceLastModified
+	}
+
+	// hydrates response header x-cloud-resource-version
+	hdrXCloudResourceVersion := response.GetHeader("x-cloud-resource-version")
+
+	if hdrXCloudResourceVersion != "" {
+		o.XCloudResourceVersion = hdrXCloudResourceVersion
+	}
 
 	o.Payload = new(models.ConfigStoreOption)
 
@@ -115,12 +128,13 @@ func NewGetConfigStoreOptionNotFound() *GetConfigStoreOptionNotFound {
 	return &GetConfigStoreOptionNotFound{}
 }
 
-/*GetConfigStoreOptionNotFound handles this case with default header values.
+/* GetConfigStoreOptionNotFound describes a response with status code 404, with default header values.
 
 Config Store Option do not exist by that name. (code: `platform.config.store.not_found`)
 */
 type GetConfigStoreOptionNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -130,15 +144,18 @@ type GetConfigStoreOptionNotFound struct {
 func (o *GetConfigStoreOptionNotFound) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/store/{config_option_id}][%d] getConfigStoreOptionNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetConfigStoreOptionNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *GetConfigStoreOptionNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

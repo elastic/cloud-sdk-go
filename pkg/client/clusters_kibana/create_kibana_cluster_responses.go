@@ -64,7 +64,6 @@ func (o *CreateKibanaClusterReader) ReadResponse(response runtime.ClientResponse
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,7 +74,7 @@ func NewCreateKibanaClusterOK() *CreateKibanaClusterOK {
 	return &CreateKibanaClusterOK{}
 }
 
-/*CreateKibanaClusterOK handles this case with default header values.
+/* CreateKibanaClusterOK describes a response with status code 200, with default header values.
 
 The cluster definition was valid - no further action was requested. The return object contains an internal representation of the plan, for use in debugging
 */
@@ -86,7 +85,6 @@ type CreateKibanaClusterOK struct {
 func (o *CreateKibanaClusterOK) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana][%d] createKibanaClusterOK  %+v", 200, o.Payload)
 }
-
 func (o *CreateKibanaClusterOK) GetPayload() *models.ClusterCrudResponse {
 	return o.Payload
 }
@@ -108,7 +106,7 @@ func NewCreateKibanaClusterCreated() *CreateKibanaClusterCreated {
 	return &CreateKibanaClusterCreated{}
 }
 
-/*CreateKibanaClusterCreated handles this case with default header values.
+/* CreateKibanaClusterCreated describes a response with status code 201, with default header values.
 
 The cluster definition was valid and the cluster creation has started
 */
@@ -119,7 +117,6 @@ type CreateKibanaClusterCreated struct {
 func (o *CreateKibanaClusterCreated) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana][%d] createKibanaClusterCreated  %+v", 201, o.Payload)
 }
-
 func (o *CreateKibanaClusterCreated) GetPayload() *models.ClusterCrudResponse {
 	return o.Payload
 }
@@ -141,7 +138,7 @@ func NewCreateKibanaClusterBadRequest() *CreateKibanaClusterBadRequest {
 	return &CreateKibanaClusterBadRequest{}
 }
 
-/*CreateKibanaClusterBadRequest handles this case with default header values.
+/* CreateKibanaClusterBadRequest describes a response with status code 400, with default header values.
 
 The cluster definition contained errors (code: 'clusters.cluster_invalid_plan' and 'clusters.plan_feature_not_implemented')
 */
@@ -152,7 +149,6 @@ type CreateKibanaClusterBadRequest struct {
 func (o *CreateKibanaClusterBadRequest) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana][%d] createKibanaClusterBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *CreateKibanaClusterBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -174,7 +170,7 @@ func NewCreateKibanaClusterRetryWith() *CreateKibanaClusterRetryWith {
 	return &CreateKibanaClusterRetryWith{}
 }
 
-/*CreateKibanaClusterRetryWith handles this case with default header values.
+/* CreateKibanaClusterRetryWith describes a response with status code 449, with default header values.
 
 elevated permissions are required. (code: '"root.unauthorized.rbac.elevated_permissions_required"')
 */
@@ -185,7 +181,6 @@ type CreateKibanaClusterRetryWith struct {
 func (o *CreateKibanaClusterRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana][%d] createKibanaClusterRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *CreateKibanaClusterRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

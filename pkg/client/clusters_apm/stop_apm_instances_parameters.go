@@ -34,81 +34,96 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewStopApmInstancesParams creates a new StopApmInstancesParams object
-// with the default values initialized.
+// NewStopApmInstancesParams creates a new StopApmInstancesParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewStopApmInstancesParams() *StopApmInstancesParams {
-	var (
-		ignoreMissingDefault = bool(false)
-	)
 	return &StopApmInstancesParams{
-		IgnoreMissing: &ignoreMissingDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewStopApmInstancesParamsWithTimeout creates a new StopApmInstancesParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewStopApmInstancesParamsWithTimeout(timeout time.Duration) *StopApmInstancesParams {
-	var (
-		ignoreMissingDefault = bool(false)
-	)
 	return &StopApmInstancesParams{
-		IgnoreMissing: &ignoreMissingDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewStopApmInstancesParamsWithContext creates a new StopApmInstancesParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewStopApmInstancesParamsWithContext(ctx context.Context) *StopApmInstancesParams {
-	var (
-		ignoreMissingDefault = bool(false)
-	)
 	return &StopApmInstancesParams{
-		IgnoreMissing: &ignoreMissingDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewStopApmInstancesParamsWithHTTPClient creates a new StopApmInstancesParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewStopApmInstancesParamsWithHTTPClient(client *http.Client) *StopApmInstancesParams {
-	var (
-		ignoreMissingDefault = bool(false)
-	)
 	return &StopApmInstancesParams{
-		IgnoreMissing: &ignoreMissingDefault,
-		HTTPClient:    client,
+		HTTPClient: client,
 	}
 }
 
-/*StopApmInstancesParams contains all the parameters to send to the API endpoint
-for the stop apm instances operation typically these are written to a http.Request
+/* StopApmInstancesParams contains all the parameters to send to the API endpoint
+   for the stop apm instances operation.
+
+   Typically these are written to a http.Request.
 */
 type StopApmInstancesParams struct {
 
-	/*ClusterID
-	  The APM deployment identifier.
+	/* ClusterID.
 
+	   The APM deployment identifier.
 	*/
 	ClusterID string
-	/*IgnoreMissing
-	  When `true` and the instance does not exist, proceeds to the next instance, or treats the instance as an error.
 
+	/* IgnoreMissing.
+
+	   When `true` and the instance does not exist, proceeds to the next instance, or treats the instance as an error.
 	*/
 	IgnoreMissing *bool
-	/*InstanceIds
-	  A comma-separated list of instance identifiers.
 
+	/* InstanceIds.
+
+	   A comma-separated list of instance identifiers.
 	*/
 	InstanceIds []string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the stop apm instances params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *StopApmInstancesParams) WithDefaults() *StopApmInstancesParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the stop apm instances params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *StopApmInstancesParams) SetDefaults() {
+	var (
+		ignoreMissingDefault = bool(false)
+	)
+
+	val := StopApmInstancesParams{
+		IgnoreMissing: &ignoreMissingDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the stop apm instances params
@@ -194,28 +209,32 @@ func (o *StopApmInstancesParams) WriteToRequest(r runtime.ClientRequest, reg str
 
 		// query param ignore_missing
 		var qrIgnoreMissing bool
+
 		if o.IgnoreMissing != nil {
 			qrIgnoreMissing = *o.IgnoreMissing
 		}
 		qIgnoreMissing := swag.FormatBool(qrIgnoreMissing)
 		if qIgnoreMissing != "" {
+
 			if err := r.SetQueryParam("ignore_missing", qIgnoreMissing); err != nil {
 				return err
 			}
 		}
-
 	}
 
-	valuesInstanceIds := o.InstanceIds
+	if o.InstanceIds != nil {
 
-	joinedInstanceIds := swag.JoinByFormat(valuesInstanceIds, "csv")
-	// path array param instance_ids
-	// SetPathParam does not support variadric arguments, since we used JoinByFormat
-	// we can send the first item in the array as it's all the items of the previous
-	// array joined together
-	if len(joinedInstanceIds) > 0 {
-		if err := r.SetPathParam("instance_ids", joinedInstanceIds[0]); err != nil {
-			return err
+		// binding items for instance_ids
+		joinedInstanceIds := o.bindParamInstanceIds(reg)
+
+		// path array param instance_ids
+		// SetPathParam does not support variadic arguments, since we used JoinByFormat
+		// we can send the first item in the array as it's all the items of the previous
+		// array joined together
+		if len(joinedInstanceIds) > 0 {
+			if err := r.SetPathParam("instance_ids", joinedInstanceIds[0]); err != nil {
+				return err
+			}
 		}
 	}
 
@@ -223,4 +242,21 @@ func (o *StopApmInstancesParams) WriteToRequest(r runtime.ClientRequest, reg str
 		return errors.CompositeValidationError(res...)
 	}
 	return nil
+}
+
+// bindParamStopApmInstances binds the parameter instance_ids
+func (o *StopApmInstancesParams) bindParamInstanceIds(formats strfmt.Registry) []string {
+	instanceIdsIR := o.InstanceIds
+
+	var instanceIdsIC []string
+	for _, instanceIdsIIR := range instanceIdsIR { // explode []string
+
+		instanceIdsIIV := instanceIdsIIR // string as string
+		instanceIdsIC = append(instanceIdsIC, instanceIdsIIV)
+	}
+
+	// items.CollectionFormat: "csv"
+	instanceIdsIS := swag.JoinByFormat(instanceIdsIC, "csv")
+
+	return instanceIdsIS
 }

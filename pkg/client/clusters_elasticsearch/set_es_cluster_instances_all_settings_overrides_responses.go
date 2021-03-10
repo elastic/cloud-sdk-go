@@ -58,7 +58,6 @@ func (o *SetEsClusterInstancesAllSettingsOverridesReader) ReadResponse(response 
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,7 +68,7 @@ func NewSetEsClusterInstancesAllSettingsOverridesOK() *SetEsClusterInstancesAllS
 	return &SetEsClusterInstancesAllSettingsOverridesOK{}
 }
 
-/*SetEsClusterInstancesAllSettingsOverridesOK handles this case with default header values.
+/* SetEsClusterInstancesAllSettingsOverridesOK describes a response with status code 200, with default header values.
 
 Returns the updated settings overrides for the specified instances
 */
@@ -80,7 +79,6 @@ type SetEsClusterInstancesAllSettingsOverridesOK struct {
 func (o *SetEsClusterInstancesAllSettingsOverridesOK) Error() string {
 	return fmt.Sprintf("[PUT /clusters/elasticsearch/{cluster_id}/instances/settings][%d] setEsClusterInstancesAllSettingsOverridesOK  %+v", 200, o.Payload)
 }
-
 func (o *SetEsClusterInstancesAllSettingsOverridesOK) GetPayload() *models.ElasticsearchClusterInstanceSettingsOverrides {
 	return o.Payload
 }
@@ -102,12 +100,13 @@ func NewSetEsClusterInstancesAllSettingsOverridesNotFound() *SetEsClusterInstanc
 	return &SetEsClusterInstancesAllSettingsOverridesNotFound{}
 }
 
-/*SetEsClusterInstancesAllSettingsOverridesNotFound handles this case with default header values.
+/* SetEsClusterInstancesAllSettingsOverridesNotFound describes a response with status code 404, with default header values.
 
 The cluster specified at {cluster_id} could not be found. (code: `clusters.cluster_not_found`)
 */
 type SetEsClusterInstancesAllSettingsOverridesNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -117,15 +116,18 @@ type SetEsClusterInstancesAllSettingsOverridesNotFound struct {
 func (o *SetEsClusterInstancesAllSettingsOverridesNotFound) Error() string {
 	return fmt.Sprintf("[PUT /clusters/elasticsearch/{cluster_id}/instances/settings][%d] setEsClusterInstancesAllSettingsOverridesNotFound  %+v", 404, o.Payload)
 }
-
 func (o *SetEsClusterInstancesAllSettingsOverridesNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SetEsClusterInstancesAllSettingsOverridesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -142,12 +144,13 @@ func NewSetEsClusterInstancesAllSettingsOverridesRetryWith() *SetEsClusterInstan
 	return &SetEsClusterInstancesAllSettingsOverridesRetryWith{}
 }
 
-/*SetEsClusterInstancesAllSettingsOverridesRetryWith handles this case with default header values.
+/* SetEsClusterInstancesAllSettingsOverridesRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type SetEsClusterInstancesAllSettingsOverridesRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -157,15 +160,18 @@ type SetEsClusterInstancesAllSettingsOverridesRetryWith struct {
 func (o *SetEsClusterInstancesAllSettingsOverridesRetryWith) Error() string {
 	return fmt.Sprintf("[PUT /clusters/elasticsearch/{cluster_id}/instances/settings][%d] setEsClusterInstancesAllSettingsOverridesRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *SetEsClusterInstancesAllSettingsOverridesRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SetEsClusterInstancesAllSettingsOverridesRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

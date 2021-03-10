@@ -36,86 +36,102 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewEnableDeploymentResourceIlmParams creates a new EnableDeploymentResourceIlmParams object
-// with the default values initialized.
+// NewEnableDeploymentResourceIlmParams creates a new EnableDeploymentResourceIlmParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewEnableDeploymentResourceIlmParams() *EnableDeploymentResourceIlmParams {
-	var (
-		validateOnlyDefault = bool(false)
-	)
 	return &EnableDeploymentResourceIlmParams{
-		ValidateOnly: &validateOnlyDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewEnableDeploymentResourceIlmParamsWithTimeout creates a new EnableDeploymentResourceIlmParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewEnableDeploymentResourceIlmParamsWithTimeout(timeout time.Duration) *EnableDeploymentResourceIlmParams {
-	var (
-		validateOnlyDefault = bool(false)
-	)
 	return &EnableDeploymentResourceIlmParams{
-		ValidateOnly: &validateOnlyDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewEnableDeploymentResourceIlmParamsWithContext creates a new EnableDeploymentResourceIlmParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewEnableDeploymentResourceIlmParamsWithContext(ctx context.Context) *EnableDeploymentResourceIlmParams {
-	var (
-		validateOnlyDefault = bool(false)
-	)
 	return &EnableDeploymentResourceIlmParams{
-		ValidateOnly: &validateOnlyDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewEnableDeploymentResourceIlmParamsWithHTTPClient creates a new EnableDeploymentResourceIlmParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewEnableDeploymentResourceIlmParamsWithHTTPClient(client *http.Client) *EnableDeploymentResourceIlmParams {
-	var (
-		validateOnlyDefault = bool(false)
-	)
 	return &EnableDeploymentResourceIlmParams{
-		ValidateOnly: &validateOnlyDefault,
-		HTTPClient:   client,
+		HTTPClient: client,
 	}
 }
 
-/*EnableDeploymentResourceIlmParams contains all the parameters to send to the API endpoint
-for the enable deployment resource ilm operation typically these are written to a http.Request
+/* EnableDeploymentResourceIlmParams contains all the parameters to send to the API endpoint
+   for the enable deployment resource ilm operation.
+
+   Typically these are written to a http.Request.
 */
 type EnableDeploymentResourceIlmParams struct {
 
-	/*Body
-	  Information to build the ILM policies that will be created
+	/* Body.
 
+	   Information to build the ILM policies that will be created
 	*/
 	Body *models.EnableIlmRequest
-	/*DeploymentID
-	  Identifier for the Deployment.
 
+	/* DeploymentID.
+
+	   Identifier for the Deployment.
 	*/
 	DeploymentID string
-	/*RefID
-	  User-specified RefId for the Resource.
 
+	/* RefID.
+
+	   User-specified RefId for the Resource.
 	*/
 	RefID string
-	/*ValidateOnly
-	  When `true`, does not enable ILM but returns warnings if any applications may lose availability during ILM migration.
 
+	/* ValidateOnly.
+
+	   When `true`, does not enable ILM but returns warnings if any applications may lose availability during ILM migration.
 	*/
 	ValidateOnly *bool
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the enable deployment resource ilm params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *EnableDeploymentResourceIlmParams) WithDefaults() *EnableDeploymentResourceIlmParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the enable deployment resource ilm params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *EnableDeploymentResourceIlmParams) SetDefaults() {
+	var (
+		validateOnlyDefault = bool(false)
+	)
+
+	val := EnableDeploymentResourceIlmParams{
+		ValidateOnly: &validateOnlyDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the enable deployment resource ilm params
@@ -202,7 +218,6 @@ func (o *EnableDeploymentResourceIlmParams) WriteToRequest(r runtime.ClientReque
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err
@@ -223,16 +238,17 @@ func (o *EnableDeploymentResourceIlmParams) WriteToRequest(r runtime.ClientReque
 
 		// query param validate_only
 		var qrValidateOnly bool
+
 		if o.ValidateOnly != nil {
 			qrValidateOnly = *o.ValidateOnly
 		}
 		qValidateOnly := swag.FormatBool(qrValidateOnly)
 		if qValidateOnly != "" {
+
 			if err := r.SetQueryParam("validate_only", qValidateOnly); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

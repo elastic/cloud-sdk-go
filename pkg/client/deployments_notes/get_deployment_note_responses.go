@@ -52,7 +52,6 @@ func (o *GetDeploymentNoteReader) ReadResponse(response runtime.ClientResponse, 
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,18 +62,21 @@ func NewGetDeploymentNoteOK() *GetDeploymentNoteOK {
 	return &GetDeploymentNoteOK{}
 }
 
-/*GetDeploymentNoteOK handles this case with default header values.
+/* GetDeploymentNoteOK describes a response with status code 200, with default header values.
 
 The deployment note was successfully returned
 */
 type GetDeploymentNoteOK struct {
-	/*The date-time when the resource was created (ISO format relative to UTC)
+
+	/* The date-time when the resource was created (ISO format relative to UTC)
 	 */
 	XCloudResourceCreated string
-	/*The date-time when the resource was last modified (ISO format relative to UTC)
+
+	/* The date-time when the resource was last modified (ISO format relative to UTC)
 	 */
 	XCloudResourceLastModified string
-	/*The resource version, which is used to avoid update conflicts with concurrent operations
+
+	/* The resource version, which is used to avoid update conflicts with concurrent operations
 	 */
 	XCloudResourceVersion string
 
@@ -84,21 +86,32 @@ type GetDeploymentNoteOK struct {
 func (o *GetDeploymentNoteOK) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/notes/{note_id}][%d] getDeploymentNoteOK  %+v", 200, o.Payload)
 }
-
 func (o *GetDeploymentNoteOK) GetPayload() *models.Note {
 	return o.Payload
 }
 
 func (o *GetDeploymentNoteOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-resource-created
-	o.XCloudResourceCreated = response.GetHeader("x-cloud-resource-created")
+	// hydrates response header x-cloud-resource-created
+	hdrXCloudResourceCreated := response.GetHeader("x-cloud-resource-created")
 
-	// response header x-cloud-resource-last-modified
-	o.XCloudResourceLastModified = response.GetHeader("x-cloud-resource-last-modified")
+	if hdrXCloudResourceCreated != "" {
+		o.XCloudResourceCreated = hdrXCloudResourceCreated
+	}
 
-	// response header x-cloud-resource-version
-	o.XCloudResourceVersion = response.GetHeader("x-cloud-resource-version")
+	// hydrates response header x-cloud-resource-last-modified
+	hdrXCloudResourceLastModified := response.GetHeader("x-cloud-resource-last-modified")
+
+	if hdrXCloudResourceLastModified != "" {
+		o.XCloudResourceLastModified = hdrXCloudResourceLastModified
+	}
+
+	// hydrates response header x-cloud-resource-version
+	hdrXCloudResourceVersion := response.GetHeader("x-cloud-resource-version")
+
+	if hdrXCloudResourceVersion != "" {
+		o.XCloudResourceVersion = hdrXCloudResourceVersion
+	}
 
 	o.Payload = new(models.Note)
 
@@ -115,13 +128,14 @@ func NewGetDeploymentNoteNotFound() *GetDeploymentNoteNotFound {
 	return &GetDeploymentNoteNotFound{}
 }
 
-/*GetDeploymentNoteNotFound handles this case with default header values.
+/* GetDeploymentNoteNotFound describes a response with status code 404, with default header values.
 
-* "The deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+ * "The deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
 * The note specified by {note_id} cannot be found. (code: `notes.note_not_found`)
- */
+*/
 type GetDeploymentNoteNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -131,15 +145,18 @@ type GetDeploymentNoteNotFound struct {
 func (o *GetDeploymentNoteNotFound) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/notes/{note_id}][%d] getDeploymentNoteNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetDeploymentNoteNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *GetDeploymentNoteNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

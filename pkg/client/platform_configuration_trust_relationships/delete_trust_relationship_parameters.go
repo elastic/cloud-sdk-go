@@ -34,64 +34,79 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewDeleteTrustRelationshipParams creates a new DeleteTrustRelationshipParams object
-// with the default values initialized.
+// NewDeleteTrustRelationshipParams creates a new DeleteTrustRelationshipParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewDeleteTrustRelationshipParams() *DeleteTrustRelationshipParams {
-	var ()
 	return &DeleteTrustRelationshipParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteTrustRelationshipParamsWithTimeout creates a new DeleteTrustRelationshipParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewDeleteTrustRelationshipParamsWithTimeout(timeout time.Duration) *DeleteTrustRelationshipParams {
-	var ()
 	return &DeleteTrustRelationshipParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewDeleteTrustRelationshipParamsWithContext creates a new DeleteTrustRelationshipParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewDeleteTrustRelationshipParamsWithContext(ctx context.Context) *DeleteTrustRelationshipParams {
-	var ()
 	return &DeleteTrustRelationshipParams{
-
 		Context: ctx,
 	}
 }
 
 // NewDeleteTrustRelationshipParamsWithHTTPClient creates a new DeleteTrustRelationshipParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewDeleteTrustRelationshipParamsWithHTTPClient(client *http.Client) *DeleteTrustRelationshipParams {
-	var ()
 	return &DeleteTrustRelationshipParams{
 		HTTPClient: client,
 	}
 }
 
-/*DeleteTrustRelationshipParams contains all the parameters to send to the API endpoint
-for the delete trust relationship operation typically these are written to a http.Request
+/* DeleteTrustRelationshipParams contains all the parameters to send to the API endpoint
+   for the delete trust relationship operation.
+
+   Typically these are written to a http.Request.
 */
 type DeleteTrustRelationshipParams struct {
 
-	/*TrustRelationshipID
-	  Identifier for the trust relationship
+	/* TrustRelationshipID.
 
+	   Identifier for the trust relationship
 	*/
 	TrustRelationshipID string
-	/*Version
-	  If specified then checks for conflicts against the version stored in the persistent store (returned in 'x-cloud-resource-version' of the GET request)
 
+	/* Version.
+
+	   If specified then checks for conflicts against the version stored in the persistent store (returned in 'x-cloud-resource-version' of the GET request)
 	*/
 	Version *int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the delete trust relationship params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteTrustRelationshipParams) WithDefaults() *DeleteTrustRelationshipParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the delete trust relationship params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteTrustRelationshipParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete trust relationship params
@@ -166,16 +181,17 @@ func (o *DeleteTrustRelationshipParams) WriteToRequest(r runtime.ClientRequest, 
 
 		// query param version
 		var qrVersion int64
+
 		if o.Version != nil {
 			qrVersion = *o.Version
 		}
 		qVersion := swag.FormatInt64(qrVersion)
 		if qVersion != "" {
+
 			if err := r.SetQueryParam("version", qVersion); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

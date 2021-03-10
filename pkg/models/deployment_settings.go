@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -66,7 +68,6 @@ func (m *DeploymentSettings) Validate(formats strfmt.Registry) error {
 }
 
 func (m *DeploymentSettings) validateIPFilteringSettings(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.IPFilteringSettings) { // not required
 		return nil
 	}
@@ -84,7 +85,6 @@ func (m *DeploymentSettings) validateIPFilteringSettings(formats strfmt.Registry
 }
 
 func (m *DeploymentSettings) validateObservability(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Observability) { // not required
 		return nil
 	}
@@ -102,13 +102,76 @@ func (m *DeploymentSettings) validateObservability(formats strfmt.Registry) erro
 }
 
 func (m *DeploymentSettings) validateTrafficFilterSettings(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.TrafficFilterSettings) { // not required
 		return nil
 	}
 
 	if m.TrafficFilterSettings != nil {
 		if err := m.TrafficFilterSettings.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("traffic_filter_settings")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this deployment settings based on the context it is used
+func (m *DeploymentSettings) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateIPFilteringSettings(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateObservability(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateTrafficFilterSettings(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *DeploymentSettings) contextValidateIPFilteringSettings(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.IPFilteringSettings != nil {
+		if err := m.IPFilteringSettings.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("ip_filtering_settings")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *DeploymentSettings) contextValidateObservability(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Observability != nil {
+		if err := m.Observability.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("observability")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *DeploymentSettings) contextValidateTrafficFilterSettings(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.TrafficFilterSettings != nil {
+		if err := m.TrafficFilterSettings.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("traffic_filter_settings")
 			}

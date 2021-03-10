@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -146,8 +147,8 @@ func (m *ProxyInfo) validateHostIP(formats strfmt.Registry) error {
 
 func (m *ProxyInfo) validateMetadata(formats strfmt.Registry) error {
 
-	if err := validate.Required("metadata", "body", m.Metadata); err != nil {
-		return err
+	if m.Metadata == nil {
+		return errors.Required("metadata", "body", nil)
 	}
 
 	return nil
@@ -166,6 +167,38 @@ func (m *ProxyInfo) validatePublicHostname(formats strfmt.Registry) error {
 
 	if err := validate.Required("public_hostname", "body", m.PublicHostname); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this proxy info based on the context it is used
+func (m *ProxyInfo) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAllocations(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ProxyInfo) contextValidateAllocations(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Allocations); i++ {
+
+		if m.Allocations[i] != nil {
+			if err := m.Allocations[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("allocations" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil

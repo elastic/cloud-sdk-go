@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -133,13 +135,58 @@ func (m *AppSearchPayload) validateRegion(formats strfmt.Registry) error {
 }
 
 func (m *AppSearchPayload) validateSettings(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Settings) { // not required
 		return nil
 	}
 
 	if m.Settings != nil {
 		if err := m.Settings.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("settings")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this app search payload based on the context it is used
+func (m *AppSearchPayload) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidatePlan(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateSettings(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *AppSearchPayload) contextValidatePlan(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Plan != nil {
+		if err := m.Plan.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("plan")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *AppSearchPayload) contextValidateSettings(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Settings != nil {
+		if err := m.Settings.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("settings")
 			}

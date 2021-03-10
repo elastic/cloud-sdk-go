@@ -34,102 +34,108 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetEsClusterPendingPlanParams creates a new GetEsClusterPendingPlanParams object
-// with the default values initialized.
+// NewGetEsClusterPendingPlanParams creates a new GetEsClusterPendingPlanParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetEsClusterPendingPlanParams() *GetEsClusterPendingPlanParams {
-	var (
-		convertLegacyPlansDefault = bool(false)
-		enrichWithTemplateDefault = bool(false)
-		showPlanDefaultsDefault   = bool(false)
-	)
 	return &GetEsClusterPendingPlanParams{
-		ConvertLegacyPlans: &convertLegacyPlansDefault,
-		EnrichWithTemplate: &enrichWithTemplateDefault,
-		ShowPlanDefaults:   &showPlanDefaultsDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetEsClusterPendingPlanParamsWithTimeout creates a new GetEsClusterPendingPlanParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetEsClusterPendingPlanParamsWithTimeout(timeout time.Duration) *GetEsClusterPendingPlanParams {
-	var (
-		convertLegacyPlansDefault = bool(false)
-		enrichWithTemplateDefault = bool(false)
-		showPlanDefaultsDefault   = bool(false)
-	)
 	return &GetEsClusterPendingPlanParams{
-		ConvertLegacyPlans: &convertLegacyPlansDefault,
-		EnrichWithTemplate: &enrichWithTemplateDefault,
-		ShowPlanDefaults:   &showPlanDefaultsDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewGetEsClusterPendingPlanParamsWithContext creates a new GetEsClusterPendingPlanParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetEsClusterPendingPlanParamsWithContext(ctx context.Context) *GetEsClusterPendingPlanParams {
-	var (
-		convertLegacyPlansDefault = bool(false)
-		enrichWithTemplateDefault = bool(false)
-		showPlanDefaultsDefault   = bool(false)
-	)
 	return &GetEsClusterPendingPlanParams{
-		ConvertLegacyPlans: &convertLegacyPlansDefault,
-		EnrichWithTemplate: &enrichWithTemplateDefault,
-		ShowPlanDefaults:   &showPlanDefaultsDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewGetEsClusterPendingPlanParamsWithHTTPClient creates a new GetEsClusterPendingPlanParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetEsClusterPendingPlanParamsWithHTTPClient(client *http.Client) *GetEsClusterPendingPlanParams {
-	var (
-		convertLegacyPlansDefault = bool(false)
-		enrichWithTemplateDefault = bool(false)
-		showPlanDefaultsDefault   = bool(false)
-	)
 	return &GetEsClusterPendingPlanParams{
-		ConvertLegacyPlans: &convertLegacyPlansDefault,
-		EnrichWithTemplate: &enrichWithTemplateDefault,
-		ShowPlanDefaults:   &showPlanDefaultsDefault,
-		HTTPClient:         client,
+		HTTPClient: client,
 	}
 }
 
-/*GetEsClusterPendingPlanParams contains all the parameters to send to the API endpoint
-for the get es cluster pending plan operation typically these are written to a http.Request
+/* GetEsClusterPendingPlanParams contains all the parameters to send to the API endpoint
+   for the get es cluster pending plan operation.
+
+   Typically these are written to a http.Request.
 */
 type GetEsClusterPendingPlanParams struct {
 
-	/*ClusterID
-	  The Elasticsearch cluster identifier.
+	/* ClusterID.
 
+	   The Elasticsearch cluster identifier.
 	*/
 	ClusterID string
-	/*ConvertLegacyPlans
-	  When `true`, converts the plans to the 2.0.x format. When `false`, uses the 1.x format. The default is `false`.
 
+	/* ConvertLegacyPlans.
+
+	   When `true`, converts the plans to the 2.0.x format. When `false`, uses the 1.x format. The default is `false`.
 	*/
 	ConvertLegacyPlans *bool
-	/*EnrichWithTemplate
-	  When plans are shown, includes the missing elements from the applicable deployment template.
 
+	/* EnrichWithTemplate.
+
+	   When plans are shown, includes the missing elements from the applicable deployment template.
 	*/
 	EnrichWithTemplate *bool
-	/*ShowPlanDefaults
-	  When plans are shown, includes the default values in the response. NOTE: This option results in large responses.
 
+	/* ShowPlanDefaults.
+
+	   When plans are shown, includes the default values in the response. NOTE: This option results in large responses.
 	*/
 	ShowPlanDefaults *bool
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get es cluster pending plan params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetEsClusterPendingPlanParams) WithDefaults() *GetEsClusterPendingPlanParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get es cluster pending plan params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetEsClusterPendingPlanParams) SetDefaults() {
+	var (
+		convertLegacyPlansDefault = bool(false)
+
+		enrichWithTemplateDefault = bool(false)
+
+		showPlanDefaultsDefault = bool(false)
+	)
+
+	val := GetEsClusterPendingPlanParams{
+		ConvertLegacyPlans: &convertLegacyPlansDefault,
+		EnrichWithTemplate: &enrichWithTemplateDefault,
+		ShowPlanDefaults:   &showPlanDefaultsDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the get es cluster pending plan params
@@ -226,48 +232,51 @@ func (o *GetEsClusterPendingPlanParams) WriteToRequest(r runtime.ClientRequest, 
 
 		// query param convert_legacy_plans
 		var qrConvertLegacyPlans bool
+
 		if o.ConvertLegacyPlans != nil {
 			qrConvertLegacyPlans = *o.ConvertLegacyPlans
 		}
 		qConvertLegacyPlans := swag.FormatBool(qrConvertLegacyPlans)
 		if qConvertLegacyPlans != "" {
+
 			if err := r.SetQueryParam("convert_legacy_plans", qConvertLegacyPlans); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.EnrichWithTemplate != nil {
 
 		// query param enrich_with_template
 		var qrEnrichWithTemplate bool
+
 		if o.EnrichWithTemplate != nil {
 			qrEnrichWithTemplate = *o.EnrichWithTemplate
 		}
 		qEnrichWithTemplate := swag.FormatBool(qrEnrichWithTemplate)
 		if qEnrichWithTemplate != "" {
+
 			if err := r.SetQueryParam("enrich_with_template", qEnrichWithTemplate); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.ShowPlanDefaults != nil {
 
 		// query param show_plan_defaults
 		var qrShowPlanDefaults bool
+
 		if o.ShowPlanDefaults != nil {
 			qrShowPlanDefaults = *o.ShowPlanDefaults
 		}
 		qShowPlanDefaults := swag.FormatBool(qrShowPlanDefaults)
 		if qShowPlanDefaults != "" {
+
 			if err := r.SetQueryParam("show_plan_defaults", qShowPlanDefaults); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

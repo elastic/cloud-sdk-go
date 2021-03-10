@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -78,7 +79,6 @@ func (m *KibanaClusterPlansInfo) Validate(formats strfmt.Registry) error {
 }
 
 func (m *KibanaClusterPlansInfo) validateCurrent(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Current) { // not required
 		return nil
 	}
@@ -130,13 +130,80 @@ func (m *KibanaClusterPlansInfo) validateHistory(formats strfmt.Registry) error 
 }
 
 func (m *KibanaClusterPlansInfo) validatePending(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Pending) { // not required
 		return nil
 	}
 
 	if m.Pending != nil {
 		if err := m.Pending.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("pending")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this kibana cluster plans info based on the context it is used
+func (m *KibanaClusterPlansInfo) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateCurrent(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateHistory(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidatePending(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *KibanaClusterPlansInfo) contextValidateCurrent(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Current != nil {
+		if err := m.Current.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("current")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *KibanaClusterPlansInfo) contextValidateHistory(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.History); i++ {
+
+		if m.History[i] != nil {
+			if err := m.History[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("history" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *KibanaClusterPlansInfo) contextValidatePending(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Pending != nil {
+		if err := m.Pending.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("pending")
 			}

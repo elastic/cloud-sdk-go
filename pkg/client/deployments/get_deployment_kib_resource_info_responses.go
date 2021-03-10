@@ -58,7 +58,6 @@ func (o *GetDeploymentKibResourceInfoReader) ReadResponse(response runtime.Clien
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,7 +68,7 @@ func NewGetDeploymentKibResourceInfoOK() *GetDeploymentKibResourceInfoOK {
 	return &GetDeploymentKibResourceInfoOK{}
 }
 
-/*GetDeploymentKibResourceInfoOK handles this case with default header values.
+/* GetDeploymentKibResourceInfoOK describes a response with status code 200, with default header values.
 
 Standard response.
 */
@@ -80,7 +79,6 @@ type GetDeploymentKibResourceInfoOK struct {
 func (o *GetDeploymentKibResourceInfoOK) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/kibana/{ref_id}][%d] getDeploymentKibResourceInfoOK  %+v", 200, o.Payload)
 }
-
 func (o *GetDeploymentKibResourceInfoOK) GetPayload() *models.KibanaResourceInfo {
 	return o.Payload
 }
@@ -102,12 +100,13 @@ func NewGetDeploymentKibResourceInfoNotFound() *GetDeploymentKibResourceInfoNotF
 	return &GetDeploymentKibResourceInfoNotFound{}
 }
 
-/*GetDeploymentKibResourceInfoNotFound handles this case with default header values.
+/* GetDeploymentKibResourceInfoNotFound describes a response with status code 404, with default header values.
 
 The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
 */
 type GetDeploymentKibResourceInfoNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -117,15 +116,18 @@ type GetDeploymentKibResourceInfoNotFound struct {
 func (o *GetDeploymentKibResourceInfoNotFound) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/kibana/{ref_id}][%d] getDeploymentKibResourceInfoNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetDeploymentKibResourceInfoNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *GetDeploymentKibResourceInfoNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -142,12 +144,13 @@ func NewGetDeploymentKibResourceInfoInternalServerError() *GetDeploymentKibResou
 	return &GetDeploymentKibResourceInfoInternalServerError{}
 }
 
-/*GetDeploymentKibResourceInfoInternalServerError handles this case with default header values.
+/* GetDeploymentKibResourceInfoInternalServerError describes a response with status code 500, with default header values.
 
 We have failed you. (code: `deployments.deployment_resource_no_longer_exists`)
 */
 type GetDeploymentKibResourceInfoInternalServerError struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -157,15 +160,18 @@ type GetDeploymentKibResourceInfoInternalServerError struct {
 func (o *GetDeploymentKibResourceInfoInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/kibana/{ref_id}][%d] getDeploymentKibResourceInfoInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *GetDeploymentKibResourceInfoInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *GetDeploymentKibResourceInfoInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

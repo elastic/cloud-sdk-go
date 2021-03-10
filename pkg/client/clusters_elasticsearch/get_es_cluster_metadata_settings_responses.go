@@ -52,7 +52,6 @@ func (o *GetEsClusterMetadataSettingsReader) ReadResponse(response runtime.Clien
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,18 +62,21 @@ func NewGetEsClusterMetadataSettingsOK() *GetEsClusterMetadataSettingsOK {
 	return &GetEsClusterMetadataSettingsOK{}
 }
 
-/*GetEsClusterMetadataSettingsOK handles this case with default header values.
+/* GetEsClusterMetadataSettingsOK describes a response with status code 200, with default header values.
 
 The cluster metadata was successfully returned
 */
 type GetEsClusterMetadataSettingsOK struct {
-	/*The date-time when the resource was created (ISO format relative to UTC)
+
+	/* The date-time when the resource was created (ISO format relative to UTC)
 	 */
 	XCloudResourceCreated string
-	/*The date-time when the resource was last modified (ISO format relative to UTC)
+
+	/* The date-time when the resource was last modified (ISO format relative to UTC)
 	 */
 	XCloudResourceLastModified string
-	/*The resource version, which is used to avoid update conflicts with concurrent operations
+
+	/* The resource version, which is used to avoid update conflicts with concurrent operations
 	 */
 	XCloudResourceVersion string
 
@@ -84,21 +86,32 @@ type GetEsClusterMetadataSettingsOK struct {
 func (o *GetEsClusterMetadataSettingsOK) Error() string {
 	return fmt.Sprintf("[GET /clusters/elasticsearch/{cluster_id}/metadata/settings][%d] getEsClusterMetadataSettingsOK  %+v", 200, o.Payload)
 }
-
 func (o *GetEsClusterMetadataSettingsOK) GetPayload() *models.ClusterMetadataSettings {
 	return o.Payload
 }
 
 func (o *GetEsClusterMetadataSettingsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-resource-created
-	o.XCloudResourceCreated = response.GetHeader("x-cloud-resource-created")
+	// hydrates response header x-cloud-resource-created
+	hdrXCloudResourceCreated := response.GetHeader("x-cloud-resource-created")
 
-	// response header x-cloud-resource-last-modified
-	o.XCloudResourceLastModified = response.GetHeader("x-cloud-resource-last-modified")
+	if hdrXCloudResourceCreated != "" {
+		o.XCloudResourceCreated = hdrXCloudResourceCreated
+	}
 
-	// response header x-cloud-resource-version
-	o.XCloudResourceVersion = response.GetHeader("x-cloud-resource-version")
+	// hydrates response header x-cloud-resource-last-modified
+	hdrXCloudResourceLastModified := response.GetHeader("x-cloud-resource-last-modified")
+
+	if hdrXCloudResourceLastModified != "" {
+		o.XCloudResourceLastModified = hdrXCloudResourceLastModified
+	}
+
+	// hydrates response header x-cloud-resource-version
+	hdrXCloudResourceVersion := response.GetHeader("x-cloud-resource-version")
+
+	if hdrXCloudResourceVersion != "" {
+		o.XCloudResourceVersion = hdrXCloudResourceVersion
+	}
 
 	o.Payload = new(models.ClusterMetadataSettings)
 
@@ -115,7 +128,7 @@ func NewGetEsClusterMetadataSettingsNotFound() *GetEsClusterMetadataSettingsNotF
 	return &GetEsClusterMetadataSettingsNotFound{}
 }
 
-/*GetEsClusterMetadataSettingsNotFound handles this case with default header values.
+/* GetEsClusterMetadataSettingsNotFound describes a response with status code 404, with default header values.
 
 The cluster specified by {cluster_id} cannot be found (code: 'clusters.cluster_not_found')
 */
@@ -126,7 +139,6 @@ type GetEsClusterMetadataSettingsNotFound struct {
 func (o *GetEsClusterMetadataSettingsNotFound) Error() string {
 	return fmt.Sprintf("[GET /clusters/elasticsearch/{cluster_id}/metadata/settings][%d] getEsClusterMetadataSettingsNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetEsClusterMetadataSettingsNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

@@ -42,19 +42,22 @@ type Client struct {
 	formats   strfmt.Registry
 }
 
+// ClientOption is the option for Client methods
+type ClientOption func(*runtime.ClientOperation)
+
 // ClientService is the interface for Client methods
 type ClientService interface {
-	DeleteVersionStack(params *DeleteVersionStackParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteVersionStackOK, error)
+	DeleteVersionStack(params *DeleteVersionStackParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteVersionStackOK, error)
 
-	GetInstanceTypes(params *GetInstanceTypesParams, authInfo runtime.ClientAuthInfoWriter) (*GetInstanceTypesOK, error)
+	GetInstanceTypes(params *GetInstanceTypesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetInstanceTypesOK, error)
 
-	GetVersionStack(params *GetVersionStackParams, authInfo runtime.ClientAuthInfoWriter) (*GetVersionStackOK, error)
+	GetVersionStack(params *GetVersionStackParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetVersionStackOK, error)
 
-	GetVersionStacks(params *GetVersionStacksParams, authInfo runtime.ClientAuthInfoWriter) (*GetVersionStacksOK, error)
+	GetVersionStacks(params *GetVersionStacksParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetVersionStacksOK, error)
 
-	UpdateStackPacks(params *UpdateStackPacksParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateStackPacksOK, error)
+	UpdateStackPacks(params *UpdateStackPacksParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateStackPacksOK, error)
 
-	UpdateVersionStack(params *UpdateVersionStackParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateVersionStackOK, error)
+	UpdateVersionStack(params *UpdateVersionStackParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateVersionStackOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
@@ -64,13 +67,12 @@ type ClientService interface {
 
   Uses the `deleted` flag, which removes only that version of the Elastic Stack from the list of available versions. To restore the version, send an update request. For more information, see the PUT request.
 */
-func (a *Client) DeleteVersionStack(params *DeleteVersionStackParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteVersionStackOK, error) {
+func (a *Client) DeleteVersionStack(params *DeleteVersionStackParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteVersionStackOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteVersionStackParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "delete-version-stack",
 		Method:             "DELETE",
 		PathPattern:        "/stack/versions/{version}",
@@ -82,7 +84,12 @@ func (a *Client) DeleteVersionStack(params *DeleteVersionStackParams, authInfo r
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -101,13 +108,12 @@ func (a *Client) DeleteVersionStack(params *DeleteVersionStackParams, authInfo r
 
   Retrieves a list of all instance types.
 */
-func (a *Client) GetInstanceTypes(params *GetInstanceTypesParams, authInfo runtime.ClientAuthInfoWriter) (*GetInstanceTypesOK, error) {
+func (a *Client) GetInstanceTypes(params *GetInstanceTypesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetInstanceTypesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetInstanceTypesParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-instance-types",
 		Method:             "GET",
 		PathPattern:        "/stack/instance-types",
@@ -119,7 +125,12 @@ func (a *Client) GetInstanceTypes(params *GetInstanceTypesParams, authInfo runti
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -138,13 +149,12 @@ func (a *Client) GetInstanceTypes(params *GetInstanceTypesParams, authInfo runti
 
   Retrieves the Elastic Stack version and template.
 */
-func (a *Client) GetVersionStack(params *GetVersionStackParams, authInfo runtime.ClientAuthInfoWriter) (*GetVersionStackOK, error) {
+func (a *Client) GetVersionStack(params *GetVersionStackParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetVersionStackOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetVersionStackParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-version-stack",
 		Method:             "GET",
 		PathPattern:        "/stack/versions/{version}",
@@ -156,7 +166,12 @@ func (a *Client) GetVersionStack(params *GetVersionStackParams, authInfo runtime
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -175,13 +190,12 @@ func (a *Client) GetVersionStack(params *GetVersionStackParams, authInfo runtime
 
   By default, retrieves only the available Elastic Stack versions. To retrieve all of the Elastic Stack versions, use the `show_deleted parameter`.
 */
-func (a *Client) GetVersionStacks(params *GetVersionStacksParams, authInfo runtime.ClientAuthInfoWriter) (*GetVersionStacksOK, error) {
+func (a *Client) GetVersionStacks(params *GetVersionStacksParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetVersionStacksOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetVersionStacksParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "get-version-stacks",
 		Method:             "GET",
 		PathPattern:        "/stack/versions",
@@ -193,7 +207,12 @@ func (a *Client) GetVersionStacks(params *GetVersionStacksParams, authInfo runti
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -214,13 +233,12 @@ func (a *Client) GetVersionStacks(params *GetVersionStacksParams, authInfo runti
 The endpoint supports `multipart/form-data` requests, as well as `application/zip` and `application/octet-stream` requests with a binary body. The maximum size of the payload is 1Mb.
 When the archive contains an Elastic Stack configuration that is available through the API, the configuration and template are overwritten.
 */
-func (a *Client) UpdateStackPacks(params *UpdateStackPacksParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateStackPacksOK, error) {
+func (a *Client) UpdateStackPacks(params *UpdateStackPacksParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateStackPacksOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateStackPacksParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "update-stack-packs",
 		Method:             "POST",
 		PathPattern:        "/stack/versions",
@@ -232,7 +250,12 @@ func (a *Client) UpdateStackPacks(params *UpdateStackPacksParams, authInfo runti
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}
@@ -251,13 +274,12 @@ func (a *Client) UpdateStackPacks(params *UpdateStackPacksParams, authInfo runti
 
   Updates the Elastic Stack version configuration.
 */
-func (a *Client) UpdateVersionStack(params *UpdateVersionStackParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateVersionStackOK, error) {
+func (a *Client) UpdateVersionStack(params *UpdateVersionStackParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateVersionStackOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateVersionStackParams()
 	}
-
-	result, err := a.transport.Submit(&runtime.ClientOperation{
+	op := &runtime.ClientOperation{
 		ID:                 "update-version-stack",
 		Method:             "PUT",
 		PathPattern:        "/stack/versions/{version}",
@@ -269,7 +291,12 @@ func (a *Client) UpdateVersionStack(params *UpdateVersionStackParams, authInfo r
 		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
-	})
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
 	if err != nil {
 		return nil, err
 	}

@@ -46,7 +46,6 @@ func (o *GetTLSCertificateReader) ReadResponse(response runtime.ClientResponse, 
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,7 +56,7 @@ func NewGetTLSCertificateOK() *GetTLSCertificateOK {
 	return &GetTLSCertificateOK{}
 }
 
-/*GetTLSCertificateOK handles this case with default header values.
+/* GetTLSCertificateOK describes a response with status code 200, with default header values.
 
 The TLS certificate chain, with private key omitted, for the given service and whether it was user specified
 */
@@ -68,7 +67,6 @@ type GetTLSCertificateOK struct {
 func (o *GetTLSCertificateOK) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/security/tls/{service_name}][%d] getTlsCertificateOK  %+v", 200, o.Payload)
 }
-
 func (o *GetTLSCertificateOK) GetPayload() *models.TLSPublicCertChain {
 	return o.Payload
 }

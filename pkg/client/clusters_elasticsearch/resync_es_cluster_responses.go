@@ -58,7 +58,6 @@ func (o *ResyncEsClusterReader) ReadResponse(response runtime.ClientResponse, co
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,7 +68,7 @@ func NewResyncEsClusterOK() *ResyncEsClusterOK {
 	return &ResyncEsClusterOK{}
 }
 
-/*ResyncEsClusterOK handles this case with default header values.
+/* ResyncEsClusterOK describes a response with status code 200, with default header values.
 
 The cluster resync operation executed successfully
 */
@@ -80,7 +79,6 @@ type ResyncEsClusterOK struct {
 func (o *ResyncEsClusterOK) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/_resync][%d] resyncEsClusterOK  %+v", 200, o.Payload)
 }
-
 func (o *ResyncEsClusterOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -100,12 +98,13 @@ func NewResyncEsClusterRetryWith() *ResyncEsClusterRetryWith {
 	return &ResyncEsClusterRetryWith{}
 }
 
-/*ResyncEsClusterRetryWith handles this case with default header values.
+/* ResyncEsClusterRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type ResyncEsClusterRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -115,15 +114,18 @@ type ResyncEsClusterRetryWith struct {
 func (o *ResyncEsClusterRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/_resync][%d] resyncEsClusterRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *ResyncEsClusterRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *ResyncEsClusterRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -140,12 +142,13 @@ func NewResyncEsClusterInternalServerError() *ResyncEsClusterInternalServerError
 	return &ResyncEsClusterInternalServerError{}
 }
 
-/*ResyncEsClusterInternalServerError handles this case with default header values.
+/* ResyncEsClusterInternalServerError describes a response with status code 500, with default header values.
 
 The cluster resync operation failed for cluster {cluster_id}. (code: `clusters.resync_failed`)
 */
 type ResyncEsClusterInternalServerError struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -155,15 +158,18 @@ type ResyncEsClusterInternalServerError struct {
 func (o *ResyncEsClusterInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/_resync][%d] resyncEsClusterInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *ResyncEsClusterInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *ResyncEsClusterInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

@@ -52,7 +52,6 @@ func (o *GetTrafficFilterRulesetsReader) ReadResponse(response runtime.ClientRes
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,7 +62,7 @@ func NewGetTrafficFilterRulesetsOK() *GetTrafficFilterRulesetsOK {
 	return &GetTrafficFilterRulesetsOK{}
 }
 
-/*GetTrafficFilterRulesetsOK handles this case with default header values.
+/* GetTrafficFilterRulesetsOK describes a response with status code 200, with default header values.
 
 The collection of traffic filter routes
 */
@@ -74,7 +73,6 @@ type GetTrafficFilterRulesetsOK struct {
 func (o *GetTrafficFilterRulesetsOK) Error() string {
 	return fmt.Sprintf("[GET /deployments/traffic-filter/rulesets][%d] getTrafficFilterRulesetsOK  %+v", 200, o.Payload)
 }
-
 func (o *GetTrafficFilterRulesetsOK) GetPayload() *models.TrafficFilterRulesets {
 	return o.Payload
 }
@@ -96,12 +94,13 @@ func NewGetTrafficFilterRulesetsInternalServerError() *GetTrafficFilterRulesetsI
 	return &GetTrafficFilterRulesetsInternalServerError{}
 }
 
-/*GetTrafficFilterRulesetsInternalServerError handles this case with default header values.
+/* GetTrafficFilterRulesetsInternalServerError describes a response with status code 500, with default header values.
 
 Error fetching traffic filter rulesets. (code: `traffic_filter.request_execution_failed`)
 */
 type GetTrafficFilterRulesetsInternalServerError struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -111,15 +110,18 @@ type GetTrafficFilterRulesetsInternalServerError struct {
 func (o *GetTrafficFilterRulesetsInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /deployments/traffic-filter/rulesets][%d] getTrafficFilterRulesetsInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *GetTrafficFilterRulesetsInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *GetTrafficFilterRulesetsInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

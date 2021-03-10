@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -147,13 +148,84 @@ func (m *ContainersEntryOptions) validateEnabled(formats strfmt.Registry) error 
 }
 
 func (m *ContainersEntryOptions) validateOverrides(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Overrides) { // not required
 		return nil
 	}
 
 	if m.Overrides != nil {
 		if err := m.Overrides.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("overrides")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this containers entry options based on the context it is used
+func (m *ContainersEntryOptions) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAcls(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateAuths(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateOverrides(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ContainersEntryOptions) contextValidateAcls(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Acls); i++ {
+
+		if m.Acls[i] != nil {
+			if err := m.Acls[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("acls" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *ContainersEntryOptions) contextValidateAuths(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Auths); i++ {
+
+		if m.Auths[i] != nil {
+			if err := m.Auths[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("auths" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *ContainersEntryOptions) contextValidateOverrides(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Overrides != nil {
+		if err := m.Overrides.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("overrides")
 			}

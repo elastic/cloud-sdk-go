@@ -33,69 +33,85 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewStopDeploymentResourceInstancesAllParams creates a new StopDeploymentResourceInstancesAllParams object
-// with the default values initialized.
+// NewStopDeploymentResourceInstancesAllParams creates a new StopDeploymentResourceInstancesAllParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewStopDeploymentResourceInstancesAllParams() *StopDeploymentResourceInstancesAllParams {
-	var ()
 	return &StopDeploymentResourceInstancesAllParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewStopDeploymentResourceInstancesAllParamsWithTimeout creates a new StopDeploymentResourceInstancesAllParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewStopDeploymentResourceInstancesAllParamsWithTimeout(timeout time.Duration) *StopDeploymentResourceInstancesAllParams {
-	var ()
 	return &StopDeploymentResourceInstancesAllParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewStopDeploymentResourceInstancesAllParamsWithContext creates a new StopDeploymentResourceInstancesAllParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewStopDeploymentResourceInstancesAllParamsWithContext(ctx context.Context) *StopDeploymentResourceInstancesAllParams {
-	var ()
 	return &StopDeploymentResourceInstancesAllParams{
-
 		Context: ctx,
 	}
 }
 
 // NewStopDeploymentResourceInstancesAllParamsWithHTTPClient creates a new StopDeploymentResourceInstancesAllParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewStopDeploymentResourceInstancesAllParamsWithHTTPClient(client *http.Client) *StopDeploymentResourceInstancesAllParams {
-	var ()
 	return &StopDeploymentResourceInstancesAllParams{
 		HTTPClient: client,
 	}
 }
 
-/*StopDeploymentResourceInstancesAllParams contains all the parameters to send to the API endpoint
-for the stop deployment resource instances all operation typically these are written to a http.Request
+/* StopDeploymentResourceInstancesAllParams contains all the parameters to send to the API endpoint
+   for the stop deployment resource instances all operation.
+
+   Typically these are written to a http.Request.
 */
 type StopDeploymentResourceInstancesAllParams struct {
 
-	/*DeploymentID
-	  Identifier for the Deployment.
+	/* DeploymentID.
 
+	   Identifier for the Deployment.
 	*/
 	DeploymentID string
-	/*RefID
-	  User-specified RefId for the Resource.
 
+	/* RefID.
+
+	   User-specified RefId for the Resource.
 	*/
 	RefID string
-	/*ResourceKind
-	  The kind of resource (one of elasticsearch, kibana or apm).
 
+	/* ResourceKind.
+
+	   The kind of resource (one of elasticsearch, kibana or apm).
 	*/
 	ResourceKind string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the stop deployment resource instances all params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *StopDeploymentResourceInstancesAllParams) WithDefaults() *StopDeploymentResourceInstancesAllParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the stop deployment resource instances all params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *StopDeploymentResourceInstancesAllParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the stop deployment resource instances all params

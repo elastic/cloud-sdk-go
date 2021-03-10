@@ -64,7 +64,6 @@ func (o *UpdateBlueprinterRoleReader) ReadResponse(response runtime.ClientRespon
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,7 +74,7 @@ func NewUpdateBlueprinterRoleOK() *UpdateBlueprinterRoleOK {
 	return &UpdateBlueprinterRoleOK{}
 }
 
-/*UpdateBlueprinterRoleOK handles this case with default header values.
+/* UpdateBlueprinterRoleOK describes a response with status code 200, with default header values.
 
 The role was successfully updated.
 */
@@ -86,7 +85,6 @@ type UpdateBlueprinterRoleOK struct {
 func (o *UpdateBlueprinterRoleOK) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/blueprinter/roles/{blueprinter_role_id}][%d] updateBlueprinterRoleOK  %+v", 200, o.Payload)
 }
-
 func (o *UpdateBlueprinterRoleOK) GetPayload() *models.RoleAggregate {
 	return o.Payload
 }
@@ -108,12 +106,13 @@ func NewUpdateBlueprinterRoleBadRequest() *UpdateBlueprinterRoleBadRequest {
 	return &UpdateBlueprinterRoleBadRequest{}
 }
 
-/*UpdateBlueprinterRoleBadRequest handles this case with default header values.
+/* UpdateBlueprinterRoleBadRequest describes a response with status code 400, with default header values.
 
 The role is currently running container sets. (code: `roles.in_use`)
 */
 type UpdateBlueprinterRoleBadRequest struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -123,15 +122,18 @@ type UpdateBlueprinterRoleBadRequest struct {
 func (o *UpdateBlueprinterRoleBadRequest) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/blueprinter/roles/{blueprinter_role_id}][%d] updateBlueprinterRoleBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *UpdateBlueprinterRoleBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *UpdateBlueprinterRoleBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -148,12 +150,13 @@ func NewUpdateBlueprinterRoleNotFound() *UpdateBlueprinterRoleNotFound {
 	return &UpdateBlueprinterRoleNotFound{}
 }
 
-/*UpdateBlueprinterRoleNotFound handles this case with default header values.
+/* UpdateBlueprinterRoleNotFound describes a response with status code 404, with default header values.
 
 The role can't be found. (code: `roles.not_found`)
 */
 type UpdateBlueprinterRoleNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -163,15 +166,18 @@ type UpdateBlueprinterRoleNotFound struct {
 func (o *UpdateBlueprinterRoleNotFound) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/blueprinter/roles/{blueprinter_role_id}][%d] updateBlueprinterRoleNotFound  %+v", 404, o.Payload)
 }
-
 func (o *UpdateBlueprinterRoleNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *UpdateBlueprinterRoleNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -188,12 +194,13 @@ func NewUpdateBlueprinterRoleConflict() *UpdateBlueprinterRoleConflict {
 	return &UpdateBlueprinterRoleConflict{}
 }
 
-/*UpdateBlueprinterRoleConflict handles this case with default header values.
+/* UpdateBlueprinterRoleConflict describes a response with status code 409, with default header values.
 
 Your request failed because the specified version does not match the persisted version. (code: `roles.version_conflict`)
 */
 type UpdateBlueprinterRoleConflict struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -203,15 +210,18 @@ type UpdateBlueprinterRoleConflict struct {
 func (o *UpdateBlueprinterRoleConflict) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/blueprinter/roles/{blueprinter_role_id}][%d] updateBlueprinterRoleConflict  %+v", 409, o.Payload)
 }
-
 func (o *UpdateBlueprinterRoleConflict) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *UpdateBlueprinterRoleConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

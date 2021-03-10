@@ -64,7 +64,6 @@ func (o *DeleteBlueprinterRoleReader) ReadResponse(response runtime.ClientRespon
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,7 +74,7 @@ func NewDeleteBlueprinterRoleOK() *DeleteBlueprinterRoleOK {
 	return &DeleteBlueprinterRoleOK{}
 }
 
-/*DeleteBlueprinterRoleOK handles this case with default header values.
+/* DeleteBlueprinterRoleOK describes a response with status code 200, with default header values.
 
 The role was successfully deleted.
 */
@@ -86,7 +85,6 @@ type DeleteBlueprinterRoleOK struct {
 func (o *DeleteBlueprinterRoleOK) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/blueprinter/roles/{blueprinter_role_id}][%d] deleteBlueprinterRoleOK  %+v", 200, o.Payload)
 }
-
 func (o *DeleteBlueprinterRoleOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -106,12 +104,13 @@ func NewDeleteBlueprinterRoleBadRequest() *DeleteBlueprinterRoleBadRequest {
 	return &DeleteBlueprinterRoleBadRequest{}
 }
 
-/*DeleteBlueprinterRoleBadRequest handles this case with default header values.
+/* DeleteBlueprinterRoleBadRequest describes a response with status code 400, with default header values.
 
 The role is currently running container sets. (code: `roles.in_use`)
 */
 type DeleteBlueprinterRoleBadRequest struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -121,15 +120,18 @@ type DeleteBlueprinterRoleBadRequest struct {
 func (o *DeleteBlueprinterRoleBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/blueprinter/roles/{blueprinter_role_id}][%d] deleteBlueprinterRoleBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *DeleteBlueprinterRoleBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *DeleteBlueprinterRoleBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -146,12 +148,13 @@ func NewDeleteBlueprinterRoleNotFound() *DeleteBlueprinterRoleNotFound {
 	return &DeleteBlueprinterRoleNotFound{}
 }
 
-/*DeleteBlueprinterRoleNotFound handles this case with default header values.
+/* DeleteBlueprinterRoleNotFound describes a response with status code 404, with default header values.
 
 The role can't be found. (code: `roles.not_found`)
 */
 type DeleteBlueprinterRoleNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -161,15 +164,18 @@ type DeleteBlueprinterRoleNotFound struct {
 func (o *DeleteBlueprinterRoleNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/blueprinter/roles/{blueprinter_role_id}][%d] deleteBlueprinterRoleNotFound  %+v", 404, o.Payload)
 }
-
 func (o *DeleteBlueprinterRoleNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *DeleteBlueprinterRoleNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -186,12 +192,13 @@ func NewDeleteBlueprinterRoleConflict() *DeleteBlueprinterRoleConflict {
 	return &DeleteBlueprinterRoleConflict{}
 }
 
-/*DeleteBlueprinterRoleConflict handles this case with default header values.
+/* DeleteBlueprinterRoleConflict describes a response with status code 409, with default header values.
 
 Your request failed because the specified version does not match the persisted version. (code: `roles.version_conflict`)
 */
 type DeleteBlueprinterRoleConflict struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -201,15 +208,18 @@ type DeleteBlueprinterRoleConflict struct {
 func (o *DeleteBlueprinterRoleConflict) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/blueprinter/roles/{blueprinter_role_id}][%d] deleteBlueprinterRoleConflict  %+v", 409, o.Payload)
 }
-
 func (o *DeleteBlueprinterRoleConflict) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *DeleteBlueprinterRoleConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

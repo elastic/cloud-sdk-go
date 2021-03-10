@@ -60,7 +60,7 @@ func AssertRequest(want *RequestAssertion, req *http.Request) error {
 			}
 			if !reflect.DeepEqual(wantB, gotB) {
 				merr = merr.Append(
-					fmt.Errorf("got body %s, want %s", gotB, wantB),
+					fmt.Errorf("actual body %s, expected %s", gotB, wantB),
 				)
 			}
 		}
@@ -68,32 +68,32 @@ func AssertRequest(want *RequestAssertion, req *http.Request) error {
 
 	if !reflect.DeepEqual(want.Header, req.Header) {
 		merr = merr.Append(fmt.Errorf(
-			"headers do not match: %v != %v", want.Header, req.Header),
+			"headers do not match (expected != actual): %v != %v", want.Header, req.Header),
 		)
 	}
 
 	if !reflect.DeepEqual(want.Method, req.Method) {
 		merr = merr.Append(fmt.Errorf(
-			"methods do not match: %s != %s", want.Method, req.Method),
+			"methods do not match (expected != actual): %s != %s", want.Method, req.Method),
 		)
 	}
 
 	if req.URL != nil {
 		if !reflect.DeepEqual(want.Path, req.URL.Path) {
 			merr = merr.Append(fmt.Errorf(
-				"paths do not match: %s != %s", want.Path, req.URL.Path),
+				"paths do not match (expected != actual): %s != %s", want.Path, req.URL.Path),
 			)
 		}
 		if (len(req.URL.Query()) > 0 || len(want.Query) > 0) && !reflect.DeepEqual(want.Query, req.URL.Query()) {
 			merr = merr.Append(fmt.Errorf(
-				"query does not match: %s != %s", want.Query, req.URL.Query()),
+				"query does not match (expected != actual): %s != %s", want.Query, req.URL.Query()),
 			)
 		}
 	}
 
 	if !reflect.DeepEqual(want.Host, req.Host) {
 		merr = merr.Append(fmt.Errorf(
-			"hosts do not match: %s != %s", want.Host, req.Host),
+			"hosts do not match (expected != actual): %s != %s", want.Host, req.Host),
 		)
 	}
 

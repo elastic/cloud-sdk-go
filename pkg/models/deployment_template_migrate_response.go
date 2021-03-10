@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -61,6 +63,34 @@ func (m *DeploymentTemplateMigrateResponse) validateResources(formats strfmt.Reg
 
 	if m.Resources != nil {
 		if err := m.Resources.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("resources")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this deployment template migrate response based on the context it is used
+func (m *DeploymentTemplateMigrateResponse) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateResources(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *DeploymentTemplateMigrateResponse) contextValidateResources(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Resources != nil {
+		if err := m.Resources.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("resources")
 			}

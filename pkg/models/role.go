@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -45,6 +46,7 @@ type Role struct {
 	Containers []*ContainersEntry `json:"containers"`
 
 	// The unique id of this role
+	// Example: constructor
 	// Required: true
 	ID *string `json:"id"`
 }
@@ -109,6 +111,38 @@ func (m *Role) validateID(formats strfmt.Registry) error {
 
 	if err := validate.Required("id", "body", m.ID); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this role based on the context it is used
+func (m *Role) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateContainers(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *Role) contextValidateContainers(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Containers); i++ {
+
+		if m.Containers[i] != nil {
+			if err := m.Containers[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("containers" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil

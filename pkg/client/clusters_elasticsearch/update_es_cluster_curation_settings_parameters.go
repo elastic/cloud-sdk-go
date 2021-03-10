@@ -36,69 +36,85 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewUpdateEsClusterCurationSettingsParams creates a new UpdateEsClusterCurationSettingsParams object
-// with the default values initialized.
+// NewUpdateEsClusterCurationSettingsParams creates a new UpdateEsClusterCurationSettingsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewUpdateEsClusterCurationSettingsParams() *UpdateEsClusterCurationSettingsParams {
-	var ()
 	return &UpdateEsClusterCurationSettingsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewUpdateEsClusterCurationSettingsParamsWithTimeout creates a new UpdateEsClusterCurationSettingsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewUpdateEsClusterCurationSettingsParamsWithTimeout(timeout time.Duration) *UpdateEsClusterCurationSettingsParams {
-	var ()
 	return &UpdateEsClusterCurationSettingsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewUpdateEsClusterCurationSettingsParamsWithContext creates a new UpdateEsClusterCurationSettingsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewUpdateEsClusterCurationSettingsParamsWithContext(ctx context.Context) *UpdateEsClusterCurationSettingsParams {
-	var ()
 	return &UpdateEsClusterCurationSettingsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewUpdateEsClusterCurationSettingsParamsWithHTTPClient creates a new UpdateEsClusterCurationSettingsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewUpdateEsClusterCurationSettingsParamsWithHTTPClient(client *http.Client) *UpdateEsClusterCurationSettingsParams {
-	var ()
 	return &UpdateEsClusterCurationSettingsParams{
 		HTTPClient: client,
 	}
 }
 
-/*UpdateEsClusterCurationSettingsParams contains all the parameters to send to the API endpoint
-for the update es cluster curation settings operation typically these are written to a http.Request
+/* UpdateEsClusterCurationSettingsParams contains all the parameters to send to the API endpoint
+   for the update es cluster curation settings operation.
+
+   Typically these are written to a http.Request.
 */
 type UpdateEsClusterCurationSettingsParams struct {
 
-	/*Body
-	  The cluster curation settings including updated values
+	/* Body.
 
+	   The cluster curation settings including updated values
 	*/
 	Body *models.ClusterCurationSettings
-	/*ClusterID
-	  The Elasticsearch cluster identifier.
 
+	/* ClusterID.
+
+	   The Elasticsearch cluster identifier.
 	*/
 	ClusterID string
-	/*Version
-	  If specified then checks for conflicts against the version of the cluster curation settings (returned in 'x-cloud-resource-version' of the GET request)
 
+	/* Version.
+
+	   If specified then checks for conflicts against the version of the cluster curation settings (returned in 'x-cloud-resource-version' of the GET request)
 	*/
 	Version *int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the update es cluster curation settings params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdateEsClusterCurationSettingsParams) WithDefaults() *UpdateEsClusterCurationSettingsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the update es cluster curation settings params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdateEsClusterCurationSettingsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the update es cluster curation settings params
@@ -174,7 +190,6 @@ func (o *UpdateEsClusterCurationSettingsParams) WriteToRequest(r runtime.ClientR
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err
@@ -190,16 +205,17 @@ func (o *UpdateEsClusterCurationSettingsParams) WriteToRequest(r runtime.ClientR
 
 		// query param version
 		var qrVersion int64
+
 		if o.Version != nil {
 			qrVersion = *o.Version
 		}
 		qVersion := swag.FormatInt64(qrVersion)
 		if qVersion != "" {
+
 			if err := r.SetQueryParam("version", qVersion); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

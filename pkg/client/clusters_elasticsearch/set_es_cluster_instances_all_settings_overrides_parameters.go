@@ -36,81 +36,96 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewSetEsClusterInstancesAllSettingsOverridesParams creates a new SetEsClusterInstancesAllSettingsOverridesParams object
-// with the default values initialized.
+// NewSetEsClusterInstancesAllSettingsOverridesParams creates a new SetEsClusterInstancesAllSettingsOverridesParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewSetEsClusterInstancesAllSettingsOverridesParams() *SetEsClusterInstancesAllSettingsOverridesParams {
-	var (
-		restartAfterUpdateDefault = bool(false)
-	)
 	return &SetEsClusterInstancesAllSettingsOverridesParams{
-		RestartAfterUpdate: &restartAfterUpdateDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewSetEsClusterInstancesAllSettingsOverridesParamsWithTimeout creates a new SetEsClusterInstancesAllSettingsOverridesParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewSetEsClusterInstancesAllSettingsOverridesParamsWithTimeout(timeout time.Duration) *SetEsClusterInstancesAllSettingsOverridesParams {
-	var (
-		restartAfterUpdateDefault = bool(false)
-	)
 	return &SetEsClusterInstancesAllSettingsOverridesParams{
-		RestartAfterUpdate: &restartAfterUpdateDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewSetEsClusterInstancesAllSettingsOverridesParamsWithContext creates a new SetEsClusterInstancesAllSettingsOverridesParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewSetEsClusterInstancesAllSettingsOverridesParamsWithContext(ctx context.Context) *SetEsClusterInstancesAllSettingsOverridesParams {
-	var (
-		restartAfterUpdateDefault = bool(false)
-	)
 	return &SetEsClusterInstancesAllSettingsOverridesParams{
-		RestartAfterUpdate: &restartAfterUpdateDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewSetEsClusterInstancesAllSettingsOverridesParamsWithHTTPClient creates a new SetEsClusterInstancesAllSettingsOverridesParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewSetEsClusterInstancesAllSettingsOverridesParamsWithHTTPClient(client *http.Client) *SetEsClusterInstancesAllSettingsOverridesParams {
-	var (
-		restartAfterUpdateDefault = bool(false)
-	)
 	return &SetEsClusterInstancesAllSettingsOverridesParams{
-		RestartAfterUpdate: &restartAfterUpdateDefault,
-		HTTPClient:         client,
+		HTTPClient: client,
 	}
 }
 
-/*SetEsClusterInstancesAllSettingsOverridesParams contains all the parameters to send to the API endpoint
-for the set es cluster instances all settings overrides operation typically these are written to a http.Request
+/* SetEsClusterInstancesAllSettingsOverridesParams contains all the parameters to send to the API endpoint
+   for the set es cluster instances all settings overrides operation.
+
+   Typically these are written to a http.Request.
 */
 type SetEsClusterInstancesAllSettingsOverridesParams struct {
 
-	/*Body
-	  The settings to override for the instances
+	/* Body.
 
+	   The settings to override for the instances
 	*/
 	Body *models.ElasticsearchClusterInstanceSettingsOverrides
-	/*ClusterID
-	  The Elasticsearch cluster identifier.
 
+	/* ClusterID.
+
+	   The Elasticsearch cluster identifier.
 	*/
 	ClusterID string
-	/*RestartAfterUpdate
-	  After overrides are applied, restarts the instances.
 
+	/* RestartAfterUpdate.
+
+	   After overrides are applied, restarts the instances.
 	*/
 	RestartAfterUpdate *bool
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the set es cluster instances all settings overrides params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetEsClusterInstancesAllSettingsOverridesParams) WithDefaults() *SetEsClusterInstancesAllSettingsOverridesParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the set es cluster instances all settings overrides params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetEsClusterInstancesAllSettingsOverridesParams) SetDefaults() {
+	var (
+		restartAfterUpdateDefault = bool(false)
+	)
+
+	val := SetEsClusterInstancesAllSettingsOverridesParams{
+		RestartAfterUpdate: &restartAfterUpdateDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the set es cluster instances all settings overrides params
@@ -186,7 +201,6 @@ func (o *SetEsClusterInstancesAllSettingsOverridesParams) WriteToRequest(r runti
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err
@@ -202,16 +216,17 @@ func (o *SetEsClusterInstancesAllSettingsOverridesParams) WriteToRequest(r runti
 
 		// query param restart_after_update
 		var qrRestartAfterUpdate bool
+
 		if o.RestartAfterUpdate != nil {
 			qrRestartAfterUpdate = *o.RestartAfterUpdate
 		}
 		qRestartAfterUpdate := swag.FormatBool(qrRestartAfterUpdate)
 		if qRestartAfterUpdate != "" {
+
 			if err := r.SetQueryParam("restart_after_update", qRestartAfterUpdate); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

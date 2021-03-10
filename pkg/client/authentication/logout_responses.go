@@ -58,7 +58,6 @@ func (o *LogoutReader) ReadResponse(response runtime.ClientResponse, consumer ru
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,7 +68,7 @@ func NewLogoutOK() *LogoutOK {
 	return &LogoutOK{}
 }
 
-/*LogoutOK handles this case with default header values.
+/* LogoutOK describes a response with status code 200, with default header values.
 
 The current session was successfully destroyed.
 */
@@ -80,7 +79,6 @@ type LogoutOK struct {
 func (o *LogoutOK) Error() string {
 	return fmt.Sprintf("[POST /users/auth/_logout][%d] logoutOK  %+v", 200, o.Payload)
 }
-
 func (o *LogoutOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -100,12 +98,13 @@ func NewLogoutNotImplemented() *LogoutNotImplemented {
 	return &LogoutNotImplemented{}
 }
 
-/*LogoutNotImplemented handles this case with default header values.
+/* LogoutNotImplemented describes a response with status code 501, with default header values.
 
 The administrator needs to configure the authentication cluster. (code: `authc.no_authentication_cluster`)
 */
 type LogoutNotImplemented struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -115,15 +114,18 @@ type LogoutNotImplemented struct {
 func (o *LogoutNotImplemented) Error() string {
 	return fmt.Sprintf("[POST /users/auth/_logout][%d] logoutNotImplemented  %+v", 501, o.Payload)
 }
-
 func (o *LogoutNotImplemented) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *LogoutNotImplemented) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -140,12 +142,13 @@ func NewLogoutBadGateway() *LogoutBadGateway {
 	return &LogoutBadGateway{}
 }
 
-/*LogoutBadGateway handles this case with default header values.
+/* LogoutBadGateway describes a response with status code 502, with default header values.
 
 The authentication cluster failed to process the request. The response body contains details about the error. (code: `authc.authentication_cluster_error`)
 */
 type LogoutBadGateway struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -155,15 +158,18 @@ type LogoutBadGateway struct {
 func (o *LogoutBadGateway) Error() string {
 	return fmt.Sprintf("[POST /users/auth/_logout][%d] logoutBadGateway  %+v", 502, o.Payload)
 }
-
 func (o *LogoutBadGateway) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *LogoutBadGateway) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -55,6 +57,10 @@ func (m *PendingStates) Validate(formats strfmt.Registry) error {
 
 func (m *PendingStates) validateRunnerIdsToPendingState(formats strfmt.Registry) error {
 
+	if err := validate.Required("runner_ids_to_pending_state", "body", m.RunnerIdsToPendingState); err != nil {
+		return err
+	}
+
 	for k := range m.RunnerIdsToPendingState {
 
 		if err := validate.Required("runner_ids_to_pending_state"+"."+k, "body", m.RunnerIdsToPendingState[k]); err != nil {
@@ -62,6 +68,39 @@ func (m *PendingStates) validateRunnerIdsToPendingState(formats strfmt.Registry)
 		}
 		if val, ok := m.RunnerIdsToPendingState[k]; ok {
 			if err := val.Validate(formats); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this pending states based on the context it is used
+func (m *PendingStates) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateRunnerIdsToPendingState(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *PendingStates) contextValidateRunnerIdsToPendingState(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := validate.Required("runner_ids_to_pending_state", "body", m.RunnerIdsToPendingState); err != nil {
+		return err
+	}
+
+	for k := range m.RunnerIdsToPendingState {
+
+		if val, ok := m.RunnerIdsToPendingState[k]; ok {
+			if err := val.ContextValidate(ctx, formats); err != nil {
 				return err
 			}
 		}

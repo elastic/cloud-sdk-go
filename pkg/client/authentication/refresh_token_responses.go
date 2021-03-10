@@ -64,7 +64,6 @@ func (o *RefreshTokenReader) ReadResponse(response runtime.ClientResponse, consu
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,7 +74,7 @@ func NewRefreshTokenOK() *RefreshTokenOK {
 	return &RefreshTokenOK{}
 }
 
-/*RefreshTokenOK handles this case with default header values.
+/* RefreshTokenOK describes a response with status code 200, with default header values.
 
 The token refreshed successfully and was returned in the body of the response.
 */
@@ -86,7 +85,6 @@ type RefreshTokenOK struct {
 func (o *RefreshTokenOK) Error() string {
 	return fmt.Sprintf("[POST /users/auth/_refresh][%d] refreshTokenOK  %+v", 200, o.Payload)
 }
-
 func (o *RefreshTokenOK) GetPayload() *models.TokenResponse {
 	return o.Payload
 }
@@ -108,12 +106,13 @@ func NewRefreshTokenUnauthorized() *RefreshTokenUnauthorized {
 	return &RefreshTokenUnauthorized{}
 }
 
-/*RefreshTokenUnauthorized handles this case with default header values.
+/* RefreshTokenUnauthorized describes a response with status code 401, with default header values.
 
 The authentication token is invalid or expired. (code: `root.unauthorized`)
 */
 type RefreshTokenUnauthorized struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -123,15 +122,18 @@ type RefreshTokenUnauthorized struct {
 func (o *RefreshTokenUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /users/auth/_refresh][%d] refreshTokenUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *RefreshTokenUnauthorized) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *RefreshTokenUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -148,12 +150,13 @@ func NewRefreshTokenNotImplemented() *RefreshTokenNotImplemented {
 	return &RefreshTokenNotImplemented{}
 }
 
-/*RefreshTokenNotImplemented handles this case with default header values.
+/* RefreshTokenNotImplemented describes a response with status code 501, with default header values.
 
 The administrator needs to configure the authentication cluster. (code: `authc.no_authentication_cluster`)
 */
 type RefreshTokenNotImplemented struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -163,15 +166,18 @@ type RefreshTokenNotImplemented struct {
 func (o *RefreshTokenNotImplemented) Error() string {
 	return fmt.Sprintf("[POST /users/auth/_refresh][%d] refreshTokenNotImplemented  %+v", 501, o.Payload)
 }
-
 func (o *RefreshTokenNotImplemented) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *RefreshTokenNotImplemented) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -188,12 +194,13 @@ func NewRefreshTokenBadGateway() *RefreshTokenBadGateway {
 	return &RefreshTokenBadGateway{}
 }
 
-/*RefreshTokenBadGateway handles this case with default header values.
+/* RefreshTokenBadGateway describes a response with status code 502, with default header values.
 
 The authentication cluster failed to process the request. The response body contains details about the error. (code: `authc.authentication_cluster_error`)
 */
 type RefreshTokenBadGateway struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -203,15 +210,18 @@ type RefreshTokenBadGateway struct {
 func (o *RefreshTokenBadGateway) Error() string {
 	return fmt.Sprintf("[POST /users/auth/_refresh][%d] refreshTokenBadGateway  %+v", 502, o.Payload)
 }
-
 func (o *RefreshTokenBadGateway) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *RefreshTokenBadGateway) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

@@ -34,76 +34,90 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewRestartKibanaClusterParams creates a new RestartKibanaClusterParams object
-// with the default values initialized.
+// NewRestartKibanaClusterParams creates a new RestartKibanaClusterParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewRestartKibanaClusterParams() *RestartKibanaClusterParams {
-	var (
-		cancelPendingDefault = bool(false)
-	)
 	return &RestartKibanaClusterParams{
-		CancelPending: &cancelPendingDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewRestartKibanaClusterParamsWithTimeout creates a new RestartKibanaClusterParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewRestartKibanaClusterParamsWithTimeout(timeout time.Duration) *RestartKibanaClusterParams {
-	var (
-		cancelPendingDefault = bool(false)
-	)
 	return &RestartKibanaClusterParams{
-		CancelPending: &cancelPendingDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewRestartKibanaClusterParamsWithContext creates a new RestartKibanaClusterParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewRestartKibanaClusterParamsWithContext(ctx context.Context) *RestartKibanaClusterParams {
-	var (
-		cancelPendingDefault = bool(false)
-	)
 	return &RestartKibanaClusterParams{
-		CancelPending: &cancelPendingDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewRestartKibanaClusterParamsWithHTTPClient creates a new RestartKibanaClusterParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewRestartKibanaClusterParamsWithHTTPClient(client *http.Client) *RestartKibanaClusterParams {
-	var (
-		cancelPendingDefault = bool(false)
-	)
 	return &RestartKibanaClusterParams{
-		CancelPending: &cancelPendingDefault,
-		HTTPClient:    client,
+		HTTPClient: client,
 	}
 }
 
-/*RestartKibanaClusterParams contains all the parameters to send to the API endpoint
-for the restart kibana cluster operation typically these are written to a http.Request
+/* RestartKibanaClusterParams contains all the parameters to send to the API endpoint
+   for the restart kibana cluster operation.
+
+   Typically these are written to a http.Request.
 */
 type RestartKibanaClusterParams struct {
 
-	/*CancelPending
-	  When `true`, cancels the pending plans, then restarts the cluster.
+	/* CancelPending.
 
+	   When `true`, cancels the pending plans, then restarts the cluster.
 	*/
 	CancelPending *bool
-	/*ClusterID
-	  The Kibana deployment identifier.
 
+	/* ClusterID.
+
+	   The Kibana deployment identifier.
 	*/
 	ClusterID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the restart kibana cluster params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *RestartKibanaClusterParams) WithDefaults() *RestartKibanaClusterParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the restart kibana cluster params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *RestartKibanaClusterParams) SetDefaults() {
+	var (
+		cancelPendingDefault = bool(false)
+	)
+
+	val := RestartKibanaClusterParams{
+		CancelPending: &cancelPendingDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the restart kibana cluster params
@@ -173,16 +187,17 @@ func (o *RestartKibanaClusterParams) WriteToRequest(r runtime.ClientRequest, reg
 
 		// query param cancel_pending
 		var qrCancelPending bool
+
 		if o.CancelPending != nil {
 			qrCancelPending = *o.CancelPending
 		}
 		qCancelPending := swag.FormatBool(qrCancelPending)
 		if qCancelPending != "" {
+
 			if err := r.SetQueryParam("cancel_pending", qCancelPending); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	// path param cluster_id

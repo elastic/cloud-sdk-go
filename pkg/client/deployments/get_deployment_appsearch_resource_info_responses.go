@@ -58,7 +58,6 @@ func (o *GetDeploymentAppsearchResourceInfoReader) ReadResponse(response runtime
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,7 +68,7 @@ func NewGetDeploymentAppsearchResourceInfoOK() *GetDeploymentAppsearchResourceIn
 	return &GetDeploymentAppsearchResourceInfoOK{}
 }
 
-/*GetDeploymentAppsearchResourceInfoOK handles this case with default header values.
+/* GetDeploymentAppsearchResourceInfoOK describes a response with status code 200, with default header values.
 
 Standard response.
 */
@@ -80,7 +79,6 @@ type GetDeploymentAppsearchResourceInfoOK struct {
 func (o *GetDeploymentAppsearchResourceInfoOK) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/appsearch/{ref_id}][%d] getDeploymentAppsearchResourceInfoOK  %+v", 200, o.Payload)
 }
-
 func (o *GetDeploymentAppsearchResourceInfoOK) GetPayload() *models.AppSearchResourceInfo {
 	return o.Payload
 }
@@ -102,12 +100,13 @@ func NewGetDeploymentAppsearchResourceInfoNotFound() *GetDeploymentAppsearchReso
 	return &GetDeploymentAppsearchResourceInfoNotFound{}
 }
 
-/*GetDeploymentAppsearchResourceInfoNotFound handles this case with default header values.
+/* GetDeploymentAppsearchResourceInfoNotFound describes a response with status code 404, with default header values.
 
 The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
 */
 type GetDeploymentAppsearchResourceInfoNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -117,15 +116,18 @@ type GetDeploymentAppsearchResourceInfoNotFound struct {
 func (o *GetDeploymentAppsearchResourceInfoNotFound) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/appsearch/{ref_id}][%d] getDeploymentAppsearchResourceInfoNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetDeploymentAppsearchResourceInfoNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *GetDeploymentAppsearchResourceInfoNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -142,12 +144,13 @@ func NewGetDeploymentAppsearchResourceInfoInternalServerError() *GetDeploymentAp
 	return &GetDeploymentAppsearchResourceInfoInternalServerError{}
 }
 
-/*GetDeploymentAppsearchResourceInfoInternalServerError handles this case with default header values.
+/* GetDeploymentAppsearchResourceInfoInternalServerError describes a response with status code 500, with default header values.
 
 We have failed you. (code: `deployments.deployment_resource_no_longer_exists`)
 */
 type GetDeploymentAppsearchResourceInfoInternalServerError struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -157,15 +160,18 @@ type GetDeploymentAppsearchResourceInfoInternalServerError struct {
 func (o *GetDeploymentAppsearchResourceInfoInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/appsearch/{ref_id}][%d] getDeploymentAppsearchResourceInfoInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *GetDeploymentAppsearchResourceInfoInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *GetDeploymentAppsearchResourceInfoInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

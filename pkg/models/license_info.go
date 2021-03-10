@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -140,7 +141,6 @@ func (m *LicenseInfo) Validate(formats strfmt.Registry) error {
 }
 
 func (m *LicenseInfo) validateClusterLicenses(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.ClusterLicenses) { // not required
 		return nil
 	}
@@ -231,6 +231,38 @@ func (m *LicenseInfo) validateUID(formats strfmt.Registry) error {
 
 	if err := validate.Required("uid", "body", m.UID); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this license info based on the context it is used
+func (m *LicenseInfo) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateClusterLicenses(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *LicenseInfo) contextValidateClusterLicenses(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.ClusterLicenses); i++ {
+
+		if m.ClusterLicenses[i] != nil {
+			if err := m.ClusterLicenses[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("cluster_licenses" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil

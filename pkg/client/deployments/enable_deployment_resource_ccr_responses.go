@@ -58,7 +58,6 @@ func (o *EnableDeploymentResourceCcrReader) ReadResponse(response runtime.Client
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,7 +68,7 @@ func NewEnableDeploymentResourceCcrOK() *EnableDeploymentResourceCcrOK {
 	return &EnableDeploymentResourceCcrOK{}
 }
 
-/*EnableDeploymentResourceCcrOK handles this case with default header values.
+/* EnableDeploymentResourceCcrOK describes a response with status code 200, with default header values.
 
 Standard response
 */
@@ -80,7 +79,6 @@ type EnableDeploymentResourceCcrOK struct {
 func (o *EnableDeploymentResourceCcrOK) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_enable-ccr][%d] enableDeploymentResourceCcrOK  %+v", 200, o.Payload)
 }
-
 func (o *EnableDeploymentResourceCcrOK) GetPayload() *models.DeploymentResourceCommandResponse {
 	return o.Payload
 }
@@ -102,13 +100,14 @@ func NewEnableDeploymentResourceCcrNotFound() *EnableDeploymentResourceCcrNotFou
 	return &EnableDeploymentResourceCcrNotFound{}
 }
 
-/*EnableDeploymentResourceCcrNotFound handles this case with default header values.
+/* EnableDeploymentResourceCcrNotFound describes a response with status code 404, with default header values.
 
-* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+ * The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
 * The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)
- */
+*/
 type EnableDeploymentResourceCcrNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -118,15 +117,18 @@ type EnableDeploymentResourceCcrNotFound struct {
 func (o *EnableDeploymentResourceCcrNotFound) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_enable-ccr][%d] enableDeploymentResourceCcrNotFound  %+v", 404, o.Payload)
 }
-
 func (o *EnableDeploymentResourceCcrNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *EnableDeploymentResourceCcrNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -143,12 +145,13 @@ func NewEnableDeploymentResourceCcrRetryWith() *EnableDeploymentResourceCcrRetry
 	return &EnableDeploymentResourceCcrRetryWith{}
 }
 
-/*EnableDeploymentResourceCcrRetryWith handles this case with default header values.
+/* EnableDeploymentResourceCcrRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type EnableDeploymentResourceCcrRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -158,15 +161,18 @@ type EnableDeploymentResourceCcrRetryWith struct {
 func (o *EnableDeploymentResourceCcrRetryWith) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_enable-ccr][%d] enableDeploymentResourceCcrRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *EnableDeploymentResourceCcrRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *EnableDeploymentResourceCcrRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

@@ -58,7 +58,6 @@ func (o *GetIPFilterRulesetReader) ReadResponse(response runtime.ClientResponse,
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,18 +68,21 @@ func NewGetIPFilterRulesetOK() *GetIPFilterRulesetOK {
 	return &GetIPFilterRulesetOK{}
 }
 
-/*GetIPFilterRulesetOK handles this case with default header values.
+/* GetIPFilterRulesetOK describes a response with status code 200, with default header values.
 
 The IP filter ruleset was successfully returned
 */
 type GetIPFilterRulesetOK struct {
-	/*The date-time when the resource was created (ISO format relative to UTC)
+
+	/* The date-time when the resource was created (ISO format relative to UTC)
 	 */
 	XCloudResourceCreated string
-	/*The date-time when the resource was last modified (ISO format relative to UTC)
+
+	/* The date-time when the resource was last modified (ISO format relative to UTC)
 	 */
 	XCloudResourceLastModified string
-	/*The resource version, which is used to avoid update conflicts with concurrent operations
+
+	/* The resource version, which is used to avoid update conflicts with concurrent operations
 	 */
 	XCloudResourceVersion string
 
@@ -90,21 +92,32 @@ type GetIPFilterRulesetOK struct {
 func (o *GetIPFilterRulesetOK) Error() string {
 	return fmt.Sprintf("[GET /deployments/ip-filtering/rulesets/{ruleset_id}][%d] getIpFilterRulesetOK  %+v", 200, o.Payload)
 }
-
 func (o *GetIPFilterRulesetOK) GetPayload() *models.IPFilterRuleset {
 	return o.Payload
 }
 
 func (o *GetIPFilterRulesetOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-resource-created
-	o.XCloudResourceCreated = response.GetHeader("x-cloud-resource-created")
+	// hydrates response header x-cloud-resource-created
+	hdrXCloudResourceCreated := response.GetHeader("x-cloud-resource-created")
 
-	// response header x-cloud-resource-last-modified
-	o.XCloudResourceLastModified = response.GetHeader("x-cloud-resource-last-modified")
+	if hdrXCloudResourceCreated != "" {
+		o.XCloudResourceCreated = hdrXCloudResourceCreated
+	}
 
-	// response header x-cloud-resource-version
-	o.XCloudResourceVersion = response.GetHeader("x-cloud-resource-version")
+	// hydrates response header x-cloud-resource-last-modified
+	hdrXCloudResourceLastModified := response.GetHeader("x-cloud-resource-last-modified")
+
+	if hdrXCloudResourceLastModified != "" {
+		o.XCloudResourceLastModified = hdrXCloudResourceLastModified
+	}
+
+	// hydrates response header x-cloud-resource-version
+	hdrXCloudResourceVersion := response.GetHeader("x-cloud-resource-version")
+
+	if hdrXCloudResourceVersion != "" {
+		o.XCloudResourceVersion = hdrXCloudResourceVersion
+	}
 
 	o.Payload = new(models.IPFilterRuleset)
 
@@ -121,7 +134,7 @@ func NewGetIPFilterRulesetNotFound() *GetIPFilterRulesetNotFound {
 	return &GetIPFilterRulesetNotFound{}
 }
 
-/*GetIPFilterRulesetNotFound handles this case with default header values.
+/* GetIPFilterRulesetNotFound describes a response with status code 404, with default header values.
 
 The IP filter ruleset specified by {ruleset_id} cannot be found (code: 'ip_filtering.ruleset_not_found')
 */
@@ -132,7 +145,6 @@ type GetIPFilterRulesetNotFound struct {
 func (o *GetIPFilterRulesetNotFound) Error() string {
 	return fmt.Sprintf("[GET /deployments/ip-filtering/rulesets/{ruleset_id}][%d] getIpFilterRulesetNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetIPFilterRulesetNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -154,7 +166,7 @@ func NewGetIPFilterRulesetInternalServerError() *GetIPFilterRulesetInternalServe
 	return &GetIPFilterRulesetInternalServerError{}
 }
 
-/*GetIPFilterRulesetInternalServerError handles this case with default header values.
+/* GetIPFilterRulesetInternalServerError describes a response with status code 500, with default header values.
 
 The request execution failed (code: 'ip_filtering.request_execution_failed')
 */
@@ -165,7 +177,6 @@ type GetIPFilterRulesetInternalServerError struct {
 func (o *GetIPFilterRulesetInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /deployments/ip-filtering/rulesets/{ruleset_id}][%d] getIpFilterRulesetInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *GetIPFilterRulesetInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

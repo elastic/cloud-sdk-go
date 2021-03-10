@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -52,13 +54,40 @@ func (m *AccountUpdateRequest) Validate(formats strfmt.Registry) error {
 }
 
 func (m *AccountUpdateRequest) validateTrust(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Trust) { // not required
 		return nil
 	}
 
 	if m.Trust != nil {
 		if err := m.Trust.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("trust")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this account update request based on the context it is used
+func (m *AccountUpdateRequest) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateTrust(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *AccountUpdateRequest) contextValidateTrust(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Trust != nil {
+		if err := m.Trust.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("trust")
 			}

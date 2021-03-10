@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -60,7 +61,6 @@ func (m *DeploymentUpdateMetadata) Validate(formats strfmt.Registry) error {
 }
 
 func (m *DeploymentUpdateMetadata) validateTags(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Tags) { // not required
 		return nil
 	}
@@ -72,6 +72,38 @@ func (m *DeploymentUpdateMetadata) validateTags(formats strfmt.Registry) error {
 
 		if m.Tags[i] != nil {
 			if err := m.Tags[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("tags" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this deployment update metadata based on the context it is used
+func (m *DeploymentUpdateMetadata) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateTags(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *DeploymentUpdateMetadata) contextValidateTags(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Tags); i++ {
+
+		if m.Tags[i] != nil {
+			if err := m.Tags[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("tags" + "." + strconv.Itoa(i))
 				}

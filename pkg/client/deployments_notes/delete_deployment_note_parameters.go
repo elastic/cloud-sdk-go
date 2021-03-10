@@ -33,69 +33,85 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewDeleteDeploymentNoteParams creates a new DeleteDeploymentNoteParams object
-// with the default values initialized.
+// NewDeleteDeploymentNoteParams creates a new DeleteDeploymentNoteParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewDeleteDeploymentNoteParams() *DeleteDeploymentNoteParams {
-	var ()
 	return &DeleteDeploymentNoteParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteDeploymentNoteParamsWithTimeout creates a new DeleteDeploymentNoteParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewDeleteDeploymentNoteParamsWithTimeout(timeout time.Duration) *DeleteDeploymentNoteParams {
-	var ()
 	return &DeleteDeploymentNoteParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewDeleteDeploymentNoteParamsWithContext creates a new DeleteDeploymentNoteParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewDeleteDeploymentNoteParamsWithContext(ctx context.Context) *DeleteDeploymentNoteParams {
-	var ()
 	return &DeleteDeploymentNoteParams{
-
 		Context: ctx,
 	}
 }
 
 // NewDeleteDeploymentNoteParamsWithHTTPClient creates a new DeleteDeploymentNoteParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewDeleteDeploymentNoteParamsWithHTTPClient(client *http.Client) *DeleteDeploymentNoteParams {
-	var ()
 	return &DeleteDeploymentNoteParams{
 		HTTPClient: client,
 	}
 }
 
-/*DeleteDeploymentNoteParams contains all the parameters to send to the API endpoint
-for the delete deployment note operation typically these are written to a http.Request
+/* DeleteDeploymentNoteParams contains all the parameters to send to the API endpoint
+   for the delete deployment note operation.
+
+   Typically these are written to a http.Request.
 */
 type DeleteDeploymentNoteParams struct {
 
-	/*DeploymentID
-	  Identifier for the deployment
+	/* DeploymentID.
 
+	   Identifier for the deployment
 	*/
 	DeploymentID string
-	/*NoteID
-	  Identifier of the note to be deleted
 
+	/* NoteID.
+
+	   Identifier of the note to be deleted
 	*/
 	NoteID string
-	/*Version
-	  If specified then checks for conflicts against the version of the deployment note
 
+	/* Version.
+
+	   If specified then checks for conflicts against the version of the deployment note
 	*/
 	Version *string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the delete deployment note params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteDeploymentNoteParams) WithDefaults() *DeleteDeploymentNoteParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the delete deployment note params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteDeploymentNoteParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete deployment note params
@@ -186,16 +202,17 @@ func (o *DeleteDeploymentNoteParams) WriteToRequest(r runtime.ClientRequest, reg
 
 		// query param version
 		var qrVersion string
+
 		if o.Version != nil {
 			qrVersion = *o.Version
 		}
 		qVersion := qrVersion
 		if qVersion != "" {
+
 			if err := r.SetQueryParam("version", qVersion); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

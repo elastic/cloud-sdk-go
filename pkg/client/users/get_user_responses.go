@@ -52,7 +52,6 @@ func (o *GetUserReader) ReadResponse(response runtime.ClientResponse, consumer r
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,7 +62,7 @@ func NewGetUserOK() *GetUserOK {
 	return &GetUserOK{}
 }
 
-/*GetUserOK handles this case with default header values.
+/* GetUserOK describes a response with status code 200, with default header values.
 
 User successfully fetched
 */
@@ -74,7 +73,6 @@ type GetUserOK struct {
 func (o *GetUserOK) Error() string {
 	return fmt.Sprintf("[GET /users/{user_name}][%d] getUserOK  %+v", 200, o.Payload)
 }
-
 func (o *GetUserOK) GetPayload() *models.User {
 	return o.Payload
 }
@@ -96,12 +94,13 @@ func NewGetUserNotFound() *GetUserNotFound {
 	return &GetUserNotFound{}
 }
 
-/*GetUserNotFound handles this case with default header values.
+/* GetUserNotFound describes a response with status code 404, with default header values.
 
 User not found. (code: `user.not_found`)
 */
 type GetUserNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -111,15 +110,18 @@ type GetUserNotFound struct {
 func (o *GetUserNotFound) Error() string {
 	return fmt.Sprintf("[GET /users/{user_name}][%d] getUserNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetUserNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *GetUserNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

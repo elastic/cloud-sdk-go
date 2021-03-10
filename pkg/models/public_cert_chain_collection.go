@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -55,6 +57,10 @@ func (m *PublicCertChainCollection) Validate(formats strfmt.Registry) error {
 
 func (m *PublicCertChainCollection) validateCerts(formats strfmt.Registry) error {
 
+	if err := validate.Required("certs", "body", m.Certs); err != nil {
+		return err
+	}
+
 	for k := range m.Certs {
 
 		if err := validate.Required("certs"+"."+k, "body", m.Certs[k]); err != nil {
@@ -62,6 +68,39 @@ func (m *PublicCertChainCollection) validateCerts(formats strfmt.Registry) error
 		}
 		if val, ok := m.Certs[k]; ok {
 			if err := val.Validate(formats); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this public cert chain collection based on the context it is used
+func (m *PublicCertChainCollection) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateCerts(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *PublicCertChainCollection) contextValidateCerts(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := validate.Required("certs", "body", m.Certs); err != nil {
+		return err
+	}
+
+	for k := range m.Certs {
+
+		if val, ok := m.Certs[k]; ok {
+			if err := val.ContextValidate(ctx, formats); err != nil {
 				return err
 			}
 		}

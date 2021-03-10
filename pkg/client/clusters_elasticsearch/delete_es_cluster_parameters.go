@@ -33,59 +33,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewDeleteEsClusterParams creates a new DeleteEsClusterParams object
-// with the default values initialized.
+// NewDeleteEsClusterParams creates a new DeleteEsClusterParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewDeleteEsClusterParams() *DeleteEsClusterParams {
-	var ()
 	return &DeleteEsClusterParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteEsClusterParamsWithTimeout creates a new DeleteEsClusterParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewDeleteEsClusterParamsWithTimeout(timeout time.Duration) *DeleteEsClusterParams {
-	var ()
 	return &DeleteEsClusterParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewDeleteEsClusterParamsWithContext creates a new DeleteEsClusterParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewDeleteEsClusterParamsWithContext(ctx context.Context) *DeleteEsClusterParams {
-	var ()
 	return &DeleteEsClusterParams{
-
 		Context: ctx,
 	}
 }
 
 // NewDeleteEsClusterParamsWithHTTPClient creates a new DeleteEsClusterParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewDeleteEsClusterParamsWithHTTPClient(client *http.Client) *DeleteEsClusterParams {
-	var ()
 	return &DeleteEsClusterParams{
 		HTTPClient: client,
 	}
 }
 
-/*DeleteEsClusterParams contains all the parameters to send to the API endpoint
-for the delete es cluster operation typically these are written to a http.Request
+/* DeleteEsClusterParams contains all the parameters to send to the API endpoint
+   for the delete es cluster operation.
+
+   Typically these are written to a http.Request.
 */
 type DeleteEsClusterParams struct {
 
-	/*ClusterID
-	  The Elasticsearch cluster identifier.
+	/* ClusterID.
 
+	   The Elasticsearch cluster identifier.
 	*/
 	ClusterID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the delete es cluster params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteEsClusterParams) WithDefaults() *DeleteEsClusterParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the delete es cluster params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteEsClusterParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete es cluster params

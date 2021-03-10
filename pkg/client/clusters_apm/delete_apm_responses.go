@@ -64,7 +64,6 @@ func (o *DeleteApmReader) ReadResponse(response runtime.ClientResponse, consumer
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,7 +74,7 @@ func NewDeleteApmOK() *DeleteApmOK {
 	return &DeleteApmOK{}
 }
 
-/*DeleteApmOK handles this case with default header values.
+/* DeleteApmOK describes a response with status code 200, with default header values.
 
 The APM server is deleted.
 */
@@ -86,7 +85,6 @@ type DeleteApmOK struct {
 func (o *DeleteApmOK) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/apm/{cluster_id}][%d] deleteApmOK  %+v", 200, o.Payload)
 }
-
 func (o *DeleteApmOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -106,7 +104,7 @@ func NewDeleteApmNotFound() *DeleteApmNotFound {
 	return &DeleteApmNotFound{}
 }
 
-/*DeleteApmNotFound handles this case with default header values.
+/* DeleteApmNotFound describes a response with status code 404, with default header values.
 
 The {cluster_id} can't be found. (code: 'clusters.cluster_not_found')
 */
@@ -117,7 +115,6 @@ type DeleteApmNotFound struct {
 func (o *DeleteApmNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/apm/{cluster_id}][%d] deleteApmNotFound  %+v", 404, o.Payload)
 }
-
 func (o *DeleteApmNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -139,7 +136,7 @@ func NewDeleteApmPreconditionFailed() *DeleteApmPreconditionFailed {
 	return &DeleteApmPreconditionFailed{}
 }
 
-/*DeleteApmPreconditionFailed handles this case with default header values.
+/* DeleteApmPreconditionFailed describes a response with status code 412, with default header values.
 
 To delete the APM server, you must first shut it down. (code: 'clusters.cluster_plan_state_error')
 */
@@ -150,7 +147,6 @@ type DeleteApmPreconditionFailed struct {
 func (o *DeleteApmPreconditionFailed) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/apm/{cluster_id}][%d] deleteApmPreconditionFailed  %+v", 412, o.Payload)
 }
-
 func (o *DeleteApmPreconditionFailed) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -172,7 +168,7 @@ func NewDeleteApmRetryWith() *DeleteApmRetryWith {
 	return &DeleteApmRetryWith{}
 }
 
-/*DeleteApmRetryWith handles this case with default header values.
+/* DeleteApmRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: '"root.needs_elevated_permissions"')
 */
@@ -183,7 +179,6 @@ type DeleteApmRetryWith struct {
 func (o *DeleteApmRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/apm/{cluster_id}][%d] deleteApmRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *DeleteApmRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

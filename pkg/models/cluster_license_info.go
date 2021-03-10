@@ -23,10 +23,11 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
-	"github.com/go-openapi/validate"
 )
 
 // ClusterLicenseInfo Information about the Elasticsearch cluster license.
@@ -55,10 +56,15 @@ func (m *ClusterLicenseInfo) Validate(formats strfmt.Registry) error {
 
 func (m *ClusterLicenseInfo) validateLicense(formats strfmt.Registry) error {
 
-	if err := validate.Required("license", "body", m.License); err != nil {
-		return err
+	if m.License == nil {
+		return errors.Required("license", "body", nil)
 	}
 
+	return nil
+}
+
+// ContextValidate validates this cluster license info based on context it is used
+func (m *ClusterLicenseInfo) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

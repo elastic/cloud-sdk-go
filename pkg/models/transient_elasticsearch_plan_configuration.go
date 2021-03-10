@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -84,7 +86,6 @@ func (m *TransientElasticsearchPlanConfiguration) Validate(formats strfmt.Regist
 }
 
 func (m *TransientElasticsearchPlanConfiguration) validatePlanConfiguration(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.PlanConfiguration) { // not required
 		return nil
 	}
@@ -102,7 +103,6 @@ func (m *TransientElasticsearchPlanConfiguration) validatePlanConfiguration(form
 }
 
 func (m *TransientElasticsearchPlanConfiguration) validateRemoteClusters(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.RemoteClusters) { // not required
 		return nil
 	}
@@ -120,7 +120,6 @@ func (m *TransientElasticsearchPlanConfiguration) validateRemoteClusters(formats
 }
 
 func (m *TransientElasticsearchPlanConfiguration) validateRestoreSnapshot(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.RestoreSnapshot) { // not required
 		return nil
 	}
@@ -138,13 +137,94 @@ func (m *TransientElasticsearchPlanConfiguration) validateRestoreSnapshot(format
 }
 
 func (m *TransientElasticsearchPlanConfiguration) validateStrategy(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Strategy) { // not required
 		return nil
 	}
 
 	if m.Strategy != nil {
 		if err := m.Strategy.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("strategy")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this transient elasticsearch plan configuration based on the context it is used
+func (m *TransientElasticsearchPlanConfiguration) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidatePlanConfiguration(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateRemoteClusters(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateRestoreSnapshot(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateStrategy(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *TransientElasticsearchPlanConfiguration) contextValidatePlanConfiguration(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.PlanConfiguration != nil {
+		if err := m.PlanConfiguration.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("plan_configuration")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *TransientElasticsearchPlanConfiguration) contextValidateRemoteClusters(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.RemoteClusters != nil {
+		if err := m.RemoteClusters.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("remote_clusters")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *TransientElasticsearchPlanConfiguration) contextValidateRestoreSnapshot(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.RestoreSnapshot != nil {
+		if err := m.RestoreSnapshot.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("restore_snapshot")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *TransientElasticsearchPlanConfiguration) contextValidateStrategy(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Strategy != nil {
+		if err := m.Strategy.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("strategy")
 			}

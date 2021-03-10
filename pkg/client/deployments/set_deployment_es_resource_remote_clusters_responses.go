@@ -58,7 +58,6 @@ func (o *SetDeploymentEsResourceRemoteClustersReader) ReadResponse(response runt
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,7 +68,7 @@ func NewSetDeploymentEsResourceRemoteClustersAccepted() *SetDeploymentEsResource
 	return &SetDeploymentEsResourceRemoteClustersAccepted{}
 }
 
-/*SetDeploymentEsResourceRemoteClustersAccepted handles this case with default header values.
+/* SetDeploymentEsResourceRemoteClustersAccepted describes a response with status code 202, with default header values.
 
 The Remote Clusters were updated
 */
@@ -80,7 +79,6 @@ type SetDeploymentEsResourceRemoteClustersAccepted struct {
 func (o *SetDeploymentEsResourceRemoteClustersAccepted) Error() string {
 	return fmt.Sprintf("[PUT /deployments/{deployment_id}/elasticsearch/{ref_id}/remote-clusters][%d] setDeploymentEsResourceRemoteClustersAccepted  %+v", 202, o.Payload)
 }
-
 func (o *SetDeploymentEsResourceRemoteClustersAccepted) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -100,13 +98,14 @@ func NewSetDeploymentEsResourceRemoteClustersNotFound() *SetDeploymentEsResource
 	return &SetDeploymentEsResourceRemoteClustersNotFound{}
 }
 
-/*SetDeploymentEsResourceRemoteClustersNotFound handles this case with default header values.
+/* SetDeploymentEsResourceRemoteClustersNotFound describes a response with status code 404, with default header values.
 
-* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+ * The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
 * The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)
- */
+*/
 type SetDeploymentEsResourceRemoteClustersNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -116,15 +115,18 @@ type SetDeploymentEsResourceRemoteClustersNotFound struct {
 func (o *SetDeploymentEsResourceRemoteClustersNotFound) Error() string {
 	return fmt.Sprintf("[PUT /deployments/{deployment_id}/elasticsearch/{ref_id}/remote-clusters][%d] setDeploymentEsResourceRemoteClustersNotFound  %+v", 404, o.Payload)
 }
-
 func (o *SetDeploymentEsResourceRemoteClustersNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SetDeploymentEsResourceRemoteClustersNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -141,12 +143,13 @@ func NewSetDeploymentEsResourceRemoteClustersRetryWith() *SetDeploymentEsResourc
 	return &SetDeploymentEsResourceRemoteClustersRetryWith{}
 }
 
-/*SetDeploymentEsResourceRemoteClustersRetryWith handles this case with default header values.
+/* SetDeploymentEsResourceRemoteClustersRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type SetDeploymentEsResourceRemoteClustersRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -156,15 +159,18 @@ type SetDeploymentEsResourceRemoteClustersRetryWith struct {
 func (o *SetDeploymentEsResourceRemoteClustersRetryWith) Error() string {
 	return fmt.Sprintf("[PUT /deployments/{deployment_id}/elasticsearch/{ref_id}/remote-clusters][%d] setDeploymentEsResourceRemoteClustersRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *SetDeploymentEsResourceRemoteClustersRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SetDeploymentEsResourceRemoteClustersRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

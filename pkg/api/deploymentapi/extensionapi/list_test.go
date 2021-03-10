@@ -18,7 +18,6 @@
 package extensionapi
 
 import (
-	"net/url"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -55,7 +54,6 @@ func TestList(t *testing.T) {
 						Method: "GET",
 						Host:   api.DefaultMockHost,
 						Path:   "/api/v1/deployments/extensions",
-						Query:  url.Values{"include_deployments": {"false"}},
 					},
 					mock.NewStructBody(models.Extensions{
 						Extensions: []*models.Extension{},
@@ -75,7 +73,6 @@ func TestList(t *testing.T) {
 						Method: "GET",
 						Host:   api.DefaultMockHost,
 						Path:   "/api/v1/deployments/extensions",
-						Query:  url.Values{"include_deployments": {"false"}},
 					},
 					mock.SampleInternalError().Response.Body,
 				)),

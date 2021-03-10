@@ -35,59 +35,73 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewCreateSamlConfigurationParams creates a new CreateSamlConfigurationParams object
-// with the default values initialized.
+// NewCreateSamlConfigurationParams creates a new CreateSamlConfigurationParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewCreateSamlConfigurationParams() *CreateSamlConfigurationParams {
-	var ()
 	return &CreateSamlConfigurationParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewCreateSamlConfigurationParamsWithTimeout creates a new CreateSamlConfigurationParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewCreateSamlConfigurationParamsWithTimeout(timeout time.Duration) *CreateSamlConfigurationParams {
-	var ()
 	return &CreateSamlConfigurationParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewCreateSamlConfigurationParamsWithContext creates a new CreateSamlConfigurationParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewCreateSamlConfigurationParamsWithContext(ctx context.Context) *CreateSamlConfigurationParams {
-	var ()
 	return &CreateSamlConfigurationParams{
-
 		Context: ctx,
 	}
 }
 
 // NewCreateSamlConfigurationParamsWithHTTPClient creates a new CreateSamlConfigurationParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewCreateSamlConfigurationParamsWithHTTPClient(client *http.Client) *CreateSamlConfigurationParams {
-	var ()
 	return &CreateSamlConfigurationParams{
 		HTTPClient: client,
 	}
 }
 
-/*CreateSamlConfigurationParams contains all the parameters to send to the API endpoint
-for the create saml configuration operation typically these are written to a http.Request
+/* CreateSamlConfigurationParams contains all the parameters to send to the API endpoint
+   for the create saml configuration operation.
+
+   Typically these are written to a http.Request.
 */
 type CreateSamlConfigurationParams struct {
 
-	/*Body
-	  The SAML configuration
+	/* Body.
 
+	   The SAML configuration
 	*/
 	Body *models.SamlSettings
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the create saml configuration params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *CreateSamlConfigurationParams) WithDefaults() *CreateSamlConfigurationParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the create saml configuration params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *CreateSamlConfigurationParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the create saml configuration params
@@ -141,7 +155,6 @@ func (o *CreateSamlConfigurationParams) WriteToRequest(r runtime.ClientRequest, 
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

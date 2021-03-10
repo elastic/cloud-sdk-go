@@ -35,64 +35,79 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewSetEsClusterLegacySecuritySettingsParams creates a new SetEsClusterLegacySecuritySettingsParams object
-// with the default values initialized.
+// NewSetEsClusterLegacySecuritySettingsParams creates a new SetEsClusterLegacySecuritySettingsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewSetEsClusterLegacySecuritySettingsParams() *SetEsClusterLegacySecuritySettingsParams {
-	var ()
 	return &SetEsClusterLegacySecuritySettingsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewSetEsClusterLegacySecuritySettingsParamsWithTimeout creates a new SetEsClusterLegacySecuritySettingsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewSetEsClusterLegacySecuritySettingsParamsWithTimeout(timeout time.Duration) *SetEsClusterLegacySecuritySettingsParams {
-	var ()
 	return &SetEsClusterLegacySecuritySettingsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewSetEsClusterLegacySecuritySettingsParamsWithContext creates a new SetEsClusterLegacySecuritySettingsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewSetEsClusterLegacySecuritySettingsParamsWithContext(ctx context.Context) *SetEsClusterLegacySecuritySettingsParams {
-	var ()
 	return &SetEsClusterLegacySecuritySettingsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewSetEsClusterLegacySecuritySettingsParamsWithHTTPClient creates a new SetEsClusterLegacySecuritySettingsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewSetEsClusterLegacySecuritySettingsParamsWithHTTPClient(client *http.Client) *SetEsClusterLegacySecuritySettingsParams {
-	var ()
 	return &SetEsClusterLegacySecuritySettingsParams{
 		HTTPClient: client,
 	}
 }
 
-/*SetEsClusterLegacySecuritySettingsParams contains all the parameters to send to the API endpoint
-for the set es cluster legacy security settings operation typically these are written to a http.Request
+/* SetEsClusterLegacySecuritySettingsParams contains all the parameters to send to the API endpoint
+   for the set es cluster legacy security settings operation.
+
+   Typically these are written to a http.Request.
 */
 type SetEsClusterLegacySecuritySettingsParams struct {
 
-	/*Body
-	  The legacy security settings
+	/* Body.
 
+	   The legacy security settings
 	*/
 	Body *models.LegacySecuritySettings
-	/*ClusterID
-	  The Elasticsearch cluster identifier.
 
+	/* ClusterID.
+
+	   The Elasticsearch cluster identifier.
 	*/
 	ClusterID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the set es cluster legacy security settings params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetEsClusterLegacySecuritySettingsParams) WithDefaults() *SetEsClusterLegacySecuritySettingsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the set es cluster legacy security settings params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetEsClusterLegacySecuritySettingsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the set es cluster legacy security settings params
@@ -157,7 +172,6 @@ func (o *SetEsClusterLegacySecuritySettingsParams) WriteToRequest(r runtime.Clie
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

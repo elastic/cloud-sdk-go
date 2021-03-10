@@ -46,7 +46,6 @@ func (o *GetEsClustersReader) ReadResponse(response runtime.ClientResponse, cons
 			return nil, err
 		}
 		return result, nil
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -57,7 +56,7 @@ func NewGetEsClustersOK() *GetEsClustersOK {
 	return &GetEsClustersOK{}
 }
 
-/*GetEsClustersOK handles this case with default header values.
+/* GetEsClustersOK describes a response with status code 200, with default header values.
 
 Returning the specified set of clusters from the platform
 */
@@ -68,7 +67,6 @@ type GetEsClustersOK struct {
 func (o *GetEsClustersOK) Error() string {
 	return fmt.Sprintf("[GET /clusters/elasticsearch][%d] getEsClustersOK  %+v", 200, o.Payload)
 }
-
 func (o *GetEsClustersOK) GetPayload() *models.ElasticsearchClustersInfo {
 	return o.Payload
 }

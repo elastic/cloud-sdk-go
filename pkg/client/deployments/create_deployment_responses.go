@@ -70,7 +70,6 @@ func (o *CreateDeploymentReader) ReadResponse(response runtime.ClientResponse, c
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -81,7 +80,7 @@ func NewCreateDeploymentOK() *CreateDeploymentOK {
 	return &CreateDeploymentOK{}
 }
 
-/*CreateDeploymentOK handles this case with default header values.
+/* CreateDeploymentOK describes a response with status code 200, with default header values.
 
 The request was valid (used when validate_only is true).
 */
@@ -92,7 +91,6 @@ type CreateDeploymentOK struct {
 func (o *CreateDeploymentOK) Error() string {
 	return fmt.Sprintf("[POST /deployments][%d] createDeploymentOK  %+v", 200, o.Payload)
 }
-
 func (o *CreateDeploymentOK) GetPayload() *models.DeploymentCreateResponse {
 	return o.Payload
 }
@@ -114,18 +112,21 @@ func NewCreateDeploymentCreated() *CreateDeploymentCreated {
 	return &CreateDeploymentCreated{}
 }
 
-/*CreateDeploymentCreated handles this case with default header values.
+/* CreateDeploymentCreated describes a response with status code 201, with default header values.
 
 The request was valid and a new deployment was created
 */
 type CreateDeploymentCreated struct {
-	/*The date-time when the resource was created (ISO format relative to UTC)
+
+	/* The date-time when the resource was created (ISO format relative to UTC)
 	 */
 	XCloudResourceCreated string
-	/*The date-time when the resource was last modified (ISO format relative to UTC)
+
+	/* The date-time when the resource was last modified (ISO format relative to UTC)
 	 */
 	XCloudResourceLastModified string
-	/*The resource version, which is used to avoid update conflicts with concurrent operations
+
+	/* The resource version, which is used to avoid update conflicts with concurrent operations
 	 */
 	XCloudResourceVersion string
 
@@ -135,21 +136,32 @@ type CreateDeploymentCreated struct {
 func (o *CreateDeploymentCreated) Error() string {
 	return fmt.Sprintf("[POST /deployments][%d] createDeploymentCreated  %+v", 201, o.Payload)
 }
-
 func (o *CreateDeploymentCreated) GetPayload() *models.DeploymentCreateResponse {
 	return o.Payload
 }
 
 func (o *CreateDeploymentCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-resource-created
-	o.XCloudResourceCreated = response.GetHeader("x-cloud-resource-created")
+	// hydrates response header x-cloud-resource-created
+	hdrXCloudResourceCreated := response.GetHeader("x-cloud-resource-created")
 
-	// response header x-cloud-resource-last-modified
-	o.XCloudResourceLastModified = response.GetHeader("x-cloud-resource-last-modified")
+	if hdrXCloudResourceCreated != "" {
+		o.XCloudResourceCreated = hdrXCloudResourceCreated
+	}
 
-	// response header x-cloud-resource-version
-	o.XCloudResourceVersion = response.GetHeader("x-cloud-resource-version")
+	// hydrates response header x-cloud-resource-last-modified
+	hdrXCloudResourceLastModified := response.GetHeader("x-cloud-resource-last-modified")
+
+	if hdrXCloudResourceLastModified != "" {
+		o.XCloudResourceLastModified = hdrXCloudResourceLastModified
+	}
+
+	// hydrates response header x-cloud-resource-version
+	hdrXCloudResourceVersion := response.GetHeader("x-cloud-resource-version")
+
+	if hdrXCloudResourceVersion != "" {
+		o.XCloudResourceVersion = hdrXCloudResourceVersion
+	}
 
 	o.Payload = new(models.DeploymentCreateResponse)
 
@@ -166,7 +178,7 @@ func NewCreateDeploymentAccepted() *CreateDeploymentAccepted {
 	return &CreateDeploymentAccepted{}
 }
 
-/*CreateDeploymentAccepted handles this case with default header values.
+/* CreateDeploymentAccepted describes a response with status code 202, with default header values.
 
 The request was valid and deployment creation had already been started.
 */
@@ -177,7 +189,6 @@ type CreateDeploymentAccepted struct {
 func (o *CreateDeploymentAccepted) Error() string {
 	return fmt.Sprintf("[POST /deployments][%d] createDeploymentAccepted  %+v", 202, o.Payload)
 }
-
 func (o *CreateDeploymentAccepted) GetPayload() *models.DeploymentCreateResponse {
 	return o.Payload
 }
@@ -199,7 +210,7 @@ func NewCreateDeploymentBadRequest() *CreateDeploymentBadRequest {
 	return &CreateDeploymentBadRequest{}
 }
 
-/*CreateDeploymentBadRequest handles this case with default header values.
+/* CreateDeploymentBadRequest describes a response with status code 400, with default header values.
 
 The deployment request had errors.
 */
@@ -210,7 +221,6 @@ type CreateDeploymentBadRequest struct {
 func (o *CreateDeploymentBadRequest) Error() string {
 	return fmt.Sprintf("[POST /deployments][%d] createDeploymentBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *CreateDeploymentBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -232,7 +242,7 @@ func NewCreateDeploymentUnauthorized() *CreateDeploymentUnauthorized {
 	return &CreateDeploymentUnauthorized{}
 }
 
-/*CreateDeploymentUnauthorized handles this case with default header values.
+/* CreateDeploymentUnauthorized describes a response with status code 401, with default header values.
 
 You are not authorized to perform this action.
 */
@@ -243,7 +253,6 @@ type CreateDeploymentUnauthorized struct {
 func (o *CreateDeploymentUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /deployments][%d] createDeploymentUnauthorized  %+v", 401, o.Payload)
 }
-
 func (o *CreateDeploymentUnauthorized) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

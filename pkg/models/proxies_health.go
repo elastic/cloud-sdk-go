@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -159,6 +160,60 @@ func (m *ProxiesHealth) validateStatus(formats strfmt.Registry) error {
 
 	if err := validate.Required("status", "body", m.Status); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this proxies health based on the context it is used
+func (m *ProxiesHealth) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAllocations(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateFilteredGroups(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ProxiesHealth) contextValidateAllocations(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Allocations); i++ {
+
+		if m.Allocations[i] != nil {
+			if err := m.Allocations[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("allocations" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *ProxiesHealth) contextValidateFilteredGroups(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.FilteredGroups); i++ {
+
+		if m.FilteredGroups[i] != nil {
+			if err := m.FilteredGroups[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("filtered_groups" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil

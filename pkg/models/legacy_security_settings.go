@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
@@ -44,6 +46,11 @@ type LegacySecuritySettings struct {
 
 // Validate validates this legacy security settings
 func (m *LegacySecuritySettings) Validate(formats strfmt.Registry) error {
+	return nil
+}
+
+// ContextValidate validates this legacy security settings based on context it is used
+func (m *LegacySecuritySettings) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

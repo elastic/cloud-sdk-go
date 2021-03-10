@@ -58,7 +58,6 @@ func (o *CancelEsClusterMonitoringReader) ReadResponse(response runtime.ClientRe
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,7 +68,7 @@ func NewCancelEsClusterMonitoringAccepted() *CancelEsClusterMonitoringAccepted {
 	return &CancelEsClusterMonitoringAccepted{}
 }
 
-/*CancelEsClusterMonitoringAccepted handles this case with default header values.
+/* CancelEsClusterMonitoringAccepted describes a response with status code 202, with default header values.
 
 The destination monitoring cluster removal request was initiated
 */
@@ -80,7 +79,6 @@ type CancelEsClusterMonitoringAccepted struct {
 func (o *CancelEsClusterMonitoringAccepted) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/elasticsearch/{cluster_id}/monitoring][%d] cancelEsClusterMonitoringAccepted  %+v", 202, o.Payload)
 }
-
 func (o *CancelEsClusterMonitoringAccepted) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -100,7 +98,7 @@ func NewCancelEsClusterMonitoringNotFound() *CancelEsClusterMonitoringNotFound {
 	return &CancelEsClusterMonitoringNotFound{}
 }
 
-/*CancelEsClusterMonitoringNotFound handles this case with default header values.
+/* CancelEsClusterMonitoringNotFound describes a response with status code 404, with default header values.
 
 The cluster specified by {cluster_id} cannot be found (code: 'clusters.cluster_not_found')
 */
@@ -111,7 +109,6 @@ type CancelEsClusterMonitoringNotFound struct {
 func (o *CancelEsClusterMonitoringNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/elasticsearch/{cluster_id}/monitoring][%d] cancelEsClusterMonitoringNotFound  %+v", 404, o.Payload)
 }
-
 func (o *CancelEsClusterMonitoringNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -133,7 +130,7 @@ func NewCancelEsClusterMonitoringRetryWith() *CancelEsClusterMonitoringRetryWith
 	return &CancelEsClusterMonitoringRetryWith{}
 }
 
-/*CancelEsClusterMonitoringRetryWith handles this case with default header values.
+/* CancelEsClusterMonitoringRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: '"root.unauthorized.rbac.elevated_permissions_required"')
 */
@@ -144,7 +141,6 @@ type CancelEsClusterMonitoringRetryWith struct {
 func (o *CancelEsClusterMonitoringRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/elasticsearch/{cluster_id}/monitoring][%d] cancelEsClusterMonitoringRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *CancelEsClusterMonitoringRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

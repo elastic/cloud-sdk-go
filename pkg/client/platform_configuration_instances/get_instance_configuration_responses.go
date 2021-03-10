@@ -52,7 +52,6 @@ func (o *GetInstanceConfigurationReader) ReadResponse(response runtime.ClientRes
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,7 +62,7 @@ func NewGetInstanceConfigurationOK() *GetInstanceConfigurationOK {
 	return &GetInstanceConfigurationOK{}
 }
 
-/*GetInstanceConfigurationOK handles this case with default header values.
+/* GetInstanceConfigurationOK describes a response with status code 200, with default header values.
 
 An InstanceConfiguration
 */
@@ -74,7 +73,6 @@ type GetInstanceConfigurationOK struct {
 func (o *GetInstanceConfigurationOK) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/instances/{id}][%d] getInstanceConfigurationOK  %+v", 200, o.Payload)
 }
-
 func (o *GetInstanceConfigurationOK) GetPayload() *models.InstanceConfiguration {
 	return o.Payload
 }
@@ -96,7 +94,7 @@ func NewGetInstanceConfigurationNotFound() *GetInstanceConfigurationNotFound {
 	return &GetInstanceConfigurationNotFound{}
 }
 
-/*GetInstanceConfigurationNotFound handles this case with default header values.
+/* GetInstanceConfigurationNotFound describes a response with status code 404, with default header values.
 
 Instance configuration specified by {id} cannot be found (code: 'configuration.instance_configuration_not_found')
 */
@@ -107,7 +105,6 @@ type GetInstanceConfigurationNotFound struct {
 func (o *GetInstanceConfigurationNotFound) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/instances/{id}][%d] getInstanceConfigurationNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetInstanceConfigurationNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

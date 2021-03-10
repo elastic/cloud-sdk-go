@@ -52,7 +52,6 @@ func (o *GenerateEsClusterLogsReader) ReadResponse(response runtime.ClientRespon
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,7 +62,7 @@ func NewGenerateEsClusterLogsOK() *GenerateEsClusterLogsOK {
 	return &GenerateEsClusterLogsOK{}
 }
 
-/*GenerateEsClusterLogsOK handles this case with default header values.
+/* GenerateEsClusterLogsOK describes a response with status code 200, with default header values.
 
 The support diagnostic bundle was successfully generated
 */
@@ -74,7 +73,6 @@ type GenerateEsClusterLogsOK struct {
 func (o *GenerateEsClusterLogsOK) Error() string {
 	return fmt.Sprintf("[GET /clusters/elasticsearch/{cluster_id}/support/_generate-logs][%d] generateEsClusterLogsOK  %+v", 200, o.Payload)
 }
-
 func (o *GenerateEsClusterLogsOK) GetPayload() strfmt.Base64 {
 	return o.Payload
 }
@@ -94,12 +92,13 @@ func NewGenerateEsClusterLogsNotFound() *GenerateEsClusterLogsNotFound {
 	return &GenerateEsClusterLogsNotFound{}
 }
 
-/*GenerateEsClusterLogsNotFound handles this case with default header values.
+/* GenerateEsClusterLogsNotFound describes a response with status code 404, with default header values.
 
 The cluster specified by {cluster_id} cannot be found. (code: `clusters.cluster_not_found`)
 */
 type GenerateEsClusterLogsNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -109,15 +108,18 @@ type GenerateEsClusterLogsNotFound struct {
 func (o *GenerateEsClusterLogsNotFound) Error() string {
 	return fmt.Sprintf("[GET /clusters/elasticsearch/{cluster_id}/support/_generate-logs][%d] generateEsClusterLogsNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GenerateEsClusterLogsNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *GenerateEsClusterLogsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

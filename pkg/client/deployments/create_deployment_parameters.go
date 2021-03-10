@@ -36,81 +36,96 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewCreateDeploymentParams creates a new CreateDeploymentParams object
-// with the default values initialized.
+// NewCreateDeploymentParams creates a new CreateDeploymentParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewCreateDeploymentParams() *CreateDeploymentParams {
-	var (
-		validateOnlyDefault = bool(false)
-	)
 	return &CreateDeploymentParams{
-		ValidateOnly: &validateOnlyDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewCreateDeploymentParamsWithTimeout creates a new CreateDeploymentParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewCreateDeploymentParamsWithTimeout(timeout time.Duration) *CreateDeploymentParams {
-	var (
-		validateOnlyDefault = bool(false)
-	)
 	return &CreateDeploymentParams{
-		ValidateOnly: &validateOnlyDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewCreateDeploymentParamsWithContext creates a new CreateDeploymentParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewCreateDeploymentParamsWithContext(ctx context.Context) *CreateDeploymentParams {
-	var (
-		validateOnlyDefault = bool(false)
-	)
 	return &CreateDeploymentParams{
-		ValidateOnly: &validateOnlyDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewCreateDeploymentParamsWithHTTPClient creates a new CreateDeploymentParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewCreateDeploymentParamsWithHTTPClient(client *http.Client) *CreateDeploymentParams {
-	var (
-		validateOnlyDefault = bool(false)
-	)
 	return &CreateDeploymentParams{
-		ValidateOnly: &validateOnlyDefault,
-		HTTPClient:   client,
+		HTTPClient: client,
 	}
 }
 
-/*CreateDeploymentParams contains all the parameters to send to the API endpoint
-for the create deployment operation typically these are written to a http.Request
+/* CreateDeploymentParams contains all the parameters to send to the API endpoint
+   for the create deployment operation.
+
+   Typically these are written to a http.Request.
 */
 type CreateDeploymentParams struct {
 
-	/*Body
-	  The deployment definition
+	/* Body.
 
+	   The deployment definition
 	*/
 	Body *models.DeploymentCreateRequest
-	/*RequestID
-	  An optional idempotency token - if two create requests share the same request_id token (min size 32 characters, max 128) then only one deployment will be created, the second request will return the info of that deployment (in the same format described below, but with blanks for auth-related fields)
 
+	/* RequestID.
+
+	   An optional idempotency token - if two create requests share the same request_id token (min size 32 characters, max 128) then only one deployment will be created, the second request will return the info of that deployment (in the same format described below, but with blanks for auth-related fields)
 	*/
 	RequestID *string
-	/*ValidateOnly
-	  If true, will just validate the Deployment definition but will not perform the creation
 
+	/* ValidateOnly.
+
+	   If true, will just validate the Deployment definition but will not perform the creation
 	*/
 	ValidateOnly *bool
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the create deployment params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *CreateDeploymentParams) WithDefaults() *CreateDeploymentParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the create deployment params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *CreateDeploymentParams) SetDefaults() {
+	var (
+		validateOnlyDefault = bool(false)
+	)
+
+	val := CreateDeploymentParams{
+		ValidateOnly: &validateOnlyDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the create deployment params
@@ -186,7 +201,6 @@ func (o *CreateDeploymentParams) WriteToRequest(r runtime.ClientRequest, reg str
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err
@@ -197,32 +211,34 @@ func (o *CreateDeploymentParams) WriteToRequest(r runtime.ClientRequest, reg str
 
 		// query param request_id
 		var qrRequestID string
+
 		if o.RequestID != nil {
 			qrRequestID = *o.RequestID
 		}
 		qRequestID := qrRequestID
 		if qRequestID != "" {
+
 			if err := r.SetQueryParam("request_id", qRequestID); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.ValidateOnly != nil {
 
 		// query param validate_only
 		var qrValidateOnly bool
+
 		if o.ValidateOnly != nil {
 			qrValidateOnly = *o.ValidateOnly
 		}
 		qValidateOnly := swag.FormatBool(qrValidateOnly)
 		if qValidateOnly != "" {
+
 			if err := r.SetQueryParam("validate_only", qValidateOnly); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

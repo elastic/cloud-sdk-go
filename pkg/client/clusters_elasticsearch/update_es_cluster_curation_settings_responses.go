@@ -64,7 +64,6 @@ func (o *UpdateEsClusterCurationSettingsReader) ReadResponse(response runtime.Cl
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,18 +74,21 @@ func NewUpdateEsClusterCurationSettingsOK() *UpdateEsClusterCurationSettingsOK {
 	return &UpdateEsClusterCurationSettingsOK{}
 }
 
-/*UpdateEsClusterCurationSettingsOK handles this case with default header values.
+/* UpdateEsClusterCurationSettingsOK describes a response with status code 200, with default header values.
 
 The cluster curation settings were successfully updated
 */
 type UpdateEsClusterCurationSettingsOK struct {
-	/*The date-time when the resource was created (ISO format relative to UTC)
+
+	/* The date-time when the resource was created (ISO format relative to UTC)
 	 */
 	XCloudResourceCreated string
-	/*The date-time when the resource was last modified (ISO format relative to UTC)
+
+	/* The date-time when the resource was last modified (ISO format relative to UTC)
 	 */
 	XCloudResourceLastModified string
-	/*The resource version, which is used to avoid update conflicts with concurrent operations
+
+	/* The resource version, which is used to avoid update conflicts with concurrent operations
 	 */
 	XCloudResourceVersion string
 
@@ -96,21 +98,32 @@ type UpdateEsClusterCurationSettingsOK struct {
 func (o *UpdateEsClusterCurationSettingsOK) Error() string {
 	return fmt.Sprintf("[PUT /clusters/elasticsearch/{cluster_id}/curation/settings][%d] updateEsClusterCurationSettingsOK  %+v", 200, o.Payload)
 }
-
 func (o *UpdateEsClusterCurationSettingsOK) GetPayload() *models.ClusterCurationSettings {
 	return o.Payload
 }
 
 func (o *UpdateEsClusterCurationSettingsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-resource-created
-	o.XCloudResourceCreated = response.GetHeader("x-cloud-resource-created")
+	// hydrates response header x-cloud-resource-created
+	hdrXCloudResourceCreated := response.GetHeader("x-cloud-resource-created")
 
-	// response header x-cloud-resource-last-modified
-	o.XCloudResourceLastModified = response.GetHeader("x-cloud-resource-last-modified")
+	if hdrXCloudResourceCreated != "" {
+		o.XCloudResourceCreated = hdrXCloudResourceCreated
+	}
 
-	// response header x-cloud-resource-version
-	o.XCloudResourceVersion = response.GetHeader("x-cloud-resource-version")
+	// hydrates response header x-cloud-resource-last-modified
+	hdrXCloudResourceLastModified := response.GetHeader("x-cloud-resource-last-modified")
+
+	if hdrXCloudResourceLastModified != "" {
+		o.XCloudResourceLastModified = hdrXCloudResourceLastModified
+	}
+
+	// hydrates response header x-cloud-resource-version
+	hdrXCloudResourceVersion := response.GetHeader("x-cloud-resource-version")
+
+	if hdrXCloudResourceVersion != "" {
+		o.XCloudResourceVersion = hdrXCloudResourceVersion
+	}
 
 	o.Payload = new(models.ClusterCurationSettings)
 
@@ -127,7 +140,7 @@ func NewUpdateEsClusterCurationSettingsForbidden() *UpdateEsClusterCurationSetti
 	return &UpdateEsClusterCurationSettingsForbidden{}
 }
 
-/*UpdateEsClusterCurationSettingsForbidden handles this case with default header values.
+/* UpdateEsClusterCurationSettingsForbidden describes a response with status code 403, with default header values.
 
 The provided action was prohibited for the given cluster.
 */
@@ -138,7 +151,6 @@ type UpdateEsClusterCurationSettingsForbidden struct {
 func (o *UpdateEsClusterCurationSettingsForbidden) Error() string {
 	return fmt.Sprintf("[PUT /clusters/elasticsearch/{cluster_id}/curation/settings][%d] updateEsClusterCurationSettingsForbidden  %+v", 403, o.Payload)
 }
-
 func (o *UpdateEsClusterCurationSettingsForbidden) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -160,7 +172,7 @@ func NewUpdateEsClusterCurationSettingsNotFound() *UpdateEsClusterCurationSettin
 	return &UpdateEsClusterCurationSettingsNotFound{}
 }
 
-/*UpdateEsClusterCurationSettingsNotFound handles this case with default header values.
+/* UpdateEsClusterCurationSettingsNotFound describes a response with status code 404, with default header values.
 
 The cluster specified by {cluster_id} cannot be found (code: 'clusters.cluster_not_found')
 */
@@ -171,7 +183,6 @@ type UpdateEsClusterCurationSettingsNotFound struct {
 func (o *UpdateEsClusterCurationSettingsNotFound) Error() string {
 	return fmt.Sprintf("[PUT /clusters/elasticsearch/{cluster_id}/curation/settings][%d] updateEsClusterCurationSettingsNotFound  %+v", 404, o.Payload)
 }
-
 func (o *UpdateEsClusterCurationSettingsNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -193,7 +204,7 @@ func NewUpdateEsClusterCurationSettingsRetryWith() *UpdateEsClusterCurationSetti
 	return &UpdateEsClusterCurationSettingsRetryWith{}
 }
 
-/*UpdateEsClusterCurationSettingsRetryWith handles this case with default header values.
+/* UpdateEsClusterCurationSettingsRetryWith describes a response with status code 449, with default header values.
 
 elevated permissions are required. (code: '"root.unauthorized.rbac.elevated_permissions_required"')
 */
@@ -204,7 +215,6 @@ type UpdateEsClusterCurationSettingsRetryWith struct {
 func (o *UpdateEsClusterCurationSettingsRetryWith) Error() string {
 	return fmt.Sprintf("[PUT /clusters/elasticsearch/{cluster_id}/curation/settings][%d] updateEsClusterCurationSettingsRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *UpdateEsClusterCurationSettingsRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

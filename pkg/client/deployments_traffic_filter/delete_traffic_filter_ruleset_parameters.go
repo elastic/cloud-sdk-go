@@ -34,76 +34,90 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewDeleteTrafficFilterRulesetParams creates a new DeleteTrafficFilterRulesetParams object
-// with the default values initialized.
+// NewDeleteTrafficFilterRulesetParams creates a new DeleteTrafficFilterRulesetParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewDeleteTrafficFilterRulesetParams() *DeleteTrafficFilterRulesetParams {
-	var (
-		ignoreAssociationsDefault = bool(false)
-	)
 	return &DeleteTrafficFilterRulesetParams{
-		IgnoreAssociations: &ignoreAssociationsDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteTrafficFilterRulesetParamsWithTimeout creates a new DeleteTrafficFilterRulesetParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewDeleteTrafficFilterRulesetParamsWithTimeout(timeout time.Duration) *DeleteTrafficFilterRulesetParams {
-	var (
-		ignoreAssociationsDefault = bool(false)
-	)
 	return &DeleteTrafficFilterRulesetParams{
-		IgnoreAssociations: &ignoreAssociationsDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewDeleteTrafficFilterRulesetParamsWithContext creates a new DeleteTrafficFilterRulesetParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewDeleteTrafficFilterRulesetParamsWithContext(ctx context.Context) *DeleteTrafficFilterRulesetParams {
-	var (
-		ignoreAssociationsDefault = bool(false)
-	)
 	return &DeleteTrafficFilterRulesetParams{
-		IgnoreAssociations: &ignoreAssociationsDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewDeleteTrafficFilterRulesetParamsWithHTTPClient creates a new DeleteTrafficFilterRulesetParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewDeleteTrafficFilterRulesetParamsWithHTTPClient(client *http.Client) *DeleteTrafficFilterRulesetParams {
-	var (
-		ignoreAssociationsDefault = bool(false)
-	)
 	return &DeleteTrafficFilterRulesetParams{
-		IgnoreAssociations: &ignoreAssociationsDefault,
-		HTTPClient:         client,
+		HTTPClient: client,
 	}
 }
 
-/*DeleteTrafficFilterRulesetParams contains all the parameters to send to the API endpoint
-for the delete traffic filter ruleset operation typically these are written to a http.Request
+/* DeleteTrafficFilterRulesetParams contains all the parameters to send to the API endpoint
+   for the delete traffic filter ruleset operation.
+
+   Typically these are written to a http.Request.
 */
 type DeleteTrafficFilterRulesetParams struct {
 
-	/*IgnoreAssociations
-	  When true, ignores the associations and deletes the ruleset. When false, recognizes the associations, which prevents the deletion of the rule set.
+	/* IgnoreAssociations.
 
+	   When true, ignores the associations and deletes the ruleset. When false, recognizes the associations, which prevents the deletion of the rule set.
 	*/
 	IgnoreAssociations *bool
-	/*RulesetID
-	  The mandatory ruleset ID.
 
+	/* RulesetID.
+
+	   The mandatory ruleset ID.
 	*/
 	RulesetID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the delete traffic filter ruleset params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteTrafficFilterRulesetParams) WithDefaults() *DeleteTrafficFilterRulesetParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the delete traffic filter ruleset params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteTrafficFilterRulesetParams) SetDefaults() {
+	var (
+		ignoreAssociationsDefault = bool(false)
+	)
+
+	val := DeleteTrafficFilterRulesetParams{
+		IgnoreAssociations: &ignoreAssociationsDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the delete traffic filter ruleset params
@@ -173,16 +187,17 @@ func (o *DeleteTrafficFilterRulesetParams) WriteToRequest(r runtime.ClientReques
 
 		// query param ignore_associations
 		var qrIgnoreAssociations bool
+
 		if o.IgnoreAssociations != nil {
 			qrIgnoreAssociations = *o.IgnoreAssociations
 		}
 		qIgnoreAssociations := swag.FormatBool(qrIgnoreAssociations)
 		if qIgnoreAssociations != "" {
+
 			if err := r.SetQueryParam("ignore_associations", qIgnoreAssociations); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	// path param ruleset_id

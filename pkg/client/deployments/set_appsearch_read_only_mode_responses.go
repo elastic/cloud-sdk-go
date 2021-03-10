@@ -64,7 +64,6 @@ func (o *SetAppsearchReadOnlyModeReader) ReadResponse(response runtime.ClientRes
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,7 +74,7 @@ func NewSetAppsearchReadOnlyModeOK() *SetAppsearchReadOnlyModeOK {
 	return &SetAppsearchReadOnlyModeOK{}
 }
 
-/*SetAppsearchReadOnlyModeOK handles this case with default header values.
+/* SetAppsearchReadOnlyModeOK describes a response with status code 200, with default header values.
 
 Standard response
 */
@@ -86,7 +85,6 @@ type SetAppsearchReadOnlyModeOK struct {
 func (o *SetAppsearchReadOnlyModeOK) Error() string {
 	return fmt.Sprintf("[PUT /deployments/{deployment_id}/appsearch/{ref_id}/read_only_mode][%d] setAppsearchReadOnlyModeOK  %+v", 200, o.Payload)
 }
-
 func (o *SetAppsearchReadOnlyModeOK) GetPayload() *models.ReadOnlyResponse {
 	return o.Payload
 }
@@ -108,12 +106,13 @@ func NewSetAppsearchReadOnlyModeNotFound() *SetAppsearchReadOnlyModeNotFound {
 	return &SetAppsearchReadOnlyModeNotFound{}
 }
 
-/*SetAppsearchReadOnlyModeNotFound handles this case with default header values.
+/* SetAppsearchReadOnlyModeNotFound describes a response with status code 404, with default header values.
 
 The Resource specified by ref_id cannot be found. (code: `deployments.deployment_resource_not_found`)
 */
 type SetAppsearchReadOnlyModeNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -123,15 +122,18 @@ type SetAppsearchReadOnlyModeNotFound struct {
 func (o *SetAppsearchReadOnlyModeNotFound) Error() string {
 	return fmt.Sprintf("[PUT /deployments/{deployment_id}/appsearch/{ref_id}/read_only_mode][%d] setAppsearchReadOnlyModeNotFound  %+v", 404, o.Payload)
 }
-
 func (o *SetAppsearchReadOnlyModeNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SetAppsearchReadOnlyModeNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -148,12 +150,13 @@ func NewSetAppsearchReadOnlyModeRetryWith() *SetAppsearchReadOnlyModeRetryWith {
 	return &SetAppsearchReadOnlyModeRetryWith{}
 }
 
-/*SetAppsearchReadOnlyModeRetryWith handles this case with default header values.
+/* SetAppsearchReadOnlyModeRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type SetAppsearchReadOnlyModeRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -163,15 +166,18 @@ type SetAppsearchReadOnlyModeRetryWith struct {
 func (o *SetAppsearchReadOnlyModeRetryWith) Error() string {
 	return fmt.Sprintf("[PUT /deployments/{deployment_id}/appsearch/{ref_id}/read_only_mode][%d] setAppsearchReadOnlyModeRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *SetAppsearchReadOnlyModeRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SetAppsearchReadOnlyModeRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -188,12 +194,13 @@ func NewSetAppsearchReadOnlyModeInternalServerError() *SetAppsearchReadOnlyModeI
 	return &SetAppsearchReadOnlyModeInternalServerError{}
 }
 
-/*SetAppsearchReadOnlyModeInternalServerError handles this case with default header values.
+/* SetAppsearchReadOnlyModeInternalServerError describes a response with status code 500, with default header values.
 
 We have failed you. (code: `deployments.deployment_resource_no_longer_exists`)
 */
 type SetAppsearchReadOnlyModeInternalServerError struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -203,15 +210,18 @@ type SetAppsearchReadOnlyModeInternalServerError struct {
 func (o *SetAppsearchReadOnlyModeInternalServerError) Error() string {
 	return fmt.Sprintf("[PUT /deployments/{deployment_id}/appsearch/{ref_id}/read_only_mode][%d] setAppsearchReadOnlyModeInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *SetAppsearchReadOnlyModeInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SetAppsearchReadOnlyModeInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

@@ -34,89 +34,99 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// NewGetKibanaClusterPendingPlanParams creates a new GetKibanaClusterPendingPlanParams object
-// with the default values initialized.
+// NewGetKibanaClusterPendingPlanParams creates a new GetKibanaClusterPendingPlanParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetKibanaClusterPendingPlanParams() *GetKibanaClusterPendingPlanParams {
-	var (
-		convertLegacyPlansDefault = bool(false)
-		showPlanDefaultsDefault   = bool(false)
-	)
 	return &GetKibanaClusterPendingPlanParams{
-		ConvertLegacyPlans: &convertLegacyPlansDefault,
-		ShowPlanDefaults:   &showPlanDefaultsDefault,
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetKibanaClusterPendingPlanParamsWithTimeout creates a new GetKibanaClusterPendingPlanParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetKibanaClusterPendingPlanParamsWithTimeout(timeout time.Duration) *GetKibanaClusterPendingPlanParams {
-	var (
-		convertLegacyPlansDefault = bool(false)
-		showPlanDefaultsDefault   = bool(false)
-	)
 	return &GetKibanaClusterPendingPlanParams{
-		ConvertLegacyPlans: &convertLegacyPlansDefault,
-		ShowPlanDefaults:   &showPlanDefaultsDefault,
-
 		timeout: timeout,
 	}
 }
 
 // NewGetKibanaClusterPendingPlanParamsWithContext creates a new GetKibanaClusterPendingPlanParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetKibanaClusterPendingPlanParamsWithContext(ctx context.Context) *GetKibanaClusterPendingPlanParams {
-	var (
-		convertLegacyPlansDefault = bool(false)
-		showPlanDefaultsDefault   = bool(false)
-	)
 	return &GetKibanaClusterPendingPlanParams{
-		ConvertLegacyPlans: &convertLegacyPlansDefault,
-		ShowPlanDefaults:   &showPlanDefaultsDefault,
-
 		Context: ctx,
 	}
 }
 
 // NewGetKibanaClusterPendingPlanParamsWithHTTPClient creates a new GetKibanaClusterPendingPlanParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetKibanaClusterPendingPlanParamsWithHTTPClient(client *http.Client) *GetKibanaClusterPendingPlanParams {
-	var (
-		convertLegacyPlansDefault = bool(false)
-		showPlanDefaultsDefault   = bool(false)
-	)
 	return &GetKibanaClusterPendingPlanParams{
-		ConvertLegacyPlans: &convertLegacyPlansDefault,
-		ShowPlanDefaults:   &showPlanDefaultsDefault,
-		HTTPClient:         client,
+		HTTPClient: client,
 	}
 }
 
-/*GetKibanaClusterPendingPlanParams contains all the parameters to send to the API endpoint
-for the get kibana cluster pending plan operation typically these are written to a http.Request
+/* GetKibanaClusterPendingPlanParams contains all the parameters to send to the API endpoint
+   for the get kibana cluster pending plan operation.
+
+   Typically these are written to a http.Request.
 */
 type GetKibanaClusterPendingPlanParams struct {
 
-	/*ClusterID
-	  The Kibana deployment identifier.
+	/* ClusterID.
 
+	   The Kibana deployment identifier.
 	*/
 	ClusterID string
-	/*ConvertLegacyPlans
-	  When `true`, converts the plans to the 2.0.x format. When `false`, uses the 1.x format. The default is `false`.
 
+	/* ConvertLegacyPlans.
+
+	   When `true`, converts the plans to the 2.0.x format. When `false`, uses the 1.x format. The default is `false`.
 	*/
 	ConvertLegacyPlans *bool
-	/*ShowPlanDefaults
-	  When plans are shown, includes the default values in the response. NOTE: This option results in large responses.
 
+	/* ShowPlanDefaults.
+
+	   When plans are shown, includes the default values in the response. NOTE: This option results in large responses.
 	*/
 	ShowPlanDefaults *bool
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get kibana cluster pending plan params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetKibanaClusterPendingPlanParams) WithDefaults() *GetKibanaClusterPendingPlanParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get kibana cluster pending plan params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetKibanaClusterPendingPlanParams) SetDefaults() {
+	var (
+		convertLegacyPlansDefault = bool(false)
+
+		showPlanDefaultsDefault = bool(false)
+	)
+
+	val := GetKibanaClusterPendingPlanParams{
+		ConvertLegacyPlans: &convertLegacyPlansDefault,
+		ShowPlanDefaults:   &showPlanDefaultsDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the get kibana cluster pending plan params
@@ -202,32 +212,34 @@ func (o *GetKibanaClusterPendingPlanParams) WriteToRequest(r runtime.ClientReque
 
 		// query param convert_legacy_plans
 		var qrConvertLegacyPlans bool
+
 		if o.ConvertLegacyPlans != nil {
 			qrConvertLegacyPlans = *o.ConvertLegacyPlans
 		}
 		qConvertLegacyPlans := swag.FormatBool(qrConvertLegacyPlans)
 		if qConvertLegacyPlans != "" {
+
 			if err := r.SetQueryParam("convert_legacy_plans", qConvertLegacyPlans); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if o.ShowPlanDefaults != nil {
 
 		// query param show_plan_defaults
 		var qrShowPlanDefaults bool
+
 		if o.ShowPlanDefaults != nil {
 			qrShowPlanDefaults = *o.ShowPlanDefaults
 		}
 		qShowPlanDefaults := swag.FormatBool(qrShowPlanDefaults)
 		if qShowPlanDefaults != "" {
+
 			if err := r.SetQueryParam("show_plan_defaults", qShowPlanDefaults); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

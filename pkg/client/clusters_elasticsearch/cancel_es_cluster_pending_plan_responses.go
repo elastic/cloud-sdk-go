@@ -64,7 +64,6 @@ func (o *CancelEsClusterPendingPlanReader) ReadResponse(response runtime.ClientR
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -75,7 +74,7 @@ func NewCancelEsClusterPendingPlanOK() *CancelEsClusterPendingPlanOK {
 	return &CancelEsClusterPendingPlanOK{}
 }
 
-/*CancelEsClusterPendingPlanOK handles this case with default header values.
+/* CancelEsClusterPendingPlanOK describes a response with status code 200, with default header values.
 
 The pending plan has been successfully cancelled
 */
@@ -86,7 +85,6 @@ type CancelEsClusterPendingPlanOK struct {
 func (o *CancelEsClusterPendingPlanOK) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/elasticsearch/{cluster_id}/plan/pending][%d] cancelEsClusterPendingPlanOK  %+v", 200, o.Payload)
 }
-
 func (o *CancelEsClusterPendingPlanOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -106,12 +104,13 @@ func NewCancelEsClusterPendingPlanNotFound() *CancelEsClusterPendingPlanNotFound
 	return &CancelEsClusterPendingPlanNotFound{}
 }
 
-/*CancelEsClusterPendingPlanNotFound handles this case with default header values.
+/* CancelEsClusterPendingPlanNotFound describes a response with status code 404, with default header values.
 
 The cluster specified by {cluster_id} cannot be found. (code: `clusters.cluster_not_found`)
 */
 type CancelEsClusterPendingPlanNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -121,15 +120,18 @@ type CancelEsClusterPendingPlanNotFound struct {
 func (o *CancelEsClusterPendingPlanNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/elasticsearch/{cluster_id}/plan/pending][%d] cancelEsClusterPendingPlanNotFound  %+v", 404, o.Payload)
 }
-
 func (o *CancelEsClusterPendingPlanNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *CancelEsClusterPendingPlanNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -146,12 +148,13 @@ func NewCancelEsClusterPendingPlanPreconditionFailed() *CancelEsClusterPendingPl
 	return &CancelEsClusterPendingPlanPreconditionFailed{}
 }
 
-/*CancelEsClusterPendingPlanPreconditionFailed handles this case with default header values.
+/* CancelEsClusterPendingPlanPreconditionFailed describes a response with status code 412, with default header values.
 
 There is not currently applied plan - eg the cluster has not finished provisioning, or the provisioning failed. (code: `clusters.cluster_plan_state_error`)
 */
 type CancelEsClusterPendingPlanPreconditionFailed struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -161,15 +164,18 @@ type CancelEsClusterPendingPlanPreconditionFailed struct {
 func (o *CancelEsClusterPendingPlanPreconditionFailed) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/elasticsearch/{cluster_id}/plan/pending][%d] cancelEsClusterPendingPlanPreconditionFailed  %+v", 412, o.Payload)
 }
-
 func (o *CancelEsClusterPendingPlanPreconditionFailed) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *CancelEsClusterPendingPlanPreconditionFailed) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -186,12 +192,13 @@ func NewCancelEsClusterPendingPlanRetryWith() *CancelEsClusterPendingPlanRetryWi
 	return &CancelEsClusterPendingPlanRetryWith{}
 }
 
-/*CancelEsClusterPendingPlanRetryWith handles this case with default header values.
+/* CancelEsClusterPendingPlanRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type CancelEsClusterPendingPlanRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -201,15 +208,18 @@ type CancelEsClusterPendingPlanRetryWith struct {
 func (o *CancelEsClusterPendingPlanRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /clusters/elasticsearch/{cluster_id}/plan/pending][%d] cancelEsClusterPendingPlanRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *CancelEsClusterPendingPlanRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *CancelEsClusterPendingPlanRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

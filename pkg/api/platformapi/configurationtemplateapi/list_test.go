@@ -49,7 +49,7 @@ func TestListTemplates(t *testing.T) {
   ]`
 	urlError := url.Error{
 		Op:  "Get",
-		URL: "https://mock.elastic.co/api/v1/regions/us-east-1/platform/configuration/templates/deployments?format=cluster&show_hidden=false&show_instance_configurations=false",
+		URL: "https://mock.elastic.co/api/v1/regions/us-east-1/platform/configuration/templates/deployments?format=cluster&show_instance_configurations=false",
 		Err: errors.New("error"),
 	}
 	tests := []struct {
@@ -74,7 +74,6 @@ func TestListTemplates(t *testing.T) {
 						Host:   api.DefaultMockHost,
 						Query: url.Values{
 							"format":                       {"cluster"},
-							"show_hidden":                  {"false"},
 							"show_instance_configurations": {"false"},
 						},
 						Path: "/api/v1/regions/us-east-1/platform/configuration/templates/deployments",
@@ -112,7 +111,6 @@ func TestListTemplates(t *testing.T) {
 						Host:   api.DefaultMockHost,
 						Query: url.Values{
 							"format":                       {"deployment"},
-							"show_hidden":                  {"false"},
 							"show_instance_configurations": {"false"},
 						},
 						Path: "/api/v1/regions/us-east-1/platform/configuration/templates/deployments",

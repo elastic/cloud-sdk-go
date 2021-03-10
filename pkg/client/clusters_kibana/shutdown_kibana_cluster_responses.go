@@ -58,7 +58,6 @@ func (o *ShutdownKibanaClusterReader) ReadResponse(response runtime.ClientRespon
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,7 +68,7 @@ func NewShutdownKibanaClusterAccepted() *ShutdownKibanaClusterAccepted {
 	return &ShutdownKibanaClusterAccepted{}
 }
 
-/*ShutdownKibanaClusterAccepted handles this case with default header values.
+/* ShutdownKibanaClusterAccepted describes a response with status code 202, with default header values.
 
 The shutdown command was issued successfully, use the "GET" command on the /{cluster_id} resource to monitor progress
 */
@@ -80,7 +79,6 @@ type ShutdownKibanaClusterAccepted struct {
 func (o *ShutdownKibanaClusterAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/_shutdown][%d] shutdownKibanaClusterAccepted  %+v", 202, o.Payload)
 }
-
 func (o *ShutdownKibanaClusterAccepted) GetPayload() *models.ClusterCommandResponse {
 	return o.Payload
 }
@@ -102,12 +100,13 @@ func NewShutdownKibanaClusterNotFound() *ShutdownKibanaClusterNotFound {
 	return &ShutdownKibanaClusterNotFound{}
 }
 
-/*ShutdownKibanaClusterNotFound handles this case with default header values.
+/* ShutdownKibanaClusterNotFound describes a response with status code 404, with default header values.
 
 The cluster specified by {cluster_id} cannot be found. (code: `clusters.cluster_not_found`)
 */
 type ShutdownKibanaClusterNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -117,15 +116,18 @@ type ShutdownKibanaClusterNotFound struct {
 func (o *ShutdownKibanaClusterNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/_shutdown][%d] shutdownKibanaClusterNotFound  %+v", 404, o.Payload)
 }
-
 func (o *ShutdownKibanaClusterNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *ShutdownKibanaClusterNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -142,12 +144,13 @@ func NewShutdownKibanaClusterRetryWith() *ShutdownKibanaClusterRetryWith {
 	return &ShutdownKibanaClusterRetryWith{}
 }
 
-/*ShutdownKibanaClusterRetryWith handles this case with default header values.
+/* ShutdownKibanaClusterRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type ShutdownKibanaClusterRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -157,15 +160,18 @@ type ShutdownKibanaClusterRetryWith struct {
 func (o *ShutdownKibanaClusterRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/kibana/{cluster_id}/_shutdown][%d] shutdownKibanaClusterRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *ShutdownKibanaClusterRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *ShutdownKibanaClusterRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

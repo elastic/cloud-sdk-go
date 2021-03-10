@@ -36,69 +36,85 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewUpdateEsClusterMetadataSettingsParams creates a new UpdateEsClusterMetadataSettingsParams object
-// with the default values initialized.
+// NewUpdateEsClusterMetadataSettingsParams creates a new UpdateEsClusterMetadataSettingsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewUpdateEsClusterMetadataSettingsParams() *UpdateEsClusterMetadataSettingsParams {
-	var ()
 	return &UpdateEsClusterMetadataSettingsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewUpdateEsClusterMetadataSettingsParamsWithTimeout creates a new UpdateEsClusterMetadataSettingsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewUpdateEsClusterMetadataSettingsParamsWithTimeout(timeout time.Duration) *UpdateEsClusterMetadataSettingsParams {
-	var ()
 	return &UpdateEsClusterMetadataSettingsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewUpdateEsClusterMetadataSettingsParamsWithContext creates a new UpdateEsClusterMetadataSettingsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewUpdateEsClusterMetadataSettingsParamsWithContext(ctx context.Context) *UpdateEsClusterMetadataSettingsParams {
-	var ()
 	return &UpdateEsClusterMetadataSettingsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewUpdateEsClusterMetadataSettingsParamsWithHTTPClient creates a new UpdateEsClusterMetadataSettingsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewUpdateEsClusterMetadataSettingsParamsWithHTTPClient(client *http.Client) *UpdateEsClusterMetadataSettingsParams {
-	var ()
 	return &UpdateEsClusterMetadataSettingsParams{
 		HTTPClient: client,
 	}
 }
 
-/*UpdateEsClusterMetadataSettingsParams contains all the parameters to send to the API endpoint
-for the update es cluster metadata settings operation typically these are written to a http.Request
+/* UpdateEsClusterMetadataSettingsParams contains all the parameters to send to the API endpoint
+   for the update es cluster metadata settings operation.
+
+   Typically these are written to a http.Request.
 */
 type UpdateEsClusterMetadataSettingsParams struct {
 
-	/*Body
-	  The cluster settings including updated values
+	/* Body.
 
+	   The cluster settings including updated values
 	*/
 	Body *models.ClusterMetadataSettings
-	/*ClusterID
-	  Elasticsearch cluster identifier
 
+	/* ClusterID.
+
+	   Elasticsearch cluster identifier
 	*/
 	ClusterID string
-	/*Version
-	  Checks for conflicts against the metadata version, then returns the value in the `x-cloud-resource-version` header.
 
+	/* Version.
+
+	   Checks for conflicts against the metadata version, then returns the value in the `x-cloud-resource-version` header.
 	*/
 	Version *int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the update es cluster metadata settings params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdateEsClusterMetadataSettingsParams) WithDefaults() *UpdateEsClusterMetadataSettingsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the update es cluster metadata settings params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdateEsClusterMetadataSettingsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the update es cluster metadata settings params
@@ -174,7 +190,6 @@ func (o *UpdateEsClusterMetadataSettingsParams) WriteToRequest(r runtime.ClientR
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err
@@ -190,16 +205,17 @@ func (o *UpdateEsClusterMetadataSettingsParams) WriteToRequest(r runtime.ClientR
 
 		// query param version
 		var qrVersion int64
+
 		if o.Version != nil {
 			qrVersion = *o.Version
 		}
 		qVersion := swag.FormatInt64(qrVersion)
 		if qVersion != "" {
+
 			if err := r.SetQueryParam("version", qVersion); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

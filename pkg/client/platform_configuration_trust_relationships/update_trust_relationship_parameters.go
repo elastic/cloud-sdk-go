@@ -35,64 +35,79 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewUpdateTrustRelationshipParams creates a new UpdateTrustRelationshipParams object
-// with the default values initialized.
+// NewUpdateTrustRelationshipParams creates a new UpdateTrustRelationshipParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewUpdateTrustRelationshipParams() *UpdateTrustRelationshipParams {
-	var ()
 	return &UpdateTrustRelationshipParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewUpdateTrustRelationshipParamsWithTimeout creates a new UpdateTrustRelationshipParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewUpdateTrustRelationshipParamsWithTimeout(timeout time.Duration) *UpdateTrustRelationshipParams {
-	var ()
 	return &UpdateTrustRelationshipParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewUpdateTrustRelationshipParamsWithContext creates a new UpdateTrustRelationshipParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewUpdateTrustRelationshipParamsWithContext(ctx context.Context) *UpdateTrustRelationshipParams {
-	var ()
 	return &UpdateTrustRelationshipParams{
-
 		Context: ctx,
 	}
 }
 
 // NewUpdateTrustRelationshipParamsWithHTTPClient creates a new UpdateTrustRelationshipParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewUpdateTrustRelationshipParamsWithHTTPClient(client *http.Client) *UpdateTrustRelationshipParams {
-	var ()
 	return &UpdateTrustRelationshipParams{
 		HTTPClient: client,
 	}
 }
 
-/*UpdateTrustRelationshipParams contains all the parameters to send to the API endpoint
-for the update trust relationship operation typically these are written to a http.Request
+/* UpdateTrustRelationshipParams contains all the parameters to send to the API endpoint
+   for the update trust relationship operation.
+
+   Typically these are written to a http.Request.
 */
 type UpdateTrustRelationshipParams struct {
 
-	/*Body
-	  The trust relationship definition
+	/* Body.
 
+	   The trust relationship definition
 	*/
 	Body *models.TrustRelationshipUpdateRequest
-	/*TrustRelationshipID
-	  Identifier for the trust relationship
 
+	/* TrustRelationshipID.
+
+	   Identifier for the trust relationship
 	*/
 	TrustRelationshipID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the update trust relationship params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdateTrustRelationshipParams) WithDefaults() *UpdateTrustRelationshipParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the update trust relationship params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdateTrustRelationshipParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the update trust relationship params
@@ -157,7 +172,6 @@ func (o *UpdateTrustRelationshipParams) WriteToRequest(r runtime.ClientRequest, 
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

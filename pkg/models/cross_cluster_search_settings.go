@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -55,6 +57,10 @@ func (m *CrossClusterSearchSettings) Validate(formats strfmt.Registry) error {
 
 func (m *CrossClusterSearchSettings) validateRemoteClusters(formats strfmt.Registry) error {
 
+	if err := validate.Required("remote_clusters", "body", m.RemoteClusters); err != nil {
+		return err
+	}
+
 	for k := range m.RemoteClusters {
 
 		if err := validate.Required("remote_clusters"+"."+k, "body", m.RemoteClusters[k]); err != nil {
@@ -62,6 +68,39 @@ func (m *CrossClusterSearchSettings) validateRemoteClusters(formats strfmt.Regis
 		}
 		if val, ok := m.RemoteClusters[k]; ok {
 			if err := val.Validate(formats); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this cross cluster search settings based on the context it is used
+func (m *CrossClusterSearchSettings) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateRemoteClusters(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *CrossClusterSearchSettings) contextValidateRemoteClusters(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := validate.Required("remote_clusters", "body", m.RemoteClusters); err != nil {
+		return err
+	}
+
+	for k := range m.RemoteClusters {
+
+		if val, ok := m.RemoteClusters[k]; ok {
+			if err := val.ContextValidate(ctx, formats); err != nil {
 				return err
 			}
 		}

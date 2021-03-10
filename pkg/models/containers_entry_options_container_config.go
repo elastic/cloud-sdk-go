@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -35,6 +37,7 @@ import (
 type ContainersEntryOptionsContainerConfig struct {
 
 	// List of environment variables on the form KEY=value
+	// Example: DB=localhost:4567
 	// Required: true
 	Env []string `json:"env"`
 
@@ -70,13 +73,40 @@ func (m *ContainersEntryOptionsContainerConfig) validateEnv(formats strfmt.Regis
 }
 
 func (m *ContainersEntryOptionsContainerConfig) validateHostConfig(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.HostConfig) { // not required
 		return nil
 	}
 
 	if m.HostConfig != nil {
 		if err := m.HostConfig.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("host_config")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this containers entry options container config based on the context it is used
+func (m *ContainersEntryOptionsContainerConfig) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateHostConfig(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ContainersEntryOptionsContainerConfig) contextValidateHostConfig(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.HostConfig != nil {
+		if err := m.HostConfig.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("host_config")
 			}

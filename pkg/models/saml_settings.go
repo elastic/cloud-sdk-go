@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
@@ -190,7 +191,6 @@ func (m *SamlSettings) validateName(formats strfmt.Registry) error {
 }
 
 func (m *SamlSettings) validateRoleMappings(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.RoleMappings) { // not required
 		return nil
 	}
@@ -255,7 +255,6 @@ func (m *SamlSettings) validateSslCertificateURLTruststoreTypeEnum(path, locatio
 }
 
 func (m *SamlSettings) validateSslCertificateURLTruststoreType(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.SslCertificateURLTruststoreType) { // not required
 		return nil
 	}
@@ -263,6 +262,88 @@ func (m *SamlSettings) validateSslCertificateURLTruststoreType(formats strfmt.Re
 	// value enum
 	if err := m.validateSslCertificateURLTruststoreTypeEnum("ssl_certificate_url_truststore_type", "body", m.SslCertificateURLTruststoreType); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this saml settings based on the context it is used
+func (m *SamlSettings) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAttributes(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateIdp(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateRoleMappings(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateSp(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *SamlSettings) contextValidateAttributes(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Attributes != nil {
+		if err := m.Attributes.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("attributes")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *SamlSettings) contextValidateIdp(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Idp != nil {
+		if err := m.Idp.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("idp")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *SamlSettings) contextValidateRoleMappings(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.RoleMappings != nil {
+		if err := m.RoleMappings.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("role_mappings")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *SamlSettings) contextValidateSp(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Sp != nil {
+		if err := m.Sp.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("sp")
+			}
+			return err
+		}
 	}
 
 	return nil

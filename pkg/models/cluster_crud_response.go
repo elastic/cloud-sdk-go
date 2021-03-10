@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -81,7 +83,6 @@ func (m *ClusterCrudResponse) Validate(formats strfmt.Registry) error {
 }
 
 func (m *ClusterCrudResponse) validateApm(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Apm) { // not required
 		return nil
 	}
@@ -99,7 +100,6 @@ func (m *ClusterCrudResponse) validateApm(formats strfmt.Registry) error {
 }
 
 func (m *ClusterCrudResponse) validateCredentials(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Credentials) { // not required
 		return nil
 	}
@@ -117,13 +117,76 @@ func (m *ClusterCrudResponse) validateCredentials(formats strfmt.Registry) error
 }
 
 func (m *ClusterCrudResponse) validateKibana(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Kibana) { // not required
 		return nil
 	}
 
 	if m.Kibana != nil {
 		if err := m.Kibana.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("kibana")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this cluster crud response based on the context it is used
+func (m *ClusterCrudResponse) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateApm(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateCredentials(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateKibana(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ClusterCrudResponse) contextValidateApm(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Apm != nil {
+		if err := m.Apm.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("apm")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ClusterCrudResponse) contextValidateCredentials(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Credentials != nil {
+		if err := m.Credentials.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("credentials")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ClusterCrudResponse) contextValidateKibana(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Kibana != nil {
+		if err := m.Kibana.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("kibana")
 			}

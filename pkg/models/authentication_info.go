@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"encoding/json"
 
 	"github.com/go-openapi/errors"
@@ -100,7 +101,6 @@ func (m *AuthenticationInfo) Validate(formats strfmt.Registry) error {
 }
 
 func (m *AuthenticationInfo) validateElevatedPermissionsExpireAt(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.ElevatedPermissionsExpireAt) { // not required
 		return nil
 	}
@@ -113,7 +113,6 @@ func (m *AuthenticationInfo) validateElevatedPermissionsExpireAt(formats strfmt.
 }
 
 func (m *AuthenticationInfo) validateExpiresAt(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.ExpiresAt) { // not required
 		return nil
 	}
@@ -192,6 +191,11 @@ func (m *AuthenticationInfo) validateTotpDeviceSource(formats strfmt.Registry) e
 		return err
 	}
 
+	return nil
+}
+
+// ContextValidate validates this authentication info based on context it is used
+func (m *AuthenticationInfo) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

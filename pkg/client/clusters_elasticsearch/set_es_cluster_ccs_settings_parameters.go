@@ -35,64 +35,79 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewSetEsClusterCcsSettingsParams creates a new SetEsClusterCcsSettingsParams object
-// with the default values initialized.
+// NewSetEsClusterCcsSettingsParams creates a new SetEsClusterCcsSettingsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewSetEsClusterCcsSettingsParams() *SetEsClusterCcsSettingsParams {
-	var ()
 	return &SetEsClusterCcsSettingsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewSetEsClusterCcsSettingsParamsWithTimeout creates a new SetEsClusterCcsSettingsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewSetEsClusterCcsSettingsParamsWithTimeout(timeout time.Duration) *SetEsClusterCcsSettingsParams {
-	var ()
 	return &SetEsClusterCcsSettingsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewSetEsClusterCcsSettingsParamsWithContext creates a new SetEsClusterCcsSettingsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewSetEsClusterCcsSettingsParamsWithContext(ctx context.Context) *SetEsClusterCcsSettingsParams {
-	var ()
 	return &SetEsClusterCcsSettingsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewSetEsClusterCcsSettingsParamsWithHTTPClient creates a new SetEsClusterCcsSettingsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewSetEsClusterCcsSettingsParamsWithHTTPClient(client *http.Client) *SetEsClusterCcsSettingsParams {
-	var ()
 	return &SetEsClusterCcsSettingsParams{
 		HTTPClient: client,
 	}
 }
 
-/*SetEsClusterCcsSettingsParams contains all the parameters to send to the API endpoint
-for the set es cluster ccs settings operation typically these are written to a http.Request
+/* SetEsClusterCcsSettingsParams contains all the parameters to send to the API endpoint
+   for the set es cluster ccs settings operation.
+
+   Typically these are written to a http.Request.
 */
 type SetEsClusterCcsSettingsParams struct {
 
-	/*Body
-	  Remote clusters for cross-cluster search
+	/* Body.
 
+	   Remote clusters for cross-cluster search
 	*/
 	Body *models.CrossClusterSearchSettings
-	/*ClusterID
-	  Elasticsearch cluster identifier
 
+	/* ClusterID.
+
+	   Elasticsearch cluster identifier
 	*/
 	ClusterID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the set es cluster ccs settings params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetEsClusterCcsSettingsParams) WithDefaults() *SetEsClusterCcsSettingsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the set es cluster ccs settings params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetEsClusterCcsSettingsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the set es cluster ccs settings params
@@ -157,7 +172,6 @@ func (o *SetEsClusterCcsSettingsParams) WriteToRequest(r runtime.ClientRequest, 
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

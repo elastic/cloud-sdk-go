@@ -33,64 +33,79 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetDeploymentEsResourceKeystoreParams creates a new GetDeploymentEsResourceKeystoreParams object
-// with the default values initialized.
+// NewGetDeploymentEsResourceKeystoreParams creates a new GetDeploymentEsResourceKeystoreParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetDeploymentEsResourceKeystoreParams() *GetDeploymentEsResourceKeystoreParams {
-	var ()
 	return &GetDeploymentEsResourceKeystoreParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetDeploymentEsResourceKeystoreParamsWithTimeout creates a new GetDeploymentEsResourceKeystoreParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetDeploymentEsResourceKeystoreParamsWithTimeout(timeout time.Duration) *GetDeploymentEsResourceKeystoreParams {
-	var ()
 	return &GetDeploymentEsResourceKeystoreParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetDeploymentEsResourceKeystoreParamsWithContext creates a new GetDeploymentEsResourceKeystoreParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetDeploymentEsResourceKeystoreParamsWithContext(ctx context.Context) *GetDeploymentEsResourceKeystoreParams {
-	var ()
 	return &GetDeploymentEsResourceKeystoreParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetDeploymentEsResourceKeystoreParamsWithHTTPClient creates a new GetDeploymentEsResourceKeystoreParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetDeploymentEsResourceKeystoreParamsWithHTTPClient(client *http.Client) *GetDeploymentEsResourceKeystoreParams {
-	var ()
 	return &GetDeploymentEsResourceKeystoreParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetDeploymentEsResourceKeystoreParams contains all the parameters to send to the API endpoint
-for the get deployment es resource keystore operation typically these are written to a http.Request
+/* GetDeploymentEsResourceKeystoreParams contains all the parameters to send to the API endpoint
+   for the get deployment es resource keystore operation.
+
+   Typically these are written to a http.Request.
 */
 type GetDeploymentEsResourceKeystoreParams struct {
 
-	/*DeploymentID
-	  Identifier for the Deployment
+	/* DeploymentID.
 
+	   Identifier for the Deployment
 	*/
 	DeploymentID string
-	/*RefID
-	  User-specified RefId for the Resource
 
+	/* RefID.
+
+	   User-specified RefId for the Resource
 	*/
 	RefID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get deployment es resource keystore params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetDeploymentEsResourceKeystoreParams) WithDefaults() *GetDeploymentEsResourceKeystoreParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get deployment es resource keystore params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetDeploymentEsResourceKeystoreParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get deployment es resource keystore params

@@ -58,7 +58,6 @@ func (o *DeleteIPFilterRulesetAssociationReader) ReadResponse(response runtime.C
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,7 +68,7 @@ func NewDeleteIPFilterRulesetAssociationOK() *DeleteIPFilterRulesetAssociationOK
 	return &DeleteIPFilterRulesetAssociationOK{}
 }
 
-/*DeleteIPFilterRulesetAssociationOK handles this case with default header values.
+/* DeleteIPFilterRulesetAssociationOK describes a response with status code 200, with default header values.
 
 Delete association request was valid and the association has been deleted
 */
@@ -80,7 +79,6 @@ type DeleteIPFilterRulesetAssociationOK struct {
 func (o *DeleteIPFilterRulesetAssociationOK) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/ip-filtering/rulesets/{ruleset_id}/associations/{association_type}/{associated_entity_id}][%d] deleteIpFilterRulesetAssociationOK  %+v", 200, o.Payload)
 }
-
 func (o *DeleteIPFilterRulesetAssociationOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -100,7 +98,7 @@ func NewDeleteIPFilterRulesetAssociationRetryWith() *DeleteIPFilterRulesetAssoci
 	return &DeleteIPFilterRulesetAssociationRetryWith{}
 }
 
-/*DeleteIPFilterRulesetAssociationRetryWith handles this case with default header values.
+/* DeleteIPFilterRulesetAssociationRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: '"root.unauthorized.rbac.elevated_permissions_required"')
 */
@@ -111,7 +109,6 @@ type DeleteIPFilterRulesetAssociationRetryWith struct {
 func (o *DeleteIPFilterRulesetAssociationRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/ip-filtering/rulesets/{ruleset_id}/associations/{association_type}/{associated_entity_id}][%d] deleteIpFilterRulesetAssociationRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *DeleteIPFilterRulesetAssociationRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -133,7 +130,7 @@ func NewDeleteIPFilterRulesetAssociationInternalServerError() *DeleteIPFilterRul
 	return &DeleteIPFilterRulesetAssociationInternalServerError{}
 }
 
-/*DeleteIPFilterRulesetAssociationInternalServerError handles this case with default header values.
+/* DeleteIPFilterRulesetAssociationInternalServerError describes a response with status code 500, with default header values.
 
 Request execution failed (code: 'ip_filtering.request_execution_failed')
 */
@@ -144,7 +141,6 @@ type DeleteIPFilterRulesetAssociationInternalServerError struct {
 func (o *DeleteIPFilterRulesetAssociationInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/ip-filtering/rulesets/{ruleset_id}/associations/{association_type}/{associated_entity_id}][%d] deleteIpFilterRulesetAssociationInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *DeleteIPFilterRulesetAssociationInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

@@ -58,7 +58,6 @@ func (o *SetEsClusterKeystoreReader) ReadResponse(response runtime.ClientRespons
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,7 +68,7 @@ func NewSetEsClusterKeystoreAccepted() *SetEsClusterKeystoreAccepted {
 	return &SetEsClusterKeystoreAccepted{}
 }
 
-/*SetEsClusterKeystoreAccepted handles this case with default header values.
+/* SetEsClusterKeystoreAccepted describes a response with status code 202, with default header values.
 
 The keystore will be updated
 */
@@ -80,7 +79,6 @@ type SetEsClusterKeystoreAccepted struct {
 func (o *SetEsClusterKeystoreAccepted) Error() string {
 	return fmt.Sprintf("[PATCH /clusters/elasticsearch/{cluster_id}/keystore][%d] setEsClusterKeystoreAccepted  %+v", 202, o.Payload)
 }
-
 func (o *SetEsClusterKeystoreAccepted) GetPayload() *models.KeystoreContents {
 	return o.Payload
 }
@@ -102,7 +100,7 @@ func NewSetEsClusterKeystoreNotFound() *SetEsClusterKeystoreNotFound {
 	return &SetEsClusterKeystoreNotFound{}
 }
 
-/*SetEsClusterKeystoreNotFound handles this case with default header values.
+/* SetEsClusterKeystoreNotFound describes a response with status code 404, with default header values.
 
 The cluster specified by {cluster_id} cannot be found (code: 'clusters.cluster_not_found')
 */
@@ -113,7 +111,6 @@ type SetEsClusterKeystoreNotFound struct {
 func (o *SetEsClusterKeystoreNotFound) Error() string {
 	return fmt.Sprintf("[PATCH /clusters/elasticsearch/{cluster_id}/keystore][%d] setEsClusterKeystoreNotFound  %+v", 404, o.Payload)
 }
-
 func (o *SetEsClusterKeystoreNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -135,7 +132,7 @@ func NewSetEsClusterKeystoreRetryWith() *SetEsClusterKeystoreRetryWith {
 	return &SetEsClusterKeystoreRetryWith{}
 }
 
-/*SetEsClusterKeystoreRetryWith handles this case with default header values.
+/* SetEsClusterKeystoreRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: '"root.unauthorized.rbac.elevated_permissions_required"')
 */
@@ -146,7 +143,6 @@ type SetEsClusterKeystoreRetryWith struct {
 func (o *SetEsClusterKeystoreRetryWith) Error() string {
 	return fmt.Sprintf("[PATCH /clusters/elasticsearch/{cluster_id}/keystore][%d] setEsClusterKeystoreRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *SetEsClusterKeystoreRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

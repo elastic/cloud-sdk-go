@@ -33,69 +33,85 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewUpdateAllocatorSettingsParams creates a new UpdateAllocatorSettingsParams object
-// with the default values initialized.
+// NewUpdateAllocatorSettingsParams creates a new UpdateAllocatorSettingsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewUpdateAllocatorSettingsParams() *UpdateAllocatorSettingsParams {
-	var ()
 	return &UpdateAllocatorSettingsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewUpdateAllocatorSettingsParamsWithTimeout creates a new UpdateAllocatorSettingsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewUpdateAllocatorSettingsParamsWithTimeout(timeout time.Duration) *UpdateAllocatorSettingsParams {
-	var ()
 	return &UpdateAllocatorSettingsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewUpdateAllocatorSettingsParamsWithContext creates a new UpdateAllocatorSettingsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewUpdateAllocatorSettingsParamsWithContext(ctx context.Context) *UpdateAllocatorSettingsParams {
-	var ()
 	return &UpdateAllocatorSettingsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewUpdateAllocatorSettingsParamsWithHTTPClient creates a new UpdateAllocatorSettingsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewUpdateAllocatorSettingsParamsWithHTTPClient(client *http.Client) *UpdateAllocatorSettingsParams {
-	var ()
 	return &UpdateAllocatorSettingsParams{
 		HTTPClient: client,
 	}
 }
 
-/*UpdateAllocatorSettingsParams contains all the parameters to send to the API endpoint
-for the update allocator settings operation typically these are written to a http.Request
+/* UpdateAllocatorSettingsParams contains all the parameters to send to the API endpoint
+   for the update allocator settings operation.
+
+   Typically these are written to a http.Request.
 */
 type UpdateAllocatorSettingsParams struct {
 
-	/*AllocatorID
-	  The allocator identifier.
+	/* AllocatorID.
 
+	   The allocator identifier.
 	*/
 	AllocatorID string
-	/*Body
-	  The allocator settings to update
 
+	/* Body.
+
+	   The allocator settings to update
 	*/
 	Body string
-	/*Version
-	  Checks for conflicts against the metadata version, then returns the value in the `x-cloud-resource-version` header.
 
+	/* Version.
+
+	   Checks for conflicts against the metadata version, then returns the value in the `x-cloud-resource-version` header.
 	*/
 	Version *string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the update allocator settings params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdateAllocatorSettingsParams) WithDefaults() *UpdateAllocatorSettingsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the update allocator settings params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdateAllocatorSettingsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the update allocator settings params
@@ -176,7 +192,6 @@ func (o *UpdateAllocatorSettingsParams) WriteToRequest(r runtime.ClientRequest, 
 	if err := r.SetPathParam("allocator_id", o.AllocatorID); err != nil {
 		return err
 	}
-
 	if err := r.SetBodyParam(o.Body); err != nil {
 		return err
 	}
@@ -185,16 +200,17 @@ func (o *UpdateAllocatorSettingsParams) WriteToRequest(r runtime.ClientRequest, 
 
 		// query param version
 		var qrVersion string
+
 		if o.Version != nil {
 			qrVersion = *o.Version
 		}
 		qVersion := qrVersion
 		if qVersion != "" {
+
 			if err := r.SetQueryParam("version", qVersion); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

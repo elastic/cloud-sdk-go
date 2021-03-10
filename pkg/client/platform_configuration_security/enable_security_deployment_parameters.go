@@ -33,59 +33,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewEnableSecurityDeploymentParams creates a new EnableSecurityDeploymentParams object
-// with the default values initialized.
+// NewEnableSecurityDeploymentParams creates a new EnableSecurityDeploymentParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewEnableSecurityDeploymentParams() *EnableSecurityDeploymentParams {
-	var ()
 	return &EnableSecurityDeploymentParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewEnableSecurityDeploymentParamsWithTimeout creates a new EnableSecurityDeploymentParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewEnableSecurityDeploymentParamsWithTimeout(timeout time.Duration) *EnableSecurityDeploymentParams {
-	var ()
 	return &EnableSecurityDeploymentParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewEnableSecurityDeploymentParamsWithContext creates a new EnableSecurityDeploymentParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewEnableSecurityDeploymentParamsWithContext(ctx context.Context) *EnableSecurityDeploymentParams {
-	var ()
 	return &EnableSecurityDeploymentParams{
-
 		Context: ctx,
 	}
 }
 
 // NewEnableSecurityDeploymentParamsWithHTTPClient creates a new EnableSecurityDeploymentParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewEnableSecurityDeploymentParamsWithHTTPClient(client *http.Client) *EnableSecurityDeploymentParams {
-	var ()
 	return &EnableSecurityDeploymentParams{
 		HTTPClient: client,
 	}
 }
 
-/*EnableSecurityDeploymentParams contains all the parameters to send to the API endpoint
-for the enable security deployment operation typically these are written to a http.Request
+/* EnableSecurityDeploymentParams contains all the parameters to send to the API endpoint
+   for the enable security deployment operation.
+
+   Typically these are written to a http.Request.
 */
 type EnableSecurityDeploymentParams struct {
 
-	/*Version
-	  When specified, checks for conflicts against the version stored in the persistent store (returned in 'x-cloud-resource-version' of the GET request)
+	/* Version.
 
+	   When specified, checks for conflicts against the version stored in the persistent store (returned in 'x-cloud-resource-version' of the GET request)
 	*/
 	Version *string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the enable security deployment params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *EnableSecurityDeploymentParams) WithDefaults() *EnableSecurityDeploymentParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the enable security deployment params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *EnableSecurityDeploymentParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the enable security deployment params
@@ -144,16 +158,17 @@ func (o *EnableSecurityDeploymentParams) WriteToRequest(r runtime.ClientRequest,
 
 		// query param version
 		var qrVersion string
+
 		if o.Version != nil {
 			qrVersion = *o.Version
 		}
 		qVersion := qrVersion
 		if qVersion != "" {
+
 			if err := r.SetQueryParam("version", qVersion); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

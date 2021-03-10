@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -78,7 +79,6 @@ func (m *BoolQuery) Validate(formats strfmt.Registry) error {
 }
 
 func (m *BoolQuery) validateFilter(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Filter) { // not required
 		return nil
 	}
@@ -103,7 +103,6 @@ func (m *BoolQuery) validateFilter(formats strfmt.Registry) error {
 }
 
 func (m *BoolQuery) validateMust(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Must) { // not required
 		return nil
 	}
@@ -128,7 +127,6 @@ func (m *BoolQuery) validateMust(formats strfmt.Registry) error {
 }
 
 func (m *BoolQuery) validateMustNot(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.MustNot) { // not required
 		return nil
 	}
@@ -153,7 +151,6 @@ func (m *BoolQuery) validateMustNot(formats strfmt.Registry) error {
 }
 
 func (m *BoolQuery) validateShould(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Should) { // not required
 		return nil
 	}
@@ -165,6 +162,104 @@ func (m *BoolQuery) validateShould(formats strfmt.Registry) error {
 
 		if m.Should[i] != nil {
 			if err := m.Should[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("should" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this bool query based on the context it is used
+func (m *BoolQuery) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateFilter(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateMust(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateMustNot(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateShould(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *BoolQuery) contextValidateFilter(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Filter); i++ {
+
+		if m.Filter[i] != nil {
+			if err := m.Filter[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("filter" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *BoolQuery) contextValidateMust(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Must); i++ {
+
+		if m.Must[i] != nil {
+			if err := m.Must[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("must" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *BoolQuery) contextValidateMustNot(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.MustNot); i++ {
+
+		if m.MustNot[i] != nil {
+			if err := m.MustNot[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("must_not" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *BoolQuery) contextValidateShould(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Should); i++ {
+
+		if m.Should[i] != nil {
+			if err := m.Should[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("should" + "." + strconv.Itoa(i))
 				}

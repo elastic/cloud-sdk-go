@@ -70,7 +70,6 @@ func (o *MoveEsClusterInstancesReader) ReadResponse(response runtime.ClientRespo
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -81,7 +80,7 @@ func NewMoveEsClusterInstancesAccepted() *MoveEsClusterInstancesAccepted {
 	return &MoveEsClusterInstancesAccepted{}
 }
 
-/*MoveEsClusterInstancesAccepted handles this case with default header values.
+/* MoveEsClusterInstancesAccepted describes a response with status code 202, with default header values.
 
 The move command was issued successfully, use the "GET" command on the /{cluster_id} resource to monitor progress
 */
@@ -92,7 +91,6 @@ type MoveEsClusterInstancesAccepted struct {
 func (o *MoveEsClusterInstancesAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/instances/{instance_ids}/_move][%d] moveEsClusterInstancesAccepted  %+v", 202, o.Payload)
 }
-
 func (o *MoveEsClusterInstancesAccepted) GetPayload() *models.ClusterCommandResponse {
 	return o.Payload
 }
@@ -114,13 +112,14 @@ func NewMoveEsClusterInstancesBadRequest() *MoveEsClusterInstancesBadRequest {
 	return &MoveEsClusterInstancesBadRequest{}
 }
 
-/*MoveEsClusterInstancesBadRequest handles this case with default header values.
+/* MoveEsClusterInstancesBadRequest describes a response with status code 400, with default header values.
 
-* The cluster definition contained errors. (code: `clusters.cluster_invalid_plan`)
+ * The cluster definition contained errors. (code: `clusters.cluster_invalid_plan`)
 * The cluster definition contained errors. (code: `clusters.plan_feature_not_implemented`)
- */
+*/
 type MoveEsClusterInstancesBadRequest struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -130,15 +129,18 @@ type MoveEsClusterInstancesBadRequest struct {
 func (o *MoveEsClusterInstancesBadRequest) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/instances/{instance_ids}/_move][%d] moveEsClusterInstancesBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *MoveEsClusterInstancesBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *MoveEsClusterInstancesBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -155,12 +157,13 @@ func NewMoveEsClusterInstancesForbidden() *MoveEsClusterInstancesForbidden {
 	return &MoveEsClusterInstancesForbidden{}
 }
 
-/*MoveEsClusterInstancesForbidden handles this case with default header values.
+/* MoveEsClusterInstancesForbidden describes a response with status code 403, with default header values.
 
 The move command was prohibited for the given cluster. (code: `clusters.command_prohibited`)
 */
 type MoveEsClusterInstancesForbidden struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -170,15 +173,18 @@ type MoveEsClusterInstancesForbidden struct {
 func (o *MoveEsClusterInstancesForbidden) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/instances/{instance_ids}/_move][%d] moveEsClusterInstancesForbidden  %+v", 403, o.Payload)
 }
-
 func (o *MoveEsClusterInstancesForbidden) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *MoveEsClusterInstancesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -195,13 +201,14 @@ func NewMoveEsClusterInstancesNotFound() *MoveEsClusterInstancesNotFound {
 	return &MoveEsClusterInstancesNotFound{}
 }
 
-/*MoveEsClusterInstancesNotFound handles this case with default header values.
+/* MoveEsClusterInstancesNotFound describes a response with status code 404, with default header values.
 
-* The cluster specified by {cluster_id} cannot be found. (code: `clusters.cluster_not_found`)
+ * The cluster specified by {cluster_id} cannot be found. (code: `clusters.cluster_not_found`)
 * One or more of the instances specified at {instance_ids} could not be found. (code: `clusters.instances_not_found`)
- */
+*/
 type MoveEsClusterInstancesNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -211,15 +218,18 @@ type MoveEsClusterInstancesNotFound struct {
 func (o *MoveEsClusterInstancesNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/instances/{instance_ids}/_move][%d] moveEsClusterInstancesNotFound  %+v", 404, o.Payload)
 }
-
 func (o *MoveEsClusterInstancesNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *MoveEsClusterInstancesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -236,12 +246,13 @@ func NewMoveEsClusterInstancesRetryWith() *MoveEsClusterInstancesRetryWith {
 	return &MoveEsClusterInstancesRetryWith{}
 }
 
-/*MoveEsClusterInstancesRetryWith handles this case with default header values.
+/* MoveEsClusterInstancesRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type MoveEsClusterInstancesRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -251,15 +262,18 @@ type MoveEsClusterInstancesRetryWith struct {
 func (o *MoveEsClusterInstancesRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/instances/{instance_ids}/_move][%d] moveEsClusterInstancesRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *MoveEsClusterInstancesRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *MoveEsClusterInstancesRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

@@ -70,7 +70,6 @@ func (o *RestartEsClusterReader) ReadResponse(response runtime.ClientResponse, c
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -81,7 +80,7 @@ func NewRestartEsClusterAccepted() *RestartEsClusterAccepted {
 	return &RestartEsClusterAccepted{}
 }
 
-/*RestartEsClusterAccepted handles this case with default header values.
+/* RestartEsClusterAccepted describes a response with status code 202, with default header values.
 
 The stop command was issued successfully, use the "GET" command on the /{cluster_id} resource to monitor progress
 */
@@ -92,7 +91,6 @@ type RestartEsClusterAccepted struct {
 func (o *RestartEsClusterAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/_restart][%d] restartEsClusterAccepted  %+v", 202, o.Payload)
 }
-
 func (o *RestartEsClusterAccepted) GetPayload() *models.ClusterCommandResponse {
 	return o.Payload
 }
@@ -114,12 +112,13 @@ func NewRestartEsClusterBadRequest() *RestartEsClusterBadRequest {
 	return &RestartEsClusterBadRequest{}
 }
 
-/*RestartEsClusterBadRequest handles this case with default header values.
+/* RestartEsClusterBadRequest describes a response with status code 400, with default header values.
 
 The cluster specified by {cluster_id} is unable to restart. (code: `clusters.restart.failed`)
 */
 type RestartEsClusterBadRequest struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -129,15 +128,18 @@ type RestartEsClusterBadRequest struct {
 func (o *RestartEsClusterBadRequest) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/_restart][%d] restartEsClusterBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *RestartEsClusterBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *RestartEsClusterBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -154,12 +156,13 @@ func NewRestartEsClusterNotFound() *RestartEsClusterNotFound {
 	return &RestartEsClusterNotFound{}
 }
 
-/*RestartEsClusterNotFound handles this case with default header values.
+/* RestartEsClusterNotFound describes a response with status code 404, with default header values.
 
 The cluster specified by {cluster_id} cannot be found. (code: `clusters.cluster_not_found`)
 */
 type RestartEsClusterNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -169,15 +172,18 @@ type RestartEsClusterNotFound struct {
 func (o *RestartEsClusterNotFound) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/_restart][%d] restartEsClusterNotFound  %+v", 404, o.Payload)
 }
-
 func (o *RestartEsClusterNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *RestartEsClusterNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -194,12 +200,13 @@ func NewRestartEsClusterPreconditionFailed() *RestartEsClusterPreconditionFailed
 	return &RestartEsClusterPreconditionFailed{}
 }
 
-/*RestartEsClusterPreconditionFailed handles this case with default header values.
+/* RestartEsClusterPreconditionFailed describes a response with status code 412, with default header values.
 
 The command sent to a cluster found the cluster in an illegal state, the error message gives more details. (code: `clusters.cluster_plan_state_error`)
 */
 type RestartEsClusterPreconditionFailed struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -209,15 +216,18 @@ type RestartEsClusterPreconditionFailed struct {
 func (o *RestartEsClusterPreconditionFailed) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/_restart][%d] restartEsClusterPreconditionFailed  %+v", 412, o.Payload)
 }
-
 func (o *RestartEsClusterPreconditionFailed) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *RestartEsClusterPreconditionFailed) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -234,12 +244,13 @@ func NewRestartEsClusterRetryWith() *RestartEsClusterRetryWith {
 	return &RestartEsClusterRetryWith{}
 }
 
-/*RestartEsClusterRetryWith handles this case with default header values.
+/* RestartEsClusterRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type RestartEsClusterRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -249,15 +260,18 @@ type RestartEsClusterRetryWith struct {
 func (o *RestartEsClusterRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/{cluster_id}/_restart][%d] restartEsClusterRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *RestartEsClusterRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *RestartEsClusterRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

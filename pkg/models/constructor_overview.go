@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -68,6 +69,38 @@ func (m *ConstructorOverview) validateConstructors(formats strfmt.Registry) erro
 
 		if m.Constructors[i] != nil {
 			if err := m.Constructors[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("constructors" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this constructor overview based on the context it is used
+func (m *ConstructorOverview) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateConstructors(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *ConstructorOverview) contextValidateConstructors(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Constructors); i++ {
+
+		if m.Constructors[i] != nil {
+			if err := m.Constructors[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("constructors" + "." + strconv.Itoa(i))
 				}

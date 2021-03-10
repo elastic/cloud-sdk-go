@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -103,7 +104,6 @@ func (m *DeploymentResource) Validate(formats strfmt.Registry) error {
 }
 
 func (m *DeploymentResource) validateCredentials(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Credentials) { // not required
 		return nil
 	}
@@ -157,7 +157,6 @@ func (m *DeploymentResource) validateRegion(formats strfmt.Registry) error {
 }
 
 func (m *DeploymentResource) validateWarnings(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.Warnings) { // not required
 		return nil
 	}
@@ -169,6 +168,56 @@ func (m *DeploymentResource) validateWarnings(formats strfmt.Registry) error {
 
 		if m.Warnings[i] != nil {
 			if err := m.Warnings[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("warnings" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this deployment resource based on the context it is used
+func (m *DeploymentResource) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateCredentials(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateWarnings(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *DeploymentResource) contextValidateCredentials(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Credentials != nil {
+		if err := m.Credentials.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("credentials")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *DeploymentResource) contextValidateWarnings(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Warnings); i++ {
+
+		if m.Warnings[i] != nil {
+			if err := m.Warnings[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("warnings" + "." + strconv.Itoa(i))
 				}

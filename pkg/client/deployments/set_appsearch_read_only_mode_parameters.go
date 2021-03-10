@@ -35,69 +35,85 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewSetAppsearchReadOnlyModeParams creates a new SetAppsearchReadOnlyModeParams object
-// with the default values initialized.
+// NewSetAppsearchReadOnlyModeParams creates a new SetAppsearchReadOnlyModeParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewSetAppsearchReadOnlyModeParams() *SetAppsearchReadOnlyModeParams {
-	var ()
 	return &SetAppsearchReadOnlyModeParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewSetAppsearchReadOnlyModeParamsWithTimeout creates a new SetAppsearchReadOnlyModeParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewSetAppsearchReadOnlyModeParamsWithTimeout(timeout time.Duration) *SetAppsearchReadOnlyModeParams {
-	var ()
 	return &SetAppsearchReadOnlyModeParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewSetAppsearchReadOnlyModeParamsWithContext creates a new SetAppsearchReadOnlyModeParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewSetAppsearchReadOnlyModeParamsWithContext(ctx context.Context) *SetAppsearchReadOnlyModeParams {
-	var ()
 	return &SetAppsearchReadOnlyModeParams{
-
 		Context: ctx,
 	}
 }
 
 // NewSetAppsearchReadOnlyModeParamsWithHTTPClient creates a new SetAppsearchReadOnlyModeParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewSetAppsearchReadOnlyModeParamsWithHTTPClient(client *http.Client) *SetAppsearchReadOnlyModeParams {
-	var ()
 	return &SetAppsearchReadOnlyModeParams{
 		HTTPClient: client,
 	}
 }
 
-/*SetAppsearchReadOnlyModeParams contains all the parameters to send to the API endpoint
-for the set appsearch read only mode operation typically these are written to a http.Request
+/* SetAppsearchReadOnlyModeParams contains all the parameters to send to the API endpoint
+   for the set appsearch read only mode operation.
+
+   Typically these are written to a http.Request.
 */
 type SetAppsearchReadOnlyModeParams struct {
 
-	/*Body
-	  read-only request body
+	/* Body.
 
+	   read-only request body
 	*/
 	Body *models.ReadOnlyRequest
-	/*DeploymentID
-	  Identifier for the Deployment.
 
+	/* DeploymentID.
+
+	   Identifier for the Deployment.
 	*/
 	DeploymentID string
-	/*RefID
-	  User-specified RefId for the Resource.
 
+	/* RefID.
+
+	   User-specified RefId for the Resource.
 	*/
 	RefID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the set appsearch read only mode params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetAppsearchReadOnlyModeParams) WithDefaults() *SetAppsearchReadOnlyModeParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the set appsearch read only mode params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SetAppsearchReadOnlyModeParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the set appsearch read only mode params
@@ -173,7 +189,6 @@ func (o *SetAppsearchReadOnlyModeParams) WriteToRequest(r runtime.ClientRequest,
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

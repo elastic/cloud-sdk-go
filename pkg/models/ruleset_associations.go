@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -92,6 +93,38 @@ func (m *RulesetAssociations) validateTotalAssociations(formats strfmt.Registry)
 
 	if err := validate.Required("total_associations", "body", m.TotalAssociations); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this ruleset associations based on the context it is used
+func (m *RulesetAssociations) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateAssociations(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *RulesetAssociations) contextValidateAssociations(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Associations); i++ {
+
+		if m.Associations[i] != nil {
+			if err := m.Associations[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("associations" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil

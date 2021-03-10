@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -68,6 +69,38 @@ func (m *IPFilterRulesets) validateRulesets(formats strfmt.Registry) error {
 
 		if m.Rulesets[i] != nil {
 			if err := m.Rulesets[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("rulesets" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this Ip filter rulesets based on the context it is used
+func (m *IPFilterRulesets) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateRulesets(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *IPFilterRulesets) contextValidateRulesets(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Rulesets); i++ {
+
+		if m.Rulesets[i] != nil {
+			if err := m.Rulesets[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("rulesets" + "." + strconv.Itoa(i))
 				}

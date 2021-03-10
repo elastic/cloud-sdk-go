@@ -23,6 +23,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -63,8 +65,8 @@ func (m *RepositoryConfig) Validate(formats strfmt.Registry) error {
 
 func (m *RepositoryConfig) validateConfig(formats strfmt.Registry) error {
 
-	if err := validate.Required("config", "body", m.Config); err != nil {
-		return err
+	if m.Config == nil {
+		return errors.Required("config", "body", nil)
 	}
 
 	return nil
@@ -76,6 +78,11 @@ func (m *RepositoryConfig) validateRepositoryName(formats strfmt.Registry) error
 		return err
 	}
 
+	return nil
+}
+
+// ContextValidate validates this repository config based on context it is used
+func (m *RepositoryConfig) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

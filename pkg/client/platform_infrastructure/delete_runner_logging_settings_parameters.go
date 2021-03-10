@@ -33,59 +33,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewDeleteRunnerLoggingSettingsParams creates a new DeleteRunnerLoggingSettingsParams object
-// with the default values initialized.
+// NewDeleteRunnerLoggingSettingsParams creates a new DeleteRunnerLoggingSettingsParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewDeleteRunnerLoggingSettingsParams() *DeleteRunnerLoggingSettingsParams {
-	var ()
 	return &DeleteRunnerLoggingSettingsParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewDeleteRunnerLoggingSettingsParamsWithTimeout creates a new DeleteRunnerLoggingSettingsParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewDeleteRunnerLoggingSettingsParamsWithTimeout(timeout time.Duration) *DeleteRunnerLoggingSettingsParams {
-	var ()
 	return &DeleteRunnerLoggingSettingsParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewDeleteRunnerLoggingSettingsParamsWithContext creates a new DeleteRunnerLoggingSettingsParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewDeleteRunnerLoggingSettingsParamsWithContext(ctx context.Context) *DeleteRunnerLoggingSettingsParams {
-	var ()
 	return &DeleteRunnerLoggingSettingsParams{
-
 		Context: ctx,
 	}
 }
 
 // NewDeleteRunnerLoggingSettingsParamsWithHTTPClient creates a new DeleteRunnerLoggingSettingsParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewDeleteRunnerLoggingSettingsParamsWithHTTPClient(client *http.Client) *DeleteRunnerLoggingSettingsParams {
-	var ()
 	return &DeleteRunnerLoggingSettingsParams{
 		HTTPClient: client,
 	}
 }
 
-/*DeleteRunnerLoggingSettingsParams contains all the parameters to send to the API endpoint
-for the delete runner logging settings operation typically these are written to a http.Request
+/* DeleteRunnerLoggingSettingsParams contains all the parameters to send to the API endpoint
+   for the delete runner logging settings operation.
+
+   Typically these are written to a http.Request.
 */
 type DeleteRunnerLoggingSettingsParams struct {
 
-	/*RunnerID
-	  The identifier for the runner
+	/* RunnerID.
 
+	   The identifier for the runner
 	*/
 	RunnerID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the delete runner logging settings params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteRunnerLoggingSettingsParams) WithDefaults() *DeleteRunnerLoggingSettingsParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the delete runner logging settings params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *DeleteRunnerLoggingSettingsParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the delete runner logging settings params

@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -68,6 +69,38 @@ func (m *CoordinatorsSummary) validateCoordinators(formats strfmt.Registry) erro
 
 		if m.Coordinators[i] != nil {
 			if err := m.Coordinators[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("coordinators" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// ContextValidate validate this coordinators summary based on the context it is used
+func (m *CoordinatorsSummary) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateCoordinators(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *CoordinatorsSummary) contextValidateCoordinators(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Coordinators); i++ {
+
+		if m.Coordinators[i] != nil {
+			if err := m.Coordinators[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("coordinators" + "." + strconv.Itoa(i))
 				}

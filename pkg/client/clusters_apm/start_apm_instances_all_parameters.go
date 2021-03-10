@@ -33,59 +33,73 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewStartApmInstancesAllParams creates a new StartApmInstancesAllParams object
-// with the default values initialized.
+// NewStartApmInstancesAllParams creates a new StartApmInstancesAllParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewStartApmInstancesAllParams() *StartApmInstancesAllParams {
-	var ()
 	return &StartApmInstancesAllParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewStartApmInstancesAllParamsWithTimeout creates a new StartApmInstancesAllParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewStartApmInstancesAllParamsWithTimeout(timeout time.Duration) *StartApmInstancesAllParams {
-	var ()
 	return &StartApmInstancesAllParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewStartApmInstancesAllParamsWithContext creates a new StartApmInstancesAllParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewStartApmInstancesAllParamsWithContext(ctx context.Context) *StartApmInstancesAllParams {
-	var ()
 	return &StartApmInstancesAllParams{
-
 		Context: ctx,
 	}
 }
 
 // NewStartApmInstancesAllParamsWithHTTPClient creates a new StartApmInstancesAllParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewStartApmInstancesAllParamsWithHTTPClient(client *http.Client) *StartApmInstancesAllParams {
-	var ()
 	return &StartApmInstancesAllParams{
 		HTTPClient: client,
 	}
 }
 
-/*StartApmInstancesAllParams contains all the parameters to send to the API endpoint
-for the start apm instances all operation typically these are written to a http.Request
+/* StartApmInstancesAllParams contains all the parameters to send to the API endpoint
+   for the start apm instances all operation.
+
+   Typically these are written to a http.Request.
 */
 type StartApmInstancesAllParams struct {
 
-	/*ClusterID
-	  The APM deployment identifier.
+	/* ClusterID.
 
+	   The APM deployment identifier.
 	*/
 	ClusterID string
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the start apm instances all params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *StartApmInstancesAllParams) WithDefaults() *StartApmInstancesAllParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the start apm instances all params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *StartApmInstancesAllParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the start apm instances all params

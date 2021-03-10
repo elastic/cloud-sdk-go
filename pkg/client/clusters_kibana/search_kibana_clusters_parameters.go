@@ -35,59 +35,73 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewSearchKibanaClustersParams creates a new SearchKibanaClustersParams object
-// with the default values initialized.
+// NewSearchKibanaClustersParams creates a new SearchKibanaClustersParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewSearchKibanaClustersParams() *SearchKibanaClustersParams {
-	var ()
 	return &SearchKibanaClustersParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewSearchKibanaClustersParamsWithTimeout creates a new SearchKibanaClustersParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewSearchKibanaClustersParamsWithTimeout(timeout time.Duration) *SearchKibanaClustersParams {
-	var ()
 	return &SearchKibanaClustersParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewSearchKibanaClustersParamsWithContext creates a new SearchKibanaClustersParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewSearchKibanaClustersParamsWithContext(ctx context.Context) *SearchKibanaClustersParams {
-	var ()
 	return &SearchKibanaClustersParams{
-
 		Context: ctx,
 	}
 }
 
 // NewSearchKibanaClustersParamsWithHTTPClient creates a new SearchKibanaClustersParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewSearchKibanaClustersParamsWithHTTPClient(client *http.Client) *SearchKibanaClustersParams {
-	var ()
 	return &SearchKibanaClustersParams{
 		HTTPClient: client,
 	}
 }
 
-/*SearchKibanaClustersParams contains all the parameters to send to the API endpoint
-for the search kibana clusters operation typically these are written to a http.Request
+/* SearchKibanaClustersParams contains all the parameters to send to the API endpoint
+   for the search kibana clusters operation.
+
+   Typically these are written to a http.Request.
 */
 type SearchKibanaClustersParams struct {
 
-	/*Body
-	  (Optional) The search query to run. When not specified, all of the clusters are matched.
+	/* Body.
 
+	   (Optional) The search query to run. When not specified, all of the clusters are matched.
 	*/
 	Body *models.SearchRequest
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the search kibana clusters params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SearchKibanaClustersParams) WithDefaults() *SearchKibanaClustersParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the search kibana clusters params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *SearchKibanaClustersParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the search kibana clusters params
@@ -141,7 +155,6 @@ func (o *SearchKibanaClustersParams) WriteToRequest(r runtime.ClientRequest, reg
 		return err
 	}
 	var res []error
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err

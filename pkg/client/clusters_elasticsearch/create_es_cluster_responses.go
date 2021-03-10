@@ -70,7 +70,6 @@ func (o *CreateEsClusterReader) ReadResponse(response runtime.ClientResponse, co
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -81,7 +80,7 @@ func NewCreateEsClusterOK() *CreateEsClusterOK {
 	return &CreateEsClusterOK{}
 }
 
-/*CreateEsClusterOK handles this case with default header values.
+/* CreateEsClusterOK describes a response with status code 200, with default header values.
 
 The cluster definition was valid - no further action was requested. The return object contains an internal representation of the plan, for use in debugging
 */
@@ -92,7 +91,6 @@ type CreateEsClusterOK struct {
 func (o *CreateEsClusterOK) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch][%d] createEsClusterOK  %+v", 200, o.Payload)
 }
-
 func (o *CreateEsClusterOK) GetPayload() *models.ClusterCrudResponse {
 	return o.Payload
 }
@@ -114,7 +112,7 @@ func NewCreateEsClusterCreated() *CreateEsClusterCreated {
 	return &CreateEsClusterCreated{}
 }
 
-/*CreateEsClusterCreated handles this case with default header values.
+/* CreateEsClusterCreated describes a response with status code 201, with default header values.
 
 The cluster definition was valid and the cluster creation has started
 */
@@ -125,7 +123,6 @@ type CreateEsClusterCreated struct {
 func (o *CreateEsClusterCreated) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch][%d] createEsClusterCreated  %+v", 201, o.Payload)
 }
-
 func (o *CreateEsClusterCreated) GetPayload() *models.ClusterCrudResponse {
 	return o.Payload
 }
@@ -147,7 +144,7 @@ func NewCreateEsClusterAccepted() *CreateEsClusterAccepted {
 	return &CreateEsClusterAccepted{}
 }
 
-/*CreateEsClusterAccepted handles this case with default header values.
+/* CreateEsClusterAccepted describes a response with status code 202, with default header values.
 
 The cluster definition was valid and the cluster creation has already started
 */
@@ -158,7 +155,6 @@ type CreateEsClusterAccepted struct {
 func (o *CreateEsClusterAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch][%d] createEsClusterAccepted  %+v", 202, o.Payload)
 }
-
 func (o *CreateEsClusterAccepted) GetPayload() *models.ClusterCrudResponse {
 	return o.Payload
 }
@@ -180,13 +176,14 @@ func NewCreateEsClusterBadRequest() *CreateEsClusterBadRequest {
 	return &CreateEsClusterBadRequest{}
 }
 
-/*CreateEsClusterBadRequest handles this case with default header values.
+/* CreateEsClusterBadRequest describes a response with status code 400, with default header values.
 
-* The cluster definition contained errors. (code: `clusters.cluster_invalid_plan`)
+ * The cluster definition contained errors. (code: `clusters.cluster_invalid_plan`)
 * The features used in the cluster definition have not been implemented yet. (code: `clusters.plan_feature_not_implemented`)
- */
+*/
 type CreateEsClusterBadRequest struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -196,15 +193,18 @@ type CreateEsClusterBadRequest struct {
 func (o *CreateEsClusterBadRequest) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch][%d] createEsClusterBadRequest  %+v", 400, o.Payload)
 }
-
 func (o *CreateEsClusterBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *CreateEsClusterBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -221,12 +221,13 @@ func NewCreateEsClusterRetryWith() *CreateEsClusterRetryWith {
 	return &CreateEsClusterRetryWith{}
 }
 
-/*CreateEsClusterRetryWith handles this case with default header values.
+/* CreateEsClusterRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type CreateEsClusterRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -236,15 +237,18 @@ type CreateEsClusterRetryWith struct {
 func (o *CreateEsClusterRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch][%d] createEsClusterRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *CreateEsClusterRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *CreateEsClusterRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

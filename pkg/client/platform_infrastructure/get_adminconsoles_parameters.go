@@ -33,52 +33,66 @@ import (
 	"github.com/go-openapi/strfmt"
 )
 
-// NewGetAdminconsolesParams creates a new GetAdminconsolesParams object
-// with the default values initialized.
+// NewGetAdminconsolesParams creates a new GetAdminconsolesParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewGetAdminconsolesParams() *GetAdminconsolesParams {
-
 	return &GetAdminconsolesParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewGetAdminconsolesParamsWithTimeout creates a new GetAdminconsolesParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewGetAdminconsolesParamsWithTimeout(timeout time.Duration) *GetAdminconsolesParams {
-
 	return &GetAdminconsolesParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewGetAdminconsolesParamsWithContext creates a new GetAdminconsolesParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewGetAdminconsolesParamsWithContext(ctx context.Context) *GetAdminconsolesParams {
-
 	return &GetAdminconsolesParams{
-
 		Context: ctx,
 	}
 }
 
 // NewGetAdminconsolesParamsWithHTTPClient creates a new GetAdminconsolesParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewGetAdminconsolesParamsWithHTTPClient(client *http.Client) *GetAdminconsolesParams {
-
 	return &GetAdminconsolesParams{
 		HTTPClient: client,
 	}
 }
 
-/*GetAdminconsolesParams contains all the parameters to send to the API endpoint
-for the get adminconsoles operation typically these are written to a http.Request
+/* GetAdminconsolesParams contains all the parameters to send to the API endpoint
+   for the get adminconsoles operation.
+
+   Typically these are written to a http.Request.
 */
 type GetAdminconsolesParams struct {
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the get adminconsoles params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetAdminconsolesParams) WithDefaults() *GetAdminconsolesParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the get adminconsoles params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *GetAdminconsolesParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the get adminconsoles params

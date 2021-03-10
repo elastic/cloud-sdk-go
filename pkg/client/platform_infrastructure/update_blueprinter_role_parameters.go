@@ -36,69 +36,85 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-// NewUpdateBlueprinterRoleParams creates a new UpdateBlueprinterRoleParams object
-// with the default values initialized.
+// NewUpdateBlueprinterRoleParams creates a new UpdateBlueprinterRoleParams object,
+// with the default timeout for this client.
+//
+// Default values are not hydrated, since defaults are normally applied by the API server side.
+//
+// To enforce default values in parameter, use SetDefaults or WithDefaults.
 func NewUpdateBlueprinterRoleParams() *UpdateBlueprinterRoleParams {
-	var ()
 	return &UpdateBlueprinterRoleParams{
-
 		timeout: cr.DefaultTimeout,
 	}
 }
 
 // NewUpdateBlueprinterRoleParamsWithTimeout creates a new UpdateBlueprinterRoleParams object
-// with the default values initialized, and the ability to set a timeout on a request
+// with the ability to set a timeout on a request.
 func NewUpdateBlueprinterRoleParamsWithTimeout(timeout time.Duration) *UpdateBlueprinterRoleParams {
-	var ()
 	return &UpdateBlueprinterRoleParams{
-
 		timeout: timeout,
 	}
 }
 
 // NewUpdateBlueprinterRoleParamsWithContext creates a new UpdateBlueprinterRoleParams object
-// with the default values initialized, and the ability to set a context for a request
+// with the ability to set a context for a request.
 func NewUpdateBlueprinterRoleParamsWithContext(ctx context.Context) *UpdateBlueprinterRoleParams {
-	var ()
 	return &UpdateBlueprinterRoleParams{
-
 		Context: ctx,
 	}
 }
 
 // NewUpdateBlueprinterRoleParamsWithHTTPClient creates a new UpdateBlueprinterRoleParams object
-// with the default values initialized, and the ability to set a custom HTTPClient for a request
+// with the ability to set a custom HTTPClient for a request.
 func NewUpdateBlueprinterRoleParamsWithHTTPClient(client *http.Client) *UpdateBlueprinterRoleParams {
-	var ()
 	return &UpdateBlueprinterRoleParams{
 		HTTPClient: client,
 	}
 }
 
-/*UpdateBlueprinterRoleParams contains all the parameters to send to the API endpoint
-for the update blueprinter role operation typically these are written to a http.Request
+/* UpdateBlueprinterRoleParams contains all the parameters to send to the API endpoint
+   for the update blueprinter role operation.
+
+   Typically these are written to a http.Request.
 */
 type UpdateBlueprinterRoleParams struct {
 
-	/*BlueprinterRoleID
-	  User-specified Blueprinter role ID.
+	/* BlueprinterRoleID.
 
+	   User-specified Blueprinter role ID.
 	*/
 	BlueprinterRoleID string
-	/*Body
-	  The role update data.
 
+	/* Body.
+
+	   The role update data.
 	*/
 	Body *models.Role
-	/*Version
-	  When specified, checks for conflicts against the version stored in the persistent store (returned in 'x-cloud-resource-version' of the GET request)
 
+	/* Version.
+
+	   When specified, checks for conflicts against the version stored in the persistent store (returned in 'x-cloud-resource-version' of the GET request)
 	*/
 	Version *int64
 
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
+}
+
+// WithDefaults hydrates default values in the update blueprinter role params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdateBlueprinterRoleParams) WithDefaults() *UpdateBlueprinterRoleParams {
+	o.SetDefaults()
+	return o
+}
+
+// SetDefaults hydrates default values in the update blueprinter role params (not the query body).
+//
+// All values with no default are reset to their zero value.
+func (o *UpdateBlueprinterRoleParams) SetDefaults() {
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the update blueprinter role params
@@ -179,7 +195,6 @@ func (o *UpdateBlueprinterRoleParams) WriteToRequest(r runtime.ClientRequest, re
 	if err := r.SetPathParam("blueprinter_role_id", o.BlueprinterRoleID); err != nil {
 		return err
 	}
-
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err
@@ -190,16 +205,17 @@ func (o *UpdateBlueprinterRoleParams) WriteToRequest(r runtime.ClientRequest, re
 
 		// query param version
 		var qrVersion int64
+
 		if o.Version != nil {
 			qrVersion = *o.Version
 		}
 		qVersion := swag.FormatInt64(qrVersion)
 		if qVersion != "" {
+
 			if err := r.SetQueryParam("version", qVersion); err != nil {
 				return err
 			}
 		}
-
 	}
 
 	if len(res) > 0 {

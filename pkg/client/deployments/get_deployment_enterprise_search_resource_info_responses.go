@@ -58,7 +58,6 @@ func (o *GetDeploymentEnterpriseSearchResourceInfoReader) ReadResponse(response 
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -69,7 +68,7 @@ func NewGetDeploymentEnterpriseSearchResourceInfoOK() *GetDeploymentEnterpriseSe
 	return &GetDeploymentEnterpriseSearchResourceInfoOK{}
 }
 
-/*GetDeploymentEnterpriseSearchResourceInfoOK handles this case with default header values.
+/* GetDeploymentEnterpriseSearchResourceInfoOK describes a response with status code 200, with default header values.
 
 Standard response.
 */
@@ -80,7 +79,6 @@ type GetDeploymentEnterpriseSearchResourceInfoOK struct {
 func (o *GetDeploymentEnterpriseSearchResourceInfoOK) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/enterprise_search/{ref_id}][%d] getDeploymentEnterpriseSearchResourceInfoOK  %+v", 200, o.Payload)
 }
-
 func (o *GetDeploymentEnterpriseSearchResourceInfoOK) GetPayload() *models.EnterpriseSearchResourceInfo {
 	return o.Payload
 }
@@ -102,12 +100,13 @@ func NewGetDeploymentEnterpriseSearchResourceInfoNotFound() *GetDeploymentEnterp
 	return &GetDeploymentEnterpriseSearchResourceInfoNotFound{}
 }
 
-/*GetDeploymentEnterpriseSearchResourceInfoNotFound handles this case with default header values.
+/* GetDeploymentEnterpriseSearchResourceInfoNotFound describes a response with status code 404, with default header values.
 
 The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
 */
 type GetDeploymentEnterpriseSearchResourceInfoNotFound struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -117,15 +116,18 @@ type GetDeploymentEnterpriseSearchResourceInfoNotFound struct {
 func (o *GetDeploymentEnterpriseSearchResourceInfoNotFound) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/enterprise_search/{ref_id}][%d] getDeploymentEnterpriseSearchResourceInfoNotFound  %+v", 404, o.Payload)
 }
-
 func (o *GetDeploymentEnterpriseSearchResourceInfoNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *GetDeploymentEnterpriseSearchResourceInfoNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 
@@ -142,12 +144,13 @@ func NewGetDeploymentEnterpriseSearchResourceInfoInternalServerError() *GetDeplo
 	return &GetDeploymentEnterpriseSearchResourceInfoInternalServerError{}
 }
 
-/*GetDeploymentEnterpriseSearchResourceInfoInternalServerError handles this case with default header values.
+/* GetDeploymentEnterpriseSearchResourceInfoInternalServerError describes a response with status code 500, with default header values.
 
 We have failed you. (code: `deployments.deployment_resource_no_longer_exists`)
 */
 type GetDeploymentEnterpriseSearchResourceInfoInternalServerError struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -157,15 +160,18 @@ type GetDeploymentEnterpriseSearchResourceInfoInternalServerError struct {
 func (o *GetDeploymentEnterpriseSearchResourceInfoInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/enterprise_search/{ref_id}][%d] getDeploymentEnterpriseSearchResourceInfoInternalServerError  %+v", 500, o.Payload)
 }
-
 func (o *GetDeploymentEnterpriseSearchResourceInfoInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *GetDeploymentEnterpriseSearchResourceInfoInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

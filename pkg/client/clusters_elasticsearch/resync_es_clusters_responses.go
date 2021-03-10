@@ -52,7 +52,6 @@ func (o *ResyncEsClustersReader) ReadResponse(response runtime.ClientResponse, c
 			return nil, err
 		}
 		return nil, result
-
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -63,7 +62,7 @@ func NewResyncEsClustersAccepted() *ResyncEsClustersAccepted {
 	return &ResyncEsClustersAccepted{}
 }
 
-/*ResyncEsClustersAccepted handles this case with default header values.
+/* ResyncEsClustersAccepted describes a response with status code 202, with default header values.
 
 The ids of documents, organized by model version, that will be synchronized.
 */
@@ -74,7 +73,6 @@ type ResyncEsClustersAccepted struct {
 func (o *ResyncEsClustersAccepted) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/_resync][%d] resyncEsClustersAccepted  %+v", 202, o.Payload)
 }
-
 func (o *ResyncEsClustersAccepted) GetPayload() *models.ModelVersionIndexSynchronizationResults {
 	return o.Payload
 }
@@ -96,12 +94,13 @@ func NewResyncEsClustersRetryWith() *ResyncEsClustersRetryWith {
 	return &ResyncEsClustersRetryWith{}
 }
 
-/*ResyncEsClustersRetryWith handles this case with default header values.
+/* ResyncEsClustersRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
 type ResyncEsClustersRetryWith struct {
-	/*The error codes associated with the response
+
+	/* The error codes associated with the response
 	 */
 	XCloudErrorCodes string
 
@@ -111,15 +110,18 @@ type ResyncEsClustersRetryWith struct {
 func (o *ResyncEsClustersRetryWith) Error() string {
 	return fmt.Sprintf("[POST /clusters/elasticsearch/_resync][%d] resyncEsClustersRetryWith  %+v", 449, o.Payload)
 }
-
 func (o *ResyncEsClustersRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *ResyncEsClustersRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	// response header x-cloud-error-codes
-	o.XCloudErrorCodes = response.GetHeader("x-cloud-error-codes")
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
 
 	o.Payload = new(models.BasicFailedReply)
 

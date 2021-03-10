@@ -23,6 +23,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -88,7 +89,6 @@ func (m *GlobalDeploymentTemplateRegion) validateDeploymentTemplateID(formats st
 }
 
 func (m *GlobalDeploymentTemplateRegion) validateKibanaDeeplink(formats strfmt.Registry) error {
-
 	if swag.IsZero(m.KibanaDeeplink) { // not required
 		return nil
 	}
@@ -125,6 +125,38 @@ func (m *GlobalDeploymentTemplateRegion) validateVersions(formats strfmt.Registr
 
 	if err := validate.Required("versions", "body", m.Versions); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this global deployment template region based on the context it is used
+func (m *GlobalDeploymentTemplateRegion) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateKibanaDeeplink(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *GlobalDeploymentTemplateRegion) contextValidateKibanaDeeplink(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.KibanaDeeplink); i++ {
+
+		if m.KibanaDeeplink[i] != nil {
+			if err := m.KibanaDeeplink[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("kibana_deeplink" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil
