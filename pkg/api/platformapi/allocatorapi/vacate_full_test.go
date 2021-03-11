@@ -525,6 +525,35 @@ func TestVacate(t *testing.T) {
 `,
 		},
 		{
+			name: "Moving an Elasticsearch clusters from an allocator where the plan finishes too fast and an error is thrown",
+			args: args{
+				buf: sdkSync.NewBuffer(),
+				params: newVacateTestCase(t, vacateCase{region: "us-east-1", topology: []vacateCaseClusters{
+					{
+						Allocator: "allocatorID-1",
+						elasticsearch: []vacateCaseClusterConfig{{
+							ID:    "3ee11eb40eda22cac0cce259625c6734",
+							steps: [][]*models.ClusterPlanStepInfo{},
+							plan: []*models.ClusterPlanStepInfo{
+								newPlanStep("step1", "success"),
+								newPlanStep("step2", "success"),
+								newPlanStepWithDetails("plan-completed", "error", []*models.ClusterPlanStepLogMessageInfo{{
+									Message: ec.String(planStepLogErrorMessage),
+								}}),
+							},
+						}},
+					},
+				}}),
+			},
+			want: newOutputResponses(
+				"\x1b[91;1mDeployment [DISCOVERED_DEPLOYMENT_ID] - [Elasticsearch][3ee11eb40eda22cac0cce259625c6734]: caught error: \"Unexpected error during step: [perform-snapshot]: [no.found.constructor.models.TimeoutException: Timeout]\"\x1b[0m (Total plan duration )",
+			),
+			err: `vacate error: 1 error occurred:
+	* found deployment plan errors: deployment [DISCOVERED_DEPLOYMENT_ID] - [elasticsearch][3ee11eb40eda22cac0cce259625c6734]: caught error: "Unexpected error during step: [perform-snapshot]: [no.found.constructor.models.TimeoutException: Timeout]"
+
+`,
+		},
+		{
 			name: "Moving multiple clusters from multiple allocators that fail to move",
 			args: args{
 				buf: sdkSync.NewBuffer(),
