@@ -1,5 +1,7 @@
 # Elastic Cloud Go SDK
 
+[![Go Reference](https://pkg.go.dev/badge/github.com/elastic/cloud-sdk-go.svg)](https://pkg.go.dev/github.com/elastic/cloud-sdk-go)
+
 Go SDK for Elastic Cloud. Its goal is to provide common ground for all Elastic Cloud programmatic code in Go.
 
 ## Installation
