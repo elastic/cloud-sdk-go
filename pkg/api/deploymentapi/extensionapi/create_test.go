@@ -48,7 +48,9 @@ func TestCreate(t *testing.T) {
 			}},
 			err: multierror.NewPrefixed("invalid extension create params",
 				apierror.ErrMissingAPI,
+				errors.New("an extension name is required for this operation"),
 				errors.New("an extension type is required for this operation"),
+				errors.New("an extension version is required for this operation"),
 				errors.New(`the provided URL is invalid: parse "imaurl": invalid URI for request`),
 			).Error(),
 		},
@@ -109,14 +111,16 @@ func TestCreate(t *testing.T) {
 		{
 			name: "fails on API error",
 			args: args{params: CreateParams{
-				Type: "sometype",
+				Type:    "sometype",
+				Name:    "Boop",
+				Version: "v1.0",
 				API: api.NewMock(mock.New500ResponseAssertion(
 					&mock.RequestAssertion{
 						Header: api.DefaultWriteMockHeaders,
 						Method: "POST",
 						Host:   api.DefaultMockHost,
 						Path:   "/api/v1/deployments/extensions",
-						Body:   mock.NewStringBody(`{"extension_type":"sometype","name":"","version":""}` + "\n"),
+						Body:   mock.NewStringBody(`{"extension_type":"sometype","name":"Boop","version":"v1.0"}` + "\n"),
 					},
 					mock.SampleInternalError().Response.Body,
 				)),
