@@ -57,6 +57,14 @@ func (params UpdateParams) Validate() error {
 		merr = merr.Append(errors.New("an extension type is required for this operation"))
 	}
 
+	if params.Version == "" {
+		merr = merr.Append(errors.New("an extension version is required for this operation"))
+	}
+
+	if params.Name == "" {
+		merr = merr.Append(errors.New("an extension name is required for this operation"))
+	}
+
 	if params.DownloadURL != "" {
 		_, err := url.ParseRequestURI(params.DownloadURL)
 		if err != nil {
