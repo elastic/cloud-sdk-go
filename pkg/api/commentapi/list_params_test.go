@@ -38,8 +38,8 @@ func TestListParams_Validate(t *testing.T) {
 			err: multierror.NewPrefixed("invalid comment list params",
 				errors.New("region not specified and is required for this operation"),
 				errors.New("api reference is required for the operation"),
-				errors.New("resource type is required"),
-				errors.New("resource id is required"),
+				errors.New("resource type is required for this operation"),
+				errors.New("resource id is required for this operation"),
 			),
 		},
 		{

@@ -19,16 +19,16 @@ package commentapi
 
 import (
 	"errors"
-	"github.com/elastic/cloud-sdk-go/pkg/models"
-	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
-	"github.com/go-openapi/strfmt"
 	"testing"
 
+	"github.com/go-openapi/strfmt"
 	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
+	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
 func TestList(t *testing.T) {
@@ -64,8 +64,8 @@ func TestList(t *testing.T) {
 			err: multierror.NewPrefixed("invalid comment list params",
 				errors.New("region not specified and is required for this operation"),
 				errors.New("api reference is required for the operation"),
-				errors.New("resource type is required"),
-				errors.New("resource id is required"),
+				errors.New("resource type is required for this operation"),
+				errors.New("resource id is required for this operation"),
 			).Error(),
 		},
 		{
