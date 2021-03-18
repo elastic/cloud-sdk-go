@@ -43,7 +43,7 @@ func (params GetParams) Validate() error {
 	}
 
 	if params.ResourceType == "" {
-		errs = errs.Append(errors.New("resource type is required"))
+		errs = errs.Append(errors.New("resource type is required for this operation"))
 	}
 
 	if params.ResourceID == "" {
