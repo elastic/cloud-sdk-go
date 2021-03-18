@@ -19,11 +19,11 @@ package commentapi
 
 import (
 	"context"
-	"github.com/elastic/cloud-sdk-go/pkg/models"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/client/comments"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // Get fetches the comment of the given combination of comment ID, resource type and resource ID.
