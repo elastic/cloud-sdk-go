@@ -47,7 +47,7 @@ func (params GetParams) Validate() error {
 	}
 
 	if params.ResourceID == "" {
-		errs = errs.Append(errors.New("resource id is required"))
+		errs = errs.Append(errors.New("resource id is required for this operation"))
 	}
 
 	if params.CommentID == "" {
