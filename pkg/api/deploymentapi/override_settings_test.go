@@ -56,11 +56,11 @@ func TestOverrideCreateOrUpdateRequest(t *testing.T) {
 			name: "set name, version, region and ref_id override",
 			args: args{
 				overrides: &PayloadOverrides{
-					Name:                "some other",
-					Version:             "7.4.1",
-					Region:              eceRegion,
-					ElasticcsearchRefID: "main-elasticsearch",
-					OverrideRefIDs:      true,
+					Name:               "some other",
+					Version:            "7.4.1",
+					Region:             eceRegion,
+					ElasticsearchRefID: "main-elasticsearch",
+					OverrideRefIDs:     true,
 				},
 				req: &models.DeploymentCreateRequest{
 					Name: "Some",
@@ -192,9 +192,9 @@ func TestOverrideCreateOrUpdateRequest(t *testing.T) {
 			name: "set region and ref_id override (no version leaves the NodeRoles field)",
 			args: args{
 				overrides: &PayloadOverrides{
-					Region:              eceRegion,
-					ElasticcsearchRefID: "main-elasticsearch",
-					OverrideRefIDs:      true,
+					Region:             eceRegion,
+					ElasticsearchRefID: "main-elasticsearch",
+					OverrideRefIDs:     true,
 				},
 				req: &models.DeploymentCreateRequest{
 					Name: "Some",
@@ -328,11 +328,11 @@ func TestOverrideCreateOrUpdateRequest(t *testing.T) {
 			name: "set name, version, region and ref_id override",
 			args: args{
 				overrides: &PayloadOverrides{
-					Name:                "some other",
-					Version:             "7.11.2",
-					Region:              eceRegion,
-					ElasticcsearchRefID: "main-elasticsearch",
-					OverrideRefIDs:      true,
+					Name:               "some other",
+					Version:            "7.11.2",
+					Region:             eceRegion,
+					ElasticsearchRefID: "main-elasticsearch",
+					OverrideRefIDs:     true,
 				},
 				req: &models.DeploymentCreateRequest{
 					Name: "Some",
@@ -466,10 +466,10 @@ func TestOverrideCreateOrUpdateRequest(t *testing.T) {
 			name: "set name, version, region with no ref_id override",
 			args: args{
 				overrides: &PayloadOverrides{
-					Name:                "some other",
-					Version:             "7.11.2",
-					Region:              eceRegion,
-					ElasticcsearchRefID: "main-elasticsearch",
+					Name:               "some other",
+					Version:            "7.11.2",
+					Region:             eceRegion,
+					ElasticsearchRefID: "main-elasticsearch",
 				},
 				req: &models.DeploymentCreateRequest{
 					Name: "Some",
@@ -607,9 +607,9 @@ func TestOverrideCreateOrUpdateRequest(t *testing.T) {
 			name: "set region override on a DeploymentUpdateRequest",
 			args: args{
 				overrides: &PayloadOverrides{
-					Region:              "overridden-region",
-					ElasticcsearchRefID: "main-elasticsearch",
-					OverrideRefIDs:      true,
+					Region:             "overridden-region",
+					ElasticsearchRefID: "main-elasticsearch",
+					OverrideRefIDs:     true,
 				},
 				req: &models.DeploymentUpdateRequest{
 					Resources: &models.DeploymentUpdateResources{

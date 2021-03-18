@@ -19,8 +19,16 @@ package deploymentapi
 
 import (
 	"github.com/blang/semver/v4"
+
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
+)
+
+const (
+	defaultApmRefID              = "main-apm"
+	defaultAppsearchRefID        = "main-appsearch"
+	defaultEnterpriseSearchRefID = "main-enterprise_search"
+	defaultKibanaRefID           = "main-kibana"
 )
 
 var dataTiersMinVersion = semver.MustParse("7.10.0")
@@ -41,7 +49,7 @@ type PayloadOverrides struct {
 	Version string
 
 	// ElasticsearchRefID used for the applications.
-	ElasticcsearchRefID string
+	ElasticsearchRefID string
 
 	// OverrideRefIDs when set, it'll override all the application's ref_id.
 	OverrideRefIDs bool
@@ -85,7 +93,7 @@ func OverrideCreateOrUpdateRequest(req interface{}, overrides *PayloadOverrides)
 
 	return overrideByPayload(
 		apm, appsearch, elasticsearch, kibana, enterprisesearch,
-		overrides.Region, overrides.Version, overrides.ElasticcsearchRefID,
+		overrides.Region, overrides.Version, overrides.ElasticsearchRefID,
 		overrides.ElasticcsearchBuiltinPlugins, overrides.OverrideRefIDs,
 	)
 }
@@ -101,7 +109,7 @@ func overrideByPayload(apm []*models.ApmPayload, appsearch []*models.AppSearchPa
 		}
 
 		if overrideRefIDs {
-			resource.RefID = ec.String("main-apm")
+			resource.RefID = ec.String(defaultApmRefID)
 		}
 
 		if refID != "" {
@@ -121,7 +129,7 @@ func overrideByPayload(apm []*models.ApmPayload, appsearch []*models.AppSearchPa
 		}
 
 		if overrideRefIDs {
-			resource.RefID = ec.String("main-appsearch")
+			resource.RefID = ec.String(defaultAppsearchRefID)
 		}
 
 		if refID != "" {
@@ -179,7 +187,7 @@ func overrideByPayload(apm []*models.ApmPayload, appsearch []*models.AppSearchPa
 		}
 
 		if overrideRefIDs {
-			resource.RefID = ec.String("main-enterprise_search")
+			resource.RefID = ec.String(defaultEnterpriseSearchRefID)
 		}
 
 		if refID != "" {
@@ -199,7 +207,7 @@ func overrideByPayload(apm []*models.ApmPayload, appsearch []*models.AppSearchPa
 		}
 
 		if overrideRefIDs {
-			resource.RefID = ec.String("main-kibana")
+			resource.RefID = ec.String(defaultKibanaRefID)
 		}
 
 		if refID != "" {
