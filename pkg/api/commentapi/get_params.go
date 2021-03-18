@@ -51,7 +51,7 @@ func (params GetParams) Validate() error {
 	}
 
 	if params.CommentID == "" {
-		errs = errs.Append(errors.New("comment id is required"))
+		errs = errs.Append(errors.New("comment id is required for this operation"))
 	}
 	return errs.ErrorOrNil()
 }
