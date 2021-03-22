@@ -70,7 +70,11 @@ func Create(params CreateParams) (*models.DeploymentCreateResponse, error) {
 		return nil, err
 	}
 
-	setOverrides(params.Request, params.Overrides)
+	if err := OverrideCreateOrUpdateRequest(
+		params.Request, params.Overrides,
+	); err != nil {
+		return nil, err
+	}
 
 	var id *string
 	if params.RequestID != "" {

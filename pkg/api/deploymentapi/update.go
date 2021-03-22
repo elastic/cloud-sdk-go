@@ -72,7 +72,11 @@ func Update(params UpdateParams) (*models.DeploymentUpdateResponse, error) {
 		return nil, err
 	}
 
-	setOverrides(params.Request, &params.Overrides)
+	if err := OverrideCreateOrUpdateRequest(
+		params.Request, &params.Overrides,
+	); err != nil {
+		return nil, err
+	}
 
 	res, err := params.V1API.Deployments.UpdateDeployment(
 		deployments.NewUpdateDeploymentParams().
