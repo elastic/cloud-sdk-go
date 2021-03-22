@@ -40,10 +40,34 @@ func TestDeleteAssociation(t *testing.T) {
 	}{
 		{
 			name: "fails due to parameter validation",
+			args: args{params: DeleteAssociationParams{
+				EntityID:   "some-entity-id",
+				EntityType: "deployment",
+			}},
 			err: multierror.NewPrefixed("invalid traffic filter association delete params",
 				apierror.ErrMissingAPI,
 				errors.New("rule set id is not specified and is required for the operation"),
+			).Error(),
+		},
+		{
+			name: "fails due to parameter validation",
+			args: args{params: DeleteAssociationParams{
+				ID:         "some-id",
+				EntityType: "deployment",
+			}},
+			err: multierror.NewPrefixed("invalid traffic filter association delete params",
+				apierror.ErrMissingAPI,
 				errors.New("entity id is not specified and is required for the operation"),
+			).Error(),
+		},
+		{
+			name: "fails due to parameter validation",
+			args: args{params: DeleteAssociationParams{
+				ID:       "some-id",
+				EntityID: "some-entity-id",
+			}},
+			err: multierror.NewPrefixed("invalid traffic filter association delete params",
+				apierror.ErrMissingAPI,
 				errors.New("entity type is not specified and is required for the operation"),
 			).Error(),
 		},
