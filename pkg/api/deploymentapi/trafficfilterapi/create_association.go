@@ -57,7 +57,7 @@ func (params CreateAssociationParams) Validate() error {
 		merr = merr.Append(errors.New("entity id is not specified and is required for the operation"))
 	}
 
-	if params.ID == "" {
+	if params.EntityType == "" {
 		merr = merr.Append(errors.New("entity type is not specified and is required for the operation"))
 	}
 
