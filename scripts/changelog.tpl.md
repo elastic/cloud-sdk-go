@@ -6,7 +6,7 @@
 ## Notable changes
 <!-- Add the list of notable changes, remove otherwise.-->
 
-### New Commands
+### New APIs
 <!--  Add the list of new commands, remove otherwise.-->
 
 ### Bug fixes
