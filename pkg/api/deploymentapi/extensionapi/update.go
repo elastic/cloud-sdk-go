@@ -33,12 +33,12 @@ import (
 type UpdateParams struct {
 	*api.API
 
-	ExtensionID string
-	Name        string
-	Version     string
-	Type        string
-	DownloadURL string
-	Description string
+	ExtensionID string `json:"extension_id,omitempty"`
+	Description string `json:"description,omitempty"`
+	DownloadURL string `json:"download_url,omitempty"`
+	Type        string `json:"extension_type"`
+	Name        string `json:"name"`
+	Version     string `json:"version"`
 }
 
 // Validate ensures the parameters are usable by Update.
