@@ -26,6 +26,8 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 )
 
+const platformViewerRole = "ece_platform_viewer"
+
 func TestValidateRoles(t *testing.T) {
 	tests := []struct {
 		name string

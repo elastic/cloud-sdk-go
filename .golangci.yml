@@ -1,7 +1,3 @@
-issues:
-  max-issues-per-linter: 0
-  max-same-issues: 0
-
 linters:
   disable:
     - dupl
@@ -48,7 +44,7 @@ linters-settings:
 issues:
   # Excluding configuration per-path, per-linter, per-text and per-source
   exclude-rules:
-    - path: _test\.go
+    - path: \*_test\.go
       linters:
         - gocritic
         - gocyclo
@@ -61,4 +57,5 @@ output:
   format: tab
 
 run:
+  tests: false
   timeout: 10m
