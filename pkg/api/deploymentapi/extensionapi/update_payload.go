@@ -22,6 +22,7 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
+// NewUpdateRequestFromGet populates UpdateParams from models.Extension
 func NewUpdateRequestFromGet(res *models.Extension) *UpdateParams {
 	if res == nil {
 		return nil
