@@ -67,6 +67,7 @@
         "summary" : "Updates the current account",
         "description" : "Updates the current account.",
         "operationId" : "update-current-account",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -106,6 +107,7 @@
         "summary" : "Updates the current account",
         "description" : "Updates the current account.",
         "operationId" : "patch-current-account",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -171,6 +173,7 @@
         "summary" : "Create Deployment",
         "description" : "Creates a Deployment.",
         "operationId" : "create-deployment",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "request_id",
           "in" : "query",
@@ -250,6 +253,7 @@
         "summary" : "Search Deployments",
         "description" : "Retrieves the information for all of the deployments that match the specified query.",
         "operationId" : "search-deployments",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -292,6 +296,7 @@
         "summary" : "Get eligible remote clusters",
         "description" : "Returns the list of deployments which contain eligible remote clusters for a specific version.",
         "operationId" : "search-eligible-remote-clusters",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "version",
           "in" : "query",
@@ -364,6 +369,7 @@
         "summary" : "Create an extension",
         "description" : "Creates the extension.\n The extensions API supports two types of usage patterns.\n A). Specify a `download_url`, http or https URL,  where the extension is currently hosted. This will result in extension being copied to elastic repository.\n B). Create only the extension metadata using the `POST` endpoint and then use `PUT` to upload the extension file. Leave the `download_url` unspecified in this case.\n",
         "operationId" : "create-extension",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -503,6 +509,7 @@
         "summary" : "Update Extension",
         "description" : "Updates an extension.",
         "operationId" : "update-extension",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "extension_id",
           "in" : "path",
@@ -1010,6 +1017,7 @@
         "summary" : "Create a ruleset",
         "description" : "Creates a ruleset that consists of a set of rules.",
         "operationId" : "create-traffic-filter-ruleset",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -1108,6 +1116,7 @@
         "summary" : "Updates a ruleset",
         "description" : "Updates the ruleset with the definition.",
         "operationId" : "update-traffic-filter-ruleset",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "ruleset_id",
           "in" : "path",
@@ -1262,6 +1271,7 @@
         "summary" : "Create ruleset association",
         "description" : "Applies the ruleset to the specified deployment.",
         "operationId" : "create-traffic-filter-ruleset-association",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "ruleset_id",
           "in" : "path",
@@ -1519,6 +1529,7 @@
         "summary" : "Update Deployment",
         "description" : "Updates a Deployment.",
         "operationId" : "update-deployment",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -1584,63 +1595,6 @@
           },
           "400" : {
             "description" : "The deployment request had errors.",
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "401" : {
-            "description" : "You are not authorized to perform this action.",
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "404" : {
-            "description" : "The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "deployments.deployment_not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          }
-        },
-        "x-doc" : {
-          "tag" : "Deployment - CRUD"
-        }
-      }
-    },
-    "/deployments/{deployment_id}/_migrate" : {
-      "post" : {
-        "tags" : [ "Deployments" ],
-        "summary" : "Build Migrate Deployment Template request",
-        "description" : "Returns a deployment update request that would transform this deployment from its template to the provided one.",
-        "operationId" : "migrate-deployment",
-        "parameters" : [ {
-          "name" : "deployment_id",
-          "in" : "path",
-          "description" : "Identifier for the Deployment",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "template",
-          "in" : "query",
-          "description" : "The ID of the deployment template to migrate to",
-          "required" : true,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "The request was valid and the deployment can be migrated to the template with the provided id.",
-            "schema" : {
-              "$ref" : "#/definitions/DeploymentTemplateMigrateResponse"
-            }
-          },
-          "400" : {
-            "description" : "The deployment cannot be successfully migrated to the template with the provided id.",
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
@@ -2132,6 +2086,7 @@
         "summary" : "Set AppSearch read-only status",
         "description" : "Enable/Disable read-only mode on the given App Search resource.",
         "operationId" : "set-appsearch-read-only-mode",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -2404,6 +2359,7 @@
         "summary" : "Migrate Elasticsearch resource to use ILM",
         "description" : "Migrates the specified Elasticsearch resource to use ILM.",
         "operationId" : "enable-deployment-resource-ilm",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -2842,6 +2798,7 @@
         "summary" : "Get eligible remote clusters",
         "description" : "Returns the list of deployments which contain eligible remote clusters for the elasticsearch resource.",
         "operationId" : "get-deployment-es-resource-eligible-remote-clusters",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -2977,6 +2934,7 @@
         "summary" : "Add or remove settings from the Elasticsearch resource keystore",
         "description" : "Fetches the current values of the keystore for the Elasticsearch resource.",
         "operationId" : "set-deployment-es-resource-keystore",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -3099,6 +3057,7 @@
         "summary" : "Set remote clusters",
         "description" : "Overwrites or creates the remote clusters for the elasticsearch resource.",
         "operationId" : "set-deployment-es-resource-remote-clusters",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -3384,7 +3343,7 @@
           "description" : "The kind of resource",
           "required" : true,
           "type" : "string",
-          "enum" : [ "elasticsearch", "kibana", "apm", "appsearch", "enterprise_search" ]
+          "enum" : [ "elasticsearch", "kibana", "apm", "appsearch", "enterprise_search", "agent" ]
         }, {
           "name" : "ref_id",
           "in" : "path",
@@ -3466,7 +3425,7 @@
         }, {
           "name" : "resource_kind",
           "in" : "path",
-          "description" : "The kind of resource (one of elasticsearch, kibana or apm).",
+          "description" : "The kind of resource (one of elasticsearch, kibana, apm or agent).",
           "required" : true,
           "type" : "string"
         }, {
@@ -3556,7 +3515,7 @@
         }, {
           "name" : "resource_kind",
           "in" : "path",
-          "description" : "The kind of resource (one of elasticsearch, kibana or apm).",
+          "description" : "The kind of resource (one of elasticsearch, kibana, apm or agent).",
           "required" : true,
           "type" : "string"
         }, {
@@ -3646,7 +3605,7 @@
         }, {
           "name" : "resource_kind",
           "in" : "path",
-          "description" : "The kind of resource (one of elasticsearch, kibana or apm).",
+          "description" : "The kind of resource (one of elasticsearch, kibana, apm or agent).",
           "required" : true,
           "type" : "string"
         }, {
@@ -3736,7 +3695,7 @@
         }, {
           "name" : "resource_kind",
           "in" : "path",
-          "description" : "The kind of resource (one of elasticsearch, kibana or apm).",
+          "description" : "The kind of resource (one of elasticsearch, kibana, apm or agent).",
           "required" : true,
           "type" : "string"
         }, {
@@ -3826,7 +3785,7 @@
         }, {
           "name" : "resource_kind",
           "in" : "path",
-          "description" : "The kind of resource (one of elasticsearch, kibana or apm).",
+          "description" : "The kind of resource (one of elasticsearch, kibana, apm or agent).",
           "required" : true,
           "type" : "string"
         }, {
@@ -3933,7 +3892,7 @@
         }, {
           "name" : "resource_kind",
           "in" : "path",
-          "description" : "The kind of resource (one of elasticsearch, kibana or apm).",
+          "description" : "The kind of resource (one of elasticsearch, kibana, apm or agent).",
           "required" : true,
           "type" : "string"
         }, {
@@ -4040,7 +3999,7 @@
         }, {
           "name" : "resource_kind",
           "in" : "path",
-          "description" : "The kind of resource (one of elasticsearch, kibana or apm).",
+          "description" : "The kind of resource (one of elasticsearch, kibana, apm or agent).",
           "required" : true,
           "type" : "string"
         }, {
@@ -4147,7 +4106,7 @@
         }, {
           "name" : "resource_kind",
           "in" : "path",
-          "description" : "The kind of resource (one of elasticsearch, kibana or apm).",
+          "description" : "The kind of resource (one of elasticsearch, kibana, apm or agent).",
           "required" : true,
           "type" : "string"
         }, {
@@ -4257,7 +4216,7 @@
           "description" : "The kind of resource",
           "required" : true,
           "type" : "string",
-          "enum" : [ "elasticsearch", "kibana", "apm", "appsearch", "enterprise_search" ]
+          "enum" : [ "elasticsearch", "kibana", "apm", "appsearch", "enterprise_search", "agent" ]
         }, {
           "name" : "ref_id",
           "in" : "path",
@@ -4362,7 +4321,7 @@
           "description" : "The kind of stateless resource",
           "required" : true,
           "type" : "string",
-          "enum" : [ "kibana", "apm", "appsearch", "enterprise_search" ]
+          "enum" : [ "kibana", "apm", "appsearch", "enterprise_search", "agent" ]
         }, {
           "name" : "ref_id",
           "in" : "path",
@@ -4460,7 +4419,7 @@
           "description" : "The kind of stateless resource",
           "required" : true,
           "type" : "string",
-          "enum" : [ "kibana", "apm", "appsearch", "enterprise_search" ]
+          "enum" : [ "kibana", "apm", "appsearch", "enterprise_search", "agent" ]
         }, {
           "name" : "ref_id",
           "in" : "path",
@@ -4549,7 +4508,7 @@
     "/deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_upgrade" : {
       "post" : {
         "tags" : [ "Deployments" ],
-        "summary" : "Upgrade Kibana, APM, AppSearch inside Deployment",
+        "summary" : "Upgrade Kibana, APM, Agent, AppSearch inside Deployment",
         "description" : "Upgrades a running cluster.",
         "operationId" : "upgrade-deployment-stateless-resource",
         "parameters" : [ {
@@ -4564,7 +4523,7 @@
           "description" : "The kind of stateless resource",
           "required" : true,
           "type" : "string",
-          "enum" : [ "kibana", "apm", "appsearch", "enterprise_search" ]
+          "enum" : [ "kibana", "apm", "appsearch", "enterprise_search", "agent" ]
         }, {
           "name" : "ref_id",
           "in" : "path",
@@ -4655,6 +4614,7 @@
         "summary" : "Create trust relationship",
         "description" : "Creates a trust relationship.",
         "operationId" : "create-trust-relationship",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -4773,6 +4733,7 @@
         "summary" : "Update trust relationship",
         "description" : "Updates a trust relationship.",
         "operationId" : "update-trust-relationship",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "trust_relationship_id",
           "in" : "path",
@@ -4947,6 +4908,7 @@
         "summary" : "Create API key",
         "description" : "Creates a new API key.",
         "operationId" : "create-api-key",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -4999,6 +4961,7 @@
         "summary" : "Delete API keys",
         "description" : "Delete or invalidate API keys.",
         "operationId" : "delete-api-keys",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -6320,7 +6283,7 @@
           "description" : "A list of the node roles assigned to the service running in the instance. Currently populated only for Elasticsearch.",
           "items" : {
             "type" : "string",
-            "enum" : [ "master", "ingest", "ml", "data_hot", "data_content", "data_warm", "data_cold", "remote_cluster_client", "transform", "voting_only" ]
+            "enum" : [ "master", "ingest", "ml", "data_hot", "data_content", "data_warm", "data_cold", "data_frozen", "remote_cluster_client", "transform", "voting_only" ]
           }
         }
       },
@@ -6475,7 +6438,7 @@
     },
     "ClusterPlanStepLogMessageInfo" : {
       "type" : "object",
-      "required" : [ "details", "internal_details", "message", "stage", "timestamp" ],
+      "required" : [ "details", "message", "stage", "timestamp" ],
       "properties" : {
         "timestamp" : {
           "type" : "string",
@@ -6502,10 +6465,6 @@
           "additionalProperties" : {
             "type" : "string"
           }
-        },
-        "internal_details" : {
-          "type" : "object",
-          "description" : "A json object with sensitive details for the log, visible only to admins. May contain nested json objects."
         },
         "failure_type" : {
           "type" : "string",
@@ -6761,6 +6720,10 @@
         "metadata" : {
           "description" : "Additional information about this deployment",
           "$ref" : "#/definitions/DeploymentCreateMetadata"
+        },
+        "alias" : {
+          "type" : "string",
+          "description" : "A user-defined alias to use in place of Cluster IDs for user-friendly URLs"
         }
       },
       "description" : "A request for creating a new Deployment consisting of multiple clusters"
@@ -6810,6 +6773,10 @@
         "name" : {
           "type" : "string",
           "description" : "The name of the deployment"
+        },
+        "alias" : {
+          "type" : "string",
+          "description" : "A user-defined deployment alias for user-friendly resource URLs"
         },
         "created" : {
           "type" : "boolean",
@@ -6872,6 +6839,10 @@
         "name" : {
           "type" : "string",
           "description" : "The name of this deployment"
+        },
+        "alias" : {
+          "type" : "string",
+          "description" : "A user-defined deployment alias for user-friendly resource URLs"
         },
         "healthy" : {
           "type" : "boolean",
@@ -7176,6 +7147,10 @@
           "type" : "string",
           "description" : "The name of this deployment"
         },
+        "alias" : {
+          "type" : "string",
+          "description" : "A user-defined deployment alias for user-friendly resource URLs"
+        },
         "healthy" : {
           "type" : "boolean",
           "description" : "Whether the deployment is overall healthy or not (one or more of the resource info subsections will have healthy: false)"
@@ -7297,17 +7272,6 @@
       },
       "description" : "Deployment template detailed information"
     },
-    "DeploymentTemplateMigrateResponse" : {
-      "type" : "object",
-      "required" : [ "resources" ],
-      "properties" : {
-        "resources" : {
-          "description" : "Resources that are part of the deployment after the migrate operation.",
-          "$ref" : "#/definitions/DeploymentUpdateRequest"
-        }
-      },
-      "description" : "A response returned from the Deployment migrate endpoint"
-    },
     "DeploymentTemplateReference" : {
       "type" : "object",
       "required" : [ "id" ],
@@ -7359,6 +7323,10 @@
         "metadata" : {
           "description" : "Any new information about the current deployment object. If there is no new information the value is unchanged.",
           "$ref" : "#/definitions/DeploymentUpdateMetadata"
+        },
+        "alias" : {
+          "type" : "string",
+          "description" : "A user-defined alias to use in place of Cluster IDs for user-friendly URLs"
         }
       },
       "description" : "A request for updating a Deployment consisting of multiple resources"
@@ -7408,6 +7376,10 @@
         "name" : {
           "type" : "string",
           "description" : "The name of the deployment"
+        },
+        "alias" : {
+          "type" : "string",
+          "description" : "A user-defined alias to use in place of ResourceIds for user-friendly resource URLs"
         },
         "resources" : {
           "type" : "array",
@@ -7887,10 +7859,10 @@
         },
         "node_roles" : {
           "type" : "array",
-          "description" : "The list of node roles for this topology element (ES version >= 7.10). Allowable values are: master, ingest, ml, data_hot, data_content, data_warm, data_cold, remote_cluster_client, transform",
+          "description" : "The list of node roles for this topology element (ES version >= 7.10). Allowable values are: master, ingest, ml, data_hot, data_content, data_warm, data_cold, data_frozen, remote_cluster_client, transform",
           "items" : {
             "type" : "string",
-            "enum" : [ "master", "ingest", "ml", "data_hot", "data_content", "data_warm", "data_cold", "remote_cluster_client", "transform" ]
+            "enum" : [ "master", "ingest", "ml", "data_hot", "data_content", "data_warm", "data_cold", "data_frozen", "remote_cluster_client", "transform" ]
           }
         },
         "zone_count" : {
@@ -10415,6 +10387,14 @@
           "type" : "string",
           "description" : "The minimum version of the platform that the stack pack version is compatible with"
         },
+        "min_wire_compatibility_version" : {
+          "type" : "string",
+          "description" : "The minimum version required for performing a rolling upgrade to this stack version."
+        },
+        "min_index_compatibility_version" : {
+          "type" : "string",
+          "description" : "The minimum version required for performing a full cluster restart upgrade to this stack version."
+        },
         "schema_version" : {
           "type" : "integer",
           "format" : "int32",
@@ -10521,7 +10501,7 @@
           "description" : "The exact value to query for."
         }
       },
-      "description" : "A query for documents that contain the specified terms in the inverted index."
+      "description" : "A query for documents that contain the specified term in the inverted index."
     },
     "TopologyElementControl" : {
       "type" : "object",
@@ -10553,7 +10533,6 @@
     },
     "TrafficFilterRule" : {
       "type" : "object",
-      "required" : [ "source" ],
       "properties" : {
         "id" : {
           "type" : "string",
@@ -10566,6 +10545,14 @@
         "source" : {
           "type" : "string",
           "description" : "Allowed traffic filter source: IP address, CIDR mask, or VPC endpoint ID"
+        },
+        "azure_endpoint_name" : {
+          "type" : "string",
+          "description" : "Name of the Azure Private Endpoint to allow connections from"
+        },
+        "azure_endpoint_guid" : {
+          "type" : "string",
+          "description" : "Resource GUID of the Azure Private Endpoint to allow connections from"
         }
       },
       "description" : "The container for an IP filter rule."
