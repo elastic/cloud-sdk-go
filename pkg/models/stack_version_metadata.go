@@ -34,8 +34,14 @@ import (
 // swagger:model StackVersionMetadata
 type StackVersionMetadata struct {
 
+	// The minimum version required for performing a full cluster restart upgrade to this stack version.
+	MinIndexCompatibilityVersion string `json:"min_index_compatibility_version,omitempty"`
+
 	// The minimum version of the platform that the stack pack version is compatible with
 	MinPlatformVersion string `json:"min_platform_version,omitempty"`
+
+	// The minimum version required for performing a rolling upgrade to this stack version.
+	MinWireCompatibilityVersion string `json:"min_wire_compatibility_version,omitempty"`
 
 	// Notes for administrator
 	Notes string `json:"notes,omitempty"`

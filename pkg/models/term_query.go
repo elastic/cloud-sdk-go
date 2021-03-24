@@ -30,7 +30,7 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// TermQuery A query for documents that contain the specified terms in the inverted index.
+// TermQuery A query for documents that contain the specified term in the inverted index.
 //
 // swagger:model TermQuery
 type TermQuery struct {
