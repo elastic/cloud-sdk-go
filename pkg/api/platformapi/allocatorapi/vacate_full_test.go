@@ -762,6 +762,253 @@ func TestVacate(t *testing.T) {
 `,
 		},
 		{
+			name: "Moving multiple clusters from multiple allocators that fail to move with JSON format with internal details",
+			args: args{
+				buf: sdkSync.NewBuffer(),
+				params: newVacateTestCase(t, vacateCase{outputFormat: "json", region: "us-east-1", topology: []vacateCaseClusters{
+					{
+						Allocator: "allocatorID-1",
+						elasticsearch: []vacateCaseClusterConfig{
+							{
+								ID:   "3ee11eb40eda22cac0cce259625c6734",
+								fail: true,
+							},
+						},
+						kibana: []vacateCaseClusterConfig{
+							{
+								ID: "2ee11eb40eda22cac0cce259625c6734",
+								steps: [][]*models.ClusterPlanStepInfo{
+									{
+										newPlanStep("step1", "success"),
+										newPlanStep("step2", "pending"),
+									},
+								},
+								plan: []*models.ClusterPlanStepInfo{
+									newPlanStep("step1", "success"),
+									newPlanStep("step2", "success"),
+									newPlanStep("plan-completed", "success"),
+								},
+							},
+						},
+					},
+					{
+						Allocator: "allocatorID-2",
+						elasticsearch: []vacateCaseClusterConfig{
+							{
+								ID: "5ee11eb40eda22cac0cce259625c6734",
+								steps: [][]*models.ClusterPlanStepInfo{
+									{
+										newPlanStep("step1", "success"),
+										newPlanStep("step2", "pending"),
+									},
+									{
+										newPlanStep("step1", "success"),
+										newPlanStep("step2", "success"),
+										newPlanStepWithDetails("step3", "error", []*models.ClusterPlanStepLogMessageInfo{{
+											Message: ec.String(planStepLogErrorMessage),
+										}}),
+									},
+								},
+								plan: []*models.ClusterPlanStepInfo{
+									newPlanStep("step1", "success"),
+									newPlanStep("step2", "success"),
+									newPlanStepWithDetails("step3", "error", []*models.ClusterPlanStepLogMessageInfo{{
+										Message: ec.String(planStepLogErrorMessage),
+									}}),
+									newPlanStepWithDetails("plan-completed", "error", []*models.ClusterPlanStepLogMessageInfo{{
+										Message:     ec.String("Failed to detect running cluster - instance was not detected as running in time. Check the health of the cluster, and look at the instance and/or allocator logs to determine if there were any issues starting."),
+										FailureType: "ClusterFailure:InstanceDidNotStartWhileWaitingForRunning",
+										InternalDetails: map[string]interface{}{
+											"details": "The state did not become the desired one before [600000 milliseconds] elapsed. Last error was: [Instance is not running [instance-0000000038]. Please check allocator/docker logs.]",
+										},
+									}}),
+								},
+							},
+						},
+						kibana: []vacateCaseClusterConfig{
+							{
+								ID: "4ee11eb40eda22cac0cce259625c6734",
+								steps: [][]*models.ClusterPlanStepInfo{
+									{
+										newPlanStep("step1", "success"),
+										newPlanStep("step2", "pending"),
+									},
+								},
+								plan: []*models.ClusterPlanStepInfo{
+									newPlanStep("step1", "success"),
+									newPlanStep("step2", "success"),
+									newPlanStep("plan-completed", "success"),
+								},
+							},
+						},
+					},
+				}}),
+			},
+			want: newOutputResponses(
+				`{"id":"2ee11eb40eda22cac0cce259625c6734","kind":"kibana","step":"step2","deployment_id":"DISCOVERED_DEPLOYMENT_ID","ref_id":"main-kibana","duration":"s"}`,
+				`{"id":"2ee11eb40eda22cac0cce259625c6734","kind":"kibana","step":"plan-completed","err":{"message":"finished all the plan steps"},"deployment_id":"DISCOVERED_DEPLOYMENT_ID","ref_id":"main-kibana","duration":"s","finished":true}`,
+				`{"id":"5ee11eb40eda22cac0cce259625c6734","kind":"elasticsearch","step":"step2","deployment_id":"DISCOVERED_DEPLOYMENT_ID","ref_id":"main-elasticsearch","duration":"s"}`,
+				`{"id":"5ee11eb40eda22cac0cce259625c6734","kind":"elasticsearch","step":"step3","deployment_id":"DISCOVERED_DEPLOYMENT_ID","ref_id":"main-elasticsearch","duration":"s"}`,
+				`{"id":"5ee11eb40eda22cac0cce259625c6734","kind":"elasticsearch","step":"plan-completed","err":{"message":"Failed to detect running cluster - instance was not detected as running in time. Check the health of the cluster, and look at the instance and/or allocator logs to determine if there were any issues starting."},"deployment_id":"DISCOVERED_DEPLOYMENT_ID","ref_id":"main-elasticsearch","duration":"s":"The state did not become the desired one before [600000 milliseconds] elapsed. Last error was: [Instance is not running [instance-0000000038]. Please check allocator/docker logs.]"}},"finished":true}`,
+				`{"id":"4ee11eb40eda22cac0cce259625c6734","kind":"kibana","step":"step2","deployment_id":"DISCOVERED_DEPLOYMENT_ID","ref_id":"main-kibana","duration":"s"}`,
+				`{"id":"4ee11eb40eda22cac0cce259625c6734","kind":"kibana","step":"plan-completed","err":{"message":"finished all the plan steps"},"deployment_id":"DISCOVERED_DEPLOYMENT_ID","ref_id":"main-kibana","duration":"s","finished":true}`,
+			),
+			err: `{
+  "errors": [
+    {
+      "allocator_id": "allocatorID-1",
+      "context": "failed vacating",
+      "error": {
+        "message": "a message (a code)"
+      },
+      "kind": "elasticsearch",
+      "resource_id": "3ee11eb40eda22cac0cce259625c6734"
+    },
+    {
+      "deployment_id": "DISCOVERED_DEPLOYMENT_ID",
+      "err": {
+        "message": "Failed to detect running cluster - instance was not detected as running in time. Check the health of the cluster, and look at the instance and/or allocator logs to determine if there were any issues starting."
+      },
+      "failure_details": {
+        "details": null,
+        "failure_type": "ClusterFailure:InstanceDidNotStartWhileWaitingForRunning",
+        "internal": {
+          "details": "The state did not become the desired one before [600000 milliseconds] elapsed. Last error was: [Instance is not running [instance-0000000038]. Please check allocator/docker logs.]"
+        }
+      },
+      "finished": true,
+      "id": "5ee11eb40eda22cac0cce259625c6734",
+      "kind": "elasticsearch",
+      "ref_id": "main-elasticsearch",
+      "step": "plan-completed"
+    }
+  ]
+}
+`,
+		},
+		{
+			name: "Moving multiple clusters from multiple allocators that fail to move with JSON format with details",
+			args: args{
+				buf: sdkSync.NewBuffer(),
+				params: newVacateTestCase(t, vacateCase{outputFormat: "json", region: "us-east-1", topology: []vacateCaseClusters{
+					{
+						Allocator: "allocatorID-1",
+						elasticsearch: []vacateCaseClusterConfig{
+							{
+								ID:   "3ee11eb40eda22cac0cce259625c6734",
+								fail: true,
+							},
+						},
+						kibana: []vacateCaseClusterConfig{
+							{
+								ID: "2ee11eb40eda22cac0cce259625c6734",
+								steps: [][]*models.ClusterPlanStepInfo{
+									{
+										newPlanStep("step1", "success"),
+										newPlanStep("step2", "pending"),
+									},
+								},
+								plan: []*models.ClusterPlanStepInfo{
+									newPlanStep("step1", "success"),
+									newPlanStep("step2", "success"),
+									newPlanStep("plan-completed", "success"),
+								},
+							},
+						},
+					},
+					{
+						Allocator: "allocatorID-2",
+						elasticsearch: []vacateCaseClusterConfig{
+							{
+								ID: "5ee11eb40eda22cac0cce259625c6734",
+								steps: [][]*models.ClusterPlanStepInfo{
+									{
+										newPlanStep("step1", "success"),
+										newPlanStep("step2", "pending"),
+									},
+									{
+										newPlanStep("step1", "success"),
+										newPlanStep("step2", "success"),
+										newPlanStepWithDetails("step3", "error", []*models.ClusterPlanStepLogMessageInfo{{
+											Message: ec.String(planStepLogErrorMessage),
+										}}),
+									},
+								},
+								plan: []*models.ClusterPlanStepInfo{
+									newPlanStep("step1", "success"),
+									newPlanStep("step2", "success"),
+									newPlanStepWithDetails("step3", "error", []*models.ClusterPlanStepLogMessageInfo{{
+										Message: ec.String(planStepLogErrorMessage),
+									}}),
+									newPlanStepWithDetails("plan-completed", "error", []*models.ClusterPlanStepLogMessageInfo{{
+										Message:     ec.String("An unexpected error was encountered during step [rolling-upgrade]. Ensure there are no issue with your deployment and then attempt to re-run the plan."),
+										FailureType: "UnknownFailure:UnknownErrorEncountered",
+										Details:     map[string]string{"stepId": "rolling-upgrade"},
+									}}),
+								},
+							},
+						},
+						kibana: []vacateCaseClusterConfig{
+							{
+								ID: "4ee11eb40eda22cac0cce259625c6734",
+								steps: [][]*models.ClusterPlanStepInfo{
+									{
+										newPlanStep("step1", "success"),
+										newPlanStep("step2", "pending"),
+									},
+								},
+								plan: []*models.ClusterPlanStepInfo{
+									newPlanStep("step1", "success"),
+									newPlanStep("step2", "success"),
+									newPlanStep("plan-completed", "success"),
+								},
+							},
+						},
+					},
+				}}),
+			},
+			want: newOutputResponses(
+				`{"id":"2ee11eb40eda22cac0cce259625c6734","kind":"kibana","step":"step2","deployment_id":"DISCOVERED_DEPLOYMENT_ID","ref_id":"main-kibana","duration":"s"}`,
+				`{"id":"2ee11eb40eda22cac0cce259625c6734","kind":"kibana","step":"plan-completed","err":{"message":"finished all the plan steps"},"deployment_id":"DISCOVERED_DEPLOYMENT_ID","ref_id":"main-kibana","duration":"s","finished":true}`,
+				`{"id":"5ee11eb40eda22cac0cce259625c6734","kind":"elasticsearch","step":"step2","deployment_id":"DISCOVERED_DEPLOYMENT_ID","ref_id":"main-elasticsearch","duration":"s"}`,
+				`{"id":"5ee11eb40eda22cac0cce259625c6734","kind":"elasticsearch","step":"step3","deployment_id":"DISCOVERED_DEPLOYMENT_ID","ref_id":"main-elasticsearch","duration":"s"}`,
+				`{"id":"5ee11eb40eda22cac0cce259625c6734","kind":"elasticsearch","step":"plan-completed","err":{"message":"An unexpected error was encountered during step [rolling-upgrade]. Ensure there are no issue with your deployment and then attempt to re-run the plan."},"deployment_id":"DISCOVERED_DEPLOYMENT_ID","ref_id":"main-elasticsearch","duration":"s":{"stepId":"rolling-upgrade"},"failure_type":"UnknownFailure:UnknownErrorEncountered"},"finished":true}`,
+				`{"id":"4ee11eb40eda22cac0cce259625c6734","kind":"kibana","step":"step2","deployment_id":"DISCOVERED_DEPLOYMENT_ID","ref_id":"main-kibana","duration":"s"}`,
+				`{"id":"4ee11eb40eda22cac0cce259625c6734","kind":"kibana","step":"plan-completed","err":{"message":"finished all the plan steps"},"deployment_id":"DISCOVERED_DEPLOYMENT_ID","ref_id":"main-kibana","duration":"s","finished":true}`,
+			),
+			err: `{
+  "errors": [
+    {
+      "allocator_id": "allocatorID-1",
+      "context": "failed vacating",
+      "error": {
+        "message": "a message (a code)"
+      },
+      "kind": "elasticsearch",
+      "resource_id": "3ee11eb40eda22cac0cce259625c6734"
+    },
+    {
+      "deployment_id": "DISCOVERED_DEPLOYMENT_ID",
+      "err": {
+        "message": "An unexpected error was encountered during step [rolling-upgrade]. Ensure there are no issue with your deployment and then attempt to re-run the plan."
+      },
+      "failure_details": {
+        "details": {
+          "stepId": "rolling-upgrade"
+        },
+        "failure_type": "UnknownFailure:UnknownErrorEncountered"
+      },
+      "finished": true,
+      "id": "5ee11eb40eda22cac0cce259625c6734",
+      "kind": "elasticsearch",
+      "ref_id": "main-elasticsearch",
+      "step": "plan-completed"
+    }
+  ]
+}
+`,
+		},
+		{
 			name: "Vacate has some failures",
 			args: args{
 				buf: sdkSync.NewBuffer(),
@@ -822,7 +1069,7 @@ func TestVacate(t *testing.T) {
 				}
 			}
 
-			if tt.args.buf != nil && tt.want != got {
+			if tt.args.buf != nil && !assert.Equal(t, tt.want, got) {
 				t.Errorf("VacateCluster() output = \n%v, want \n%v", got, tt.want)
 			}
 		})

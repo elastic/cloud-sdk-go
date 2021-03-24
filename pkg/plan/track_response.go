@@ -37,8 +37,23 @@ type TrackResponse struct {
 	RefID        string          `json:"ref_id,omitempty"`
 	Duration     strfmt.Duration `json:"duration,omitempty"`
 
+	// Introduced as part of the plan failure categorization
+	FailureDetails *FailureDetails `json:"failure_details,omitempty"`
+
 	Finished    bool `json:"finished,omitempty"`
-	runningStep bool
+	runningStep bool `json:"-"`
+}
+
+// FailureDetails contains the details for a failure.
+type FailureDetails struct {
+	// A map with details for the log about what happened during the step execution. Keys and values for are always both strings, representing the name of the detail and its value, respectively.
+	Details map[string]string `json:"details"`
+
+	// The failure type, in case the step failed
+	FailureType string `json:"failure_type,omitempty"`
+
+	// A json object with sensitive details for the log, visible only to admins. May contain nested json objects.
+	Internal interface{} `json:"internal,omitempty"`
 }
 
 func (res TrackResponse) Error() string {
