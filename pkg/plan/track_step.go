@@ -19,6 +19,7 @@ package plan
 
 import (
 	"errors"
+	"reflect"
 
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
@@ -58,6 +59,36 @@ func StepErrorOrUnknownError(step *models.ClusterPlanStepInfo) error {
 	}
 
 	return errors.New(*step.InfoLog[len(step.InfoLog)-1].Message)
+}
+
+func stepDetails(log []*models.ClusterPlanStepInfo) *FailureDetails {
+	if len(log) == 0 {
+		return nil
+	}
+
+	step := log[len(log)-1]
+	if *step.StepID != planCompleted || *step.Status != errorStatus {
+		return nil
+	}
+
+	stepLog := step.InfoLog[len(step.InfoLog)-1]
+	details := FailureDetails{
+		FailureType: stepLog.FailureType,
+	}
+
+	if len(stepLog.Details) > 0 {
+		details.Details = stepLog.Details
+	}
+
+	if stepLog.InternalDetails != nil {
+		details.Internal = stepLog.InternalDetails
+	}
+
+	if reflect.DeepEqual(details, FailureDetails{}) {
+		return nil
+	}
+	return &details
+
 }
 
 func lastLog(log []*models.ClusterPlanStepInfo) (*models.ClusterPlanStepInfo, error) {

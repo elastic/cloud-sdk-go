@@ -116,13 +116,14 @@ func parseResourceInfo(info interface{}, kind string, getCurrentPlan bool) (Trac
 	}
 
 	return TrackResponse{
-		Kind:     kind,
-		ID:       id,
-		RefID:    refID,
-		Step:     step,
-		Err:      err,
-		Finished: step == planCompleted,
-		Duration: getPlanDuration(stepLog),
+		Kind:           kind,
+		ID:             id,
+		RefID:          refID,
+		Step:           step,
+		Err:            err,
+		FailureDetails: stepDetails(stepLog),
+		Finished:       step == planCompleted,
+		Duration:       getPlanDuration(stepLog),
 	}, nil
 }
 

@@ -695,6 +695,137 @@ func TestTrackChange(t *testing.T) {
 				{ID: "cde7b6b605424a54ce9d56316eab13a1", Kind: "elasticsearch", DeploymentID: "cbb4bc6c09684c86aa5de54c05ea1d38", RefID: "main-elasticsearch", Step: "plan-completed", Finished: true, Err: errors.New("horrible failure")},
 			},
 		},
+		{
+			name: "returns an error with details on Timeout exceeded",
+			args: args{params: TrackChangeParams{
+				IgnoreDownstream: true,
+				Config:           TrackFrequencyConfig{MaxRetries: 1},
+				ResourceID:       "cde7b6b605424a54ce9d56316eab13a1",
+				Kind:             "elasticsearch",
+				API: api.NewMock(
+					mock.New200StructResponse(foundDeploymentIDResponse),
+					mock.New200StructResponse(noMorePendingPlan),
+					mock.New200StructResponse(planmock.Generate(planmock.GenerateConfig{
+						ID: "cbb4bc6c09684c86aa5de54c05ea1d38",
+						Elasticsearch: []planmock.GeneratedResourceConfig{
+							{
+								ID: "cde7b6b605424a54ce9d56316eab13a1",
+								CurrentLog: planmock.NewPlanStepLog(
+									planmock.NewPlanStep("something", "success"),
+									planmock.NewPlanStepWithDetailsAndError(planCompleted, []*models.ClusterPlanStepLogMessageInfo{
+										{
+											Message:     ec.String("Plan change failed: Timeout exceeded. Please adjust plan timeout and/or retry plan."),
+											FailureType: "InfrastructureFailure:TimeoutExceeded",
+										},
+									}),
+								),
+							},
+						},
+					})),
+				),
+			}},
+			want: []TrackResponse{
+				{
+					ID: "cde7b6b605424a54ce9d56316eab13a1", Kind: "elasticsearch",
+					DeploymentID: "cbb4bc6c09684c86aa5de54c05ea1d38", RefID: "main-elasticsearch",
+					Step: "plan-completed", Finished: true,
+					Err: errors.New("Plan change failed: Timeout exceeded. Please adjust plan timeout and/or retry plan."),
+					FailureDetails: &FailureDetails{
+						FailureType: "InfrastructureFailure:TimeoutExceeded",
+					},
+				},
+			},
+		},
+		{
+			name: "returns an error with details on UnknownError",
+			args: args{params: TrackChangeParams{
+				IgnoreDownstream: true,
+				Config:           TrackFrequencyConfig{MaxRetries: 1},
+				ResourceID:       "cde7b6b605424a54ce9d56316eab13a1",
+				Kind:             "elasticsearch",
+				API: api.NewMock(
+					mock.New200StructResponse(foundDeploymentIDResponse),
+					mock.New200StructResponse(noMorePendingPlan),
+					mock.New200StructResponse(planmock.Generate(planmock.GenerateConfig{
+						ID: "cbb4bc6c09684c86aa5de54c05ea1d38",
+						Elasticsearch: []planmock.GeneratedResourceConfig{
+							{
+								ID: "cde7b6b605424a54ce9d56316eab13a1",
+								CurrentLog: planmock.NewPlanStepLog(
+									planmock.NewPlanStep("something", "success"),
+									planmock.NewPlanStepWithDetailsAndError(planCompleted, []*models.ClusterPlanStepLogMessageInfo{
+										{
+											Message:     ec.String("An unexpected error was encountered during step [rolling-upgrade]. Ensure there are no issue with your deployment and then attempt to re-run the plan."),
+											FailureType: "UnknownFailure:UnknownErrorEncountered",
+											Details:     map[string]string{"stepId": "rolling-upgrade"},
+										},
+									}),
+								),
+							},
+						},
+					})),
+				),
+			}},
+			want: []TrackResponse{
+				{
+					ID: "cde7b6b605424a54ce9d56316eab13a1", Kind: "elasticsearch",
+					DeploymentID: "cbb4bc6c09684c86aa5de54c05ea1d38", RefID: "main-elasticsearch",
+					Step: "plan-completed", Finished: true,
+					Err: errors.New("An unexpected error was encountered during step [rolling-upgrade]. Ensure there are no issue with your deployment and then attempt to re-run the plan."),
+					FailureDetails: &FailureDetails{
+						FailureType: "UnknownFailure:UnknownErrorEncountered",
+						Details:     map[string]string{"stepId": "rolling-upgrade"},
+					},
+				},
+			},
+		},
+		{
+			name: "returns an error with internal details on InstanceDidNotStartWhileWaitingForRunning",
+			args: args{params: TrackChangeParams{
+				IgnoreDownstream: true,
+				Config:           TrackFrequencyConfig{MaxRetries: 1},
+				ResourceID:       "cde7b6b605424a54ce9d56316eab13a1",
+				Kind:             "elasticsearch",
+				API: api.NewMock(
+					mock.New200StructResponse(foundDeploymentIDResponse),
+					mock.New200StructResponse(noMorePendingPlan),
+					mock.New200StructResponse(planmock.Generate(planmock.GenerateConfig{
+						ID: "cbb4bc6c09684c86aa5de54c05ea1d38",
+						Elasticsearch: []planmock.GeneratedResourceConfig{
+							{
+								ID: "cde7b6b605424a54ce9d56316eab13a1",
+								CurrentLog: planmock.NewPlanStepLog(
+									planmock.NewPlanStep("something", "success"),
+									planmock.NewPlanStepWithDetailsAndError(planCompleted, []*models.ClusterPlanStepLogMessageInfo{
+										{
+											Message:     ec.String("Failed to detect running cluster - instance was not detected as running in time. Check the health of the cluster, and look at the instance and/or allocator logs to determine if there were any issues starting."),
+											FailureType: "ClusterFailure:InstanceDidNotStartWhileWaitingForRunning",
+											InternalDetails: map[string]string{
+												"details": "The state did not become the desired one before [600000 milliseconds] elapsed. Last error was: [Instance is not running [instance-0000000038]. Please check allocator/docker logs.]",
+											},
+										},
+									}),
+								),
+							},
+						},
+					})),
+				),
+			}},
+			want: []TrackResponse{
+				{
+					ID: "cde7b6b605424a54ce9d56316eab13a1", Kind: "elasticsearch",
+					DeploymentID: "cbb4bc6c09684c86aa5de54c05ea1d38", RefID: "main-elasticsearch",
+					Step: "plan-completed", Finished: true,
+					Err: errors.New("Failed to detect running cluster - instance was not detected as running in time. Check the health of the cluster, and look at the instance and/or allocator logs to determine if there were any issues starting."),
+					FailureDetails: &FailureDetails{
+						FailureType: "ClusterFailure:InstanceDidNotStartWhileWaitingForRunning",
+						Internal: map[string]string{
+							"details": "The state did not become the desired one before [600000 milliseconds] elapsed. Last error was: [Instance is not running [instance-0000000038]. Please check allocator/docker logs.]",
+						},
+					},
+				},
+			},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

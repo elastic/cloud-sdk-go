@@ -18,12 +18,11 @@
 package plan
 
 import (
-	"errors"
-	"reflect"
 	"testing"
 
 	planmock "github.com/elastic/cloud-sdk-go/pkg/plan/mock"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
+	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
@@ -36,7 +35,7 @@ func TestGetStepName(t *testing.T) {
 		name string
 		args args
 		want string
-		err  error
+		err  string
 	}{
 		{
 			name: "Get logs that have an pending item",
@@ -47,7 +46,6 @@ func TestGetStepName(t *testing.T) {
 				},
 			},
 			want: "step2",
-			err:  nil,
 		},
 		{
 			name: "Get logs for a plan that has finished",
@@ -59,7 +57,7 @@ func TestGetStepName(t *testing.T) {
 				},
 			},
 			want: planCompleted,
-			err:  ErrPlanFinished,
+			err:  ErrPlanFinished.Error(),
 		},
 		{
 			name: `Get logs for a plan that has errored but the last step isn't "plan-completed"`,
@@ -73,7 +71,6 @@ func TestGetStepName(t *testing.T) {
 				},
 			},
 			want: "step3",
-			err:  nil,
 		},
 		{
 			name: "Get the last step when it is an error, ignores the previous error step",
@@ -90,13 +87,13 @@ func TestGetStepName(t *testing.T) {
 				},
 			},
 			want: "plan-completed",
-			err:  errors.New(planFinishedErrorMessage),
+			err:  planFinishedErrorMessage,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := GetStepName(tt.args.log)
-			if !reflect.DeepEqual(err, tt.err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Errorf("GetStepName() error = %v, wantErr %v", err, tt.err)
 				return
 			}
