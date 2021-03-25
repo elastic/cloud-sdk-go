@@ -48,8 +48,7 @@ type ClusterPlanStepLogMessageInfo struct {
 	FailureType string `json:"failure_type,omitempty"`
 
 	// A json object with sensitive details for the log, visible only to admins. May contain nested json objects.
-	// Required: true
-	InternalDetails interface{} `json:"internal_details"`
+	InternalDetails map[string]string `json:"internal_details,omitempty"`
 
 	// Human readable log message
 	// Required: true
@@ -71,10 +70,6 @@ func (m *ClusterPlanStepLogMessageInfo) Validate(formats strfmt.Registry) error 
 	var res []error
 
 	if err := m.validateDetails(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateInternalDetails(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -100,15 +95,6 @@ func (m *ClusterPlanStepLogMessageInfo) validateDetails(formats strfmt.Registry)
 
 	if err := validate.Required("details", "body", m.Details); err != nil {
 		return err
-	}
-
-	return nil
-}
-
-func (m *ClusterPlanStepLogMessageInfo) validateInternalDetails(formats strfmt.Registry) error {
-
-	if m.InternalDetails == nil {
-		return errors.Required("internal_details", "body", nil)
 	}
 
 	return nil

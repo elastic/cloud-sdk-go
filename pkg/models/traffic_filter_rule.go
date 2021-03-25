@@ -25,16 +25,20 @@ package models
 import (
 	"context"
 
-	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
-	"github.com/go-openapi/validate"
 )
 
 // TrafficFilterRule The container for an IP filter rule.
 //
 // swagger:model TrafficFilterRule
 type TrafficFilterRule struct {
+
+	// Resource GUID of the Azure Private Endpoint to allow connections from
+	AzureEndpointGUID string `json:"azure_endpoint_guid,omitempty"`
+
+	// Name of the Azure Private Endpoint to allow connections from
+	AzureEndpointName string `json:"azure_endpoint_name,omitempty"`
 
 	// Description of the rule
 	Description string `json:"description,omitempty"`
@@ -43,30 +47,11 @@ type TrafficFilterRule struct {
 	ID string `json:"id,omitempty"`
 
 	// Allowed traffic filter source: IP address, CIDR mask, or VPC endpoint ID
-	// Required: true
-	Source *string `json:"source"`
+	Source string `json:"source,omitempty"`
 }
 
 // Validate validates this traffic filter rule
 func (m *TrafficFilterRule) Validate(formats strfmt.Registry) error {
-	var res []error
-
-	if err := m.validateSource(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (m *TrafficFilterRule) validateSource(formats strfmt.Registry) error {
-
-	if err := validate.Required("source", "body", m.Source); err != nil {
-		return err
-	}
-
 	return nil
 }
 

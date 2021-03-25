@@ -239,7 +239,7 @@ func (a *Client) SetExtraCertificate(params *SetExtraCertificateParams, authInfo
 		Method:             "PUT",
 		PathPattern:        "/platform/configuration/security/extra_certs/{cert_id}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/text"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &SetExtraCertificateReader{formats: a.formats},
