@@ -800,7 +800,7 @@ func TestTrackChange(t *testing.T) {
 										{
 											Message:     ec.String("Failed to detect running cluster - instance was not detected as running in time. Check the health of the cluster, and look at the instance and/or allocator logs to determine if there were any issues starting."),
 											FailureType: "ClusterFailure:InstanceDidNotStartWhileWaitingForRunning",
-											InternalDetails: map[string]interface{}{
+											InternalDetails: map[string]string{
 												"details": "The state did not become the desired one before [600000 milliseconds] elapsed. Last error was: [Instance is not running [instance-0000000038]. Please check allocator/docker logs.]",
 											},
 										},
@@ -819,7 +819,7 @@ func TestTrackChange(t *testing.T) {
 					Err: errors.New("Failed to detect running cluster - instance was not detected as running in time. Check the health of the cluster, and look at the instance and/or allocator logs to determine if there were any issues starting."),
 					FailureDetails: &FailureDetails{
 						FailureType: "ClusterFailure:InstanceDidNotStartWhileWaitingForRunning",
-						Internal: map[string]interface{}{
+						Internal: map[string]string{
 							"details": "The state did not become the desired one before [600000 milliseconds] elapsed. Last error was: [Instance is not running [instance-0000000038]. Please check allocator/docker logs.]",
 						},
 					},

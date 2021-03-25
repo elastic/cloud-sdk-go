@@ -53,7 +53,7 @@ type FailureDetails struct {
 	FailureType string `json:"failure_type,omitempty"`
 
 	// A json object with sensitive details for the log, visible only to admins. May contain nested json objects.
-	Internal interface{} `json:"internal,omitempty"`
+	Internal map[string]string `json:"internal,omitempty"`
 }
 
 func (res TrackResponse) Error() string {
