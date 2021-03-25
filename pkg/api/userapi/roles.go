@@ -26,7 +26,6 @@ import (
 
 // Available user roles
 const platformAdminRole = "ece_platform_admin"
-const platformViewerRole = "ece_platform_viewer"
 const deploymentsManagerRole = "ece_deployment_manager"
 const deploymentsViewerRole = "ece_deployment_viewer"
 

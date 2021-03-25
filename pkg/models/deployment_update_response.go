@@ -37,6 +37,9 @@ import (
 // swagger:model DeploymentUpdateResponse
 type DeploymentUpdateResponse struct {
 
+	// A user-defined alias to use in place of ResourceIds for user-friendly resource URLs
+	Alias string `json:"alias,omitempty"`
+
 	// Backend diagnostics. Sent if validation is requested.
 	Diagnostics *DeploymentDiagnostics `json:"diagnostics,omitempty"`
 

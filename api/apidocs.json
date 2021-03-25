@@ -101,6 +101,7 @@
         "summary" : "Updates the current account",
         "description" : "Updates the current account.",
         "operationId" : "update-current-account",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -140,6 +141,7 @@
         "summary" : "Updates the current account",
         "description" : "Updates the current account.",
         "operationId" : "patch-current-account",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -181,6 +183,7 @@
         "summary" : "Search clusters",
         "description" : "DEPRECATED (Scheduled to be removed in the next major version): Retrieves the information for all of the instances that match the specified query.",
         "operationId" : "search-clusters",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -848,6 +851,7 @@
         "summary" : "Move instances (advanced)",
         "description" : "DEPRECATED (Scheduled to be removed in the next major version): Moves instances belonging to a Apm cluster, with custom configuration posted in the body.",
         "operationId" : "move-apm-instances-advanced",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "cluster_id",
           "in" : "path",
@@ -1208,6 +1212,7 @@
         "summary" : "Move instances",
         "description" : "DEPRECATED (Scheduled to be removed in the next major version): Moves one or more instances belonging to a Apm cluster.",
         "operationId" : "move-apm-instances",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "cluster_id",
           "in" : "path",
@@ -2349,6 +2354,7 @@
         "summary" : "Create cluster",
         "description" : "DEPRECATED (Scheduled to be removed in the next major version): Creates an Elasticsearch cluster.",
         "operationId" : "create-es-cluster",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "validate_only",
           "in" : "query",
@@ -2958,6 +2964,7 @@
         "summary" : "Take snapshot",
         "description" : "DEPRECATED (Scheduled to be removed in the next major version): To create a snapshot of the specified Elasticsearch cluster, uses the configured snapshot repository.",
         "operationId" : "snapshot-es-cluster",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "cluster_id",
           "in" : "path",
@@ -3300,6 +3307,7 @@
         "summary" : "Move instances (advanced)",
         "description" : "DEPRECATED (Scheduled to be removed in the next major version): Moves one or more instances in the Elasticsearch cluster. The custom configuration settings are posted in the body.",
         "operationId" : "move-es-cluster-instances-advanced",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "cluster_id",
           "in" : "path",
@@ -3674,6 +3682,7 @@
         "summary" : "Set settings overrides (all instances)",
         "description" : "DEPRECATED (Scheduled to be removed in the next major version): Overrides the settings for all of the instances in the Elasticsearch cluster.",
         "operationId" : "set-es-cluster-instances-all-settings-overrides",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "cluster_id",
           "in" : "path",
@@ -3741,6 +3750,7 @@
         "summary" : "Move instances",
         "description" : "DEPRECATED (Scheduled to be removed in the next major version): Moves one or more instances in the Elasticsearch cluster.",
         "operationId" : "move-es-cluster-instances",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "cluster_id",
           "in" : "path",
@@ -4200,6 +4210,7 @@
         "summary" : "Set settings overrides",
         "description" : "DEPRECATED (Scheduled to be removed in the next major version): Overrides the settings for the specified instances in the Elasticsearch cluster.",
         "operationId" : "set-es-cluster-instances-settings-overrides",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "cluster_id",
           "in" : "path",
@@ -4848,6 +4859,7 @@
         "summary" : "Update plan",
         "description" : "DEPRECATED (Scheduled to be removed in the next major version): Updates the configuration of the Elasticsearch cluster.",
         "operationId" : "update-es-cluster-plan",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "cluster_id",
           "in" : "path",
@@ -5485,6 +5497,7 @@
         "summary" : "Set legacy security settings",
         "description" : "DEPRECATED (Scheduled to be removed in the next major version): Sets the legacy Shield security settings for a 2.x Elasticsearch cluster.",
         "operationId" : "set-es-cluster-legacy-security-settings",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "cluster_id",
           "in" : "path",
@@ -6341,6 +6354,7 @@
         "summary" : "Move instances (advanced)",
         "description" : "DEPRECATED (Scheduled to be removed in the next major version): Moves one or more Kibana instances. The custom configuration settings are posted in the body.",
         "operationId" : "move-kibana-cluster-instances-advanced",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "cluster_id",
           "in" : "path",
@@ -6701,6 +6715,7 @@
         "summary" : "Move instances",
         "description" : "DEPRECATED (Scheduled to be removed in the next major version): Moves one or more Kibana instances.",
         "operationId" : "move-kibana-cluster-instances",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "cluster_id",
           "in" : "path",
@@ -7982,6 +7997,7 @@
         "summary" : "Create a Comment",
         "description" : "Creates a comment for the given Resource.",
         "operationId" : "create-comment",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "resource_type",
           "in" : "path",
@@ -8138,6 +8154,7 @@
         "summary" : "Update Comment",
         "description" : "Updates a Comment.",
         "operationId" : "update-comment",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "resource_type",
           "in" : "path",
@@ -8362,6 +8379,7 @@
         "summary" : "Create Deployment",
         "description" : "Creates a Deployment.",
         "operationId" : "create-deployment",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "request_id",
           "in" : "query",
@@ -8487,6 +8505,7 @@
         "summary" : "Search Deployments",
         "description" : "Retrieves the information for all of the deployments that match the specified query.",
         "operationId" : "search-deployments",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -8529,6 +8548,7 @@
         "summary" : "Get eligible remote clusters",
         "description" : "Returns the list of deployments which contain eligible remote clusters for a specific version.",
         "operationId" : "search-eligible-remote-clusters",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "version",
           "in" : "query",
@@ -8601,6 +8621,7 @@
         "summary" : "Create an extension",
         "description" : "Creates the extension.\n The extensions API supports two types of usage patterns.\n A). Specify a `download_url`, http or https URL,  where the extension is currently hosted. This will result in extension being copied to elastic repository.\n B). Create only the extension metadata using the `POST` endpoint and then use `PUT` to upload the extension file. Leave the `download_url` unspecified in this case.\n",
         "operationId" : "create-extension",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -8740,6 +8761,7 @@
         "summary" : "Update Extension",
         "description" : "Updates an extension.",
         "operationId" : "update-extension",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "extension_id",
           "in" : "path",
@@ -9529,6 +9551,7 @@
         "summary" : "Create deployment template",
         "description" : "Creates a deployment template.",
         "operationId" : "create-deployment-template-v2",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "region",
           "in" : "query",
@@ -9684,6 +9707,7 @@
         "summary" : "Set deployment template",
         "description" : "Creates or updates a deployment template.",
         "operationId" : "set-deployment-template-v2",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "template_id",
           "in" : "path",
@@ -9992,6 +10016,7 @@
         "summary" : "Create a ruleset",
         "description" : "Creates a ruleset that consists of a set of rules.",
         "operationId" : "create-traffic-filter-ruleset",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -10090,6 +10115,7 @@
         "summary" : "Updates a ruleset",
         "description" : "Updates the ruleset with the definition.",
         "operationId" : "update-traffic-filter-ruleset",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "ruleset_id",
           "in" : "path",
@@ -10244,6 +10270,7 @@
         "summary" : "Create ruleset association",
         "description" : "Applies the ruleset to the specified deployment.",
         "operationId" : "create-traffic-filter-ruleset-association",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "ruleset_id",
           "in" : "path",
@@ -10501,6 +10528,7 @@
         "summary" : "Update Deployment",
         "description" : "Updates a Deployment.",
         "operationId" : "update-deployment",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -10615,63 +10643,6 @@
           },
           "400" : {
             "description" : "The Deployment resources have not been shutdown yet.",
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "401" : {
-            "description" : "You are not authorized to perform this action.",
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "404" : {
-            "description" : "The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "deployments.deployment_not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          }
-        },
-        "x-doc" : {
-          "tag" : "Deployment - CRUD"
-        }
-      }
-    },
-    "/deployments/{deployment_id}/_migrate" : {
-      "post" : {
-        "tags" : [ "Deployments" ],
-        "summary" : "Build Migrate Deployment Template request",
-        "description" : "Returns a deployment update request that would transform this deployment from its template to the provided one.",
-        "operationId" : "migrate-deployment",
-        "parameters" : [ {
-          "name" : "deployment_id",
-          "in" : "path",
-          "description" : "Identifier for the Deployment",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "template",
-          "in" : "query",
-          "description" : "The ID of the deployment template to migrate to",
-          "required" : true,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "The request was valid and the deployment can be migrated to the template with the provided id.",
-            "schema" : {
-              "$ref" : "#/definitions/DeploymentTemplateMigrateResponse"
-            }
-          },
-          "400" : {
-            "description" : "The deployment cannot be successfully migrated to the template with the provided id.",
             "schema" : {
               "$ref" : "#/definitions/BasicFailedReply"
             }
@@ -11215,6 +11186,7 @@
         "summary" : "Set AppSearch read-only status",
         "description" : "Enable/Disable read-only mode on the given App Search resource.",
         "operationId" : "set-appsearch-read-only-mode",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -11487,6 +11459,7 @@
         "summary" : "Migrate Elasticsearch resource to use ILM",
         "description" : "Migrates the specified Elasticsearch resource to use ILM.",
         "operationId" : "enable-deployment-resource-ilm",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -11925,6 +11898,7 @@
         "summary" : "Get eligible remote clusters",
         "description" : "Returns the list of deployments which contain eligible remote clusters for the elasticsearch resource.",
         "operationId" : "get-deployment-es-resource-eligible-remote-clusters",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -12060,6 +12034,7 @@
         "summary" : "Add or remove settings from the Elasticsearch resource keystore",
         "description" : "Fetches the current values of the keystore for the Elasticsearch resource.",
         "operationId" : "set-deployment-es-resource-keystore",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -12182,6 +12157,7 @@
         "summary" : "Set remote clusters",
         "description" : "Overwrites or creates the remote clusters for the elasticsearch resource.",
         "operationId" : "set-deployment-es-resource-remote-clusters",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -12506,6 +12482,7 @@
         "summary" : "Create deployment note",
         "description" : "Create note for the running deployment.",
         "operationId" : "create-deployment-note",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -12629,6 +12606,7 @@
         "summary" : "Update deployment note",
         "description" : "Update note for the running deployment.",
         "operationId" : "update-deployment-note",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -12803,7 +12781,7 @@
           "description" : "The kind of resource",
           "required" : true,
           "type" : "string",
-          "enum" : [ "elasticsearch", "kibana", "apm", "appsearch", "enterprise_search" ]
+          "enum" : [ "elasticsearch", "kibana", "apm", "appsearch", "enterprise_search", "agent" ]
         }, {
           "name" : "ref_id",
           "in" : "path",
@@ -12885,7 +12863,7 @@
         }, {
           "name" : "resource_kind",
           "in" : "path",
-          "description" : "The kind of resource (one of elasticsearch, kibana or apm).",
+          "description" : "The kind of resource (one of elasticsearch, kibana, apm or agent).",
           "required" : true,
           "type" : "string"
         }, {
@@ -12975,7 +12953,7 @@
         }, {
           "name" : "resource_kind",
           "in" : "path",
-          "description" : "The kind of resource (one of elasticsearch, kibana or apm).",
+          "description" : "The kind of resource (one of elasticsearch, kibana, apm or agent).",
           "required" : true,
           "type" : "string"
         }, {
@@ -13065,7 +13043,7 @@
         }, {
           "name" : "resource_kind",
           "in" : "path",
-          "description" : "The kind of resource (one of elasticsearch, kibana or apm).",
+          "description" : "The kind of resource (one of elasticsearch, kibana, apm or agent).",
           "required" : true,
           "type" : "string"
         }, {
@@ -13155,7 +13133,7 @@
         }, {
           "name" : "resource_kind",
           "in" : "path",
-          "description" : "The kind of resource (one of elasticsearch, kibana or apm).",
+          "description" : "The kind of resource (one of elasticsearch, kibana, apm or agent).",
           "required" : true,
           "type" : "string"
         }, {
@@ -13245,7 +13223,7 @@
         }, {
           "name" : "resource_kind",
           "in" : "path",
-          "description" : "The kind of resource (one of elasticsearch, kibana or apm).",
+          "description" : "The kind of resource (one of elasticsearch, kibana, apm or agent).",
           "required" : true,
           "type" : "string"
         }, {
@@ -13352,7 +13330,7 @@
         }, {
           "name" : "resource_kind",
           "in" : "path",
-          "description" : "The kind of resource (one of elasticsearch, kibana or apm).",
+          "description" : "The kind of resource (one of elasticsearch, kibana, apm or agent).",
           "required" : true,
           "type" : "string"
         }, {
@@ -13459,7 +13437,7 @@
         }, {
           "name" : "resource_kind",
           "in" : "path",
-          "description" : "The kind of resource (one of elasticsearch, kibana or apm).",
+          "description" : "The kind of resource (one of elasticsearch, kibana, apm or agent).",
           "required" : true,
           "type" : "string"
         }, {
@@ -13566,7 +13544,7 @@
         }, {
           "name" : "resource_kind",
           "in" : "path",
-          "description" : "The kind of resource (one of elasticsearch, kibana or apm).",
+          "description" : "The kind of resource (one of elasticsearch, kibana, apm or agent).",
           "required" : true,
           "type" : "string"
         }, {
@@ -13664,6 +13642,7 @@
         "summary" : "Set a Deployment's resource metadata",
         "description" : "Advanced use only. Sets the internal metadata, in free-form JSON, for the resource.\nOnly use the parameter to set the modified JSON that is returned from the get version of the metadata.",
         "operationId" : "set-deployment-resource-raw-metadata",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -13676,7 +13655,7 @@
           "description" : "The kind of resource",
           "required" : true,
           "type" : "string",
-          "enum" : [ "elasticsearch", "kibana", "apm", "appsearch", "enterprise_search" ]
+          "enum" : [ "elasticsearch", "kibana", "apm", "appsearch", "enterprise_search", "agent" ]
         }, {
           "name" : "ref_id",
           "in" : "path",
@@ -13795,7 +13774,7 @@
           "description" : "The kind of resource",
           "required" : true,
           "type" : "string",
-          "enum" : [ "elasticsearch", "kibana", "apm", "appsearch", "enterprise_search" ]
+          "enum" : [ "elasticsearch", "kibana", "apm", "appsearch", "enterprise_search", "agent" ]
         }, {
           "name" : "ref_id",
           "in" : "path",
@@ -13900,7 +13879,7 @@
           "description" : "The kind of stateless resource",
           "required" : true,
           "type" : "string",
-          "enum" : [ "kibana", "apm", "appsearch", "enterprise_search" ]
+          "enum" : [ "kibana", "apm", "appsearch", "enterprise_search", "agent" ]
         }, {
           "name" : "ref_id",
           "in" : "path",
@@ -13991,7 +13970,7 @@
           "description" : "The kind of stateless resource",
           "required" : true,
           "type" : "string",
-          "enum" : [ "kibana", "apm", "appsearch", "enterprise_search" ]
+          "enum" : [ "kibana", "apm", "appsearch", "enterprise_search", "agent" ]
         }, {
           "name" : "ref_id",
           "in" : "path",
@@ -14089,7 +14068,7 @@
           "description" : "The kind of stateless resource",
           "required" : true,
           "type" : "string",
-          "enum" : [ "kibana", "apm", "appsearch", "enterprise_search" ]
+          "enum" : [ "kibana", "apm", "appsearch", "enterprise_search", "agent" ]
         }, {
           "name" : "ref_id",
           "in" : "path",
@@ -14178,7 +14157,7 @@
     "/deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_upgrade" : {
       "post" : {
         "tags" : [ "Deployments" ],
-        "summary" : "Upgrade Kibana, APM, AppSearch inside Deployment",
+        "summary" : "Upgrade Kibana, APM, Agent, AppSearch inside Deployment",
         "description" : "Upgrades a running cluster.",
         "operationId" : "upgrade-deployment-stateless-resource",
         "parameters" : [ {
@@ -14193,7 +14172,7 @@
           "description" : "The kind of stateless resource",
           "required" : true,
           "type" : "string",
-          "enum" : [ "kibana", "apm", "appsearch", "enterprise_search" ]
+          "enum" : [ "kibana", "apm", "appsearch", "enterprise_search", "agent" ]
         }, {
           "name" : "ref_id",
           "in" : "path",
@@ -14284,6 +14263,7 @@
         "summary" : "Set ECE telemetry config",
         "description" : "Sets whether to enable ECE telemetry.",
         "operationId" : "set-telemetry-config",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -14442,6 +14422,7 @@
         "summary" : "Set API base Url",
         "description" : "Saves the API base Url configuration value.",
         "operationId" : "set-api-base-url",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "version",
           "in" : "query",
@@ -14852,6 +14833,7 @@
         "summary" : "Set default Deployment Domain Name",
         "description" : "Saves the default Deployment Domain Name configuration value.",
         "operationId" : "set-default-deployment-domain-name",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "version",
           "in" : "query",
@@ -14965,7 +14947,7 @@
           "description" : "The kind of resource you want to manage a Deployment Domain Name for.",
           "required" : true,
           "type" : "string",
-          "enum" : [ "elasticsearch", "kibana", "apm", "appsearch", "enterprise_search" ]
+          "enum" : [ "elasticsearch", "kibana", "apm", "appsearch", "enterprise_search", "agent" ]
         } ],
         "responses" : {
           "200" : {
@@ -15011,13 +14993,14 @@
         "summary" : "Set Deployment Domain Name for a resource kind.",
         "description" : "Saves the Deployment Domain Name configuration value for a resource kind.",
         "operationId" : "set-resource-kind-deployment-domain-name",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "resource_kind",
           "in" : "path",
           "description" : "The kind of resource you want to manage a Deployment Domain Name for.",
           "required" : true,
           "type" : "string",
-          "enum" : [ "elasticsearch", "kibana", "apm", "appsearch", "enterprise_search" ]
+          "enum" : [ "elasticsearch", "kibana", "apm", "appsearch", "enterprise_search", "agent" ]
         }, {
           "name" : "version",
           "in" : "query",
@@ -15170,6 +15153,7 @@
         "summary" : "Create security deployment",
         "description" : "Creates a new security deployment configuration.",
         "operationId" : "create-security-deployment",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -15236,6 +15220,7 @@
         "summary" : "Update security deployment",
         "description" : "Updates an existing security deployment configuration.",
         "operationId" : "update-security-deployment",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -15315,7 +15300,7 @@
       "post" : {
         "tags" : [ "PlatformConfigurationSecurity" ],
         "summary" : "Disables the security deployment",
-        "description" : "Disables the existing security deployment configuration.",
+        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Disables the existing security deployment configuration.",
         "operationId" : "disable-security-deployment",
         "parameters" : [ {
           "name" : "version",
@@ -15394,7 +15379,7 @@
       "post" : {
         "tags" : [ "PlatformConfigurationSecurity" ],
         "summary" : "Enables the security deployment",
-        "description" : "Enables the existing security deployment configuration.",
+        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Enables the existing security deployment configuration.",
         "operationId" : "enable-security-deployment",
         "parameters" : [ {
           "name" : "version",
@@ -15655,6 +15640,7 @@
         "summary" : "Update extra certificate",
         "description" : "Add or update an extra certificate.",
         "operationId" : "set-extra-certificate",
+        "consumes" : [ "application/text" ],
         "parameters" : [ {
           "name" : "cert_id",
           "in" : "path",
@@ -15759,6 +15745,7 @@
         "summary" : "Reorder security realms",
         "description" : "Reorder security realms.",
         "operationId" : "reorder-security-realms",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -15813,6 +15800,7 @@
         "summary" : "Create Active Directory configuration",
         "description" : "Creates a new Active Directory configuration. ",
         "operationId" : "create-active-directory-configuration",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -15932,6 +15920,7 @@
         "summary" : "Update Active Directory configuration",
         "description" : "Updates an existing Active Directory configuration. ",
         "operationId" : "update-active-directory-configuration",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "realm_id",
           "in" : "path",
@@ -16107,6 +16096,7 @@
         "summary" : "Create LDAP configuration",
         "description" : "Creates a new LDAP configuration.",
         "operationId" : "create-ldap-configuration",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -16226,6 +16216,7 @@
         "summary" : "Update LDAP configuration",
         "description" : "Updates an existing LDAP configuration.",
         "operationId" : "update-ldap-configuration",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "realm_id",
           "in" : "path",
@@ -16401,6 +16392,7 @@
         "summary" : "Create SAML configuration",
         "description" : "Creates a new SAML configuration.",
         "operationId" : "create-saml-configuration",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -16520,6 +16512,7 @@
         "summary" : "Update SAML configuration",
         "description" : "Updates an existing SAML configuration.",
         "operationId" : "update-saml-configuration",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "realm_id",
           "in" : "path",
@@ -17001,6 +16994,7 @@
         "summary" : "Create Config Store Option",
         "description" : "Inserts new Config Store Option.",
         "operationId" : "create-config-store-option",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "config_option_id",
           "in" : "path",
@@ -17060,6 +17054,7 @@
         "summary" : "Update Config Store Option",
         "description" : "Update existing Config Store Option.",
         "operationId" : "put-config-store-option",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "config_option_id",
           "in" : "path",
@@ -17259,6 +17254,7 @@
         "summary" : "Create deployment template",
         "description" : "Creates a deployment template.",
         "operationId" : "create-deployment-template",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -17407,6 +17403,7 @@
         "summary" : "Set deployment template",
         "description" : "Creates or updates a deployment template.",
         "operationId" : "set-deployment-template",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "template_id",
           "in" : "path",
@@ -17593,6 +17590,7 @@
         "summary" : "Create trust relationship",
         "description" : "Creates a trust relationship.",
         "operationId" : "create-trust-relationship",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -17711,6 +17709,7 @@
         "summary" : "Update trust relationship",
         "description" : "Updates a trust relationship.",
         "operationId" : "update-trust-relationship",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "trust_relationship_id",
           "in" : "path",
@@ -17918,6 +17917,7 @@
         "summary" : "Set adminconsole logging settings",
         "description" : "Set the logging settings for this adminconsole instance.",
         "operationId" : "set-adminconsole-logging-settings",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "adminconsole_id",
           "in" : "path",
@@ -18028,6 +18028,7 @@
         "summary" : "Update adminconsole logging settings",
         "description" : "All changes in the specified object are applied to the logging settings for this adminconsole instance according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.",
         "operationId" : "update-adminconsole-logging-settings",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "adminconsole_id",
           "in" : "path",
@@ -18391,6 +18392,7 @@
         "summary" : "Move clusters",
         "description" : "Moves the clusters to a different allocator.",
         "operationId" : "move-clusters",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "allocator_id",
           "in" : "path",
@@ -18491,6 +18493,7 @@
         "summary" : "Move clusters by type",
         "description" : "Moves the clusters, by type, to a different allocator.",
         "operationId" : "move-clusters-by-type",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "allocator_id",
           "in" : "path",
@@ -18649,6 +18652,7 @@
         "summary" : "Set allocator logging settings",
         "description" : "Set the logging settings for this allocator instance.",
         "operationId" : "set-allocator-logging-settings",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "allocator_id",
           "in" : "path",
@@ -18759,6 +18763,7 @@
         "summary" : "Update allocator logging settings",
         "description" : "All changes in the specified object are applied to the logging settings for this allocator instance according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.",
         "operationId" : "update-allocator-logging-settings",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "allocator_id",
           "in" : "path",
@@ -19017,6 +19022,7 @@
         "summary" : "Set allocator metadata",
         "description" : "Sets the allocator metadata.",
         "operationId" : "set-allocator-metadata",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "allocator_id",
           "in" : "path",
@@ -19099,6 +19105,7 @@
         "summary" : "Set allocator metadata item",
         "description" : "Adds or updates a single item in the allocator metadata.",
         "operationId" : "set-allocator-metadata-item",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "allocator_id",
           "in" : "path",
@@ -19303,6 +19310,7 @@
         "summary" : "Set allocator settings",
         "description" : "Overwrites the allocator settings with the specified settings. WARNING: Any unspecified fields are deleted.",
         "operationId" : "set-allocator-settings",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "allocator_id",
           "in" : "path",
@@ -19367,6 +19375,7 @@
         "summary" : "Update allocator settings",
         "description" : "Applies the settings as a patch. Only the fields that are referenced in the update are altered.",
         "operationId" : "update-allocator-settings",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "allocator_id",
           "in" : "path",
@@ -19451,6 +19460,7 @@
         "summary" : "Create a role",
         "description" : "Create a Blueprinter role.",
         "operationId" : "create-blueprinter-role",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -19529,6 +19539,7 @@
         "summary" : "Update role",
         "description" : "Update a role.",
         "operationId" : "update-blueprinter-role",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "blueprinter_role_id",
           "in" : "path",
@@ -19684,6 +19695,7 @@
         "summary" : "Set blessings",
         "description" : "Set blessings for a role.",
         "operationId" : "set-blueprinter-blessings",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "blueprinter_role_id",
           "in" : "path",
@@ -19750,6 +19762,7 @@
         "summary" : "Add Blessing",
         "description" : "Add a Blessing for a runner to a role.",
         "operationId" : "add-blueprinter-blessing",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "blueprinter_role_id",
           "in" : "path",
@@ -20024,6 +20037,7 @@
         "summary" : "Set constructor logging settings",
         "description" : "Set the logging settings for this constructor instance.",
         "operationId" : "set-constructor-logging-settings",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "constructor_id",
           "in" : "path",
@@ -20134,6 +20148,7 @@
         "summary" : "Update constructor logging settings",
         "description" : "All changes in the specified object are applied to the logging settings for this constructor instance according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.",
         "operationId" : "update-constructor-logging-settings",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "constructor_id",
           "in" : "path",
@@ -20372,6 +20387,7 @@
         "summary" : "Create filtered group of proxies",
         "description" : "Create the settings for a filtered group of proxies.",
         "operationId" : "create-proxies-filtered-group",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -20491,6 +20507,7 @@
         "summary" : "Update filtered group of proxies",
         "description" : "Update the settings for a filtered group of proxies.",
         "operationId" : "update-proxies-filtered-group",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "proxies_filtered_group_id",
           "in" : "path",
@@ -20781,6 +20798,7 @@
         "summary" : "Set proxy settings",
         "description" : "Overwrites the proxy settings. All unspecified fields are deleted.",
         "operationId" : "set-proxies-settings",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "version",
           "in" : "query",
@@ -20853,6 +20871,7 @@
         "summary" : "Update proxy settings",
         "description" : "Applies the settings as a patch. Only the fields that are referenced in the update are changed.",
         "operationId" : "update-proxies-settings",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "version",
           "in" : "query",
@@ -21032,6 +21051,7 @@
         "summary" : "Search runners",
         "description" : "Retrieves runners that match a given query.",
         "operationId" : "search-runners",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -21278,6 +21298,7 @@
         "summary" : "Set runner logging settings",
         "description" : "Set the logging settings for this runner instance.",
         "operationId" : "set-runner-logging-settings",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "runner_id",
           "in" : "path",
@@ -21388,6 +21409,7 @@
         "summary" : "Update runner logging settings",
         "description" : "All changes in the specified object are applied to the logging settings for this runner instance according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.",
         "operationId" : "update-runner-logging-settings",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "runner_id",
           "in" : "path",
@@ -21462,6 +21484,7 @@
         "summary" : "Set runner roles",
         "description" : "Set runner roles.",
         "operationId" : "set-runner-roles",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "runner_id",
           "in" : "path",
@@ -21572,6 +21595,7 @@
         "summary" : "Add or update license",
         "description" : "Adds a new or updates an existing license.",
         "operationId" : "set-license",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -21807,6 +21831,7 @@
         "summary" : "Update stack version",
         "description" : "Updates the Elastic Stack version configuration.",
         "operationId" : "update-version-stack",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "version",
           "in" : "path",
@@ -21935,6 +21960,7 @@
         "summary" : "Updates the current user",
         "description" : "Updates the current user.",
         "operationId" : "update-current-user",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -22014,6 +22040,7 @@
         "summary" : "Creates a new user",
         "description" : "Creates a new user.",
         "operationId" : "create-user",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -22101,6 +22128,7 @@
         "summary" : "Enable elevated permissions",
         "description" : "Enables the elevated permissions for the current user. Elevated permissions allow the user to complete potentially destructive operations on clusters. Elevated permissions are available for a limited period of time and automatically expire if you do not renew them.",
         "operationId" : "enable-elevated-permissions",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -22238,6 +22266,7 @@
         "summary" : "Login to ECE",
         "description" : "Authenticates against available users.",
         "operationId" : "login",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -22440,6 +22469,7 @@
         "summary" : "Create API key",
         "description" : "Creates a new API key.",
         "operationId" : "create-api-key",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -22492,6 +22522,7 @@
         "summary" : "Delete API keys",
         "description" : "Delete or invalidate API keys.",
         "operationId" : "delete-api-keys",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -22551,6 +22582,7 @@
         "summary" : "Delete API keys of multiple users",
         "description" : "Delete or invalidate the API keys for multiple users.",
         "operationId" : "delete-users-api-keys",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -22701,6 +22733,7 @@
         "summary" : "Re-authenticate to generate a token",
         "description" : "DEPRECATED (Scheduled to be removed in the next major version): Re-authenticate.",
         "operationId" : "re-authenticate",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -23168,6 +23201,7 @@
         "summary" : "Updates an existing user",
         "description" : "Updates an existing user.",
         "operationId" : "update-user",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "name" : "user_name",
           "in" : "path",
@@ -25210,7 +25244,7 @@
           "description" : "A list of the node roles assigned to the service running in the instance. Currently populated only for Elasticsearch.",
           "items" : {
             "type" : "string",
-            "enum" : [ "master", "ingest", "ml", "data_hot", "data_content", "data_warm", "data_cold", "remote_cluster_client", "transform", "voting_only" ]
+            "enum" : [ "master", "ingest", "ml", "data_hot", "data_content", "data_warm", "data_cold", "data_frozen", "remote_cluster_client", "transform", "voting_only" ]
           }
         }
       },
@@ -25438,7 +25472,7 @@
     },
     "ClusterPlanStepLogMessageInfo" : {
       "type" : "object",
-      "required" : [ "details", "internal_details", "message", "stage", "timestamp" ],
+      "required" : [ "details", "message", "stage", "timestamp" ],
       "properties" : {
         "timestamp" : {
           "type" : "string",
@@ -25468,7 +25502,10 @@
         },
         "internal_details" : {
           "type" : "object",
-          "description" : "A json object with sensitive details for the log, visible only to admins. May contain nested json objects."
+          "description" : "A json object with sensitive details for the log, visible only to admins. May contain nested json objects.",
+          "additionalProperties" : {
+            "type" : "string"
+          }
         },
         "failure_type" : {
           "type" : "string",
@@ -26509,6 +26546,10 @@
         "metadata" : {
           "description" : "Additional information about this deployment",
           "$ref" : "#/definitions/DeploymentCreateMetadata"
+        },
+        "alias" : {
+          "type" : "string",
+          "description" : "A user-defined alias to use in place of Cluster IDs for user-friendly URLs"
         }
       },
       "description" : "A request for creating a new Deployment consisting of multiple clusters"
@@ -26565,6 +26606,10 @@
         "name" : {
           "type" : "string",
           "description" : "The name of the deployment"
+        },
+        "alias" : {
+          "type" : "string",
+          "description" : "A user-defined deployment alias for user-friendly resource URLs"
         },
         "created" : {
           "type" : "boolean",
@@ -26657,6 +26702,10 @@
         "name" : {
           "type" : "string",
           "description" : "The name of this deployment"
+        },
+        "alias" : {
+          "type" : "string",
+          "description" : "A user-defined deployment alias for user-friendly resource URLs"
         },
         "healthy" : {
           "type" : "boolean",
@@ -26994,6 +27043,10 @@
           "type" : "string",
           "description" : "The name of this deployment"
         },
+        "alias" : {
+          "type" : "string",
+          "description" : "A user-defined deployment alias for user-friendly resource URLs"
+        },
         "healthy" : {
           "type" : "boolean",
           "description" : "Whether the deployment is overall healthy or not (one or more of the resource info subsections will have healthy: false)"
@@ -27221,17 +27274,6 @@
       },
       "description" : "Deployment template detailed information"
     },
-    "DeploymentTemplateMigrateResponse" : {
-      "type" : "object",
-      "required" : [ "resources" ],
-      "properties" : {
-        "resources" : {
-          "description" : "Resources that are part of the deployment after the migrate operation.",
-          "$ref" : "#/definitions/DeploymentUpdateRequest"
-        }
-      },
-      "description" : "A response returned from the Deployment migrate endpoint"
-    },
     "DeploymentTemplateReference" : {
       "type" : "object",
       "required" : [ "id" ],
@@ -27345,6 +27387,10 @@
         "metadata" : {
           "description" : "Any new information about the current deployment object. If there is no new information the value is unchanged.",
           "$ref" : "#/definitions/DeploymentUpdateMetadata"
+        },
+        "alias" : {
+          "type" : "string",
+          "description" : "A user-defined alias to use in place of Cluster IDs for user-friendly URLs"
         }
       },
       "description" : "A request for updating a Deployment consisting of multiple resources"
@@ -27401,6 +27447,10 @@
         "name" : {
           "type" : "string",
           "description" : "The name of the deployment"
+        },
+        "alias" : {
+          "type" : "string",
+          "description" : "A user-defined alias to use in place of ResourceIds for user-friendly resource URLs"
         },
         "resources" : {
           "type" : "array",
@@ -27948,10 +27998,10 @@
         },
         "node_roles" : {
           "type" : "array",
-          "description" : "The list of node roles for this topology element (ES version >= 7.10). Allowable values are: master, ingest, ml, data_hot, data_content, data_warm, data_cold, remote_cluster_client, transform",
+          "description" : "The list of node roles for this topology element (ES version >= 7.10). Allowable values are: master, ingest, ml, data_hot, data_content, data_warm, data_cold, data_frozen, remote_cluster_client, transform",
           "items" : {
             "type" : "string",
-            "enum" : [ "master", "ingest", "ml", "data_hot", "data_content", "data_warm", "data_cold", "remote_cluster_client", "transform" ]
+            "enum" : [ "master", "ingest", "ml", "data_hot", "data_content", "data_warm", "data_cold", "data_frozen", "remote_cluster_client", "transform" ]
           }
         },
         "memory_per_node" : {
@@ -33213,6 +33263,14 @@
           "type" : "string",
           "description" : "The minimum version of the platform that the stack pack version is compatible with"
         },
+        "min_wire_compatibility_version" : {
+          "type" : "string",
+          "description" : "The minimum version required for performing a rolling upgrade to this stack version."
+        },
+        "min_index_compatibility_version" : {
+          "type" : "string",
+          "description" : "The minimum version required for performing a full cluster restart upgrade to this stack version."
+        },
         "schema_version" : {
           "type" : "integer",
           "format" : "int32",
@@ -33341,7 +33399,7 @@
           "description" : "The exact value to query for."
         }
       },
-      "description" : "A query for documents that contain the specified terms in the inverted index."
+      "description" : "A query for documents that contain the specified term in the inverted index."
     },
     "TiebreakerTopologyElement" : {
       "type" : "object",
@@ -33414,7 +33472,6 @@
     },
     "TrafficFilterRule" : {
       "type" : "object",
-      "required" : [ "source" ],
       "properties" : {
         "id" : {
           "type" : "string",
@@ -33427,6 +33484,14 @@
         "source" : {
           "type" : "string",
           "description" : "Allowed traffic filter source: IP address, CIDR mask, or VPC endpoint ID"
+        },
+        "azure_endpoint_name" : {
+          "type" : "string",
+          "description" : "Name of the Azure Private Endpoint to allow connections from"
+        },
+        "azure_endpoint_guid" : {
+          "type" : "string",
+          "description" : "Resource GUID of the Azure Private Endpoint to allow connections from"
         }
       },
       "description" : "The container for an IP filter rule."

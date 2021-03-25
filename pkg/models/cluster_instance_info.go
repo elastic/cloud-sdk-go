@@ -223,7 +223,7 @@ var clusterInstanceInfoNodeRolesItemsEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["master","ingest","ml","data_hot","data_content","data_warm","data_cold","remote_cluster_client","transform","voting_only"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["master","ingest","ml","data_hot","data_content","data_warm","data_cold","data_frozen","remote_cluster_client","transform","voting_only"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {

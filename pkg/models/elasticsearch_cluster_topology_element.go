@@ -72,7 +72,7 @@ type ElasticsearchClusterTopologyElement struct {
 	// The number of nodes of this type that are allocated within each zone. (i.e. total capacity per zone = `node_count_per_zone` * `memory_per_node` in MB). Cannot be set for tiebreaker topologies. For dedicated master nodes, must be 1 if an entry exists.
 	NodeCountPerZone int32 `json:"node_count_per_zone,omitempty"`
 
-	// The list of node roles for this topology element (ES version >= 7.10). Allowable values are: master, ingest, ml, data_hot, data_content, data_warm, data_cold, remote_cluster_client, transform
+	// The list of node roles for this topology element (ES version >= 7.10). Allowable values are: master, ingest, ml, data_hot, data_content, data_warm, data_cold, data_frozen, remote_cluster_client, transform
 	NodeRoles []string `json:"node_roles"`
 
 	// node type
@@ -181,7 +181,7 @@ var elasticsearchClusterTopologyElementNodeRolesItemsEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["master","ingest","ml","data_hot","data_content","data_warm","data_cold","remote_cluster_client","transform"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["master","ingest","ml","data_hot","data_content","data_warm","data_cold","data_frozen","remote_cluster_client","transform"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {

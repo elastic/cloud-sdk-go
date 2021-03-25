@@ -15,13 +15,38 @@
 // specific language governing permissions and limitations
 // under the License.
 
-package api
+package extensionapi
 
-// Version contains the ECE API version compatibility for the current
-// auto-generated client and models. This needs to be updated every time a new
-// "api/apidocs.json" file added and the client and models are re-generated.
-// Even though the Bugfix version is specified, the general support statement is
-// on the minor version, i.e: 2.4.2 means that all the 2.4 branch is supported,
-// expecting some potentially unfixed bugs when ECE version is the same feature
-// version bug higher bugfix version.
-const Version = "2.10.0"
+import (
+	"github.com/elastic/cloud-sdk-go/pkg/models"
+	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
+)
+
+// NewUpdateRequestFromGet populates UpdateParams from models.Extension
+func NewUpdateRequestFromGet(res *models.Extension) *UpdateParams {
+	if res == nil {
+		return nil
+	}
+
+	if res.ExtensionType == nil {
+		res.ExtensionType = ec.String("")
+	}
+
+	if res.Name == nil {
+		res.Name = ec.String("")
+	}
+
+	if res.Version == nil {
+		res.Version = ec.String("")
+	}
+
+	req := UpdateParams{
+		Description: res.Description,
+		DownloadURL: res.DownloadURL,
+		Type:        *res.ExtensionType,
+		Name:        *res.Name,
+		Version:     *res.Version,
+	}
+
+	return &req
+}
