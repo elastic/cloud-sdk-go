@@ -55,7 +55,7 @@ func TestNewUpdateRequestFromGet(t *testing.T) {
 				Name:             ec.String("my traffic filter"),
 				Type:             ec.String("ip"),
 				Rules: []*models.TrafficFilterRule{{
-					Source: ec.String("0.0.0.0/0"),
+					Source: "0.0.0.0/0",
 				}},
 			}},
 			want: &models.TrafficFilterRulesetRequest{
@@ -65,7 +65,7 @@ func TestNewUpdateRequestFromGet(t *testing.T) {
 				Name:             ec.String("my traffic filter"),
 				Type:             ec.String("ip"),
 				Rules: []*models.TrafficFilterRule{{
-					Source: ec.String("0.0.0.0/0"),
+					Source: "0.0.0.0/0",
 				}},
 			},
 		},
