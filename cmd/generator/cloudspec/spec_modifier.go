@@ -53,6 +53,15 @@ func Modify(cloudSpec *spec.Swagger) {
 				cloudSpec.Definitions[k].Properties[kk] = prop
 			}
 
+			if k == "DeploymentTemplateInfoV2" && kk == "order" {
+				prop.AddExtension(nullableKey, true)
+				cloudSpec.Definitions[k].Properties[kk] = prop
+			}
+			if k == "DeploymentTemplateRequestBody" && kk == "order" {
+				prop.AddExtension(nullableKey, true)
+				cloudSpec.Definitions[k].Properties[kk] = prop
+			}
+
 			if k == "ElasticsearchConfiguration" {
 				if kk == "enabled_built_in_plugins" ||
 					kk == "user_bundles" ||

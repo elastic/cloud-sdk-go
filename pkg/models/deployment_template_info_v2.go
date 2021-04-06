@@ -69,7 +69,7 @@ type DeploymentTemplateInfoV2 struct {
 	Name *string `json:"name"`
 
 	// Determines the order in which this template should be returned when listed. Templates are returned in ascending order. If not specified, then the template willbe appended to the end of the list.
-	Order int32 `json:"order,omitempty"`
+	Order *int32 `json:"order,omitempty"`
 
 	// Information describing the source that created or modified the template.
 	Source *ChangeSourceInfo `json:"source,omitempty"`
