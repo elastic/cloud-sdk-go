@@ -43,6 +43,10 @@ type CreateParams struct {
 	// token.
 	RequestID string
 
+	// Optional value validate_only to be sent in the Create which just validates
+	// the Deployment definition but will not perform the creation
+	ValidateOnly bool
+
 	// PayloadOverrides are used as a definition of values which want to
 	// be overridden within the resources themselves.
 	Overrides *PayloadOverrides
@@ -84,7 +88,8 @@ func Create(params CreateParams) (*models.DeploymentCreateResponse, error) {
 	_, res, res2, err := params.V1API.Deployments.CreateDeployment(
 		deployments.NewCreateDeploymentParams().
 			WithRequestID(id).
-			WithBody(params.Request),
+			WithBody(params.Request).
+			WithValidateOnly(&params.ValidateOnly),
 		params.AuthWriter,
 	)
 	if err != nil {
