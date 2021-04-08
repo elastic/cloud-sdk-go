@@ -24,16 +24,19 @@ import (
 	"strings"
 )
 
-const minsize = 512
+const minsize = 0
 
 // ParseGb converts the stringified gigabyte size notation to an int32 Megabyte
-// notation. The minimum size allowed is 0.5g Megabytes with 0.5g increments.
+// notation. The minimum size allowed is 0g with 0.5g increments.
 func ParseGb(strSize string) (int32, error) {
 	strSize = strings.ToLower(strSize)
+	if strSize == "0" {
+		return 0, nil
+	}
+
 	re := regexp.MustCompile(`(?m)(.*\w)(g)`)
 	matches := re.FindStringSubmatch(strSize)
 	if len(matches) < 2 {
-		fmt.Println(matches, "length", len(matches))
 		return 0, fmt.Errorf(`failed to convert "%s" to <size><g>`, strSize)
 	}
 
