@@ -32,6 +32,14 @@ const (
 func Modify(cloudSpec *spec.Swagger) {
 	// Iterate over the spec's definitions.
 	for k, def := range cloudSpec.Definitions {
+		// This hack is required to remove all required fields from `ProxiesSettings` and allow clients
+		// to use this model as structured json on Patch API request body.
+		if k == "ProxiesSettings" {
+			schema := cloudSpec.Definitions[k]
+			schema.WithRequired([]string{}...)
+			cloudSpec.Definitions[k] = schema
+		}
+
 		for kk, prop := range def.Properties {
 			if prop.Type.Contains(boolType) {
 				prop.AddExtension(nullableKey, true)
@@ -95,11 +103,25 @@ func Modify(cloudSpec *spec.Swagger) {
 					cloudSpec.Definitions[k].Properties[kk] = prop
 				}
 			}
+
+			// This hack will make json marshaling to omit all empty fields
+			if k == "ProxiesSettings" {
+				prop.AddExtension(omitEmptyKey, true)
+				prop.AddExtension(nullableKey, true)
+				cloudSpec.Definitions[k].Properties[kk] = prop
+			}
 		}
 	}
 
 	// Iterate over the paths and parameters as well.
 	for k, path := range cloudSpec.Paths.Paths {
+		// This hack changes the request body of the PUT container endpoint operation from string
+		// to structured model of models.Container
+		if k == "/platform/infrastructure/proxies/settings" {
+			pathItemProps := path.PathItemProps
+			pathItemProps.Patch.Parameters[1].ParamProps.Schema.SchemaProps.Type = nil
+			pathItemProps.Patch.Parameters[1].ParamProps.Schema.SchemaProps.Ref = spec.MustCreateRef("#/definitions/ProxiesSettings")
+		}
 		for kk, param := range path.Parameters {
 			if param.Type == boolType {
 				param.AddExtension(nullableKey, true)

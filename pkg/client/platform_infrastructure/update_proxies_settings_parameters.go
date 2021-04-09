@@ -31,6 +31,8 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
+
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 // NewUpdateProxiesSettingsParams creates a new UpdateProxiesSettingsParams object,
@@ -80,7 +82,7 @@ type UpdateProxiesSettingsParams struct {
 
 	   A JSON to merge with the existing settings
 	*/
-	Body string
+	Body *models.ProxiesSettings
 
 	/* Version.
 
@@ -142,13 +144,13 @@ func (o *UpdateProxiesSettingsParams) SetHTTPClient(client *http.Client) {
 }
 
 // WithBody adds the body to the update proxies settings params
-func (o *UpdateProxiesSettingsParams) WithBody(body string) *UpdateProxiesSettingsParams {
+func (o *UpdateProxiesSettingsParams) WithBody(body *models.ProxiesSettings) *UpdateProxiesSettingsParams {
 	o.SetBody(body)
 	return o
 }
 
 // SetBody adds the body to the update proxies settings params
-func (o *UpdateProxiesSettingsParams) SetBody(body string) {
+func (o *UpdateProxiesSettingsParams) SetBody(body *models.ProxiesSettings) {
 	o.Body = body
 }
 
@@ -170,8 +172,10 @@ func (o *UpdateProxiesSettingsParams) WriteToRequest(r runtime.ClientRequest, re
 		return err
 	}
 	var res []error
-	if err := r.SetBodyParam(o.Body); err != nil {
-		return err
+	if o.Body != nil {
+		if err := r.SetBodyParam(o.Body); err != nil {
+			return err
+		}
 	}
 
 	if o.Version != nil {
