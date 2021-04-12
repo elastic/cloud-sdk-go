@@ -18,10 +18,9 @@
 package deploymentsize
 
 import (
-	"errors"
-	"reflect"
-	"strconv"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestParse(t *testing.T) {
@@ -32,7 +31,7 @@ func TestParse(t *testing.T) {
 		name string
 		args args
 		want int32
-		err  error
+		err  string
 	}{
 		{
 			name: "parses a 0.5g (gigabyte notation)",
@@ -53,37 +52,47 @@ func TestParse(t *testing.T) {
 		{
 			name: "trying to parse 512m returns a failure",
 			args: args{strSize: "512m"},
-			err:  errors.New(`failed to convert "512m" to <size><g>`),
+			err:  `failed to convert "512m" to <size><g>`,
 		},
 		{
 			name: "trying to parse 0.75g returns a failure",
 			args: args{strSize: "0.75g"},
-			err:  errors.New(`size "0.75g" is invalid: only increments of 0.5g are permitted`),
+			err:  `size "0.75g" is invalid: only increments of 0.5g are permitted`,
 		},
 		{
 			name: "empty string returns an error",
-			err:  errors.New(`failed to convert "" to <size><g>`),
+			err:  `failed to convert "" to <size><g>`,
 		},
 		{
 			name: "unknown unit returns an error",
 			args: args{strSize: "9999w"},
-			err:  errors.New(`failed to convert "9999w" to <size><g>`),
+			err:  `failed to convert "9999w" to <size><g>`,
 		},
 		{
 			name: "invalid  prefix unit returns an error",
 			args: args{strSize: "hellog"},
-			err:  &strconv.NumError{Func: "ParseFloat", Num: "hello", Err: errors.New("invalid syntax")},
+			err:  `strconv.ParseFloat: parsing "hello": invalid syntax`,
 		},
 		{
-			name: "invalid size 0.25g (too small)",
+			name: "too small of an increment with size of 0.25g",
 			args: args{strSize: "0.25g"},
-			err:  errors.New(`size "0.25g" is invalid: minimum size is 0.5g`),
+			err:  `size "0.25g" is invalid: only increments of 0.5g are permitted`,
+		},
+		{
+			name: "returns 0 when size is 0",
+			args: args{strSize: "0"},
+			want: 0,
+		},
+		{
+			name: "returns 0 when size is 0",
+			args: args{strSize: "0g"},
+			want: 0,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := ParseGb(tt.args.strSize)
-			if !reflect.DeepEqual(err, tt.err) {
+			if err != nil && !assert.EqualError(t, err, tt.err) {
 				t.Errorf("Parse() error = %v, wantErr %v", err, tt.err)
 				return
 			}
