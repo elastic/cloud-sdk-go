@@ -32,9 +32,9 @@ import (
 // UpdateParams is the set of parameters required for setting the settings for all proxies
 type UpdateParams struct {
 	*api.API
+	*models.ProxiesSettings
 
 	Region, Version string
-	*models.ProxiesSettings
 }
 
 // Validate parameters for set function
