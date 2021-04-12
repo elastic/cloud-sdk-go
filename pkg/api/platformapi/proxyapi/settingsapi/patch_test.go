@@ -78,7 +78,7 @@ func TestPatch(t *testing.T) {
 			err: multierror.NewPrefixed("invalid set proxy settings params",
 				errors.New("api reference is required for the operation"),
 				errors.New("region not specified and is required for this operation"),
-				errors.New("proxy settings object is required for this operation"),
+				errors.New("a proxy settings object is required for this operation"),
 			).Error(),
 		},
 	}
