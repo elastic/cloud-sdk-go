@@ -28,7 +28,6 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
-	"github.com/go-openapi/validate"
 )
 
 // ProxiesSettings The settings for all proxies.
@@ -37,39 +36,23 @@ import (
 type ProxiesSettings struct {
 
 	// Expected number of proxies
-	// Required: true
-	ExpectedProxiesCount *int32 `json:"expected_proxies_count"`
+	ExpectedProxiesCount *int32 `json:"expected_proxies_count,omitempty"`
 
 	// HTTP settings
-	// Required: true
-	HTTPSettings *ProxiesHTTPSettings `json:"http_settings"`
+	HTTPSettings *ProxiesHTTPSettings `json:"http_settings,omitempty"`
 
 	// Secret string for signature generation
-	// Required: true
-	SignatureSecret *string `json:"signature_secret"`
+	SignatureSecret *string `json:"signature_secret,omitempty"`
 
 	// Signature validity in milliseconds
-	// Required: true
-	SignatureValidForMillis *int64 `json:"signature_valid_for_millis"`
+	SignatureValidForMillis *int64 `json:"signature_valid_for_millis,omitempty"`
 }
 
 // Validate validates this proxies settings
 func (m *ProxiesSettings) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateExpectedProxiesCount(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateHTTPSettings(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateSignatureSecret(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateSignatureValidForMillis(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -79,19 +62,9 @@ func (m *ProxiesSettings) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *ProxiesSettings) validateExpectedProxiesCount(formats strfmt.Registry) error {
-
-	if err := validate.Required("expected_proxies_count", "body", m.ExpectedProxiesCount); err != nil {
-		return err
-	}
-
-	return nil
-}
-
 func (m *ProxiesSettings) validateHTTPSettings(formats strfmt.Registry) error {
-
-	if err := validate.Required("http_settings", "body", m.HTTPSettings); err != nil {
-		return err
+	if swag.IsZero(m.HTTPSettings) { // not required
+		return nil
 	}
 
 	if m.HTTPSettings != nil {
@@ -101,24 +74,6 @@ func (m *ProxiesSettings) validateHTTPSettings(formats strfmt.Registry) error {
 			}
 			return err
 		}
-	}
-
-	return nil
-}
-
-func (m *ProxiesSettings) validateSignatureSecret(formats strfmt.Registry) error {
-
-	if err := validate.Required("signature_secret", "body", m.SignatureSecret); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *ProxiesSettings) validateSignatureValidForMillis(formats strfmt.Registry) error {
-
-	if err := validate.Required("signature_valid_for_millis", "body", m.SignatureValidForMillis); err != nil {
-		return err
 	}
 
 	return nil
