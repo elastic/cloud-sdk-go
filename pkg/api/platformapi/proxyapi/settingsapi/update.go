@@ -50,7 +50,7 @@ func (params UpdateParams) Validate() error {
 	}
 
 	if params.ProxiesSettings == nil {
-		errs = errs.Append(errors.New("proxy settings object is required for this operation"))
+		errs = errs.Append(errors.New("a proxy settings object is required for this operation"))
 	}
 
 	return errs.ErrorOrNil()
