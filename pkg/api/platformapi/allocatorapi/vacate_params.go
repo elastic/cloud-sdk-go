@@ -170,6 +170,7 @@ type VacateClusterParams struct {
 	OutputFormat   string
 	MaxPollRetries uint8
 	SkipTracking   bool
+	Moves          *models.MoveClustersDetails
 }
 
 // Validate validates the parameters

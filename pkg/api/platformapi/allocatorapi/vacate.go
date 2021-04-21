@@ -283,6 +283,7 @@ func newVacateClusterParams(params addAllocatorMovesToPoolParams, id, kind strin
 		OutputFormat:        params.VacateParams.OutputFormat,
 		MoveOnly:            params.VacateParams.MoveOnly,
 		PlanOverrides:       params.VacateParams.PlanOverrides,
+		Moves:               params.Moves,
 	}
 }
 
@@ -377,26 +378,7 @@ func fillVacateClusterParams(params *VacateClusterParams) (*VacateClusterParams,
 
 // newMoveClusterParams
 func newMoveClusterParams(params *VacateClusterParams) (*platform_infrastructure.MoveClustersByTypeParams, error) {
-	res, err := params.API.V1API.PlatformInfrastructure.MoveClusters(
-		platform_infrastructure.NewMoveClustersParams().
-			WithAllocatorDown(params.AllocatorDown).
-			WithMoveOnly(params.MoveOnly).
-			WithAllocatorID(params.ID).
-			WithContext(api.WithRegion(context.Background(), params.Region)).
-			WithValidateOnly(ec.Bool(true)),
-		params.AuthWriter,
-	)
-	if err != nil {
-		return nil, VacateError{
-			AllocatorID: params.ID,
-			ResourceID:  params.ClusterID,
-			Kind:        params.Kind,
-			Ctx:         "failed obtaining default vacate parameters",
-			Err:         apierror.Wrap(err),
-		}
-	}
-
-	req := ComputeVacateRequest(res.Payload.Moves,
+	req := ComputeVacateRequest(params.Moves,
 		[]string{params.ClusterID},
 		params.PreferredAllocators,
 		params.PlanOverrides,
