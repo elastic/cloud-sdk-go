@@ -159,7 +159,7 @@ type VacateClusterParams struct {
 	// Plan body overrides to place in all of the vacate clusters.
 	PlanOverrides
 	Region    string
-	ID        string
+	ID        string // allocatorID
 	ClusterID string
 	Kind      string
 	*api.API
@@ -204,6 +204,12 @@ func (params VacateClusterParams) Validate() error {
 
 	if err := ec.RequireRegionSet(params.Region); err != nil {
 		merr = merr.Append(err)
+	}
+
+	if params.Moves == nil {
+		merr = merr.Append(
+			fmt.Errorf("cluster move plan should not be empty"),
+		)
 	}
 
 	return merr.ErrorOrNil()

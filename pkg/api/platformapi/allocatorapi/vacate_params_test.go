@@ -25,6 +25,8 @@ import (
 	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
+	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
+	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	"github.com/elastic/cloud-sdk-go/pkg/output"
 	"github.com/elastic/cloud-sdk-go/pkg/sync/pool"
@@ -187,6 +189,83 @@ func TestVacateParamsValidate(t *testing.T) {
 				TrackFrequency:      tt.fields.TrackFrequency,
 				PoolTimeout:         tt.fields.PoolTimeout,
 				AllocatorDown:       tt.fields.AllocatorDown,
+			}
+			err := params.Validate()
+			if err != nil && !assert.EqualError(t, err, tt.err) {
+				t.Errorf("VacateParams.Validate() error = %v, wantErr %v", err, tt.err)
+			}
+		})
+	}
+}
+
+func TestVacateClusterParamsValidate(t *testing.T) {
+	type fields struct {
+		PreferredAllocators []string
+		ClusterFilter       []string
+		PlanOverrides
+		Region         string
+		ID             string
+		ClusterID      string
+		Kind           string
+		API            *api.API
+		TrackFrequency time.Duration
+		AllocatorDown  *bool
+		MoveOnly       *bool
+		Output         *output.Device
+		OutputFormat   string
+		MaxPollRetries uint8
+		SkipTracking   bool
+		Moves          *models.MoveClustersDetails
+	}
+	tests := []struct {
+		name   string
+		fields fields
+		err    string
+	}{
+		{
+			name: "Accepts a correct set of parameters",
+			fields: fields{
+				API:       new(api.API),
+				ID:        "i-abc",
+				ClusterID: "63d765d37613423e97b1040257cf20c8",
+				Kind:      "elasticsearch",
+				Output:    new(output.Device),
+				Region:    "us-east-1",
+				Moves:     new(models.MoveClustersDetails),
+			},
+		},
+		{
+			name:   "Empty parameters are not accepted",
+			fields: fields{},
+			err: multierror.NewPrefixed("invalid allocator vacate params",
+				apierror.ErrMissingAPI,
+				errors.New("invalid allocator ID "),
+				errors.New("invalid cluster ID "),
+				errors.New("invalid kind "),
+				errOutputDeviceCannotBeNil,
+				errors.New("region not specified and is required for this operation"),
+				errors.New("cluster move plan should not be empty"),
+			).Error(),
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			params := VacateClusterParams{
+				PreferredAllocators: tt.fields.PreferredAllocators,
+				ClusterFilter:       tt.fields.ClusterFilter,
+				PlanOverrides:       tt.fields.PlanOverrides,
+				Region:              tt.fields.Region,
+				ID:                  tt.fields.ID,
+				ClusterID:           tt.fields.ClusterID,
+				Kind:                tt.fields.Kind,
+				API:                 tt.fields.API,
+				TrackFrequency:      tt.fields.TrackFrequency,
+				AllocatorDown:       tt.fields.AllocatorDown,
+				Output:              tt.fields.Output,
+				OutputFormat:        tt.fields.OutputFormat,
+				MaxPollRetries:      tt.fields.MaxPollRetries,
+				SkipTracking:        tt.fields.SkipTracking,
+				Moves:               tt.fields.Moves,
 			}
 			err := params.Validate()
 			if err != nil && !assert.EqualError(t, err, tt.err) {
