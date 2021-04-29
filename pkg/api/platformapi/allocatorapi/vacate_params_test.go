@@ -244,7 +244,6 @@ func TestVacateClusterParamsValidate(t *testing.T) {
 				errors.New("invalid kind "),
 				errOutputDeviceCannotBeNil,
 				errors.New("region not specified and is required for this operation"),
-				errors.New("cluster move plan should not be empty"),
 			).Error(),
 		},
 	}
@@ -265,7 +264,6 @@ func TestVacateClusterParamsValidate(t *testing.T) {
 				OutputFormat:        tt.fields.OutputFormat,
 				MaxPollRetries:      tt.fields.MaxPollRetries,
 				SkipTracking:        tt.fields.SkipTracking,
-				Moves:               tt.fields.Moves,
 			}
 			err := params.Validate()
 			if err != nil && !assert.EqualError(t, err, tt.err) {

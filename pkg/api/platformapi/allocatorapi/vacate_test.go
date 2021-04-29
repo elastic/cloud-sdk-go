@@ -23,6 +23,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"net/url"
 	"reflect"
 	"regexp"
 	"testing"
@@ -760,9 +761,8 @@ func TestCheckVacateFailures(t *testing.T) {
 }
 
 func TestVacateCluster(t *testing.T) {
-	var errEmptyParams = `allocator : resource id [][]: 7 errors occurred:
+	var errEmptyParams = `allocator : resource id [][]: 6 errors occurred:
 	* invalid allocator vacate params: api reference is required for the operation
-	* invalid allocator vacate params: cluster move plan should not be empty
 	* invalid allocator vacate params: invalid allocator ID 
 	* invalid allocator vacate params: invalid cluster ID 
 	* invalid allocator vacate params: invalid kind 
@@ -770,9 +770,8 @@ func TestVacateCluster(t *testing.T) {
 	* invalid allocator vacate params: region not specified and is required for this operation
 
 `
-	var errInvalidParams = `allocator someID: resource id [3ee11eb40eda22cac0cce259625c6734][somethingweird]: 5 errors occurred:
+	var errInvalidParams = `allocator someID: resource id [3ee11eb40eda22cac0cce259625c6734][somethingweird]: 4 errors occurred:
 	* invalid allocator vacate params: api reference is required for the operation
-	* invalid allocator vacate params: cluster move plan should not be empty
 	* invalid allocator vacate params: invalid kind somethingweird
 	* invalid allocator vacate params: output device cannot be nil
 	* invalid allocator vacate params: region not specified and is required for this operation
@@ -838,20 +837,6 @@ func TestVacateCluster(t *testing.T) {
 							newPlanStep("plan-completed", "success"),
 						},
 					}, "us-east-1")),
-					Moves: &models.MoveClustersDetails{
-						ElasticsearchClusters: []*models.MoveElasticsearchClusterDetails{{
-							ClusterID: ec.String("3ee11eb40eda22cac0cce259625c6734"),
-							CalculatedPlan: &models.TransientElasticsearchPlanConfiguration{
-								PlanConfiguration: &models.ElasticsearchPlanControlConfiguration{
-									MoveAllocators: []*models.AllocatorMoveRequest{{From: ec.String("someID")}},
-								},
-							},
-							Errors: []*models.BasicFailedReplyElement{{
-								Code:    ec.String("a code"),
-								Message: ec.String("a message"),
-							}},
-						}},
-					},
 				},
 			},
 			want: newOutputResponses(
@@ -877,16 +862,6 @@ func TestVacateCluster(t *testing.T) {
 							ID: "3ee11eb40eda22cac0cce259625c6734",
 						}, "us-east-1"),
 					),
-					Moves: &models.MoveClustersDetails{
-						ElasticsearchClusters: []*models.MoveElasticsearchClusterDetails{{
-							ClusterID: ec.String("3ee11eb40eda22cac0cce259625c6734"),
-							CalculatedPlan: &models.TransientElasticsearchPlanConfiguration{
-								PlanConfiguration: &models.ElasticsearchPlanControlConfiguration{
-									MoveAllocators: []*models.AllocatorMoveRequest{{From: ec.String("someID")}},
-								},
-							},
-						}},
-					},
 				},
 			},
 		},
@@ -923,16 +898,6 @@ func TestVacateCluster(t *testing.T) {
 							newPlanStep("plan-completed", "success"),
 						},
 					}, "us-east-1")),
-					Moves: &models.MoveClustersDetails{
-						KibanaClusters: []*models.MoveKibanaClusterDetails{{
-							ClusterID: ec.String("2ee11eb40eda22cac0cce259625c6734"),
-							CalculatedPlan: &models.TransientKibanaPlanConfiguration{
-								PlanConfiguration: &models.KibanaPlanControlConfiguration{
-									MoveAllocators: []*models.AllocatorMoveRequest{{From: ec.String("someID")}},
-								},
-							},
-						}},
-					},
 				},
 			},
 			want: newOutputResponses(
@@ -959,16 +924,6 @@ func TestVacateCluster(t *testing.T) {
 							ID: "2ee11eb40eda22cac0cce259625c6734",
 						}, "us-east-1"),
 					),
-					Moves: &models.MoveClustersDetails{
-						KibanaClusters: []*models.MoveKibanaClusterDetails{{
-							ClusterID: ec.String("2ee11eb40eda22cac0cce259625c6734"),
-							CalculatedPlan: &models.TransientKibanaPlanConfiguration{
-								PlanConfiguration: &models.KibanaPlanControlConfiguration{
-									MoveAllocators: []*models.AllocatorMoveRequest{{From: ec.String("someID")}},
-								},
-							},
-						}},
-					},
 				},
 			},
 		},
@@ -990,16 +945,6 @@ func TestVacateCluster(t *testing.T) {
 							ID: "2ee11eb40eda22cac0cce259625c6734",
 						}, "us-east-1"),
 					),
-					Moves: &models.MoveClustersDetails{
-						AppsearchClusters: []*models.MoveAppSearchDetails{{
-							ClusterID: ec.String("2ee11eb40eda22cac0cce259625c6734"),
-							CalculatedPlan: &models.TransientAppSearchPlanConfiguration{
-								PlanConfiguration: &models.AppSearchPlanControlConfiguration{
-									MoveAllocators: []*models.AllocatorMoveRequest{{From: ec.String("someID")}},
-								},
-							},
-						}},
-					},
 				},
 			},
 		},
@@ -1036,16 +981,6 @@ func TestVacateCluster(t *testing.T) {
 							newPlanStep("plan-completed", "success"),
 						},
 					}, "us-east-1")),
-					Moves: &models.MoveClustersDetails{
-						EnterpriseSearchClusters: []*models.MoveEnterpriseSearchDetails{{
-							ClusterID: ec.String("2ee11eb40eda22cac0cce259625c6734"),
-							CalculatedPlan: &models.TransientEnterpriseSearchPlanConfiguration{
-								PlanConfiguration: &models.EnterpriseSearchPlanControlConfiguration{
-									MoveAllocators: []*models.AllocatorMoveRequest{{From: ec.String("someID")}},
-								},
-							},
-						}},
-					},
 				},
 			},
 			want: newOutputResponses(
@@ -1072,16 +1007,6 @@ func TestVacateCluster(t *testing.T) {
 							ID: "2ee11eb40eda22cac0cce259625c6734",
 						}, "us-east-1"),
 					),
-					Moves: &models.MoveClustersDetails{
-						EnterpriseSearchClusters: []*models.MoveEnterpriseSearchDetails{{
-							ClusterID: ec.String("2ee11eb40eda22cac0cce259625c6734"),
-							CalculatedPlan: &models.TransientEnterpriseSearchPlanConfiguration{
-								PlanConfiguration: &models.EnterpriseSearchPlanControlConfiguration{
-									MoveAllocators: []*models.AllocatorMoveRequest{{From: ec.String("someID")}},
-								},
-							},
-						}},
-					},
 				},
 			},
 		},
@@ -1101,16 +1026,6 @@ func TestVacateCluster(t *testing.T) {
 						ID:   "2ee11eb40eda22cac0cce259625c6734",
 						fail: true,
 					}, "us-east-1")),
-					Moves: &models.MoveClustersDetails{
-						EnterpriseSearchClusters: []*models.MoveEnterpriseSearchDetails{{
-							ClusterID: ec.String("2ee11eb40eda22cac0cce259625c6734"),
-							CalculatedPlan: &models.TransientEnterpriseSearchPlanConfiguration{
-								PlanConfiguration: &models.EnterpriseSearchPlanControlConfiguration{
-									MoveAllocators: []*models.AllocatorMoveRequest{{From: ec.String("someID")}},
-								},
-							},
-						}},
-					},
 				},
 			},
 			err: multierror.NewPrefixed("vacate error", VacateError{
@@ -1138,16 +1053,6 @@ func TestVacateCluster(t *testing.T) {
 						ID:   "2ee11eb40eda22cac0cce259625c6734",
 						fail: true,
 					}, "us-east-1")),
-					Moves: &models.MoveClustersDetails{
-						EnterpriseSearchClusters: []*models.MoveEnterpriseSearchDetails{{
-							ClusterID: ec.String("2ee11eb40eda22cac0cce259625c6734"),
-							CalculatedPlan: &models.TransientEnterpriseSearchPlanConfiguration{
-								PlanConfiguration: &models.EnterpriseSearchPlanControlConfiguration{
-									MoveAllocators: []*models.AllocatorMoveRequest{{From: ec.String("someID")}},
-								},
-							},
-						}},
-					},
 				},
 			},
 			err: `{
@@ -1181,16 +1086,6 @@ func TestVacateCluster(t *testing.T) {
 						ID:   "2ee11eb40eda22cac0cce259625c6734",
 						fail: true,
 					}, "us-east-1")),
-					Moves: &models.MoveClustersDetails{
-						KibanaClusters: []*models.MoveKibanaClusterDetails{{
-							ClusterID: ec.String("2ee11eb40eda22cac0cce259625c6734"),
-							CalculatedPlan: &models.TransientKibanaPlanConfiguration{
-								PlanConfiguration: &models.KibanaPlanControlConfiguration{
-									MoveAllocators: []*models.AllocatorMoveRequest{{From: ec.String("someID")}},
-								},
-							},
-						}},
-					},
 				},
 			},
 			err: multierror.NewPrefixed("vacate error", VacateError{
@@ -1244,7 +1139,6 @@ func Test_fillVacateClusterParams(t *testing.T) {
 					ClusterID: "3ee11eb40eda22cac0cce259625c6734",
 					Kind:      "elasticsearch",
 					Output:    output.NewDevice(new(bytes.Buffer)),
-					Moves:     new(models.MoveClustersDetails),
 				},
 			},
 			err: `allocator allocator-1: resource id [3ee11eb40eda22cac0cce259625c6734][elasticsearch]: allocator health autodiscovery: Get "https://mock.elastic.co/api/v1/regions/us-east-1/platform/infrastructure/allocators/allocator-1": unauthorized`,
@@ -1262,7 +1156,6 @@ func Test_fillVacateClusterParams(t *testing.T) {
 					ClusterID: "3ee11eb40eda22cac0cce259625c6734",
 					Kind:      "elasticsearch",
 					Output:    output.NewDevice(new(bytes.Buffer)),
-					Moves:     new(models.MoveClustersDetails),
 				},
 			},
 			want: &VacateClusterParams{
@@ -1274,7 +1167,6 @@ func Test_fillVacateClusterParams(t *testing.T) {
 				MaxPollRetries: util.DefaultRetries,
 				TrackFrequency: util.DefaultPollFrequency,
 				AllocatorDown:  ec.Bool(false),
-				Moves:          new(models.MoveClustersDetails),
 			},
 		},
 		{
@@ -1293,7 +1185,6 @@ func Test_fillVacateClusterParams(t *testing.T) {
 					MaxPollRetries: 4,
 					AllocatorDown:  ec.Bool(true),
 					TrackFrequency: time.Millisecond,
-					Moves:          new(models.MoveClustersDetails),
 				},
 			},
 			want: &VacateClusterParams{
@@ -1305,7 +1196,6 @@ func Test_fillVacateClusterParams(t *testing.T) {
 				MaxPollRetries: 4,
 				TrackFrequency: time.Millisecond,
 				AllocatorDown:  ec.Bool(true),
-				Moves:          new(models.MoveClustersDetails),
 			},
 		},
 	}
@@ -1336,6 +1226,28 @@ func Test_newMoveClusterParams(t *testing.T) {
 		err  string
 	}{
 		{
+			name: "when an API error is returned, the error is properly wrapped",
+			args: args{params: &VacateClusterParams{
+				API:       api.NewMock(mock.Response{Error: errors.New("unauthorized")}),
+				ID:        "allocator-1",
+				Region:    "us-east-1",
+				ClusterID: "3ee11eb40eda22cac0cce259625c6734",
+				Kind:      "elasticsearch",
+				Output:    output.NewDevice(new(bytes.Buffer)),
+			}},
+			err: VacateError{
+				AllocatorID: "allocator-1",
+				ResourceID:  "3ee11eb40eda22cac0cce259625c6734",
+				Kind:        util.Elasticsearch,
+				Ctx:         "failed obtaining default vacate parameters",
+				Err: &url.Error{
+					Op:  "Post",
+					URL: "https://mock.elastic.co/api/v1/regions/us-east-1/platform/infrastructure/allocators/allocator-1/clusters/_move?validate_only=true",
+					Err: errors.New("unauthorized"),
+				},
+			}.Error(),
+		},
+		{
 			name: "elasticsearch move succeeds to get parameters on an elasticsearch resource",
 			args: args{params: &VacateClusterParams{
 				API: api.NewMock(mock.Response{Response: http.Response{
@@ -1348,16 +1260,6 @@ func Test_newMoveClusterParams(t *testing.T) {
 				Kind:          "elasticsearch",
 				Output:        output.NewDevice(new(bytes.Buffer)),
 				AllocatorDown: ec.Bool(false),
-				Moves: &models.MoveClustersDetails{
-					ElasticsearchClusters: []*models.MoveElasticsearchClusterDetails{{
-						ClusterID: ec.String("3ee11eb40eda22cac0cce259625c6734"),
-						CalculatedPlan: &models.TransientElasticsearchPlanConfiguration{
-							PlanConfiguration: &models.ElasticsearchPlanControlConfiguration{
-								MoveAllocators: []*models.AllocatorMoveRequest{{From: ec.String("allocator-1")}},
-							},
-						},
-					}},
-				},
 			}},
 			want: platform_infrastructure.NewMoveClustersByTypeParams().
 				WithAllocatorID("allocator-1").
@@ -1394,16 +1296,6 @@ func Test_newMoveClusterParams(t *testing.T) {
 				Kind:          util.Apm,
 				Output:        output.NewDevice(new(bytes.Buffer)),
 				AllocatorDown: ec.Bool(false),
-				Moves: &models.MoveClustersDetails{
-					ApmClusters: []*models.MoveApmClusterDetails{{
-						ClusterID: ec.String("3ee11eb40eda22cac0cce259625c6734"),
-						CalculatedPlan: &models.TransientApmPlanConfiguration{
-							PlanConfiguration: &models.ApmPlanControlConfiguration{
-								MoveAllocators: []*models.AllocatorMoveRequest{{From: ec.String("allocator-1")}},
-							},
-						},
-					}},
-				},
 			}},
 			want: platform_infrastructure.NewMoveClustersByTypeParams().
 				WithAllocatorID("allocator-1").

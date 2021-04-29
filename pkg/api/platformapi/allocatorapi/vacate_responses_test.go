@@ -622,6 +622,29 @@ func newAPMVacateMove(t *testing.T, alloc string, move vacateCaseClusterConfig, 
 				"/api/v1/regions/%s/platform/infrastructure/allocators/%s", region, alloc,
 			),
 		},
+	}, mock.Response{
+		Response: http.Response{
+			Body:       newApmMove(t, move.ID, alloc),
+			StatusCode: 202,
+		},
+		Assert: &mock.RequestAssertion{
+			Method: "POST",
+			Header: api.DefaultWriteMockHeaders,
+			Host:   api.DefaultMockHost,
+			Path: fmt.Sprintf(
+				"/api/v1/regions/%s/platform/infrastructure/allocators/%s/clusters/_move", region, alloc,
+			),
+			Query: url.Values{
+				"allocator_down": {"false"},
+				"validate_only":  {"true"},
+			},
+			Body: mock.NewStringBody(
+				fmt.Sprintf(
+					`{"apm_clusters":[{"cluster_ids":["%s"]}],"appsearch_clusters":null,"elasticsearch_clusters":null,"enterprise_search_clusters":null,"kibana_clusters":null}`+"\n",
+					move.ID,
+				),
+			),
+		},
 	})
 
 	if move.fail {
@@ -718,6 +741,29 @@ func newKibanaVacateMove(t *testing.T, alloc string, move vacateCaseClusterConfi
 			Host:   api.DefaultMockHost,
 			Path: fmt.Sprintf(
 				"/api/v1/regions/%s/platform/infrastructure/allocators/%s", region, alloc,
+			),
+		},
+	}, mock.Response{
+		Response: http.Response{
+			Body:       newKibanaMove(t, move.ID, alloc),
+			StatusCode: 202,
+		},
+		Assert: &mock.RequestAssertion{
+			Method: "POST",
+			Header: api.DefaultWriteMockHeaders,
+			Host:   api.DefaultMockHost,
+			Path: fmt.Sprintf(
+				"/api/v1/regions/%s/platform/infrastructure/allocators/%s/clusters/_move", region, alloc,
+			),
+			Query: url.Values{
+				"allocator_down": {"false"},
+				"validate_only":  {"true"},
+			},
+			Body: mock.NewStringBody(
+				fmt.Sprintf(
+					`{"apm_clusters":null,"appsearch_clusters":null,"elasticsearch_clusters":null,"enterprise_search_clusters":null,"kibana_clusters":[{"cluster_ids":["%s"]}]}`+"\n",
+					move.ID,
+				),
 			),
 		},
 	})
@@ -817,6 +863,29 @@ func newElasticsearchVacateMove(t *testing.T, alloc string, move vacateCaseClust
 				"/api/v1/regions/%s/platform/infrastructure/allocators/%s", region, alloc,
 			),
 		},
+	}, mock.Response{
+		Response: http.Response{
+			Body:       newElasticsearchMove(t, move.ID, alloc),
+			StatusCode: 202,
+		},
+		Assert: &mock.RequestAssertion{
+			Method: "POST",
+			Header: api.DefaultWriteMockHeaders,
+			Host:   api.DefaultMockHost,
+			Path: fmt.Sprintf(
+				"/api/v1/regions/%s/platform/infrastructure/allocators/%s/clusters/_move", region, alloc,
+			),
+			Query: url.Values{
+				"allocator_down": {"false"},
+				"validate_only":  {"true"},
+			},
+			Body: mock.NewStringBody(
+				fmt.Sprintf(
+					`{"apm_clusters":null,"appsearch_clusters":null,"elasticsearch_clusters":[{"cluster_ids":["%s"]}],"enterprise_search_clusters":null,"kibana_clusters":null}`+"\n",
+					move.ID,
+				),
+			),
+		},
 	})
 
 	if move.fail {
@@ -911,6 +980,29 @@ func newAppsearchVacateMove(t *testing.T, alloc string, move vacateCaseClusterCo
 			Host:   api.DefaultMockHost,
 			Path: fmt.Sprintf(
 				"/api/v1/regions/%s/platform/infrastructure/allocators/%s", region, alloc,
+			),
+		},
+	}, mock.Response{
+		Response: http.Response{
+			Body:       newAppsearchMove(t, move.ID, alloc),
+			StatusCode: 202,
+		},
+		Assert: &mock.RequestAssertion{
+			Method: "POST",
+			Header: api.DefaultWriteMockHeaders,
+			Host:   api.DefaultMockHost,
+			Path: fmt.Sprintf(
+				"/api/v1/regions/%s/platform/infrastructure/allocators/%s/clusters/_move", region, alloc,
+			),
+			Query: url.Values{
+				"allocator_down": {"false"},
+				"validate_only":  {"true"},
+			},
+			Body: mock.NewStringBody(
+				fmt.Sprintf(
+					`{"apm_clusters":null,"appsearch_clusters":[{"cluster_ids":["%s"]}],"elasticsearch_clusters":null,"enterprise_search_clusters":null,"kibana_clusters":null}`+"\n",
+					move.ID,
+				),
 			),
 		},
 	})
@@ -1009,6 +1101,29 @@ func newEnterpriseSearchVacateMove(t *testing.T, alloc string, move vacateCaseCl
 			Host:   api.DefaultMockHost,
 			Path: fmt.Sprintf(
 				"/api/v1/regions/%s/platform/infrastructure/allocators/%s", region, alloc,
+			),
+		},
+	}, mock.Response{
+		Response: http.Response{
+			Body:       newEnterpriseSearchMove(t, move.ID, alloc),
+			StatusCode: 202,
+		},
+		Assert: &mock.RequestAssertion{
+			Method: "POST",
+			Header: api.DefaultWriteMockHeaders,
+			Host:   api.DefaultMockHost,
+			Path: fmt.Sprintf(
+				"/api/v1/regions/%s/platform/infrastructure/allocators/%s/clusters/_move", region, alloc,
+			),
+			Query: url.Values{
+				"allocator_down": {"false"},
+				"validate_only":  {"true"},
+			},
+			Body: mock.NewStringBody(
+				fmt.Sprintf(
+					`{"apm_clusters":null,"appsearch_clusters":null,"elasticsearch_clusters":null,"enterprise_search_clusters":[{"cluster_ids":["%s"]}],"kibana_clusters":null}`+"\n",
+					move.ID,
+				),
 			),
 		},
 	})

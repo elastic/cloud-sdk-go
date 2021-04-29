@@ -170,7 +170,6 @@ type VacateClusterParams struct {
 	OutputFormat   string
 	MaxPollRetries uint8
 	SkipTracking   bool
-	Moves          *models.MoveClustersDetails
 }
 
 // Validate validates the parameters
@@ -204,12 +203,6 @@ func (params VacateClusterParams) Validate() error {
 
 	if err := ec.RequireRegionSet(params.Region); err != nil {
 		merr = merr.Append(err)
-	}
-
-	if params.Moves == nil {
-		merr = merr.Append(
-			fmt.Errorf("cluster move plan should not be empty"),
-		)
 	}
 
 	return merr.ErrorOrNil()

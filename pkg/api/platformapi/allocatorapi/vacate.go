@@ -283,7 +283,6 @@ func newVacateClusterParams(params addAllocatorMovesToPoolParams, id, kind strin
 		OutputFormat:        params.VacateParams.OutputFormat,
 		MoveOnly:            params.VacateParams.MoveOnly,
 		PlanOverrides:       params.VacateParams.PlanOverrides,
-		Moves:               params.Moves,
 	}
 }
 
@@ -378,7 +377,29 @@ func fillVacateClusterParams(params *VacateClusterParams) (*VacateClusterParams,
 
 // newMoveClusterParams
 func newMoveClusterParams(params *VacateClusterParams) (*platform_infrastructure.MoveClustersByTypeParams, error) {
-	req := ComputeVacateRequest(params.Moves,
+	req := GetVacateRequestByClusterID(params.ClusterID, params.Kind)
+
+	res, err := params.API.V1API.PlatformInfrastructure.MoveClusters(
+		platform_infrastructure.NewMoveClustersParams().
+			WithAllocatorDown(params.AllocatorDown).
+			WithMoveOnly(params.MoveOnly).
+			WithAllocatorID(params.ID).
+			WithContext(api.WithRegion(context.Background(), params.Region)).
+			WithValidateOnly(ec.Bool(true)).
+			WithBody(req),
+		params.AuthWriter,
+	)
+	if err != nil {
+		return nil, VacateError{
+			AllocatorID: params.ID,
+			ResourceID:  params.ClusterID,
+			Kind:        params.Kind,
+			Ctx:         "failed obtaining default vacate parameters",
+			Err:         apierror.Wrap(err),
+		}
+	}
+
+	req = ComputeVacateRequest(res.Payload.Moves,
 		[]string{params.ClusterID},
 		params.PreferredAllocators,
 		params.PlanOverrides,
@@ -559,6 +580,47 @@ func CheckVacateFailures(failures *models.MoveClustersDetails, filter []string, 
 	}
 
 	return merr.ErrorOrNil()
+}
+
+// GetVacateRequestByClusterID makes models.MoveClusterRequest object which contains a cluster ID
+// and the object will be set to body of an API call which will retrieve calculatedplan data to be used to move a node.
+func GetVacateRequestByClusterID(clusterID, clusterType string) *models.MoveClustersRequest {
+	var req models.MoveClustersRequest
+
+	switch clusterType {
+	case util.Elasticsearch:
+		req.ElasticsearchClusters = append(req.ElasticsearchClusters,
+			&models.MoveElasticsearchClusterConfiguration{
+				ClusterIds: []string{clusterID},
+			},
+		)
+	case util.Kibana:
+		req.KibanaClusters = append(req.KibanaClusters,
+			&models.MoveKibanaClusterConfiguration{
+				ClusterIds: []string{clusterID},
+			},
+		)
+	case util.Apm:
+		req.ApmClusters = append(req.ApmClusters,
+			&models.MoveApmClusterConfiguration{
+				ClusterIds: []string{clusterID},
+			},
+		)
+	case util.Appsearch:
+		req.AppsearchClusters = append(req.AppsearchClusters,
+			&models.MoveAppSearchConfiguration{
+				ClusterIds: []string{clusterID},
+			},
+		)
+	case util.EnterpriseSearch:
+		req.EnterpriseSearchClusters = append(req.EnterpriseSearchClusters,
+			&models.MoveEnterpriseSearchConfiguration{
+				ClusterIds: []string{clusterID},
+			},
+		)
+	}
+
+	return &req
 }
 
 // ComputeVacateRequest filters the tentative resources that would be moved and
