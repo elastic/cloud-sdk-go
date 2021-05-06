@@ -1950,7 +1950,7 @@ func (a *Client) UpdateDeployment(params *UpdateDeploymentParams, authInfo runti
 }
 
 /*
-  UpgradeDeploymentStatelessResource upgrades kibana a p m agent app search inside deployment
+  UpgradeDeploymentStatelessResource upgrades kibana a p m app search inside deployment
 
   Upgrades a running cluster.
 */

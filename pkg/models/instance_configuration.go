@@ -39,6 +39,9 @@ type InstanceConfiguration struct {
 	// Optional filter to match allocators against
 	AllocatorFilter *QueryContainer `json:"allocator_filter,omitempty"`
 
+	// Settings for the instance CPU multiplier
+	CPUMultiplier float64 `json:"cpu_multiplier,omitempty"`
+
 	// Date/time that this instance configuration was marked for deletion
 	// Format: date-time
 	DeletedOn *strfmt.DateTime `json:"deleted_on,omitempty"`

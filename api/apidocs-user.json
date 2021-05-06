@@ -21,8 +21,6 @@
   }, {
     "name" : "Extensions"
   }, {
-    "name" : "PlatformConfigurationTrustRelationships"
-  }, {
     "name" : "Stack"
   } ],
   "schemes" : [ "https" ],
@@ -3343,7 +3341,7 @@
           "description" : "The kind of resource",
           "required" : true,
           "type" : "string",
-          "enum" : [ "elasticsearch", "kibana", "apm", "appsearch", "enterprise_search", "agent" ]
+          "enum" : [ "elasticsearch", "kibana", "apm", "appsearch", "enterprise_search" ]
         }, {
           "name" : "ref_id",
           "in" : "path",
@@ -3425,7 +3423,7 @@
         }, {
           "name" : "resource_kind",
           "in" : "path",
-          "description" : "The kind of resource (one of elasticsearch, kibana, apm or agent).",
+          "description" : "The kind of resource (one of elasticsearch, kibana or apm).",
           "required" : true,
           "type" : "string"
         }, {
@@ -3515,7 +3513,7 @@
         }, {
           "name" : "resource_kind",
           "in" : "path",
-          "description" : "The kind of resource (one of elasticsearch, kibana, apm or agent).",
+          "description" : "The kind of resource (one of elasticsearch, kibana or apm).",
           "required" : true,
           "type" : "string"
         }, {
@@ -3605,7 +3603,7 @@
         }, {
           "name" : "resource_kind",
           "in" : "path",
-          "description" : "The kind of resource (one of elasticsearch, kibana, apm or agent).",
+          "description" : "The kind of resource (one of elasticsearch, kibana or apm).",
           "required" : true,
           "type" : "string"
         }, {
@@ -3695,7 +3693,7 @@
         }, {
           "name" : "resource_kind",
           "in" : "path",
-          "description" : "The kind of resource (one of elasticsearch, kibana, apm or agent).",
+          "description" : "The kind of resource (one of elasticsearch, kibana or apm).",
           "required" : true,
           "type" : "string"
         }, {
@@ -3785,7 +3783,7 @@
         }, {
           "name" : "resource_kind",
           "in" : "path",
-          "description" : "The kind of resource (one of elasticsearch, kibana, apm or agent).",
+          "description" : "The kind of resource (one of elasticsearch, kibana or apm).",
           "required" : true,
           "type" : "string"
         }, {
@@ -3892,7 +3890,7 @@
         }, {
           "name" : "resource_kind",
           "in" : "path",
-          "description" : "The kind of resource (one of elasticsearch, kibana, apm or agent).",
+          "description" : "The kind of resource (one of elasticsearch, kibana or apm).",
           "required" : true,
           "type" : "string"
         }, {
@@ -3999,7 +3997,7 @@
         }, {
           "name" : "resource_kind",
           "in" : "path",
-          "description" : "The kind of resource (one of elasticsearch, kibana, apm or agent).",
+          "description" : "The kind of resource (one of elasticsearch, kibana or apm).",
           "required" : true,
           "type" : "string"
         }, {
@@ -4106,7 +4104,7 @@
         }, {
           "name" : "resource_kind",
           "in" : "path",
-          "description" : "The kind of resource (one of elasticsearch, kibana, apm or agent).",
+          "description" : "The kind of resource (one of elasticsearch, kibana or apm).",
           "required" : true,
           "type" : "string"
         }, {
@@ -4216,7 +4214,7 @@
           "description" : "The kind of resource",
           "required" : true,
           "type" : "string",
-          "enum" : [ "elasticsearch", "kibana", "apm", "appsearch", "enterprise_search", "agent" ]
+          "enum" : [ "elasticsearch", "kibana", "apm", "appsearch", "enterprise_search" ]
         }, {
           "name" : "ref_id",
           "in" : "path",
@@ -4321,7 +4319,7 @@
           "description" : "The kind of stateless resource",
           "required" : true,
           "type" : "string",
-          "enum" : [ "kibana", "apm", "appsearch", "enterprise_search", "agent" ]
+          "enum" : [ "kibana", "apm", "appsearch", "enterprise_search" ]
         }, {
           "name" : "ref_id",
           "in" : "path",
@@ -4419,7 +4417,7 @@
           "description" : "The kind of stateless resource",
           "required" : true,
           "type" : "string",
-          "enum" : [ "kibana", "apm", "appsearch", "enterprise_search", "agent" ]
+          "enum" : [ "kibana", "apm", "appsearch", "enterprise_search" ]
         }, {
           "name" : "ref_id",
           "in" : "path",
@@ -4508,7 +4506,7 @@
     "/deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_upgrade" : {
       "post" : {
         "tags" : [ "Deployments" ],
-        "summary" : "Upgrade Kibana, APM, Agent, AppSearch inside Deployment",
+        "summary" : "Upgrade Kibana, APM, AppSearch inside Deployment",
         "description" : "Upgrades a running cluster.",
         "operationId" : "upgrade-deployment-stateless-resource",
         "parameters" : [ {
@@ -4523,7 +4521,7 @@
           "description" : "The kind of stateless resource",
           "required" : true,
           "type" : "string",
-          "enum" : [ "kibana", "apm", "appsearch", "enterprise_search", "agent" ]
+          "enum" : [ "kibana", "apm", "appsearch", "enterprise_search" ]
         }, {
           "name" : "ref_id",
           "in" : "path",
@@ -4574,279 +4572,6 @@
         },
         "x-doc" : {
           "tag" : "Deployment - Commands"
-        }
-      }
-    },
-    "/platform/configuration/trust-relationships" : {
-      "get" : {
-        "tags" : [ "PlatformConfigurationTrustRelationships" ],
-        "summary" : "List trust relationships",
-        "description" : "List trust relationships.",
-        "operationId" : "get-trust-relationships",
-        "parameters" : [ {
-          "name" : "include_certificate",
-          "in" : "query",
-          "description" : "Whether to include the public CA certificates in the response.",
-          "required" : false,
-          "type" : "boolean",
-          "default" : false
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "The list of trust relationships.",
-            "schema" : {
-              "$ref" : "#/definitions/TrustRelationshipsListResponse"
-            }
-          },
-          "401" : {
-            "description" : "You are not authorized to perform this action.",
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          }
-        },
-        "x-doc" : {
-          "tag" : "Platform - Configuration - Trust relationships"
-        }
-      },
-      "post" : {
-        "tags" : [ "PlatformConfigurationTrustRelationships" ],
-        "summary" : "Create trust relationship",
-        "description" : "Creates a trust relationship.",
-        "operationId" : "create-trust-relationship",
-        "consumes" : [ "application/json" ],
-        "parameters" : [ {
-          "in" : "body",
-          "name" : "body",
-          "description" : "The trust relationship definition",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/definitions/TrustRelationshipCreateRequest"
-          }
-        } ],
-        "responses" : {
-          "201" : {
-            "description" : "The request was valid and a new trust relationship was created",
-            "headers" : {
-              "x-cloud-resource-version" : {
-                "type" : "string",
-                "description" : "The resource version, which is used to avoid update conflicts with concurrent operations"
-              },
-              "x-cloud-resource-created" : {
-                "type" : "string",
-                "description" : "The date-time when the resource was created (ISO format relative to UTC)"
-              },
-              "x-cloud-resource-last-modified" : {
-                "type" : "string",
-                "description" : "The date-time when the resource was last modified (ISO format relative to UTC)"
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/TrustRelationshipCreateResponse"
-            }
-          },
-          "400" : {
-            "description" : "The trust relationship request had errors.",
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "401" : {
-            "description" : "You are not authorized to perform this action.",
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          }
-        },
-        "x-doc" : {
-          "tag" : "Platform - Configuration - Trust relationships"
-        }
-      }
-    },
-    "/platform/configuration/trust-relationships/{trust_relationship_id}" : {
-      "get" : {
-        "tags" : [ "PlatformConfigurationTrustRelationships" ],
-        "summary" : "Get trust relationship",
-        "description" : "Retrieves information about a trust relationship. `local` can be used as the ID to obtain the local trust relationship.",
-        "operationId" : "get-trust-relationship",
-        "parameters" : [ {
-          "name" : "trust_relationship_id",
-          "in" : "path",
-          "description" : "Identifier for the trust relationship",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "include_certificate",
-          "in" : "query",
-          "description" : "Whether to include the public CA certificates in the response.",
-          "required" : false,
-          "type" : "boolean",
-          "default" : false
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "The trust relationship info response",
-            "headers" : {
-              "x-cloud-resource-version" : {
-                "type" : "string",
-                "description" : "The resource version, which is used to avoid update conflicts with concurrent operations"
-              },
-              "x-cloud-resource-created" : {
-                "type" : "string",
-                "description" : "The date-time when the resource was created (ISO format relative to UTC)"
-              },
-              "x-cloud-resource-last-modified" : {
-                "type" : "string",
-                "description" : "The date-time when the resource was last modified (ISO format relative to UTC)"
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/TrustRelationshipGetResponse"
-            }
-          },
-          "401" : {
-            "description" : "You are not authorized to perform this action.",
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "404" : {
-            "description" : "The trust relationship specified by {trust_relationship_id} cannot be found. (code: `trust_relationships.not_found`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "trust_relationships.not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          }
-        },
-        "x-doc" : {
-          "tag" : "Platform - Configuration - Trust relationships"
-        }
-      },
-      "put" : {
-        "tags" : [ "PlatformConfigurationTrustRelationships" ],
-        "summary" : "Update trust relationship",
-        "description" : "Updates a trust relationship.",
-        "operationId" : "update-trust-relationship",
-        "consumes" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "trust_relationship_id",
-          "in" : "path",
-          "description" : "Identifier for the trust relationship",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "in" : "body",
-          "name" : "body",
-          "description" : "The trust relationship definition",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/definitions/TrustRelationshipUpdateRequest"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "The request was valid and the trust relationship was updated.",
-            "headers" : {
-              "x-cloud-resource-version" : {
-                "type" : "string",
-                "description" : "The resource version, which is used to avoid update conflicts with concurrent operations"
-              },
-              "x-cloud-resource-created" : {
-                "type" : "string",
-                "description" : "The date-time when the resource was created (ISO format relative to UTC)"
-              },
-              "x-cloud-resource-last-modified" : {
-                "type" : "string",
-                "description" : "The date-time when the resource was last modified (ISO format relative to UTC)"
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/TrustRelationshipUpdateResponse"
-            }
-          },
-          "400" : {
-            "description" : "The trust relationship request had errors.",
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "401" : {
-            "description" : "You are not authorized to perform this action.",
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "404" : {
-            "description" : "The trust relationship specified by {trust_relationship_id} cannot be found. (code: `trust_relationships.not_found`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "trust_relationships.not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          }
-        },
-        "x-doc" : {
-          "tag" : "Platform - Configuration - Trust relationships"
-        }
-      },
-      "delete" : {
-        "tags" : [ "PlatformConfigurationTrustRelationships" ],
-        "summary" : "Delete trust relationship",
-        "description" : "Deletes a trust relationship.",
-        "operationId" : "delete-trust-relationship",
-        "parameters" : [ {
-          "name" : "trust_relationship_id",
-          "in" : "path",
-          "description" : "Identifier for the trust relationship",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "version",
-          "in" : "query",
-          "description" : "If specified then checks for conflicts against the version stored in the persistent store (returned in 'x-cloud-resource-version' of the GET request)",
-          "required" : false,
-          "type" : "integer"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "The request was valid and the trust relationship was deleted.",
-            "schema" : {
-              "$ref" : "#/definitions/EmptyResponse"
-            }
-          },
-          "401" : {
-            "description" : "You are not authorized to perform this action.",
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "404" : {
-            "description" : "The trust relationship specified by {trust_relationship_id} cannot be found. (code: `trust_relationships.not_found`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "trust_relationships.not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          }
-        },
-        "x-doc" : {
-          "tag" : "Platform - Configuration - Trust relationships"
         }
       }
     },
@@ -9068,6 +8793,11 @@
           "type" : "number",
           "format" : "double",
           "description" : "Settings for the instance storage multiplier"
+        },
+        "cpu_multiplier" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Settings for the instance CPU multiplier"
         }
       },
       "description" : "The configuration template for Elasticsearch instances, Kibana instances, and APM Servers."
@@ -10750,189 +10480,6 @@
         }
       },
       "description" : "Defines the configuration parameters that control how the plan is applied. For example, the Elasticsearch cluster topology and Kibana instance settings."
-    },
-    "TrustRelationshipCreateRequest" : {
-      "type" : "object",
-      "required" : [ "name", "public_ca_cert" ],
-      "properties" : {
-        "name" : {
-          "type" : "string",
-          "description" : "A name for the trust relationship"
-        },
-        "trust_by_default" : {
-          "type" : "boolean",
-          "description" : "If this relationship is trusted by default by all deployments in the current environment."
-        },
-        "account_ids" : {
-          "type" : "array",
-          "description" : "The ID of the accounts to trust by this relationship.",
-          "items" : {
-            "type" : "string"
-          }
-        },
-        "public_ca_cert" : {
-          "type" : "string",
-          "description" : "The public CA certificate of the environment to trust"
-        },
-        "installation_id" : {
-          "type" : "string",
-          "description" : "The installation ID of the environment to trust"
-        }
-      },
-      "description" : "A request for creating a trust relationship with another environment"
-    },
-    "TrustRelationshipCreateResponse" : {
-      "type" : "object",
-      "required" : [ "id", "local", "name", "trust_by_default" ],
-      "properties" : {
-        "id" : {
-          "type" : "string",
-          "description" : "The id of the trust relationship"
-        },
-        "name" : {
-          "type" : "string",
-          "description" : "The name of the trust relationship"
-        },
-        "trust_by_default" : {
-          "type" : "boolean",
-          "description" : "If this relationship is trusted by default by all deployments in the current environment."
-        },
-        "account_ids" : {
-          "type" : "array",
-          "description" : "The ID of the accounts trusted by this relationship.",
-          "items" : {
-            "type" : "string"
-          }
-        },
-        "local" : {
-          "type" : "boolean",
-          "description" : "If this is the trust relationship for the local environment"
-        },
-        "installation_id" : {
-          "type" : "string",
-          "description" : "The installation ID of the environment to trust"
-        }
-      },
-      "description" : "A response returned from the trust relationship create endpoint"
-    },
-    "TrustRelationshipGetResponse" : {
-      "type" : "object",
-      "required" : [ "id", "last_modified", "local", "name", "trust_by_default" ],
-      "properties" : {
-        "id" : {
-          "type" : "string",
-          "description" : "The id of the trust relationship"
-        },
-        "name" : {
-          "type" : "string",
-          "description" : "The name of the trust relationship"
-        },
-        "trust_by_default" : {
-          "type" : "boolean",
-          "description" : "If this relationship is trusted by default by all deployments in the current environment."
-        },
-        "account_ids" : {
-          "type" : "array",
-          "description" : "The ID of the accounts trusted by this relationship.",
-          "items" : {
-            "type" : "string"
-          }
-        },
-        "public_ca_cert" : {
-          "type" : "string",
-          "description" : "The public CA certificate of the environment to trust"
-        },
-        "local" : {
-          "type" : "boolean",
-          "description" : "If this is the trust relationship for the local environment"
-        },
-        "installation_id" : {
-          "type" : "string",
-          "description" : "The installation ID of the environment to trust"
-        },
-        "last_modified" : {
-          "type" : "string",
-          "format" : "date-time",
-          "description" : "The most recent time the trust relationship was changed (ISO format in UTC)"
-        }
-      }
-    },
-    "TrustRelationshipUpdateRequest" : {
-      "type" : "object",
-      "properties" : {
-        "name" : {
-          "type" : "string",
-          "description" : "A name for the trust relationship"
-        },
-        "trust_by_default" : {
-          "type" : "boolean",
-          "description" : "If this relationship is trusted by default by all deployments in the current environment."
-        },
-        "account_ids" : {
-          "type" : "array",
-          "description" : "The ID of the accounts to trust by this relationship.",
-          "items" : {
-            "type" : "string"
-          }
-        },
-        "public_ca_cert" : {
-          "type" : "string",
-          "description" : "The public CA certificate of the environment to trust"
-        },
-        "installation_id" : {
-          "type" : "string",
-          "description" : "The installation ID of the environment to trust"
-        }
-      },
-      "description" : "A request for updating a trust relationship with another environment"
-    },
-    "TrustRelationshipUpdateResponse" : {
-      "type" : "object",
-      "required" : [ "id", "local", "name", "trust_by_default" ],
-      "properties" : {
-        "id" : {
-          "type" : "string",
-          "description" : "The id of the trust relationship"
-        },
-        "name" : {
-          "type" : "string",
-          "description" : "The name of the trust relationship"
-        },
-        "trust_by_default" : {
-          "type" : "boolean",
-          "description" : "If this relationship is trusted by default by all deployments in the current environment."
-        },
-        "account_ids" : {
-          "type" : "array",
-          "description" : "The ID of the accounts trusted by this relationship.",
-          "items" : {
-            "type" : "string"
-          }
-        },
-        "local" : {
-          "type" : "boolean",
-          "description" : "If this is the trust relationship for the local environment"
-        },
-        "installation_id" : {
-          "type" : "string",
-          "description" : "The installation ID of the environment to trust"
-        }
-      },
-      "description" : "A response returned from the trust relationship update endpoint"
-    },
-    "TrustRelationshipsListResponse" : {
-      "type" : "object",
-      "required" : [ "trust_relationships" ],
-      "properties" : {
-        "trust_relationships" : {
-          "type" : "array",
-          "description" : "The trust relationships",
-          "items" : {
-            "$ref" : "#/definitions/TrustRelationshipGetResponse"
-          }
-        }
-      },
-      "description" : "Contains a list of trust relationships"
     },
     "UpdateExtensionRequest" : {
       "type" : "object",

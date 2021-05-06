@@ -12781,7 +12781,7 @@
           "description" : "The kind of resource",
           "required" : true,
           "type" : "string",
-          "enum" : [ "elasticsearch", "kibana", "apm", "appsearch", "enterprise_search", "agent" ]
+          "enum" : [ "elasticsearch", "kibana", "apm", "appsearch", "enterprise_search" ]
         }, {
           "name" : "ref_id",
           "in" : "path",
@@ -12863,7 +12863,7 @@
         }, {
           "name" : "resource_kind",
           "in" : "path",
-          "description" : "The kind of resource (one of elasticsearch, kibana, apm or agent).",
+          "description" : "The kind of resource (one of elasticsearch, kibana or apm).",
           "required" : true,
           "type" : "string"
         }, {
@@ -12953,7 +12953,7 @@
         }, {
           "name" : "resource_kind",
           "in" : "path",
-          "description" : "The kind of resource (one of elasticsearch, kibana, apm or agent).",
+          "description" : "The kind of resource (one of elasticsearch, kibana or apm).",
           "required" : true,
           "type" : "string"
         }, {
@@ -13043,7 +13043,7 @@
         }, {
           "name" : "resource_kind",
           "in" : "path",
-          "description" : "The kind of resource (one of elasticsearch, kibana, apm or agent).",
+          "description" : "The kind of resource (one of elasticsearch, kibana or apm).",
           "required" : true,
           "type" : "string"
         }, {
@@ -13133,7 +13133,7 @@
         }, {
           "name" : "resource_kind",
           "in" : "path",
-          "description" : "The kind of resource (one of elasticsearch, kibana, apm or agent).",
+          "description" : "The kind of resource (one of elasticsearch, kibana or apm).",
           "required" : true,
           "type" : "string"
         }, {
@@ -13223,7 +13223,7 @@
         }, {
           "name" : "resource_kind",
           "in" : "path",
-          "description" : "The kind of resource (one of elasticsearch, kibana, apm or agent).",
+          "description" : "The kind of resource (one of elasticsearch, kibana or apm).",
           "required" : true,
           "type" : "string"
         }, {
@@ -13330,7 +13330,7 @@
         }, {
           "name" : "resource_kind",
           "in" : "path",
-          "description" : "The kind of resource (one of elasticsearch, kibana, apm or agent).",
+          "description" : "The kind of resource (one of elasticsearch, kibana or apm).",
           "required" : true,
           "type" : "string"
         }, {
@@ -13437,7 +13437,7 @@
         }, {
           "name" : "resource_kind",
           "in" : "path",
-          "description" : "The kind of resource (one of elasticsearch, kibana, apm or agent).",
+          "description" : "The kind of resource (one of elasticsearch, kibana or apm).",
           "required" : true,
           "type" : "string"
         }, {
@@ -13544,7 +13544,7 @@
         }, {
           "name" : "resource_kind",
           "in" : "path",
-          "description" : "The kind of resource (one of elasticsearch, kibana, apm or agent).",
+          "description" : "The kind of resource (one of elasticsearch, kibana or apm).",
           "required" : true,
           "type" : "string"
         }, {
@@ -13655,7 +13655,7 @@
           "description" : "The kind of resource",
           "required" : true,
           "type" : "string",
-          "enum" : [ "elasticsearch", "kibana", "apm", "appsearch", "enterprise_search", "agent" ]
+          "enum" : [ "elasticsearch", "kibana", "apm", "appsearch", "enterprise_search" ]
         }, {
           "name" : "ref_id",
           "in" : "path",
@@ -13774,7 +13774,7 @@
           "description" : "The kind of resource",
           "required" : true,
           "type" : "string",
-          "enum" : [ "elasticsearch", "kibana", "apm", "appsearch", "enterprise_search", "agent" ]
+          "enum" : [ "elasticsearch", "kibana", "apm", "appsearch", "enterprise_search" ]
         }, {
           "name" : "ref_id",
           "in" : "path",
@@ -13879,7 +13879,7 @@
           "description" : "The kind of stateless resource",
           "required" : true,
           "type" : "string",
-          "enum" : [ "kibana", "apm", "appsearch", "enterprise_search", "agent" ]
+          "enum" : [ "kibana", "apm", "appsearch", "enterprise_search" ]
         }, {
           "name" : "ref_id",
           "in" : "path",
@@ -13970,7 +13970,7 @@
           "description" : "The kind of stateless resource",
           "required" : true,
           "type" : "string",
-          "enum" : [ "kibana", "apm", "appsearch", "enterprise_search", "agent" ]
+          "enum" : [ "kibana", "apm", "appsearch", "enterprise_search" ]
         }, {
           "name" : "ref_id",
           "in" : "path",
@@ -14068,7 +14068,7 @@
           "description" : "The kind of stateless resource",
           "required" : true,
           "type" : "string",
-          "enum" : [ "kibana", "apm", "appsearch", "enterprise_search", "agent" ]
+          "enum" : [ "kibana", "apm", "appsearch", "enterprise_search" ]
         }, {
           "name" : "ref_id",
           "in" : "path",
@@ -14157,7 +14157,7 @@
     "/deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_upgrade" : {
       "post" : {
         "tags" : [ "Deployments" ],
-        "summary" : "Upgrade Kibana, APM, Agent, AppSearch inside Deployment",
+        "summary" : "Upgrade Kibana, APM, AppSearch inside Deployment",
         "description" : "Upgrades a running cluster.",
         "operationId" : "upgrade-deployment-stateless-resource",
         "parameters" : [ {
@@ -14172,7 +14172,7 @@
           "description" : "The kind of stateless resource",
           "required" : true,
           "type" : "string",
-          "enum" : [ "kibana", "apm", "appsearch", "enterprise_search", "agent" ]
+          "enum" : [ "kibana", "apm", "appsearch", "enterprise_search" ]
         }, {
           "name" : "ref_id",
           "in" : "path",
@@ -14947,7 +14947,7 @@
           "description" : "The kind of resource you want to manage a Deployment Domain Name for.",
           "required" : true,
           "type" : "string",
-          "enum" : [ "elasticsearch", "kibana", "apm", "appsearch", "enterprise_search", "agent" ]
+          "enum" : [ "elasticsearch", "kibana", "apm", "appsearch", "enterprise_search" ]
         } ],
         "responses" : {
           "200" : {
@@ -15000,7 +15000,7 @@
           "description" : "The kind of resource you want to manage a Deployment Domain Name for.",
           "required" : true,
           "type" : "string",
-          "enum" : [ "elasticsearch", "kibana", "apm", "appsearch", "enterprise_search", "agent" ]
+          "enum" : [ "elasticsearch", "kibana", "apm", "appsearch", "enterprise_search" ]
         }, {
           "name" : "version",
           "in" : "query",
@@ -22908,8 +22908,8 @@
     "/users/{user_id}/auth/keys" : {
       "get" : {
         "tags" : [ "Authentication" ],
-        "summary" : "Get all API keys for a user",
-        "description" : "Retrieves all of the API key metadata for a user.",
+        "summary" : "Get API key metadata for all keys created by the user",
+        "description" : "Retrieves metadata for all API keys created by the given user.",
         "operationId" : "get-user-api-keys",
         "parameters" : [ {
           "name" : "user_id",
@@ -25389,6 +25389,11 @@
           "type" : "string",
           "description" : "The user id (referencing whatever user database is in use) of the cluster owner"
         },
+        "organization_id" : {
+          "type" : "string",
+          "description" : "The organization that owns the deployment",
+          "readOnly" : true
+        },
         "subscription_level" : {
           "type" : "string",
           "description" : "Subscription level of the cluster"
@@ -26773,6 +26778,11 @@
         "owner_id" : {
           "type" : "string",
           "description" : "The user id (referencing whatever user database is in use) of the deployment owner"
+        },
+        "organization_id" : {
+          "type" : "string",
+          "description" : "The organization that owns the deployment",
+          "readOnly" : true
         },
         "system_owned" : {
           "type" : "boolean",
@@ -29497,6 +29507,11 @@
         "metadata" : {
           "type" : "object",
           "description" : "Optional arbitrary metadata to associate with this template."
+        },
+        "cpu_multiplier" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Settings for the instance CPU multiplier"
         }
       },
       "description" : "The configuration template for Elasticsearch instances, Kibana instances, and APM Servers."
@@ -29536,6 +29551,11 @@
           "type" : "number",
           "format" : "double",
           "description" : "Settings for the instance storage multiplier"
+        },
+        "cpu_multiplier" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Settings for the instance CPU multiplier"
         }
       },
       "description" : "The configuration template for Elasticsearch instances, Kibana instances, and APM Servers."

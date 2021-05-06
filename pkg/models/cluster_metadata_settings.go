@@ -46,6 +46,10 @@ type ClusterMetadataSettings struct {
 	// The display name of the cluster
 	Name string `json:"name,omitempty"`
 
+	// The organization that owns the deployment
+	// Read Only: true
+	OrganizationID string `json:"organization_id,omitempty"`
+
 	// The user id (referencing whatever user database is in use) of the cluster owner
 	OwnerID string `json:"owner_id,omitempty"`
 
@@ -98,6 +102,10 @@ func (m *ClusterMetadataSettings) ContextValidate(ctx context.Context, formats s
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateOrganizationID(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateResources(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -111,6 +119,15 @@ func (m *ClusterMetadataSettings) ContextValidate(ctx context.Context, formats s
 func (m *ClusterMetadataSettings) contextValidateHidden(ctx context.Context, formats strfmt.Registry) error {
 
 	if err := validate.ReadOnly(ctx, "hidden", "body", m.Hidden); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *ClusterMetadataSettings) contextValidateOrganizationID(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := validate.ReadOnly(ctx, "organization_id", "body", string(m.OrganizationID)); err != nil {
 		return err
 	}
 

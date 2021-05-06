@@ -90,7 +90,7 @@ type StopDeploymentResourceInstancesAllParams struct {
 
 	/* ResourceKind.
 
-	   The kind of resource (one of elasticsearch, kibana, apm or agent).
+	   The kind of resource (one of elasticsearch, kibana or apm).
 	*/
 	ResourceKind string
 
