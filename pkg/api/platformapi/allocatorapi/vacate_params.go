@@ -159,7 +159,7 @@ type VacateClusterParams struct {
 	// Plan body overrides to place in all of the vacate clusters.
 	PlanOverrides
 	Region    string
-	ID        string
+	ID        string // allocatorID
 	ClusterID string
 	Kind      string
 	*api.API

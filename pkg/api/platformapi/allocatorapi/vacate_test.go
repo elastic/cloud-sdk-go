@@ -941,7 +941,7 @@ func TestVacateCluster(t *testing.T) {
 					SkipTracking:   true,
 					MaxPollRetries: 1,
 					API: discardResponses(
-						newKibanaVacateMove(t, "someID", vacateCaseClusterConfig{
+						newAppsearchVacateMove(t, "someID", vacateCaseClusterConfig{
 							ID: "2ee11eb40eda22cac0cce259625c6734",
 						}, "us-east-1"),
 					),

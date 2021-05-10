@@ -638,6 +638,11 @@ func newAPMVacateMove(t *testing.T, alloc string, move vacateCaseClusterConfig, 
 				"allocator_down": {"false"},
 				"validate_only":  {"true"},
 			},
+			Body: mock.NewStructBody(models.MoveClustersRequest{
+				ApmClusters: []*models.MoveApmClusterConfiguration{{
+					ClusterIds: []string{move.ID},
+				}},
+			}),
 		},
 	})
 
@@ -753,6 +758,11 @@ func newKibanaVacateMove(t *testing.T, alloc string, move vacateCaseClusterConfi
 				"allocator_down": {"false"},
 				"validate_only":  {"true"},
 			},
+			Body: mock.NewStructBody(models.MoveClustersRequest{
+				KibanaClusters: []*models.MoveKibanaClusterConfiguration{{
+					ClusterIds: []string{move.ID},
+				}},
+			}),
 		},
 	})
 
@@ -867,6 +877,11 @@ func newElasticsearchVacateMove(t *testing.T, alloc string, move vacateCaseClust
 				"allocator_down": {"false"},
 				"validate_only":  {"true"},
 			},
+			Body: mock.NewStructBody(models.MoveClustersRequest{
+				ElasticsearchClusters: []*models.MoveElasticsearchClusterConfiguration{{
+					ClusterIds: []string{move.ID},
+				}},
+			}),
 		},
 	})
 
@@ -980,6 +995,11 @@ func newAppsearchVacateMove(t *testing.T, alloc string, move vacateCaseClusterCo
 				"allocator_down": {"false"},
 				"validate_only":  {"true"},
 			},
+			Body: mock.NewStructBody(models.MoveClustersRequest{
+				AppsearchClusters: []*models.MoveAppSearchConfiguration{{
+					ClusterIds: []string{move.ID},
+				}},
+			}),
 		},
 	})
 
@@ -1095,6 +1115,11 @@ func newEnterpriseSearchVacateMove(t *testing.T, alloc string, move vacateCaseCl
 				"allocator_down": {"false"},
 				"validate_only":  {"true"},
 			},
+			Body: mock.NewStructBody(models.MoveClustersRequest{
+				EnterpriseSearchClusters: []*models.MoveEnterpriseSearchConfiguration{{
+					ClusterIds: []string{move.ID},
+				}},
+			}),
 		},
 	})
 
