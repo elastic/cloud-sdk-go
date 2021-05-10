@@ -377,6 +377,9 @@ func fillVacateClusterParams(params *VacateClusterParams) (*VacateClusterParams,
 
 // newMoveClusterParams
 func newMoveClusterParams(params *VacateClusterParams) (*platform_infrastructure.MoveClustersByTypeParams, error) {
+	// preparing MoveClustersRequest object to have ClusterID and the MoveClustersRequest object is set to request body when calling API.
+	// without ClusterID, the API will try to return all the plan information of every node in an allocator and it can be burden to backend adminconsole and zookeeper.
+	// so by setting the ClusterID in the request body, the API will return only matched cluster's plan information.
 	req := GetVacateRequestByClusterID(params.ClusterID, params.Kind)
 
 	res, err := params.API.V1API.PlatformInfrastructure.MoveClusters(

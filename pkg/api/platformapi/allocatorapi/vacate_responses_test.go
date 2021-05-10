@@ -638,12 +638,11 @@ func newAPMVacateMove(t *testing.T, alloc string, move vacateCaseClusterConfig, 
 				"allocator_down": {"false"},
 				"validate_only":  {"true"},
 			},
-			Body: mock.NewStringBody(
-				fmt.Sprintf(
-					`{"apm_clusters":[{"cluster_ids":["%s"]}],"appsearch_clusters":null,"elasticsearch_clusters":null,"enterprise_search_clusters":null,"kibana_clusters":null}`+"\n",
-					move.ID,
-				),
-			),
+			Body: mock.NewStructBody(models.MoveClustersRequest{
+				ApmClusters: []*models.MoveApmClusterConfiguration{{
+					ClusterIds: []string{move.ID},
+				}},
+			}),
 		},
 	})
 
@@ -759,12 +758,11 @@ func newKibanaVacateMove(t *testing.T, alloc string, move vacateCaseClusterConfi
 				"allocator_down": {"false"},
 				"validate_only":  {"true"},
 			},
-			Body: mock.NewStringBody(
-				fmt.Sprintf(
-					`{"apm_clusters":null,"appsearch_clusters":null,"elasticsearch_clusters":null,"enterprise_search_clusters":null,"kibana_clusters":[{"cluster_ids":["%s"]}]}`+"\n",
-					move.ID,
-				),
-			),
+			Body: mock.NewStructBody(models.MoveClustersRequest{
+				KibanaClusters: []*models.MoveKibanaClusterConfiguration{{
+					ClusterIds: []string{move.ID},
+				}},
+			}),
 		},
 	})
 
@@ -879,12 +877,11 @@ func newElasticsearchVacateMove(t *testing.T, alloc string, move vacateCaseClust
 				"allocator_down": {"false"},
 				"validate_only":  {"true"},
 			},
-			Body: mock.NewStringBody(
-				fmt.Sprintf(
-					`{"apm_clusters":null,"appsearch_clusters":null,"elasticsearch_clusters":[{"cluster_ids":["%s"]}],"enterprise_search_clusters":null,"kibana_clusters":null}`+"\n",
-					move.ID,
-				),
-			),
+			Body: mock.NewStructBody(models.MoveClustersRequest{
+				ElasticsearchClusters: []*models.MoveElasticsearchClusterConfiguration{{
+					ClusterIds: []string{move.ID},
+				}},
+			}),
 		},
 	})
 
@@ -998,12 +995,11 @@ func newAppsearchVacateMove(t *testing.T, alloc string, move vacateCaseClusterCo
 				"allocator_down": {"false"},
 				"validate_only":  {"true"},
 			},
-			Body: mock.NewStringBody(
-				fmt.Sprintf(
-					`{"apm_clusters":null,"appsearch_clusters":[{"cluster_ids":["%s"]}],"elasticsearch_clusters":null,"enterprise_search_clusters":null,"kibana_clusters":null}`+"\n",
-					move.ID,
-				),
-			),
+			Body: mock.NewStructBody(models.MoveClustersRequest{
+				AppsearchClusters: []*models.MoveAppSearchConfiguration{{
+					ClusterIds: []string{move.ID},
+				}},
+			}),
 		},
 	})
 
@@ -1119,12 +1115,11 @@ func newEnterpriseSearchVacateMove(t *testing.T, alloc string, move vacateCaseCl
 				"allocator_down": {"false"},
 				"validate_only":  {"true"},
 			},
-			Body: mock.NewStringBody(
-				fmt.Sprintf(
-					`{"apm_clusters":null,"appsearch_clusters":null,"elasticsearch_clusters":null,"enterprise_search_clusters":[{"cluster_ids":["%s"]}],"kibana_clusters":null}`+"\n",
-					move.ID,
-				),
-			),
+			Body: mock.NewStructBody(models.MoveClustersRequest{
+				EnterpriseSearchClusters: []*models.MoveEnterpriseSearchConfiguration{{
+					ClusterIds: []string{move.ID},
+				}},
+			}),
 		},
 	})
 
