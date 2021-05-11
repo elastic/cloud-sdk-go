@@ -1,0 +1,5 @@
+category: enhancement
+title: Improve `allocatorapi.Vacate` API calls
+description: |
+    Optimizes the API calls that the Vacate function performs in order to reduce the amount of work
+    the API has to perform to calculate a cluster's move.

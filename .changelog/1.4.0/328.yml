@@ -1,0 +1,4 @@
+category: new-api
+title: Add new proxy `settingsapi.Patch` function
+description: |
+    Adds a new API that allows updating a partial definition of a proxy's settings using the PATCH method.
