@@ -71,6 +71,10 @@ $(GOBIN)/apivalidator: $(GOBIN)/gobin
 	@ if [[ -f bin/apivalidator ]]; then rm -f bin/apivalidator; fi
 	@ $(GOBIN)/gobin github.com/elastic/cloud-sdk-go/internal/cmd/apivalidator@master
 
+$(GOBIN)/changelogger:
+	@ echo "-> Installing changelogger..."
+	@ go build -o bin/changelogger github.com/elastic/cloud-sdk-go/cmd/changelogger
+
 ## Downloads the required go modules.
 .PHONY: mod
 mod:
