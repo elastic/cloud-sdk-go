@@ -1,0 +1,4 @@
+category: enhancement
+title: Allow `deploymentsize.ParseGb to parse "0g" and "0"
+description: |
+    Updates the `deploymentsize.ParseGb` function to allow parsing `"0"` and `"0g"`.
