@@ -8,7 +8,6 @@ import (
 	"io"
 	"io/fs"
 	"os"
-	"path"
 	"path/filepath"
 	"reflect"
 	"sort"
@@ -104,7 +103,8 @@ func run(cfg config) error {
 
 	funcMap := template.FuncMap{
 		"BaseURL": func(id string) string {
-			return path.Join(cfg.baseURL, "issues", id)
+			baseURL := strings.TrimSuffix(cfg.baseURL, "/")
+			return fmt.Sprintf("%s/issues/%s", baseURL, id)
 		},
 		"Version": func() string { return cfg.version },
 		"Env":     os.Getenv,
