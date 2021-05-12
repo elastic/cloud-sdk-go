@@ -10,7 +10,7 @@ This release of the Elastic Cloud SDK Go should be used for ECE Version `{{ Env 
 {{ if $breaking }}
 ## Breaking changes
 {{range $breaking}}
-### {{ .TitleOrRef }} ([#{{.Ref}}]({{BaseURL .Ref}}))
+### {{ .TitleOrRef }} ([#{{.Ref}}]({{GitHubTracker .Ref}}))
 
 {{ .Description }}
 {{- end}}
@@ -19,7 +19,7 @@ This release of the Elastic Cloud SDK Go should be used for ECE Version `{{ Env 
 {{- if $newAPI}}
 ## New APIs
 {{range $newAPI}}
-### {{ .TitleOrRef }} ([#{{.Ref}}]({{BaseURL .Ref}}))
+### {{ .TitleOrRef }} ([#{{.Ref}}]({{GitHubTracker .Ref}}))
 
 {{ .Description }}
 {{- end}}
@@ -28,7 +28,7 @@ This release of the Elastic Cloud SDK Go should be used for ECE Version `{{ Env 
 {{- if $enhancement}}
 ## Enhancements
 {{range $enhancement}}
-### {{ .TitleOrRef }} ([#{{.Ref}}]({{BaseURL .Ref}}))
+### {{ .TitleOrRef }} ([#{{.Ref}}]({{GitHubTracker .Ref}}))
 
 {{ .Description }}
 {{- end}}
@@ -37,7 +37,7 @@ This release of the Elastic Cloud SDK Go should be used for ECE Version `{{ Env 
 {{- if $bug}}
 ## Bug fixes
 {{range (.ByCategory "bug")}}
-### {{ .TitleOrRef }} ([#{{.Ref}}]({{BaseURL .Ref}}))
+### {{ .TitleOrRef }} ([#{{.Ref}}]({{GitHubTracker .Ref}}))
 
 {{ .Description }}
 {{- end}}
@@ -46,7 +46,7 @@ This release of the Elastic Cloud SDK Go should be used for ECE Version `{{ Env 
 {{- if $doc}}
 ## Docs
 {{range (.ByCategory "doc")}}
-### {{ .TitleOrRef }} ([#{{.Ref}}]({{BaseURL .Ref}}))
+### {{ .TitleOrRef }} ([#{{.Ref}}]({{GitHubTracker .Ref}}))
 
 {{ .Description }}
 {{- end}}

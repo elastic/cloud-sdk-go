@@ -169,6 +169,24 @@ func Test_run(t *testing.T) {
 			}},
 			err: "failed walking the specified path: failed decoding yaml file testdata/invalid/a.yml: error unmarshaling JSON: json: cannot unmarshal string into Go value of type changelogger.Change",
 		},
+		{
+			name: "fails validating multiple changelog entries",
+			args: args{cfg: config{
+				out:      new(bytes.Buffer),
+				dir:      "testdata",
+				version:  "invalid_entry",
+				template: filepath.Join("testdata", "templates", "simple.gtpl"),
+				baseURL:  "https://link/to",
+			}},
+			err: `invalid changelog entries: 5 errors occurred:
+	* invalid changelog entry a.yml: category cannot be empty
+	* invalid changelog entry a.yml: title cannot be empty
+	* invalid changelog entry b.yml: category cannot be empty
+	* invalid changelog entry c.yml: category cannot be empty
+	* invalid changelog entry c.yml: title cannot be empty
+
+`,
+		},
 
 		// Success cases.
 		{

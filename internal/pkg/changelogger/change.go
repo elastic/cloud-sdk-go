@@ -17,6 +17,13 @@
 
 package changelogger
 
+import (
+	"errors"
+	"fmt"
+
+	"github.com/elastic/cloud-sdk-go/pkg/multierror"
+)
+
 type Changes []Change
 
 type Change struct {
@@ -24,15 +31,14 @@ type Change struct {
 	// change types see matcher.go.
 	Category string
 
-	// Required change description.
-	Description string
-
-	// Optional title, if set, it will use the title.
+	// Required title, if set, it will use the title.
 	Title string
 
-	// Optional reference for the change source, it must be a valid URL.
-	// If not set, it will use the title of the note and resolve to the local
-	// repository.
+	// Optional change description.
+	Description string
+
+	// Optional reference for the change source. If not set, it will use the
+	// name of the note. It'll be formatted with the base-url
 	Ref string
 }
 
@@ -52,6 +58,20 @@ func (c Change) TitleOrRef() string {
 		return c.Title
 	}
 	return c.Ref
+}
+
+// Validate validates that the change entry is usable.
+func (c Change) Validate(fileName string) error {
+	merr := multierror.NewPrefixed(fmt.Sprintf(
+		"invalid changelog entry %s", fileName,
+	))
+	if c.Title == "" {
+		merr = merr.Append(errors.New("title cannot be empty"))
+	}
+	if c.Category == "" {
+		merr = merr.Append(errors.New("category cannot be empty"))
+	}
+	return merr.ErrorOrNil()
 }
 
 // Sort interface

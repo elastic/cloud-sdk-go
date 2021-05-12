@@ -81,7 +81,7 @@ func main() {
 	flagSet.StringVar(&cfg.dir, "changelog-dir", ".changelog", "path to the changelog directory")
 	flagSet.StringVar(&cfg.version, "version", "", "version for the changelog being generated. Any 'v' prefix will be stripped")
 	flagSet.StringVar(&cfg.template, "template", "", "template to generate the resulting changelog")
-	flagSet.StringVar(&cfg.baseURL, "base-url", "", "base URL to use for links when shorthand ref is specified")
+	flagSet.StringVar(&cfg.baseURL, "base-url", "", "base URL to use for each of the changes")
 
 	//  Flag parsing
 
@@ -119,7 +119,7 @@ func run(cfg config) error {
 	}
 
 	funcMap := template.FuncMap{
-		"BaseURL": func(id string) string {
+		"GitHubTracker": func(id string) string {
 			baseURL := strings.TrimSuffix(cfg.baseURL, "/")
 			return fmt.Sprintf("%s/issues/%s", baseURL, id)
 		},
@@ -142,6 +142,7 @@ func run(cfg config) error {
 	}
 
 	var changes changelogger.Changes
+	changeValErr := multierror.NewPrefixed("invalid changelog entries")
 	dir := filepath.Join(cfg.dir, cleanVersion)
 	if err := filepath.Walk(dir, func(path string, info fs.FileInfo, err error) error {
 		if err != nil {
@@ -173,6 +174,10 @@ func run(cfg config) error {
 			changes = append(changes, change)
 		}
 
+		if validateErr := change.Validate(info.Name()); validateErr != nil {
+			changeValErr = changeValErr.Append(validateErr)
+		}
+
 		return nil
 	}); err != nil {
 		return &appError{
@@ -189,18 +194,25 @@ func run(cfg config) error {
 		}
 	}
 
+	if err := changeValErr.ErrorOrNil(); err != nil {
+		return &appError{
+			err:  err,
+			code: 7,
+		}
+	}
+
 	buf := new(bytes.Buffer)
 	if err := tpl.Execute(buf, changes); err != nil {
 		return &appError{
 			err:  fmt.Errorf("failed executing the changelog template: %w", err),
-			code: 6,
+			code: 8,
 		}
 	}
 
 	if _, err := io.Copy(cfg.out, buf); err != nil {
 		return &appError{
 			err:  fmt.Errorf("failed copying the template output: %w", err),
-			code: 7,
+			code: 9,
 		}
 	}
 
