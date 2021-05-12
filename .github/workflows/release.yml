@@ -56,7 +56,7 @@ jobs:
           message: 'Update patch version'
           branch: ${{ steps.get_branch.outputs.BRANCH }}
 
-  bump-main-version:
+  bump-minor-version:
     name: Bump main version
     runs-on: ubuntu-latest
     steps:
