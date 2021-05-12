@@ -11,6 +11,7 @@ VERSION_GOLICENSER:=v0.3.0
 VERSION_GOLANGCILINT:=v1.38.0
 VERSION_SWAGGER:=v0.26.1
 VERSION_GOTESTSUM:=v0.4.2
+VERSION_VERSIONBUMP:=v1.1.0
 
 deps: $(GOBIN)/gobin $(GOBIN)/go-licenser $(GOBIN)/golangci-lint $(GOBIN)/swagger
 
@@ -70,6 +71,14 @@ $(GOBIN)/apivalidator: $(GOBIN)/gobin
 	@ echo "-> Installing apivalidator..."
 	@ if [[ -f bin/apivalidator ]]; then rm -f bin/apivalidator; fi
 	@ $(GOBIN)/gobin github.com/elastic/cloud-sdk-go/internal/cmd/apivalidator@master
+
+$(VERSION_DIR)/.version-versionbump-$(VERSION_VERSIONBUMP):
+	@ rm -f $(VERSION_DIR)/.version-versionbump-*
+	@ echo $(VERSION_VERSIONBUMP) > $(VERSION_DIR)/.version-versionbump-$(VERSION_VERSIONBUMP)
+
+$(GOBIN)/versionbump: $(GOBIN)/gobin $(VERSION_DIR)/.version-versionbump-$(VERSION_VERSIONBUMP) | $(GOBIN)
+	@ echo "-> Installing versionbump..."
+	@ $(GOBIN)/gobin github.com/crosseyed/versionbump/cmd/versionbump@$(VERSION_VERSIONBUMP)
 
 ## Downloads the required go modules.
 .PHONY: mod
