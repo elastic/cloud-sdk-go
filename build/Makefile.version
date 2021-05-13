@@ -1,0 +1,16 @@
+### Manage repository versions
+
+## Bump the major verison both for the cloud-sdk-go and ECE.
+major: $(GOBIN)/versionbump
+	@ $(GOBIN)/versionbump major Makefile
+	@ $(GOBIN)/versionbump major ECE_VERSION
+
+## Bump the minor o feature verison both for the cloud-sdk-go and ECE.
+minor: $(GOBIN)/versionbump
+	@ $(GOBIN)/versionbump minor Makefile
+	@ $(GOBIN)/versionbump minor ECE_VERSION
+
+## Bump the patch o bugfix verison both for the cloud-sdk-go and ECE.
+patch: $(GOBIN)/versionbump
+	@ $(GOBIN)/versionbump patch Makefile
+	@ $(GOBIN)/versionbump patch ECE_VERSION

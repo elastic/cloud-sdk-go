@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 export GO111MODULE ?= on
 export VERSION ?= v1.4.0
-export ECE_VERSION ?= 2.10.0
+export ECE_VERSION ?= $(shell cat ECE_VERSION)
 ECE_DEF_FILE ?= api/version/$(ECE_VERSION).md
 export GOBIN = $(shell pwd)/bin
 BINARY := cloud-sdk-go
@@ -14,3 +14,4 @@ include build/Makefile.deps
 include build/Makefile.dev
 include build/Makefile.build
 include build/Makefile.apivalidation
+include build/Makefile.version
