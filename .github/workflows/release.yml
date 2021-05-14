@@ -15,6 +15,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
+          token: ${{ secrets.GH_TOKEN }}
 
       # Create actual release
 
@@ -52,9 +53,11 @@ jobs:
       - name: Commit changes to the minor branch
         uses: EndBug/add-and-commit@v7
         with:
-          default_author: github_actor
+          default_author: user_info
           message: 'Update patch version'
           branch: ${{ steps.get_branch.outputs.BRANCH }}
+          author_name: elasticcloudclients
+          author_email: elasticcloudclients@elastic.co
 
   bump-minor-version:
     name: Bump main version
@@ -64,6 +67,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: master
+          token: ${{ secrets.GH_TOKEN }}
 
       - name: Set up Go
         uses: actions/setup-go@v2
@@ -77,5 +81,7 @@ jobs:
       - name: Commit changes to main
         uses: EndBug/add-and-commit@v7
         with:
-          default_author: github_actor
+          default_author: user_info
           message: 'Update minor version'
+          author_name: elasticcloudclients
+          author_email: elasticcloudclients@elastic.co
