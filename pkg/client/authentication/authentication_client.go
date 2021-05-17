@@ -585,9 +585,9 @@ func (a *Client) GetUserAPIKey(params *GetUserAPIKeyParams, authInfo runtime.Cli
 }
 
 /*
-  GetUserAPIKeys gets all API keys for a user
+  GetUserAPIKeys gets API key metadata for all keys created by the user
 
-  Retrieves all of the API key metadata for a user.
+  Retrieves metadata for all API keys created by the given user.
 */
 func (a *Client) GetUserAPIKeys(params *GetUserAPIKeysParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetUserAPIKeysOK, error) {
 	// TODO: Validate the params before sending

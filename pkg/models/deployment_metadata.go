@@ -50,6 +50,10 @@ type DeploymentMetadata struct {
 	// Format: date-time
 	LastResourcePlanModified strfmt.DateTime `json:"last_resource_plan_modified,omitempty"`
 
+	// The organization that owns the deployment
+	// Read Only: true
+	OrganizationID string `json:"organization_id,omitempty"`
+
 	// The user id (referencing whatever user database is in use) of the deployment owner
 	OwnerID string `json:"owner_id,omitempty"`
 
@@ -143,6 +147,10 @@ func (m *DeploymentMetadata) ContextValidate(ctx context.Context, formats strfmt
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateOrganizationID(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateSubscriptionLevel(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -160,6 +168,15 @@ func (m *DeploymentMetadata) ContextValidate(ctx context.Context, formats strfmt
 func (m *DeploymentMetadata) contextValidateHidden(ctx context.Context, formats strfmt.Registry) error {
 
 	if err := validate.ReadOnly(ctx, "hidden", "body", m.Hidden); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *DeploymentMetadata) contextValidateOrganizationID(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := validate.ReadOnly(ctx, "organization_id", "body", string(m.OrganizationID)); err != nil {
 		return err
 	}
 

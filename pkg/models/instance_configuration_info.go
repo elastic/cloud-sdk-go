@@ -36,6 +36,9 @@ import (
 // swagger:model InstanceConfigurationInfo
 type InstanceConfigurationInfo struct {
 
+	// Settings for the instance CPU multiplier
+	CPUMultiplier float64 `json:"cpu_multiplier,omitempty"`
+
 	// Optional description for the instance configuration
 	Description string `json:"description,omitempty"`
 
