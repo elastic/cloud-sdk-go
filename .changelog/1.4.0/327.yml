@@ -1,0 +1,4 @@
+category: new-api
+title: Add new proxy `settingsapi.Update` function
+description: |
+    Adds a new API that allows updating an ECE Proxy settings, overriding any previous settings with the specified parameters.

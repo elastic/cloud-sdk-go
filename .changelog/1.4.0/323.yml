@@ -1,0 +1,4 @@
+category: bug
+title: Fix ignored "order" field in `DeploymentTemplate` structures
+description: |
+    Updates the field type of the `DeploymentTemplate` structures to `*int32` so the `0` value is not lost when the JSON is decoded.

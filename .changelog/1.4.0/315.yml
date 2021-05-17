@@ -1,0 +1,7 @@
+category: enhancement
+title: Add failure fields to plan tracking
+description: |
+    A new `FailureDetails` field has been added to the plan tracking output and returned error from `plan.TrackChange`.
+
+    This change will only be noticeable for clients that chose to plan a change with a JSON formatter. Other clients
+    outputs will remain untouched.

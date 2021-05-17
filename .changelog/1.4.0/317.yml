@@ -1,0 +1,4 @@
+category: new-api
+title: Add new `trafficfilterapi.NewUpdateRequestFromGet`
+description: |
+    New function allows building a traffic filter update request from the current traffic filter.

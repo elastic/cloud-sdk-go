@@ -27,6 +27,7 @@ endif
 	@ echo "-> Releasing $(BINARY) $(VERSION)..."
 
 ## Generates a changelog file in notes/$(VERSION) for the next release.
-changelog:
+changelog: $(GOBIN)/changelogger
 	@ echo "-> Generating $(BINARY) changelog $(VERSION)..."
-	@ ./scripts/generate-changelog.sh
+	@ $(GOBIN)/changelogger -template=scripts/changelog.gtpl \
+		-version $(VERSION) -base-url https://github.com/$(OWNER)/$(REPO) > notes/$(VERSION).md

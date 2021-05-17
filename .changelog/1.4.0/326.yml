@@ -1,0 +1,4 @@
+category: new-api
+title: Add new proxy `settingsapi.Get` function
+description: |
+    Adds a new API that allows obtaining ECE Proxy setting information.
