@@ -8459,7 +8459,14 @@
         "summary" : "Resynchronize Deployments",
         "description" : "Resynchronizes the search index for all the deployments.",
         "operationId" : "resync-deployments",
-        "parameters" : [ ],
+        "parameters" : [ {
+          "name" : "skip_matching_version",
+          "in" : "query",
+          "description" : "When true, skips the document indexing when the version matches the in-memory copy.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : true
+        } ],
         "responses" : {
           "200" : {
             "description" : "The deployments resync operation executed successfully.",
@@ -25343,6 +25350,13 @@
         "ports" : {
           "description" : "The ports that allow communication with the cluster using various protocols.",
           "$ref" : "#/definitions/ClusterMetadataPortInfo"
+        },
+        "services_urls" : {
+          "type" : "array",
+          "description" : "A list of the URLs to access services that the resource provides at this time. Note that if the service is not running or has not started yet, the URL to access it won't be available",
+          "items" : {
+            "$ref" : "#/definitions/ServiceUrl"
+          }
         }
       },
       "description" : "Information about the public and internal state, and the configuration settings of an Elasticsearch cluster."
@@ -32831,6 +32845,21 @@
         }
       },
       "description" : "A reorder request for Elasticsearch security realms."
+    },
+    "ServiceUrl" : {
+      "type" : "object",
+      "required" : [ "service", "url" ],
+      "properties" : {
+        "service" : {
+          "type" : "string",
+          "description" : "Name of the service"
+        },
+        "url" : {
+          "type" : "string",
+          "description" : "The full URL to access the service"
+        }
+      },
+      "description" : "A URL to access the service of a resource"
     },
     "SnapshotRepositoryConfiguration" : {
       "type" : "object",

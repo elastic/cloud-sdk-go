@@ -31,6 +31,7 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 )
 
 // NewResyncDeploymentsParams creates a new ResyncDeploymentsParams object,
@@ -75,6 +76,15 @@ func NewResyncDeploymentsParamsWithHTTPClient(client *http.Client) *ResyncDeploy
    Typically these are written to a http.Request.
 */
 type ResyncDeploymentsParams struct {
+
+	/* SkipMatchingVersion.
+
+	   When true, skips the document indexing when the version matches the in-memory copy.
+
+	   Default: true
+	*/
+	SkipMatchingVersion *bool
+
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
@@ -92,7 +102,18 @@ func (o *ResyncDeploymentsParams) WithDefaults() *ResyncDeploymentsParams {
 //
 // All values with no default are reset to their zero value.
 func (o *ResyncDeploymentsParams) SetDefaults() {
-	// no default values defined for this parameter
+	var (
+		skipMatchingVersionDefault = bool(true)
+	)
+
+	val := ResyncDeploymentsParams{
+		SkipMatchingVersion: &skipMatchingVersionDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the resync deployments params
@@ -128,6 +149,17 @@ func (o *ResyncDeploymentsParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithSkipMatchingVersion adds the skipMatchingVersion to the resync deployments params
+func (o *ResyncDeploymentsParams) WithSkipMatchingVersion(skipMatchingVersion *bool) *ResyncDeploymentsParams {
+	o.SetSkipMatchingVersion(skipMatchingVersion)
+	return o
+}
+
+// SetSkipMatchingVersion adds the skipMatchingVersion to the resync deployments params
+func (o *ResyncDeploymentsParams) SetSkipMatchingVersion(skipMatchingVersion *bool) {
+	o.SkipMatchingVersion = skipMatchingVersion
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *ResyncDeploymentsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -135,6 +167,23 @@ func (o *ResyncDeploymentsParams) WriteToRequest(r runtime.ClientRequest, reg st
 		return err
 	}
 	var res []error
+
+	if o.SkipMatchingVersion != nil {
+
+		// query param skip_matching_version
+		var qrSkipMatchingVersion bool
+
+		if o.SkipMatchingVersion != nil {
+			qrSkipMatchingVersion = *o.SkipMatchingVersion
+		}
+		qSkipMatchingVersion := swag.FormatBool(qrSkipMatchingVersion)
+		if qSkipMatchingVersion != "" {
+
+			if err := r.SetQueryParam("skip_matching_version", qSkipMatchingVersion); err != nil {
+				return err
+			}
+		}
+	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)

@@ -24,6 +24,7 @@ package models
 
 import (
 	"context"
+	"strconv"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -62,6 +63,9 @@ type ClusterMetadataInfo struct {
 	// The full URL to access this deployment resource
 	ServiceURL string `json:"service_url,omitempty"`
 
+	// A list of the URLs to access services that the resource provides at this time. Note that if the service is not running or has not started yet, the URL to access it won't be available
+	ServicesUrls []*ServiceURL `json:"services_urls"`
+
 	// The resource version number of the cluster metadata
 	// Required: true
 	Version *int32 `json:"version"`
@@ -76,6 +80,10 @@ func (m *ClusterMetadataInfo) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validatePorts(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateServicesUrls(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -119,6 +127,30 @@ func (m *ClusterMetadataInfo) validatePorts(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *ClusterMetadataInfo) validateServicesUrls(formats strfmt.Registry) error {
+	if swag.IsZero(m.ServicesUrls) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.ServicesUrls); i++ {
+		if swag.IsZero(m.ServicesUrls[i]) { // not required
+			continue
+		}
+
+		if m.ServicesUrls[i] != nil {
+			if err := m.ServicesUrls[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("services_urls" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
 func (m *ClusterMetadataInfo) validateVersion(formats strfmt.Registry) error {
 
 	if err := validate.Required("version", "body", m.Version); err != nil {
@@ -133,6 +165,10 @@ func (m *ClusterMetadataInfo) ContextValidate(ctx context.Context, formats strfm
 	var res []error
 
 	if err := m.contextValidatePorts(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateServicesUrls(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -151,6 +187,24 @@ func (m *ClusterMetadataInfo) contextValidatePorts(ctx context.Context, formats 
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *ClusterMetadataInfo) contextValidateServicesUrls(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.ServicesUrls); i++ {
+
+		if m.ServicesUrls[i] != nil {
+			if err := m.ServicesUrls[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("services_urls" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil
