@@ -29,9 +29,11 @@ import (
 
 	"github.com/elastic/cloud-sdk-go/pkg/client/accounts"
 	"github.com/elastic/cloud-sdk-go/pkg/client/authentication"
+	"github.com/elastic/cloud-sdk-go/pkg/client/billing_costs_analysis"
 	"github.com/elastic/cloud-sdk-go/pkg/client/clusters"
 	"github.com/elastic/cloud-sdk-go/pkg/client/clusters_apm"
 	"github.com/elastic/cloud-sdk-go/pkg/client/clusters_elasticsearch"
+	"github.com/elastic/cloud-sdk-go/pkg/client/clusters_enterprise_search"
 	"github.com/elastic/cloud-sdk-go/pkg/client/clusters_kibana"
 	"github.com/elastic/cloud-sdk-go/pkg/client/comments"
 	"github.com/elastic/cloud-sdk-go/pkg/client/deployment_templates"
@@ -97,9 +99,11 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *Rest {
 	cli.Transport = transport
 	cli.Accounts = accounts.New(transport, formats)
 	cli.Authentication = authentication.New(transport, formats)
+	cli.BillingCostsAnalysis = billing_costs_analysis.New(transport, formats)
 	cli.Clusters = clusters.New(transport, formats)
 	cli.ClustersApm = clusters_apm.New(transport, formats)
 	cli.ClustersElasticsearch = clusters_elasticsearch.New(transport, formats)
+	cli.ClustersEnterpriseSearch = clusters_enterprise_search.New(transport, formats)
 	cli.ClustersKibana = clusters_kibana.New(transport, formats)
 	cli.Comments = comments.New(transport, formats)
 	cli.DeploymentTemplates = deployment_templates.New(transport, formats)
@@ -167,11 +171,15 @@ type Rest struct {
 
 	Authentication authentication.ClientService
 
+	BillingCostsAnalysis billing_costs_analysis.ClientService
+
 	Clusters clusters.ClientService
 
 	ClustersApm clusters_apm.ClientService
 
 	ClustersElasticsearch clusters_elasticsearch.ClientService
+
+	ClustersEnterpriseSearch clusters_enterprise_search.ClientService
 
 	ClustersKibana clusters_kibana.ClientService
 
@@ -219,9 +227,11 @@ func (c *Rest) SetTransport(transport runtime.ClientTransport) {
 	c.Transport = transport
 	c.Accounts.SetTransport(transport)
 	c.Authentication.SetTransport(transport)
+	c.BillingCostsAnalysis.SetTransport(transport)
 	c.Clusters.SetTransport(transport)
 	c.ClustersApm.SetTransport(transport)
 	c.ClustersElasticsearch.SetTransport(transport)
+	c.ClustersEnterpriseSearch.SetTransport(transport)
 	c.ClustersKibana.SetTransport(transport)
 	c.Comments.SetTransport(transport)
 	c.DeploymentTemplates.SetTransport(transport)

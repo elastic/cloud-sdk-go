@@ -103,6 +103,12 @@ type SetDeploymentTemplateV2Params struct {
 	*/
 	TemplateID string
 
+	/* ValidateOnly.
+
+	   If true, the deployment template definition will be validated but the template will not be updated.
+	*/
+	ValidateOnly *bool
+
 	/* Version.
 
 	   If specified, checks for conflicts against the version of the template (returned in 'x-cloud-resource-version' of the GET request)
@@ -128,10 +134,13 @@ func (o *SetDeploymentTemplateV2Params) WithDefaults() *SetDeploymentTemplateV2P
 func (o *SetDeploymentTemplateV2Params) SetDefaults() {
 	var (
 		createOnlyDefault = bool(false)
+
+		validateOnlyDefault = bool(false)
 	)
 
 	val := SetDeploymentTemplateV2Params{
-		CreateOnly: &createOnlyDefault,
+		CreateOnly:   &createOnlyDefault,
+		ValidateOnly: &validateOnlyDefault,
 	}
 
 	val.timeout = o.timeout
@@ -217,6 +226,17 @@ func (o *SetDeploymentTemplateV2Params) SetTemplateID(templateID string) {
 	o.TemplateID = templateID
 }
 
+// WithValidateOnly adds the validateOnly to the set deployment template v2 params
+func (o *SetDeploymentTemplateV2Params) WithValidateOnly(validateOnly *bool) *SetDeploymentTemplateV2Params {
+	o.SetValidateOnly(validateOnly)
+	return o
+}
+
+// SetValidateOnly adds the validateOnly to the set deployment template v2 params
+func (o *SetDeploymentTemplateV2Params) SetValidateOnly(validateOnly *bool) {
+	o.ValidateOnly = validateOnly
+}
+
 // WithVersion adds the version to the set deployment template v2 params
 func (o *SetDeploymentTemplateV2Params) WithVersion(version *string) *SetDeploymentTemplateV2Params {
 	o.SetVersion(version)
@@ -271,6 +291,23 @@ func (o *SetDeploymentTemplateV2Params) WriteToRequest(r runtime.ClientRequest, 
 	// path param template_id
 	if err := r.SetPathParam("template_id", o.TemplateID); err != nil {
 		return err
+	}
+
+	if o.ValidateOnly != nil {
+
+		// query param validate_only
+		var qrValidateOnly bool
+
+		if o.ValidateOnly != nil {
+			qrValidateOnly = *o.ValidateOnly
+		}
+		qValidateOnly := swag.FormatBool(qrValidateOnly)
+		if qValidateOnly != "" {
+
+			if err := r.SetQueryParam("validate_only", qValidateOnly); err != nil {
+				return err
+			}
+		}
 	}
 
 	if o.Version != nil {

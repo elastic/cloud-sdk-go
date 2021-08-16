@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 export GO111MODULE ?= on
-export VERSION ?= v1.4.0
+export VERSION ?= v1.5.0
 export ECE_VERSION ?= $(shell cat ECE_VERSION)
 ECE_DEF_FILE ?= api/version/$(ECE_VERSION).md
 export GOBIN = $(shell pwd)/bin
