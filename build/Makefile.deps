@@ -6,14 +6,13 @@ OS:=$(shell uname -s | tr '[:upper:]' '[:lower:]')
 ARCH:=$(shell $(PWD)/scripts/uname_arch.sh)
 VERSION_DIR:=$(GOBIN)/versions
 
-VERSION_GOBIN:=v0.0.14
 VERSION_GOLICENSER:=v0.3.0
 VERSION_GOLANGCILINT:=v1.38.0
 VERSION_SWAGGER:=v0.26.1
 VERSION_GOTESTSUM:=v0.4.2
 VERSION_VERSIONBUMP:=v1.1.0
 
-deps: $(GOBIN)/gobin $(GOBIN)/go-licenser $(GOBIN)/golangci-lint $(GOBIN)/swagger
+deps: $(GOBIN)/go-licenser $(GOBIN)/golangci-lint $(GOBIN)/swagger
 
 $(GOBIN):
 	@ mkdir -p $(GOBIN)
@@ -25,18 +24,13 @@ $(VERSION_DIR)/.version-gobin-$(VERSION_GOBIN): | $(VERSION_DIR)
 	@ rm -f $(VERSION_DIR)/.version-gobin-*
 	@ echo $(VERSION_GOBIN) > $(VERSION_DIR)/.version-gobin-$(VERSION_GOBIN)
 
-$(GOBIN)/gobin: $(VERSION_DIR)/.version-gobin-$(VERSION_GOBIN) | $(GOBIN)
-	@ echo "-> Installing gobin..."
-	@ curl -sL -o $(GOBIN)/gobin https://github.com/myitcv/gobin/releases/download/$(VERSION_GOBIN)/$(OS)-$(ARCH)
-	@ chmod +x $(GOBIN)/gobin
-
 $(VERSION_DIR)/.version-go-licenser-$(VERSION_GOLICENSER): | $(VERSION_DIR)
 	@ rm -f $(VERSION_DIR)/.version-go-licenser-*
 	@ echo $(VERSION_GOLICENSER) > $(VERSION_DIR)/.version-go-licenser-$(VERSION_GOLICENSER)
 
-$(GOBIN)/go-licenser: $(GOBIN)/gobin $(VERSION_DIR)/.version-go-licenser-$(VERSION_GOLICENSER) | $(GOBIN)
+$(GOBIN)/go-licenser: $(VERSION_DIR)/.version-go-licenser-$(VERSION_GOLICENSER) | $(GOBIN)
 	@ echo "-> Installing go-licenser..."
-	@ $(GOBIN)/gobin github.com/elastic/go-licenser@$(VERSION_GOLICENSER)
+	@ go install github.com/elastic/go-licenser@$(VERSION_GOLICENSER)
 
 $(VERSION_DIR)/.version-golangci-lint-$(VERSION_GOLANGCILINT): | $(VERSION_DIR)
 	@ rm -f $(VERSION_DIR)/.version-golangci-lint-*
@@ -50,27 +44,27 @@ $(VERSION_DIR)/.version-swagger-$(VERSION_SWAGGER): | $(VERSION_DIR)
 	@ rm -f $(VERSION_DIR)/.version-swagger-*
 	@ echo $(VERSION_SWAGGER) > $(VERSION_DIR)/.version-swagger-$(VERSION_SWAGGER)
 
-$(GOBIN)/swagger: $(GOBIN)/gobin $(VERSION_DIR)/.version-swagger-$(VERSION_SWAGGER) | $(GOBIN)
+$(GOBIN)/swagger: $(VERSION_DIR)/.version-swagger-$(VERSION_SWAGGER) | $(GOBIN)
 	@ echo "-> Installing swagger..."
-	@ $(GOBIN)/gobin github.com/go-swagger/go-swagger/cmd/swagger@$(VERSION_SWAGGER)
+	@ go install github.com/go-swagger/go-swagger/cmd/swagger@$(VERSION_SWAGGER)
 
 $(VERSION_DIR)/.version-gotestsum-$(VERSION_GOTESTSUM):
 	@ rm -f $(VERSION_DIR)/.version-gotestsum-*
 	@ echo $(VERSION_GOTESTSUM) > $(VERSION_DIR)/.version-gotestsum-$(VERSION_GOTESTSUM)
 
-$(GOBIN)/gotestsum: $(GOBIN)/gobin $(VERSION_DIR)/.version-gotestsum-$(VERSION_GOTESTSUM) | $(GOBIN)
+$(GOBIN)/gotestsum: $(VERSION_DIR)/.version-gotestsum-$(VERSION_GOTESTSUM) | $(GOBIN)
 	@ echo "-> Installing gotestsum..."
-	@ $(GOBIN)/gobin gotest.tools/gotestsum@$(VERSION_GOTESTSUM)
+	@ go install gotest.tools/gotestsum@$(VERSION_GOTESTSUM)
 
-$(GOBIN)/prism: $(GOBIN)/gobin
+$(GOBIN)/prism:
 	@ echo "-> Installing prism..."
 	@ curl -L https://raw.githack.com/stoplightio/prism/master/install | sh
 	@ cp /usr/local/bin/prism $(GOBIN)/prism
 
-$(GOBIN)/apivalidator: $(GOBIN)/gobin
+$(GOBIN)/apivalidator:
 	@ echo "-> Installing apivalidator..."
 	@ if [[ -f bin/apivalidator ]]; then rm -f bin/apivalidator; fi
-	@ $(GOBIN)/gobin github.com/elastic/cloud-sdk-go/internal/cmd/apivalidator@master
+	@ go install github.com/elastic/cloud-sdk-go/internal/cmd/apivalidator@master
 
 $(GOBIN)/changelogger:
 	@ echo "-> Installing changelogger..."
@@ -80,9 +74,9 @@ $(VERSION_DIR)/.version-versionbump-$(VERSION_VERSIONBUMP):
 	@ rm -f $(VERSION_DIR)/.version-versionbump-*
 	@ echo $(VERSION_VERSIONBUMP) > $(VERSION_DIR)/.version-versionbump-$(VERSION_VERSIONBUMP)
 
-$(GOBIN)/versionbump: $(GOBIN)/gobin $(VERSION_DIR)/.version-versionbump-$(VERSION_VERSIONBUMP) | $(GOBIN)
+$(GOBIN)/versionbump: $(VERSION_DIR)/.version-versionbump-$(VERSION_VERSIONBUMP) | $(GOBIN)
 	@ echo "-> Installing versionbump..."
-	@ $(GOBIN)/gobin github.com/crosseyed/versionbump/cmd/versionbump@$(VERSION_VERSIONBUMP)
+	@ go install github.com/crosseyed/versionbump/cmd/versionbump@$(VERSION_VERSIONBUMP)
 
 ## Downloads the required go modules.
 .PHONY: mod
