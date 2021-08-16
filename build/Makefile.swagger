@@ -20,7 +20,7 @@ endif
 ##   ECE_VERSION should be modified every time a new version of the swagger specification is commited.
 ##   Additionally, a full declaration of API commands will be generated in api/version/$(ECE_VERSION).md
 .PHONY: swagger
-swagger: deps _prepare _cleanup
+swagger: deps update-swagger _prepare _cleanup
 	@ $(GOBIN)/swagger generate client $(SWAGGER_GENERATE_CLIENT_FLAGS) -f $(SWAGGER_FILE) -m $(MODELS_DIR) -c $(CLIENT_DIR)
 	@ make vendor
 	@ make format
@@ -46,8 +46,6 @@ _cleanup:
 _prepare:
 	@ echo '--> Please update the "ECE_VERSION" variable in "Makefile" with the version number of the ECE compatible definition about to be used for code generation.'
 	@ echo '--> Make sure you have set the "EC_API_KEY" environment variable locally with your Elasticsearch Service API key. This will allow the API validation tests to run.'
-	@ read -p "-> Press enter to open the file with $(EDITOR)"
-	@ $(EDITOR) Makefile
 	go run cmd/generator/main.go -source $(SOURCE_FILE) -destination $(SWAGGER_FILE) -version $(ECE_VERSION) -def-file $(ECE_DEF_FILE)
 	@ echo "-> Finished converting the source spec"
 	@ echo "-> Generating the golang client and models..."
@@ -56,3 +54,7 @@ ifeq ($(shell uname -s),Darwin)
 else
 	@ sed -i -e 's/{{hostname}}/localhost/g' $(SWAGGER_FILE)
 endif
+
+.PHONY: update-swagger
+update-swagger:
+	@ ./scripts/update-swagger.sh $(ECE_BRANCH)
