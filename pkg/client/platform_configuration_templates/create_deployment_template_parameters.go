@@ -31,6 +31,7 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
 
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
@@ -84,6 +85,12 @@ type CreateDeploymentTemplateParams struct {
 	*/
 	Body *models.DeploymentTemplateInfo
 
+	/* ValidateOnly.
+
+	   If true, the deployment template definition will be validated but the template will not be created.
+	*/
+	ValidateOnly *bool
+
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
@@ -101,7 +108,18 @@ func (o *CreateDeploymentTemplateParams) WithDefaults() *CreateDeploymentTemplat
 //
 // All values with no default are reset to their zero value.
 func (o *CreateDeploymentTemplateParams) SetDefaults() {
-	// no default values defined for this parameter
+	var (
+		validateOnlyDefault = bool(false)
+	)
+
+	val := CreateDeploymentTemplateParams{
+		ValidateOnly: &validateOnlyDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the create deployment template params
@@ -148,6 +166,17 @@ func (o *CreateDeploymentTemplateParams) SetBody(body *models.DeploymentTemplate
 	o.Body = body
 }
 
+// WithValidateOnly adds the validateOnly to the create deployment template params
+func (o *CreateDeploymentTemplateParams) WithValidateOnly(validateOnly *bool) *CreateDeploymentTemplateParams {
+	o.SetValidateOnly(validateOnly)
+	return o
+}
+
+// SetValidateOnly adds the validateOnly to the create deployment template params
+func (o *CreateDeploymentTemplateParams) SetValidateOnly(validateOnly *bool) {
+	o.ValidateOnly = validateOnly
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *CreateDeploymentTemplateParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -158,6 +187,23 @@ func (o *CreateDeploymentTemplateParams) WriteToRequest(r runtime.ClientRequest,
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err
+		}
+	}
+
+	if o.ValidateOnly != nil {
+
+		// query param validate_only
+		var qrValidateOnly bool
+
+		if o.ValidateOnly != nil {
+			qrValidateOnly = *o.ValidateOnly
+		}
+		qValidateOnly := swag.FormatBool(qrValidateOnly)
+		if qValidateOnly != "" {
+
+			if err := r.SetQueryParam("validate_only", qValidateOnly); err != nil {
+				return err
+			}
 		}
 	}
 

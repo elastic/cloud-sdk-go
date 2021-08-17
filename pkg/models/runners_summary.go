@@ -52,6 +52,10 @@ type RunnersSummary struct {
 	// Required: true
 	Healthy *bool `json:"healthy"`
 
+	// Number of healthy runners
+	// Required: true
+	HealthyRunners *int32 `json:"healthy_runners"`
+
 	// Maximum capacity available in one runner in megabytes
 	// Required: true
 	MaxAvailableCapacity *int32 `json:"max_available_capacity"`
@@ -78,6 +82,10 @@ func (m *RunnersSummary) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateHealthy(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateHealthyRunners(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -125,6 +133,15 @@ func (m *RunnersSummary) validateContainersCount(formats strfmt.Registry) error 
 func (m *RunnersSummary) validateHealthy(formats strfmt.Registry) error {
 
 	if err := validate.Required("healthy", "body", m.Healthy); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *RunnersSummary) validateHealthyRunners(formats strfmt.Registry) error {
+
+	if err := validate.Required("healthy_runners", "body", m.HealthyRunners); err != nil {
 		return err
 	}
 

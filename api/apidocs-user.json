@@ -13,6 +13,8 @@
   }, {
     "name" : "Authentication"
   }, {
+    "name" : "BillingCostsAnalysis"
+  }, {
     "name" : "DeploymentTemplates"
   }, {
     "name" : "Deployments"
@@ -138,6 +140,216 @@
         },
         "x-doc" : {
           "tag" : "Accounts"
+        }
+      }
+    },
+    "/billing/costs/{organization_id}" : {
+      "get" : {
+        "tags" : [ "BillingCostsAnalysis" ],
+        "summary" : "Get costs overview for the organization",
+        "description" : "EXPERIMENTAL (it may change in future versions): Retrieves an overview of the costs by organization ID.",
+        "operationId" : "get-costs-overview",
+        "parameters" : [ {
+          "name" : "organization_id",
+          "in" : "path",
+          "description" : "Identifier for the organization",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "from",
+          "in" : "query",
+          "description" : "A datetime for the beginning of the desired range for which to fetch costs. Defaults to start of current month. Note: there is currently a three-month maximum date range.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "to",
+          "in" : "query",
+          "description" : "A datetime for the end of the desired range for which to fetch costs. Defaults to the current date. Note: there is currently a three-month maximum date range.git s",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Top-level cost overview for the organization",
+            "schema" : {
+              "$ref" : "#/definitions/CostsOverview"
+            }
+          },
+          "403" : {
+            "description" : "The current user does not have access to the requested organization. (code: `organization.invalid_access`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "organization.invalid_access" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "x-doc" : {
+          "tag" : "Billing Costs Analysis"
+        }
+      }
+    },
+    "/billing/costs/{organization_id}/deployments" : {
+      "get" : {
+        "tags" : [ "BillingCostsAnalysis" ],
+        "summary" : "Get deployments costs for the organization",
+        "description" : "EXPERIMENTAL (it may change in future versions): Retrieves the costs associated with all deployments for the organization.",
+        "operationId" : "get-costs-deployments",
+        "parameters" : [ {
+          "name" : "organization_id",
+          "in" : "path",
+          "description" : "Identifier for the organization",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "from",
+          "in" : "query",
+          "description" : "A datetime for the beginning of the desired range for which to fetch activity. Defaults to start of current month. Note: there is currently a three-month maximum date range.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "to",
+          "in" : "query",
+          "description" : "A datetime for the end of the desired range for which to fetch activity. Defaults to end of current month. Note: there is currently a three-month maximum date range.",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The costs associated to a set of products",
+            "schema" : {
+              "$ref" : "#/definitions/DeploymentsCosts"
+            }
+          },
+          "403" : {
+            "description" : "The current user does not have access to the requested organization. (code: `organization.invalid_access`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "organization.invalid_access" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "x-doc" : {
+          "tag" : "Billing Costs Analysis"
+        }
+      }
+    },
+    "/billing/costs/{organization_id}/deployments/{deployment_id}/items" : {
+      "get" : {
+        "tags" : [ "BillingCostsAnalysis" ],
+        "summary" : "Get itemized costs by deployments",
+        "description" : "EXPERIMENTAL (it may change in future versions): Retrieves the itemized costs for the given deployment.",
+        "operationId" : "get-costs-items-by-deployment",
+        "parameters" : [ {
+          "name" : "organization_id",
+          "in" : "path",
+          "description" : "Identifier for the organization",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Id of a Deployment",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "from",
+          "in" : "query",
+          "description" : "A datetime for the beginning of the desired range for which to fetch costs. Defaults to start of current month. Note: there is currently a three-month maximum date range.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "to",
+          "in" : "query",
+          "description" : "A datetime for the end of the desired range for which to fetch costs. Defaults to end of current month. Note: there is currently a three-month maximum date range.",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The costs associated to a set items billed for a single deployment.",
+            "schema" : {
+              "$ref" : "#/definitions/ItemsCosts"
+            }
+          },
+          "403" : {
+            "description" : "The current user does not have access to the requested organization. (code: `organization.invalid_access`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "organization.invalid_access" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "x-doc" : {
+          "tag" : "Billing Costs Analysis"
+        }
+      }
+    },
+    "/billing/costs/{organization_id}/items" : {
+      "get" : {
+        "tags" : [ "BillingCostsAnalysis" ],
+        "summary" : "Get itemized costs for the organization",
+        "description" : "EXPERIMENTAL (it may change in future versions): Retrieves the itemized costs for the organization.",
+        "operationId" : "get-costs-items",
+        "parameters" : [ {
+          "name" : "organization_id",
+          "in" : "path",
+          "description" : "Identifier for the organization",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "from",
+          "in" : "query",
+          "description" : "A datetime for the beginning of the desired range for which to fetch costs. Defaults to start of current month. Note: there is currently a three-month maximum date range.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "to",
+          "in" : "query",
+          "description" : "A datetime for the end of the desired range for which to fetch costs. Defaults to end of current month. Note: there is currently a three-month maximum date range.",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The costs associated to a set of items",
+            "schema" : {
+              "$ref" : "#/definitions/ItemsCosts"
+            }
+          },
+          "403" : {
+            "description" : "The current user does not have access to the requested organization. (code: `organization.invalid_access`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "organization.invalid_access" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "x-doc" : {
+          "tag" : "Billing Costs Analysis"
         }
       }
     },
@@ -5756,6 +5968,30 @@
       "type" : "object",
       "description" : "A strategy that lets constructor choose the most optimal way to execute the plan."
     },
+    "Balance" : {
+      "type" : "object",
+      "required" : [ "available", "line_items", "remaining" ],
+      "properties" : {
+        "available" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Available balance"
+        },
+        "remaining" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Remaining balance"
+        },
+        "line_items" : {
+          "type" : "array",
+          "description" : "A collection of order line items for for an organization",
+          "items" : {
+            "$ref" : "#/definitions/SimplifiedLineItem"
+          }
+        }
+      },
+      "description" : "The available balance for an organization"
+    },
     "BasicFailedReply" : {
       "type" : "object",
       "required" : [ "errors" ],
@@ -6290,6 +6526,53 @@
       },
       "description" : "The topology for Elasticsearch clusters, multiple Kibana instances, or multiple APM Servers. The `ClusterTopologyInfo` also includes the instances and containers, and where they are located."
     },
+    "Costs" : {
+      "type" : "object",
+      "required" : [ "data_transfer_and_storage", "resources", "total" ],
+      "properties" : {
+        "total" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Total costs"
+        },
+        "resources" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Total costs associated to the Elastic Cloud resources"
+        },
+        "data_transfer_and_storage" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Total costs associated to Data Transfer and Storage (DTS)"
+        }
+      },
+      "description" : "Costs overview for an organization. All of the costs, credits, trials are expressed in Elastic Consumption Unit (ECU)."
+    },
+    "CostsOverview" : {
+      "type" : "object",
+      "required" : [ "costs", "hourly_rate", "trials" ],
+      "properties" : {
+        "costs" : {
+          "description" : "Costs for the organization",
+          "$ref" : "#/definitions/Costs"
+        },
+        "trials" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Trial costs for the organization"
+        },
+        "hourly_rate" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Hourly rate applied."
+        },
+        "balance" : {
+          "description" : "Balance for the organization",
+          "$ref" : "#/definitions/Balance"
+        }
+      },
+      "description" : "The top level costs overview for an organization. All of the costs, credits, trials are expressed in Elastic Consumption Unit (ECU)."
+    },
     "CreateApiKeyRequest" : {
       "type" : "object",
       "required" : [ "description" ],
@@ -6419,6 +6702,30 @@
         }
       },
       "description" : "The request payload that deletes the API keys."
+    },
+    "DeploymentCosts" : {
+      "type" : "object",
+      "required" : [ "costs", "deployment_id", "deployment_name", "hourly_rate" ],
+      "properties" : {
+        "deployment_id" : {
+          "type" : "string",
+          "description" : "Elasticsearch deployment id"
+        },
+        "deployment_name" : {
+          "type" : "string",
+          "description" : "Elasticsearch deployment name"
+        },
+        "costs" : {
+          "description" : "Costs associated to the deployment",
+          "$ref" : "#/definitions/Costs"
+        },
+        "hourly_rate" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Price per hour"
+        }
+      },
+      "description" : "Detailed costs for a deployment for an organization. All of the costs are expressed in Elastic Consumption Unit (ECU)."
     },
     "DeploymentCreateMetadata" : {
       "type" : "object",
@@ -7141,6 +7448,25 @@
       },
       "description" : "Additional configuration for the new deployment object."
     },
+    "DeploymentsCosts" : {
+      "type" : "object",
+      "required" : [ "deployments", "total_cost" ],
+      "properties" : {
+        "total_cost" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Total cost for all deployments"
+        },
+        "deployments" : {
+          "type" : "array",
+          "description" : "Costs of the list of deployments",
+          "items" : {
+            "$ref" : "#/definitions/DeploymentCosts"
+          }
+        }
+      },
+      "description" : "Costs associated to a set of deployments for an organization. All of the costs are expressed in Elastic Consumption Unit (ECU)."
+    },
     "DeploymentsListResponse" : {
       "type" : "object",
       "required" : [ "deployments" ],
@@ -7223,6 +7549,70 @@
         }
       },
       "description" : "Instance sizes that are supported by the Elasticsearch instance, Kibana instance, or APM Server configuration."
+    },
+    "DtsDimensionCosts" : {
+      "type" : "object",
+      "required" : [ "cost", "name", "quantity", "rate", "sku", "type" ],
+      "properties" : {
+        "cost" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Costs associated to the Data Transfer and Storage (DTS) dimensions for an organization"
+        },
+        "name" : {
+          "type" : "string",
+          "description" : "DTS dimension name"
+        },
+        "quantity" : {
+          "description" : "DTS usage",
+          "$ref" : "#/definitions/DtsQuantity"
+        },
+        "rate" : {
+          "description" : "Cost per unit",
+          "$ref" : "#/definitions/DtsRate"
+        },
+        "sku" : {
+          "type" : "string",
+          "description" : "DTS dimension Stock Keeping Unit (SKU)"
+        },
+        "type" : {
+          "type" : "string",
+          "description" : "Type of the DTS dimension usage"
+        }
+      },
+      "description" : "The costs associated to a Data Transfer and Storage (DTS) dimension for an organization. All of the costs, credits, and trials are expressed in Elastic Consumption Units (ECU)."
+    },
+    "DtsQuantity" : {
+      "type" : "object",
+      "required" : [ "formatted_value", "value" ],
+      "properties" : {
+        "value" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Raw quantity"
+        },
+        "formatted_value" : {
+          "type" : "string",
+          "description" : "Quantity in human readable format"
+        }
+      },
+      "description" : "DTS quantity"
+    },
+    "DtsRate" : {
+      "type" : "object",
+      "required" : [ "formatted_value", "value" ],
+      "properties" : {
+        "value" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Raw rate"
+        },
+        "formatted_value" : {
+          "type" : "string",
+          "description" : "Rate in human readable format"
+        }
+      },
+      "description" : "DTS Rate"
     },
     "Elasticsearch" : {
       "type" : "object",
@@ -8845,6 +9235,74 @@
       },
       "description" : "The configuration settings for IP filtering."
     },
+    "ItemCosts" : {
+      "type" : "object",
+      "required" : [ "hours", "instance_count", "kind", "name", "period", "price", "price_per_hour", "sku" ],
+      "properties" : {
+        "hours" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Resource usage in hours"
+        },
+        "instance_count" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Number of instances"
+        },
+        "period" : {
+          "description" : "Period",
+          "$ref" : "#/definitions/Period"
+        },
+        "kind" : {
+          "type" : "string",
+          "description" : "Kind of resource"
+        },
+        "price" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Resource price"
+        },
+        "price_per_hour" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Price per hour"
+        },
+        "name" : {
+          "type" : "string",
+          "description" : "Resource name"
+        },
+        "sku" : {
+          "type" : "string",
+          "description" : "Stock Keeping Unit (SKU)"
+        }
+      },
+      "description" : "Detailed costs associated to an Elastic Cloud Resource for an organization. All of the costs are expressed in Elastic Consumption Unit (ECU)."
+    },
+    "ItemsCosts" : {
+      "type" : "object",
+      "required" : [ "costs", "data_transfer_and_storage", "resources" ],
+      "properties" : {
+        "costs" : {
+          "description" : "Costs for the Elastic Cloud resources",
+          "$ref" : "#/definitions/Costs"
+        },
+        "data_transfer_and_storage" : {
+          "type" : "array",
+          "description" : "List of the detailed costs associated to the Data Transfer and Storage (DTS) dimensions",
+          "items" : {
+            "$ref" : "#/definitions/DtsDimensionCosts"
+          }
+        },
+        "resources" : {
+          "type" : "array",
+          "description" : "Costs of the list of resources",
+          "items" : {
+            "$ref" : "#/definitions/ItemCosts"
+          }
+        }
+      },
+      "description" : "Costs associated to a set of Elastic Cloud resources for an organization. All of the costs are expressed in Elastic Consumption Unit (ECU)."
+    },
     "KeystoreContents" : {
       "type" : "object",
       "required" : [ "secrets" ],
@@ -9401,6 +9859,23 @@
       },
       "description" : "Details about an orphaned Elasticsearch resources."
     },
+    "Period" : {
+      "type" : "object",
+      "required" : [ "end", "start" ],
+      "properties" : {
+        "start" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "Start"
+        },
+        "end" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "End"
+        }
+      },
+      "description" : "Period"
+    },
     "PlanStrategy" : {
       "type" : "object",
       "properties" : {
@@ -9827,6 +10302,37 @@
         }
       },
       "description" : "A URL to access the service of a resource"
+    },
+    "SimplifiedLineItem" : {
+      "type" : "object",
+      "required" : [ "ecu_balance", "ecu_quantity", "end", "id", "start" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "Line Item ID"
+        },
+        "ecu_quantity" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Original Elastic Consumption Unit (ECU) quantity"
+        },
+        "ecu_balance" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Elastic Consumption Unit (ECU) Balance"
+        },
+        "start" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "Start of the line item's validity"
+        },
+        "end" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "Expiration of the line item"
+        }
+      },
+      "description" : "Line Item"
     },
     "SnapshotStatusInfo" : {
       "type" : "object",

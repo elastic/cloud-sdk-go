@@ -47,7 +47,7 @@ type ClientOption func(*runtime.ClientOperation)
 
 // ClientService is the interface for Client methods
 type ClientService interface {
-	CreateDeploymentTemplate(params *CreateDeploymentTemplateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateDeploymentTemplateCreated, error)
+	CreateDeploymentTemplate(params *CreateDeploymentTemplateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateDeploymentTemplateOK, *CreateDeploymentTemplateCreated, error)
 
 	DeleteDeploymentTemplate(params *DeleteDeploymentTemplateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteDeploymentTemplateOK, error)
 
@@ -67,7 +67,7 @@ type ClientService interface {
 
   Creates a deployment template.
 */
-func (a *Client) CreateDeploymentTemplate(params *CreateDeploymentTemplateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateDeploymentTemplateCreated, error) {
+func (a *Client) CreateDeploymentTemplate(params *CreateDeploymentTemplateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateDeploymentTemplateOK, *CreateDeploymentTemplateCreated, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateDeploymentTemplateParams()
@@ -91,15 +91,16 @@ func (a *Client) CreateDeploymentTemplate(params *CreateDeploymentTemplateParams
 
 	result, err := a.transport.Submit(op)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
-	success, ok := result.(*CreateDeploymentTemplateCreated)
-	if ok {
-		return success, nil
+	switch value := result.(type) {
+	case *CreateDeploymentTemplateOK:
+		return value, nil, nil
+	case *CreateDeploymentTemplateCreated:
+		return nil, value, nil
 	}
-	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for create-deployment-template: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	msg := fmt.Sprintf("unexpected success response for platform_configuration_templates: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
