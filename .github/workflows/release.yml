@@ -34,6 +34,7 @@ jobs:
         with:
           bodyFile: notes/${{ steps.get_branch.outputs.TAGNAME }}.md
           token: ${{ secrets.GH_TOKEN }}
+          tag: ${{ steps.get_branch.outputs.TAGNAME }}
 
       - name: Set up Go
         uses: actions/setup-go@v2
