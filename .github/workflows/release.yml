@@ -84,5 +84,6 @@ jobs:
         with:
           default_author: user_info
           message: 'Update minor version'
+          branch: master
           author_name: elasticcloudclients
           author_email: elasticcloudclients@elastic.co
