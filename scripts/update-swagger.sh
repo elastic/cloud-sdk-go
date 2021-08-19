@@ -1,10 +1,12 @@
 #!/bin/bash
 
+set -e
+
 SDK_PATH=$(pwd)
 BRANCH=ms-${1}
 SWAGGER_DEF_PATH=scala-services/adminconsole/src/main/resources
 GIT_CLOUD_REPO=https://github.com/elastic/cloud
-REPO_PATH=/tmp/cloud
+REPO_PATH=${2}
 
 if [[ -d ${REPO_PATH} ]]; then
     cd ${REPO_PATH}
