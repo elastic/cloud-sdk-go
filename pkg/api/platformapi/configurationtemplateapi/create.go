@@ -75,7 +75,7 @@ func CreateTemplate(params CreateTemplateParams) (string, error) {
 		}
 		return params.ID, nil
 	}
-	resp, err := params.V1API.PlatformConfigurationTemplates.CreateDeploymentTemplate(
+	_, resp, err := params.V1API.PlatformConfigurationTemplates.CreateDeploymentTemplate(
 		platform_configuration_templates.NewCreateDeploymentTemplateParams().
 			WithContext(api.WithRegion(context.Background(), params.Region)).
 			WithBody(params.DeploymentTemplateInfo),

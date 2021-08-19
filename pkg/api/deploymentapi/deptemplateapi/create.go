@@ -72,7 +72,7 @@ func Create(params CreateParams) (string, error) {
 	var res idResponse
 	var err error
 	if params.TemplateID == "" {
-		res, err = params.V1API.DeploymentTemplates.CreateDeploymentTemplateV2(
+		_, res, err = params.V1API.DeploymentTemplates.CreateDeploymentTemplateV2(
 			deployment_templates.NewCreateDeploymentTemplateV2Params().
 				WithRegion(params.Region).
 				WithBody(params.Request),

@@ -48,6 +48,10 @@ type AllocatorsZoneSummary struct {
 	// Required: true
 	DisconnectedAllocators *int32 `json:"disconnected_allocators"`
 
+	// Number of healthy allocators
+	// Required: true
+	HealthyAllocators *int32 `json:"healthy_allocators"`
+
 	// Number of connected allocators in maintenance
 	// Required: true
 	InMaintenanceAllocators *int32 `json:"in_maintenance_allocators"`
@@ -82,6 +86,10 @@ func (m *AllocatorsZoneSummary) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateDisconnectedAllocators(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateHealthyAllocators(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -132,6 +140,15 @@ func (m *AllocatorsZoneSummary) validateConnectedCapacity(formats strfmt.Registr
 func (m *AllocatorsZoneSummary) validateDisconnectedAllocators(formats strfmt.Registry) error {
 
 	if err := validate.Required("disconnected_allocators", "body", m.DisconnectedAllocators); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *AllocatorsZoneSummary) validateHealthyAllocators(formats strfmt.Registry) error {
+
+	if err := validate.Required("healthy_allocators", "body", m.HealthyAllocators); err != nil {
 		return err
 	}
 

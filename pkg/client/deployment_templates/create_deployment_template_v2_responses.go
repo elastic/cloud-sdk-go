@@ -40,6 +40,12 @@ type CreateDeploymentTemplateV2Reader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateDeploymentTemplateV2Reader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
+	case 200:
+		result := NewCreateDeploymentTemplateV2OK()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return result, nil
 	case 201:
 		result := NewCreateDeploymentTemplateV2Created()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -67,6 +73,38 @@ func (o *CreateDeploymentTemplateV2Reader) ReadResponse(response runtime.ClientR
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
+}
+
+// NewCreateDeploymentTemplateV2OK creates a CreateDeploymentTemplateV2OK with default headers values
+func NewCreateDeploymentTemplateV2OK() *CreateDeploymentTemplateV2OK {
+	return &CreateDeploymentTemplateV2OK{}
+}
+
+/* CreateDeploymentTemplateV2OK describes a response with status code 200, with default header values.
+
+The request was valid (used when validate_only is true).
+*/
+type CreateDeploymentTemplateV2OK struct {
+	Payload *models.IDResponse
+}
+
+func (o *CreateDeploymentTemplateV2OK) Error() string {
+	return fmt.Sprintf("[POST /deployments/templates][%d] createDeploymentTemplateV2OK  %+v", 200, o.Payload)
+}
+func (o *CreateDeploymentTemplateV2OK) GetPayload() *models.IDResponse {
+	return o.Payload
+}
+
+func (o *CreateDeploymentTemplateV2OK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.IDResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
 }
 
 // NewCreateDeploymentTemplateV2Created creates a CreateDeploymentTemplateV2Created with default headers values

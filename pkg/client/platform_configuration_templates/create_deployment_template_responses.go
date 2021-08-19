@@ -40,6 +40,12 @@ type CreateDeploymentTemplateReader struct {
 // ReadResponse reads a server response into the received o.
 func (o *CreateDeploymentTemplateReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
+	case 200:
+		result := NewCreateDeploymentTemplateOK()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return result, nil
 	case 201:
 		result := NewCreateDeploymentTemplateCreated()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -61,6 +67,38 @@ func (o *CreateDeploymentTemplateReader) ReadResponse(response runtime.ClientRes
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
+}
+
+// NewCreateDeploymentTemplateOK creates a CreateDeploymentTemplateOK with default headers values
+func NewCreateDeploymentTemplateOK() *CreateDeploymentTemplateOK {
+	return &CreateDeploymentTemplateOK{}
+}
+
+/* CreateDeploymentTemplateOK describes a response with status code 200, with default header values.
+
+The request was valid (used when validate_only is true).
+*/
+type CreateDeploymentTemplateOK struct {
+	Payload *models.IDResponse
+}
+
+func (o *CreateDeploymentTemplateOK) Error() string {
+	return fmt.Sprintf("[POST /platform/configuration/templates/deployments][%d] createDeploymentTemplateOK  %+v", 200, o.Payload)
+}
+func (o *CreateDeploymentTemplateOK) GetPayload() *models.IDResponse {
+	return o.Payload
+}
+
+func (o *CreateDeploymentTemplateOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.IDResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
 }
 
 // NewCreateDeploymentTemplateCreated creates a CreateDeploymentTemplateCreated with default headers values
