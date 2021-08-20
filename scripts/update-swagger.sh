@@ -3,7 +3,7 @@
 set -e
 
 SDK_PATH=$(pwd)
-BRANCH=ms-${1}
+BRANCH=${1}
 SWAGGER_DEF_PATH=scala-services/adminconsole/src/main/resources
 GIT_CLOUD_REPO=https://github.com/elastic/cloud
 REPO_PATH=${2}
