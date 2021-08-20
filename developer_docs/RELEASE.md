@@ -21,7 +21,7 @@ The important part is to make sure that `ECE_BRANCH` matches the milestone that 
 
 Since the source has changed, we need to update the current committed version to a higher version so that the release is published.
 
-The version is currently defined in the [Makefile](./Makefile) as an exported environment variable called `VERSION` in the [SEMVER](https://semver.org) format: `MAJOR.MINOR.BUG`
+The version is currently defined in the [Makefile](./Makefile) as an exported environment variable called `VERSION` in the [SEMVER](https://semver.org) format: `MAJOR.MINOR.PATCH`
 
 ```Makefile
 SHELL := /bin/bash
@@ -39,7 +39,7 @@ If a patch version needs to be released, the release will be done from the minor
 
 ### Update the `apidocs.json` and `apidocs-user.json` files
 
-A new release will be required every time a new ECE minor or major version are released, the ECE major tracks an `ms-<id>` branch, this identifier needs to be updated in the Makefile `ECE_BRANCH` variable, then calling `make update-swagger` will update the two OpenAPI spec files.
+A new release will be required every time a new ECE minor or major version is released, the ECE major tracks an `ms-<id>` branch, this identifier needs to be updated in the Makefile `ECE_BRANCH` variable, then calling `make update-swagger` will update the two OpenAPI spec files.
 
 By default, it will try and clone the cloud repository into `/tmp/cloud`, but you might choose to override that location via the `CLOUD_SOURCE_REPO` Makefile variable: `make CLOUD_SOURCE_REPO=/a/path/to/cloud update-swagger` or alternatively you can copy your **clean** local copy of the cloud repo to `/tmp/cloud`: `cp -R /a/path/to/cloud /tmp/cloud` since cloning a brand new copy of the cloud repo can take a long time.
 
@@ -53,7 +53,7 @@ After the changes have been made, open a pull request with all the changes targe
 
 ### Generating a changelog for the new version
 
-The changelog should be automatically generated on each push to `master` or the relevant branch, if no changelog file is available in `notes/<VERSION>.md`, the target will fail, this means that no changelog entries have been created and some need to be generated. See previous versions udner `.changelog/<VERSION>` for some examples on changelog entries, the folder name should match the version. To read more information on how to generate a changelog [see the changelogger README](../cmd/changelogger/README.md).
+The changelog should be automatically generated on each push to `master` or the relevant branch, if no changelog file is available in `notes/<VERSION>.md`, the target will fail, this means that no changelog entries have been created and some need to be generated. See previous versions under `.changelog/<VERSION>` for some examples on changelog entries, the folder name should match the version. To read more information on how to generate a changelog [see the changelogger README](../cmd/changelogger/README.md).
 
 ## Executing the release
 
