@@ -20,10 +20,6 @@ $(GOBIN):
 $(VERSION_DIR): | $(GOBIN)
 	@ mkdir -p $(GOBIN)/versions
 
-$(VERSION_DIR)/.version-gobin-$(VERSION_GOBIN): | $(VERSION_DIR)
-	@ rm -f $(VERSION_DIR)/.version-gobin-*
-	@ echo $(VERSION_GOBIN) > $(VERSION_DIR)/.version-gobin-$(VERSION_GOBIN)
-
 $(VERSION_DIR)/.version-go-licenser-$(VERSION_GOLICENSER): | $(VERSION_DIR)
 	@ rm -f $(VERSION_DIR)/.version-go-licenser-*
 	@ echo $(VERSION_GOLICENSER) > $(VERSION_DIR)/.version-go-licenser-$(VERSION_GOLICENSER)
