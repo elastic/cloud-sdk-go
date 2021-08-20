@@ -25,7 +25,7 @@ wait-on-proxy:
 	@ until nc -z -w 2 localhost $(EXTERNAL_PORT); do sleep 5; done
 
 .PHONY: apivalidation-deps
-apivalidation-deps: $(GOBIN)/gobin $(GOBIN)/gotestsum $(GOBIN)/apivalidator
+apivalidation-deps: $(GOBIN)/gotestsum $(GOBIN)/apivalidator
 
 #### GitHub interaction targets
 
