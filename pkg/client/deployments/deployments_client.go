@@ -49,6 +49,8 @@ type ClientOption func(*runtime.ClientOperation)
 type ClientService interface {
 	CancelDeploymentResourcePendingPlan(params *CancelDeploymentResourcePendingPlanParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CancelDeploymentResourcePendingPlanOK, error)
 
+	CaptureDeploymentInstanceHeapDump(params *CaptureDeploymentInstanceHeapDumpParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CaptureDeploymentInstanceHeapDumpAccepted, error)
+
 	CreateDeployment(params *CreateDeploymentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateDeploymentOK, *CreateDeploymentCreated, *CreateDeploymentAccepted, error)
 
 	DeleteDeployment(params *DeleteDeploymentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteDeploymentOK, error)
@@ -56,6 +58,8 @@ type ClientService interface {
 	DeleteDeploymentStatelessResource(params *DeleteDeploymentStatelessResourceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteDeploymentStatelessResourceOK, error)
 
 	DeploymentApmResetSecretToken(params *DeploymentApmResetSecretTokenParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeploymentApmResetSecretTokenAccepted, error)
+
+	DownloadDeploymentInstanceHeapDump(params *DownloadDeploymentInstanceHeapDumpParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DownloadDeploymentInstanceHeapDumpOK, error)
 
 	EnableDeploymentResourceCcr(params *EnableDeploymentResourceCcrParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*EnableDeploymentResourceCcrOK, error)
 
@@ -80,6 +84,8 @@ type ClientService interface {
 	GetDeploymentEsResourceKeystore(params *GetDeploymentEsResourceKeystoreParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentEsResourceKeystoreOK, error)
 
 	GetDeploymentEsResourceRemoteClusters(params *GetDeploymentEsResourceRemoteClustersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentEsResourceRemoteClustersOK, error)
+
+	GetDeploymentHeapDumps(params *GetDeploymentHeapDumpsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentHeapDumpsOK, error)
 
 	GetDeploymentKibResourceInfo(params *GetDeploymentKibResourceInfoParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentKibResourceInfoOK, error)
 
@@ -178,6 +184,47 @@ func (a *Client) CancelDeploymentResourcePendingPlan(params *CancelDeploymentRes
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for cancel-deployment-resource-pending-plan: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  CaptureDeploymentInstanceHeapDump captures a new on demand heap dump for the given instance
+
+  Captures a new on-demand heap dump for the given instance. The capture is completed asynchronously, and you can check its progress by getting heap dumps for the given resource.
+*/
+func (a *Client) CaptureDeploymentInstanceHeapDump(params *CaptureDeploymentInstanceHeapDumpParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CaptureDeploymentInstanceHeapDumpAccepted, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCaptureDeploymentInstanceHeapDumpParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "capture-deployment-instance-heap-dump",
+		Method:             "POST",
+		PathPattern:        "/deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_id}/heap_dump/_capture",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &CaptureDeploymentInstanceHeapDumpReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CaptureDeploymentInstanceHeapDumpAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for capture-deployment-instance-heap-dump: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -345,6 +392,47 @@ func (a *Client) DeploymentApmResetSecretToken(params *DeploymentApmResetSecretT
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for deployment-apm-reset-secret-token: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DownloadDeploymentInstanceHeapDump downloads the given instance s heap dump
+
+  Returns the given instance's heap dump for download.
+*/
+func (a *Client) DownloadDeploymentInstanceHeapDump(params *DownloadDeploymentInstanceHeapDumpParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DownloadDeploymentInstanceHeapDumpOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDownloadDeploymentInstanceHeapDumpParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "download-deployment-instance-heap-dump",
+		Method:             "GET",
+		PathPattern:        "/deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_id}/heap_dump/_download",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DownloadDeploymentInstanceHeapDumpReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DownloadDeploymentInstanceHeapDumpOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for download-deployment-instance-heap-dump: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -837,6 +925,47 @@ func (a *Client) GetDeploymentEsResourceRemoteClusters(params *GetDeploymentEsRe
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for get-deployment-es-resource-remote-clusters: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  GetDeploymentHeapDumps gets details about heap dumps for a deployment
+
+  Gets details about existing heap dumps and in progress heap dump captures across all instances belonging to the deployment.
+*/
+func (a *Client) GetDeploymentHeapDumps(params *GetDeploymentHeapDumpsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentHeapDumpsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetDeploymentHeapDumpsParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "get-deployment-heap-dumps",
+		Method:             "GET",
+		PathPattern:        "/deployments/{deployment_id}/heap_dumps",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetDeploymentHeapDumpsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetDeploymentHeapDumpsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-deployment-heap-dumps: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
