@@ -41,7 +41,7 @@ type AppSearchConfiguration struct {
 	// system settings
 	SystemSettings *AppSearchSystemSettings `json:"system_settings,omitempty"`
 
-	// An arbitrary JSON object allowing (non-admin) cluster owners to set their parameters (only one of this and 'user_settings_yaml' is allowed), provided they are on the whitelist ('user_settings_whitelist') and not on the blacklist ('user_settings_blacklist'). (This field together with 'user_settings_override*' and 'system_settings' defines the total set of AppSearch settings)
+	// An arbitrary JSON object allowing (non-admin) cluster owners to set their parameters (only one of this and 'user_settings_yaml' is allowed), provided the parameters are on the allowlist and not on the denylist. (This field together with 'user_settings_override*' and 'system_settings' defines the total set of AppSearch settings)
 	UserSettingsJSON interface{} `json:"user_settings_json,omitempty"`
 
 	// An arbitrary JSON object allowing ECE admins owners to set clusters' parameters (only one of this and 'user_settings_override_yaml' is allowed), ie in addition to the documented 'system_settings'. (This field together with 'system_settings' and 'user_settings*' defines the total set of AppSearch settings)
@@ -50,7 +50,7 @@ type AppSearchConfiguration struct {
 	// An arbitrary YAML object allowing ECE admins owners to set clusters' parameters (only one of this and 'user_settings_override_json' is allowed), ie in addition to the documented 'system_settings'. (This field together with 'system_settings' and 'user_settings*' defines the total set of AppSearch settings)
 	UserSettingsOverrideYaml string `json:"user_settings_override_yaml,omitempty"`
 
-	// An arbitrary YAML object allowing (non-admin) cluster owners to set their parameters (only one of this and 'user_settings_json' is allowed), provided they are on the whitelist ('user_settings_whitelist') and not on the blacklist ('user_settings_blacklist'). (These field together with 'user_settings_override*' and 'system_settings' defines the total set of AppSearch settings)
+	// An arbitrary YAML object allowing (non-admin) cluster owners to set their parameters (only one of this and 'user_settings_json' is allowed), provided the parameters are on the allowlist and not on the denylist. (These field together with 'user_settings_override*' and 'system_settings' defines the total set of AppSearch settings)
 	UserSettingsYaml string `json:"user_settings_yaml,omitempty"`
 
 	// The version of the AppSearch cluster (must be one of the ECE supported versions, and won't work unless it matches the Elasticsearch version. Leave blank to auto-detect version.)

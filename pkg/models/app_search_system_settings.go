@@ -34,16 +34,16 @@ import (
 // swagger:model AppSearchSystemSettings
 type AppSearchSystemSettings struct {
 
-	// Optionally override the account within AppSearch - defaults to a system account that always exists (if specified, the username must also be specified)
+	// Optionally override the account within App Search - defaults to a system account that always exists (if specified, the username must also be specified). Note that this field is never returned from the API, it is write only.
 	ElasticsearchPassword string `json:"elasticsearch_password,omitempty"`
 
 	// Optionally override the URL to which to send data (for advanced users only, if unspecified the system selects an internal URL)
 	ElasticsearchURL string `json:"elasticsearch_url,omitempty"`
 
-	// Optionally override the account within AppSearch - defaults to a system account that always exists (if specified, the password must also be specified)
+	// Optionally override the account within App Search - defaults to a system account that always exists (if specified, the password must also be specified). Note that this field is never returned from the API, it is write only.
 	ElasticsearchUsername string `json:"elasticsearch_username,omitempty"`
 
-	// Optionally override the secret session key within AppSearch - defaults to the previously existing secretSession
+	// Optionally override the secret session key within App Search - defaults to the previously existing secretSession. Note that this field is never returned from the API, it is write only.
 	SecretSessionKey string `json:"secret_session_key,omitempty"`
 }
 

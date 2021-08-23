@@ -41,7 +41,7 @@ type EnterpriseSearchConfiguration struct {
 	// system settings
 	SystemSettings *EnterpriseSearchSystemSettings `json:"system_settings,omitempty"`
 
-	// An arbitrary JSON object allowing (non-admin) cluster owners to set their parameters (only one of this and 'user_settings_yaml' is allowed), provided they are on the whitelist ('user_settings_whitelist') and not on the blacklist ('user_settings_blacklist'). (This field together with 'user_settings_override*' and 'system_settings' defines the total set of Enterprise Search settings)
+	// An arbitrary JSON object allowing (non-admin) cluster owners to set their parameters (only one of this and 'user_settings_yaml' is allowed), provided the parameters are on the allowlist and not on the denylist. (This field together with 'user_settings_override*' and 'system_settings' defines the total set of Enterprise Search settings)
 	UserSettingsJSON interface{} `json:"user_settings_json,omitempty"`
 
 	// An arbitrary JSON object allowing ECE admins to set clusters' parameters (only one of this and 'user_settings_override_yaml' is allowed), i.e. in addition to the documented 'system_settings'. (This field together with 'system_settings' and 'user_settings*' defines the total set of Enterprise Search settings)
@@ -50,7 +50,7 @@ type EnterpriseSearchConfiguration struct {
 	// An arbitrary YAML object allowing ECE admins to set clusters' parameters (only one of this and 'user_settings_override_json' is allowed), i.e. in addition to the documented 'system_settings'. (This field together with 'system_settings' and 'user_settings*' defines the total set of Enterprise Search settings)
 	UserSettingsOverrideYaml string `json:"user_settings_override_yaml,omitempty"`
 
-	// An arbitrary YAML object allowing (non-admin) cluster owners to set their parameters (only one of this and 'user_settings_json' is allowed), provided they are on the whitelist ('user_settings_whitelist') and not on the blacklist ('user_settings_blacklist'). (This field together with 'user_settings_override*' and 'system_settings' defines the total set of Enterprise Search settings)
+	// An arbitrary YAML object allowing (non-admin) cluster owners to set their parameters (only one of this and 'user_settings_json' is allowed), provided the parameters are on the allowlist and not on the denylist. (This field together with 'user_settings_override*' and 'system_settings' defines the total set of Enterprise Search settings)
 	UserSettingsYaml string `json:"user_settings_yaml,omitempty"`
 
 	// The version of the Enterprise Search cluster (must be one of the ECE supported versions, and won't work unless it matches the Elasticsearch version. Leave blank to auto-detect version.)

@@ -25,11 +25,12 @@ package models
 import (
 	"context"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 )
 
-// TrafficFilterRule The container for an IP filter rule.
+// TrafficFilterRule The container for a traffic filter rule.
 //
 // swagger:model TrafficFilterRule
 type TrafficFilterRule struct {
@@ -43,6 +44,9 @@ type TrafficFilterRule struct {
 	// Description of the rule
 	Description string `json:"description,omitempty"`
 
+	// An egress traffic filter rule
+	EgressRule *TrafficFilterEgressRule `json:"egress_rule,omitempty"`
+
 	// The rule ID
 	ID string `json:"id,omitempty"`
 
@@ -52,11 +56,60 @@ type TrafficFilterRule struct {
 
 // Validate validates this traffic filter rule
 func (m *TrafficFilterRule) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateEgressRule(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
 	return nil
 }
 
-// ContextValidate validates this traffic filter rule based on context it is used
+func (m *TrafficFilterRule) validateEgressRule(formats strfmt.Registry) error {
+	if swag.IsZero(m.EgressRule) { // not required
+		return nil
+	}
+
+	if m.EgressRule != nil {
+		if err := m.EgressRule.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("egress_rule")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ContextValidate validate this traffic filter rule based on the context it is used
 func (m *TrafficFilterRule) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateEgressRule(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *TrafficFilterRule) contextValidateEgressRule(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.EgressRule != nil {
+		if err := m.EgressRule.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("egress_rule")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 

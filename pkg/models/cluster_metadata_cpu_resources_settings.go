@@ -34,10 +34,10 @@ import (
 // swagger:model ClusterMetadataCpuResourcesSettings
 type ClusterMetadataCPUResourcesSettings struct {
 
-	// Indicates if the the CPU boost flag for a cluster is enabled or not
+	// Indicates if the CPU boost flag is enabled or not.
 	Boost *bool `json:"boost,omitempty"`
 
-	// Indicates if the the CPU hard limit flag for a cluster is enabled or not
+	// Indicates if the CPU hard limit flag is enabled or not. When set to true (default), allocates CPU timeshare based on the total CPU time multiplied by the relative RAM capacity of the instance on a given host. When set to false, delegates CPU allocation to the operating system to schedule CPU timeshares.
 	HardLimit *bool `json:"hard_limit,omitempty"`
 }
 
