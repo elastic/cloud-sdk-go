@@ -202,7 +202,7 @@
         }, {
           "name" : "to",
           "in" : "query",
-          "description" : "A datetime for the end of the desired range for which to fetch costs. Defaults to the current date. Note: there is currently a three-month maximum date range.git s",
+          "description" : "A datetime for the end of the desired range for which to fetch costs. Defaults to the current date. Note: there is currently a three-month maximum date range.",
           "required" : false,
           "type" : "string"
         } ],
@@ -253,7 +253,7 @@
         }, {
           "name" : "to",
           "in" : "query",
-          "description" : "A datetime for the end of the desired range for which to fetch activity. Defaults to end of current month. Note: there is currently a three-month maximum date range.",
+          "description" : "A datetime for the end of the desired range for which to fetch activity. Defaults to the current date. Note: there is currently a three-month maximum date range.",
           "required" : false,
           "type" : "string"
         } ],
@@ -310,7 +310,7 @@
         }, {
           "name" : "to",
           "in" : "query",
-          "description" : "A datetime for the end of the desired range for which to fetch costs. Defaults to end of current month. Note: there is currently a three-month maximum date range.",
+          "description" : "A datetime for the end of the desired range for which to fetch costs. Defaults to the current date. Note: there is currently a three-month maximum date range.",
           "required" : false,
           "type" : "string"
         } ],
@@ -361,7 +361,7 @@
         }, {
           "name" : "to",
           "in" : "query",
-          "description" : "A datetime for the end of the desired range for which to fetch costs. Defaults to end of current month. Note: there is currently a three-month maximum date range.",
+          "description" : "A datetime for the end of the desired range for which to fetch costs. Defaults to the current date. Note: there is currently a three-month maximum date range.",
           "required" : false,
           "type" : "string"
         } ],
@@ -12753,6 +12753,45 @@
         }
       }
     },
+    "/deployments/{deployment_id}/heap_dumps" : {
+      "get" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Get details about heap dumps for a Deployment",
+        "description" : "Gets details about existing heap dumps and in progress heap dump captures across all instances belonging to the deployment.",
+        "operationId" : "get-deployment-heap-dumps",
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment.",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The heap dump details for all instances belonging to the deployment",
+            "schema" : {
+              "$ref" : "#/definitions/DeploymentHeapDumps"
+            }
+          },
+          "404" : {
+            "description" : "The deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.deployment_not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "x-doc" : {
+          "tag" : "Deployment - Commands"
+        }
+      }
+    },
     "/deployments/{deployment_id}/kibana/{ref_id}" : {
       "get" : {
         "tags" : [ "Deployments" ],
@@ -14046,6 +14085,147 @@
                 "type" : "string",
                 "description" : "The error codes associated with the response",
                 "enum" : [ "deployments.deployment_resource_no_longer_exists" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "449" : {
+            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "x-doc" : {
+          "tag" : "Deployment - Commands"
+        }
+      }
+    },
+    "/deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_id}/heap_dump/_capture" : {
+      "post" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Capture a new on-demand heap dump for the given instance",
+        "description" : "Captures a new on-demand heap dump for the given instance. The capture is completed asynchronously, and you can check its progress by getting heap dumps for the given resource.",
+        "operationId" : "capture-deployment-instance-heap-dump",
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "resource_kind",
+          "in" : "path",
+          "description" : "The kind of resource (one of elasticsearch, kibana or apm).",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "ref_id",
+          "in" : "path",
+          "description" : "User-specified RefId for the Resource.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "instance_id",
+          "in" : "path",
+          "description" : "The instance identifier",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "202" : {
+            "description" : "Indicates that the capture has started",
+            "schema" : {
+              "$ref" : "#/definitions/EmptyResponse"
+            }
+          },
+          "404" : {
+            "description" : "* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)\n* The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)\n* The specified instance cannot be found. (code: `deployments.instance_not_found_error`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.deployment_not_found", "deployments.deployment_resource_not_found", "deployments.instance_not_found_error" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "449" : {
+            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "x-doc" : {
+          "tag" : "Deployment - Commands"
+        }
+      }
+    },
+    "/deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_id}/heap_dump/_download" : {
+      "get" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Download the given instance's heap dump",
+        "description" : "Returns the given instance's heap dump for download.",
+        "operationId" : "download-deployment-instance-heap-dump",
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "resource_kind",
+          "in" : "path",
+          "description" : "The kind of resource (one of elasticsearch, kibana or apm).",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "ref_id",
+          "in" : "path",
+          "description" : "User-specified RefId for the Resource.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "instance_id",
+          "in" : "path",
+          "description" : "The instance identifier",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The given instance's heap dump",
+            "schema" : {
+              "type" : "string",
+              "format" : "byte"
+            }
+          },
+          "404" : {
+            "description" : "* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)\n* The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)\n* The specified instance cannot be found. (code: `deployments.instance_not_found_error`)\n* The specified instance does not have a heap dump available to download. (code: `heap_dumps.heap_dump_not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.deployment_not_found", "deployments.deployment_resource_not_found", "deployments.instance_not_found_error", "heap_dumps.heap_dump_not_found" ]
               }
             },
             "schema" : {
@@ -24436,11 +24616,11 @@
         },
         "user_settings_json" : {
           "type" : "object",
-          "description" : "An arbitrary JSON object allowing (non-admin) cluster owners to set their parameters (only one of this and 'user_settings_yaml' is allowed), provided they are on the whitelist ('user_settings_whitelist') and not on the blacklist ('user_settings_blacklist'). (This field together with 'user_settings_override*' and 'system_settings' defines the total set of Apm settings)"
+          "description" : "An arbitrary JSON object allowing (non-admin) cluster owners to set their parameters (only one of this and 'user_settings_yaml' is allowed), provided the parameters are on the allowlist and not on the denylist. (This field together with 'user_settings_override*' and 'system_settings' defines the total set of Apm settings)"
         },
         "user_settings_yaml" : {
           "type" : "string",
-          "description" : "An arbitrary YAML object allowing (non-admin) cluster owners to set their parameters (only one of this and 'user_settings_json' is allowed), provided they are on the whitelist ('user_settings_whitelist') and not on the blacklist ('user_settings_blacklist'). (These field together with 'user_settings_override*' and 'system_settings' defines the total set of Apm settings)"
+          "description" : "An arbitrary YAML object allowing (non-admin) cluster owners to set their parameters (only one of this and 'user_settings_json' is allowed), provided the parameters are on the allowlist and not on the denylist. (These field together with 'user_settings_override*' and 'system_settings' defines the total set of Apm settings)"
         },
         "user_settings_override_json" : {
           "type" : "object",
@@ -24773,11 +24953,11 @@
         },
         "elasticsearch_username" : {
           "type" : "string",
-          "description" : "Optionally override the account within APM - defaults to a system account that always exists (if specified, the password must also be specified)"
+          "description" : "Optionally override the account within APM - defaults to a system account that always exists (if specified, the password must also be specified). Note that this field is never returned from the API, it is write only."
         },
         "elasticsearch_password" : {
           "type" : "string",
-          "description" : "Optionally override the account within APM - defaults to a system account that always exists (if specified, the username must also be specified)"
+          "description" : "Optionally override the account within APM - defaults to a system account that always exists (if specified, the username must also be specified). Note that this field is never returned from the API, it is write only."
         },
         "secret_token" : {
           "type" : "string",
@@ -24873,11 +25053,11 @@
         },
         "user_settings_json" : {
           "type" : "object",
-          "description" : "An arbitrary JSON object allowing (non-admin) cluster owners to set their parameters (only one of this and 'user_settings_yaml' is allowed), provided they are on the whitelist ('user_settings_whitelist') and not on the blacklist ('user_settings_blacklist'). (This field together with 'user_settings_override*' and 'system_settings' defines the total set of AppSearch settings)"
+          "description" : "An arbitrary JSON object allowing (non-admin) cluster owners to set their parameters (only one of this and 'user_settings_yaml' is allowed), provided the parameters are on the allowlist and not on the denylist. (This field together with 'user_settings_override*' and 'system_settings' defines the total set of AppSearch settings)"
         },
         "user_settings_yaml" : {
           "type" : "string",
-          "description" : "An arbitrary YAML object allowing (non-admin) cluster owners to set their parameters (only one of this and 'user_settings_json' is allowed), provided they are on the whitelist ('user_settings_whitelist') and not on the blacklist ('user_settings_blacklist'). (These field together with 'user_settings_override*' and 'system_settings' defines the total set of AppSearch settings)"
+          "description" : "An arbitrary YAML object allowing (non-admin) cluster owners to set their parameters (only one of this and 'user_settings_json' is allowed), provided the parameters are on the allowlist and not on the denylist. (These field together with 'user_settings_override*' and 'system_settings' defines the total set of AppSearch settings)"
         },
         "user_settings_override_json" : {
           "type" : "object",
@@ -25200,15 +25380,15 @@
         },
         "elasticsearch_username" : {
           "type" : "string",
-          "description" : "Optionally override the account within AppSearch - defaults to a system account that always exists (if specified, the password must also be specified)"
+          "description" : "Optionally override the account within App Search - defaults to a system account that always exists (if specified, the password must also be specified). Note that this field is never returned from the API, it is write only."
         },
         "elasticsearch_password" : {
           "type" : "string",
-          "description" : "Optionally override the account within AppSearch - defaults to a system account that always exists (if specified, the username must also be specified)"
+          "description" : "Optionally override the account within App Search - defaults to a system account that always exists (if specified, the username must also be specified). Note that this field is never returned from the API, it is write only."
         },
         "secret_session_key" : {
           "type" : "string",
-          "description" : "Optionally override the secret session key within AppSearch - defaults to the previously existing secretSession"
+          "description" : "Optionally override the secret session key within App Search - defaults to the previously existing secretSession. Note that this field is never returned from the API, it is write only."
         }
       },
       "description" : "This structure defines a curated subset of the AppSearch settings. (This field together with 'user_settings_override*' and  'user_settings*' defines the total set of AppSearch settings)"
@@ -25455,6 +25635,22 @@
         }
       },
       "description" : "Specifies the maximum and minimum capacity constraints."
+    },
+    "ChainStatus" : {
+      "type" : "object",
+      "required" : [ "expiration_date", "first_certificate_to_expire" ],
+      "properties" : {
+        "expiration_date" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "When this chain is going to expire due any of its certificates expiring (ISO format in UTC)"
+        },
+        "first_certificate_to_expire" : {
+          "type" : "string",
+          "description" : "Information on the first certificate expiring in the chain"
+        }
+      },
+      "description" : "Chain expiration information"
     },
     "ChangeSourceInfo" : {
       "type" : "object",
@@ -25777,11 +25973,11 @@
       "properties" : {
         "boost" : {
           "type" : "boolean",
-          "description" : "Indicates if the the CPU boost flag for a cluster is enabled or not"
+          "description" : "Indicates if the CPU boost flag is enabled or not."
         },
         "hard_limit" : {
           "type" : "boolean",
-          "description" : "Indicates if the the CPU hard limit flag for a cluster is enabled or not"
+          "description" : "Indicates if the CPU hard limit flag is enabled or not. When set to true (default), allocates CPU timeshare based on the total CPU time multiplied by the relative RAM capacity of the instance on a given host. When set to false, delegates CPU allocation to the operating system to schedule CPU timeshares."
         }
       },
       "description" : "Specifies the CPU resource settings for the Elasticsearch cluster."
@@ -27297,6 +27493,26 @@
       },
       "description" : "Describes a given Deployment"
     },
+    "DeploymentHeapDumps" : {
+      "type" : "object",
+      "required" : [ "elasticsearch", "enterprise_search" ],
+      "properties" : {
+        "elasticsearch" : {
+          "type" : "array",
+          "description" : "The list of Elasticsearch resources and their heap dumps",
+          "items" : {
+            "$ref" : "#/definitions/ResourceHeapDumps"
+          }
+        },
+        "enterprise_search" : {
+          "type" : "array",
+          "description" : "The list of Enterprise Search resources and their heap dumps",
+          "items" : {
+            "$ref" : "#/definitions/ResourceHeapDumps"
+          }
+        }
+      }
+    },
     "DeploymentLogging" : {
       "type" : "object",
       "required" : [ "healthy" ],
@@ -28194,8 +28410,8 @@
       "required" : [ "cost", "name", "quantity", "rate", "sku", "type" ],
       "properties" : {
         "cost" : {
-          "type" : "integer",
-          "format" : "int64",
+          "type" : "number",
+          "format" : "double",
           "description" : "Costs associated to the Data Transfer and Storage (DTS) dimensions for an organization"
         },
         "name" : {
@@ -28242,8 +28458,8 @@
       "required" : [ "formatted_value", "value" ],
       "properties" : {
         "value" : {
-          "type" : "integer",
-          "format" : "int64",
+          "type" : "number",
+          "format" : "double",
           "description" : "Raw rate"
         },
         "formatted_value" : {
@@ -28784,11 +29000,11 @@
         },
         "user_settings_json" : {
           "type" : "object",
-          "description" : "An arbitrary JSON object allowing cluster owners to set their parameters (only one of this and 'user_settings_yaml' is allowed), provided they are on the whitelist ('user_settings_whitelist') and not on the blacklist ('user_settings_blacklist'). NOTES: (This field together with 'user_settings_override*' and 'system_settings' defines the total set of Elasticsearch settings)"
+          "description" : "An arbitrary JSON object allowing cluster owners to set their parameters (only one of this and 'user_settings_yaml' is allowed), provided the parameters arey are on the allowlist and not on the denylist. NOTES: (This field together with 'user_settings_override*' and 'system_settings' defines the total set of Elasticsearch settings)"
         },
         "user_settings_yaml" : {
           "type" : "string",
-          "description" : "An arbitrary YAML object allowing cluster owners to set their parameters (only one of this and 'user_settings_json' is allowed), provided they are on the whitelist ('user_settings_whitelist') and not on the blacklist ('user_settings_blacklist'). NOTES: (This field together with 'user_settings_override*' and 'system_settings' defines the total set of Elasticsearch settings)"
+          "description" : "An arbitrary YAML object allowing cluster owners to set their parameters (only one of this and 'user_settings_json' is allowed), provided the parameters arey are on the allowlist and not on the denylist. NOTES: (This field together with 'user_settings_override*' and 'system_settings' defines the total set of Elasticsearch settings)"
         },
         "user_settings_override_json" : {
           "type" : "object",
@@ -29432,11 +29648,11 @@
         },
         "user_settings_json" : {
           "type" : "object",
-          "description" : "An arbitrary JSON object allowing (non-admin) cluster owners to set their parameters (only one of this and 'user_settings_yaml' is allowed), provided they are on the whitelist ('user_settings_whitelist') and not on the blacklist ('user_settings_blacklist'). (This field together with 'user_settings_override*' and 'system_settings' defines the total set of Enterprise Search settings)"
+          "description" : "An arbitrary JSON object allowing (non-admin) cluster owners to set their parameters (only one of this and 'user_settings_yaml' is allowed), provided the parameters are on the allowlist and not on the denylist. (This field together with 'user_settings_override*' and 'system_settings' defines the total set of Enterprise Search settings)"
         },
         "user_settings_yaml" : {
           "type" : "string",
-          "description" : "An arbitrary YAML object allowing (non-admin) cluster owners to set their parameters (only one of this and 'user_settings_json' is allowed), provided they are on the whitelist ('user_settings_whitelist') and not on the blacklist ('user_settings_blacklist'). (This field together with 'user_settings_override*' and 'system_settings' defines the total set of Enterprise Search settings)"
+          "description" : "An arbitrary YAML object allowing (non-admin) cluster owners to set their parameters (only one of this and 'user_settings_json' is allowed), provided the parameters are on the allowlist and not on the denylist. (This field together with 'user_settings_override*' and 'system_settings' defines the total set of Enterprise Search settings)"
         },
         "user_settings_override_json" : {
           "type" : "object",
@@ -29763,15 +29979,15 @@
         },
         "elasticsearch_username" : {
           "type" : "string",
-          "description" : "Optionally override the account within Enterprise Search - defaults to a system account that always exists (if specified, the password must also be specified)"
+          "description" : "Optionally override the account within Enterprise Search - defaults to a system account that always exists (if specified, the password must also be specified). Note that this field is never returned from the API, it is write only."
         },
         "elasticsearch_password" : {
           "type" : "string",
-          "description" : "Optionally override the account within Enterprise Search - defaults to a system account that always exists (if specified, the username must also be specified)"
+          "description" : "Optionally override the account within Enterprise Search - defaults to a system account that always exists (if specified, the username must also be specified). Note that this field is never returned from the API, it is write only."
         },
         "secret_session_key" : {
           "type" : "string",
-          "description" : "Optionally override the secret session key within Enterprise Search - defaults to the previously existing secretSession"
+          "description" : "Optionally override the secret session key within Enterprise Search - defaults to the previously existing secretSession. Note that this field is never returned from the API, it is write only."
         }
       },
       "description" : "This structure defines a curated subset of the Enterprise Search settings. (This field together with 'user_settings_override*' and  'user_settings*' defines the total set of Enterprise Search settings)"
@@ -30030,6 +30246,37 @@
     "GrowShrinkStrategyConfig" : {
       "type" : "object",
       "description" : "A strategy that creates instances with the new plan, migrates data from the old instances, then shuts down the old instances. `GrowShrinkStrategyConfig` is safer than 'rolling' and ensures single node availability during a plan change, but can be a lot slower on larger clusters."
+    },
+    "HeapDump" : {
+      "type" : "object",
+      "required" : [ "captured", "instance_id", "status", "type" ],
+      "properties" : {
+        "instance_id" : {
+          "type" : "string",
+          "description" : "The Elastic Cloud name/id of the instance (container)"
+        },
+        "size" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "The size in bytes of the heap dump"
+        },
+        "type" : {
+          "type" : "string",
+          "description" : "The type of heap dump"
+        },
+        "status" : {
+          "type" : "string",
+          "description" : "The status of the heap dump"
+        },
+        "error" : {
+          "type" : "string",
+          "description" : "An error message if the heap dump failed"
+        },
+        "captured" : {
+          "type" : "string",
+          "description" : "The time at which the heap dump was captured"
+        }
+      }
     },
     "Hyperlink" : {
       "type" : "object",
@@ -30371,13 +30618,13 @@
           "description" : "Kind of resource"
         },
         "price" : {
-          "type" : "integer",
-          "format" : "int64",
+          "type" : "number",
+          "format" : "double",
           "description" : "Resource price"
         },
         "price_per_hour" : {
-          "type" : "integer",
-          "format" : "int64",
+          "type" : "number",
+          "format" : "double",
           "description" : "Price per hour"
         },
         "name" : {
@@ -30711,11 +30958,11 @@
         },
         "user_settings_json" : {
           "type" : "object",
-          "description" : "An arbitrary JSON object allowing (non-admin) cluster owners to set their parameters (only one of this and 'user_settings_yaml' is allowed), provided they are on the whitelist ('user_settings_whitelist') and not on the blacklist ('user_settings_blacklist'). (This field together with 'user_settings_override*' and 'system_settings' defines the total set of Kibana settings)"
+          "description" : "An arbitrary JSON object allowing (non-admin) cluster owners to set their parameters (only one of this and 'user_settings_yaml' is allowed), provided the parameters are on the allowlist and not on the denylist. (This field together with 'user_settings_override*' and 'system_settings' defines the total set of Kibana settings)"
         },
         "user_settings_yaml" : {
           "type" : "string",
-          "description" : "An arbitrary YAML object allowing (non-admin) cluster owners to set their parameters (only one of this and 'user_settings_json' is allowed), provided they are on the whitelist ('user_settings_whitelist') and not on the blacklist ('user_settings_blacklist'). (These field together with 'user_settings_override*' and 'system_settings' defines the total set of Kibana settings)"
+          "description" : "An arbitrary YAML object allowing (non-admin) cluster owners to set their parameters (only one of this and 'user_settings_json' is allowed), provided the parameters are on the allowlist and not on the denylist. (These field together with 'user_settings_override*' and 'system_settings' defines the total set of Kibana settings)"
         },
         "user_settings_override_json" : {
           "type" : "object",
@@ -30879,11 +31126,11 @@
         },
         "elasticsearch_username" : {
           "type" : "string",
-          "description" : "Optionally override the account within Elasticsearch - defaults to a system account that always exists (if specified, the password must also be specified)"
+          "description" : "Optionally override the account within Elasticsearch - defaults to a system account that always exists (if specified, the password must also be specified). Note that this field is never returned from the API, it is write only."
         },
         "elasticsearch_password" : {
           "type" : "string",
-          "description" : "Optionally override the account within Elasticsearch - defaults to a system account that always exists (if specified, the username must also be specified)"
+          "description" : "Optionally override the account within Elasticsearch - defaults to a system account that always exists (if specified, the username must also be specified). Note that this field is never returned from the API, it is write only."
         }
       },
       "description" : "A subset of Kibana settings. TIP: To define the complete set of Elasticsearch settings, use `KibanaSystemSettings` with `user_settings_override_` and `user_settings_`."
@@ -32801,6 +33048,27 @@
       },
       "description" : "Returns the enrollment token that is used to securely start a new server with designated roles."
     },
+    "ResourceHeapDumps" : {
+      "type" : "object",
+      "required" : [ "heap_dumps", "id", "ref_id" ],
+      "properties" : {
+        "ref_id" : {
+          "type" : "string",
+          "description" : "The locally-unique user-specified id of the resource that the heap dump was captured from"
+        },
+        "id" : {
+          "type" : "string",
+          "description" : "The randomly-generated id of a Resource"
+        },
+        "heap_dumps" : {
+          "type" : "array",
+          "description" : "The heap dumps belonging to this resource",
+          "items" : {
+            "$ref" : "#/definitions/HeapDump"
+          }
+        }
+      }
+    },
     "RestartPolicy" : {
       "type" : "object",
       "required" : [ "name" ],
@@ -34228,6 +34496,10 @@
           "items" : {
             "type" : "string"
           }
+        },
+        "chain_status" : {
+          "description" : "Details on the validity and lifetime of the certification chain",
+          "$ref" : "#/definitions/ChainStatus"
         }
       },
       "description" : "The public portion of the certificate chain that contains the PEM encoded server certificate, intermediate certificates, and the CA certificate. NOTE: The private key, normally included in certificate chains, is omitted."
@@ -34271,6 +34543,30 @@
       },
       "description" : "Measured by the amount of a resource. The final cluster size is calculated using multipliers from the topology instance configuration."
     },
+    "TrafficFilterEgressRule" : {
+      "type" : "object",
+      "required" : [ "protocol", "target" ],
+      "properties" : {
+        "target" : {
+          "type" : "string",
+          "description" : "Allowed traffic filter egress target: IP address or CIDR mask"
+        },
+        "ports" : {
+          "type" : "array",
+          "description" : "A list of target ports for an egress rule",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        },
+        "protocol" : {
+          "type" : "string",
+          "description" : "The target protocol for an egress rule",
+          "enum" : [ "all", "tcp", "udp" ]
+        }
+      },
+      "description" : "The rule detail for a traffic filter egress rule."
+    },
     "TrafficFilterRule" : {
       "type" : "object",
       "properties" : {
@@ -34293,9 +34589,13 @@
         "azure_endpoint_guid" : {
           "type" : "string",
           "description" : "Resource GUID of the Azure Private Endpoint to allow connections from"
+        },
+        "egress_rule" : {
+          "description" : "An egress traffic filter rule",
+          "$ref" : "#/definitions/TrafficFilterEgressRule"
         }
       },
-      "description" : "The container for an IP filter rule."
+      "description" : "The container for a traffic filter rule."
     },
     "TrafficFilterRulesetInfo" : {
       "type" : "object",

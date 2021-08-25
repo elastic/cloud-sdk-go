@@ -57,7 +57,7 @@ type ElasticsearchConfiguration struct {
 	// A list of admin-uploaded plugin objects that are available for this user.
 	UserPlugins []*ElasticsearchUserPlugin `json:"user_plugins,omitempty"`
 
-	// An arbitrary JSON object allowing cluster owners to set their parameters (only one of this and 'user_settings_yaml' is allowed), provided they are on the whitelist ('user_settings_whitelist') and not on the blacklist ('user_settings_blacklist'). NOTES: (This field together with 'user_settings_override*' and 'system_settings' defines the total set of Elasticsearch settings)
+	// An arbitrary JSON object allowing cluster owners to set their parameters (only one of this and 'user_settings_yaml' is allowed), provided the parameters arey are on the allowlist and not on the denylist. NOTES: (This field together with 'user_settings_override*' and 'system_settings' defines the total set of Elasticsearch settings)
 	UserSettingsJSON interface{} `json:"user_settings_json,omitempty"`
 
 	// An arbitrary JSON object allowing ECE admins owners to set clusters' parameters (only one of this and 'user_settings_override_yaml' is allowed), ie in addition to the documented 'system_settings'. NOTES: (This field together with 'system_settings' and 'user_settings*' defines the total set of Elasticsearch settings)
@@ -66,7 +66,7 @@ type ElasticsearchConfiguration struct {
 	// An arbitrary YAML object allowing ECE admins owners to set clusters' parameters (only one of this and 'user_settings_override_json' is allowed), ie in addition to the documented 'system_settings'. NOTES: (This field together with 'system_settings' and 'user_settings*' defines the total set of Elasticsearch settings)
 	UserSettingsOverrideYaml string `json:"user_settings_override_yaml,omitempty"`
 
-	// An arbitrary YAML object allowing cluster owners to set their parameters (only one of this and 'user_settings_json' is allowed), provided they are on the whitelist ('user_settings_whitelist') and not on the blacklist ('user_settings_blacklist'). NOTES: (This field together with 'user_settings_override*' and 'system_settings' defines the total set of Elasticsearch settings)
+	// An arbitrary YAML object allowing cluster owners to set their parameters (only one of this and 'user_settings_json' is allowed), provided the parameters arey are on the allowlist and not on the denylist. NOTES: (This field together with 'user_settings_override*' and 'system_settings' defines the total set of Elasticsearch settings)
 	UserSettingsYaml string `json:"user_settings_yaml,omitempty"`
 
 	// The version of the Elasticsearch cluster (must be one of the ECE supported versions). Currently cannot be different across the topology (and is generally specified in the globals). Defaults to the latest version if not specified.

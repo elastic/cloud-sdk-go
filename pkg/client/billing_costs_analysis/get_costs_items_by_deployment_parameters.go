@@ -96,7 +96,7 @@ type GetCostsItemsByDeploymentParams struct {
 
 	/* To.
 
-	   A datetime for the end of the desired range for which to fetch costs. Defaults to end of current month. Note: there is currently a three-month maximum date range.
+	   A datetime for the end of the desired range for which to fetch costs. Defaults to the current date. Note: there is currently a three-month maximum date range.
 	*/
 	To *string
 

@@ -164,7 +164,7 @@
         }, {
           "name" : "to",
           "in" : "query",
-          "description" : "A datetime for the end of the desired range for which to fetch costs. Defaults to the current date. Note: there is currently a three-month maximum date range.git s",
+          "description" : "A datetime for the end of the desired range for which to fetch costs. Defaults to the current date. Note: there is currently a three-month maximum date range.",
           "required" : false,
           "type" : "string"
         } ],
@@ -215,7 +215,7 @@
         }, {
           "name" : "to",
           "in" : "query",
-          "description" : "A datetime for the end of the desired range for which to fetch activity. Defaults to end of current month. Note: there is currently a three-month maximum date range.",
+          "description" : "A datetime for the end of the desired range for which to fetch activity. Defaults to the current date. Note: there is currently a three-month maximum date range.",
           "required" : false,
           "type" : "string"
         } ],
@@ -272,7 +272,7 @@
         }, {
           "name" : "to",
           "in" : "query",
-          "description" : "A datetime for the end of the desired range for which to fetch costs. Defaults to end of current month. Note: there is currently a three-month maximum date range.",
+          "description" : "A datetime for the end of the desired range for which to fetch costs. Defaults to the current date. Note: there is currently a three-month maximum date range.",
           "required" : false,
           "type" : "string"
         } ],
@@ -323,7 +323,7 @@
         }, {
           "name" : "to",
           "in" : "query",
-          "description" : "A datetime for the end of the desired range for which to fetch costs. Defaults to end of current month. Note: there is currently a three-month maximum date range.",
+          "description" : "A datetime for the end of the desired range for which to fetch costs. Defaults to the current date. Note: there is currently a three-month maximum date range.",
           "required" : false,
           "type" : "string"
         } ],
@@ -5208,11 +5208,11 @@
         },
         "user_settings_json" : {
           "type" : "object",
-          "description" : "An arbitrary JSON object allowing (non-admin) cluster owners to set their parameters (only one of this and 'user_settings_yaml' is allowed), provided they are on the whitelist ('user_settings_whitelist') and not on the blacklist ('user_settings_blacklist'). (This field together with 'user_settings_override*' and 'system_settings' defines the total set of Apm settings)"
+          "description" : "An arbitrary JSON object allowing (non-admin) cluster owners to set their parameters (only one of this and 'user_settings_yaml' is allowed), provided the parameters are on the allowlist and not on the denylist. (This field together with 'user_settings_override*' and 'system_settings' defines the total set of Apm settings)"
         },
         "user_settings_yaml" : {
           "type" : "string",
-          "description" : "An arbitrary YAML object allowing (non-admin) cluster owners to set their parameters (only one of this and 'user_settings_json' is allowed), provided they are on the whitelist ('user_settings_whitelist') and not on the blacklist ('user_settings_blacklist'). (These field together with 'user_settings_override*' and 'system_settings' defines the total set of Apm settings)"
+          "description" : "An arbitrary YAML object allowing (non-admin) cluster owners to set their parameters (only one of this and 'user_settings_json' is allowed), provided the parameters are on the allowlist and not on the denylist. (These field together with 'user_settings_override*' and 'system_settings' defines the total set of Apm settings)"
         },
         "user_settings_override_json" : {
           "type" : "object",
@@ -5522,11 +5522,11 @@
         },
         "elasticsearch_username" : {
           "type" : "string",
-          "description" : "Optionally override the account within APM - defaults to a system account that always exists (if specified, the password must also be specified)"
+          "description" : "Optionally override the account within APM - defaults to a system account that always exists (if specified, the password must also be specified). Note that this field is never returned from the API, it is write only."
         },
         "elasticsearch_password" : {
           "type" : "string",
-          "description" : "Optionally override the account within APM - defaults to a system account that always exists (if specified, the username must also be specified)"
+          "description" : "Optionally override the account within APM - defaults to a system account that always exists (if specified, the username must also be specified). Note that this field is never returned from the API, it is write only."
         },
         "secret_token" : {
           "type" : "string",
@@ -5599,11 +5599,11 @@
         },
         "user_settings_json" : {
           "type" : "object",
-          "description" : "An arbitrary JSON object allowing (non-admin) cluster owners to set their parameters (only one of this and 'user_settings_yaml' is allowed), provided they are on the whitelist ('user_settings_whitelist') and not on the blacklist ('user_settings_blacklist'). (This field together with 'user_settings_override*' and 'system_settings' defines the total set of AppSearch settings)"
+          "description" : "An arbitrary JSON object allowing (non-admin) cluster owners to set their parameters (only one of this and 'user_settings_yaml' is allowed), provided the parameters are on the allowlist and not on the denylist. (This field together with 'user_settings_override*' and 'system_settings' defines the total set of AppSearch settings)"
         },
         "user_settings_yaml" : {
           "type" : "string",
-          "description" : "An arbitrary YAML object allowing (non-admin) cluster owners to set their parameters (only one of this and 'user_settings_json' is allowed), provided they are on the whitelist ('user_settings_whitelist') and not on the blacklist ('user_settings_blacklist'). (These field together with 'user_settings_override*' and 'system_settings' defines the total set of AppSearch settings)"
+          "description" : "An arbitrary YAML object allowing (non-admin) cluster owners to set their parameters (only one of this and 'user_settings_json' is allowed), provided the parameters are on the allowlist and not on the denylist. (These field together with 'user_settings_override*' and 'system_settings' defines the total set of AppSearch settings)"
         },
         "user_settings_override_json" : {
           "type" : "object",
@@ -5926,15 +5926,15 @@
         },
         "elasticsearch_username" : {
           "type" : "string",
-          "description" : "Optionally override the account within AppSearch - defaults to a system account that always exists (if specified, the password must also be specified)"
+          "description" : "Optionally override the account within App Search - defaults to a system account that always exists (if specified, the password must also be specified). Note that this field is never returned from the API, it is write only."
         },
         "elasticsearch_password" : {
           "type" : "string",
-          "description" : "Optionally override the account within AppSearch - defaults to a system account that always exists (if specified, the username must also be specified)"
+          "description" : "Optionally override the account within App Search - defaults to a system account that always exists (if specified, the username must also be specified). Note that this field is never returned from the API, it is write only."
         },
         "secret_session_key" : {
           "type" : "string",
-          "description" : "Optionally override the secret session key within AppSearch - defaults to the previously existing secretSession"
+          "description" : "Optionally override the secret session key within App Search - defaults to the previously existing secretSession. Note that this field is never returned from the API, it is write only."
         }
       },
       "description" : "This structure defines a curated subset of the AppSearch settings. (This field together with 'user_settings_override*' and  'user_settings*' defines the total set of AppSearch settings)"
@@ -7555,8 +7555,8 @@
       "required" : [ "cost", "name", "quantity", "rate", "sku", "type" ],
       "properties" : {
         "cost" : {
-          "type" : "integer",
-          "format" : "int64",
+          "type" : "number",
+          "format" : "double",
           "description" : "Costs associated to the Data Transfer and Storage (DTS) dimensions for an organization"
         },
         "name" : {
@@ -7603,8 +7603,8 @@
       "required" : [ "formatted_value", "value" ],
       "properties" : {
         "value" : {
-          "type" : "integer",
-          "format" : "int64",
+          "type" : "number",
+          "format" : "double",
           "description" : "Raw rate"
         },
         "formatted_value" : {
@@ -8071,11 +8071,11 @@
         },
         "user_settings_json" : {
           "type" : "object",
-          "description" : "An arbitrary JSON object allowing cluster owners to set their parameters (only one of this and 'user_settings_yaml' is allowed), provided they are on the whitelist ('user_settings_whitelist') and not on the blacklist ('user_settings_blacklist'). NOTES: (This field together with 'user_settings_override*' and 'system_settings' defines the total set of Elasticsearch settings)"
+          "description" : "An arbitrary JSON object allowing cluster owners to set their parameters (only one of this and 'user_settings_yaml' is allowed), provided the parameters arey are on the allowlist and not on the denylist. NOTES: (This field together with 'user_settings_override*' and 'system_settings' defines the total set of Elasticsearch settings)"
         },
         "user_settings_yaml" : {
           "type" : "string",
-          "description" : "An arbitrary YAML object allowing cluster owners to set their parameters (only one of this and 'user_settings_json' is allowed), provided they are on the whitelist ('user_settings_whitelist') and not on the blacklist ('user_settings_blacklist'). NOTES: (This field together with 'user_settings_override*' and 'system_settings' defines the total set of Elasticsearch settings)"
+          "description" : "An arbitrary YAML object allowing cluster owners to set their parameters (only one of this and 'user_settings_json' is allowed), provided the parameters arey are on the allowlist and not on the denylist. NOTES: (This field together with 'user_settings_override*' and 'system_settings' defines the total set of Elasticsearch settings)"
         },
         "user_settings_override_json" : {
           "type" : "object",
@@ -8622,11 +8622,11 @@
         },
         "user_settings_json" : {
           "type" : "object",
-          "description" : "An arbitrary JSON object allowing (non-admin) cluster owners to set their parameters (only one of this and 'user_settings_yaml' is allowed), provided they are on the whitelist ('user_settings_whitelist') and not on the blacklist ('user_settings_blacklist'). (This field together with 'user_settings_override*' and 'system_settings' defines the total set of Enterprise Search settings)"
+          "description" : "An arbitrary JSON object allowing (non-admin) cluster owners to set their parameters (only one of this and 'user_settings_yaml' is allowed), provided the parameters are on the allowlist and not on the denylist. (This field together with 'user_settings_override*' and 'system_settings' defines the total set of Enterprise Search settings)"
         },
         "user_settings_yaml" : {
           "type" : "string",
-          "description" : "An arbitrary YAML object allowing (non-admin) cluster owners to set their parameters (only one of this and 'user_settings_json' is allowed), provided they are on the whitelist ('user_settings_whitelist') and not on the blacklist ('user_settings_blacklist'). (This field together with 'user_settings_override*' and 'system_settings' defines the total set of Enterprise Search settings)"
+          "description" : "An arbitrary YAML object allowing (non-admin) cluster owners to set their parameters (only one of this and 'user_settings_json' is allowed), provided the parameters are on the allowlist and not on the denylist. (This field together with 'user_settings_override*' and 'system_settings' defines the total set of Enterprise Search settings)"
         },
         "user_settings_override_json" : {
           "type" : "object",
@@ -8923,15 +8923,15 @@
         },
         "elasticsearch_username" : {
           "type" : "string",
-          "description" : "Optionally override the account within Enterprise Search - defaults to a system account that always exists (if specified, the password must also be specified)"
+          "description" : "Optionally override the account within Enterprise Search - defaults to a system account that always exists (if specified, the password must also be specified). Note that this field is never returned from the API, it is write only."
         },
         "elasticsearch_password" : {
           "type" : "string",
-          "description" : "Optionally override the account within Enterprise Search - defaults to a system account that always exists (if specified, the username must also be specified)"
+          "description" : "Optionally override the account within Enterprise Search - defaults to a system account that always exists (if specified, the username must also be specified). Note that this field is never returned from the API, it is write only."
         },
         "secret_session_key" : {
           "type" : "string",
-          "description" : "Optionally override the secret session key within Enterprise Search - defaults to the previously existing secretSession"
+          "description" : "Optionally override the secret session key within Enterprise Search - defaults to the previously existing secretSession. Note that this field is never returned from the API, it is write only."
         }
       },
       "description" : "This structure defines a curated subset of the Enterprise Search settings. (This field together with 'user_settings_override*' and  'user_settings*' defines the total set of Enterprise Search settings)"
@@ -9258,13 +9258,13 @@
           "description" : "Kind of resource"
         },
         "price" : {
-          "type" : "integer",
-          "format" : "int64",
+          "type" : "number",
+          "format" : "double",
           "description" : "Resource price"
         },
         "price_per_hour" : {
-          "type" : "integer",
-          "format" : "int64",
+          "type" : "number",
+          "format" : "double",
           "description" : "Price per hour"
         },
         "name" : {
@@ -9552,11 +9552,11 @@
         },
         "user_settings_json" : {
           "type" : "object",
-          "description" : "An arbitrary JSON object allowing (non-admin) cluster owners to set their parameters (only one of this and 'user_settings_yaml' is allowed), provided they are on the whitelist ('user_settings_whitelist') and not on the blacklist ('user_settings_blacklist'). (This field together with 'user_settings_override*' and 'system_settings' defines the total set of Kibana settings)"
+          "description" : "An arbitrary JSON object allowing (non-admin) cluster owners to set their parameters (only one of this and 'user_settings_yaml' is allowed), provided the parameters are on the allowlist and not on the denylist. (This field together with 'user_settings_override*' and 'system_settings' defines the total set of Kibana settings)"
         },
         "user_settings_yaml" : {
           "type" : "string",
-          "description" : "An arbitrary YAML object allowing (non-admin) cluster owners to set their parameters (only one of this and 'user_settings_json' is allowed), provided they are on the whitelist ('user_settings_whitelist') and not on the blacklist ('user_settings_blacklist'). (These field together with 'user_settings_override*' and 'system_settings' defines the total set of Kibana settings)"
+          "description" : "An arbitrary YAML object allowing (non-admin) cluster owners to set their parameters (only one of this and 'user_settings_json' is allowed), provided the parameters are on the allowlist and not on the denylist. (These field together with 'user_settings_override*' and 'system_settings' defines the total set of Kibana settings)"
         },
         "user_settings_override_json" : {
           "type" : "object",
@@ -9697,11 +9697,11 @@
         },
         "elasticsearch_username" : {
           "type" : "string",
-          "description" : "Optionally override the account within Elasticsearch - defaults to a system account that always exists (if specified, the password must also be specified)"
+          "description" : "Optionally override the account within Elasticsearch - defaults to a system account that always exists (if specified, the password must also be specified). Note that this field is never returned from the API, it is write only."
         },
         "elasticsearch_password" : {
           "type" : "string",
-          "description" : "Optionally override the account within Elasticsearch - defaults to a system account that always exists (if specified, the username must also be specified)"
+          "description" : "Optionally override the account within Elasticsearch - defaults to a system account that always exists (if specified, the username must also be specified). Note that this field is never returned from the API, it is write only."
         }
       },
       "description" : "A subset of Kibana settings. TIP: To define the complete set of Elasticsearch settings, use `KibanaSystemSettings` with `user_settings_override_` and `user_settings_`."
@@ -10789,6 +10789,30 @@
       },
       "description" : "Measured by the amount of a resource. The final cluster size is calculated using multipliers from the topology instance configuration."
     },
+    "TrafficFilterEgressRule" : {
+      "type" : "object",
+      "required" : [ "protocol", "target" ],
+      "properties" : {
+        "target" : {
+          "type" : "string",
+          "description" : "Allowed traffic filter egress target: IP address or CIDR mask"
+        },
+        "ports" : {
+          "type" : "array",
+          "description" : "A list of target ports for an egress rule",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        },
+        "protocol" : {
+          "type" : "string",
+          "description" : "The target protocol for an egress rule",
+          "enum" : [ "all", "tcp", "udp" ]
+        }
+      },
+      "description" : "The rule detail for a traffic filter egress rule."
+    },
     "TrafficFilterRule" : {
       "type" : "object",
       "properties" : {
@@ -10811,9 +10835,13 @@
         "azure_endpoint_guid" : {
           "type" : "string",
           "description" : "Resource GUID of the Azure Private Endpoint to allow connections from"
+        },
+        "egress_rule" : {
+          "description" : "An egress traffic filter rule",
+          "$ref" : "#/definitions/TrafficFilterEgressRule"
         }
       },
-      "description" : "The container for an IP filter rule."
+      "description" : "The container for a traffic filter rule."
     },
     "TrafficFilterRulesetInfo" : {
       "type" : "object",

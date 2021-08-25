@@ -38,7 +38,7 @@ type DtsDimensionCosts struct {
 
 	// Costs associated to the Data Transfer and Storage (DTS) dimensions for an organization
 	// Required: true
-	Cost *int64 `json:"cost"`
+	Cost *float64 `json:"cost"`
 
 	// DTS dimension name
 	// Required: true

@@ -31,29 +31,30 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// DtsRate DTS Rate
+// ChainStatus Chain expiration information
 //
-// swagger:model DtsRate
-type DtsRate struct {
+// swagger:model ChainStatus
+type ChainStatus struct {
 
-	// Rate in human readable format
+	// When this chain is going to expire due any of its certificates expiring (ISO format in UTC)
 	// Required: true
-	FormattedValue *string `json:"formatted_value"`
+	// Format: date-time
+	ExpirationDate *strfmt.DateTime `json:"expiration_date"`
 
-	// Raw rate
+	// Information on the first certificate expiring in the chain
 	// Required: true
-	Value *float64 `json:"value"`
+	FirstCertificateToExpire *string `json:"first_certificate_to_expire"`
 }
 
-// Validate validates this dts rate
-func (m *DtsRate) Validate(formats strfmt.Registry) error {
+// Validate validates this chain status
+func (m *ChainStatus) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateFormattedValue(formats); err != nil {
+	if err := m.validateExpirationDate(formats); err != nil {
 		res = append(res, err)
 	}
 
-	if err := m.validateValue(formats); err != nil {
+	if err := m.validateFirstCertificateToExpire(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -63,31 +64,35 @@ func (m *DtsRate) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *DtsRate) validateFormattedValue(formats strfmt.Registry) error {
+func (m *ChainStatus) validateExpirationDate(formats strfmt.Registry) error {
 
-	if err := validate.Required("formatted_value", "body", m.FormattedValue); err != nil {
+	if err := validate.Required("expiration_date", "body", m.ExpirationDate); err != nil {
+		return err
+	}
+
+	if err := validate.FormatOf("expiration_date", "body", "date-time", m.ExpirationDate.String(), formats); err != nil {
 		return err
 	}
 
 	return nil
 }
 
-func (m *DtsRate) validateValue(formats strfmt.Registry) error {
+func (m *ChainStatus) validateFirstCertificateToExpire(formats strfmt.Registry) error {
 
-	if err := validate.Required("value", "body", m.Value); err != nil {
+	if err := validate.Required("first_certificate_to_expire", "body", m.FirstCertificateToExpire); err != nil {
 		return err
 	}
 
 	return nil
 }
 
-// ContextValidate validates this dts rate based on context it is used
-func (m *DtsRate) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+// ContextValidate validates this chain status based on context it is used
+func (m *ChainStatus) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 
 // MarshalBinary interface implementation
-func (m *DtsRate) MarshalBinary() ([]byte, error) {
+func (m *ChainStatus) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -95,8 +100,8 @@ func (m *DtsRate) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *DtsRate) UnmarshalBinary(b []byte) error {
-	var res DtsRate
+func (m *ChainStatus) UnmarshalBinary(b []byte) error {
+	var res ChainStatus
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

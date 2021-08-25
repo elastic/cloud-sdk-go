@@ -58,11 +58,11 @@ type ItemCosts struct {
 
 	// Resource price
 	// Required: true
-	Price *int64 `json:"price"`
+	Price *float64 `json:"price"`
 
 	// Price per hour
 	// Required: true
-	PricePerHour *int64 `json:"price_per_hour"`
+	PricePerHour *float64 `json:"price_per_hour"`
 
 	// Stock Keeping Unit (SKU)
 	// Required: true
