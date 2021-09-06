@@ -80,6 +80,7 @@ mod:
 	@ echo "-> Downloading project imports..."
 	@ go mod download
 	@ go mod tidy
+	@ $(GOBIN)/go-licenser -license ASL2
 
 ## Alias to make mod.
 .PHONY: vendor
