@@ -78,14 +78,9 @@ jobs:
         id: go
 
       - name: Get the branch version
-        id: get_branch
+        id: get tags
         run: |
-          TNAME=${GITHUB_REF/refs\/tags\//}
-          if ${{github.event_name == 'workflow_dispatch'}}; then
-            TNAME=$(git describe --abbrev=0 --tags)
-          fi
-          echo ::set-output name=BRANCH::$(echo ${TNAME} | cut -d '.' -f1-2 | tr -d 'v')
-          echo ::set-output name=TAGNAME::$(echo ${TNAME} | cut -d '.' -f1-3)
+          git describe --abbrev=0 --tags
 
       - name: Bump main version
         run: make minor; git diff
