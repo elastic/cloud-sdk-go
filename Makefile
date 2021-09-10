@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 export GO111MODULE ?= on
-export VERSION ?= v1.6.0
+export VERSION ?= v1.7.0
 export ECE_VERSION ?= $(shell cat ECE_VERSION)
 export ECE_BRANCH ?= ms-62
 ECE_DEF_FILE ?= api/version/$(ECE_VERSION).md
