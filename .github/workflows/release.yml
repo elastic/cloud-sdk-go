@@ -78,7 +78,6 @@ jobs:
         id: go
 
       - name: Get the branch version
-        id: get tags
         run: |
           git describe --abbrev=0 --tags
 
