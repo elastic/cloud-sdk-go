@@ -66,7 +66,7 @@ $(GOBIN)/changelogger:
 	@ echo "-> Installing changelogger..."
 	@ go build -o bin/changelogger github.com/elastic/cloud-sdk-go/cmd/changelogger
 
-$(VERSION_DIR)/.version-versionbump-$(VERSION_VERSIONBUMP):
+$(VERSION_DIR)/.version-versionbump-$(VERSION_VERSIONBUMP): | $(VERSION_DIR)
 	@ rm -f $(VERSION_DIR)/.version-versionbump-*
 	@ echo $(VERSION_VERSIONBUMP) > $(VERSION_DIR)/.version-versionbump-$(VERSION_VERSIONBUMP)
 
