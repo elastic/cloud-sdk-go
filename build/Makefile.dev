@@ -16,7 +16,7 @@ unit: _report_path
 .PHONY: format
 format: deps
 	@ echo "-> Formatting Go files..."
-	@ $(GOBIN)/go-licenser -license ASL2 -notice .
+	@ $(GOBIN)/go-licenser -license ASL2
 	@ $(GOBIN)/golangci-lint run --fix
 	@ echo "-> Done."
 
