@@ -103,6 +103,12 @@ type GetDeploymentTemplatesV2Params struct {
 	*/
 	ShowInstanceConfigurations *bool
 
+	/* ShowMaxZones.
+
+	   If true, will populate the max_zones field in the instance configurations. Only relevant if show_instance_configurations=true.
+	*/
+	ShowMaxZones *bool
+
 	/* StackVersion.
 
 	   If present, it will cause the returned deployment templates to be adapted to return only the elements allowed in that version.
@@ -130,11 +136,14 @@ func (o *GetDeploymentTemplatesV2Params) SetDefaults() {
 		showHiddenDefault = bool(false)
 
 		showInstanceConfigurationsDefault = bool(true)
+
+		showMaxZonesDefault = bool(false)
 	)
 
 	val := GetDeploymentTemplatesV2Params{
 		ShowHidden:                 &showHiddenDefault,
 		ShowInstanceConfigurations: &showInstanceConfigurationsDefault,
+		ShowMaxZones:               &showMaxZonesDefault,
 	}
 
 	val.timeout = o.timeout
@@ -220,6 +229,17 @@ func (o *GetDeploymentTemplatesV2Params) SetShowInstanceConfigurations(showInsta
 	o.ShowInstanceConfigurations = showInstanceConfigurations
 }
 
+// WithShowMaxZones adds the showMaxZones to the get deployment templates v2 params
+func (o *GetDeploymentTemplatesV2Params) WithShowMaxZones(showMaxZones *bool) *GetDeploymentTemplatesV2Params {
+	o.SetShowMaxZones(showMaxZones)
+	return o
+}
+
+// SetShowMaxZones adds the showMaxZones to the get deployment templates v2 params
+func (o *GetDeploymentTemplatesV2Params) SetShowMaxZones(showMaxZones *bool) {
+	o.ShowMaxZones = showMaxZones
+}
+
 // WithStackVersion adds the stackVersion to the get deployment templates v2 params
 func (o *GetDeploymentTemplatesV2Params) WithStackVersion(stackVersion *string) *GetDeploymentTemplatesV2Params {
 	o.SetStackVersion(stackVersion)
@@ -295,6 +315,23 @@ func (o *GetDeploymentTemplatesV2Params) WriteToRequest(r runtime.ClientRequest,
 		if qShowInstanceConfigurations != "" {
 
 			if err := r.SetQueryParam("show_instance_configurations", qShowInstanceConfigurations); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ShowMaxZones != nil {
+
+		// query param show_max_zones
+		var qrShowMaxZones bool
+
+		if o.ShowMaxZones != nil {
+			qrShowMaxZones = *o.ShowMaxZones
+		}
+		qShowMaxZones := swag.FormatBool(qrShowMaxZones)
+		if qShowMaxZones != "" {
+
+			if err := r.SetQueryParam("show_max_zones", qShowMaxZones); err != nil {
 				return err
 			}
 		}

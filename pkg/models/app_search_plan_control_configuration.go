@@ -54,6 +54,9 @@ type AppSearchPlanControlConfiguration struct {
 	// move instances
 	MoveInstances []*InstanceMoveRequest `json:"move_instances"`
 
+	// If false (the default), the plan fails if it determines that the request can result in unsafe operations. Setting this flag overrides some of these check restraints.
+	OverrideFailsafe *bool `json:"override_failsafe,omitempty"`
+
 	// List of allocators on which instances are placed if possible (if not possible/not specified then any available allocator with space is used)
 	PreferredAllocators []string `json:"preferred_allocators"`
 

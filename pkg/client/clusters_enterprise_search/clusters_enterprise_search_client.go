@@ -61,7 +61,10 @@ type ClientService interface {
 /*
   DeleteEnterpriseSearchProxyRequests proxies HTTP d e l e t e request
 
-  DEPRECATED (Scheduled to be removed in the next major version): Proxies the HTTP DELETE request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use [proxy `DELETE` request to resource](#delete-deployment-resource-proxy-requests) instead.
+
+Proxies the HTTP DELETE request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.
 */
 func (a *Client) DeleteEnterpriseSearchProxyRequests(params *DeleteEnterpriseSearchProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteEnterpriseSearchProxyRequestsOK, error) {
 	// TODO: Validate the params before sending
@@ -102,7 +105,10 @@ func (a *Client) DeleteEnterpriseSearchProxyRequests(params *DeleteEnterpriseSea
 /*
   GetEnterpriseSearchProxyRequests proxies HTTP g e t request
 
-  DEPRECATED (Scheduled to be removed in the next major version): Proxies the HTTP GET request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use [proxy `GET` request to resource](#get-deployment-resource-proxy-requests) instead.
+
+Proxies the HTTP GET request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.
 */
 func (a *Client) GetEnterpriseSearchProxyRequests(params *GetEnterpriseSearchProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEnterpriseSearchProxyRequestsOK, error) {
 	// TODO: Validate the params before sending
@@ -143,7 +149,10 @@ func (a *Client) GetEnterpriseSearchProxyRequests(params *GetEnterpriseSearchPro
 /*
   PostEnterpriseSearchProxyRequests proxies HTTP p o s t request
 
-  DEPRECATED (Scheduled to be removed in the next major version): Proxies the HTTP POST request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use [proxy `POST` request to resource](#post-deployment-resource-proxy-requests) instead.
+
+Proxies the HTTP POST request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.
 */
 func (a *Client) PostEnterpriseSearchProxyRequests(params *PostEnterpriseSearchProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostEnterpriseSearchProxyRequestsOK, error) {
 	// TODO: Validate the params before sending
@@ -184,7 +193,10 @@ func (a *Client) PostEnterpriseSearchProxyRequests(params *PostEnterpriseSearchP
 /*
   PutEnterpriseSearchProxyRequests proxies HTTP p u t request
 
-  DEPRECATED (Scheduled to be removed in the next major version): Proxies the HTTP PUT request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use [proxy `PUT` request to resource](#put-deployment-resource-proxy-requests) instead.
+
+Proxies the HTTP PUT request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.
 */
 func (a *Client) PutEnterpriseSearchProxyRequests(params *PutEnterpriseSearchProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutEnterpriseSearchProxyRequestsOK, error) {
 	// TODO: Validate the params before sending

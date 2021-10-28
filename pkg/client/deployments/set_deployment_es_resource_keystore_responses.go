@@ -76,7 +76,7 @@ func NewSetDeploymentEsResourceKeystoreOK() *SetDeploymentEsResourceKeystoreOK {
 
 /* SetDeploymentEsResourceKeystoreOK describes a response with status code 200, with default header values.
 
-The new value for the keystore contents
+The new contents of the Elasticsearch keystore
 */
 type SetDeploymentEsResourceKeystoreOK struct {
 	Payload *models.KeystoreContents
