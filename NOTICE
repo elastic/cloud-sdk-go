@@ -1,27 +1,27 @@
 cloud-sdk-go
-Copyright 2021 Elasticsearch B.V.
+Copyright 2020-2021 Elasticsearch B.V.
 
 This product includes software developed at Elasticsearch B.V. and
 third-party software developed by the licenses listed below.
 
 =========================================================================
 
+github.com/davecgh/go-spew            0BSD
+github.com/go-openapi/errors          Apache-2.0
+github.com/go-openapi/runtime         Apache-2.0
+github.com/go-openapi/spec            Apache-2.0
+github.com/go-openapi/strfmt          Apache-2.0
+github.com/go-openapi/swag            Apache-2.0
+github.com/go-openapi/validate        Apache-2.0
+github.com/spf13/cobra                Apache-2.0
 github.com/pkg/errors                 BSD-2-Clause
+github.com/pmezard/go-difflib         BSD-3-Clause
 github.com/spf13/pflag                BSD-3-Clause
-github.com/asaskevich/govalidator     could not clone repo from github.com/asaskevich/govalidator@v0.0.0-20210307081110-f21760c49a8d: repository not found
-github.com/blang/semver/v4            could not clone repo from github.com/blang/semver/v4@v4.0.0: repository not found
-github.com/davecgh/go-spew            could not clone repo from github.com/davecgh/go-spew@v1.1.1: repository not found
-github.com/ghodss/yaml                could not clone repo from github.com/ghodss/yaml@v1.0.0: repository not found
-github.com/go-openapi/errors          could not clone repo from github.com/go-openapi/errors@v0.20.1: repository not found
-github.com/go-openapi/runtime         could not clone repo from github.com/go-openapi/runtime@v0.19.31: repository not found
-github.com/go-openapi/spec            could not clone repo from github.com/go-openapi/spec@v0.20.3: repository not found
-github.com/go-openapi/strfmt          could not clone repo from github.com/go-openapi/strfmt@v0.20.2: repository not found
-github.com/go-openapi/swag            could not clone repo from github.com/go-openapi/swag@v0.19.15: repository not found
-github.com/go-openapi/validate        could not clone repo from github.com/go-openapi/validate@v0.20.2: repository not found
-github.com/hashicorp/go-multierror    could not clone repo from github.com/hashicorp/go-multierror@v1.1.1: repository not found
-github.com/pmezard/go-difflib         could not clone repo from github.com/pmezard/go-difflib@v1.0.0: repository not found
-github.com/spf13/cobra                could not clone repo from github.com/spf13/cobra@v1.2.1: repository not found
-github.com/stretchr/testify           could not clone repo from github.com/stretchr/testify@v1.7.0: repository not found
+github.com/asaskevich/govalidator     MIT
+github.com/blang/semver/v4            MIT
 github.com/mitchellh/mapstructure     MIT
+github.com/stretchr/testify           MIT
+github.com/hashicorp/go-multierror    MPL-2.0
+github.com/ghodss/yaml                no license file was found
 
 =========================================================================

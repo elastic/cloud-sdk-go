@@ -252,3 +252,7 @@ func (c *Rest) SetTransport(transport runtime.ClientTransport) {
 	c.Telemetry.SetTransport(transport)
 	c.Users.SetTransport(transport)
 }
+
+func (c *Rest) SetPlatformInfrastructure(platformInfrastructure platform_infrastructure.ClientService) {
+	c.PlatformInfrastructure = platformInfrastructure
+}
