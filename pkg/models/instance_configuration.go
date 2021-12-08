@@ -60,6 +60,10 @@ type InstanceConfiguration struct {
 	// Required: true
 	InstanceType *string `json:"instance_type"`
 
+	// The maximum number of availability zones in which this instance configuration has allocators. This field will be missing unless explicitly requested with the show_max_zones parameter.
+	// Read Only: true
+	MaxZones int32 `json:"max_zones,omitempty"`
+
 	// Optional arbitrary metadata to associate with this template.
 	Metadata interface{} `json:"metadata,omitempty"`
 
@@ -184,6 +188,10 @@ func (m *InstanceConfiguration) ContextValidate(ctx context.Context, formats str
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateMaxZones(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
@@ -213,6 +221,15 @@ func (m *InstanceConfiguration) contextValidateDiscreteSizes(ctx context.Context
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *InstanceConfiguration) contextValidateMaxZones(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := validate.ReadOnly(ctx, "max_zones", "body", int32(m.MaxZones)); err != nil {
+		return err
 	}
 
 	return nil

@@ -67,20 +67,22 @@ func NewSetTLSCertificateAccepted() *SetTLSCertificateAccepted {
 The TLS update has been accepted for the given service and will take effect throughout the system
 */
 type SetTLSCertificateAccepted struct {
-	Payload models.EmptyResponse
+	Payload *models.UpdatedTLSChain
 }
 
 func (o *SetTLSCertificateAccepted) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/tls/{service_name}][%d] setTlsCertificateAccepted  %+v", 202, o.Payload)
 }
-func (o *SetTLSCertificateAccepted) GetPayload() models.EmptyResponse {
+func (o *SetTLSCertificateAccepted) GetPayload() *models.UpdatedTLSChain {
 	return o.Payload
 }
 
 func (o *SetTLSCertificateAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
+	o.Payload = new(models.UpdatedTLSChain)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

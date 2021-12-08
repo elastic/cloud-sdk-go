@@ -1,0 +1,4 @@
+category: enhancement
+title: Update OpenAPI spec to ECE 2.13.0
+description: |
+    Updates the ECE generated Clients and models to the latest version.
