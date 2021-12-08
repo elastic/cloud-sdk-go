@@ -36,9 +36,10 @@ const (
 	// global client per API instance, now used on a per-operation basis.
 	RegionBasePath = "/api/v1/regions/%s"
 
-	rawMetadataTextProducer       = "set-es-cluster-metadata-raw"
-	updateUserTextProducer        = "update-user"
-	updateCurrentUserTextProducer = "update-current-user"
+	rawMetadataDeploymentResourceTextProducer = "set-deployment-resource-raw-metadata"
+	rawMetadataTextProducer                   = "set-es-cluster-metadata-raw"
+	updateUserTextProducer                    = "update-user"
+	updateCurrentUserTextProducer             = "update-current-user"
 )
 
 // DefaultBasePath is used as the base prefix for the API.
@@ -133,7 +134,8 @@ func (r *CloudClientRuntime) getRuntime(op *runtime.ClientOperation) (*runtimecl
 func overrideJSONProducer(r *runtimeclient.Runtime, opID string) func() {
 	if !(opID == updateUserTextProducer ||
 		opID == rawMetadataTextProducer ||
-		opID == updateCurrentUserTextProducer) {
+		opID == updateCurrentUserTextProducer ||
+		opID == rawMetadataDeploymentResourceTextProducer) {
 		return func() {}
 	}
 

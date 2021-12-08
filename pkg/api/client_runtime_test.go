@@ -328,6 +328,19 @@ func Test_overrideJSONProducer(t *testing.T) {
 			want: `{"some":"content"}`,
 		},
 		{
+			name: "changes the producer when using set-deployment-resource-raw-metadata",
+			args: args{
+				r: &runtimeclient.Runtime{
+					Producers: map[string]runtime.Producer{
+						runtime.JSONMime: runtime.JSONProducer(),
+					},
+				},
+				opID:    "set-deployment-resource-raw-metadata",
+				content: `{"some":"content"}`,
+			},
+			want: `{"some":"content"}`,
+		},
+		{
 			name: "resets the producer even when changed",
 			args: args{
 				r: &runtimeclient.Runtime{
