@@ -53,6 +53,10 @@ type InstanceConfigurationInfo struct {
 	// Required: true
 	InstanceType *string `json:"instance_type"`
 
+	// The maximum number of availability zones in which this instance configuration has allocators. This field will be missing unless explicitly requested with the show_max_zones parameter.
+	// Read Only: true
+	MaxZones int32 `json:"max_zones,omitempty"`
+
 	// Display name for the instance configuration.
 	// Required: true
 	Name *string `json:"name"`
@@ -130,6 +134,10 @@ func (m *InstanceConfigurationInfo) ContextValidate(ctx context.Context, formats
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateMaxZones(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
@@ -145,6 +153,15 @@ func (m *InstanceConfigurationInfo) contextValidateDiscreteSizes(ctx context.Con
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *InstanceConfigurationInfo) contextValidateMaxZones(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := validate.ReadOnly(ctx, "max_zones", "body", int32(m.MaxZones)); err != nil {
+		return err
 	}
 
 	return nil

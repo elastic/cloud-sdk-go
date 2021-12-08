@@ -470,7 +470,10 @@ func (a *Client) DeleteSamlConfiguration(params *DeleteSamlConfigurationParams, 
 /*
   DisableSecurityDeployment disables the security deployment
 
-  DEPRECATED (Scheduled to be removed in the next major version): Disables the existing security deployment configuration.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version.
+
+Disables the existing security deployment configuration.
 */
 func (a *Client) DisableSecurityDeployment(params *DisableSecurityDeploymentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DisableSecurityDeploymentOK, error) {
 	// TODO: Validate the params before sending
@@ -511,7 +514,10 @@ func (a *Client) DisableSecurityDeployment(params *DisableSecurityDeploymentPara
 /*
   EnableSecurityDeployment enables the security deployment
 
-  DEPRECATED (Scheduled to be removed in the next major version): Enables the existing security deployment configuration.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version.
+
+Enables the existing security deployment configuration.
 */
 func (a *Client) EnableSecurityDeployment(params *EnableSecurityDeploymentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*EnableSecurityDeploymentOK, error) {
 	// TODO: Validate the params before sending

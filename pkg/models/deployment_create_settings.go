@@ -35,7 +35,10 @@ import (
 // swagger:model DeploymentCreateSettings
 type DeploymentCreateSettings struct {
 
-	// DEPRECATED (Scheduled to be removed in the next major version): The set of rulesets applies to this deployment.
+	// > WARNING
+	// > This endpoint is deprecated and scheduled to be removed in the next major version. Use traffic filter settings instead.
+	//
+	// The set of rulesets applies to this deployment.
 	IPFilteringSettings *IPFilteringSettings `json:"ip_filtering_settings,omitempty"`
 
 	// Observability settings for this deployment

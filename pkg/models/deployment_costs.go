@@ -51,6 +51,9 @@ type DeploymentCosts struct {
 	// Price per hour
 	// Required: true
 	HourlyRate *float64 `json:"hourly_rate"`
+
+	// Period
+	Period *Period `json:"period,omitempty"`
 }
 
 // Validate validates this deployment costs
@@ -70,6 +73,10 @@ func (m *DeploymentCosts) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateHourlyRate(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validatePeriod(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -124,11 +131,32 @@ func (m *DeploymentCosts) validateHourlyRate(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *DeploymentCosts) validatePeriod(formats strfmt.Registry) error {
+	if swag.IsZero(m.Period) { // not required
+		return nil
+	}
+
+	if m.Period != nil {
+		if err := m.Period.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("period")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 // ContextValidate validate this deployment costs based on the context it is used
 func (m *DeploymentCosts) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.contextValidateCosts(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidatePeriod(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -144,6 +172,20 @@ func (m *DeploymentCosts) contextValidateCosts(ctx context.Context, formats strf
 		if err := m.Costs.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("costs")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *DeploymentCosts) contextValidatePeriod(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Period != nil {
+		if err := m.Period.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("period")
 			}
 			return err
 		}

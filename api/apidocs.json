@@ -196,13 +196,13 @@
         }, {
           "name" : "from",
           "in" : "query",
-          "description" : "A datetime for the beginning of the desired range for which to fetch costs. Defaults to start of current month. Note: there is currently a three-month maximum date range.",
+          "description" : "A datetime for the beginning of the desired range for which to fetch costs. Defaults to start of current month.",
           "required" : false,
           "type" : "string"
         }, {
           "name" : "to",
           "in" : "query",
-          "description" : "A datetime for the end of the desired range for which to fetch costs. Defaults to the current date. Note: there is currently a three-month maximum date range.",
+          "description" : "A datetime for the end of the desired range for which to fetch costs. Defaults to the current date.",
           "required" : false,
           "type" : "string"
         } ],
@@ -247,13 +247,13 @@
         }, {
           "name" : "from",
           "in" : "query",
-          "description" : "A datetime for the beginning of the desired range for which to fetch activity. Defaults to start of current month. Note: there is currently a three-month maximum date range.",
+          "description" : "A datetime for the beginning of the desired range for which to fetch activity. Defaults to start of current month.",
           "required" : false,
           "type" : "string"
         }, {
           "name" : "to",
           "in" : "query",
-          "description" : "A datetime for the end of the desired range for which to fetch activity. Defaults to the current date. Note: there is currently a three-month maximum date range.",
+          "description" : "A datetime for the end of the desired range for which to fetch activity. Defaults to the current date.",
           "required" : false,
           "type" : "string"
         } ],
@@ -304,13 +304,13 @@
         }, {
           "name" : "from",
           "in" : "query",
-          "description" : "A datetime for the beginning of the desired range for which to fetch costs. Defaults to start of current month. Note: there is currently a three-month maximum date range.",
+          "description" : "A datetime for the beginning of the desired range for which to fetch costs. Defaults to start of current month.",
           "required" : false,
           "type" : "string"
         }, {
           "name" : "to",
           "in" : "query",
-          "description" : "A datetime for the end of the desired range for which to fetch costs. Defaults to the current date. Note: there is currently a three-month maximum date range.",
+          "description" : "A datetime for the end of the desired range for which to fetch costs. Defaults to the current date.",
           "required" : false,
           "type" : "string"
         } ],
@@ -355,13 +355,13 @@
         }, {
           "name" : "from",
           "in" : "query",
-          "description" : "A datetime for the beginning of the desired range for which to fetch costs. Defaults to start of current month. Note: there is currently a three-month maximum date range.",
+          "description" : "A datetime for the beginning of the desired range for which to fetch costs. Defaults to start of current month.",
           "required" : false,
           "type" : "string"
         }, {
           "name" : "to",
           "in" : "query",
-          "description" : "A datetime for the end of the desired range for which to fetch costs. Defaults to the current date. Note: there is currently a three-month maximum date range.",
+          "description" : "A datetime for the end of the desired range for which to fetch costs. Defaults to the current date.",
           "required" : false,
           "type" : "string"
         } ],
@@ -395,7 +395,7 @@
       "post" : {
         "tags" : [ "Clusters" ],
         "summary" : "Search clusters",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Retrieves the information for all of the instances that match the specified query.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [search deployments](#search-deployments) instead.\n\nRetrieves the information for all of the instances that match the specified query.",
         "operationId" : "search-clusters",
         "consumes" : [ "application/json" ],
         "parameters" : [ {
@@ -437,7 +437,7 @@
       "get" : {
         "tags" : [ "ClustersApm" ],
         "summary" : "Get clusters",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Retrieves cluster information for all APM clusters.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [list deployments](#list-deployments) instead.\n\nRetrieves cluster information for all APM clusters.",
         "operationId" : "get-apm-clusters",
         "parameters" : [ {
           "name" : "from",
@@ -502,11 +502,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Apm - CRUD"
         }
@@ -514,7 +509,7 @@
       "post" : {
         "tags" : [ "ClustersApm" ],
         "summary" : "Create cluster",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Creates an APM cluster for a given Elasticsearch cluster.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [update deployment](#update-deployment) instead.\n\nCreates an APM cluster for a given Elasticsearch cluster.",
         "operationId" : "create-apm",
         "parameters" : [ {
           "in" : "body",
@@ -558,11 +553,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Apm - CRUD"
         }
@@ -572,7 +562,7 @@
       "post" : {
         "tags" : [ "ClustersApm" ],
         "summary" : "Resynchronize clusters",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Asynchronously resynchronizes the search index for all APM clusters.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [resynchronize deployments](#resync-deployments) instead.\n\nAsynchronously resynchronizes the search index for all APM clusters.",
         "operationId" : "resync-apm-clusters",
         "parameters" : [ {
           "name" : "skip_matching_version",
@@ -612,7 +602,7 @@
       "post" : {
         "tags" : [ "ClustersApm" ],
         "summary" : "Search clusters",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Retrieves cluster information for all Apm clusters that match a given query.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [search deployments](#search-deployments) instead.\n\nRetrieves cluster information for all Apm clusters that match a given query.",
         "operationId" : "search-apms",
         "parameters" : [ {
           "in" : "body",
@@ -637,11 +627,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Apm - Commands"
         }
@@ -651,7 +636,7 @@
       "get" : {
         "tags" : [ "ClustersApm" ],
         "summary" : "Get cluster",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Retrieves cluster information for a APM cluster.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [get deployment](#get-deployment) instead.\n\nRetrieves cluster information for a APM cluster.",
         "operationId" : "get-apm-cluster",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -723,7 +708,7 @@
       "delete" : {
         "tags" : [ "ClustersApm" ],
         "summary" : "Delete cluster",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Deletes an APM cluster.\nRequires that you have already successfully issued `_shutdown` command against the cluster.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [delete resource](#delete-deployment-stateless-resource) instead.\n\nDeletes an APM cluster.<br>Requires that you have already successfully issued `_shutdown` command against the cluster.",
         "operationId" : "delete-apm",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -758,11 +743,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Apm - CRUD"
         }
@@ -772,7 +752,7 @@
       "post" : {
         "tags" : [ "ClustersApm" ],
         "summary" : "Reset token",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Resets the secret token for a given APM cluster.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [reset APM resource token](#deployment-apm-reset-secret-token) instead.\n\nResets the secret token for a given APM cluster.",
         "operationId" : "reset-apm-secret-token",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -807,11 +787,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Apm - CRUD - Configuration"
         }
@@ -821,7 +796,7 @@
       "post" : {
         "tags" : [ "ClustersApm" ],
         "summary" : "Restart cluster",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Restarts a Apm cluster. If a cluster is active: this command re-applies the existing plan but applies a \"cluster_reboot\", which issues a Apm restart command and waits for it to complete. If a cluster is inactive: this command starts it up with the most recent successful plan.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [restart resource](#restart-deployment-stateless-resource) instead.\n\nRestarts a Apm cluster. If a cluster is active: this command re-applies the existing plan but applies a \"cluster_reboot\", which issues a Apm restart command and waits for it to complete. If a cluster is inactive: this command starts it up with the most recent successful plan.",
         "operationId" : "restart-apm",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -893,7 +868,7 @@
       "post" : {
         "tags" : [ "ClustersApm" ],
         "summary" : "Resynchronize cluster",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Immediately resynchronizes the search index and cache for the selected APM cluster.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [resynchronize deployment](#resync-deployment) instead.\n\nImmediately resynchronizes the search index and cache for the selected APM cluster.",
         "operationId" : "resync-apm-cluster",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -945,7 +920,7 @@
       "post" : {
         "tags" : [ "ClustersApm" ],
         "summary" : "Shut down cluster",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Shuts down a running cluster and removes all nodes belonging to the cluster. The cluster definition is retained. Warning: this will lose all cluster data that is not saved in a snapshot repository.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [shutdown resource](#shutdown-deployment-stateless-resource) instead.\n\nShuts down a running cluster and removes all nodes belonging to the cluster. The cluster definition is retained. Warning: this will lose all cluster data that is not saved in a snapshot repository.",
         "operationId" : "shutdown-apm",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -1004,7 +979,7 @@
       "post" : {
         "tags" : [ "ClustersApm" ],
         "summary" : "Upgrade cluster",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Upgrades a running cluster.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [upgrade resource](#upgrade-deployment-stateless-resource) instead.\n\nUpgrades a running cluster.",
         "operationId" : "upgrade-apm",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -1063,7 +1038,7 @@
       "post" : {
         "tags" : [ "ClustersApm" ],
         "summary" : "Move instances (advanced)",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Moves instances belonging to a Apm cluster, with custom configuration posted in the body.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version.\n\nMoves instances belonging to a Apm cluster, with custom configuration posted in the body.",
         "operationId" : "move-apm-instances-advanced",
         "consumes" : [ "application/json" ],
         "parameters" : [ {
@@ -1164,7 +1139,7 @@
       "post" : {
         "tags" : [ "ClustersApm" ],
         "summary" : "Start all instances",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Starts all the instances belonging to a Apm cluster.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [start all resource instances](#start-deployment-resource-instances-all) instead.\n\nStarts all the instances belonging to a Apm cluster.",
         "operationId" : "start-apm-instances-all",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -1229,7 +1204,7 @@
       "post" : {
         "tags" : [ "ClustersApm" ],
         "summary" : "Stop all instances",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Stops all the instances belonging to a Apm cluster.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [stop all resource instances](#stop-deployment-resource-instances-all) instead.\n\nStops all the instances belonging to a Apm cluster.",
         "operationId" : "stop-apm-instances-all",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -1294,7 +1269,7 @@
       "post" : {
         "tags" : [ "ClustersApm" ],
         "summary" : "Start maintenance mode all instances",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Starts maintenance mode of all instances belonging to a Apm cluster.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [start maintenance mode on all resource instances](#start-deployment-resource-instances-all-maintenance-mode) instead.\n\nStarts maintenance mode of all instances belonging to a Apm cluster.",
         "operationId" : "start-apm-instances-all-maintenance-mode",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -1359,7 +1334,7 @@
       "post" : {
         "tags" : [ "ClustersApm" ],
         "summary" : "Stop maintenance mode all instances",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Stops maintenance mode of all instances belonging to a Apm cluster.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [stop maintenance mode on all resource instances](#stop-deployment-resource-instances-all-maintenance-mode) instead.\n\nStops maintenance mode of all instances belonging to a Apm cluster.",
         "operationId" : "stop-apm-instances-all-maintenance-mode",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -1424,7 +1399,7 @@
       "post" : {
         "tags" : [ "ClustersApm" ],
         "summary" : "Move instances",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Moves one or more instances belonging to a Apm cluster.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version.\n\nMoves one or more instances belonging to a Apm cluster.",
         "operationId" : "move-apm-instances",
         "consumes" : [ "application/json" ],
         "parameters" : [ {
@@ -1542,7 +1517,7 @@
       "post" : {
         "tags" : [ "ClustersApm" ],
         "summary" : "Start instances",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Starts the instances belonging to a Apm cluster.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [start resource instances](#start-deployment-resource-instances) instead.\n\nStarts the instances belonging to a Apm cluster.",
         "operationId" : "start-apm-instances",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -1624,7 +1599,7 @@
       "post" : {
         "tags" : [ "ClustersApm" ],
         "summary" : "Stop instances",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Stops the instances belonging to a Apm cluster.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [stop resource instances](#stop-deployment-resource-instances) instead.\n\nStops the instances belonging to a Apm cluster.",
         "operationId" : "stop-apm-instances",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -1706,7 +1681,7 @@
       "post" : {
         "tags" : [ "ClustersApm" ],
         "summary" : "Start maintenance mode",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Starts maintenance mode of instances belonging to a Apm cluster.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [start maintenance mode on resource instances](#start-deployment-resource-maintenance-mode) instead.\n\nStarts maintenance mode of instances belonging to a Apm cluster.",
         "operationId" : "start-apm-maintenance-mode",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -1788,7 +1763,7 @@
       "post" : {
         "tags" : [ "ClustersApm" ],
         "summary" : "Stop maintenance mode",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Stops maintenance mode of instances belonging to a Apm cluster.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [stop maintenance mode on resource instances](#stop-deployment-resource-maintenance-mode) instead.\n\nStops maintenance mode of instances belonging to a Apm cluster.",
         "operationId" : "stop-apm-maintenance-mode",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -1870,7 +1845,7 @@
       "put" : {
         "tags" : [ "ClustersApm" ],
         "summary" : "Set cluster name",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Assigns a name to the APM instance.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [update deployment](#update-deployment) instead.\n\nAssigns a name to the APM instance.",
         "operationId" : "set-apm-name",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -1905,11 +1880,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Apm - CRUD - Configuration"
         }
@@ -1919,7 +1889,7 @@
       "get" : {
         "tags" : [ "ClustersApm" ],
         "summary" : "Get cluster metadata",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Advanced use only. Retrieves the internal metadata, in free-form JSON, for the APM instance.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [get deployment](#get-deployment) instead.\n\nAdvanced use only. Retrieves the internal metadata, in free-form JSON, for the APM instance.",
         "operationId" : "get-apm-metadata-raw",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -1942,11 +1912,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Apm - CRUD - Configuration"
         }
@@ -1954,7 +1919,7 @@
       "post" : {
         "tags" : [ "ClustersApm" ],
         "summary" : "Set cluster metadata",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Advanced use only. Sets the internal metadata, in free-form JSON, for the APM instance.\nOnly use the parameters to set the modified JSON that is returned from the get version of the metadata.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [set resource raw metadata](#set-deployment-resource-raw-metadata) instead.\n\nAdvanced use only. Sets the internal metadata, in free-form JSON, for the APM instance.\nOnly use the parameters to set the modified JSON that is returned from the get version of the metadata.",
         "operationId" : "set-apm-metadata-raw",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -2011,11 +1976,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Apm - CRUD - Configuration"
         }
@@ -2025,7 +1985,7 @@
       "get" : {
         "tags" : [ "ClustersApm" ],
         "summary" : "Get cluster metadata settings",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Retrieves a structured version of the cluster metadata as a collection of top-level settings. If a particular setting isn't returned, then the free-form JSON endpoint (`/metadata/raw`) must be used.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [get deployment](#get-deployment) instead.\n\nRetrieves a structured version of the cluster metadata as a collection of top-level settings. If a particular setting isn't returned, then the free-form JSON endpoint (`/metadata/raw`) must be used.",
         "operationId" : "get-apm-metadata-settings",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -2062,11 +2022,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Apm - CRUD - Configuration"
         }
@@ -2074,7 +2029,7 @@
       "patch" : {
         "tags" : [ "ClustersApm" ],
         "summary" : "Update cluster metadata settings",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): All changes in the specified object are applied to the metadata object according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [update deployment](#update-deployment) instead.\n\nAll changes in the specified object are applied to the metadata object according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.",
         "operationId" : "update-apm-metadata-settings",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -2137,11 +2092,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Apm - CRUD - Configuration"
         }
@@ -2151,7 +2101,7 @@
       "get" : {
         "tags" : [ "ClustersApm" ],
         "summary" : "Get plan",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Retrieves the active plan of an APM cluster. Transient settings are not show by this endpoint. To view the transient settings that have been applied with a specific plan, use the activity endpoint.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [get deployment](#get-deployment) instead.\n\nRetrieves the active plan of an APM cluster. Transient settings are not show by this endpoint. To view the transient settings that have been applied with a specific plan, use the activity endpoint.",
         "operationId" : "get-apm-plan",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -2201,11 +2151,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Apm - CRUD - Configuration"
         }
@@ -2213,7 +2158,7 @@
       "post" : {
         "tags" : [ "ClustersApm" ],
         "summary" : "Update plan",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Updates the configuration of an existing Apm cluster.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [update deployment](#update-deployment) instead.\n\nUpdates the configuration of an existing Apm cluster.",
         "operationId" : "update-apm-plan",
         "parameters" : [ {
           "in" : "body",
@@ -2269,11 +2214,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Apm - CRUD - Configuration"
         }
@@ -2283,7 +2223,7 @@
       "get" : {
         "tags" : [ "ClustersApm" ],
         "summary" : "Get plan activity",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Retrieves the current and historical plan information for a APM cluster.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [get deployment](#get-deployment) instead.\n\nRetrieves the current and historical plan information for a APM cluster.",
         "operationId" : "get-apm-cluster-plan-activity",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -2336,7 +2276,7 @@
       "get" : {
         "tags" : [ "ClustersApm" ],
         "summary" : "Get pending plan",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Retrieves the pending plan of an APM cluster.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [get deployment](#get-deployment) instead.\n\nRetrieves the pending plan of an APM cluster.",
         "operationId" : "get-apm-pending-plan",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -2386,11 +2326,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Apm - CRUD - Configuration"
         }
@@ -2398,7 +2333,7 @@
       "delete" : {
         "tags" : [ "ClustersApm" ],
         "summary" : "Cancel pending plan",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Cancels the pending plan of an APM cluster.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [cancel resource pending plan](#cancel-deployment-resource-pending-plan) instead.\n\nCancels the pending plan of an APM cluster.",
         "operationId" : "cancel-apm-pending-plan",
         "parameters" : [ {
           "name" : "ignore_missing",
@@ -2447,11 +2382,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Apm - CRUD - Configuration"
         }
@@ -2461,7 +2391,7 @@
       "get" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Get clusters",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Retrieves the information for all Elasticsearch clusters.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [list deployments](#list-deployments) instead.\n\nRetrieves the information for all Elasticsearch clusters.",
         "operationId" : "get-es-clusters",
         "parameters" : [ {
           "name" : "from",
@@ -2554,11 +2484,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Elasticsearch - CRUD"
         }
@@ -2566,7 +2491,7 @@
       "post" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Create cluster",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Creates an Elasticsearch cluster.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [create deployment](#create-deployment) instead.\n\nCreates an Elasticsearch cluster.",
         "operationId" : "create-es-cluster",
         "consumes" : [ "application/json" ],
         "parameters" : [ {
@@ -2646,7 +2571,7 @@
       "post" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Resynchronize clusters",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Asynchronously resynchronizes the search index for all Elasticsearch clusters.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [resynchronize deployments](#resync-deployments) instead.\n\nAsynchronously resynchronizes the search index for all Elasticsearch clusters.",
         "operationId" : "resync-es-clusters",
         "parameters" : [ {
           "name" : "skip_matching_version",
@@ -2686,7 +2611,7 @@
       "post" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Search clusters",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Retrieves the information for all of the Elasticsearch clusters that match the specified query.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [search deployments](#search-deployments) instead.\n\nRetrieves the information for all of the Elasticsearch clusters that match the specified query.",
         "operationId" : "search-es-clusters",
         "parameters" : [ {
           "in" : "body",
@@ -2711,11 +2636,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Elasticsearch - Commands"
         }
@@ -2725,7 +2645,7 @@
       "get" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Search clusters that can be used as cross-cluster search remotes",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Retrieves the information for all of the Elasticsearch clusters that can selected as remotes in a given version.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [search eligible remote clusters](#search-eligible-remote-clusters) instead.\n\nRetrieves the information for all of the Elasticsearch clusters that can selected as remotes in a given version.",
         "operationId" : "get-es-ccs-eligible-remotes",
         "parameters" : [ {
           "name" : "version",
@@ -2766,11 +2686,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Elasticsearch - CRUD"
         }
@@ -2780,7 +2695,7 @@
       "get" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Get cluster",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Retrieves the Elasticsearch cluster information.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [get deployment](#get-deployment) instead.\n\nRetrieves the Elasticsearch cluster information.",
         "operationId" : "get-es-cluster",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -2880,7 +2795,7 @@
       "delete" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Delete cluster",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Deletes the Elasticsearch cluster.\nBefore you delete the Elasticsearch cluster, you must first successfully issue a `_shutdown` command.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [delete deployment](#delete-deployment) instead.\n\nDeletes the Elasticsearch cluster.\nBefore you delete the Elasticsearch cluster, you must first successfully issue a `_shutdown` command.",
         "operationId" : "delete-es-cluster",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -2945,7 +2860,7 @@
       "post" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Restart cluster",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Restarts the Elasticsearch cluster. When you restart an active cluster, the existing plan is used and a `cluster_reboot` is applied. A `cluster_reboot` issues an Elasticsearch restart command, then waits for the command to complete. When you restart an inactive cluster, the most recent successful plan is applied.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [restart Elasticsearch resource](#restart-deployment-es-resource) instead.\n\nRestarts the Elasticsearch cluster. When you restart an active cluster, the existing plan is used and a `cluster_reboot` is applied. A `cluster_reboot` issues an Elasticsearch restart command, then waits for the command to complete. When you restart an inactive cluster, the most recent successful plan is applied.",
         "operationId" : "restart-es-cluster",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -3058,7 +2973,7 @@
       "post" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Resynchronize cluster",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Immediately resynchronizes the search index and cache for the selected Elasticsearch cluster.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [resynchronize deployment](#resync-deployment) instead.\n\nImmediately resynchronizes the search index and cache for the selected Elasticsearch cluster.",
         "operationId" : "resync-es-cluster",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -3110,7 +3025,7 @@
       "post" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Shut down cluster",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Shuts down the active Elasticsearch cluster and removes all of the cluster nodes. The cluster plan is retained. WARNING: To avoid data loss, save the data outside of the cluster before you shut the cluster down.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [shutdown Elasticsearch resource](#shutdown-deployment-es-resource) instead.\n\nShuts down the active Elasticsearch cluster and removes all of the cluster nodes. The cluster plan is retained. WARNING: To avoid data loss, save the data outside of the cluster before you shut the cluster down.",
         "operationId" : "shutdown-es-cluster",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -3176,7 +3091,7 @@
       "post" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Take snapshot",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): To create a snapshot of the specified Elasticsearch cluster, uses the configured snapshot repository.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use Elasticsearch snapshot APIs instead.\n\nTo create a snapshot of the specified Elasticsearch cluster, uses the configured snapshot repository.",
         "operationId" : "snapshot-es-cluster",
         "consumes" : [ "application/json" ],
         "parameters" : [ {
@@ -3276,7 +3191,7 @@
       "get" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Get cross-cluster search clusters",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Returns the list of cross-cluster search clusters' IDs for the remote cluster.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use the Elasticsearch remote cluster info API instead.\n\nReturns the list of cross-cluster search clusters' IDs for the remote cluster.",
         "operationId" : "get-es-cluster-ccs",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -3299,11 +3214,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Elasticsearch - CRUD - Configuration"
         }
@@ -3313,7 +3223,7 @@
       "get" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Get remote clusters for cross-cluster search",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Returns cross-cluster search configuration for the Elasticsearch cluster.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [get Elasticsearch remote clusters](#get-deployment-es-resource-remote-clusters) instead.\n\nReturns cross-cluster search configuration for the Elasticsearch cluster.",
         "operationId" : "get-es-cluster-ccs-settings",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -3336,11 +3246,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Elasticsearch - CRUD - Configuration"
         }
@@ -3348,7 +3253,7 @@
       "put" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Set remote clusters for cross-cluster search",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Overwrites or creates the cross-cluster search configuration for the Elasticsearch cluster.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [set Elasticsearch remote clusters](#set-deployment-es-resource-remote-clusters) instead.\n\nOverwrites or creates the cross-cluster search configuration for the Elasticsearch cluster.",
         "operationId" : "set-es-cluster-ccs-settings",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -3379,11 +3284,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Elasticsearch - CRUD - Configuration"
         }
@@ -3393,7 +3293,7 @@
       "get" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Get cluster curation settings",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Retrieves cluster curation settings for an Elasticsearch cluster.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use Elasticsearch index lifecycle management (ILM) instead.\n\nRetrieves cluster curation settings for an Elasticsearch cluster.",
         "operationId" : "get-es-cluster-curation-settings",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -3430,11 +3330,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Elasticsearch - CRUD - Configuration"
         }
@@ -3442,7 +3337,7 @@
       "put" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Update cluster curation settings",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Overrides cluster curation settings for an Elasticsearch cluster.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use Elasticsearch index lifecycle management (ILM) instead.\n\nOverrides cluster curation settings for an Elasticsearch cluster.",
         "operationId" : "update-es-cluster-curation-settings",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -3505,11 +3400,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Elasticsearch - CRUD - Configuration"
         }
@@ -3519,7 +3409,7 @@
       "post" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Move instances (advanced)",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Moves one or more instances in the Elasticsearch cluster. The custom configuration settings are posted in the body.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version.\n\nMoves one or more instances in the Elasticsearch cluster. The custom configuration settings are posted in the body.",
         "operationId" : "move-es-cluster-instances-advanced",
         "consumes" : [ "application/json" ],
         "parameters" : [ {
@@ -3634,7 +3524,7 @@
       "post" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Start all instances",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Starts all of the instances in the Elasticsearch cluster.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [start all resource instances](#start-deployment-resource-instances-all) instead.\n\nStarts all of the instances in the Elasticsearch cluster.",
         "operationId" : "start-es-cluster-instances-all",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -3699,7 +3589,7 @@
       "post" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Stop all instances",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Stops all of the instances in the Elasticsearch cluster..",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [stop all resource instances](#stop-deployment-resource-instances-all) instead.\n\nStops all of the instances in the Elasticsearch cluster..",
         "operationId" : "stop-es-cluster-instances-all",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -3764,7 +3654,7 @@
       "post" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Start maintenance mode all instances",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Starts maintenance mode on all of the instances in the Elasticsearch cluster.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [start maintenance mode on resource instances](#start-deployment-resource-maintenance-mode) instead.\n\nStarts maintenance mode on all of the instances in the Elasticsearch cluster.",
         "operationId" : "start-es-cluster-instances-all-maintenance-mode",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -3829,7 +3719,7 @@
       "post" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Stop maintenance mode all instances",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Stops maintenance mode on all of the instances in the Elasticsearch cluster.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [stop maintenance mode on all resource instances](#stop-deployment-resource-instances-all-maintenance-mode) instead.\n\nStops maintenance mode on all of the instances in the Elasticsearch cluster.",
         "operationId" : "stop-es-cluster-instances-all-maintenance-mode",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -3894,7 +3784,7 @@
       "put" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Set settings overrides (all instances)",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Overrides the settings for all of the instances in the Elasticsearch cluster.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [set all resource instances overrides](#set-all-instances-settings-overrides) instead.\n\nOverrides the settings for all of the instances in the Elasticsearch cluster.",
         "operationId" : "set-es-cluster-instances-all-settings-overrides",
         "consumes" : [ "application/json" ],
         "parameters" : [ {
@@ -3962,7 +3852,7 @@
       "post" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Move instances",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Moves one or more instances in the Elasticsearch cluster.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version.\n\nMoves one or more instances in the Elasticsearch cluster.",
         "operationId" : "move-es-cluster-instances",
         "consumes" : [ "application/json" ],
         "parameters" : [ {
@@ -4094,7 +3984,7 @@
       "post" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Start instances",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Starts the instances in the Elasticsearch cluster.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [start resource instances](#start-deployment-resource-instances) instead.\n\nStarts the instances in the Elasticsearch cluster.",
         "operationId" : "start-es-cluster-instances",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -4176,7 +4066,7 @@
       "post" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Stop instances",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Stops the instances in the Elasticsearch cluster.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [stop resource instances](#stop-deployment-resource-instances) instead.\n\nStops the instances in the Elasticsearch cluster.",
         "operationId" : "stop-es-cluster-instances",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -4258,7 +4148,7 @@
       "post" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Start maintenance mode",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Starts maintenance mode on the specified instances in the Elasticsearch cluster.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [start maintenance mode on all resource instances](#start-deployment-resource-instances-all-maintenance-mode) instead.\n\nStarts maintenance mode on the specified instances in the Elasticsearch cluster.",
         "operationId" : "start-es-cluster-maintenance-mode",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -4340,7 +4230,7 @@
       "post" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Stop maintenance mode",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Stops maintenance mode on the specified instances in the Elasticsearch cluster.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [stop maintenance mode on resource instances](#stop-deployment-resource-maintenance-mode) instead.\n\nStops maintenance mode on the specified instances in the Elasticsearch cluster.",
         "operationId" : "stop-es-cluster-maintenance-mode",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -4422,7 +4312,7 @@
       "put" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Set settings overrides",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Overrides the settings for the specified instances in the Elasticsearch cluster.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [set resource instances overrides](#set-instance-settings-overrides) instead.\n\nOverrides the settings for the specified instances in the Elasticsearch cluster.",
         "operationId" : "set-es-cluster-instances-settings-overrides",
         "consumes" : [ "application/json" ],
         "parameters" : [ {
@@ -4507,7 +4397,7 @@
       "get" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Get settings from this cluster's keystore",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Returns the available keys in the keystore.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [set Elasticsearch keystore contents](#get-deployment-es-resource-keystore) instead.\n\nReturns the available keys in the keystore.",
         "operationId" : "get-es-cluster-keystore",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -4536,11 +4426,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Elasticsearch - CRUD - Configuration"
         }
@@ -4548,7 +4433,7 @@
       "patch" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Add or remove settings from the cluster keystore",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Adds the specified values to the Elasticsearch keystore, or removes the keys for the unspecified values.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [set Elasticsearch keystore contents](#set-deployment-es-resource-keystore) instead.\n\nAdds the specified values to the Elasticsearch keystore, or removes the keys for the unspecified values.",
         "operationId" : "set-es-cluster-keystore",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -4585,11 +4470,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Elasticsearch - CRUD - Configuration"
         }
@@ -4599,7 +4479,7 @@
       "put" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Set cluster name",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Assigns a name to the Elasticsearch cluster.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [update deployment](#update-deployment) instead.\n\nAssigns a name to the Elasticsearch cluster.",
         "operationId" : "set-es-cluster-name",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -4634,11 +4514,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Elasticsearch - CRUD - Configuration"
         }
@@ -4648,7 +4523,7 @@
       "get" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Get cluster metadata",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Advanced use only. Retrieves the internal cluster metadata, in free-form JSON, for the Elasticsearch cluster.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [get deployment](#get-deployment) instead.\n\nAdvanced use only. Retrieves the internal cluster metadata, in free-form JSON, for the Elasticsearch cluster.",
         "operationId" : "get-es-cluster-metadata-raw",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -4685,11 +4560,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Elasticsearch - CRUD - Configuration"
         }
@@ -4697,7 +4567,7 @@
       "post" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Set cluster metadata",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Advanced use only. Sets the internal metadata, in free-form JSON, for the Elasticsearch cluster.\nOnly use the parameter to set the modified JSON that is returned from the get version of the metadata.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [set resource raw metadata](#set-deployment-resource-raw-metadata) instead.\n\nAdvanced use only. Sets the internal metadata, in free-form JSON, for the Elasticsearch cluster.\nOnly use the parameter to set the modified JSON that is returned from the get version of the metadata.",
         "operationId" : "set-es-cluster-metadata-raw",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -4754,11 +4624,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Elasticsearch - CRUD - Configuration"
         }
@@ -4768,7 +4633,7 @@
       "get" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Get cluster metadata settings",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Retrieves a structured version of the cluster metadata as a collection of top-level settings. If a particular setting isn't returned, then the free-form JSON endpoint (`/metadata/raw`) must be used.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [get deployment](#get-deployment) instead.\n\nRetrieves a structured version of the cluster metadata as a collection of top-level settings. If a particular setting isn't returned, then the free-form JSON endpoint (`/metadata/raw`) must be used.",
         "operationId" : "get-es-cluster-metadata-settings",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -4805,11 +4670,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Elasticsearch - CRUD - Configuration"
         }
@@ -4817,7 +4677,7 @@
       "patch" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Update cluster metadata settings",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): All changes in the specified object are applied to the metadata object according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [update deployment](#update-deployment) instead.\n\nAll changes in the specified object are applied to the metadata object according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.",
         "operationId" : "update-es-cluster-metadata-settings",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -4880,11 +4740,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Elasticsearch - CRUD - Configuration"
         }
@@ -4894,7 +4749,7 @@
       "delete" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Cancel monitoring",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Deletes all monitoring destinations for the Elasticsearch cluster.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [update deployment](#update-deployment) instead.\n\nDeletes all monitoring destinations for the Elasticsearch cluster.",
         "operationId" : "cancel-es-cluster-monitoring",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -4923,11 +4778,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Elasticsearch - CRUD - Configuration"
         }
@@ -4937,7 +4787,7 @@
       "post" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Set monitoring",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Overwrites or creates the monitoring destination for the Elasticsearch cluster.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [update deployment](#update-deployment) instead.\n\nOverwrites or creates the monitoring destination for the Elasticsearch cluster.",
         "operationId" : "set-es-cluster-monitoring",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -4972,11 +4822,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Elasticsearch - CRUD - Configuration"
         }
@@ -4986,7 +4831,7 @@
       "get" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Get plan",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Retrieves the active plan of the Elasticsearch cluster. Transient settings are not show by this endpoint. To view the transient settings that have been applied with a specific plan, use the activity endpoint.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [get deployment](#get-deployment) instead.\n\nRetrieves the active plan of the Elasticsearch cluster. Transient settings are not show by this endpoint. To view the transient settings that have been applied with a specific plan, use the activity endpoint.",
         "operationId" : "get-es-cluster-plan",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -5071,7 +4916,7 @@
       "post" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Update plan",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Updates the configuration of the Elasticsearch cluster.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [update deployment](#update-deployment) instead.\n\nUpdates the configuration of the Elasticsearch cluster.",
         "operationId" : "update-es-cluster-plan",
         "consumes" : [ "application/json" ],
         "parameters" : [ {
@@ -5171,7 +5016,7 @@
       "post" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Migrate plan",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Migrates the configuration of the Elasticsearch cluster to a different template.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version.\n\nMigrates the configuration of the Elasticsearch cluster to a different template.",
         "operationId" : "migrate-es-cluster-plan",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -5268,7 +5113,7 @@
       "get" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Get plan activity",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Retrieves the active and historical plan information for the Elasticsearch cluster.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [get deployment](#get-deployment) instead.\n\nRetrieves the active and historical plan information for the Elasticsearch cluster.",
         "operationId" : "get-es-cluster-plan-activity",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -5335,7 +5180,7 @@
       "get" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Get pending plan",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Retrieves the pending plan of the cluster.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [get deployment](#get-deployment) instead.\n\nRetrieves the pending plan of the cluster.",
         "operationId" : "get-es-cluster-pending-plan",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -5420,7 +5265,7 @@
       "delete" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Cancel pending plan",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Cancels the pending plan of the Elasticsearch cluster.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [cancel resource pending plan](#cancel-deployment-resource-pending-plan) instead.\n\nCancels the pending plan of the Elasticsearch cluster.",
         "operationId" : "cancel-es-cluster-pending-plan",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -5499,7 +5344,7 @@
       "get" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Proxies HTTP GET request to the cluster",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Proxies HTTP GET request to the cluster. Requires that HTTP header X-Management-Request be specified. This endpoint is for management use and does not provide high performance.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [proxy `GET` request to resource](#get-deployment-resource-proxy-requests) instead.\n\nProxies HTTP GET request to the cluster. Requires that HTTP header X-Management-Request be specified. This endpoint is for management use and does not provide high performance.",
         "operationId" : "get-es-proxy-requests",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -5539,11 +5384,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Elasticsearch - Proxy"
         }
@@ -5551,7 +5391,7 @@
       "post" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Proxies HTTP POST request to the cluster",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Proxies HTTP POST request to the cluster. Requires that HTTP header X-Management-Request be specified. This endpoint is for management use and does not provide high performance.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [proxy `POST` request to resource](#post-deployment-resource-proxy-requests) instead.\n\nProxies HTTP POST request to the cluster. Requires that HTTP header X-Management-Request be specified. This endpoint is for management use and does not provide high performance.",
         "operationId" : "post-es-proxy-requests",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -5591,11 +5431,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Elasticsearch - Proxy"
         }
@@ -5603,7 +5438,7 @@
       "put" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Proxies HTTP PUT request to the cluster",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Proxies HTTP PUT request to the cluster. Requires that HTTP header X-Management-Request be specified. This endpoint is for management use and does not provide high performance.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [proxy `PUT` request to resource](#put-deployment-resource-proxy-requests) instead.\n\nProxies HTTP PUT request to the cluster. Requires that HTTP header X-Management-Request be specified. This endpoint is for management use and does not provide high performance.",
         "operationId" : "put-es-proxy-requests",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -5643,11 +5478,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Elasticsearch - Proxy"
         }
@@ -5655,7 +5485,7 @@
       "delete" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Proxies HTTP DELETE request to the cluster",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Proxies HTTP DELETE request to the cluster. Requires that HTTP header X-Management-Request be specified. This endpoint is for management use and does not provide high performance.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [proxy `DELETE` request to resource](#delete-deployment-resource-proxy-requests) instead.\n\nProxies HTTP DELETE request to the cluster. Requires that HTTP header X-Management-Request be specified. This endpoint is for management use and does not provide high performance.",
         "operationId" : "delete-es-proxy-requests",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -5695,11 +5525,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Elasticsearch - Proxy"
         }
@@ -5709,7 +5534,7 @@
       "put" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Set legacy security settings",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Sets the legacy Shield security settings for a 2.x Elasticsearch cluster.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version.\n\nSets the legacy Shield security settings for a 2.x Elasticsearch cluster.",
         "operationId" : "set-es-cluster-legacy-security-settings",
         "consumes" : [ "application/json" ],
         "parameters" : [ {
@@ -5770,7 +5595,7 @@
       "get" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Get cluster snapshot settings",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Gets cluster snapshot settings.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [get deployment](#get-deployment) instead.\n\nGets cluster snapshot settings.",
         "operationId" : "get-es-cluster-snapshot-settings",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -5807,11 +5632,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Elasticsearch - CRUD - Configuration"
         }
@@ -5819,7 +5639,7 @@
       "patch" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Update cluster snapshot settings",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): All changes in the specified object are applied to the snapshot settings according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [update deployment](#update-deployment) instead.\n\nAll changes in the specified object are applied to the snapshot settings according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.",
         "operationId" : "update-es-cluster-snapshot-settings",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -5882,11 +5702,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Elasticsearch - CRUD - Configuration"
         }
@@ -5896,7 +5711,7 @@
       "get" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Generate diagnostics",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Retrieves a support diagnostic bundle from an active Elasticsearch cluster. To successfully retrieve a support diagnostic bundle, the cluster must be responsive.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [capture resource diagnostics](#capture-deployment-resource-diagnostics) instead.\n\nRetrieves a support diagnostic bundle from an active Elasticsearch cluster. To successfully retrieve a support diagnostic bundle, the cluster must be responsive.",
         "operationId" : "generate-es-cluster-diagnostics",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -5936,7 +5751,7 @@
       "get" : {
         "tags" : [ "ClustersElasticsearch" ],
         "summary" : "Generate logs",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Retrieves the log file for the Elasticsearch cluster.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version.\n\nRetrieves the log file for the Elasticsearch cluster.",
         "operationId" : "generate-es-cluster-logs",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -5982,7 +5797,7 @@
       "get" : {
         "tags" : [ "ClustersEnterpriseSearch" ],
         "summary" : "Proxy HTTP GET request",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Proxies the HTTP GET request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [proxy `GET` request to resource](#get-deployment-resource-proxy-requests) instead.\n\nProxies the HTTP GET request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.",
         "operationId" : "get-enterprise-search-proxy-requests",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -6014,11 +5829,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Enterprise Search - Proxy"
         }
@@ -6026,7 +5836,7 @@
       "post" : {
         "tags" : [ "ClustersEnterpriseSearch" ],
         "summary" : "Proxy HTTP POST request",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Proxies the HTTP POST request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [proxy `POST` request to resource](#post-deployment-resource-proxy-requests) instead.\n\nProxies the HTTP POST request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.",
         "operationId" : "post-enterprise-search-proxy-requests",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -6066,11 +5876,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Enterprise Search - Proxy"
         }
@@ -6078,7 +5883,7 @@
       "put" : {
         "tags" : [ "ClustersEnterpriseSearch" ],
         "summary" : "Proxy HTTP PUT request",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Proxies the HTTP PUT request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [proxy `PUT` request to resource](#put-deployment-resource-proxy-requests) instead.\n\nProxies the HTTP PUT request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.",
         "operationId" : "put-enterprise-search-proxy-requests",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -6118,11 +5923,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Enterprise Search - Proxy"
         }
@@ -6130,7 +5930,7 @@
       "delete" : {
         "tags" : [ "ClustersEnterpriseSearch" ],
         "summary" : "Proxy HTTP DELETE request",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Proxies the HTTP DELETE request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [proxy `DELETE` request to resource](#delete-deployment-resource-proxy-requests) instead.\n\nProxies the HTTP DELETE request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.",
         "operationId" : "delete-enterprise-search-proxy-requests",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -6162,11 +5962,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Enterprise Search - Proxy"
         }
@@ -6176,7 +5971,7 @@
       "get" : {
         "tags" : [ "ClustersKibana" ],
         "summary" : "Get clusters",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Retrieves the information for all Kibana instances.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [get deployments](#list-deployments) instead.\n\nRetrieves the information for all Kibana instances.",
         "operationId" : "get-kibana-clusters",
         "parameters" : [ {
           "name" : "from",
@@ -6241,11 +6036,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Kibana - CRUD"
         }
@@ -6253,7 +6043,7 @@
       "post" : {
         "tags" : [ "ClustersKibana" ],
         "summary" : "Create cluster",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Creates a Kibana instance for the Elasticsearch cluster.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [update deployment](#update-deployment) instead.\n\nCreates a Kibana instance for the Elasticsearch cluster.",
         "operationId" : "create-kibana-cluster",
         "parameters" : [ {
           "in" : "body",
@@ -6297,11 +6087,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Kibana - CRUD"
         }
@@ -6311,7 +6096,7 @@
       "post" : {
         "tags" : [ "ClustersKibana" ],
         "summary" : "Resynchronize clusters",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Asynchronously resynchronizes the search index for all Kibana instances.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [resynchronize deployments](#resync-deployments) instead.\n\nAsynchronously resynchronizes the search index for all Kibana instances.",
         "operationId" : "resync-kibana-clusters",
         "parameters" : [ {
           "name" : "skip_matching_version",
@@ -6351,7 +6136,7 @@
       "post" : {
         "tags" : [ "ClustersKibana" ],
         "summary" : "Search clusters",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Retrieves the information for all of the Kibana instances that match the specified query.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [search deployments](#search-deployments) instead.\n\nRetrieves the information for all of the Kibana instances that match the specified query.",
         "operationId" : "search-kibana-clusters",
         "parameters" : [ {
           "in" : "body",
@@ -6376,11 +6161,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Kibana - Commands"
         }
@@ -6390,7 +6170,7 @@
       "get" : {
         "tags" : [ "ClustersKibana" ],
         "summary" : "Get cluster",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Retrieves the Kibana instance information.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [get deployment](#get-deployment) instead.\n\nRetrieves the Kibana instance information.",
         "operationId" : "get-kibana-cluster",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -6469,7 +6249,7 @@
       "delete" : {
         "tags" : [ "ClustersKibana" ],
         "summary" : "Delete cluster",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Deletes the Kibana instance.\nBefore you delete the Kibana instance, you must first successfully issue a `_shutdown` command.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [delete resource](#delete-deployment-stateless-resource) instead.\n\nDeletes the Kibana instance.<br>Before you delete the Kibana instance, you must first successfully issue a `_shutdown` command.",
         "operationId" : "delete-kibana-cluster",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -6504,11 +6284,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Kibana - CRUD"
         }
@@ -6518,7 +6293,7 @@
       "post" : {
         "tags" : [ "ClustersKibana" ],
         "summary" : "Restart cluster",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Restarts the Kibana instance. When you restart an active instance, the existing plan is used and a `cluster_reboot` is applied. A `cluster_reboot` issues a Kibana restart command, then waits for the command to complete. When you restart an inactive instance, the most recent successful plan is applied.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [restart resource](#restart-deployment-stateless-resource) instead.\n\nRestarts the Kibana instance. When you restart an active instance, the existing plan is used and a `cluster_reboot` is applied. A `cluster_reboot` issues a Kibana restart command, then waits for the command to complete. When you restart an inactive instance, the most recent successful plan is applied.",
         "operationId" : "restart-kibana-cluster",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -6590,7 +6365,7 @@
       "post" : {
         "tags" : [ "ClustersKibana" ],
         "summary" : "Resynchronize cluster",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Immediately resynchronizes the search index and cache for the selected Kibana instance.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [resynchronize deployment](#resync-deployment) instead.\n\nImmediately resynchronizes the search index and cache for the selected Kibana instance.",
         "operationId" : "resync-kibana-cluster",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -6642,7 +6417,7 @@
       "post" : {
         "tags" : [ "ClustersKibana" ],
         "summary" : "Shut down cluster",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Shuts down the active Kibana instance and removes all of the instance nodes. The instance definition is retained. WARNING: To avoid data loss, save the snapshot repository before you shut down the instance.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [shutdown resource](#shutdown-deployment-stateless-resource) instead.\n\nShuts down the active Kibana instance and removes all of the instance nodes. The instance definition is retained. WARNING: To avoid data loss, save the snapshot repository before you shut down the instance.",
         "operationId" : "shutdown-kibana-cluster",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -6701,7 +6476,7 @@
       "post" : {
         "tags" : [ "ClustersKibana" ],
         "summary" : "Upgrade cluster",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Upgrades an active Kibana instance.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [upgrade resource](#upgrade-deployment-stateless-resource) instead.\n\nUpgrades an active Kibana instance.",
         "operationId" : "upgrade-kibana-cluster",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -6760,7 +6535,7 @@
       "post" : {
         "tags" : [ "ClustersKibana" ],
         "summary" : "Move instances (advanced)",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Moves one or more Kibana instances. The custom configuration settings are posted in the body.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version.\n\nMoves one or more Kibana instances. The custom configuration settings are posted in the body.",
         "operationId" : "move-kibana-cluster-instances-advanced",
         "consumes" : [ "application/json" ],
         "parameters" : [ {
@@ -6861,7 +6636,7 @@
       "post" : {
         "tags" : [ "ClustersKibana" ],
         "summary" : "Start all instances",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Starts all of the Kibana instances.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [start all resource instances](#start-deployment-resource-instances-all) instead.\n\nStarts all of the Kibana instances.",
         "operationId" : "start-kibana-cluster-instances-all",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -6926,7 +6701,7 @@
       "post" : {
         "tags" : [ "ClustersKibana" ],
         "summary" : "Stop all instances",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Stops all of the Kibana instances.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [stop all resource instances](#stop-deployment-resource-instances-all) instead.\n\nStops all of the Kibana instances.",
         "operationId" : "stop-kibana-cluster-instances-all",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -6991,7 +6766,7 @@
       "post" : {
         "tags" : [ "ClustersKibana" ],
         "summary" : "Start maintenance mode all instances",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Starts maintenance mode on all of the Kibana instances.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [start maintenance mode on all resource instances](#start-deployment-resource-instances-all-maintenance-mode) instead.\n\nStarts maintenance mode on all of the Kibana instances.",
         "operationId" : "start-kibana-cluster-instances-all-maintenance-mode",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -7056,7 +6831,7 @@
       "post" : {
         "tags" : [ "ClustersKibana" ],
         "summary" : "Stop maintenance mode all instances",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Stops maintenance mode on all of the Kibana instances.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [stop maintenance mode on all resource instances](#stop-deployment-resource-instances-all-maintenance-mode) instead.\n\nStops maintenance mode on all of the Kibana instances.",
         "operationId" : "stop-kibana-cluster-instances-all-maintenance-mode",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -7121,7 +6896,7 @@
       "post" : {
         "tags" : [ "ClustersKibana" ],
         "summary" : "Move instances",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Moves one or more Kibana instances.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version.\n\nMoves one or more Kibana instances.",
         "operationId" : "move-kibana-cluster-instances",
         "consumes" : [ "application/json" ],
         "parameters" : [ {
@@ -7239,7 +7014,7 @@
       "post" : {
         "tags" : [ "ClustersKibana" ],
         "summary" : "Start instances",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Starts the specified Kibana instances.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [start resource instances](#start-deployment-resource-instances) instead.\n\nStarts the specified Kibana instances.",
         "operationId" : "start-kibana-cluster-instances",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -7321,7 +7096,7 @@
       "post" : {
         "tags" : [ "ClustersKibana" ],
         "summary" : "Stop instances",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Stops the specified Kibana instances.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [stop resource instances](#stop-deployment-resource-instances) instead.\n\nStops the specified Kibana instances.",
         "operationId" : "stop-kibana-cluster-instances",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -7403,7 +7178,7 @@
       "post" : {
         "tags" : [ "ClustersKibana" ],
         "summary" : "Start maintenance mode",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Starts maintenance mode on the specified Kibana instances.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [start maintenance mode on resource instances](#start-deployment-resource-maintenance-mode) instead.\n\nStarts maintenance mode on the specified Kibana instances.",
         "operationId" : "start-kibana-cluster-maintenance-mode",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -7485,7 +7260,7 @@
       "post" : {
         "tags" : [ "ClustersKibana" ],
         "summary" : "Stop maintenance mode",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Stops maintenance mode on the specified Kibana instances.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [stop maintenance mode on resource instances](#stop-deployment-resource-maintenance-mode) instead.\n\nStops maintenance mode on the specified Kibana instances.",
         "operationId" : "stop-kibana-cluster-maintenance-mode",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -7567,7 +7342,7 @@
       "put" : {
         "tags" : [ "ClustersKibana" ],
         "summary" : "Set cluster name",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Assigns a name to the Kibana instance.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [update deployment](#update-deployment) instead.\n\nAssigns a name to the Kibana instance.",
         "operationId" : "set-kibana-cluster-name",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -7602,11 +7377,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Kibana - CRUD - Configuration"
         }
@@ -7616,7 +7386,7 @@
       "get" : {
         "tags" : [ "ClustersKibana" ],
         "summary" : "Get cluster metadata",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Advanced use only. Retrieves the internal metadata, in free-form JSON, for the Kibana instance.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [get deployment](#get-deployment) instead.\n\nAdvanced use only. Retrieves the internal metadata, in free-form JSON, for the Kibana instance.",
         "operationId" : "get-kibana-cluster-metadata-raw",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -7639,11 +7409,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Kibana - CRUD - Configuration"
         }
@@ -7651,7 +7416,7 @@
       "post" : {
         "tags" : [ "ClustersKibana" ],
         "summary" : "Set cluster metadata",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Advanced use only. Sets the internal metadata, in free-form JSON, for the Kibana instance.\nOnly use the parameter to set the modified JSON that is returned from the get version of the metadata.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [set resource raw metadata](#set-deployment-resource-raw-metadata) instead.\n\nAdvanced use only. Sets the internal metadata, in free-form JSON, for the Kibana instance.\nOnly use the parameter to set the modified JSON that is returned from the get version of the metadata.",
         "operationId" : "set-kibana-cluster-metadata-raw",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -7708,11 +7473,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Kibana - CRUD - Configuration"
         }
@@ -7722,7 +7482,7 @@
       "get" : {
         "tags" : [ "ClustersKibana" ],
         "summary" : "Get cluster metadata settings",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Retrieves a structured version of the cluster metadata as a collection of top-level settings. If a particular setting isn't returned, then the free-form JSON endpoint (`/metadata/raw`) must be used.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [get deployment](#get-deployment) instead.\n\nRetrieves a structured version of the cluster metadata as a collection of top-level settings. If a particular setting isn't returned, then the free-form JSON endpoint (`/metadata/raw`) must be used.",
         "operationId" : "get-kibana-cluster-metadata-settings",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -7759,11 +7519,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Kibana - CRUD - Configuration"
         }
@@ -7771,7 +7526,7 @@
       "patch" : {
         "tags" : [ "ClustersKibana" ],
         "summary" : "Update cluster metadata settings",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): All changes in the specified object are applied to the metadata object according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [update deployment](#update-deployment) instead.\n\nAll changes in the specified object are applied to the metadata object according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.",
         "operationId" : "update-kibana-cluster-metadata-settings",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -7834,11 +7589,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Kibana - CRUD - Configuration"
         }
@@ -7848,7 +7598,7 @@
       "get" : {
         "tags" : [ "ClustersKibana" ],
         "summary" : "Get plan",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Retrieves the active plan of the Kibana instance. Transient settings are not show by this endpoint. To view the transient settings that have been applied with a specific plan, use the activity endpoint.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [get deployment](#get-deployment) instead.\n\nRetrieves the active plan of the Kibana instance. Transient settings are not show by this endpoint. To view the transient settings that have been applied with a specific plan, use the activity endpoint.",
         "operationId" : "get-kibana-cluster-plan",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -7905,11 +7655,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Kibana - CRUD - Configuration"
         }
@@ -7917,7 +7662,7 @@
       "post" : {
         "tags" : [ "ClustersKibana" ],
         "summary" : "Update plan",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Updates the configuration of the Kibana instance.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [update deployment](#update-deployment) instead.\n\nUpdates the configuration of the Kibana instance.",
         "operationId" : "update-kibana-cluster-plan",
         "parameters" : [ {
           "in" : "body",
@@ -7973,11 +7718,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Kibana - CRUD - Configuration"
         }
@@ -7987,7 +7727,7 @@
       "get" : {
         "tags" : [ "ClustersKibana" ],
         "summary" : "Get plan activity",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Retrieves the active and historical plan information for the Kibana instance.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [get deployment](#get-deployment) instead.\n\nRetrieves the active and historical plan information for the Kibana instance.",
         "operationId" : "get-kibana-cluster-plan-activity",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -8047,7 +7787,7 @@
       "get" : {
         "tags" : [ "ClustersKibana" ],
         "summary" : "Get pending plan",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Retrieves the pending plan of the Kibana instance.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [get deployment](#get-deployment) instead.\n\nRetrieves the pending plan of the Kibana instance.",
         "operationId" : "get-kibana-cluster-pending-plan",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -8104,11 +7844,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Kibana - CRUD - Configuration"
         }
@@ -8116,7 +7851,7 @@
       "delete" : {
         "tags" : [ "ClustersKibana" ],
         "summary" : "Cancel pending plan",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Cancels the pending plan of the Kibana instance.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [cancel resource pending plan](#cancel-deployment-resource-pending-plan) instead.\n\nCancels the pending plan of the Kibana instance.",
         "operationId" : "cancel-kibana-cluster-pending-plan",
         "parameters" : [ {
           "name" : "ignore_missing",
@@ -8165,11 +7900,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Kibana - CRUD - Configuration"
         }
@@ -8179,7 +7909,7 @@
       "get" : {
         "tags" : [ "ClustersKibana" ],
         "summary" : "Proxy HTTP GET request",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Proxies the HTTP GET request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [proxy `GET` request to resource](#get-deployment-resource-proxy-requests) instead.\n\nProxies the HTTP GET request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.",
         "operationId" : "get-kib-proxy-requests",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -8211,11 +7941,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Kibana - Proxy"
         }
@@ -8223,7 +7948,7 @@
       "post" : {
         "tags" : [ "ClustersKibana" ],
         "summary" : "Proxy HTTP POST request",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Proxies the HTTP POST request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [proxy `POST` request to resource](#post-deployment-resource-proxy-requests) instead.\n\nProxies the HTTP POST request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.",
         "operationId" : "post-kib-proxy-requests",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -8263,11 +7988,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Kibana - Proxy"
         }
@@ -8275,7 +7995,7 @@
       "put" : {
         "tags" : [ "ClustersKibana" ],
         "summary" : "Proxy HTTP PUT request",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Proxies the HTTP PUT request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [proxy `PUT` request to resource](#put-deployment-resource-proxy-requests) instead.\n\nProxies the HTTP PUT request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.",
         "operationId" : "put-kib-proxy-requests",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -8315,11 +8035,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Kibana - Proxy"
         }
@@ -8327,7 +8042,7 @@
       "delete" : {
         "tags" : [ "ClustersKibana" ],
         "summary" : "Proxy HTTP DELETE request",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Proxies the HTTP DELETE request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [proxy `DELETE` request to resource](#delete-deployment-resource-proxy-requests) instead.\n\nProxies the HTTP DELETE request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.",
         "operationId" : "delete-kib-proxy-requests",
         "parameters" : [ {
           "name" : "cluster_id",
@@ -8359,11 +8074,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Clusters - Kibana - Proxy"
         }
@@ -9465,11 +9175,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployments - IP Filtering - CRUD"
         }
@@ -9503,11 +9208,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployments - IP Filtering - CRUD"
         }
@@ -9552,11 +9252,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployments - IP Filtering - CRUD"
         }
@@ -9616,11 +9311,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployments - IP Filtering - CRUD"
         }
@@ -9671,11 +9361,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployments - IP Filtering - CRUD"
         }
@@ -9724,11 +9409,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployments - IP Filtering - CRUD"
         }
@@ -9761,11 +9441,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployments - IP Filtering - CRUD"
         }
@@ -9816,11 +9491,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployments - IP Filtering - CRUD"
         }
@@ -9871,11 +9541,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Deployments - IP Filtering - CRUD"
         }
@@ -9900,6 +9565,13 @@
           "required" : false,
           "type" : "boolean",
           "default" : true
+        }, {
+          "name" : "show_max_zones",
+          "in" : "query",
+          "description" : "If true, will populate the max_zones field in the instance configurations. Only relevant if show_instance_configurations=true.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
         }, {
           "name" : "stack_version",
           "in" : "query",
@@ -10066,6 +9738,13 @@
           "required" : false,
           "type" : "boolean",
           "default" : true
+        }, {
+          "name" : "show_max_zones",
+          "in" : "query",
+          "description" : "If true, will populate the max_zones field in the instance configurations. Only relevant if show_instance_configurations=true.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
         }, {
           "name" : "stack_version",
           "in" : "query",
@@ -12397,8 +12076,8 @@
     "/deployments/{deployment_id}/elasticsearch/{ref_id}/keystore" : {
       "get" : {
         "tags" : [ "Deployments" ],
-        "summary" : "Get the settings from the Elasticsearch resource keystore",
-        "description" : "Adds the specified values to the Elasticsearch keystore, or removes the keys for the unspecified values.",
+        "summary" : "Get the items in the Elasticsearch resource keystore",
+        "description" : "Fetches the current values of the keystore for the Elasticsearch resource.",
         "operationId" : "get-deployment-es-resource-keystore",
         "parameters" : [ {
           "name" : "deployment_id",
@@ -12415,7 +12094,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "The new value for the keystore contents",
+            "description" : "The contents of the Elasticsearch keystore",
             "schema" : {
               "$ref" : "#/definitions/KeystoreContents"
             }
@@ -12466,8 +12145,8 @@
       },
       "patch" : {
         "tags" : [ "Deployments" ],
-        "summary" : "Add or remove settings from the Elasticsearch resource keystore",
-        "description" : "Fetches the current values of the keystore for the Elasticsearch resource.",
+        "summary" : "Add or remove items from the Elasticsearch resource keystore",
+        "description" : "Adds the specified values to the Elasticsearch keystore, or removes the keys for the unspecified values.",
         "operationId" : "set-deployment-es-resource-keystore",
         "consumes" : [ "application/json" ],
         "parameters" : [ {
@@ -12493,7 +12172,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "The new value for the keystore contents",
+            "description" : "The new contents of the Elasticsearch keystore",
             "schema" : {
               "$ref" : "#/definitions/KeystoreContents"
             }
@@ -13322,6 +13001,84 @@
         }
       }
     },
+    "/deployments/{deployment_id}/{resource_kind}/{ref_id}/diagnostics/_capture" : {
+      "post" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Capture diagnostics for an Elasticsearch or Kibana resource",
+        "description" : "Retrieves a diagnostic bundle from an active cluster. To successfully retrieve a diagnostic bundle, the cluster must be responsive.",
+        "operationId" : "capture-deployment-resource-diagnostics",
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "resource_kind",
+          "in" : "path",
+          "description" : "The kind of resource (one of elasticsearch or kibana).",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "ref_id",
+          "in" : "path",
+          "description" : "User-specified RefId for the Resource",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The diagnostic bundle as a zip file",
+            "schema" : {
+              "type" : "string",
+              "format" : "byte"
+            }
+          },
+          "404" : {
+            "description" : "* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)\n* The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.deployment_not_found", "deployments.deployment_resource_not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "412" : {
+            "description" : "The diagnostics cannot be generated because the cluster is either stopped or initializing. (code: `clusters.cluster_plan_state_error`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "clusters.cluster_plan_state_error" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "449" : {
+            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "x-doc" : {
+          "tag" : "Deployment - Diagnostics"
+        }
+      }
+    },
     "/deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/_start" : {
       "post" : {
         "tags" : [ "Deployments" ],
@@ -13657,6 +13414,86 @@
                 "type" : "string",
                 "description" : "The error codes associated with the response",
                 "enum" : [ "deployments.deployment_resource_no_longer_exists" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "449" : {
+            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "x-doc" : {
+          "tag" : "Deployment - Commands"
+        }
+      }
+    },
+    "/deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/overrides" : {
+      "put" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Set size overrides",
+        "description" : "Applies size overrides for all of the instances belonging to the given resource.",
+        "operationId" : "set-all-instances-settings-overrides",
+        "consumes" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "resource_kind",
+          "in" : "path",
+          "description" : "The kind of resource. Only Elasticsearch resources are currently supported.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "ref_id",
+          "in" : "path",
+          "description" : "User-specified RefId for the Resource.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "restart_after_update",
+          "in" : "query",
+          "description" : "After overrides are set, restarts the instance to apply the changes.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "The overrides to apply to all instances. Capacity overrides the RAM size in MB of the instance, and storage multipler overrides the multiplier of the instance RAM size that determines the storage quota of the instance. Capacity must be in the range [1024, 65536] and storage multiplier must be in the range [1.0, 1000.0].",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/InstanceOverrides"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The updated overrides",
+            "schema" : {
+              "$ref" : "#/definitions/InstanceOverrides"
+            }
+          },
+          "404" : {
+            "description" : "* The deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)\n* The Resource specified by {ref_id} cannot by found. (code: `deployments.deployment_resource_not_found`)\n* The specified override was out of range. Capacity must be in the range [1024, 65536] and storage multiplier must be in the range [1.0, 1000.0]. (code: `instance_overrides.out_of_range`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.deployment_not_found", "deployments.deployment_resource_not_found", "instance_overrides.out_of_range" ]
               }
             },
             "schema" : {
@@ -14110,6 +13947,103 @@
         }
       }
     },
+    "/deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_ids}/overrides" : {
+      "put" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Set size overrides",
+        "description" : "Applies size overrides for the given instances belonging to the given resource.",
+        "operationId" : "set-instance-settings-overrides",
+        "consumes" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "resource_kind",
+          "in" : "path",
+          "description" : "The kind of resource. Only Elasticsearch resources are currently supported.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "ref_id",
+          "in" : "path",
+          "description" : "User-specified RefId for the Resource.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "instance_ids",
+          "in" : "path",
+          "description" : "A comma-separated list of instance identifiers.",
+          "required" : true,
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          },
+          "collectionFormat" : "csv"
+        }, {
+          "name" : "restart_after_update",
+          "in" : "query",
+          "description" : "After overrides are set, restarts the instance to apply the changes.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "ignore_missing",
+          "in" : "query",
+          "description" : "When `false` and a specified instance is missing, will return an error and not update any instances. When `true` will update only existing instances and not treat a missing instance as an error.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "The overrides to apply to the given instances. Capacity overrides the RAM size in MB of the instance, and storage multipler overrides the multiplier of the instance RAM size that determines the storage quota of the instance. Capacity must be in the range [1024, 65536] and storage multiplier must be in the range [1.0, 1000.0].",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/InstanceOverrides"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The updated overrides",
+            "schema" : {
+              "$ref" : "#/definitions/InstanceOverrides"
+            }
+          },
+          "404" : {
+            "description" : "* The deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)\n* The Resource specified by {ref_id} cannot by found. (code: `deployments.deployment_resource_not_found`)\n* One or more instances weren't found, and `ignore_missing` is false or unspecified. (code: `deployments.instances_missing_on_update_error`)\n* The specified override was out of range. Capacity must be in the range [1024, 65536] and storage multiplier must be in the range [1.0, 1000.0]. (code: `instance_overrides.out_of_range`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.deployment_not_found", "deployments.deployment_resource_not_found", "deployments.instances_missing_on_update_error", "instance_overrides.out_of_range" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "449" : {
+            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "x-doc" : {
+          "tag" : "Deployment - Commands"
+        }
+      }
+    },
     "/deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_id}/heap_dump/_capture" : {
       "post" : {
         "tags" : [ "Deployments" ],
@@ -14239,6 +14173,64 @@
                 "type" : "string",
                 "description" : "The error codes associated with the response",
                 "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "x-doc" : {
+          "tag" : "Deployment - Commands"
+        }
+      }
+    },
+    "/deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_id}/thread_dump/_capture" : {
+      "post" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Capture a new thread dump for the given instance",
+        "description" : "Captures a new thread dump for the given instance and returns the thread dump contents.",
+        "operationId" : "capture-deployment-instance-thread-dump",
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "resource_kind",
+          "in" : "path",
+          "description" : "The kind of resource (one of elasticsearch, kibana or apm).",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "ref_id",
+          "in" : "path",
+          "description" : "User-specified RefId for the Resource.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "instance_id",
+          "in" : "path",
+          "description" : "The instance identifier",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The thread dump contents",
+            "schema" : {
+              "type" : "string",
+              "format" : "byte"
+            }
+          },
+          "404" : {
+            "description" : "* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)\n* The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)\n* The specified instance cannot be found. (code: `deployments.instance_not_found_error`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.deployment_not_found", "deployments.deployment_resource_not_found", "deployments.instance_not_found_error" ]
               }
             },
             "schema" : {
@@ -14473,6 +14465,344 @@
         },
         "x-doc" : {
           "tag" : "Deployment Resources - CRUD"
+        }
+      }
+    },
+    "/deployments/{deployment_id}/{resource_kind}/{ref_id}/proxy/{proxy_path}" : {
+      "get" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Proxy HTTP GET request",
+        "description" : "Proxies the HTTP GET request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.",
+        "operationId" : "get-deployment-resource-proxy-requests",
+        "consumes" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "resource_kind",
+          "in" : "path",
+          "description" : "The kind of resource",
+          "required" : true,
+          "type" : "string",
+          "enum" : [ "elasticsearch", "kibana", "enterprise_search" ]
+        }, {
+          "name" : "ref_id",
+          "in" : "path",
+          "description" : "User-specified RefId for the Resource",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "proxy_path",
+          "in" : "path",
+          "description" : "The URL part to proxy to the deployment resource. Example: _cat/indices, /api/spaces/space or /api/ent/v1/internal/health",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "X-Management-Request",
+          "in" : "header",
+          "description" : "You must specify the `X-Management-Request` HTTP header with value `true`. NOTE: Use this endpoint for management purposes. It does not provide high performance.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "The JSON payload to proxy to the Elasticsearch cluster.",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The request has been processed successfully through the proxy.",
+            "schema" : {
+              "$ref" : "#/definitions/GenericResponse"
+            }
+          },
+          "404" : {
+            "description" : "* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)\n* The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)\n* The Resource specified by {ref_id} cannot be found. (code: `clusters.cluster_not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.deployment_not_found", "deployments.deployment_resource_not_found", "clusters.cluster_not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "449" : {
+            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "x-doc" : {
+          "tag" : "Deployment Resources - Proxy"
+        }
+      },
+      "post" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Proxy HTTP POST request",
+        "description" : "Proxies the HTTP POST request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.",
+        "operationId" : "post-deployment-resource-proxy-requests",
+        "consumes" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "resource_kind",
+          "in" : "path",
+          "description" : "The kind of resource",
+          "required" : true,
+          "type" : "string",
+          "enum" : [ "elasticsearch", "kibana", "enterprise_search" ]
+        }, {
+          "name" : "ref_id",
+          "in" : "path",
+          "description" : "User-specified RefId for the Resource",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "proxy_path",
+          "in" : "path",
+          "description" : "The URL part to proxy to the deployment resource. Example: _cat/indices, /api/spaces/space or /api/ent/v1/internal/health",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "X-Management-Request",
+          "in" : "header",
+          "description" : "You must specify the `X-Management-Request` HTTP header with value `true`. NOTE: Use this endpoint for management purposes. It does not provide high performance.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "The JSON payload to proxy to the Elasticsearch cluster.",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The request has been processed successfully through the proxy.",
+            "schema" : {
+              "$ref" : "#/definitions/GenericResponse"
+            }
+          },
+          "404" : {
+            "description" : "* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)\n* The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)\n* The Resource specified by {ref_id} cannot be found. (code: `clusters.cluster_not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.deployment_not_found", "deployments.deployment_resource_not_found", "clusters.cluster_not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "449" : {
+            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "x-doc" : {
+          "tag" : "Deployment Resources - Proxy"
+        }
+      },
+      "put" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Proxy HTTP PUT request",
+        "description" : "Proxies the HTTP PUT request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.",
+        "operationId" : "put-deployment-resource-proxy-requests",
+        "consumes" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "resource_kind",
+          "in" : "path",
+          "description" : "The kind of resource",
+          "required" : true,
+          "type" : "string",
+          "enum" : [ "elasticsearch", "kibana", "enterprise_search" ]
+        }, {
+          "name" : "ref_id",
+          "in" : "path",
+          "description" : "User-specified RefId for the Resource",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "proxy_path",
+          "in" : "path",
+          "description" : "The URL part to proxy to the deployment resource. Example: _cat/indices, /api/spaces/space or /api/ent/v1/internal/health",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "X-Management-Request",
+          "in" : "header",
+          "description" : "You must specify the `X-Management-Request` HTTP header with value `true`. NOTE: Use this endpoint for management purposes. It does not provide high performance.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "The JSON payload to proxy to the Elasticsearch cluster.",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The request has been processed successfully through the proxy.",
+            "schema" : {
+              "$ref" : "#/definitions/GenericResponse"
+            }
+          },
+          "404" : {
+            "description" : "* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)\n* The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)\n* The Resource specified by {ref_id} cannot be found. (code: `clusters.cluster_not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.deployment_not_found", "deployments.deployment_resource_not_found", "clusters.cluster_not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "449" : {
+            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "x-doc" : {
+          "tag" : "Deployment Resources - Proxy"
+        }
+      },
+      "delete" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Proxy HTTP DELETE request",
+        "description" : "Proxies the HTTP DELETE request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.",
+        "operationId" : "delete-deployment-resource-proxy-requests",
+        "consumes" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "resource_kind",
+          "in" : "path",
+          "description" : "The kind of resource",
+          "required" : true,
+          "type" : "string",
+          "enum" : [ "elasticsearch", "kibana", "enterprise_search" ]
+        }, {
+          "name" : "ref_id",
+          "in" : "path",
+          "description" : "User-specified RefId for the Resource",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "proxy_path",
+          "in" : "path",
+          "description" : "The URL part to proxy to the deployment resource. Example: _cat/indices, /api/spaces/space or /api/ent/v1/internal/health",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "X-Management-Request",
+          "in" : "header",
+          "description" : "You must specify the `X-Management-Request` HTTP header with value `true`. NOTE: Use this endpoint for management purposes. It does not provide high performance.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "The JSON payload to proxy to the Elasticsearch cluster.",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The request has been processed successfully through the proxy.",
+            "schema" : {
+              "$ref" : "#/definitions/GenericResponse"
+            }
+          },
+          "404" : {
+            "description" : "* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)\n* The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)\n* The Resource specified by {ref_id} cannot be found. (code: `clusters.cluster_not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.deployment_not_found", "deployments.deployment_resource_not_found", "clusters.cluster_not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "449" : {
+            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "x-doc" : {
+          "tag" : "Deployment Resources - Proxy"
         }
       }
     },
@@ -15151,6 +15481,13 @@
           "description" : "If true, instance configurations marked for deletions are also returned. Otherwise, only instance configurations not marked for deletion are returned",
           "required" : false,
           "type" : "boolean"
+        }, {
+          "name" : "show_max_zones",
+          "in" : "query",
+          "description" : "If true, will populate the max_zones field of the instance configurations.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
         } ],
         "responses" : {
           "200" : {
@@ -15163,11 +15500,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Platform - Configuration - Instances - CRUD"
         }
@@ -15212,11 +15544,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Platform - Configuration - Instances - CRUD"
         }
@@ -15240,6 +15567,13 @@
           "description" : "If true, if the instance configuration has been marked for deletion it is still returned. Otherwise, instance configurations marked for deletion generate a 404",
           "required" : false,
           "type" : "boolean"
+        }, {
+          "name" : "show_max_zones",
+          "in" : "query",
+          "description" : "If true, will populate the max_zones field of the instance configuration.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
         } ],
         "responses" : {
           "200" : {
@@ -15255,11 +15589,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Platform - Configuration - Instances - CRUD"
         }
@@ -15334,11 +15663,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Platform - Configuration - Instances - CRUD"
         }
@@ -15387,11 +15711,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Platform - Configuration - Instances - CRUD"
         }
@@ -15915,7 +16234,7 @@
       "post" : {
         "tags" : [ "PlatformConfigurationSecurity" ],
         "summary" : "Disables the security deployment",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Disables the existing security deployment configuration.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version.\n\nDisables the existing security deployment configuration.",
         "operationId" : "disable-security-deployment",
         "parameters" : [ {
           "name" : "version",
@@ -15994,7 +16313,7 @@
       "post" : {
         "tags" : [ "PlatformConfigurationSecurity" ],
         "summary" : "Enables the security deployment",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Enables the existing security deployment configuration.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version.\n\nEnables the existing security deployment configuration.",
         "operationId" : "enable-security-deployment",
         "parameters" : [ {
           "name" : "version",
@@ -16090,11 +16409,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Platform - Configuration - Security"
         }
@@ -16139,11 +16453,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Platform - Configuration - Security"
         }
@@ -16182,11 +16491,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Platform - Configuration - Security"
         }
@@ -17309,7 +17613,7 @@
           "description" : "The service certificate chain to read.",
           "required" : true,
           "type" : "string",
-          "enum" : [ "adminconsole", "proxy", "ui" ]
+          "enum" : [ "adminconsole", "proxy", "ui", "internalca" ]
         } ],
         "responses" : {
           "200" : {
@@ -17319,11 +17623,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Platform - Configuration - TLS"
         }
@@ -17339,7 +17638,7 @@
           "description" : "The service certificate chain to read.",
           "required" : true,
           "type" : "string",
-          "enum" : [ "adminconsole", "proxy", "ui" ]
+          "enum" : [ "adminconsole", "proxy", "ui", "internalca" ]
         }, {
           "in" : "body",
           "name" : "chain",
@@ -17353,7 +17652,7 @@
           "202" : {
             "description" : "The TLS update has been accepted for the given service and will take effect throughout the system",
             "schema" : {
-              "$ref" : "#/definitions/EmptyResponse"
+              "$ref" : "#/definitions/UpdatedTlsChain"
             }
           },
           "449" : {
@@ -17363,11 +17662,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Platform - Configuration - TLS"
         }
@@ -17388,11 +17682,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Platform - Repository - CRUD"
         }
@@ -17419,11 +17708,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Platform - Repository - CRUD"
         }
@@ -17468,11 +17752,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Platform - Repository - CRUD"
         }
@@ -17522,11 +17801,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Platform - Repository - CRUD"
         }
@@ -17815,6 +18089,13 @@
           "type" : "boolean",
           "default" : false
         }, {
+          "name" : "show_max_zones",
+          "in" : "query",
+          "description" : "If true, will populate the max_zones field in the instance configurations. Only relevant if show_instance_configurations=true.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
           "name" : "stack_version",
           "in" : "query",
           "description" : "If present, it will cause the returned deployment templates to be adapted to return only the elements allowed in that version.",
@@ -17970,6 +18251,13 @@
           "name" : "show_instance_configurations",
           "in" : "query",
           "description" : "If true, will return details for each instance configuration referenced by the template.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "show_max_zones",
+          "in" : "query",
+          "description" : "If true, will populate the max_zones field in the instance configurations. Only relevant if show_instance_configurations=true.",
           "required" : false,
           "type" : "boolean",
           "default" : false
@@ -18749,17 +19037,19 @@
           "in" : "query",
           "description" : "(Optional) The maximum number of search results to return. Defaults to 100.",
           "required" : false,
-          "type" : "integer"
+          "type" : "integer",
+          "default" : 100
         }, {
           "name" : "from",
           "in" : "query",
           "description" : "(Optional) The offset from the first result you want to fetch. Defaults to 0.",
           "required" : false,
-          "type" : "integer"
+          "type" : "integer",
+          "default" : 0
         }, {
           "name" : "sort",
           "in" : "query",
-          "description" : "(Optional) An comma-separated array of fields to sort the search results by. Defaults to `allocator_id`.",
+          "description" : "(Optional) A comma-separated array of fields to sort the search results by. Defaults to `allocator_id`.",
           "required" : false,
           "type" : "string"
         } ],
@@ -18771,11 +19061,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Platform - Allocators"
         }
@@ -18825,8 +19110,9 @@
       "post" : {
         "tags" : [ "PlatformInfrastructure" ],
         "summary" : "Search allocators",
-        "description" : "Retrieves the information for all of the allocators in the platform that match the specified query.",
+        "description" : "Retrieves the information for all the allocators in the platform that match a specified query.",
         "operationId" : "search-allocators",
+        "consumes" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -18842,19 +19128,8 @@
             "schema" : {
               "$ref" : "#/definitions/AllocatorOverview"
             }
-          },
-          "400" : {
-            "description" : "The search request failed",
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Platform - Allocators"
         }
@@ -22341,11 +22616,6 @@
             }
           }
         },
-        "security" : [ {
-          "basicAuth" : [ ]
-        }, {
-          "apiKey" : [ ]
-        } ],
         "x-doc" : {
           "tag" : "Stack - Instance Types - CRUD"
         }
@@ -23366,7 +23636,7 @@
       "post" : {
         "tags" : [ "Authentication" ],
         "summary" : "Re-authenticate to generate a token",
-        "description" : "DEPRECATED (Scheduled to be removed in the next major version): Re-authenticate.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version.\n\nRe-authenticate.",
         "operationId" : "re-authenticate",
         "consumes" : [ "application/json" ],
         "parameters" : [ {
@@ -24808,13 +25078,17 @@
           "type" : "string",
           "description" : "Set to 'forced' to force a reboot as part of the upgrade plan",
           "enum" : [ "forced" ]
+        },
+        "override_failsafe" : {
+          "type" : "boolean",
+          "description" : "If false (the default), the plan fails if it determines that the request can result in unsafe operations. Setting this flag overrides some of these check restraints."
         }
       },
       "description" : "The plan control configuration options for the APM Server."
     },
     "ApmPlanInfo" : {
       "type" : "object",
-      "required" : [ "healthy", "plan_attempt_log" ],
+      "required" : [ "healthy", "plan_attempt_log", "warnings" ],
       "properties" : {
         "plan_attempt_id" : {
           "type" : "string",
@@ -24855,6 +25129,12 @@
         "source" : {
           "description" : "Information describing the source that facilitated the plans current state",
           "$ref" : "#/definitions/ChangeSourceInfo"
+        },
+        "warnings" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/ClusterPlanWarning"
+          }
         }
       },
       "description" : "Information about the APM Server plan."
@@ -25240,12 +25520,16 @@
           "type" : "string",
           "description" : "Set to 'forced' to force a reboot as part of the upgrade plan",
           "enum" : [ "forced" ]
+        },
+        "override_failsafe" : {
+          "type" : "boolean",
+          "description" : "If false (the default), the plan fails if it determines that the request can result in unsafe operations. Setting this flag overrides some of these check restraints."
         }
       }
     },
     "AppSearchPlanInfo" : {
       "type" : "object",
-      "required" : [ "healthy", "plan_attempt_log" ],
+      "required" : [ "healthy", "plan_attempt_log", "warnings" ],
       "properties" : {
         "plan_attempt_id" : {
           "type" : "string",
@@ -25286,6 +25570,12 @@
         "source" : {
           "description" : "Information describing the source that facilitated the plans current state",
           "$ref" : "#/definitions/ChangeSourceInfo"
+        },
+        "warnings" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/ClusterPlanWarning"
+          }
         }
       },
       "description" : "Information about the App Search Server plan."
@@ -26205,6 +26495,25 @@
         }
       },
       "description" : "The log message from a specified stage of an executed step in a plan."
+    },
+    "ClusterPlanWarning" : {
+      "type" : "object",
+      "required" : [ "code", "message" ],
+      "properties" : {
+        "code" : {
+          "type" : "string",
+          "description" : "A unique warning code"
+        },
+        "message" : {
+          "type" : "string",
+          "description" : "A description of the warning"
+        },
+        "step_id" : {
+          "type" : "string",
+          "description" : "The ID of the step which produced a warning, if any"
+        }
+      },
+      "description" : "Information about a warning from a plan."
     },
     "ClusterSnapshotRepositoryDefault" : {
       "type" : "object",
@@ -27269,6 +27578,10 @@
           "type" : "number",
           "format" : "double",
           "description" : "Price per hour"
+        },
+        "period" : {
+          "description" : "Period",
+          "$ref" : "#/definitions/Period"
         }
       },
       "description" : "Detailed costs for a deployment for an organization. All of the costs are expressed in Elastic Consumption Unit (ECU)."
@@ -27396,7 +27709,7 @@
       "type" : "object",
       "properties" : {
         "ip_filtering_settings" : {
-          "description" : "DEPRECATED (Scheduled to be removed in the next major version): The set of rulesets applies to this deployment.",
+          "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use traffic filter settings instead.\n\nThe set of rulesets applies to this deployment.",
           "$ref" : "#/definitions/IpFilteringSettings"
         },
         "traffic_filter_settings" : {
@@ -28366,7 +28679,7 @@
           "description" : "Threshold starting from which the number of instances in the cluster results in the introduction of dedicated masters. If the cluster is downscaled to a number of nodes below this one, dedicated masters will be removed. Limit is inclusive."
         },
         "ip_filtering" : {
-          "description" : "DEPRECATED (Scheduled to be removed in the next major version): The set of rulesets to apply for all the resources in this cluster. When specified the same rulesets will be applied to Kibana and APM clusters as well",
+          "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use traffic filter settings instead.\n\nThe set of rulesets to apply for all the resources in this cluster. When specified the same rulesets will be applied to Kibana and APM clusters as well",
           "$ref" : "#/definitions/IpFilteringSettings"
         },
         "traffic_filter" : {
@@ -28374,7 +28687,7 @@
           "$ref" : "#/definitions/TrafficFilterSettings"
         },
         "ccs" : {
-          "description" : "DEPRECATED (Scheduled to be removed in the next major version): Configuration of remote clusters. Use the /remote-clusters endpoints instead",
+          "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use the /remote-clusters endpoints instead.\n\nConfiguration of remote clusters.",
           "$ref" : "#/definitions/CrossClusterSearchSettings"
         }
       },
@@ -28635,7 +28948,7 @@
           "description" : "Whether or not this cluster is locked. Only populated in SaaS."
         },
         "ccs" : {
-          "description" : "DEPRECATED (Scheduled to be removed in the next major version): Cross-cluster search settings and status for this cluster. Use the /remote-clusters endpoints instead",
+          "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [remote clusters endpoints](#Deployment_-_Remote_Clusters) instead.\n\nCross-cluster search settings and status for this cluster.",
           "$ref" : "#/definitions/CrossClusterSearchInfo"
         }
       },
@@ -28699,7 +29012,7 @@
     },
     "ElasticsearchClusterPlanInfo" : {
       "type" : "object",
-      "required" : [ "healthy", "plan_attempt_log" ],
+      "required" : [ "healthy", "plan_attempt_log", "warnings" ],
       "properties" : {
         "plan_attempt_id" : {
           "type" : "string",
@@ -28740,6 +29053,12 @@
         "source" : {
           "description" : "Information describing the source that facilitated the plans current state",
           "$ref" : "#/definitions/ChangeSourceInfo"
+        },
+        "warnings" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/ClusterPlanWarning"
+          }
         }
       },
       "description" : "Information about the Elasticsearch cluster plan."
@@ -28839,7 +29158,7 @@
           "description" : "Threshold starting from which the number of instances in the cluster results in the introduction of dedicated masters. If the cluster is downscaled to a number of nodes below this one, dedicated masters will be removed. Limit is inclusive."
         },
         "ip_filtering" : {
-          "description" : "DEPRECATED (Scheduled to be removed in the next major version): The set of rulesets to apply for all the resources in this cluster. When specified the same rulesets will be applied to Kibana and APM clusters as well",
+          "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use traffic filter settings instead.\n\nThe set of rulesets to apply for all the resources in this cluster. When specified the same rulesets will be applied to Kibana and APM clusters as well",
           "$ref" : "#/definitions/IpFilteringSettings"
         },
         "traffic_filter" : {
@@ -28847,7 +29166,7 @@
           "$ref" : "#/definitions/TrafficFilterSettings"
         },
         "ccs" : {
-          "description" : "DEPRECATED (Scheduled to be removed in the next major version): Configuration of remote clusters. Use the /remote-clusters endpoints instead",
+          "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use the /remote-clusters endpoints instead.\n\nConfiguration of remote clusters.",
           "$ref" : "#/definitions/CrossClusterSearchSettings"
         },
         "trust" : {
@@ -29839,12 +30158,16 @@
           "type" : "string",
           "description" : "Set to 'forced' to force a reboot as part of the upgrade plan",
           "enum" : [ "forced" ]
+        },
+        "override_failsafe" : {
+          "type" : "boolean",
+          "description" : "If false (the default), the plan fails if it determines that the request can result in unsafe operations. Setting this flag overrides some of these check restraints."
         }
       }
     },
     "EnterpriseSearchPlanInfo" : {
       "type" : "object",
-      "required" : [ "healthy", "plan_attempt_log" ],
+      "required" : [ "healthy", "plan_attempt_log", "warnings" ],
       "properties" : {
         "plan_attempt_id" : {
           "type" : "string",
@@ -29885,6 +30208,12 @@
         "source" : {
           "description" : "Information describing the source that facilitated the plans current state",
           "$ref" : "#/definitions/ChangeSourceInfo"
+        },
+        "warnings" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/ClusterPlanWarning"
+          }
         }
       },
       "description" : "Information about the Enterprise Search Server plan."
@@ -30176,6 +30505,15 @@
       },
       "description" : "The association with a ruleset or user auth token for a deployment, template, or product."
     },
+    "GenericResponse" : {
+      "type" : "object",
+      "required" : [ "value" ],
+      "properties" : {
+        "value" : {
+          "type" : "string"
+        }
+      }
+    },
     "GlobalDeploymentTemplateInfo" : {
       "type" : "object",
       "required" : [ "description", "name", "order", "regions" ],
@@ -30404,6 +30742,12 @@
           "type" : "number",
           "format" : "double",
           "description" : "Settings for the instance CPU multiplier"
+        },
+        "max_zones" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The maximum number of availability zones in which this instance configuration has allocators. This field will be missing unless explicitly requested with the show_max_zones parameter.",
+          "readOnly" : true
         }
       },
       "description" : "The configuration template for Elasticsearch instances, Kibana instances, and APM Servers."
@@ -30448,6 +30792,12 @@
           "type" : "number",
           "format" : "double",
           "description" : "Settings for the instance CPU multiplier"
+        },
+        "max_zones" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The maximum number of availability zones in which this instance configuration has allocators. This field will be missing unless explicitly requested with the show_max_zones parameter.",
+          "readOnly" : true
         }
       },
       "description" : "The configuration template for Elasticsearch instances, Kibana instances, and APM Servers."
@@ -30473,6 +30823,21 @@
         }
       },
       "description" : "The request that specifies the Elasticsearch instances, Kibana instances, and APM Servers to move to allocators as part of the upgrade plan."
+    },
+    "InstanceOverrides" : {
+      "type" : "object",
+      "properties" : {
+        "capacity" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Sets the memory capacity for the instances container. Requires a restart to take effect."
+        },
+        "storage_multiplier" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Overrides the disk quota multiplier for the instance"
+        }
+      }
     },
     "InstanceTypeResource" : {
       "type" : "object",
@@ -30803,7 +31168,7 @@
     },
     "KibanaClusterPlanInfo" : {
       "type" : "object",
-      "required" : [ "healthy", "plan_attempt_log" ],
+      "required" : [ "healthy", "plan_attempt_log", "warnings" ],
       "properties" : {
         "plan_attempt_id" : {
           "type" : "string",
@@ -30844,6 +31209,12 @@
         "source" : {
           "description" : "Information describing the source that facilitated the plans current state",
           "$ref" : "#/definitions/ChangeSourceInfo"
+        },
+        "warnings" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/ClusterPlanWarning"
+          }
         }
       },
       "description" : "Information about the current, pending, or past Kibana instance plan."
@@ -31064,6 +31435,10 @@
           "type" : "string",
           "description" : "Set to 'forced' to force a reboot as part of the upgrade plan",
           "enum" : [ "forced" ]
+        },
+        "override_failsafe" : {
+          "type" : "boolean",
+          "description" : "If false (the default), the plan fails if it determines that the request can result in unsafe operations. Setting this flag overrides some of these check restraints."
         }
       },
       "description" : "The configuration settings for the timeout and fallback parameters."
@@ -33476,23 +33851,23 @@
       "properties" : {
         "principal" : {
           "type" : "string",
-          "description" : "The Name of the SAML attribute that contains the user's principal (username)"
+          "description" : "The name of the SAML attribute that contains the user's principal (username). This name should map to a value that does not contain commas or slashes."
         },
         "groups" : {
           "type" : "string",
-          "description" : "The Name of the SAML attribute that contains the user's groups"
+          "description" : "The name of the SAML attribute that contains the user's groups"
         },
         "name" : {
           "type" : "string",
-          "description" : "The Name of the SAML attribute that contains the user's full name"
+          "description" : "The name of the SAML attribute that contains the user's full name"
         },
         "mail" : {
           "type" : "string",
-          "description" : "The Name of the SAML attribute that contains the user's email address"
+          "description" : "The name of the SAML attribute that contains the user's email address"
         },
         "dn" : {
           "type" : "string",
-          "description" : "The Name of the SAML attribute that contains the user's X.50 Distinguished Name"
+          "description" : "The name of the SAML attribute that contains the user's X.50 Distinguished Name"
         }
       },
       "description" : "The mapping configuration for the Elasticsearch security SAML attribute."
@@ -34500,6 +34875,10 @@
         "chain_status" : {
           "description" : "Details on the validity and lifetime of the certification chain",
           "$ref" : "#/definitions/ChainStatus"
+        },
+        "api_managed" : {
+          "type" : "boolean",
+          "description" : "Whether or not this certificate can be updated using the API"
         }
       },
       "description" : "The public portion of the certificate chain that contains the PEM encoded server certificate, intermediate certificates, and the CA certificate. NOTE: The private key, normally included in certificate chains, is omitted."
@@ -35012,6 +35391,18 @@
         }
       },
       "description" : "The body of a request to update an extension"
+    },
+    "UpdatedTlsChain" : {
+      "type" : "object",
+      "required" : [ "service" ],
+      "properties" : {
+        "service" : {
+          "type" : "string",
+          "description" : "The service certificate chain that has been updated",
+          "enum" : [ "adminconsole", "proxy", "ui", "internalca" ]
+        }
+      },
+      "description" : "Details on the updated TLS chain"
     },
     "Updates" : {
       "type" : "object",

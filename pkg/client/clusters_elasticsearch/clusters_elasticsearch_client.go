@@ -157,7 +157,10 @@ type ClientService interface {
 /*
   CancelEsClusterMonitoring cancels monitoring
 
-  DEPRECATED (Scheduled to be removed in the next major version): Deletes all monitoring destinations for the Elasticsearch cluster.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use [update deployment](#update-deployment) instead.
+
+Deletes all monitoring destinations for the Elasticsearch cluster.
 */
 func (a *Client) CancelEsClusterMonitoring(params *CancelEsClusterMonitoringParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CancelEsClusterMonitoringAccepted, error) {
 	// TODO: Validate the params before sending
@@ -198,7 +201,10 @@ func (a *Client) CancelEsClusterMonitoring(params *CancelEsClusterMonitoringPara
 /*
   CancelEsClusterPendingPlan cancels pending plan
 
-  DEPRECATED (Scheduled to be removed in the next major version): Cancels the pending plan of the Elasticsearch cluster.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use [cancel resource pending plan](#cancel-deployment-resource-pending-plan) instead.
+
+Cancels the pending plan of the Elasticsearch cluster.
 */
 func (a *Client) CancelEsClusterPendingPlan(params *CancelEsClusterPendingPlanParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CancelEsClusterPendingPlanOK, error) {
 	// TODO: Validate the params before sending
@@ -239,7 +245,10 @@ func (a *Client) CancelEsClusterPendingPlan(params *CancelEsClusterPendingPlanPa
 /*
   CreateEsCluster creates cluster
 
-  DEPRECATED (Scheduled to be removed in the next major version): Creates an Elasticsearch cluster.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use [create deployment](#create-deployment) instead.
+
+Creates an Elasticsearch cluster.
 */
 func (a *Client) CreateEsCluster(params *CreateEsClusterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateEsClusterOK, *CreateEsClusterCreated, *CreateEsClusterAccepted, error) {
 	// TODO: Validate the params before sending
@@ -283,7 +292,10 @@ func (a *Client) CreateEsCluster(params *CreateEsClusterParams, authInfo runtime
 /*
   DeleteEsCluster deletes cluster
 
-  DEPRECATED (Scheduled to be removed in the next major version): Deletes the Elasticsearch cluster.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use [delete deployment](#delete-deployment) instead.
+
+Deletes the Elasticsearch cluster.
 Before you delete the Elasticsearch cluster, you must first successfully issue a `_shutdown` command.
 */
 func (a *Client) DeleteEsCluster(params *DeleteEsClusterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteEsClusterOK, error) {
@@ -325,7 +337,10 @@ func (a *Client) DeleteEsCluster(params *DeleteEsClusterParams, authInfo runtime
 /*
   DeleteEsProxyRequests proxies HTTP d e l e t e request to the cluster
 
-  DEPRECATED (Scheduled to be removed in the next major version): Proxies HTTP DELETE request to the cluster. Requires that HTTP header X-Management-Request be specified. This endpoint is for management use and does not provide high performance.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use [proxy `DELETE` request to resource](#delete-deployment-resource-proxy-requests) instead.
+
+Proxies HTTP DELETE request to the cluster. Requires that HTTP header X-Management-Request be specified. This endpoint is for management use and does not provide high performance.
 */
 func (a *Client) DeleteEsProxyRequests(params *DeleteEsProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteEsProxyRequestsOK, error) {
 	// TODO: Validate the params before sending
@@ -366,7 +381,10 @@ func (a *Client) DeleteEsProxyRequests(params *DeleteEsProxyRequestsParams, auth
 /*
   GenerateEsClusterDiagnostics generates diagnostics
 
-  DEPRECATED (Scheduled to be removed in the next major version): Retrieves a support diagnostic bundle from an active Elasticsearch cluster. To successfully retrieve a support diagnostic bundle, the cluster must be responsive.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use [capture resource diagnostics](#capture-deployment-resource-diagnostics) instead.
+
+Retrieves a support diagnostic bundle from an active Elasticsearch cluster. To successfully retrieve a support diagnostic bundle, the cluster must be responsive.
 */
 func (a *Client) GenerateEsClusterDiagnostics(params *GenerateEsClusterDiagnosticsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GenerateEsClusterDiagnosticsOK, error) {
 	// TODO: Validate the params before sending
@@ -407,7 +425,10 @@ func (a *Client) GenerateEsClusterDiagnostics(params *GenerateEsClusterDiagnosti
 /*
   GenerateEsClusterLogs generates logs
 
-  DEPRECATED (Scheduled to be removed in the next major version): Retrieves the log file for the Elasticsearch cluster.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version.
+
+Retrieves the log file for the Elasticsearch cluster.
 */
 func (a *Client) GenerateEsClusterLogs(params *GenerateEsClusterLogsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GenerateEsClusterLogsOK, error) {
 	// TODO: Validate the params before sending
@@ -448,7 +469,10 @@ func (a *Client) GenerateEsClusterLogs(params *GenerateEsClusterLogsParams, auth
 /*
   GetEsCcsEligibleRemotes searches clusters that can be used as cross cluster search remotes
 
-  DEPRECATED (Scheduled to be removed in the next major version): Retrieves the information for all of the Elasticsearch clusters that can selected as remotes in a given version.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use [search eligible remote clusters](#search-eligible-remote-clusters) instead.
+
+Retrieves the information for all of the Elasticsearch clusters that can selected as remotes in a given version.
 */
 func (a *Client) GetEsCcsEligibleRemotes(params *GetEsCcsEligibleRemotesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEsCcsEligibleRemotesOK, error) {
 	// TODO: Validate the params before sending
@@ -489,7 +513,10 @@ func (a *Client) GetEsCcsEligibleRemotes(params *GetEsCcsEligibleRemotesParams, 
 /*
   GetEsCluster gets cluster
 
-  DEPRECATED (Scheduled to be removed in the next major version): Retrieves the Elasticsearch cluster information.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use [get deployment](#get-deployment) instead.
+
+Retrieves the Elasticsearch cluster information.
 */
 func (a *Client) GetEsCluster(params *GetEsClusterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEsClusterOK, error) {
 	// TODO: Validate the params before sending
@@ -530,7 +557,10 @@ func (a *Client) GetEsCluster(params *GetEsClusterParams, authInfo runtime.Clien
 /*
   GetEsClusterCcs gets cross cluster search clusters
 
-  DEPRECATED (Scheduled to be removed in the next major version): Returns the list of cross-cluster search clusters' IDs for the remote cluster.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use the Elasticsearch remote cluster info API instead.
+
+Returns the list of cross-cluster search clusters' IDs for the remote cluster.
 */
 func (a *Client) GetEsClusterCcs(params *GetEsClusterCcsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEsClusterCcsOK, error) {
 	// TODO: Validate the params before sending
@@ -571,7 +601,10 @@ func (a *Client) GetEsClusterCcs(params *GetEsClusterCcsParams, authInfo runtime
 /*
   GetEsClusterCcsSettings gets remote clusters for cross cluster search
 
-  DEPRECATED (Scheduled to be removed in the next major version): Returns cross-cluster search configuration for the Elasticsearch cluster.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use [get Elasticsearch remote clusters](#get-deployment-es-resource-remote-clusters) instead.
+
+Returns cross-cluster search configuration for the Elasticsearch cluster.
 */
 func (a *Client) GetEsClusterCcsSettings(params *GetEsClusterCcsSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEsClusterCcsSettingsOK, error) {
 	// TODO: Validate the params before sending
@@ -612,7 +645,10 @@ func (a *Client) GetEsClusterCcsSettings(params *GetEsClusterCcsSettingsParams, 
 /*
   GetEsClusterCurationSettings gets cluster curation settings
 
-  DEPRECATED (Scheduled to be removed in the next major version): Retrieves cluster curation settings for an Elasticsearch cluster.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use Elasticsearch index lifecycle management (ILM) instead.
+
+Retrieves cluster curation settings for an Elasticsearch cluster.
 */
 func (a *Client) GetEsClusterCurationSettings(params *GetEsClusterCurationSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEsClusterCurationSettingsOK, error) {
 	// TODO: Validate the params before sending
@@ -653,7 +689,10 @@ func (a *Client) GetEsClusterCurationSettings(params *GetEsClusterCurationSettin
 /*
   GetEsClusterKeystore gets settings from this cluster s keystore
 
-  DEPRECATED (Scheduled to be removed in the next major version): Returns the available keys in the keystore.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use [set Elasticsearch keystore contents](#get-deployment-es-resource-keystore) instead.
+
+Returns the available keys in the keystore.
 */
 func (a *Client) GetEsClusterKeystore(params *GetEsClusterKeystoreParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEsClusterKeystoreOK, error) {
 	// TODO: Validate the params before sending
@@ -694,7 +733,10 @@ func (a *Client) GetEsClusterKeystore(params *GetEsClusterKeystoreParams, authIn
 /*
   GetEsClusterMetadataRaw gets cluster metadata
 
-  DEPRECATED (Scheduled to be removed in the next major version): Advanced use only. Retrieves the internal cluster metadata, in free-form JSON, for the Elasticsearch cluster.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use [get deployment](#get-deployment) instead.
+
+Advanced use only. Retrieves the internal cluster metadata, in free-form JSON, for the Elasticsearch cluster.
 */
 func (a *Client) GetEsClusterMetadataRaw(params *GetEsClusterMetadataRawParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEsClusterMetadataRawOK, error) {
 	// TODO: Validate the params before sending
@@ -735,7 +777,10 @@ func (a *Client) GetEsClusterMetadataRaw(params *GetEsClusterMetadataRawParams, 
 /*
   GetEsClusterMetadataSettings gets cluster metadata settings
 
-  DEPRECATED (Scheduled to be removed in the next major version): Retrieves a structured version of the cluster metadata as a collection of top-level settings. If a particular setting isn't returned, then the free-form JSON endpoint (`/metadata/raw`) must be used.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use [get deployment](#get-deployment) instead.
+
+Retrieves a structured version of the cluster metadata as a collection of top-level settings. If a particular setting isn't returned, then the free-form JSON endpoint (`/metadata/raw`) must be used.
 */
 func (a *Client) GetEsClusterMetadataSettings(params *GetEsClusterMetadataSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEsClusterMetadataSettingsOK, error) {
 	// TODO: Validate the params before sending
@@ -776,7 +821,10 @@ func (a *Client) GetEsClusterMetadataSettings(params *GetEsClusterMetadataSettin
 /*
   GetEsClusterPendingPlan gets pending plan
 
-  DEPRECATED (Scheduled to be removed in the next major version): Retrieves the pending plan of the cluster.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use [get deployment](#get-deployment) instead.
+
+Retrieves the pending plan of the cluster.
 */
 func (a *Client) GetEsClusterPendingPlan(params *GetEsClusterPendingPlanParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEsClusterPendingPlanOK, error) {
 	// TODO: Validate the params before sending
@@ -817,7 +865,10 @@ func (a *Client) GetEsClusterPendingPlan(params *GetEsClusterPendingPlanParams, 
 /*
   GetEsClusterPlan gets plan
 
-  DEPRECATED (Scheduled to be removed in the next major version): Retrieves the active plan of the Elasticsearch cluster. Transient settings are not show by this endpoint. To view the transient settings that have been applied with a specific plan, use the activity endpoint.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use [get deployment](#get-deployment) instead.
+
+Retrieves the active plan of the Elasticsearch cluster. Transient settings are not show by this endpoint. To view the transient settings that have been applied with a specific plan, use the activity endpoint.
 */
 func (a *Client) GetEsClusterPlan(params *GetEsClusterPlanParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEsClusterPlanOK, error) {
 	// TODO: Validate the params before sending
@@ -858,7 +909,10 @@ func (a *Client) GetEsClusterPlan(params *GetEsClusterPlanParams, authInfo runti
 /*
   GetEsClusterPlanActivity gets plan activity
 
-  DEPRECATED (Scheduled to be removed in the next major version): Retrieves the active and historical plan information for the Elasticsearch cluster.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use [get deployment](#get-deployment) instead.
+
+Retrieves the active and historical plan information for the Elasticsearch cluster.
 */
 func (a *Client) GetEsClusterPlanActivity(params *GetEsClusterPlanActivityParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEsClusterPlanActivityOK, error) {
 	// TODO: Validate the params before sending
@@ -899,7 +953,10 @@ func (a *Client) GetEsClusterPlanActivity(params *GetEsClusterPlanActivityParams
 /*
   GetEsClusterSnapshotSettings gets cluster snapshot settings
 
-  DEPRECATED (Scheduled to be removed in the next major version): Gets cluster snapshot settings.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use [get deployment](#get-deployment) instead.
+
+Gets cluster snapshot settings.
 */
 func (a *Client) GetEsClusterSnapshotSettings(params *GetEsClusterSnapshotSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEsClusterSnapshotSettingsOK, error) {
 	// TODO: Validate the params before sending
@@ -940,7 +997,10 @@ func (a *Client) GetEsClusterSnapshotSettings(params *GetEsClusterSnapshotSettin
 /*
   GetEsClusters gets clusters
 
-  DEPRECATED (Scheduled to be removed in the next major version): Retrieves the information for all Elasticsearch clusters.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use [list deployments](#list-deployments) instead.
+
+Retrieves the information for all Elasticsearch clusters.
 */
 func (a *Client) GetEsClusters(params *GetEsClustersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEsClustersOK, error) {
 	// TODO: Validate the params before sending
@@ -981,7 +1041,10 @@ func (a *Client) GetEsClusters(params *GetEsClustersParams, authInfo runtime.Cli
 /*
   GetEsProxyRequests proxies HTTP g e t request to the cluster
 
-  DEPRECATED (Scheduled to be removed in the next major version): Proxies HTTP GET request to the cluster. Requires that HTTP header X-Management-Request be specified. This endpoint is for management use and does not provide high performance.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use [proxy `GET` request to resource](#get-deployment-resource-proxy-requests) instead.
+
+Proxies HTTP GET request to the cluster. Requires that HTTP header X-Management-Request be specified. This endpoint is for management use and does not provide high performance.
 */
 func (a *Client) GetEsProxyRequests(params *GetEsProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEsProxyRequestsOK, error) {
 	// TODO: Validate the params before sending
@@ -1022,7 +1085,10 @@ func (a *Client) GetEsProxyRequests(params *GetEsProxyRequestsParams, authInfo r
 /*
   MigrateEsClusterPlan migrates plan
 
-  DEPRECATED (Scheduled to be removed in the next major version): Migrates the configuration of the Elasticsearch cluster to a different template.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version.
+
+Migrates the configuration of the Elasticsearch cluster to a different template.
 */
 func (a *Client) MigrateEsClusterPlan(params *MigrateEsClusterPlanParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MigrateEsClusterPlanOK, *MigrateEsClusterPlanAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1064,7 +1130,10 @@ func (a *Client) MigrateEsClusterPlan(params *MigrateEsClusterPlanParams, authIn
 /*
   MoveEsClusterInstances moves instances
 
-  DEPRECATED (Scheduled to be removed in the next major version): Moves one or more instances in the Elasticsearch cluster.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version.
+
+Moves one or more instances in the Elasticsearch cluster.
 */
 func (a *Client) MoveEsClusterInstances(params *MoveEsClusterInstancesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MoveEsClusterInstancesAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1105,7 +1174,10 @@ func (a *Client) MoveEsClusterInstances(params *MoveEsClusterInstancesParams, au
 /*
   MoveEsClusterInstancesAdvanced moves instances advanced
 
-  DEPRECATED (Scheduled to be removed in the next major version): Moves one or more instances in the Elasticsearch cluster. The custom configuration settings are posted in the body.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version.
+
+Moves one or more instances in the Elasticsearch cluster. The custom configuration settings are posted in the body.
 */
 func (a *Client) MoveEsClusterInstancesAdvanced(params *MoveEsClusterInstancesAdvancedParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MoveEsClusterInstancesAdvancedAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1146,7 +1218,10 @@ func (a *Client) MoveEsClusterInstancesAdvanced(params *MoveEsClusterInstancesAd
 /*
   PostEsProxyRequests proxies HTTP p o s t request to the cluster
 
-  DEPRECATED (Scheduled to be removed in the next major version): Proxies HTTP POST request to the cluster. Requires that HTTP header X-Management-Request be specified. This endpoint is for management use and does not provide high performance.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use [proxy `POST` request to resource](#post-deployment-resource-proxy-requests) instead.
+
+Proxies HTTP POST request to the cluster. Requires that HTTP header X-Management-Request be specified. This endpoint is for management use and does not provide high performance.
 */
 func (a *Client) PostEsProxyRequests(params *PostEsProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostEsProxyRequestsOK, error) {
 	// TODO: Validate the params before sending
@@ -1187,7 +1262,10 @@ func (a *Client) PostEsProxyRequests(params *PostEsProxyRequestsParams, authInfo
 /*
   PutEsProxyRequests proxies HTTP p u t request to the cluster
 
-  DEPRECATED (Scheduled to be removed in the next major version): Proxies HTTP PUT request to the cluster. Requires that HTTP header X-Management-Request be specified. This endpoint is for management use and does not provide high performance.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use [proxy `PUT` request to resource](#put-deployment-resource-proxy-requests) instead.
+
+Proxies HTTP PUT request to the cluster. Requires that HTTP header X-Management-Request be specified. This endpoint is for management use and does not provide high performance.
 */
 func (a *Client) PutEsProxyRequests(params *PutEsProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutEsProxyRequestsOK, error) {
 	// TODO: Validate the params before sending
@@ -1228,7 +1306,10 @@ func (a *Client) PutEsProxyRequests(params *PutEsProxyRequestsParams, authInfo r
 /*
   RestartEsCluster restarts cluster
 
-  DEPRECATED (Scheduled to be removed in the next major version): Restarts the Elasticsearch cluster. When you restart an active cluster, the existing plan is used and a `cluster_reboot` is applied. A `cluster_reboot` issues an Elasticsearch restart command, then waits for the command to complete. When you restart an inactive cluster, the most recent successful plan is applied.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use [restart Elasticsearch resource](#restart-deployment-es-resource) instead.
+
+Restarts the Elasticsearch cluster. When you restart an active cluster, the existing plan is used and a `cluster_reboot` is applied. A `cluster_reboot` issues an Elasticsearch restart command, then waits for the command to complete. When you restart an inactive cluster, the most recent successful plan is applied.
 */
 func (a *Client) RestartEsCluster(params *RestartEsClusterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*RestartEsClusterAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1269,7 +1350,10 @@ func (a *Client) RestartEsCluster(params *RestartEsClusterParams, authInfo runti
 /*
   ResyncEsCluster resynchronizes cluster
 
-  DEPRECATED (Scheduled to be removed in the next major version): Immediately resynchronizes the search index and cache for the selected Elasticsearch cluster.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use [resynchronize deployment](#resync-deployment) instead.
+
+Immediately resynchronizes the search index and cache for the selected Elasticsearch cluster.
 */
 func (a *Client) ResyncEsCluster(params *ResyncEsClusterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ResyncEsClusterOK, error) {
 	// TODO: Validate the params before sending
@@ -1310,7 +1394,10 @@ func (a *Client) ResyncEsCluster(params *ResyncEsClusterParams, authInfo runtime
 /*
   ResyncEsClusters resynchronizes clusters
 
-  DEPRECATED (Scheduled to be removed in the next major version): Asynchronously resynchronizes the search index for all Elasticsearch clusters.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use [resynchronize deployments](#resync-deployments) instead.
+
+Asynchronously resynchronizes the search index for all Elasticsearch clusters.
 */
 func (a *Client) ResyncEsClusters(params *ResyncEsClustersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ResyncEsClustersAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1351,7 +1438,10 @@ func (a *Client) ResyncEsClusters(params *ResyncEsClustersParams, authInfo runti
 /*
   SearchEsClusters searches clusters
 
-  DEPRECATED (Scheduled to be removed in the next major version): Retrieves the information for all of the Elasticsearch clusters that match the specified query.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use [search deployments](#search-deployments) instead.
+
+Retrieves the information for all of the Elasticsearch clusters that match the specified query.
 */
 func (a *Client) SearchEsClusters(params *SearchEsClustersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SearchEsClustersOK, error) {
 	// TODO: Validate the params before sending
@@ -1392,7 +1482,10 @@ func (a *Client) SearchEsClusters(params *SearchEsClustersParams, authInfo runti
 /*
   SetEsClusterCcsSettings sets remote clusters for cross cluster search
 
-  DEPRECATED (Scheduled to be removed in the next major version): Overwrites or creates the cross-cluster search configuration for the Elasticsearch cluster.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use [set Elasticsearch remote clusters](#set-deployment-es-resource-remote-clusters) instead.
+
+Overwrites or creates the cross-cluster search configuration for the Elasticsearch cluster.
 */
 func (a *Client) SetEsClusterCcsSettings(params *SetEsClusterCcsSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetEsClusterCcsSettingsAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1433,7 +1526,10 @@ func (a *Client) SetEsClusterCcsSettings(params *SetEsClusterCcsSettingsParams, 
 /*
   SetEsClusterInstancesAllSettingsOverrides sets settings overrides all instances
 
-  DEPRECATED (Scheduled to be removed in the next major version): Overrides the settings for all of the instances in the Elasticsearch cluster.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use [set all resource instances overrides](#set-all-instances-settings-overrides) instead.
+
+Overrides the settings for all of the instances in the Elasticsearch cluster.
 */
 func (a *Client) SetEsClusterInstancesAllSettingsOverrides(params *SetEsClusterInstancesAllSettingsOverridesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetEsClusterInstancesAllSettingsOverridesOK, error) {
 	// TODO: Validate the params before sending
@@ -1474,7 +1570,10 @@ func (a *Client) SetEsClusterInstancesAllSettingsOverrides(params *SetEsClusterI
 /*
   SetEsClusterInstancesSettingsOverrides sets settings overrides
 
-  DEPRECATED (Scheduled to be removed in the next major version): Overrides the settings for the specified instances in the Elasticsearch cluster.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use [set resource instances overrides](#set-instance-settings-overrides) instead.
+
+Overrides the settings for the specified instances in the Elasticsearch cluster.
 */
 func (a *Client) SetEsClusterInstancesSettingsOverrides(params *SetEsClusterInstancesSettingsOverridesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetEsClusterInstancesSettingsOverridesOK, error) {
 	// TODO: Validate the params before sending
@@ -1515,7 +1614,10 @@ func (a *Client) SetEsClusterInstancesSettingsOverrides(params *SetEsClusterInst
 /*
   SetEsClusterKeystore adds or remove settings from the cluster keystore
 
-  DEPRECATED (Scheduled to be removed in the next major version): Adds the specified values to the Elasticsearch keystore, or removes the keys for the unspecified values.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use [set Elasticsearch keystore contents](#set-deployment-es-resource-keystore) instead.
+
+Adds the specified values to the Elasticsearch keystore, or removes the keys for the unspecified values.
 */
 func (a *Client) SetEsClusterKeystore(params *SetEsClusterKeystoreParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetEsClusterKeystoreAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1556,7 +1658,10 @@ func (a *Client) SetEsClusterKeystore(params *SetEsClusterKeystoreParams, authIn
 /*
   SetEsClusterLegacySecuritySettings sets legacy security settings
 
-  DEPRECATED (Scheduled to be removed in the next major version): Sets the legacy Shield security settings for a 2.x Elasticsearch cluster.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version.
+
+Sets the legacy Shield security settings for a 2.x Elasticsearch cluster.
 */
 func (a *Client) SetEsClusterLegacySecuritySettings(params *SetEsClusterLegacySecuritySettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetEsClusterLegacySecuritySettingsOK, error) {
 	// TODO: Validate the params before sending
@@ -1597,7 +1702,10 @@ func (a *Client) SetEsClusterLegacySecuritySettings(params *SetEsClusterLegacySe
 /*
   SetEsClusterMetadataRaw sets cluster metadata
 
-  DEPRECATED (Scheduled to be removed in the next major version): Advanced use only. Sets the internal metadata, in free-form JSON, for the Elasticsearch cluster.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use [set resource raw metadata](#set-deployment-resource-raw-metadata) instead.
+
+Advanced use only. Sets the internal metadata, in free-form JSON, for the Elasticsearch cluster.
 Only use the parameter to set the modified JSON that is returned from the get version of the metadata.
 */
 func (a *Client) SetEsClusterMetadataRaw(params *SetEsClusterMetadataRawParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetEsClusterMetadataRawOK, error) {
@@ -1639,7 +1747,10 @@ func (a *Client) SetEsClusterMetadataRaw(params *SetEsClusterMetadataRawParams, 
 /*
   SetEsClusterMonitoring sets monitoring
 
-  DEPRECATED (Scheduled to be removed in the next major version): Overwrites or creates the monitoring destination for the Elasticsearch cluster.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use [update deployment](#update-deployment) instead.
+
+Overwrites or creates the monitoring destination for the Elasticsearch cluster.
 */
 func (a *Client) SetEsClusterMonitoring(params *SetEsClusterMonitoringParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetEsClusterMonitoringAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1680,7 +1791,10 @@ func (a *Client) SetEsClusterMonitoring(params *SetEsClusterMonitoringParams, au
 /*
   SetEsClusterName sets cluster name
 
-  DEPRECATED (Scheduled to be removed in the next major version): Assigns a name to the Elasticsearch cluster.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use [update deployment](#update-deployment) instead.
+
+Assigns a name to the Elasticsearch cluster.
 */
 func (a *Client) SetEsClusterName(params *SetEsClusterNameParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetEsClusterNameOK, error) {
 	// TODO: Validate the params before sending
@@ -1721,7 +1835,10 @@ func (a *Client) SetEsClusterName(params *SetEsClusterNameParams, authInfo runti
 /*
   ShutdownEsCluster shuts down cluster
 
-  DEPRECATED (Scheduled to be removed in the next major version): Shuts down the active Elasticsearch cluster and removes all of the cluster nodes. The cluster plan is retained. WARNING: To avoid data loss, save the data outside of the cluster before you shut the cluster down.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use [shutdown Elasticsearch resource](#shutdown-deployment-es-resource) instead.
+
+Shuts down the active Elasticsearch cluster and removes all of the cluster nodes. The cluster plan is retained. WARNING: To avoid data loss, save the data outside of the cluster before you shut the cluster down.
 */
 func (a *Client) ShutdownEsCluster(params *ShutdownEsClusterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ShutdownEsClusterAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1762,7 +1879,10 @@ func (a *Client) ShutdownEsCluster(params *ShutdownEsClusterParams, authInfo run
 /*
   SnapshotEsCluster takes snapshot
 
-  DEPRECATED (Scheduled to be removed in the next major version): To create a snapshot of the specified Elasticsearch cluster, uses the configured snapshot repository.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use Elasticsearch snapshot APIs instead.
+
+To create a snapshot of the specified Elasticsearch cluster, uses the configured snapshot repository.
 */
 func (a *Client) SnapshotEsCluster(params *SnapshotEsClusterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SnapshotEsClusterAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1803,7 +1923,10 @@ func (a *Client) SnapshotEsCluster(params *SnapshotEsClusterParams, authInfo run
 /*
   StartEsClusterInstances starts instances
 
-  DEPRECATED (Scheduled to be removed in the next major version): Starts the instances in the Elasticsearch cluster.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use [start resource instances](#start-deployment-resource-instances) instead.
+
+Starts the instances in the Elasticsearch cluster.
 */
 func (a *Client) StartEsClusterInstances(params *StartEsClusterInstancesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StartEsClusterInstancesAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1844,7 +1967,10 @@ func (a *Client) StartEsClusterInstances(params *StartEsClusterInstancesParams, 
 /*
   StartEsClusterInstancesAll starts all instances
 
-  DEPRECATED (Scheduled to be removed in the next major version): Starts all of the instances in the Elasticsearch cluster.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use [start all resource instances](#start-deployment-resource-instances-all) instead.
+
+Starts all of the instances in the Elasticsearch cluster.
 */
 func (a *Client) StartEsClusterInstancesAll(params *StartEsClusterInstancesAllParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StartEsClusterInstancesAllAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1885,7 +2011,10 @@ func (a *Client) StartEsClusterInstancesAll(params *StartEsClusterInstancesAllPa
 /*
   StartEsClusterInstancesAllMaintenanceMode starts maintenance mode all instances
 
-  DEPRECATED (Scheduled to be removed in the next major version): Starts maintenance mode on all of the instances in the Elasticsearch cluster.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use [start maintenance mode on resource instances](#start-deployment-resource-maintenance-mode) instead.
+
+Starts maintenance mode on all of the instances in the Elasticsearch cluster.
 */
 func (a *Client) StartEsClusterInstancesAllMaintenanceMode(params *StartEsClusterInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StartEsClusterInstancesAllMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1926,7 +2055,10 @@ func (a *Client) StartEsClusterInstancesAllMaintenanceMode(params *StartEsCluste
 /*
   StartEsClusterMaintenanceMode starts maintenance mode
 
-  DEPRECATED (Scheduled to be removed in the next major version): Starts maintenance mode on the specified instances in the Elasticsearch cluster.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use [start maintenance mode on all resource instances](#start-deployment-resource-instances-all-maintenance-mode) instead.
+
+Starts maintenance mode on the specified instances in the Elasticsearch cluster.
 */
 func (a *Client) StartEsClusterMaintenanceMode(params *StartEsClusterMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StartEsClusterMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1967,7 +2099,10 @@ func (a *Client) StartEsClusterMaintenanceMode(params *StartEsClusterMaintenance
 /*
   StopEsClusterInstances stops instances
 
-  DEPRECATED (Scheduled to be removed in the next major version): Stops the instances in the Elasticsearch cluster.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use [stop resource instances](#stop-deployment-resource-instances) instead.
+
+Stops the instances in the Elasticsearch cluster.
 */
 func (a *Client) StopEsClusterInstances(params *StopEsClusterInstancesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StopEsClusterInstancesAccepted, error) {
 	// TODO: Validate the params before sending
@@ -2008,7 +2143,10 @@ func (a *Client) StopEsClusterInstances(params *StopEsClusterInstancesParams, au
 /*
   StopEsClusterInstancesAll stops all instances
 
-  DEPRECATED (Scheduled to be removed in the next major version): Stops all of the instances in the Elasticsearch cluster..
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use [stop all resource instances](#stop-deployment-resource-instances-all) instead.
+
+Stops all of the instances in the Elasticsearch cluster..
 */
 func (a *Client) StopEsClusterInstancesAll(params *StopEsClusterInstancesAllParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StopEsClusterInstancesAllAccepted, error) {
 	// TODO: Validate the params before sending
@@ -2049,7 +2187,10 @@ func (a *Client) StopEsClusterInstancesAll(params *StopEsClusterInstancesAllPara
 /*
   StopEsClusterInstancesAllMaintenanceMode stops maintenance mode all instances
 
-  DEPRECATED (Scheduled to be removed in the next major version): Stops maintenance mode on all of the instances in the Elasticsearch cluster.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use [stop maintenance mode on all resource instances](#stop-deployment-resource-instances-all-maintenance-mode) instead.
+
+Stops maintenance mode on all of the instances in the Elasticsearch cluster.
 */
 func (a *Client) StopEsClusterInstancesAllMaintenanceMode(params *StopEsClusterInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StopEsClusterInstancesAllMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
@@ -2090,7 +2231,10 @@ func (a *Client) StopEsClusterInstancesAllMaintenanceMode(params *StopEsClusterI
 /*
   StopEsClusterMaintenanceMode stops maintenance mode
 
-  DEPRECATED (Scheduled to be removed in the next major version): Stops maintenance mode on the specified instances in the Elasticsearch cluster.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use [stop maintenance mode on resource instances](#stop-deployment-resource-maintenance-mode) instead.
+
+Stops maintenance mode on the specified instances in the Elasticsearch cluster.
 */
 func (a *Client) StopEsClusterMaintenanceMode(params *StopEsClusterMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StopEsClusterMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
@@ -2131,7 +2275,10 @@ func (a *Client) StopEsClusterMaintenanceMode(params *StopEsClusterMaintenanceMo
 /*
   UpdateEsClusterCurationSettings updates cluster curation settings
 
-  DEPRECATED (Scheduled to be removed in the next major version): Overrides cluster curation settings for an Elasticsearch cluster.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use Elasticsearch index lifecycle management (ILM) instead.
+
+Overrides cluster curation settings for an Elasticsearch cluster.
 */
 func (a *Client) UpdateEsClusterCurationSettings(params *UpdateEsClusterCurationSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateEsClusterCurationSettingsOK, error) {
 	// TODO: Validate the params before sending
@@ -2172,7 +2319,10 @@ func (a *Client) UpdateEsClusterCurationSettings(params *UpdateEsClusterCuration
 /*
   UpdateEsClusterMetadataSettings updates cluster metadata settings
 
-  DEPRECATED (Scheduled to be removed in the next major version): All changes in the specified object are applied to the metadata object according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use [update deployment](#update-deployment) instead.
+
+All changes in the specified object are applied to the metadata object according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.
 */
 func (a *Client) UpdateEsClusterMetadataSettings(params *UpdateEsClusterMetadataSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateEsClusterMetadataSettingsOK, error) {
 	// TODO: Validate the params before sending
@@ -2213,7 +2363,10 @@ func (a *Client) UpdateEsClusterMetadataSettings(params *UpdateEsClusterMetadata
 /*
   UpdateEsClusterPlan updates plan
 
-  DEPRECATED (Scheduled to be removed in the next major version): Updates the configuration of the Elasticsearch cluster.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use [update deployment](#update-deployment) instead.
+
+Updates the configuration of the Elasticsearch cluster.
 */
 func (a *Client) UpdateEsClusterPlan(params *UpdateEsClusterPlanParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateEsClusterPlanOK, *UpdateEsClusterPlanAccepted, error) {
 	// TODO: Validate the params before sending
@@ -2255,7 +2408,10 @@ func (a *Client) UpdateEsClusterPlan(params *UpdateEsClusterPlanParams, authInfo
 /*
   UpdateEsClusterSnapshotSettings updates cluster snapshot settings
 
-  DEPRECATED (Scheduled to be removed in the next major version): All changes in the specified object are applied to the snapshot settings according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use [update deployment](#update-deployment) instead.
+
+All changes in the specified object are applied to the snapshot settings according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.
 */
 func (a *Client) UpdateEsClusterSnapshotSettings(params *UpdateEsClusterSnapshotSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateEsClusterSnapshotSettingsOK, error) {
 	// TODO: Validate the params before sending

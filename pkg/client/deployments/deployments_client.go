@@ -51,9 +51,15 @@ type ClientService interface {
 
 	CaptureDeploymentInstanceHeapDump(params *CaptureDeploymentInstanceHeapDumpParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CaptureDeploymentInstanceHeapDumpAccepted, error)
 
+	CaptureDeploymentInstanceThreadDump(params *CaptureDeploymentInstanceThreadDumpParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CaptureDeploymentInstanceThreadDumpOK, error)
+
+	CaptureDeploymentResourceDiagnostics(params *CaptureDeploymentResourceDiagnosticsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CaptureDeploymentResourceDiagnosticsOK, error)
+
 	CreateDeployment(params *CreateDeploymentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateDeploymentOK, *CreateDeploymentCreated, *CreateDeploymentAccepted, error)
 
 	DeleteDeployment(params *DeleteDeploymentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteDeploymentOK, error)
+
+	DeleteDeploymentResourceProxyRequests(params *DeleteDeploymentResourceProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteDeploymentResourceProxyRequestsOK, error)
 
 	DeleteDeploymentStatelessResource(params *DeleteDeploymentStatelessResourceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteDeploymentStatelessResourceOK, error)
 
@@ -89,7 +95,13 @@ type ClientService interface {
 
 	GetDeploymentKibResourceInfo(params *GetDeploymentKibResourceInfoParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentKibResourceInfoOK, error)
 
+	GetDeploymentResourceProxyRequests(params *GetDeploymentResourceProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentResourceProxyRequestsOK, error)
+
 	ListDeployments(params *ListDeploymentsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListDeploymentsOK, error)
+
+	PostDeploymentResourceProxyRequests(params *PostDeploymentResourceProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostDeploymentResourceProxyRequestsOK, error)
+
+	PutDeploymentResourceProxyRequests(params *PutDeploymentResourceProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutDeploymentResourceProxyRequestsOK, error)
 
 	ResetElasticsearchUserPassword(params *ResetElasticsearchUserPasswordParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ResetElasticsearchUserPasswordOK, error)
 
@@ -109,6 +121,8 @@ type ClientService interface {
 
 	SearchEligibleRemoteClusters(params *SearchEligibleRemoteClustersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SearchEligibleRemoteClustersOK, error)
 
+	SetAllInstancesSettingsOverrides(params *SetAllInstancesSettingsOverridesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetAllInstancesSettingsOverridesOK, error)
+
 	SetAppsearchReadOnlyMode(params *SetAppsearchReadOnlyModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetAppsearchReadOnlyModeOK, error)
 
 	SetDeploymentEsResourceKeystore(params *SetDeploymentEsResourceKeystoreParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetDeploymentEsResourceKeystoreOK, error)
@@ -116,6 +130,8 @@ type ClientService interface {
 	SetDeploymentEsResourceRemoteClusters(params *SetDeploymentEsResourceRemoteClustersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetDeploymentEsResourceRemoteClustersAccepted, error)
 
 	SetDeploymentResourceRawMetadata(params *SetDeploymentResourceRawMetadataParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetDeploymentResourceRawMetadataOK, error)
+
+	SetInstanceSettingsOverrides(params *SetInstanceSettingsOverridesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetInstanceSettingsOverridesOK, error)
 
 	ShutdownDeployment(params *ShutdownDeploymentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ShutdownDeploymentOK, error)
 
@@ -229,6 +245,88 @@ func (a *Client) CaptureDeploymentInstanceHeapDump(params *CaptureDeploymentInst
 }
 
 /*
+  CaptureDeploymentInstanceThreadDump captures a new thread dump for the given instance
+
+  Captures a new thread dump for the given instance and returns the thread dump contents.
+*/
+func (a *Client) CaptureDeploymentInstanceThreadDump(params *CaptureDeploymentInstanceThreadDumpParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CaptureDeploymentInstanceThreadDumpOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCaptureDeploymentInstanceThreadDumpParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "capture-deployment-instance-thread-dump",
+		Method:             "POST",
+		PathPattern:        "/deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_id}/thread_dump/_capture",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &CaptureDeploymentInstanceThreadDumpReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CaptureDeploymentInstanceThreadDumpOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for capture-deployment-instance-thread-dump: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  CaptureDeploymentResourceDiagnostics captures diagnostics for an elasticsearch or kibana resource
+
+  Retrieves a diagnostic bundle from an active cluster. To successfully retrieve a diagnostic bundle, the cluster must be responsive.
+*/
+func (a *Client) CaptureDeploymentResourceDiagnostics(params *CaptureDeploymentResourceDiagnosticsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CaptureDeploymentResourceDiagnosticsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewCaptureDeploymentResourceDiagnosticsParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "capture-deployment-resource-diagnostics",
+		Method:             "POST",
+		PathPattern:        "/deployments/{deployment_id}/{resource_kind}/{ref_id}/diagnostics/_capture",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &CaptureDeploymentResourceDiagnosticsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*CaptureDeploymentResourceDiagnosticsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for capture-deployment-resource-diagnostics: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
   CreateDeployment creates deployment
 
   Creates a Deployment.
@@ -310,6 +408,47 @@ func (a *Client) DeleteDeployment(params *DeleteDeploymentParams, authInfo runti
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for delete-deployment: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DeleteDeploymentResourceProxyRequests proxies HTTP d e l e t e request
+
+  Proxies the HTTP DELETE request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.
+*/
+func (a *Client) DeleteDeploymentResourceProxyRequests(params *DeleteDeploymentResourceProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteDeploymentResourceProxyRequestsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteDeploymentResourceProxyRequestsParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "delete-deployment-resource-proxy-requests",
+		Method:             "DELETE",
+		PathPattern:        "/deployments/{deployment_id}/{resource_kind}/{ref_id}/proxy/{proxy_path}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeleteDeploymentResourceProxyRequestsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DeleteDeploymentResourceProxyRequestsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for delete-deployment-resource-proxy-requests: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -847,9 +986,9 @@ func (a *Client) GetDeploymentEsResourceInfo(params *GetDeploymentEsResourceInfo
 }
 
 /*
-  GetDeploymentEsResourceKeystore gets the settings from the elasticsearch resource keystore
+  GetDeploymentEsResourceKeystore gets the items in the elasticsearch resource keystore
 
-  Adds the specified values to the Elasticsearch keystore, or removes the keys for the unspecified values.
+  Fetches the current values of the keystore for the Elasticsearch resource.
 */
 func (a *Client) GetDeploymentEsResourceKeystore(params *GetDeploymentEsResourceKeystoreParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentEsResourceKeystoreOK, error) {
 	// TODO: Validate the params before sending
@@ -1011,6 +1150,47 @@ func (a *Client) GetDeploymentKibResourceInfo(params *GetDeploymentKibResourceIn
 }
 
 /*
+  GetDeploymentResourceProxyRequests proxies HTTP g e t request
+
+  Proxies the HTTP GET request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.
+*/
+func (a *Client) GetDeploymentResourceProxyRequests(params *GetDeploymentResourceProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentResourceProxyRequestsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetDeploymentResourceProxyRequestsParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "get-deployment-resource-proxy-requests",
+		Method:             "GET",
+		PathPattern:        "/deployments/{deployment_id}/{resource_kind}/{ref_id}/proxy/{proxy_path}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetDeploymentResourceProxyRequestsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetDeploymentResourceProxyRequestsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-deployment-resource-proxy-requests: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
   ListDeployments lists deployments
 
   List Deployments.
@@ -1048,6 +1228,88 @@ func (a *Client) ListDeployments(params *ListDeploymentsParams, authInfo runtime
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for list-deployments: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  PostDeploymentResourceProxyRequests proxies HTTP p o s t request
+
+  Proxies the HTTP POST request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.
+*/
+func (a *Client) PostDeploymentResourceProxyRequests(params *PostDeploymentResourceProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostDeploymentResourceProxyRequestsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPostDeploymentResourceProxyRequestsParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "post-deployment-resource-proxy-requests",
+		Method:             "POST",
+		PathPattern:        "/deployments/{deployment_id}/{resource_kind}/{ref_id}/proxy/{proxy_path}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &PostDeploymentResourceProxyRequestsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*PostDeploymentResourceProxyRequestsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for post-deployment-resource-proxy-requests: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  PutDeploymentResourceProxyRequests proxies HTTP p u t request
+
+  Proxies the HTTP PUT request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.
+*/
+func (a *Client) PutDeploymentResourceProxyRequests(params *PutDeploymentResourceProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutDeploymentResourceProxyRequestsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPutDeploymentResourceProxyRequestsParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "put-deployment-resource-proxy-requests",
+		Method:             "PUT",
+		PathPattern:        "/deployments/{deployment_id}/{resource_kind}/{ref_id}/proxy/{proxy_path}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &PutDeploymentResourceProxyRequestsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*PutDeploymentResourceProxyRequestsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for put-deployment-resource-proxy-requests: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -1421,6 +1683,47 @@ func (a *Client) SearchEligibleRemoteClusters(params *SearchEligibleRemoteCluste
 }
 
 /*
+  SetAllInstancesSettingsOverrides sets size overrides
+
+  Applies size overrides for all of the instances belonging to the given resource.
+*/
+func (a *Client) SetAllInstancesSettingsOverrides(params *SetAllInstancesSettingsOverridesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetAllInstancesSettingsOverridesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSetAllInstancesSettingsOverridesParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "set-all-instances-settings-overrides",
+		Method:             "PUT",
+		PathPattern:        "/deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/overrides",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &SetAllInstancesSettingsOverridesReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*SetAllInstancesSettingsOverridesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for set-all-instances-settings-overrides: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
   SetAppsearchReadOnlyMode sets app search read only status
 
   Enable/Disable read-only mode on the given App Search resource.
@@ -1462,9 +1765,9 @@ func (a *Client) SetAppsearchReadOnlyMode(params *SetAppsearchReadOnlyModeParams
 }
 
 /*
-  SetDeploymentEsResourceKeystore adds or remove settings from the elasticsearch resource keystore
+  SetDeploymentEsResourceKeystore adds or remove items from the elasticsearch resource keystore
 
-  Fetches the current values of the keystore for the Elasticsearch resource.
+  Adds the specified values to the Elasticsearch keystore, or removes the keys for the unspecified values.
 */
 func (a *Client) SetDeploymentEsResourceKeystore(params *SetDeploymentEsResourceKeystoreParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetDeploymentEsResourceKeystoreOK, error) {
 	// TODO: Validate the params before sending
@@ -1582,6 +1885,47 @@ func (a *Client) SetDeploymentResourceRawMetadata(params *SetDeploymentResourceR
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for set-deployment-resource-raw-metadata: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  SetInstanceSettingsOverrides sets size overrides
+
+  Applies size overrides for the given instances belonging to the given resource.
+*/
+func (a *Client) SetInstanceSettingsOverrides(params *SetInstanceSettingsOverridesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetInstanceSettingsOverridesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSetInstanceSettingsOverridesParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "set-instance-settings-overrides",
+		Method:             "PUT",
+		PathPattern:        "/deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_ids}/overrides",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &SetInstanceSettingsOverridesReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*SetInstanceSettingsOverridesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for set-instance-settings-overrides: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

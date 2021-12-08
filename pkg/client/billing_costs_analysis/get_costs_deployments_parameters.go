@@ -78,7 +78,7 @@ type GetCostsDeploymentsParams struct {
 
 	/* From.
 
-	   A datetime for the beginning of the desired range for which to fetch activity. Defaults to start of current month. Note: there is currently a three-month maximum date range.
+	   A datetime for the beginning of the desired range for which to fetch activity. Defaults to start of current month.
 	*/
 	From *string
 
@@ -90,7 +90,7 @@ type GetCostsDeploymentsParams struct {
 
 	/* To.
 
-	   A datetime for the end of the desired range for which to fetch activity. Defaults to the current date. Note: there is currently a three-month maximum date range.
+	   A datetime for the end of the desired range for which to fetch activity. Defaults to the current date.
 	*/
 	To *string
 

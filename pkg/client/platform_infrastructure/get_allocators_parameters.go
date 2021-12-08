@@ -92,12 +92,14 @@ type GetAllocatorsParams struct {
 	/* Size.
 
 	   (Optional) The maximum number of search results to return. Defaults to 100.
+
+	   Default: 100
 	*/
 	Size *int64
 
 	/* Sort.
 
-	   (Optional) An comma-separated array of fields to sort the search results by. Defaults to `allocator_id`.
+	   (Optional) A comma-separated array of fields to sort the search results by. Defaults to `allocator_id`.
 	*/
 	Sort *string
 
@@ -118,7 +120,21 @@ func (o *GetAllocatorsParams) WithDefaults() *GetAllocatorsParams {
 //
 // All values with no default are reset to their zero value.
 func (o *GetAllocatorsParams) SetDefaults() {
-	// no default values defined for this parameter
+	var (
+		fromDefault = int64(0)
+
+		sizeDefault = int64(100)
+	)
+
+	val := GetAllocatorsParams{
+		From: &fromDefault,
+		Size: &sizeDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the get allocators params
