@@ -89,6 +89,12 @@ type GetInstanceConfigurationParams struct {
 	*/
 	ShowDeleted *bool
 
+	/* ShowMaxZones.
+
+	   If true, will populate the max_zones field of the instance configuration.
+	*/
+	ShowMaxZones *bool
+
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
@@ -106,7 +112,18 @@ func (o *GetInstanceConfigurationParams) WithDefaults() *GetInstanceConfiguratio
 //
 // All values with no default are reset to their zero value.
 func (o *GetInstanceConfigurationParams) SetDefaults() {
-	// no default values defined for this parameter
+	var (
+		showMaxZonesDefault = bool(false)
+	)
+
+	val := GetInstanceConfigurationParams{
+		ShowMaxZones: &showMaxZonesDefault,
+	}
+
+	val.timeout = o.timeout
+	val.Context = o.Context
+	val.HTTPClient = o.HTTPClient
+	*o = val
 }
 
 // WithTimeout adds the timeout to the get instance configuration params
@@ -164,6 +181,17 @@ func (o *GetInstanceConfigurationParams) SetShowDeleted(showDeleted *bool) {
 	o.ShowDeleted = showDeleted
 }
 
+// WithShowMaxZones adds the showMaxZones to the get instance configuration params
+func (o *GetInstanceConfigurationParams) WithShowMaxZones(showMaxZones *bool) *GetInstanceConfigurationParams {
+	o.SetShowMaxZones(showMaxZones)
+	return o
+}
+
+// SetShowMaxZones adds the showMaxZones to the get instance configuration params
+func (o *GetInstanceConfigurationParams) SetShowMaxZones(showMaxZones *bool) {
+	o.ShowMaxZones = showMaxZones
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *GetInstanceConfigurationParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -189,6 +217,23 @@ func (o *GetInstanceConfigurationParams) WriteToRequest(r runtime.ClientRequest,
 		if qShowDeleted != "" {
 
 			if err := r.SetQueryParam("show_deleted", qShowDeleted); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ShowMaxZones != nil {
+
+		// query param show_max_zones
+		var qrShowMaxZones bool
+
+		if o.ShowMaxZones != nil {
+			qrShowMaxZones = *o.ShowMaxZones
+		}
+		qShowMaxZones := swag.FormatBool(qrShowMaxZones)
+		if qShowMaxZones != "" {
+
+			if err := r.SetQueryParam("show_max_zones", qShowMaxZones); err != nil {
 				return err
 			}
 		}

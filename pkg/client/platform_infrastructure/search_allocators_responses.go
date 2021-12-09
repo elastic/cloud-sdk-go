@@ -46,12 +46,6 @@ func (o *SearchAllocatorsReader) ReadResponse(response runtime.ClientResponse, c
 			return nil, err
 		}
 		return result, nil
-	case 400:
-		result := NewSearchAllocatorsBadRequest()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -80,38 +74,6 @@ func (o *SearchAllocatorsOK) GetPayload() *models.AllocatorOverview {
 func (o *SearchAllocatorsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.AllocatorOverview)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewSearchAllocatorsBadRequest creates a SearchAllocatorsBadRequest with default headers values
-func NewSearchAllocatorsBadRequest() *SearchAllocatorsBadRequest {
-	return &SearchAllocatorsBadRequest{}
-}
-
-/* SearchAllocatorsBadRequest describes a response with status code 400, with default header values.
-
-The search request failed
-*/
-type SearchAllocatorsBadRequest struct {
-	Payload *models.BasicFailedReply
-}
-
-func (o *SearchAllocatorsBadRequest) Error() string {
-	return fmt.Sprintf("[POST /platform/infrastructure/allocators/_search][%d] searchAllocatorsBadRequest  %+v", 400, o.Payload)
-}
-func (o *SearchAllocatorsBadRequest) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *SearchAllocatorsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.BasicFailedReply)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

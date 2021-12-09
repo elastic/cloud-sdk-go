@@ -68,6 +68,10 @@ type KibanaClusterPlanInfo struct {
 
 	// Information describing the source that facilitated the plans current state
 	Source *ChangeSourceInfo `json:"source,omitempty"`
+
+	// warnings
+	// Required: true
+	Warnings []*ClusterPlanWarning `json:"warnings"`
 }
 
 // Validate validates this kibana cluster plan info
@@ -99,6 +103,10 @@ func (m *KibanaClusterPlanInfo) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateSource(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateWarnings(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -212,6 +220,31 @@ func (m *KibanaClusterPlanInfo) validateSource(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *KibanaClusterPlanInfo) validateWarnings(formats strfmt.Registry) error {
+
+	if err := validate.Required("warnings", "body", m.Warnings); err != nil {
+		return err
+	}
+
+	for i := 0; i < len(m.Warnings); i++ {
+		if swag.IsZero(m.Warnings[i]) { // not required
+			continue
+		}
+
+		if m.Warnings[i] != nil {
+			if err := m.Warnings[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("warnings" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
 // ContextValidate validate this kibana cluster plan info based on the context it is used
 func (m *KibanaClusterPlanInfo) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
@@ -225,6 +258,10 @@ func (m *KibanaClusterPlanInfo) ContextValidate(ctx context.Context, formats str
 	}
 
 	if err := m.contextValidateSource(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateWarnings(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -275,6 +312,24 @@ func (m *KibanaClusterPlanInfo) contextValidateSource(ctx context.Context, forma
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *KibanaClusterPlanInfo) contextValidateWarnings(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Warnings); i++ {
+
+		if m.Warnings[i] != nil {
+			if err := m.Warnings[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("warnings" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil

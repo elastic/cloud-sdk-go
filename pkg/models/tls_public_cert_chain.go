@@ -36,6 +36,9 @@ import (
 // swagger:model TlsPublicCertChain
 type TLSPublicCertChain struct {
 
+	// Whether or not this certificate can be updated using the API
+	APIManaged *bool `json:"api_managed,omitempty"`
+
 	// The list of PEM encoded X509 certificates that make up the certificate chain
 	// Required: true
 	Chain []string `json:"chain"`

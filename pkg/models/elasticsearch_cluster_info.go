@@ -54,7 +54,10 @@ type ElasticsearchClusterInfo struct {
 	// Required: true
 	AssociatedKibanaClusters []*KibanaSubClusterInfo `json:"associated_kibana_clusters"`
 
-	// DEPRECATED (Scheduled to be removed in the next major version): Cross-cluster search settings and status for this cluster. Use the /remote-clusters endpoints instead
+	// > WARNING
+	// > This endpoint is deprecated and scheduled to be removed in the next major version. Use [remote clusters endpoints](#Deployment_-_Remote_Clusters) instead.
+	//
+	// Cross-cluster search settings and status for this cluster.
 	Ccs *CrossClusterSearchInfo `json:"ccs,omitempty"`
 
 	// The id of the cluster

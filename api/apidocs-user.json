@@ -158,13 +158,13 @@
         }, {
           "name" : "from",
           "in" : "query",
-          "description" : "A datetime for the beginning of the desired range for which to fetch costs. Defaults to start of current month. Note: there is currently a three-month maximum date range.",
+          "description" : "A datetime for the beginning of the desired range for which to fetch costs. Defaults to start of current month.",
           "required" : false,
           "type" : "string"
         }, {
           "name" : "to",
           "in" : "query",
-          "description" : "A datetime for the end of the desired range for which to fetch costs. Defaults to the current date. Note: there is currently a three-month maximum date range.",
+          "description" : "A datetime for the end of the desired range for which to fetch costs. Defaults to the current date.",
           "required" : false,
           "type" : "string"
         } ],
@@ -209,13 +209,13 @@
         }, {
           "name" : "from",
           "in" : "query",
-          "description" : "A datetime for the beginning of the desired range for which to fetch activity. Defaults to start of current month. Note: there is currently a three-month maximum date range.",
+          "description" : "A datetime for the beginning of the desired range for which to fetch activity. Defaults to start of current month.",
           "required" : false,
           "type" : "string"
         }, {
           "name" : "to",
           "in" : "query",
-          "description" : "A datetime for the end of the desired range for which to fetch activity. Defaults to the current date. Note: there is currently a three-month maximum date range.",
+          "description" : "A datetime for the end of the desired range for which to fetch activity. Defaults to the current date.",
           "required" : false,
           "type" : "string"
         } ],
@@ -266,13 +266,13 @@
         }, {
           "name" : "from",
           "in" : "query",
-          "description" : "A datetime for the beginning of the desired range for which to fetch costs. Defaults to start of current month. Note: there is currently a three-month maximum date range.",
+          "description" : "A datetime for the beginning of the desired range for which to fetch costs. Defaults to start of current month.",
           "required" : false,
           "type" : "string"
         }, {
           "name" : "to",
           "in" : "query",
-          "description" : "A datetime for the end of the desired range for which to fetch costs. Defaults to the current date. Note: there is currently a three-month maximum date range.",
+          "description" : "A datetime for the end of the desired range for which to fetch costs. Defaults to the current date.",
           "required" : false,
           "type" : "string"
         } ],
@@ -317,13 +317,13 @@
         }, {
           "name" : "from",
           "in" : "query",
-          "description" : "A datetime for the beginning of the desired range for which to fetch costs. Defaults to start of current month. Note: there is currently a three-month maximum date range.",
+          "description" : "A datetime for the beginning of the desired range for which to fetch costs. Defaults to start of current month.",
           "required" : false,
           "type" : "string"
         }, {
           "name" : "to",
           "in" : "query",
-          "description" : "A datetime for the end of the desired range for which to fetch costs. Defaults to the current date. Note: there is currently a three-month maximum date range.",
+          "description" : "A datetime for the end of the desired range for which to fetch costs. Defaults to the current date.",
           "required" : false,
           "type" : "string"
         } ],
@@ -988,6 +988,20 @@
           "required" : false,
           "type" : "string"
         }, {
+          "name" : "show_instance_configurations",
+          "in" : "query",
+          "description" : "If true, will return details for each instance configuration referenced by the template.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : true
+        }, {
+          "name" : "show_max_zones",
+          "in" : "query",
+          "description" : "If true, will populate the max_zones field in the instance configurations. Only relevant if show_instance_configurations=true.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
           "name" : "stack_version",
           "in" : "query",
           "description" : "If present, it will cause the returned deployment templates to be adapted to return only the elements allowed in that version.",
@@ -1054,6 +1068,20 @@
           "description" : "The identifier for the deployment template.",
           "required" : true,
           "type" : "string"
+        }, {
+          "name" : "show_instance_configurations",
+          "in" : "query",
+          "description" : "If true, will return details for each instance configuration referenced by the template.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : true
+        }, {
+          "name" : "show_max_zones",
+          "in" : "query",
+          "description" : "If true, will populate the max_zones field in the instance configurations. Only relevant if show_instance_configurations=true.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
         }, {
           "name" : "stack_version",
           "in" : "query",
@@ -3072,8 +3100,8 @@
     "/deployments/{deployment_id}/elasticsearch/{ref_id}/keystore" : {
       "get" : {
         "tags" : [ "Deployments" ],
-        "summary" : "Get the settings from the Elasticsearch resource keystore",
-        "description" : "Adds the specified values to the Elasticsearch keystore, or removes the keys for the unspecified values.",
+        "summary" : "Get the items in the Elasticsearch resource keystore",
+        "description" : "Fetches the current values of the keystore for the Elasticsearch resource.",
         "operationId" : "get-deployment-es-resource-keystore",
         "parameters" : [ {
           "name" : "deployment_id",
@@ -3090,7 +3118,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "The new value for the keystore contents",
+            "description" : "The contents of the Elasticsearch keystore",
             "schema" : {
               "$ref" : "#/definitions/KeystoreContents"
             }
@@ -3141,8 +3169,8 @@
       },
       "patch" : {
         "tags" : [ "Deployments" ],
-        "summary" : "Add or remove settings from the Elasticsearch resource keystore",
-        "description" : "Fetches the current values of the keystore for the Elasticsearch resource.",
+        "summary" : "Add or remove items from the Elasticsearch resource keystore",
+        "description" : "Adds the specified values to the Elasticsearch keystore, or removes the keys for the unspecified values.",
         "operationId" : "set-deployment-es-resource-keystore",
         "consumes" : [ "application/json" ],
         "parameters" : [ {
@@ -3168,7 +3196,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "The new value for the keystore contents",
+            "description" : "The new contents of the Elasticsearch keystore",
             "schema" : {
               "$ref" : "#/definitions/KeystoreContents"
             }
@@ -5383,7 +5411,7 @@
     },
     "ApmPlanInfo" : {
       "type" : "object",
-      "required" : [ "healthy", "plan_attempt_log" ],
+      "required" : [ "healthy", "plan_attempt_log", "warnings" ],
       "properties" : {
         "plan_attempt_id" : {
           "type" : "string",
@@ -5424,6 +5452,12 @@
         "source" : {
           "description" : "Information describing the source that facilitated the plans current state",
           "$ref" : "#/definitions/ChangeSourceInfo"
+        },
+        "warnings" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/ClusterPlanWarning"
+          }
         }
       },
       "description" : "Information about the APM Server plan."
@@ -5791,7 +5825,7 @@
     },
     "AppSearchPlanInfo" : {
       "type" : "object",
-      "required" : [ "healthy", "plan_attempt_log" ],
+      "required" : [ "healthy", "plan_attempt_log", "warnings" ],
       "properties" : {
         "plan_attempt_id" : {
           "type" : "string",
@@ -5832,6 +5866,12 @@
         "source" : {
           "description" : "Information describing the source that facilitated the plans current state",
           "$ref" : "#/definitions/ChangeSourceInfo"
+        },
+        "warnings" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/ClusterPlanWarning"
+          }
         }
       },
       "description" : "Information about the App Search Server plan."
@@ -6441,6 +6481,25 @@
       },
       "description" : "The log message from a specified stage of an executed step in a plan."
     },
+    "ClusterPlanWarning" : {
+      "type" : "object",
+      "required" : [ "code", "message" ],
+      "properties" : {
+        "code" : {
+          "type" : "string",
+          "description" : "A unique warning code"
+        },
+        "message" : {
+          "type" : "string",
+          "description" : "A description of the warning"
+        },
+        "step_id" : {
+          "type" : "string",
+          "description" : "The ID of the step which produced a warning, if any"
+        }
+      },
+      "description" : "Information about a warning from a plan."
+    },
     "ClusterSnapshotRetention" : {
       "type" : "object",
       "properties" : {
@@ -6723,6 +6782,10 @@
           "type" : "number",
           "format" : "double",
           "description" : "Price per hour"
+        },
+        "period" : {
+          "description" : "Period",
+          "$ref" : "#/definitions/Period"
         }
       },
       "description" : "Detailed costs for a deployment for an organization. All of the costs are expressed in Elastic Consumption Unit (ECU)."
@@ -6839,7 +6902,7 @@
       "type" : "object",
       "properties" : {
         "ip_filtering_settings" : {
-          "description" : "DEPRECATED (Scheduled to be removed in the next major version): The set of rulesets applies to this deployment.",
+          "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use traffic filter settings instead.\n\nThe set of rulesets applies to this deployment.",
           "$ref" : "#/definitions/IpFilteringSettings"
         },
         "traffic_filter_settings" : {
@@ -7776,7 +7839,7 @@
           "description" : "The region that this cluster belongs to. Only populated in SaaS or federated ECE."
         },
         "ccs" : {
-          "description" : "DEPRECATED (Scheduled to be removed in the next major version): Cross-cluster search settings and status for this cluster. Use the /remote-clusters endpoints instead",
+          "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [remote clusters endpoints](#Deployment_-_Remote_Clusters) instead.\n\nCross-cluster search settings and status for this cluster.",
           "$ref" : "#/definitions/CrossClusterSearchInfo"
         }
       },
@@ -7811,7 +7874,7 @@
     },
     "ElasticsearchClusterPlanInfo" : {
       "type" : "object",
-      "required" : [ "healthy", "plan_attempt_log" ],
+      "required" : [ "healthy", "plan_attempt_log", "warnings" ],
       "properties" : {
         "plan_attempt_id" : {
           "type" : "string",
@@ -7852,6 +7915,12 @@
         "source" : {
           "description" : "Information describing the source that facilitated the plans current state",
           "$ref" : "#/definitions/ChangeSourceInfo"
+        },
+        "warnings" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/ClusterPlanWarning"
+          }
         }
       },
       "description" : "Information about the Elasticsearch cluster plan."
@@ -7951,7 +8020,7 @@
           "description" : "Threshold starting from which the number of instances in the cluster results in the introduction of dedicated masters. If the cluster is downscaled to a number of nodes below this one, dedicated masters will be removed. Limit is inclusive."
         },
         "ip_filtering" : {
-          "description" : "DEPRECATED (Scheduled to be removed in the next major version): The set of rulesets to apply for all the resources in this cluster. When specified the same rulesets will be applied to Kibana and APM clusters as well",
+          "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use traffic filter settings instead.\n\nThe set of rulesets to apply for all the resources in this cluster. When specified the same rulesets will be applied to Kibana and APM clusters as well",
           "$ref" : "#/definitions/IpFilteringSettings"
         },
         "traffic_filter" : {
@@ -7959,7 +8028,7 @@
           "$ref" : "#/definitions/TrafficFilterSettings"
         },
         "ccs" : {
-          "description" : "DEPRECATED (Scheduled to be removed in the next major version): Configuration of remote clusters. Use the /remote-clusters endpoints instead",
+          "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use the /remote-clusters endpoints instead.\n\nConfiguration of remote clusters.",
           "$ref" : "#/definitions/CrossClusterSearchSettings"
         },
         "trust" : {
@@ -8788,7 +8857,7 @@
     },
     "EnterpriseSearchPlanInfo" : {
       "type" : "object",
-      "required" : [ "healthy", "plan_attempt_log" ],
+      "required" : [ "healthy", "plan_attempt_log", "warnings" ],
       "properties" : {
         "plan_attempt_id" : {
           "type" : "string",
@@ -8829,6 +8898,12 @@
         "source" : {
           "description" : "Information describing the source that facilitated the plans current state",
           "$ref" : "#/definitions/ChangeSourceInfo"
+        },
+        "warnings" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/ClusterPlanWarning"
+          }
         }
       },
       "description" : "Information about the Enterprise Search Server plan."
@@ -9195,6 +9270,12 @@
           "type" : "number",
           "format" : "double",
           "description" : "Settings for the instance CPU multiplier"
+        },
+        "max_zones" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The maximum number of availability zones in which this instance configuration has allocators. This field will be missing unless explicitly requested with the show_max_zones parameter.",
+          "readOnly" : true
         }
       },
       "description" : "The configuration template for Elasticsearch instances, Kibana instances, and APM Servers."
@@ -9438,7 +9519,7 @@
     },
     "KibanaClusterPlanInfo" : {
       "type" : "object",
-      "required" : [ "healthy", "plan_attempt_log" ],
+      "required" : [ "healthy", "plan_attempt_log", "warnings" ],
       "properties" : {
         "plan_attempt_id" : {
           "type" : "string",
@@ -9479,6 +9560,12 @@
         "source" : {
           "description" : "Information describing the source that facilitated the plans current state",
           "$ref" : "#/definitions/ChangeSourceInfo"
+        },
+        "warnings" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/ClusterPlanWarning"
+          }
         }
       },
       "description" : "Information about the current, pending, or past Kibana instance plan."

@@ -35,7 +35,10 @@ import (
 // swagger:model ElasticsearchClusterSettings
 type ElasticsearchClusterSettings struct {
 
-	// DEPRECATED (Scheduled to be removed in the next major version): Configuration of remote clusters. Use the /remote-clusters endpoints instead
+	// > WARNING
+	// > This endpoint is deprecated and scheduled to be removed in the next major version. Use the /remote-clusters endpoints instead.
+	//
+	// Configuration of remote clusters.
 	Ccs *CrossClusterSearchSettings `json:"ccs,omitempty"`
 
 	// curation
@@ -44,7 +47,10 @@ type ElasticsearchClusterSettings struct {
 	// Threshold starting from which the number of instances in the cluster results in the introduction of dedicated masters. If the cluster is downscaled to a number of nodes below this one, dedicated masters will be removed. Limit is inclusive.
 	DedicatedMastersThreshold int32 `json:"dedicated_masters_threshold,omitempty"`
 
-	// DEPRECATED (Scheduled to be removed in the next major version): The set of rulesets to apply for all the resources in this cluster. When specified the same rulesets will be applied to Kibana and APM clusters as well
+	// > WARNING
+	// > This endpoint is deprecated and scheduled to be removed in the next major version. Use traffic filter settings instead.
+	//
+	// The set of rulesets to apply for all the resources in this cluster. When specified the same rulesets will be applied to Kibana and APM clusters as well
 	IPFiltering *IPFilteringSettings `json:"ip_filtering,omitempty"`
 
 	// metadata
