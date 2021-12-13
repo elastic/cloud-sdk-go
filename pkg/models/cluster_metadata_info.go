@@ -69,6 +69,9 @@ type ClusterMetadataInfo struct {
 	// The resource version number of the cluster metadata
 	// Required: true
 	Version *int32 `json:"version"`
+
+	// Skip SSL validation
+	Insecure bool `json:"insecure,omitempty"`
 }
 
 // Validate validates this cluster metadata info
