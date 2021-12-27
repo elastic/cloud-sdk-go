@@ -46,8 +46,26 @@ func (o *GetCostsOverviewReader) ReadResponse(response runtime.ClientResponse, c
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewGetCostsOverviewBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	case 403:
 		result := NewGetCostsOverviewForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewGetCostsOverviewNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewGetCostsOverviewInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -89,6 +107,50 @@ func (o *GetCostsOverviewOK) readResponse(response runtime.ClientResponse, consu
 	return nil
 }
 
+// NewGetCostsOverviewBadRequest creates a GetCostsOverviewBadRequest with default headers values
+func NewGetCostsOverviewBadRequest() *GetCostsOverviewBadRequest {
+	return &GetCostsOverviewBadRequest{}
+}
+
+/* GetCostsOverviewBadRequest describes a response with status code 400, with default header values.
+
+The specified date range is invalid. (code: `costs.invalid_date_range`)
+*/
+type GetCostsOverviewBadRequest struct {
+
+	/* The error codes associated with the response
+	 */
+	XCloudErrorCodes string
+
+	Payload *models.BasicFailedReply
+}
+
+func (o *GetCostsOverviewBadRequest) Error() string {
+	return fmt.Sprintf("[GET /billing/costs/{organization_id}][%d] getCostsOverviewBadRequest  %+v", 400, o.Payload)
+}
+func (o *GetCostsOverviewBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
+func (o *GetCostsOverviewBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
+
+	o.Payload = new(models.BasicFailedReply)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
 // NewGetCostsOverviewForbidden creates a GetCostsOverviewForbidden with default headers values
 func NewGetCostsOverviewForbidden() *GetCostsOverviewForbidden {
 	return &GetCostsOverviewForbidden{}
@@ -115,6 +177,94 @@ func (o *GetCostsOverviewForbidden) GetPayload() *models.BasicFailedReply {
 }
 
 func (o *GetCostsOverviewForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
+
+	o.Payload = new(models.BasicFailedReply)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetCostsOverviewNotFound creates a GetCostsOverviewNotFound with default headers values
+func NewGetCostsOverviewNotFound() *GetCostsOverviewNotFound {
+	return &GetCostsOverviewNotFound{}
+}
+
+/* GetCostsOverviewNotFound describes a response with status code 404, with default header values.
+
+Organization not found. (code: `organization.not_found`)
+*/
+type GetCostsOverviewNotFound struct {
+
+	/* The error codes associated with the response
+	 */
+	XCloudErrorCodes string
+
+	Payload *models.BasicFailedReply
+}
+
+func (o *GetCostsOverviewNotFound) Error() string {
+	return fmt.Sprintf("[GET /billing/costs/{organization_id}][%d] getCostsOverviewNotFound  %+v", 404, o.Payload)
+}
+func (o *GetCostsOverviewNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
+func (o *GetCostsOverviewNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
+
+	o.Payload = new(models.BasicFailedReply)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetCostsOverviewInternalServerError creates a GetCostsOverviewInternalServerError with default headers values
+func NewGetCostsOverviewInternalServerError() *GetCostsOverviewInternalServerError {
+	return &GetCostsOverviewInternalServerError{}
+}
+
+/* GetCostsOverviewInternalServerError describes a response with status code 500, with default header values.
+
+An error occurred when fetching an overview of the costs for the organization. (code: `billing_service.failed_request`)
+*/
+type GetCostsOverviewInternalServerError struct {
+
+	/* The error codes associated with the response
+	 */
+	XCloudErrorCodes string
+
+	Payload *models.BasicFailedReply
+}
+
+func (o *GetCostsOverviewInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /billing/costs/{organization_id}][%d] getCostsOverviewInternalServerError  %+v", 500, o.Payload)
+}
+func (o *GetCostsOverviewInternalServerError) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
+func (o *GetCostsOverviewInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// hydrates response header x-cloud-error-codes
 	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")

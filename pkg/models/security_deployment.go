@@ -41,6 +41,9 @@ type SecurityDeployment struct {
 	// Required: true
 	ClusterID *string `json:"cluster_id"`
 
+	// The identifier for the security deployment
+	DeploymentID string `json:"deployment_id,omitempty"`
+
 	// True if a pending plan is in progress
 	// Required: true
 	HasPendingPlan *bool `json:"has_pending_plan"`

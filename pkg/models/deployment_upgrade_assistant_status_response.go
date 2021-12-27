@@ -31,32 +31,29 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// RemoteClusterInfo Information about the remote cluster for cross-cluster search.
+// DeploymentUpgradeAssistantStatusResponse The status of your cluster and its readiness to be upgraded
 //
-// swagger:model RemoteClusterInfo
-type RemoteClusterInfo struct {
+// swagger:model DeploymentUpgradeAssistantStatusResponse
+type DeploymentUpgradeAssistantStatusResponse struct {
 
-	// Flag indicating whether the remote cluster version is compatible
+	// Message with information about the number of Elasticsearch and Kibana deprecations
 	// Required: true
-	Compatible *bool `json:"compatible"`
+	Details *string `json:"details"`
 
-	// The remote Elasticsearch cluster deployment id
+	// A boolean indicating whether or not the cluster is ready to be upgraded
 	// Required: true
-	ID *string `json:"id"`
-
-	// Remote cluster Elasticsearch version
-	Version string `json:"version,omitempty"`
+	ReadyForUpgrade *bool `json:"ready_for_upgrade"`
 }
 
-// Validate validates this remote cluster info
-func (m *RemoteClusterInfo) Validate(formats strfmt.Registry) error {
+// Validate validates this deployment upgrade assistant status response
+func (m *DeploymentUpgradeAssistantStatusResponse) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateCompatible(formats); err != nil {
+	if err := m.validateDetails(formats); err != nil {
 		res = append(res, err)
 	}
 
-	if err := m.validateID(formats); err != nil {
+	if err := m.validateReadyForUpgrade(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -66,31 +63,31 @@ func (m *RemoteClusterInfo) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *RemoteClusterInfo) validateCompatible(formats strfmt.Registry) error {
+func (m *DeploymentUpgradeAssistantStatusResponse) validateDetails(formats strfmt.Registry) error {
 
-	if err := validate.Required("compatible", "body", m.Compatible); err != nil {
+	if err := validate.Required("details", "body", m.Details); err != nil {
 		return err
 	}
 
 	return nil
 }
 
-func (m *RemoteClusterInfo) validateID(formats strfmt.Registry) error {
+func (m *DeploymentUpgradeAssistantStatusResponse) validateReadyForUpgrade(formats strfmt.Registry) error {
 
-	if err := validate.Required("id", "body", m.ID); err != nil {
+	if err := validate.Required("ready_for_upgrade", "body", m.ReadyForUpgrade); err != nil {
 		return err
 	}
 
 	return nil
 }
 
-// ContextValidate validates this remote cluster info based on context it is used
-func (m *RemoteClusterInfo) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+// ContextValidate validates this deployment upgrade assistant status response based on context it is used
+func (m *DeploymentUpgradeAssistantStatusResponse) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 
 // MarshalBinary interface implementation
-func (m *RemoteClusterInfo) MarshalBinary() ([]byte, error) {
+func (m *DeploymentUpgradeAssistantStatusResponse) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -98,8 +95,8 @@ func (m *RemoteClusterInfo) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *RemoteClusterInfo) UnmarshalBinary(b []byte) error {
-	var res RemoteClusterInfo
+func (m *DeploymentUpgradeAssistantStatusResponse) UnmarshalBinary(b []byte) error {
+	var res DeploymentUpgradeAssistantStatusResponse
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

@@ -54,12 +54,6 @@ type ElasticsearchClusterInfo struct {
 	// Required: true
 	AssociatedKibanaClusters []*KibanaSubClusterInfo `json:"associated_kibana_clusters"`
 
-	// > WARNING
-	// > This endpoint is deprecated and scheduled to be removed in the next major version. Use [remote clusters endpoints](#Deployment_-_Remote_Clusters) instead.
-	//
-	// Cross-cluster search settings and status for this cluster.
-	Ccs *CrossClusterSearchInfo `json:"ccs,omitempty"`
-
 	// The id of the cluster
 	// Required: true
 	ClusterID *string `json:"cluster_id"`
@@ -144,10 +138,6 @@ func (m *ElasticsearchClusterInfo) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateAssociatedKibanaClusters(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateCcs(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -312,23 +302,6 @@ func (m *ElasticsearchClusterInfo) validateAssociatedKibanaClusters(formats strf
 			}
 		}
 
-	}
-
-	return nil
-}
-
-func (m *ElasticsearchClusterInfo) validateCcs(formats strfmt.Registry) error {
-	if swag.IsZero(m.Ccs) { // not required
-		return nil
-	}
-
-	if m.Ccs != nil {
-		if err := m.Ccs.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("ccs")
-			}
-			return err
-		}
 	}
 
 	return nil
@@ -654,10 +627,6 @@ func (m *ElasticsearchClusterInfo) ContextValidate(ctx context.Context, formats 
 		res = append(res, err)
 	}
 
-	if err := m.contextValidateCcs(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.contextValidateElasticsearch(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -775,20 +744,6 @@ func (m *ElasticsearchClusterInfo) contextValidateAssociatedKibanaClusters(ctx c
 			}
 		}
 
-	}
-
-	return nil
-}
-
-func (m *ElasticsearchClusterInfo) contextValidateCcs(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.Ccs != nil {
-		if err := m.Ccs.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("ccs")
-			}
-			return err
-		}
 	}
 
 	return nil

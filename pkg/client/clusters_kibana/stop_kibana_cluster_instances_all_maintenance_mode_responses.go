@@ -76,7 +76,7 @@ func NewStopKibanaClusterInstancesAllMaintenanceModeAccepted() *StopKibanaCluste
 
 /* StopKibanaClusterInstancesAllMaintenanceModeAccepted describes a response with status code 202, with default header values.
 
-The stop maintenance mode command was issued successfully, use the "GET" command on the /{cluster_id} resource to monitor progress
+The stop maintenance mode command was issued successfully. Use the "GET" command on the /{deployment_id} resource to monitor progress
 */
 type StopKibanaClusterInstancesAllMaintenanceModeAccepted struct {
 	Payload *models.ClusterCommandResponse

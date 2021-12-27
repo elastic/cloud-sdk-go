@@ -65,10 +65,6 @@ type ClientService interface {
 
 	GetEsCluster(params *GetEsClusterParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEsClusterOK, error)
 
-	GetEsClusterCcs(params *GetEsClusterCcsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEsClusterCcsOK, error)
-
-	GetEsClusterCcsSettings(params *GetEsClusterCcsSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEsClusterCcsSettingsOK, error)
-
 	GetEsClusterCurationSettings(params *GetEsClusterCurationSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEsClusterCurationSettingsOK, error)
 
 	GetEsClusterKeystore(params *GetEsClusterKeystoreParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEsClusterKeystoreOK, error)
@@ -106,8 +102,6 @@ type ClientService interface {
 	ResyncEsClusters(params *ResyncEsClustersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ResyncEsClustersAccepted, error)
 
 	SearchEsClusters(params *SearchEsClustersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SearchEsClustersOK, error)
-
-	SetEsClusterCcsSettings(params *SetEsClusterCcsSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetEsClusterCcsSettingsAccepted, error)
 
 	SetEsClusterInstancesAllSettingsOverrides(params *SetEsClusterInstancesAllSettingsOverridesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetEsClusterInstancesAllSettingsOverridesOK, error)
 
@@ -551,94 +545,6 @@ func (a *Client) GetEsCluster(params *GetEsClusterParams, authInfo runtime.Clien
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for get-es-cluster: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  GetEsClusterCcs gets cross cluster search clusters
-
-  > WARNING
-> This endpoint is deprecated and scheduled to be removed in the next major version. Use the Elasticsearch remote cluster info API instead.
-
-Returns the list of cross-cluster search clusters' IDs for the remote cluster.
-*/
-func (a *Client) GetEsClusterCcs(params *GetEsClusterCcsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEsClusterCcsOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetEsClusterCcsParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "get-es-cluster-ccs",
-		Method:             "GET",
-		PathPattern:        "/clusters/elasticsearch/{cluster_id}/ccs",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"https"},
-		Params:             params,
-		Reader:             &GetEsClusterCcsReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*GetEsClusterCcsOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for get-es-cluster-ccs: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  GetEsClusterCcsSettings gets remote clusters for cross cluster search
-
-  > WARNING
-> This endpoint is deprecated and scheduled to be removed in the next major version. Use [get Elasticsearch remote clusters](#get-deployment-es-resource-remote-clusters) instead.
-
-Returns cross-cluster search configuration for the Elasticsearch cluster.
-*/
-func (a *Client) GetEsClusterCcsSettings(params *GetEsClusterCcsSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEsClusterCcsSettingsOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewGetEsClusterCcsSettingsParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "get-es-cluster-ccs-settings",
-		Method:             "GET",
-		PathPattern:        "/clusters/elasticsearch/{cluster_id}/ccs/settings",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"https"},
-		Params:             params,
-		Reader:             &GetEsClusterCcsSettingsReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*GetEsClusterCcsSettingsOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for get-es-cluster-ccs-settings: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -1476,50 +1382,6 @@ func (a *Client) SearchEsClusters(params *SearchEsClustersParams, authInfo runti
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for search-es-clusters: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  SetEsClusterCcsSettings sets remote clusters for cross cluster search
-
-  > WARNING
-> This endpoint is deprecated and scheduled to be removed in the next major version. Use [set Elasticsearch remote clusters](#set-deployment-es-resource-remote-clusters) instead.
-
-Overwrites or creates the cross-cluster search configuration for the Elasticsearch cluster.
-*/
-func (a *Client) SetEsClusterCcsSettings(params *SetEsClusterCcsSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetEsClusterCcsSettingsAccepted, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewSetEsClusterCcsSettingsParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "set-es-cluster-ccs-settings",
-		Method:             "PUT",
-		PathPattern:        "/clusters/elasticsearch/{cluster_id}/ccs/settings",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"https"},
-		Params:             params,
-		Reader:             &SetEsClusterCcsSettingsReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*SetEsClusterCcsSettingsAccepted)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for set-es-cluster-ccs-settings: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
