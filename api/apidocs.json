@@ -213,6 +213,19 @@
               "$ref" : "#/definitions/CostsOverview"
             }
           },
+          "400" : {
+            "description" : "The specified date range is invalid. (code: `costs.invalid_date_range`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "costs.invalid_date_range" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
           "403" : {
             "description" : "The current user does not have access to the requested organization. (code: `organization.invalid_access`)",
             "headers" : {
@@ -220,6 +233,32 @@
                 "type" : "string",
                 "description" : "The error codes associated with the response",
                 "enum" : [ "organization.invalid_access" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "404" : {
+            "description" : "Organization not found. (code: `organization.not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "organization.not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "500" : {
+            "description" : "An error occurred when fetching an overview of the costs for the organization. (code: `billing_service.failed_request`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "billing_service.failed_request" ]
               }
             },
             "schema" : {
@@ -264,6 +303,19 @@
               "$ref" : "#/definitions/DeploymentsCosts"
             }
           },
+          "400" : {
+            "description" : "Invalid date range specified. (code: `costs.invalid_date_range`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "costs.invalid_date_range" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
           "403" : {
             "description" : "The current user does not have access to the requested organization. (code: `organization.invalid_access`)",
             "headers" : {
@@ -271,6 +323,32 @@
                 "type" : "string",
                 "description" : "The error codes associated with the response",
                 "enum" : [ "organization.invalid_access" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "404" : {
+            "description" : "Organization not found. (code: `organization.not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "organization.not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "500" : {
+            "description" : "An error occurred when fetching the costs associated with all deployments for the organization. (code: `billing_service.failed_request`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "billing_service.failed_request" ]
               }
             },
             "schema" : {
@@ -321,6 +399,19 @@
               "$ref" : "#/definitions/ItemsCosts"
             }
           },
+          "400" : {
+            "description" : "The specified date range is invalid. (code: `costs.invalid_date_range`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "costs.invalid_date_range" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
           "403" : {
             "description" : "The current user does not have access to the requested organization. (code: `organization.invalid_access`)",
             "headers" : {
@@ -328,6 +419,32 @@
                 "type" : "string",
                 "description" : "The error codes associated with the response",
                 "enum" : [ "organization.invalid_access" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "404" : {
+            "description" : "* The organization was not found. (code: `organization.not_found`)\n* The Elasticsearch cluster was not found. (code: `billing_service.es_cluster_id_not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "organization.not_found", "billing_service.es_cluster_id_not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "500" : {
+            "description" : "An error occurred when fetching the itemized costs for the given deployment of the organization. (code: `billing_service.failed_request`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "billing_service.failed_request" ]
               }
             },
             "schema" : {
@@ -372,6 +489,19 @@
               "$ref" : "#/definitions/ItemsCosts"
             }
           },
+          "400" : {
+            "description" : "The specified date range is invalid. (code: `costs.invalid_date_range`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "costs.invalid_date_range" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
           "403" : {
             "description" : "The current user does not have access to the requested organization. (code: `organization.invalid_access`)",
             "headers" : {
@@ -379,6 +509,32 @@
                 "type" : "string",
                 "description" : "The error codes associated with the response",
                 "enum" : [ "organization.invalid_access" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "404" : {
+            "description" : "Organization not found. (code: `organization.not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "organization.not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "500" : {
+            "description" : "Error fetching the itemized costs for the organization. (code: `billing_service.failed_request`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "billing_service.failed_request" ]
               }
             },
             "schema" : {
@@ -814,7 +970,7 @@
         } ],
         "responses" : {
           "202" : {
-            "description" : "The stop command was issued successfully, use the \"GET\" command on the /{cluster_id} resource to monitor progress",
+            "description" : "The stop command was issued successfully. Use the \"GET\" command on the /{deployment_id} resource to monitor progress",
             "schema" : {
               "$ref" : "#/definitions/ClusterCommandResponse"
             }
@@ -938,7 +1094,7 @@
         } ],
         "responses" : {
           "202" : {
-            "description" : "The shutdown command was issued successfully, use the \"GET\" command on the /{cluster_id} resource to monitor progress",
+            "description" : "The shutdown command was issued successfully. Use the \"GET\" command on the /{deployment_id} resource to monitor progress",
             "schema" : {
               "$ref" : "#/definitions/ClusterCommandResponse"
             }
@@ -997,7 +1153,7 @@
         } ],
         "responses" : {
           "202" : {
-            "description" : "The upgrade command was issued successfully, use the \"GET\" command on the /{cluster_id} resource to monitor progress",
+            "description" : "The upgrade command was issued successfully. Use the \"GET\" command on the /{deployment_id} resource to monitor progress",
             "schema" : {
               "$ref" : "#/definitions/ClusterUpgradeInfo"
             }
@@ -1072,7 +1228,7 @@
         } ],
         "responses" : {
           "202" : {
-            "description" : "The move command was issued successfully, use the \"GET\" command on the /{cluster_id} resource to monitor progress",
+            "description" : "The move command was issued successfully. Use the \"GET\" command on the /{deployment_id} resource to monitor progress",
             "schema" : {
               "$ref" : "#/definitions/ClusterCommandResponse"
             }
@@ -1150,7 +1306,7 @@
         } ],
         "responses" : {
           "202" : {
-            "description" : "The start command was issued successfully, use the \"GET\" command on the /{cluster_id} resource to monitor progress",
+            "description" : "The start command was issued successfully. Use the \"GET\" command on the /{deployment_id} resource to monitor progress",
             "schema" : {
               "$ref" : "#/definitions/ClusterCommandResponse"
             }
@@ -1215,7 +1371,7 @@
         } ],
         "responses" : {
           "202" : {
-            "description" : "The stop command was issued successfully, use the \"GET\" command on the /{cluster_id} resource to monitor progress",
+            "description" : "The stop command was issued successfully. Use the \"GET\" command on the /{deployment_id} resource to monitor progress",
             "schema" : {
               "$ref" : "#/definitions/ClusterCommandResponse"
             }
@@ -1280,7 +1436,7 @@
         } ],
         "responses" : {
           "202" : {
-            "description" : "The start maintenance mode command was issued successfully, use the \"GET\" command on the /{cluster_id} resource to monitor progress",
+            "description" : "The start maintenance mode command was issued successfully. Use the \"GET\" command on the /{deployment_id} resource to monitor progress",
             "schema" : {
               "$ref" : "#/definitions/ClusterCommandResponse"
             }
@@ -1345,7 +1501,7 @@
         } ],
         "responses" : {
           "202" : {
-            "description" : "The stop maintenance mode command was issued successfully, use the \"GET\" command on the /{cluster_id} resource to monitor progress",
+            "description" : "The stop maintenance mode command was issued successfully. Use the \"GET\" command on the /{deployment_id} resource to monitor progress",
             "schema" : {
               "$ref" : "#/definitions/ClusterCommandResponse"
             }
@@ -1450,7 +1606,7 @@
         } ],
         "responses" : {
           "202" : {
-            "description" : "The move command was issued successfully, use the \"GET\" command on the /{cluster_id} resource to monitor progress",
+            "description" : "The move command was issued successfully. Use the \"GET\" command on the /{deployment_id} resource to monitor progress",
             "schema" : {
               "$ref" : "#/definitions/ClusterCommandResponse"
             }
@@ -1545,7 +1701,7 @@
         } ],
         "responses" : {
           "202" : {
-            "description" : "The start command was issued successfully, use the \"GET\" command on the /{cluster_id} resource to monitor progress",
+            "description" : "The start command was issued successfully. Use the \"GET\" command on the /{deployment_id} resource to monitor progress",
             "schema" : {
               "$ref" : "#/definitions/ClusterCommandResponse"
             }
@@ -1627,7 +1783,7 @@
         } ],
         "responses" : {
           "202" : {
-            "description" : "The stop command was issued successfully, use the \"GET\" command on the /{cluster_id} resource to monitor progress",
+            "description" : "The stop command was issued successfully. Use the \"GET\" command on the /{deployment_id} resource to monitor progress",
             "schema" : {
               "$ref" : "#/definitions/ClusterCommandResponse"
             }
@@ -1709,7 +1865,7 @@
         } ],
         "responses" : {
           "202" : {
-            "description" : "The start maintenance mode command was issued successfully, use the \"GET\" command on the /{cluster_id} resource to monitor progress",
+            "description" : "The start maintenance mode command was issued successfully. Use the \"GET\" command on the /{deployment_id} resource to monitor progress",
             "schema" : {
               "$ref" : "#/definitions/ClusterCommandResponse"
             }
@@ -1791,7 +1947,7 @@
         } ],
         "responses" : {
           "202" : {
-            "description" : "The stop maintenance mode command was issued successfully, use the \"GET\" command on the /{cluster_id} resource to monitor progress",
+            "description" : "The stop maintenance mode command was issued successfully. Use the \"GET\" command on the /{deployment_id} resource to monitor progress",
             "schema" : {
               "$ref" : "#/definitions/ClusterCommandResponse"
             }
@@ -2906,7 +3062,7 @@
         } ],
         "responses" : {
           "202" : {
-            "description" : "The stop command was issued successfully, use the \"GET\" command on the /{cluster_id} resource to monitor progress",
+            "description" : "The stop command was issued successfully. Use the \"GET\" command on the /{deployment_id} resource to monitor progress",
             "schema" : {
               "$ref" : "#/definitions/ClusterCommandResponse"
             }
@@ -3050,7 +3206,7 @@
         } ],
         "responses" : {
           "202" : {
-            "description" : "The shutdown command was issued successfully, use the \"GET\" command on the /{cluster_id} resource to monitor progress",
+            "description" : "The shutdown command was issued successfully. Use the \"GET\" command on the /{deployment_id} resource to monitor progress",
             "schema" : {
               "$ref" : "#/definitions/ClusterCommandResponse"
             }
@@ -3111,7 +3267,7 @@
         } ],
         "responses" : {
           "202" : {
-            "description" : "The create command was issued successfully, use the \"GET\" command on the /{cluster_id} resource to monitor progress",
+            "description" : "The create command was issued successfully. Use the \"GET\" command on the /{deployment_id} resource to monitor progress",
             "schema" : {
               "$ref" : "#/definitions/ClusterSnapshotResponse"
             }
@@ -3184,108 +3340,6 @@
         },
         "x-doc" : {
           "tag" : "Clusters - Elasticsearch - Commands"
-        }
-      }
-    },
-    "/clusters/elasticsearch/{cluster_id}/ccs" : {
-      "get" : {
-        "tags" : [ "ClustersElasticsearch" ],
-        "summary" : "Get cross-cluster search clusters",
-        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use the Elasticsearch remote cluster info API instead.\n\nReturns the list of cross-cluster search clusters' IDs for the remote cluster.",
-        "operationId" : "get-es-cluster-ccs",
-        "parameters" : [ {
-          "name" : "cluster_id",
-          "in" : "path",
-          "description" : "Elasticsearch cluster identifier",
-          "required" : true,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "List of cross-cluster search clusters' IDs for the remote cluster",
-            "schema" : {
-              "$ref" : "#/definitions/CrossClusterSearchClusters"
-            }
-          },
-          "404" : {
-            "description" : "The cluster specified by {cluster_id} cannot be found (code: 'clusters.cluster_not_found')",
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          }
-        },
-        "x-doc" : {
-          "tag" : "Clusters - Elasticsearch - CRUD - Configuration"
-        }
-      }
-    },
-    "/clusters/elasticsearch/{cluster_id}/ccs/settings" : {
-      "get" : {
-        "tags" : [ "ClustersElasticsearch" ],
-        "summary" : "Get remote clusters for cross-cluster search",
-        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [get Elasticsearch remote clusters](#get-deployment-es-resource-remote-clusters) instead.\n\nReturns cross-cluster search configuration for the Elasticsearch cluster.",
-        "operationId" : "get-es-cluster-ccs-settings",
-        "parameters" : [ {
-          "name" : "cluster_id",
-          "in" : "path",
-          "description" : "Elasticsearch cluster identifier",
-          "required" : true,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "The configuration for cross-cluster search",
-            "schema" : {
-              "$ref" : "#/definitions/CrossClusterSearchSettings"
-            }
-          },
-          "404" : {
-            "description" : "The cluster specified by {cluster_id} or a remote cluster cannot be found (code: 'clusters.cluster_not_found')",
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          }
-        },
-        "x-doc" : {
-          "tag" : "Clusters - Elasticsearch - CRUD - Configuration"
-        }
-      },
-      "put" : {
-        "tags" : [ "ClustersElasticsearch" ],
-        "summary" : "Set remote clusters for cross-cluster search",
-        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [set Elasticsearch remote clusters](#set-deployment-es-resource-remote-clusters) instead.\n\nOverwrites or creates the cross-cluster search configuration for the Elasticsearch cluster.",
-        "operationId" : "set-es-cluster-ccs-settings",
-        "parameters" : [ {
-          "name" : "cluster_id",
-          "in" : "path",
-          "description" : "Elasticsearch cluster identifier",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "in" : "body",
-          "name" : "body",
-          "description" : "Remote clusters for cross-cluster search",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/definitions/CrossClusterSearchSettings"
-          }
-        } ],
-        "responses" : {
-          "202" : {
-            "description" : "The configuration for remote clusters was updated",
-            "schema" : {
-              "$ref" : "#/definitions/EmptyResponse"
-            }
-          },
-          "404" : {
-            "description" : "The cluster specified by {cluster_id} or a remote cluster cannot be found (code: 'clusters.cluster_not_found')",
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          }
-        },
-        "x-doc" : {
-          "tag" : "Clusters - Elasticsearch - CRUD - Configuration"
         }
       }
     },
@@ -3457,7 +3511,7 @@
         } ],
         "responses" : {
           "202" : {
-            "description" : "The move command was issued successfully, use the \"GET\" command on the /{cluster_id} resource to monitor progress",
+            "description" : "The move command was issued successfully. Use the \"GET\" command on the /{deployment_id} resource to monitor progress",
             "schema" : {
               "$ref" : "#/definitions/ClusterCommandResponse"
             }
@@ -3535,7 +3589,7 @@
         } ],
         "responses" : {
           "202" : {
-            "description" : "The start command was issued successfully, use the \"GET\" command on the /{cluster_id} resource to monitor progress",
+            "description" : "The start command was issued successfully. Use the \"GET\" command on the /{deployment_id} resource to monitor progress",
             "schema" : {
               "$ref" : "#/definitions/ClusterCommandResponse"
             }
@@ -3600,7 +3654,7 @@
         } ],
         "responses" : {
           "202" : {
-            "description" : "The stop command was issued successfully, use the \"GET\" command on the /{cluster_id} resource to monitor progress",
+            "description" : "The stop command was issued successfully. Use the \"GET\" command on the /{deployment_id} resource to monitor progress",
             "schema" : {
               "$ref" : "#/definitions/ClusterCommandResponse"
             }
@@ -3665,7 +3719,7 @@
         } ],
         "responses" : {
           "202" : {
-            "description" : "The start maintenance mode command was issued successfully, use the \"GET\" command on the /{cluster_id} resource to monitor progress",
+            "description" : "The start maintenance mode command was issued successfully. Use the \"GET\" command on the /{deployment_id} resource to monitor progress",
             "schema" : {
               "$ref" : "#/definitions/ClusterCommandResponse"
             }
@@ -3730,7 +3784,7 @@
         } ],
         "responses" : {
           "202" : {
-            "description" : "The stop maintenance mode command was issued successfully, use the \"GET\" command on the /{cluster_id} resource to monitor progress",
+            "description" : "The stop maintenance mode command was issued successfully. Use the \"GET\" command on the /{deployment_id} resource to monitor progress",
             "schema" : {
               "$ref" : "#/definitions/ClusterCommandResponse"
             }
@@ -3917,7 +3971,7 @@
         } ],
         "responses" : {
           "202" : {
-            "description" : "The move command was issued successfully, use the \"GET\" command on the /{cluster_id} resource to monitor progress",
+            "description" : "The move command was issued successfully. Use the \"GET\" command on the /{deployment_id} resource to monitor progress",
             "schema" : {
               "$ref" : "#/definitions/ClusterCommandResponse"
             }
@@ -4012,7 +4066,7 @@
         } ],
         "responses" : {
           "202" : {
-            "description" : "The start command was issued successfully, use the \"GET\" command on the /{cluster_id} resource to monitor progress",
+            "description" : "The start command was issued successfully. Use the \"GET\" command on the /{deployment_id} resource to monitor progress",
             "schema" : {
               "$ref" : "#/definitions/ClusterCommandResponse"
             }
@@ -4094,7 +4148,7 @@
         } ],
         "responses" : {
           "202" : {
-            "description" : "The stop command was issued successfully, use the \"GET\" command on the /{cluster_id} resource to monitor progress",
+            "description" : "The stop command was issued successfully. Use the \"GET\" command on the /{deployment_id} resource to monitor progress",
             "schema" : {
               "$ref" : "#/definitions/ClusterCommandResponse"
             }
@@ -4176,7 +4230,7 @@
         } ],
         "responses" : {
           "202" : {
-            "description" : "The start maintenance mode command was issued successfully, use the \"GET\" command on the /{cluster_id} resource to monitor progress",
+            "description" : "The start maintenance mode command was issued successfully. Use the \"GET\" command on the /{deployment_id} resource to monitor progress",
             "schema" : {
               "$ref" : "#/definitions/ClusterCommandResponse"
             }
@@ -4258,7 +4312,7 @@
         } ],
         "responses" : {
           "202" : {
-            "description" : "The stop maintenance mode command was issued successfully, use the \"GET\" command on the /{cluster_id} resource to monitor progress",
+            "description" : "The stop maintenance mode command was issued successfully. Use the \"GET\" command on the /{deployment_id} resource to monitor progress",
             "schema" : {
               "$ref" : "#/definitions/ClusterCommandResponse"
             }
@@ -6311,7 +6365,7 @@
         } ],
         "responses" : {
           "202" : {
-            "description" : "The stop command was issued successfully, use the \"GET\" command on the /{cluster_id} resource to monitor progress",
+            "description" : "The stop command was issued successfully. Use the \"GET\" command on the /{deployment_id} resource to monitor progress",
             "schema" : {
               "$ref" : "#/definitions/ClusterCommandResponse"
             }
@@ -6435,7 +6489,7 @@
         } ],
         "responses" : {
           "202" : {
-            "description" : "The shutdown command was issued successfully, use the \"GET\" command on the /{cluster_id} resource to monitor progress",
+            "description" : "The shutdown command was issued successfully. Use the \"GET\" command on the /{deployment_id} resource to monitor progress",
             "schema" : {
               "$ref" : "#/definitions/ClusterCommandResponse"
             }
@@ -6494,7 +6548,7 @@
         } ],
         "responses" : {
           "202" : {
-            "description" : "The upgrade command was issued successfully, use the \"GET\" command on the /{cluster_id} resource to monitor progress",
+            "description" : "The upgrade command was issued successfully. Use the \"GET\" command on the /{deployment_id} resource to monitor progress",
             "schema" : {
               "$ref" : "#/definitions/ClusterUpgradeInfo"
             }
@@ -6569,7 +6623,7 @@
         } ],
         "responses" : {
           "202" : {
-            "description" : "The move command was issued successfully, use the \"GET\" command on the /{cluster_id} resource to monitor progress",
+            "description" : "The move command was issued successfully. Use the \"GET\" command on the /{deployment_id} resource to monitor progress",
             "schema" : {
               "$ref" : "#/definitions/ClusterCommandResponse"
             }
@@ -6647,7 +6701,7 @@
         } ],
         "responses" : {
           "202" : {
-            "description" : "The start command was issued successfully, use the \"GET\" command on the /{cluster_id} resource to monitor progress",
+            "description" : "The start command was issued successfully. Use the \"GET\" command on the /{deployment_id} resource to monitor progress",
             "schema" : {
               "$ref" : "#/definitions/ClusterCommandResponse"
             }
@@ -6712,7 +6766,7 @@
         } ],
         "responses" : {
           "202" : {
-            "description" : "The stop command was issued successfully, use the \"GET\" command on the /{cluster_id} resource to monitor progress",
+            "description" : "The stop command was issued successfully. Use the \"GET\" command on the /{deployment_id} resource to monitor progress",
             "schema" : {
               "$ref" : "#/definitions/ClusterCommandResponse"
             }
@@ -6777,7 +6831,7 @@
         } ],
         "responses" : {
           "202" : {
-            "description" : "The start maintenance mode command was issued successfully, use the \"GET\" command on the /{cluster_id} resource to monitor progress",
+            "description" : "The start maintenance mode command was issued successfully. Use the \"GET\" command on the /{deployment_id} resource to monitor progress",
             "schema" : {
               "$ref" : "#/definitions/ClusterCommandResponse"
             }
@@ -6842,7 +6896,7 @@
         } ],
         "responses" : {
           "202" : {
-            "description" : "The stop maintenance mode command was issued successfully, use the \"GET\" command on the /{cluster_id} resource to monitor progress",
+            "description" : "The stop maintenance mode command was issued successfully. Use the \"GET\" command on the /{deployment_id} resource to monitor progress",
             "schema" : {
               "$ref" : "#/definitions/ClusterCommandResponse"
             }
@@ -6947,7 +7001,7 @@
         } ],
         "responses" : {
           "202" : {
-            "description" : "The move command was issued successfully, use the \"GET\" command on the /{cluster_id} resource to monitor progress",
+            "description" : "The move command was issued successfully. Use the \"GET\" command on the /{deployment_id} resource to monitor progress",
             "schema" : {
               "$ref" : "#/definitions/ClusterCommandResponse"
             }
@@ -7042,7 +7096,7 @@
         } ],
         "responses" : {
           "202" : {
-            "description" : "The start command was issued successfully, use the \"GET\" command on the /{cluster_id} resource to monitor progress",
+            "description" : "The start command was issued successfully. Use the \"GET\" command on the /{deployment_id} resource to monitor progress",
             "schema" : {
               "$ref" : "#/definitions/ClusterCommandResponse"
             }
@@ -7124,7 +7178,7 @@
         } ],
         "responses" : {
           "202" : {
-            "description" : "The stop command was issued successfully, use the \"GET\" command on the /{cluster_id} resource to monitor progress",
+            "description" : "The stop command was issued successfully. Use the \"GET\" command on the /{deployment_id} resource to monitor progress",
             "schema" : {
               "$ref" : "#/definitions/ClusterCommandResponse"
             }
@@ -7206,7 +7260,7 @@
         } ],
         "responses" : {
           "202" : {
-            "description" : "The start maintenance mode command was issued successfully, use the \"GET\" command on the /{cluster_id} resource to monitor progress",
+            "description" : "The start maintenance mode command was issued successfully. Use the \"GET\" command on the /{deployment_id} resource to monitor progress",
             "schema" : {
               "$ref" : "#/definitions/ClusterCommandResponse"
             }
@@ -7288,7 +7342,7 @@
         } ],
         "responses" : {
           "202" : {
-            "description" : "The stop maintenance mode command was issued successfully, use the \"GET\" command on the /{cluster_id} resource to monitor progress",
+            "description" : "The stop maintenance mode command was issued successfully. Use the \"GET\" command on the /{deployment_id} resource to monitor progress",
             "schema" : {
               "$ref" : "#/definitions/ClusterCommandResponse"
             }
@@ -8088,7 +8142,7 @@
         "parameters" : [ {
           "name" : "resource_type",
           "in" : "path",
-          "description" : "The kind of Resource that a Comment belongs to. Should be one of [elasticsearch, kibana, apm, appsearch, enterprise_search, allocator, constructor, runner, proxy].",
+          "description" : "The kind of Resource that a Comment belongs to. Should be one of [elasticsearch, kibana, apm, appsearch, enterprise_search, integrations_server, allocator, constructor, runner, proxy].",
           "required" : true,
           "type" : "string"
         }, {
@@ -8119,7 +8173,7 @@
         "parameters" : [ {
           "name" : "resource_type",
           "in" : "path",
-          "description" : "The kind of Resource that a Comment belongs to. Should be one of [elasticsearch, kibana, apm, appsearch, enterprise_search, allocator, constructor, runner, proxy].",
+          "description" : "The kind of Resource that a Comment belongs to. Should be one of [elasticsearch, kibana, apm, appsearch, enterprise_search, integrations_server, allocator, constructor, runner, proxy].",
           "required" : true,
           "type" : "string"
         }, {
@@ -8212,7 +8266,7 @@
         "parameters" : [ {
           "name" : "resource_type",
           "in" : "path",
-          "description" : "The kind of Resource that a Comment belongs to. Should be one of [elasticsearch, kibana, apm, appsearch, enterprise_search, allocator, constructor, runner, proxy].",
+          "description" : "The kind of Resource that a Comment belongs to. Should be one of [elasticsearch, kibana, apm, appsearch, enterprise_search, integrations_server, allocator, constructor, runner, proxy].",
           "required" : true,
           "type" : "string"
         }, {
@@ -8276,7 +8330,7 @@
         "parameters" : [ {
           "name" : "resource_type",
           "in" : "path",
-          "description" : "The kind of Resource that a Comment belongs to. Should be one of [elasticsearch, kibana, apm, appsearch, enterprise_search, allocator, constructor, runner, proxy].",
+          "description" : "The kind of Resource that a Comment belongs to. Should be one of [elasticsearch, kibana, apm, appsearch, enterprise_search, integrations_server, allocator, constructor, runner, proxy].",
           "required" : true,
           "type" : "string"
         }, {
@@ -8379,7 +8433,7 @@
         "parameters" : [ {
           "name" : "resource_type",
           "in" : "path",
-          "description" : "The kind of Resource that a Comment belongs to. Should be one of [elasticsearch, kibana, apm, appsearch, enterprise_search, allocator, constructor, runner, proxy].",
+          "description" : "The kind of Resource that a Comment belongs to. Should be one of [elasticsearch, kibana, apm, appsearch, enterprise_search, integrations_server, allocator, constructor, runner, proxy].",
           "required" : true,
           "type" : "string"
         }, {
@@ -12073,6 +12127,124 @@
         }
       }
     },
+    "/deployments/{deployment_id}/elasticsearch/{ref_id}/instances/{instance_ids}/_move" : {
+      "post" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Move Elasticsearch resource instances",
+        "description" : "Moves one or more instances belonging to the given Elasticsearch resource to a different allocator.",
+        "operationId" : "move-deployment-elasticsearch-resource-instances",
+        "consumes" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "ref_id",
+          "in" : "path",
+          "description" : "User-specified RefId for the Resource.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "instance_ids",
+          "in" : "path",
+          "description" : "A comma-separated list of instance identifiers.",
+          "required" : true,
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          },
+          "collectionFormat" : "csv"
+        }, {
+          "name" : "ignore_missing",
+          "in" : "query",
+          "description" : "When `true` and the instance does not exist, proceeds to the next instance, or treats the instance as an error.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "force_update",
+          "in" : "query",
+          "description" : "When `true`, cancels and overwrites the pending plans, or treats the instance as an error.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "instances_down",
+          "in" : "query",
+          "description" : "When `true`, the instances specified by `instance_ids` are considered permanently shut down for data migration logic.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "move_only",
+          "in" : "query",
+          "description" : "When `true`, moves the specified instances and ignores the changes for the cluster state.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "validate_only",
+          "in" : "query",
+          "description" : "When `true`, validates the move request, then returns the calculated plan without applying the plan.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "Overrides the default move configuration",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/TransientElasticsearchPlanConfiguration"
+          }
+        } ],
+        "responses" : {
+          "202" : {
+            "description" : "The move command was issued successfully. Use the \"GET\" command on the /{deployment_id} resource to monitor progress",
+            "schema" : {
+              "$ref" : "#/definitions/EmptyResponse"
+            }
+          },
+          "200" : {
+            "description" : "If `validate_only` is `true`, the calculated plan is returned",
+            "schema" : {
+              "$ref" : "#/definitions/TransientElasticsearchPlanConfiguration"
+            }
+          },
+          "404" : {
+            "description" : "* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)\n* The Elasticsearch Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)\n* One or more instances of the given resource type are missing. (code: `deployments.instances_missing_on_update_error`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.deployment_not_found", "deployments.deployment_resource_not_found", "deployments.instances_missing_on_update_error" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "449" : {
+            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "x-doc" : {
+          "tag" : "Deployment - Commands"
+        }
+      }
+    },
     "/deployments/{deployment_id}/elasticsearch/{ref_id}/keystore" : {
       "get" : {
         "tags" : [ "Deployments" ],
@@ -12916,6 +13088,45 @@
         }
       }
     },
+    "/deployments/{deployment_id}/upgrade_assistant/status" : {
+      "get" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Get Deployment upgade assistant status",
+        "description" : "Get details about an Elasticsearch resource belonging to a given deployment.",
+        "operationId" : "get-deployment-upgrade-assistant-status",
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The Upgrade Assistant returned the status successfully",
+            "schema" : {
+              "$ref" : "#/definitions/DeploymentUpgradeAssistantStatusResponse"
+            }
+          },
+          "404" : {
+            "description" : "The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.deployment_not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "x-doc" : {
+          "tag" : "Deployment - Upgrade Assistant"
+        }
+      }
+    },
     "/deployments/{deployment_id}/{resource_kind}/{ref_id}/_restore" : {
       "post" : {
         "tags" : [ "Deployments" ],
@@ -12934,7 +13145,7 @@
           "description" : "The kind of resource",
           "required" : true,
           "type" : "string",
-          "enum" : [ "elasticsearch", "kibana", "apm", "appsearch", "enterprise_search" ]
+          "enum" : [ "elasticsearch", "kibana", "apm", "appsearch", "enterprise_search", "integrations_server" ]
         }, {
           "name" : "ref_id",
           "in" : "path",
@@ -13094,7 +13305,7 @@
         }, {
           "name" : "resource_kind",
           "in" : "path",
-          "description" : "The kind of resource (one of elasticsearch, kibana or apm).",
+          "description" : "The kind of resource (one of elasticsearch, kibana, apm, or integrations_server).",
           "required" : true,
           "type" : "string"
         }, {
@@ -13184,7 +13395,7 @@
         }, {
           "name" : "resource_kind",
           "in" : "path",
-          "description" : "The kind of resource (one of elasticsearch, kibana or apm).",
+          "description" : "The kind of resource (one of elasticsearch, kibana, apm, or integrations_server).",
           "required" : true,
           "type" : "string"
         }, {
@@ -13274,7 +13485,7 @@
         }, {
           "name" : "resource_kind",
           "in" : "path",
-          "description" : "The kind of resource (one of elasticsearch, kibana or apm).",
+          "description" : "The kind of resource (one of elasticsearch, kibana, apm, or integrations_server).",
           "required" : true,
           "type" : "string"
         }, {
@@ -13364,7 +13575,7 @@
         }, {
           "name" : "resource_kind",
           "in" : "path",
-          "description" : "The kind of resource (one of elasticsearch, kibana or apm).",
+          "description" : "The kind of resource (one of elasticsearch, kibana, apm, or integrations_server).",
           "required" : true,
           "type" : "string"
         }, {
@@ -13534,7 +13745,7 @@
         }, {
           "name" : "resource_kind",
           "in" : "path",
-          "description" : "The kind of resource (one of elasticsearch, kibana or apm).",
+          "description" : "The kind of resource (one of elasticsearch, kibana, apm, or integrations_server).",
           "required" : true,
           "type" : "string"
         }, {
@@ -13641,7 +13852,7 @@
         }, {
           "name" : "resource_kind",
           "in" : "path",
-          "description" : "The kind of resource (one of elasticsearch, kibana or apm).",
+          "description" : "The kind of resource (one of elasticsearch, kibana, apm, or integrations_server).",
           "required" : true,
           "type" : "string"
         }, {
@@ -13748,7 +13959,7 @@
         }, {
           "name" : "resource_kind",
           "in" : "path",
-          "description" : "The kind of resource (one of elasticsearch, kibana or apm).",
+          "description" : "The kind of resource (one of elasticsearch, kibana, apm, or integrations_server).",
           "required" : true,
           "type" : "string"
         }, {
@@ -13855,7 +14066,7 @@
         }, {
           "name" : "resource_kind",
           "in" : "path",
-          "description" : "The kind of resource (one of elasticsearch, kibana or apm).",
+          "description" : "The kind of resource (one of elasticsearch, kibana, apm, or integrations_server).",
           "required" : true,
           "type" : "string"
         }, {
@@ -14262,7 +14473,7 @@
           "description" : "The kind of resource",
           "required" : true,
           "type" : "string",
-          "enum" : [ "elasticsearch", "kibana", "apm", "appsearch", "enterprise_search" ]
+          "enum" : [ "elasticsearch", "kibana", "apm", "appsearch", "enterprise_search", "integrations_server" ]
         }, {
           "name" : "ref_id",
           "in" : "path",
@@ -14381,7 +14592,7 @@
           "description" : "The kind of resource",
           "required" : true,
           "type" : "string",
-          "enum" : [ "elasticsearch", "kibana", "apm", "appsearch", "enterprise_search" ]
+          "enum" : [ "elasticsearch", "kibana", "apm", "appsearch", "enterprise_search", "integrations_server" ]
         }, {
           "name" : "ref_id",
           "in" : "path",
@@ -14472,9 +14683,9 @@
       "get" : {
         "tags" : [ "Deployments" ],
         "summary" : "Proxy HTTP GET request",
-        "description" : "Proxies the HTTP GET request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.",
+        "description" : "Proxies the HTTP GET request to the deployment resource. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.",
         "operationId" : "get-deployment-resource-proxy-requests",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "application/text", "application/json", "application/x-ndjson" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -14509,7 +14720,7 @@
         }, {
           "in" : "body",
           "name" : "body",
-          "description" : "The JSON payload to proxy to the Elasticsearch cluster.",
+          "description" : "The JSON payload to proxy to the deployment resource.",
           "required" : false,
           "schema" : {
             "type" : "string"
@@ -14556,9 +14767,9 @@
       "post" : {
         "tags" : [ "Deployments" ],
         "summary" : "Proxy HTTP POST request",
-        "description" : "Proxies the HTTP POST request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.",
+        "description" : "Proxies the HTTP POST request to the deployment resource. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.",
         "operationId" : "post-deployment-resource-proxy-requests",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "application/text", "application/json", "application/x-ndjson" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -14593,7 +14804,7 @@
         }, {
           "in" : "body",
           "name" : "body",
-          "description" : "The JSON payload to proxy to the Elasticsearch cluster.",
+          "description" : "The JSON payload to proxy to the deployment resource.",
           "required" : false,
           "schema" : {
             "type" : "string"
@@ -14640,9 +14851,9 @@
       "put" : {
         "tags" : [ "Deployments" ],
         "summary" : "Proxy HTTP PUT request",
-        "description" : "Proxies the HTTP PUT request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.",
+        "description" : "Proxies the HTTP PUT request to the deployment resource. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.",
         "operationId" : "put-deployment-resource-proxy-requests",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "application/text", "application/json", "application/x-ndjson" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -14677,7 +14888,7 @@
         }, {
           "in" : "body",
           "name" : "body",
-          "description" : "The JSON payload to proxy to the Elasticsearch cluster.",
+          "description" : "The JSON payload to proxy to the deployment resource.",
           "required" : false,
           "schema" : {
             "type" : "string"
@@ -14724,9 +14935,9 @@
       "delete" : {
         "tags" : [ "Deployments" ],
         "summary" : "Proxy HTTP DELETE request",
-        "description" : "Proxies the HTTP DELETE request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.",
+        "description" : "Proxies the HTTP DELETE request to the deployment resource. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.",
         "operationId" : "delete-deployment-resource-proxy-requests",
-        "consumes" : [ "application/json" ],
+        "consumes" : [ "application/text", "application/json", "application/x-ndjson" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -14761,7 +14972,7 @@
         }, {
           "in" : "body",
           "name" : "body",
-          "description" : "The JSON payload to proxy to the Elasticsearch cluster.",
+          "description" : "The JSON payload to proxy to the deployment resource.",
           "required" : false,
           "schema" : {
             "type" : "string"
@@ -14824,7 +15035,7 @@
           "description" : "The kind of stateless resource",
           "required" : true,
           "type" : "string",
-          "enum" : [ "kibana", "apm", "appsearch", "enterprise_search" ]
+          "enum" : [ "kibana", "apm", "appsearch", "enterprise_search", "integrations_server" ]
         }, {
           "name" : "ref_id",
           "in" : "path",
@@ -14915,7 +15126,7 @@
           "description" : "The kind of stateless resource",
           "required" : true,
           "type" : "string",
-          "enum" : [ "kibana", "apm", "appsearch", "enterprise_search" ]
+          "enum" : [ "kibana", "apm", "appsearch", "enterprise_search", "integrations_server" ]
         }, {
           "name" : "ref_id",
           "in" : "path",
@@ -15013,7 +15224,7 @@
           "description" : "The kind of stateless resource",
           "required" : true,
           "type" : "string",
-          "enum" : [ "kibana", "apm", "appsearch", "enterprise_search" ]
+          "enum" : [ "kibana", "apm", "appsearch", "enterprise_search", "integrations_server" ]
         }, {
           "name" : "ref_id",
           "in" : "path",
@@ -15102,7 +15313,7 @@
     "/deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_upgrade" : {
       "post" : {
         "tags" : [ "Deployments" ],
-        "summary" : "Upgrade Kibana, APM, AppSearch inside Deployment",
+        "summary" : "Upgrade Kibana, APM, Integrations Server, AppSearch, Enterprise Search inside Deployment",
         "description" : "Upgrades a running cluster.",
         "operationId" : "upgrade-deployment-stateless-resource",
         "parameters" : [ {
@@ -15117,7 +15328,7 @@
           "description" : "The kind of stateless resource",
           "required" : true,
           "type" : "string",
-          "enum" : [ "kibana", "apm", "appsearch", "enterprise_search" ]
+          "enum" : [ "kibana", "apm", "appsearch", "enterprise_search", "integrations_server" ]
         }, {
           "name" : "ref_id",
           "in" : "path",
@@ -15134,7 +15345,7 @@
         } ],
         "responses" : {
           "202" : {
-            "description" : "The upgrade command was issued successfully, use the \"GET\" command on the /{cluster_id} resource to monitor progress",
+            "description" : "The upgrade command was issued successfully. Use the \"GET\" command on the /{deployment_id} resource to monitor progress",
             "schema" : {
               "$ref" : "#/definitions/DeploymentResourceUpgradeResponse"
             }
@@ -15881,7 +16092,7 @@
           "description" : "The kind of resource you want to manage a Deployment Domain Name for.",
           "required" : true,
           "type" : "string",
-          "enum" : [ "elasticsearch", "kibana", "apm", "appsearch", "enterprise_search" ]
+          "enum" : [ "elasticsearch", "kibana", "apm", "appsearch", "enterprise_search", "integrations_server" ]
         } ],
         "responses" : {
           "200" : {
@@ -15934,7 +16145,7 @@
           "description" : "The kind of resource you want to manage a Deployment Domain Name for.",
           "required" : true,
           "type" : "string",
-          "enum" : [ "elasticsearch", "kibana", "apm", "appsearch", "enterprise_search" ]
+          "enum" : [ "elasticsearch", "kibana", "apm", "appsearch", "enterprise_search", "integrations_server" ]
         }, {
           "name" : "version",
           "in" : "query",
@@ -18069,149 +18280,6 @@
         }
       }
     },
-    "/platform/configuration/templates/deployments" : {
-      "get" : {
-        "tags" : [ "PlatformConfigurationTemplates" ],
-        "summary" : "Get deployment templates",
-        "description" : "Retrieves all deployment templates.",
-        "operationId" : "get-deployment-templates",
-        "parameters" : [ {
-          "name" : "metadata",
-          "in" : "query",
-          "description" : "An optional key/value pair in the form of (key:value) that will act as a filter and exclude any templates that do not have a matching metadata item associated.",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "show_instance_configurations",
-          "in" : "query",
-          "description" : "If true, will return details for each instance configuration referenced by the template.",
-          "required" : false,
-          "type" : "boolean",
-          "default" : false
-        }, {
-          "name" : "show_max_zones",
-          "in" : "query",
-          "description" : "If true, will populate the max_zones field in the instance configurations. Only relevant if show_instance_configurations=true.",
-          "required" : false,
-          "type" : "boolean",
-          "default" : false
-        }, {
-          "name" : "stack_version",
-          "in" : "query",
-          "description" : "If present, it will cause the returned deployment templates to be adapted to return only the elements allowed in that version.",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "show_hidden",
-          "in" : "query",
-          "description" : "If true, templates flagged as hidden will be returned.",
-          "required" : false,
-          "type" : "boolean",
-          "default" : false
-        }, {
-          "name" : "format",
-          "in" : "query",
-          "description" : "If cluster is specified populates cluster_template in the response, if deployment is specified populates deployment_template in the response",
-          "required" : false,
-          "type" : "string",
-          "default" : "cluster",
-          "enum" : [ "cluster", "deployment" ]
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "The deployment templates were returned successfully.",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/DeploymentTemplateInfo"
-              }
-            }
-          },
-          "400" : {
-            "description" : "The template is not compatible with the [cluster] format. (code: `deployment.migration_invalid`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "deployment.migration_invalid" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          }
-        },
-        "x-doc" : {
-          "tag" : "Templates - Deployments - Legacy"
-        }
-      },
-      "post" : {
-        "tags" : [ "PlatformConfigurationTemplates" ],
-        "summary" : "Create deployment template",
-        "description" : "Creates a deployment template.",
-        "operationId" : "create-deployment-template",
-        "consumes" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "validate_only",
-          "in" : "query",
-          "description" : "If true, the deployment template definition will be validated but the template will not be created.",
-          "required" : false,
-          "type" : "boolean",
-          "default" : false
-        }, {
-          "in" : "body",
-          "name" : "body",
-          "description" : "The deployment template definition.",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/definitions/DeploymentTemplateInfo"
-          }
-        } ],
-        "responses" : {
-          "201" : {
-            "description" : "The deployment definition was valid and the template has been created.",
-            "schema" : {
-              "$ref" : "#/definitions/IdResponse"
-            }
-          },
-          "200" : {
-            "description" : "The request was valid (used when validate_only is true).",
-            "schema" : {
-              "$ref" : "#/definitions/IdResponse"
-            }
-          },
-          "400" : {
-            "description" : "The template definition contained errors. (code: `templates.invalid_template`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "templates.invalid_template" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          }
-        },
-        "x-doc" : {
-          "tag" : "Templates - Deployments - Legacy"
-        }
-      }
-    },
     "/platform/configuration/templates/deployments/global" : {
       "get" : {
         "tags" : [ "PlatformConfigurationTemplates" ],
@@ -18232,247 +18300,6 @@
         },
         "x-doc" : {
           "tag" : "Templates - Deployments - Global"
-        }
-      }
-    },
-    "/platform/configuration/templates/deployments/{template_id}" : {
-      "get" : {
-        "tags" : [ "PlatformConfigurationTemplates" ],
-        "summary" : "Get deployment template",
-        "description" : "Retrieves a deployment template by id.",
-        "operationId" : "get-deployment-template",
-        "parameters" : [ {
-          "name" : "template_id",
-          "in" : "path",
-          "description" : "The identifier for the deployment template.",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "show_instance_configurations",
-          "in" : "query",
-          "description" : "If true, will return details for each instance configuration referenced by the template.",
-          "required" : false,
-          "type" : "boolean",
-          "default" : false
-        }, {
-          "name" : "show_max_zones",
-          "in" : "query",
-          "description" : "If true, will populate the max_zones field in the instance configurations. Only relevant if show_instance_configurations=true.",
-          "required" : false,
-          "type" : "boolean",
-          "default" : false
-        }, {
-          "name" : "stack_version",
-          "in" : "query",
-          "description" : "If present, it will cause the returned deployment template to be adapted to return only the elements allowed in that version.",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "format",
-          "in" : "query",
-          "description" : "If 'cluster' is specified populates cluster_template in the response, if 'deployment' is specified populates deployment_template in the response",
-          "required" : false,
-          "type" : "string",
-          "default" : "cluster",
-          "enum" : [ "cluster", "deployment" ]
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "The deployment template was found and returned successfully.",
-            "schema" : {
-              "$ref" : "#/definitions/DeploymentTemplateInfo"
-            }
-          },
-          "404" : {
-            "description" : "The deployment template specified by {template_id} cannot be found. (code: `templates.template_not_found`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "templates.template_not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "400" : {
-            "description" : "The template is not compatible with the [cluster] format. (code: `deployment.migration_invalid`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "deployment.migration_invalid" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          }
-        },
-        "x-doc" : {
-          "tag" : "Templates - Deployments - Legacy"
-        }
-      },
-      "put" : {
-        "tags" : [ "PlatformConfigurationTemplates" ],
-        "summary" : "Set deployment template",
-        "description" : "Creates or updates a deployment template.",
-        "operationId" : "set-deployment-template",
-        "consumes" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "template_id",
-          "in" : "path",
-          "description" : "The identifier for the deployment template.",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "version",
-          "in" : "query",
-          "description" : "If specified, checks for conflicts against the version of the template (returned in 'x-cloud-resource-version' of the GET request)",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "create_only",
-          "in" : "query",
-          "description" : "If true, will fail if the deployment template already exists at the given id",
-          "required" : false,
-          "type" : "boolean",
-          "default" : false
-        }, {
-          "name" : "validate_only",
-          "in" : "query",
-          "description" : "If true, the deployment template definition will be validated but the template will not be updated.",
-          "required" : false,
-          "type" : "boolean",
-          "default" : false
-        }, {
-          "in" : "body",
-          "name" : "body",
-          "description" : "The deployment template definition.",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/definitions/DeploymentTemplateInfo"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "The deployment definition was valid and the template has been updated.",
-            "schema" : {
-              "$ref" : "#/definitions/IdResponse"
-            }
-          },
-          "201" : {
-            "description" : "The deployment definition was valid and the template was created.",
-            "schema" : {
-              "$ref" : "#/definitions/IdResponse"
-            }
-          },
-          "400" : {
-            "description" : "The template definition contained errors. (code: `templates.invalid_template`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "templates.invalid_template" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "404" : {
-            "description" : "The deployment template specified by {template_id} cannot be found. (code: `templates.template_not_found`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "templates.template_not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "409" : {
-            "description" : "The version supplied in the request conflicted with the version found on the server. (code: `templates.version_conflict`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "templates.version_conflict" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          }
-        },
-        "x-doc" : {
-          "tag" : "Templates - Deployments - Legacy"
-        }
-      },
-      "delete" : {
-        "tags" : [ "PlatformConfigurationTemplates" ],
-        "summary" : "Delete deployment template",
-        "description" : "Deletes a deployment template by id.",
-        "operationId" : "delete-deployment-template",
-        "parameters" : [ {
-          "name" : "template_id",
-          "in" : "path",
-          "description" : "The identifier for the deployment template.",
-          "required" : true,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "The deployment template was successfully deleted.",
-            "schema" : {
-              "$ref" : "#/definitions/EmptyResponse"
-            }
-          },
-          "404" : {
-            "description" : "The deployment template specified by {template_id} cannot be found. (code: `templates.template_not_found`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "templates.template_not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "449" : {
-            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          }
-        },
-        "x-doc" : {
-          "tag" : "Templates - Deployments - Legacy"
         }
       }
     },
@@ -24981,6 +24808,11 @@
         "region" : {
           "type" : "string",
           "description" : "The region that this APM belongs to. Only populated in SaaS or federated ECE."
+        },
+        "apm_server_mode" : {
+          "type" : "string",
+          "description" : "The mode APM is operating in.",
+          "enum" : [ "Standalone", "Managed" ]
         }
       },
       "description" : "The overview information for the APM Server."
@@ -27333,20 +27165,6 @@
       },
       "description" : "The request body for creating one or more APM Servers."
     },
-    "CreateAppSearchRequest" : {
-      "type" : "object",
-      "required" : [ "plan" ],
-      "properties" : {
-        "name" : {
-          "type" : "string",
-          "description" : "The human readable name for the App Search cluster (default: takes the name of its Elasticsearch cluster)"
-        },
-        "plan" : {
-          "$ref" : "#/definitions/AppSearchPlan"
-        }
-      },
-      "description" : "The request body for creating an App Search."
-    },
     "CreateElasticsearchClusterRequest" : {
       "type" : "object",
       "required" : [ "plan" ],
@@ -27369,19 +27187,6 @@
         }
       },
       "description" : "The request body for creating an Elasticsearch cluster using the clusters API."
-    },
-    "CreateEnterpriseSearchRequest" : {
-      "type" : "object",
-      "required" : [ "plan" ],
-      "properties" : {
-        "name" : {
-          "type" : "string",
-          "description" : "The human readable name for the Enterprise Search cluster (default: takes the name of its Elasticsearch cluster)"
-        },
-        "plan" : {
-          "$ref" : "#/definitions/EnterpriseSearchPlan"
-        }
-      }
     },
     "CreateExtensionRequest" : {
       "type" : "object",
@@ -27483,52 +27288,6 @@
         }
       },
       "description" : "Holds diagnostics for resources that will be created"
-    },
-    "CrossClusterSearchClusters" : {
-      "type" : "object",
-      "required" : [ "ccs_clusters" ],
-      "properties" : {
-        "ccs_clusters" : {
-          "type" : "array",
-          "description" : "Cross-cluster search clusers' IDs for the remote cluster",
-          "items" : {
-            "type" : "string"
-          }
-        }
-      },
-      "description" : "The cross-cluster search clusters for the remote clusters."
-    },
-    "CrossClusterSearchInfo" : {
-      "type" : "object",
-      "required" : [ "healthy", "remote_clusters" ],
-      "properties" : {
-        "remote_clusters" : {
-          "type" : "array",
-          "description" : "The list of remote clusters this cluster can access using cross-cluster search",
-          "items" : {
-            "$ref" : "#/definitions/RemoteClusterInfo"
-          }
-        },
-        "healthy" : {
-          "type" : "boolean",
-          "description" : "Flag signaling health issues when at least one remote has an incompatible version with this cluster"
-        }
-      },
-      "description" : "The cross-cluster search settings and status for the Elasticsearch cluster."
-    },
-    "CrossClusterSearchSettings" : {
-      "type" : "object",
-      "required" : [ "remote_clusters" ],
-      "properties" : {
-        "remote_clusters" : {
-          "type" : "object",
-          "description" : "Mapping of remote cluster references keyed by their respective aliases. Aliases must only contain letters, digits, dashes and underscores",
-          "additionalProperties" : {
-            "$ref" : "#/definitions/RemoteClusterRef"
-          }
-        }
-      },
-      "description" : "The configuration settings for the cross-cluster search."
     },
     "DeleteApiKeysRequest" : {
       "type" : "object",
@@ -27656,7 +27415,7 @@
         },
         "appsearch" : {
           "type" : "array",
-          "description" : "A list of payloads for AppSearch creation.",
+          "description" : "A list of payloads for AppSearch updates. AppSearch has been replaced by Enterprise Search in the Elastic Stack 7.7 and higher.",
           "items" : {
             "$ref" : "#/definitions/AppSearchPayload"
           }
@@ -28204,108 +27963,6 @@
       },
       "description" : "A response returned from the Deployment shutdown endpoint"
     },
-    "DeploymentTemplateDefinitionRequest" : {
-      "type" : "object",
-      "required" : [ "plan" ],
-      "properties" : {
-        "cluster_name" : {
-          "type" : "string",
-          "description" : "The human readable name for the cluster (defaults to the generated cluster id if not specified)"
-        },
-        "plan" : {
-          "$ref" : "#/definitions/ElasticsearchClusterPlan"
-        },
-        "settings" : {
-          "$ref" : "#/definitions/ElasticsearchClusterSettings"
-        },
-        "kibana" : {
-          "$ref" : "#/definitions/CreateKibanaInCreateElasticsearchRequest"
-        },
-        "apm" : {
-          "$ref" : "#/definitions/CreateApmInCreateElasticsearchRequest"
-        },
-        "appsearch" : {
-          "$ref" : "#/definitions/CreateAppSearchRequest"
-        },
-        "enterprise_search" : {
-          "$ref" : "#/definitions/CreateEnterpriseSearchRequest"
-        }
-      },
-      "description" : "The request body for a deployment templatee."
-    },
-    "DeploymentTemplateInfo" : {
-      "type" : "object",
-      "required" : [ "name" ],
-      "properties" : {
-        "template_category_id" : {
-          "type" : "string",
-          "description" : "Provider and version agnostic template identifier used for grouping related template types."
-        },
-        "id" : {
-          "type" : "string",
-          "description" : "The unique identifier for the template."
-        },
-        "name" : {
-          "type" : "string",
-          "description" : "A human readable name for the template."
-        },
-        "description" : {
-          "type" : "string",
-          "description" : "An optional description for the template."
-        },
-        "cluster_template" : {
-          "description" : "The body of the cluster template to use for creating a cluster.",
-          "$ref" : "#/definitions/DeploymentTemplateDefinitionRequest"
-        },
-        "deployment_template" : {
-          "description" : "The body of the deployment template to use for creating a deployment.",
-          "$ref" : "#/definitions/DeploymentCreateRequest"
-        },
-        "system_owned" : {
-          "type" : "boolean",
-          "description" : "Whether or not if this is system owned template."
-        },
-        "source" : {
-          "description" : "Information describing the source that created or modified the template.",
-          "$ref" : "#/definitions/ChangeSourceInfo"
-        },
-        "metadata" : {
-          "type" : "array",
-          "description" : "Optional arbitrary metadata to associate with this template.",
-          "items" : {
-            "$ref" : "#/definitions/MetadataItem"
-          }
-        },
-        "instance_configurations" : {
-          "type" : "array",
-          "description" : "Optional list of instance configurations used in the cluster template.",
-          "items" : {
-            "$ref" : "#/definitions/InstanceConfiguration"
-          }
-        },
-        "order" : {
-          "type" : "integer",
-          "format" : "int32",
-          "description" : "Determines the order in which this template should be returned when listed. Templates are returned in ascending order. If not specified, then the template willbe appended to the end of the list."
-        },
-        "hidden" : {
-          "type" : "boolean",
-          "description" : "Whether or not the deployment template is hidden by default."
-        },
-        "min_version" : {
-          "type" : "string",
-          "description" : "Minimum stack version required by this template, if any."
-        },
-        "kibana_deeplink" : {
-          "type" : "array",
-          "description" : "The Kibana Deeplink for this type of deployment.",
-          "items" : {
-            "$ref" : "#/definitions/KibanaDeeplink"
-          }
-        }
-      },
-      "description" : "The top-level object for a deployment template."
-    },
     "DeploymentTemplateInfoV2" : {
       "type" : "object",
       "required" : [ "deployment_template", "id", "instance_configurations", "name" ],
@@ -28522,7 +28179,7 @@
         },
         "appsearch" : {
           "type" : "array",
-          "description" : "A list of payloads for AppSearch updates",
+          "description" : "A list of payloads for AppSearch updates. AppSearch has been replaced by Enterprise Search in the Elastic Stack 7.7 and higher",
           "items" : {
             "$ref" : "#/definitions/AppSearchPayload"
           }
@@ -28535,7 +28192,7 @@
           }
         }
       },
-      "description" : "Describes the resources that will have the Deployment"
+      "description" : "Describes the Deployment resource updates"
     },
     "DeploymentUpdateResponse" : {
       "type" : "object",
@@ -28580,6 +28237,21 @@
         }
       },
       "description" : "Additional configuration for the new deployment object."
+    },
+    "DeploymentUpgradeAssistantStatusResponse" : {
+      "type" : "object",
+      "required" : [ "details", "ready_for_upgrade" ],
+      "properties" : {
+        "ready_for_upgrade" : {
+          "type" : "boolean",
+          "description" : "A boolean indicating whether or not the cluster is ready to be upgraded"
+        },
+        "details" : {
+          "type" : "string",
+          "description" : "Message with information about the number of Elasticsearch and Kibana deprecations"
+        }
+      },
+      "description" : "The status of your cluster and its readiness to be upgraded"
     },
     "DeploymentsCosts" : {
       "type" : "object",
@@ -28685,10 +28357,6 @@
         "traffic_filter" : {
           "description" : "The rulesets to apply to all resources in this cluster. When specified the same rulesets will be applied to Kibana and APM clusters as well",
           "$ref" : "#/definitions/TrafficFilterSettings"
-        },
-        "ccs" : {
-          "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use the /remote-clusters endpoints instead.\n\nConfiguration of remote clusters.",
-          "$ref" : "#/definitions/CrossClusterSearchSettings"
         }
       },
       "description" : "The settings for an Elasticsearch cluster."
@@ -28946,10 +28614,6 @@
         "locked" : {
           "type" : "boolean",
           "description" : "Whether or not this cluster is locked. Only populated in SaaS."
-        },
-        "ccs" : {
-          "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [remote clusters endpoints](#Deployment_-_Remote_Clusters) instead.\n\nCross-cluster search settings and status for this cluster.",
-          "$ref" : "#/definitions/CrossClusterSearchInfo"
         }
       },
       "description" : "The information for an Elasticsearch cluster."
@@ -29141,36 +28805,35 @@
       "type" : "object",
       "properties" : {
         "snapshot" : {
+          "description" : "The snapshot settings for this deployment. When provided, snapshot settings are changed as specified. A `null` value reverts the field to the default value. Otherwise, all snapshot settings remain as they were set previously.",
           "$ref" : "#/definitions/ClusterSnapshotSettings"
         },
         "monitoring" : {
+          "description" : "The monitoring settings for this deployment. When provided, monitoring settings are changed as specified. A `null` value reverts the field to the default value. Otherwise, all monitoring settings remain as they were set previously.",
           "$ref" : "#/definitions/ManagedMonitoringSettings"
         },
         "metadata" : {
           "$ref" : "#/definitions/ClusterMetadataSettings"
         },
         "curation" : {
+          "description" : "The curation settings for this deployment. When provided, curation settings are changed as specified. A `null` value reverts the field to the default value. Otherwise, all curation settings remain as they were set previously.",
           "$ref" : "#/definitions/ClusterCurationSettings"
         },
         "dedicated_masters_threshold" : {
           "type" : "integer",
           "format" : "int32",
-          "description" : "Threshold starting from which the number of instances in the cluster results in the introduction of dedicated masters. If the cluster is downscaled to a number of nodes below this one, dedicated masters will be removed. Limit is inclusive."
+          "description" : "Threshold starting from which the number of instances in the cluster results in the introduction of dedicated masters. If the cluster is downscaled to a number of nodes below this one, dedicated masters will be removed. Limit is inclusive. When provided the threshold setting is updated. A `null` value removes the field. Otherwise, the setting remains as it was set previously."
         },
         "ip_filtering" : {
-          "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use traffic filter settings instead.\n\nThe set of rulesets to apply for all the resources in this cluster. When specified the same rulesets will be applied to Kibana and APM clusters as well",
+          "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use traffic filter settings instead.\n\nThe set of rulesets to apply for all the resources in this cluster. When specified, the set of rulesets is updated and the same rulesets will be applied to Kibana and APM clusters as well. If not specified, the rulesets remain as they were set previously.",
           "$ref" : "#/definitions/IpFilteringSettings"
         },
         "traffic_filter" : {
-          "description" : "The rulesets to apply to all resources in this cluster. When specified the same rulesets will be applied to Kibana and APM clusters as well",
+          "description" : "The rulesets to apply to all resources in this cluster. When specified, the set of rulesets is updated and the same rulesets will be applied to Kibana and APM clusters as well. If not specified, the rulesets remain as they were set previously.",
           "$ref" : "#/definitions/TrafficFilterSettings"
         },
-        "ccs" : {
-          "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use the /remote-clusters endpoints instead.\n\nConfiguration of remote clusters.",
-          "$ref" : "#/definitions/CrossClusterSearchSettings"
-        },
         "trust" : {
-          "description" : "Configuration of trust with other clusters",
+          "description" : "Configuration of trust with other clusters. When provided, trust settings are changed as specified. A `null` value reverts the field to the default value. Otherwise, all trust settings remain as they were set previously.",
           "$ref" : "#/definitions/ElasticsearchClusterTrustSettings"
         }
       },
@@ -33262,40 +32925,6 @@
       },
       "description" : "Information about a region."
     },
-    "RemoteClusterInfo" : {
-      "type" : "object",
-      "required" : [ "compatible", "id" ],
-      "properties" : {
-        "id" : {
-          "type" : "string",
-          "description" : "The remote Elasticsearch cluster deployment id"
-        },
-        "compatible" : {
-          "type" : "boolean",
-          "description" : "Flag indicating whether the remote cluster version is compatible"
-        },
-        "version" : {
-          "type" : "string",
-          "description" : "Remote cluster Elasticsearch version"
-        }
-      },
-      "description" : "Information about the remote cluster for cross-cluster search."
-    },
-    "RemoteClusterRef" : {
-      "type" : "object",
-      "required" : [ "cluster_id" ],
-      "properties" : {
-        "cluster_id" : {
-          "type" : "string",
-          "description" : "Cluster id of the remote cluster"
-        },
-        "skip_unavailable" : {
-          "type" : "boolean",
-          "description" : "If true, skip this cluster during search if it is disconnected. Default: false"
-        }
-      },
-      "description" : "The Elasticsearch cluster to connect to for cross-cluster search."
-    },
     "RemoteResourceInfo" : {
       "type" : "object",
       "required" : [ "compatible", "connected", "healthy", "trusted", "trusted_back" ],
@@ -34070,6 +33699,10 @@
         "cluster_id" : {
           "type" : "string",
           "description" : "The identifier for the security deployment cluster"
+        },
+        "deployment_id" : {
+          "type" : "string",
+          "description" : "The identifier for the security deployment"
         },
         "name" : {
           "type" : "string",

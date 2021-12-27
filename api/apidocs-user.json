@@ -175,6 +175,19 @@
               "$ref" : "#/definitions/CostsOverview"
             }
           },
+          "400" : {
+            "description" : "The specified date range is invalid. (code: `costs.invalid_date_range`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "costs.invalid_date_range" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
           "403" : {
             "description" : "The current user does not have access to the requested organization. (code: `organization.invalid_access`)",
             "headers" : {
@@ -182,6 +195,32 @@
                 "type" : "string",
                 "description" : "The error codes associated with the response",
                 "enum" : [ "organization.invalid_access" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "404" : {
+            "description" : "Organization not found. (code: `organization.not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "organization.not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "500" : {
+            "description" : "An error occurred when fetching an overview of the costs for the organization. (code: `billing_service.failed_request`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "billing_service.failed_request" ]
               }
             },
             "schema" : {
@@ -226,6 +265,19 @@
               "$ref" : "#/definitions/DeploymentsCosts"
             }
           },
+          "400" : {
+            "description" : "Invalid date range specified. (code: `costs.invalid_date_range`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "costs.invalid_date_range" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
           "403" : {
             "description" : "The current user does not have access to the requested organization. (code: `organization.invalid_access`)",
             "headers" : {
@@ -233,6 +285,32 @@
                 "type" : "string",
                 "description" : "The error codes associated with the response",
                 "enum" : [ "organization.invalid_access" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "404" : {
+            "description" : "Organization not found. (code: `organization.not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "organization.not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "500" : {
+            "description" : "An error occurred when fetching the costs associated with all deployments for the organization. (code: `billing_service.failed_request`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "billing_service.failed_request" ]
               }
             },
             "schema" : {
@@ -283,6 +361,19 @@
               "$ref" : "#/definitions/ItemsCosts"
             }
           },
+          "400" : {
+            "description" : "The specified date range is invalid. (code: `costs.invalid_date_range`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "costs.invalid_date_range" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
           "403" : {
             "description" : "The current user does not have access to the requested organization. (code: `organization.invalid_access`)",
             "headers" : {
@@ -290,6 +381,32 @@
                 "type" : "string",
                 "description" : "The error codes associated with the response",
                 "enum" : [ "organization.invalid_access" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "404" : {
+            "description" : "* The organization was not found. (code: `organization.not_found`)\n* The Elasticsearch cluster was not found. (code: `billing_service.es_cluster_id_not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "organization.not_found", "billing_service.es_cluster_id_not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "500" : {
+            "description" : "An error occurred when fetching the itemized costs for the given deployment of the organization. (code: `billing_service.failed_request`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "billing_service.failed_request" ]
               }
             },
             "schema" : {
@@ -334,6 +451,19 @@
               "$ref" : "#/definitions/ItemsCosts"
             }
           },
+          "400" : {
+            "description" : "The specified date range is invalid. (code: `costs.invalid_date_range`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "costs.invalid_date_range" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
           "403" : {
             "description" : "The current user does not have access to the requested organization. (code: `organization.invalid_access`)",
             "headers" : {
@@ -341,6 +471,32 @@
                 "type" : "string",
                 "description" : "The error codes associated with the response",
                 "enum" : [ "organization.invalid_access" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "404" : {
+            "description" : "Organization not found. (code: `organization.not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "organization.not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "500" : {
+            "description" : "Error fetching the itemized costs for the organization. (code: `billing_service.failed_request`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "billing_service.failed_request" ]
               }
             },
             "schema" : {
@@ -3563,6 +3719,45 @@
         }
       }
     },
+    "/deployments/{deployment_id}/upgrade_assistant/status" : {
+      "get" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Get Deployment upgade assistant status",
+        "description" : "Get details about an Elasticsearch resource belonging to a given deployment.",
+        "operationId" : "get-deployment-upgrade-assistant-status",
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The Upgrade Assistant returned the status successfully",
+            "schema" : {
+              "$ref" : "#/definitions/DeploymentUpgradeAssistantStatusResponse"
+            }
+          },
+          "404" : {
+            "description" : "The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.deployment_not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "x-doc" : {
+          "tag" : "Deployment - Upgrade Assistant"
+        }
+      }
+    },
     "/deployments/{deployment_id}/{resource_kind}/{ref_id}/_restore" : {
       "post" : {
         "tags" : [ "Deployments" ],
@@ -3581,7 +3776,7 @@
           "description" : "The kind of resource",
           "required" : true,
           "type" : "string",
-          "enum" : [ "elasticsearch", "kibana", "apm", "appsearch", "enterprise_search" ]
+          "enum" : [ "elasticsearch", "kibana", "apm", "appsearch", "enterprise_search", "integrations_server" ]
         }, {
           "name" : "ref_id",
           "in" : "path",
@@ -3663,7 +3858,7 @@
         }, {
           "name" : "resource_kind",
           "in" : "path",
-          "description" : "The kind of resource (one of elasticsearch, kibana or apm).",
+          "description" : "The kind of resource (one of elasticsearch, kibana, apm, or integrations_server).",
           "required" : true,
           "type" : "string"
         }, {
@@ -3753,7 +3948,7 @@
         }, {
           "name" : "resource_kind",
           "in" : "path",
-          "description" : "The kind of resource (one of elasticsearch, kibana or apm).",
+          "description" : "The kind of resource (one of elasticsearch, kibana, apm, or integrations_server).",
           "required" : true,
           "type" : "string"
         }, {
@@ -3843,7 +4038,7 @@
         }, {
           "name" : "resource_kind",
           "in" : "path",
-          "description" : "The kind of resource (one of elasticsearch, kibana or apm).",
+          "description" : "The kind of resource (one of elasticsearch, kibana, apm, or integrations_server).",
           "required" : true,
           "type" : "string"
         }, {
@@ -3933,7 +4128,7 @@
         }, {
           "name" : "resource_kind",
           "in" : "path",
-          "description" : "The kind of resource (one of elasticsearch, kibana or apm).",
+          "description" : "The kind of resource (one of elasticsearch, kibana, apm, or integrations_server).",
           "required" : true,
           "type" : "string"
         }, {
@@ -4023,7 +4218,7 @@
         }, {
           "name" : "resource_kind",
           "in" : "path",
-          "description" : "The kind of resource (one of elasticsearch, kibana or apm).",
+          "description" : "The kind of resource (one of elasticsearch, kibana, apm, or integrations_server).",
           "required" : true,
           "type" : "string"
         }, {
@@ -4130,7 +4325,7 @@
         }, {
           "name" : "resource_kind",
           "in" : "path",
-          "description" : "The kind of resource (one of elasticsearch, kibana or apm).",
+          "description" : "The kind of resource (one of elasticsearch, kibana, apm, or integrations_server).",
           "required" : true,
           "type" : "string"
         }, {
@@ -4237,7 +4432,7 @@
         }, {
           "name" : "resource_kind",
           "in" : "path",
-          "description" : "The kind of resource (one of elasticsearch, kibana or apm).",
+          "description" : "The kind of resource (one of elasticsearch, kibana, apm, or integrations_server).",
           "required" : true,
           "type" : "string"
         }, {
@@ -4344,7 +4539,7 @@
         }, {
           "name" : "resource_kind",
           "in" : "path",
-          "description" : "The kind of resource (one of elasticsearch, kibana or apm).",
+          "description" : "The kind of resource (one of elasticsearch, kibana, apm, or integrations_server).",
           "required" : true,
           "type" : "string"
         }, {
@@ -4454,7 +4649,7 @@
           "description" : "The kind of resource",
           "required" : true,
           "type" : "string",
-          "enum" : [ "elasticsearch", "kibana", "apm", "appsearch", "enterprise_search" ]
+          "enum" : [ "elasticsearch", "kibana", "apm", "appsearch", "enterprise_search", "integrations_server" ]
         }, {
           "name" : "ref_id",
           "in" : "path",
@@ -4559,7 +4754,7 @@
           "description" : "The kind of stateless resource",
           "required" : true,
           "type" : "string",
-          "enum" : [ "kibana", "apm", "appsearch", "enterprise_search" ]
+          "enum" : [ "kibana", "apm", "appsearch", "enterprise_search", "integrations_server" ]
         }, {
           "name" : "ref_id",
           "in" : "path",
@@ -4657,7 +4852,7 @@
           "description" : "The kind of stateless resource",
           "required" : true,
           "type" : "string",
-          "enum" : [ "kibana", "apm", "appsearch", "enterprise_search" ]
+          "enum" : [ "kibana", "apm", "appsearch", "enterprise_search", "integrations_server" ]
         }, {
           "name" : "ref_id",
           "in" : "path",
@@ -4746,7 +4941,7 @@
     "/deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_upgrade" : {
       "post" : {
         "tags" : [ "Deployments" ],
-        "summary" : "Upgrade Kibana, APM, AppSearch inside Deployment",
+        "summary" : "Upgrade Kibana, APM, Integrations Server, AppSearch, Enterprise Search inside Deployment",
         "description" : "Upgrades a running cluster.",
         "operationId" : "upgrade-deployment-stateless-resource",
         "parameters" : [ {
@@ -4761,7 +4956,7 @@
           "description" : "The kind of stateless resource",
           "required" : true,
           "type" : "string",
-          "enum" : [ "kibana", "apm", "appsearch", "enterprise_search" ]
+          "enum" : [ "kibana", "apm", "appsearch", "enterprise_search", "integrations_server" ]
         }, {
           "name" : "ref_id",
           "in" : "path",
@@ -4778,7 +4973,7 @@
         } ],
         "responses" : {
           "202" : {
-            "description" : "The upgrade command was issued successfully, use the \"GET\" command on the /{cluster_id} resource to monitor progress",
+            "description" : "The upgrade command was issued successfully. Use the \"GET\" command on the /{deployment_id} resource to monitor progress",
             "schema" : {
               "$ref" : "#/definitions/DeploymentResourceUpgradeResponse"
             }
@@ -5331,6 +5526,11 @@
         "region" : {
           "type" : "string",
           "description" : "The region that this APM belongs to. Only populated in SaaS or federated ECE."
+        },
+        "apm_server_mode" : {
+          "type" : "string",
+          "description" : "The mode APM is operating in.",
+          "enum" : [ "Standalone", "Managed" ]
         }
       },
       "description" : "The overview information for the APM Server."
@@ -6716,38 +6916,6 @@
       },
       "description" : "Holds diagnostics for resources that will be created"
     },
-    "CrossClusterSearchInfo" : {
-      "type" : "object",
-      "required" : [ "healthy", "remote_clusters" ],
-      "properties" : {
-        "remote_clusters" : {
-          "type" : "array",
-          "description" : "The list of remote clusters this cluster can access using cross-cluster search",
-          "items" : {
-            "$ref" : "#/definitions/RemoteClusterInfo"
-          }
-        },
-        "healthy" : {
-          "type" : "boolean",
-          "description" : "Flag signaling health issues when at least one remote has an incompatible version with this cluster"
-        }
-      },
-      "description" : "The cross-cluster search settings and status for the Elasticsearch cluster."
-    },
-    "CrossClusterSearchSettings" : {
-      "type" : "object",
-      "required" : [ "remote_clusters" ],
-      "properties" : {
-        "remote_clusters" : {
-          "type" : "object",
-          "description" : "Mapping of remote cluster references keyed by their respective aliases. Aliases must only contain letters, digits, dashes and underscores",
-          "additionalProperties" : {
-            "$ref" : "#/definitions/RemoteClusterRef"
-          }
-        }
-      },
-      "description" : "The configuration settings for the cross-cluster search."
-    },
     "DeleteApiKeysRequest" : {
       "type" : "object",
       "required" : [ "keys" ],
@@ -6856,9 +7024,16 @@
         },
         "appsearch" : {
           "type" : "array",
-          "description" : "A list of payloads for AppSearch creation.",
+          "description" : "A list of payloads for AppSearch updates. AppSearch has been replaced by Enterprise Search in the Elastic Stack 7.7 and higher.",
           "items" : {
             "$ref" : "#/definitions/AppSearchPayload"
+          }
+        },
+        "enterprise_search" : {
+          "type" : "array",
+          "description" : "A list of payloads for Enterprise Search creation.",
+          "items" : {
+            "$ref" : "#/definitions/EnterpriseSearchPayload"
           }
         }
       },
@@ -7459,13 +7634,20 @@
         },
         "appsearch" : {
           "type" : "array",
-          "description" : "A list of payloads for AppSearch updates",
+          "description" : "A list of payloads for AppSearch updates. AppSearch has been replaced by Enterprise Search in the Elastic Stack 7.7 and higher",
           "items" : {
             "$ref" : "#/definitions/AppSearchPayload"
           }
+        },
+        "enterprise_search" : {
+          "type" : "array",
+          "description" : "A list of payloads for Enterprise Search updates",
+          "items" : {
+            "$ref" : "#/definitions/EnterpriseSearchPayload"
+          }
         }
       },
-      "description" : "Describes the resources that will have the Deployment"
+      "description" : "Describes the Deployment resource updates"
     },
     "DeploymentUpdateResponse" : {
       "type" : "object",
@@ -7510,6 +7692,21 @@
         }
       },
       "description" : "Additional configuration for the new deployment object."
+    },
+    "DeploymentUpgradeAssistantStatusResponse" : {
+      "type" : "object",
+      "required" : [ "details", "ready_for_upgrade" ],
+      "properties" : {
+        "ready_for_upgrade" : {
+          "type" : "boolean",
+          "description" : "A boolean indicating whether or not the cluster is ready to be upgraded"
+        },
+        "details" : {
+          "type" : "string",
+          "description" : "Message with information about the number of Elasticsearch and Kibana deprecations"
+        }
+      },
+      "description" : "The status of your cluster and its readiness to be upgraded"
     },
     "DeploymentsCosts" : {
       "type" : "object",
@@ -7837,10 +8034,6 @@
         "region" : {
           "type" : "string",
           "description" : "The region that this cluster belongs to. Only populated in SaaS or federated ECE."
-        },
-        "ccs" : {
-          "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [remote clusters endpoints](#Deployment_-_Remote_Clusters) instead.\n\nCross-cluster search settings and status for this cluster.",
-          "$ref" : "#/definitions/CrossClusterSearchInfo"
         }
       },
       "description" : "The information for an Elasticsearch cluster."
@@ -8003,36 +8196,35 @@
       "type" : "object",
       "properties" : {
         "snapshot" : {
+          "description" : "The snapshot settings for this deployment. When provided, snapshot settings are changed as specified. A `null` value reverts the field to the default value. Otherwise, all snapshot settings remain as they were set previously.",
           "$ref" : "#/definitions/ClusterSnapshotSettings"
         },
         "monitoring" : {
+          "description" : "The monitoring settings for this deployment. When provided, monitoring settings are changed as specified. A `null` value reverts the field to the default value. Otherwise, all monitoring settings remain as they were set previously.",
           "$ref" : "#/definitions/ManagedMonitoringSettings"
         },
         "metadata" : {
           "$ref" : "#/definitions/ClusterMetadataSettings"
         },
         "curation" : {
+          "description" : "The curation settings for this deployment. When provided, curation settings are changed as specified. A `null` value reverts the field to the default value. Otherwise, all curation settings remain as they were set previously.",
           "$ref" : "#/definitions/ClusterCurationSettings"
         },
         "dedicated_masters_threshold" : {
           "type" : "integer",
           "format" : "int32",
-          "description" : "Threshold starting from which the number of instances in the cluster results in the introduction of dedicated masters. If the cluster is downscaled to a number of nodes below this one, dedicated masters will be removed. Limit is inclusive."
+          "description" : "Threshold starting from which the number of instances in the cluster results in the introduction of dedicated masters. If the cluster is downscaled to a number of nodes below this one, dedicated masters will be removed. Limit is inclusive. When provided the threshold setting is updated. A `null` value removes the field. Otherwise, the setting remains as it was set previously."
         },
         "ip_filtering" : {
-          "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use traffic filter settings instead.\n\nThe set of rulesets to apply for all the resources in this cluster. When specified the same rulesets will be applied to Kibana and APM clusters as well",
+          "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use traffic filter settings instead.\n\nThe set of rulesets to apply for all the resources in this cluster. When specified, the set of rulesets is updated and the same rulesets will be applied to Kibana and APM clusters as well. If not specified, the rulesets remain as they were set previously.",
           "$ref" : "#/definitions/IpFilteringSettings"
         },
         "traffic_filter" : {
-          "description" : "The rulesets to apply to all resources in this cluster. When specified the same rulesets will be applied to Kibana and APM clusters as well",
+          "description" : "The rulesets to apply to all resources in this cluster. When specified, the set of rulesets is updated and the same rulesets will be applied to Kibana and APM clusters as well. If not specified, the rulesets remain as they were set previously.",
           "$ref" : "#/definitions/TrafficFilterSettings"
         },
-        "ccs" : {
-          "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use the /remote-clusters endpoints instead.\n\nConfiguration of remote clusters.",
-          "$ref" : "#/definitions/CrossClusterSearchSettings"
-        },
         "trust" : {
-          "description" : "Configuration of trust with other clusters",
+          "description" : "Configuration of trust with other clusters. When provided, trust settings are changed as specified. A `null` value reverts the field to the default value. Otherwise, all trust settings remain as they were set previously.",
           "$ref" : "#/definitions/ElasticsearchClusterTrustSettings"
         }
       },
@@ -8788,6 +8980,36 @@
         }
       },
       "description" : "Node types to enable for an Enterprise Search instance"
+    },
+    "EnterpriseSearchPayload" : {
+      "type" : "object",
+      "required" : [ "elasticsearch_cluster_ref_id", "plan", "ref_id", "region" ],
+      "properties" : {
+        "ref_id" : {
+          "type" : "string",
+          "description" : "A locally-unique user-specified id for Enterprise Search"
+        },
+        "elasticsearch_cluster_ref_id" : {
+          "type" : "string",
+          "description" : "Alias to the Elasticsearch Cluster to attach Enterprise Search to"
+        },
+        "display_name" : {
+          "type" : "string",
+          "description" : "The human readable name for the Enterprise Search cluster (default: takes the name of its Elasticsearch cluster)"
+        },
+        "region" : {
+          "type" : "string",
+          "description" : "The region where this resource exists"
+        },
+        "plan" : {
+          "$ref" : "#/definitions/EnterpriseSearchPlan"
+        },
+        "settings" : {
+          "description" : "The settings for building this Enterprise Search cluster",
+          "$ref" : "#/definitions/EnterpriseSearchSettings"
+        }
+      },
+      "description" : "An Enterprise Search creation request paired with the alias of the Elasticsearch cluster it should be paired with"
     },
     "EnterpriseSearchPlan" : {
       "type" : "object",
@@ -10128,40 +10350,6 @@
         }
       },
       "description" : "Read-only mode response"
-    },
-    "RemoteClusterInfo" : {
-      "type" : "object",
-      "required" : [ "compatible", "id" ],
-      "properties" : {
-        "id" : {
-          "type" : "string",
-          "description" : "The remote Elasticsearch cluster deployment id"
-        },
-        "compatible" : {
-          "type" : "boolean",
-          "description" : "Flag indicating whether the remote cluster version is compatible"
-        },
-        "version" : {
-          "type" : "string",
-          "description" : "Remote cluster Elasticsearch version"
-        }
-      },
-      "description" : "Information about the remote cluster for cross-cluster search."
-    },
-    "RemoteClusterRef" : {
-      "type" : "object",
-      "required" : [ "cluster_id" ],
-      "properties" : {
-        "cluster_id" : {
-          "type" : "string",
-          "description" : "Cluster id of the remote cluster"
-        },
-        "skip_unavailable" : {
-          "type" : "boolean",
-          "description" : "If true, skip this cluster during search if it is disconnected. Default: false"
-        }
-      },
-      "description" : "The Elasticsearch cluster to connect to for cross-cluster search."
     },
     "RemoteResourceInfo" : {
       "type" : "object",
