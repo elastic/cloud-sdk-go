@@ -24,7 +24,7 @@ import (
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
-	"github.com/elastic/cloud-sdk-go/pkg/client/platform_configuration_templates"
+	"github.com/elastic/cloud-sdk-go/pkg/client/deployment_templates"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
@@ -46,10 +46,6 @@ type GetTemplateParams struct {
 
 	// If true, will return details for each instance configuration referenced by the template.
 	ShowInstanceConfig bool
-
-	// If cluster is specified populates cluster_template in the response,
-	// if deployment is specified populates deployment_template in the response
-	Format string
 }
 
 // Validate is the implementation for the ecctl.Validator interface
@@ -63,10 +59,6 @@ func (params *GetTemplateParams) Validate() error {
 		merr = merr.Append(errInvalidTemplateID)
 	}
 
-	if strings.TrimSpace(params.Format) == "" {
-		merr = merr.Append(errInvalidTemplateFormat)
-	}
-
 	if err := ec.RequireRegionSet(params.Region); err != nil {
 		merr = merr.Append(err)
 	}
@@ -74,25 +66,17 @@ func (params *GetTemplateParams) Validate() error {
 	return merr.ErrorOrNil()
 }
 
-func (params *GetTemplateParams) fillDefaults() {
-	if strings.TrimSpace(params.Format) == "" {
-		params.Format = defaultTemplateFormat
-	}
-}
-
 // GetTemplate obtains information about a specific platform deployment template
-func GetTemplate(params GetTemplateParams) (*models.DeploymentTemplateInfo, error) {
-	params.fillDefaults()
-
+func GetTemplate(params GetTemplateParams) (*models.DeploymentTemplateInfoV2, error) {
 	if err := params.Validate(); err != nil {
 		return nil, err
 	}
 
-	res, err := params.V1API.PlatformConfigurationTemplates.GetDeploymentTemplate(
-		platform_configuration_templates.NewGetDeploymentTemplateParams().
+	res, err := params.V1API.DeploymentTemplates.GetDeploymentTemplateV2(
+		deployment_templates.NewGetDeploymentTemplateV2Params().
 			WithContext(api.WithRegion(context.Background(), params.Region)).
 			WithShowInstanceConfigurations(ec.Bool(params.ShowInstanceConfig)).
-			WithFormat(ec.String(params.Format)).
+			WithRegion(params.Region).
 			WithTemplateID(params.ID),
 		params.AuthWriter,
 	)
