@@ -35,9 +35,6 @@ import (
 // swagger:model DeploymentSettings
 type DeploymentSettings struct {
 
-	// DEPRECATED The set of IP filtering rulesets applies to this deployment.
-	IPFilteringSettings *IPFilteringSettings `json:"ip_filtering_settings,omitempty"`
-
 	// Logging and monitoring settings for this deployment
 	Observability *DeploymentObservabilitySettings `json:"observability,omitempty"`
 
@@ -48,10 +45,6 @@ type DeploymentSettings struct {
 // Validate validates this deployment settings
 func (m *DeploymentSettings) Validate(formats strfmt.Registry) error {
 	var res []error
-
-	if err := m.validateIPFilteringSettings(formats); err != nil {
-		res = append(res, err)
-	}
 
 	if err := m.validateObservability(formats); err != nil {
 		res = append(res, err)
@@ -64,23 +57,6 @@ func (m *DeploymentSettings) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *DeploymentSettings) validateIPFilteringSettings(formats strfmt.Registry) error {
-	if swag.IsZero(m.IPFilteringSettings) { // not required
-		return nil
-	}
-
-	if m.IPFilteringSettings != nil {
-		if err := m.IPFilteringSettings.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("ip_filtering_settings")
-			}
-			return err
-		}
-	}
-
 	return nil
 }
 
@@ -122,10 +98,6 @@ func (m *DeploymentSettings) validateTrafficFilterSettings(formats strfmt.Regist
 func (m *DeploymentSettings) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.contextValidateIPFilteringSettings(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.contextValidateObservability(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -137,20 +109,6 @@ func (m *DeploymentSettings) ContextValidate(ctx context.Context, formats strfmt
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *DeploymentSettings) contextValidateIPFilteringSettings(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.IPFilteringSettings != nil {
-		if err := m.IPFilteringSettings.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("ip_filtering_settings")
-			}
-			return err
-		}
-	}
-
 	return nil
 }
 

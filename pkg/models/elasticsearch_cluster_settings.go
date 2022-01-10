@@ -41,12 +41,6 @@ type ElasticsearchClusterSettings struct {
 	// Threshold starting from which the number of instances in the cluster results in the introduction of dedicated masters. If the cluster is downscaled to a number of nodes below this one, dedicated masters will be removed. Limit is inclusive. When provided the threshold setting is updated. A `null` value removes the field. Otherwise, the setting remains as it was set previously.
 	DedicatedMastersThreshold int32 `json:"dedicated_masters_threshold,omitempty"`
 
-	// > WARNING
-	// > This endpoint is deprecated and scheduled to be removed in the next major version. Use traffic filter settings instead.
-	//
-	// The set of rulesets to apply for all the resources in this cluster. When specified, the set of rulesets is updated and the same rulesets will be applied to Kibana and APM clusters as well. If not specified, the rulesets remain as they were set previously.
-	IPFiltering *IPFilteringSettings `json:"ip_filtering,omitempty"`
-
 	// metadata
 	Metadata *ClusterMetadataSettings `json:"metadata,omitempty"`
 
@@ -68,10 +62,6 @@ func (m *ElasticsearchClusterSettings) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateCuration(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateIPFiltering(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -110,23 +100,6 @@ func (m *ElasticsearchClusterSettings) validateCuration(formats strfmt.Registry)
 		if err := m.Curation.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("curation")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *ElasticsearchClusterSettings) validateIPFiltering(formats strfmt.Registry) error {
-	if swag.IsZero(m.IPFiltering) { // not required
-		return nil
-	}
-
-	if m.IPFiltering != nil {
-		if err := m.IPFiltering.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("ip_filtering")
 			}
 			return err
 		}
@@ -228,10 +201,6 @@ func (m *ElasticsearchClusterSettings) ContextValidate(ctx context.Context, form
 		res = append(res, err)
 	}
 
-	if err := m.contextValidateIPFiltering(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.contextValidateMetadata(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -264,20 +233,6 @@ func (m *ElasticsearchClusterSettings) contextValidateCuration(ctx context.Conte
 		if err := m.Curation.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("curation")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *ElasticsearchClusterSettings) contextValidateIPFiltering(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.IPFiltering != nil {
-		if err := m.IPFiltering.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("ip_filtering")
 			}
 			return err
 		}
