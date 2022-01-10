@@ -30,11 +30,8 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
-const defaultTemplateFormat = "cluster"
-
 var (
-	errInvalidTemplateID     = errors.New("template ID not specified and is required for this operation")
-	errInvalidTemplateFormat = errors.New("template format not specified and is required for this operation")
+	errInvalidTemplateID = errors.New("template ID not specified and is required for this operation")
 )
 
 // GetTemplateParams is the parameter of template show sub-command
