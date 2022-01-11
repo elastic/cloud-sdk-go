@@ -18,12 +18,9 @@
 package configurationtemplateapi
 
 import (
-	"context"
-	"strings"
-
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
-	"github.com/elastic/cloud-sdk-go/pkg/client/platform_configuration_templates"
+	"github.com/elastic/cloud-sdk-go/pkg/client/deployment_templates"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
@@ -44,10 +41,6 @@ type ListTemplateParams struct {
 	// An optional key/value pair in the form of (key:value) that will act as a filter and exclude any templates
 	// that do not have a matching metadata item associated.
 	Metadata string
-
-	// If cluster is specified populates cluster_template in the response,
-	// if deployment is specified populates deployment_template in the response
-	Format string
 }
 
 // Validate is the implementation for the ecctl.Validator interface
@@ -57,10 +50,6 @@ func (params *ListTemplateParams) Validate() error {
 		merr = merr.Append(apierror.ErrMissingAPI)
 	}
 
-	if strings.TrimSpace(params.Format) == "" {
-		merr = merr.Append(errInvalidTemplateFormat)
-	}
-
 	if err := ec.RequireRegionSet(params.Region); err != nil {
 		merr = merr.Append(err)
 	}
@@ -68,26 +57,17 @@ func (params *ListTemplateParams) Validate() error {
 	return merr.ErrorOrNil()
 }
 
-func (params *ListTemplateParams) fillDefaults() {
-	if strings.TrimSpace(params.Format) == "" {
-		params.Format = defaultTemplateFormat
-	}
-}
-
 // ListTemplates obtains all the configured platform deployment templates
-func ListTemplates(params ListTemplateParams) ([]*models.DeploymentTemplateInfo, error) {
-	params.fillDefaults()
-
+func ListTemplates(params ListTemplateParams) ([]*models.DeploymentTemplateInfoV2, error) {
 	if err := params.Validate(); err != nil {
 		return nil, err
 	}
 
-	res, err := params.V1API.PlatformConfigurationTemplates.GetDeploymentTemplates(
-		platform_configuration_templates.NewGetDeploymentTemplatesParams().
-			WithContext(api.WithRegion(context.Background(), params.Region)).
+	res, err := params.V1API.DeploymentTemplates.GetDeploymentTemplatesV2(
+		deployment_templates.NewGetDeploymentTemplatesV2Params().
 			WithStackVersion(ec.String(params.StackVersion)).
 			WithMetadata(ec.String(params.Metadata)).
-			WithFormat(ec.String(params.Format)).
+			WithRegion(params.Region).
 			WithShowInstanceConfigurations(ec.Bool(params.ShowInstanceConfig)),
 		params.AuthWriter,
 	)

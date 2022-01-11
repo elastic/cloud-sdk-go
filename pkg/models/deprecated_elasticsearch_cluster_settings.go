@@ -35,12 +35,6 @@ import (
 // swagger:model DeprecatedElasticsearchClusterSettings
 type DeprecatedElasticsearchClusterSettings struct {
 
-	// > WARNING
-	// > This endpoint is deprecated and scheduled to be removed in the next major version. Use the /remote-clusters endpoints instead.
-	//
-	// Configuration of remote clusters.
-	Ccs *CrossClusterSearchSettings `json:"ccs,omitempty"`
-
 	// curation
 	Curation *ClusterCurationSettings `json:"curation,omitempty"`
 
@@ -70,10 +64,6 @@ type DeprecatedElasticsearchClusterSettings struct {
 func (m *DeprecatedElasticsearchClusterSettings) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateCcs(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateCuration(formats); err != nil {
 		res = append(res, err)
 	}
@@ -101,23 +91,6 @@ func (m *DeprecatedElasticsearchClusterSettings) Validate(formats strfmt.Registr
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *DeprecatedElasticsearchClusterSettings) validateCcs(formats strfmt.Registry) error {
-	if swag.IsZero(m.Ccs) { // not required
-		return nil
-	}
-
-	if m.Ccs != nil {
-		if err := m.Ccs.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("ccs")
-			}
-			return err
-		}
-	}
-
 	return nil
 }
 
@@ -227,10 +200,6 @@ func (m *DeprecatedElasticsearchClusterSettings) validateTrafficFilter(formats s
 func (m *DeprecatedElasticsearchClusterSettings) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.contextValidateCcs(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.contextValidateCuration(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -258,20 +227,6 @@ func (m *DeprecatedElasticsearchClusterSettings) ContextValidate(ctx context.Con
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *DeprecatedElasticsearchClusterSettings) contextValidateCcs(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.Ccs != nil {
-		if err := m.Ccs.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("ccs")
-			}
-			return err
-		}
-	}
-
 	return nil
 }
 

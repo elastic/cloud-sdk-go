@@ -97,7 +97,11 @@ type ClientService interface {
 
 	GetDeploymentResourceProxyRequests(params *GetDeploymentResourceProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentResourceProxyRequestsOK, error)
 
+	GetDeploymentUpgradeAssistantStatus(params *GetDeploymentUpgradeAssistantStatusParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentUpgradeAssistantStatusOK, error)
+
 	ListDeployments(params *ListDeploymentsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListDeploymentsOK, error)
+
+	MoveDeploymentElasticsearchResourceInstances(params *MoveDeploymentElasticsearchResourceInstancesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MoveDeploymentElasticsearchResourceInstancesOK, *MoveDeploymentElasticsearchResourceInstancesAccepted, error)
 
 	PostDeploymentResourceProxyRequests(params *PostDeploymentResourceProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostDeploymentResourceProxyRequestsOK, error)
 
@@ -414,7 +418,7 @@ func (a *Client) DeleteDeployment(params *DeleteDeploymentParams, authInfo runti
 /*
   DeleteDeploymentResourceProxyRequests proxies HTTP d e l e t e request
 
-  Proxies the HTTP DELETE request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.
+  Proxies the HTTP DELETE request to the deployment resource. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.
 */
 func (a *Client) DeleteDeploymentResourceProxyRequests(params *DeleteDeploymentResourceProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteDeploymentResourceProxyRequestsOK, error) {
 	// TODO: Validate the params before sending
@@ -426,7 +430,7 @@ func (a *Client) DeleteDeploymentResourceProxyRequests(params *DeleteDeploymentR
 		Method:             "DELETE",
 		PathPattern:        "/deployments/{deployment_id}/{resource_kind}/{ref_id}/proxy/{proxy_path}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json", "application/text", "application/x-ndjson"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &DeleteDeploymentResourceProxyRequestsReader{formats: a.formats},
@@ -1152,7 +1156,7 @@ func (a *Client) GetDeploymentKibResourceInfo(params *GetDeploymentKibResourceIn
 /*
   GetDeploymentResourceProxyRequests proxies HTTP g e t request
 
-  Proxies the HTTP GET request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.
+  Proxies the HTTP GET request to the deployment resource. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.
 */
 func (a *Client) GetDeploymentResourceProxyRequests(params *GetDeploymentResourceProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentResourceProxyRequestsOK, error) {
 	// TODO: Validate the params before sending
@@ -1164,7 +1168,7 @@ func (a *Client) GetDeploymentResourceProxyRequests(params *GetDeploymentResourc
 		Method:             "GET",
 		PathPattern:        "/deployments/{deployment_id}/{resource_kind}/{ref_id}/proxy/{proxy_path}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json", "application/text", "application/x-ndjson"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &GetDeploymentResourceProxyRequestsReader{formats: a.formats},
@@ -1187,6 +1191,47 @@ func (a *Client) GetDeploymentResourceProxyRequests(params *GetDeploymentResourc
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for get-deployment-resource-proxy-requests: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  GetDeploymentUpgradeAssistantStatus gets deployment upgade assistant status
+
+  Get details about an Elasticsearch resource belonging to a given deployment.
+*/
+func (a *Client) GetDeploymentUpgradeAssistantStatus(params *GetDeploymentUpgradeAssistantStatusParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentUpgradeAssistantStatusOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetDeploymentUpgradeAssistantStatusParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "get-deployment-upgrade-assistant-status",
+		Method:             "GET",
+		PathPattern:        "/deployments/{deployment_id}/upgrade_assistant/status",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetDeploymentUpgradeAssistantStatusReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetDeploymentUpgradeAssistantStatusOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-deployment-upgrade-assistant-status: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -1232,9 +1277,51 @@ func (a *Client) ListDeployments(params *ListDeploymentsParams, authInfo runtime
 }
 
 /*
+  MoveDeploymentElasticsearchResourceInstances moves elasticsearch resource instances
+
+  Moves one or more instances belonging to the given Elasticsearch resource to a different allocator.
+*/
+func (a *Client) MoveDeploymentElasticsearchResourceInstances(params *MoveDeploymentElasticsearchResourceInstancesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MoveDeploymentElasticsearchResourceInstancesOK, *MoveDeploymentElasticsearchResourceInstancesAccepted, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewMoveDeploymentElasticsearchResourceInstancesParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "move-deployment-elasticsearch-resource-instances",
+		Method:             "POST",
+		PathPattern:        "/deployments/{deployment_id}/elasticsearch/{ref_id}/instances/{instance_ids}/_move",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &MoveDeploymentElasticsearchResourceInstancesReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, nil, err
+	}
+	switch value := result.(type) {
+	case *MoveDeploymentElasticsearchResourceInstancesOK:
+		return value, nil, nil
+	case *MoveDeploymentElasticsearchResourceInstancesAccepted:
+		return nil, value, nil
+	}
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for deployments: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
   PostDeploymentResourceProxyRequests proxies HTTP p o s t request
 
-  Proxies the HTTP POST request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.
+  Proxies the HTTP POST request to the deployment resource. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.
 */
 func (a *Client) PostDeploymentResourceProxyRequests(params *PostDeploymentResourceProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostDeploymentResourceProxyRequestsOK, error) {
 	// TODO: Validate the params before sending
@@ -1246,7 +1333,7 @@ func (a *Client) PostDeploymentResourceProxyRequests(params *PostDeploymentResou
 		Method:             "POST",
 		PathPattern:        "/deployments/{deployment_id}/{resource_kind}/{ref_id}/proxy/{proxy_path}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json", "application/text", "application/x-ndjson"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &PostDeploymentResourceProxyRequestsReader{formats: a.formats},
@@ -1275,7 +1362,7 @@ func (a *Client) PostDeploymentResourceProxyRequests(params *PostDeploymentResou
 /*
   PutDeploymentResourceProxyRequests proxies HTTP p u t request
 
-  Proxies the HTTP PUT request to the cluster. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.
+  Proxies the HTTP PUT request to the deployment resource. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.
 */
 func (a *Client) PutDeploymentResourceProxyRequests(params *PutDeploymentResourceProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutDeploymentResourceProxyRequestsOK, error) {
 	// TODO: Validate the params before sending
@@ -1287,7 +1374,7 @@ func (a *Client) PutDeploymentResourceProxyRequests(params *PutDeploymentResourc
 		Method:             "PUT",
 		PathPattern:        "/deployments/{deployment_id}/{resource_kind}/{ref_id}/proxy/{proxy_path}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json", "application/text", "application/x-ndjson"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &PutDeploymentResourceProxyRequestsReader{formats: a.formats},
@@ -2423,7 +2510,7 @@ func (a *Client) UpdateDeployment(params *UpdateDeploymentParams, authInfo runti
 }
 
 /*
-  UpgradeDeploymentStatelessResource upgrades kibana a p m app search inside deployment
+  UpgradeDeploymentStatelessResource upgrades kibana a p m integrations server app search enterprise search inside deployment
 
   Upgrades a running cluster.
 */

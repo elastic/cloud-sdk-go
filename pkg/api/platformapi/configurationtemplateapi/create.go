@@ -18,14 +18,13 @@
 package configurationtemplateapi
 
 import (
-	"context"
 	"errors"
 
 	"github.com/go-openapi/strfmt"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
-	"github.com/elastic/cloud-sdk-go/pkg/client/platform_configuration_templates"
+	"github.com/elastic/cloud-sdk-go/pkg/client/deployment_templates"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
@@ -37,7 +36,7 @@ var errDeploymentTemplateMissing = errors.New("deployment template is missing")
 type CreateTemplateParams struct {
 	*api.API
 	ID string
-	*models.DeploymentTemplateInfo
+	*models.DeploymentTemplateRequestBody
 	Region string
 }
 
@@ -48,12 +47,12 @@ func (params CreateTemplateParams) Validate() error {
 		merr = merr.Append(apierror.ErrMissingAPI)
 	}
 
-	if params.DeploymentTemplateInfo == nil {
+	if params.DeploymentTemplateRequestBody == nil {
 		merr = merr.Append(errDeploymentTemplateMissing)
 	}
 
-	if params.DeploymentTemplateInfo != nil {
-		merr = merr.Append(params.DeploymentTemplateInfo.Validate(strfmt.Default))
+	if params.DeploymentTemplateRequestBody != nil {
+		merr = merr.Append(params.DeploymentTemplateRequestBody.Validate(strfmt.Default))
 	}
 
 	if err := ec.RequireRegionSet(params.Region); err != nil {
@@ -75,10 +74,10 @@ func CreateTemplate(params CreateTemplateParams) (string, error) {
 		}
 		return params.ID, nil
 	}
-	_, resp, err := params.V1API.PlatformConfigurationTemplates.CreateDeploymentTemplate(
-		platform_configuration_templates.NewCreateDeploymentTemplateParams().
-			WithContext(api.WithRegion(context.Background(), params.Region)).
-			WithBody(params.DeploymentTemplateInfo),
+	_, resp, err := params.V1API.DeploymentTemplates.CreateDeploymentTemplateV2(
+		deployment_templates.NewCreateDeploymentTemplateV2Params().
+			WithBody(params.DeploymentTemplateRequestBody).
+			WithRegion(params.Region),
 		params.AuthWriter,
 	)
 

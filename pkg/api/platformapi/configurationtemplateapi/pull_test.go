@@ -38,18 +38,20 @@ import (
 func TestPullToFolder(t *testing.T) {
 	urlError := url.Error{
 		Op:  "Get",
-		URL: "https://mock.elastic.co/api/v1/regions/us-east-1/platform/configuration/templates/deployments?format=cluster&show_instance_configurations=false",
+		URL: "https://mock.elastic.co/api/v1/deployments/templates?region=us-east-1&show_instance_configurations=false",
 		Err: errors.New("error"),
 	}
-	var templateListSuccess = []*models.DeploymentTemplateInfo{
+	var id1 = "84e0bd6d69bb44e294809d89cea88a7e"
+	var id2 = "0efbab9c368849a59fc5622ec750ba47"
+	var templateListSuccess = []*models.DeploymentTemplateInfoV2{
 		{
-			ID:          "84e0bd6d69bb44e294809d89cea88a7e",
+			ID:          &id1,
 			Description: "Test default Elasticsearch trial template",
 			Name:        ec.String("(Trial) Default Elasticsearch"),
 			SystemOwned: ec.Bool(false),
 		},
 		{
-			ID:          "0efbab9c368849a59fc5622ec750ba47",
+			ID:          &id2,
 			Description: "Test default Elasticsearch template",
 			Name:        ec.String("Default Elasticsearch"),
 			SystemOwned: ec.Bool(true),
@@ -77,7 +79,6 @@ func TestPullToFolder(t *testing.T) {
 			args: args{params: PullToFolderParams{
 				Region: "us-east-1",
 				Folder: "some",
-				Format: "cluster",
 				API:    api.NewMock(mock.Response{Error: errors.New("error")}),
 			}},
 			err: urlError.Error(),
@@ -87,7 +88,6 @@ func TestPullToFolder(t *testing.T) {
 			args: args{params: PullToFolderParams{
 				Region: "us-east-1",
 				Folder: "some-folder",
-				Format: "cluster",
 				API: api.NewMock(mock.Response{
 					Response: http.Response{
 						Body:       mock.NewStructBody(templateListSuccess),
@@ -98,17 +98,19 @@ func TestPullToFolder(t *testing.T) {
 						Method: "GET",
 						Host:   api.DefaultMockHost,
 						Query: url.Values{
-							"format":                       {"cluster"},
+							"region":                       {"us-east-1"},
 							"show_instance_configurations": {"false"},
 						},
-						Path: "/api/v1/regions/us-east-1/platform/configuration/templates/deployments",
+						Path: "/api/v1/deployments/templates",
 					},
 				}),
 			}},
 			want: map[string]string{
 				"some-folder/0efbab9c368849a59fc5622ec750ba47.json": `{
+  "deployment_template": null,
   "description": "Test default Elasticsearch template",
   "id": "0efbab9c368849a59fc5622ec750ba47",
+  "instance_configurations": null,
   "kibana_deeplink": null,
   "metadata": null,
   "name": "Default Elasticsearch",
@@ -116,8 +118,10 @@ func TestPullToFolder(t *testing.T) {
 }
 `,
 				"some-folder/84e0bd6d69bb44e294809d89cea88a7e.json": `{
+  "deployment_template": null,
   "description": "Test default Elasticsearch trial template",
   "id": "84e0bd6d69bb44e294809d89cea88a7e",
+  "instance_configurations": null,
   "kibana_deeplink": null,
   "metadata": null,
   "name": "(Trial) Default Elasticsearch",

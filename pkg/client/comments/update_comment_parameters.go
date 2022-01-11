@@ -98,7 +98,7 @@ type UpdateCommentParams struct {
 
 	/* ResourceType.
 
-	   The kind of Resource that a Comment belongs to. Should be one of [elasticsearch, kibana, apm, appsearch, enterprise_search, allocator, constructor, runner, proxy].
+	   The kind of Resource that a Comment belongs to. Should be one of [elasticsearch, kibana, apm, appsearch, enterprise_search, integrations_server, allocator, constructor, runner, proxy].
 	*/
 	ResourceType string
 

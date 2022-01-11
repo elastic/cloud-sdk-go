@@ -84,7 +84,7 @@ type PostDeploymentResourceProxyRequestsParams struct {
 
 	/* Body.
 
-	   The JSON payload to proxy to the Elasticsearch cluster.
+	   The JSON payload to proxy to the deployment resource.
 	*/
 	Body string
 

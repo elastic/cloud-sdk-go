@@ -39,7 +39,7 @@ type DeploymentCreateResources struct {
 	// A list of payloads for APM creation.
 	Apm []*ApmPayload `json:"apm"`
 
-	// A list of payloads for AppSearch creation.
+	// A list of payloads for AppSearch updates. AppSearch has been replaced by Enterprise Search in the Elastic Stack 7.7 and higher.
 	Appsearch []*AppSearchPayload `json:"appsearch"`
 
 	// A list of payloads for Elasticsearch cluster creation.

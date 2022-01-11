@@ -40,44 +40,6 @@ var (
 func TestGetTemplate(t *testing.T) {
 	var sourceDate = testutils.ParseDate(t, "2018-04-19T18:16:57.297Z")
 
-	var templateFormatCluster = `
-	{
-  "name": "(Trial) Default Elasticsearch",
-  "source": {
-	"user_id": "1",
-	"facilitator": "adminconsole",
-	"date": "2018-04-19T18:16:57.297Z",
-	"admin_id": "admin",
-	"action": "deployments.create-template",
-	"remote_addresses": ["52.205.1.231"]
-  },
-  "description": "Test default Elasticsearch trial template",
-  "id": "` + validTemplateID + `",
-  "metadata": [{
-	"key": "trial",
-	"value": "true"
-	}],
-	"cluster_template": {
-		"plan": {
-			"cluster_topology": [{
-				"node_type": {
-					"master": true,
-					"data": true
-				},
-				"instance_configuration_id": "default-elasticsearch",
-				"size": {
-					"value": 1024,
-					"resource": "memory"
-				}
-		}],
-		"elasticsearch": {
-			"version": "6.2.3"
-			}
-		}
-	},
-	"system_owned": false
-}`
-
 	var templateFormatDeployment = `
 	{
   "name": "(Trial) Default Elasticsearch",
@@ -102,82 +64,19 @@ func TestGetTemplate(t *testing.T) {
 }`
 	urlError := url.Error{
 		Op:  "Get",
-		URL: `https://mock.elastic.co/api/v1/regions/us-east-1/platform/configuration/templates/deployments/84e0bd6d69bb44e294809d89cea88a7e?format=deployment&show_instance_configurations=false`,
+		URL: `https://mock.elastic.co/api/v1/deployments/templates/84e0bd6d69bb44e294809d89cea88a7e?region=us-east-1&show_instance_configurations=false`,
 		Err: errors.New("error"),
 	}
 	tests := []struct {
 		name string
 		args GetTemplateParams
-		want *models.DeploymentTemplateInfo
+		want *models.DeploymentTemplateInfoV2
 		err  string
 	}{
 		{
-			name: "Platform deployment template show succeeds",
+			name: "Platform deployment template succeeds",
 			args: GetTemplateParams{
-				ID:     validTemplateID,
-				Format: "cluster",
-				API: api.NewMock(mock.Response{
-					Response: http.Response{
-						Body:       mock.NewStringBody(templateFormatCluster),
-						StatusCode: 200,
-					},
-					Assert: &mock.RequestAssertion{
-						Header: api.DefaultReadMockHeaders,
-						Method: "GET",
-						Host:   api.DefaultMockHost,
-						Query: url.Values{
-							"format":                       {"cluster"},
-							"show_instance_configurations": {"false"},
-						},
-						Path: "/api/v1/regions/us-east-1/platform/configuration/templates/deployments/84e0bd6d69bb44e294809d89cea88a7e",
-					},
-				}),
-				Region: "us-east-1",
-			},
-			want: &models.DeploymentTemplateInfo{
-				Name:        ec.String("(Trial) Default Elasticsearch"),
-				ID:          validTemplateID,
-				Description: "Test default Elasticsearch trial template",
-				SystemOwned: ec.Bool(false),
-				Metadata: []*models.MetadataItem{{
-
-					Value: ec.String("true"),
-					Key:   ec.String("trial"),
-				}},
-				Source: &models.ChangeSourceInfo{
-					UserID:          "1",
-					Facilitator:     ec.String("adminconsole"),
-					Date:            &sourceDate,
-					AdminID:         "admin",
-					Action:          ec.String("deployments.create-template"),
-					RemoteAddresses: []string{"52.205.1.231"},
-				},
-				ClusterTemplate: &models.DeploymentTemplateDefinitionRequest{
-					Plan: &models.ElasticsearchClusterPlan{
-						Elasticsearch: &models.ElasticsearchConfiguration{
-							Version: "6.2.3",
-						},
-						ClusterTopology: []*models.ElasticsearchClusterTopologyElement{{
-							InstanceConfigurationID: "default-elasticsearch",
-							Size: &models.TopologySize{
-								Value:    ec.Int32(1024),
-								Resource: ec.String("memory"),
-							},
-							NodeType: &models.ElasticsearchNodeType{
-								Master: ec.Bool(true),
-								Data:   ec.Bool(true),
-							},
-						},
-						},
-					},
-				},
-			},
-		},
-		{
-			name: "Platform deployment template show with format deployment succeeds",
-			args: GetTemplateParams{
-				ID:     validTemplateID,
-				Format: "deployment",
+				ID: validTemplateID,
 				API: api.NewMock(mock.Response{
 					Response: http.Response{
 						Body:       mock.NewStringBody(templateFormatDeployment),
@@ -188,17 +87,17 @@ func TestGetTemplate(t *testing.T) {
 						Method: "GET",
 						Host:   api.DefaultMockHost,
 						Query: url.Values{
-							"format":                       {"deployment"},
+							"region":                       {"us-east-1"},
 							"show_instance_configurations": {"false"},
 						},
-						Path: "/api/v1/regions/us-east-1/platform/configuration/templates/deployments/84e0bd6d69bb44e294809d89cea88a7e",
+						Path: "/api/v1/deployments/templates/84e0bd6d69bb44e294809d89cea88a7e",
 					},
 				}),
 				Region: "us-east-1",
 			},
-			want: &models.DeploymentTemplateInfo{
+			want: &models.DeploymentTemplateInfoV2{
 				Name:        ec.String("(Trial) Default Elasticsearch"),
-				ID:          validTemplateID,
+				ID:          &validTemplateID,
 				Description: "Test default Elasticsearch trial template",
 				SystemOwned: ec.Bool(false),
 				Metadata: []*models.MetadataItem{{
@@ -223,7 +122,6 @@ func TestGetTemplate(t *testing.T) {
 			name: "Platform deployment template show fails due to API error",
 			args: GetTemplateParams{
 				ID:     validTemplateID,
-				Format: "deployment",
 				Region: "us-east-1",
 				API:    api.NewMock(mock.Response{Error: errors.New("error")}),
 			},
