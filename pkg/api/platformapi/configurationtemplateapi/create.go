@@ -31,7 +31,7 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
 
-var errDeploymentTemplateMissing = errors.New("test")
+var errDeploymentTemplateMissing = errors.New("deployment template is missing")
 
 // CreateTemplateParams is the parameter of template create sub-command
 type CreateTemplateParams struct {
