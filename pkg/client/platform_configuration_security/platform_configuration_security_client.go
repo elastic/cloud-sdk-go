@@ -65,10 +65,6 @@ type ClientService interface {
 
 	DeleteSamlConfiguration(params *DeleteSamlConfigurationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteSamlConfigurationOK, error)
 
-	DisableSecurityDeployment(params *DisableSecurityDeploymentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DisableSecurityDeploymentOK, error)
-
-	EnableSecurityDeployment(params *EnableSecurityDeploymentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*EnableSecurityDeploymentOK, error)
-
 	GetActiveDirectoryConfiguration(params *GetActiveDirectoryConfigurationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetActiveDirectoryConfigurationOK, error)
 
 	GetEnrollmentTokens(params *GetEnrollmentTokensParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEnrollmentTokensOK, error)
@@ -464,94 +460,6 @@ func (a *Client) DeleteSamlConfiguration(params *DeleteSamlConfigurationParams, 
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for delete-saml-configuration: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  DisableSecurityDeployment disables the security deployment
-
-  > WARNING
-> This endpoint is deprecated and scheduled to be removed in the next major version.
-
-Disables the existing security deployment configuration.
-*/
-func (a *Client) DisableSecurityDeployment(params *DisableSecurityDeploymentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DisableSecurityDeploymentOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewDisableSecurityDeploymentParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "disable-security-deployment",
-		Method:             "POST",
-		PathPattern:        "/platform/configuration/security/deployment/_disable",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"https"},
-		Params:             params,
-		Reader:             &DisableSecurityDeploymentReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*DisableSecurityDeploymentOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for disable-security-deployment: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  EnableSecurityDeployment enables the security deployment
-
-  > WARNING
-> This endpoint is deprecated and scheduled to be removed in the next major version.
-
-Enables the existing security deployment configuration.
-*/
-func (a *Client) EnableSecurityDeployment(params *EnableSecurityDeploymentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*EnableSecurityDeploymentOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewEnableSecurityDeploymentParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "enable-security-deployment",
-		Method:             "POST",
-		PathPattern:        "/platform/configuration/security/deployment/_enable",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"https"},
-		Params:             params,
-		Reader:             &EnableSecurityDeploymentReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*EnableSecurityDeploymentOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for enable-security-deployment: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

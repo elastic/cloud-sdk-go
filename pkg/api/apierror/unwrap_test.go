@@ -28,7 +28,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/elastic/cloud-sdk-go/pkg/client/clusters_elasticsearch"
+	"github.com/elastic/cloud-sdk-go/pkg/client/deployments"
 	"github.com/elastic/cloud-sdk-go/pkg/client/deployments_traffic_filter"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
@@ -72,7 +72,7 @@ func TestUnwrap(t *testing.T) {
 		},
 		{
 			name: "Is able to parse a type that encapsulates another unknown type",
-			args: args{err: &clusters_elasticsearch.DeleteEsClusterRetryWith{
+			args: args{err: &deployments.DeleteDeploymentStatelessResourceRetryWith{
 				Payload: &models.BasicFailedReply{
 					Errors: []*models.BasicFailedReplyElement{
 						{
@@ -132,7 +132,7 @@ func TestUnwrap(t *testing.T) {
 		},
 		{
 			name: "Is able to parse a type that encapsulates a BasicFailedReply with fields",
-			args: args{err: &clusters_elasticsearch.DeleteEsClusterRetryWith{
+			args: args{err: &deployments.DeleteDeploymentStatelessResourceRetryWith{
 				Payload: &models.BasicFailedReply{
 					Errors: []*models.BasicFailedReplyElement{
 						{

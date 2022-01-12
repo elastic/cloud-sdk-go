@@ -7076,10 +7076,6 @@
     "DeploymentCreateSettings" : {
       "type" : "object",
       "properties" : {
-        "ip_filtering_settings" : {
-          "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use traffic filter settings instead.\n\nThe set of rulesets applies to this deployment.",
-          "$ref" : "#/definitions/IpFilteringSettings"
-        },
         "traffic_filter_settings" : {
           "description" : "The traffic filter rulesets to apply to this deployment.",
           "$ref" : "#/definitions/TrafficFilterSettings"
@@ -7450,10 +7446,6 @@
     "DeploymentSettings" : {
       "type" : "object",
       "properties" : {
-        "ip_filtering_settings" : {
-          "description" : "DEPRECATED The set of IP filtering rulesets applies to this deployment.",
-          "$ref" : "#/definitions/IpFilteringSettings"
-        },
         "traffic_filter_settings" : {
           "description" : "The traffic filter rulesets for this deployment.",
           "$ref" : "#/definitions/TrafficFilterSettings"
@@ -8214,10 +8206,6 @@
           "type" : "integer",
           "format" : "int32",
           "description" : "Threshold starting from which the number of instances in the cluster results in the introduction of dedicated masters. If the cluster is downscaled to a number of nodes below this one, dedicated masters will be removed. Limit is inclusive. When provided the threshold setting is updated. A `null` value removes the field. Otherwise, the setting remains as it was set previously."
-        },
-        "ip_filtering" : {
-          "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use traffic filter settings instead.\n\nThe set of rulesets to apply for all the resources in this cluster. When specified, the set of rulesets is updated and the same rulesets will be applied to Kibana and APM clusters as well. If not specified, the rulesets remain as they were set previously.",
-          "$ref" : "#/definitions/IpFilteringSettings"
         },
         "traffic_filter" : {
           "description" : "The rulesets to apply to all resources in this cluster. When specified, the set of rulesets is updated and the same rulesets will be applied to Kibana and APM clusters as well. If not specified, the rulesets remain as they were set previously.",
@@ -9523,20 +9511,6 @@
         }
       },
       "description" : "The request that specifies the Elasticsearch instances, Kibana instances, and APM Servers to move to allocators as part of the upgrade plan."
-    },
-    "IpFilteringSettings" : {
-      "type" : "object",
-      "required" : [ "rulesets" ],
-      "properties" : {
-        "rulesets" : {
-          "type" : "array",
-          "description" : "IDs of the IP filter rulesets",
-          "items" : {
-            "type" : "string"
-          }
-        }
-      },
-      "description" : "The configuration settings for IP filtering."
     },
     "ItemCosts" : {
       "type" : "object",
