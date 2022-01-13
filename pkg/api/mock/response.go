@@ -89,6 +89,14 @@ func New404Response(body io.ReadCloser) Response {
 	}}
 }
 
+// New409Response creates a new response with a statuscode 409
+func New409Response(body io.ReadCloser) Response {
+	return Response{Response: http.Response{
+		StatusCode: 409,
+		Body:       populateBody(body),
+	}}
+}
+
 // New500Response creates a new response with a statuscode 500
 func New500Response(body io.ReadCloser) Response {
 	return Response{Response: http.Response{
@@ -135,6 +143,17 @@ func New404ResponseAssertion(assertion *RequestAssertion, body io.ReadCloser) Re
 	return Response{
 		Response: http.Response{
 			StatusCode: 404,
+			Body:       populateBody(body),
+		},
+		Assert: assertion,
+	}
+}
+
+// New409ResponseAssertion creates a new response with request assertion and a statuscode 409
+func New409ResponseAssertion(assertion *RequestAssertion, body io.ReadCloser) Response {
+	return Response{
+		Response: http.Response{
+			StatusCode: 409,
 			Body:       populateBody(body),
 		},
 		Assert: assertion,
