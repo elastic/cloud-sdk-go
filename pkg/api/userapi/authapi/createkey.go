@@ -39,6 +39,9 @@ type CreateKeyParams struct {
 func (params CreateKeyParams) Validate() error {
 	var merr = multierror.NewPrefixed("invalid user auth params")
 
+	if params.API == nil {
+		merr = merr.Append(apierror.ErrMissingAPI)
+	}
 	if params.Description == "" {
 		merr = merr.Append(errors.New("key description is not specified and is required for this operation"))
 	}
