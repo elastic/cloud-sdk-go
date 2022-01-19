@@ -24,6 +24,7 @@ import (
 	"github.com/stretchr/testify/assert"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
+	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/api/mock"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
@@ -53,6 +54,7 @@ func TestCreateKey(t *testing.T) {
 		{
 			name: "fails due to parameter validation",
 			err: multierror.NewPrefixed("invalid user auth params",
+				apierror.ErrMissingAPI,
 				errors.New("key description is not specified and is required for this operation"),
 			).Error(),
 		},
@@ -60,7 +62,7 @@ func TestCreateKey(t *testing.T) {
 			name: "fails due to reauthenticate API error",
 			args: args{params: CreateKeyParams{
 				Description: "some description",
-				API:      api.NewMock(mock.NewErrorResponse(400, invalidPassErrType)),
+				API:         api.NewMock(mock.NewErrorResponse(400, invalidPassErrType)),
 			}},
 			err: multierror.NewPrefixed("api error",
 				errors.New("auth.invalid_password: request password doesn't match the user's password (body.password)"),
