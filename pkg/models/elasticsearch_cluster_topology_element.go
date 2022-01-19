@@ -38,11 +38,6 @@ import (
 // swagger:model ElasticsearchClusterTopologyElement
 type ElasticsearchClusterTopologyElement struct {
 
-	// DEPRECATED: Scheduled for removal in a future version of the API.
-	//
-	// Controls the allocation strategy of this node type using a simplified version of the Elasticsearch filter DSL (together with 'node_configuration')
-	AllocatorFilter interface{} `json:"allocator_filter,omitempty"`
-
 	// The maximum size of this topology element when autoscaling is enabled. This property is only supported, and must be provided, for data and ML topology elements.
 	AutoscalingMax *TopologySize `json:"autoscaling_max,omitempty"`
 
@@ -63,11 +58,6 @@ type ElasticsearchClusterTopologyElement struct {
 
 	// The memory capacity in MB for each node of this type built in each zone.
 	MemoryPerNode int32 `json:"memory_per_node,omitempty"`
-
-	// DEPRECATED: Scheduled for removal in a future version of the API. Please use `instance_configuration_id`.
-	//
-	// Controls the allocation strategy of this node type by pointing to the names of pre-registered allocator settings. Unless otherwise specified for this deployment, only 'default' is supported (equivalent to omitting).
-	NodeConfiguration string `json:"node_configuration,omitempty"`
 
 	// The number of nodes of this type that are allocated within each zone. (i.e. total capacity per zone = `node_count_per_zone` * `memory_per_node` in MB). Cannot be set for tiebreaker topologies. For dedicated master nodes, must be 1 if an entry exists.
 	NodeCountPerZone int32 `json:"node_count_per_zone,omitempty"`

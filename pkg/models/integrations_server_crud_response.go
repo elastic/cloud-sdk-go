@@ -31,21 +31,27 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// TiebreakerTopologyElement Defines the topology, such as capacity and location, of the special tiebreaker node. TIP: When there are master nodes present, the master node topology is the default.
+// IntegrationsServerCrudResponse The response to an Integrations Server CRUD (create/update-plan) request.
 //
-// swagger:model TiebreakerTopologyElement
-type TiebreakerTopologyElement struct {
+// swagger:model IntegrationsServerCrudResponse
+type IntegrationsServerCrudResponse struct {
 
-	// The memory capacity in MB for the tiebreaker node.
+	// If the endpoint is called with URL param 'validate_only=true', then this contains advanced debug info (the internal plan representation)
+	Diagnostics interface{} `json:"diagnostics,omitempty"`
+
+	// For an operation creating or updating an Integrations Server, the Id of that server
+	IntegrationsServerID string `json:"integrations_server_id,omitempty"`
+
+	// The secret token for accessing the server
 	// Required: true
-	MemoryPerNode *int32 `json:"memory_per_node"`
+	SecretToken *string `json:"secret_token"`
 }
 
-// Validate validates this tiebreaker topology element
-func (m *TiebreakerTopologyElement) Validate(formats strfmt.Registry) error {
+// Validate validates this integrations server crud response
+func (m *IntegrationsServerCrudResponse) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateMemoryPerNode(formats); err != nil {
+	if err := m.validateSecretToken(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -55,22 +61,22 @@ func (m *TiebreakerTopologyElement) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *TiebreakerTopologyElement) validateMemoryPerNode(formats strfmt.Registry) error {
+func (m *IntegrationsServerCrudResponse) validateSecretToken(formats strfmt.Registry) error {
 
-	if err := validate.Required("memory_per_node", "body", m.MemoryPerNode); err != nil {
+	if err := validate.Required("secret_token", "body", m.SecretToken); err != nil {
 		return err
 	}
 
 	return nil
 }
 
-// ContextValidate validates this tiebreaker topology element based on context it is used
-func (m *TiebreakerTopologyElement) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+// ContextValidate validates this integrations server crud response based on context it is used
+func (m *IntegrationsServerCrudResponse) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 
 // MarshalBinary interface implementation
-func (m *TiebreakerTopologyElement) MarshalBinary() ([]byte, error) {
+func (m *IntegrationsServerCrudResponse) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -78,8 +84,8 @@ func (m *TiebreakerTopologyElement) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *TiebreakerTopologyElement) UnmarshalBinary(b []byte) error {
-	var res TiebreakerTopologyElement
+func (m *IntegrationsServerCrudResponse) UnmarshalBinary(b []byte) error {
+	var res IntegrationsServerCrudResponse
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

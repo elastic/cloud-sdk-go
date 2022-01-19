@@ -31,7 +31,6 @@ import (
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
 )
 
 // NewListExtensionsParams creates a new ListExtensionsParams object,
@@ -76,15 +75,6 @@ func NewListExtensionsParamsWithHTTPClient(client *http.Client) *ListExtensionsP
    Typically these are written to a http.Request.
 */
 type ListExtensionsParams struct {
-
-	/* IncludeDeployments.
-
-	     Include deployments referencing this extension.
-	DEPRECATED: To get the list of deployments that reference an extension, use the Get Extension API.
-
-	*/
-	IncludeDeployments *bool
-
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
@@ -102,18 +92,7 @@ func (o *ListExtensionsParams) WithDefaults() *ListExtensionsParams {
 //
 // All values with no default are reset to their zero value.
 func (o *ListExtensionsParams) SetDefaults() {
-	var (
-		includeDeploymentsDefault = bool(false)
-	)
-
-	val := ListExtensionsParams{
-		IncludeDeployments: &includeDeploymentsDefault,
-	}
-
-	val.timeout = o.timeout
-	val.Context = o.Context
-	val.HTTPClient = o.HTTPClient
-	*o = val
+	// no default values defined for this parameter
 }
 
 // WithTimeout adds the timeout to the list extensions params
@@ -149,17 +128,6 @@ func (o *ListExtensionsParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithIncludeDeployments adds the includeDeployments to the list extensions params
-func (o *ListExtensionsParams) WithIncludeDeployments(includeDeployments *bool) *ListExtensionsParams {
-	o.SetIncludeDeployments(includeDeployments)
-	return o
-}
-
-// SetIncludeDeployments adds the includeDeployments to the list extensions params
-func (o *ListExtensionsParams) SetIncludeDeployments(includeDeployments *bool) {
-	o.IncludeDeployments = includeDeployments
-}
-
 // WriteToRequest writes these params to a swagger request
 func (o *ListExtensionsParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -167,23 +135,6 @@ func (o *ListExtensionsParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 		return err
 	}
 	var res []error
-
-	if o.IncludeDeployments != nil {
-
-		// query param include_deployments
-		var qrIncludeDeployments bool
-
-		if o.IncludeDeployments != nil {
-			qrIncludeDeployments = *o.IncludeDeployments
-		}
-		qIncludeDeployments := swag.FormatBool(qrIncludeDeployments)
-		if qIncludeDeployments != "" {
-
-			if err := r.SetQueryParam("include_deployments", qIncludeDeployments); err != nil {
-				return err
-			}
-		}
-	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)

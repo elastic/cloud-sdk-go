@@ -36,9 +36,6 @@ import (
 // swagger:model CreateApiKeyRequest
 type CreateAPIKeyRequest struct {
 
-	// Deprecated. The security token from reauthenticate API
-	AuthenticationToken string `json:"authentication_token,omitempty"`
-
 	// API key description. Useful if there are multiple keys
 	// Required: true
 	Description *string `json:"description"`

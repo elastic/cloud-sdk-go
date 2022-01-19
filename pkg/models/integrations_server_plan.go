@@ -32,31 +32,31 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// KibanaClusterPlan The plan for the Kibana instance.
+// IntegrationsServerPlan The plan for the Integrations Server.
 //
-// swagger:model KibanaClusterPlan
-type KibanaClusterPlan struct {
+// swagger:model IntegrationsServerPlan
+type IntegrationsServerPlan struct {
 
 	// cluster topology
-	ClusterTopology []*KibanaClusterTopologyElement `json:"cluster_topology"`
+	ClusterTopology []*IntegrationsServerTopologyElement `json:"cluster_topology"`
 
-	// kibana
+	// integrations server
 	// Required: true
-	Kibana *KibanaConfiguration `json:"kibana"`
+	IntegrationsServer *IntegrationsServerConfiguration `json:"integrations_server"`
 
 	// transient
-	Transient *TransientKibanaPlanConfiguration `json:"transient,omitempty"`
+	Transient *TransientIntegrationsServerPlanConfiguration `json:"transient,omitempty"`
 }
 
-// Validate validates this kibana cluster plan
-func (m *KibanaClusterPlan) Validate(formats strfmt.Registry) error {
+// Validate validates this integrations server plan
+func (m *IntegrationsServerPlan) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateClusterTopology(formats); err != nil {
 		res = append(res, err)
 	}
 
-	if err := m.validateKibana(formats); err != nil {
+	if err := m.validateIntegrationsServer(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -70,7 +70,7 @@ func (m *KibanaClusterPlan) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *KibanaClusterPlan) validateClusterTopology(formats strfmt.Registry) error {
+func (m *IntegrationsServerPlan) validateClusterTopology(formats strfmt.Registry) error {
 	if swag.IsZero(m.ClusterTopology) { // not required
 		return nil
 	}
@@ -94,16 +94,16 @@ func (m *KibanaClusterPlan) validateClusterTopology(formats strfmt.Registry) err
 	return nil
 }
 
-func (m *KibanaClusterPlan) validateKibana(formats strfmt.Registry) error {
+func (m *IntegrationsServerPlan) validateIntegrationsServer(formats strfmt.Registry) error {
 
-	if err := validate.Required("kibana", "body", m.Kibana); err != nil {
+	if err := validate.Required("integrations_server", "body", m.IntegrationsServer); err != nil {
 		return err
 	}
 
-	if m.Kibana != nil {
-		if err := m.Kibana.Validate(formats); err != nil {
+	if m.IntegrationsServer != nil {
+		if err := m.IntegrationsServer.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("kibana")
+				return ve.ValidateName("integrations_server")
 			}
 			return err
 		}
@@ -112,7 +112,7 @@ func (m *KibanaClusterPlan) validateKibana(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *KibanaClusterPlan) validateTransient(formats strfmt.Registry) error {
+func (m *IntegrationsServerPlan) validateTransient(formats strfmt.Registry) error {
 	if swag.IsZero(m.Transient) { // not required
 		return nil
 	}
@@ -129,15 +129,15 @@ func (m *KibanaClusterPlan) validateTransient(formats strfmt.Registry) error {
 	return nil
 }
 
-// ContextValidate validate this kibana cluster plan based on the context it is used
-func (m *KibanaClusterPlan) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+// ContextValidate validate this integrations server plan based on the context it is used
+func (m *IntegrationsServerPlan) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.contextValidateClusterTopology(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
-	if err := m.contextValidateKibana(ctx, formats); err != nil {
+	if err := m.contextValidateIntegrationsServer(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -151,7 +151,7 @@ func (m *KibanaClusterPlan) ContextValidate(ctx context.Context, formats strfmt.
 	return nil
 }
 
-func (m *KibanaClusterPlan) contextValidateClusterTopology(ctx context.Context, formats strfmt.Registry) error {
+func (m *IntegrationsServerPlan) contextValidateClusterTopology(ctx context.Context, formats strfmt.Registry) error {
 
 	for i := 0; i < len(m.ClusterTopology); i++ {
 
@@ -169,12 +169,12 @@ func (m *KibanaClusterPlan) contextValidateClusterTopology(ctx context.Context, 
 	return nil
 }
 
-func (m *KibanaClusterPlan) contextValidateKibana(ctx context.Context, formats strfmt.Registry) error {
+func (m *IntegrationsServerPlan) contextValidateIntegrationsServer(ctx context.Context, formats strfmt.Registry) error {
 
-	if m.Kibana != nil {
-		if err := m.Kibana.ContextValidate(ctx, formats); err != nil {
+	if m.IntegrationsServer != nil {
+		if err := m.IntegrationsServer.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("kibana")
+				return ve.ValidateName("integrations_server")
 			}
 			return err
 		}
@@ -183,7 +183,7 @@ func (m *KibanaClusterPlan) contextValidateKibana(ctx context.Context, formats s
 	return nil
 }
 
-func (m *KibanaClusterPlan) contextValidateTransient(ctx context.Context, formats strfmt.Registry) error {
+func (m *IntegrationsServerPlan) contextValidateTransient(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Transient != nil {
 		if err := m.Transient.ContextValidate(ctx, formats); err != nil {
@@ -198,7 +198,7 @@ func (m *KibanaClusterPlan) contextValidateTransient(ctx context.Context, format
 }
 
 // MarshalBinary interface implementation
-func (m *KibanaClusterPlan) MarshalBinary() ([]byte, error) {
+func (m *IntegrationsServerPlan) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -206,8 +206,8 @@ func (m *KibanaClusterPlan) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *KibanaClusterPlan) UnmarshalBinary(b []byte) error {
-	var res KibanaClusterPlan
+func (m *IntegrationsServerPlan) UnmarshalBinary(b []byte) error {
+	var res IntegrationsServerPlan
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

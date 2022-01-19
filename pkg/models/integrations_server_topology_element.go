@@ -30,22 +30,16 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// KibanaClusterTopologyElement The topology of the Kibana nodes, including the number, capacity, and type of nodes, and where they can be allocated.
+// IntegrationsServerTopologyElement Defines the topology of the Integrations Server nodes. For example, the number or capacity of the nodes, and where you can allocate the nodes.
 //
-// swagger:model KibanaClusterTopologyElement
-type KibanaClusterTopologyElement struct {
+// swagger:model IntegrationsServerTopologyElement
+type IntegrationsServerTopologyElement struct {
 
 	// Controls the allocation of this topology element as well as allowed sizes and node_types. It needs to match the id of an existing instance configuration.
 	InstanceConfigurationID string `json:"instance_configuration_id,omitempty"`
 
-	// kibana
-	Kibana *KibanaConfiguration `json:"kibana,omitempty"`
-
-	// The memory capacity in MB for each node of this type built in each zone.
-	MemoryPerNode int32 `json:"memory_per_node,omitempty"`
-
-	// The number of nodes of this type that are allocated within each zone (i.e. total capacity per zone = `node_count_per_zone` * `memory_per_node` in MB).
-	NodeCountPerZone int32 `json:"node_count_per_zone,omitempty"`
+	// integrations server
+	IntegrationsServer *IntegrationsServerConfiguration `json:"integrations_server,omitempty"`
 
 	// size
 	Size *TopologySize `json:"size,omitempty"`
@@ -54,11 +48,11 @@ type KibanaClusterTopologyElement struct {
 	ZoneCount int32 `json:"zone_count,omitempty"`
 }
 
-// Validate validates this kibana cluster topology element
-func (m *KibanaClusterTopologyElement) Validate(formats strfmt.Registry) error {
+// Validate validates this integrations server topology element
+func (m *IntegrationsServerTopologyElement) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateKibana(formats); err != nil {
+	if err := m.validateIntegrationsServer(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -72,15 +66,15 @@ func (m *KibanaClusterTopologyElement) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *KibanaClusterTopologyElement) validateKibana(formats strfmt.Registry) error {
-	if swag.IsZero(m.Kibana) { // not required
+func (m *IntegrationsServerTopologyElement) validateIntegrationsServer(formats strfmt.Registry) error {
+	if swag.IsZero(m.IntegrationsServer) { // not required
 		return nil
 	}
 
-	if m.Kibana != nil {
-		if err := m.Kibana.Validate(formats); err != nil {
+	if m.IntegrationsServer != nil {
+		if err := m.IntegrationsServer.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("kibana")
+				return ve.ValidateName("integrations_server")
 			}
 			return err
 		}
@@ -89,7 +83,7 @@ func (m *KibanaClusterTopologyElement) validateKibana(formats strfmt.Registry) e
 	return nil
 }
 
-func (m *KibanaClusterTopologyElement) validateSize(formats strfmt.Registry) error {
+func (m *IntegrationsServerTopologyElement) validateSize(formats strfmt.Registry) error {
 	if swag.IsZero(m.Size) { // not required
 		return nil
 	}
@@ -106,11 +100,11 @@ func (m *KibanaClusterTopologyElement) validateSize(formats strfmt.Registry) err
 	return nil
 }
 
-// ContextValidate validate this kibana cluster topology element based on the context it is used
-func (m *KibanaClusterTopologyElement) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+// ContextValidate validate this integrations server topology element based on the context it is used
+func (m *IntegrationsServerTopologyElement) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.contextValidateKibana(ctx, formats); err != nil {
+	if err := m.contextValidateIntegrationsServer(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -124,12 +118,12 @@ func (m *KibanaClusterTopologyElement) ContextValidate(ctx context.Context, form
 	return nil
 }
 
-func (m *KibanaClusterTopologyElement) contextValidateKibana(ctx context.Context, formats strfmt.Registry) error {
+func (m *IntegrationsServerTopologyElement) contextValidateIntegrationsServer(ctx context.Context, formats strfmt.Registry) error {
 
-	if m.Kibana != nil {
-		if err := m.Kibana.ContextValidate(ctx, formats); err != nil {
+	if m.IntegrationsServer != nil {
+		if err := m.IntegrationsServer.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("kibana")
+				return ve.ValidateName("integrations_server")
 			}
 			return err
 		}
@@ -138,7 +132,7 @@ func (m *KibanaClusterTopologyElement) contextValidateKibana(ctx context.Context
 	return nil
 }
 
-func (m *KibanaClusterTopologyElement) contextValidateSize(ctx context.Context, formats strfmt.Registry) error {
+func (m *IntegrationsServerTopologyElement) contextValidateSize(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Size != nil {
 		if err := m.Size.ContextValidate(ctx, formats); err != nil {
@@ -153,7 +147,7 @@ func (m *KibanaClusterTopologyElement) contextValidateSize(ctx context.Context, 
 }
 
 // MarshalBinary interface implementation
-func (m *KibanaClusterTopologyElement) MarshalBinary() ([]byte, error) {
+func (m *IntegrationsServerTopologyElement) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -161,8 +155,8 @@ func (m *KibanaClusterTopologyElement) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *KibanaClusterTopologyElement) UnmarshalBinary(b []byte) error {
-	var res KibanaClusterTopologyElement
+func (m *IntegrationsServerTopologyElement) UnmarshalBinary(b []byte) error {
+	var res IntegrationsServerTopologyElement
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

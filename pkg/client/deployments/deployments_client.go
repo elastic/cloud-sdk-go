@@ -65,6 +65,8 @@ type ClientService interface {
 
 	DeploymentApmResetSecretToken(params *DeploymentApmResetSecretTokenParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeploymentApmResetSecretTokenAccepted, error)
 
+	DeploymentIntegrationsServerResetSecretToken(params *DeploymentIntegrationsServerResetSecretTokenParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeploymentIntegrationsServerResetSecretTokenAccepted, error)
+
 	DownloadDeploymentInstanceHeapDump(params *DownloadDeploymentInstanceHeapDumpParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DownloadDeploymentInstanceHeapDumpOK, error)
 
 	EnableDeploymentResourceCcr(params *EnableDeploymentResourceCcrParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*EnableDeploymentResourceCcrOK, error)
@@ -92,6 +94,8 @@ type ClientService interface {
 	GetDeploymentEsResourceRemoteClusters(params *GetDeploymentEsResourceRemoteClustersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentEsResourceRemoteClustersOK, error)
 
 	GetDeploymentHeapDumps(params *GetDeploymentHeapDumpsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentHeapDumpsOK, error)
+
+	GetDeploymentIntegrationsServerResourceInfo(params *GetDeploymentIntegrationsServerResourceInfoParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentIntegrationsServerResourceInfoOK, error)
 
 	GetDeploymentKibResourceInfo(params *GetDeploymentKibResourceInfoParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentKibResourceInfoOK, error)
 
@@ -535,6 +539,47 @@ func (a *Client) DeploymentApmResetSecretToken(params *DeploymentApmResetSecretT
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for deployment-apm-reset-secret-token: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DeploymentIntegrationsServerResetSecretToken resets the secret token for an integrations server resource
+
+  Reset the token of an Integrations Server resource.
+*/
+func (a *Client) DeploymentIntegrationsServerResetSecretToken(params *DeploymentIntegrationsServerResetSecretTokenParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeploymentIntegrationsServerResetSecretTokenAccepted, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeploymentIntegrationsServerResetSecretTokenParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "deployment-integrations-server-reset-secret-token",
+		Method:             "POST",
+		PathPattern:        "/deployments/{deployment_id}/integrations_server/{ref_id}/_reset-token",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeploymentIntegrationsServerResetSecretTokenReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DeploymentIntegrationsServerResetSecretTokenAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for deployment-integrations-server-reset-secret-token: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -1109,6 +1154,47 @@ func (a *Client) GetDeploymentHeapDumps(params *GetDeploymentHeapDumpsParams, au
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for get-deployment-heap-dumps: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  GetDeploymentIntegrationsServerResourceInfo gets deployment integrations server resource info
+
+  Get info about an Integrations Server Resource belonging to a given Deployment.
+*/
+func (a *Client) GetDeploymentIntegrationsServerResourceInfo(params *GetDeploymentIntegrationsServerResourceInfoParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentIntegrationsServerResourceInfoOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetDeploymentIntegrationsServerResourceInfoParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "get-deployment-integrations-server-resource-info",
+		Method:             "GET",
+		PathPattern:        "/deployments/{deployment_id}/integrations_server/{ref_id}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetDeploymentIntegrationsServerResourceInfoReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetDeploymentIntegrationsServerResourceInfoOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-deployment-integrations-server-resource-info: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
