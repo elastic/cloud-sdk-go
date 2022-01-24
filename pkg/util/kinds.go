@@ -32,4 +32,7 @@ const (
 
 	// Kibana kind
 	Kibana = "kibana"
+
+	// IntegrationsServer kind
+	IntegrationsServer = "integrations_server"
 )

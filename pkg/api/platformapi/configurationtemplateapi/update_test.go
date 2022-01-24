@@ -60,7 +60,7 @@ func TestUpdateTemplate(t *testing.T) {
 						Query: url.Values{
 							"region": {"us-east-1"},
 						},
-						Body: mock.NewStringBody(`{"deployment_template":{"resources":{"apm":null,"appsearch":null,"elasticsearch":[{"plan":{"cluster_topology":[{"instance_configuration_id":"default-elasticsearch","node_roles":null,"node_type":{"data":true,"master":true},"size":{"resource":"memory","value":1024}}],"elasticsearch":{"version":"6.2.3"}},"ref_id":"main-elasticsearch","region":"us-east-1"}],"enterprise_search":null,"kibana":null}},"kibana_deeplink":null,"metadata":[{"key":"trial","value":"true"}],"name":"(Trial) Default Elasticsearch","system_owned":false}` + "\n"),
+						Body: mock.NewStringBody(`{"deployment_template":{"resources":{"apm":null,"appsearch":null,"elasticsearch":[{"plan":{"cluster_topology":[{"instance_configuration_id":"default-elasticsearch","node_roles":null,"node_type":{"data":true,"master":true},"size":{"resource":"memory","value":1024}}],"elasticsearch":{"version":"6.2.3"}},"ref_id":"main-elasticsearch","region":"us-east-1"}],"enterprise_search":null,"integrations_server":null,"kibana":null}},"kibana_deeplink":null,"metadata":[{"key":"trial","value":"true"}],"name":"(Trial) Default Elasticsearch","system_owned":false}` + "\n"),
 						Path: "/api/v1/deployments/templates/84e0bd6d69bb44e294809d89cea88a7e",
 					},
 				}),
