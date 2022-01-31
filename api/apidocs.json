@@ -1177,14 +1177,7 @@
         "summary" : "List Extensions",
         "description" : "Retrieves all of the available extensions.",
         "operationId" : "list-extensions",
-        "parameters" : [ {
-          "name" : "include_deployments",
-          "in" : "query",
-          "description" : "Include deployments referencing this extension.\nDEPRECATED: To get the list of deployments that reference an extension, use the Get Extension API.\n",
-          "required" : false,
-          "type" : "boolean",
-          "default" : false
-        } ],
+        "parameters" : [ ],
         "responses" : {
           "200" : {
             "description" : "The extensions that are available",
@@ -4638,6 +4631,177 @@
         },
         "x-doc" : {
           "tag" : "Deployment - Commands"
+        }
+      }
+    },
+    "/deployments/{deployment_id}/integrations_server/{ref_id}" : {
+      "get" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Get Deployment Integrations Server Resource Info",
+        "description" : "Get info about an Integrations Server Resource belonging to a given Deployment.",
+        "operationId" : "get-deployment-integrations-server-resource-info",
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "ref_id",
+          "in" : "path",
+          "description" : "User-specified RefId for the Resource",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "show_metadata",
+          "in" : "query",
+          "description" : "Whether to include the full cluster metadata in the response - can be large per cluster and also include credentials.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "show_plans",
+          "in" : "query",
+          "description" : "Whether to include the full current and pending plan information in the response - can be large per cluster.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : true
+        }, {
+          "name" : "show_plan_logs",
+          "in" : "query",
+          "description" : "Whether to include with the current and pending plan information the attempt log - can be very large per cluster.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "show_plan_history",
+          "in" : "query",
+          "description" : "Whether to include with the current and pending plan information the plan history- can be very large per cluster.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "show_plan_defaults",
+          "in" : "query",
+          "description" : "If showing plans, whether to show values that are left at their default value (less readable but more informative).",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
+          "name" : "show_settings",
+          "in" : "query",
+          "description" : "Whether to show cluster settings in the response.",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Standard response.",
+            "schema" : {
+              "$ref" : "#/definitions/IntegrationsServerResourceInfo"
+            }
+          },
+          "404" : {
+            "description" : "The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.deployment_not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "500" : {
+            "description" : "We have failed you. (code: `deployments.deployment_resource_no_longer_exists`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.deployment_resource_no_longer_exists" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "x-doc" : {
+          "tag" : "Deployment - Info"
+        }
+      }
+    },
+    "/deployments/{deployment_id}/integrations_server/{ref_id}/_reset-token" : {
+      "post" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Reset the secret token for an Integrations Server resource.",
+        "description" : "Reset the token of an Integrations Server resource.",
+        "operationId" : "deployment-integrations-server-reset-secret-token",
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "ref_id",
+          "in" : "path",
+          "description" : "User-specified RefId for the Resource.",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "202" : {
+            "description" : "Response containing the new secret token, plan to apply it starts",
+            "schema" : {
+              "$ref" : "#/definitions/IntegrationsServerCrudResponse"
+            }
+          },
+          "404" : {
+            "description" : "* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)\n* The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.deployment_not_found", "deployments.deployment_resource_not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "500" : {
+            "description" : "We have failed you. (code: `deployments.deployment_resource_no_longer_exists`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.deployment_resource_no_longer_exists" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "449" : {
+            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "x-doc" : {
+          "tag" : "Integrations Server routes"
         }
       }
     },
@@ -18069,10 +18233,6 @@
     "ClusterSnapshotSettings" : {
       "type" : "object",
       "properties" : {
-        "repository_name" : {
-          "type" : "string",
-          "description" : "Deprecated: ECE snapshot repository name, please use [repository] instead"
-        },
         "repository" : {
           "description" : "Snapshot repository configuration",
           "$ref" : "#/definitions/ClusterSnapshotRepositoryInfo"
@@ -18712,10 +18872,6 @@
         "description" : {
           "type" : "string",
           "description" : "API key description. Useful if there are multiple keys"
-        },
-        "authentication_token" : {
-          "type" : "string",
-          "description" : "Deprecated. The security token from reauthenticate API"
         }
       },
       "description" : "The request payload that creates the API keys."
@@ -18908,7 +19064,7 @@
         },
         "apm" : {
           "type" : "array",
-          "description" : "A list of payloads for APM creation.",
+          "description" : "A list of payloads for APM creation. WARNING: For stack versions 8.0.0 and higher the integrations_server payload should be used instead, as this field becomes deprecated.",
           "items" : {
             "$ref" : "#/definitions/ApmPayload"
           }
@@ -18925,6 +19081,13 @@
           "description" : "A list of payloads for Enterprise Search creation.",
           "items" : {
             "$ref" : "#/definitions/EnterpriseSearchPayload"
+          }
+        },
+        "integrations_server" : {
+          "type" : "array",
+          "description" : "A list of payloads for Integrations Server creation.",
+          "items" : {
+            "$ref" : "#/definitions/IntegrationsServerPayload"
           }
         }
       },
@@ -19336,7 +19499,7 @@
     },
     "DeploymentResources" : {
       "type" : "object",
-      "required" : [ "apm", "appsearch", "elasticsearch", "enterprise_search", "kibana" ],
+      "required" : [ "apm", "appsearch", "elasticsearch", "enterprise_search", "integrations_server", "kibana" ],
       "properties" : {
         "elasticsearch" : {
           "type" : "array",
@@ -19371,6 +19534,13 @@
           "description" : "List of Enterprise Search resources in your Deployment",
           "items" : {
             "$ref" : "#/definitions/EnterpriseSearchResourceInfo"
+          }
+        },
+        "integrations_server" : {
+          "type" : "array",
+          "description" : "List of Integrations Server resources in your Deployment",
+          "items" : {
+            "$ref" : "#/definitions/IntegrationsServerResourceInfo"
           }
         }
       },
@@ -19681,6 +19851,13 @@
           "description" : "A list of payloads for Enterprise Search updates",
           "items" : {
             "$ref" : "#/definitions/EnterpriseSearchPayload"
+          }
+        },
+        "integrations_server" : {
+          "type" : "array",
+          "description" : "A list of payloads for Integrations Server updates",
+          "items" : {
+            "$ref" : "#/definitions/IntegrationsServerPayload"
           }
         }
       },
@@ -20083,19 +20260,6 @@
       "type" : "object",
       "required" : [ "cluster_topology", "elasticsearch" ],
       "properties" : {
-        "zone_count" : {
-          "type" : "integer",
-          "format" : "int32",
-          "description" : "DEPRECATED: Scheduled for removal in a future version of the API. Please use `cluster_topology.zone_count` instead.\n\nThe default number of zones in which data nodes will be placed, if not specified in the per topology settings"
-        },
-        "tiebreaker_override" : {
-          "type" : "boolean",
-          "description" : "DEPRECATED: Scheduled for removal in a future version of the API.\n\nWhether to add a tiebreaker node in an unused zone (defaults to auto-decide based on topology).\nIf master nodes are specified then this cannot be left blank, you must explicitly decide true or false."
-        },
-        "tiebreaker_topology" : {
-          "description" : "DEPRECATED: Scheduled for removal in a future version of the API.\n\nDefines the topology (capacity and location) of the special tiebreaker node. If masters nodes are present, their topology acts as a default for the tiebreaker topology",
-          "$ref" : "#/definitions/TiebreakerTopologyElement"
-        },
         "cluster_topology" : {
           "type" : "array",
           "items" : {
@@ -20315,14 +20479,6 @@
         },
         "elasticsearch" : {
           "$ref" : "#/definitions/ElasticsearchConfiguration"
-        },
-        "allocator_filter" : {
-          "type" : "object",
-          "description" : "DEPRECATED: Scheduled for removal in a future version of the API.\n\nControls the allocation strategy of this node type using a simplified version of the Elasticsearch filter DSL (together with 'node_configuration')"
-        },
-        "node_configuration" : {
-          "type" : "string",
-          "description" : "DEPRECATED: Scheduled for removal in a future version of the API. Please use `instance_configuration_id`.\n\nControls the allocation strategy of this node type by pointing to the names of pre-registered allocator settings. Unless otherwise specified for this deployment, only 'default' is supported (equivalent to omitting)."
         },
         "instance_configuration_id" : {
           "type" : "string",
@@ -21956,6 +22112,395 @@
         }
       }
     },
+    "IntegrationsServerConfiguration" : {
+      "type" : "object",
+      "properties" : {
+        "version" : {
+          "type" : "string",
+          "description" : "The version of the Integrations Server cluster (must be one of the ECE supported versions, and won't work unless it matches the Integrations Server version. Leave blank to auto-detect version.)"
+        },
+        "docker_image" : {
+          "type" : "string",
+          "description" : "A docker URI that allows overriding of the default docker image specified for this version"
+        },
+        "system_settings" : {
+          "$ref" : "#/definitions/IntegrationsServerSystemSettings"
+        },
+        "user_settings_json" : {
+          "type" : "object",
+          "description" : "An arbitrary JSON object allowing (non-admin) cluster owners to set their parameters (only one of this and 'user_settings_yaml' is allowed), provided the parameters are on the allowlist and not on the denylist. (This field together with 'user_settings_override*' and 'system_settings' defines the total set of Integrations Server settings)"
+        },
+        "user_settings_yaml" : {
+          "type" : "string",
+          "description" : "An arbitrary YAML object allowing (non-admin) cluster owners to set their parameters (only one of this and 'user_settings_json' is allowed), provided the parameters are on the allowlist and not on the denylist. (These field together with 'user_settings_override*' and 'system_settings' defines the total set of Integrations Server settings)"
+        },
+        "user_settings_override_json" : {
+          "type" : "object",
+          "description" : "An arbitrary JSON object allowing ECE admins owners to set clusters' parameters (only one of this and 'user_settings_override_yaml' is allowed), ie in addition to the documented 'system_settings'. (This field together with 'system_settings' and 'user_settings*' defines the total set of Integrations Server settings)"
+        },
+        "user_settings_override_yaml" : {
+          "type" : "string",
+          "description" : "An arbitrary YAML object allowing ECE admins owners to set clusters' parameters (only one of this and 'user_settings_override_json' is allowed), ie in addition to the documented 'system_settings'. (This field together with 'system_settings' and 'user_settings*' defines the total set of Integrations Server settings)"
+        },
+        "mode" : {
+          "type" : "string",
+          "description" : "The mode the Integrations Server is operating in.",
+          "enum" : [ "standalone", "managed" ]
+        }
+      },
+      "description" : "The configuration options for the Integrations Server."
+    },
+    "IntegrationsServerCrudResponse" : {
+      "type" : "object",
+      "required" : [ "secret_token" ],
+      "properties" : {
+        "integrations_server_id" : {
+          "type" : "string",
+          "description" : "For an operation creating or updating an Integrations Server, the Id of that server"
+        },
+        "secret_token" : {
+          "type" : "string",
+          "description" : "The secret token for accessing the server"
+        },
+        "diagnostics" : {
+          "type" : "object",
+          "description" : "If the endpoint is called with URL param 'validate_only=true', then this contains advanced debug info (the internal plan representation)"
+        }
+      },
+      "description" : "The response to an Integrations Server CRUD (create/update-plan) request."
+    },
+    "IntegrationsServerInfo" : {
+      "type" : "object",
+      "required" : [ "elasticsearch_cluster", "external_links", "healthy", "id", "name", "plan_info", "status", "topology" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "The id of the Integrations Server"
+        },
+        "name" : {
+          "type" : "string",
+          "description" : "The name of the Integrations Server"
+        },
+        "elasticsearch_cluster" : {
+          "$ref" : "#/definitions/TargetElasticsearchCluster"
+        },
+        "deployment_id" : {
+          "type" : "string",
+          "description" : "The id of the deployment that this Integrations Server belongs to."
+        },
+        "healthy" : {
+          "type" : "boolean",
+          "description" : "Whether the Integrations Server is healthy or not (one or more of the info subsections will have healthy: false)"
+        },
+        "status" : {
+          "type" : "string",
+          "description" : "Integrations Server status",
+          "enum" : [ "initializing", "stopping", "stopped", "rebooting", "restarting", "reconfiguring", "started" ]
+        },
+        "plan_info" : {
+          "$ref" : "#/definitions/IntegrationsServerPlansInfo"
+        },
+        "metadata" : {
+          "$ref" : "#/definitions/ClusterMetadataInfo"
+        },
+        "topology" : {
+          "$ref" : "#/definitions/ClusterTopologyInfo"
+        },
+        "external_links" : {
+          "type" : "array",
+          "description" : "External resources related to the Integrations Server",
+          "uniqueItems" : true,
+          "items" : {
+            "$ref" : "#/definitions/ExternalHyperlink"
+          }
+        },
+        "links" : {
+          "type" : "object",
+          "description" : "A map of application-specific operations (which map to 'operationId's in the Swagger API) to metadata about that operation",
+          "additionalProperties" : {
+            "$ref" : "#/definitions/Hyperlink"
+          }
+        },
+        "settings" : {
+          "description" : "The cluster metadata settings for the Integrations Server",
+          "$ref" : "#/definitions/IntegrationsServerSettings"
+        },
+        "region" : {
+          "type" : "string",
+          "description" : "The region that this Integrations Server belongs to. Only populated in SaaS or federated ECE."
+        },
+        "apm_server_mode" : {
+          "type" : "string",
+          "description" : "The mode APM is operating in.",
+          "enum" : [ "Standalone", "Managed" ]
+        }
+      },
+      "description" : "The overview information for the Integrations Server."
+    },
+    "IntegrationsServerPayload" : {
+      "type" : "object",
+      "required" : [ "elasticsearch_cluster_ref_id", "plan", "ref_id", "region" ],
+      "properties" : {
+        "ref_id" : {
+          "type" : "string",
+          "description" : "A locally-unique user-specified id for the Integrations Server"
+        },
+        "elasticsearch_cluster_ref_id" : {
+          "type" : "string",
+          "description" : "Alias to the Elasticsearch Cluster to attach the Integrations Server to"
+        },
+        "display_name" : {
+          "type" : "string",
+          "description" : "The human readable name for the Integrations Server cluster (default: takes the name of its Elasticsearch cluster)"
+        },
+        "region" : {
+          "type" : "string",
+          "description" : "The region where this resource exists"
+        },
+        "plan" : {
+          "$ref" : "#/definitions/IntegrationsServerPlan"
+        },
+        "settings" : {
+          "description" : "The settings for building this Integrations Server cluster",
+          "$ref" : "#/definitions/IntegrationsServerSettings"
+        }
+      },
+      "description" : "An Integrations Server creation request paired with the alias of the Elasticsearch cluster it should be paired with"
+    },
+    "IntegrationsServerPlan" : {
+      "type" : "object",
+      "required" : [ "integrations_server" ],
+      "properties" : {
+        "cluster_topology" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/IntegrationsServerTopologyElement"
+          }
+        },
+        "integrations_server" : {
+          "$ref" : "#/definitions/IntegrationsServerConfiguration"
+        },
+        "transient" : {
+          "$ref" : "#/definitions/TransientIntegrationsServerPlanConfiguration"
+        }
+      },
+      "description" : "The plan for the Integrations Server."
+    },
+    "IntegrationsServerPlanControlConfiguration" : {
+      "type" : "object",
+      "properties" : {
+        "timeout" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "The total timeout in seconds after which the plan is cancelled even if it is not complete. Defaults to 4x the max memory capacity per node (in MB)"
+        },
+        "calm_wait_time" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "This timeout determines how long to give a cluster after it responds to API calls before performing actual operations on it. It defaults to 5s"
+        },
+        "move_instances" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/InstanceMoveRequest"
+          }
+        },
+        "move_allocators" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/AllocatorMoveRequest"
+          }
+        },
+        "reallocate_instances" : {
+          "type" : "boolean",
+          "description" : "If true (default: false) does not allow re-using any existing instances currently in the cluster, ie even unchanged instances will be re-created"
+        },
+        "preferred_allocators" : {
+          "type" : "array",
+          "description" : "List of allocators on which instances are placed if possible (if not possible/not specified then any available allocator with space is used)",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "extended_maintenance" : {
+          "type" : "boolean",
+          "description" : "If true (default false), does not clear the maintenance flag (which prevents its API from being accessed except by the constructor) on new instances added until after a snapshot has been restored, otherwise, the maintenance flag is cleared once the new instances successfully join the new cluster"
+        },
+        "cluster_reboot" : {
+          "type" : "string",
+          "description" : "Set to 'forced' to force a reboot as part of the upgrade plan",
+          "enum" : [ "forced" ]
+        },
+        "override_failsafe" : {
+          "type" : "boolean",
+          "description" : "If false (the default), the plan fails if it determines that the request can result in unsafe operations. Setting this flag overrides some of these check restraints."
+        }
+      },
+      "description" : "The plan control configuration options for the Integrations Server."
+    },
+    "IntegrationsServerPlanInfo" : {
+      "type" : "object",
+      "required" : [ "healthy", "plan_attempt_log", "warnings" ],
+      "properties" : {
+        "plan_attempt_id" : {
+          "type" : "string",
+          "description" : "A UUID for each plan attempt"
+        },
+        "plan_attempt_name" : {
+          "type" : "string",
+          "description" : "A human readable name for each plan attempt, only populated when retrieving plan histories"
+        },
+        "healthy" : {
+          "type" : "boolean",
+          "description" : "Either the plan ended successfully, or is not yet completed (and no errors have occurred)"
+        },
+        "attempt_start_time" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "When this plan attempt (ie to apply the plan to the Integrations Server) started (ISO format in UTC)"
+        },
+        "attempt_end_time" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "If this plan completed or failed (ie is not pending), when the attempt ended (ISO format in UTC)"
+        },
+        "plan_end_time" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "If this plan is not current or pending, when the plan was no longer active (ISO format in UTC)"
+        },
+        "plan" : {
+          "$ref" : "#/definitions/IntegrationsServerPlan"
+        },
+        "plan_attempt_log" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/ClusterPlanStepInfo"
+          }
+        },
+        "source" : {
+          "description" : "Information describing the source that facilitated the plans current state",
+          "$ref" : "#/definitions/ChangeSourceInfo"
+        },
+        "warnings" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/ClusterPlanWarning"
+          }
+        }
+      },
+      "description" : "Information about the Integrations Server plan."
+    },
+    "IntegrationsServerPlansInfo" : {
+      "type" : "object",
+      "required" : [ "healthy", "history" ],
+      "properties" : {
+        "healthy" : {
+          "type" : "boolean",
+          "description" : "Whether the plan situation is healthy (if unhealthy, means the last plan attempt failed)"
+        },
+        "current" : {
+          "$ref" : "#/definitions/IntegrationsServerPlanInfo"
+        },
+        "pending" : {
+          "$ref" : "#/definitions/IntegrationsServerPlanInfo"
+        },
+        "history" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/IntegrationsServerPlanInfo"
+          }
+        }
+      },
+      "description" : "Information about current, pending, and past Integrations Server plans."
+    },
+    "IntegrationsServerResourceInfo" : {
+      "type" : "object",
+      "required" : [ "elasticsearch_cluster_ref_id", "id", "info", "ref_id", "region" ],
+      "properties" : {
+        "ref_id" : {
+          "type" : "string",
+          "description" : "The locally-unique user-specified id of a Resource"
+        },
+        "elasticsearch_cluster_ref_id" : {
+          "type" : "string",
+          "description" : "The Elasticsearch cluster that this resource depends on."
+        },
+        "id" : {
+          "type" : "string",
+          "description" : "The randomly-generated id of a Resource"
+        },
+        "region" : {
+          "type" : "string",
+          "description" : "The region where this resource exists"
+        },
+        "info" : {
+          "description" : "Info for the resource.",
+          "$ref" : "#/definitions/IntegrationsServerInfo"
+        }
+      },
+      "description" : "Describes an Integrations Server resource belonging to a Deployment"
+    },
+    "IntegrationsServerSettings" : {
+      "type" : "object",
+      "properties" : {
+        "metadata" : {
+          "$ref" : "#/definitions/ClusterMetadataSettings"
+        }
+      },
+      "description" : "The settings for the Integrations Server."
+    },
+    "IntegrationsServerSystemSettings" : {
+      "type" : "object",
+      "properties" : {
+        "elasticsearch_url" : {
+          "type" : "string",
+          "description" : "Optionally override the URL to which to send data (for advanced users only, if unspecified the system selects an internal URL)"
+        },
+        "kibana_url" : {
+          "type" : "string",
+          "description" : "Optionally override the URL to which to send data (for advanced users only, if unspecified the system selects an internal URL)"
+        },
+        "elasticsearch_username" : {
+          "type" : "string",
+          "description" : "Optionally override the account within Integrations Server - defaults to a system account that always exists (if specified, the password must also be specified). Note that this field is never returned from the API, it is write only."
+        },
+        "elasticsearch_password" : {
+          "type" : "string",
+          "description" : "Optionally override the account within Integrations Server - defaults to a system account that always exists (if specified, the username must also be specified). Note that this field is never returned from the API, it is write only."
+        },
+        "secret_token" : {
+          "type" : "string",
+          "description" : "Optionally override the secret token within Integrations Server - defaults to the previously existing secretToken"
+        },
+        "debug_enabled" : {
+          "type" : "boolean",
+          "description" : "Optionally enable debug mode for Integrations Server - defaults false"
+        }
+      },
+      "description" : "A structure that defines a curated subset of the Integrations Server settings. \nTIP: To define the complete set of Integrations Server setting, use `IntegrationsSystemSettings` with `user_settings_override_` and `user_settings_`."
+    },
+    "IntegrationsServerTopologyElement" : {
+      "type" : "object",
+      "properties" : {
+        "instance_configuration_id" : {
+          "type" : "string",
+          "description" : "Controls the allocation of this topology element as well as allowed sizes and node_types. It needs to match the id of an existing instance configuration."
+        },
+        "size" : {
+          "$ref" : "#/definitions/TopologySize"
+        },
+        "zone_count" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "number of zones in which nodes will be placed"
+        },
+        "integrations_server" : {
+          "$ref" : "#/definitions/IntegrationsServerConfiguration"
+        }
+      },
+      "description" : "Defines the topology of the Integrations Server nodes. For example, the number or capacity of the nodes, and where you can allocate the nodes."
+    },
     "ItemCosts" : {
       "type" : "object",
       "required" : [ "hours", "instance_count", "kind", "name", "period", "price", "price_per_hour", "sku" ],
@@ -22142,11 +22687,6 @@
       "type" : "object",
       "required" : [ "kibana" ],
       "properties" : {
-        "zone_count" : {
-          "type" : "integer",
-          "format" : "int32",
-          "description" : "DEPRECATED: Scheduled for removal in a future version of the API. Please use `cluster_topology.zone_count` instead.\n\nThe number of zones in which data nodes will be placed, if not specified in the per topology settings"
-        },
         "cluster_topology" : {
           "type" : "array",
           "items" : {
@@ -22259,14 +22799,6 @@
           "type" : "integer",
           "format" : "int32",
           "description" : "The number of nodes of this type that are allocated within each zone (i.e. total capacity per zone = `node_count_per_zone` * `memory_per_node` in MB)."
-        },
-        "allocator_filter" : {
-          "type" : "object",
-          "description" : "DEPRECATED: Scheduled for removal in a future version of the API.\n\nControls the allocation strategy of this node type using a simplified version of the Elasticsearch filter DSL (together with 'node_configuration')"
-        },
-        "node_configuration" : {
-          "type" : "string",
-          "description" : "DEPRECATED: Scheduled for removal in a future version of the API.\n\nControls the allocation strategy of this node type by pointing to the names of pre-registered allocator settings. Unless otherwise specified for this deployment, should be omitted."
         },
         "instance_configuration_id" : {
           "type" : "string",
@@ -23366,7 +23898,7 @@
     },
     "Orphaned" : {
       "type" : "object",
-      "required" : [ "apm", "appsearch", "elasticsearch", "enterprise_search", "kibana" ],
+      "required" : [ "apm", "appsearch", "elasticsearch", "enterprise_search", "integrations_server", "kibana" ],
       "properties" : {
         "elasticsearch" : {
           "type" : "array",
@@ -23399,6 +23931,13 @@
         "enterprise_search" : {
           "type" : "array",
           "description" : "List of orphaned Enterprise Search resource ids",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "integrations_server" : {
+          "type" : "array",
+          "description" : "List of orphaned Integrations Server resource ids",
           "items" : {
             "type" : "string"
           }
@@ -25411,6 +25950,9 @@
         "apm" : {
           "$ref" : "#/definitions/StackVersionApmConfig"
         },
+        "integrations_server" : {
+          "$ref" : "#/definitions/StackVersionIntegrationsServerConfig"
+        },
         "appsearch" : {
           "$ref" : "#/definitions/StackVersionAppSearchConfig"
         },
@@ -25548,6 +26090,42 @@
         }
       },
       "description" : "The Elasticsearch instance, Kibana instance, APM Server capacity constraints for an Elastic Stack node type."
+    },
+    "StackVersionIntegrationsServerConfig" : {
+      "type" : "object",
+      "required" : [ "blacklist", "docker_image" ],
+      "properties" : {
+        "version" : {
+          "type" : "string",
+          "description" : "Version of Integrations Server"
+        },
+        "docker_image" : {
+          "type" : "string",
+          "description" : "Docker image for the Integrations Server"
+        },
+        "blacklist" : {
+          "type" : "array",
+          "description" : "List of configuration options that cannot be overridden by user settings",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "settings" : {
+          "type" : "object",
+          "description" : "Settings that are applied to all nodes of this type"
+        },
+        "capacity_constraints" : {
+          "$ref" : "#/definitions/StackVersionInstanceCapacityConstraint"
+        },
+        "compatible_node_types" : {
+          "type" : "array",
+          "description" : "Node types that are compatible with this one",
+          "items" : {
+            "type" : "string"
+          }
+        }
+      },
+      "description" : "The Integrations Server configuration for an Elastic Stack version."
     },
     "StackVersionKibanaConfig" : {
       "type" : "object",
@@ -25737,18 +26315,6 @@
         }
       },
       "description" : "A query for documents that contain the specified term in the inverted index."
-    },
-    "TiebreakerTopologyElement" : {
-      "type" : "object",
-      "required" : [ "memory_per_node" ],
-      "properties" : {
-        "memory_per_node" : {
-          "type" : "integer",
-          "format" : "int32",
-          "description" : "The memory capacity in MB for the tiebreaker node."
-        }
-      },
-      "description" : "Defines the topology, such as capacity and location, of the special tiebreaker node. TIP: When there are master nodes present, the master node topology is the default."
     },
     "TlsPublicCertChain" : {
       "type" : "object",
@@ -26050,6 +26616,18 @@
         }
       },
       "description" : "Defines configuration parameters that control how the plan (i.e. consisting of the cluster topology and Enterprise Search settings) is applied"
+    },
+    "TransientIntegrationsServerPlanConfiguration" : {
+      "type" : "object",
+      "properties" : {
+        "strategy" : {
+          "$ref" : "#/definitions/PlanStrategy"
+        },
+        "plan_configuration" : {
+          "$ref" : "#/definitions/IntegrationsServerPlanControlConfiguration"
+        }
+      },
+      "description" : "Defines the configuration parameters that control how the plan is applied. For example, the Elasticsearch cluster topology and Integrations Server settings."
     },
     "TransientKibanaPlanConfiguration" : {
       "type" : "object",

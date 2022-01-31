@@ -51,9 +51,6 @@ type ClusterSnapshotSettings struct {
 	// Snapshot repository configuration
 	Repository *ClusterSnapshotRepositoryInfo `json:"repository,omitempty"`
 
-	// Deprecated: ECE snapshot repository name, please use [repository] instead
-	RepositoryName string `json:"repository_name,omitempty"`
-
 	// Cluster snapshot retention information
 	Retention *ClusterSnapshotRetention `json:"retention,omitempty"`
 

@@ -49,6 +49,9 @@ type StackVersionConfigPost struct {
 	// enterprise search
 	EnterpriseSearch *StackVersionEnterpriseSearchConfig `json:"enterprise_search,omitempty"`
 
+	// integrations server
+	IntegrationsServer *StackVersionIntegrationsServerConfig `json:"integrations_server,omitempty"`
+
 	// kibana
 	// Required: true
 	Kibana *StackVersionKibanaConfig `json:"kibana"`
@@ -74,6 +77,10 @@ func (m *StackVersionConfigPost) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateEnterpriseSearch(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateIntegrationsServer(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -160,6 +167,23 @@ func (m *StackVersionConfigPost) validateEnterpriseSearch(formats strfmt.Registr
 	return nil
 }
 
+func (m *StackVersionConfigPost) validateIntegrationsServer(formats strfmt.Registry) error {
+	if swag.IsZero(m.IntegrationsServer) { // not required
+		return nil
+	}
+
+	if m.IntegrationsServer != nil {
+		if err := m.IntegrationsServer.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("integrations_server")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *StackVersionConfigPost) validateKibana(formats strfmt.Registry) error {
 
 	if err := validate.Required("kibana", "body", m.Kibana); err != nil {
@@ -212,6 +236,10 @@ func (m *StackVersionConfigPost) ContextValidate(ctx context.Context, formats st
 	}
 
 	if err := m.contextValidateEnterpriseSearch(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateIntegrationsServer(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -277,6 +305,20 @@ func (m *StackVersionConfigPost) contextValidateEnterpriseSearch(ctx context.Con
 		if err := m.EnterpriseSearch.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("enterprise_search")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *StackVersionConfigPost) contextValidateIntegrationsServer(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.IntegrationsServer != nil {
+		if err := m.IntegrationsServer.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("integrations_server")
 			}
 			return err
 		}
