@@ -19064,7 +19064,7 @@
         },
         "apm" : {
           "type" : "array",
-          "description" : "A list of payloads for APM creation.",
+          "description" : "A list of payloads for APM creation. WARNING: For stack versions 8.0.0 and higher the integrations_server payload should be used instead, as this field becomes deprecated.",
           "items" : {
             "$ref" : "#/definitions/ApmPayload"
           }
@@ -25950,6 +25950,9 @@
         "apm" : {
           "$ref" : "#/definitions/StackVersionApmConfig"
         },
+        "integrations_server" : {
+          "$ref" : "#/definitions/StackVersionIntegrationsServerConfig"
+        },
         "appsearch" : {
           "$ref" : "#/definitions/StackVersionAppSearchConfig"
         },
@@ -26087,6 +26090,42 @@
         }
       },
       "description" : "The Elasticsearch instance, Kibana instance, APM Server capacity constraints for an Elastic Stack node type."
+    },
+    "StackVersionIntegrationsServerConfig" : {
+      "type" : "object",
+      "required" : [ "blacklist", "docker_image" ],
+      "properties" : {
+        "version" : {
+          "type" : "string",
+          "description" : "Version of Integrations Server"
+        },
+        "docker_image" : {
+          "type" : "string",
+          "description" : "Docker image for the Integrations Server"
+        },
+        "blacklist" : {
+          "type" : "array",
+          "description" : "List of configuration options that cannot be overridden by user settings",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "settings" : {
+          "type" : "object",
+          "description" : "Settings that are applied to all nodes of this type"
+        },
+        "capacity_constraints" : {
+          "$ref" : "#/definitions/StackVersionInstanceCapacityConstraint"
+        },
+        "compatible_node_types" : {
+          "type" : "array",
+          "description" : "Node types that are compatible with this one",
+          "items" : {
+            "type" : "string"
+          }
+        }
+      },
+      "description" : "The Integrations Server configuration for an Elastic Stack version."
     },
     "StackVersionKibanaConfig" : {
       "type" : "object",
