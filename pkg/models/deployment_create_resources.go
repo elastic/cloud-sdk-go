@@ -36,7 +36,7 @@ import (
 // swagger:model DeploymentCreateResources
 type DeploymentCreateResources struct {
 
-	// A list of payloads for APM creation.
+	// A list of payloads for APM creation. WARNING: For stack versions 8.0.0 and higher the integrations_server payload should be used instead, as this field becomes deprecated.
 	Apm []*ApmPayload `json:"apm"`
 
 	// A list of payloads for AppSearch updates. AppSearch has been replaced by Enterprise Search in the Elastic Stack 7.7 and higher.
