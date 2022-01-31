@@ -1,5 +1,5 @@
 cloud-sdk-go
-Copyright 2022 Elasticsearch B.V.
+Copyright 2021-2022 Elasticsearch B.V.
 
 This product includes software developed at Elasticsearch B.V. and
 third-party software developed by the licenses listed below.
@@ -26,8 +26,8 @@ github.com/go-stack/stack             MIT
 github.com/mailru/easyjson            MIT
 github.com/mitchellh/mapstructure     MIT
 github.com/stretchr/testify           MIT
+github.com/hashicorp/go-multierror    MPL-2.0
 github.com/hashicorp/errwrap          MPL-2.0-no-copyleft-exception
-github.com/hashicorp/go-multierror    MPL-2.0-no-copyleft-exception
 github.com/ghodss/yaml                no license file was found
 
 =========================================================================

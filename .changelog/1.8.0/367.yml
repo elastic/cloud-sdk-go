@@ -1,0 +1,4 @@
+category: enhancement
+title: Add insecure attribute on cluster meta
+description: |
+    Cluster Metadata Info did not have any attributes to imply whether cert verification should be skipped when trying to communicate with it.
