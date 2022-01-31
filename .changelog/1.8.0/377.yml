@@ -1,0 +1,4 @@
+category: enhancement
+title: Add 409 response to Mock API client
+description: |
+    It adds HTTP 409 response to Mock API client. To be able to run acceptance tests in TF ElasticCloud provider, we need to mock API client and e.g. to check whether a role already exists, we need to return that HTTP code.

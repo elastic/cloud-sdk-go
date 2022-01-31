@@ -1,0 +1,4 @@
+category: enhancement
+title: Update swagger generated code to MS68 release (removal of clusters API)
+description: |
+    This PR updates the API with changes from ms-68 (removing the clusters API and the reauthenticate endpoint)

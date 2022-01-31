@@ -1,0 +1,4 @@
+category: bug
+title: Avoid escaping JSON string payload for set-deployment-resource-raw-metadata
+description: |
+    When leveraging the cloud client method for: https://github.com/elastic/cloud-sdk-go/blob/master/pkg/client/deployments/deployments_client.go#L1552-L1586 which hits the following API endpoint: https://www.elastic.co/guide/en/cloud-enterprise/current/set-deployment-resource-raw-metadata.html, we should not be escaping the string JSON body.

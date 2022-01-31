@@ -1,0 +1,4 @@
+category: bug
+title: Add API validation in CreateKey
+description: |
+    Adds the missing api.API validation in CreateKeyParams.Validate().
