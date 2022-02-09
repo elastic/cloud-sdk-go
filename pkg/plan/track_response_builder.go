@@ -77,6 +77,14 @@ func buildTrackResponse(res *models.DeploymentResources, getCurrentPlan bool) []
 		pending = append(pending, p)
 	}
 
+	for _, info := range res.IntegrationsServer {
+		p, err := parseResourceInfo(info, util.IntegrationsServer, getCurrentPlan)
+		if err != nil {
+			continue
+		}
+		pending = append(pending, p)
+	}
+
 	for _, info := range res.Appsearch {
 		p, err := parseResourceInfo(info, util.Appsearch, getCurrentPlan)
 		if err != nil {

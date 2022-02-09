@@ -28,11 +28,15 @@ import (
 func TestGenerate(t *testing.T) {
 	var deploymentID = ec.RandomResourceID()
 	var apmID = ec.RandomResourceID()
+	var integrationsServerID = ec.RandomResourceID()
 	var esID = ec.RandomResourceID()
 	var kibanaID = ec.RandomResourceID()
 	var appsearchID = ec.RandomResourceID()
 	var enterpriseSearchID = ec.RandomResourceID()
 	var ApmCurrentLog = []*models.ClusterPlanStepInfo{
+		{Stage: ec.String("completed")},
+	}
+	var IntegrationsServerCurrentLog = []*models.ClusterPlanStepInfo{
 		{Stage: ec.String("completed")},
 	}
 	var EsCurrentLog = []*models.ClusterPlanStepInfo{
@@ -48,6 +52,9 @@ func TestGenerate(t *testing.T) {
 		{Stage: ec.String("completed")},
 	}
 	var ApmPendingLog = []*models.ClusterPlanStepInfo{
+		{Stage: ec.String("in_progress")},
+	}
+	var IntegrationsServerPendingLog = []*models.ClusterPlanStepInfo{
 		{Stage: ec.String("in_progress")},
 	}
 	var EsPendingLog = []*models.ClusterPlanStepInfo{
@@ -79,6 +86,13 @@ func TestGenerate(t *testing.T) {
 						ID:         apmID,
 						CurrentLog: ApmCurrentLog,
 						PendingLog: ApmPendingLog,
+					},
+				},
+				IntegrationsServer: []GeneratedResourceConfig{
+					{
+						ID:         integrationsServerID,
+						CurrentLog: IntegrationsServerCurrentLog,
+						PendingLog: IntegrationsServerPendingLog,
 					},
 				},
 				Elasticsearch: []GeneratedResourceConfig{
@@ -118,6 +132,13 @@ func TestGenerate(t *testing.T) {
 							ID:         apmID,
 							CurrentLog: ApmCurrentLog,
 							PendingLog: ApmPendingLog,
+						},
+					}),
+					IntegrationsServer: generateIntegrationsServerResourceInfo([]GeneratedResourceConfig{
+						{
+							ID:         integrationsServerID,
+							CurrentLog: IntegrationsServerCurrentLog,
+							PendingLog: IntegrationsServerPendingLog,
 						},
 					}),
 					Elasticsearch: generateElasticsearchResourceInfo([]GeneratedResourceConfig{

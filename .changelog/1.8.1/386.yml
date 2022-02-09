@@ -1,0 +1,4 @@
+category: bug
+title: Add plan tracking for `integrations_server`
+description: |
+    Adds the missing plan tracking for the integrations server.
