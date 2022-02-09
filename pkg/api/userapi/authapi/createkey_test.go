@@ -38,9 +38,6 @@ func TestCreateKey(t *testing.T) {
 		Message: "request password doesn't match the user's password",
 	}
 
-	securityTokenResponse := models.ReAuthenticationResponse{
-		SecurityToken: ec.String("uzcyenzalonopalMyxBx"),
-	}
 	createdAPIKey := models.APIKeyResponse{
 		Key: "somekeyvalue",
 		ID:  ec.String("somekey"),
@@ -58,7 +55,6 @@ func TestCreateKey(t *testing.T) {
 			name: "fails due to parameter validation",
 			err: multierror.NewPrefixed("invalid user auth params",
 				apierror.ErrMissingAPI,
-				errors.New("password is not specified and is required for this operation"),
 				errors.New("key description is not specified and is required for this operation"),
 			).Error(),
 		},
@@ -66,10 +62,7 @@ func TestCreateKey(t *testing.T) {
 			name: "fails due to reauthenticate API error",
 			args: args{params: CreateKeyParams{
 				Description: "some description",
-				ReAuthenticateParams: ReAuthenticateParams{
-					Password: []byte("somepass"),
-					API:      api.NewMock(mock.NewErrorResponse(400, invalidPassErrType)),
-				},
+				API:         api.NewMock(mock.NewErrorResponse(400, invalidPassErrType)),
 			}},
 			err: multierror.NewPrefixed("api error",
 				errors.New("auth.invalid_password: request password doesn't match the user's password (body.password)"),
@@ -79,13 +72,9 @@ func TestCreateKey(t *testing.T) {
 			name: "fails due to create API error",
 			args: args{params: CreateKeyParams{
 				Description: "some description",
-				ReAuthenticateParams: ReAuthenticateParams{
-					Password: []byte("somepass"),
-					API: api.NewMock(
-						mock.New200Response(mock.NewStructBody(securityTokenResponse)),
-						mock.NewErrorResponse(400, invalidPassErrType),
-					),
-				},
+				API: api.NewMock(
+					mock.NewErrorResponse(400, invalidPassErrType),
+				),
 			}},
 			err: multierror.NewPrefixed("api error",
 				errors.New("auth.invalid_password: request password doesn't match the user's password (body.password)"),
@@ -95,31 +84,18 @@ func TestCreateKey(t *testing.T) {
 			name: "succeeds",
 			args: args{params: CreateKeyParams{
 				Description: "some description",
-				ReAuthenticateParams: ReAuthenticateParams{
-					Password: []byte("somepass"),
-					API: api.NewMock(
-						mock.New200ResponseAssertion(
-							&mock.RequestAssertion{
-								Header: api.DefaultWriteMockHeaders,
-								Method: "POST",
-								Host:   api.DefaultMockHost,
-								Path:   "/api/v1/users/auth/reauthenticate",
-								Body:   mock.NewStringBody(`{"password":"somepass"}` + "\n"),
-							},
-							mock.NewStructBody(securityTokenResponse),
-						),
-						mock.New201ResponseAssertion(
-							&mock.RequestAssertion{
-								Header: api.DefaultWriteMockHeaders,
-								Method: "POST",
-								Host:   api.DefaultMockHost,
-								Path:   "/api/v1/users/auth/keys",
-								Body:   mock.NewStringBody(`{"authentication_token":"uzcyenzalonopalMyxBx","description":"some description"}` + "\n"),
-							},
-							mock.NewStructBody(createdAPIKey),
-						),
+				API: api.NewMock(
+					mock.New201ResponseAssertion(
+						&mock.RequestAssertion{
+							Header: api.DefaultWriteMockHeaders,
+							Method: "POST",
+							Host:   api.DefaultMockHost,
+							Path:   "/api/v1/users/auth/keys",
+							Body:   mock.NewStringBody(`{"description":"some description"}` + "\n"),
+						},
+						mock.NewStructBody(createdAPIKey),
 					),
-				},
+				),
 			}},
 			want: &createdAPIKey,
 		},

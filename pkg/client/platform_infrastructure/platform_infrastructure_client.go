@@ -2212,7 +2212,7 @@ func (a *Client) ResyncRunners(params *ResyncRunnersParams, authInfo runtime.Cli
 /*
   SearchAllocators searches allocators
 
-  Retrieves the information for all of the allocators in the platform that match the specified query.
+  Retrieves the information for all the allocators in the platform that match a specified query.
 */
 func (a *Client) SearchAllocators(params *SearchAllocatorsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SearchAllocatorsOK, error) {
 	// TODO: Validate the params before sending

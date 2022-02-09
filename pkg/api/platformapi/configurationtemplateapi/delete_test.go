@@ -34,7 +34,7 @@ import (
 func TestDeleteTemplate(t *testing.T) {
 	urlError := url.Error{
 		Op:  "Delete",
-		URL: "https://mock.elastic.co/api/v1/regions/us-east-1/platform/configuration/templates/deployments/84e0bd6d69bb44e294809d89cea88a7e",
+		URL: "https://mock.elastic.co/api/v1/deployments/templates/84e0bd6d69bb44e294809d89cea88a7e?region=us-east-1",
 		Err: errors.New("error"),
 	}
 	tests := []struct {
@@ -56,7 +56,10 @@ func TestDeleteTemplate(t *testing.T) {
 						Header: api.DefaultWriteMockHeaders,
 						Method: "DELETE",
 						Host:   api.DefaultMockHost,
-						Path:   "/api/v1/regions/us-east-1/platform/configuration/templates/deployments/84e0bd6d69bb44e294809d89cea88a7e",
+						Query: url.Values{
+							"region": {"us-east-1"},
+						},
+						Path: "/api/v1/deployments/templates/84e0bd6d69bb44e294809d89cea88a7e",
 					},
 				}),
 			},

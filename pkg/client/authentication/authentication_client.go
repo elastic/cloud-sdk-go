@@ -81,8 +81,6 @@ type ClientService interface {
 
 	Methods(params *MethodsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MethodsOK, error)
 
-	ReAuthenticate(params *ReAuthenticateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ReAuthenticateOK, error)
-
 	RefreshToken(params *RefreshTokenParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*RefreshTokenOK, error)
 
 	SamlCallback(params *SamlCallbackParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) error
@@ -786,47 +784,6 @@ func (a *Client) Methods(params *MethodsParams, authInfo runtime.ClientAuthInfoW
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for methods: API contract not enforced by server. Client expected to get an error, but got: %T", result)
-	panic(msg)
-}
-
-/*
-  ReAuthenticate res authenticate to generate a token
-
-  DEPRECATED (Scheduled to be removed in the next major version): Re-authenticate.
-*/
-func (a *Client) ReAuthenticate(params *ReAuthenticateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ReAuthenticateOK, error) {
-	// TODO: Validate the params before sending
-	if params == nil {
-		params = NewReAuthenticateParams()
-	}
-	op := &runtime.ClientOperation{
-		ID:                 "re-authenticate",
-		Method:             "POST",
-		PathPattern:        "/users/auth/reauthenticate",
-		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"https"},
-		Params:             params,
-		Reader:             &ReAuthenticateReader{formats: a.formats},
-		AuthInfo:           authInfo,
-		Context:            params.Context,
-		Client:             params.HTTPClient,
-	}
-	for _, opt := range opts {
-		opt(op)
-	}
-
-	result, err := a.transport.Submit(op)
-	if err != nil {
-		return nil, err
-	}
-	success, ok := result.(*ReAuthenticateOK)
-	if ok {
-		return success, nil
-	}
-	// unexpected success response
-	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
-	msg := fmt.Sprintf("unexpected success response for re-authenticate: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

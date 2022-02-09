@@ -69,7 +69,6 @@ func PullToFolder(params PullToFolderParams) error {
 		API:                params.API,
 		Region:             params.Region,
 		ShowInstanceConfig: params.ShowInstanceConfig,
-		Format:             params.Format,
 	})
 	if err != nil {
 		return err
@@ -82,7 +81,7 @@ func PullToFolder(params PullToFolderParams) error {
 // following this structure:
 //   folder/
 //   folder/id.json
-func writeDeploymentTemplateToFolder(folder string, templates []*models.DeploymentTemplateInfo) error {
+func writeDeploymentTemplateToFolder(folder string, templates []*models.DeploymentTemplateInfoV2) error {
 	p := folder
 	if filepath.Ext(p) != "" {
 		p = filepath.Dir(folder)
@@ -96,7 +95,7 @@ func writeDeploymentTemplateToFolder(folder string, templates []*models.Deployme
 	for _, template := range templates {
 		template.Source = nil
 
-		f, err := os.Create(filepath.Join(folder, template.ID+".json"))
+		f, err := os.Create(filepath.Join(folder, *template.ID+".json"))
 		if err != nil {
 			merr = merr.Append(err)
 			continue

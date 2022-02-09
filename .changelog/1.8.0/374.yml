@@ -1,0 +1,4 @@
+category: enhancement
+title: Update swagger generated code to MS68 release (removal of deployment template endpoints)
+description: |
+    This PR updates the API with changes from ms-68 (still not removing the clusters API) but it does remove the old deployment templates endpoint and models.

@@ -81,6 +81,22 @@ func New202Response(body io.ReadCloser) Response {
 	}}
 }
 
+// New302Response creates a new response with a statuscode 302
+func New302Response(body io.ReadCloser) Response {
+	return Response{Response: http.Response{
+		StatusCode: 302,
+		Body:       populateBody(body),
+	}}
+}
+
+// New400Response creates a new response with a statuscode 400
+func New400Response(body io.ReadCloser) Response {
+	return Response{Response: http.Response{
+		StatusCode: 400,
+		Body:       populateBody(body),
+	}}
+}
+
 // New404Response creates a new response with a statuscode 404
 func New404Response(body io.ReadCloser) Response {
 	return Response{Response: http.Response{
@@ -89,10 +105,34 @@ func New404Response(body io.ReadCloser) Response {
 	}}
 }
 
+// New409Response creates a new response with a statuscode 409
+func New409Response(body io.ReadCloser) Response {
+	return Response{Response: http.Response{
+		StatusCode: 409,
+		Body:       populateBody(body),
+	}}
+}
+
 // New500Response creates a new response with a statuscode 500
 func New500Response(body io.ReadCloser) Response {
 	return Response{Response: http.Response{
 		StatusCode: 500,
+		Body:       populateBody(body),
+	}}
+}
+
+// New501Response creates a new response with a statuscode 501
+func New501Response(body io.ReadCloser) Response {
+	return Response{Response: http.Response{
+		StatusCode: 501,
+		Body:       populateBody(body),
+	}}
+}
+
+// New502Response creates a new response with a statuscode 502
+func New502Response(body io.ReadCloser) Response {
+	return Response{Response: http.Response{
+		StatusCode: 502,
 		Body:       populateBody(body),
 	}}
 }
@@ -130,6 +170,28 @@ func New202ResponseAssertion(assertion *RequestAssertion, body io.ReadCloser) Re
 	}
 }
 
+// New302ResponseAssertion creates a new response with request assertion and a statuscode 302
+func New302ResponseAssertion(assertion *RequestAssertion, body io.ReadCloser) Response {
+	return Response{
+		Response: http.Response{
+			StatusCode: 302,
+			Body:       populateBody(body),
+		},
+		Assert: assertion,
+	}
+}
+
+// New400ResponseAssertion creates a new response with request assertion and a statuscode 400
+func New400ResponseAssertion(assertion *RequestAssertion, body io.ReadCloser) Response {
+	return Response{
+		Response: http.Response{
+			StatusCode: 400,
+			Body:       populateBody(body),
+		},
+		Assert: assertion,
+	}
+}
+
 // New404ResponseAssertion creates a new response with request assertion and a statuscode 404
 func New404ResponseAssertion(assertion *RequestAssertion, body io.ReadCloser) Response {
 	return Response{
@@ -141,11 +203,44 @@ func New404ResponseAssertion(assertion *RequestAssertion, body io.ReadCloser) Re
 	}
 }
 
+// New409ResponseAssertion creates a new response with request assertion and a statuscode 409
+func New409ResponseAssertion(assertion *RequestAssertion, body io.ReadCloser) Response {
+	return Response{
+		Response: http.Response{
+			StatusCode: 409,
+			Body:       populateBody(body),
+		},
+		Assert: assertion,
+	}
+}
+
 // New500ResponseAssertion creates a new response with request assertion and a statuscode 500
 func New500ResponseAssertion(assertion *RequestAssertion, body io.ReadCloser) Response {
 	return Response{
 		Response: http.Response{
 			StatusCode: 500,
+			Body:       populateBody(body),
+		},
+		Assert: assertion,
+	}
+}
+
+// New501ResponseAssertion creates a new response with request assertion and a statuscode 501
+func New501ResponseAssertion(assertion *RequestAssertion, body io.ReadCloser) Response {
+	return Response{
+		Response: http.Response{
+			StatusCode: 501,
+			Body:       populateBody(body),
+		},
+		Assert: assertion,
+	}
+}
+
+// New502ResponseAssertion creates a new response with request assertion and a statuscode 502
+func New502ResponseAssertion(assertion *RequestAssertion, body io.ReadCloser) Response {
+	return Response{
+		Response: http.Response{
+			StatusCode: 502,
 			Body:       populateBody(body),
 		},
 		Assert: assertion,

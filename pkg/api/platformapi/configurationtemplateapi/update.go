@@ -25,7 +25,7 @@ import (
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
-	"github.com/elastic/cloud-sdk-go/pkg/client/platform_configuration_templates"
+	"github.com/elastic/cloud-sdk-go/pkg/client/deployment_templates"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
@@ -35,7 +35,7 @@ import (
 type UpdateTemplateParams struct {
 	*api.API
 	ID string
-	*models.DeploymentTemplateInfo
+	*models.DeploymentTemplateRequestBody
 	Region string
 }
 
@@ -50,12 +50,12 @@ func (params UpdateTemplateParams) Validate() error {
 		merr = merr.Append(errInvalidTemplateID)
 	}
 
-	if params.DeploymentTemplateInfo == nil {
+	if params.DeploymentTemplateRequestBody == nil {
 		merr = merr.Append(errDeploymentTemplateMissing)
 	}
 
-	if params.DeploymentTemplateInfo != nil {
-		merr = merr.Append(params.DeploymentTemplateInfo.Validate(strfmt.Default))
+	if params.DeploymentTemplateRequestBody != nil {
+		merr = merr.Append(params.DeploymentTemplateRequestBody.Validate(strfmt.Default))
 	}
 
 	if err := ec.RequireRegionSet(params.Region); err != nil {
@@ -71,10 +71,11 @@ func UpdateTemplate(params UpdateTemplateParams) error {
 		return err
 	}
 
-	_, _, err := params.V1API.PlatformConfigurationTemplates.SetDeploymentTemplate(
-		platform_configuration_templates.NewSetDeploymentTemplateParams().
+	_, _, err := params.V1API.DeploymentTemplates.SetDeploymentTemplateV2(
+		deployment_templates.NewSetDeploymentTemplateV2Params().
 			WithContext(api.WithRegion(context.Background(), params.Region)).
-			WithBody(params.DeploymentTemplateInfo).
+			WithBody(params.DeploymentTemplateRequestBody).
+			WithRegion(params.Region).
 			WithTemplateID(params.ID),
 		params.AuthWriter,
 	)

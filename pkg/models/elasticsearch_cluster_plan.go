@@ -51,24 +51,8 @@ type ElasticsearchClusterPlan struct {
 	// Required: true
 	Elasticsearch *ElasticsearchConfiguration `json:"elasticsearch"`
 
-	// DEPRECATED: Scheduled for removal in a future version of the API.
-	//
-	// Whether to add a tiebreaker node in an unused zone (defaults to auto-decide based on topology).
-	// If master nodes are specified then this cannot be left blank, you must explicitly decide true or false.
-	TiebreakerOverride *bool `json:"tiebreaker_override,omitempty"`
-
-	// DEPRECATED: Scheduled for removal in a future version of the API.
-	//
-	// Defines the topology (capacity and location) of the special tiebreaker node. If masters nodes are present, their topology acts as a default for the tiebreaker topology
-	TiebreakerTopology *TiebreakerTopologyElement `json:"tiebreaker_topology,omitempty"`
-
 	// transient
 	Transient *TransientElasticsearchPlanConfiguration `json:"transient,omitempty"`
-
-	// DEPRECATED: Scheduled for removal in a future version of the API. Please use `cluster_topology.zone_count` instead.
-	//
-	// The default number of zones in which data nodes will be placed, if not specified in the per topology settings
-	ZoneCount int32 `json:"zone_count,omitempty"`
 }
 
 // Validate validates this elasticsearch cluster plan
@@ -84,10 +68,6 @@ func (m *ElasticsearchClusterPlan) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateElasticsearch(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateTiebreakerTopology(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -161,23 +141,6 @@ func (m *ElasticsearchClusterPlan) validateElasticsearch(formats strfmt.Registry
 	return nil
 }
 
-func (m *ElasticsearchClusterPlan) validateTiebreakerTopology(formats strfmt.Registry) error {
-	if swag.IsZero(m.TiebreakerTopology) { // not required
-		return nil
-	}
-
-	if m.TiebreakerTopology != nil {
-		if err := m.TiebreakerTopology.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("tiebreaker_topology")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
 func (m *ElasticsearchClusterPlan) validateTransient(formats strfmt.Registry) error {
 	if swag.IsZero(m.Transient) { // not required
 		return nil
@@ -208,10 +171,6 @@ func (m *ElasticsearchClusterPlan) ContextValidate(ctx context.Context, formats 
 	}
 
 	if err := m.contextValidateElasticsearch(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateTiebreakerTopology(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -263,20 +222,6 @@ func (m *ElasticsearchClusterPlan) contextValidateElasticsearch(ctx context.Cont
 		if err := m.Elasticsearch.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("elasticsearch")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *ElasticsearchClusterPlan) contextValidateTiebreakerTopology(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.TiebreakerTopology != nil {
-		if err := m.TiebreakerTopology.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("tiebreaker_topology")
 			}
 			return err
 		}

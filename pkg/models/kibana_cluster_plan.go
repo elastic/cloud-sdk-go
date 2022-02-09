@@ -46,11 +46,6 @@ type KibanaClusterPlan struct {
 
 	// transient
 	Transient *TransientKibanaPlanConfiguration `json:"transient,omitempty"`
-
-	// DEPRECATED: Scheduled for removal in a future version of the API. Please use `cluster_topology.zone_count` instead.
-	//
-	// The number of zones in which data nodes will be placed, if not specified in the per topology settings
-	ZoneCount int32 `json:"zone_count,omitempty"`
 }
 
 // Validate validates this kibana cluster plan

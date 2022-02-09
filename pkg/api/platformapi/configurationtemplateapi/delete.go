@@ -18,12 +18,11 @@
 package configurationtemplateapi
 
 import (
-	"context"
 	"strings"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
-	"github.com/elastic/cloud-sdk-go/pkg/client/platform_configuration_templates"
+	"github.com/elastic/cloud-sdk-go/pkg/client/deployment_templates"
 	"github.com/elastic/cloud-sdk-go/pkg/multierror"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
@@ -59,9 +58,9 @@ func DeleteTemplate(params DeleteTemplateParams) error {
 		return err
 	}
 	return api.ReturnErrOnly(
-		params.V1API.PlatformConfigurationTemplates.DeleteDeploymentTemplate(
-			platform_configuration_templates.NewDeleteDeploymentTemplateParams().
-				WithContext(api.WithRegion(context.Background(), params.Region)).
+		params.V1API.DeploymentTemplates.DeleteDeploymentTemplateV2(
+			deployment_templates.NewDeleteDeploymentTemplateV2Params().
+				WithRegion(params.Region).
 				WithTemplateID(params.ID),
 			params.AuthWriter,
 		),

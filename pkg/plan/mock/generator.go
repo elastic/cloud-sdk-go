@@ -29,11 +29,12 @@ type GenerateConfig struct {
 	// If omitted, a random ID will be auto-generated.
 	ID string
 
-	Elasticsearch    []GeneratedResourceConfig
-	EnterpriseSearch []GeneratedResourceConfig
-	Kibana           []GeneratedResourceConfig
-	Apm              []GeneratedResourceConfig
-	Appsearch        []GeneratedResourceConfig
+	Elasticsearch      []GeneratedResourceConfig
+	EnterpriseSearch   []GeneratedResourceConfig
+	Kibana             []GeneratedResourceConfig
+	Apm                []GeneratedResourceConfig
+	IntegrationsServer []GeneratedResourceConfig
+	Appsearch          []GeneratedResourceConfig
 }
 
 // GeneratedResourceConfig is used to construct a deployment resource plan
@@ -65,11 +66,12 @@ func Generate(cfg GenerateConfig) *models.DeploymentGetResponse {
 	return &models.DeploymentGetResponse{
 		ID: ec.String(id),
 		Resources: &models.DeploymentResources{
-			Apm:              generateApmResourceInfo(cfg.Apm),
-			Kibana:           generateKibanaResourceInfo(cfg.Kibana),
-			Elasticsearch:    generateElasticsearchResourceInfo(cfg.Elasticsearch),
-			Appsearch:        generateAppSearchResourceInfo(cfg.Appsearch),
-			EnterpriseSearch: generateEnterpriseSearchResourceInfo(cfg.EnterpriseSearch),
+			Apm:                generateApmResourceInfo(cfg.Apm),
+			IntegrationsServer: generateIntegrationsServerResourceInfo(cfg.IntegrationsServer),
+			Kibana:             generateKibanaResourceInfo(cfg.Kibana),
+			Elasticsearch:      generateElasticsearchResourceInfo(cfg.Elasticsearch),
+			Appsearch:          generateAppSearchResourceInfo(cfg.Appsearch),
+			EnterpriseSearch:   generateEnterpriseSearchResourceInfo(cfg.EnterpriseSearch),
 		},
 	}
 }
@@ -91,6 +93,31 @@ func generateApmResourceInfo(c []GeneratedResourceConfig) []*models.ApmResourceI
 			Pending: &models.ApmPlanInfo{PlanAttemptLog: gen.PendingLog},
 			Current: &models.ApmPlanInfo{PlanAttemptLog: gen.CurrentLog},
 			History: []*models.ApmPlanInfo{{PlanAttemptLog: gen.HistoryLog}},
+		}}
+
+		resInfo = append(resInfo, &info)
+	}
+
+	return resInfo
+}
+
+func generateIntegrationsServerResourceInfo(c []GeneratedResourceConfig) []*models.IntegrationsServerResourceInfo {
+	var resInfo = make([]*models.IntegrationsServerResourceInfo, 0, len(c))
+	for _, gen := range c {
+		var info models.IntegrationsServerResourceInfo
+		info.ID = &gen.ID
+		if gen.ID == "" {
+			info.ID = ec.String(ec.RandomResourceID())
+		}
+		info.RefID = &gen.RefID
+		if gen.RefID == "" {
+			info.RefID = ec.String("main-integrations_server")
+		}
+
+		info.Info = &models.IntegrationsServerInfo{PlanInfo: &models.IntegrationsServerPlansInfo{
+			Pending: &models.IntegrationsServerPlanInfo{PlanAttemptLog: gen.PendingLog},
+			Current: &models.IntegrationsServerPlanInfo{PlanAttemptLog: gen.CurrentLog},
+			History: []*models.IntegrationsServerPlanInfo{{PlanAttemptLog: gen.HistoryLog}},
 		}}
 
 		resInfo = append(resInfo, &info)

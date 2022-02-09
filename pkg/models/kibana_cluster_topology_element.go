@@ -35,11 +35,6 @@ import (
 // swagger:model KibanaClusterTopologyElement
 type KibanaClusterTopologyElement struct {
 
-	// DEPRECATED: Scheduled for removal in a future version of the API.
-	//
-	// Controls the allocation strategy of this node type using a simplified version of the Elasticsearch filter DSL (together with 'node_configuration')
-	AllocatorFilter interface{} `json:"allocator_filter,omitempty"`
-
 	// Controls the allocation of this topology element as well as allowed sizes and node_types. It needs to match the id of an existing instance configuration.
 	InstanceConfigurationID string `json:"instance_configuration_id,omitempty"`
 
@@ -48,11 +43,6 @@ type KibanaClusterTopologyElement struct {
 
 	// The memory capacity in MB for each node of this type built in each zone.
 	MemoryPerNode int32 `json:"memory_per_node,omitempty"`
-
-	// DEPRECATED: Scheduled for removal in a future version of the API.
-	//
-	// Controls the allocation strategy of this node type by pointing to the names of pre-registered allocator settings. Unless otherwise specified for this deployment, should be omitted.
-	NodeConfiguration string `json:"node_configuration,omitempty"`
 
 	// The number of nodes of this type that are allocated within each zone (i.e. total capacity per zone = `node_count_per_zone` * `memory_per_node` in MB).
 	NodeCountPerZone int32 `json:"node_count_per_zone,omitempty"`

@@ -35,31 +35,25 @@ import (
 // swagger:model ElasticsearchClusterSettings
 type ElasticsearchClusterSettings struct {
 
-	// DEPRECATED (Scheduled to be removed in the next major version): Configuration of remote clusters. Use the /remote-clusters endpoints instead
-	Ccs *CrossClusterSearchSettings `json:"ccs,omitempty"`
-
-	// curation
+	// The curation settings for this deployment. When provided, curation settings are changed as specified. A `null` value reverts the field to the default value. Otherwise, all curation settings remain as they were set previously.
 	Curation *ClusterCurationSettings `json:"curation,omitempty"`
 
-	// Threshold starting from which the number of instances in the cluster results in the introduction of dedicated masters. If the cluster is downscaled to a number of nodes below this one, dedicated masters will be removed. Limit is inclusive.
+	// Threshold starting from which the number of instances in the cluster results in the introduction of dedicated masters. If the cluster is downscaled to a number of nodes below this one, dedicated masters will be removed. Limit is inclusive. When provided the threshold setting is updated. A `null` value removes the field. Otherwise, the setting remains as it was set previously.
 	DedicatedMastersThreshold int32 `json:"dedicated_masters_threshold,omitempty"`
-
-	// DEPRECATED (Scheduled to be removed in the next major version): The set of rulesets to apply for all the resources in this cluster. When specified the same rulesets will be applied to Kibana and APM clusters as well
-	IPFiltering *IPFilteringSettings `json:"ip_filtering,omitempty"`
 
 	// metadata
 	Metadata *ClusterMetadataSettings `json:"metadata,omitempty"`
 
-	// monitoring
+	// The monitoring settings for this deployment. When provided, monitoring settings are changed as specified. A `null` value reverts the field to the default value. Otherwise, all monitoring settings remain as they were set previously.
 	Monitoring *ManagedMonitoringSettings `json:"monitoring,omitempty"`
 
-	// snapshot
+	// The snapshot settings for this deployment. When provided, snapshot settings are changed as specified. A `null` value reverts the field to the default value. Otherwise, all snapshot settings remain as they were set previously.
 	Snapshot *ClusterSnapshotSettings `json:"snapshot,omitempty"`
 
-	// The rulesets to apply to all resources in this cluster. When specified the same rulesets will be applied to Kibana and APM clusters as well
+	// The rulesets to apply to all resources in this cluster. When specified, the set of rulesets is updated and the same rulesets will be applied to Kibana and APM clusters as well. If not specified, the rulesets remain as they were set previously.
 	TrafficFilter *TrafficFilterSettings `json:"traffic_filter,omitempty"`
 
-	// Configuration of trust with other clusters
+	// Configuration of trust with other clusters. When provided, trust settings are changed as specified. A `null` value reverts the field to the default value. Otherwise, all trust settings remain as they were set previously.
 	Trust *ElasticsearchClusterTrustSettings `json:"trust,omitempty"`
 }
 
@@ -67,15 +61,7 @@ type ElasticsearchClusterSettings struct {
 func (m *ElasticsearchClusterSettings) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateCcs(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateCuration(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateIPFiltering(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -105,23 +91,6 @@ func (m *ElasticsearchClusterSettings) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *ElasticsearchClusterSettings) validateCcs(formats strfmt.Registry) error {
-	if swag.IsZero(m.Ccs) { // not required
-		return nil
-	}
-
-	if m.Ccs != nil {
-		if err := m.Ccs.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("ccs")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
 func (m *ElasticsearchClusterSettings) validateCuration(formats strfmt.Registry) error {
 	if swag.IsZero(m.Curation) { // not required
 		return nil
@@ -131,23 +100,6 @@ func (m *ElasticsearchClusterSettings) validateCuration(formats strfmt.Registry)
 		if err := m.Curation.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("curation")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *ElasticsearchClusterSettings) validateIPFiltering(formats strfmt.Registry) error {
-	if swag.IsZero(m.IPFiltering) { // not required
-		return nil
-	}
-
-	if m.IPFiltering != nil {
-		if err := m.IPFiltering.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("ip_filtering")
 			}
 			return err
 		}
@@ -245,15 +197,7 @@ func (m *ElasticsearchClusterSettings) validateTrust(formats strfmt.Registry) er
 func (m *ElasticsearchClusterSettings) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.contextValidateCcs(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.contextValidateCuration(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateIPFiltering(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -283,40 +227,12 @@ func (m *ElasticsearchClusterSettings) ContextValidate(ctx context.Context, form
 	return nil
 }
 
-func (m *ElasticsearchClusterSettings) contextValidateCcs(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.Ccs != nil {
-		if err := m.Ccs.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("ccs")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
 func (m *ElasticsearchClusterSettings) contextValidateCuration(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.Curation != nil {
 		if err := m.Curation.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("curation")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *ElasticsearchClusterSettings) contextValidateIPFiltering(ctx context.Context, formats strfmt.Registry) error {
-
-	if m.IPFiltering != nil {
-		if err := m.IPFiltering.ContextValidate(ctx, formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("ip_filtering")
 			}
 			return err
 		}

@@ -150,6 +150,82 @@ func TestNew202Response(t *testing.T) {
 	}
 }
 
+func TestNew302Response(t *testing.T) {
+	bodyBuffer := NewStringBody("302")
+	type args struct {
+		body io.ReadCloser
+	}
+	tests := []struct {
+		name string
+		args args
+		want Response
+	}{
+		{
+			name: "Returns statuscode 302",
+			args: args{},
+			want: Response{Response: http.Response{
+				StatusCode: 302,
+				Body:       NewStringBody(""),
+			}},
+		},
+		{
+			name: "Returns statuscode 302 with body",
+			args: args{
+				body: bodyBuffer,
+			},
+			want: Response{Response: http.Response{
+				StatusCode: 302,
+				Body:       bodyBuffer,
+			}},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := New302Response(tt.args.body); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("New302Response() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestNew400Response(t *testing.T) {
+	bodyBuffer := NewStringBody("400")
+	type args struct {
+		body io.ReadCloser
+	}
+	tests := []struct {
+		name string
+		args args
+		want Response
+	}{
+		{
+			name: "Returns statuscode 400",
+			args: args{},
+			want: Response{Response: http.Response{
+				StatusCode: 400,
+				Body:       NewStringBody(""),
+			}},
+		},
+		{
+			name: "Returns statuscode 400 with body",
+			args: args{
+				body: bodyBuffer,
+			},
+			want: Response{Response: http.Response{
+				StatusCode: 400,
+				Body:       bodyBuffer,
+			}},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := New400Response(tt.args.body); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("New400Response() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
 func TestNew404Response(t *testing.T) {
 	bodyBuffer := NewStringBody("404")
 	type args struct {
@@ -188,6 +264,44 @@ func TestNew404Response(t *testing.T) {
 	}
 }
 
+func TestNew409Response(t *testing.T) {
+	bodyBuffer := NewStringBody("409")
+	type args struct {
+		body io.ReadCloser
+	}
+	tests := []struct {
+		name string
+		args args
+		want Response
+	}{
+		{
+			name: "Returns statuscode 409",
+			args: args{},
+			want: Response{Response: http.Response{
+				StatusCode: 409,
+				Body:       NewStringBody(""),
+			}},
+		},
+		{
+			name: "Returns statuscode 409 with body",
+			args: args{
+				body: bodyBuffer,
+			},
+			want: Response{Response: http.Response{
+				StatusCode: 409,
+				Body:       bodyBuffer,
+			}},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := New409Response(tt.args.body); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("New409Response() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
 func TestNew500Response(t *testing.T) {
 	bodyBuffer := NewStringBody("500")
 	type args struct {
@@ -221,6 +335,82 @@ func TestNew500Response(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := New500Response(tt.args.body); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("New500Response() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestNew501Response(t *testing.T) {
+	bodyBuffer := NewStringBody("501")
+	type args struct {
+		body io.ReadCloser
+	}
+	tests := []struct {
+		name string
+		args args
+		want Response
+	}{
+		{
+			name: "Returns statuscode 501",
+			args: args{},
+			want: Response{Response: http.Response{
+				StatusCode: 501,
+				Body:       NewStringBody(""),
+			}},
+		},
+		{
+			name: "Returns statuscode 501 with body",
+			args: args{
+				body: bodyBuffer,
+			},
+			want: Response{Response: http.Response{
+				StatusCode: 501,
+				Body:       bodyBuffer,
+			}},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := New501Response(tt.args.body); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("New501Response() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestNew502Response(t *testing.T) {
+	bodyBuffer := NewStringBody("502")
+	type args struct {
+		body io.ReadCloser
+	}
+	tests := []struct {
+		name string
+		args args
+		want Response
+	}{
+		{
+			name: "Returns statuscode 502",
+			args: args{},
+			want: Response{Response: http.Response{
+				StatusCode: 502,
+				Body:       NewStringBody(""),
+			}},
+		},
+		{
+			name: "Returns statuscode 502 with body",
+			args: args{
+				body: bodyBuffer,
+			},
+			want: Response{Response: http.Response{
+				StatusCode: 502,
+				Body:       bodyBuffer,
+			}},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := New502Response(tt.args.body); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("New502Response() = %v, want %v", got, tt.want)
 			}
 		})
 	}
@@ -385,6 +575,112 @@ func TestNew202ResponseAssertion(t *testing.T) {
 	}
 }
 
+func TestNew302ResponseAssertion(t *testing.T) {
+	bodyBuffer := NewStringBody("302")
+	type args struct {
+		assertion *RequestAssertion
+		body      io.ReadCloser
+	}
+	tests := []struct {
+		name string
+		args args
+		want Response
+	}{
+		{
+			name: "Returns statuscode 302",
+			args: args{},
+			want: Response{Response: http.Response{
+				StatusCode: 302,
+				Body:       NewStringBody(""),
+			}},
+		},
+		{
+			name: "Returns statuscode 302 with body",
+			args: args{
+				body: bodyBuffer,
+			},
+			want: Response{Response: http.Response{
+				StatusCode: 302,
+				Body:       bodyBuffer,
+			}},
+		},
+		{
+			name: "Returns statuscode 302 with body and request assertion",
+			args: args{
+				assertion: mockRequestAssertion,
+				body:      bodyBuffer,
+			},
+			want: Response{
+				Response: http.Response{
+					StatusCode: 302,
+					Body:       bodyBuffer,
+				},
+				Assert: mockRequestAssertion,
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := New302ResponseAssertion(tt.args.assertion, tt.args.body); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("New302Response() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestNew400ResponseAssertion(t *testing.T) {
+	bodyBuffer := NewStringBody("400")
+	type args struct {
+		assertion *RequestAssertion
+		body      io.ReadCloser
+	}
+	tests := []struct {
+		name string
+		args args
+		want Response
+	}{
+		{
+			name: "Returns statuscode 400",
+			args: args{},
+			want: Response{Response: http.Response{
+				StatusCode: 400,
+				Body:       NewStringBody(""),
+			}},
+		},
+		{
+			name: "Returns statuscode 400 with body",
+			args: args{
+				body: bodyBuffer,
+			},
+			want: Response{Response: http.Response{
+				StatusCode: 400,
+				Body:       bodyBuffer,
+			}},
+		},
+		{
+			name: "Returns statuscode 400 with body and request assertion",
+			args: args{
+				assertion: mockRequestAssertion,
+				body:      bodyBuffer,
+			},
+			want: Response{
+				Response: http.Response{
+					StatusCode: 400,
+					Body:       bodyBuffer,
+				},
+				Assert: mockRequestAssertion,
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := New400ResponseAssertion(tt.args.assertion, tt.args.body); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("New400Response() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
 func TestNew404ResponseAssertion(t *testing.T) {
 	bodyBuffer := NewStringBody("404")
 	type args struct {
@@ -438,6 +734,59 @@ func TestNew404ResponseAssertion(t *testing.T) {
 	}
 }
 
+func TestNew409ResponseAssertion(t *testing.T) {
+	bodyBuffer := NewStringBody("409")
+	type args struct {
+		assertion *RequestAssertion
+		body      io.ReadCloser
+	}
+	tests := []struct {
+		name string
+		args args
+		want Response
+	}{
+		{
+			name: "Returns statuscode 409",
+			args: args{},
+			want: Response{Response: http.Response{
+				StatusCode: 409,
+				Body:       NewStringBody(""),
+			}},
+		},
+		{
+			name: "Returns statuscode 409 with body",
+			args: args{
+				body: bodyBuffer,
+			},
+			want: Response{Response: http.Response{
+				StatusCode: 409,
+				Body:       bodyBuffer,
+			}},
+		},
+		{
+			name: "Returns statuscode 409 with body and request assertion",
+			args: args{
+				assertion: mockRequestAssertion,
+				body:      bodyBuffer,
+			},
+			want: Response{
+				Response: http.Response{
+					StatusCode: 409,
+					Body:       bodyBuffer,
+				},
+				Assert: mockRequestAssertion,
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := New409ResponseAssertion(tt.args.assertion, tt.args.body); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("New409Response() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
 func TestNew500ResponseAssertion(t *testing.T) {
 	bodyBuffer := NewStringBody("500")
 	type args struct {
@@ -486,6 +835,112 @@ func TestNew500ResponseAssertion(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := New500ResponseAssertion(tt.args.assertion, tt.args.body); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("New500Response() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestNew501ResponseAssertion(t *testing.T) {
+	bodyBuffer := NewStringBody("501")
+	type args struct {
+		assertion *RequestAssertion
+		body      io.ReadCloser
+	}
+	tests := []struct {
+		name string
+		args args
+		want Response
+	}{
+		{
+			name: "Returns statuscode 501",
+			args: args{},
+			want: Response{Response: http.Response{
+				StatusCode: 501,
+				Body:       NewStringBody(""),
+			}},
+		},
+		{
+			name: "Returns statuscode 501 with body",
+			args: args{
+				body: bodyBuffer,
+			},
+			want: Response{Response: http.Response{
+				StatusCode: 501,
+				Body:       bodyBuffer,
+			}},
+		},
+		{
+			name: "Returns statuscode 501 with body and request assertion",
+			args: args{
+				assertion: mockRequestAssertion,
+				body:      bodyBuffer,
+			},
+			want: Response{
+				Response: http.Response{
+					StatusCode: 501,
+					Body:       bodyBuffer,
+				},
+				Assert: mockRequestAssertion,
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := New501ResponseAssertion(tt.args.assertion, tt.args.body); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("New501Response() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestNew502ResponseAssertion(t *testing.T) {
+	bodyBuffer := NewStringBody("502")
+	type args struct {
+		assertion *RequestAssertion
+		body      io.ReadCloser
+	}
+	tests := []struct {
+		name string
+		args args
+		want Response
+	}{
+		{
+			name: "Returns statuscode 502",
+			args: args{},
+			want: Response{Response: http.Response{
+				StatusCode: 502,
+				Body:       NewStringBody(""),
+			}},
+		},
+		{
+			name: "Returns statuscode 502 with body",
+			args: args{
+				body: bodyBuffer,
+			},
+			want: Response{Response: http.Response{
+				StatusCode: 502,
+				Body:       bodyBuffer,
+			}},
+		},
+		{
+			name: "Returns statuscode 502 with body and request assertion",
+			args: args{
+				assertion: mockRequestAssertion,
+				body:      bodyBuffer,
+			},
+			want: Response{
+				Response: http.Response{
+					StatusCode: 502,
+					Body:       bodyBuffer,
+				},
+				Assert: mockRequestAssertion,
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := New502ResponseAssertion(tt.args.assertion, tt.args.body); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("New502Response() = %v, want %v", got, tt.want)
 			}
 		})
 	}
@@ -565,6 +1020,14 @@ func TestNewStructResponse(t *testing.T) {
 			args: args{i: S{}, code: 404},
 			want: Response{Response: http.Response{
 				StatusCode: 404,
+				Body:       structBody,
+			}},
+		},
+		{
+			name: "get a 409 response",
+			args: args{i: S{}, code: 409},
+			want: Response{Response: http.Response{
+				StatusCode: 409,
 				Body:       structBody,
 			}},
 		},

@@ -34,7 +34,7 @@ import (
 func TestUpdateTemplate(t *testing.T) {
 	urlError := url.Error{
 		Op:  "Put",
-		URL: "https://mock.elastic.co/api/v1/regions/us-east-1/platform/configuration/templates/deployments/84e0bd6d69bb44e294809d89cea88a7e",
+		URL: "https://mock.elastic.co/api/v1/deployments/templates/84e0bd6d69bb44e294809d89cea88a7e?region=us-east-1",
 		Err: errors.New("error"),
 	}
 	tests := []struct {
@@ -45,9 +45,9 @@ func TestUpdateTemplate(t *testing.T) {
 		{
 			name: "Platform deployment template update succeeds",
 			args: UpdateTemplateParams{
-				DeploymentTemplateInfo: deploymentTemplateModel(),
-				ID:                     validTemplateID,
-				Region:                 "us-east-1",
+				DeploymentTemplateRequestBody: deploymentTemplateModel("us-east-1"),
+				ID:                            validTemplateID,
+				Region:                        "us-east-1",
 				API: api.NewMock(mock.Response{
 					Response: http.Response{
 						Body:       mock.NewStringBody(`{}`),
@@ -57,8 +57,11 @@ func TestUpdateTemplate(t *testing.T) {
 						Header: api.DefaultWriteMockHeaders,
 						Method: "PUT",
 						Host:   api.DefaultMockHost,
-						Body:   mock.NewStringBody(`{"cluster_template":{"plan":{"cluster_topology":[{"instance_configuration_id":"default-elasticsearch","node_roles":null,"node_type":{"data":true,"master":true},"size":{"resource":"memory","value":1024}}],"elasticsearch":{"version":"6.2.3"}}},"kibana_deeplink":null,"metadata":[{"key":"trial","value":"true"}],"name":"(Trial) Default Elasticsearch","source":{"action":"deployments.create-template","admin_id":"admin","date":"2018-04-19T18:16:57.297Z","facilitator":"adminconsole","remote_addresses":["52.205.1.231"],"user_id":"1"},"system_owned":false}` + "\n"),
-						Path:   "/api/v1/regions/us-east-1/platform/configuration/templates/deployments/84e0bd6d69bb44e294809d89cea88a7e",
+						Query: url.Values{
+							"region": {"us-east-1"},
+						},
+						Body: mock.NewStringBody(`{"deployment_template":{"resources":{"apm":null,"appsearch":null,"elasticsearch":[{"plan":{"cluster_topology":[{"instance_configuration_id":"default-elasticsearch","node_roles":null,"node_type":{"data":true,"master":true},"size":{"resource":"memory","value":1024}}],"elasticsearch":{"version":"6.2.3"}},"ref_id":"main-elasticsearch","region":"us-east-1"}],"enterprise_search":null,"integrations_server":null,"kibana":null}},"kibana_deeplink":null,"metadata":[{"key":"trial","value":"true"}],"name":"(Trial) Default Elasticsearch","system_owned":false}` + "\n"),
+						Path: "/api/v1/deployments/templates/84e0bd6d69bb44e294809d89cea88a7e",
 					},
 				}),
 			},
@@ -66,10 +69,10 @@ func TestUpdateTemplate(t *testing.T) {
 		{
 			name: "Platform deployment template update fails due to API error",
 			args: UpdateTemplateParams{
-				DeploymentTemplateInfo: deploymentTemplateModel(),
-				ID:                     validTemplateID,
-				API:                    api.NewMock(mock.Response{Error: errors.New("error")}),
-				Region:                 "us-east-1",
+				DeploymentTemplateRequestBody: deploymentTemplateModel("us-east-1"),
+				ID:                            validTemplateID,
+				API:                           api.NewMock(mock.Response{Error: errors.New("error")}),
+				Region:                        "us-east-1",
 			},
 			err: urlError.Error(),
 		},

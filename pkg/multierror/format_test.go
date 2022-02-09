@@ -28,7 +28,7 @@ import (
 	"github.com/hashicorp/go-multierror"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/elastic/cloud-sdk-go/pkg/client/clusters_elasticsearch"
+	"github.com/elastic/cloud-sdk-go/pkg/client/deployments"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 	"github.com/elastic/cloud-sdk-go/pkg/util/ec"
 )
@@ -134,7 +134,7 @@ func TestJSONFormatFunc(t *testing.T) {
 				errors.New("some"),
 				errors.New("some 2"),
 				errors.New("some 3"),
-				&clusters_elasticsearch.DeleteEsClusterRetryWith{
+				&deployments.DeleteDeploymentStatelessResourceRetryWith{
 					Payload: &models.BasicFailedReply{
 						Errors: []*models.BasicFailedReplyElement{
 							{

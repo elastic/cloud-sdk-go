@@ -36,10 +36,10 @@ import (
 // swagger:model DeploymentCreateResources
 type DeploymentCreateResources struct {
 
-	// A list of payloads for APM creation.
+	// A list of payloads for APM creation. WARNING: For stack versions 8.0.0 and higher the integrations_server payload should be used instead, as this field becomes deprecated.
 	Apm []*ApmPayload `json:"apm"`
 
-	// A list of payloads for AppSearch creation.
+	// A list of payloads for AppSearch updates. AppSearch has been replaced by Enterprise Search in the Elastic Stack 7.7 and higher.
 	Appsearch []*AppSearchPayload `json:"appsearch"`
 
 	// A list of payloads for Elasticsearch cluster creation.
@@ -47,6 +47,9 @@ type DeploymentCreateResources struct {
 
 	// A list of payloads for Enterprise Search creation.
 	EnterpriseSearch []*EnterpriseSearchPayload `json:"enterprise_search"`
+
+	// A list of payloads for Integrations Server creation.
+	IntegrationsServer []*IntegrationsServerPayload `json:"integrations_server"`
 
 	// A list of payloads for Kibana creation.
 	Kibana []*KibanaPayload `json:"kibana"`
@@ -69,6 +72,10 @@ func (m *DeploymentCreateResources) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateEnterpriseSearch(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateIntegrationsServer(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -178,6 +185,30 @@ func (m *DeploymentCreateResources) validateEnterpriseSearch(formats strfmt.Regi
 	return nil
 }
 
+func (m *DeploymentCreateResources) validateIntegrationsServer(formats strfmt.Registry) error {
+	if swag.IsZero(m.IntegrationsServer) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.IntegrationsServer); i++ {
+		if swag.IsZero(m.IntegrationsServer[i]) { // not required
+			continue
+		}
+
+		if m.IntegrationsServer[i] != nil {
+			if err := m.IntegrationsServer[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("integrations_server" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
 func (m *DeploymentCreateResources) validateKibana(formats strfmt.Registry) error {
 	if swag.IsZero(m.Kibana) { // not required
 		return nil
@@ -219,6 +250,10 @@ func (m *DeploymentCreateResources) ContextValidate(ctx context.Context, formats
 	}
 
 	if err := m.contextValidateEnterpriseSearch(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateIntegrationsServer(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -294,6 +329,24 @@ func (m *DeploymentCreateResources) contextValidateEnterpriseSearch(ctx context.
 			if err := m.EnterpriseSearch[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("enterprise_search" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *DeploymentCreateResources) contextValidateIntegrationsServer(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.IntegrationsServer); i++ {
+
+		if m.IntegrationsServer[i] != nil {
+			if err := m.IntegrationsServer[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("integrations_server" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

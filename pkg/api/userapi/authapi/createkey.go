@@ -20,6 +20,7 @@ package userauthapi
 import (
 	"errors"
 
+	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/api/apierror"
 	"github.com/elastic/cloud-sdk-go/pkg/client/authentication"
 	"github.com/elastic/cloud-sdk-go/pkg/models"
@@ -29,7 +30,7 @@ import (
 
 // CreateKeyParams is consumed by CreateKey
 type CreateKeyParams struct {
-	ReAuthenticateParams
+	*api.API
 
 	Description string
 }
@@ -37,8 +38,10 @@ type CreateKeyParams struct {
 // Validate ensures the parameters are usable by the consuming function.
 func (params CreateKeyParams) Validate() error {
 	var merr = multierror.NewPrefixed("invalid user auth params")
-	merr = merr.Append(params.ReAuthenticateParams.Validate())
 
+	if params.API == nil {
+		merr = merr.Append(apierror.ErrMissingAPI)
+	}
 	if params.Description == "" {
 		merr = merr.Append(errors.New("key description is not specified and is required for this operation"))
 	}
@@ -52,16 +55,10 @@ func CreateKey(params CreateKeyParams) (*models.APIKeyResponse, error) {
 		return nil, err
 	}
 
-	token, err := ReAuthenticate(params.ReAuthenticateParams)
-	if err != nil {
-		return nil, err
-	}
-
 	res, err := params.V1API.Authentication.CreateAPIKey(
 		authentication.NewCreateAPIKeyParams().
 			WithBody(&models.CreateAPIKeyRequest{
-				AuthenticationToken: token,
-				Description:         ec.String(params.Description),
+				Description: ec.String(params.Description),
 			}),
 		params.AuthWriter,
 	)

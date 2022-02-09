@@ -53,6 +53,10 @@ type Orphaned struct {
 	// Required: true
 	EnterpriseSearch []string `json:"enterprise_search"`
 
+	// List of orphaned Integrations Server resource ids
+	// Required: true
+	IntegrationsServer []string `json:"integrations_server"`
+
 	// List of orphaned Kibana resource ids
 	// Required: true
 	Kibana []string `json:"kibana"`
@@ -75,6 +79,10 @@ func (m *Orphaned) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateEnterpriseSearch(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateIntegrationsServer(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -134,6 +142,15 @@ func (m *Orphaned) validateElasticsearch(formats strfmt.Registry) error {
 func (m *Orphaned) validateEnterpriseSearch(formats strfmt.Registry) error {
 
 	if err := validate.Required("enterprise_search", "body", m.EnterpriseSearch); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Orphaned) validateIntegrationsServer(formats strfmt.Registry) error {
+
+	if err := validate.Required("integrations_server", "body", m.IntegrationsServer); err != nil {
 		return err
 	}
 

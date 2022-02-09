@@ -46,8 +46,26 @@ func (o *GetCostsItemsByDeploymentReader) ReadResponse(response runtime.ClientRe
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewGetCostsItemsByDeploymentBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	case 403:
 		result := NewGetCostsItemsByDeploymentForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 404:
+		result := NewGetCostsItemsByDeploymentNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+	case 500:
+		result := NewGetCostsItemsByDeploymentInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -89,6 +107,50 @@ func (o *GetCostsItemsByDeploymentOK) readResponse(response runtime.ClientRespon
 	return nil
 }
 
+// NewGetCostsItemsByDeploymentBadRequest creates a GetCostsItemsByDeploymentBadRequest with default headers values
+func NewGetCostsItemsByDeploymentBadRequest() *GetCostsItemsByDeploymentBadRequest {
+	return &GetCostsItemsByDeploymentBadRequest{}
+}
+
+/* GetCostsItemsByDeploymentBadRequest describes a response with status code 400, with default header values.
+
+The specified date range is invalid. (code: `costs.invalid_date_range`)
+*/
+type GetCostsItemsByDeploymentBadRequest struct {
+
+	/* The error codes associated with the response
+	 */
+	XCloudErrorCodes string
+
+	Payload *models.BasicFailedReply
+}
+
+func (o *GetCostsItemsByDeploymentBadRequest) Error() string {
+	return fmt.Sprintf("[GET /billing/costs/{organization_id}/deployments/{deployment_id}/items][%d] getCostsItemsByDeploymentBadRequest  %+v", 400, o.Payload)
+}
+func (o *GetCostsItemsByDeploymentBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
+func (o *GetCostsItemsByDeploymentBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
+
+	o.Payload = new(models.BasicFailedReply)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
 // NewGetCostsItemsByDeploymentForbidden creates a GetCostsItemsByDeploymentForbidden with default headers values
 func NewGetCostsItemsByDeploymentForbidden() *GetCostsItemsByDeploymentForbidden {
 	return &GetCostsItemsByDeploymentForbidden{}
@@ -115,6 +177,95 @@ func (o *GetCostsItemsByDeploymentForbidden) GetPayload() *models.BasicFailedRep
 }
 
 func (o *GetCostsItemsByDeploymentForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
+
+	o.Payload = new(models.BasicFailedReply)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetCostsItemsByDeploymentNotFound creates a GetCostsItemsByDeploymentNotFound with default headers values
+func NewGetCostsItemsByDeploymentNotFound() *GetCostsItemsByDeploymentNotFound {
+	return &GetCostsItemsByDeploymentNotFound{}
+}
+
+/* GetCostsItemsByDeploymentNotFound describes a response with status code 404, with default header values.
+
+ * The organization was not found. (code: `organization.not_found`)
+* The Elasticsearch cluster was not found. (code: `billing_service.es_cluster_id_not_found`)
+*/
+type GetCostsItemsByDeploymentNotFound struct {
+
+	/* The error codes associated with the response
+	 */
+	XCloudErrorCodes string
+
+	Payload *models.BasicFailedReply
+}
+
+func (o *GetCostsItemsByDeploymentNotFound) Error() string {
+	return fmt.Sprintf("[GET /billing/costs/{organization_id}/deployments/{deployment_id}/items][%d] getCostsItemsByDeploymentNotFound  %+v", 404, o.Payload)
+}
+func (o *GetCostsItemsByDeploymentNotFound) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
+func (o *GetCostsItemsByDeploymentNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
+
+	o.Payload = new(models.BasicFailedReply)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetCostsItemsByDeploymentInternalServerError creates a GetCostsItemsByDeploymentInternalServerError with default headers values
+func NewGetCostsItemsByDeploymentInternalServerError() *GetCostsItemsByDeploymentInternalServerError {
+	return &GetCostsItemsByDeploymentInternalServerError{}
+}
+
+/* GetCostsItemsByDeploymentInternalServerError describes a response with status code 500, with default header values.
+
+An error occurred when fetching the itemized costs for the given deployment of the organization. (code: `billing_service.failed_request`)
+*/
+type GetCostsItemsByDeploymentInternalServerError struct {
+
+	/* The error codes associated with the response
+	 */
+	XCloudErrorCodes string
+
+	Payload *models.BasicFailedReply
+}
+
+func (o *GetCostsItemsByDeploymentInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /billing/costs/{organization_id}/deployments/{deployment_id}/items][%d] getCostsItemsByDeploymentInternalServerError  %+v", 500, o.Payload)
+}
+func (o *GetCostsItemsByDeploymentInternalServerError) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
+func (o *GetCostsItemsByDeploymentInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// hydrates response header x-cloud-error-codes
 	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")

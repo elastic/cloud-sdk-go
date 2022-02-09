@@ -90,7 +90,7 @@ type StopDeploymentResourceInstancesAllMaintenanceModeParams struct {
 
 	/* ResourceKind.
 
-	   The kind of resource (one of elasticsearch, kibana or apm).
+	   The kind of resource (one of elasticsearch, kibana, apm, or integrations_server).
 	*/
 	ResourceKind string
 

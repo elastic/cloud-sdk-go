@@ -38,6 +38,10 @@ import (
 // swagger:model ApmInfo
 type ApmInfo struct {
 
+	// The mode APM is operating in.
+	// Enum: [Standalone Managed]
+	ApmServerMode string `json:"apm_server_mode,omitempty"`
+
 	// The id of the deployment that this APM Server belongs to.
 	DeploymentID string `json:"deployment_id,omitempty"`
 
@@ -92,6 +96,10 @@ type ApmInfo struct {
 func (m *ApmInfo) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateApmServerMode(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateElasticsearchCluster(formats); err != nil {
 		res = append(res, err)
 	}
@@ -139,6 +147,48 @@ func (m *ApmInfo) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+var apmInfoTypeApmServerModePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["Standalone","Managed"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		apmInfoTypeApmServerModePropEnum = append(apmInfoTypeApmServerModePropEnum, v)
+	}
+}
+
+const (
+
+	// ApmInfoApmServerModeStandalone captures enum value "Standalone"
+	ApmInfoApmServerModeStandalone string = "Standalone"
+
+	// ApmInfoApmServerModeManaged captures enum value "Managed"
+	ApmInfoApmServerModeManaged string = "Managed"
+)
+
+// prop value enum
+func (m *ApmInfo) validateApmServerModeEnum(path, location string, value string) error {
+	if err := validate.EnumCase(path, location, value, apmInfoTypeApmServerModePropEnum, true); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *ApmInfo) validateApmServerMode(formats strfmt.Registry) error {
+	if swag.IsZero(m.ApmServerMode) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateApmServerModeEnum("apm_server_mode", "body", m.ApmServerMode); err != nil {
+		return err
+	}
+
 	return nil
 }
 

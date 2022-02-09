@@ -36,20 +36,20 @@ import (
 // swagger:model SamlAttributeSettings
 type SamlAttributeSettings struct {
 
-	// The Name of the SAML attribute that contains the user's X.50 Distinguished Name
+	// The name of the SAML attribute that contains the user's X.50 Distinguished Name
 	Dn string `json:"dn,omitempty"`
 
-	// The Name of the SAML attribute that contains the user's groups
+	// The name of the SAML attribute that contains the user's groups
 	// Required: true
 	Groups *string `json:"groups"`
 
-	// The Name of the SAML attribute that contains the user's email address
+	// The name of the SAML attribute that contains the user's email address
 	Mail string `json:"mail,omitempty"`
 
-	// The Name of the SAML attribute that contains the user's full name
+	// The name of the SAML attribute that contains the user's full name
 	Name string `json:"name,omitempty"`
 
-	// The Name of the SAML attribute that contains the user's principal (username)
+	// The name of the SAML attribute that contains the user's principal (username). This name should map to a value that does not contain commas or slashes.
 	// Required: true
 	Principal *string `json:"principal"`
 }
