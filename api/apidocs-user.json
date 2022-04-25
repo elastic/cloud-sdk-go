@@ -23,8 +23,6 @@
   }, {
     "name" : "Extensions"
   }, {
-    "name" : "Organizations"
-  }, {
     "name" : "Stack"
   } ],
   "schemes" : [ "https" ],
@@ -148,7 +146,7 @@
     "/billing/costs/{organization_id}" : {
       "get" : {
         "tags" : [ "BillingCostsAnalysis" ],
-        "summary" : "Get costs overview for the organization. Currently unavailable in self-hosted ECE.",
+        "summary" : "Get costs overview for the organization",
         "description" : "EXPERIMENTAL (it may change in future versions): Retrieves an overview of the costs by organization ID.",
         "operationId" : "get-costs-overview",
         "parameters" : [ {
@@ -235,100 +233,10 @@
         }
       }
     },
-    "/billing/costs/{organization_id}/charts" : {
-      "get" : {
-        "tags" : [ "BillingCostsAnalysis" ],
-        "summary" : "Get charts for the organization. Currently unavailable in self-hosted ECE.",
-        "description" : "EXPERIMENTAL (it may change in future versions): Retrieves the usage charts for the organization.",
-        "operationId" : "get-costs-charts",
-        "parameters" : [ {
-          "name" : "organization_id",
-          "in" : "path",
-          "description" : "Identifier for the organization",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "from",
-          "in" : "query",
-          "description" : "A datetime for the beginning of the desired range for which to fetch costs. Defaults to start of current month.",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "to",
-          "in" : "query",
-          "description" : "A datetime for the end of the desired range for which to fetch costs. Defaults to the current date.",
-          "required" : false,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "The usage charts of an organization.",
-            "schema" : {
-              "$ref" : "#/definitions/ChartItems"
-            }
-          },
-          "400" : {
-            "description" : "The specified date range is invalid. (code: `costs.invalid_date_range`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "costs.invalid_date_range" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "403" : {
-            "description" : "The current user does not have access to the requested organization. (code: `organization.invalid_access`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "organization.invalid_access" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "404" : {
-            "description" : "Organization not found. (code: `organization.not_found`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "organization.not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "500" : {
-            "description" : "Error fetching the itemized costs for the organization. (code: `billing_service.failed_request`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "billing_service.failed_request" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          }
-        },
-        "x-doc" : {
-          "tag" : "Billing Costs Analysis"
-        }
-      }
-    },
     "/billing/costs/{organization_id}/deployments" : {
       "get" : {
         "tags" : [ "BillingCostsAnalysis" ],
-        "summary" : "Get deployments costs for the organization. Currently unavailable in self-hosted ECE.",
+        "summary" : "Get deployments costs for the organization",
         "description" : "EXPERIMENTAL (it may change in future versions): Retrieves the costs associated with all deployments for the organization.",
         "operationId" : "get-costs-deployments",
         "parameters" : [ {
@@ -347,12 +255,6 @@
           "name" : "to",
           "in" : "query",
           "description" : "A datetime for the end of the desired range for which to fetch activity. Defaults to the current date.",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "Accept",
-          "in" : "header",
-          "description" : "Accept header containing the content preference.",
           "required" : false,
           "type" : "string"
         } ],
@@ -421,106 +323,10 @@
         }
       }
     },
-    "/billing/costs/{organization_id}/deployments/{deployment_id}/charts" : {
-      "get" : {
-        "tags" : [ "BillingCostsAnalysis" ],
-        "summary" : "Get charts by deployment. Currently unavailable in self-hosted ECE.",
-        "description" : "EXPERIMENTAL (it may change in future versions): Retrieves the usage charts for the given  deployment.",
-        "operationId" : "get-costs-charts-by-deployment",
-        "parameters" : [ {
-          "name" : "organization_id",
-          "in" : "path",
-          "description" : "Identifier for the organization",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "deployment_id",
-          "in" : "path",
-          "description" : "Id of a Deployment",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "from",
-          "in" : "query",
-          "description" : "A datetime for the beginning of the desired range for which to fetch costs. Defaults to start of current month.",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "to",
-          "in" : "query",
-          "description" : "A datetime for the end of the desired range for which to fetch costs. Defaults to the current date.",
-          "required" : false,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "The usage charts of a deployment.",
-            "schema" : {
-              "$ref" : "#/definitions/ChartItems"
-            }
-          },
-          "400" : {
-            "description" : "The specified date range is invalid. (code: `costs.invalid_date_range`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "costs.invalid_date_range" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "403" : {
-            "description" : "The current user does not have access to the requested organization. (code: `organization.invalid_access`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "organization.invalid_access" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "404" : {
-            "description" : "Organization not found. (code: `organization.not_found`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "organization.not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "500" : {
-            "description" : "Error fetching the itemized costs for the organization. (code: `billing_service.failed_request`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "billing_service.failed_request" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          }
-        },
-        "x-doc" : {
-          "tag" : "Billing Costs Analysis"
-        }
-      }
-    },
     "/billing/costs/{organization_id}/deployments/{deployment_id}/items" : {
       "get" : {
         "tags" : [ "BillingCostsAnalysis" ],
-        "summary" : "Get itemized costs by deployments. Currently unavailable in self-hosted ECE.",
+        "summary" : "Get itemized costs by deployments",
         "description" : "EXPERIMENTAL (it may change in future versions): Retrieves the itemized costs for the given deployment.",
         "operationId" : "get-costs-items-by-deployment",
         "parameters" : [ {
@@ -616,7 +422,7 @@
     "/billing/costs/{organization_id}/items" : {
       "get" : {
         "tags" : [ "BillingCostsAnalysis" ],
-        "summary" : "Get itemized costs for the organization. Currently unavailable in self-hosted ECE.",
+        "summary" : "Get itemized costs for the organization",
         "description" : "EXPERIMENTAL (it may change in future versions): Retrieves the itemized costs for the organization.",
         "operationId" : "get-costs-items",
         "parameters" : [ {
@@ -747,12 +553,6 @@
           "required" : false,
           "type" : "boolean",
           "default" : false
-        }, {
-          "name" : "template_id",
-          "in" : "query",
-          "description" : "An optional template id - if present, the referenced template will be used to fill in the resources field of the deployment creation request. If any resources are present in the request together with the template, the ones coming in the request will prevail and no merging with the template will be performed.",
-          "required" : false,
-          "type" : "string"
         }, {
           "in" : "body",
           "name" : "body",
@@ -2026,7 +1826,7 @@
         }, {
           "name" : "show_plan_history",
           "in" : "query",
-          "description" : "Whether to include the plan history with the current and pending plan information. The results can be very large per cluster.\n By default, if a given resource kind (e.g. Elasticsearch, Kibana, etc.) has more than 100 plans\n (which should be very rare, most likely caused by a bug) only 100 plans are returned for the given resource type:\n The first 10 plans, and the last 90 plans for that resource type.\n If ALL of the plans are desired, pass the `force_all_plan_history` parameter with a value of `true`.\n",
+          "description" : "Whether to include with the current and pending plan information the plan history- can be very large per cluster",
           "required" : false,
           "type" : "boolean",
           "default" : false
@@ -2065,13 +1865,6 @@
           "required" : false,
           "type" : "boolean",
           "default" : true
-        }, {
-          "name" : "force_all_plan_history",
-          "in" : "query",
-          "description" : "Force show the entire plan history no matter how long.\n As noted in the `show_plan_history` parameter description, by default, a maximum of 100 plans are shown per resource. \n If `true`, this parameter overrides the default, and ALL plans are returned.\n Use with care as the plan history can be VERY large. Consider pairing with `show_plan_logs=false`.\n ",
-          "required" : false,
-          "type" : "boolean",
-          "default" : false
         } ],
         "responses" : {
           "200" : {
@@ -2473,19 +2266,6 @@
               "$ref" : "#/definitions/ApmCrudResponse"
             }
           },
-          "400" : {
-            "description" : "Reset token is not supported when APM is managed by Elastic Agent. (code: `clusters.cluster_plan_state_error`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "clusters.cluster_plan_state_error" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
           "404" : {
             "description" : "* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)\n* The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)",
             "headers" : {
@@ -2764,45 +2544,6 @@
         },
         "x-doc" : {
           "tag" : "App Search - Read-only"
-        }
-      }
-    },
-    "/deployments/{deployment_id}/certificate-authority" : {
-      "get" : {
-        "tags" : [ "Deployments" ],
-        "summary" : "Get certificate authority",
-        "description" : "Returns the certificate authority used to sign the certificates of this deployment.",
-        "operationId" : "get-deployment-certificate-authority",
-        "parameters" : [ {
-          "name" : "deployment_id",
-          "in" : "path",
-          "description" : "Identifier for the Deployment.",
-          "required" : true,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "The certificate authority used to sign the certificates of this deployment",
-            "schema" : {
-              "$ref" : "#/definitions/CertificateAuthority"
-            }
-          },
-          "404" : {
-            "description" : "* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)\n* The Elasticsearch Resource cannot be found. (code: `deployments.deployment_resource_not_found`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "deployments.deployment_not_found", "deployments.deployment_resource_not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          }
-        },
-        "x-doc" : {
-          "tag" : "Deployment - Trust"
         }
       }
     },
@@ -3961,6 +3702,77 @@
         },
         "x-doc" : {
           "tag" : "Deployment - Info"
+        }
+      }
+    },
+    "/deployments/{deployment_id}/integrations_server/{ref_id}/_reset-token" : {
+      "post" : {
+        "tags" : [ "Deployments" ],
+        "summary" : "Reset the secret token for an Integrations Server resource.",
+        "description" : "Reset the token of an Integrations Server resource.",
+        "operationId" : "deployment-integrations-server-reset-secret-token",
+        "parameters" : [ {
+          "name" : "deployment_id",
+          "in" : "path",
+          "description" : "Identifier for the Deployment.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "ref_id",
+          "in" : "path",
+          "description" : "User-specified RefId for the Resource.",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "202" : {
+            "description" : "Response containing the new secret token, plan to apply it starts",
+            "schema" : {
+              "$ref" : "#/definitions/IntegrationsServerCrudResponse"
+            }
+          },
+          "404" : {
+            "description" : "* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)\n* The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.deployment_not_found", "deployments.deployment_resource_not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "500" : {
+            "description" : "We have failed you. (code: `deployments.deployment_resource_no_longer_exists`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "deployments.deployment_resource_no_longer_exists" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "449" : {
+            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "x-doc" : {
+          "tag" : "Integrations Server routes"
         }
       }
     },
@@ -5362,559 +5174,6 @@
         }
       }
     },
-    "/organizations" : {
-      "get" : {
-        "tags" : [ "Organizations" ],
-        "summary" : "List organizations",
-        "description" : "Fetch organizations available to the current user. Currently unavailable in self-hosted ECE.",
-        "operationId" : "list-organizations",
-        "parameters" : [ ],
-        "responses" : {
-          "200" : {
-            "description" : "Organizations fetched successfully",
-            "schema" : {
-              "$ref" : "#/definitions/OrganizationList"
-            }
-          },
-          "401" : {
-            "description" : "User not found. (code: `user.not_found`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "user.not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          }
-        },
-        "x-doc" : {
-          "tag" : "Organizations"
-        }
-      }
-    },
-    "/organizations/invitations/{invitation_token}" : {
-      "get" : {
-        "tags" : [ "Organizations" ],
-        "summary" : "Get organization invitation",
-        "description" : "Gets a single invitation to an organization by token. Currently unavailable in self-hosted ECE.",
-        "operationId" : "get-organization-invitation",
-        "parameters" : [ {
-          "name" : "invitation_token",
-          "in" : "path",
-          "description" : "Organization invitation token",
-          "required" : true,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Organization invitation fetched successfully",
-            "schema" : {
-              "$ref" : "#/definitions/OrganizationInvitation"
-            }
-          },
-          "404" : {
-            "description" : "Invitation not found. (code: `organization.invitation_not_found`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "organization.invitation_not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          }
-        },
-        "x-doc" : {
-          "tag" : "Organizations"
-        }
-      }
-    },
-    "/organizations/invitations/{invitation_token}/_accept" : {
-      "post" : {
-        "tags" : [ "Organizations" ],
-        "summary" : "Accept an organization invitation",
-        "description" : "Accepts an organization invitation. Currently unavailable in self-hosted ECE.",
-        "operationId" : "accept-organization-invitation",
-        "parameters" : [ {
-          "name" : "invitation_token",
-          "in" : "path",
-          "description" : "Organization invitation token",
-          "required" : true,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Organization invitation accepted successfully",
-            "schema" : {
-              "$ref" : "#/definitions/EmptyResponse"
-            }
-          },
-          "400" : {
-            "description" : "User already belongs to organization. (code: `organization.user_organization_already_belongs`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "organization.user_organization_already_belongs" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "403" : {
-            "description" : "The current user authentication is not valid. (code: `root.invalid_authentication`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.invalid_authentication" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "404" : {
-            "description" : "* Organization not found. (code: `organization.not_found`)\n* User not found. (code: `user.not_found`)\n* Invitation not found. (code: `organization.invitation_not_found`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "organization.not_found", "user.not_found", "organization.invitation_not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          }
-        },
-        "x-doc" : {
-          "tag" : "Organizations"
-        }
-      }
-    },
-    "/organizations/{organization_id}" : {
-      "get" : {
-        "tags" : [ "Organizations" ],
-        "summary" : "Fetch organization information",
-        "description" : "Fetch a single organization by id. Currently unavailable in self-hosted ECE.",
-        "operationId" : "get-organization",
-        "parameters" : [ {
-          "name" : "organization_id",
-          "in" : "path",
-          "description" : "Identifier for the Organization",
-          "required" : true,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Organization fetched successfully",
-            "schema" : {
-              "$ref" : "#/definitions/Organization"
-            }
-          },
-          "401" : {
-            "description" : "User not found. (code: `user.not_found`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "user.not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "403" : {
-            "description" : "The current user does not have access to the requested organization. (code: `organization.invalid_access`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "organization.invalid_access" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "404" : {
-            "description" : "Organization not found. (code: `organization.not_found`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "organization.not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          }
-        },
-        "x-doc" : {
-          "tag" : "Organizations"
-        }
-      },
-      "put" : {
-        "tags" : [ "Organizations" ],
-        "summary" : "Update organization",
-        "description" : "Updates an existing organization. Currently unavailable in self-hosted ECE.",
-        "operationId" : "update-organization",
-        "consumes" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "organization_id",
-          "in" : "path",
-          "description" : "Identifier for the Organization",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "in" : "body",
-          "name" : "body",
-          "description" : "The organization to update",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/definitions/OrganizationRequest"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Organization created successfully",
-            "schema" : {
-              "$ref" : "#/definitions/Organization"
-            }
-          },
-          "400" : {
-            "description" : "* Name must be between 2 and 30 characters. (code: `organization.invalid_name`)\n* User already has an organization. (code: `organization.user_organization_already_exists`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "organization.invalid_name", "organization.user_organization_already_exists" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "401" : {
-            "description" : "You are not authorized to perform this action",
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "403" : {
-            "description" : "The current user does not have access to the requested organization. (code: `organization.invalid_access`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "organization.invalid_access" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "404" : {
-            "description" : "Organization not found. (code: `organization.not_found`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "organization.not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          }
-        },
-        "x-doc" : {
-          "tag" : "Organizations"
-        }
-      }
-    },
-    "/organizations/{organization_id}/invitations" : {
-      "get" : {
-        "tags" : [ "Organizations" ],
-        "summary" : "List organization invitations",
-        "description" : "Fetch open invitations to the selected organization. Currently unavailable in self-hosted ECE.",
-        "operationId" : "list-organization-invitations",
-        "parameters" : [ {
-          "name" : "organization_id",
-          "in" : "path",
-          "description" : "Identifier for the Organization",
-          "required" : true,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Organization invitations fetched successfully",
-            "schema" : {
-              "$ref" : "#/definitions/OrganizationInvitations"
-            }
-          },
-          "404" : {
-            "description" : "Organization not found. (code: `organization.not_found`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "organization.not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          }
-        },
-        "x-doc" : {
-          "tag" : "Organizations"
-        }
-      },
-      "post" : {
-        "tags" : [ "Organizations" ],
-        "summary" : "Create organization invitations",
-        "description" : "Creates or refreshes organization invitations. Currently unavailable in self-hosted ECE.",
-        "operationId" : "create-organization-invitations",
-        "consumes" : [ "application/json" ],
-        "parameters" : [ {
-          "name" : "organization_id",
-          "in" : "path",
-          "description" : "Identifier for the Organization",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "in" : "body",
-          "name" : "body",
-          "description" : "The organization invitations to create or refresh",
-          "required" : true,
-          "schema" : {
-            "$ref" : "#/definitions/OrganizationInvitationRequest"
-          }
-        } ],
-        "responses" : {
-          "201" : {
-            "description" : "Organization invitations created successfully",
-            "schema" : {
-              "$ref" : "#/definitions/OrganizationInvitations"
-            }
-          },
-          "400" : {
-            "description" : "* Invitation email was not valid. (code: `organization.invitation_invalid_email`)\n* Invitation already sent. (code: `organization.invitation_already_exists`)\n* User already belongs to organization. (code: `organization.user_organization_already_belongs`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "organization.invitation_invalid_email", "organization.invitation_already_exists", "organization.user_organization_already_belongs" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "403" : {
-            "description" : "The current user authentication is not valid. (code: `root.invalid_authentication`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.invalid_authentication" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "404" : {
-            "description" : "* Organization not found. (code: `organization.not_found`)\n* User not found. (code: `user.not_found`)\n* Invitation sender does not belong to organization. (code: `organization.user_organization_does_not_belong`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "organization.not_found", "user.not_found", "organization.user_organization_does_not_belong" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "429" : {
-            "description" : "Request exceeds organization invitation creation rate limits. (code: `organization.invitations_rate_limit_exceeded`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "organization.invitations_rate_limit_exceeded" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          }
-        },
-        "x-doc" : {
-          "tag" : "Organizations"
-        }
-      }
-    },
-    "/organizations/{organization_id}/invitations/{invitation_tokens}" : {
-      "delete" : {
-        "tags" : [ "Organizations" ],
-        "summary" : "Delete organization invitations",
-        "description" : "Deletes one or more organization invitations. Currently unavailable in self-hosted ECE.",
-        "operationId" : "delete-organization-invitations",
-        "parameters" : [ {
-          "name" : "organization_id",
-          "in" : "path",
-          "description" : "Identifier for the Organization",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "invitation_tokens",
-          "in" : "path",
-          "description" : "CSV list of Invitation tokens",
-          "required" : true,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Organization invitations deleted successfully",
-            "schema" : {
-              "$ref" : "#/definitions/EmptyResponse"
-            }
-          },
-          "400" : {
-            "description" : "No valid invitation token was supplied. (code: `root.invalid_data`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.invalid_data" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "404" : {
-            "description" : "* Organization not found. (code: `organization.not_found`)\n* Invitation not found. (code: `organization.invitation_not_found`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "organization.not_found", "organization.invitation_not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          }
-        },
-        "x-doc" : {
-          "tag" : "Organizations"
-        }
-      }
-    },
-    "/organizations/{organization_id}/members" : {
-      "get" : {
-        "tags" : [ "Organizations" ],
-        "summary" : "List organization members",
-        "description" : "Fetch users belonging to the selected organization. Currently unavailable in self-hosted ECE.",
-        "operationId" : "list-organization-members",
-        "parameters" : [ {
-          "name" : "organization_id",
-          "in" : "path",
-          "description" : "Identifier for the Organization",
-          "required" : true,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Organization members fetched successfully",
-            "schema" : {
-              "$ref" : "#/definitions/OrganizationMemberships"
-            }
-          },
-          "404" : {
-            "description" : "Organization not found. (code: `organization.not_found`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "organization.not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          }
-        },
-        "x-doc" : {
-          "tag" : "Organizations"
-        }
-      }
-    },
-    "/organizations/{organization_id}/members/{user_ids}" : {
-      "delete" : {
-        "tags" : [ "Organizations" ],
-        "summary" : "Delete organization memberships",
-        "description" : "Deletes one or more organization memberships. Currently unavailable in self-hosted ECE.",
-        "operationId" : "delete-organization-memberships",
-        "parameters" : [ {
-          "name" : "organization_id",
-          "in" : "path",
-          "description" : "Identifier for the Organization",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "user_ids",
-          "in" : "path",
-          "description" : "CSV list of User identifiers",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "force",
-          "in" : "query",
-          "description" : "Whether or not to force the removal of Org memberships (effective only for Platform Admins)",
-          "required" : false,
-          "type" : "boolean",
-          "default" : false
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Organization membership deleted successfully",
-            "schema" : {
-              "$ref" : "#/definitions/EmptyResponse"
-            }
-          },
-          "404" : {
-            "description" : "* User not found. (code: `user.not_found`)\n* Organization not found. (code: `organization.not_found`)\n* Organization membership not found. (code: `organization.membership_not_found`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "user.not_found", "organization.not_found", "organization.membership_not_found" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          }
-        },
-        "x-doc" : {
-          "tag" : "Organizations"
-        }
-      }
-    },
     "/stack/versions" : {
       "get" : {
         "tags" : [ "Stack" ],
@@ -6563,9 +5822,6 @@
           "items" : {
             "$ref" : "#/definitions/ClusterPlanWarning"
           }
-        },
-        "error" : {
-          "$ref" : "#/definitions/ClusterPlanAttemptError"
         }
       },
       "description" : "Information about the APM Server plan."
@@ -6980,9 +6236,6 @@
           "items" : {
             "$ref" : "#/definitions/ClusterPlanWarning"
           }
-        },
-        "error" : {
-          "$ref" : "#/definitions/ClusterPlanAttemptError"
         }
       },
       "description" : "Information about the App Search Server plan."
@@ -7212,45 +6465,6 @@
       },
       "description" : "A query for documents that match boolean combinations of other queries."
     },
-    "CertificateAuthority" : {
-      "type" : "object",
-      "required" : [ "public_certificates", "recommended_trust_restriction" ],
-      "properties" : {
-        "recommended_trust_restriction" : {
-          "type" : "string",
-          "description" : "The trust restriction expression to use that would provide trust with the Elasticsearch nodes of this deployment"
-        },
-        "public_certificates" : {
-          "type" : "array",
-          "description" : "The certificates used by this certificate authority. The active certificate is the one that has been used to sign the current certificates of the Elasticsearch instances. All others are either certificates used in the past or certificates that will be used in the future when the currently active certificate expires.",
-          "items" : {
-            "$ref" : "#/definitions/PublicCertificate"
-          }
-        }
-      },
-      "description" : "The certificate authority used to sign the certificates of this deployment"
-    },
-    "CertificateMetaData" : {
-      "type" : "object",
-      "required" : [ "fingerprint", "valid_from", "valid_to" ],
-      "properties" : {
-        "fingerprint" : {
-          "type" : "string",
-          "description" : "The fingerprint of the certificate"
-        },
-        "valid_to" : {
-          "type" : "string",
-          "format" : "date-time",
-          "description" : "The expiry date of the certificate in UTC"
-        },
-        "valid_from" : {
-          "type" : "string",
-          "format" : "date-time",
-          "description" : "The valid from date of the certificate in UTC"
-        }
-      },
-      "description" : "The certificate MetaData"
-    },
     "ChangeSourceInfo" : {
       "type" : "object",
       "required" : [ "action", "date", "facilitator" ],
@@ -7285,59 +6499,6 @@
         }
       },
       "description" : "A container for information about the source of a change."
-    },
-    "ChartItem" : {
-      "type" : "object",
-      "required" : [ "timestamp", "values" ],
-      "properties" : {
-        "timestamp" : {
-          "type" : "integer",
-          "format" : "int64",
-          "description" : "Axis X position"
-        },
-        "values" : {
-          "type" : "array",
-          "description" : "the collection of values to plot the chart item",
-          "items" : {
-            "$ref" : "#/definitions/ChartItemValue"
-          }
-        }
-      },
-      "description" : "Chart Item"
-    },
-    "ChartItemValue" : {
-      "type" : "object",
-      "required" : [ "id", "name", "value" ],
-      "properties" : {
-        "id" : {
-          "type" : "string",
-          "description" : "The id of chart item value"
-        },
-        "name" : {
-          "type" : "string",
-          "description" : "The name of the chart item value"
-        },
-        "value" : {
-          "type" : "number",
-          "format" : "double",
-          "description" : "The actual value of the chart item value"
-        }
-      },
-      "description" : "A ChartItem value"
-    },
-    "ChartItems" : {
-      "type" : "object",
-      "required" : [ "data" ],
-      "properties" : {
-        "data" : {
-          "type" : "array",
-          "description" : "The list of chart item",
-          "items" : {
-            "$ref" : "#/definitions/ChartItem"
-          }
-        }
-      },
-      "description" : "A collection of ChartItems"
     },
     "ClusterCredentials" : {
       "type" : "object",
@@ -7604,33 +6765,6 @@
       },
       "description" : "The top-level configuration settings for the Elasticsearch cluster."
     },
-    "ClusterPlanAttemptError" : {
-      "type" : "object",
-      "required" : [ "details", "message", "timestamp" ],
-      "properties" : {
-        "timestamp" : {
-          "type" : "string",
-          "format" : "date-time",
-          "description" : "Timestamp marking on info log of step"
-        },
-        "message" : {
-          "type" : "string",
-          "description" : "Human readable error message"
-        },
-        "details" : {
-          "type" : "object",
-          "description" : "A map with details regarding the error. Both the keys and values are always strings, representing the name of the detail and its value, respectively.",
-          "additionalProperties" : {
-            "type" : "string"
-          }
-        },
-        "failure_type" : {
-          "type" : "string",
-          "description" : "The failure type"
-        }
-      },
-      "description" : "Information about an error during a plan attempt."
-    },
     "ClusterPlanStepInfo" : {
       "type" : "object",
       "required" : [ "info_log", "stage", "started", "status", "step_id" ],
@@ -7817,19 +6951,22 @@
     },
     "Costs" : {
       "type" : "object",
-      "required" : [ "dimensions", "total" ],
+      "required" : [ "data_transfer_and_storage", "resources", "total" ],
       "properties" : {
         "total" : {
           "type" : "number",
           "format" : "double",
           "description" : "Total costs"
         },
-        "dimensions" : {
-          "type" : "array",
-          "description" : "A collection of billing details by dimension.",
-          "items" : {
-            "$ref" : "#/definitions/Dimension"
-          }
+        "resources" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Total costs associated to the Elastic Cloud resources"
+        },
+        "data_transfer_and_storage" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Total costs associated to Data Transfer and Storage (DTS)"
         }
       },
       "description" : "Costs overview for an organization. All of the costs, credits, trials are expressed in Elastic Consumption Unit (ECU)."
@@ -7922,13 +7059,6 @@
             "$ref" : "#/definitions/Apm"
           }
         },
-        "integrations_server" : {
-          "type" : "array",
-          "description" : "Diagnostics for Integrations Server",
-          "items" : {
-            "$ref" : "#/definitions/IntegrationsServer"
-          }
-        },
         "appsearch" : {
           "type" : "array",
           "description" : "Diagnostics for AppSearches",
@@ -8003,6 +7133,7 @@
     },
     "DeploymentCreateRequest" : {
       "type" : "object",
+      "required" : [ "resources" ],
       "properties" : {
         "name" : {
           "type" : "string",
@@ -8023,14 +7154,6 @@
         "alias" : {
           "type" : "string",
           "description" : "A user-defined alias to use in place of Cluster IDs for user-friendly URLs"
-        },
-        "region" : {
-          "type" : "string",
-          "description" : "Identifier of the region to be used as the default for all the resources of the deployment"
-        },
-        "version" : {
-          "type" : "string",
-          "description" : "The version for all the resources of the deployment (must be one of the supported versions). Defaults to the latest version if not specified."
         }
       },
       "description" : "A request for creating a new Deployment consisting of multiple clusters"
@@ -8835,63 +7958,6 @@
       },
       "description" : "Contains a list of Deployments as result of a search request."
     },
-    "Dimension" : {
-      "type" : "object",
-      "required" : [ "cost", "type" ],
-      "properties" : {
-        "type" : {
-          "type" : "string",
-          "description" : "The type of the billing dimension",
-          "enum" : [ "capacity", "data_in", "data_internode", "data_out", "storage_api", "storage_bytes" ]
-        },
-        "cost" : {
-          "type" : "number",
-          "format" : "double",
-          "description" : "The cost of the billing dimension"
-        }
-      },
-      "description" : "Billing dimension"
-    },
-    "DirectTrustRelationship" : {
-      "type" : "object",
-      "required" : [ "certificates", "name", "trust_all" ],
-      "properties" : {
-        "name" : {
-          "type" : "string",
-          "description" : "a human readable name of the trust relationship"
-        },
-        "trust_all" : {
-          "type" : "boolean",
-          "description" : "If true, scope_id is required and the `trust_allowlist` is ignored and all clusters matching the scope id will be trusted."
-        },
-        "trust_allowlist" : {
-          "type" : "array",
-          "description" : "The list of clusters with matching scope to trust. Only used when `trust_all` is false. Providing one or more clusters makes scope_id mandatory.",
-          "items" : {
-            "type" : "string"
-          }
-        },
-        "scope_id" : {
-          "type" : "string",
-          "description" : "Usually an organization id or an environment id, but could really be any suitable suffix for clusters using the CA certificate of this trust. Required unless trust_all is false and trust_allowlist is empty."
-        },
-        "additional_node_names" : {
-          "type" : "array",
-          "description" : "A list of node names trusted in addition to those deducible from trust_allowlist and scope id. Allows trusting nodes that don't have a scoped name at the cost of maintaining the list. Mandatory if scope id is not defined.",
-          "items" : {
-            "type" : "string"
-          }
-        },
-        "certificates" : {
-          "type" : "array",
-          "description" : "The public ca certificate(s) to trust. Only one is required, but it is possible to specify multiple certificates in order to facilitate key rotation.",
-          "items" : {
-            "$ref" : "#/definitions/TrustedCertificate"
-          }
-        }
-      },
-      "description" : "The trust relationship with external entities (remote environments, remote accounts...)."
-    },
     "DiscreteSizes" : {
       "type" : "object",
       "required" : [ "default_size", "resource", "sizes" ],
@@ -9000,40 +8066,6 @@
       },
       "description" : "Holds diagnostics for an Elasticsearch cluster"
     },
-    "ElasticsearchBlockingIssueElement" : {
-      "type" : "object",
-      "required" : [ "description", "level" ],
-      "properties" : {
-        "description" : {
-          "type" : "string",
-          "description" : "Description of the block"
-        },
-        "level" : {
-          "type" : "string",
-          "description" : "Applicable level for the block. Either global ie. cluster-wide or index level",
-          "enum" : [ "index", "global" ]
-        }
-      },
-      "description" : "Information about index or cluster blocks"
-    },
-    "ElasticsearchBlockingIssues" : {
-      "type" : "object",
-      "required" : [ "blocks", "healthy" ],
-      "properties" : {
-        "healthy" : {
-          "type" : "boolean",
-          "description" : "Whether the cluster has issues (false) or not (true)"
-        },
-        "blocks" : {
-          "type" : "array",
-          "description" : "A list of blocks that affect the availability of the cluster",
-          "items" : {
-            "$ref" : "#/definitions/ElasticsearchBlockingIssueElement"
-          }
-        }
-      },
-      "description" : "Issues that prevent the Elasticsearch cluster or index from correctly operating."
-    },
     "ElasticsearchClusterBlockingIssueElement" : {
       "type" : "object",
       "required" : [ "description", "instances" ],
@@ -9050,7 +8082,7 @@
           }
         }
       },
-      "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use `blocks` in `cluster_blocking_issues` instead\n\nInformation about an issue and the Elasticsearch instance it affects."
+      "description" : "Information about an issue and the Elasticsearch instance it affects."
     },
     "ElasticsearchClusterBlockingIssues" : {
       "type" : "object",
@@ -9075,7 +8107,7 @@
           }
         }
       },
-      "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use `cluster_blocking_issues` instead\n\nIssues that prevent the Elasticsearch cluster or index from operating correctly."
+      "description" : "Issues that prevent the Elasticsearch cluster or index from correctly operating."
     },
     "ElasticsearchClusterInfo" : {
       "type" : "object",
@@ -9255,9 +8287,6 @@
           "items" : {
             "$ref" : "#/definitions/ClusterPlanWarning"
           }
-        },
-        "error" : {
-          "$ref" : "#/definitions/ClusterPlanAttemptError"
         }
       },
       "description" : "Information about the Elasticsearch cluster plan."
@@ -9437,13 +8466,6 @@
           "items" : {
             "$ref" : "#/definitions/ExternalTrustRelationship"
           }
-        },
-        "direct" : {
-          "type" : "array",
-          "description" : "The list of trust relationships where the certificate is bundled with the trust setting. Allows configuring trust for clusters running outside of an Elastic Cloud managed environment or in an Elastic Cloud environment without an environment level trust established.",
-          "items" : {
-            "$ref" : "#/definitions/DirectTrustRelationship"
-          }
         }
       },
       "description" : "Configuration of trust with other clusters."
@@ -9582,21 +8604,13 @@
           "description" : "Whether the Elasticsearch cluster is healthy (check the sub-objects for more details if not)"
         },
         "shard_info" : {
-          "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use `shards_status` instead.\n\nElasticsearch shard info",
           "$ref" : "#/definitions/ElasticsearchShardsInfo"
-        },
-        "shards_status" : {
-          "$ref" : "#/definitions/ElasticsearchShardsStatus"
         },
         "master_info" : {
           "$ref" : "#/definitions/ElasticsearchMasterInfo"
         },
         "blocking_issues" : {
-          "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use `cluster_blocking_issues` instead.\n\ncluster-wide and/or index blocks",
           "$ref" : "#/definitions/ElasticsearchClusterBlockingIssues"
-        },
-        "cluster_blocking_issues" : {
-          "$ref" : "#/definitions/ElasticsearchBlockingIssues"
         }
       },
       "description" : "Information about the Elasticsearch cluster."
@@ -9892,19 +8906,7 @@
           }
         }
       },
-      "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use `shards_status` instead.\n\nInformation about the shards and replicas that comprise the Elasticsearch indices."
-    },
-    "ElasticsearchShardsStatus" : {
-      "type" : "object",
-      "required" : [ "status" ],
-      "properties" : {
-        "status" : {
-          "type" : "string",
-          "description" : "Indicates the elasticsearch cluster health status as a color",
-          "enum" : [ "green", "red", "yellow" ]
-        }
-      },
-      "description" : "Shards status represented as green, yellow, or red, as returned by the Elasticsearch cluster health API"
+      "description" : "Information about the shards and replicas that comprise the Elasticsearch indices."
     },
     "ElasticsearchSystemSettings" : {
       "type" : "object",
@@ -9921,7 +8923,7 @@
         },
         "use_disk_threshold" : {
           "type" : "boolean",
-          "description" : "DEPRECATED: Use setting 'cluster.routing.allocation.disk.threshold_enabled' in the Elasticsearch API. This value no longer has any effect in this API."
+          "description" : "Whether to factor in the available disk space on a node before deciding whether to allocate new shards to that node or actively relocate shards away from the node (default: true). NOTES: (Corresponds to the parameter 'cluster.routing.allocation.disk.threshold_enabled')"
         },
         "auto_create_index" : {
           "type" : "boolean",
@@ -10293,9 +9295,6 @@
           "items" : {
             "$ref" : "#/definitions/ClusterPlanWarning"
           }
-        },
-        "error" : {
-          "$ref" : "#/definitions/ClusterPlanAttemptError"
         }
       },
       "description" : "Information about the Enterprise Search Server plan."
@@ -10694,29 +9693,6 @@
       },
       "description" : "The request that specifies the Elasticsearch instances, Kibana instances, and APM Servers to move to allocators as part of the upgrade plan."
     },
-    "IntegrationsServer" : {
-      "type" : "object",
-      "required" : [ "backend_plan", "display_name", "elasticsearch_cluster_ref_id", "ref_id" ],
-      "properties" : {
-        "ref_id" : {
-          "type" : "string",
-          "description" : "A locally-unique user-specified id"
-        },
-        "display_name" : {
-          "type" : "string",
-          "description" : "The human readable name (defaults to the generated cluster id if not specified)"
-        },
-        "elasticsearch_cluster_ref_id" : {
-          "type" : "string",
-          "description" : "The user-specified id of the Elasticsearch Cluster that this will link to"
-        },
-        "backend_plan" : {
-          "type" : "object",
-          "description" : "The backend plan as JSON"
-        }
-      },
-      "description" : "Holds diagnostics for an Integrations Server resource"
-    },
     "IntegrationsServerConfiguration" : {
       "type" : "object",
       "properties" : {
@@ -10754,6 +9730,25 @@
         }
       },
       "description" : "The configuration options for the Integrations Server."
+    },
+    "IntegrationsServerCrudResponse" : {
+      "type" : "object",
+      "required" : [ "secret_token" ],
+      "properties" : {
+        "integrations_server_id" : {
+          "type" : "string",
+          "description" : "For an operation creating or updating an Integrations Server, the Id of that server"
+        },
+        "secret_token" : {
+          "type" : "string",
+          "description" : "The secret token for accessing the server"
+        },
+        "diagnostics" : {
+          "type" : "object",
+          "description" : "If the endpoint is called with URL param 'validate_only=true', then this contains advanced debug info (the internal plan representation)"
+        }
+      },
+      "description" : "The response to an Integrations Server CRUD (create/update-plan) request."
     },
     "IntegrationsServerInfo" : {
       "type" : "object",
@@ -10946,9 +9941,6 @@
           "items" : {
             "$ref" : "#/definitions/ClusterPlanWarning"
           }
-        },
-        "error" : {
-          "$ref" : "#/definitions/ClusterPlanAttemptError"
         }
       },
       "description" : "Information about the Integrations Server plan."
@@ -11313,9 +10305,6 @@
           "items" : {
             "$ref" : "#/definitions/ClusterPlanWarning"
           }
-        },
-        "error" : {
-          "$ref" : "#/definitions/ClusterPlanAttemptError"
         }
       },
       "description" : "Information about the current, pending, or past Kibana instance plan."
@@ -11636,161 +10625,6 @@
       },
       "description" : "Observability health issue"
     },
-    "Organization" : {
-      "type" : "object",
-      "required" : [ "id", "name" ],
-      "properties" : {
-        "id" : {
-          "type" : "string",
-          "description" : "The organization's identifier"
-        },
-        "name" : {
-          "type" : "string",
-          "description" : "The organization's friendly name"
-        }
-      },
-      "description" : "An organization"
-    },
-    "OrganizationInvitation" : {
-      "type" : "object",
-      "required" : [ "created_at", "email", "expired", "expires_at", "organization", "token" ],
-      "properties" : {
-        "token" : {
-          "type" : "string",
-          "description" : "The token used to accept the invitation"
-        },
-        "email" : {
-          "type" : "string",
-          "description" : "The email address to invite to the organization"
-        },
-        "created_at" : {
-          "type" : "string",
-          "format" : "date-time",
-          "description" : "The date and time when the invitation was created"
-        },
-        "expires_at" : {
-          "type" : "string",
-          "format" : "date-time",
-          "description" : "The date and time when the invitation expires"
-        },
-        "expired" : {
-          "type" : "boolean",
-          "description" : "True if the invitation is expired"
-        },
-        "accepted_at" : {
-          "type" : "string",
-          "format" : "date-time",
-          "description" : "The date and time when the invitation was accepted"
-        },
-        "organization" : {
-          "description" : "The organization associated with this invitation",
-          "$ref" : "#/definitions/Organization"
-        }
-      },
-      "description" : "An invitation to an organization"
-    },
-    "OrganizationInvitationRequest" : {
-      "type" : "object",
-      "required" : [ "emails" ],
-      "properties" : {
-        "emails" : {
-          "type" : "array",
-          "description" : "The email addresses to invite to the organization",
-          "items" : {
-            "type" : "string"
-          }
-        },
-        "expires_in" : {
-          "type" : "string",
-          "description" : "The date and time when the invitation expires. Defaults to three days from now."
-        }
-      },
-      "description" : "A request to create one or more invitations to an organization"
-    },
-    "OrganizationInvitations" : {
-      "type" : "object",
-      "required" : [ "invitations" ],
-      "properties" : {
-        "invitations" : {
-          "type" : "array",
-          "description" : "The list of organization invitations",
-          "items" : {
-            "$ref" : "#/definitions/OrganizationInvitation"
-          }
-        }
-      },
-      "description" : "A collection of invitations to an organization"
-    },
-    "OrganizationList" : {
-      "type" : "object",
-      "required" : [ "organizations" ],
-      "properties" : {
-        "organizations" : {
-          "type" : "array",
-          "description" : "The list of organizations",
-          "items" : {
-            "$ref" : "#/definitions/Organization"
-          }
-        },
-        "next_page" : {
-          "type" : "string",
-          "description" : "A cursor to get the next page of results"
-        }
-      },
-      "description" : "A collection of Organizations"
-    },
-    "OrganizationMembership" : {
-      "type" : "object",
-      "required" : [ "member_since", "organization_id", "user_id" ],
-      "properties" : {
-        "organization_id" : {
-          "type" : "string",
-          "description" : "The organization's identifier"
-        },
-        "user_id" : {
-          "type" : "string",
-          "description" : "The users's identifier"
-        },
-        "name" : {
-          "type" : "string",
-          "description" : "The user's full name"
-        },
-        "email" : {
-          "type" : "string",
-          "description" : "The user's email address"
-        },
-        "member_since" : {
-          "type" : "string",
-          "format" : "date-time",
-          "description" : "The date and time the user was added to the organization"
-        }
-      },
-      "description" : "A user's membership to an organization"
-    },
-    "OrganizationMemberships" : {
-      "type" : "object",
-      "required" : [ "members" ],
-      "properties" : {
-        "members" : {
-          "type" : "array",
-          "description" : "The list of organization memberships",
-          "items" : {
-            "$ref" : "#/definitions/OrganizationMembership"
-          }
-        }
-      },
-      "description" : "All user memberships to an organization"
-    },
-    "OrganizationRequest" : {
-      "type" : "object",
-      "properties" : {
-        "name" : {
-          "type" : "string",
-          "description" : "The organization's friendly name"
-        }
-      },
-      "description" : "A request to create or update an organization"
-    },
     "Orphaned" : {
       "type" : "object",
       "required" : [ "apm", "appsearch", "elasticsearch", "enterprise_search", "integrations_server", "kibana" ],
@@ -11908,25 +10742,6 @@
         }
       },
       "description" : "The query that matches documents with fields that contain terms with a specified, not analyzed, prefix."
-    },
-    "PublicCertificate" : {
-      "type" : "object",
-      "required" : [ "active", "metadata", "pem" ],
-      "properties" : {
-        "active" : {
-          "type" : "boolean",
-          "description" : "If true, this certificate is the one which has been used to sign the current certificates. Otherwise, it may be the one that will be used when this certificate expires."
-        },
-        "pem" : {
-          "type" : "string",
-          "description" : "The public certificate as string in PEM format."
-        },
-        "metadata" : {
-          "description" : "Metadata about the certificate, including fingerprint and expiry date. Generated by the Cloud service and ignored on write.",
-          "$ref" : "#/definitions/CertificateMetaData"
-        }
-      },
-      "description" : "A certificate used to sign the certificates of this deployment"
     },
     "QueryContainer" : {
       "type" : "object",
@@ -13033,22 +11848,6 @@
       },
       "description" : "Defines the configuration parameters that control how the plan is applied. For example, the Elasticsearch cluster topology and Kibana instance settings."
     },
-    "TrustedCertificate" : {
-      "type" : "object",
-      "required" : [ "pem" ],
-      "properties" : {
-        "pem" : {
-          "type" : "string",
-          "description" : "The public ca certificate as string in PEM format."
-        },
-        "metadata" : {
-          "description" : "Metadata about the certificate, including fingerprint and expiry date. Generated by the Cloud service and ignored on write.",
-          "readOnly" : true,
-          "$ref" : "#/definitions/CertificateMetaData"
-        }
-      },
-      "description" : "An x509 certificate used by a DirectTrustRelationship"
-    },
     "UpdateExtensionRequest" : {
       "type" : "object",
       "required" : [ "extension_type", "name", "version" ],
@@ -13099,13 +11898,6 @@
           "description" : "Diagnostics for APMs",
           "items" : {
             "$ref" : "#/definitions/Apm"
-          }
-        },
-        "integrations_server" : {
-          "type" : "array",
-          "description" : "Diagnostics for Integrations Server",
-          "items" : {
-            "$ref" : "#/definitions/IntegrationsServer"
           }
         },
         "appsearch" : {

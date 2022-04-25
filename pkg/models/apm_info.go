@@ -39,7 +39,7 @@ import (
 type ApmInfo struct {
 
 	// The mode APM is operating in.
-	// Enum: [Standalone Managed]
+	// Enum: [standalone managed]
 	ApmServerMode string `json:"apm_server_mode,omitempty"`
 
 	// The id of the deployment that this APM Server belongs to.
@@ -154,7 +154,7 @@ var apmInfoTypeApmServerModePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["Standalone","Managed"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["standalone","managed"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -164,11 +164,11 @@ func init() {
 
 const (
 
-	// ApmInfoApmServerModeStandalone captures enum value "Standalone"
-	ApmInfoApmServerModeStandalone string = "Standalone"
+	// ApmInfoApmServerModeStandalone captures enum value "standalone"
+	ApmInfoApmServerModeStandalone string = "standalone"
 
-	// ApmInfoApmServerModeManaged captures enum value "Managed"
-	ApmInfoApmServerModeManaged string = "Managed"
+	// ApmInfoApmServerModeManaged captures enum value "managed"
+	ApmInfoApmServerModeManaged string = "managed"
 )
 
 // prop value enum
