@@ -25,10 +25,11 @@ import (
 )
 
 const (
-	defaultApmRefID              = "main-apm"
-	defaultAppsearchRefID        = "main-appsearch"
-	defaultEnterpriseSearchRefID = "main-enterprise_search"
-	defaultKibanaRefID           = "main-kibana"
+	defaultApmRefID                = "main-apm"
+	defaultAppsearchRefID          = "main-appsearch"
+	defaultEnterpriseSearchRefID   = "main-enterprise_search"
+	defaultIntegrationsServerRefID = "main-integrations_server"
+	defaultKibanaRefID             = "main-kibana"
 )
 
 var dataTiersMinVersion = semver.MustParse("7.10.0")
@@ -67,6 +68,7 @@ func OverrideCreateOrUpdateRequest(req interface{}, overrides *PayloadOverrides)
 	}
 
 	var apm []*models.ApmPayload
+	var integrationsServer []*models.IntegrationsServerPayload
 	var appsearch []*models.AppSearchPayload
 	var elasticsearch []*models.ElasticsearchPayload
 	var enterprisesearch []*models.EnterpriseSearchPayload
@@ -79,6 +81,7 @@ func OverrideCreateOrUpdateRequest(req interface{}, overrides *PayloadOverrides)
 		apm, appsearch = t.Resources.Apm, t.Resources.Appsearch
 		elasticsearch, kibana = t.Resources.Elasticsearch, t.Resources.Kibana
 		enterprisesearch = t.Resources.EnterpriseSearch
+		integrationsServer = t.Resources.IntegrationsServer
 	case *models.DeploymentCreateRequest:
 		if overrides.Name != "" {
 			t.Name = overrides.Name
@@ -89,10 +92,11 @@ func OverrideCreateOrUpdateRequest(req interface{}, overrides *PayloadOverrides)
 		apm, appsearch = t.Resources.Apm, t.Resources.Appsearch
 		elasticsearch, kibana = t.Resources.Elasticsearch, t.Resources.Kibana
 		enterprisesearch = t.Resources.EnterpriseSearch
+		integrationsServer = t.Resources.IntegrationsServer
 	}
 
 	return overrideByPayload(
-		apm, appsearch, elasticsearch, kibana, enterprisesearch,
+		apm, appsearch, elasticsearch, integrationsServer, kibana, enterprisesearch,
 		overrides.Region, overrides.Version, overrides.ElasticsearchRefID,
 		overrides.ElasticcsearchBuiltinPlugins, overrides.OverrideRefIDs,
 	)
@@ -100,9 +104,9 @@ func OverrideCreateOrUpdateRequest(req interface{}, overrides *PayloadOverrides)
 
 // nolint
 func overrideByPayload(apm []*models.ApmPayload, appsearch []*models.AppSearchPayload,
-	elasticsearch []*models.ElasticsearchPayload, kibana []*models.KibanaPayload,
-	enterprisesearch []*models.EnterpriseSearchPayload, region, version, refID string,
-	plugins []string, overrideRefIDs bool) error {
+	elasticsearch []*models.ElasticsearchPayload, integrationsServer []*models.IntegrationsServerPayload,
+	kibana []*models.KibanaPayload, enterprisesearch []*models.EnterpriseSearchPayload, region, version,
+	refID string, plugins []string, overrideRefIDs bool) error {
 	for _, resource := range apm {
 		if resource.Region == nil && region != "" {
 			resource.Region = &region
@@ -197,6 +201,26 @@ func overrideByPayload(apm []*models.ApmPayload, appsearch []*models.AppSearchPa
 		if version != "" {
 			if resource.Plan != nil && resource.Plan.EnterpriseSearch != nil {
 				resource.Plan.EnterpriseSearch.Version = version
+			}
+		}
+	}
+
+	for _, resource := range integrationsServer {
+		if resource.Region == nil && region != "" {
+			resource.Region = &region
+		}
+
+		if overrideRefIDs {
+			resource.RefID = ec.String(defaultIntegrationsServerRefID)
+		}
+
+		if refID != "" {
+			resource.ElasticsearchClusterRefID = &refID
+		}
+
+		if version != "" {
+			if resource.Plan != nil && resource.Plan.IntegrationsServer != nil {
+				resource.Plan.IntegrationsServer.Version = version
 			}
 		}
 	}
