@@ -72,6 +72,13 @@ func TestOverrideCreateOrUpdateRequest(t *testing.T) {
 								},
 							},
 						},
+						IntegrationsServer: []*models.IntegrationsServerPayload{
+							{
+								Plan: &models.IntegrationsServerPlan{
+									IntegrationsServer: &models.IntegrationsServerConfiguration{Version: "1.2.3"},
+								},
+							},
+						},
 						Appsearch: []*models.AppSearchPayload{
 							{
 								Plan: &models.AppSearchPlan{
@@ -132,6 +139,16 @@ func TestOverrideCreateOrUpdateRequest(t *testing.T) {
 								Apm: &models.ApmConfiguration{Version: "7.4.1"},
 							},
 							RefID:                     ec.String("main-apm"),
+							ElasticsearchClusterRefID: ec.String("main-elasticsearch"),
+						},
+					},
+					IntegrationsServer: []*models.IntegrationsServerPayload{
+						{
+							Region: &eceRegion,
+							Plan: &models.IntegrationsServerPlan{
+								IntegrationsServer: &models.IntegrationsServerConfiguration{Version: "7.4.1"},
+							},
+							RefID:                     ec.String("main-integrations_server"),
 							ElasticsearchClusterRefID: ec.String("main-elasticsearch"),
 						},
 					},
@@ -206,6 +223,13 @@ func TestOverrideCreateOrUpdateRequest(t *testing.T) {
 								},
 							},
 						},
+						IntegrationsServer: []*models.IntegrationsServerPayload{
+							{
+								Plan: &models.IntegrationsServerPlan{
+									IntegrationsServer: &models.IntegrationsServerConfiguration{},
+								},
+							},
+						},
 						Appsearch: []*models.AppSearchPayload{
 							{
 								Plan: &models.AppSearchPlan{
@@ -266,6 +290,16 @@ func TestOverrideCreateOrUpdateRequest(t *testing.T) {
 								Apm: &models.ApmConfiguration{},
 							},
 							RefID:                     ec.String("main-apm"),
+							ElasticsearchClusterRefID: ec.String("main-elasticsearch"),
+						},
+					},
+					IntegrationsServer: []*models.IntegrationsServerPayload{
+						{
+							Region: &eceRegion,
+							Plan: &models.IntegrationsServerPlan{
+								IntegrationsServer: &models.IntegrationsServerConfiguration{},
+							},
+							RefID:                     ec.String("main-integrations_server"),
 							ElasticsearchClusterRefID: ec.String("main-elasticsearch"),
 						},
 					},
@@ -344,6 +378,13 @@ func TestOverrideCreateOrUpdateRequest(t *testing.T) {
 								},
 							},
 						},
+						IntegrationsServer: []*models.IntegrationsServerPayload{
+							{
+								Plan: &models.IntegrationsServerPlan{
+									IntegrationsServer: &models.IntegrationsServerConfiguration{Version: "1.2.3"},
+								},
+							},
+						},
 						Appsearch: []*models.AppSearchPayload{
 							{
 								Plan: &models.AppSearchPlan{
@@ -404,6 +445,16 @@ func TestOverrideCreateOrUpdateRequest(t *testing.T) {
 								Apm: &models.ApmConfiguration{Version: "7.11.2"},
 							},
 							RefID:                     ec.String("main-apm"),
+							ElasticsearchClusterRefID: ec.String("main-elasticsearch"),
+						},
+					},
+					IntegrationsServer: []*models.IntegrationsServerPayload{
+						{
+							Region: &eceRegion,
+							Plan: &models.IntegrationsServerPlan{
+								IntegrationsServer: &models.IntegrationsServerConfiguration{Version: "7.11.2"},
+							},
+							RefID:                     ec.String("main-integrations_server"),
 							ElasticsearchClusterRefID: ec.String("main-elasticsearch"),
 						},
 					},
@@ -482,6 +533,14 @@ func TestOverrideCreateOrUpdateRequest(t *testing.T) {
 								RefID: ec.String("apm"),
 							},
 						},
+						IntegrationsServer: []*models.IntegrationsServerPayload{
+							{
+								Plan: &models.IntegrationsServerPlan{
+									IntegrationsServer: &models.IntegrationsServerConfiguration{Version: "1.2.3"},
+								},
+								RefID: ec.String("int_srv"),
+							},
+						},
 						Appsearch: []*models.AppSearchPayload{
 							{
 								Plan: &models.AppSearchPlan{
@@ -545,6 +604,16 @@ func TestOverrideCreateOrUpdateRequest(t *testing.T) {
 								Apm: &models.ApmConfiguration{Version: "7.11.2"},
 							},
 							RefID:                     ec.String("apm"),
+							ElasticsearchClusterRefID: ec.String("main-elasticsearch"),
+						},
+					},
+					IntegrationsServer: []*models.IntegrationsServerPayload{
+						{
+							Region: &eceRegion,
+							Plan: &models.IntegrationsServerPlan{
+								IntegrationsServer: &models.IntegrationsServerConfiguration{Version: "7.11.2"},
+							},
+							RefID:                     ec.String("int_srv"),
 							ElasticsearchClusterRefID: ec.String("main-elasticsearch"),
 						},
 					},
@@ -620,6 +689,13 @@ func TestOverrideCreateOrUpdateRequest(t *testing.T) {
 								},
 							},
 						},
+						IntegrationsServer: []*models.IntegrationsServerPayload{
+							{
+								Plan: &models.IntegrationsServerPlan{
+									IntegrationsServer: &models.IntegrationsServerConfiguration{Version: "7.4.1"},
+								},
+							},
+						},
 						Appsearch: []*models.AppSearchPayload{
 							{
 								Plan: &models.AppSearchPlan{
@@ -660,6 +736,16 @@ func TestOverrideCreateOrUpdateRequest(t *testing.T) {
 								Apm: &models.ApmConfiguration{Version: "7.4.1"},
 							},
 							RefID:                     ec.String("main-apm"),
+							ElasticsearchClusterRefID: ec.String("main-elasticsearch"),
+						},
+					},
+					IntegrationsServer: []*models.IntegrationsServerPayload{
+						{
+							Region: &overriddenRegion,
+							Plan: &models.IntegrationsServerPlan{
+								IntegrationsServer: &models.IntegrationsServerConfiguration{Version: "7.4.1"},
+							},
+							RefID:                     ec.String("main-integrations_server"),
 							ElasticsearchClusterRefID: ec.String("main-elasticsearch"),
 						},
 					},

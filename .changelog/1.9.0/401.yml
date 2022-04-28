@@ -1,0 +1,4 @@
+category: bug
+title: Apply create/update overrides to `integrations_server` resources
+description: |
+    Includes resource overrides for integrations server resources.
