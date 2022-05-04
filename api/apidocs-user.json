@@ -5694,7 +5694,7 @@
         "apm_server_mode" : {
           "type" : "string",
           "description" : "The mode APM is operating in.",
-          "enum" : [ "Standalone", "Managed" ]
+          "enum" : [ "standalone", "managed" ]
         }
       },
       "description" : "The overview information for the APM Server."
