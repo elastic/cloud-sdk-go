@@ -1,0 +1,4 @@
+category: enhancement
+title: Re-generate code based on ece 3.2.0's apidocs.json
+description: |
+    This PR updates apidocs.json file along with its regenerated derivatives to match the upcoming release.
