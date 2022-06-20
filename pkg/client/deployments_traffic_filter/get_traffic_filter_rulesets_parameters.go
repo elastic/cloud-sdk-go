@@ -83,6 +83,12 @@ type GetTrafficFilterRulesetsParams struct {
 	*/
 	IncludeAssociations *bool
 
+	/* OrganizationID.
+
+	   Retrieves a list of resources that are associated to the specified organization ID. It only takes effect if the user is an admin.
+	*/
+	OrganizationID *string
+
 	/* Region.
 
 	   If provided limits the rulesets to that region only.
@@ -164,6 +170,17 @@ func (o *GetTrafficFilterRulesetsParams) SetIncludeAssociations(includeAssociati
 	o.IncludeAssociations = includeAssociations
 }
 
+// WithOrganizationID adds the organizationID to the get traffic filter rulesets params
+func (o *GetTrafficFilterRulesetsParams) WithOrganizationID(organizationID *string) *GetTrafficFilterRulesetsParams {
+	o.SetOrganizationID(organizationID)
+	return o
+}
+
+// SetOrganizationID adds the organizationId to the get traffic filter rulesets params
+func (o *GetTrafficFilterRulesetsParams) SetOrganizationID(organizationID *string) {
+	o.OrganizationID = organizationID
+}
+
 // WithRegion adds the region to the get traffic filter rulesets params
 func (o *GetTrafficFilterRulesetsParams) WithRegion(region *string) *GetTrafficFilterRulesetsParams {
 	o.SetRegion(region)
@@ -195,6 +212,23 @@ func (o *GetTrafficFilterRulesetsParams) WriteToRequest(r runtime.ClientRequest,
 		if qIncludeAssociations != "" {
 
 			if err := r.SetQueryParam("include_associations", qIncludeAssociations); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.OrganizationID != nil {
+
+		// query param organization_id
+		var qrOrganizationID string
+
+		if o.OrganizationID != nil {
+			qrOrganizationID = *o.OrganizationID
+		}
+		qOrganizationID := qrOrganizationID
+		if qOrganizationID != "" {
+
+			if err := r.SetQueryParam("organization_id", qOrganizationID); err != nil {
 				return err
 			}
 		}

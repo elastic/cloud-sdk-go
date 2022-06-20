@@ -48,6 +48,9 @@ type Updates struct {
 	// Diagnostics for Enterprise Search resources
 	EnterpriseSearch []*EnterpriseSearch `json:"enterprise_search"`
 
+	// Diagnostics for Integrations Server
+	IntegrationsServer []*IntegrationsServer `json:"integrations_server"`
+
 	// Diagnostics for Kibanas
 	Kibana []*Kibana `json:"kibana"`
 }
@@ -69,6 +72,10 @@ func (m *Updates) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateEnterpriseSearch(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateIntegrationsServer(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -178,6 +185,30 @@ func (m *Updates) validateEnterpriseSearch(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *Updates) validateIntegrationsServer(formats strfmt.Registry) error {
+	if swag.IsZero(m.IntegrationsServer) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.IntegrationsServer); i++ {
+		if swag.IsZero(m.IntegrationsServer[i]) { // not required
+			continue
+		}
+
+		if m.IntegrationsServer[i] != nil {
+			if err := m.IntegrationsServer[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("integrations_server" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
 func (m *Updates) validateKibana(formats strfmt.Registry) error {
 	if swag.IsZero(m.Kibana) { // not required
 		return nil
@@ -219,6 +250,10 @@ func (m *Updates) ContextValidate(ctx context.Context, formats strfmt.Registry) 
 	}
 
 	if err := m.contextValidateEnterpriseSearch(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateIntegrationsServer(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -294,6 +329,24 @@ func (m *Updates) contextValidateEnterpriseSearch(ctx context.Context, formats s
 			if err := m.EnterpriseSearch[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("enterprise_search" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *Updates) contextValidateIntegrationsServer(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.IntegrationsServer); i++ {
+
+		if m.IntegrationsServer[i] != nil {
+			if err := m.IntegrationsServer[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("integrations_server" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

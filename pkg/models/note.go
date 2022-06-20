@@ -31,7 +31,7 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// Note Note
+// Note Deprecated: Note
 //
 // swagger:model Note
 type Note struct {

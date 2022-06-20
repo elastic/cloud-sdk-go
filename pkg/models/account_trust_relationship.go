@@ -40,6 +40,9 @@ type AccountTrustRelationship struct {
 	// Required: true
 	AccountID *string `json:"account_id"`
 
+	// A human readable name of the trust relationship
+	Name string `json:"name,omitempty"`
+
 	// If true, all clusters in this account will by default be trusted and the `trust_allowlist` is ignored.
 	// Required: true
 	TrustAll *bool `json:"trust_all"`

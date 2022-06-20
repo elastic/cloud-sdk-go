@@ -76,6 +76,12 @@ func NewGetCostsDeploymentsParamsWithHTTPClient(client *http.Client) *GetCostsDe
 */
 type GetCostsDeploymentsParams struct {
 
+	/* Accept.
+
+	   Accept header containing the content preference.
+	*/
+	Accept *string
+
 	/* From.
 
 	   A datetime for the beginning of the desired range for which to fetch activity. Defaults to start of current month.
@@ -147,6 +153,17 @@ func (o *GetCostsDeploymentsParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithAccept adds the accept to the get costs deployments params
+func (o *GetCostsDeploymentsParams) WithAccept(accept *string) *GetCostsDeploymentsParams {
+	o.SetAccept(accept)
+	return o
+}
+
+// SetAccept adds the accept to the get costs deployments params
+func (o *GetCostsDeploymentsParams) SetAccept(accept *string) {
+	o.Accept = accept
+}
+
 // WithFrom adds the from to the get costs deployments params
 func (o *GetCostsDeploymentsParams) WithFrom(from *string) *GetCostsDeploymentsParams {
 	o.SetFrom(from)
@@ -187,6 +204,14 @@ func (o *GetCostsDeploymentsParams) WriteToRequest(r runtime.ClientRequest, reg 
 		return err
 	}
 	var res []error
+
+	if o.Accept != nil {
+
+		// header param Accept
+		if err := r.SetHeaderParam("Accept", *o.Accept); err != nil {
+			return err
+		}
+	}
 
 	if o.From != nil {
 

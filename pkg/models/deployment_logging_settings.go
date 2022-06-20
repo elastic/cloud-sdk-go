@@ -38,7 +38,7 @@ type DeploymentLoggingSettings struct {
 
 	// The destination deployment that this deployment's logs will be sent to
 	// Required: true
-	Destination *AbsoluteRefID `json:"destination"`
+	Destination *ObservabilityAbsoluteDeployment `json:"destination"`
 }
 
 // Validate validates this deployment logging settings

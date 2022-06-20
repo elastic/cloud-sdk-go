@@ -1556,7 +1556,10 @@ func (a *Client) GetProxiesHealth(params *GetProxiesHealthParams, authInfo runti
 /*
   GetProxiesSettings gets proxies settings
 
-  Retrieves the settings for all proxies.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version.
+
+Retrieves the settings for all proxies.
 */
 func (a *Client) GetProxiesSettings(params *GetProxiesSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProxiesSettingsOK, error) {
 	// TODO: Validate the params before sending
@@ -2663,7 +2666,10 @@ func (a *Client) SetLicense(params *SetLicenseParams, authInfo runtime.ClientAut
 /*
   SetProxiesSettings sets proxy settings
 
-  Overwrites the proxy settings. All unspecified fields are deleted.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version.
+
+Overwrites the proxy settings. All unspecified fields are deleted.
 */
 func (a *Client) SetProxiesSettings(params *SetProxiesSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetProxiesSettingsOK, error) {
 	// TODO: Validate the params before sending
@@ -3196,7 +3202,10 @@ func (a *Client) UpdateProxiesFilteredGroup(params *UpdateProxiesFilteredGroupPa
 /*
   UpdateProxiesSettings updates proxy settings
 
-  Applies the settings as a patch. Only the fields that are referenced in the update are changed.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version.
+
+Applies the settings as a patch. Only the fields that are referenced in the update are changed.
 */
 func (a *Client) UpdateProxiesSettings(params *UpdateProxiesSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateProxiesSettingsOK, error) {
 	// TODO: Validate the params before sending

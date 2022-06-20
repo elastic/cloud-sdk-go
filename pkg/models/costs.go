@@ -24,6 +24,7 @@ package models
 
 import (
 	"context"
+	"strconv"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -36,13 +37,9 @@ import (
 // swagger:model Costs
 type Costs struct {
 
-	// Total costs associated to Data Transfer and Storage (DTS)
+	// A collection of billing details by dimension.
 	// Required: true
-	DataTransferAndStorage *float64 `json:"data_transfer_and_storage"`
-
-	// Total costs associated to the Elastic Cloud resources
-	// Required: true
-	Resources *float64 `json:"resources"`
+	Dimensions []*Dimension `json:"dimensions"`
 
 	// Total costs
 	// Required: true
@@ -53,11 +50,7 @@ type Costs struct {
 func (m *Costs) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateDataTransferAndStorage(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateResources(formats); err != nil {
+	if err := m.validateDimensions(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -71,19 +64,26 @@ func (m *Costs) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *Costs) validateDataTransferAndStorage(formats strfmt.Registry) error {
+func (m *Costs) validateDimensions(formats strfmt.Registry) error {
 
-	if err := validate.Required("data_transfer_and_storage", "body", m.DataTransferAndStorage); err != nil {
+	if err := validate.Required("dimensions", "body", m.Dimensions); err != nil {
 		return err
 	}
 
-	return nil
-}
+	for i := 0; i < len(m.Dimensions); i++ {
+		if swag.IsZero(m.Dimensions[i]) { // not required
+			continue
+		}
 
-func (m *Costs) validateResources(formats strfmt.Registry) error {
+		if m.Dimensions[i] != nil {
+			if err := m.Dimensions[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("dimensions" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
 
-	if err := validate.Required("resources", "body", m.Resources); err != nil {
-		return err
 	}
 
 	return nil
@@ -98,8 +98,35 @@ func (m *Costs) validateTotal(formats strfmt.Registry) error {
 	return nil
 }
 
-// ContextValidate validates this costs based on context it is used
+// ContextValidate validate this costs based on the context it is used
 func (m *Costs) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateDimensions(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *Costs) contextValidateDimensions(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Dimensions); i++ {
+
+		if m.Dimensions[i] != nil {
+			if err := m.Dimensions[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("dimensions" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
 	return nil
 }
 

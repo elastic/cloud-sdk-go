@@ -39,6 +39,9 @@ type ElasticsearchClusterTrustSettings struct {
 	// The list of trust relationships with different accounts
 	Accounts []*AccountTrustRelationship `json:"accounts"`
 
+	// The list of trust relationships where the certificate is bundled with the trust setting. Allows configuring trust for clusters running outside of an Elastic Cloud managed environment or in an Elastic Cloud environment without an environment level trust established.
+	Direct []*DirectTrustRelationship `json:"direct"`
+
 	// The list of trust relationships with external entities
 	External []*ExternalTrustRelationship `json:"external"`
 }
@@ -48,6 +51,10 @@ func (m *ElasticsearchClusterTrustSettings) Validate(formats strfmt.Registry) er
 	var res []error
 
 	if err := m.validateAccounts(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateDirect(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -75,6 +82,30 @@ func (m *ElasticsearchClusterTrustSettings) validateAccounts(formats strfmt.Regi
 			if err := m.Accounts[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("accounts" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *ElasticsearchClusterTrustSettings) validateDirect(formats strfmt.Registry) error {
+	if swag.IsZero(m.Direct) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.Direct); i++ {
+		if swag.IsZero(m.Direct[i]) { // not required
+			continue
+		}
+
+		if m.Direct[i] != nil {
+			if err := m.Direct[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("direct" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -117,6 +148,10 @@ func (m *ElasticsearchClusterTrustSettings) ContextValidate(ctx context.Context,
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateDirect(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateExternal(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -135,6 +170,24 @@ func (m *ElasticsearchClusterTrustSettings) contextValidateAccounts(ctx context.
 			if err := m.Accounts[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("accounts" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+func (m *ElasticsearchClusterTrustSettings) contextValidateDirect(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Direct); i++ {
+
+		if m.Direct[i] != nil {
+			if err := m.Direct[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("direct" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

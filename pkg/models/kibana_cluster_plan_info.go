@@ -45,6 +45,9 @@ type KibanaClusterPlanInfo struct {
 	// Format: date-time
 	AttemptStartTime strfmt.DateTime `json:"attempt_start_time,omitempty"`
 
+	// error
+	Error *ClusterPlanAttemptError `json:"error,omitempty"`
+
 	// Either the plan ended successfully, or is not yet completed (and no errors have occurred)
 	// Required: true
 	Healthy *bool `json:"healthy"`
@@ -83,6 +86,10 @@ func (m *KibanaClusterPlanInfo) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateAttemptStartTime(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateError(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -135,6 +142,23 @@ func (m *KibanaClusterPlanInfo) validateAttemptStartTime(formats strfmt.Registry
 
 	if err := validate.FormatOf("attempt_start_time", "body", "date-time", m.AttemptStartTime.String(), formats); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *KibanaClusterPlanInfo) validateError(formats strfmt.Registry) error {
+	if swag.IsZero(m.Error) { // not required
+		return nil
+	}
+
+	if m.Error != nil {
+		if err := m.Error.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("error")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -249,6 +273,10 @@ func (m *KibanaClusterPlanInfo) validateWarnings(formats strfmt.Registry) error 
 func (m *KibanaClusterPlanInfo) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.contextValidateError(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidatePlan(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -268,6 +296,20 @@ func (m *KibanaClusterPlanInfo) ContextValidate(ctx context.Context, formats str
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *KibanaClusterPlanInfo) contextValidateError(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.Error != nil {
+		if err := m.Error.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("error")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 

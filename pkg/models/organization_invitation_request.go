@@ -31,29 +31,24 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// AbsoluteRefID A reference to a specific resource of a deployment
+// OrganizationInvitationRequest A request to create one or more invitations to an organization
 //
-// swagger:model AbsoluteRefId
-type AbsoluteRefID struct {
+// swagger:model OrganizationInvitationRequest
+type OrganizationInvitationRequest struct {
 
-	// The deployment id
+	// The email addresses to invite to the organization
 	// Required: true
-	DeploymentID *string `json:"deployment_id"`
+	Emails []string `json:"emails"`
 
-	// The reference id of the resource in the given deployment
-	// Required: true
-	RefID *string `json:"ref_id"`
+	// The date and time when the invitation expires. Defaults to three days from now.
+	ExpiresIn string `json:"expires_in,omitempty"`
 }
 
-// Validate validates this absolute ref Id
-func (m *AbsoluteRefID) Validate(formats strfmt.Registry) error {
+// Validate validates this organization invitation request
+func (m *OrganizationInvitationRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateDeploymentID(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateRefID(formats); err != nil {
+	if err := m.validateEmails(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -63,31 +58,22 @@ func (m *AbsoluteRefID) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *AbsoluteRefID) validateDeploymentID(formats strfmt.Registry) error {
+func (m *OrganizationInvitationRequest) validateEmails(formats strfmt.Registry) error {
 
-	if err := validate.Required("deployment_id", "body", m.DeploymentID); err != nil {
+	if err := validate.Required("emails", "body", m.Emails); err != nil {
 		return err
 	}
 
 	return nil
 }
 
-func (m *AbsoluteRefID) validateRefID(formats strfmt.Registry) error {
-
-	if err := validate.Required("ref_id", "body", m.RefID); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-// ContextValidate validates this absolute ref Id based on context it is used
-func (m *AbsoluteRefID) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+// ContextValidate validates this organization invitation request based on context it is used
+func (m *OrganizationInvitationRequest) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 
 // MarshalBinary interface implementation
-func (m *AbsoluteRefID) MarshalBinary() ([]byte, error) {
+func (m *OrganizationInvitationRequest) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -95,8 +81,8 @@ func (m *AbsoluteRefID) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *AbsoluteRefID) UnmarshalBinary(b []byte) error {
-	var res AbsoluteRefID
+func (m *OrganizationInvitationRequest) UnmarshalBinary(b []byte) error {
+	var res OrganizationInvitationRequest
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

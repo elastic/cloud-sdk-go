@@ -97,6 +97,16 @@ type GetDeploymentParams struct {
 	*/
 	EnrichWithTemplate *bool
 
+	/* ForceAllPlanHistory.
+
+	    Force show the entire plan history no matter how long.
+	As noted in the `show_plan_history` parameter description, by default, a maximum of 100 plans are shown per resource.
+	If `true`, this parameter overrides the default, and ALL plans are returned.
+	Use with care as the plan history can be VERY large. Consider pairing with `show_plan_logs=false`.
+
+	*/
+	ForceAllPlanHistory *bool
+
 	/* ShowMetadata.
 
 	   Whether to include the full cluster metadata in the response - can be large per cluster and also include credentials
@@ -111,7 +121,12 @@ type GetDeploymentParams struct {
 
 	/* ShowPlanHistory.
 
-	   Whether to include with the current and pending plan information the plan history- can be very large per cluster
+	    Whether to include the plan history with the current and pending plan information. The results can be very large per cluster.
+	By default, if a given resource kind (e.g. Elasticsearch, Kibana, etc.) has more than 100 plans
+	(which should be very rare, most likely caused by a bug) only 100 plans are returned for the given resource type:
+	The first 10 plans, and the last 90 plans for that resource type.
+	If ALL of the plans are desired, pass the `force_all_plan_history` parameter with a value of `true`.
+
 	*/
 	ShowPlanHistory *bool
 
@@ -169,6 +184,8 @@ func (o *GetDeploymentParams) SetDefaults() {
 
 		enrichWithTemplateDefault = bool(true)
 
+		forceAllPlanHistoryDefault = bool(false)
+
 		showMetadataDefault = bool(false)
 
 		showPlanDefaultsDefault = bool(false)
@@ -187,16 +204,17 @@ func (o *GetDeploymentParams) SetDefaults() {
 	)
 
 	val := GetDeploymentParams{
-		ConvertLegacyPlans: &convertLegacyPlansDefault,
-		EnrichWithTemplate: &enrichWithTemplateDefault,
-		ShowMetadata:       &showMetadataDefault,
-		ShowPlanDefaults:   &showPlanDefaultsDefault,
-		ShowPlanHistory:    &showPlanHistoryDefault,
-		ShowPlanLogs:       &showPlanLogsDefault,
-		ShowPlans:          &showPlansDefault,
-		ShowSecurity:       &showSecurityDefault,
-		ShowSettings:       &showSettingsDefault,
-		ShowSystemAlerts:   &showSystemAlertsDefault,
+		ConvertLegacyPlans:  &convertLegacyPlansDefault,
+		EnrichWithTemplate:  &enrichWithTemplateDefault,
+		ForceAllPlanHistory: &forceAllPlanHistoryDefault,
+		ShowMetadata:        &showMetadataDefault,
+		ShowPlanDefaults:    &showPlanDefaultsDefault,
+		ShowPlanHistory:     &showPlanHistoryDefault,
+		ShowPlanLogs:        &showPlanLogsDefault,
+		ShowPlans:           &showPlansDefault,
+		ShowSecurity:        &showSecurityDefault,
+		ShowSettings:        &showSettingsDefault,
+		ShowSystemAlerts:    &showSystemAlertsDefault,
 	}
 
 	val.timeout = o.timeout
@@ -269,6 +287,17 @@ func (o *GetDeploymentParams) WithEnrichWithTemplate(enrichWithTemplate *bool) *
 // SetEnrichWithTemplate adds the enrichWithTemplate to the get deployment params
 func (o *GetDeploymentParams) SetEnrichWithTemplate(enrichWithTemplate *bool) {
 	o.EnrichWithTemplate = enrichWithTemplate
+}
+
+// WithForceAllPlanHistory adds the forceAllPlanHistory to the get deployment params
+func (o *GetDeploymentParams) WithForceAllPlanHistory(forceAllPlanHistory *bool) *GetDeploymentParams {
+	o.SetForceAllPlanHistory(forceAllPlanHistory)
+	return o
+}
+
+// SetForceAllPlanHistory adds the forceAllPlanHistory to the get deployment params
+func (o *GetDeploymentParams) SetForceAllPlanHistory(forceAllPlanHistory *bool) {
+	o.ForceAllPlanHistory = forceAllPlanHistory
 }
 
 // WithShowMetadata adds the showMetadata to the get deployment params
@@ -401,6 +430,23 @@ func (o *GetDeploymentParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 		if qEnrichWithTemplate != "" {
 
 			if err := r.SetQueryParam("enrich_with_template", qEnrichWithTemplate); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.ForceAllPlanHistory != nil {
+
+		// query param force_all_plan_history
+		var qrForceAllPlanHistory bool
+
+		if o.ForceAllPlanHistory != nil {
+			qrForceAllPlanHistory = *o.ForceAllPlanHistory
+		}
+		qForceAllPlanHistory := swag.FormatBool(qrForceAllPlanHistory)
+		if qForceAllPlanHistory != "" {
+
+			if err := r.SetQueryParam("force_all_plan_history", qForceAllPlanHistory); err != nil {
 				return err
 			}
 		}

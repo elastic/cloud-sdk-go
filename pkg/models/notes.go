@@ -32,7 +32,7 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// Notes User notes
+// Notes Deprecated: User notes
 //
 // swagger:model Notes
 type Notes struct {

@@ -31,7 +31,8 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// ProxiesHTTPSettings The HTTP settings for all proxies.
+// ProxiesHTTPSettings > WARNING
+// > This object is deprecated and scheduled to be removed in the next major version.
 //
 // swagger:model ProxiesHttpSettings
 type ProxiesHTTPSettings struct {

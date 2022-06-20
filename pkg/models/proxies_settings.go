@@ -30,7 +30,8 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// ProxiesSettings The settings for all proxies.
+// ProxiesSettings > WARNING
+// > This object is deprecated and scheduled to be removed in the next major version.
 //
 // swagger:model ProxiesSettings
 type ProxiesSettings struct {

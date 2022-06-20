@@ -31,7 +31,7 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// ElevatePermissionsRequest The request body for elevated permissions.
+// ElevatePermissionsRequest Deprecated: The request body for elevated permissions.
 //
 // swagger:model ElevatePermissionsRequest
 type ElevatePermissionsRequest struct {

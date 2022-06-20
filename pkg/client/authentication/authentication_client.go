@@ -339,7 +339,10 @@ func (a *Client) DeleteUsersAPIKeys(params *DeleteUsersAPIKeysParams, authInfo r
 /*
   DisableElevatedPermissions disables elevated permissions
 
-  Disables elevated permissions for the user.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Sudo has been retired
+
+Disables elevated permissions for the user.
 */
 func (a *Client) DisableElevatedPermissions(params *DisableElevatedPermissionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DisableElevatedPermissionsOK, error) {
 	// TODO: Validate the params before sending
@@ -380,7 +383,10 @@ func (a *Client) DisableElevatedPermissions(params *DisableElevatedPermissionsPa
 /*
   EnableElevatedPermissions enables elevated permissions
 
-  Enables the elevated permissions for the current user. Elevated permissions allow the user to complete potentially destructive operations on clusters. Elevated permissions are available for a limited period of time and automatically expire if you do not renew them.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Sudo has been retired
+
+Enables the elevated permissions for the current user. Elevated permissions allow the user to complete potentially destructive operations on clusters. Elevated permissions are available for a limited period of time and automatically expire if you do not renew them.
 */
 func (a *Client) EnableElevatedPermissions(params *EnableElevatedPermissionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*EnableElevatedPermissionsOK, error) {
 	// TODO: Validate the params before sending

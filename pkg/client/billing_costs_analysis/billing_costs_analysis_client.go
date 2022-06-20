@@ -47,6 +47,10 @@ type ClientOption func(*runtime.ClientOperation)
 
 // ClientService is the interface for Client methods
 type ClientService interface {
+	GetCostsCharts(params *GetCostsChartsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCostsChartsOK, error)
+
+	GetCostsChartsByDeployment(params *GetCostsChartsByDeploymentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCostsChartsByDeploymentOK, error)
+
 	GetCostsDeployments(params *GetCostsDeploymentsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCostsDeploymentsOK, error)
 
 	GetCostsItems(params *GetCostsItemsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCostsItemsOK, error)
@@ -59,7 +63,89 @@ type ClientService interface {
 }
 
 /*
-  GetCostsDeployments gets deployments costs for the organization
+  GetCostsCharts gets charts for the organization currently unavailable in self hosted e c e
+
+  EXPERIMENTAL (it may change in future versions): Retrieves the usage charts for the organization.
+*/
+func (a *Client) GetCostsCharts(params *GetCostsChartsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCostsChartsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetCostsChartsParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "get-costs-charts",
+		Method:             "GET",
+		PathPattern:        "/billing/costs/{organization_id}/charts",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetCostsChartsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetCostsChartsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-costs-charts: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  GetCostsChartsByDeployment gets charts by deployment currently unavailable in self hosted e c e
+
+  EXPERIMENTAL (it may change in future versions): Retrieves the usage charts for the given  deployment.
+*/
+func (a *Client) GetCostsChartsByDeployment(params *GetCostsChartsByDeploymentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCostsChartsByDeploymentOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetCostsChartsByDeploymentParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "get-costs-charts-by-deployment",
+		Method:             "GET",
+		PathPattern:        "/billing/costs/{organization_id}/deployments/{deployment_id}/charts",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetCostsChartsByDeploymentReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetCostsChartsByDeploymentOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-costs-charts-by-deployment: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  GetCostsDeployments gets deployments costs for the organization currently unavailable in self hosted e c e
 
   EXPERIMENTAL (it may change in future versions): Retrieves the costs associated with all deployments for the organization.
 */
@@ -100,7 +186,7 @@ func (a *Client) GetCostsDeployments(params *GetCostsDeploymentsParams, authInfo
 }
 
 /*
-  GetCostsItems gets itemized costs for the organization
+  GetCostsItems gets itemized costs for the organization currently unavailable in self hosted e c e
 
   EXPERIMENTAL (it may change in future versions): Retrieves the itemized costs for the organization.
 */
@@ -141,7 +227,7 @@ func (a *Client) GetCostsItems(params *GetCostsItemsParams, authInfo runtime.Cli
 }
 
 /*
-  GetCostsItemsByDeployment gets itemized costs by deployments
+  GetCostsItemsByDeployment gets itemized costs by deployments currently unavailable in self hosted e c e
 
   EXPERIMENTAL (it may change in future versions): Retrieves the itemized costs for the given deployment.
 */
@@ -182,7 +268,7 @@ func (a *Client) GetCostsItemsByDeployment(params *GetCostsItemsByDeploymentPara
 }
 
 /*
-  GetCostsOverview gets costs overview for the organization
+  GetCostsOverview gets costs overview for the organization currently unavailable in self hosted e c e
 
   EXPERIMENTAL (it may change in future versions): Retrieves an overview of the costs by organization ID.
 */

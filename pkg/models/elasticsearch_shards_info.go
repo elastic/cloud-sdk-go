@@ -32,7 +32,10 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// ElasticsearchShardsInfo Information about the shards and replicas that comprise the Elasticsearch indices.
+// ElasticsearchShardsInfo > WARNING
+// > This endpoint is deprecated and scheduled to be removed in the next major version. Use `shards_status` instead.
+//
+// Information about the shards and replicas that comprise the Elasticsearch indices.
 //
 // swagger:model ElasticsearchShardsInfo
 type ElasticsearchShardsInfo struct {

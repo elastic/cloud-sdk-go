@@ -55,7 +55,7 @@ type ClusterInstanceInfo struct {
 	// instance configuration
 	InstanceConfiguration *ClusterInstanceConfigurationInfo `json:"instance_configuration,omitempty"`
 
-	// Whether the instance is healthy (ie started and running)
+	// The name of the instance in Elastic Cloud
 	// Required: true
 	InstanceName *string `json:"instance_name"`
 
@@ -68,9 +68,6 @@ type ClusterInstanceInfo struct {
 
 	// A list of the node roles assigned to the service running in the instance. Currently populated only for Elasticsearch.
 	NodeRoles []string `json:"node_roles"`
-
-	// The service-specific (eg Elasticsearch) id of the node, if available
-	ServiceID string `json:"service_id,omitempty"`
 
 	// List of roles assigned to the service running in the instance. Currently only populated for Elasticsearch, with possible values: master,data,ingest,ml
 	ServiceRoles []string `json:"service_roles"`

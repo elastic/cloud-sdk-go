@@ -38,7 +38,7 @@ type DeploymentMetricsSettings struct {
 
 	// The destination deployment that this deployment's metrics will be sent to
 	// Required: true
-	Destination *AbsoluteRefID `json:"destination"`
+	Destination *ObservabilityAbsoluteDeployment `json:"destination"`
 
 	// Set to true to force the deployment to use legacy monitoring instead of Metricbeat-based monitoring.
 	ForceLegacyMonitoring *bool `json:"force_legacy_monitoring,omitempty"`

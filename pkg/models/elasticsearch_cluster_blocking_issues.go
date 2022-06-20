@@ -32,7 +32,10 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// ElasticsearchClusterBlockingIssues Issues that prevent the Elasticsearch cluster or index from correctly operating.
+// ElasticsearchClusterBlockingIssues > WARNING
+// > This endpoint is deprecated and scheduled to be removed in the next major version. Use `cluster_blocking_issues` instead
+//
+// Issues that prevent the Elasticsearch cluster or index from operating correctly.
 //
 // swagger:model ElasticsearchClusterBlockingIssues
 type ElasticsearchClusterBlockingIssues struct {

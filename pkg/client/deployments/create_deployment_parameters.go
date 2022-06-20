@@ -91,6 +91,12 @@ type CreateDeploymentParams struct {
 	*/
 	RequestID *string
 
+	/* TemplateID.
+
+	   An optional template id - if present, the referenced template will be used to fill in the resources field of the deployment creation request. If any resources are present in the request together with the template, the ones coming in the request will prevail and no merging with the template will be performed.
+	*/
+	TemplateID *string
+
 	/* ValidateOnly.
 
 	   If true, will just validate the Deployment definition but will not perform the creation
@@ -183,6 +189,17 @@ func (o *CreateDeploymentParams) SetRequestID(requestID *string) {
 	o.RequestID = requestID
 }
 
+// WithTemplateID adds the templateID to the create deployment params
+func (o *CreateDeploymentParams) WithTemplateID(templateID *string) *CreateDeploymentParams {
+	o.SetTemplateID(templateID)
+	return o
+}
+
+// SetTemplateID adds the templateId to the create deployment params
+func (o *CreateDeploymentParams) SetTemplateID(templateID *string) {
+	o.TemplateID = templateID
+}
+
 // WithValidateOnly adds the validateOnly to the create deployment params
 func (o *CreateDeploymentParams) WithValidateOnly(validateOnly *bool) *CreateDeploymentParams {
 	o.SetValidateOnly(validateOnly)
@@ -219,6 +236,23 @@ func (o *CreateDeploymentParams) WriteToRequest(r runtime.ClientRequest, reg str
 		if qRequestID != "" {
 
 			if err := r.SetQueryParam("request_id", qRequestID); err != nil {
+				return err
+			}
+		}
+	}
+
+	if o.TemplateID != nil {
+
+		// query param template_id
+		var qrTemplateID string
+
+		if o.TemplateID != nil {
+			qrTemplateID = *o.TemplateID
+		}
+		qTemplateID := qrTemplateID
+		if qTemplateID != "" {
+
+			if err := r.SetQueryParam("template_id", qTemplateID); err != nil {
 				return err
 			}
 		}

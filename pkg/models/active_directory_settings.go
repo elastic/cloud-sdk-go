@@ -53,7 +53,7 @@ type ActiveDirectorySettings struct {
 	// The password to the certificate bundle URL truststore
 	CertificateURLTruststorePassword string `json:"certificate_url_truststore_password,omitempty"`
 
-	// The format of the keystore file. Should be jks to use the Java Keystore format or PKCS12 to use PKCS#12 files.  The default is jks.
+	// The format of the truststore file. Should be jks to use the Java Keystore format or PKCS12 to use PKCS#12 files.  The default is jks.
 	// Enum: [jks PKCS12]
 	CertificateURLTruststoreType string `json:"certificate_url_truststore_type,omitempty"`
 
