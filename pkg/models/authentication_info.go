@@ -24,7 +24,6 @@ package models
 
 import (
 	"context"
-	"encoding/json"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
@@ -37,7 +36,7 @@ import (
 // swagger:model AuthenticationInfo
 type AuthenticationInfo struct {
 
-	// The UTC time when elevated permissions will expire, if the user has elevated permissions
+	// Deprecated: The UTC time when elevated permissions will expire, if the user has elevated permissions
 	// Format: date-time
 	ElevatedPermissionsExpireAt strfmt.DateTime `json:"elevated_permissions_expire_at,omitempty"`
 
@@ -45,24 +44,21 @@ type AuthenticationInfo struct {
 	// Format: date-time
 	ExpiresAt strfmt.DateTime `json:"expires_at,omitempty"`
 
-	// True if the user has elevated permissions
+	// Deprecated: True if the user has elevated permissions
 	// Required: true
 	HasElevatedPermissions *bool `json:"has_elevated_permissions"`
 
-	// True if the user has an available TOTP device
-	// Required: true
-	HasTotpDevice *bool `json:"has_totp_device"`
+	// Deprecated: True if the user has an available TOTP device
+	HasTotpDevice *bool `json:"has_totp_device,omitempty"`
 
 	// The API to be used when refreshing the current user's JWT
 	// Required: true
 	RefreshTokenURL *string `json:"refresh_token_url"`
 
-	// The TOTP device source
-	// Required: true
-	// Enum: [native okta]
-	TotpDeviceSource *string `json:"totp_device_source"`
+	// Deprecated: The TOTP device source
+	TotpDeviceSource string `json:"totp_device_source,omitempty"`
 
-	// URL for configuring an MFA TOTP device.  Does not apply when totp_device_source is 'native'.
+	// Deprecated: URL for configuring an MFA TOTP device.  Does not apply when totp_device_source is 'native'.
 	TotpDeviceSourceEnableMfaHref string `json:"totp_device_source_enable_mfa_href,omitempty"`
 }
 
@@ -82,15 +78,7 @@ func (m *AuthenticationInfo) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateHasTotpDevice(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateRefreshTokenURL(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateTotpDeviceSource(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -133,61 +121,9 @@ func (m *AuthenticationInfo) validateHasElevatedPermissions(formats strfmt.Regis
 	return nil
 }
 
-func (m *AuthenticationInfo) validateHasTotpDevice(formats strfmt.Registry) error {
-
-	if err := validate.Required("has_totp_device", "body", m.HasTotpDevice); err != nil {
-		return err
-	}
-
-	return nil
-}
-
 func (m *AuthenticationInfo) validateRefreshTokenURL(formats strfmt.Registry) error {
 
 	if err := validate.Required("refresh_token_url", "body", m.RefreshTokenURL); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-var authenticationInfoTypeTotpDeviceSourcePropEnum []interface{}
-
-func init() {
-	var res []string
-	if err := json.Unmarshal([]byte(`["native","okta"]`), &res); err != nil {
-		panic(err)
-	}
-	for _, v := range res {
-		authenticationInfoTypeTotpDeviceSourcePropEnum = append(authenticationInfoTypeTotpDeviceSourcePropEnum, v)
-	}
-}
-
-const (
-
-	// AuthenticationInfoTotpDeviceSourceNative captures enum value "native"
-	AuthenticationInfoTotpDeviceSourceNative string = "native"
-
-	// AuthenticationInfoTotpDeviceSourceOkta captures enum value "okta"
-	AuthenticationInfoTotpDeviceSourceOkta string = "okta"
-)
-
-// prop value enum
-func (m *AuthenticationInfo) validateTotpDeviceSourceEnum(path, location string, value string) error {
-	if err := validate.EnumCase(path, location, value, authenticationInfoTypeTotpDeviceSourcePropEnum, true); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (m *AuthenticationInfo) validateTotpDeviceSource(formats strfmt.Registry) error {
-
-	if err := validate.Required("totp_device_source", "body", m.TotpDeviceSource); err != nil {
-		return err
-	}
-
-	// value enum
-	if err := m.validateTotpDeviceSourceEnum("totp_device_source", "body", *m.TotpDeviceSource); err != nil {
 		return err
 	}
 

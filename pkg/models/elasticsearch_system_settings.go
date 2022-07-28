@@ -59,9 +59,6 @@ type ElasticsearchSystemSettings struct {
 	// scripting
 	Scripting *ElasticsearchScriptingUserSettings `json:"scripting,omitempty"`
 
-	// Whether to factor in the available disk space on a node before deciding whether to allocate new shards to that node or actively relocate shards away from the node (default: true). NOTES: (Corresponds to the parameter 'cluster.routing.allocation.disk.threshold_enabled')
-	UseDiskThreshold *bool `json:"use_disk_threshold,omitempty"`
-
 	// The trigger engine for Watcher, defaults to 'scheduler' - see the xpack documentation for more information. NOTES: (Corresponds to the parameter '(xpack.)watcher.trigger.schedule.engine', depending on version. Ignored from 6.x onwards.)
 	WatcherTriggerEngine string `json:"watcher_trigger_engine,omitempty"`
 }

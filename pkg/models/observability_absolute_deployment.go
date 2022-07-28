@@ -31,27 +31,24 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// IntegrationsServerCrudResponse The response to an Integrations Server CRUD (create/update-plan) request.
+// ObservabilityAbsoluteDeployment The destination to send logs and metrics to
 //
-// swagger:model IntegrationsServerCrudResponse
-type IntegrationsServerCrudResponse struct {
+// swagger:model ObservabilityAbsoluteDeployment
+type ObservabilityAbsoluteDeployment struct {
 
-	// If the endpoint is called with URL param 'validate_only=true', then this contains advanced debug info (the internal plan representation)
-	Diagnostics interface{} `json:"diagnostics,omitempty"`
-
-	// For an operation creating or updating an Integrations Server, the Id of that server
-	IntegrationsServerID string `json:"integrations_server_id,omitempty"`
-
-	// The secret token for accessing the server
+	// The deployment to send logs and/or metrics to. Contains either the deployment's ID or 'self'.
 	// Required: true
-	SecretToken *string `json:"secret_token"`
+	DeploymentID *string `json:"deployment_id"`
+
+	// RefId of the Elasticsearch cluster to send logs and/or metrics to. If not specified, refId is resolved automatically as long as the destination deployment contains a single Elasticsearch resource.
+	RefID string `json:"ref_id,omitempty"`
 }
 
-// Validate validates this integrations server crud response
-func (m *IntegrationsServerCrudResponse) Validate(formats strfmt.Registry) error {
+// Validate validates this observability absolute deployment
+func (m *ObservabilityAbsoluteDeployment) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateSecretToken(formats); err != nil {
+	if err := m.validateDeploymentID(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -61,22 +58,22 @@ func (m *IntegrationsServerCrudResponse) Validate(formats strfmt.Registry) error
 	return nil
 }
 
-func (m *IntegrationsServerCrudResponse) validateSecretToken(formats strfmt.Registry) error {
+func (m *ObservabilityAbsoluteDeployment) validateDeploymentID(formats strfmt.Registry) error {
 
-	if err := validate.Required("secret_token", "body", m.SecretToken); err != nil {
+	if err := validate.Required("deployment_id", "body", m.DeploymentID); err != nil {
 		return err
 	}
 
 	return nil
 }
 
-// ContextValidate validates this integrations server crud response based on context it is used
-func (m *IntegrationsServerCrudResponse) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+// ContextValidate validates this observability absolute deployment based on context it is used
+func (m *ObservabilityAbsoluteDeployment) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 
 // MarshalBinary interface implementation
-func (m *IntegrationsServerCrudResponse) MarshalBinary() ([]byte, error) {
+func (m *ObservabilityAbsoluteDeployment) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -84,8 +81,8 @@ func (m *IntegrationsServerCrudResponse) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *IntegrationsServerCrudResponse) UnmarshalBinary(b []byte) error {
-	var res IntegrationsServerCrudResponse
+func (m *ObservabilityAbsoluteDeployment) UnmarshalBinary(b []byte) error {
+	var res ObservabilityAbsoluteDeployment
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

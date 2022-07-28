@@ -36,9 +36,15 @@ import (
 // swagger:model ElasticsearchInfo
 type ElasticsearchInfo struct {
 
-	// blocking issues
+	// > WARNING
+	// > This endpoint is deprecated and scheduled to be removed in the next major version. Use `cluster_blocking_issues` instead.
+	//
+	// cluster-wide and/or index blocks
 	// Required: true
 	BlockingIssues *ElasticsearchClusterBlockingIssues `json:"blocking_issues"`
+
+	// cluster blocking issues
+	ClusterBlockingIssues *ElasticsearchBlockingIssues `json:"cluster_blocking_issues,omitempty"`
 
 	// Whether the Elasticsearch cluster is healthy (check the sub-objects for more details if not)
 	// Required: true
@@ -48,9 +54,15 @@ type ElasticsearchInfo struct {
 	// Required: true
 	MasterInfo *ElasticsearchMasterInfo `json:"master_info"`
 
-	// shard info
+	// > WARNING
+	// > This endpoint is deprecated and scheduled to be removed in the next major version. Use `shards_status` instead.
+	//
+	// Elasticsearch shard info
 	// Required: true
 	ShardInfo *ElasticsearchShardsInfo `json:"shard_info"`
+
+	// shards status
+	ShardsStatus *ElasticsearchShardsStatus `json:"shards_status,omitempty"`
 }
 
 // Validate validates this elasticsearch info
@@ -58,6 +70,10 @@ func (m *ElasticsearchInfo) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateBlockingIssues(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateClusterBlockingIssues(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -70,6 +86,10 @@ func (m *ElasticsearchInfo) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateShardInfo(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateShardsStatus(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -89,6 +109,23 @@ func (m *ElasticsearchInfo) validateBlockingIssues(formats strfmt.Registry) erro
 		if err := m.BlockingIssues.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("blocking_issues")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ElasticsearchInfo) validateClusterBlockingIssues(formats strfmt.Registry) error {
+	if swag.IsZero(m.ClusterBlockingIssues) { // not required
+		return nil
+	}
+
+	if m.ClusterBlockingIssues != nil {
+		if err := m.ClusterBlockingIssues.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("cluster_blocking_issues")
 			}
 			return err
 		}
@@ -142,6 +179,23 @@ func (m *ElasticsearchInfo) validateShardInfo(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *ElasticsearchInfo) validateShardsStatus(formats strfmt.Registry) error {
+	if swag.IsZero(m.ShardsStatus) { // not required
+		return nil
+	}
+
+	if m.ShardsStatus != nil {
+		if err := m.ShardsStatus.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("shards_status")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 // ContextValidate validate this elasticsearch info based on the context it is used
 func (m *ElasticsearchInfo) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
@@ -150,11 +204,19 @@ func (m *ElasticsearchInfo) ContextValidate(ctx context.Context, formats strfmt.
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateClusterBlockingIssues(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateMasterInfo(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
 	if err := m.contextValidateShardInfo(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateShardsStatus(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -170,6 +232,20 @@ func (m *ElasticsearchInfo) contextValidateBlockingIssues(ctx context.Context, f
 		if err := m.BlockingIssues.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("blocking_issues")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ElasticsearchInfo) contextValidateClusterBlockingIssues(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.ClusterBlockingIssues != nil {
+		if err := m.ClusterBlockingIssues.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("cluster_blocking_issues")
 			}
 			return err
 		}
@@ -198,6 +274,20 @@ func (m *ElasticsearchInfo) contextValidateShardInfo(ctx context.Context, format
 		if err := m.ShardInfo.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("shard_info")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *ElasticsearchInfo) contextValidateShardsStatus(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.ShardsStatus != nil {
+		if err := m.ShardsStatus.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("shards_status")
 			}
 			return err
 		}

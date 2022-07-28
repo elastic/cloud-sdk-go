@@ -76,6 +76,12 @@ func NewGetCostsItemsByDeploymentParamsWithHTTPClient(client *http.Client) *GetC
 */
 type GetCostsItemsByDeploymentParams struct {
 
+	/* Accept.
+
+	   Determines the response body format. Can be either application/json or text/csv.
+	*/
+	Accept *string
+
 	/* DeploymentID.
 
 	   Id of a Deployment
@@ -153,6 +159,17 @@ func (o *GetCostsItemsByDeploymentParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithAccept adds the accept to the get costs items by deployment params
+func (o *GetCostsItemsByDeploymentParams) WithAccept(accept *string) *GetCostsItemsByDeploymentParams {
+	o.SetAccept(accept)
+	return o
+}
+
+// SetAccept adds the accept to the get costs items by deployment params
+func (o *GetCostsItemsByDeploymentParams) SetAccept(accept *string) {
+	o.Accept = accept
+}
+
 // WithDeploymentID adds the deploymentID to the get costs items by deployment params
 func (o *GetCostsItemsByDeploymentParams) WithDeploymentID(deploymentID string) *GetCostsItemsByDeploymentParams {
 	o.SetDeploymentID(deploymentID)
@@ -204,6 +221,14 @@ func (o *GetCostsItemsByDeploymentParams) WriteToRequest(r runtime.ClientRequest
 		return err
 	}
 	var res []error
+
+	if o.Accept != nil {
+
+		// header param Accept
+		if err := r.SetHeaderParam("Accept", *o.Accept); err != nil {
+			return err
+		}
+	}
 
 	// path param deployment_id
 	if err := r.SetPathParam("deployment_id", o.DeploymentID); err != nil {

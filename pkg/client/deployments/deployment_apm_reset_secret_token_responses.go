@@ -46,6 +46,12 @@ func (o *DeploymentApmResetSecretTokenReader) ReadResponse(response runtime.Clie
 			return nil, err
 		}
 		return result, nil
+	case 400:
+		result := NewDeploymentApmResetSecretTokenBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 	case 404:
 		result := NewDeploymentApmResetSecretTokenNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -92,6 +98,50 @@ func (o *DeploymentApmResetSecretTokenAccepted) GetPayload() *models.ApmCrudResp
 func (o *DeploymentApmResetSecretTokenAccepted) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ApmCrudResponse)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewDeploymentApmResetSecretTokenBadRequest creates a DeploymentApmResetSecretTokenBadRequest with default headers values
+func NewDeploymentApmResetSecretTokenBadRequest() *DeploymentApmResetSecretTokenBadRequest {
+	return &DeploymentApmResetSecretTokenBadRequest{}
+}
+
+/* DeploymentApmResetSecretTokenBadRequest describes a response with status code 400, with default header values.
+
+Reset token is not supported when APM is managed by Elastic Agent. (code: `clusters.cluster_plan_state_error`)
+*/
+type DeploymentApmResetSecretTokenBadRequest struct {
+
+	/* The error codes associated with the response
+	 */
+	XCloudErrorCodes string
+
+	Payload *models.BasicFailedReply
+}
+
+func (o *DeploymentApmResetSecretTokenBadRequest) Error() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/apm/{ref_id}/_reset-token][%d] deploymentApmResetSecretTokenBadRequest  %+v", 400, o.Payload)
+}
+func (o *DeploymentApmResetSecretTokenBadRequest) GetPayload() *models.BasicFailedReply {
+	return o.Payload
+}
+
+func (o *DeploymentApmResetSecretTokenBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	// hydrates response header x-cloud-error-codes
+	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
+
+	if hdrXCloudErrorCodes != "" {
+		o.XCloudErrorCodes = hdrXCloudErrorCodes
+	}
+
+	o.Payload = new(models.BasicFailedReply)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

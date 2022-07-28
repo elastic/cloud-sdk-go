@@ -28,7 +28,6 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
-	"github.com/go-openapi/validate"
 )
 
 // DeploymentCreateRequest A request for creating a new Deployment consisting of multiple clusters
@@ -45,12 +44,17 @@ type DeploymentCreateRequest struct {
 	// A name for the deployment; otherwise this will be the generated deployment id
 	Name string `json:"name,omitempty"`
 
+	// Identifier of the region to be used as the default for all the resources of the deployment
+	Region string `json:"region,omitempty"`
+
 	// The Resources that will belong to this Deployment
-	// Required: true
-	Resources *DeploymentCreateResources `json:"resources"`
+	Resources *DeploymentCreateResources `json:"resources,omitempty"`
 
 	// Additional configuration for this Deployment
 	Settings *DeploymentCreateSettings `json:"settings,omitempty"`
+
+	// The version for all the resources of the deployment (must be one of the supported versions). Defaults to the latest version if not specified.
+	Version string `json:"version,omitempty"`
 }
 
 // Validate validates this deployment create request
@@ -93,9 +97,8 @@ func (m *DeploymentCreateRequest) validateMetadata(formats strfmt.Registry) erro
 }
 
 func (m *DeploymentCreateRequest) validateResources(formats strfmt.Registry) error {
-
-	if err := validate.Required("resources", "body", m.Resources); err != nil {
-		return err
+	if swag.IsZero(m.Resources) { // not required
+		return nil
 	}
 
 	if m.Resources != nil {

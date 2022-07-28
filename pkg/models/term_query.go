@@ -28,6 +28,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // TermQuery A query for documents that contain the specified term in the inverted index.
@@ -37,7 +38,7 @@ type TermQuery struct {
 
 	// The exact value to query for.
 	// Required: true
-	Value interface{} `json:"value"`
+	Value *string `json:"value"`
 }
 
 // Validate validates this term query
@@ -56,8 +57,8 @@ func (m *TermQuery) Validate(formats strfmt.Registry) error {
 
 func (m *TermQuery) validateValue(formats strfmt.Registry) error {
 
-	if m.Value == nil {
-		return errors.Required("value", "body", nil)
+	if err := validate.Required("value", "body", m.Value); err != nil {
+		return err
 	}
 
 	return nil

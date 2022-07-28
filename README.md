@@ -86,3 +86,4 @@ The rest are a series of packages that can be leveraged in many ways. For a deta
 Alternatively, if you wish to write your own APIs, take a look at our [sample code](./examples/platform/main.go), which retrieves information about the active platform, to get an idea on how the client is used.
 
 We always welcome contributions! Take a look at our [contributing guide](./CONTRIBUTING.md) if this is something that interests you.
+

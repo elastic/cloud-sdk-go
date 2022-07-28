@@ -73,19 +73,6 @@ func NewUpdateProxiesSettingsOK() *UpdateProxiesSettingsOK {
 Returns the updated settings
 */
 type UpdateProxiesSettingsOK struct {
-
-	/* The date-time when the resource was created (ISO format relative to UTC)
-	 */
-	XCloudResourceCreated string
-
-	/* The date-time when the resource was last modified (ISO format relative to UTC)
-	 */
-	XCloudResourceLastModified string
-
-	/* The resource version, which is used to avoid update conflicts with concurrent operations
-	 */
-	XCloudResourceVersion string
-
 	Payload *models.ProxiesSettings
 }
 
@@ -97,27 +84,6 @@ func (o *UpdateProxiesSettingsOK) GetPayload() *models.ProxiesSettings {
 }
 
 func (o *UpdateProxiesSettingsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-resource-created
-	hdrXCloudResourceCreated := response.GetHeader("x-cloud-resource-created")
-
-	if hdrXCloudResourceCreated != "" {
-		o.XCloudResourceCreated = hdrXCloudResourceCreated
-	}
-
-	// hydrates response header x-cloud-resource-last-modified
-	hdrXCloudResourceLastModified := response.GetHeader("x-cloud-resource-last-modified")
-
-	if hdrXCloudResourceLastModified != "" {
-		o.XCloudResourceLastModified = hdrXCloudResourceLastModified
-	}
-
-	// hydrates response header x-cloud-resource-version
-	hdrXCloudResourceVersion := response.GetHeader("x-cloud-resource-version")
-
-	if hdrXCloudResourceVersion != "" {
-		o.XCloudResourceVersion = hdrXCloudResourceVersion
-	}
 
 	o.Payload = new(models.ProxiesSettings)
 

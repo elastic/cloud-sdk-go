@@ -63,7 +63,10 @@ type ClientService interface {
 /*
   CreateDeploymentNote creates deployment note
 
-  Create note for the running deployment.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use [Create a Comment](#Comments) instead.
+
+Create note for the running deployment.
 */
 func (a *Client) CreateDeploymentNote(params *CreateDeploymentNoteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateDeploymentNoteCreated, error) {
 	// TODO: Validate the params before sending
@@ -104,7 +107,10 @@ func (a *Client) CreateDeploymentNote(params *CreateDeploymentNoteParams, authIn
 /*
   DeleteDeploymentNote deletes deployment note
 
-  Delete note for the running deployment.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use [Delete Comment](#Comments) instead.
+
+Delete note for the running deployment.
 */
 func (a *Client) DeleteDeploymentNote(params *DeleteDeploymentNoteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteDeploymentNoteOK, error) {
 	// TODO: Validate the params before sending
@@ -145,7 +151,10 @@ func (a *Client) DeleteDeploymentNote(params *DeleteDeploymentNoteParams, authIn
 /*
   GetDeploymentNote gets a deployment note
 
-  Gets a deployment note.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use [Get Comment](#Comments) instead.
+
+Gets a deployment note.
 */
 func (a *Client) GetDeploymentNote(params *GetDeploymentNoteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentNoteOK, error) {
 	// TODO: Validate the params before sending
@@ -186,7 +195,10 @@ func (a *Client) GetDeploymentNote(params *GetDeploymentNoteParams, authInfo run
 /*
   GetDeploymentNotes gets deployment notes
 
-  Get deployment notes.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use [List Comments](#Comments) instead.
+
+Get deployment notes.
 */
 func (a *Client) GetDeploymentNotes(params *GetDeploymentNotesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentNotesOK, error) {
 	// TODO: Validate the params before sending
@@ -227,7 +239,10 @@ func (a *Client) GetDeploymentNotes(params *GetDeploymentNotesParams, authInfo r
 /*
   UpdateDeploymentNote updates deployment note
 
-  Update note for the running deployment.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version. Use [Update Comment](#Comments) instead.
+
+Update note for the running deployment.
 */
 func (a *Client) UpdateDeploymentNote(params *UpdateDeploymentNoteParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateDeploymentNoteOK, error) {
 	// TODO: Validate the params before sending

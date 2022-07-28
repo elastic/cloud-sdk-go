@@ -31,7 +31,8 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// ProxiesSSOSettings The single sign-on settings for all proxies.
+// ProxiesSSOSettings > WARNING
+// > This object is deprecated and scheduled to be removed in the next major version.
 //
 // swagger:model ProxiesSSOSettings
 type ProxiesSSOSettings struct {

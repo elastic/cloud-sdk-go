@@ -35,7 +35,7 @@ import (
 // swagger:model DeploymentSettings
 type DeploymentSettings struct {
 
-	// Logging and monitoring settings for this deployment
+	// Logging and monitoring settings for this deployment.
 	Observability *DeploymentObservabilitySettings `json:"observability,omitempty"`
 
 	// The traffic filter rulesets for this deployment.
