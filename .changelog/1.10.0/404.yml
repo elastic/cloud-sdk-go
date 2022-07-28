@@ -1,0 +1,4 @@
+category: enhancement
+title: Update API spec to ECE 3.3.0 / ESS ms-77
+description: |
+    Updates the ECE generated Clients and models to the latest version.
