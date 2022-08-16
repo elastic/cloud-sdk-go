@@ -35,6 +35,9 @@ import (
 // swagger:model DeploymentCreateSettings
 type DeploymentCreateSettings struct {
 
+	// Enable autoscaling for this deployment.
+	AutoscalingEnabled *bool `json:"autoscaling_enabled,omitempty"`
+
 	// Observability settings for this deployment
 	Observability *DeploymentObservabilitySettings `json:"observability,omitempty"`
 

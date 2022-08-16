@@ -36,6 +36,9 @@ import (
 // swagger:model CertificateMetaData
 type CertificateMetaData struct {
 
+	// Other deployments also trusting this certificate
+	AlsoTrustedBy []string `json:"also_trusted_by"`
+
 	// The fingerprint of the certificate
 	// Required: true
 	Fingerprint *string `json:"fingerprint"`
