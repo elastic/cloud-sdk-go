@@ -35,6 +35,9 @@ import (
 // swagger:model DeploymentSettings
 type DeploymentSettings struct {
 
+	// If autoscaling is enabled for this deployment.
+	AutoscalingEnabled *bool `json:"autoscaling_enabled,omitempty"`
+
 	// Logging and monitoring settings for this deployment.
 	Observability *DeploymentObservabilitySettings `json:"observability,omitempty"`
 

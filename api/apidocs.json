@@ -1,7 +1,6 @@
 {
   "swagger" : "2.0",
   "info" : {
-    "description" : "",
     "version" : "1",
     "title" : "Elastic Cloud Enterprise API",
     "termsOfService" : ""
@@ -48,6 +47,8 @@
     "name" : "Stack"
   }, {
     "name" : "Telemetry"
+  }, {
+    "name" : "TrustedEnvironments"
   }, {
     "name" : "Users"
   } ],
@@ -15487,6 +15488,45 @@
         }
       }
     },
+    "/trusted-environments" : {
+      "get" : {
+        "tags" : [ "TrustedEnvironments" ],
+        "summary" : "Get trusted environments",
+        "description" : "Returns the list of trusted environments for the organization. If no organization is passed in, the organization attached to the user is assumed.",
+        "operationId" : "get-trusted-envs",
+        "parameters" : [ {
+          "name" : "organization_id",
+          "in" : "query",
+          "description" : "(Optional) Organization Id for which to retrieve the trusted environments",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Trusted environments for this organization",
+            "schema" : {
+              "$ref" : "#/definitions/ElasticsearchClusterTrustSettings"
+            }
+          },
+          "404" : {
+            "description" : "Organization not found. (code: `organization.not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "organization.not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "x-doc" : {
+          "tag" : "TrustedEnvironments"
+        }
+      }
+    },
     "/user" : {
       "get" : {
         "tags" : [ "Users" ],
@@ -18541,6 +18581,13 @@
           "type" : "string",
           "format" : "date-time",
           "description" : "The valid from date of the certificate in UTC"
+        },
+        "also_trusted_by" : {
+          "type" : "array",
+          "description" : "Other deployments also trusting this certificate",
+          "items" : {
+            "type" : "string"
+          }
         }
       },
       "description" : "The certificate MetaData"
@@ -20133,6 +20180,10 @@
         "observability" : {
           "description" : "Observability settings for this deployment",
           "$ref" : "#/definitions/DeploymentObservabilitySettings"
+        },
+        "autoscaling_enabled" : {
+          "type" : "boolean",
+          "description" : "Enable autoscaling for this deployment."
         }
       },
       "description" : "Additional configuration for the new deployment object."
@@ -20598,6 +20649,10 @@
         "observability" : {
           "description" : "Logging and monitoring settings for this deployment.",
           "$ref" : "#/definitions/DeploymentObservabilitySettings"
+        },
+        "autoscaling_enabled" : {
+          "type" : "boolean",
+          "description" : "If autoscaling is enabled for this deployment."
         }
       },
       "description" : "Additional configuration about the current deployment object."
@@ -20899,6 +20954,10 @@
         "observability" : {
           "description" : "Logging and monitoring settings for this deployment. If provided it will change observability settings, if null observability will be removed from the deployment, otherwise will stay the same",
           "$ref" : "#/definitions/DeploymentObservabilitySettings"
+        },
+        "autoscaling_enabled" : {
+          "type" : "boolean",
+          "description" : "Enable autoscaling for this deployment."
         }
       },
       "description" : "Additional configuration for the new deployment object."
