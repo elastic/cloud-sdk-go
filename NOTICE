@@ -26,7 +26,7 @@ github.com/mailru/easyjson            could not clone repo from github.com/mailr
 github.com/mitchellh/mapstructure     could not clone repo from github.com/mitchellh/mapstructure@v1.5.0: repository not found
 github.com/pmezard/go-difflib         could not clone repo from github.com/pmezard/go-difflib@v1.0.0: repository not found
 github.com/spf13/cobra                could not clone repo from github.com/spf13/cobra@v1.6.0: repository not found
-github.com/stretchr/testify           could not clone repo from github.com/stretchr/testify@v1.7.1: repository not found
+github.com/stretchr/testify           could not clone repo from github.com/stretchr/testify@v1.8.1: repository not found
 go.mongodb.org/mongo-driver           could not clone repo from go.mongodb.org/mongo-driver@v1.8.2: repository not found
 golang.org/x/net                      could not clone repo from golang.org/x/net@v0.0.0-20211216030914-fe4d6282115f: repository not found
 
