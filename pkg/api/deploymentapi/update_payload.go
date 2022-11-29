@@ -95,14 +95,6 @@ func parseElasticsearchGetResponse(r *models.ElasticsearchResourceInfo) (payload
 		r.Info.Settings.Metadata = nil
 	}
 
-	var ct = make([]*models.ElasticsearchClusterTopologyElement, 0, len(plan.Plan.ClusterTopology))
-	for _, t := range plan.Plan.ClusterTopology {
-		if t.MemoryPerNode > 0 || !nilOZeroToplogySize(t.Size) {
-			ct = append(ct, t)
-		}
-	}
-	plan.Plan.ClusterTopology = ct
-
 	return &models.ElasticsearchPayload{
 		DisplayName: *r.Info.ClusterName,
 		RefID:       r.RefID,
