@@ -25,14 +25,28 @@
                         },
                         {
                             "elasticsearch": {},
+                            "instance_configuration_id": "gcp.master.1",
+                            "node_type": {
+                                "data": false,
+                                "ingest": false,
+                                "master": true
+                            },
+                            "size": {
+                                "resource": "memory",
+                                "value": 0
+                            },
+                            "zone_count": 3
+                        },
+                        {
+                            "elasticsearch": {},
                             "instance_configuration_id": "gcp.data.highio.1",
-                            "memory_per_node": 2048,
                             "node_type": {
                                 "data": true,
                                 "ingest": true,
                                 "master": true
                             },
-                            "zone_count": 1
+                            "zone_count": 1,
+                            "memory_per_node": 2048
                         }
                     ],
                     "deployment_template": {
