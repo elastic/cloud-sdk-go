@@ -61,6 +61,7 @@ var globalPath = map[string]bool{
 	"stack":       false,
 	"user":        true,
 	"users":       true,
+	"billing":     true,
 }
 
 type newRuntimeFunc func(region string) *runtimeclient.Runtime

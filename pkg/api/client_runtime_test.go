@@ -224,6 +224,17 @@ func TestCloudClientRuntime_getRuntime(t *testing.T) {
 			}},
 			err: errors.New("the requested operation requires a region but none has been set"),
 		},
+		{
+			name: "/billing operation uses the regionless path",
+			fields: fields{
+				newRegionRuntime: mocknewRuntimeFunc,
+				runtime:          regionless,
+			},
+			args: args{op: &runtime.ClientOperation{
+				PathPattern: "/billing/costs",
+			}},
+			want: &runtimeclient.Runtime{BasePath: "/api/v1/"},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
