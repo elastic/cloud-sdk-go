@@ -34,8 +34,14 @@ import (
 // swagger:model OrganizationRequest
 type OrganizationRequest struct {
 
+	// Whether the default disk alerts are enabled
+	DefaultDiskUsageAlertsEnabled *bool `json:"default_disk_usage_alerts_enabled,omitempty"`
+
 	// The organization's friendly name
 	Name string `json:"name,omitempty"`
+
+	// The list of allowed domains for notification-email recipients
+	NotificationsAllowedEmailDomains []string `json:"notifications_allowed_email_domains"`
 }
 
 // Validate validates this organization request

@@ -51,6 +51,9 @@ type RunnerInfo struct {
 	// State of features of the runner
 	Features map[string]bool `json:"features,omitempty"`
 
+	// Checks used to determine if a runner is healthy or not
+	HealthChecks *RunnerHealthChecks `json:"health_checks,omitempty"`
+
 	// Specifies if the runner is healthy
 	// Required: true
 	Healthy *bool `json:"healthy"`
@@ -97,6 +100,10 @@ func (m *RunnerInfo) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateContainers(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateHealthChecks(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -177,6 +184,23 @@ func (m *RunnerInfo) validateContainers(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *RunnerInfo) validateHealthChecks(formats strfmt.Registry) error {
+	if swag.IsZero(m.HealthChecks) { // not required
+		return nil
+	}
+
+	if m.HealthChecks != nil {
+		if err := m.HealthChecks.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("health_checks")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *RunnerInfo) validateHealthy(formats strfmt.Registry) error {
 
 	if err := validate.Required("healthy", "body", m.Healthy); err != nil {
@@ -250,6 +274,10 @@ func (m *RunnerInfo) ContextValidate(ctx context.Context, formats strfmt.Registr
 		res = append(res, err)
 	}
 
+	if err := m.contextValidateHealthChecks(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.contextValidateRoles(ctx, formats); err != nil {
 		res = append(res, err)
 	}
@@ -287,6 +315,20 @@ func (m *RunnerInfo) contextValidateContainers(ctx context.Context, formats strf
 			}
 		}
 
+	}
+
+	return nil
+}
+
+func (m *RunnerInfo) contextValidateHealthChecks(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.HealthChecks != nil {
+		if err := m.HealthChecks.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("health_checks")
+			}
+			return err
+		}
 	}
 
 	return nil

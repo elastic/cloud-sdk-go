@@ -40,6 +40,9 @@ type AllocatorHealthStatus struct {
 	// Required: true
 	Connected *bool `json:"connected"`
 
+	// Checks used to determine if an allocator is healthy or not
+	HealthChecks *AllocatorHealthChecks `json:"health_checks,omitempty"`
+
 	// Whether the allocator is healthy, meaning it is either connected or has no instances
 	// Required: true
 	Healthy *bool `json:"healthy"`
@@ -58,6 +61,10 @@ func (m *AllocatorHealthStatus) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateConnected(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateHealthChecks(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -83,6 +90,23 @@ func (m *AllocatorHealthStatus) validateConnected(formats strfmt.Registry) error
 
 	if err := validate.Required("connected", "body", m.Connected); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (m *AllocatorHealthStatus) validateHealthChecks(formats strfmt.Registry) error {
+	if swag.IsZero(m.HealthChecks) { // not required
+		return nil
+	}
+
+	if m.HealthChecks != nil {
+		if err := m.HealthChecks.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("health_checks")
+			}
+			return err
+		}
 	}
 
 	return nil
@@ -118,8 +142,31 @@ func (m *AllocatorHealthStatus) validateMaintenanceModeTimestamp(formats strfmt.
 	return nil
 }
 
-// ContextValidate validates this allocator health status based on context it is used
+// ContextValidate validate this allocator health status based on the context it is used
 func (m *AllocatorHealthStatus) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateHealthChecks(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *AllocatorHealthStatus) contextValidateHealthChecks(ctx context.Context, formats strfmt.Registry) error {
+
+	if m.HealthChecks != nil {
+		if err := m.HealthChecks.ContextValidate(ctx, formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("health_checks")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 

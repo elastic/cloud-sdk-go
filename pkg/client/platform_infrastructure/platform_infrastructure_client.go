@@ -69,6 +69,8 @@ type ClientService interface {
 
 	DeleteConstructorLoggingSettings(params *DeleteConstructorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteConstructorLoggingSettingsOK, error)
 
+	DeleteCoordinatorCandidate(params *DeleteCoordinatorCandidateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteCoordinatorCandidateOK, error)
+
 	DeleteLicense(params *DeleteLicenseParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteLicenseOK, error)
 
 	DeleteProxiesFilteredGroup(params *DeleteProxiesFilteredGroupParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteProxiesFilteredGroupOK, error)
@@ -76,6 +78,8 @@ type ClientService interface {
 	DeleteRunner(params *DeleteRunnerParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteRunnerOK, error)
 
 	DeleteRunnerLoggingSettings(params *DeleteRunnerLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteRunnerLoggingSettingsOK, error)
+
+	DemoteCoordinator(params *DemoteCoordinatorParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DemoteCoordinatorOK, error)
 
 	GetAdminconsoleLoggingSettings(params *GetAdminconsoleLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAdminconsoleLoggingSettingsOK, error)
 
@@ -102,6 +106,14 @@ type ClientService interface {
 	GetConstructorLoggingSettings(params *GetConstructorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetConstructorLoggingSettingsOK, error)
 
 	GetConstructors(params *GetConstructorsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetConstructorsOK, error)
+
+	GetCoordinator(params *GetCoordinatorParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCoordinatorOK, error)
+
+	GetCoordinatorCandidate(params *GetCoordinatorCandidateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCoordinatorCandidateOK, error)
+
+	GetCoordinatorCandidates(params *GetCoordinatorCandidatesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCoordinatorCandidatesOK, error)
+
+	GetCoordinators(params *GetCoordinatorsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCoordinatorsOK, error)
 
 	GetLicense(params *GetLicenseParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetLicenseOK, error)
 
@@ -130,6 +142,8 @@ type ClientService interface {
 	MoveClusters(params *MoveClustersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MoveClustersAccepted, error)
 
 	MoveClustersByType(params *MoveClustersByTypeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MoveClustersByTypeAccepted, error)
+
+	PromoteCoordinatorCandidate(params *PromoteCoordinatorCandidateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PromoteCoordinatorCandidateAccepted, error)
 
 	PutConfigStoreOption(params *PutConfigStoreOptionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutConfigStoreOptionOK, error)
 
@@ -652,6 +666,47 @@ func (a *Client) DeleteConstructorLoggingSettings(params *DeleteConstructorLoggi
 }
 
 /*
+  DeleteCoordinatorCandidate deletes coordinator candidate
+
+  Delete a coordinator candidate by id.
+*/
+func (a *Client) DeleteCoordinatorCandidate(params *DeleteCoordinatorCandidateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteCoordinatorCandidateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteCoordinatorCandidateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "delete-coordinator-candidate",
+		Method:             "DELETE",
+		PathPattern:        "/platform/infrastructure/coordinators/candidates/{coordinator_candidate_id}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeleteCoordinatorCandidateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DeleteCoordinatorCandidateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for delete-coordinator-candidate: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
   DeleteLicense deletes license
 
   Deletes the license.
@@ -812,6 +867,47 @@ func (a *Client) DeleteRunnerLoggingSettings(params *DeleteRunnerLoggingSettings
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for delete-runner-logging-settings: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  DemoteCoordinator demotes a coordinator
+
+  Demotes a coordinator.
+*/
+func (a *Client) DemoteCoordinator(params *DemoteCoordinatorParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DemoteCoordinatorOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDemoteCoordinatorParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "demote-coordinator",
+		Method:             "POST",
+		PathPattern:        "/platform/infrastructure/coordinators/{coordinator_id}/_demote",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DemoteCoordinatorReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*DemoteCoordinatorOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for demote-coordinator: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -1345,6 +1441,170 @@ func (a *Client) GetConstructors(params *GetConstructorsParams, authInfo runtime
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for get-constructors: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  GetCoordinator gets a coordinator
+
+  Retrieve overview of a single coordinator.
+*/
+func (a *Client) GetCoordinator(params *GetCoordinatorParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCoordinatorOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetCoordinatorParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "get-coordinator",
+		Method:             "GET",
+		PathPattern:        "/platform/infrastructure/coordinators/{coordinator_id}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetCoordinatorReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetCoordinatorOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-coordinator: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  GetCoordinatorCandidate gets a coordinator candidate
+
+  Retrieve a coordinator candidate.
+*/
+func (a *Client) GetCoordinatorCandidate(params *GetCoordinatorCandidateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCoordinatorCandidateOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetCoordinatorCandidateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "get-coordinator-candidate",
+		Method:             "GET",
+		PathPattern:        "/platform/infrastructure/coordinators/candidates/{coordinator_candidate_id}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetCoordinatorCandidateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetCoordinatorCandidateOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-coordinator-candidate: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  GetCoordinatorCandidates gets coordinator candidates
+
+  Retrieve a list of all coordinator candidates.
+*/
+func (a *Client) GetCoordinatorCandidates(params *GetCoordinatorCandidatesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCoordinatorCandidatesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetCoordinatorCandidatesParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "get-coordinator-candidates",
+		Method:             "GET",
+		PathPattern:        "/platform/infrastructure/coordinators/candidates",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetCoordinatorCandidatesReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetCoordinatorCandidatesOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-coordinator-candidates: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  GetCoordinators gets coordinators
+
+  Retrieves an overview of all coordinators.
+*/
+func (a *Client) GetCoordinators(params *GetCoordinatorsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCoordinatorsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetCoordinatorsParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "get-coordinators",
+		Method:             "GET",
+		PathPattern:        "/platform/infrastructure/coordinators",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetCoordinatorsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetCoordinatorsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-coordinators: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 
@@ -1922,6 +2182,47 @@ func (a *Client) MoveClustersByType(params *MoveClustersByTypeParams, authInfo r
 	// unexpected success response
 	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
 	msg := fmt.Sprintf("unexpected success response for move-clusters-by-type: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+  PromoteCoordinatorCandidate promotes a coordinator candidate
+
+  Promotes a coordinator candidate.
+*/
+func (a *Client) PromoteCoordinatorCandidate(params *PromoteCoordinatorCandidateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PromoteCoordinatorCandidateAccepted, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPromoteCoordinatorCandidateParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "promote-coordinator-candidate",
+		Method:             "POST",
+		PathPattern:        "/platform/infrastructure/coordinators/candidates/{coordinator_candidate_id}/_promote",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &PromoteCoordinatorCandidateReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*PromoteCoordinatorCandidateAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for promote-coordinator-candidate: API contract not enforced by server. Client expected to get an error, but got: %T", result)
 	panic(msg)
 }
 

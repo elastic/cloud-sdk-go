@@ -24,4 +24,4 @@ package api
 // on the minor version, i.e: 2.4.2 means that all the 2.4 branch is supported,
 // expecting some potentially unfixed bugs when ECE version is the same feature
 // version bug higher bugfix version.
-const Version = "3.4.0"
+const Version = "3.5.2"

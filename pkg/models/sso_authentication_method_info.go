@@ -43,7 +43,7 @@ type SsoAuthenticationMethodInfo struct {
 
 	// Indicates the protocol of the single sign-on method.
 	// Required: true
-	// Enum: [saml openid]
+	// Enum: [saml]
 	SsoType *string `json:"sso_type"`
 
 	// The URL to initiate the single sign-on login.
@@ -86,7 +86,7 @@ var ssoAuthenticationMethodInfoTypeSsoTypePropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["saml","openid"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["saml"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -98,9 +98,6 @@ const (
 
 	// SsoAuthenticationMethodInfoSsoTypeSaml captures enum value "saml"
 	SsoAuthenticationMethodInfoSsoTypeSaml string = "saml"
-
-	// SsoAuthenticationMethodInfoSsoTypeOpenid captures enum value "openid"
-	SsoAuthenticationMethodInfoSsoTypeOpenid string = "openid"
 )
 
 // prop value enum
