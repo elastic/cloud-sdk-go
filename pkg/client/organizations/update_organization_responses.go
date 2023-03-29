@@ -82,7 +82,7 @@ func NewUpdateOrganizationOK() *UpdateOrganizationOK {
 
 /* UpdateOrganizationOK describes a response with status code 200, with default header values.
 
-Organization created successfully
+Organization updated successfully
 */
 type UpdateOrganizationOK struct {
 	Payload *models.Organization

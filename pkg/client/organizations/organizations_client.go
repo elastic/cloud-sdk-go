@@ -442,7 +442,10 @@ func (a *Client) ListOrganizations(params *ListOrganizationsParams, authInfo run
 /*
   UpdateOrganization updates organization
 
-  Updates an existing organization. Currently unavailable in self-hosted ECE.
+  > WARNING
+> This endpoint is deprecated and scheduled to be removed in the next major version.
+
+Updates an existing organization. Currently unavailable in self-hosted ECE.
 */
 func (a *Client) UpdateOrganization(params *UpdateOrganizationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateOrganizationOK, error) {
 	// TODO: Validate the params before sending

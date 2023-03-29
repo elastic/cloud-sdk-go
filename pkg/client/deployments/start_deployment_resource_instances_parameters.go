@@ -97,7 +97,7 @@ type StartDeploymentResourceInstancesParams struct {
 
 	/* RefID.
 
-	   User-specified RefId for the Resource.
+	   User-specified RefId for the Resource (or '_main' if there is only one).
 	*/
 	RefID string
 

@@ -35,6 +35,9 @@ import (
 // swagger:model SearchRequest
 type SearchRequest struct {
 
+	// source
+	Source interface{} `json:"_source,omitempty"`
+
 	// from
 	From int32 `json:"from,omitempty"`
 

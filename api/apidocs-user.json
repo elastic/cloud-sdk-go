@@ -39,6 +39,7 @@
         "summary" : "Fetch current account information",
         "description" : "Fetch current account information.",
         "operationId" : "get-current-account",
+        "produces" : [ "application/json" ],
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -71,6 +72,7 @@
         "description" : "Updates the current account.",
         "operationId" : "update-current-account",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -111,6 +113,7 @@
         "description" : "Updates the current account.",
         "operationId" : "patch-current-account",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -152,6 +155,7 @@
         "summary" : "Get costs overview for the organization. Currently unavailable in self-hosted ECE.",
         "description" : "EXPERIMENTAL (it may change in future versions): Retrieves an overview of the costs by organization ID.",
         "operationId" : "get-costs-overview",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "organization_id",
           "in" : "path",
@@ -242,6 +246,7 @@
         "summary" : "Get charts for the organization. Currently unavailable in self-hosted ECE.",
         "description" : "EXPERIMENTAL (it may change in future versions): Retrieves the usage charts for the organization.",
         "operationId" : "get-costs-charts",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "organization_id",
           "in" : "path",
@@ -340,6 +345,7 @@
         "summary" : "Get deployments costs for the organization. Currently unavailable in self-hosted ECE.",
         "description" : "EXPERIMENTAL (it may change in future versions): Retrieves the costs associated with all deployments for the organization.",
         "operationId" : "get-costs-deployments",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "organization_id",
           "in" : "path",
@@ -436,6 +442,7 @@
         "summary" : "Get charts by deployment. Currently unavailable in self-hosted ECE.",
         "description" : "EXPERIMENTAL (it may change in future versions): Retrieves the usage charts for the given  deployment.",
         "operationId" : "get-costs-charts-by-deployment",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "organization_id",
           "in" : "path",
@@ -540,6 +547,7 @@
         "summary" : "Get itemized costs by deployments. Currently unavailable in self-hosted ECE.",
         "description" : "EXPERIMENTAL (it may change in future versions): Retrieves the itemized costs for the given deployment.",
         "operationId" : "get-costs-items-by-deployment",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "organization_id",
           "in" : "path",
@@ -642,6 +650,7 @@
         "summary" : "Get itemized costs for the organization. Currently unavailable in self-hosted ECE.",
         "description" : "EXPERIMENTAL (it may change in future versions): Retrieves the itemized costs for the organization.",
         "operationId" : "get-costs-items",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "organization_id",
           "in" : "path",
@@ -732,6 +741,7 @@
         "summary" : "List Deployments",
         "description" : "List Deployments.",
         "operationId" : "list-deployments",
+        "produces" : [ "application/json" ],
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -757,6 +767,7 @@
         "description" : "Creates a Deployment.",
         "operationId" : "create-deployment",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "request_id",
           "in" : "query",
@@ -843,6 +854,7 @@
         "description" : "Retrieves the information for all of the deployments that match the specified query.",
         "operationId" : "search-deployments",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -886,6 +898,7 @@
         "description" : "Returns the list of deployments which contain eligible remote clusters for a specific version.",
         "operationId" : "search-eligible-remote-clusters",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "version",
           "in" : "query",
@@ -933,6 +946,7 @@
         "summary" : "List Extensions",
         "description" : "Retrieves all of the available extensions.",
         "operationId" : "list-extensions",
+        "produces" : [ "application/json" ],
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -952,6 +966,7 @@
         "description" : "Creates the extension.\n The extensions API supports two types of usage patterns.\n A). Specify a `download_url`, http or https URL,  where the extension is currently hosted. This will result in extension being copied to elastic repository.\n B). Create only the extension metadata using the `POST` endpoint and then use `PUT` to upload the extension file. Leave the `download_url` unspecified in this case.\n",
         "operationId" : "create-extension",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -1033,6 +1048,7 @@
         "summary" : "Get Extension",
         "description" : "Retrieves an extension.",
         "operationId" : "get-extension",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "extension_id",
           "in" : "path",
@@ -1092,6 +1108,7 @@
         "description" : "Updates an extension.",
         "operationId" : "update-extension",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "extension_id",
           "in" : "path",
@@ -1191,6 +1208,7 @@
         "description" : "Uploads archive for an extension.",
         "operationId" : "upload-extension",
         "consumes" : [ "multipart/form-data" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "extension_id",
           "in" : "path",
@@ -1274,6 +1292,7 @@
         "summary" : "Delete Extension",
         "description" : "Deletes a Extension.",
         "operationId" : "delete-extension",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "extension_id",
           "in" : "path",
@@ -1353,6 +1372,7 @@
         "summary" : "Get deployment templates",
         "description" : "Retrieves all deployment templates.",
         "operationId" : "get-deployment-templates-v2",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "metadata",
           "in" : "query",
@@ -1434,6 +1454,7 @@
         "summary" : "Get deployment template",
         "description" : "Retrieves a deployment template by id.",
         "operationId" : "get-deployment-template-v2",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "template_id",
           "in" : "path",
@@ -1525,6 +1546,7 @@
         "summary" : "Get associated rulesets",
         "description" : "Retrieves the rulesets associated with a deployment.",
         "operationId" : "get-traffic-filter-deployment-ruleset-associations",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "association_type",
           "in" : "path",
@@ -1583,6 +1605,7 @@
         "summary" : "List traffic filter rulesets",
         "description" : "List all of the traffic filter rulesets.",
         "operationId" : "get-traffic-filter-rulesets",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "include_associations",
           "in" : "query",
@@ -1634,6 +1657,7 @@
         "description" : "Creates a ruleset that consists of a set of rules.",
         "operationId" : "create-traffic-filter-ruleset",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -1675,6 +1699,7 @@
         "summary" : "Retrieves the ruleset by ID.",
         "description" : "Retrieves a list of resources that are associated to the specified ruleset.",
         "operationId" : "get-traffic-filter-ruleset",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "ruleset_id",
           "in" : "path",
@@ -1733,6 +1758,7 @@
         "description" : "Updates the ruleset with the definition.",
         "operationId" : "update-traffic-filter-ruleset",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "ruleset_id",
           "in" : "path",
@@ -1791,6 +1817,7 @@
         "summary" : "Delete a ruleset",
         "description" : "Deletes the ruleset by ID.",
         "operationId" : "delete-traffic-filter-ruleset",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "ruleset_id",
           "in" : "path",
@@ -1850,6 +1877,7 @@
         "summary" : "Get associated deployments",
         "description" : "Retrieves a list of deployments that are associated to the specified ruleset.",
         "operationId" : "get-traffic-filter-ruleset-deployment-associations",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "ruleset_id",
           "in" : "path",
@@ -1888,6 +1916,7 @@
         "description" : "Applies the ruleset to the specified deployment.",
         "operationId" : "create-traffic-filter-ruleset-association",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "ruleset_id",
           "in" : "path",
@@ -1954,6 +1983,7 @@
         "summary" : "Delete ruleset association",
         "description" : "Deletes the traffic rules in the ruleset from the deployment.",
         "operationId" : "delete-traffic-filter-ruleset-association",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "ruleset_id",
           "in" : "path",
@@ -2018,6 +2048,7 @@
         "summary" : "Get Deployment",
         "description" : "Retrieves information about a Deployment.",
         "operationId" : "get-deployment",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -2153,6 +2184,7 @@
         "description" : "Updates a Deployment.",
         "operationId" : "update-deployment",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -2253,6 +2285,7 @@
         "summary" : "Restores a shutdown Deployment",
         "description" : "Restores all resources in a Deployment.",
         "operationId" : "restore-deployment",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -2311,6 +2344,7 @@
         "summary" : "Shuts down Deployment",
         "description" : "Shuts down all resources in a Deployment.",
         "operationId" : "shutdown-deployment",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -2382,6 +2416,7 @@
         "summary" : "Get Deployment APM Resource Info",
         "description" : "Get info about an APM Resource belonging to a given Deployment.",
         "operationId" : "get-deployment-apm-resource-info",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -2391,7 +2426,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         }, {
@@ -2482,6 +2517,7 @@
         "summary" : "Reset the secret token for an APM resource.",
         "description" : "Reset the token of an APM resource.",
         "operationId" : "deployment-apm-reset-secret-token",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -2491,7 +2527,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         } ],
@@ -2566,6 +2602,7 @@
         "summary" : "Get Deployment App Search Resource Info",
         "description" : "Get info about an App Search Resource belonging to a given Deployment.",
         "operationId" : "get-deployment-appsearch-resource-info",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -2575,7 +2612,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         }, {
@@ -2666,6 +2703,7 @@
         "summary" : "Set AppSearch read-only status",
         "description" : "Enable/Disable read-only mode on the given App Search resource.",
         "operationId" : "get-appsearch-read-only-mode",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -2675,7 +2713,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         } ],
@@ -2723,6 +2761,7 @@
         "description" : "Enable/Disable read-only mode on the given App Search resource.",
         "operationId" : "set-appsearch-read-only-mode",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -2732,7 +2771,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         }, {
@@ -2802,6 +2841,7 @@
         "summary" : "Get certificate authority",
         "description" : "Returns the certificate authority used to sign the certificates of this deployment.",
         "operationId" : "get-deployment-certificate-authority",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -2841,6 +2881,7 @@
         "summary" : "Get Deployment Elasticsearch Resource Info",
         "description" : "Get info about an Elasticsearch Resource belonging to a given Deployment.",
         "operationId" : "get-deployment-es-resource-info",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -2850,7 +2891,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         }, {
@@ -2969,6 +3010,7 @@
         "summary" : "Migrate Elasticsearch and associated Kibana resources to enable CCR",
         "description" : "Migrates the specified Elasticsearch resource and its associated Kibana to enable CCR (if supported).",
         "operationId" : "enable-deployment-resource-ccr",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -2978,7 +3020,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         }, {
@@ -3035,6 +3077,7 @@
         "description" : "Migrates the specified Elasticsearch resource to use ILM.",
         "operationId" : "enable-deployment-resource-ilm",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -3044,7 +3087,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         }, {
@@ -3121,6 +3164,7 @@
         "summary" : "Migrate Elasticsearch resource to use SLM",
         "description" : "Migrates the specified Elasticsearch resource to use SLM.",
         "operationId" : "enable-deployment-resource-slm",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -3130,7 +3174,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         }, {
@@ -3199,6 +3243,7 @@
         "summary" : "Reset 'elastic' user password",
         "description" : "Resets the password of the 'elastic' user.",
         "operationId" : "reset-elasticsearch-user-password",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -3208,7 +3253,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         } ],
@@ -3270,6 +3315,7 @@
         "summary" : "Restart Deployment Elasticsearch Resource",
         "description" : "Restarts an Elasticsearch Resource. If a Resource is active: this command re-applies the existing plan but applies a \"cluster_reboot\", which issues a restart command and waits for it to complete. If a Resource is inactive: this command starts it up with the most recent successful plan.",
         "operationId" : "restart-deployment-es-resource",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -3279,7 +3325,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         }, {
@@ -3389,6 +3435,7 @@
         "summary" : "Shutdown Deployment Elasticsearch Resource",
         "description" : "Shutdown Elasticsearch Resource belonging to a given Deployment.",
         "operationId" : "shutdown-deployment-es-resource",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -3398,7 +3445,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         }, {
@@ -3474,6 +3521,7 @@
         "description" : "Returns the list of deployments which contain eligible remote clusters for the elasticsearch resource.",
         "operationId" : "get-deployment-es-resource-eligible-remote-clusters",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -3483,7 +3531,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         }, {
@@ -3540,6 +3588,7 @@
         "summary" : "Get the items in the Elasticsearch resource keystore",
         "description" : "Fetches the current values of the keystore for the Elasticsearch resource.",
         "operationId" : "get-deployment-es-resource-keystore",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -3549,7 +3598,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one)",
           "required" : true,
           "type" : "string"
         } ],
@@ -3610,6 +3659,7 @@
         "description" : "Adds the specified values to the Elasticsearch keystore, or removes the keys for the unspecified values.",
         "operationId" : "set-deployment-es-resource-keystore",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -3619,7 +3669,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one)",
           "required" : true,
           "type" : "string"
         }, {
@@ -3689,6 +3739,7 @@
         "summary" : "Get remote clusters",
         "description" : "Returns the list of remote clusters for the elasticsearch resource.",
         "operationId" : "get-deployment-es-resource-remote-clusters",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -3698,7 +3749,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         } ],
@@ -3733,6 +3784,7 @@
         "description" : "Overwrites or creates the remote clusters for the elasticsearch resource.",
         "operationId" : "set-deployment-es-resource-remote-clusters",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -3742,7 +3794,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         }, {
@@ -3799,6 +3851,7 @@
         "summary" : "Get Deployment Enterprise Search Resource Info",
         "description" : "Get info about an Enterprise Search Resource belonging to a given Deployment.",
         "operationId" : "get-deployment-enterprise-search-resource-info",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -3808,7 +3861,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         }, {
@@ -3899,6 +3952,7 @@
         "summary" : "Get Deployment Integrations Server Resource Info",
         "description" : "Get info about an Integrations Server Resource belonging to a given Deployment.",
         "operationId" : "get-deployment-integrations-server-resource-info",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -3908,7 +3962,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         }, {
@@ -3999,6 +4053,7 @@
         "summary" : "Get Deployment Kibana Resource Info",
         "description" : "Get info about a Kibana Resource belonging to a given Deployment.",
         "operationId" : "get-deployment-kib-resource-info",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -4008,7 +4063,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         }, {
@@ -4106,6 +4161,7 @@
         "summary" : "Build request to migrate deployment to a different template",
         "description" : "Returns a deployment update request that would migrate this deployment to a different template.",
         "operationId" : "migrate-deployment-template",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -4163,6 +4219,7 @@
         "summary" : "Get Deployment upgade assistant status",
         "description" : "Get details about an Elasticsearch resource belonging to a given deployment.",
         "operationId" : "get-deployment-upgrade-assistant-status",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -4202,6 +4259,7 @@
         "summary" : "Restores a shutdown resource",
         "description" : "Restores a shutdown resource belonging to a given Deployment.",
         "operationId" : "restore-deployment-resource",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -4218,7 +4276,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one)",
           "required" : true,
           "type" : "string"
         }, {
@@ -4287,6 +4345,7 @@
         "summary" : "Start all instances",
         "description" : "Starts all instances belonging to a Deployment Resource.",
         "operationId" : "start-deployment-resource-instances-all",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -4302,7 +4361,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         } ],
@@ -4377,6 +4436,7 @@
         "summary" : "Stop all instances",
         "description" : "Stops all instances belonging to a Deployment Resource.",
         "operationId" : "stop-deployment-resource-instances-all",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -4392,7 +4452,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         } ],
@@ -4467,6 +4527,7 @@
         "summary" : "Start maintenance mode (all instances)",
         "description" : "Starts maintenance mode of all instances belonging to a Deployment Resource.",
         "operationId" : "start-deployment-resource-instances-all-maintenance-mode",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -4482,7 +4543,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         } ],
@@ -4557,6 +4618,7 @@
         "summary" : "Stop maintenance mode (all instances)",
         "description" : "Stops maintenance mode of all instances belonging to a Deployment Resource.",
         "operationId" : "stop-deployment-resource-instances-all-maintenance-mode",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -4572,7 +4634,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         } ],
@@ -4647,6 +4709,7 @@
         "summary" : "Start instances",
         "description" : "Starts instances belonging to a Deployment Resource.",
         "operationId" : "start-deployment-resource-instances",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -4662,7 +4725,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         }, {
@@ -4754,6 +4817,7 @@
         "summary" : "Stop instances",
         "description" : "Stops instances belonging to a Deployment Resource.",
         "operationId" : "stop-deployment-resource-instances",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -4769,7 +4833,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         }, {
@@ -4861,6 +4925,7 @@
         "summary" : "Start maintenance mode",
         "description" : "Starts maintenance mode of instances belonging to a Deployment Resource.",
         "operationId" : "start-deployment-resource-maintenance-mode",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -4876,7 +4941,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         }, {
@@ -4968,6 +5033,7 @@
         "summary" : "Stop maintenance mode",
         "description" : "Stops maintenance mode of instances belonging to a Resource.",
         "operationId" : "stop-deployment-resource-maintenance-mode",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -4983,7 +5049,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         }, {
@@ -5075,6 +5141,7 @@
         "summary" : "Cancel resource pending plan",
         "description" : "Cancels the pending plan of a Resource belonging to a given Deployment.",
         "operationId" : "cancel-deployment-resource-pending-plan",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -5091,7 +5158,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one)",
           "required" : true,
           "type" : "string"
         }, {
@@ -5180,6 +5247,7 @@
         "summary" : "Restart Deployment Stateless Resource",
         "description" : "Restarts a Stateless Resource. If a Resource is active: this command re-applies the existing plan but applies a \"cluster_reboot\", which issues a restart command and waits for it to complete. If a Resource is inactive: this command starts it up with the most recent successful plan.",
         "operationId" : "restart-deployment-stateless-resource",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -5196,7 +5264,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         }, {
@@ -5278,6 +5346,7 @@
         "summary" : "Shutdown Deployment Stateless Resource",
         "description" : "Shut down Stateless Resource belonging to a given Deployment.\nKibana cannot be shut down on Elasticsearch Service as it is required for Elasticsearch administrative functions, such as Snapshot Lifecycle Management and version upgrades.",
         "operationId" : "shutdown-deployment-stateless-resource",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -5294,7 +5363,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         }, {
@@ -5382,6 +5451,7 @@
         "summary" : "Upgrade Kibana, APM, Integrations Server, AppSearch, Enterprise Search inside Deployment",
         "description" : "Upgrades a running cluster.",
         "operationId" : "upgrade-deployment-stateless-resource",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -5398,7 +5468,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         }, {
@@ -5454,6 +5524,7 @@
         "summary" : "List organizations",
         "description" : "Fetch organizations available to the current user. Currently unavailable in self-hosted ECE.",
         "operationId" : "list-organizations",
+        "produces" : [ "application/json" ],
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -5487,6 +5558,7 @@
         "summary" : "Get organization invitation",
         "description" : "Gets a single invitation to an organization by token. Currently unavailable in self-hosted ECE.",
         "operationId" : "get-organization-invitation",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "invitation_token",
           "in" : "path",
@@ -5526,6 +5598,7 @@
         "summary" : "Accept an organization invitation",
         "description" : "Accepts an organization invitation. Currently unavailable in self-hosted ECE.",
         "operationId" : "accept-organization-invitation",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "invitation_token",
           "in" : "path",
@@ -5591,6 +5664,7 @@
         "summary" : "Fetch organization information",
         "description" : "Fetch a single organization by id. Currently unavailable in self-hosted ECE.",
         "operationId" : "get-organization",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "organization_id",
           "in" : "path",
@@ -5652,9 +5726,10 @@
       "put" : {
         "tags" : [ "Organizations" ],
         "summary" : "Update organization",
-        "description" : "Updates an existing organization. Currently unavailable in self-hosted ECE.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version.\n\nUpdates an existing organization. Currently unavailable in self-hosted ECE.",
         "operationId" : "update-organization",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "organization_id",
           "in" : "path",
@@ -5672,7 +5747,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "Organization created successfully",
+            "description" : "Organization updated successfully",
             "schema" : {
               "$ref" : "#/definitions/Organization"
             }
@@ -5734,6 +5809,7 @@
         "summary" : "List organization invitations",
         "description" : "Fetch open invitations to the selected organization. Currently unavailable in self-hosted ECE.",
         "operationId" : "list-organization-invitations",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "organization_id",
           "in" : "path",
@@ -5772,6 +5848,7 @@
         "description" : "Creates or refreshes organization invitations. Currently unavailable in self-hosted ECE.",
         "operationId" : "create-organization-invitations",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "organization_id",
           "in" : "path",
@@ -5858,6 +5935,7 @@
         "summary" : "Delete organization invitations",
         "description" : "Deletes one or more organization invitations. Currently unavailable in self-hosted ECE.",
         "operationId" : "delete-organization-invitations",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "organization_id",
           "in" : "path",
@@ -5916,6 +5994,7 @@
         "summary" : "List organization members",
         "description" : "Fetch users belonging to the selected organization. Currently unavailable in self-hosted ECE.",
         "operationId" : "list-organization-members",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "organization_id",
           "in" : "path",
@@ -5955,6 +6034,7 @@
         "summary" : "Delete organization memberships",
         "description" : "Deletes one or more organization memberships. Currently unavailable in self-hosted ECE.",
         "operationId" : "delete-organization-memberships",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "organization_id",
           "in" : "path",
@@ -6007,6 +6087,7 @@
         "summary" : "Get stack versions",
         "description" : "By default, retrieves only the available Elastic Stack versions. To retrieve all of the Elastic Stack versions, use the `show_deleted parameter`.",
         "operationId" : "get-version-stacks",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "show_deleted",
           "in" : "query",
@@ -6041,6 +6122,7 @@
         "summary" : "Get trusted environments",
         "description" : "Returns the list of trusted environments for the organization. If no organization is passed in, the organization attached to the user is assumed.",
         "operationId" : "get-trusted-envs",
+        "produces" : [ "application/json" ],
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -6074,6 +6156,7 @@
         "summary" : "Get all API keys",
         "description" : "Retrieves the metadata for all of the API keys that the user generated.",
         "operationId" : "get-api-keys",
+        "produces" : [ "application/json" ],
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -6093,6 +6176,7 @@
         "description" : "Creates a new API key.",
         "operationId" : "create-api-key",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -6146,6 +6230,7 @@
         "description" : "Delete or invalidate API keys.",
         "operationId" : "delete-api-keys",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -6187,6 +6272,7 @@
         "summary" : "Get API key",
         "description" : "Retrieves the metadata for an API key.",
         "operationId" : "get-api-key",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "api_key_id",
           "in" : "path",
@@ -6224,6 +6310,7 @@
         "summary" : "Delete API key",
         "description" : "Delete or invalidate the API key.",
         "operationId" : "delete-api-key",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "api_key_id",
           "in" : "path",
@@ -10685,7 +10772,11 @@
       "properties" : {
         "trust_relationship_id" : {
           "type" : "string",
-          "description" : "the ID of the external trust relationship"
+          "description" : "The ID of the external trust relationship"
+        },
+        "name" : {
+          "type" : "string",
+          "description" : "The name of the external trust relationship. Retrieved from the TrustRelationship and ignored on write."
         },
         "trust_all" : {
           "type" : "boolean",
@@ -11791,6 +11882,17 @@
         "name" : {
           "type" : "string",
           "description" : "The organization's friendly name"
+        },
+        "default_disk_usage_alerts_enabled" : {
+          "type" : "boolean",
+          "description" : "Whether the default disk alerts are enabled"
+        },
+        "notifications_allowed_email_domains" : {
+          "type" : "array",
+          "description" : "The list of allowed domains for notification-email recipients",
+          "items" : {
+            "type" : "string"
+          }
         }
       },
       "description" : "An organization"
@@ -11931,6 +12033,17 @@
         "name" : {
           "type" : "string",
           "description" : "The organization's friendly name"
+        },
+        "default_disk_usage_alerts_enabled" : {
+          "type" : "boolean",
+          "description" : "Whether the default disk alerts are enabled"
+        },
+        "notifications_allowed_email_domains" : {
+          "type" : "array",
+          "description" : "The list of allowed domains for notification-email recipients",
+          "items" : {
+            "type" : "string"
+          }
         }
       },
       "description" : "A request to create or update an organization"
@@ -12412,6 +12525,9 @@
           "items" : {
             "type" : "object"
           }
+        },
+        "_source" : {
+          "type" : "object"
         }
       },
       "description" : "An Elasticsearch search request with a subset of options."
@@ -12529,6 +12645,7 @@
           "description" : "Settings that are applied to all nodes of this type"
         },
         "capacity_constraints" : {
+          "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. This field will soon be removed in favor of having a global capacity constraint for all node types.\n\nCapacity constraints for the node type",
           "$ref" : "#/definitions/StackVersionInstanceCapacityConstraint"
         },
         "compatible_node_types" : {
@@ -12565,6 +12682,7 @@
           "description" : "Settings that are applied to all nodes of this type"
         },
         "capacity_constraints" : {
+          "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. This field will soon be removed in favor of having a global capacity constraint for all node types.\n\nCapacity constraints for the node type",
           "$ref" : "#/definitions/StackVersionInstanceCapacityConstraint"
         },
         "compatible_node_types" : {
@@ -12693,6 +12811,7 @@
           "description" : "Settings that are applied to all nodes of this type"
         },
         "capacity_constraints" : {
+          "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. This field will soon be removed in favor of having a global capacity constraint for all node types.\n\nCapacity constraints for the node type",
           "$ref" : "#/definitions/StackVersionInstanceCapacityConstraint"
         },
         "compatible_node_types" : {
@@ -12746,6 +12865,7 @@
           "description" : "Settings that are applied to all nodes of this type"
         },
         "capacity_constraints" : {
+          "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. This field will soon be removed in favor of having a global capacity constraint for all node types.\n\nCapacity constraints for the node type",
           "$ref" : "#/definitions/StackVersionInstanceCapacityConstraint"
         },
         "compatible_node_types" : {
@@ -12810,6 +12930,7 @@
           "description" : "Settings that are applied to all nodes of this type"
         },
         "capacity_constraints" : {
+          "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. This field will soon be removed in favor of having a global capacity constraint for all node types.\n\nCapacity constraints for the node type",
           "$ref" : "#/definitions/StackVersionInstanceCapacityConstraint"
         },
         "compatible_node_types" : {
