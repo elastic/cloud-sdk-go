@@ -117,6 +117,7 @@ func TestS3Config_Validate(t *testing.T) {
 		Compress             bool
 		ServerSideEncryption bool
 		ThrottleRetries      bool
+		PathStyleAccess      bool
 	}
 	tests := []struct {
 		name    string
@@ -191,6 +192,7 @@ func TestS3Config_Validate(t *testing.T) {
 				Timeout:              tt.fields.Timeout,
 				MaxRetries:           tt.fields.MaxRetries,
 				ThrottleRetries:      tt.fields.ThrottleRetries,
+				PathStyleAccess:      tt.fields.PathStyleAccess,
 			}
 			if err := c.Validate(); (err != nil) != tt.wantErr {
 				t.Errorf("S3Config.Validate() error = %v, wantErr %v", err, tt.wantErr)
