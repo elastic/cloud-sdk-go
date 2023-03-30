@@ -36,6 +36,9 @@ import (
 // swagger:model CompatibleNodeTypesResource
 type CompatibleNodeTypesResource struct {
 
+	// > WARNING
+	// > This endpoint is deprecated and scheduled to be removed in the next major version. This field will soon be removed in favor of having a global capacity constraint for all node types.
+	//
 	// Capacity constraints for the node type
 	CapacityConstraints *CapacityConstraintsResource `json:"capacity_constraints,omitempty"`
 

@@ -37,6 +37,9 @@ import (
 // swagger:model CompatibleVersionResource
 type CompatibleVersionResource struct {
 
+	// > WARNING
+	// > This endpoint is deprecated and scheduled to be removed in the next major version. This field will soon be removed in favor of having a global capacity constraint for all versions. When specified its value will be ignored.
+	//
 	// Capacity constraints for the version
 	CapacityConstraints *CapacityConstraintsResource `json:"capacity_constraints,omitempty"`
 

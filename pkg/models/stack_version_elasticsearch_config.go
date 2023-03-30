@@ -41,7 +41,10 @@ type StackVersionElasticsearchConfig struct {
 	// Required: true
 	Blacklist []string `json:"blacklist"`
 
-	// capacity constraints
+	// > WARNING
+	// > This endpoint is deprecated and scheduled to be removed in the next major version. This field will soon be removed in favor of having a global capacity constraint for all node types.
+	//
+	// Capacity constraints for the node type
 	CapacityConstraints *StackVersionInstanceCapacityConstraint `json:"capacity_constraints,omitempty"`
 
 	// Node types that are compatible with this one

@@ -77,6 +77,14 @@ func NewGetTrustRelationshipsParamsWithHTTPClient(client *http.Client) *GetTrust
 */
 type GetTrustRelationshipsParams struct {
 
+	/* Filter.
+
+	   Which trust relationships to return in the response. Defaults to `all`
+
+	   Default: "all"
+	*/
+	Filter *string
+
 	/* IncludeCertificate.
 
 	   Whether to include the public CA certificates in the response.
@@ -101,10 +109,13 @@ func (o *GetTrustRelationshipsParams) WithDefaults() *GetTrustRelationshipsParam
 // All values with no default are reset to their zero value.
 func (o *GetTrustRelationshipsParams) SetDefaults() {
 	var (
+		filterDefault = string("all")
+
 		includeCertificateDefault = bool(false)
 	)
 
 	val := GetTrustRelationshipsParams{
+		Filter:             &filterDefault,
 		IncludeCertificate: &includeCertificateDefault,
 	}
 
@@ -147,6 +158,17 @@ func (o *GetTrustRelationshipsParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithFilter adds the filter to the get trust relationships params
+func (o *GetTrustRelationshipsParams) WithFilter(filter *string) *GetTrustRelationshipsParams {
+	o.SetFilter(filter)
+	return o
+}
+
+// SetFilter adds the filter to the get trust relationships params
+func (o *GetTrustRelationshipsParams) SetFilter(filter *string) {
+	o.Filter = filter
+}
+
 // WithIncludeCertificate adds the includeCertificate to the get trust relationships params
 func (o *GetTrustRelationshipsParams) WithIncludeCertificate(includeCertificate *bool) *GetTrustRelationshipsParams {
 	o.SetIncludeCertificate(includeCertificate)
@@ -165,6 +187,23 @@ func (o *GetTrustRelationshipsParams) WriteToRequest(r runtime.ClientRequest, re
 		return err
 	}
 	var res []error
+
+	if o.Filter != nil {
+
+		// query param filter
+		var qrFilter string
+
+		if o.Filter != nil {
+			qrFilter = *o.Filter
+		}
+		qFilter := qrFilter
+		if qFilter != "" {
+
+			if err := r.SetQueryParam("filter", qFilter); err != nil {
+				return err
+			}
+		}
+	}
 
 	if o.IncludeCertificate != nil {
 

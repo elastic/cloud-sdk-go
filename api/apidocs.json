@@ -65,6 +65,7 @@
         "summary" : "Fetch current account information",
         "description" : "Fetch current account information.",
         "operationId" : "get-current-account",
+        "produces" : [ "application/json" ],
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -97,6 +98,7 @@
         "description" : "Updates the current account.",
         "operationId" : "update-current-account",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -137,6 +139,7 @@
         "description" : "Updates the current account.",
         "operationId" : "patch-current-account",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -178,6 +181,7 @@
         "summary" : "Get costs overview for the organization. Currently unavailable in self-hosted ECE.",
         "description" : "EXPERIMENTAL (it may change in future versions): Retrieves an overview of the costs by organization ID.",
         "operationId" : "get-costs-overview",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "organization_id",
           "in" : "path",
@@ -268,6 +272,7 @@
         "summary" : "Get charts for the organization. Currently unavailable in self-hosted ECE.",
         "description" : "EXPERIMENTAL (it may change in future versions): Retrieves the usage charts for the organization.",
         "operationId" : "get-costs-charts",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "organization_id",
           "in" : "path",
@@ -366,6 +371,7 @@
         "summary" : "Get deployments costs for the organization. Currently unavailable in self-hosted ECE.",
         "description" : "EXPERIMENTAL (it may change in future versions): Retrieves the costs associated with all deployments for the organization.",
         "operationId" : "get-costs-deployments",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "organization_id",
           "in" : "path",
@@ -462,6 +468,7 @@
         "summary" : "Get charts by deployment. Currently unavailable in self-hosted ECE.",
         "description" : "EXPERIMENTAL (it may change in future versions): Retrieves the usage charts for the given  deployment.",
         "operationId" : "get-costs-charts-by-deployment",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "organization_id",
           "in" : "path",
@@ -566,6 +573,7 @@
         "summary" : "Get itemized costs by deployments. Currently unavailable in self-hosted ECE.",
         "description" : "EXPERIMENTAL (it may change in future versions): Retrieves the itemized costs for the given deployment.",
         "operationId" : "get-costs-items-by-deployment",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "organization_id",
           "in" : "path",
@@ -668,6 +676,7 @@
         "summary" : "Get itemized costs for the organization. Currently unavailable in self-hosted ECE.",
         "description" : "EXPERIMENTAL (it may change in future versions): Retrieves the itemized costs for the organization.",
         "operationId" : "get-costs-items",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "organization_id",
           "in" : "path",
@@ -758,6 +767,7 @@
         "summary" : "List Comments",
         "description" : "Retrieves all the comments for a given Resource, in reverse modified time order.",
         "operationId" : "list-comment",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "resource_type",
           "in" : "path",
@@ -789,6 +799,7 @@
         "description" : "Creates a comment for the given Resource.",
         "operationId" : "create-comment",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "resource_type",
           "in" : "path",
@@ -882,6 +893,7 @@
         "summary" : "Get Comment",
         "description" : "Retrieves a Comment.",
         "operationId" : "get-comment",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "resource_type",
           "in" : "path",
@@ -946,6 +958,7 @@
         "description" : "Updates a Comment.",
         "operationId" : "update-comment",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "resource_type",
           "in" : "path",
@@ -1049,6 +1062,7 @@
         "summary" : "Delete Comment",
         "description" : "Deletes a Comment.",
         "operationId" : "delete-comment",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "resource_type",
           "in" : "path",
@@ -1146,6 +1160,7 @@
         "summary" : "List Deployments",
         "description" : "List Deployments.",
         "operationId" : "list-deployments",
+        "produces" : [ "application/json" ],
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -1171,6 +1186,7 @@
         "description" : "Creates a Deployment.",
         "operationId" : "create-deployment",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "request_id",
           "in" : "query",
@@ -1256,6 +1272,7 @@
         "summary" : "Resynchronize Deployments",
         "description" : "Resynchronizes the search index for all the deployments.",
         "operationId" : "resync-deployments",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "skip_matching_version",
           "in" : "query",
@@ -1310,6 +1327,7 @@
         "description" : "Retrieves the information for all of the deployments that match the specified query.",
         "operationId" : "search-deployments",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -1353,6 +1371,7 @@
         "description" : "Returns the list of deployments which contain eligible remote clusters for a specific version.",
         "operationId" : "search-eligible-remote-clusters",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "version",
           "in" : "query",
@@ -1400,6 +1419,7 @@
         "summary" : "List Extensions",
         "description" : "Retrieves all of the available extensions.",
         "operationId" : "list-extensions",
+        "produces" : [ "application/json" ],
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -1419,6 +1439,7 @@
         "description" : "Creates the extension.\n The extensions API supports two types of usage patterns.\n A). Specify a `download_url`, http or https URL,  where the extension is currently hosted. This will result in extension being copied to elastic repository.\n B). Create only the extension metadata using the `POST` endpoint and then use `PUT` to upload the extension file. Leave the `download_url` unspecified in this case.\n",
         "operationId" : "create-extension",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -1500,6 +1521,7 @@
         "summary" : "Get Extension",
         "description" : "Retrieves an extension.",
         "operationId" : "get-extension",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "extension_id",
           "in" : "path",
@@ -1559,6 +1581,7 @@
         "description" : "Updates an extension.",
         "operationId" : "update-extension",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "extension_id",
           "in" : "path",
@@ -1658,6 +1681,7 @@
         "description" : "Uploads archive for an extension.",
         "operationId" : "upload-extension",
         "consumes" : [ "multipart/form-data" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "extension_id",
           "in" : "path",
@@ -1741,6 +1765,7 @@
         "summary" : "Delete Extension",
         "description" : "Deletes a Extension.",
         "operationId" : "delete-extension",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "extension_id",
           "in" : "path",
@@ -1820,6 +1845,7 @@
         "summary" : "Get deployment templates",
         "description" : "Retrieves all deployment templates.",
         "operationId" : "get-deployment-templates-v2",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "metadata",
           "in" : "query",
@@ -1907,6 +1933,7 @@
         "description" : "Creates a deployment template.",
         "operationId" : "create-deployment-template-v2",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "validate_only",
           "in" : "query",
@@ -1993,6 +2020,7 @@
         "summary" : "Get deployment template",
         "description" : "Retrieves a deployment template by id.",
         "operationId" : "get-deployment-template-v2",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "template_id",
           "in" : "path",
@@ -2083,6 +2111,7 @@
         "description" : "Creates or updates a deployment template.",
         "operationId" : "set-deployment-template-v2",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "template_id",
           "in" : "path",
@@ -2212,6 +2241,7 @@
         "summary" : "Delete deployment template",
         "description" : "Deletes a deployment template by id.",
         "operationId" : "delete-deployment-template-v2",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "template_id",
           "in" : "path",
@@ -2296,6 +2326,7 @@
         "summary" : "Get associated rulesets",
         "description" : "Retrieves the rulesets associated with a deployment.",
         "operationId" : "get-traffic-filter-deployment-ruleset-associations",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "association_type",
           "in" : "path",
@@ -2354,6 +2385,7 @@
         "summary" : "List traffic filter rulesets",
         "description" : "List all of the traffic filter rulesets.",
         "operationId" : "get-traffic-filter-rulesets",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "include_associations",
           "in" : "query",
@@ -2405,6 +2437,7 @@
         "description" : "Creates a ruleset that consists of a set of rules.",
         "operationId" : "create-traffic-filter-ruleset",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -2446,6 +2479,7 @@
         "summary" : "Retrieves the ruleset by ID.",
         "description" : "Retrieves a list of resources that are associated to the specified ruleset.",
         "operationId" : "get-traffic-filter-ruleset",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "ruleset_id",
           "in" : "path",
@@ -2504,6 +2538,7 @@
         "description" : "Updates the ruleset with the definition.",
         "operationId" : "update-traffic-filter-ruleset",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "ruleset_id",
           "in" : "path",
@@ -2562,6 +2597,7 @@
         "summary" : "Delete a ruleset",
         "description" : "Deletes the ruleset by ID.",
         "operationId" : "delete-traffic-filter-ruleset",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "ruleset_id",
           "in" : "path",
@@ -2621,6 +2657,7 @@
         "summary" : "Get associated deployments",
         "description" : "Retrieves a list of deployments that are associated to the specified ruleset.",
         "operationId" : "get-traffic-filter-ruleset-deployment-associations",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "ruleset_id",
           "in" : "path",
@@ -2659,6 +2696,7 @@
         "description" : "Applies the ruleset to the specified deployment.",
         "operationId" : "create-traffic-filter-ruleset-association",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "ruleset_id",
           "in" : "path",
@@ -2725,6 +2763,7 @@
         "summary" : "Delete ruleset association",
         "description" : "Deletes the traffic rules in the ruleset from the deployment.",
         "operationId" : "delete-traffic-filter-ruleset-association",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "ruleset_id",
           "in" : "path",
@@ -2789,6 +2828,7 @@
         "summary" : "Get Deployment",
         "description" : "Retrieves information about a Deployment.",
         "operationId" : "get-deployment",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -2924,6 +2964,7 @@
         "description" : "Updates a Deployment.",
         "operationId" : "update-deployment",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -3022,6 +3063,7 @@
         "summary" : "Delete Deployment",
         "description" : "Deletes a Deployment and all its resources.",
         "operationId" : "delete-deployment",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -3073,6 +3115,7 @@
         "summary" : "Restores a shutdown Deployment",
         "description" : "Restores all resources in a Deployment.",
         "operationId" : "restore-deployment",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -3131,6 +3174,7 @@
         "summary" : "Resynchronize Deployment",
         "description" : "Immediately resynchronizes the search index for the selected deployment.",
         "operationId" : "resync-deployment",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -3183,6 +3227,7 @@
         "summary" : "Shuts down Deployment",
         "description" : "Shuts down all resources in a Deployment.",
         "operationId" : "shutdown-deployment",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -3254,6 +3299,7 @@
         "summary" : "Get Deployment APM Resource Info",
         "description" : "Get info about an APM Resource belonging to a given Deployment.",
         "operationId" : "get-deployment-apm-resource-info",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -3263,7 +3309,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         }, {
@@ -3354,6 +3400,7 @@
         "summary" : "Reset the secret token for an APM resource.",
         "description" : "Reset the token of an APM resource.",
         "operationId" : "deployment-apm-reset-secret-token",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -3363,7 +3410,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         } ],
@@ -3438,6 +3485,7 @@
         "summary" : "Get Deployment App Search Resource Info",
         "description" : "Get info about an App Search Resource belonging to a given Deployment.",
         "operationId" : "get-deployment-appsearch-resource-info",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -3447,7 +3495,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         }, {
@@ -3538,6 +3586,7 @@
         "summary" : "Set AppSearch read-only status",
         "description" : "Enable/Disable read-only mode on the given App Search resource.",
         "operationId" : "get-appsearch-read-only-mode",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -3547,7 +3596,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         } ],
@@ -3595,6 +3644,7 @@
         "description" : "Enable/Disable read-only mode on the given App Search resource.",
         "operationId" : "set-appsearch-read-only-mode",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -3604,7 +3654,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         }, {
@@ -3674,6 +3724,7 @@
         "summary" : "Get certificate authority",
         "description" : "Returns the certificate authority used to sign the certificates of this deployment.",
         "operationId" : "get-deployment-certificate-authority",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -3713,6 +3764,7 @@
         "summary" : "Get Deployment Elasticsearch Resource Info",
         "description" : "Get info about an Elasticsearch Resource belonging to a given Deployment.",
         "operationId" : "get-deployment-es-resource-info",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -3722,7 +3774,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         }, {
@@ -3841,6 +3893,7 @@
         "summary" : "Migrate Elasticsearch and associated Kibana resources to enable CCR",
         "description" : "Migrates the specified Elasticsearch resource and its associated Kibana to enable CCR (if supported).",
         "operationId" : "enable-deployment-resource-ccr",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -3850,7 +3903,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         }, {
@@ -3907,6 +3960,7 @@
         "description" : "Migrates the specified Elasticsearch resource to use ILM.",
         "operationId" : "enable-deployment-resource-ilm",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -3916,7 +3970,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         }, {
@@ -3993,6 +4047,7 @@
         "summary" : "Migrate Elasticsearch resource to use SLM",
         "description" : "Migrates the specified Elasticsearch resource to use SLM.",
         "operationId" : "enable-deployment-resource-slm",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -4002,7 +4057,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         }, {
@@ -4071,6 +4126,7 @@
         "summary" : "Reset 'elastic' user password",
         "description" : "Resets the password of the 'elastic' user.",
         "operationId" : "reset-elasticsearch-user-password",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -4080,7 +4136,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         } ],
@@ -4142,6 +4198,7 @@
         "summary" : "Restart Deployment Elasticsearch Resource",
         "description" : "Restarts an Elasticsearch Resource. If a Resource is active: this command re-applies the existing plan but applies a \"cluster_reboot\", which issues a restart command and waits for it to complete. If a Resource is inactive: this command starts it up with the most recent successful plan.",
         "operationId" : "restart-deployment-es-resource",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -4151,7 +4208,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         }, {
@@ -4261,6 +4318,7 @@
         "summary" : "Shutdown Deployment Elasticsearch Resource",
         "description" : "Shutdown Elasticsearch Resource belonging to a given Deployment.",
         "operationId" : "shutdown-deployment-es-resource",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -4270,7 +4328,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         }, {
@@ -4346,6 +4404,7 @@
         "description" : "Returns the list of deployments which contain eligible remote clusters for the elasticsearch resource.",
         "operationId" : "get-deployment-es-resource-eligible-remote-clusters",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -4355,7 +4414,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         }, {
@@ -4413,6 +4472,7 @@
         "description" : "Moves one or more instances belonging to the given Elasticsearch resource to a different allocator.",
         "operationId" : "move-deployment-elasticsearch-resource-instances",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -4422,7 +4482,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         }, {
@@ -4530,6 +4590,7 @@
         "summary" : "Get the items in the Elasticsearch resource keystore",
         "description" : "Fetches the current values of the keystore for the Elasticsearch resource.",
         "operationId" : "get-deployment-es-resource-keystore",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -4539,7 +4600,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one)",
           "required" : true,
           "type" : "string"
         } ],
@@ -4600,6 +4661,7 @@
         "description" : "Adds the specified values to the Elasticsearch keystore, or removes the keys for the unspecified values.",
         "operationId" : "set-deployment-es-resource-keystore",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -4609,7 +4671,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one)",
           "required" : true,
           "type" : "string"
         }, {
@@ -4679,6 +4741,7 @@
         "summary" : "Get remote clusters",
         "description" : "Returns the list of remote clusters for the elasticsearch resource.",
         "operationId" : "get-deployment-es-resource-remote-clusters",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -4688,7 +4751,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         } ],
@@ -4723,6 +4786,7 @@
         "description" : "Overwrites or creates the remote clusters for the elasticsearch resource.",
         "operationId" : "set-deployment-es-resource-remote-clusters",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -4732,7 +4796,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         }, {
@@ -4789,6 +4853,7 @@
         "summary" : "Get Deployment Enterprise Search Resource Info",
         "description" : "Get info about an Enterprise Search Resource belonging to a given Deployment.",
         "operationId" : "get-deployment-enterprise-search-resource-info",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -4798,7 +4863,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         }, {
@@ -4889,6 +4954,7 @@
         "summary" : "Get details about heap dumps for a Deployment",
         "description" : "Gets details about existing heap dumps and in progress heap dump captures across all instances belonging to the deployment.",
         "operationId" : "get-deployment-heap-dumps",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -4928,6 +4994,7 @@
         "summary" : "Get Deployment Integrations Server Resource Info",
         "description" : "Get info about an Integrations Server Resource belonging to a given Deployment.",
         "operationId" : "get-deployment-integrations-server-resource-info",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -4937,7 +5004,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         }, {
@@ -5028,6 +5095,7 @@
         "summary" : "Get Deployment Kibana Resource Info",
         "description" : "Get info about a Kibana Resource belonging to a given Deployment.",
         "operationId" : "get-deployment-kib-resource-info",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -5037,7 +5105,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         }, {
@@ -5135,6 +5203,7 @@
         "summary" : "Build request to migrate deployment to a different template",
         "description" : "Returns a deployment update request that would migrate this deployment to a different template.",
         "operationId" : "migrate-deployment-template",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -5192,6 +5261,7 @@
         "summary" : "Get deployment notes",
         "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [List Comments](#Comments) instead.\n\nGet deployment notes.",
         "operationId" : "get-deployment-notes",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -5244,6 +5314,7 @@
         "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [Create a Comment](#Comments) instead.\n\nCreate note for the running deployment.",
         "operationId" : "create-deployment-note",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -5310,6 +5381,7 @@
         "summary" : "Get a deployment note",
         "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [Get Comment](#Comments) instead.\n\nGets a deployment note.",
         "operationId" : "get-deployment-note",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -5368,6 +5440,7 @@
         "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [Update Comment](#Comments) instead.\n\nUpdate note for the running deployment.",
         "operationId" : "update-deployment-note",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -5452,6 +5525,7 @@
         "summary" : "Delete deployment note",
         "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Use [Delete Comment](#Comments) instead.\n\nDelete note for the running deployment.",
         "operationId" : "delete-deployment-note",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -5530,6 +5604,7 @@
         "summary" : "Get Deployment upgade assistant status",
         "description" : "Get details about an Elasticsearch resource belonging to a given deployment.",
         "operationId" : "get-deployment-upgrade-assistant-status",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -5569,6 +5644,7 @@
         "summary" : "Restores a shutdown resource",
         "description" : "Restores a shutdown resource belonging to a given Deployment.",
         "operationId" : "restore-deployment-resource",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -5585,7 +5661,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one)",
           "required" : true,
           "type" : "string"
         }, {
@@ -5654,6 +5730,7 @@
         "summary" : "Get plan activity",
         "description" : "Retrieves details for a single plan activity for the given resource.",
         "operationId" : "get-deployment-resource-plan-activity",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -5670,7 +5747,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one)",
           "required" : true,
           "type" : "string"
         }, {
@@ -5712,6 +5789,7 @@
         "summary" : "Capture diagnostics for an Elasticsearch or Kibana resource",
         "description" : "Retrieves a diagnostic bundle from an active cluster. To successfully retrieve a diagnostic bundle, the cluster must be responsive.",
         "operationId" : "capture-deployment-resource-diagnostics",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -5727,7 +5805,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         } ],
@@ -5790,6 +5868,7 @@
         "summary" : "Start all instances",
         "description" : "Starts all instances belonging to a Deployment Resource.",
         "operationId" : "start-deployment-resource-instances-all",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -5805,7 +5884,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         } ],
@@ -5880,6 +5959,7 @@
         "summary" : "Stop all instances",
         "description" : "Stops all instances belonging to a Deployment Resource.",
         "operationId" : "stop-deployment-resource-instances-all",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -5895,7 +5975,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         } ],
@@ -5970,6 +6050,7 @@
         "summary" : "Start maintenance mode (all instances)",
         "description" : "Starts maintenance mode of all instances belonging to a Deployment Resource.",
         "operationId" : "start-deployment-resource-instances-all-maintenance-mode",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -5985,7 +6066,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         } ],
@@ -6060,6 +6141,7 @@
         "summary" : "Stop maintenance mode (all instances)",
         "description" : "Stops maintenance mode of all instances belonging to a Deployment Resource.",
         "operationId" : "stop-deployment-resource-instances-all-maintenance-mode",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -6075,7 +6157,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         } ],
@@ -6151,6 +6233,7 @@
         "description" : "Applies size overrides for all of the instances belonging to the given resource.",
         "operationId" : "set-all-instances-settings-overrides",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -6166,7 +6249,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         }, {
@@ -6230,6 +6313,7 @@
         "summary" : "Start instances",
         "description" : "Starts instances belonging to a Deployment Resource.",
         "operationId" : "start-deployment-resource-instances",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -6245,7 +6329,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         }, {
@@ -6337,6 +6421,7 @@
         "summary" : "Stop instances",
         "description" : "Stops instances belonging to a Deployment Resource.",
         "operationId" : "stop-deployment-resource-instances",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -6352,7 +6437,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         }, {
@@ -6444,6 +6529,7 @@
         "summary" : "Start maintenance mode",
         "description" : "Starts maintenance mode of instances belonging to a Deployment Resource.",
         "operationId" : "start-deployment-resource-maintenance-mode",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -6459,7 +6545,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         }, {
@@ -6551,6 +6637,7 @@
         "summary" : "Stop maintenance mode",
         "description" : "Stops maintenance mode of instances belonging to a Resource.",
         "operationId" : "stop-deployment-resource-maintenance-mode",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -6566,7 +6653,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         }, {
@@ -6659,6 +6746,7 @@
         "description" : "Applies size overrides for the given instances belonging to the given resource.",
         "operationId" : "set-instance-settings-overrides",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -6674,7 +6762,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         }, {
@@ -6755,6 +6843,7 @@
         "summary" : "Capture a new on-demand heap dump for the given instance",
         "description" : "Captures a new on-demand heap dump for the given instance. The capture is completed asynchronously, and you can check its progress by getting heap dumps for the given resource.",
         "operationId" : "capture-deployment-instance-heap-dump",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -6770,7 +6859,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         }, {
@@ -6825,6 +6914,7 @@
         "summary" : "Download the given instance's heap dump",
         "description" : "Returns the given instance's heap dump for download.",
         "operationId" : "download-deployment-instance-heap-dump",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -6840,7 +6930,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         }, {
@@ -6896,6 +6986,7 @@
         "summary" : "Capture a new thread dump for the given instance",
         "description" : "Captures a new thread dump for the given instance and returns the thread dump contents.",
         "operationId" : "capture-deployment-instance-thread-dump",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -6911,7 +7002,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         }, {
@@ -6955,6 +7046,7 @@
         "description" : "Advanced use only. Sets the internal metadata, in free-form JSON, for the resource.\nOnly use the parameter to set the modified JSON that is returned from the get version of the metadata.",
         "operationId" : "set-deployment-resource-raw-metadata",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -6971,7 +7063,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one)",
           "required" : true,
           "type" : "string"
         }, {
@@ -7074,6 +7166,7 @@
         "summary" : "Cancel resource pending plan",
         "description" : "Cancels the pending plan of a Resource belonging to a given Deployment.",
         "operationId" : "cancel-deployment-resource-pending-plan",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -7090,7 +7183,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one)",
           "required" : true,
           "type" : "string"
         }, {
@@ -7196,7 +7289,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one)",
           "required" : true,
           "type" : "string"
         }, {
@@ -7280,7 +7373,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one)",
           "required" : true,
           "type" : "string"
         }, {
@@ -7364,7 +7457,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one)",
           "required" : true,
           "type" : "string"
         }, {
@@ -7448,7 +7541,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one)",
           "required" : true,
           "type" : "string"
         }, {
@@ -7517,6 +7610,7 @@
         "summary" : "Delete Stateless Resource from Deployment",
         "description" : "Delete Stateless Resource belonging to a given Deployment. Deployment must be shutdown already.",
         "operationId" : "delete-deployment-stateless-resource",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -7533,7 +7627,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one)",
           "required" : true,
           "type" : "string"
         } ],
@@ -7608,6 +7702,7 @@
         "summary" : "Restart Deployment Stateless Resource",
         "description" : "Restarts a Stateless Resource. If a Resource is active: this command re-applies the existing plan but applies a \"cluster_reboot\", which issues a restart command and waits for it to complete. If a Resource is inactive: this command starts it up with the most recent successful plan.",
         "operationId" : "restart-deployment-stateless-resource",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -7624,7 +7719,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         }, {
@@ -7706,6 +7801,7 @@
         "summary" : "Shutdown Deployment Stateless Resource",
         "description" : "Shut down Stateless Resource belonging to a given Deployment.\nKibana cannot be shut down on Elasticsearch Service as it is required for Elasticsearch administrative functions, such as Snapshot Lifecycle Management and version upgrades.",
         "operationId" : "shutdown-deployment-stateless-resource",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -7722,7 +7818,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         }, {
@@ -7810,6 +7906,7 @@
         "summary" : "Upgrade Kibana, APM, Integrations Server, AppSearch, Enterprise Search inside Deployment",
         "description" : "Upgrades a running cluster.",
         "operationId" : "upgrade-deployment-stateless-resource",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "deployment_id",
           "in" : "path",
@@ -7826,7 +7923,7 @@
         }, {
           "name" : "ref_id",
           "in" : "path",
-          "description" : "User-specified RefId for the Resource.",
+          "description" : "User-specified RefId for the Resource (or '_main' if there is only one).",
           "required" : true,
           "type" : "string"
         }, {
@@ -7882,6 +7979,7 @@
         "summary" : "List organizations",
         "description" : "Fetch organizations available to the current user. Currently unavailable in self-hosted ECE.",
         "operationId" : "list-organizations",
+        "produces" : [ "application/json" ],
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -7915,6 +8013,7 @@
         "summary" : "Get organization invitation",
         "description" : "Gets a single invitation to an organization by token. Currently unavailable in self-hosted ECE.",
         "operationId" : "get-organization-invitation",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "invitation_token",
           "in" : "path",
@@ -7954,6 +8053,7 @@
         "summary" : "Accept an organization invitation",
         "description" : "Accepts an organization invitation. Currently unavailable in self-hosted ECE.",
         "operationId" : "accept-organization-invitation",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "invitation_token",
           "in" : "path",
@@ -8019,6 +8119,7 @@
         "summary" : "Fetch organization information",
         "description" : "Fetch a single organization by id. Currently unavailable in self-hosted ECE.",
         "operationId" : "get-organization",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "organization_id",
           "in" : "path",
@@ -8080,9 +8181,10 @@
       "put" : {
         "tags" : [ "Organizations" ],
         "summary" : "Update organization",
-        "description" : "Updates an existing organization. Currently unavailable in self-hosted ECE.",
+        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version.\n\nUpdates an existing organization. Currently unavailable in self-hosted ECE.",
         "operationId" : "update-organization",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "organization_id",
           "in" : "path",
@@ -8100,7 +8202,7 @@
         } ],
         "responses" : {
           "200" : {
-            "description" : "Organization created successfully",
+            "description" : "Organization updated successfully",
             "schema" : {
               "$ref" : "#/definitions/Organization"
             }
@@ -8162,6 +8264,7 @@
         "summary" : "List organization invitations",
         "description" : "Fetch open invitations to the selected organization. Currently unavailable in self-hosted ECE.",
         "operationId" : "list-organization-invitations",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "organization_id",
           "in" : "path",
@@ -8200,6 +8303,7 @@
         "description" : "Creates or refreshes organization invitations. Currently unavailable in self-hosted ECE.",
         "operationId" : "create-organization-invitations",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "organization_id",
           "in" : "path",
@@ -8286,6 +8390,7 @@
         "summary" : "Delete organization invitations",
         "description" : "Deletes one or more organization invitations. Currently unavailable in self-hosted ECE.",
         "operationId" : "delete-organization-invitations",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "organization_id",
           "in" : "path",
@@ -8344,6 +8449,7 @@
         "summary" : "List organization members",
         "description" : "Fetch users belonging to the selected organization. Currently unavailable in self-hosted ECE.",
         "operationId" : "list-organization-members",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "organization_id",
           "in" : "path",
@@ -8383,6 +8489,7 @@
         "summary" : "Delete organization memberships",
         "description" : "Deletes one or more organization memberships. Currently unavailable in self-hosted ECE.",
         "operationId" : "delete-organization-memberships",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "organization_id",
           "in" : "path",
@@ -8435,6 +8542,7 @@
         "summary" : "Get ECE telemetry config",
         "description" : "Returns whether ECE telemetry is enabled.",
         "operationId" : "get-telemetry-config",
+        "produces" : [ "application/json" ],
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -8467,6 +8575,7 @@
         "description" : "Sets whether to enable ECE telemetry.",
         "operationId" : "set-telemetry-config",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -8547,6 +8656,7 @@
         "summary" : "Get platform info",
         "description" : "Retrieves information about the active platform.",
         "operationId" : "get-platform",
+        "produces" : [ "application/json" ],
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -8567,6 +8677,7 @@
         "summary" : "Get API base Url",
         "description" : "Gets the API base Url configuration value.",
         "operationId" : "get-api-base-url",
+        "produces" : [ "application/json" ],
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -8626,6 +8737,7 @@
         "description" : "Saves the API base Url configuration value.",
         "operationId" : "set-api-base-url",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "version",
           "in" : "query",
@@ -8980,6 +9092,7 @@
         "summary" : "Get default Deployment Domain Name",
         "description" : "Gets the default Deployment Domain Name configuration value.",
         "operationId" : "get-default-deployment-domain-name",
+        "produces" : [ "application/json" ],
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -9026,6 +9139,7 @@
         "description" : "Saves the default Deployment Domain Name configuration value.",
         "operationId" : "set-default-deployment-domain-name",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "version",
           "in" : "query",
@@ -9133,6 +9247,7 @@
         "summary" : "Get Deployment Domain Name for a resource kind",
         "description" : "Gets Deployment Domain Name configuration value for a resource kind.",
         "operationId" : "get-resource-kind-deployment-domain-name",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "resource_kind",
           "in" : "path",
@@ -9186,6 +9301,7 @@
         "description" : "Saves the Deployment Domain Name configuration value for a resource kind.",
         "operationId" : "set-resource-kind-deployment-domain-name",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "resource_kind",
           "in" : "path",
@@ -9300,6 +9416,7 @@
         "summary" : "Get current security deployment",
         "description" : "Retrieves the current security deployment.",
         "operationId" : "get-security-deployment",
+        "produces" : [ "application/json" ],
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -9346,6 +9463,7 @@
         "description" : "Creates a new security deployment configuration.",
         "operationId" : "create-security-deployment",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -9413,6 +9531,7 @@
         "description" : "Updates an existing security deployment configuration.",
         "operationId" : "update-security-deployment",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -9602,6 +9721,7 @@
         "summary" : "List extra certificates",
         "description" : "List all of the extra certificates.",
         "operationId" : "get-extra-certificates",
+        "produces" : [ "application/json" ],
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -9622,6 +9742,7 @@
         "summary" : "Read extra certificate",
         "description" : "Read an extra certificate.",
         "operationId" : "get-extra-certificate",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "cert_id",
           "in" : "path",
@@ -9660,6 +9781,7 @@
         "description" : "Add or update an extra certificate.",
         "operationId" : "set-extra-certificate",
         "consumes" : [ "application/text" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "cert_id",
           "in" : "path",
@@ -9705,6 +9827,7 @@
         "summary" : "Delete extra certificate",
         "description" : "Delete an extra certificate.",
         "operationId" : "delete-extra-certificate",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "cert_id",
           "in" : "path",
@@ -9744,6 +9867,7 @@
         "summary" : "List security realm configurations",
         "description" : "Retrieves a list of security realm configurations.",
         "operationId" : "get-security-realm-configurations",
+        "produces" : [ "application/json" ],
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -9765,6 +9889,7 @@
         "description" : "Reorder security realms.",
         "operationId" : "reorder-security-realms",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -9820,6 +9945,7 @@
         "description" : "Creates a new Active Directory configuration. ",
         "operationId" : "create-active-directory-configuration",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -9888,6 +10014,7 @@
         "summary" : "Get Active Directory configuration",
         "description" : "Retrieves a single Active Directory security realm configuration. ",
         "operationId" : "get-active-directory-configuration",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "realm_id",
           "in" : "path",
@@ -9940,6 +10067,7 @@
         "description" : "Updates an existing Active Directory configuration. ",
         "operationId" : "update-active-directory-configuration",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "realm_id",
           "in" : "path",
@@ -10044,6 +10172,7 @@
         "summary" : "Delete Active Directory configuration",
         "description" : "Deletes a single Active Directory configuration. ",
         "operationId" : "delete-active-directory-configuration",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "realm_id",
           "in" : "path",
@@ -10116,6 +10245,7 @@
         "description" : "Creates a new LDAP configuration.",
         "operationId" : "create-ldap-configuration",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -10184,6 +10314,7 @@
         "summary" : "Get LDAP configuration",
         "description" : "Retrieves a single LDAP security realm configuration.",
         "operationId" : "get-ldap-configuration",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "realm_id",
           "in" : "path",
@@ -10236,6 +10367,7 @@
         "description" : "Updates an existing LDAP configuration.",
         "operationId" : "update-ldap-configuration",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "realm_id",
           "in" : "path",
@@ -10340,6 +10472,7 @@
         "summary" : "Delete LDAP configuration",
         "description" : "Deletes a single LDAP configuration.",
         "operationId" : "delete-ldap-configuration",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "realm_id",
           "in" : "path",
@@ -10412,6 +10545,7 @@
         "description" : "Creates a new SAML configuration.",
         "operationId" : "create-saml-configuration",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -10480,6 +10614,7 @@
         "summary" : "Get SAML configuration",
         "description" : "Retrieves a single SAML security realm configuration.",
         "operationId" : "get-saml-configuration",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "realm_id",
           "in" : "path",
@@ -10532,6 +10667,7 @@
         "description" : "Updates an existing SAML configuration.",
         "operationId" : "update-saml-configuration",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "realm_id",
           "in" : "path",
@@ -10636,6 +10772,7 @@
         "summary" : "Delete SAML configuration",
         "description" : "Deletes a single SAML configuration.",
         "operationId" : "delete-saml-configuration",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "realm_id",
           "in" : "path",
@@ -10912,6 +11049,7 @@
         "summary" : "List Config Store Option",
         "description" : "List all existing Config Store Option.",
         "operationId" : "list-config-store-option",
+        "produces" : [ "application/json" ],
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -10932,6 +11070,7 @@
         "summary" : "Find Config Store Option by name",
         "description" : "Find Config Store Option by name.",
         "operationId" : "get-config-store-option",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "config_option_id",
           "in" : "path",
@@ -10984,6 +11123,7 @@
         "description" : "Inserts new Config Store Option.",
         "operationId" : "create-config-store-option",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "config_option_id",
           "in" : "path",
@@ -11044,6 +11184,7 @@
         "description" : "Update existing Config Store Option.",
         "operationId" : "put-config-store-option",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "config_option_id",
           "in" : "path",
@@ -11122,6 +11263,7 @@
         "summary" : "Delete Config Store Option by name",
         "description" : "Delete Config Store Option by name.",
         "operationId" : "delete-config-store-option",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "config_option_id",
           "in" : "path",
@@ -11175,6 +11317,7 @@
         "summary" : "Get all templates cross region.",
         "description" : "Global deployment template endpoint which fetches the deployment templates across all region services.",
         "operationId" : "get-global-deployment-templates",
+        "produces" : [ "application/json" ],
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -11198,6 +11341,7 @@
         "summary" : "List trust relationships",
         "description" : "List trust relationships.",
         "operationId" : "get-trust-relationships",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "include_certificate",
           "in" : "query",
@@ -11205,6 +11349,14 @@
           "required" : false,
           "type" : "boolean",
           "default" : false
+        }, {
+          "name" : "filter",
+          "in" : "query",
+          "description" : "Which trust relationships to return in the response. Defaults to `all`",
+          "required" : false,
+          "type" : "string",
+          "default" : "all",
+          "enum" : [ "all", "local", "non-local" ]
         } ],
         "responses" : {
           "200" : {
@@ -11230,6 +11382,7 @@
         "description" : "Creates a trust relationship.",
         "operationId" : "create-trust-relationship",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -11284,6 +11437,7 @@
         "summary" : "Get trust relationship",
         "description" : "Retrieves information about a trust relationship. `local` can be used as the ID to obtain the local trust relationship.",
         "operationId" : "get-trust-relationship",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "trust_relationship_id",
           "in" : "path",
@@ -11349,6 +11503,7 @@
         "description" : "Updates a trust relationship.",
         "operationId" : "update-trust-relationship",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "trust_relationship_id",
           "in" : "path",
@@ -11420,6 +11575,7 @@
         "summary" : "Delete trust relationship",
         "description" : "Deletes a trust relationship.",
         "operationId" : "delete-trust-relationship",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "trust_relationship_id",
           "in" : "path",
@@ -11471,6 +11627,7 @@
         "summary" : "Get adminconsoles",
         "description" : "Retrieves an overview of all adminconsoles.",
         "operationId" : "get-adminconsoles",
+        "produces" : [ "application/json" ],
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -11505,6 +11662,7 @@
         "summary" : "Get adminconsole logging settings",
         "description" : "Get the logging settings for this adminconsole instance.",
         "operationId" : "get-adminconsole-logging-settings",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "adminconsole_id",
           "in" : "path",
@@ -11557,6 +11715,7 @@
         "description" : "Set the logging settings for this adminconsole instance.",
         "operationId" : "set-adminconsole-logging-settings",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "adminconsole_id",
           "in" : "path",
@@ -11616,6 +11775,7 @@
         "summary" : "Delete adminconsole logging settings",
         "description" : "Reset the default logging settings for this adminconsole instance.",
         "operationId" : "delete-adminconsole-logging-settings",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "adminconsole_id",
           "in" : "path",
@@ -11668,6 +11828,7 @@
         "description" : "All changes in the specified object are applied to the logging settings for this adminconsole instance according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.",
         "operationId" : "update-adminconsole-logging-settings",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "adminconsole_id",
           "in" : "path",
@@ -11742,6 +11903,7 @@
         "summary" : "Get allocators",
         "description" : "Retrieves the information for all of the allocators in the platform.",
         "operationId" : "get-allocators",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "q",
           "in" : "query",
@@ -11788,6 +11950,7 @@
         "summary" : "Resynchronize allocators",
         "description" : "Asynchronously synchronizes all allocator information in the back-end search index.",
         "operationId" : "resync-allocators",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "skip_matching_version",
           "in" : "query",
@@ -11829,6 +11992,7 @@
         "description" : "Retrieves the information for all the allocators in the platform that match a specified query.",
         "operationId" : "search-allocators",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -11857,6 +12021,7 @@
         "summary" : "Get allocator",
         "description" : "Retrieves the allocator by the ID.",
         "operationId" : "get-allocator",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "allocator_id",
           "in" : "path",
@@ -11894,6 +12059,7 @@
         "summary" : "Delete allocator",
         "description" : "Deletes the allocator.",
         "operationId" : "delete-allocator",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "allocator_id",
           "in" : "path",
@@ -11966,6 +12132,7 @@
         "summary" : "Resynchronize allocator",
         "description" : "Immediately synchronizes the allocator information in the back-end search index and caches.",
         "operationId" : "resync-allocator",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "allocator_id",
           "in" : "path",
@@ -12019,6 +12186,7 @@
         "description" : "Moves the clusters to a different allocator.",
         "operationId" : "move-clusters",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "allocator_id",
           "in" : "path",
@@ -12120,6 +12288,7 @@
         "description" : "Moves the clusters, by type, to a different allocator.",
         "operationId" : "move-clusters-by-type",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "allocator_id",
           "in" : "path",
@@ -12227,6 +12396,7 @@
         "summary" : "Get allocator logging settings",
         "description" : "Get the logging settings for this allocator instance.",
         "operationId" : "get-allocator-logging-settings",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "allocator_id",
           "in" : "path",
@@ -12279,6 +12449,7 @@
         "description" : "Set the logging settings for this allocator instance.",
         "operationId" : "set-allocator-logging-settings",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "allocator_id",
           "in" : "path",
@@ -12338,6 +12509,7 @@
         "summary" : "Delete allocator logging settings",
         "description" : "Reset the default logging settings for this allocator instance.",
         "operationId" : "delete-allocator-logging-settings",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "allocator_id",
           "in" : "path",
@@ -12390,6 +12562,7 @@
         "description" : "All changes in the specified object are applied to the logging settings for this allocator instance according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.",
         "operationId" : "update-allocator-logging-settings",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "allocator_id",
           "in" : "path",
@@ -12464,6 +12637,7 @@
         "summary" : "Start maintenance mode",
         "description" : "Starts maintenance mode on the allocator.",
         "operationId" : "start-allocator-maintenance-mode",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "allocator_id",
           "in" : "path",
@@ -12529,6 +12703,7 @@
         "summary" : "Stop maintenance mode",
         "description" : "Stops maintenance mode on the allocator.",
         "operationId" : "stop-allocator-maintenance-mode",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "allocator_id",
           "in" : "path",
@@ -12594,6 +12769,7 @@
         "summary" : "Get allocator metadata",
         "description" : "Retrieves the allocator metadata.",
         "operationId" : "get-allocator-metadata",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "allocator_id",
           "in" : "path",
@@ -12649,6 +12825,7 @@
         "description" : "Sets the allocator metadata.",
         "operationId" : "set-allocator-metadata",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "allocator_id",
           "in" : "path",
@@ -12732,6 +12909,7 @@
         "description" : "Adds or updates a single item in the allocator metadata.",
         "operationId" : "set-allocator-metadata-item",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "allocator_id",
           "in" : "path",
@@ -12818,6 +12996,7 @@
         "summary" : "Delete allocator metadata item",
         "description" : "Removes a single item from the allocator metadata.",
         "operationId" : "delete-allocator-metadata-item",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "allocator_id",
           "in" : "path",
@@ -12885,6 +13064,7 @@
         "summary" : "Get allocator settings",
         "description" : "Retrieves the allocator override settings.",
         "operationId" : "get-allocator-settings",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "allocator_id",
           "in" : "path",
@@ -12937,6 +13117,7 @@
         "description" : "Overwrites the allocator settings with the specified settings. WARNING: Any unspecified fields are deleted.",
         "operationId" : "set-allocator-settings",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "allocator_id",
           "in" : "path",
@@ -13002,6 +13183,7 @@
         "description" : "Applies the settings as a patch. Only the fields that are referenced in the update are altered.",
         "operationId" : "update-allocator-settings",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "allocator_id",
           "in" : "path",
@@ -13068,6 +13250,7 @@
         "summary" : "List roles",
         "description" : "Retrieve all persisted roles.",
         "operationId" : "list-blueprinter-roles",
+        "produces" : [ "application/json" ],
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -13087,6 +13270,7 @@
         "description" : "Create a Blueprinter role.",
         "operationId" : "create-blueprinter-role",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -13128,6 +13312,7 @@
         "summary" : "Get role",
         "description" : "Retrieve a role.",
         "operationId" : "get-blueprinter-role",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "blueprinter_role_id",
           "in" : "path",
@@ -13166,6 +13351,7 @@
         "description" : "Update a role.",
         "operationId" : "update-blueprinter-role",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "blueprinter_role_id",
           "in" : "path",
@@ -13243,6 +13429,7 @@
         "summary" : "Delete role",
         "description" : "Delete a role.",
         "operationId" : "delete-blueprinter-role",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "blueprinter_role_id",
           "in" : "path",
@@ -13322,6 +13509,7 @@
         "description" : "Set blessings for a role.",
         "operationId" : "set-blueprinter-blessings",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "blueprinter_role_id",
           "in" : "path",
@@ -13389,6 +13577,7 @@
         "description" : "Add a Blessing for a runner to a role.",
         "operationId" : "add-blueprinter-blessing",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "blueprinter_role_id",
           "in" : "path",
@@ -13461,6 +13650,7 @@
         "summary" : "Get constructors",
         "description" : "Retrieves an overview of all constructors in an ECE installation.",
         "operationId" : "get-constructors",
+        "produces" : [ "application/json" ],
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -13481,6 +13671,7 @@
         "summary" : "Resynchronize constructors",
         "description" : "Asynchronously synchronizes all constructor information in the back-end search index.",
         "operationId" : "resync-constructors",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "skip_matching_version",
           "in" : "query",
@@ -13521,6 +13712,7 @@
         "summary" : "Get constructor",
         "description" : "Retrieves a constructor by id.",
         "operationId" : "get-constructor",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "constructor_id",
           "in" : "path",
@@ -13560,6 +13752,7 @@
         "summary" : "Resynchronize constructor",
         "description" : "Immediately resynchronizes the search index and cache for the selected constructor.",
         "operationId" : "resync-constructor",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "constructor_id",
           "in" : "path",
@@ -13612,6 +13805,7 @@
         "summary" : "Get constructor logging settings",
         "description" : "Get the logging settings for this constructor instance.",
         "operationId" : "get-constructor-logging-settings",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "constructor_id",
           "in" : "path",
@@ -13664,6 +13858,7 @@
         "description" : "Set the logging settings for this constructor instance.",
         "operationId" : "set-constructor-logging-settings",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "constructor_id",
           "in" : "path",
@@ -13723,6 +13918,7 @@
         "summary" : "Delete constructor logging settings",
         "description" : "Reset the default logging settings for this constructor instance.",
         "operationId" : "delete-constructor-logging-settings",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "constructor_id",
           "in" : "path",
@@ -13775,6 +13971,7 @@
         "description" : "All changes in the specified object are applied to the logging settings for this constructor instance according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.",
         "operationId" : "update-constructor-logging-settings",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "constructor_id",
           "in" : "path",
@@ -13849,6 +14046,7 @@
         "summary" : "Start maintenance mode",
         "description" : "Start maintenance mode of a constructor. It will stop constructing new plans while continuing with on-going ones.",
         "operationId" : "start-constructor-maintenance-mode",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "constructor_id",
           "in" : "path",
@@ -13914,6 +14112,7 @@
         "summary" : "Stop maintenance mode",
         "description" : "Stop maintenance mode of a constructor. It will resume the construction of submitted plans.",
         "operationId" : "stop-constructor-maintenance-mode",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "constructor_id",
           "in" : "path",
@@ -13973,12 +14172,324 @@
         }
       }
     },
+    "/platform/infrastructure/coordinators" : {
+      "get" : {
+        "tags" : [ "PlatformInfrastructure" ],
+        "summary" : "Get coordinators",
+        "description" : "Retrieves an overview of all coordinators.",
+        "operationId" : "get-coordinators",
+        "produces" : [ "application/json" ],
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "An overview of all coordinators.",
+            "schema" : {
+              "$ref" : "#/definitions/CoordinatorsSummary"
+            }
+          }
+        },
+        "x-doc" : {
+          "tag" : "Platform - Coordinators"
+        }
+      }
+    },
+    "/platform/infrastructure/coordinators/candidates" : {
+      "get" : {
+        "tags" : [ "PlatformInfrastructure" ],
+        "summary" : "Get coordinator candidates",
+        "description" : "Retrieve a list of all coordinator candidates.",
+        "operationId" : "get-coordinator-candidates",
+        "produces" : [ "application/json" ],
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "A list of all coordinator candidates.",
+            "schema" : {
+              "$ref" : "#/definitions/CoordinatorCandidatesSummary"
+            }
+          }
+        },
+        "x-doc" : {
+          "tag" : "Platform - Coordinators"
+        }
+      }
+    },
+    "/platform/infrastructure/coordinators/candidates/{coordinator_candidate_id}" : {
+      "get" : {
+        "tags" : [ "PlatformInfrastructure" ],
+        "summary" : "Get a coordinator candidate",
+        "description" : "Retrieve a coordinator candidate.",
+        "operationId" : "get-coordinator-candidate",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "coordinator_candidate_id",
+          "in" : "path",
+          "description" : "The identifier for the coordinator candidate",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Info about a coordinator candidate.",
+            "schema" : {
+              "$ref" : "#/definitions/CoordinatorCandidateInfo"
+            }
+          },
+          "404" : {
+            "description" : "Unable to find coordinator candidate {coordinator_candidate_id}. Edit your request, then try again. (code: `coordinators.candidate_not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "coordinators.candidate_not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "x-doc" : {
+          "tag" : "Platform - Coordinators"
+        }
+      },
+      "delete" : {
+        "tags" : [ "PlatformInfrastructure" ],
+        "summary" : "Delete coordinator candidate",
+        "description" : "Delete a coordinator candidate by id.",
+        "operationId" : "delete-coordinator-candidate",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "coordinator_candidate_id",
+          "in" : "path",
+          "description" : "The identifier for the coordinator candidate",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "version",
+          "in" : "query",
+          "description" : "cloud resource version",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The coordinator candidate specified by {coordinator_candidate_id} was deleted.",
+            "schema" : {
+              "$ref" : "#/definitions/EmptyResponse"
+            }
+          },
+          "404" : {
+            "description" : "The coordinator candidate specified by {coordinator_candidate_id} cannot be found. (code: `coordinators.candidate_not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "coordinators.candidate_not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "400" : {
+            "description" : "The coordinator specified by {coordinator_candidate_id} could not be deleted. (code: `coordinators.candidate_deletion_failed`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "coordinators.candidate_deletion_failed" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "449" : {
+            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "x-doc" : {
+          "tag" : "Platform - Coordinators"
+        }
+      }
+    },
+    "/platform/infrastructure/coordinators/candidates/{coordinator_candidate_id}/_promote" : {
+      "post" : {
+        "tags" : [ "PlatformInfrastructure" ],
+        "summary" : "Promote a coordinator candidate",
+        "description" : "Promotes a coordinator candidate.",
+        "operationId" : "promote-coordinator-candidate",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "coordinator_candidate_id",
+          "in" : "path",
+          "description" : "The identifier for the coordinator candidate",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "202" : {
+            "description" : "Accepted promote of coordinator candidate.",
+            "schema" : {
+              "$ref" : "#/definitions/CoordinatorCandidateInfo"
+            }
+          },
+          "404" : {
+            "description" : "Unable to find coordinator candidate {coordinator_id}. Edit your request, then try again. (code: `coordinators.candidate_not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "coordinators.candidate_not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "449" : {
+            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "x-doc" : {
+          "tag" : "Platform - Coordinators"
+        }
+      }
+    },
+    "/platform/infrastructure/coordinators/{coordinator_id}" : {
+      "get" : {
+        "tags" : [ "PlatformInfrastructure" ],
+        "summary" : "Get a coordinator",
+        "description" : "Retrieve overview of a single coordinator.",
+        "operationId" : "get-coordinator",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "coordinator_id",
+          "in" : "path",
+          "description" : "The identifier for the coordinator",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "An overview of a coordinator instance.",
+            "schema" : {
+              "$ref" : "#/definitions/CoordinatorSummary"
+            }
+          },
+          "404" : {
+            "description" : "Unable to find coordinator {coordinator_id}. Edit your request, then try again. (code: `coordinators.coordinator_not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "coordinators.coordinator_not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "x-doc" : {
+          "tag" : "Platform - Coordinators"
+        }
+      }
+    },
+    "/platform/infrastructure/coordinators/{coordinator_id}/_demote" : {
+      "post" : {
+        "tags" : [ "PlatformInfrastructure" ],
+        "summary" : "Demote a coordinator",
+        "description" : "Demotes a coordinator.",
+        "operationId" : "demote-coordinator",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "coordinator_id",
+          "in" : "path",
+          "description" : "The identifier for the coordinator",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Accepted demote of coordinator.",
+            "schema" : {
+              "$ref" : "#/definitions/EmptyResponse"
+            }
+          },
+          "404" : {
+            "description" : "Unable to find the coordinator {coordinator_id}. Edit your request, then try again. (code: `coordinators.coordinator_not_found`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "coordinators.coordinator_not_found" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "400" : {
+            "description" : "The coordinator specified by {coordinator_id} could not be demoted. (code: `coordinators.coordinator_demote_failed`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "coordinators.coordinator_demote_failed" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "449" : {
+            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "x-doc" : {
+          "tag" : "Platform - Coordinators"
+        }
+      }
+    },
     "/platform/infrastructure/proxies" : {
       "get" : {
         "tags" : [ "PlatformInfrastructure" ],
         "summary" : "Get proxies",
         "description" : "Retrieves an overview of all proxies.",
         "operationId" : "get-proxies",
+        "produces" : [ "application/json" ],
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -14000,6 +14511,7 @@
         "description" : "Create the settings for a filtered group of proxies.",
         "operationId" : "create-proxies-filtered-group",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -14068,6 +14580,7 @@
         "summary" : "Get filtered group of proxies",
         "description" : "Get data for a filtered group of proxies.",
         "operationId" : "get-proxies-filtered-group",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "proxies_filtered_group_id",
           "in" : "path",
@@ -14120,6 +14633,7 @@
         "description" : "Update the settings for a filtered group of proxies.",
         "operationId" : "update-proxies-filtered-group",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "proxies_filtered_group_id",
           "in" : "path",
@@ -14211,6 +14725,7 @@
         "summary" : "Delete filtered group of proxies",
         "description" : "Deletes a filtered group of proxies by ID.",
         "operationId" : "delete-proxies-filtered-group",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "proxies_filtered_group_id",
           "in" : "path",
@@ -14282,6 +14797,7 @@
         "summary" : "Get health for a filtered group of proxies",
         "description" : "Get the health status of a filtered group of proxies.",
         "operationId" : "get-proxies-filtered-group-health",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "proxies_filtered_group_id",
           "in" : "path",
@@ -14333,6 +14849,7 @@
         "summary" : "Get proxy health",
         "description" : "Get the health status of all proxies.",
         "operationId" : "get-proxies-health",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "expect_status",
           "in" : "query",
@@ -14378,6 +14895,7 @@
         "summary" : "Get proxies settings",
         "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version.\n\nRetrieves the settings for all proxies.",
         "operationId" : "get-proxies-settings",
+        "produces" : [ "application/json" ],
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -14397,6 +14915,7 @@
         "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version.\n\nOverwrites the proxy settings. All unspecified fields are deleted.",
         "operationId" : "set-proxies-settings",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "version",
           "in" : "query",
@@ -14456,6 +14975,7 @@
         "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version.\n\nApplies the settings as a patch. Only the fields that are referenced in the update are changed.",
         "operationId" : "update-proxies-settings",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "version",
           "in" : "query",
@@ -14516,6 +15036,7 @@
         "summary" : "Get proxy",
         "description" : "Retrieves a single proxy by ID.",
         "operationId" : "get-proxy",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "proxy_id",
           "in" : "path",
@@ -14555,6 +15076,7 @@
         "summary" : "Get runners",
         "description" : "Retrieves an overview of all runners.",
         "operationId" : "get-runners",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "q",
           "in" : "query",
@@ -14581,6 +15103,7 @@
         "summary" : "Resynchronize runners",
         "description" : "Asynchronously synchronizes all runner information in the search index.",
         "operationId" : "resync-runners",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "skip_matching_version",
           "in" : "query",
@@ -14622,6 +15145,7 @@
         "description" : "Retrieves runners that match a given query.",
         "operationId" : "search-runners",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -14663,6 +15187,7 @@
         "summary" : "Get runner",
         "description" : "Retrieves a runner by id.",
         "operationId" : "get-runner",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "runner_id",
           "in" : "path",
@@ -14700,6 +15225,7 @@
         "summary" : "Delete runner",
         "description" : "Delete a runner by id.",
         "operationId" : "delete-runner",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "runner_id",
           "in" : "path",
@@ -14765,6 +15291,7 @@
         "summary" : "Resynchronize runner",
         "description" : "Immediately resynchronizes the search index and cache for the selected runner.",
         "operationId" : "resync-runner",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "runner_id",
           "in" : "path",
@@ -14817,6 +15344,7 @@
         "summary" : "Get runner logging settings",
         "description" : "Get the logging settings for this runner instance.",
         "operationId" : "get-runner-logging-settings",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "runner_id",
           "in" : "path",
@@ -14869,6 +15397,7 @@
         "description" : "Set the logging settings for this runner instance.",
         "operationId" : "set-runner-logging-settings",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "runner_id",
           "in" : "path",
@@ -14928,6 +15457,7 @@
         "summary" : "Delete runner logging settings",
         "description" : "Reset the default logging settings for this runner instance.",
         "operationId" : "delete-runner-logging-settings",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "runner_id",
           "in" : "path",
@@ -14980,6 +15510,7 @@
         "description" : "All changes in the specified object are applied to the logging settings for this runner instance according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.",
         "operationId" : "update-runner-logging-settings",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "runner_id",
           "in" : "path",
@@ -15055,6 +15586,7 @@
         "description" : "Set runner roles.",
         "operationId" : "set-runner-roles",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "runner_id",
           "in" : "path",
@@ -15134,6 +15666,7 @@
         "summary" : "Get license",
         "description" : "Retrieves the license.",
         "operationId" : "get-license",
+        "produces" : [ "application/json" ],
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -15166,6 +15699,7 @@
         "description" : "Adds a new or updates an existing license.",
         "operationId" : "set-license",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -15218,6 +15752,7 @@
         "summary" : "Delete license",
         "description" : "Deletes the license.",
         "operationId" : "delete-license",
+        "produces" : [ "application/json" ],
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -15287,6 +15822,7 @@
         "summary" : "Get stack versions",
         "description" : "By default, retrieves only the available Elastic Stack versions. To retrieve all of the Elastic Stack versions, use the `show_deleted parameter`.",
         "operationId" : "get-version-stacks",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "show_deleted",
           "in" : "query",
@@ -15320,6 +15856,7 @@
         "description" : "Creates or updates an Elastic Stack pack and template.\nThe endpoint supports `multipart/form-data` requests, as well as `application/zip` and `application/octet-stream` requests with a binary body. The maximum size of the payload is 1Mb.\nWhen the archive contains an Elastic Stack configuration that is available through the API, the configuration and template are overwritten.",
         "operationId" : "update-stack-packs",
         "consumes" : [ "multipart/form-data" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "file",
           "in" : "formData",
@@ -15359,6 +15896,7 @@
         "summary" : "Get stack version",
         "description" : "Retrieves the Elastic Stack version and template.",
         "operationId" : "get-version-stack",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "version",
           "in" : "path",
@@ -15397,6 +15935,7 @@
         "description" : "Updates the Elastic Stack version configuration.",
         "operationId" : "update-version-stack",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "version",
           "in" : "path",
@@ -15442,6 +15981,7 @@
         "summary" : "Delete stack version",
         "description" : "Uses the `deleted` flag, which removes only that version of the Elastic Stack from the list of available versions. To restore the version, send an update request. For more information, see the PUT request.",
         "operationId" : "delete-version-stack",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "version",
           "in" : "path",
@@ -15494,6 +16034,7 @@
         "summary" : "Get trusted environments",
         "description" : "Returns the list of trusted environments for the organization. If no organization is passed in, the organization attached to the user is assumed.",
         "operationId" : "get-trusted-envs",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "organization_id",
           "in" : "query",
@@ -15533,6 +16074,7 @@
         "summary" : "Fetch current user information",
         "description" : "Fetch current user information.",
         "operationId" : "get-current-user",
+        "produces" : [ "application/json" ],
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -15565,6 +16107,7 @@
         "description" : "Updates the current user.",
         "operationId" : "update-current-user",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -15619,6 +16162,7 @@
         "summary" : "Fetch all users",
         "description" : "Fetches all available users.",
         "operationId" : "get-users",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "include_disabled",
           "in" : "query",
@@ -15645,6 +16189,7 @@
         "description" : "Creates a new user.",
         "operationId" : "create-user",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -15712,6 +16257,7 @@
         "summary" : "User authentication information",
         "description" : "Provides authentication information about a user, including elevated permission status and TOTP device availability.",
         "operationId" : "get-authentication-info",
+        "produces" : [ "application/json" ],
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -15733,6 +16279,7 @@
         "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Sudo has been retired\n\nEnables the elevated permissions for the current user. Elevated permissions allow the user to complete potentially destructive operations on clusters. Elevated permissions are available for a limited period of time and automatically expire if you do not renew them.",
         "operationId" : "enable-elevated-permissions",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -15811,6 +16358,7 @@
         "summary" : "Disable elevated permissions",
         "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Sudo has been retired\n\nDisables elevated permissions for the user.",
         "operationId" : "disable-elevated-permissions",
+        "produces" : [ "application/json" ],
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -15871,6 +16419,7 @@
         "description" : "Authenticates against available users.",
         "operationId" : "login",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -15944,6 +16493,7 @@
         "summary" : "Logout from ECE",
         "description" : "Destroys the current session.",
         "operationId" : "logout",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "Cookie",
           "in" : "header",
@@ -15996,6 +16546,7 @@
         "summary" : "Refresh authentication token",
         "description" : "Issues a new authentication token.",
         "operationId" : "refresh-token",
+        "produces" : [ "application/json" ],
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -16055,6 +16606,7 @@
         "summary" : "Get all API keys",
         "description" : "Retrieves the metadata for all of the API keys that the user generated.",
         "operationId" : "get-api-keys",
+        "produces" : [ "application/json" ],
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -16074,6 +16626,7 @@
         "description" : "Creates a new API key.",
         "operationId" : "create-api-key",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -16127,6 +16680,7 @@
         "description" : "Delete or invalidate API keys.",
         "operationId" : "delete-api-keys",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -16168,6 +16722,7 @@
         "summary" : "Get all API keys for all users",
         "description" : "Retrieves the metadata for all of the API keys for all users.",
         "operationId" : "get-users-api-keys",
+        "produces" : [ "application/json" ],
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -16187,6 +16742,7 @@
         "description" : "Delete or invalidate the API keys for multiple users.",
         "operationId" : "delete-users-api-keys",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -16228,6 +16784,7 @@
         "summary" : "Get API key",
         "description" : "Retrieves the metadata for an API key.",
         "operationId" : "get-api-key",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "api_key_id",
           "in" : "path",
@@ -16265,6 +16822,7 @@
         "summary" : "Delete API key",
         "description" : "Delete or invalidate the API key.",
         "operationId" : "delete-api-key",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "api_key_id",
           "in" : "path",
@@ -16317,6 +16875,7 @@
         "summary" : "Available authentication methods",
         "description" : "Provides information about available authentication methods.",
         "operationId" : "methods",
+        "produces" : [ "application/json" ],
         "parameters" : [ ],
         "responses" : {
           "200" : {
@@ -16337,6 +16896,7 @@
         "summary" : "SAML callback",
         "description" : "Accepts a callback request from an identity provider and authenticates the user.",
         "operationId" : "saml-callback",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "SAMLResponse",
           "in" : "formData",
@@ -16408,6 +16968,7 @@
         "summary" : "Initiate SAML protocol",
         "description" : "Calls the authentication cluster to initiate SAML Single Sign-on (Web Browser SSO profile) protocol and redirects the user to the identity provider for authentication. The authentication cluster must be configured prior to initiation.",
         "operationId" : "saml-init",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "state",
           "in" : "query",
@@ -16460,6 +17021,7 @@
         "summary" : "Get API key metadata for all keys created by the user",
         "description" : "Retrieves metadata for all API keys created by the given user.",
         "operationId" : "get-user-api-keys",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "user_id",
           "in" : "path",
@@ -16497,6 +17059,7 @@
         "summary" : "Delete API keys for a user",
         "description" : "Delete or invalidate all of the API keys for a user.",
         "operationId" : "delete-user-api-keys",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "user_id",
           "in" : "path",
@@ -16549,6 +17112,7 @@
         "summary" : "Get a user API key",
         "description" : "Retrieves the API key metadata for a user.",
         "operationId" : "get-user-api-key",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "user_id",
           "in" : "path",
@@ -16592,6 +17156,7 @@
         "summary" : "Delete an API key for a user",
         "description" : "Delete or invalidate an API key for a user.",
         "operationId" : "delete-user-api-key",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "user_id",
           "in" : "path",
@@ -16650,6 +17215,7 @@
         "summary" : "Fetch a single user",
         "description" : "Fetches a single user.",
         "operationId" : "get-user",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "user_name",
           "in" : "path",
@@ -16687,6 +17253,7 @@
         "summary" : "Deletes an existing user",
         "description" : "Deletes an existing user.",
         "operationId" : "delete-user",
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "user_name",
           "in" : "path",
@@ -16751,6 +17318,7 @@
         "description" : "Updates an existing user.",
         "operationId" : "update-user",
         "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
         "parameters" : [ {
           "name" : "user_name",
           "in" : "path",
@@ -17182,6 +17750,16 @@
       "properties" : {
         "memory" : {
           "$ref" : "#/definitions/AllocatorCapacityMemory"
+        },
+        "available_cpus" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Total number of CPUs available on this allocator"
+        },
+        "additional_master_bonus" : {
+          "type" : "number",
+          "format" : "float",
+          "description" : "Additional bonus CPU shares available to Elasticsearch master instances"
         }
       },
       "description" : "The total and used capacity of the allocator."
@@ -17203,6 +17781,25 @@
       },
       "description" : "The available and used memory of the allocator."
     },
+    "AllocatorHealthChecks" : {
+      "type" : "object",
+      "required" : [ "has_instances", "is_connected_to_zk", "is_docker_healthy" ],
+      "properties" : {
+        "is_docker_healthy" : {
+          "type" : "boolean",
+          "description" : "Check performed by the allocator to figure out if docker is healthy"
+        },
+        "is_connected_to_zk" : {
+          "type" : "boolean",
+          "description" : "Whether the allocator is connected to zk or not"
+        },
+        "has_instances" : {
+          "type" : "boolean",
+          "description" : "Whether the allocator has allocated instances"
+        }
+      },
+      "description" : "The checks performed to determine if an allocator is healthy or not."
+    },
     "AllocatorHealthStatus" : {
       "type" : "object",
       "required" : [ "connected", "healthy", "maintenance_mode" ],
@@ -17214,6 +17811,10 @@
         "healthy" : {
           "type" : "boolean",
           "description" : "Whether the allocator is healthy, meaning it is either connected or has no instances"
+        },
+        "health_checks" : {
+          "description" : "Checks used to determine if an allocator is healthy or not",
+          "$ref" : "#/definitions/AllocatorHealthChecks"
         },
         "maintenance_mode" : {
           "type" : "boolean",
@@ -17336,7 +17937,7 @@
         "capacity" : {
           "type" : "integer",
           "format" : "int32",
-          "description" : "A memory capacity (in MB) that overrides the capacity defined during installation"
+          "description" : "A memory capacity (in MB) that overrides the capacity defined during installation - requires separate restart of Allocator services on each host to take full effect."
         }
       },
       "description" : "The settings for the allocator."
@@ -18384,7 +18985,7 @@
         },
         "openid" : {
           "type" : "boolean",
-          "description" : "Indicates that OpenID single sign-on authentication is available."
+          "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. This field is no longer used and will always be false.\n\n"
         },
         "sso_methods" : {
           "type" : "array",
@@ -19441,7 +20042,7 @@
           }
         },
         "capacity_constraints" : {
-          "description" : "Capacity constraints for the node type",
+          "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. This field will soon be removed in favor of having a global capacity constraint for all node types.\n\nCapacity constraints for the node type",
           "$ref" : "#/definitions/CapacityConstraintsResource"
         }
       },
@@ -19463,7 +20064,7 @@
           }
         },
         "capacity_constraints" : {
-          "description" : "Capacity constraints for the version",
+          "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. This field will soon be removed in favor of having a global capacity constraint for all versions. When specified its value will be ignored.\n\nCapacity constraints for the version",
           "$ref" : "#/definitions/CapacityConstraintsResource"
         }
       },
@@ -19798,6 +20399,56 @@
         }
       },
       "description" : "Overrides for the container allocation."
+    },
+    "CoordinatorCandidateInfo" : {
+      "type" : "object",
+      "required" : [ "acl", "attributes", "name", "public_hostname", "state" ],
+      "properties" : {
+        "name" : {
+          "type" : "string",
+          "description" : "Name of this coordinator candidate."
+        },
+        "public_hostname" : {
+          "type" : "string",
+          "description" : "Public hostname of this coordinator candidate"
+        },
+        "acl" : {
+          "description" : "Zookeeper ACL of nodes this coordinator candidate is allowed to read",
+          "$ref" : "#/definitions/ZkAcl"
+        },
+        "id" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Zookeeper server identifier corresponding to this coordinator candidate"
+        },
+        "attributes" : {
+          "type" : "object",
+          "description" : "Attributes of this coordinator candidate",
+          "additionalProperties" : {
+            "type" : "string"
+          }
+        },
+        "state" : {
+          "type" : "string",
+          "description" : "State of the candidate",
+          "enum" : [ "accepted", "pending" ]
+        }
+      },
+      "description" : "Summarized information about a coordinator candidate."
+    },
+    "CoordinatorCandidatesSummary" : {
+      "type" : "object",
+      "required" : [ "candidates" ],
+      "properties" : {
+        "candidates" : {
+          "type" : "array",
+          "description" : "Summarized information on each coordinator candidate",
+          "items" : {
+            "$ref" : "#/definitions/CoordinatorCandidateInfo"
+          }
+        }
+      },
+      "description" : "Summarized information about coordinator candidates."
     },
     "CoordinatorSummary" : {
       "type" : "object",
@@ -22896,7 +23547,11 @@
       "properties" : {
         "trust_relationship_id" : {
           "type" : "string",
-          "description" : "the ID of the external trust relationship"
+          "description" : "The ID of the external trust relationship"
+        },
+        "name" : {
+          "type" : "string",
+          "description" : "The name of the external trust relationship. Retrieved from the TrustRelationship and ignored on write."
         },
         "trust_all" : {
           "type" : "boolean",
@@ -25117,6 +25772,17 @@
         "name" : {
           "type" : "string",
           "description" : "The organization's friendly name"
+        },
+        "default_disk_usage_alerts_enabled" : {
+          "type" : "boolean",
+          "description" : "Whether the default disk alerts are enabled"
+        },
+        "notifications_allowed_email_domains" : {
+          "type" : "array",
+          "description" : "The list of allowed domains for notification-email recipients",
+          "items" : {
+            "type" : "string"
+          }
         }
       },
       "description" : "An organization"
@@ -25257,6 +25923,17 @@
         "name" : {
           "type" : "string",
           "description" : "The organization's friendly name"
+        },
+        "default_disk_usage_alerts_enabled" : {
+          "type" : "boolean",
+          "description" : "Whether the default disk alerts are enabled"
+        },
+        "notifications_allowed_email_domains" : {
+          "type" : "array",
+          "description" : "The list of allowed domains for notification-email recipients",
+          "items" : {
+            "type" : "string"
+          }
         }
       },
       "description" : "A request to create or update an organization"
@@ -26506,6 +27183,25 @@
       },
       "description" : "Information about a container within a runner."
     },
+    "RunnerHealthChecks" : {
+      "type" : "object",
+      "required" : [ "has_containers", "is_connected_to_zk", "is_docker_healthy" ],
+      "properties" : {
+        "is_docker_healthy" : {
+          "type" : "boolean",
+          "description" : "Check performed by the runner to figure out if docker is healthy"
+        },
+        "is_connected_to_zk" : {
+          "type" : "boolean",
+          "description" : "Whether the runner is connected to zk or not"
+        },
+        "has_containers" : {
+          "type" : "boolean",
+          "description" : "Whether the runner has containers that it manages"
+        }
+      },
+      "description" : "The checks performed to determine if an runner is healthy or not."
+    },
     "RunnerInfo" : {
       "type" : "object",
       "required" : [ "connected", "containers", "healthy", "host_ip", "public_hostname", "roles", "runner_id" ],
@@ -26569,6 +27265,10 @@
         "healthy" : {
           "type" : "boolean",
           "description" : "Specifies if the runner is healthy"
+        },
+        "health_checks" : {
+          "description" : "Checks used to determine if a runner is healthy or not",
+          "$ref" : "#/definitions/RunnerHealthChecks"
         },
         "region" : {
           "type" : "string",
@@ -26871,6 +27571,9 @@
           "items" : {
             "type" : "object"
           }
+        },
+        "_source" : {
+          "type" : "object"
         }
       },
       "description" : "An Elasticsearch search request with a subset of options."
@@ -27137,7 +27840,7 @@
         "sso_type" : {
           "type" : "string",
           "description" : "Indicates the protocol of the single sign-on method.",
-          "enum" : [ "saml", "openid" ]
+          "enum" : [ "saml" ]
         },
         "name" : {
           "type" : "string",
@@ -27174,6 +27877,7 @@
           "description" : "Settings that are applied to all nodes of this type"
         },
         "capacity_constraints" : {
+          "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. This field will soon be removed in favor of having a global capacity constraint for all node types.\n\nCapacity constraints for the node type",
           "$ref" : "#/definitions/StackVersionInstanceCapacityConstraint"
         },
         "compatible_node_types" : {
@@ -27210,6 +27914,7 @@
           "description" : "Settings that are applied to all nodes of this type"
         },
         "capacity_constraints" : {
+          "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. This field will soon be removed in favor of having a global capacity constraint for all node types.\n\nCapacity constraints for the node type",
           "$ref" : "#/definitions/StackVersionInstanceCapacityConstraint"
         },
         "compatible_node_types" : {
@@ -27403,6 +28108,7 @@
           "description" : "Settings that are applied to all nodes of this type"
         },
         "capacity_constraints" : {
+          "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. This field will soon be removed in favor of having a global capacity constraint for all node types.\n\nCapacity constraints for the node type",
           "$ref" : "#/definitions/StackVersionInstanceCapacityConstraint"
         },
         "compatible_node_types" : {
@@ -27439,6 +28145,7 @@
           "description" : "Settings that are applied to all nodes of this type"
         },
         "capacity_constraints" : {
+          "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. This field will soon be removed in favor of having a global capacity constraint for all node types.\n\nCapacity constraints for the node type",
           "$ref" : "#/definitions/StackVersionInstanceCapacityConstraint"
         },
         "compatible_node_types" : {
@@ -27499,6 +28206,7 @@
           "description" : "Settings that are applied to all nodes of this type"
         },
         "capacity_constraints" : {
+          "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. This field will soon be removed in favor of having a global capacity constraint for all node types.\n\nCapacity constraints for the node type",
           "$ref" : "#/definitions/StackVersionInstanceCapacityConstraint"
         },
         "compatible_node_types" : {
@@ -27535,6 +28243,7 @@
           "description" : "Settings that are applied to all nodes of this type"
         },
         "capacity_constraints" : {
+          "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. This field will soon be removed in favor of having a global capacity constraint for all node types.\n\nCapacity constraints for the node type",
           "$ref" : "#/definitions/StackVersionInstanceCapacityConstraint"
         },
         "compatible_node_types" : {
@@ -27599,6 +28308,7 @@
           "description" : "Settings that are applied to all nodes of this type"
         },
         "capacity_constraints" : {
+          "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. This field will soon be removed in favor of having a global capacity constraint for all node types.\n\nCapacity constraints for the node type",
           "$ref" : "#/definitions/StackVersionInstanceCapacityConstraint"
         },
         "compatible_node_types" : {
@@ -28480,6 +29190,26 @@
         }
       },
       "description" : "The security realm the user belongs to"
+    },
+    "ZkAcl" : {
+      "type" : "object",
+      "required" : [ "id", "perms", "scheme" ],
+      "properties" : {
+        "perms" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "ZK static permissions for admin/all/create/read/write/delete"
+        },
+        "scheme" : {
+          "type" : "string",
+          "description" : "Zookeeper ACL scheme"
+        },
+        "id" : {
+          "type" : "string",
+          "description" : "Identity within provided scheme"
+        }
+      },
+      "description" : "Represents a Zookeeper ACL permission"
     },
     "ZookeeperNodeInfo" : {
       "type" : "object",

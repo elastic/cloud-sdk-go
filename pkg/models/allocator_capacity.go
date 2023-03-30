@@ -36,6 +36,12 @@ import (
 // swagger:model AllocatorCapacity
 type AllocatorCapacity struct {
 
+	// Additional bonus CPU shares available to Elasticsearch master instances
+	AdditionalMasterBonus float32 `json:"additional_master_bonus,omitempty"`
+
+	// Total number of CPUs available on this allocator
+	AvailableCpus int32 `json:"available_cpus,omitempty"`
+
 	// memory
 	// Required: true
 	Memory *AllocatorCapacityMemory `json:"memory"`

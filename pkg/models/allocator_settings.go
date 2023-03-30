@@ -34,7 +34,7 @@ import (
 // swagger:model AllocatorSettings
 type AllocatorSettings struct {
 
-	// A memory capacity (in MB) that overrides the capacity defined during installation
+	// A memory capacity (in MB) that overrides the capacity defined during installation - requires separate restart of Allocator services on each host to take full effect.
 	Capacity int32 `json:"capacity,omitempty"`
 }
 

@@ -37,7 +37,10 @@ import (
 // swagger:model AvailableAuthenticationMethods
 type AvailableAuthenticationMethods struct {
 
-	// Indicates that OpenID single sign-on authentication is available.
+	// > WARNING
+	// > This endpoint is deprecated and scheduled to be removed in the next major version. This field is no longer used and will always be false.
+	//
+	//
 	// Required: true
 	Openid *bool `json:"openid"`
 
