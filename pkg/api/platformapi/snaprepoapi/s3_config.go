@@ -88,8 +88,8 @@ func ParseS3Config(input io.Reader) (S3Config, error) {
 
 // S3Config is used to configure an S3 snapshot repository
 // Full list of settings in the Elasticsearch official documentation:
-// https://www.elastic.co/guide/en/elasticsearch/plugins/current/repository-s3-repository.html
-// https://www.elastic.co/guide/en/elasticsearch/plugins/current/repository-s3-client.html
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/repository-s3.html#repository-s3-repository
+// https://www.elastic.co/guide/en/elasticsearch/reference/current/repository-s3.html#repository-s3-client
 // nolint
 type S3Config struct {
 	// Required settings
@@ -115,6 +115,7 @@ type S3Config struct {
 	Timeout         time.Duration `json:"timeout,omitempty"`
 	MaxRetries      int           `json:"max_retries,omitempty"`
 	ThrottleRetries bool          `json:"throttle_retries,omitempty"`
+	PathStyleAccess bool          `json:"path_style_access,omitempty"`
 }
 
 // S3TypeConfig is used by the text formatter to wrwap the S3 config with the
