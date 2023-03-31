@@ -60,7 +60,7 @@ $(GOBIN)/prism:
 $(GOBIN)/apivalidator:
 	@ echo "-> Installing apivalidator..."
 	@ if [[ -f bin/apivalidator ]]; then rm -f bin/apivalidator; fi
-	@ go install internal/cmd/apivalidator
+	@ go install github.com/elastic/cloud-sdk-go/internal/cmd/apivalidator@master
 
 $(GOBIN)/changelogger:
 	@ echo "-> Installing changelogger..."
