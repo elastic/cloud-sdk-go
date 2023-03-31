@@ -23,7 +23,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"reflect"
 	"unsafe"
@@ -72,15 +72,15 @@ type Error struct {
 // status code which is not present in the swagger spec, in which case,
 // the same operation will be attempted (unwrapping a BasicFailedReply)
 // with a fallback to unmarshal any JSON which can be read:
-// * error is nil, in which case nil is returned.
-// * error is a context.DeadlineExceeded error, which equals a timeout.
-// * error is of type *runtime.APIError, meaning the returned API error wasn't
-//   defined in the Swagger spec from which the source code has been generated
-//   * HTTP code is 449, the authenticated user needs to elevate-permissions.
-//   * The type wraps *http.Response, the body is read and tries json.Unmarshal
+//   - error is nil, in which case nil is returned.
+//   - error is a context.DeadlineExceeded error, which equals a timeout.
+//   - error is of type *runtime.APIError, meaning the returned API error wasn't
+//     defined in the Swagger spec from which the source code has been generated
+//   - HTTP code is 449, the authenticated user needs to elevate-permissions.
+//   - The type wraps *http.Response, the body is read and tries json.Unmarshal
 //     to *models.BasicFailedResponse and each of the BasicFailedReplyElement
 //     is then added to an instance of multierror.Prefixed and returned.
-//   * The error is unknown, returns "<OperationName> (status <StatusCode)".
+//   - The error is unknown, returns "<OperationName> (status <StatusCode)".
 func Wrap(err error) error {
 	if err == nil {
 		return nil
@@ -187,7 +187,7 @@ func tryWrappedResponse(prefix string, apiError interface{}) error {
 
 	ptr := unsafe.Pointer(resp.Pointer())
 	res := (*http.Response)(ptr)
-	b, err := ioutil.ReadAll(res.Body)
+	b, err := io.ReadAll(res.Body)
 	if err != nil {
 		return fmt.Errorf("failed reading error body: %w", err)
 	}

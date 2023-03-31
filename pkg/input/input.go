@@ -21,7 +21,6 @@ import (
 	"bytes"
 	"errors"
 	"io"
-	"io/ioutil"
 	"os"
 )
 
@@ -41,5 +40,5 @@ func NewFileOrReader(reader io.Reader, filename string) (io.ReadCloser, error) {
 	if _, err := io.Copy(buf, reader); err != nil {
 		return nil, err
 	}
-	return ioutil.NopCloser(buf), nil
+	return io.NopCloser(buf), nil
 }

@@ -19,6 +19,8 @@ package plan
 
 import (
 	"fmt"
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
 	"strings"
 
 	"github.com/go-openapi/strfmt"
@@ -68,7 +70,7 @@ func (res TrackResponse) Error() string {
 }
 
 func (res TrackResponse) String() string {
-	kind := strings.Title(strings.Replace(res.Kind, "_", " ", 1))
+	kind := cases.Title(language.English).String(strings.Replace(res.Kind, "_", " ", 1))
 
 	if msg := formatFinishedStep(res, kind); msg != "" {
 		return msg

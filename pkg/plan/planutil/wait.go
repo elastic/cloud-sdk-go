@@ -18,9 +18,8 @@
 package planutil
 
 import (
-	"io/ioutil"
-
 	"github.com/elastic/cloud-sdk-go/pkg/plan"
+	"io"
 )
 
 // Wait tracks a deployment's plan change by waiting until the pending plan has
@@ -28,6 +27,6 @@ import (
 func Wait(params plan.TrackChangeParams) error {
 	return TrackChange(TrackChangeParams{
 		TrackChangeParams: params,
-		Writer:            ioutil.Discard,
+		Writer:            io.Discard,
 	})
 }
