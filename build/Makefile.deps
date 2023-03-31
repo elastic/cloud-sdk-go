@@ -1,6 +1,6 @@
 #### Dependency targets
 
-## Installs all the required binaries for the makefile targets.
+## Installs all the required binaries for the makefile targets.
 
 OS:=$(shell uname -s | tr '[:upper:]' '[:lower:]')
 ARCH:=$(shell $(PWD)/scripts/uname_arch.sh)
@@ -60,7 +60,7 @@ $(GOBIN)/prism:
 $(GOBIN)/apivalidator:
 	@ echo "-> Installing apivalidator..."
 	@ if [[ -f bin/apivalidator ]]; then rm -f bin/apivalidator; fi
-	@ go install github.com/elastic/cloud-sdk-go/internal/cmd/apivalidator@master
+	@ go install internal/cmd/apivalidator
 
 $(GOBIN)/changelogger:
 	@ echo "-> Installing changelogger..."
@@ -74,13 +74,13 @@ $(GOBIN)/versionbump: $(VERSION_DIR)/.version-versionbump-$(VERSION_VERSIONBUMP)
 	@ echo "-> Installing versionbump..."
 	@ go install github.com/crosseyed/versionbump/cmd/versionbump@$(VERSION_VERSIONBUMP)
 
-## Downloads the required go modules.
+## Downloads the required go modules.
 .PHONY: mod
 mod:
 	@ echo "-> Downloading project imports..."
 	@ go mod download
 	@ go mod tidy
 
-## Alias to make mod.
+## Alias to make mod.
 .PHONY: vendor
 vendor: mod
