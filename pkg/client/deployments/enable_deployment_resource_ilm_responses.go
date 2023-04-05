@@ -52,12 +52,6 @@ func (o *EnableDeploymentResourceIlmReader) ReadResponse(response runtime.Client
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewEnableDeploymentResourceIlmRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	case 500:
 		result := NewEnableDeploymentResourceIlmInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -74,7 +68,8 @@ func NewEnableDeploymentResourceIlmOK() *EnableDeploymentResourceIlmOK {
 	return &EnableDeploymentResourceIlmOK{}
 }
 
-/* EnableDeploymentResourceIlmOK describes a response with status code 200, with default header values.
+/*
+EnableDeploymentResourceIlmOK describes a response with status code 200, with default header values.
 
 Standard response
 */
@@ -82,9 +77,44 @@ type EnableDeploymentResourceIlmOK struct {
 	Payload *models.DeploymentResourceCommandResponse
 }
 
+// IsSuccess returns true when this enable deployment resource ilm o k response has a 2xx status code
+func (o *EnableDeploymentResourceIlmOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this enable deployment resource ilm o k response has a 3xx status code
+func (o *EnableDeploymentResourceIlmOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this enable deployment resource ilm o k response has a 4xx status code
+func (o *EnableDeploymentResourceIlmOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this enable deployment resource ilm o k response has a 5xx status code
+func (o *EnableDeploymentResourceIlmOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this enable deployment resource ilm o k response a status code equal to that given
+func (o *EnableDeploymentResourceIlmOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the enable deployment resource ilm o k response
+func (o *EnableDeploymentResourceIlmOK) Code() int {
+	return 200
+}
+
 func (o *EnableDeploymentResourceIlmOK) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_enable-ilm][%d] enableDeploymentResourceIlmOK  %+v", 200, o.Payload)
 }
+
+func (o *EnableDeploymentResourceIlmOK) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_enable-ilm][%d] enableDeploymentResourceIlmOK  %+v", 200, o.Payload)
+}
+
 func (o *EnableDeploymentResourceIlmOK) GetPayload() *models.DeploymentResourceCommandResponse {
 	return o.Payload
 }
@@ -106,9 +136,11 @@ func NewEnableDeploymentResourceIlmNotFound() *EnableDeploymentResourceIlmNotFou
 	return &EnableDeploymentResourceIlmNotFound{}
 }
 
-/* EnableDeploymentResourceIlmNotFound describes a response with status code 404, with default header values.
+/*
+	EnableDeploymentResourceIlmNotFound describes a response with status code 404, with default header values.
 
- * The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+	* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+
 * The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)
 */
 type EnableDeploymentResourceIlmNotFound struct {
@@ -120,9 +152,44 @@ type EnableDeploymentResourceIlmNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this enable deployment resource ilm not found response has a 2xx status code
+func (o *EnableDeploymentResourceIlmNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this enable deployment resource ilm not found response has a 3xx status code
+func (o *EnableDeploymentResourceIlmNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this enable deployment resource ilm not found response has a 4xx status code
+func (o *EnableDeploymentResourceIlmNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this enable deployment resource ilm not found response has a 5xx status code
+func (o *EnableDeploymentResourceIlmNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this enable deployment resource ilm not found response a status code equal to that given
+func (o *EnableDeploymentResourceIlmNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the enable deployment resource ilm not found response
+func (o *EnableDeploymentResourceIlmNotFound) Code() int {
+	return 404
+}
+
 func (o *EnableDeploymentResourceIlmNotFound) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_enable-ilm][%d] enableDeploymentResourceIlmNotFound  %+v", 404, o.Payload)
 }
+
+func (o *EnableDeploymentResourceIlmNotFound) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_enable-ilm][%d] enableDeploymentResourceIlmNotFound  %+v", 404, o.Payload)
+}
+
 func (o *EnableDeploymentResourceIlmNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -146,56 +213,13 @@ func (o *EnableDeploymentResourceIlmNotFound) readResponse(response runtime.Clie
 	return nil
 }
 
-// NewEnableDeploymentResourceIlmRetryWith creates a EnableDeploymentResourceIlmRetryWith with default headers values
-func NewEnableDeploymentResourceIlmRetryWith() *EnableDeploymentResourceIlmRetryWith {
-	return &EnableDeploymentResourceIlmRetryWith{}
-}
-
-/* EnableDeploymentResourceIlmRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type EnableDeploymentResourceIlmRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-func (o *EnableDeploymentResourceIlmRetryWith) Error() string {
-	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_enable-ilm][%d] enableDeploymentResourceIlmRetryWith  %+v", 449, o.Payload)
-}
-func (o *EnableDeploymentResourceIlmRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *EnableDeploymentResourceIlmRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
 // NewEnableDeploymentResourceIlmInternalServerError creates a EnableDeploymentResourceIlmInternalServerError with default headers values
 func NewEnableDeploymentResourceIlmInternalServerError() *EnableDeploymentResourceIlmInternalServerError {
 	return &EnableDeploymentResourceIlmInternalServerError{}
 }
 
-/* EnableDeploymentResourceIlmInternalServerError describes a response with status code 500, with default header values.
+/*
+EnableDeploymentResourceIlmInternalServerError describes a response with status code 500, with default header values.
 
 We have failed you. (code: `deployments.deployment_resource_no_longer_exists`)
 */
@@ -208,9 +232,44 @@ type EnableDeploymentResourceIlmInternalServerError struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this enable deployment resource ilm internal server error response has a 2xx status code
+func (o *EnableDeploymentResourceIlmInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this enable deployment resource ilm internal server error response has a 3xx status code
+func (o *EnableDeploymentResourceIlmInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this enable deployment resource ilm internal server error response has a 4xx status code
+func (o *EnableDeploymentResourceIlmInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this enable deployment resource ilm internal server error response has a 5xx status code
+func (o *EnableDeploymentResourceIlmInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this enable deployment resource ilm internal server error response a status code equal to that given
+func (o *EnableDeploymentResourceIlmInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
+// Code gets the status code for the enable deployment resource ilm internal server error response
+func (o *EnableDeploymentResourceIlmInternalServerError) Code() int {
+	return 500
+}
+
 func (o *EnableDeploymentResourceIlmInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_enable-ilm][%d] enableDeploymentResourceIlmInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *EnableDeploymentResourceIlmInternalServerError) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_enable-ilm][%d] enableDeploymentResourceIlmInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *EnableDeploymentResourceIlmInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

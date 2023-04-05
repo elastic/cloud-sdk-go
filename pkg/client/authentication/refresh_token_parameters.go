@@ -69,10 +69,12 @@ func NewRefreshTokenParamsWithHTTPClient(client *http.Client) *RefreshTokenParam
 	}
 }
 
-/* RefreshTokenParams contains all the parameters to send to the API endpoint
-   for the refresh token operation.
+/*
+RefreshTokenParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the refresh token operation.
+
+	Typically these are written to a http.Request.
 */
 type RefreshTokenParams struct {
 	timeout    time.Duration

@@ -103,6 +103,8 @@ func (m *ContainersEntryOptions) validateAcls(formats strfmt.Registry) error {
 			if err := m.Acls[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("acls" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("acls" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -128,6 +130,8 @@ func (m *ContainersEntryOptions) validateAuths(formats strfmt.Registry) error {
 			if err := m.Auths[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("auths" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("auths" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -156,6 +160,8 @@ func (m *ContainersEntryOptions) validateOverrides(formats strfmt.Registry) erro
 		if err := m.Overrides.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("overrides")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("overrides")
 			}
 			return err
 		}
@@ -194,6 +200,8 @@ func (m *ContainersEntryOptions) contextValidateAcls(ctx context.Context, format
 			if err := m.Acls[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("acls" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("acls" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -212,6 +220,8 @@ func (m *ContainersEntryOptions) contextValidateAuths(ctx context.Context, forma
 			if err := m.Auths[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("auths" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("auths" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -228,6 +238,8 @@ func (m *ContainersEntryOptions) contextValidateOverrides(ctx context.Context, f
 		if err := m.Overrides.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("overrides")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("overrides")
 			}
 			return err
 		}

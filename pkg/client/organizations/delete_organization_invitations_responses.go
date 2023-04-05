@@ -68,7 +68,8 @@ func NewDeleteOrganizationInvitationsOK() *DeleteOrganizationInvitationsOK {
 	return &DeleteOrganizationInvitationsOK{}
 }
 
-/* DeleteOrganizationInvitationsOK describes a response with status code 200, with default header values.
+/*
+DeleteOrganizationInvitationsOK describes a response with status code 200, with default header values.
 
 Organization invitations deleted successfully
 */
@@ -76,9 +77,44 @@ type DeleteOrganizationInvitationsOK struct {
 	Payload models.EmptyResponse
 }
 
+// IsSuccess returns true when this delete organization invitations o k response has a 2xx status code
+func (o *DeleteOrganizationInvitationsOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this delete organization invitations o k response has a 3xx status code
+func (o *DeleteOrganizationInvitationsOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete organization invitations o k response has a 4xx status code
+func (o *DeleteOrganizationInvitationsOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this delete organization invitations o k response has a 5xx status code
+func (o *DeleteOrganizationInvitationsOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete organization invitations o k response a status code equal to that given
+func (o *DeleteOrganizationInvitationsOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the delete organization invitations o k response
+func (o *DeleteOrganizationInvitationsOK) Code() int {
+	return 200
+}
+
 func (o *DeleteOrganizationInvitationsOK) Error() string {
 	return fmt.Sprintf("[DELETE /organizations/{organization_id}/invitations/{invitation_tokens}][%d] deleteOrganizationInvitationsOK  %+v", 200, o.Payload)
 }
+
+func (o *DeleteOrganizationInvitationsOK) String() string {
+	return fmt.Sprintf("[DELETE /organizations/{organization_id}/invitations/{invitation_tokens}][%d] deleteOrganizationInvitationsOK  %+v", 200, o.Payload)
+}
+
 func (o *DeleteOrganizationInvitationsOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -98,7 +134,8 @@ func NewDeleteOrganizationInvitationsBadRequest() *DeleteOrganizationInvitations
 	return &DeleteOrganizationInvitationsBadRequest{}
 }
 
-/* DeleteOrganizationInvitationsBadRequest describes a response with status code 400, with default header values.
+/*
+DeleteOrganizationInvitationsBadRequest describes a response with status code 400, with default header values.
 
 No valid invitation token was supplied. (code: `root.invalid_data`)
 */
@@ -111,9 +148,44 @@ type DeleteOrganizationInvitationsBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete organization invitations bad request response has a 2xx status code
+func (o *DeleteOrganizationInvitationsBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete organization invitations bad request response has a 3xx status code
+func (o *DeleteOrganizationInvitationsBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete organization invitations bad request response has a 4xx status code
+func (o *DeleteOrganizationInvitationsBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete organization invitations bad request response has a 5xx status code
+func (o *DeleteOrganizationInvitationsBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete organization invitations bad request response a status code equal to that given
+func (o *DeleteOrganizationInvitationsBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the delete organization invitations bad request response
+func (o *DeleteOrganizationInvitationsBadRequest) Code() int {
+	return 400
+}
+
 func (o *DeleteOrganizationInvitationsBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /organizations/{organization_id}/invitations/{invitation_tokens}][%d] deleteOrganizationInvitationsBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *DeleteOrganizationInvitationsBadRequest) String() string {
+	return fmt.Sprintf("[DELETE /organizations/{organization_id}/invitations/{invitation_tokens}][%d] deleteOrganizationInvitationsBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *DeleteOrganizationInvitationsBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -142,9 +214,11 @@ func NewDeleteOrganizationInvitationsNotFound() *DeleteOrganizationInvitationsNo
 	return &DeleteOrganizationInvitationsNotFound{}
 }
 
-/* DeleteOrganizationInvitationsNotFound describes a response with status code 404, with default header values.
+/*
+	DeleteOrganizationInvitationsNotFound describes a response with status code 404, with default header values.
 
- * Organization not found. (code: `organization.not_found`)
+	* Organization not found. (code: `organization.not_found`)
+
 * Invitation not found. (code: `organization.invitation_not_found`)
 */
 type DeleteOrganizationInvitationsNotFound struct {
@@ -156,9 +230,44 @@ type DeleteOrganizationInvitationsNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete organization invitations not found response has a 2xx status code
+func (o *DeleteOrganizationInvitationsNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete organization invitations not found response has a 3xx status code
+func (o *DeleteOrganizationInvitationsNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete organization invitations not found response has a 4xx status code
+func (o *DeleteOrganizationInvitationsNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete organization invitations not found response has a 5xx status code
+func (o *DeleteOrganizationInvitationsNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete organization invitations not found response a status code equal to that given
+func (o *DeleteOrganizationInvitationsNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the delete organization invitations not found response
+func (o *DeleteOrganizationInvitationsNotFound) Code() int {
+	return 404
+}
+
 func (o *DeleteOrganizationInvitationsNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /organizations/{organization_id}/invitations/{invitation_tokens}][%d] deleteOrganizationInvitationsNotFound  %+v", 404, o.Payload)
 }
+
+func (o *DeleteOrganizationInvitationsNotFound) String() string {
+	return fmt.Sprintf("[DELETE /organizations/{organization_id}/invitations/{invitation_tokens}][%d] deleteOrganizationInvitationsNotFound  %+v", 404, o.Payload)
+}
+
 func (o *DeleteOrganizationInvitationsNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

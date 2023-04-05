@@ -62,7 +62,8 @@ func NewGetDeploymentNotesOK() *GetDeploymentNotesOK {
 	return &GetDeploymentNotesOK{}
 }
 
-/* GetDeploymentNotesOK describes a response with status code 200, with default header values.
+/*
+GetDeploymentNotesOK describes a response with status code 200, with default header values.
 
 The deployment notes were successfully returned
 */
@@ -83,9 +84,44 @@ type GetDeploymentNotesOK struct {
 	Payload *models.Notes
 }
 
+// IsSuccess returns true when this get deployment notes o k response has a 2xx status code
+func (o *GetDeploymentNotesOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get deployment notes o k response has a 3xx status code
+func (o *GetDeploymentNotesOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get deployment notes o k response has a 4xx status code
+func (o *GetDeploymentNotesOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get deployment notes o k response has a 5xx status code
+func (o *GetDeploymentNotesOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get deployment notes o k response a status code equal to that given
+func (o *GetDeploymentNotesOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get deployment notes o k response
+func (o *GetDeploymentNotesOK) Code() int {
+	return 200
+}
+
 func (o *GetDeploymentNotesOK) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/notes][%d] getDeploymentNotesOK  %+v", 200, o.Payload)
 }
+
+func (o *GetDeploymentNotesOK) String() string {
+	return fmt.Sprintf("[GET /deployments/{deployment_id}/notes][%d] getDeploymentNotesOK  %+v", 200, o.Payload)
+}
+
 func (o *GetDeploymentNotesOK) GetPayload() *models.Notes {
 	return o.Payload
 }
@@ -128,7 +164,8 @@ func NewGetDeploymentNotesNotFound() *GetDeploymentNotesNotFound {
 	return &GetDeploymentNotesNotFound{}
 }
 
-/* GetDeploymentNotesNotFound describes a response with status code 404, with default header values.
+/*
+GetDeploymentNotesNotFound describes a response with status code 404, with default header values.
 
 The deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
 */
@@ -141,9 +178,44 @@ type GetDeploymentNotesNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get deployment notes not found response has a 2xx status code
+func (o *GetDeploymentNotesNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get deployment notes not found response has a 3xx status code
+func (o *GetDeploymentNotesNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get deployment notes not found response has a 4xx status code
+func (o *GetDeploymentNotesNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get deployment notes not found response has a 5xx status code
+func (o *GetDeploymentNotesNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get deployment notes not found response a status code equal to that given
+func (o *GetDeploymentNotesNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the get deployment notes not found response
+func (o *GetDeploymentNotesNotFound) Code() int {
+	return 404
+}
+
 func (o *GetDeploymentNotesNotFound) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/notes][%d] getDeploymentNotesNotFound  %+v", 404, o.Payload)
 }
+
+func (o *GetDeploymentNotesNotFound) String() string {
+	return fmt.Sprintf("[GET /deployments/{deployment_id}/notes][%d] getDeploymentNotesNotFound  %+v", 404, o.Payload)
+}
+
 func (o *GetDeploymentNotesNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

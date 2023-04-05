@@ -62,7 +62,8 @@ func NewGetAdminconsoleLoggingSettingsOK() *GetAdminconsoleLoggingSettingsOK {
 	return &GetAdminconsoleLoggingSettingsOK{}
 }
 
-/* GetAdminconsoleLoggingSettingsOK describes a response with status code 200, with default header values.
+/*
+GetAdminconsoleLoggingSettingsOK describes a response with status code 200, with default header values.
 
 The logging settings for the adminconsole instance
 */
@@ -83,9 +84,44 @@ type GetAdminconsoleLoggingSettingsOK struct {
 	Payload *models.LoggingSettings
 }
 
+// IsSuccess returns true when this get adminconsole logging settings o k response has a 2xx status code
+func (o *GetAdminconsoleLoggingSettingsOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get adminconsole logging settings o k response has a 3xx status code
+func (o *GetAdminconsoleLoggingSettingsOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get adminconsole logging settings o k response has a 4xx status code
+func (o *GetAdminconsoleLoggingSettingsOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get adminconsole logging settings o k response has a 5xx status code
+func (o *GetAdminconsoleLoggingSettingsOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get adminconsole logging settings o k response a status code equal to that given
+func (o *GetAdminconsoleLoggingSettingsOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get adminconsole logging settings o k response
+func (o *GetAdminconsoleLoggingSettingsOK) Code() int {
+	return 200
+}
+
 func (o *GetAdminconsoleLoggingSettingsOK) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/adminconsoles/{adminconsole_id}/logging_settings][%d] getAdminconsoleLoggingSettingsOK  %+v", 200, o.Payload)
 }
+
+func (o *GetAdminconsoleLoggingSettingsOK) String() string {
+	return fmt.Sprintf("[GET /platform/infrastructure/adminconsoles/{adminconsole_id}/logging_settings][%d] getAdminconsoleLoggingSettingsOK  %+v", 200, o.Payload)
+}
+
 func (o *GetAdminconsoleLoggingSettingsOK) GetPayload() *models.LoggingSettings {
 	return o.Payload
 }
@@ -128,7 +164,8 @@ func NewGetAdminconsoleLoggingSettingsNotFound() *GetAdminconsoleLoggingSettings
 	return &GetAdminconsoleLoggingSettingsNotFound{}
 }
 
-/* GetAdminconsoleLoggingSettingsNotFound describes a response with status code 404, with default header values.
+/*
+GetAdminconsoleLoggingSettingsNotFound describes a response with status code 404, with default header values.
 
 The logging settings for this adminconsole were not found. (code: `adminconsoles.logging_settings.not_found`)
 */
@@ -141,9 +178,44 @@ type GetAdminconsoleLoggingSettingsNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get adminconsole logging settings not found response has a 2xx status code
+func (o *GetAdminconsoleLoggingSettingsNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get adminconsole logging settings not found response has a 3xx status code
+func (o *GetAdminconsoleLoggingSettingsNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get adminconsole logging settings not found response has a 4xx status code
+func (o *GetAdminconsoleLoggingSettingsNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get adminconsole logging settings not found response has a 5xx status code
+func (o *GetAdminconsoleLoggingSettingsNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get adminconsole logging settings not found response a status code equal to that given
+func (o *GetAdminconsoleLoggingSettingsNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the get adminconsole logging settings not found response
+func (o *GetAdminconsoleLoggingSettingsNotFound) Code() int {
+	return 404
+}
+
 func (o *GetAdminconsoleLoggingSettingsNotFound) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/adminconsoles/{adminconsole_id}/logging_settings][%d] getAdminconsoleLoggingSettingsNotFound  %+v", 404, o.Payload)
 }
+
+func (o *GetAdminconsoleLoggingSettingsNotFound) String() string {
+	return fmt.Sprintf("[GET /platform/infrastructure/adminconsoles/{adminconsole_id}/logging_settings][%d] getAdminconsoleLoggingSettingsNotFound  %+v", 404, o.Payload)
+}
+
 func (o *GetAdminconsoleLoggingSettingsNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

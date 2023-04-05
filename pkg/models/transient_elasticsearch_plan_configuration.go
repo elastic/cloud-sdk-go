@@ -35,15 +35,15 @@ import (
 // swagger:model TransientElasticsearchPlanConfiguration
 type TransientElasticsearchPlanConfiguration struct {
 
-	// If specified, contains transient settings to be applied to an Elasticsearch cluster during changes, default values shown below applied.
+	// If specified, contains transient settings to be applied to an Elasticsearch cluster during changes,default values shown below applied.
 	// These can be overridden by specifying them in the map (or null to unset). Additional settings can also be set. Settings will be cleared after the plan has finished. If not specified, no settings will be applied.
 	// NOTE: These settings are only explicitly cleared for 5.x+ clusters, they must be hand-reset to their defaults in 2.x- (or a cluster reboot will clear them).
-	// - indices.store.throttle.max_bytes_per_sec: 150Mb
-	// - indices.recovery.max_bytes_per_sec: 150Mb
-	// - cluster.routing.allocation.cluster_concurrent_rebalance: 10
-	// - cluster.routing.allocation.node_initial_primaries_recoveries: 8
-	// - cluster.routing.allocation.node_concurrent_incoming_recoveries: 8
-	//
+	// - indices.store.throttle.max_bytes_per_sec: 120Mb
+	// - indices.recovery.max_bytes_per_sec: 120Mb
+	// - cluster.routing.allocation.cluster_concurrent_rebalance: 5
+	// - cluster.routing.allocation.node_initial_primaries_recoveries: 5
+	// - cluster.routing.allocation.node_concurrent_incoming_recoveries: 5
+	// For version 8.1 and later no defaults are provided through this mechanism, but instead hardware dependent settings are provided to each instance.
 	ClusterSettingsJSON interface{} `json:"cluster_settings_json,omitempty"`
 
 	// plan configuration
@@ -94,6 +94,8 @@ func (m *TransientElasticsearchPlanConfiguration) validatePlanConfiguration(form
 		if err := m.PlanConfiguration.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("plan_configuration")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("plan_configuration")
 			}
 			return err
 		}
@@ -111,6 +113,8 @@ func (m *TransientElasticsearchPlanConfiguration) validateRemoteClusters(formats
 		if err := m.RemoteClusters.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("remote_clusters")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("remote_clusters")
 			}
 			return err
 		}
@@ -128,6 +132,8 @@ func (m *TransientElasticsearchPlanConfiguration) validateRestoreSnapshot(format
 		if err := m.RestoreSnapshot.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("restore_snapshot")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("restore_snapshot")
 			}
 			return err
 		}
@@ -145,6 +151,8 @@ func (m *TransientElasticsearchPlanConfiguration) validateStrategy(formats strfm
 		if err := m.Strategy.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("strategy")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("strategy")
 			}
 			return err
 		}
@@ -185,6 +193,8 @@ func (m *TransientElasticsearchPlanConfiguration) contextValidatePlanConfigurati
 		if err := m.PlanConfiguration.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("plan_configuration")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("plan_configuration")
 			}
 			return err
 		}
@@ -199,6 +209,8 @@ func (m *TransientElasticsearchPlanConfiguration) contextValidateRemoteClusters(
 		if err := m.RemoteClusters.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("remote_clusters")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("remote_clusters")
 			}
 			return err
 		}
@@ -213,6 +225,8 @@ func (m *TransientElasticsearchPlanConfiguration) contextValidateRestoreSnapshot
 		if err := m.RestoreSnapshot.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("restore_snapshot")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("restore_snapshot")
 			}
 			return err
 		}
@@ -227,6 +241,8 @@ func (m *TransientElasticsearchPlanConfiguration) contextValidateStrategy(ctx co
 		if err := m.Strategy.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("strategy")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("strategy")
 			}
 			return err
 		}

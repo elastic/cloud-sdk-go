@@ -75,6 +75,8 @@ func (m *IntegrationsServerTopologyElement) validateIntegrationsServer(formats s
 		if err := m.IntegrationsServer.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("integrations_server")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("integrations_server")
 			}
 			return err
 		}
@@ -92,6 +94,8 @@ func (m *IntegrationsServerTopologyElement) validateSize(formats strfmt.Registry
 		if err := m.Size.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("size")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("size")
 			}
 			return err
 		}
@@ -124,6 +128,8 @@ func (m *IntegrationsServerTopologyElement) contextValidateIntegrationsServer(ct
 		if err := m.IntegrationsServer.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("integrations_server")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("integrations_server")
 			}
 			return err
 		}
@@ -138,6 +144,8 @@ func (m *IntegrationsServerTopologyElement) contextValidateSize(ctx context.Cont
 		if err := m.Size.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("size")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("size")
 			}
 			return err
 		}

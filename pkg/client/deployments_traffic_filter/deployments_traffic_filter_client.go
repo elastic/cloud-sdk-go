@@ -47,6 +47,8 @@ type ClientOption func(*runtime.ClientOperation)
 
 // ClientService is the interface for Client methods
 type ClientService interface {
+	ClaimTrafficFilterLinkID(params *ClaimTrafficFilterLinkIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ClaimTrafficFilterLinkIDCreated, error)
+
 	CreateTrafficFilterRuleset(params *CreateTrafficFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateTrafficFilterRulesetCreated, error)
 
 	CreateTrafficFilterRulesetAssociation(params *CreateTrafficFilterRulesetAssociationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateTrafficFilterRulesetAssociationOK, *CreateTrafficFilterRulesetAssociationCreated, error)
@@ -54,6 +56,8 @@ type ClientService interface {
 	DeleteTrafficFilterRuleset(params *DeleteTrafficFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteTrafficFilterRulesetOK, error)
 
 	DeleteTrafficFilterRulesetAssociation(params *DeleteTrafficFilterRulesetAssociationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteTrafficFilterRulesetAssociationOK, error)
+
+	GetTrafficFilterClaimedLinkIds(params *GetTrafficFilterClaimedLinkIdsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTrafficFilterClaimedLinkIdsOK, error)
 
 	GetTrafficFilterDeploymentRulesetAssociations(params *GetTrafficFilterDeploymentRulesetAssociationsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTrafficFilterDeploymentRulesetAssociationsOK, error)
 
@@ -63,15 +67,58 @@ type ClientService interface {
 
 	GetTrafficFilterRulesets(params *GetTrafficFilterRulesetsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTrafficFilterRulesetsOK, error)
 
+	UnclaimTrafficFilterLinkID(params *UnclaimTrafficFilterLinkIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UnclaimTrafficFilterLinkIDOK, error)
+
 	UpdateTrafficFilterRuleset(params *UpdateTrafficFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateTrafficFilterRulesetOK, error)
 
 	SetTransport(transport runtime.ClientTransport)
 }
 
 /*
-  CreateTrafficFilterRuleset creates a ruleset
+ClaimTrafficFilterLinkID claims a link id
 
-  Creates a ruleset that consists of a set of rules.
+Claim the ownership of a link id.
+*/
+func (a *Client) ClaimTrafficFilterLinkID(params *ClaimTrafficFilterLinkIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ClaimTrafficFilterLinkIDCreated, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewClaimTrafficFilterLinkIDParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "claim-traffic-filter-link-id",
+		Method:             "POST",
+		PathPattern:        "/deployments/traffic-filter/link-ids/_claim",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &ClaimTrafficFilterLinkIDReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ClaimTrafficFilterLinkIDCreated)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for claim-traffic-filter-link-id: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+CreateTrafficFilterRuleset creates a ruleset
+
+Creates a ruleset that consists of a set of rules.
 */
 func (a *Client) CreateTrafficFilterRuleset(params *CreateTrafficFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateTrafficFilterRulesetCreated, error) {
 	// TODO: Validate the params before sending
@@ -110,9 +157,9 @@ func (a *Client) CreateTrafficFilterRuleset(params *CreateTrafficFilterRulesetPa
 }
 
 /*
-  CreateTrafficFilterRulesetAssociation creates ruleset association
+CreateTrafficFilterRulesetAssociation creates ruleset association
 
-  Applies the ruleset to the specified deployment.
+Applies the ruleset to the specified deployment.
 */
 func (a *Client) CreateTrafficFilterRulesetAssociation(params *CreateTrafficFilterRulesetAssociationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateTrafficFilterRulesetAssociationOK, *CreateTrafficFilterRulesetAssociationCreated, error) {
 	// TODO: Validate the params before sending
@@ -152,9 +199,9 @@ func (a *Client) CreateTrafficFilterRulesetAssociation(params *CreateTrafficFilt
 }
 
 /*
-  DeleteTrafficFilterRuleset deletes a ruleset
+DeleteTrafficFilterRuleset deletes a ruleset
 
-  Deletes the ruleset by ID.
+Deletes the ruleset by ID.
 */
 func (a *Client) DeleteTrafficFilterRuleset(params *DeleteTrafficFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteTrafficFilterRulesetOK, error) {
 	// TODO: Validate the params before sending
@@ -193,9 +240,9 @@ func (a *Client) DeleteTrafficFilterRuleset(params *DeleteTrafficFilterRulesetPa
 }
 
 /*
-  DeleteTrafficFilterRulesetAssociation deletes ruleset association
+DeleteTrafficFilterRulesetAssociation deletes ruleset association
 
-  Deletes the traffic rules in the ruleset from the deployment.
+Deletes the traffic rules in the ruleset from the deployment.
 */
 func (a *Client) DeleteTrafficFilterRulesetAssociation(params *DeleteTrafficFilterRulesetAssociationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteTrafficFilterRulesetAssociationOK, error) {
 	// TODO: Validate the params before sending
@@ -234,9 +281,50 @@ func (a *Client) DeleteTrafficFilterRulesetAssociation(params *DeleteTrafficFilt
 }
 
 /*
-  GetTrafficFilterDeploymentRulesetAssociations gets associated rulesets
+GetTrafficFilterClaimedLinkIds lists traffic filter claimed link id
 
-  Retrieves the rulesets associated with a deployment.
+List all of the traffic filter claimed link id.
+*/
+func (a *Client) GetTrafficFilterClaimedLinkIds(params *GetTrafficFilterClaimedLinkIdsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTrafficFilterClaimedLinkIdsOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetTrafficFilterClaimedLinkIdsParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "get-traffic-filter-claimed-link-ids",
+		Method:             "GET",
+		PathPattern:        "/deployments/traffic-filter/link-ids",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetTrafficFilterClaimedLinkIdsReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*GetTrafficFilterClaimedLinkIdsOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for get-traffic-filter-claimed-link-ids: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+GetTrafficFilterDeploymentRulesetAssociations gets associated rulesets
+
+Retrieves the rulesets associated with a deployment.
 */
 func (a *Client) GetTrafficFilterDeploymentRulesetAssociations(params *GetTrafficFilterDeploymentRulesetAssociationsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTrafficFilterDeploymentRulesetAssociationsOK, error) {
 	// TODO: Validate the params before sending
@@ -275,9 +363,9 @@ func (a *Client) GetTrafficFilterDeploymentRulesetAssociations(params *GetTraffi
 }
 
 /*
-  GetTrafficFilterRuleset retrieves the ruleset by ID
+GetTrafficFilterRuleset retrieves the ruleset by ID
 
-  Retrieves a list of resources that are associated to the specified ruleset.
+Retrieves a list of resources that are associated to the specified ruleset.
 */
 func (a *Client) GetTrafficFilterRuleset(params *GetTrafficFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTrafficFilterRulesetOK, error) {
 	// TODO: Validate the params before sending
@@ -316,9 +404,9 @@ func (a *Client) GetTrafficFilterRuleset(params *GetTrafficFilterRulesetParams, 
 }
 
 /*
-  GetTrafficFilterRulesetDeploymentAssociations gets associated deployments
+GetTrafficFilterRulesetDeploymentAssociations gets associated deployments
 
-  Retrieves a list of deployments that are associated to the specified ruleset.
+Retrieves a list of deployments that are associated to the specified ruleset.
 */
 func (a *Client) GetTrafficFilterRulesetDeploymentAssociations(params *GetTrafficFilterRulesetDeploymentAssociationsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTrafficFilterRulesetDeploymentAssociationsOK, error) {
 	// TODO: Validate the params before sending
@@ -357,9 +445,9 @@ func (a *Client) GetTrafficFilterRulesetDeploymentAssociations(params *GetTraffi
 }
 
 /*
-  GetTrafficFilterRulesets lists traffic filter rulesets
+GetTrafficFilterRulesets lists traffic filter rulesets
 
-  List all of the traffic filter rulesets.
+List all of the traffic filter rulesets.
 */
 func (a *Client) GetTrafficFilterRulesets(params *GetTrafficFilterRulesetsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTrafficFilterRulesetsOK, error) {
 	// TODO: Validate the params before sending
@@ -398,9 +486,50 @@ func (a *Client) GetTrafficFilterRulesets(params *GetTrafficFilterRulesetsParams
 }
 
 /*
-  UpdateTrafficFilterRuleset updates a ruleset
+UnclaimTrafficFilterLinkID unclaims a link id
 
-  Updates the ruleset with the definition.
+Unclaims the ownership of a link id.
+*/
+func (a *Client) UnclaimTrafficFilterLinkID(params *UnclaimTrafficFilterLinkIDParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UnclaimTrafficFilterLinkIDOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUnclaimTrafficFilterLinkIDParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "unclaim-traffic-filter-link-id",
+		Method:             "POST",
+		PathPattern:        "/deployments/traffic-filter/link-ids/_unclaim",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &UnclaimTrafficFilterLinkIDReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*UnclaimTrafficFilterLinkIDOK)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for unclaim-traffic-filter-link-id: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+UpdateTrafficFilterRuleset updates a ruleset
+
+Updates the ruleset with the definition.
 */
 func (a *Client) UpdateTrafficFilterRuleset(params *UpdateTrafficFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateTrafficFilterRulesetOK, error) {
 	// TODO: Validate the params before sending

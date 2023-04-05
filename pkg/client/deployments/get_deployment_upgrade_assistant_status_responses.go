@@ -62,7 +62,8 @@ func NewGetDeploymentUpgradeAssistantStatusOK() *GetDeploymentUpgradeAssistantSt
 	return &GetDeploymentUpgradeAssistantStatusOK{}
 }
 
-/* GetDeploymentUpgradeAssistantStatusOK describes a response with status code 200, with default header values.
+/*
+GetDeploymentUpgradeAssistantStatusOK describes a response with status code 200, with default header values.
 
 The Upgrade Assistant returned the status successfully
 */
@@ -70,9 +71,44 @@ type GetDeploymentUpgradeAssistantStatusOK struct {
 	Payload *models.DeploymentUpgradeAssistantStatusResponse
 }
 
+// IsSuccess returns true when this get deployment upgrade assistant status o k response has a 2xx status code
+func (o *GetDeploymentUpgradeAssistantStatusOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get deployment upgrade assistant status o k response has a 3xx status code
+func (o *GetDeploymentUpgradeAssistantStatusOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get deployment upgrade assistant status o k response has a 4xx status code
+func (o *GetDeploymentUpgradeAssistantStatusOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get deployment upgrade assistant status o k response has a 5xx status code
+func (o *GetDeploymentUpgradeAssistantStatusOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get deployment upgrade assistant status o k response a status code equal to that given
+func (o *GetDeploymentUpgradeAssistantStatusOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get deployment upgrade assistant status o k response
+func (o *GetDeploymentUpgradeAssistantStatusOK) Code() int {
+	return 200
+}
+
 func (o *GetDeploymentUpgradeAssistantStatusOK) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/upgrade_assistant/status][%d] getDeploymentUpgradeAssistantStatusOK  %+v", 200, o.Payload)
 }
+
+func (o *GetDeploymentUpgradeAssistantStatusOK) String() string {
+	return fmt.Sprintf("[GET /deployments/{deployment_id}/upgrade_assistant/status][%d] getDeploymentUpgradeAssistantStatusOK  %+v", 200, o.Payload)
+}
+
 func (o *GetDeploymentUpgradeAssistantStatusOK) GetPayload() *models.DeploymentUpgradeAssistantStatusResponse {
 	return o.Payload
 }
@@ -94,7 +130,8 @@ func NewGetDeploymentUpgradeAssistantStatusNotFound() *GetDeploymentUpgradeAssis
 	return &GetDeploymentUpgradeAssistantStatusNotFound{}
 }
 
-/* GetDeploymentUpgradeAssistantStatusNotFound describes a response with status code 404, with default header values.
+/*
+GetDeploymentUpgradeAssistantStatusNotFound describes a response with status code 404, with default header values.
 
 The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
 */
@@ -107,9 +144,44 @@ type GetDeploymentUpgradeAssistantStatusNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get deployment upgrade assistant status not found response has a 2xx status code
+func (o *GetDeploymentUpgradeAssistantStatusNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get deployment upgrade assistant status not found response has a 3xx status code
+func (o *GetDeploymentUpgradeAssistantStatusNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get deployment upgrade assistant status not found response has a 4xx status code
+func (o *GetDeploymentUpgradeAssistantStatusNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get deployment upgrade assistant status not found response has a 5xx status code
+func (o *GetDeploymentUpgradeAssistantStatusNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get deployment upgrade assistant status not found response a status code equal to that given
+func (o *GetDeploymentUpgradeAssistantStatusNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the get deployment upgrade assistant status not found response
+func (o *GetDeploymentUpgradeAssistantStatusNotFound) Code() int {
+	return 404
+}
+
 func (o *GetDeploymentUpgradeAssistantStatusNotFound) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/upgrade_assistant/status][%d] getDeploymentUpgradeAssistantStatusNotFound  %+v", 404, o.Payload)
 }
+
+func (o *GetDeploymentUpgradeAssistantStatusNotFound) String() string {
+	return fmt.Sprintf("[GET /deployments/{deployment_id}/upgrade_assistant/status][%d] getDeploymentUpgradeAssistantStatusNotFound  %+v", 404, o.Payload)
+}
+
 func (o *GetDeploymentUpgradeAssistantStatusNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

@@ -74,7 +74,8 @@ func NewUpdateTrustRelationshipOK() *UpdateTrustRelationshipOK {
 	return &UpdateTrustRelationshipOK{}
 }
 
-/* UpdateTrustRelationshipOK describes a response with status code 200, with default header values.
+/*
+UpdateTrustRelationshipOK describes a response with status code 200, with default header values.
 
 The request was valid and the trust relationship was updated.
 */
@@ -95,9 +96,44 @@ type UpdateTrustRelationshipOK struct {
 	Payload *models.TrustRelationshipUpdateResponse
 }
 
+// IsSuccess returns true when this update trust relationship o k response has a 2xx status code
+func (o *UpdateTrustRelationshipOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this update trust relationship o k response has a 3xx status code
+func (o *UpdateTrustRelationshipOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update trust relationship o k response has a 4xx status code
+func (o *UpdateTrustRelationshipOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this update trust relationship o k response has a 5xx status code
+func (o *UpdateTrustRelationshipOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update trust relationship o k response a status code equal to that given
+func (o *UpdateTrustRelationshipOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the update trust relationship o k response
+func (o *UpdateTrustRelationshipOK) Code() int {
+	return 200
+}
+
 func (o *UpdateTrustRelationshipOK) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/trust-relationships/{trust_relationship_id}][%d] updateTrustRelationshipOK  %+v", 200, o.Payload)
 }
+
+func (o *UpdateTrustRelationshipOK) String() string {
+	return fmt.Sprintf("[PUT /platform/configuration/trust-relationships/{trust_relationship_id}][%d] updateTrustRelationshipOK  %+v", 200, o.Payload)
+}
+
 func (o *UpdateTrustRelationshipOK) GetPayload() *models.TrustRelationshipUpdateResponse {
 	return o.Payload
 }
@@ -140,7 +176,8 @@ func NewUpdateTrustRelationshipBadRequest() *UpdateTrustRelationshipBadRequest {
 	return &UpdateTrustRelationshipBadRequest{}
 }
 
-/* UpdateTrustRelationshipBadRequest describes a response with status code 400, with default header values.
+/*
+UpdateTrustRelationshipBadRequest describes a response with status code 400, with default header values.
 
 The trust relationship request had errors.
 */
@@ -148,9 +185,44 @@ type UpdateTrustRelationshipBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this update trust relationship bad request response has a 2xx status code
+func (o *UpdateTrustRelationshipBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update trust relationship bad request response has a 3xx status code
+func (o *UpdateTrustRelationshipBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update trust relationship bad request response has a 4xx status code
+func (o *UpdateTrustRelationshipBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update trust relationship bad request response has a 5xx status code
+func (o *UpdateTrustRelationshipBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update trust relationship bad request response a status code equal to that given
+func (o *UpdateTrustRelationshipBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the update trust relationship bad request response
+func (o *UpdateTrustRelationshipBadRequest) Code() int {
+	return 400
+}
+
 func (o *UpdateTrustRelationshipBadRequest) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/trust-relationships/{trust_relationship_id}][%d] updateTrustRelationshipBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *UpdateTrustRelationshipBadRequest) String() string {
+	return fmt.Sprintf("[PUT /platform/configuration/trust-relationships/{trust_relationship_id}][%d] updateTrustRelationshipBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *UpdateTrustRelationshipBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -172,7 +244,8 @@ func NewUpdateTrustRelationshipUnauthorized() *UpdateTrustRelationshipUnauthoriz
 	return &UpdateTrustRelationshipUnauthorized{}
 }
 
-/* UpdateTrustRelationshipUnauthorized describes a response with status code 401, with default header values.
+/*
+UpdateTrustRelationshipUnauthorized describes a response with status code 401, with default header values.
 
 You are not authorized to perform this action.
 */
@@ -180,9 +253,44 @@ type UpdateTrustRelationshipUnauthorized struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this update trust relationship unauthorized response has a 2xx status code
+func (o *UpdateTrustRelationshipUnauthorized) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update trust relationship unauthorized response has a 3xx status code
+func (o *UpdateTrustRelationshipUnauthorized) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update trust relationship unauthorized response has a 4xx status code
+func (o *UpdateTrustRelationshipUnauthorized) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update trust relationship unauthorized response has a 5xx status code
+func (o *UpdateTrustRelationshipUnauthorized) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update trust relationship unauthorized response a status code equal to that given
+func (o *UpdateTrustRelationshipUnauthorized) IsCode(code int) bool {
+	return code == 401
+}
+
+// Code gets the status code for the update trust relationship unauthorized response
+func (o *UpdateTrustRelationshipUnauthorized) Code() int {
+	return 401
+}
+
 func (o *UpdateTrustRelationshipUnauthorized) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/trust-relationships/{trust_relationship_id}][%d] updateTrustRelationshipUnauthorized  %+v", 401, o.Payload)
 }
+
+func (o *UpdateTrustRelationshipUnauthorized) String() string {
+	return fmt.Sprintf("[PUT /platform/configuration/trust-relationships/{trust_relationship_id}][%d] updateTrustRelationshipUnauthorized  %+v", 401, o.Payload)
+}
+
 func (o *UpdateTrustRelationshipUnauthorized) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -204,7 +312,8 @@ func NewUpdateTrustRelationshipNotFound() *UpdateTrustRelationshipNotFound {
 	return &UpdateTrustRelationshipNotFound{}
 }
 
-/* UpdateTrustRelationshipNotFound describes a response with status code 404, with default header values.
+/*
+UpdateTrustRelationshipNotFound describes a response with status code 404, with default header values.
 
 The trust relationship specified by {trust_relationship_id} cannot be found. (code: `trust_relationships.not_found`)
 */
@@ -217,9 +326,44 @@ type UpdateTrustRelationshipNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this update trust relationship not found response has a 2xx status code
+func (o *UpdateTrustRelationshipNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update trust relationship not found response has a 3xx status code
+func (o *UpdateTrustRelationshipNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update trust relationship not found response has a 4xx status code
+func (o *UpdateTrustRelationshipNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update trust relationship not found response has a 5xx status code
+func (o *UpdateTrustRelationshipNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update trust relationship not found response a status code equal to that given
+func (o *UpdateTrustRelationshipNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the update trust relationship not found response
+func (o *UpdateTrustRelationshipNotFound) Code() int {
+	return 404
+}
+
 func (o *UpdateTrustRelationshipNotFound) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/trust-relationships/{trust_relationship_id}][%d] updateTrustRelationshipNotFound  %+v", 404, o.Payload)
 }
+
+func (o *UpdateTrustRelationshipNotFound) String() string {
+	return fmt.Sprintf("[PUT /platform/configuration/trust-relationships/{trust_relationship_id}][%d] updateTrustRelationshipNotFound  %+v", 404, o.Payload)
+}
+
 func (o *UpdateTrustRelationshipNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

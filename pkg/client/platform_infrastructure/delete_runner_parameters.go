@@ -69,10 +69,12 @@ func NewDeleteRunnerParamsWithHTTPClient(client *http.Client) *DeleteRunnerParam
 	}
 }
 
-/* DeleteRunnerParams contains all the parameters to send to the API endpoint
-   for the delete runner operation.
+/*
+DeleteRunnerParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the delete runner operation.
+
+	Typically these are written to a http.Request.
 */
 type DeleteRunnerParams struct {
 

@@ -56,7 +56,8 @@ func NewGetAuthenticationInfoOK() *GetAuthenticationInfoOK {
 	return &GetAuthenticationInfoOK{}
 }
 
-/* GetAuthenticationInfoOK describes a response with status code 200, with default header values.
+/*
+GetAuthenticationInfoOK describes a response with status code 200, with default header values.
 
 User authentication information response
 */
@@ -64,9 +65,44 @@ type GetAuthenticationInfoOK struct {
 	Payload *models.AuthenticationInfo
 }
 
+// IsSuccess returns true when this get authentication info o k response has a 2xx status code
+func (o *GetAuthenticationInfoOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get authentication info o k response has a 3xx status code
+func (o *GetAuthenticationInfoOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get authentication info o k response has a 4xx status code
+func (o *GetAuthenticationInfoOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get authentication info o k response has a 5xx status code
+func (o *GetAuthenticationInfoOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get authentication info o k response a status code equal to that given
+func (o *GetAuthenticationInfoOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get authentication info o k response
+func (o *GetAuthenticationInfoOK) Code() int {
+	return 200
+}
+
 func (o *GetAuthenticationInfoOK) Error() string {
 	return fmt.Sprintf("[GET /users/auth][%d] getAuthenticationInfoOK  %+v", 200, o.Payload)
 }
+
+func (o *GetAuthenticationInfoOK) String() string {
+	return fmt.Sprintf("[GET /users/auth][%d] getAuthenticationInfoOK  %+v", 200, o.Payload)
+}
+
 func (o *GetAuthenticationInfoOK) GetPayload() *models.AuthenticationInfo {
 	return o.Payload
 }

@@ -69,10 +69,12 @@ func NewGetLdapConfigurationParamsWithHTTPClient(client *http.Client) *GetLdapCo
 	}
 }
 
-/* GetLdapConfigurationParams contains all the parameters to send to the API endpoint
-   for the get ldap configuration operation.
+/*
+GetLdapConfigurationParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the get ldap configuration operation.
+
+	Typically these are written to a http.Request.
 */
 type GetLdapConfigurationParams struct {
 

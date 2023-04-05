@@ -58,12 +58,6 @@ func (o *MoveDeploymentElasticsearchResourceInstancesReader) ReadResponse(respon
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewMoveDeploymentElasticsearchResourceInstancesRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -74,7 +68,8 @@ func NewMoveDeploymentElasticsearchResourceInstancesOK() *MoveDeploymentElastics
 	return &MoveDeploymentElasticsearchResourceInstancesOK{}
 }
 
-/* MoveDeploymentElasticsearchResourceInstancesOK describes a response with status code 200, with default header values.
+/*
+MoveDeploymentElasticsearchResourceInstancesOK describes a response with status code 200, with default header values.
 
 If `validate_only` is `true`, the calculated plan is returned
 */
@@ -82,9 +77,44 @@ type MoveDeploymentElasticsearchResourceInstancesOK struct {
 	Payload *models.TransientElasticsearchPlanConfiguration
 }
 
+// IsSuccess returns true when this move deployment elasticsearch resource instances o k response has a 2xx status code
+func (o *MoveDeploymentElasticsearchResourceInstancesOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this move deployment elasticsearch resource instances o k response has a 3xx status code
+func (o *MoveDeploymentElasticsearchResourceInstancesOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this move deployment elasticsearch resource instances o k response has a 4xx status code
+func (o *MoveDeploymentElasticsearchResourceInstancesOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this move deployment elasticsearch resource instances o k response has a 5xx status code
+func (o *MoveDeploymentElasticsearchResourceInstancesOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this move deployment elasticsearch resource instances o k response a status code equal to that given
+func (o *MoveDeploymentElasticsearchResourceInstancesOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the move deployment elasticsearch resource instances o k response
+func (o *MoveDeploymentElasticsearchResourceInstancesOK) Code() int {
+	return 200
+}
+
 func (o *MoveDeploymentElasticsearchResourceInstancesOK) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/instances/{instance_ids}/_move][%d] moveDeploymentElasticsearchResourceInstancesOK  %+v", 200, o.Payload)
 }
+
+func (o *MoveDeploymentElasticsearchResourceInstancesOK) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/instances/{instance_ids}/_move][%d] moveDeploymentElasticsearchResourceInstancesOK  %+v", 200, o.Payload)
+}
+
 func (o *MoveDeploymentElasticsearchResourceInstancesOK) GetPayload() *models.TransientElasticsearchPlanConfiguration {
 	return o.Payload
 }
@@ -106,7 +136,8 @@ func NewMoveDeploymentElasticsearchResourceInstancesAccepted() *MoveDeploymentEl
 	return &MoveDeploymentElasticsearchResourceInstancesAccepted{}
 }
 
-/* MoveDeploymentElasticsearchResourceInstancesAccepted describes a response with status code 202, with default header values.
+/*
+MoveDeploymentElasticsearchResourceInstancesAccepted describes a response with status code 202, with default header values.
 
 The move command was issued successfully. Use the "GET" command on the /{deployment_id} resource to monitor progress
 */
@@ -114,9 +145,44 @@ type MoveDeploymentElasticsearchResourceInstancesAccepted struct {
 	Payload models.EmptyResponse
 }
 
+// IsSuccess returns true when this move deployment elasticsearch resource instances accepted response has a 2xx status code
+func (o *MoveDeploymentElasticsearchResourceInstancesAccepted) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this move deployment elasticsearch resource instances accepted response has a 3xx status code
+func (o *MoveDeploymentElasticsearchResourceInstancesAccepted) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this move deployment elasticsearch resource instances accepted response has a 4xx status code
+func (o *MoveDeploymentElasticsearchResourceInstancesAccepted) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this move deployment elasticsearch resource instances accepted response has a 5xx status code
+func (o *MoveDeploymentElasticsearchResourceInstancesAccepted) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this move deployment elasticsearch resource instances accepted response a status code equal to that given
+func (o *MoveDeploymentElasticsearchResourceInstancesAccepted) IsCode(code int) bool {
+	return code == 202
+}
+
+// Code gets the status code for the move deployment elasticsearch resource instances accepted response
+func (o *MoveDeploymentElasticsearchResourceInstancesAccepted) Code() int {
+	return 202
+}
+
 func (o *MoveDeploymentElasticsearchResourceInstancesAccepted) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/instances/{instance_ids}/_move][%d] moveDeploymentElasticsearchResourceInstancesAccepted  %+v", 202, o.Payload)
 }
+
+func (o *MoveDeploymentElasticsearchResourceInstancesAccepted) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/instances/{instance_ids}/_move][%d] moveDeploymentElasticsearchResourceInstancesAccepted  %+v", 202, o.Payload)
+}
+
 func (o *MoveDeploymentElasticsearchResourceInstancesAccepted) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -136,9 +202,11 @@ func NewMoveDeploymentElasticsearchResourceInstancesNotFound() *MoveDeploymentEl
 	return &MoveDeploymentElasticsearchResourceInstancesNotFound{}
 }
 
-/* MoveDeploymentElasticsearchResourceInstancesNotFound describes a response with status code 404, with default header values.
+/*
+	MoveDeploymentElasticsearchResourceInstancesNotFound describes a response with status code 404, with default header values.
 
- * The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+	* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+
 * The Elasticsearch Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)
 * One or more instances of the given resource type are missing. (code: `deployments.instances_missing_on_update_error`)
 */
@@ -151,58 +219,49 @@ type MoveDeploymentElasticsearchResourceInstancesNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this move deployment elasticsearch resource instances not found response has a 2xx status code
+func (o *MoveDeploymentElasticsearchResourceInstancesNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this move deployment elasticsearch resource instances not found response has a 3xx status code
+func (o *MoveDeploymentElasticsearchResourceInstancesNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this move deployment elasticsearch resource instances not found response has a 4xx status code
+func (o *MoveDeploymentElasticsearchResourceInstancesNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this move deployment elasticsearch resource instances not found response has a 5xx status code
+func (o *MoveDeploymentElasticsearchResourceInstancesNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this move deployment elasticsearch resource instances not found response a status code equal to that given
+func (o *MoveDeploymentElasticsearchResourceInstancesNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the move deployment elasticsearch resource instances not found response
+func (o *MoveDeploymentElasticsearchResourceInstancesNotFound) Code() int {
+	return 404
+}
+
 func (o *MoveDeploymentElasticsearchResourceInstancesNotFound) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/instances/{instance_ids}/_move][%d] moveDeploymentElasticsearchResourceInstancesNotFound  %+v", 404, o.Payload)
 }
+
+func (o *MoveDeploymentElasticsearchResourceInstancesNotFound) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/instances/{instance_ids}/_move][%d] moveDeploymentElasticsearchResourceInstancesNotFound  %+v", 404, o.Payload)
+}
+
 func (o *MoveDeploymentElasticsearchResourceInstancesNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *MoveDeploymentElasticsearchResourceInstancesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewMoveDeploymentElasticsearchResourceInstancesRetryWith creates a MoveDeploymentElasticsearchResourceInstancesRetryWith with default headers values
-func NewMoveDeploymentElasticsearchResourceInstancesRetryWith() *MoveDeploymentElasticsearchResourceInstancesRetryWith {
-	return &MoveDeploymentElasticsearchResourceInstancesRetryWith{}
-}
-
-/* MoveDeploymentElasticsearchResourceInstancesRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type MoveDeploymentElasticsearchResourceInstancesRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-func (o *MoveDeploymentElasticsearchResourceInstancesRetryWith) Error() string {
-	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/instances/{instance_ids}/_move][%d] moveDeploymentElasticsearchResourceInstancesRetryWith  %+v", 449, o.Payload)
-}
-func (o *MoveDeploymentElasticsearchResourceInstancesRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *MoveDeploymentElasticsearchResourceInstancesRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// hydrates response header x-cloud-error-codes
 	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")

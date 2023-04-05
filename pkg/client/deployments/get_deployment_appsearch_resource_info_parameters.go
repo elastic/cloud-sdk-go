@@ -70,10 +70,12 @@ func NewGetDeploymentAppsearchResourceInfoParamsWithHTTPClient(client *http.Clie
 	}
 }
 
-/* GetDeploymentAppsearchResourceInfoParams contains all the parameters to send to the API endpoint
-   for the get deployment appsearch resource info operation.
+/*
+GetDeploymentAppsearchResourceInfoParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the get deployment appsearch resource info operation.
+
+	Typically these are written to a http.Request.
 */
 type GetDeploymentAppsearchResourceInfoParams struct {
 

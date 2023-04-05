@@ -69,10 +69,12 @@ func NewDeleteSamlConfigurationParamsWithHTTPClient(client *http.Client) *Delete
 	}
 }
 
-/* DeleteSamlConfigurationParams contains all the parameters to send to the API endpoint
-   for the delete saml configuration operation.
+/*
+DeleteSamlConfigurationParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the delete saml configuration operation.
+
+	Typically these are written to a http.Request.
 */
 type DeleteSamlConfigurationParams struct {
 

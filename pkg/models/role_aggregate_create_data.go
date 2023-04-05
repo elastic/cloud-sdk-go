@@ -71,6 +71,8 @@ func (m *RoleAggregateCreateData) validateBlessings(formats strfmt.Registry) err
 		if err := m.Blessings.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("blessings")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("blessings")
 			}
 			return err
 		}
@@ -89,6 +91,8 @@ func (m *RoleAggregateCreateData) validateRole(formats strfmt.Registry) error {
 		if err := m.Role.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("role")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("role")
 			}
 			return err
 		}
@@ -121,6 +125,8 @@ func (m *RoleAggregateCreateData) contextValidateBlessings(ctx context.Context, 
 		if err := m.Blessings.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("blessings")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("blessings")
 			}
 			return err
 		}
@@ -135,6 +141,8 @@ func (m *RoleAggregateCreateData) contextValidateRole(ctx context.Context, forma
 		if err := m.Role.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("role")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("role")
 			}
 			return err
 		}

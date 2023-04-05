@@ -87,6 +87,8 @@ func (m *IntegrationsServerPlansInfo) validateCurrent(formats strfmt.Registry) e
 		if err := m.Current.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("current")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("current")
 			}
 			return err
 		}
@@ -119,6 +121,8 @@ func (m *IntegrationsServerPlansInfo) validateHistory(formats strfmt.Registry) e
 			if err := m.History[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("history" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("history" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -138,6 +142,8 @@ func (m *IntegrationsServerPlansInfo) validatePending(formats strfmt.Registry) e
 		if err := m.Pending.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("pending")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("pending")
 			}
 			return err
 		}
@@ -174,6 +180,8 @@ func (m *IntegrationsServerPlansInfo) contextValidateCurrent(ctx context.Context
 		if err := m.Current.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("current")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("current")
 			}
 			return err
 		}
@@ -190,6 +198,8 @@ func (m *IntegrationsServerPlansInfo) contextValidateHistory(ctx context.Context
 			if err := m.History[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("history" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("history" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -206,6 +216,8 @@ func (m *IntegrationsServerPlansInfo) contextValidatePending(ctx context.Context
 		if err := m.Pending.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("pending")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("pending")
 			}
 			return err
 		}

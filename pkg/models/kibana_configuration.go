@@ -80,6 +80,8 @@ func (m *KibanaConfiguration) validateSystemSettings(formats strfmt.Registry) er
 		if err := m.SystemSettings.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("system_settings")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("system_settings")
 			}
 			return err
 		}
@@ -108,6 +110,8 @@ func (m *KibanaConfiguration) contextValidateSystemSettings(ctx context.Context,
 		if err := m.SystemSettings.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("system_settings")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("system_settings")
 			}
 			return err
 		}

@@ -69,10 +69,12 @@ func NewGetActiveDirectoryConfigurationParamsWithHTTPClient(client *http.Client)
 	}
 }
 
-/* GetActiveDirectoryConfigurationParams contains all the parameters to send to the API endpoint
-   for the get active directory configuration operation.
+/*
+GetActiveDirectoryConfigurationParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the get active directory configuration operation.
+
+	Typically these are written to a http.Request.
 */
 type GetActiveDirectoryConfigurationParams struct {
 

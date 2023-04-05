@@ -69,10 +69,12 @@ func NewDeleteLdapConfigurationParamsWithHTTPClient(client *http.Client) *Delete
 	}
 }
 
-/* DeleteLdapConfigurationParams contains all the parameters to send to the API endpoint
-   for the delete ldap configuration operation.
+/*
+DeleteLdapConfigurationParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the delete ldap configuration operation.
+
+	Typically these are written to a http.Request.
 */
 type DeleteLdapConfigurationParams struct {
 

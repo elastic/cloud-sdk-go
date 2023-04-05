@@ -56,7 +56,8 @@ func NewGetSnapshotRepositoriesOK() *GetSnapshotRepositoriesOK {
 	return &GetSnapshotRepositoriesOK{}
 }
 
-/* GetSnapshotRepositoriesOK describes a response with status code 200, with default header values.
+/*
+GetSnapshotRepositoriesOK describes a response with status code 200, with default header values.
 
 List of snapshot repository configs
 */
@@ -64,9 +65,44 @@ type GetSnapshotRepositoriesOK struct {
 	Payload *models.RepositoryConfigs
 }
 
+// IsSuccess returns true when this get snapshot repositories o k response has a 2xx status code
+func (o *GetSnapshotRepositoriesOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get snapshot repositories o k response has a 3xx status code
+func (o *GetSnapshotRepositoriesOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get snapshot repositories o k response has a 4xx status code
+func (o *GetSnapshotRepositoriesOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get snapshot repositories o k response has a 5xx status code
+func (o *GetSnapshotRepositoriesOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get snapshot repositories o k response a status code equal to that given
+func (o *GetSnapshotRepositoriesOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get snapshot repositories o k response
+func (o *GetSnapshotRepositoriesOK) Code() int {
+	return 200
+}
+
 func (o *GetSnapshotRepositoriesOK) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/snapshots/repositories][%d] getSnapshotRepositoriesOK  %+v", 200, o.Payload)
 }
+
+func (o *GetSnapshotRepositoriesOK) String() string {
+	return fmt.Sprintf("[GET /platform/configuration/snapshots/repositories][%d] getSnapshotRepositoriesOK  %+v", 200, o.Payload)
+}
+
 func (o *GetSnapshotRepositoriesOK) GetPayload() *models.RepositoryConfigs {
 	return o.Payload
 }

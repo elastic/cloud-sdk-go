@@ -58,12 +58,6 @@ func (o *RestoreDeploymentResourceReader) ReadResponse(response runtime.ClientRe
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewRestoreDeploymentResourceRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -74,7 +68,8 @@ func NewRestoreDeploymentResourceOK() *RestoreDeploymentResourceOK {
 	return &RestoreDeploymentResourceOK{}
 }
 
-/* RestoreDeploymentResourceOK describes a response with status code 200, with default header values.
+/*
+RestoreDeploymentResourceOK describes a response with status code 200, with default header values.
 
 Standard Deployment Resource Crud Response
 */
@@ -82,9 +77,44 @@ type RestoreDeploymentResourceOK struct {
 	Payload *models.DeploymentResourceCrudResponse
 }
 
+// IsSuccess returns true when this restore deployment resource o k response has a 2xx status code
+func (o *RestoreDeploymentResourceOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this restore deployment resource o k response has a 3xx status code
+func (o *RestoreDeploymentResourceOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this restore deployment resource o k response has a 4xx status code
+func (o *RestoreDeploymentResourceOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this restore deployment resource o k response has a 5xx status code
+func (o *RestoreDeploymentResourceOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this restore deployment resource o k response a status code equal to that given
+func (o *RestoreDeploymentResourceOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the restore deployment resource o k response
+func (o *RestoreDeploymentResourceOK) Code() int {
+	return 200
+}
+
 func (o *RestoreDeploymentResourceOK) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/_restore][%d] restoreDeploymentResourceOK  %+v", 200, o.Payload)
 }
+
+func (o *RestoreDeploymentResourceOK) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/_restore][%d] restoreDeploymentResourceOK  %+v", 200, o.Payload)
+}
+
 func (o *RestoreDeploymentResourceOK) GetPayload() *models.DeploymentResourceCrudResponse {
 	return o.Payload
 }
@@ -106,9 +136,11 @@ func NewRestoreDeploymentResourceBadRequest() *RestoreDeploymentResourceBadReque
 	return &RestoreDeploymentResourceBadRequest{}
 }
 
-/* RestoreDeploymentResourceBadRequest describes a response with status code 400, with default header values.
+/*
+	RestoreDeploymentResourceBadRequest describes a response with status code 400, with default header values.
 
- * The Resource does not have a pending plan. (code: `deployments.resource_does_not_have_a_pending_plan`)
+	* The Resource does not have a pending plan. (code: `deployments.resource_does_not_have_a_pending_plan`)
+
 * The resource is not shut down. (code: `deployments.resource_not_shutdown`)
 */
 type RestoreDeploymentResourceBadRequest struct {
@@ -120,9 +152,44 @@ type RestoreDeploymentResourceBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this restore deployment resource bad request response has a 2xx status code
+func (o *RestoreDeploymentResourceBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this restore deployment resource bad request response has a 3xx status code
+func (o *RestoreDeploymentResourceBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this restore deployment resource bad request response has a 4xx status code
+func (o *RestoreDeploymentResourceBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this restore deployment resource bad request response has a 5xx status code
+func (o *RestoreDeploymentResourceBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this restore deployment resource bad request response a status code equal to that given
+func (o *RestoreDeploymentResourceBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the restore deployment resource bad request response
+func (o *RestoreDeploymentResourceBadRequest) Code() int {
+	return 400
+}
+
 func (o *RestoreDeploymentResourceBadRequest) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/_restore][%d] restoreDeploymentResourceBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *RestoreDeploymentResourceBadRequest) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/_restore][%d] restoreDeploymentResourceBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *RestoreDeploymentResourceBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -151,7 +218,8 @@ func NewRestoreDeploymentResourceNotFound() *RestoreDeploymentResourceNotFound {
 	return &RestoreDeploymentResourceNotFound{}
 }
 
-/* RestoreDeploymentResourceNotFound describes a response with status code 404, with default header values.
+/*
+RestoreDeploymentResourceNotFound describes a response with status code 404, with default header values.
 
 The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
 */
@@ -164,58 +232,49 @@ type RestoreDeploymentResourceNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this restore deployment resource not found response has a 2xx status code
+func (o *RestoreDeploymentResourceNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this restore deployment resource not found response has a 3xx status code
+func (o *RestoreDeploymentResourceNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this restore deployment resource not found response has a 4xx status code
+func (o *RestoreDeploymentResourceNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this restore deployment resource not found response has a 5xx status code
+func (o *RestoreDeploymentResourceNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this restore deployment resource not found response a status code equal to that given
+func (o *RestoreDeploymentResourceNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the restore deployment resource not found response
+func (o *RestoreDeploymentResourceNotFound) Code() int {
+	return 404
+}
+
 func (o *RestoreDeploymentResourceNotFound) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/_restore][%d] restoreDeploymentResourceNotFound  %+v", 404, o.Payload)
 }
+
+func (o *RestoreDeploymentResourceNotFound) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/_restore][%d] restoreDeploymentResourceNotFound  %+v", 404, o.Payload)
+}
+
 func (o *RestoreDeploymentResourceNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *RestoreDeploymentResourceNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewRestoreDeploymentResourceRetryWith creates a RestoreDeploymentResourceRetryWith with default headers values
-func NewRestoreDeploymentResourceRetryWith() *RestoreDeploymentResourceRetryWith {
-	return &RestoreDeploymentResourceRetryWith{}
-}
-
-/* RestoreDeploymentResourceRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type RestoreDeploymentResourceRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-func (o *RestoreDeploymentResourceRetryWith) Error() string {
-	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/_restore][%d] restoreDeploymentResourceRetryWith  %+v", 449, o.Payload)
-}
-func (o *RestoreDeploymentResourceRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *RestoreDeploymentResourceRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// hydrates response header x-cloud-error-codes
 	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")

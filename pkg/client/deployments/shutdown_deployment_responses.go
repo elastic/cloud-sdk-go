@@ -74,7 +74,8 @@ func NewShutdownDeploymentOK() *ShutdownDeploymentOK {
 	return &ShutdownDeploymentOK{}
 }
 
-/* ShutdownDeploymentOK describes a response with status code 200, with default header values.
+/*
+ShutdownDeploymentOK describes a response with status code 200, with default header values.
 
 The request was valid and the resources of the deployment were shutdown.
 */
@@ -82,9 +83,44 @@ type ShutdownDeploymentOK struct {
 	Payload *models.DeploymentShutdownResponse
 }
 
+// IsSuccess returns true when this shutdown deployment o k response has a 2xx status code
+func (o *ShutdownDeploymentOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this shutdown deployment o k response has a 3xx status code
+func (o *ShutdownDeploymentOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this shutdown deployment o k response has a 4xx status code
+func (o *ShutdownDeploymentOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this shutdown deployment o k response has a 5xx status code
+func (o *ShutdownDeploymentOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this shutdown deployment o k response a status code equal to that given
+func (o *ShutdownDeploymentOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the shutdown deployment o k response
+func (o *ShutdownDeploymentOK) Code() int {
+	return 200
+}
+
 func (o *ShutdownDeploymentOK) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/_shutdown][%d] shutdownDeploymentOK  %+v", 200, o.Payload)
 }
+
+func (o *ShutdownDeploymentOK) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/_shutdown][%d] shutdownDeploymentOK  %+v", 200, o.Payload)
+}
+
 func (o *ShutdownDeploymentOK) GetPayload() *models.DeploymentShutdownResponse {
 	return o.Payload
 }
@@ -106,7 +142,8 @@ func NewShutdownDeploymentBadRequest() *ShutdownDeploymentBadRequest {
 	return &ShutdownDeploymentBadRequest{}
 }
 
-/* ShutdownDeploymentBadRequest describes a response with status code 400, with default header values.
+/*
+ShutdownDeploymentBadRequest describes a response with status code 400, with default header values.
 
 Parameter is restricted and can only be set by a Platform administrator. (code: `deployments.restricted_parameter`)
 */
@@ -119,9 +156,44 @@ type ShutdownDeploymentBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this shutdown deployment bad request response has a 2xx status code
+func (o *ShutdownDeploymentBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this shutdown deployment bad request response has a 3xx status code
+func (o *ShutdownDeploymentBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this shutdown deployment bad request response has a 4xx status code
+func (o *ShutdownDeploymentBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this shutdown deployment bad request response has a 5xx status code
+func (o *ShutdownDeploymentBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this shutdown deployment bad request response a status code equal to that given
+func (o *ShutdownDeploymentBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the shutdown deployment bad request response
+func (o *ShutdownDeploymentBadRequest) Code() int {
+	return 400
+}
+
 func (o *ShutdownDeploymentBadRequest) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/_shutdown][%d] shutdownDeploymentBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *ShutdownDeploymentBadRequest) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/_shutdown][%d] shutdownDeploymentBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *ShutdownDeploymentBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -150,7 +222,8 @@ func NewShutdownDeploymentUnauthorized() *ShutdownDeploymentUnauthorized {
 	return &ShutdownDeploymentUnauthorized{}
 }
 
-/* ShutdownDeploymentUnauthorized describes a response with status code 401, with default header values.
+/*
+ShutdownDeploymentUnauthorized describes a response with status code 401, with default header values.
 
 You are not authorized to perform this action.
 */
@@ -158,9 +231,44 @@ type ShutdownDeploymentUnauthorized struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this shutdown deployment unauthorized response has a 2xx status code
+func (o *ShutdownDeploymentUnauthorized) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this shutdown deployment unauthorized response has a 3xx status code
+func (o *ShutdownDeploymentUnauthorized) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this shutdown deployment unauthorized response has a 4xx status code
+func (o *ShutdownDeploymentUnauthorized) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this shutdown deployment unauthorized response has a 5xx status code
+func (o *ShutdownDeploymentUnauthorized) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this shutdown deployment unauthorized response a status code equal to that given
+func (o *ShutdownDeploymentUnauthorized) IsCode(code int) bool {
+	return code == 401
+}
+
+// Code gets the status code for the shutdown deployment unauthorized response
+func (o *ShutdownDeploymentUnauthorized) Code() int {
+	return 401
+}
+
 func (o *ShutdownDeploymentUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/_shutdown][%d] shutdownDeploymentUnauthorized  %+v", 401, o.Payload)
 }
+
+func (o *ShutdownDeploymentUnauthorized) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/_shutdown][%d] shutdownDeploymentUnauthorized  %+v", 401, o.Payload)
+}
+
 func (o *ShutdownDeploymentUnauthorized) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -182,7 +290,8 @@ func NewShutdownDeploymentNotFound() *ShutdownDeploymentNotFound {
 	return &ShutdownDeploymentNotFound{}
 }
 
-/* ShutdownDeploymentNotFound describes a response with status code 404, with default header values.
+/*
+ShutdownDeploymentNotFound describes a response with status code 404, with default header values.
 
 The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
 */
@@ -195,9 +304,44 @@ type ShutdownDeploymentNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this shutdown deployment not found response has a 2xx status code
+func (o *ShutdownDeploymentNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this shutdown deployment not found response has a 3xx status code
+func (o *ShutdownDeploymentNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this shutdown deployment not found response has a 4xx status code
+func (o *ShutdownDeploymentNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this shutdown deployment not found response has a 5xx status code
+func (o *ShutdownDeploymentNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this shutdown deployment not found response a status code equal to that given
+func (o *ShutdownDeploymentNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the shutdown deployment not found response
+func (o *ShutdownDeploymentNotFound) Code() int {
+	return 404
+}
+
 func (o *ShutdownDeploymentNotFound) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/_shutdown][%d] shutdownDeploymentNotFound  %+v", 404, o.Payload)
 }
+
+func (o *ShutdownDeploymentNotFound) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/_shutdown][%d] shutdownDeploymentNotFound  %+v", 404, o.Payload)
+}
+
 func (o *ShutdownDeploymentNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

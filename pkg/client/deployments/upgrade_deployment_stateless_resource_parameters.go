@@ -70,10 +70,12 @@ func NewUpgradeDeploymentStatelessResourceParamsWithHTTPClient(client *http.Clie
 	}
 }
 
-/* UpgradeDeploymentStatelessResourceParams contains all the parameters to send to the API endpoint
-   for the upgrade deployment stateless resource operation.
+/*
+UpgradeDeploymentStatelessResourceParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the upgrade deployment stateless resource operation.
+
+	Typically these are written to a http.Request.
 */
 type UpgradeDeploymentStatelessResourceParams struct {
 

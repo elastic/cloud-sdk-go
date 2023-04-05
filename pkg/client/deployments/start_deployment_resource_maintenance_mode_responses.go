@@ -58,12 +58,6 @@ func (o *StartDeploymentResourceMaintenanceModeReader) ReadResponse(response run
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewStartDeploymentResourceMaintenanceModeRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	case 500:
 		result := NewStartDeploymentResourceMaintenanceModeInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -80,7 +74,8 @@ func NewStartDeploymentResourceMaintenanceModeAccepted() *StartDeploymentResourc
 	return &StartDeploymentResourceMaintenanceModeAccepted{}
 }
 
-/* StartDeploymentResourceMaintenanceModeAccepted describes a response with status code 202, with default header values.
+/*
+StartDeploymentResourceMaintenanceModeAccepted describes a response with status code 202, with default header values.
 
 The start maintenance command was issued successfully.
 */
@@ -88,9 +83,44 @@ type StartDeploymentResourceMaintenanceModeAccepted struct {
 	Payload *models.DeploymentResourceCommandResponse
 }
 
+// IsSuccess returns true when this start deployment resource maintenance mode accepted response has a 2xx status code
+func (o *StartDeploymentResourceMaintenanceModeAccepted) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this start deployment resource maintenance mode accepted response has a 3xx status code
+func (o *StartDeploymentResourceMaintenanceModeAccepted) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this start deployment resource maintenance mode accepted response has a 4xx status code
+func (o *StartDeploymentResourceMaintenanceModeAccepted) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this start deployment resource maintenance mode accepted response has a 5xx status code
+func (o *StartDeploymentResourceMaintenanceModeAccepted) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this start deployment resource maintenance mode accepted response a status code equal to that given
+func (o *StartDeploymentResourceMaintenanceModeAccepted) IsCode(code int) bool {
+	return code == 202
+}
+
+// Code gets the status code for the start deployment resource maintenance mode accepted response
+func (o *StartDeploymentResourceMaintenanceModeAccepted) Code() int {
+	return 202
+}
+
 func (o *StartDeploymentResourceMaintenanceModeAccepted) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_ids}/maintenance-mode/_start][%d] startDeploymentResourceMaintenanceModeAccepted  %+v", 202, o.Payload)
 }
+
+func (o *StartDeploymentResourceMaintenanceModeAccepted) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_ids}/maintenance-mode/_start][%d] startDeploymentResourceMaintenanceModeAccepted  %+v", 202, o.Payload)
+}
+
 func (o *StartDeploymentResourceMaintenanceModeAccepted) GetPayload() *models.DeploymentResourceCommandResponse {
 	return o.Payload
 }
@@ -112,7 +142,8 @@ func NewStartDeploymentResourceMaintenanceModeForbidden() *StartDeploymentResour
 	return &StartDeploymentResourceMaintenanceModeForbidden{}
 }
 
-/* StartDeploymentResourceMaintenanceModeForbidden describes a response with status code 403, with default header values.
+/*
+StartDeploymentResourceMaintenanceModeForbidden describes a response with status code 403, with default header values.
 
 The start maintenance mode command was prohibited for the given Resource. (code: `deployments.instance_update_prohibited_error`)
 */
@@ -125,9 +156,44 @@ type StartDeploymentResourceMaintenanceModeForbidden struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this start deployment resource maintenance mode forbidden response has a 2xx status code
+func (o *StartDeploymentResourceMaintenanceModeForbidden) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this start deployment resource maintenance mode forbidden response has a 3xx status code
+func (o *StartDeploymentResourceMaintenanceModeForbidden) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this start deployment resource maintenance mode forbidden response has a 4xx status code
+func (o *StartDeploymentResourceMaintenanceModeForbidden) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this start deployment resource maintenance mode forbidden response has a 5xx status code
+func (o *StartDeploymentResourceMaintenanceModeForbidden) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this start deployment resource maintenance mode forbidden response a status code equal to that given
+func (o *StartDeploymentResourceMaintenanceModeForbidden) IsCode(code int) bool {
+	return code == 403
+}
+
+// Code gets the status code for the start deployment resource maintenance mode forbidden response
+func (o *StartDeploymentResourceMaintenanceModeForbidden) Code() int {
+	return 403
+}
+
 func (o *StartDeploymentResourceMaintenanceModeForbidden) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_ids}/maintenance-mode/_start][%d] startDeploymentResourceMaintenanceModeForbidden  %+v", 403, o.Payload)
 }
+
+func (o *StartDeploymentResourceMaintenanceModeForbidden) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_ids}/maintenance-mode/_start][%d] startDeploymentResourceMaintenanceModeForbidden  %+v", 403, o.Payload)
+}
+
 func (o *StartDeploymentResourceMaintenanceModeForbidden) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -156,9 +222,11 @@ func NewStartDeploymentResourceMaintenanceModeNotFound() *StartDeploymentResourc
 	return &StartDeploymentResourceMaintenanceModeNotFound{}
 }
 
-/* StartDeploymentResourceMaintenanceModeNotFound describes a response with status code 404, with default header values.
+/*
+	StartDeploymentResourceMaintenanceModeNotFound describes a response with status code 404, with default header values.
 
- * The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+	* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+
 * The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)
 * One or more instances of the given resource type are missing. (code: `deployments.instances_missing_on_update_error`)
 */
@@ -171,9 +239,44 @@ type StartDeploymentResourceMaintenanceModeNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this start deployment resource maintenance mode not found response has a 2xx status code
+func (o *StartDeploymentResourceMaintenanceModeNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this start deployment resource maintenance mode not found response has a 3xx status code
+func (o *StartDeploymentResourceMaintenanceModeNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this start deployment resource maintenance mode not found response has a 4xx status code
+func (o *StartDeploymentResourceMaintenanceModeNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this start deployment resource maintenance mode not found response has a 5xx status code
+func (o *StartDeploymentResourceMaintenanceModeNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this start deployment resource maintenance mode not found response a status code equal to that given
+func (o *StartDeploymentResourceMaintenanceModeNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the start deployment resource maintenance mode not found response
+func (o *StartDeploymentResourceMaintenanceModeNotFound) Code() int {
+	return 404
+}
+
 func (o *StartDeploymentResourceMaintenanceModeNotFound) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_ids}/maintenance-mode/_start][%d] startDeploymentResourceMaintenanceModeNotFound  %+v", 404, o.Payload)
 }
+
+func (o *StartDeploymentResourceMaintenanceModeNotFound) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_ids}/maintenance-mode/_start][%d] startDeploymentResourceMaintenanceModeNotFound  %+v", 404, o.Payload)
+}
+
 func (o *StartDeploymentResourceMaintenanceModeNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -197,56 +300,13 @@ func (o *StartDeploymentResourceMaintenanceModeNotFound) readResponse(response r
 	return nil
 }
 
-// NewStartDeploymentResourceMaintenanceModeRetryWith creates a StartDeploymentResourceMaintenanceModeRetryWith with default headers values
-func NewStartDeploymentResourceMaintenanceModeRetryWith() *StartDeploymentResourceMaintenanceModeRetryWith {
-	return &StartDeploymentResourceMaintenanceModeRetryWith{}
-}
-
-/* StartDeploymentResourceMaintenanceModeRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type StartDeploymentResourceMaintenanceModeRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-func (o *StartDeploymentResourceMaintenanceModeRetryWith) Error() string {
-	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_ids}/maintenance-mode/_start][%d] startDeploymentResourceMaintenanceModeRetryWith  %+v", 449, o.Payload)
-}
-func (o *StartDeploymentResourceMaintenanceModeRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *StartDeploymentResourceMaintenanceModeRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
 // NewStartDeploymentResourceMaintenanceModeInternalServerError creates a StartDeploymentResourceMaintenanceModeInternalServerError with default headers values
 func NewStartDeploymentResourceMaintenanceModeInternalServerError() *StartDeploymentResourceMaintenanceModeInternalServerError {
 	return &StartDeploymentResourceMaintenanceModeInternalServerError{}
 }
 
-/* StartDeploymentResourceMaintenanceModeInternalServerError describes a response with status code 500, with default header values.
+/*
+StartDeploymentResourceMaintenanceModeInternalServerError describes a response with status code 500, with default header values.
 
 A Resource that was previously stored no longer exists. (code: `deployments.deployment_resource_no_longer_exists`)
 */
@@ -259,9 +319,44 @@ type StartDeploymentResourceMaintenanceModeInternalServerError struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this start deployment resource maintenance mode internal server error response has a 2xx status code
+func (o *StartDeploymentResourceMaintenanceModeInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this start deployment resource maintenance mode internal server error response has a 3xx status code
+func (o *StartDeploymentResourceMaintenanceModeInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this start deployment resource maintenance mode internal server error response has a 4xx status code
+func (o *StartDeploymentResourceMaintenanceModeInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this start deployment resource maintenance mode internal server error response has a 5xx status code
+func (o *StartDeploymentResourceMaintenanceModeInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this start deployment resource maintenance mode internal server error response a status code equal to that given
+func (o *StartDeploymentResourceMaintenanceModeInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
+// Code gets the status code for the start deployment resource maintenance mode internal server error response
+func (o *StartDeploymentResourceMaintenanceModeInternalServerError) Code() int {
+	return 500
+}
+
 func (o *StartDeploymentResourceMaintenanceModeInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_ids}/maintenance-mode/_start][%d] startDeploymentResourceMaintenanceModeInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *StartDeploymentResourceMaintenanceModeInternalServerError) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_ids}/maintenance-mode/_start][%d] startDeploymentResourceMaintenanceModeInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *StartDeploymentResourceMaintenanceModeInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

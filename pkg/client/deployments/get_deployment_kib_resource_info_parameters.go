@@ -70,10 +70,12 @@ func NewGetDeploymentKibResourceInfoParamsWithHTTPClient(client *http.Client) *G
 	}
 }
 
-/* GetDeploymentKibResourceInfoParams contains all the parameters to send to the API endpoint
-   for the get deployment kib resource info operation.
+/*
+GetDeploymentKibResourceInfoParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the get deployment kib resource info operation.
+
+	Typically these are written to a http.Request.
 */
 type GetDeploymentKibResourceInfoParams struct {
 

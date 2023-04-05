@@ -68,7 +68,8 @@ func NewGetDeploymentKibResourceInfoOK() *GetDeploymentKibResourceInfoOK {
 	return &GetDeploymentKibResourceInfoOK{}
 }
 
-/* GetDeploymentKibResourceInfoOK describes a response with status code 200, with default header values.
+/*
+GetDeploymentKibResourceInfoOK describes a response with status code 200, with default header values.
 
 Standard response.
 */
@@ -76,9 +77,44 @@ type GetDeploymentKibResourceInfoOK struct {
 	Payload *models.KibanaResourceInfo
 }
 
+// IsSuccess returns true when this get deployment kib resource info o k response has a 2xx status code
+func (o *GetDeploymentKibResourceInfoOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get deployment kib resource info o k response has a 3xx status code
+func (o *GetDeploymentKibResourceInfoOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get deployment kib resource info o k response has a 4xx status code
+func (o *GetDeploymentKibResourceInfoOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get deployment kib resource info o k response has a 5xx status code
+func (o *GetDeploymentKibResourceInfoOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get deployment kib resource info o k response a status code equal to that given
+func (o *GetDeploymentKibResourceInfoOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get deployment kib resource info o k response
+func (o *GetDeploymentKibResourceInfoOK) Code() int {
+	return 200
+}
+
 func (o *GetDeploymentKibResourceInfoOK) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/kibana/{ref_id}][%d] getDeploymentKibResourceInfoOK  %+v", 200, o.Payload)
 }
+
+func (o *GetDeploymentKibResourceInfoOK) String() string {
+	return fmt.Sprintf("[GET /deployments/{deployment_id}/kibana/{ref_id}][%d] getDeploymentKibResourceInfoOK  %+v", 200, o.Payload)
+}
+
 func (o *GetDeploymentKibResourceInfoOK) GetPayload() *models.KibanaResourceInfo {
 	return o.Payload
 }
@@ -100,7 +136,8 @@ func NewGetDeploymentKibResourceInfoNotFound() *GetDeploymentKibResourceInfoNotF
 	return &GetDeploymentKibResourceInfoNotFound{}
 }
 
-/* GetDeploymentKibResourceInfoNotFound describes a response with status code 404, with default header values.
+/*
+GetDeploymentKibResourceInfoNotFound describes a response with status code 404, with default header values.
 
 The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
 */
@@ -113,9 +150,44 @@ type GetDeploymentKibResourceInfoNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get deployment kib resource info not found response has a 2xx status code
+func (o *GetDeploymentKibResourceInfoNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get deployment kib resource info not found response has a 3xx status code
+func (o *GetDeploymentKibResourceInfoNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get deployment kib resource info not found response has a 4xx status code
+func (o *GetDeploymentKibResourceInfoNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get deployment kib resource info not found response has a 5xx status code
+func (o *GetDeploymentKibResourceInfoNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get deployment kib resource info not found response a status code equal to that given
+func (o *GetDeploymentKibResourceInfoNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the get deployment kib resource info not found response
+func (o *GetDeploymentKibResourceInfoNotFound) Code() int {
+	return 404
+}
+
 func (o *GetDeploymentKibResourceInfoNotFound) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/kibana/{ref_id}][%d] getDeploymentKibResourceInfoNotFound  %+v", 404, o.Payload)
 }
+
+func (o *GetDeploymentKibResourceInfoNotFound) String() string {
+	return fmt.Sprintf("[GET /deployments/{deployment_id}/kibana/{ref_id}][%d] getDeploymentKibResourceInfoNotFound  %+v", 404, o.Payload)
+}
+
 func (o *GetDeploymentKibResourceInfoNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -144,7 +216,8 @@ func NewGetDeploymentKibResourceInfoInternalServerError() *GetDeploymentKibResou
 	return &GetDeploymentKibResourceInfoInternalServerError{}
 }
 
-/* GetDeploymentKibResourceInfoInternalServerError describes a response with status code 500, with default header values.
+/*
+GetDeploymentKibResourceInfoInternalServerError describes a response with status code 500, with default header values.
 
 We have failed you. (code: `deployments.deployment_resource_no_longer_exists`)
 */
@@ -157,9 +230,44 @@ type GetDeploymentKibResourceInfoInternalServerError struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get deployment kib resource info internal server error response has a 2xx status code
+func (o *GetDeploymentKibResourceInfoInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get deployment kib resource info internal server error response has a 3xx status code
+func (o *GetDeploymentKibResourceInfoInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get deployment kib resource info internal server error response has a 4xx status code
+func (o *GetDeploymentKibResourceInfoInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get deployment kib resource info internal server error response has a 5xx status code
+func (o *GetDeploymentKibResourceInfoInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this get deployment kib resource info internal server error response a status code equal to that given
+func (o *GetDeploymentKibResourceInfoInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
+// Code gets the status code for the get deployment kib resource info internal server error response
+func (o *GetDeploymentKibResourceInfoInternalServerError) Code() int {
+	return 500
+}
+
 func (o *GetDeploymentKibResourceInfoInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/kibana/{ref_id}][%d] getDeploymentKibResourceInfoInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *GetDeploymentKibResourceInfoInternalServerError) String() string {
+	return fmt.Sprintf("[GET /deployments/{deployment_id}/kibana/{ref_id}][%d] getDeploymentKibResourceInfoInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *GetDeploymentKibResourceInfoInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

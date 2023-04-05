@@ -69,10 +69,12 @@ func NewGetCurrentAccountParamsWithHTTPClient(client *http.Client) *GetCurrentAc
 	}
 }
 
-/* GetCurrentAccountParams contains all the parameters to send to the API endpoint
-   for the get current account operation.
+/*
+GetCurrentAccountParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the get current account operation.
+
+	Typically these are written to a http.Request.
 */
 type GetCurrentAccountParams struct {
 	timeout    time.Duration

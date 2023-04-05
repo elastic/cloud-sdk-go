@@ -46,12 +46,6 @@ func (o *ResyncDeploymentsReader) ReadResponse(response runtime.ClientResponse, 
 			return nil, err
 		}
 		return result, nil
-	case 449:
-		result := NewResyncDeploymentsRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	case 500:
 		result := NewResyncDeploymentsInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -68,7 +62,8 @@ func NewResyncDeploymentsOK() *ResyncDeploymentsOK {
 	return &ResyncDeploymentsOK{}
 }
 
-/* ResyncDeploymentsOK describes a response with status code 200, with default header values.
+/*
+ResyncDeploymentsOK describes a response with status code 200, with default header values.
 
 The deployments resync operation executed successfully.
 */
@@ -76,9 +71,44 @@ type ResyncDeploymentsOK struct {
 	Payload *models.IndexSynchronizationResults
 }
 
+// IsSuccess returns true when this resync deployments o k response has a 2xx status code
+func (o *ResyncDeploymentsOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this resync deployments o k response has a 3xx status code
+func (o *ResyncDeploymentsOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this resync deployments o k response has a 4xx status code
+func (o *ResyncDeploymentsOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this resync deployments o k response has a 5xx status code
+func (o *ResyncDeploymentsOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this resync deployments o k response a status code equal to that given
+func (o *ResyncDeploymentsOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the resync deployments o k response
+func (o *ResyncDeploymentsOK) Code() int {
+	return 200
+}
+
 func (o *ResyncDeploymentsOK) Error() string {
 	return fmt.Sprintf("[POST /deployments/_resync][%d] resyncDeploymentsOK  %+v", 200, o.Payload)
 }
+
+func (o *ResyncDeploymentsOK) String() string {
+	return fmt.Sprintf("[POST /deployments/_resync][%d] resyncDeploymentsOK  %+v", 200, o.Payload)
+}
+
 func (o *ResyncDeploymentsOK) GetPayload() *models.IndexSynchronizationResults {
 	return o.Payload
 }
@@ -95,56 +125,13 @@ func (o *ResyncDeploymentsOK) readResponse(response runtime.ClientResponse, cons
 	return nil
 }
 
-// NewResyncDeploymentsRetryWith creates a ResyncDeploymentsRetryWith with default headers values
-func NewResyncDeploymentsRetryWith() *ResyncDeploymentsRetryWith {
-	return &ResyncDeploymentsRetryWith{}
-}
-
-/* ResyncDeploymentsRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type ResyncDeploymentsRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-func (o *ResyncDeploymentsRetryWith) Error() string {
-	return fmt.Sprintf("[POST /deployments/_resync][%d] resyncDeploymentsRetryWith  %+v", 449, o.Payload)
-}
-func (o *ResyncDeploymentsRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *ResyncDeploymentsRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
 // NewResyncDeploymentsInternalServerError creates a ResyncDeploymentsInternalServerError with default headers values
 func NewResyncDeploymentsInternalServerError() *ResyncDeploymentsInternalServerError {
 	return &ResyncDeploymentsInternalServerError{}
 }
 
-/* ResyncDeploymentsInternalServerError describes a response with status code 500, with default header values.
+/*
+ResyncDeploymentsInternalServerError describes a response with status code 500, with default header values.
 
 The deployments resync operation failed. (code: `deployments.resync_failed`)
 */
@@ -157,9 +144,44 @@ type ResyncDeploymentsInternalServerError struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this resync deployments internal server error response has a 2xx status code
+func (o *ResyncDeploymentsInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this resync deployments internal server error response has a 3xx status code
+func (o *ResyncDeploymentsInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this resync deployments internal server error response has a 4xx status code
+func (o *ResyncDeploymentsInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this resync deployments internal server error response has a 5xx status code
+func (o *ResyncDeploymentsInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this resync deployments internal server error response a status code equal to that given
+func (o *ResyncDeploymentsInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
+// Code gets the status code for the resync deployments internal server error response
+func (o *ResyncDeploymentsInternalServerError) Code() int {
+	return 500
+}
+
 func (o *ResyncDeploymentsInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /deployments/_resync][%d] resyncDeploymentsInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ResyncDeploymentsInternalServerError) String() string {
+	return fmt.Sprintf("[POST /deployments/_resync][%d] resyncDeploymentsInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ResyncDeploymentsInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

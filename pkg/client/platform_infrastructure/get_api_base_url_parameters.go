@@ -69,10 +69,12 @@ func NewGetAPIBaseURLParamsWithHTTPClient(client *http.Client) *GetAPIBaseURLPar
 	}
 }
 
-/* GetAPIBaseURLParams contains all the parameters to send to the API endpoint
-   for the get api base url operation.
+/*
+GetAPIBaseURLParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the get api base url operation.
+
+	Typically these are written to a http.Request.
 */
 type GetAPIBaseURLParams struct {
 	timeout    time.Duration

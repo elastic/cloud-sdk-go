@@ -71,10 +71,12 @@ func NewSetAllocatorMetadataItemParamsWithHTTPClient(client *http.Client) *SetAl
 	}
 }
 
-/* SetAllocatorMetadataItemParams contains all the parameters to send to the API endpoint
-   for the set allocator metadata item operation.
+/*
+SetAllocatorMetadataItemParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the set allocator metadata item operation.
+
+	Typically these are written to a http.Request.
 */
 type SetAllocatorMetadataItemParams struct {
 

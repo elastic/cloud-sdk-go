@@ -70,10 +70,12 @@ func NewDeleteSnapshotRepositoryParamsWithHTTPClient(client *http.Client) *Delet
 	}
 }
 
-/* DeleteSnapshotRepositoryParams contains all the parameters to send to the API endpoint
-   for the delete snapshot repository operation.
+/*
+DeleteSnapshotRepositoryParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the delete snapshot repository operation.
+
+	Typically these are written to a http.Request.
 */
 type DeleteSnapshotRepositoryParams struct {
 

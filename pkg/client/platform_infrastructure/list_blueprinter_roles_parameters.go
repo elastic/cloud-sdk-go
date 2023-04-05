@@ -69,10 +69,12 @@ func NewListBlueprinterRolesParamsWithHTTPClient(client *http.Client) *ListBluep
 	}
 }
 
-/* ListBlueprinterRolesParams contains all the parameters to send to the API endpoint
-   for the list blueprinter roles operation.
+/*
+ListBlueprinterRolesParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the list blueprinter roles operation.
+
+	Typically these are written to a http.Request.
 */
 type ListBlueprinterRolesParams struct {
 	timeout    time.Duration

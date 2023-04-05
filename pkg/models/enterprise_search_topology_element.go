@@ -94,6 +94,8 @@ func (m *EnterpriseSearchTopologyElement) validateEnterpriseSearch(formats strfm
 		if err := m.EnterpriseSearch.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("enterprise_search")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("enterprise_search")
 			}
 			return err
 		}
@@ -111,6 +113,8 @@ func (m *EnterpriseSearchTopologyElement) validateNodeType(formats strfmt.Regist
 		if err := m.NodeType.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("node_type")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("node_type")
 			}
 			return err
 		}
@@ -128,6 +132,8 @@ func (m *EnterpriseSearchTopologyElement) validateSize(formats strfmt.Registry) 
 		if err := m.Size.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("size")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("size")
 			}
 			return err
 		}
@@ -164,6 +170,8 @@ func (m *EnterpriseSearchTopologyElement) contextValidateEnterpriseSearch(ctx co
 		if err := m.EnterpriseSearch.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("enterprise_search")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("enterprise_search")
 			}
 			return err
 		}
@@ -178,6 +186,8 @@ func (m *EnterpriseSearchTopologyElement) contextValidateNodeType(ctx context.Co
 		if err := m.NodeType.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("node_type")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("node_type")
 			}
 			return err
 		}
@@ -192,6 +202,8 @@ func (m *EnterpriseSearchTopologyElement) contextValidateSize(ctx context.Contex
 		if err := m.Size.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("size")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("size")
 			}
 			return err
 		}

@@ -69,10 +69,12 @@ func NewGetEnrollmentTokensParamsWithHTTPClient(client *http.Client) *GetEnrollm
 	}
 }
 
-/* GetEnrollmentTokensParams contains all the parameters to send to the API endpoint
-   for the get enrollment tokens operation.
+/*
+GetEnrollmentTokensParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the get enrollment tokens operation.
+
+	Typically these are written to a http.Request.
 */
 type GetEnrollmentTokensParams struct {
 	timeout    time.Duration

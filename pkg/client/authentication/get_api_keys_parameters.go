@@ -69,10 +69,12 @@ func NewGetAPIKeysParamsWithHTTPClient(client *http.Client) *GetAPIKeysParams {
 	}
 }
 
-/* GetAPIKeysParams contains all the parameters to send to the API endpoint
-   for the get api keys operation.
+/*
+GetAPIKeysParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the get api keys operation.
+
+	Typically these are written to a http.Request.
 */
 type GetAPIKeysParams struct {
 	timeout    time.Duration

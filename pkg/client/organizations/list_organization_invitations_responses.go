@@ -62,7 +62,8 @@ func NewListOrganizationInvitationsOK() *ListOrganizationInvitationsOK {
 	return &ListOrganizationInvitationsOK{}
 }
 
-/* ListOrganizationInvitationsOK describes a response with status code 200, with default header values.
+/*
+ListOrganizationInvitationsOK describes a response with status code 200, with default header values.
 
 Organization invitations fetched successfully
 */
@@ -70,9 +71,44 @@ type ListOrganizationInvitationsOK struct {
 	Payload *models.OrganizationInvitations
 }
 
+// IsSuccess returns true when this list organization invitations o k response has a 2xx status code
+func (o *ListOrganizationInvitationsOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this list organization invitations o k response has a 3xx status code
+func (o *ListOrganizationInvitationsOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this list organization invitations o k response has a 4xx status code
+func (o *ListOrganizationInvitationsOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this list organization invitations o k response has a 5xx status code
+func (o *ListOrganizationInvitationsOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this list organization invitations o k response a status code equal to that given
+func (o *ListOrganizationInvitationsOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the list organization invitations o k response
+func (o *ListOrganizationInvitationsOK) Code() int {
+	return 200
+}
+
 func (o *ListOrganizationInvitationsOK) Error() string {
 	return fmt.Sprintf("[GET /organizations/{organization_id}/invitations][%d] listOrganizationInvitationsOK  %+v", 200, o.Payload)
 }
+
+func (o *ListOrganizationInvitationsOK) String() string {
+	return fmt.Sprintf("[GET /organizations/{organization_id}/invitations][%d] listOrganizationInvitationsOK  %+v", 200, o.Payload)
+}
+
 func (o *ListOrganizationInvitationsOK) GetPayload() *models.OrganizationInvitations {
 	return o.Payload
 }
@@ -94,7 +130,8 @@ func NewListOrganizationInvitationsNotFound() *ListOrganizationInvitationsNotFou
 	return &ListOrganizationInvitationsNotFound{}
 }
 
-/* ListOrganizationInvitationsNotFound describes a response with status code 404, with default header values.
+/*
+ListOrganizationInvitationsNotFound describes a response with status code 404, with default header values.
 
 Organization not found. (code: `organization.not_found`)
 */
@@ -107,9 +144,44 @@ type ListOrganizationInvitationsNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this list organization invitations not found response has a 2xx status code
+func (o *ListOrganizationInvitationsNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this list organization invitations not found response has a 3xx status code
+func (o *ListOrganizationInvitationsNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this list organization invitations not found response has a 4xx status code
+func (o *ListOrganizationInvitationsNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this list organization invitations not found response has a 5xx status code
+func (o *ListOrganizationInvitationsNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this list organization invitations not found response a status code equal to that given
+func (o *ListOrganizationInvitationsNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the list organization invitations not found response
+func (o *ListOrganizationInvitationsNotFound) Code() int {
+	return 404
+}
+
 func (o *ListOrganizationInvitationsNotFound) Error() string {
 	return fmt.Sprintf("[GET /organizations/{organization_id}/invitations][%d] listOrganizationInvitationsNotFound  %+v", 404, o.Payload)
 }
+
+func (o *ListOrganizationInvitationsNotFound) String() string {
+	return fmt.Sprintf("[GET /organizations/{organization_id}/invitations][%d] listOrganizationInvitationsNotFound  %+v", 404, o.Payload)
+}
+
 func (o *ListOrganizationInvitationsNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

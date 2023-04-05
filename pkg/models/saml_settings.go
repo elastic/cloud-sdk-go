@@ -65,6 +65,9 @@ type SamlSettings struct {
 	// Required: true
 	Name *string `json:"name"`
 
+	// The NameID format. If not specified the IdP default is used. Example: 'urn:oasis:names:tc:SAML:2.0:nameid-format:persistent'
+	NameidFormat string `json:"nameid_format,omitempty"`
+
 	// The order that the security realm is evaluated
 	Order int32 `json:"order,omitempty"`
 
@@ -146,6 +149,8 @@ func (m *SamlSettings) validateAttributes(formats strfmt.Registry) error {
 		if err := m.Attributes.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("attributes")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("attributes")
 			}
 			return err
 		}
@@ -173,6 +178,8 @@ func (m *SamlSettings) validateIdp(formats strfmt.Registry) error {
 		if err := m.Idp.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("idp")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("idp")
 			}
 			return err
 		}
@@ -199,6 +206,8 @@ func (m *SamlSettings) validateRoleMappings(formats strfmt.Registry) error {
 		if err := m.RoleMappings.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("role_mappings")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("role_mappings")
 			}
 			return err
 		}
@@ -217,6 +226,8 @@ func (m *SamlSettings) validateSp(formats strfmt.Registry) error {
 		if err := m.Sp.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("sp")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("sp")
 			}
 			return err
 		}
@@ -299,6 +310,8 @@ func (m *SamlSettings) contextValidateAttributes(ctx context.Context, formats st
 		if err := m.Attributes.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("attributes")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("attributes")
 			}
 			return err
 		}
@@ -313,6 +326,8 @@ func (m *SamlSettings) contextValidateIdp(ctx context.Context, formats strfmt.Re
 		if err := m.Idp.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("idp")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("idp")
 			}
 			return err
 		}
@@ -327,6 +342,8 @@ func (m *SamlSettings) contextValidateRoleMappings(ctx context.Context, formats 
 		if err := m.RoleMappings.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("role_mappings")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("role_mappings")
 			}
 			return err
 		}
@@ -341,6 +358,8 @@ func (m *SamlSettings) contextValidateSp(ctx context.Context, formats strfmt.Reg
 		if err := m.Sp.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("sp")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("sp")
 			}
 			return err
 		}

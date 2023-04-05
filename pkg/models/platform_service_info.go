@@ -79,6 +79,8 @@ func (m *PlatformServiceInfo) validateImage(formats strfmt.Registry) error {
 			if err := m.Image[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("image" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("image" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -120,6 +122,8 @@ func (m *PlatformServiceInfo) contextValidateImage(ctx context.Context, formats 
 			if err := m.Image[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("image" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("image" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

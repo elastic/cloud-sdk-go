@@ -69,10 +69,12 @@ func NewStopConstructorMaintenanceModeParamsWithHTTPClient(client *http.Client) 
 	}
 }
 
-/* StopConstructorMaintenanceModeParams contains all the parameters to send to the API endpoint
-   for the stop constructor maintenance mode operation.
+/*
+StopConstructorMaintenanceModeParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the stop constructor maintenance mode operation.
+
+	Typically these are written to a http.Request.
 */
 type StopConstructorMaintenanceModeParams struct {
 

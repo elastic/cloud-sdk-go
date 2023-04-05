@@ -81,6 +81,8 @@ func (m *UserSecurity) validateElevatedPermissions(formats strfmt.Registry) erro
 		if err := m.ElevatedPermissions.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("elevated_permissions")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("elevated_permissions")
 			}
 			return err
 		}
@@ -98,6 +100,8 @@ func (m *UserSecurity) validateSecurityRealm(formats strfmt.Registry) error {
 		if err := m.SecurityRealm.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("security_realm")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("security_realm")
 			}
 			return err
 		}
@@ -130,6 +134,8 @@ func (m *UserSecurity) contextValidateElevatedPermissions(ctx context.Context, f
 		if err := m.ElevatedPermissions.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("elevated_permissions")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("elevated_permissions")
 			}
 			return err
 		}
@@ -144,6 +150,8 @@ func (m *UserSecurity) contextValidateSecurityRealm(ctx context.Context, formats
 		if err := m.SecurityRealm.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("security_realm")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("security_realm")
 			}
 			return err
 		}

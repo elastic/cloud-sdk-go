@@ -62,7 +62,8 @@ func NewGetCurrentUserOK() *GetCurrentUserOK {
 	return &GetCurrentUserOK{}
 }
 
-/* GetCurrentUserOK describes a response with status code 200, with default header values.
+/*
+GetCurrentUserOK describes a response with status code 200, with default header values.
 
 User successfully fetched
 */
@@ -70,9 +71,44 @@ type GetCurrentUserOK struct {
 	Payload *models.User
 }
 
+// IsSuccess returns true when this get current user o k response has a 2xx status code
+func (o *GetCurrentUserOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get current user o k response has a 3xx status code
+func (o *GetCurrentUserOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get current user o k response has a 4xx status code
+func (o *GetCurrentUserOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get current user o k response has a 5xx status code
+func (o *GetCurrentUserOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get current user o k response a status code equal to that given
+func (o *GetCurrentUserOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get current user o k response
+func (o *GetCurrentUserOK) Code() int {
+	return 200
+}
+
 func (o *GetCurrentUserOK) Error() string {
 	return fmt.Sprintf("[GET /user][%d] getCurrentUserOK  %+v", 200, o.Payload)
 }
+
+func (o *GetCurrentUserOK) String() string {
+	return fmt.Sprintf("[GET /user][%d] getCurrentUserOK  %+v", 200, o.Payload)
+}
+
 func (o *GetCurrentUserOK) GetPayload() *models.User {
 	return o.Payload
 }
@@ -94,7 +130,8 @@ func NewGetCurrentUserNotFound() *GetCurrentUserNotFound {
 	return &GetCurrentUserNotFound{}
 }
 
-/* GetCurrentUserNotFound describes a response with status code 404, with default header values.
+/*
+GetCurrentUserNotFound describes a response with status code 404, with default header values.
 
 User not found. (code: `user.not_found`)
 */
@@ -107,9 +144,44 @@ type GetCurrentUserNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get current user not found response has a 2xx status code
+func (o *GetCurrentUserNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get current user not found response has a 3xx status code
+func (o *GetCurrentUserNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get current user not found response has a 4xx status code
+func (o *GetCurrentUserNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get current user not found response has a 5xx status code
+func (o *GetCurrentUserNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get current user not found response a status code equal to that given
+func (o *GetCurrentUserNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the get current user not found response
+func (o *GetCurrentUserNotFound) Code() int {
+	return 404
+}
+
 func (o *GetCurrentUserNotFound) Error() string {
 	return fmt.Sprintf("[GET /user][%d] getCurrentUserNotFound  %+v", 404, o.Payload)
 }
+
+func (o *GetCurrentUserNotFound) String() string {
+	return fmt.Sprintf("[GET /user][%d] getCurrentUserNotFound  %+v", 404, o.Payload)
+}
+
 func (o *GetCurrentUserNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

@@ -68,7 +68,8 @@ func NewGetDeploymentEsResourceEligibleRemoteClustersOK() *GetDeploymentEsResour
 	return &GetDeploymentEsResourceEligibleRemoteClustersOK{}
 }
 
-/* GetDeploymentEsResourceEligibleRemoteClustersOK describes a response with status code 200, with default header values.
+/*
+GetDeploymentEsResourceEligibleRemoteClustersOK describes a response with status code 200, with default header values.
 
 List of deployments which contains eligible remote clusters for the resource
 */
@@ -76,9 +77,44 @@ type GetDeploymentEsResourceEligibleRemoteClustersOK struct {
 	Payload *models.DeploymentsSearchResponse
 }
 
+// IsSuccess returns true when this get deployment es resource eligible remote clusters o k response has a 2xx status code
+func (o *GetDeploymentEsResourceEligibleRemoteClustersOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get deployment es resource eligible remote clusters o k response has a 3xx status code
+func (o *GetDeploymentEsResourceEligibleRemoteClustersOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get deployment es resource eligible remote clusters o k response has a 4xx status code
+func (o *GetDeploymentEsResourceEligibleRemoteClustersOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get deployment es resource eligible remote clusters o k response has a 5xx status code
+func (o *GetDeploymentEsResourceEligibleRemoteClustersOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get deployment es resource eligible remote clusters o k response a status code equal to that given
+func (o *GetDeploymentEsResourceEligibleRemoteClustersOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get deployment es resource eligible remote clusters o k response
+func (o *GetDeploymentEsResourceEligibleRemoteClustersOK) Code() int {
+	return 200
+}
+
 func (o *GetDeploymentEsResourceEligibleRemoteClustersOK) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/eligible-remote-clusters][%d] getDeploymentEsResourceEligibleRemoteClustersOK  %+v", 200, o.Payload)
 }
+
+func (o *GetDeploymentEsResourceEligibleRemoteClustersOK) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/eligible-remote-clusters][%d] getDeploymentEsResourceEligibleRemoteClustersOK  %+v", 200, o.Payload)
+}
+
 func (o *GetDeploymentEsResourceEligibleRemoteClustersOK) GetPayload() *models.DeploymentsSearchResponse {
 	return o.Payload
 }
@@ -100,7 +136,8 @@ func NewGetDeploymentEsResourceEligibleRemoteClustersBadRequest() *GetDeployment
 	return &GetDeploymentEsResourceEligibleRemoteClustersBadRequest{}
 }
 
-/* GetDeploymentEsResourceEligibleRemoteClustersBadRequest describes a response with status code 400, with default header values.
+/*
+GetDeploymentEsResourceEligibleRemoteClustersBadRequest describes a response with status code 400, with default header values.
 
 The resource specified doesn't yet have a valid version for the current plan or the pending plan. (code: `deployments.resource_does_not_have_a_valid_version`)
 */
@@ -113,9 +150,44 @@ type GetDeploymentEsResourceEligibleRemoteClustersBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get deployment es resource eligible remote clusters bad request response has a 2xx status code
+func (o *GetDeploymentEsResourceEligibleRemoteClustersBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get deployment es resource eligible remote clusters bad request response has a 3xx status code
+func (o *GetDeploymentEsResourceEligibleRemoteClustersBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get deployment es resource eligible remote clusters bad request response has a 4xx status code
+func (o *GetDeploymentEsResourceEligibleRemoteClustersBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get deployment es resource eligible remote clusters bad request response has a 5xx status code
+func (o *GetDeploymentEsResourceEligibleRemoteClustersBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get deployment es resource eligible remote clusters bad request response a status code equal to that given
+func (o *GetDeploymentEsResourceEligibleRemoteClustersBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the get deployment es resource eligible remote clusters bad request response
+func (o *GetDeploymentEsResourceEligibleRemoteClustersBadRequest) Code() int {
+	return 400
+}
+
 func (o *GetDeploymentEsResourceEligibleRemoteClustersBadRequest) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/eligible-remote-clusters][%d] getDeploymentEsResourceEligibleRemoteClustersBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *GetDeploymentEsResourceEligibleRemoteClustersBadRequest) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/eligible-remote-clusters][%d] getDeploymentEsResourceEligibleRemoteClustersBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *GetDeploymentEsResourceEligibleRemoteClustersBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -144,9 +216,11 @@ func NewGetDeploymentEsResourceEligibleRemoteClustersNotFound() *GetDeploymentEs
 	return &GetDeploymentEsResourceEligibleRemoteClustersNotFound{}
 }
 
-/* GetDeploymentEsResourceEligibleRemoteClustersNotFound describes a response with status code 404, with default header values.
+/*
+	GetDeploymentEsResourceEligibleRemoteClustersNotFound describes a response with status code 404, with default header values.
 
- * The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+	* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+
 * The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)
 */
 type GetDeploymentEsResourceEligibleRemoteClustersNotFound struct {
@@ -158,9 +232,44 @@ type GetDeploymentEsResourceEligibleRemoteClustersNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get deployment es resource eligible remote clusters not found response has a 2xx status code
+func (o *GetDeploymentEsResourceEligibleRemoteClustersNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get deployment es resource eligible remote clusters not found response has a 3xx status code
+func (o *GetDeploymentEsResourceEligibleRemoteClustersNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get deployment es resource eligible remote clusters not found response has a 4xx status code
+func (o *GetDeploymentEsResourceEligibleRemoteClustersNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get deployment es resource eligible remote clusters not found response has a 5xx status code
+func (o *GetDeploymentEsResourceEligibleRemoteClustersNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get deployment es resource eligible remote clusters not found response a status code equal to that given
+func (o *GetDeploymentEsResourceEligibleRemoteClustersNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the get deployment es resource eligible remote clusters not found response
+func (o *GetDeploymentEsResourceEligibleRemoteClustersNotFound) Code() int {
+	return 404
+}
+
 func (o *GetDeploymentEsResourceEligibleRemoteClustersNotFound) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/eligible-remote-clusters][%d] getDeploymentEsResourceEligibleRemoteClustersNotFound  %+v", 404, o.Payload)
 }
+
+func (o *GetDeploymentEsResourceEligibleRemoteClustersNotFound) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/eligible-remote-clusters][%d] getDeploymentEsResourceEligibleRemoteClustersNotFound  %+v", 404, o.Payload)
+}
+
 func (o *GetDeploymentEsResourceEligibleRemoteClustersNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

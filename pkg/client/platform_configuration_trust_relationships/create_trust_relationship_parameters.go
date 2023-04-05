@@ -71,10 +71,12 @@ func NewCreateTrustRelationshipParamsWithHTTPClient(client *http.Client) *Create
 	}
 }
 
-/* CreateTrustRelationshipParams contains all the parameters to send to the API endpoint
-   for the create trust relationship operation.
+/*
+CreateTrustRelationshipParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the create trust relationship operation.
+
+	Typically these are written to a http.Request.
 */
 type CreateTrustRelationshipParams struct {
 

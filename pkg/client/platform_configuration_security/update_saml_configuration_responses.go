@@ -64,12 +64,6 @@ func (o *UpdateSamlConfigurationReader) ReadResponse(response runtime.ClientResp
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewUpdateSamlConfigurationRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -80,7 +74,8 @@ func NewUpdateSamlConfigurationOK() *UpdateSamlConfigurationOK {
 	return &UpdateSamlConfigurationOK{}
 }
 
-/* UpdateSamlConfigurationOK describes a response with status code 200, with default header values.
+/*
+UpdateSamlConfigurationOK describes a response with status code 200, with default header values.
 
 The SAML configuration was successfully updated
 */
@@ -101,9 +96,44 @@ type UpdateSamlConfigurationOK struct {
 	Payload models.EmptyResponse
 }
 
+// IsSuccess returns true when this update saml configuration o k response has a 2xx status code
+func (o *UpdateSamlConfigurationOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this update saml configuration o k response has a 3xx status code
+func (o *UpdateSamlConfigurationOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update saml configuration o k response has a 4xx status code
+func (o *UpdateSamlConfigurationOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this update saml configuration o k response has a 5xx status code
+func (o *UpdateSamlConfigurationOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update saml configuration o k response a status code equal to that given
+func (o *UpdateSamlConfigurationOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the update saml configuration o k response
+func (o *UpdateSamlConfigurationOK) Code() int {
+	return 200
+}
+
 func (o *UpdateSamlConfigurationOK) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/security/realms/saml/{realm_id}][%d] updateSamlConfigurationOK  %+v", 200, o.Payload)
 }
+
+func (o *UpdateSamlConfigurationOK) String() string {
+	return fmt.Sprintf("[PUT /platform/configuration/security/realms/saml/{realm_id}][%d] updateSamlConfigurationOK  %+v", 200, o.Payload)
+}
+
 func (o *UpdateSamlConfigurationOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -144,9 +174,11 @@ func NewUpdateSamlConfigurationBadRequest() *UpdateSamlConfigurationBadRequest {
 	return &UpdateSamlConfigurationBadRequest{}
 }
 
-/* UpdateSamlConfigurationBadRequest describes a response with status code 400, with default header values.
+/*
+	UpdateSamlConfigurationBadRequest describes a response with status code 400, with default header values.
 
- * The realm id is already in use. (code: `security_realm.id_conflict`)
+	* The realm id is already in use. (code: `security_realm.id_conflict`)
+
 * The selected id is not valid. (code: `security_realm.invalid_id`)
 * Order must be greater than zero. (code: `security_realm.invalid_order`)
 * Invalid Elasticsearch Security realm type. (code: `security_realm.invalid_type`)
@@ -164,9 +196,44 @@ type UpdateSamlConfigurationBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this update saml configuration bad request response has a 2xx status code
+func (o *UpdateSamlConfigurationBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update saml configuration bad request response has a 3xx status code
+func (o *UpdateSamlConfigurationBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update saml configuration bad request response has a 4xx status code
+func (o *UpdateSamlConfigurationBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update saml configuration bad request response has a 5xx status code
+func (o *UpdateSamlConfigurationBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update saml configuration bad request response a status code equal to that given
+func (o *UpdateSamlConfigurationBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the update saml configuration bad request response
+func (o *UpdateSamlConfigurationBadRequest) Code() int {
+	return 400
+}
+
 func (o *UpdateSamlConfigurationBadRequest) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/security/realms/saml/{realm_id}][%d] updateSamlConfigurationBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *UpdateSamlConfigurationBadRequest) String() string {
+	return fmt.Sprintf("[PUT /platform/configuration/security/realms/saml/{realm_id}][%d] updateSamlConfigurationBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *UpdateSamlConfigurationBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -195,7 +262,8 @@ func NewUpdateSamlConfigurationNotFound() *UpdateSamlConfigurationNotFound {
 	return &UpdateSamlConfigurationNotFound{}
 }
 
-/* UpdateSamlConfigurationNotFound describes a response with status code 404, with default header values.
+/*
+UpdateSamlConfigurationNotFound describes a response with status code 404, with default header values.
 
 The realm specified by {realm_id} cannot be found. (code: `security_realm.not_found`)
 */
@@ -208,9 +276,44 @@ type UpdateSamlConfigurationNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this update saml configuration not found response has a 2xx status code
+func (o *UpdateSamlConfigurationNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update saml configuration not found response has a 3xx status code
+func (o *UpdateSamlConfigurationNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update saml configuration not found response has a 4xx status code
+func (o *UpdateSamlConfigurationNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update saml configuration not found response has a 5xx status code
+func (o *UpdateSamlConfigurationNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update saml configuration not found response a status code equal to that given
+func (o *UpdateSamlConfigurationNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the update saml configuration not found response
+func (o *UpdateSamlConfigurationNotFound) Code() int {
+	return 404
+}
+
 func (o *UpdateSamlConfigurationNotFound) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/security/realms/saml/{realm_id}][%d] updateSamlConfigurationNotFound  %+v", 404, o.Payload)
 }
+
+func (o *UpdateSamlConfigurationNotFound) String() string {
+	return fmt.Sprintf("[PUT /platform/configuration/security/realms/saml/{realm_id}][%d] updateSamlConfigurationNotFound  %+v", 404, o.Payload)
+}
+
 func (o *UpdateSamlConfigurationNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -239,7 +342,8 @@ func NewUpdateSamlConfigurationConflict() *UpdateSamlConfigurationConflict {
 	return &UpdateSamlConfigurationConflict{}
 }
 
-/* UpdateSamlConfigurationConflict describes a response with status code 409, with default header values.
+/*
+UpdateSamlConfigurationConflict describes a response with status code 409, with default header values.
 
 There is a version conflict. (code: `security_realm.version_conflict`)
 */
@@ -252,58 +356,49 @@ type UpdateSamlConfigurationConflict struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this update saml configuration conflict response has a 2xx status code
+func (o *UpdateSamlConfigurationConflict) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update saml configuration conflict response has a 3xx status code
+func (o *UpdateSamlConfigurationConflict) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update saml configuration conflict response has a 4xx status code
+func (o *UpdateSamlConfigurationConflict) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update saml configuration conflict response has a 5xx status code
+func (o *UpdateSamlConfigurationConflict) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update saml configuration conflict response a status code equal to that given
+func (o *UpdateSamlConfigurationConflict) IsCode(code int) bool {
+	return code == 409
+}
+
+// Code gets the status code for the update saml configuration conflict response
+func (o *UpdateSamlConfigurationConflict) Code() int {
+	return 409
+}
+
 func (o *UpdateSamlConfigurationConflict) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/security/realms/saml/{realm_id}][%d] updateSamlConfigurationConflict  %+v", 409, o.Payload)
 }
+
+func (o *UpdateSamlConfigurationConflict) String() string {
+	return fmt.Sprintf("[PUT /platform/configuration/security/realms/saml/{realm_id}][%d] updateSamlConfigurationConflict  %+v", 409, o.Payload)
+}
+
 func (o *UpdateSamlConfigurationConflict) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *UpdateSamlConfigurationConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewUpdateSamlConfigurationRetryWith creates a UpdateSamlConfigurationRetryWith with default headers values
-func NewUpdateSamlConfigurationRetryWith() *UpdateSamlConfigurationRetryWith {
-	return &UpdateSamlConfigurationRetryWith{}
-}
-
-/* UpdateSamlConfigurationRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type UpdateSamlConfigurationRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-func (o *UpdateSamlConfigurationRetryWith) Error() string {
-	return fmt.Sprintf("[PUT /platform/configuration/security/realms/saml/{realm_id}][%d] updateSamlConfigurationRetryWith  %+v", 449, o.Payload)
-}
-func (o *UpdateSamlConfigurationRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *UpdateSamlConfigurationRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// hydrates response header x-cloud-error-codes
 	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")

@@ -68,7 +68,8 @@ func NewLogoutOK() *LogoutOK {
 	return &LogoutOK{}
 }
 
-/* LogoutOK describes a response with status code 200, with default header values.
+/*
+LogoutOK describes a response with status code 200, with default header values.
 
 The current session was successfully destroyed.
 */
@@ -76,9 +77,44 @@ type LogoutOK struct {
 	Payload models.EmptyResponse
 }
 
+// IsSuccess returns true when this logout o k response has a 2xx status code
+func (o *LogoutOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this logout o k response has a 3xx status code
+func (o *LogoutOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this logout o k response has a 4xx status code
+func (o *LogoutOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this logout o k response has a 5xx status code
+func (o *LogoutOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this logout o k response a status code equal to that given
+func (o *LogoutOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the logout o k response
+func (o *LogoutOK) Code() int {
+	return 200
+}
+
 func (o *LogoutOK) Error() string {
 	return fmt.Sprintf("[POST /users/auth/_logout][%d] logoutOK  %+v", 200, o.Payload)
 }
+
+func (o *LogoutOK) String() string {
+	return fmt.Sprintf("[POST /users/auth/_logout][%d] logoutOK  %+v", 200, o.Payload)
+}
+
 func (o *LogoutOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -98,7 +134,8 @@ func NewLogoutNotImplemented() *LogoutNotImplemented {
 	return &LogoutNotImplemented{}
 }
 
-/* LogoutNotImplemented describes a response with status code 501, with default header values.
+/*
+LogoutNotImplemented describes a response with status code 501, with default header values.
 
 The administrator needs to configure the authentication cluster. (code: `authc.no_authentication_cluster`)
 */
@@ -111,9 +148,44 @@ type LogoutNotImplemented struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this logout not implemented response has a 2xx status code
+func (o *LogoutNotImplemented) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this logout not implemented response has a 3xx status code
+func (o *LogoutNotImplemented) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this logout not implemented response has a 4xx status code
+func (o *LogoutNotImplemented) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this logout not implemented response has a 5xx status code
+func (o *LogoutNotImplemented) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this logout not implemented response a status code equal to that given
+func (o *LogoutNotImplemented) IsCode(code int) bool {
+	return code == 501
+}
+
+// Code gets the status code for the logout not implemented response
+func (o *LogoutNotImplemented) Code() int {
+	return 501
+}
+
 func (o *LogoutNotImplemented) Error() string {
 	return fmt.Sprintf("[POST /users/auth/_logout][%d] logoutNotImplemented  %+v", 501, o.Payload)
 }
+
+func (o *LogoutNotImplemented) String() string {
+	return fmt.Sprintf("[POST /users/auth/_logout][%d] logoutNotImplemented  %+v", 501, o.Payload)
+}
+
 func (o *LogoutNotImplemented) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -142,7 +214,8 @@ func NewLogoutBadGateway() *LogoutBadGateway {
 	return &LogoutBadGateway{}
 }
 
-/* LogoutBadGateway describes a response with status code 502, with default header values.
+/*
+LogoutBadGateway describes a response with status code 502, with default header values.
 
 The authentication cluster failed to process the request. The response body contains details about the error. (code: `authc.authentication_cluster_error`)
 */
@@ -155,9 +228,44 @@ type LogoutBadGateway struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this logout bad gateway response has a 2xx status code
+func (o *LogoutBadGateway) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this logout bad gateway response has a 3xx status code
+func (o *LogoutBadGateway) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this logout bad gateway response has a 4xx status code
+func (o *LogoutBadGateway) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this logout bad gateway response has a 5xx status code
+func (o *LogoutBadGateway) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this logout bad gateway response a status code equal to that given
+func (o *LogoutBadGateway) IsCode(code int) bool {
+	return code == 502
+}
+
+// Code gets the status code for the logout bad gateway response
+func (o *LogoutBadGateway) Code() int {
+	return 502
+}
+
 func (o *LogoutBadGateway) Error() string {
 	return fmt.Sprintf("[POST /users/auth/_logout][%d] logoutBadGateway  %+v", 502, o.Payload)
 }
+
+func (o *LogoutBadGateway) String() string {
+	return fmt.Sprintf("[POST /users/auth/_logout][%d] logoutBadGateway  %+v", 502, o.Payload)
+}
+
 func (o *LogoutBadGateway) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

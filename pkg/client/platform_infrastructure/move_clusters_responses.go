@@ -58,12 +58,6 @@ func (o *MoveClustersReader) ReadResponse(response runtime.ClientResponse, consu
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewMoveClustersRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -74,7 +68,8 @@ func NewMoveClustersAccepted() *MoveClustersAccepted {
 	return &MoveClustersAccepted{}
 }
 
-/* MoveClustersAccepted describes a response with status code 202, with default header values.
+/*
+MoveClustersAccepted describes a response with status code 202, with default header values.
 
 The move command was issued successfully, use the "GET" command on each /{cluster_id} resource to monitor progress
 */
@@ -82,9 +77,44 @@ type MoveClustersAccepted struct {
 	Payload *models.MoveClustersCommandResponse
 }
 
+// IsSuccess returns true when this move clusters accepted response has a 2xx status code
+func (o *MoveClustersAccepted) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this move clusters accepted response has a 3xx status code
+func (o *MoveClustersAccepted) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this move clusters accepted response has a 4xx status code
+func (o *MoveClustersAccepted) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this move clusters accepted response has a 5xx status code
+func (o *MoveClustersAccepted) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this move clusters accepted response a status code equal to that given
+func (o *MoveClustersAccepted) IsCode(code int) bool {
+	return code == 202
+}
+
+// Code gets the status code for the move clusters accepted response
+func (o *MoveClustersAccepted) Code() int {
+	return 202
+}
+
 func (o *MoveClustersAccepted) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/allocators/{allocator_id}/clusters/_move][%d] moveClustersAccepted  %+v", 202, o.Payload)
 }
+
+func (o *MoveClustersAccepted) String() string {
+	return fmt.Sprintf("[POST /platform/infrastructure/allocators/{allocator_id}/clusters/_move][%d] moveClustersAccepted  %+v", 202, o.Payload)
+}
+
 func (o *MoveClustersAccepted) GetPayload() *models.MoveClustersCommandResponse {
 	return o.Payload
 }
@@ -106,9 +136,11 @@ func NewMoveClustersBadRequest() *MoveClustersBadRequest {
 	return &MoveClustersBadRequest{}
 }
 
-/* MoveClustersBadRequest describes a response with status code 400, with default header values.
+/*
+	MoveClustersBadRequest describes a response with status code 400, with default header values.
 
- * The cluster definition contained errors. (code: `clusters.cluster_invalid_plan`)
+	* The cluster definition contained errors. (code: `clusters.cluster_invalid_plan`)
+
 * The cluster definition contained errors. (code: `clusters.plan_feature_not_implemented`)
 */
 type MoveClustersBadRequest struct {
@@ -120,9 +152,44 @@ type MoveClustersBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this move clusters bad request response has a 2xx status code
+func (o *MoveClustersBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this move clusters bad request response has a 3xx status code
+func (o *MoveClustersBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this move clusters bad request response has a 4xx status code
+func (o *MoveClustersBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this move clusters bad request response has a 5xx status code
+func (o *MoveClustersBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this move clusters bad request response a status code equal to that given
+func (o *MoveClustersBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the move clusters bad request response
+func (o *MoveClustersBadRequest) Code() int {
+	return 400
+}
+
 func (o *MoveClustersBadRequest) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/allocators/{allocator_id}/clusters/_move][%d] moveClustersBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *MoveClustersBadRequest) String() string {
+	return fmt.Sprintf("[POST /platform/infrastructure/allocators/{allocator_id}/clusters/_move][%d] moveClustersBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *MoveClustersBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -151,7 +218,8 @@ func NewMoveClustersForbidden() *MoveClustersForbidden {
 	return &MoveClustersForbidden{}
 }
 
-/* MoveClustersForbidden describes a response with status code 403, with default header values.
+/*
+MoveClustersForbidden describes a response with status code 403, with default header values.
 
 The move command was prohibited for the given cluster. (code: `clusters.command_prohibited`)
 */
@@ -164,58 +232,49 @@ type MoveClustersForbidden struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this move clusters forbidden response has a 2xx status code
+func (o *MoveClustersForbidden) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this move clusters forbidden response has a 3xx status code
+func (o *MoveClustersForbidden) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this move clusters forbidden response has a 4xx status code
+func (o *MoveClustersForbidden) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this move clusters forbidden response has a 5xx status code
+func (o *MoveClustersForbidden) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this move clusters forbidden response a status code equal to that given
+func (o *MoveClustersForbidden) IsCode(code int) bool {
+	return code == 403
+}
+
+// Code gets the status code for the move clusters forbidden response
+func (o *MoveClustersForbidden) Code() int {
+	return 403
+}
+
 func (o *MoveClustersForbidden) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/allocators/{allocator_id}/clusters/_move][%d] moveClustersForbidden  %+v", 403, o.Payload)
 }
+
+func (o *MoveClustersForbidden) String() string {
+	return fmt.Sprintf("[POST /platform/infrastructure/allocators/{allocator_id}/clusters/_move][%d] moveClustersForbidden  %+v", 403, o.Payload)
+}
+
 func (o *MoveClustersForbidden) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *MoveClustersForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewMoveClustersRetryWith creates a MoveClustersRetryWith with default headers values
-func NewMoveClustersRetryWith() *MoveClustersRetryWith {
-	return &MoveClustersRetryWith{}
-}
-
-/* MoveClustersRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type MoveClustersRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-func (o *MoveClustersRetryWith) Error() string {
-	return fmt.Sprintf("[POST /platform/infrastructure/allocators/{allocator_id}/clusters/_move][%d] moveClustersRetryWith  %+v", 449, o.Payload)
-}
-func (o *MoveClustersRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *MoveClustersRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// hydrates response header x-cloud-error-codes
 	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")

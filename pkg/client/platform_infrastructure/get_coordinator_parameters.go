@@ -69,10 +69,12 @@ func NewGetCoordinatorParamsWithHTTPClient(client *http.Client) *GetCoordinatorP
 	}
 }
 
-/* GetCoordinatorParams contains all the parameters to send to the API endpoint
-   for the get coordinator operation.
+/*
+GetCoordinatorParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the get coordinator operation.
+
+	Typically these are written to a http.Request.
 */
 type GetCoordinatorParams struct {
 

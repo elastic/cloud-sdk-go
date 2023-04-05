@@ -46,12 +46,6 @@ func (o *DeleteUsersAPIKeysReader) ReadResponse(response runtime.ClientResponse,
 			return nil, err
 		}
 		return result, nil
-	case 449:
-		result := NewDeleteUsersAPIKeysRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -62,7 +56,8 @@ func NewDeleteUsersAPIKeysOK() *DeleteUsersAPIKeysOK {
 	return &DeleteUsersAPIKeysOK{}
 }
 
-/* DeleteUsersAPIKeysOK describes a response with status code 200, with default header values.
+/*
+DeleteUsersAPIKeysOK describes a response with status code 200, with default header values.
 
 The API keys are deleted.
 */
@@ -70,9 +65,44 @@ type DeleteUsersAPIKeysOK struct {
 	Payload models.EmptyResponse
 }
 
+// IsSuccess returns true when this delete users Api keys o k response has a 2xx status code
+func (o *DeleteUsersAPIKeysOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this delete users Api keys o k response has a 3xx status code
+func (o *DeleteUsersAPIKeysOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete users Api keys o k response has a 4xx status code
+func (o *DeleteUsersAPIKeysOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this delete users Api keys o k response has a 5xx status code
+func (o *DeleteUsersAPIKeysOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete users Api keys o k response a status code equal to that given
+func (o *DeleteUsersAPIKeysOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the delete users Api keys o k response
+func (o *DeleteUsersAPIKeysOK) Code() int {
+	return 200
+}
+
 func (o *DeleteUsersAPIKeysOK) Error() string {
 	return fmt.Sprintf("[DELETE /users/auth/keys/_all][%d] deleteUsersApiKeysOK  %+v", 200, o.Payload)
 }
+
+func (o *DeleteUsersAPIKeysOK) String() string {
+	return fmt.Sprintf("[DELETE /users/auth/keys/_all][%d] deleteUsersApiKeysOK  %+v", 200, o.Payload)
+}
+
 func (o *DeleteUsersAPIKeysOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -81,50 +111,6 @@ func (o *DeleteUsersAPIKeysOK) readResponse(response runtime.ClientResponse, con
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewDeleteUsersAPIKeysRetryWith creates a DeleteUsersAPIKeysRetryWith with default headers values
-func NewDeleteUsersAPIKeysRetryWith() *DeleteUsersAPIKeysRetryWith {
-	return &DeleteUsersAPIKeysRetryWith{}
-}
-
-/* DeleteUsersAPIKeysRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type DeleteUsersAPIKeysRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-func (o *DeleteUsersAPIKeysRetryWith) Error() string {
-	return fmt.Sprintf("[DELETE /users/auth/keys/_all][%d] deleteUsersApiKeysRetryWith  %+v", 449, o.Payload)
-}
-func (o *DeleteUsersAPIKeysRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *DeleteUsersAPIKeysRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

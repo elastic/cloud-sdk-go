@@ -71,10 +71,12 @@ func NewSetDeploymentEsResourceKeystoreParamsWithHTTPClient(client *http.Client)
 	}
 }
 
-/* SetDeploymentEsResourceKeystoreParams contains all the parameters to send to the API endpoint
-   for the set deployment es resource keystore operation.
+/*
+SetDeploymentEsResourceKeystoreParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the set deployment es resource keystore operation.
+
+	Typically these are written to a http.Request.
 */
 type SetDeploymentEsResourceKeystoreParams struct {
 

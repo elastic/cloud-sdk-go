@@ -69,10 +69,12 @@ func NewGetAllocatorLoggingSettingsParamsWithHTTPClient(client *http.Client) *Ge
 	}
 }
 
-/* GetAllocatorLoggingSettingsParams contains all the parameters to send to the API endpoint
-   for the get allocator logging settings operation.
+/*
+GetAllocatorLoggingSettingsParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the get allocator logging settings operation.
+
+	Typically these are written to a http.Request.
 */
 type GetAllocatorLoggingSettingsParams struct {
 

@@ -53,9 +53,9 @@ type ClientService interface {
 }
 
 /*
-  GetTrustedEnvs gets trusted environments
+GetTrustedEnvs gets trusted environments
 
-  Returns the list of trusted environments for the organization. If no organization is passed in, the organization attached to the user is assumed.
+Returns the list of trusted environments for the organization. If no organization is passed in, the organization attached to the user is assumed.
 */
 func (a *Client) GetTrustedEnvs(params *GetTrustedEnvsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTrustedEnvsOK, error) {
 	// TODO: Validate the params before sending

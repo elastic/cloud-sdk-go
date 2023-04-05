@@ -58,12 +58,6 @@ func (o *CreateUserReader) ReadResponse(response runtime.ClientResponse, consume
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewCreateUserRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -74,7 +68,8 @@ func NewCreateUserOK() *CreateUserOK {
 	return &CreateUserOK{}
 }
 
-/* CreateUserOK describes a response with status code 200, with default header values.
+/*
+CreateUserOK describes a response with status code 200, with default header values.
 
 User successfully created
 */
@@ -82,9 +77,44 @@ type CreateUserOK struct {
 	Payload *models.User
 }
 
+// IsSuccess returns true when this create user o k response has a 2xx status code
+func (o *CreateUserOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this create user o k response has a 3xx status code
+func (o *CreateUserOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create user o k response has a 4xx status code
+func (o *CreateUserOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this create user o k response has a 5xx status code
+func (o *CreateUserOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create user o k response a status code equal to that given
+func (o *CreateUserOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the create user o k response
+func (o *CreateUserOK) Code() int {
+	return 200
+}
+
 func (o *CreateUserOK) Error() string {
 	return fmt.Sprintf("[POST /users][%d] createUserOK  %+v", 200, o.Payload)
 }
+
+func (o *CreateUserOK) String() string {
+	return fmt.Sprintf("[POST /users][%d] createUserOK  %+v", 200, o.Payload)
+}
+
 func (o *CreateUserOK) GetPayload() *models.User {
 	return o.Payload
 }
@@ -106,9 +136,11 @@ func NewCreateUserBadRequest() *CreateUserBadRequest {
 	return &CreateUserBadRequest{}
 }
 
-/* CreateUserBadRequest describes a response with status code 400, with default header values.
+/*
+	CreateUserBadRequest describes a response with status code 400, with default header values.
 
- * The provided user name is invalid. Check that it is not empty and it does not contain special characters. (code: `user.user_name.invalid`)
+	* The provided user name is invalid. Check that it is not empty and it does not contain special characters. (code: `user.user_name.invalid`)
+
 * Some of the provided roles are invalid. (code: `user.roles.invalid`)
 * Some of the provided roles are forbidden. (code: `user.roles.forbidden`)
 * Trying to set a restricted field. (code: `user.restricted_field`)
@@ -122,9 +154,44 @@ type CreateUserBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this create user bad request response has a 2xx status code
+func (o *CreateUserBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this create user bad request response has a 3xx status code
+func (o *CreateUserBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create user bad request response has a 4xx status code
+func (o *CreateUserBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this create user bad request response has a 5xx status code
+func (o *CreateUserBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create user bad request response a status code equal to that given
+func (o *CreateUserBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the create user bad request response
+func (o *CreateUserBadRequest) Code() int {
+	return 400
+}
+
 func (o *CreateUserBadRequest) Error() string {
 	return fmt.Sprintf("[POST /users][%d] createUserBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *CreateUserBadRequest) String() string {
+	return fmt.Sprintf("[POST /users][%d] createUserBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *CreateUserBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -153,7 +220,8 @@ func NewCreateUserConflict() *CreateUserConflict {
 	return &CreateUserConflict{}
 }
 
-/* CreateUserConflict describes a response with status code 409, with default header values.
+/*
+CreateUserConflict describes a response with status code 409, with default header values.
 
 The username is already in use. (code: `user.user_name.conflict`)
 */
@@ -166,58 +234,49 @@ type CreateUserConflict struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this create user conflict response has a 2xx status code
+func (o *CreateUserConflict) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this create user conflict response has a 3xx status code
+func (o *CreateUserConflict) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create user conflict response has a 4xx status code
+func (o *CreateUserConflict) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this create user conflict response has a 5xx status code
+func (o *CreateUserConflict) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create user conflict response a status code equal to that given
+func (o *CreateUserConflict) IsCode(code int) bool {
+	return code == 409
+}
+
+// Code gets the status code for the create user conflict response
+func (o *CreateUserConflict) Code() int {
+	return 409
+}
+
 func (o *CreateUserConflict) Error() string {
 	return fmt.Sprintf("[POST /users][%d] createUserConflict  %+v", 409, o.Payload)
 }
+
+func (o *CreateUserConflict) String() string {
+	return fmt.Sprintf("[POST /users][%d] createUserConflict  %+v", 409, o.Payload)
+}
+
 func (o *CreateUserConflict) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *CreateUserConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewCreateUserRetryWith creates a CreateUserRetryWith with default headers values
-func NewCreateUserRetryWith() *CreateUserRetryWith {
-	return &CreateUserRetryWith{}
-}
-
-/* CreateUserRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type CreateUserRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-func (o *CreateUserRetryWith) Error() string {
-	return fmt.Sprintf("[POST /users][%d] createUserRetryWith  %+v", 449, o.Payload)
-}
-func (o *CreateUserRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *CreateUserRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// hydrates response header x-cloud-error-codes
 	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")

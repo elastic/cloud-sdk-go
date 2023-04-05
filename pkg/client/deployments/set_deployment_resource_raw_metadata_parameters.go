@@ -69,10 +69,12 @@ func NewSetDeploymentResourceRawMetadataParamsWithHTTPClient(client *http.Client
 	}
 }
 
-/* SetDeploymentResourceRawMetadataParams contains all the parameters to send to the API endpoint
-   for the set deployment resource raw metadata operation.
+/*
+SetDeploymentResourceRawMetadataParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the set deployment resource raw metadata operation.
+
+	Typically these are written to a http.Request.
 */
 type SetDeploymentResourceRawMetadataParams struct {
 

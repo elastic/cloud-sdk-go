@@ -83,6 +83,11 @@ func (m *TargetElasticsearchCluster) validateLinks(formats strfmt.Registry) erro
 		}
 		if val, ok := m.Links[k]; ok {
 			if err := val.Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("links" + "." + k)
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("links" + "." + k)
+				}
 				return err
 			}
 		}

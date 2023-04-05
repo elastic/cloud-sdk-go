@@ -97,6 +97,8 @@ func (m *Role) validateContainers(formats strfmt.Registry) error {
 			if err := m.Containers[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("containers" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("containers" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -138,6 +140,8 @@ func (m *Role) contextValidateContainers(ctx context.Context, formats strfmt.Reg
 			if err := m.Containers[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("containers" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("containers" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

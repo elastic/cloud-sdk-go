@@ -74,7 +74,8 @@ func NewGetOrganizationOK() *GetOrganizationOK {
 	return &GetOrganizationOK{}
 }
 
-/* GetOrganizationOK describes a response with status code 200, with default header values.
+/*
+GetOrganizationOK describes a response with status code 200, with default header values.
 
 Organization fetched successfully
 */
@@ -82,9 +83,44 @@ type GetOrganizationOK struct {
 	Payload *models.Organization
 }
 
+// IsSuccess returns true when this get organization o k response has a 2xx status code
+func (o *GetOrganizationOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get organization o k response has a 3xx status code
+func (o *GetOrganizationOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get organization o k response has a 4xx status code
+func (o *GetOrganizationOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get organization o k response has a 5xx status code
+func (o *GetOrganizationOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get organization o k response a status code equal to that given
+func (o *GetOrganizationOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get organization o k response
+func (o *GetOrganizationOK) Code() int {
+	return 200
+}
+
 func (o *GetOrganizationOK) Error() string {
 	return fmt.Sprintf("[GET /organizations/{organization_id}][%d] getOrganizationOK  %+v", 200, o.Payload)
 }
+
+func (o *GetOrganizationOK) String() string {
+	return fmt.Sprintf("[GET /organizations/{organization_id}][%d] getOrganizationOK  %+v", 200, o.Payload)
+}
+
 func (o *GetOrganizationOK) GetPayload() *models.Organization {
 	return o.Payload
 }
@@ -106,7 +142,8 @@ func NewGetOrganizationUnauthorized() *GetOrganizationUnauthorized {
 	return &GetOrganizationUnauthorized{}
 }
 
-/* GetOrganizationUnauthorized describes a response with status code 401, with default header values.
+/*
+GetOrganizationUnauthorized describes a response with status code 401, with default header values.
 
 User not found. (code: `user.not_found`)
 */
@@ -119,9 +156,44 @@ type GetOrganizationUnauthorized struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get organization unauthorized response has a 2xx status code
+func (o *GetOrganizationUnauthorized) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get organization unauthorized response has a 3xx status code
+func (o *GetOrganizationUnauthorized) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get organization unauthorized response has a 4xx status code
+func (o *GetOrganizationUnauthorized) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get organization unauthorized response has a 5xx status code
+func (o *GetOrganizationUnauthorized) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get organization unauthorized response a status code equal to that given
+func (o *GetOrganizationUnauthorized) IsCode(code int) bool {
+	return code == 401
+}
+
+// Code gets the status code for the get organization unauthorized response
+func (o *GetOrganizationUnauthorized) Code() int {
+	return 401
+}
+
 func (o *GetOrganizationUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /organizations/{organization_id}][%d] getOrganizationUnauthorized  %+v", 401, o.Payload)
 }
+
+func (o *GetOrganizationUnauthorized) String() string {
+	return fmt.Sprintf("[GET /organizations/{organization_id}][%d] getOrganizationUnauthorized  %+v", 401, o.Payload)
+}
+
 func (o *GetOrganizationUnauthorized) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -150,7 +222,8 @@ func NewGetOrganizationForbidden() *GetOrganizationForbidden {
 	return &GetOrganizationForbidden{}
 }
 
-/* GetOrganizationForbidden describes a response with status code 403, with default header values.
+/*
+GetOrganizationForbidden describes a response with status code 403, with default header values.
 
 The current user does not have access to the requested organization. (code: `organization.invalid_access`)
 */
@@ -163,9 +236,44 @@ type GetOrganizationForbidden struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get organization forbidden response has a 2xx status code
+func (o *GetOrganizationForbidden) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get organization forbidden response has a 3xx status code
+func (o *GetOrganizationForbidden) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get organization forbidden response has a 4xx status code
+func (o *GetOrganizationForbidden) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get organization forbidden response has a 5xx status code
+func (o *GetOrganizationForbidden) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get organization forbidden response a status code equal to that given
+func (o *GetOrganizationForbidden) IsCode(code int) bool {
+	return code == 403
+}
+
+// Code gets the status code for the get organization forbidden response
+func (o *GetOrganizationForbidden) Code() int {
+	return 403
+}
+
 func (o *GetOrganizationForbidden) Error() string {
 	return fmt.Sprintf("[GET /organizations/{organization_id}][%d] getOrganizationForbidden  %+v", 403, o.Payload)
 }
+
+func (o *GetOrganizationForbidden) String() string {
+	return fmt.Sprintf("[GET /organizations/{organization_id}][%d] getOrganizationForbidden  %+v", 403, o.Payload)
+}
+
 func (o *GetOrganizationForbidden) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -194,7 +302,8 @@ func NewGetOrganizationNotFound() *GetOrganizationNotFound {
 	return &GetOrganizationNotFound{}
 }
 
-/* GetOrganizationNotFound describes a response with status code 404, with default header values.
+/*
+GetOrganizationNotFound describes a response with status code 404, with default header values.
 
 Organization not found. (code: `organization.not_found`)
 */
@@ -207,9 +316,44 @@ type GetOrganizationNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get organization not found response has a 2xx status code
+func (o *GetOrganizationNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get organization not found response has a 3xx status code
+func (o *GetOrganizationNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get organization not found response has a 4xx status code
+func (o *GetOrganizationNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get organization not found response has a 5xx status code
+func (o *GetOrganizationNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get organization not found response a status code equal to that given
+func (o *GetOrganizationNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the get organization not found response
+func (o *GetOrganizationNotFound) Code() int {
+	return 404
+}
+
 func (o *GetOrganizationNotFound) Error() string {
 	return fmt.Sprintf("[GET /organizations/{organization_id}][%d] getOrganizationNotFound  %+v", 404, o.Payload)
 }
+
+func (o *GetOrganizationNotFound) String() string {
+	return fmt.Sprintf("[GET /organizations/{organization_id}][%d] getOrganizationNotFound  %+v", 404, o.Payload)
+}
+
 func (o *GetOrganizationNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

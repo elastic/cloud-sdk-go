@@ -112,6 +112,8 @@ func (m *DeploymentResource) validateCredentials(formats strfmt.Registry) error 
 		if err := m.Credentials.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("credentials")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("credentials")
 			}
 			return err
 		}
@@ -170,6 +172,8 @@ func (m *DeploymentResource) validateWarnings(formats strfmt.Registry) error {
 			if err := m.Warnings[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("warnings" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("warnings" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -204,6 +208,8 @@ func (m *DeploymentResource) contextValidateCredentials(ctx context.Context, for
 		if err := m.Credentials.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("credentials")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("credentials")
 			}
 			return err
 		}
@@ -220,6 +226,8 @@ func (m *DeploymentResource) contextValidateWarnings(ctx context.Context, format
 			if err := m.Warnings[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("warnings" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("warnings" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

@@ -68,7 +68,8 @@ func NewCreateTrustRelationshipCreated() *CreateTrustRelationshipCreated {
 	return &CreateTrustRelationshipCreated{}
 }
 
-/* CreateTrustRelationshipCreated describes a response with status code 201, with default header values.
+/*
+CreateTrustRelationshipCreated describes a response with status code 201, with default header values.
 
 The request was valid and a new trust relationship was created
 */
@@ -89,9 +90,44 @@ type CreateTrustRelationshipCreated struct {
 	Payload *models.TrustRelationshipCreateResponse
 }
 
+// IsSuccess returns true when this create trust relationship created response has a 2xx status code
+func (o *CreateTrustRelationshipCreated) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this create trust relationship created response has a 3xx status code
+func (o *CreateTrustRelationshipCreated) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create trust relationship created response has a 4xx status code
+func (o *CreateTrustRelationshipCreated) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this create trust relationship created response has a 5xx status code
+func (o *CreateTrustRelationshipCreated) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create trust relationship created response a status code equal to that given
+func (o *CreateTrustRelationshipCreated) IsCode(code int) bool {
+	return code == 201
+}
+
+// Code gets the status code for the create trust relationship created response
+func (o *CreateTrustRelationshipCreated) Code() int {
+	return 201
+}
+
 func (o *CreateTrustRelationshipCreated) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/trust-relationships][%d] createTrustRelationshipCreated  %+v", 201, o.Payload)
 }
+
+func (o *CreateTrustRelationshipCreated) String() string {
+	return fmt.Sprintf("[POST /platform/configuration/trust-relationships][%d] createTrustRelationshipCreated  %+v", 201, o.Payload)
+}
+
 func (o *CreateTrustRelationshipCreated) GetPayload() *models.TrustRelationshipCreateResponse {
 	return o.Payload
 }
@@ -134,7 +170,8 @@ func NewCreateTrustRelationshipBadRequest() *CreateTrustRelationshipBadRequest {
 	return &CreateTrustRelationshipBadRequest{}
 }
 
-/* CreateTrustRelationshipBadRequest describes a response with status code 400, with default header values.
+/*
+CreateTrustRelationshipBadRequest describes a response with status code 400, with default header values.
 
 The trust relationship request had errors.
 */
@@ -142,9 +179,44 @@ type CreateTrustRelationshipBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this create trust relationship bad request response has a 2xx status code
+func (o *CreateTrustRelationshipBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this create trust relationship bad request response has a 3xx status code
+func (o *CreateTrustRelationshipBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create trust relationship bad request response has a 4xx status code
+func (o *CreateTrustRelationshipBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this create trust relationship bad request response has a 5xx status code
+func (o *CreateTrustRelationshipBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create trust relationship bad request response a status code equal to that given
+func (o *CreateTrustRelationshipBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the create trust relationship bad request response
+func (o *CreateTrustRelationshipBadRequest) Code() int {
+	return 400
+}
+
 func (o *CreateTrustRelationshipBadRequest) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/trust-relationships][%d] createTrustRelationshipBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *CreateTrustRelationshipBadRequest) String() string {
+	return fmt.Sprintf("[POST /platform/configuration/trust-relationships][%d] createTrustRelationshipBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *CreateTrustRelationshipBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -166,7 +238,8 @@ func NewCreateTrustRelationshipUnauthorized() *CreateTrustRelationshipUnauthoriz
 	return &CreateTrustRelationshipUnauthorized{}
 }
 
-/* CreateTrustRelationshipUnauthorized describes a response with status code 401, with default header values.
+/*
+CreateTrustRelationshipUnauthorized describes a response with status code 401, with default header values.
 
 You are not authorized to perform this action.
 */
@@ -174,9 +247,44 @@ type CreateTrustRelationshipUnauthorized struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this create trust relationship unauthorized response has a 2xx status code
+func (o *CreateTrustRelationshipUnauthorized) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this create trust relationship unauthorized response has a 3xx status code
+func (o *CreateTrustRelationshipUnauthorized) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create trust relationship unauthorized response has a 4xx status code
+func (o *CreateTrustRelationshipUnauthorized) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this create trust relationship unauthorized response has a 5xx status code
+func (o *CreateTrustRelationshipUnauthorized) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create trust relationship unauthorized response a status code equal to that given
+func (o *CreateTrustRelationshipUnauthorized) IsCode(code int) bool {
+	return code == 401
+}
+
+// Code gets the status code for the create trust relationship unauthorized response
+func (o *CreateTrustRelationshipUnauthorized) Code() int {
+	return 401
+}
+
 func (o *CreateTrustRelationshipUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/trust-relationships][%d] createTrustRelationshipUnauthorized  %+v", 401, o.Payload)
 }
+
+func (o *CreateTrustRelationshipUnauthorized) String() string {
+	return fmt.Sprintf("[POST /platform/configuration/trust-relationships][%d] createTrustRelationshipUnauthorized  %+v", 401, o.Payload)
+}
+
 func (o *CreateTrustRelationshipUnauthorized) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

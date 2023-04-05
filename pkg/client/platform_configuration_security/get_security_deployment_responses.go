@@ -62,7 +62,8 @@ func NewGetSecurityDeploymentOK() *GetSecurityDeploymentOK {
 	return &GetSecurityDeploymentOK{}
 }
 
-/* GetSecurityDeploymentOK describes a response with status code 200, with default header values.
+/*
+GetSecurityDeploymentOK describes a response with status code 200, with default header values.
 
 The security deployment was successfully returned
 */
@@ -83,9 +84,44 @@ type GetSecurityDeploymentOK struct {
 	Payload *models.SecurityDeployment
 }
 
+// IsSuccess returns true when this get security deployment o k response has a 2xx status code
+func (o *GetSecurityDeploymentOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get security deployment o k response has a 3xx status code
+func (o *GetSecurityDeploymentOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get security deployment o k response has a 4xx status code
+func (o *GetSecurityDeploymentOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get security deployment o k response has a 5xx status code
+func (o *GetSecurityDeploymentOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get security deployment o k response a status code equal to that given
+func (o *GetSecurityDeploymentOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get security deployment o k response
+func (o *GetSecurityDeploymentOK) Code() int {
+	return 200
+}
+
 func (o *GetSecurityDeploymentOK) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/security/deployment][%d] getSecurityDeploymentOK  %+v", 200, o.Payload)
 }
+
+func (o *GetSecurityDeploymentOK) String() string {
+	return fmt.Sprintf("[GET /platform/configuration/security/deployment][%d] getSecurityDeploymentOK  %+v", 200, o.Payload)
+}
+
 func (o *GetSecurityDeploymentOK) GetPayload() *models.SecurityDeployment {
 	return o.Payload
 }
@@ -128,7 +164,8 @@ func NewGetSecurityDeploymentNotFound() *GetSecurityDeploymentNotFound {
 	return &GetSecurityDeploymentNotFound{}
 }
 
-/* GetSecurityDeploymentNotFound describes a response with status code 404, with default header values.
+/*
+GetSecurityDeploymentNotFound describes a response with status code 404, with default header values.
 
 The realm specified by {realm_id} cannot be found. (code: `security_deployment.not_found`)
 */
@@ -141,9 +178,44 @@ type GetSecurityDeploymentNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get security deployment not found response has a 2xx status code
+func (o *GetSecurityDeploymentNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get security deployment not found response has a 3xx status code
+func (o *GetSecurityDeploymentNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get security deployment not found response has a 4xx status code
+func (o *GetSecurityDeploymentNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get security deployment not found response has a 5xx status code
+func (o *GetSecurityDeploymentNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get security deployment not found response a status code equal to that given
+func (o *GetSecurityDeploymentNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the get security deployment not found response
+func (o *GetSecurityDeploymentNotFound) Code() int {
+	return 404
+}
+
 func (o *GetSecurityDeploymentNotFound) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/security/deployment][%d] getSecurityDeploymentNotFound  %+v", 404, o.Payload)
 }
+
+func (o *GetSecurityDeploymentNotFound) String() string {
+	return fmt.Sprintf("[GET /platform/configuration/security/deployment][%d] getSecurityDeploymentNotFound  %+v", 404, o.Payload)
+}
+
 func (o *GetSecurityDeploymentNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

@@ -69,10 +69,12 @@ func NewGetSecurityDeploymentParamsWithHTTPClient(client *http.Client) *GetSecur
 	}
 }
 
-/* GetSecurityDeploymentParams contains all the parameters to send to the API endpoint
-   for the get security deployment operation.
+/*
+GetSecurityDeploymentParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the get security deployment operation.
+
+	Typically these are written to a http.Request.
 */
 type GetSecurityDeploymentParams struct {
 	timeout    time.Duration

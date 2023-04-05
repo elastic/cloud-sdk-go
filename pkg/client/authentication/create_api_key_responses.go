@@ -52,12 +52,6 @@ func (o *CreateAPIKeyReader) ReadResponse(response runtime.ClientResponse, consu
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewCreateAPIKeyRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -68,7 +62,8 @@ func NewCreateAPIKeyCreated() *CreateAPIKeyCreated {
 	return &CreateAPIKeyCreated{}
 }
 
-/* CreateAPIKeyCreated describes a response with status code 201, with default header values.
+/*
+CreateAPIKeyCreated describes a response with status code 201, with default header values.
 
 The API key is created and returned in the body of the response.
 */
@@ -76,9 +71,44 @@ type CreateAPIKeyCreated struct {
 	Payload *models.APIKeyResponse
 }
 
+// IsSuccess returns true when this create Api key created response has a 2xx status code
+func (o *CreateAPIKeyCreated) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this create Api key created response has a 3xx status code
+func (o *CreateAPIKeyCreated) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create Api key created response has a 4xx status code
+func (o *CreateAPIKeyCreated) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this create Api key created response has a 5xx status code
+func (o *CreateAPIKeyCreated) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create Api key created response a status code equal to that given
+func (o *CreateAPIKeyCreated) IsCode(code int) bool {
+	return code == 201
+}
+
+// Code gets the status code for the create Api key created response
+func (o *CreateAPIKeyCreated) Code() int {
+	return 201
+}
+
 func (o *CreateAPIKeyCreated) Error() string {
 	return fmt.Sprintf("[POST /users/auth/keys][%d] createApiKeyCreated  %+v", 201, o.Payload)
 }
+
+func (o *CreateAPIKeyCreated) String() string {
+	return fmt.Sprintf("[POST /users/auth/keys][%d] createApiKeyCreated  %+v", 201, o.Payload)
+}
+
 func (o *CreateAPIKeyCreated) GetPayload() *models.APIKeyResponse {
 	return o.Payload
 }
@@ -100,7 +130,8 @@ func NewCreateAPIKeyBadRequest() *CreateAPIKeyBadRequest {
 	return &CreateAPIKeyBadRequest{}
 }
 
-/* CreateAPIKeyBadRequest describes a response with status code 400, with default header values.
+/*
+CreateAPIKeyBadRequest describes a response with status code 400, with default header values.
 
 The request is invalid. Specify a different request, then try again. (code: `api_keys.invalid_input`)
 */
@@ -113,58 +144,49 @@ type CreateAPIKeyBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this create Api key bad request response has a 2xx status code
+func (o *CreateAPIKeyBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this create Api key bad request response has a 3xx status code
+func (o *CreateAPIKeyBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create Api key bad request response has a 4xx status code
+func (o *CreateAPIKeyBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this create Api key bad request response has a 5xx status code
+func (o *CreateAPIKeyBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create Api key bad request response a status code equal to that given
+func (o *CreateAPIKeyBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the create Api key bad request response
+func (o *CreateAPIKeyBadRequest) Code() int {
+	return 400
+}
+
 func (o *CreateAPIKeyBadRequest) Error() string {
 	return fmt.Sprintf("[POST /users/auth/keys][%d] createApiKeyBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *CreateAPIKeyBadRequest) String() string {
+	return fmt.Sprintf("[POST /users/auth/keys][%d] createApiKeyBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *CreateAPIKeyBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *CreateAPIKeyBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewCreateAPIKeyRetryWith creates a CreateAPIKeyRetryWith with default headers values
-func NewCreateAPIKeyRetryWith() *CreateAPIKeyRetryWith {
-	return &CreateAPIKeyRetryWith{}
-}
-
-/* CreateAPIKeyRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type CreateAPIKeyRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-func (o *CreateAPIKeyRetryWith) Error() string {
-	return fmt.Sprintf("[POST /users/auth/keys][%d] createApiKeyRetryWith  %+v", 449, o.Payload)
-}
-func (o *CreateAPIKeyRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *CreateAPIKeyRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// hydrates response header x-cloud-error-codes
 	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")

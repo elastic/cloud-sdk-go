@@ -52,12 +52,6 @@ func (o *ReorderSecurityRealmsReader) ReadResponse(response runtime.ClientRespon
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewReorderSecurityRealmsRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -68,7 +62,8 @@ func NewReorderSecurityRealmsOK() *ReorderSecurityRealmsOK {
 	return &ReorderSecurityRealmsOK{}
 }
 
-/* ReorderSecurityRealmsOK describes a response with status code 200, with default header values.
+/*
+ReorderSecurityRealmsOK describes a response with status code 200, with default header values.
 
 The reorder request was successful
 */
@@ -76,9 +71,44 @@ type ReorderSecurityRealmsOK struct {
 	Payload models.EmptyResponse
 }
 
+// IsSuccess returns true when this reorder security realms o k response has a 2xx status code
+func (o *ReorderSecurityRealmsOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this reorder security realms o k response has a 3xx status code
+func (o *ReorderSecurityRealmsOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this reorder security realms o k response has a 4xx status code
+func (o *ReorderSecurityRealmsOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this reorder security realms o k response has a 5xx status code
+func (o *ReorderSecurityRealmsOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this reorder security realms o k response a status code equal to that given
+func (o *ReorderSecurityRealmsOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the reorder security realms o k response
+func (o *ReorderSecurityRealmsOK) Code() int {
+	return 200
+}
+
 func (o *ReorderSecurityRealmsOK) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/realms/_reorder][%d] reorderSecurityRealmsOK  %+v", 200, o.Payload)
 }
+
+func (o *ReorderSecurityRealmsOK) String() string {
+	return fmt.Sprintf("[POST /platform/configuration/security/realms/_reorder][%d] reorderSecurityRealmsOK  %+v", 200, o.Payload)
+}
+
 func (o *ReorderSecurityRealmsOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -98,9 +128,11 @@ func NewReorderSecurityRealmsBadRequest() *ReorderSecurityRealmsBadRequest {
 	return &ReorderSecurityRealmsBadRequest{}
 }
 
-/* ReorderSecurityRealmsBadRequest describes a response with status code 400, with default header values.
+/*
+	ReorderSecurityRealmsBadRequest describes a response with status code 400, with default header values.
 
- * Invalid ids . (code: `security_realm.invalid_ids`)
+	* Invalid ids . (code: `security_realm.invalid_ids`)
+
 * Missing ids . (code: `security_realm.missing_ids`)
 */
 type ReorderSecurityRealmsBadRequest struct {
@@ -112,58 +144,49 @@ type ReorderSecurityRealmsBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this reorder security realms bad request response has a 2xx status code
+func (o *ReorderSecurityRealmsBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this reorder security realms bad request response has a 3xx status code
+func (o *ReorderSecurityRealmsBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this reorder security realms bad request response has a 4xx status code
+func (o *ReorderSecurityRealmsBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this reorder security realms bad request response has a 5xx status code
+func (o *ReorderSecurityRealmsBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this reorder security realms bad request response a status code equal to that given
+func (o *ReorderSecurityRealmsBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the reorder security realms bad request response
+func (o *ReorderSecurityRealmsBadRequest) Code() int {
+	return 400
+}
+
 func (o *ReorderSecurityRealmsBadRequest) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/realms/_reorder][%d] reorderSecurityRealmsBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *ReorderSecurityRealmsBadRequest) String() string {
+	return fmt.Sprintf("[POST /platform/configuration/security/realms/_reorder][%d] reorderSecurityRealmsBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *ReorderSecurityRealmsBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *ReorderSecurityRealmsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewReorderSecurityRealmsRetryWith creates a ReorderSecurityRealmsRetryWith with default headers values
-func NewReorderSecurityRealmsRetryWith() *ReorderSecurityRealmsRetryWith {
-	return &ReorderSecurityRealmsRetryWith{}
-}
-
-/* ReorderSecurityRealmsRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type ReorderSecurityRealmsRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-func (o *ReorderSecurityRealmsRetryWith) Error() string {
-	return fmt.Sprintf("[POST /platform/configuration/security/realms/_reorder][%d] reorderSecurityRealmsRetryWith  %+v", 449, o.Payload)
-}
-func (o *ReorderSecurityRealmsRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *ReorderSecurityRealmsRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// hydrates response header x-cloud-error-codes
 	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")

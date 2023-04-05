@@ -69,10 +69,12 @@ func NewAcceptOrganizationInvitationParamsWithHTTPClient(client *http.Client) *A
 	}
 }
 
-/* AcceptOrganizationInvitationParams contains all the parameters to send to the API endpoint
-   for the accept organization invitation operation.
+/*
+AcceptOrganizationInvitationParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the accept organization invitation operation.
+
+	Typically these are written to a http.Request.
 */
 type AcceptOrganizationInvitationParams struct {
 

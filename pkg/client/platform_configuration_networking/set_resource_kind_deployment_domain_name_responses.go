@@ -80,7 +80,8 @@ func NewSetResourceKindDeploymentDomainNameOK() *SetResourceKindDeploymentDomain
 	return &SetResourceKindDeploymentDomainNameOK{}
 }
 
-/* SetResourceKindDeploymentDomainNameOK describes a response with status code 200, with default header values.
+/*
+SetResourceKindDeploymentDomainNameOK describes a response with status code 200, with default header values.
 
 The Deployment Domain Name was successfully saved.
 */
@@ -101,9 +102,44 @@ type SetResourceKindDeploymentDomainNameOK struct {
 	Payload *models.DeploymentDomainName
 }
 
+// IsSuccess returns true when this set resource kind deployment domain name o k response has a 2xx status code
+func (o *SetResourceKindDeploymentDomainNameOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this set resource kind deployment domain name o k response has a 3xx status code
+func (o *SetResourceKindDeploymentDomainNameOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set resource kind deployment domain name o k response has a 4xx status code
+func (o *SetResourceKindDeploymentDomainNameOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this set resource kind deployment domain name o k response has a 5xx status code
+func (o *SetResourceKindDeploymentDomainNameOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set resource kind deployment domain name o k response a status code equal to that given
+func (o *SetResourceKindDeploymentDomainNameOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the set resource kind deployment domain name o k response
+func (o *SetResourceKindDeploymentDomainNameOK) Code() int {
+	return 200
+}
+
 func (o *SetResourceKindDeploymentDomainNameOK) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/networking/deployment_domain_name/{resource_kind}][%d] setResourceKindDeploymentDomainNameOK  %+v", 200, o.Payload)
 }
+
+func (o *SetResourceKindDeploymentDomainNameOK) String() string {
+	return fmt.Sprintf("[PUT /platform/configuration/networking/deployment_domain_name/{resource_kind}][%d] setResourceKindDeploymentDomainNameOK  %+v", 200, o.Payload)
+}
+
 func (o *SetResourceKindDeploymentDomainNameOK) GetPayload() *models.DeploymentDomainName {
 	return o.Payload
 }
@@ -146,7 +182,8 @@ func NewSetResourceKindDeploymentDomainNameBadRequest() *SetResourceKindDeployme
 	return &SetResourceKindDeploymentDomainNameBadRequest{}
 }
 
-/* SetResourceKindDeploymentDomainNameBadRequest describes a response with status code 400, with default header values.
+/*
+SetResourceKindDeploymentDomainNameBadRequest describes a response with status code 400, with default header values.
 
 The optimistic locking version format was wrong. (code: `networking.cname.bad_version_format`)
 */
@@ -159,9 +196,44 @@ type SetResourceKindDeploymentDomainNameBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this set resource kind deployment domain name bad request response has a 2xx status code
+func (o *SetResourceKindDeploymentDomainNameBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this set resource kind deployment domain name bad request response has a 3xx status code
+func (o *SetResourceKindDeploymentDomainNameBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set resource kind deployment domain name bad request response has a 4xx status code
+func (o *SetResourceKindDeploymentDomainNameBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this set resource kind deployment domain name bad request response has a 5xx status code
+func (o *SetResourceKindDeploymentDomainNameBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set resource kind deployment domain name bad request response a status code equal to that given
+func (o *SetResourceKindDeploymentDomainNameBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the set resource kind deployment domain name bad request response
+func (o *SetResourceKindDeploymentDomainNameBadRequest) Code() int {
+	return 400
+}
+
 func (o *SetResourceKindDeploymentDomainNameBadRequest) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/networking/deployment_domain_name/{resource_kind}][%d] setResourceKindDeploymentDomainNameBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *SetResourceKindDeploymentDomainNameBadRequest) String() string {
+	return fmt.Sprintf("[PUT /platform/configuration/networking/deployment_domain_name/{resource_kind}][%d] setResourceKindDeploymentDomainNameBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *SetResourceKindDeploymentDomainNameBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -190,7 +262,8 @@ func NewSetResourceKindDeploymentDomainNameNotFound() *SetResourceKindDeployment
 	return &SetResourceKindDeploymentDomainNameNotFound{}
 }
 
-/* SetResourceKindDeploymentDomainNameNotFound describes a response with status code 404, with default header values.
+/*
+SetResourceKindDeploymentDomainNameNotFound describes a response with status code 404, with default header values.
 
 There is no configured Deployment Domain Name but optimistic locking was sent. (code: `networking.cname.not_found`)
 */
@@ -203,9 +276,44 @@ type SetResourceKindDeploymentDomainNameNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this set resource kind deployment domain name not found response has a 2xx status code
+func (o *SetResourceKindDeploymentDomainNameNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this set resource kind deployment domain name not found response has a 3xx status code
+func (o *SetResourceKindDeploymentDomainNameNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set resource kind deployment domain name not found response has a 4xx status code
+func (o *SetResourceKindDeploymentDomainNameNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this set resource kind deployment domain name not found response has a 5xx status code
+func (o *SetResourceKindDeploymentDomainNameNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set resource kind deployment domain name not found response a status code equal to that given
+func (o *SetResourceKindDeploymentDomainNameNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the set resource kind deployment domain name not found response
+func (o *SetResourceKindDeploymentDomainNameNotFound) Code() int {
+	return 404
+}
+
 func (o *SetResourceKindDeploymentDomainNameNotFound) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/networking/deployment_domain_name/{resource_kind}][%d] setResourceKindDeploymentDomainNameNotFound  %+v", 404, o.Payload)
 }
+
+func (o *SetResourceKindDeploymentDomainNameNotFound) String() string {
+	return fmt.Sprintf("[PUT /platform/configuration/networking/deployment_domain_name/{resource_kind}][%d] setResourceKindDeploymentDomainNameNotFound  %+v", 404, o.Payload)
+}
+
 func (o *SetResourceKindDeploymentDomainNameNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -234,7 +342,8 @@ func NewSetResourceKindDeploymentDomainNameConflict() *SetResourceKindDeployment
 	return &SetResourceKindDeploymentDomainNameConflict{}
 }
 
-/* SetResourceKindDeploymentDomainNameConflict describes a response with status code 409, with default header values.
+/*
+SetResourceKindDeploymentDomainNameConflict describes a response with status code 409, with default header values.
 
 There was an optimistic locking version conflict. (code: `networking.cname.version_conflict`)
 */
@@ -247,9 +356,44 @@ type SetResourceKindDeploymentDomainNameConflict struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this set resource kind deployment domain name conflict response has a 2xx status code
+func (o *SetResourceKindDeploymentDomainNameConflict) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this set resource kind deployment domain name conflict response has a 3xx status code
+func (o *SetResourceKindDeploymentDomainNameConflict) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set resource kind deployment domain name conflict response has a 4xx status code
+func (o *SetResourceKindDeploymentDomainNameConflict) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this set resource kind deployment domain name conflict response has a 5xx status code
+func (o *SetResourceKindDeploymentDomainNameConflict) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set resource kind deployment domain name conflict response a status code equal to that given
+func (o *SetResourceKindDeploymentDomainNameConflict) IsCode(code int) bool {
+	return code == 409
+}
+
+// Code gets the status code for the set resource kind deployment domain name conflict response
+func (o *SetResourceKindDeploymentDomainNameConflict) Code() int {
+	return 409
+}
+
 func (o *SetResourceKindDeploymentDomainNameConflict) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/networking/deployment_domain_name/{resource_kind}][%d] setResourceKindDeploymentDomainNameConflict  %+v", 409, o.Payload)
 }
+
+func (o *SetResourceKindDeploymentDomainNameConflict) String() string {
+	return fmt.Sprintf("[PUT /platform/configuration/networking/deployment_domain_name/{resource_kind}][%d] setResourceKindDeploymentDomainNameConflict  %+v", 409, o.Payload)
+}
+
 func (o *SetResourceKindDeploymentDomainNameConflict) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -278,7 +422,8 @@ func NewSetResourceKindDeploymentDomainNamePreconditionFailed() *SetResourceKind
 	return &SetResourceKindDeploymentDomainNamePreconditionFailed{}
 }
 
-/* SetResourceKindDeploymentDomainNamePreconditionFailed describes a response with status code 412, with default header values.
+/*
+SetResourceKindDeploymentDomainNamePreconditionFailed describes a response with status code 412, with default header values.
 
 skip_cascading_operations was false but the Security Deployment already had a pending plan. (code: `security_deployment.cluster_pending_plan_exists`)
 */
@@ -291,9 +436,44 @@ type SetResourceKindDeploymentDomainNamePreconditionFailed struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this set resource kind deployment domain name precondition failed response has a 2xx status code
+func (o *SetResourceKindDeploymentDomainNamePreconditionFailed) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this set resource kind deployment domain name precondition failed response has a 3xx status code
+func (o *SetResourceKindDeploymentDomainNamePreconditionFailed) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set resource kind deployment domain name precondition failed response has a 4xx status code
+func (o *SetResourceKindDeploymentDomainNamePreconditionFailed) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this set resource kind deployment domain name precondition failed response has a 5xx status code
+func (o *SetResourceKindDeploymentDomainNamePreconditionFailed) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set resource kind deployment domain name precondition failed response a status code equal to that given
+func (o *SetResourceKindDeploymentDomainNamePreconditionFailed) IsCode(code int) bool {
+	return code == 412
+}
+
+// Code gets the status code for the set resource kind deployment domain name precondition failed response
+func (o *SetResourceKindDeploymentDomainNamePreconditionFailed) Code() int {
+	return 412
+}
+
 func (o *SetResourceKindDeploymentDomainNamePreconditionFailed) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/networking/deployment_domain_name/{resource_kind}][%d] setResourceKindDeploymentDomainNamePreconditionFailed  %+v", 412, o.Payload)
 }
+
+func (o *SetResourceKindDeploymentDomainNamePreconditionFailed) String() string {
+	return fmt.Sprintf("[PUT /platform/configuration/networking/deployment_domain_name/{resource_kind}][%d] setResourceKindDeploymentDomainNamePreconditionFailed  %+v", 412, o.Payload)
+}
+
 func (o *SetResourceKindDeploymentDomainNamePreconditionFailed) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

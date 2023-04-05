@@ -71,6 +71,8 @@ func (m *TrafficFilterRulesets) validateRulesets(formats strfmt.Registry) error 
 			if err := m.Rulesets[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("rulesets" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("rulesets" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -103,6 +105,8 @@ func (m *TrafficFilterRulesets) contextValidateRulesets(ctx context.Context, for
 			if err := m.Rulesets[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("rulesets" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("rulesets" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

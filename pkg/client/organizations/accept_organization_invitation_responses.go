@@ -74,7 +74,8 @@ func NewAcceptOrganizationInvitationOK() *AcceptOrganizationInvitationOK {
 	return &AcceptOrganizationInvitationOK{}
 }
 
-/* AcceptOrganizationInvitationOK describes a response with status code 200, with default header values.
+/*
+AcceptOrganizationInvitationOK describes a response with status code 200, with default header values.
 
 Organization invitation accepted successfully
 */
@@ -82,9 +83,44 @@ type AcceptOrganizationInvitationOK struct {
 	Payload models.EmptyResponse
 }
 
+// IsSuccess returns true when this accept organization invitation o k response has a 2xx status code
+func (o *AcceptOrganizationInvitationOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this accept organization invitation o k response has a 3xx status code
+func (o *AcceptOrganizationInvitationOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this accept organization invitation o k response has a 4xx status code
+func (o *AcceptOrganizationInvitationOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this accept organization invitation o k response has a 5xx status code
+func (o *AcceptOrganizationInvitationOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this accept organization invitation o k response a status code equal to that given
+func (o *AcceptOrganizationInvitationOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the accept organization invitation o k response
+func (o *AcceptOrganizationInvitationOK) Code() int {
+	return 200
+}
+
 func (o *AcceptOrganizationInvitationOK) Error() string {
 	return fmt.Sprintf("[POST /organizations/invitations/{invitation_token}/_accept][%d] acceptOrganizationInvitationOK  %+v", 200, o.Payload)
 }
+
+func (o *AcceptOrganizationInvitationOK) String() string {
+	return fmt.Sprintf("[POST /organizations/invitations/{invitation_token}/_accept][%d] acceptOrganizationInvitationOK  %+v", 200, o.Payload)
+}
+
 func (o *AcceptOrganizationInvitationOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -104,7 +140,8 @@ func NewAcceptOrganizationInvitationBadRequest() *AcceptOrganizationInvitationBa
 	return &AcceptOrganizationInvitationBadRequest{}
 }
 
-/* AcceptOrganizationInvitationBadRequest describes a response with status code 400, with default header values.
+/*
+AcceptOrganizationInvitationBadRequest describes a response with status code 400, with default header values.
 
 User already belongs to organization. (code: `organization.user_organization_already_belongs`)
 */
@@ -117,9 +154,44 @@ type AcceptOrganizationInvitationBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this accept organization invitation bad request response has a 2xx status code
+func (o *AcceptOrganizationInvitationBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this accept organization invitation bad request response has a 3xx status code
+func (o *AcceptOrganizationInvitationBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this accept organization invitation bad request response has a 4xx status code
+func (o *AcceptOrganizationInvitationBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this accept organization invitation bad request response has a 5xx status code
+func (o *AcceptOrganizationInvitationBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this accept organization invitation bad request response a status code equal to that given
+func (o *AcceptOrganizationInvitationBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the accept organization invitation bad request response
+func (o *AcceptOrganizationInvitationBadRequest) Code() int {
+	return 400
+}
+
 func (o *AcceptOrganizationInvitationBadRequest) Error() string {
 	return fmt.Sprintf("[POST /organizations/invitations/{invitation_token}/_accept][%d] acceptOrganizationInvitationBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *AcceptOrganizationInvitationBadRequest) String() string {
+	return fmt.Sprintf("[POST /organizations/invitations/{invitation_token}/_accept][%d] acceptOrganizationInvitationBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *AcceptOrganizationInvitationBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -148,7 +220,8 @@ func NewAcceptOrganizationInvitationForbidden() *AcceptOrganizationInvitationFor
 	return &AcceptOrganizationInvitationForbidden{}
 }
 
-/* AcceptOrganizationInvitationForbidden describes a response with status code 403, with default header values.
+/*
+AcceptOrganizationInvitationForbidden describes a response with status code 403, with default header values.
 
 The current user authentication is not valid. (code: `root.invalid_authentication`)
 */
@@ -161,9 +234,44 @@ type AcceptOrganizationInvitationForbidden struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this accept organization invitation forbidden response has a 2xx status code
+func (o *AcceptOrganizationInvitationForbidden) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this accept organization invitation forbidden response has a 3xx status code
+func (o *AcceptOrganizationInvitationForbidden) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this accept organization invitation forbidden response has a 4xx status code
+func (o *AcceptOrganizationInvitationForbidden) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this accept organization invitation forbidden response has a 5xx status code
+func (o *AcceptOrganizationInvitationForbidden) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this accept organization invitation forbidden response a status code equal to that given
+func (o *AcceptOrganizationInvitationForbidden) IsCode(code int) bool {
+	return code == 403
+}
+
+// Code gets the status code for the accept organization invitation forbidden response
+func (o *AcceptOrganizationInvitationForbidden) Code() int {
+	return 403
+}
+
 func (o *AcceptOrganizationInvitationForbidden) Error() string {
 	return fmt.Sprintf("[POST /organizations/invitations/{invitation_token}/_accept][%d] acceptOrganizationInvitationForbidden  %+v", 403, o.Payload)
 }
+
+func (o *AcceptOrganizationInvitationForbidden) String() string {
+	return fmt.Sprintf("[POST /organizations/invitations/{invitation_token}/_accept][%d] acceptOrganizationInvitationForbidden  %+v", 403, o.Payload)
+}
+
 func (o *AcceptOrganizationInvitationForbidden) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -192,9 +300,11 @@ func NewAcceptOrganizationInvitationNotFound() *AcceptOrganizationInvitationNotF
 	return &AcceptOrganizationInvitationNotFound{}
 }
 
-/* AcceptOrganizationInvitationNotFound describes a response with status code 404, with default header values.
+/*
+	AcceptOrganizationInvitationNotFound describes a response with status code 404, with default header values.
 
- * Organization not found. (code: `organization.not_found`)
+	* Organization not found. (code: `organization.not_found`)
+
 * User not found. (code: `user.not_found`)
 * Invitation not found. (code: `organization.invitation_not_found`)
 */
@@ -207,9 +317,44 @@ type AcceptOrganizationInvitationNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this accept organization invitation not found response has a 2xx status code
+func (o *AcceptOrganizationInvitationNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this accept organization invitation not found response has a 3xx status code
+func (o *AcceptOrganizationInvitationNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this accept organization invitation not found response has a 4xx status code
+func (o *AcceptOrganizationInvitationNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this accept organization invitation not found response has a 5xx status code
+func (o *AcceptOrganizationInvitationNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this accept organization invitation not found response a status code equal to that given
+func (o *AcceptOrganizationInvitationNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the accept organization invitation not found response
+func (o *AcceptOrganizationInvitationNotFound) Code() int {
+	return 404
+}
+
 func (o *AcceptOrganizationInvitationNotFound) Error() string {
 	return fmt.Sprintf("[POST /organizations/invitations/{invitation_token}/_accept][%d] acceptOrganizationInvitationNotFound  %+v", 404, o.Payload)
 }
+
+func (o *AcceptOrganizationInvitationNotFound) String() string {
+	return fmt.Sprintf("[POST /organizations/invitations/{invitation_token}/_accept][%d] acceptOrganizationInvitationNotFound  %+v", 404, o.Payload)
+}
+
 func (o *AcceptOrganizationInvitationNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

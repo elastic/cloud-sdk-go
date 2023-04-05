@@ -69,10 +69,12 @@ func NewPromoteCoordinatorCandidateParamsWithHTTPClient(client *http.Client) *Pr
 	}
 }
 
-/* PromoteCoordinatorCandidateParams contains all the parameters to send to the API endpoint
-   for the promote coordinator candidate operation.
+/*
+PromoteCoordinatorCandidateParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the promote coordinator candidate operation.
+
+	Typically these are written to a http.Request.
 */
 type PromoteCoordinatorCandidateParams struct {
 

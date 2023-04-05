@@ -69,10 +69,12 @@ func NewCaptureDeploymentResourceDiagnosticsParamsWithHTTPClient(client *http.Cl
 	}
 }
 
-/* CaptureDeploymentResourceDiagnosticsParams contains all the parameters to send to the API endpoint
-   for the capture deployment resource diagnostics operation.
+/*
+CaptureDeploymentResourceDiagnosticsParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the capture deployment resource diagnostics operation.
+
+	Typically these are written to a http.Request.
 */
 type CaptureDeploymentResourceDiagnosticsParams struct {
 

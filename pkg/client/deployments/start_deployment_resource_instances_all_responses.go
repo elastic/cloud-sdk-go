@@ -58,12 +58,6 @@ func (o *StartDeploymentResourceInstancesAllReader) ReadResponse(response runtim
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewStartDeploymentResourceInstancesAllRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	case 500:
 		result := NewStartDeploymentResourceInstancesAllInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -80,7 +74,8 @@ func NewStartDeploymentResourceInstancesAllAccepted() *StartDeploymentResourceIn
 	return &StartDeploymentResourceInstancesAllAccepted{}
 }
 
-/* StartDeploymentResourceInstancesAllAccepted describes a response with status code 202, with default header values.
+/*
+StartDeploymentResourceInstancesAllAccepted describes a response with status code 202, with default header values.
 
 The start command was issued successfully.
 */
@@ -88,9 +83,44 @@ type StartDeploymentResourceInstancesAllAccepted struct {
 	Payload *models.DeploymentResourceCommandResponse
 }
 
+// IsSuccess returns true when this start deployment resource instances all accepted response has a 2xx status code
+func (o *StartDeploymentResourceInstancesAllAccepted) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this start deployment resource instances all accepted response has a 3xx status code
+func (o *StartDeploymentResourceInstancesAllAccepted) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this start deployment resource instances all accepted response has a 4xx status code
+func (o *StartDeploymentResourceInstancesAllAccepted) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this start deployment resource instances all accepted response has a 5xx status code
+func (o *StartDeploymentResourceInstancesAllAccepted) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this start deployment resource instances all accepted response a status code equal to that given
+func (o *StartDeploymentResourceInstancesAllAccepted) IsCode(code int) bool {
+	return code == 202
+}
+
+// Code gets the status code for the start deployment resource instances all accepted response
+func (o *StartDeploymentResourceInstancesAllAccepted) Code() int {
+	return 202
+}
+
 func (o *StartDeploymentResourceInstancesAllAccepted) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/_start][%d] startDeploymentResourceInstancesAllAccepted  %+v", 202, o.Payload)
 }
+
+func (o *StartDeploymentResourceInstancesAllAccepted) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/_start][%d] startDeploymentResourceInstancesAllAccepted  %+v", 202, o.Payload)
+}
+
 func (o *StartDeploymentResourceInstancesAllAccepted) GetPayload() *models.DeploymentResourceCommandResponse {
 	return o.Payload
 }
@@ -112,7 +142,8 @@ func NewStartDeploymentResourceInstancesAllForbidden() *StartDeploymentResourceI
 	return &StartDeploymentResourceInstancesAllForbidden{}
 }
 
-/* StartDeploymentResourceInstancesAllForbidden describes a response with status code 403, with default header values.
+/*
+StartDeploymentResourceInstancesAllForbidden describes a response with status code 403, with default header values.
 
 The start maintenance mode command was prohibited for the given Resource. (code: `deployments.instance_update_prohibited_error`)
 */
@@ -125,9 +156,44 @@ type StartDeploymentResourceInstancesAllForbidden struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this start deployment resource instances all forbidden response has a 2xx status code
+func (o *StartDeploymentResourceInstancesAllForbidden) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this start deployment resource instances all forbidden response has a 3xx status code
+func (o *StartDeploymentResourceInstancesAllForbidden) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this start deployment resource instances all forbidden response has a 4xx status code
+func (o *StartDeploymentResourceInstancesAllForbidden) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this start deployment resource instances all forbidden response has a 5xx status code
+func (o *StartDeploymentResourceInstancesAllForbidden) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this start deployment resource instances all forbidden response a status code equal to that given
+func (o *StartDeploymentResourceInstancesAllForbidden) IsCode(code int) bool {
+	return code == 403
+}
+
+// Code gets the status code for the start deployment resource instances all forbidden response
+func (o *StartDeploymentResourceInstancesAllForbidden) Code() int {
+	return 403
+}
+
 func (o *StartDeploymentResourceInstancesAllForbidden) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/_start][%d] startDeploymentResourceInstancesAllForbidden  %+v", 403, o.Payload)
 }
+
+func (o *StartDeploymentResourceInstancesAllForbidden) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/_start][%d] startDeploymentResourceInstancesAllForbidden  %+v", 403, o.Payload)
+}
+
 func (o *StartDeploymentResourceInstancesAllForbidden) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -156,9 +222,11 @@ func NewStartDeploymentResourceInstancesAllNotFound() *StartDeploymentResourceIn
 	return &StartDeploymentResourceInstancesAllNotFound{}
 }
 
-/* StartDeploymentResourceInstancesAllNotFound describes a response with status code 404, with default header values.
+/*
+	StartDeploymentResourceInstancesAllNotFound describes a response with status code 404, with default header values.
 
- * The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+	* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+
 * The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)
 * One or more instances of the given resource type are missing. (code: `deployments.instances_missing_on_update_error`)
 */
@@ -171,9 +239,44 @@ type StartDeploymentResourceInstancesAllNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this start deployment resource instances all not found response has a 2xx status code
+func (o *StartDeploymentResourceInstancesAllNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this start deployment resource instances all not found response has a 3xx status code
+func (o *StartDeploymentResourceInstancesAllNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this start deployment resource instances all not found response has a 4xx status code
+func (o *StartDeploymentResourceInstancesAllNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this start deployment resource instances all not found response has a 5xx status code
+func (o *StartDeploymentResourceInstancesAllNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this start deployment resource instances all not found response a status code equal to that given
+func (o *StartDeploymentResourceInstancesAllNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the start deployment resource instances all not found response
+func (o *StartDeploymentResourceInstancesAllNotFound) Code() int {
+	return 404
+}
+
 func (o *StartDeploymentResourceInstancesAllNotFound) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/_start][%d] startDeploymentResourceInstancesAllNotFound  %+v", 404, o.Payload)
 }
+
+func (o *StartDeploymentResourceInstancesAllNotFound) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/_start][%d] startDeploymentResourceInstancesAllNotFound  %+v", 404, o.Payload)
+}
+
 func (o *StartDeploymentResourceInstancesAllNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -197,56 +300,13 @@ func (o *StartDeploymentResourceInstancesAllNotFound) readResponse(response runt
 	return nil
 }
 
-// NewStartDeploymentResourceInstancesAllRetryWith creates a StartDeploymentResourceInstancesAllRetryWith with default headers values
-func NewStartDeploymentResourceInstancesAllRetryWith() *StartDeploymentResourceInstancesAllRetryWith {
-	return &StartDeploymentResourceInstancesAllRetryWith{}
-}
-
-/* StartDeploymentResourceInstancesAllRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type StartDeploymentResourceInstancesAllRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-func (o *StartDeploymentResourceInstancesAllRetryWith) Error() string {
-	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/_start][%d] startDeploymentResourceInstancesAllRetryWith  %+v", 449, o.Payload)
-}
-func (o *StartDeploymentResourceInstancesAllRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *StartDeploymentResourceInstancesAllRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
 // NewStartDeploymentResourceInstancesAllInternalServerError creates a StartDeploymentResourceInstancesAllInternalServerError with default headers values
 func NewStartDeploymentResourceInstancesAllInternalServerError() *StartDeploymentResourceInstancesAllInternalServerError {
 	return &StartDeploymentResourceInstancesAllInternalServerError{}
 }
 
-/* StartDeploymentResourceInstancesAllInternalServerError describes a response with status code 500, with default header values.
+/*
+StartDeploymentResourceInstancesAllInternalServerError describes a response with status code 500, with default header values.
 
 A Resource that was previously stored no longer exists. (code: `deployments.deployment_resource_no_longer_exists`)
 */
@@ -259,9 +319,44 @@ type StartDeploymentResourceInstancesAllInternalServerError struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this start deployment resource instances all internal server error response has a 2xx status code
+func (o *StartDeploymentResourceInstancesAllInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this start deployment resource instances all internal server error response has a 3xx status code
+func (o *StartDeploymentResourceInstancesAllInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this start deployment resource instances all internal server error response has a 4xx status code
+func (o *StartDeploymentResourceInstancesAllInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this start deployment resource instances all internal server error response has a 5xx status code
+func (o *StartDeploymentResourceInstancesAllInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this start deployment resource instances all internal server error response a status code equal to that given
+func (o *StartDeploymentResourceInstancesAllInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
+// Code gets the status code for the start deployment resource instances all internal server error response
+func (o *StartDeploymentResourceInstancesAllInternalServerError) Code() int {
+	return 500
+}
+
 func (o *StartDeploymentResourceInstancesAllInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/_start][%d] startDeploymentResourceInstancesAllInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *StartDeploymentResourceInstancesAllInternalServerError) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/_start][%d] startDeploymentResourceInstancesAllInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *StartDeploymentResourceInstancesAllInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

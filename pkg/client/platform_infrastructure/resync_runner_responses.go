@@ -46,12 +46,6 @@ func (o *ResyncRunnerReader) ReadResponse(response runtime.ClientResponse, consu
 			return nil, err
 		}
 		return result, nil
-	case 449:
-		result := NewResyncRunnerRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	case 500:
 		result := NewResyncRunnerInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -68,7 +62,8 @@ func NewResyncRunnerOK() *ResyncRunnerOK {
 	return &ResyncRunnerOK{}
 }
 
-/* ResyncRunnerOK describes a response with status code 200, with default header values.
+/*
+ResyncRunnerOK describes a response with status code 200, with default header values.
 
 The runner resync operation executed successfully
 */
@@ -76,9 +71,44 @@ type ResyncRunnerOK struct {
 	Payload models.EmptyResponse
 }
 
+// IsSuccess returns true when this resync runner o k response has a 2xx status code
+func (o *ResyncRunnerOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this resync runner o k response has a 3xx status code
+func (o *ResyncRunnerOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this resync runner o k response has a 4xx status code
+func (o *ResyncRunnerOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this resync runner o k response has a 5xx status code
+func (o *ResyncRunnerOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this resync runner o k response a status code equal to that given
+func (o *ResyncRunnerOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the resync runner o k response
+func (o *ResyncRunnerOK) Code() int {
+	return 200
+}
+
 func (o *ResyncRunnerOK) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/runners/{runner_id}/_resync][%d] resyncRunnerOK  %+v", 200, o.Payload)
 }
+
+func (o *ResyncRunnerOK) String() string {
+	return fmt.Sprintf("[POST /platform/infrastructure/runners/{runner_id}/_resync][%d] resyncRunnerOK  %+v", 200, o.Payload)
+}
+
 func (o *ResyncRunnerOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -93,56 +123,13 @@ func (o *ResyncRunnerOK) readResponse(response runtime.ClientResponse, consumer 
 	return nil
 }
 
-// NewResyncRunnerRetryWith creates a ResyncRunnerRetryWith with default headers values
-func NewResyncRunnerRetryWith() *ResyncRunnerRetryWith {
-	return &ResyncRunnerRetryWith{}
-}
-
-/* ResyncRunnerRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type ResyncRunnerRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-func (o *ResyncRunnerRetryWith) Error() string {
-	return fmt.Sprintf("[POST /platform/infrastructure/runners/{runner_id}/_resync][%d] resyncRunnerRetryWith  %+v", 449, o.Payload)
-}
-func (o *ResyncRunnerRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *ResyncRunnerRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
 // NewResyncRunnerInternalServerError creates a ResyncRunnerInternalServerError with default headers values
 func NewResyncRunnerInternalServerError() *ResyncRunnerInternalServerError {
 	return &ResyncRunnerInternalServerError{}
 }
 
-/* ResyncRunnerInternalServerError describes a response with status code 500, with default header values.
+/*
+ResyncRunnerInternalServerError describes a response with status code 500, with default header values.
 
 The runner resync operation failed for runner {runner_id}. (code: `runners.resync_failed`)
 */
@@ -155,9 +142,44 @@ type ResyncRunnerInternalServerError struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this resync runner internal server error response has a 2xx status code
+func (o *ResyncRunnerInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this resync runner internal server error response has a 3xx status code
+func (o *ResyncRunnerInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this resync runner internal server error response has a 4xx status code
+func (o *ResyncRunnerInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this resync runner internal server error response has a 5xx status code
+func (o *ResyncRunnerInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this resync runner internal server error response a status code equal to that given
+func (o *ResyncRunnerInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
+// Code gets the status code for the resync runner internal server error response
+func (o *ResyncRunnerInternalServerError) Code() int {
+	return 500
+}
+
 func (o *ResyncRunnerInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/runners/{runner_id}/_resync][%d] resyncRunnerInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ResyncRunnerInternalServerError) String() string {
+	return fmt.Sprintf("[POST /platform/infrastructure/runners/{runner_id}/_resync][%d] resyncRunnerInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ResyncRunnerInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

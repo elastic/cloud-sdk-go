@@ -69,10 +69,12 @@ func NewStopDeploymentResourceInstancesAllParamsWithHTTPClient(client *http.Clie
 	}
 }
 
-/* StopDeploymentResourceInstancesAllParams contains all the parameters to send to the API endpoint
-   for the stop deployment resource instances all operation.
+/*
+StopDeploymentResourceInstancesAllParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the stop deployment resource instances all operation.
+
+	Typically these are written to a http.Request.
 */
 type StopDeploymentResourceInstancesAllParams struct {
 

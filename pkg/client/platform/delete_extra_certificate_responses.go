@@ -62,7 +62,8 @@ func NewDeleteExtraCertificateOK() *DeleteExtraCertificateOK {
 	return &DeleteExtraCertificateOK{}
 }
 
-/* DeleteExtraCertificateOK describes a response with status code 200, with default header values.
+/*
+DeleteExtraCertificateOK describes a response with status code 200, with default header values.
 
 Extra certificate under the given id is deleted if exists
 */
@@ -70,9 +71,44 @@ type DeleteExtraCertificateOK struct {
 	Payload models.EmptyResponse
 }
 
+// IsSuccess returns true when this delete extra certificate o k response has a 2xx status code
+func (o *DeleteExtraCertificateOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this delete extra certificate o k response has a 3xx status code
+func (o *DeleteExtraCertificateOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete extra certificate o k response has a 4xx status code
+func (o *DeleteExtraCertificateOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this delete extra certificate o k response has a 5xx status code
+func (o *DeleteExtraCertificateOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete extra certificate o k response a status code equal to that given
+func (o *DeleteExtraCertificateOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the delete extra certificate o k response
+func (o *DeleteExtraCertificateOK) Code() int {
+	return 200
+}
+
 func (o *DeleteExtraCertificateOK) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/security/extra_certs/{cert_id}][%d] deleteExtraCertificateOK  %+v", 200, o.Payload)
 }
+
+func (o *DeleteExtraCertificateOK) String() string {
+	return fmt.Sprintf("[DELETE /platform/configuration/security/extra_certs/{cert_id}][%d] deleteExtraCertificateOK  %+v", 200, o.Payload)
+}
+
 func (o *DeleteExtraCertificateOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -92,7 +128,8 @@ func NewDeleteExtraCertificateNotFound() *DeleteExtraCertificateNotFound {
 	return &DeleteExtraCertificateNotFound{}
 }
 
-/* DeleteExtraCertificateNotFound describes a response with status code 404, with default header values.
+/*
+DeleteExtraCertificateNotFound describes a response with status code 404, with default header values.
 
 The extra certificate cannot be found. (code: `cert.not_found`)
 */
@@ -105,9 +142,44 @@ type DeleteExtraCertificateNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete extra certificate not found response has a 2xx status code
+func (o *DeleteExtraCertificateNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete extra certificate not found response has a 3xx status code
+func (o *DeleteExtraCertificateNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete extra certificate not found response has a 4xx status code
+func (o *DeleteExtraCertificateNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete extra certificate not found response has a 5xx status code
+func (o *DeleteExtraCertificateNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete extra certificate not found response a status code equal to that given
+func (o *DeleteExtraCertificateNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the delete extra certificate not found response
+func (o *DeleteExtraCertificateNotFound) Code() int {
+	return 404
+}
+
 func (o *DeleteExtraCertificateNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/security/extra_certs/{cert_id}][%d] deleteExtraCertificateNotFound  %+v", 404, o.Payload)
 }
+
+func (o *DeleteExtraCertificateNotFound) String() string {
+	return fmt.Sprintf("[DELETE /platform/configuration/security/extra_certs/{cert_id}][%d] deleteExtraCertificateNotFound  %+v", 404, o.Payload)
+}
+
 func (o *DeleteExtraCertificateNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

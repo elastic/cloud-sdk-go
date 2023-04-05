@@ -62,7 +62,8 @@ func NewCreateTrafficFilterRulesetCreated() *CreateTrafficFilterRulesetCreated {
 	return &CreateTrafficFilterRulesetCreated{}
 }
 
-/* CreateTrafficFilterRulesetCreated describes a response with status code 201, with default header values.
+/*
+CreateTrafficFilterRulesetCreated describes a response with status code 201, with default header values.
 
 The ruleset definition is valid and the creation has started.
 */
@@ -70,9 +71,44 @@ type CreateTrafficFilterRulesetCreated struct {
 	Payload *models.TrafficFilterRulesetResponse
 }
 
+// IsSuccess returns true when this create traffic filter ruleset created response has a 2xx status code
+func (o *CreateTrafficFilterRulesetCreated) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this create traffic filter ruleset created response has a 3xx status code
+func (o *CreateTrafficFilterRulesetCreated) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create traffic filter ruleset created response has a 4xx status code
+func (o *CreateTrafficFilterRulesetCreated) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this create traffic filter ruleset created response has a 5xx status code
+func (o *CreateTrafficFilterRulesetCreated) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create traffic filter ruleset created response a status code equal to that given
+func (o *CreateTrafficFilterRulesetCreated) IsCode(code int) bool {
+	return code == 201
+}
+
+// Code gets the status code for the create traffic filter ruleset created response
+func (o *CreateTrafficFilterRulesetCreated) Code() int {
+	return 201
+}
+
 func (o *CreateTrafficFilterRulesetCreated) Error() string {
 	return fmt.Sprintf("[POST /deployments/traffic-filter/rulesets][%d] createTrafficFilterRulesetCreated  %+v", 201, o.Payload)
 }
+
+func (o *CreateTrafficFilterRulesetCreated) String() string {
+	return fmt.Sprintf("[POST /deployments/traffic-filter/rulesets][%d] createTrafficFilterRulesetCreated  %+v", 201, o.Payload)
+}
+
 func (o *CreateTrafficFilterRulesetCreated) GetPayload() *models.TrafficFilterRulesetResponse {
 	return o.Payload
 }
@@ -94,7 +130,8 @@ func NewCreateTrafficFilterRulesetInternalServerError() *CreateTrafficFilterRule
 	return &CreateTrafficFilterRulesetInternalServerError{}
 }
 
-/* CreateTrafficFilterRulesetInternalServerError describes a response with status code 500, with default header values.
+/*
+CreateTrafficFilterRulesetInternalServerError describes a response with status code 500, with default header values.
 
 Error creating the traffic filter ruleset. (code: `traffic_filter.request_execution_failed`)
 */
@@ -107,9 +144,44 @@ type CreateTrafficFilterRulesetInternalServerError struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this create traffic filter ruleset internal server error response has a 2xx status code
+func (o *CreateTrafficFilterRulesetInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this create traffic filter ruleset internal server error response has a 3xx status code
+func (o *CreateTrafficFilterRulesetInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create traffic filter ruleset internal server error response has a 4xx status code
+func (o *CreateTrafficFilterRulesetInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this create traffic filter ruleset internal server error response has a 5xx status code
+func (o *CreateTrafficFilterRulesetInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this create traffic filter ruleset internal server error response a status code equal to that given
+func (o *CreateTrafficFilterRulesetInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
+// Code gets the status code for the create traffic filter ruleset internal server error response
+func (o *CreateTrafficFilterRulesetInternalServerError) Code() int {
+	return 500
+}
+
 func (o *CreateTrafficFilterRulesetInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /deployments/traffic-filter/rulesets][%d] createTrafficFilterRulesetInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *CreateTrafficFilterRulesetInternalServerError) String() string {
+	return fmt.Sprintf("[POST /deployments/traffic-filter/rulesets][%d] createTrafficFilterRulesetInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *CreateTrafficFilterRulesetInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

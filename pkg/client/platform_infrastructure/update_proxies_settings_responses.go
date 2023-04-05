@@ -52,12 +52,6 @@ func (o *UpdateProxiesSettingsReader) ReadResponse(response runtime.ClientRespon
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewUpdateProxiesSettingsRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -68,7 +62,8 @@ func NewUpdateProxiesSettingsOK() *UpdateProxiesSettingsOK {
 	return &UpdateProxiesSettingsOK{}
 }
 
-/* UpdateProxiesSettingsOK describes a response with status code 200, with default header values.
+/*
+UpdateProxiesSettingsOK describes a response with status code 200, with default header values.
 
 Returns the updated settings
 */
@@ -76,9 +71,44 @@ type UpdateProxiesSettingsOK struct {
 	Payload *models.ProxiesSettings
 }
 
+// IsSuccess returns true when this update proxies settings o k response has a 2xx status code
+func (o *UpdateProxiesSettingsOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this update proxies settings o k response has a 3xx status code
+func (o *UpdateProxiesSettingsOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update proxies settings o k response has a 4xx status code
+func (o *UpdateProxiesSettingsOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this update proxies settings o k response has a 5xx status code
+func (o *UpdateProxiesSettingsOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update proxies settings o k response a status code equal to that given
+func (o *UpdateProxiesSettingsOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the update proxies settings o k response
+func (o *UpdateProxiesSettingsOK) Code() int {
+	return 200
+}
+
 func (o *UpdateProxiesSettingsOK) Error() string {
 	return fmt.Sprintf("[PATCH /platform/infrastructure/proxies/settings][%d] updateProxiesSettingsOK  %+v", 200, o.Payload)
 }
+
+func (o *UpdateProxiesSettingsOK) String() string {
+	return fmt.Sprintf("[PATCH /platform/infrastructure/proxies/settings][%d] updateProxiesSettingsOK  %+v", 200, o.Payload)
+}
+
 func (o *UpdateProxiesSettingsOK) GetPayload() *models.ProxiesSettings {
 	return o.Payload
 }
@@ -100,7 +130,8 @@ func NewUpdateProxiesSettingsConflict() *UpdateProxiesSettingsConflict {
 	return &UpdateProxiesSettingsConflict{}
 }
 
-/* UpdateProxiesSettingsConflict describes a response with status code 409, with default header values.
+/*
+UpdateProxiesSettingsConflict describes a response with status code 409, with default header values.
 
 There is a version conflict. (code: `proxies.version_conflict`)
 */
@@ -113,58 +144,49 @@ type UpdateProxiesSettingsConflict struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this update proxies settings conflict response has a 2xx status code
+func (o *UpdateProxiesSettingsConflict) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update proxies settings conflict response has a 3xx status code
+func (o *UpdateProxiesSettingsConflict) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update proxies settings conflict response has a 4xx status code
+func (o *UpdateProxiesSettingsConflict) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update proxies settings conflict response has a 5xx status code
+func (o *UpdateProxiesSettingsConflict) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update proxies settings conflict response a status code equal to that given
+func (o *UpdateProxiesSettingsConflict) IsCode(code int) bool {
+	return code == 409
+}
+
+// Code gets the status code for the update proxies settings conflict response
+func (o *UpdateProxiesSettingsConflict) Code() int {
+	return 409
+}
+
 func (o *UpdateProxiesSettingsConflict) Error() string {
 	return fmt.Sprintf("[PATCH /platform/infrastructure/proxies/settings][%d] updateProxiesSettingsConflict  %+v", 409, o.Payload)
 }
+
+func (o *UpdateProxiesSettingsConflict) String() string {
+	return fmt.Sprintf("[PATCH /platform/infrastructure/proxies/settings][%d] updateProxiesSettingsConflict  %+v", 409, o.Payload)
+}
+
 func (o *UpdateProxiesSettingsConflict) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *UpdateProxiesSettingsConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewUpdateProxiesSettingsRetryWith creates a UpdateProxiesSettingsRetryWith with default headers values
-func NewUpdateProxiesSettingsRetryWith() *UpdateProxiesSettingsRetryWith {
-	return &UpdateProxiesSettingsRetryWith{}
-}
-
-/* UpdateProxiesSettingsRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type UpdateProxiesSettingsRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-func (o *UpdateProxiesSettingsRetryWith) Error() string {
-	return fmt.Sprintf("[PATCH /platform/infrastructure/proxies/settings][%d] updateProxiesSettingsRetryWith  %+v", 449, o.Payload)
-}
-func (o *UpdateProxiesSettingsRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *UpdateProxiesSettingsRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// hydrates response header x-cloud-error-codes
 	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")

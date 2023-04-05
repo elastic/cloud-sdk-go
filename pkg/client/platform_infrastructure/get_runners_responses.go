@@ -56,7 +56,8 @@ func NewGetRunnersOK() *GetRunnersOK {
 	return &GetRunnersOK{}
 }
 
-/* GetRunnersOK describes a response with status code 200, with default header values.
+/*
+GetRunnersOK describes a response with status code 200, with default header values.
 
 An overview of all runners.
 */
@@ -64,9 +65,44 @@ type GetRunnersOK struct {
 	Payload *models.RunnerOverview
 }
 
+// IsSuccess returns true when this get runners o k response has a 2xx status code
+func (o *GetRunnersOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get runners o k response has a 3xx status code
+func (o *GetRunnersOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get runners o k response has a 4xx status code
+func (o *GetRunnersOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get runners o k response has a 5xx status code
+func (o *GetRunnersOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get runners o k response a status code equal to that given
+func (o *GetRunnersOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get runners o k response
+func (o *GetRunnersOK) Code() int {
+	return 200
+}
+
 func (o *GetRunnersOK) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/runners][%d] getRunnersOK  %+v", 200, o.Payload)
 }
+
+func (o *GetRunnersOK) String() string {
+	return fmt.Sprintf("[GET /platform/infrastructure/runners][%d] getRunnersOK  %+v", 200, o.Payload)
+}
+
 func (o *GetRunnersOK) GetPayload() *models.RunnerOverview {
 	return o.Payload
 }

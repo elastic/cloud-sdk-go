@@ -52,12 +52,6 @@ func (o *SetLicenseReader) ReadResponse(response runtime.ClientResponse, consume
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewSetLicenseRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -68,7 +62,8 @@ func NewSetLicenseOK() *SetLicenseOK {
 	return &SetLicenseOK{}
 }
 
-/* SetLicenseOK describes a response with status code 200, with default header values.
+/*
+SetLicenseOK describes a response with status code 200, with default header values.
 
 The license was updated.
 */
@@ -76,9 +71,44 @@ type SetLicenseOK struct {
 	Payload models.EmptyResponse
 }
 
+// IsSuccess returns true when this set license o k response has a 2xx status code
+func (o *SetLicenseOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this set license o k response has a 3xx status code
+func (o *SetLicenseOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set license o k response has a 4xx status code
+func (o *SetLicenseOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this set license o k response has a 5xx status code
+func (o *SetLicenseOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set license o k response a status code equal to that given
+func (o *SetLicenseOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the set license o k response
+func (o *SetLicenseOK) Code() int {
+	return 200
+}
+
 func (o *SetLicenseOK) Error() string {
 	return fmt.Sprintf("[PUT /platform/license][%d] setLicenseOK  %+v", 200, o.Payload)
 }
+
+func (o *SetLicenseOK) String() string {
+	return fmt.Sprintf("[PUT /platform/license][%d] setLicenseOK  %+v", 200, o.Payload)
+}
+
 func (o *SetLicenseOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -98,7 +128,8 @@ func NewSetLicenseBadRequest() *SetLicenseBadRequest {
 	return &SetLicenseBadRequest{}
 }
 
-/* SetLicenseBadRequest describes a response with status code 400, with default header values.
+/*
+SetLicenseBadRequest describes a response with status code 400, with default header values.
 
 The license could not be updated. (code: `license.invalid_license`)
 */
@@ -111,58 +142,49 @@ type SetLicenseBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this set license bad request response has a 2xx status code
+func (o *SetLicenseBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this set license bad request response has a 3xx status code
+func (o *SetLicenseBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set license bad request response has a 4xx status code
+func (o *SetLicenseBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this set license bad request response has a 5xx status code
+func (o *SetLicenseBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set license bad request response a status code equal to that given
+func (o *SetLicenseBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the set license bad request response
+func (o *SetLicenseBadRequest) Code() int {
+	return 400
+}
+
 func (o *SetLicenseBadRequest) Error() string {
 	return fmt.Sprintf("[PUT /platform/license][%d] setLicenseBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *SetLicenseBadRequest) String() string {
+	return fmt.Sprintf("[PUT /platform/license][%d] setLicenseBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *SetLicenseBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *SetLicenseBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewSetLicenseRetryWith creates a SetLicenseRetryWith with default headers values
-func NewSetLicenseRetryWith() *SetLicenseRetryWith {
-	return &SetLicenseRetryWith{}
-}
-
-/* SetLicenseRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type SetLicenseRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-func (o *SetLicenseRetryWith) Error() string {
-	return fmt.Sprintf("[PUT /platform/license][%d] setLicenseRetryWith  %+v", 449, o.Payload)
-}
-func (o *SetLicenseRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *SetLicenseRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// hydrates response header x-cloud-error-codes
 	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")

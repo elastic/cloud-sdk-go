@@ -87,6 +87,8 @@ func (m *ResourceHeapDumps) validateHeapDumps(formats strfmt.Registry) error {
 			if err := m.HeapDumps[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("heap_dumps" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("heap_dumps" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -137,6 +139,8 @@ func (m *ResourceHeapDumps) contextValidateHeapDumps(ctx context.Context, format
 			if err := m.HeapDumps[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("heap_dumps" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("heap_dumps" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

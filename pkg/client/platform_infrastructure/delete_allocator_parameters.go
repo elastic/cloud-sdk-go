@@ -70,10 +70,12 @@ func NewDeleteAllocatorParamsWithHTTPClient(client *http.Client) *DeleteAllocato
 	}
 }
 
-/* DeleteAllocatorParams contains all the parameters to send to the API endpoint
-   for the delete allocator operation.
+/*
+DeleteAllocatorParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the delete allocator operation.
+
+	Typically these are written to a http.Request.
 */
 type DeleteAllocatorParams struct {
 

@@ -59,9 +59,9 @@ type ClientService interface {
 }
 
 /*
-  DeleteSnapshotRepository deletes snapshot repository
+DeleteSnapshotRepository deletes snapshot repository
 
-  Deletes the snapshot repository configuration.
+Deletes the snapshot repository configuration.
 */
 func (a *Client) DeleteSnapshotRepository(params *DeleteSnapshotRepositoryParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteSnapshotRepositoryOK, *DeleteSnapshotRepositoryAccepted, error) {
 	// TODO: Validate the params before sending
@@ -101,9 +101,9 @@ func (a *Client) DeleteSnapshotRepository(params *DeleteSnapshotRepositoryParams
 }
 
 /*
-  GetSnapshotRepositories gets snapshot repositories
+GetSnapshotRepositories gets snapshot repositories
 
-  Retrieves a list of available snapshot repository configurations. To access the configuration contents, you must have privileged permissions.
+Retrieves a list of available snapshot repository configurations. To access the configuration contents, you must have privileged permissions.
 */
 func (a *Client) GetSnapshotRepositories(params *GetSnapshotRepositoriesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSnapshotRepositoriesOK, error) {
 	// TODO: Validate the params before sending
@@ -142,9 +142,9 @@ func (a *Client) GetSnapshotRepositories(params *GetSnapshotRepositoriesParams, 
 }
 
 /*
-  GetSnapshotRepository gets snapshot repository
+GetSnapshotRepository gets snapshot repository
 
-  Retrieves the snapshot repository configuration. To access the configuration contents, you must have privileged permissions.
+Retrieves the snapshot repository configuration. To access the configuration contents, you must have privileged permissions.
 */
 func (a *Client) GetSnapshotRepository(params *GetSnapshotRepositoryParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSnapshotRepositoryOK, error) {
 	// TODO: Validate the params before sending
@@ -183,9 +183,9 @@ func (a *Client) GetSnapshotRepository(params *GetSnapshotRepositoryParams, auth
 }
 
 /*
-  SetSnapshotRepository sets snapshot repository
+SetSnapshotRepository sets snapshot repository
 
-  Creates or updates the snapshot repository configuration.
+Creates or updates the snapshot repository configuration.
 */
 func (a *Client) SetSnapshotRepository(params *SetSnapshotRepositoryParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetSnapshotRepositoryOK, error) {
 	// TODO: Validate the params before sending

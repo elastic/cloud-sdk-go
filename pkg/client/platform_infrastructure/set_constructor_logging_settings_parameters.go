@@ -71,10 +71,12 @@ func NewSetConstructorLoggingSettingsParamsWithHTTPClient(client *http.Client) *
 	}
 }
 
-/* SetConstructorLoggingSettingsParams contains all the parameters to send to the API endpoint
-   for the set constructor logging settings operation.
+/*
+SetConstructorLoggingSettingsParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the set constructor logging settings operation.
+
+	Typically these are written to a http.Request.
 */
 type SetConstructorLoggingSettingsParams struct {
 

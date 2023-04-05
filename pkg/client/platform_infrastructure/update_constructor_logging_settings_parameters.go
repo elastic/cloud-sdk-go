@@ -69,10 +69,12 @@ func NewUpdateConstructorLoggingSettingsParamsWithHTTPClient(client *http.Client
 	}
 }
 
-/* UpdateConstructorLoggingSettingsParams contains all the parameters to send to the API endpoint
-   for the update constructor logging settings operation.
+/*
+UpdateConstructorLoggingSettingsParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the update constructor logging settings operation.
+
+	Typically these are written to a http.Request.
 */
 type UpdateConstructorLoggingSettingsParams struct {
 

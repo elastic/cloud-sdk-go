@@ -71,6 +71,8 @@ func (m *CoordinatorsSummary) validateCoordinators(formats strfmt.Registry) erro
 			if err := m.Coordinators[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("coordinators" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("coordinators" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -103,6 +105,8 @@ func (m *CoordinatorsSummary) contextValidateCoordinators(ctx context.Context, f
 			if err := m.Coordinators[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("coordinators" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("coordinators" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

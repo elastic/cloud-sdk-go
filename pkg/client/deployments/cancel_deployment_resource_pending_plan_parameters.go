@@ -70,10 +70,12 @@ func NewCancelDeploymentResourcePendingPlanParamsWithHTTPClient(client *http.Cli
 	}
 }
 
-/* CancelDeploymentResourcePendingPlanParams contains all the parameters to send to the API endpoint
-   for the cancel deployment resource pending plan operation.
+/*
+CancelDeploymentResourcePendingPlanParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the cancel deployment resource pending plan operation.
+
+	Typically these are written to a http.Request.
 */
 type CancelDeploymentResourcePendingPlanParams struct {
 

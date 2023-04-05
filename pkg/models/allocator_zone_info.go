@@ -79,6 +79,8 @@ func (m *AllocatorZoneInfo) validateAllocators(formats strfmt.Registry) error {
 			if err := m.Allocators[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("allocators" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("allocators" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -120,6 +122,8 @@ func (m *AllocatorZoneInfo) contextValidateAllocators(ctx context.Context, forma
 			if err := m.Allocators[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("allocators" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("allocators" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

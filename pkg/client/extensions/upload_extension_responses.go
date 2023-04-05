@@ -74,7 +74,8 @@ func NewUploadExtensionOK() *UploadExtensionOK {
 	return &UploadExtensionOK{}
 }
 
-/* UploadExtensionOK describes a response with status code 200, with default header values.
+/*
+UploadExtensionOK describes a response with status code 200, with default header values.
 
 Archive uploaded successfully.
 */
@@ -95,9 +96,44 @@ type UploadExtensionOK struct {
 	Payload *models.Extension
 }
 
+// IsSuccess returns true when this upload extension o k response has a 2xx status code
+func (o *UploadExtensionOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this upload extension o k response has a 3xx status code
+func (o *UploadExtensionOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this upload extension o k response has a 4xx status code
+func (o *UploadExtensionOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this upload extension o k response has a 5xx status code
+func (o *UploadExtensionOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this upload extension o k response a status code equal to that given
+func (o *UploadExtensionOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the upload extension o k response
+func (o *UploadExtensionOK) Code() int {
+	return 200
+}
+
 func (o *UploadExtensionOK) Error() string {
 	return fmt.Sprintf("[PUT /deployments/extensions/{extension_id}][%d] uploadExtensionOK  %+v", 200, o.Payload)
 }
+
+func (o *UploadExtensionOK) String() string {
+	return fmt.Sprintf("[PUT /deployments/extensions/{extension_id}][%d] uploadExtensionOK  %+v", 200, o.Payload)
+}
+
 func (o *UploadExtensionOK) GetPayload() *models.Extension {
 	return o.Payload
 }
@@ -140,7 +176,8 @@ func NewUploadExtensionBadRequest() *UploadExtensionBadRequest {
 	return &UploadExtensionBadRequest{}
 }
 
-/* UploadExtensionBadRequest describes a response with status code 400, with default header values.
+/*
+UploadExtensionBadRequest describes a response with status code 400, with default header values.
 
 Could not accept the extensions file. (code: `extensions.request_execution_failed`)
 */
@@ -153,9 +190,44 @@ type UploadExtensionBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this upload extension bad request response has a 2xx status code
+func (o *UploadExtensionBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this upload extension bad request response has a 3xx status code
+func (o *UploadExtensionBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this upload extension bad request response has a 4xx status code
+func (o *UploadExtensionBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this upload extension bad request response has a 5xx status code
+func (o *UploadExtensionBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this upload extension bad request response a status code equal to that given
+func (o *UploadExtensionBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the upload extension bad request response
+func (o *UploadExtensionBadRequest) Code() int {
+	return 400
+}
+
 func (o *UploadExtensionBadRequest) Error() string {
 	return fmt.Sprintf("[PUT /deployments/extensions/{extension_id}][%d] uploadExtensionBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *UploadExtensionBadRequest) String() string {
+	return fmt.Sprintf("[PUT /deployments/extensions/{extension_id}][%d] uploadExtensionBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *UploadExtensionBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -184,9 +256,11 @@ func NewUploadExtensionUnauthorized() *UploadExtensionUnauthorized {
 	return &UploadExtensionUnauthorized{}
 }
 
-/* UploadExtensionUnauthorized describes a response with status code 401, with default header values.
+/*
+	UploadExtensionUnauthorized describes a response with status code 401, with default header values.
 
- * The extension does not belong to you. (code: `extensions.unauthorised`)
+	* The extension does not belong to you. (code: `extensions.unauthorised`)
+
 * Your current session does not have a user id associated with it. (code: `extensions.no_user_id`)
 */
 type UploadExtensionUnauthorized struct {
@@ -198,9 +272,44 @@ type UploadExtensionUnauthorized struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this upload extension unauthorized response has a 2xx status code
+func (o *UploadExtensionUnauthorized) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this upload extension unauthorized response has a 3xx status code
+func (o *UploadExtensionUnauthorized) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this upload extension unauthorized response has a 4xx status code
+func (o *UploadExtensionUnauthorized) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this upload extension unauthorized response has a 5xx status code
+func (o *UploadExtensionUnauthorized) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this upload extension unauthorized response a status code equal to that given
+func (o *UploadExtensionUnauthorized) IsCode(code int) bool {
+	return code == 401
+}
+
+// Code gets the status code for the upload extension unauthorized response
+func (o *UploadExtensionUnauthorized) Code() int {
+	return 401
+}
+
 func (o *UploadExtensionUnauthorized) Error() string {
 	return fmt.Sprintf("[PUT /deployments/extensions/{extension_id}][%d] uploadExtensionUnauthorized  %+v", 401, o.Payload)
 }
+
+func (o *UploadExtensionUnauthorized) String() string {
+	return fmt.Sprintf("[PUT /deployments/extensions/{extension_id}][%d] uploadExtensionUnauthorized  %+v", 401, o.Payload)
+}
+
 func (o *UploadExtensionUnauthorized) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -229,7 +338,8 @@ func NewUploadExtensionNotFound() *UploadExtensionNotFound {
 	return &UploadExtensionNotFound{}
 }
 
-/* UploadExtensionNotFound describes a response with status code 404, with default header values.
+/*
+UploadExtensionNotFound describes a response with status code 404, with default header values.
 
 The extension you want does not exist. (code: `extensions.not_found`)
 */
@@ -242,9 +352,44 @@ type UploadExtensionNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this upload extension not found response has a 2xx status code
+func (o *UploadExtensionNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this upload extension not found response has a 3xx status code
+func (o *UploadExtensionNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this upload extension not found response has a 4xx status code
+func (o *UploadExtensionNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this upload extension not found response has a 5xx status code
+func (o *UploadExtensionNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this upload extension not found response a status code equal to that given
+func (o *UploadExtensionNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the upload extension not found response
+func (o *UploadExtensionNotFound) Code() int {
+	return 404
+}
+
 func (o *UploadExtensionNotFound) Error() string {
 	return fmt.Sprintf("[PUT /deployments/extensions/{extension_id}][%d] uploadExtensionNotFound  %+v", 404, o.Payload)
 }
+
+func (o *UploadExtensionNotFound) String() string {
+	return fmt.Sprintf("[PUT /deployments/extensions/{extension_id}][%d] uploadExtensionNotFound  %+v", 404, o.Payload)
+}
+
 func (o *UploadExtensionNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

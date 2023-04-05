@@ -68,7 +68,8 @@ func NewUpdateAllocatorLoggingSettingsOK() *UpdateAllocatorLoggingSettingsOK {
 	return &UpdateAllocatorLoggingSettingsOK{}
 }
 
-/* UpdateAllocatorLoggingSettingsOK describes a response with status code 200, with default header values.
+/*
+UpdateAllocatorLoggingSettingsOK describes a response with status code 200, with default header values.
 
 The updated logging settings for the allocator instance
 */
@@ -89,9 +90,44 @@ type UpdateAllocatorLoggingSettingsOK struct {
 	Payload *models.LoggingSettings
 }
 
+// IsSuccess returns true when this update allocator logging settings o k response has a 2xx status code
+func (o *UpdateAllocatorLoggingSettingsOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this update allocator logging settings o k response has a 3xx status code
+func (o *UpdateAllocatorLoggingSettingsOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update allocator logging settings o k response has a 4xx status code
+func (o *UpdateAllocatorLoggingSettingsOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this update allocator logging settings o k response has a 5xx status code
+func (o *UpdateAllocatorLoggingSettingsOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update allocator logging settings o k response a status code equal to that given
+func (o *UpdateAllocatorLoggingSettingsOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the update allocator logging settings o k response
+func (o *UpdateAllocatorLoggingSettingsOK) Code() int {
+	return 200
+}
+
 func (o *UpdateAllocatorLoggingSettingsOK) Error() string {
 	return fmt.Sprintf("[PATCH /platform/infrastructure/allocators/{allocator_id}/logging_settings][%d] updateAllocatorLoggingSettingsOK  %+v", 200, o.Payload)
 }
+
+func (o *UpdateAllocatorLoggingSettingsOK) String() string {
+	return fmt.Sprintf("[PATCH /platform/infrastructure/allocators/{allocator_id}/logging_settings][%d] updateAllocatorLoggingSettingsOK  %+v", 200, o.Payload)
+}
+
 func (o *UpdateAllocatorLoggingSettingsOK) GetPayload() *models.LoggingSettings {
 	return o.Payload
 }
@@ -134,7 +170,8 @@ func NewUpdateAllocatorLoggingSettingsBadRequest() *UpdateAllocatorLoggingSettin
 	return &UpdateAllocatorLoggingSettingsBadRequest{}
 }
 
-/* UpdateAllocatorLoggingSettingsBadRequest describes a response with status code 400, with default header values.
+/*
+UpdateAllocatorLoggingSettingsBadRequest describes a response with status code 400, with default header values.
 
 The update request is invalid. (code: `patch.request_malformed`)
 */
@@ -147,9 +184,44 @@ type UpdateAllocatorLoggingSettingsBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this update allocator logging settings bad request response has a 2xx status code
+func (o *UpdateAllocatorLoggingSettingsBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update allocator logging settings bad request response has a 3xx status code
+func (o *UpdateAllocatorLoggingSettingsBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update allocator logging settings bad request response has a 4xx status code
+func (o *UpdateAllocatorLoggingSettingsBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update allocator logging settings bad request response has a 5xx status code
+func (o *UpdateAllocatorLoggingSettingsBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update allocator logging settings bad request response a status code equal to that given
+func (o *UpdateAllocatorLoggingSettingsBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the update allocator logging settings bad request response
+func (o *UpdateAllocatorLoggingSettingsBadRequest) Code() int {
+	return 400
+}
+
 func (o *UpdateAllocatorLoggingSettingsBadRequest) Error() string {
 	return fmt.Sprintf("[PATCH /platform/infrastructure/allocators/{allocator_id}/logging_settings][%d] updateAllocatorLoggingSettingsBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *UpdateAllocatorLoggingSettingsBadRequest) String() string {
+	return fmt.Sprintf("[PATCH /platform/infrastructure/allocators/{allocator_id}/logging_settings][%d] updateAllocatorLoggingSettingsBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *UpdateAllocatorLoggingSettingsBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -178,7 +250,8 @@ func NewUpdateAllocatorLoggingSettingsNotFound() *UpdateAllocatorLoggingSettings
 	return &UpdateAllocatorLoggingSettingsNotFound{}
 }
 
-/* UpdateAllocatorLoggingSettingsNotFound describes a response with status code 404, with default header values.
+/*
+UpdateAllocatorLoggingSettingsNotFound describes a response with status code 404, with default header values.
 
 The logging settings for this allocator were not found. (code: `allocators.logging_settings.not_found`)
 */
@@ -191,9 +264,44 @@ type UpdateAllocatorLoggingSettingsNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this update allocator logging settings not found response has a 2xx status code
+func (o *UpdateAllocatorLoggingSettingsNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update allocator logging settings not found response has a 3xx status code
+func (o *UpdateAllocatorLoggingSettingsNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update allocator logging settings not found response has a 4xx status code
+func (o *UpdateAllocatorLoggingSettingsNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update allocator logging settings not found response has a 5xx status code
+func (o *UpdateAllocatorLoggingSettingsNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update allocator logging settings not found response a status code equal to that given
+func (o *UpdateAllocatorLoggingSettingsNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the update allocator logging settings not found response
+func (o *UpdateAllocatorLoggingSettingsNotFound) Code() int {
+	return 404
+}
+
 func (o *UpdateAllocatorLoggingSettingsNotFound) Error() string {
 	return fmt.Sprintf("[PATCH /platform/infrastructure/allocators/{allocator_id}/logging_settings][%d] updateAllocatorLoggingSettingsNotFound  %+v", 404, o.Payload)
 }
+
+func (o *UpdateAllocatorLoggingSettingsNotFound) String() string {
+	return fmt.Sprintf("[PATCH /platform/infrastructure/allocators/{allocator_id}/logging_settings][%d] updateAllocatorLoggingSettingsNotFound  %+v", 404, o.Payload)
+}
+
 func (o *UpdateAllocatorLoggingSettingsNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

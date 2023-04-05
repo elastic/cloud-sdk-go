@@ -71,6 +71,8 @@ func (m *ListEnrollmentTokenReply) validateTokens(formats strfmt.Registry) error
 			if err := m.Tokens[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("tokens" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("tokens" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -103,6 +105,8 @@ func (m *ListEnrollmentTokenReply) contextValidateTokens(ctx context.Context, fo
 			if err := m.Tokens[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("tokens" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("tokens" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

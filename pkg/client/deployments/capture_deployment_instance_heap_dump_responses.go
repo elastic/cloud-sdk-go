@@ -52,12 +52,6 @@ func (o *CaptureDeploymentInstanceHeapDumpReader) ReadResponse(response runtime.
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewCaptureDeploymentInstanceHeapDumpRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -68,7 +62,8 @@ func NewCaptureDeploymentInstanceHeapDumpAccepted() *CaptureDeploymentInstanceHe
 	return &CaptureDeploymentInstanceHeapDumpAccepted{}
 }
 
-/* CaptureDeploymentInstanceHeapDumpAccepted describes a response with status code 202, with default header values.
+/*
+CaptureDeploymentInstanceHeapDumpAccepted describes a response with status code 202, with default header values.
 
 Indicates that the capture has started
 */
@@ -76,9 +71,44 @@ type CaptureDeploymentInstanceHeapDumpAccepted struct {
 	Payload models.EmptyResponse
 }
 
+// IsSuccess returns true when this capture deployment instance heap dump accepted response has a 2xx status code
+func (o *CaptureDeploymentInstanceHeapDumpAccepted) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this capture deployment instance heap dump accepted response has a 3xx status code
+func (o *CaptureDeploymentInstanceHeapDumpAccepted) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this capture deployment instance heap dump accepted response has a 4xx status code
+func (o *CaptureDeploymentInstanceHeapDumpAccepted) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this capture deployment instance heap dump accepted response has a 5xx status code
+func (o *CaptureDeploymentInstanceHeapDumpAccepted) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this capture deployment instance heap dump accepted response a status code equal to that given
+func (o *CaptureDeploymentInstanceHeapDumpAccepted) IsCode(code int) bool {
+	return code == 202
+}
+
+// Code gets the status code for the capture deployment instance heap dump accepted response
+func (o *CaptureDeploymentInstanceHeapDumpAccepted) Code() int {
+	return 202
+}
+
 func (o *CaptureDeploymentInstanceHeapDumpAccepted) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_id}/heap_dump/_capture][%d] captureDeploymentInstanceHeapDumpAccepted  %+v", 202, o.Payload)
 }
+
+func (o *CaptureDeploymentInstanceHeapDumpAccepted) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_id}/heap_dump/_capture][%d] captureDeploymentInstanceHeapDumpAccepted  %+v", 202, o.Payload)
+}
+
 func (o *CaptureDeploymentInstanceHeapDumpAccepted) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -98,9 +128,11 @@ func NewCaptureDeploymentInstanceHeapDumpNotFound() *CaptureDeploymentInstanceHe
 	return &CaptureDeploymentInstanceHeapDumpNotFound{}
 }
 
-/* CaptureDeploymentInstanceHeapDumpNotFound describes a response with status code 404, with default header values.
+/*
+	CaptureDeploymentInstanceHeapDumpNotFound describes a response with status code 404, with default header values.
 
- * The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+	* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+
 * The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)
 * The specified instance cannot be found. (code: `deployments.instance_not_found_error`)
 */
@@ -113,58 +145,49 @@ type CaptureDeploymentInstanceHeapDumpNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this capture deployment instance heap dump not found response has a 2xx status code
+func (o *CaptureDeploymentInstanceHeapDumpNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this capture deployment instance heap dump not found response has a 3xx status code
+func (o *CaptureDeploymentInstanceHeapDumpNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this capture deployment instance heap dump not found response has a 4xx status code
+func (o *CaptureDeploymentInstanceHeapDumpNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this capture deployment instance heap dump not found response has a 5xx status code
+func (o *CaptureDeploymentInstanceHeapDumpNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this capture deployment instance heap dump not found response a status code equal to that given
+func (o *CaptureDeploymentInstanceHeapDumpNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the capture deployment instance heap dump not found response
+func (o *CaptureDeploymentInstanceHeapDumpNotFound) Code() int {
+	return 404
+}
+
 func (o *CaptureDeploymentInstanceHeapDumpNotFound) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_id}/heap_dump/_capture][%d] captureDeploymentInstanceHeapDumpNotFound  %+v", 404, o.Payload)
 }
+
+func (o *CaptureDeploymentInstanceHeapDumpNotFound) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_id}/heap_dump/_capture][%d] captureDeploymentInstanceHeapDumpNotFound  %+v", 404, o.Payload)
+}
+
 func (o *CaptureDeploymentInstanceHeapDumpNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *CaptureDeploymentInstanceHeapDumpNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewCaptureDeploymentInstanceHeapDumpRetryWith creates a CaptureDeploymentInstanceHeapDumpRetryWith with default headers values
-func NewCaptureDeploymentInstanceHeapDumpRetryWith() *CaptureDeploymentInstanceHeapDumpRetryWith {
-	return &CaptureDeploymentInstanceHeapDumpRetryWith{}
-}
-
-/* CaptureDeploymentInstanceHeapDumpRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type CaptureDeploymentInstanceHeapDumpRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-func (o *CaptureDeploymentInstanceHeapDumpRetryWith) Error() string {
-	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_id}/heap_dump/_capture][%d] captureDeploymentInstanceHeapDumpRetryWith  %+v", 449, o.Payload)
-}
-func (o *CaptureDeploymentInstanceHeapDumpRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *CaptureDeploymentInstanceHeapDumpRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// hydrates response header x-cloud-error-codes
 	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")

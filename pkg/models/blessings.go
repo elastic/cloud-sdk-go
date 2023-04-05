@@ -68,6 +68,11 @@ func (m *Blessings) validateRunnerIdsToBlessing(formats strfmt.Registry) error {
 		}
 		if val, ok := m.RunnerIdsToBlessing[k]; ok {
 			if err := val.Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("runner_ids_to_blessing" + "." + k)
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("runner_ids_to_blessing" + "." + k)
+				}
 				return err
 			}
 		}

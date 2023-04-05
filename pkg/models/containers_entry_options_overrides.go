@@ -62,6 +62,8 @@ func (m *ContainersEntryOptionsOverrides) validateContainerConfig(formats strfmt
 		if err := m.ContainerConfig.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("container_config")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("container_config")
 			}
 			return err
 		}
@@ -90,6 +92,8 @@ func (m *ContainersEntryOptionsOverrides) contextValidateContainerConfig(ctx con
 		if err := m.ContainerConfig.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("container_config")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("container_config")
 			}
 			return err
 		}

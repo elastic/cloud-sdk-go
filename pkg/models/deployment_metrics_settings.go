@@ -68,6 +68,8 @@ func (m *DeploymentMetricsSettings) validateDestination(formats strfmt.Registry)
 		if err := m.Destination.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("destination")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("destination")
 			}
 			return err
 		}
@@ -96,6 +98,8 @@ func (m *DeploymentMetricsSettings) contextValidateDestination(ctx context.Conte
 		if err := m.Destination.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("destination")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("destination")
 			}
 			return err
 		}

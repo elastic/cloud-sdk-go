@@ -83,6 +83,8 @@ func (m *CompatibleVersionResource) validateCapacityConstraints(formats strfmt.R
 		if err := m.CapacityConstraints.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("capacity_constraints")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("capacity_constraints")
 			}
 			return err
 		}
@@ -106,6 +108,8 @@ func (m *CompatibleVersionResource) validateNodeTypes(formats strfmt.Registry) e
 			if err := m.NodeTypes[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("node_types" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("node_types" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -149,6 +153,8 @@ func (m *CompatibleVersionResource) contextValidateCapacityConstraints(ctx conte
 		if err := m.CapacityConstraints.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("capacity_constraints")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("capacity_constraints")
 			}
 			return err
 		}
@@ -165,6 +171,8 @@ func (m *CompatibleVersionResource) contextValidateNodeTypes(ctx context.Context
 			if err := m.NodeTypes[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("node_types" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("node_types" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

@@ -52,12 +52,6 @@ func (o *GetProxiesFilteredGroupHealthReader) ReadResponse(response runtime.Clie
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewGetProxiesFilteredGroupHealthRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -68,7 +62,8 @@ func NewGetProxiesFilteredGroupHealthOK() *GetProxiesFilteredGroupHealthOK {
 	return &GetProxiesFilteredGroupHealthOK{}
 }
 
-/* GetProxiesFilteredGroupHealthOK describes a response with status code 200, with default header values.
+/*
+GetProxiesFilteredGroupHealthOK describes a response with status code 200, with default header values.
 
 Returns health information on a filtered group of proxies
 */
@@ -76,9 +71,44 @@ type GetProxiesFilteredGroupHealthOK struct {
 	Payload *models.ProxiesFilteredGroupHealth
 }
 
+// IsSuccess returns true when this get proxies filtered group health o k response has a 2xx status code
+func (o *GetProxiesFilteredGroupHealthOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get proxies filtered group health o k response has a 3xx status code
+func (o *GetProxiesFilteredGroupHealthOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get proxies filtered group health o k response has a 4xx status code
+func (o *GetProxiesFilteredGroupHealthOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get proxies filtered group health o k response has a 5xx status code
+func (o *GetProxiesFilteredGroupHealthOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get proxies filtered group health o k response a status code equal to that given
+func (o *GetProxiesFilteredGroupHealthOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get proxies filtered group health o k response
+func (o *GetProxiesFilteredGroupHealthOK) Code() int {
+	return 200
+}
+
 func (o *GetProxiesFilteredGroupHealthOK) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}/health][%d] getProxiesFilteredGroupHealthOK  %+v", 200, o.Payload)
 }
+
+func (o *GetProxiesFilteredGroupHealthOK) String() string {
+	return fmt.Sprintf("[GET /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}/health][%d] getProxiesFilteredGroupHealthOK  %+v", 200, o.Payload)
+}
+
 func (o *GetProxiesFilteredGroupHealthOK) GetPayload() *models.ProxiesFilteredGroupHealth {
 	return o.Payload
 }
@@ -100,7 +130,8 @@ func NewGetProxiesFilteredGroupHealthExpectationFailed() *GetProxiesFilteredGrou
 	return &GetProxiesFilteredGroupHealthExpectationFailed{}
 }
 
-/* GetProxiesFilteredGroupHealthExpectationFailed describes a response with status code 417, with default header values.
+/*
+GetProxiesFilteredGroupHealthExpectationFailed describes a response with status code 417, with default header values.
 
 The health status is worse than the expected one.
 */
@@ -108,9 +139,44 @@ type GetProxiesFilteredGroupHealthExpectationFailed struct {
 	Payload *models.ProxiesFilteredGroupHealth
 }
 
+// IsSuccess returns true when this get proxies filtered group health expectation failed response has a 2xx status code
+func (o *GetProxiesFilteredGroupHealthExpectationFailed) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get proxies filtered group health expectation failed response has a 3xx status code
+func (o *GetProxiesFilteredGroupHealthExpectationFailed) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get proxies filtered group health expectation failed response has a 4xx status code
+func (o *GetProxiesFilteredGroupHealthExpectationFailed) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get proxies filtered group health expectation failed response has a 5xx status code
+func (o *GetProxiesFilteredGroupHealthExpectationFailed) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get proxies filtered group health expectation failed response a status code equal to that given
+func (o *GetProxiesFilteredGroupHealthExpectationFailed) IsCode(code int) bool {
+	return code == 417
+}
+
+// Code gets the status code for the get proxies filtered group health expectation failed response
+func (o *GetProxiesFilteredGroupHealthExpectationFailed) Code() int {
+	return 417
+}
+
 func (o *GetProxiesFilteredGroupHealthExpectationFailed) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}/health][%d] getProxiesFilteredGroupHealthExpectationFailed  %+v", 417, o.Payload)
 }
+
+func (o *GetProxiesFilteredGroupHealthExpectationFailed) String() string {
+	return fmt.Sprintf("[GET /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}/health][%d] getProxiesFilteredGroupHealthExpectationFailed  %+v", 417, o.Payload)
+}
+
 func (o *GetProxiesFilteredGroupHealthExpectationFailed) GetPayload() *models.ProxiesFilteredGroupHealth {
 	return o.Payload
 }
@@ -118,50 +184,6 @@ func (o *GetProxiesFilteredGroupHealthExpectationFailed) GetPayload() *models.Pr
 func (o *GetProxiesFilteredGroupHealthExpectationFailed) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ProxiesFilteredGroupHealth)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewGetProxiesFilteredGroupHealthRetryWith creates a GetProxiesFilteredGroupHealthRetryWith with default headers values
-func NewGetProxiesFilteredGroupHealthRetryWith() *GetProxiesFilteredGroupHealthRetryWith {
-	return &GetProxiesFilteredGroupHealthRetryWith{}
-}
-
-/* GetProxiesFilteredGroupHealthRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type GetProxiesFilteredGroupHealthRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-func (o *GetProxiesFilteredGroupHealthRetryWith) Error() string {
-	return fmt.Sprintf("[GET /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}/health][%d] getProxiesFilteredGroupHealthRetryWith  %+v", 449, o.Payload)
-}
-func (o *GetProxiesFilteredGroupHealthRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *GetProxiesFilteredGroupHealthRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

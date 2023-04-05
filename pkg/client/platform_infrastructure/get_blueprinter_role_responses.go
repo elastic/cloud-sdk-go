@@ -62,7 +62,8 @@ func NewGetBlueprinterRoleOK() *GetBlueprinterRoleOK {
 	return &GetBlueprinterRoleOK{}
 }
 
-/* GetBlueprinterRoleOK describes a response with status code 200, with default header values.
+/*
+GetBlueprinterRoleOK describes a response with status code 200, with default header values.
 
 The role aggregate definition.
 */
@@ -70,9 +71,44 @@ type GetBlueprinterRoleOK struct {
 	Payload *models.RoleAggregate
 }
 
+// IsSuccess returns true when this get blueprinter role o k response has a 2xx status code
+func (o *GetBlueprinterRoleOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get blueprinter role o k response has a 3xx status code
+func (o *GetBlueprinterRoleOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get blueprinter role o k response has a 4xx status code
+func (o *GetBlueprinterRoleOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get blueprinter role o k response has a 5xx status code
+func (o *GetBlueprinterRoleOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get blueprinter role o k response a status code equal to that given
+func (o *GetBlueprinterRoleOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get blueprinter role o k response
+func (o *GetBlueprinterRoleOK) Code() int {
+	return 200
+}
+
 func (o *GetBlueprinterRoleOK) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/blueprinter/roles/{blueprinter_role_id}][%d] getBlueprinterRoleOK  %+v", 200, o.Payload)
 }
+
+func (o *GetBlueprinterRoleOK) String() string {
+	return fmt.Sprintf("[GET /platform/infrastructure/blueprinter/roles/{blueprinter_role_id}][%d] getBlueprinterRoleOK  %+v", 200, o.Payload)
+}
+
 func (o *GetBlueprinterRoleOK) GetPayload() *models.RoleAggregate {
 	return o.Payload
 }
@@ -94,7 +130,8 @@ func NewGetBlueprinterRoleNotFound() *GetBlueprinterRoleNotFound {
 	return &GetBlueprinterRoleNotFound{}
 }
 
-/* GetBlueprinterRoleNotFound describes a response with status code 404, with default header values.
+/*
+GetBlueprinterRoleNotFound describes a response with status code 404, with default header values.
 
 The role can't be found. (code: `roles.not_found`)
 */
@@ -107,9 +144,44 @@ type GetBlueprinterRoleNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get blueprinter role not found response has a 2xx status code
+func (o *GetBlueprinterRoleNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get blueprinter role not found response has a 3xx status code
+func (o *GetBlueprinterRoleNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get blueprinter role not found response has a 4xx status code
+func (o *GetBlueprinterRoleNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get blueprinter role not found response has a 5xx status code
+func (o *GetBlueprinterRoleNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get blueprinter role not found response a status code equal to that given
+func (o *GetBlueprinterRoleNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the get blueprinter role not found response
+func (o *GetBlueprinterRoleNotFound) Code() int {
+	return 404
+}
+
 func (o *GetBlueprinterRoleNotFound) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/blueprinter/roles/{blueprinter_role_id}][%d] getBlueprinterRoleNotFound  %+v", 404, o.Payload)
 }
+
+func (o *GetBlueprinterRoleNotFound) String() string {
+	return fmt.Sprintf("[GET /platform/infrastructure/blueprinter/roles/{blueprinter_role_id}][%d] getBlueprinterRoleNotFound  %+v", 404, o.Payload)
+}
+
 func (o *GetBlueprinterRoleNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

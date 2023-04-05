@@ -88,6 +88,8 @@ func (m *User) validateMetadata(formats strfmt.Registry) error {
 		if err := m.Metadata.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("metadata")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("metadata")
 			}
 			return err
 		}
@@ -106,6 +108,8 @@ func (m *User) validateSecurity(formats strfmt.Registry) error {
 		if err := m.Security.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("security")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("security")
 			}
 			return err
 		}
@@ -147,6 +151,8 @@ func (m *User) contextValidateMetadata(ctx context.Context, formats strfmt.Regis
 		if err := m.Metadata.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("metadata")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("metadata")
 			}
 			return err
 		}
@@ -161,6 +167,8 @@ func (m *User) contextValidateSecurity(ctx context.Context, formats strfmt.Regis
 		if err := m.Security.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("security")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("security")
 			}
 			return err
 		}

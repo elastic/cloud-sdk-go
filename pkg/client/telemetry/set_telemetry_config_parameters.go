@@ -71,10 +71,12 @@ func NewSetTelemetryConfigParamsWithHTTPClient(client *http.Client) *SetTelemetr
 	}
 }
 
-/* SetTelemetryConfigParams contains all the parameters to send to the API endpoint
-   for the set telemetry config operation.
+/*
+SetTelemetryConfigParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the set telemetry config operation.
+
+	Typically these are written to a http.Request.
 */
 type SetTelemetryConfigParams struct {
 

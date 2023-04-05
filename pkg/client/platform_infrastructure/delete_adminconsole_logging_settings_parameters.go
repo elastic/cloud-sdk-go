@@ -69,10 +69,12 @@ func NewDeleteAdminconsoleLoggingSettingsParamsWithHTTPClient(client *http.Clien
 	}
 }
 
-/* DeleteAdminconsoleLoggingSettingsParams contains all the parameters to send to the API endpoint
-   for the delete adminconsole logging settings operation.
+/*
+DeleteAdminconsoleLoggingSettingsParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the delete adminconsole logging settings operation.
+
+	Typically these are written to a http.Request.
 */
 type DeleteAdminconsoleLoggingSettingsParams struct {
 

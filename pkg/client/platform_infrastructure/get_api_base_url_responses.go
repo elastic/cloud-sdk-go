@@ -68,7 +68,8 @@ func NewGetAPIBaseURLOK() *GetAPIBaseURLOK {
 	return &GetAPIBaseURLOK{}
 }
 
-/* GetAPIBaseURLOK describes a response with status code 200, with default header values.
+/*
+GetAPIBaseURLOK describes a response with status code 200, with default header values.
 
 The API base Url was successfully retrieved
 */
@@ -89,9 +90,44 @@ type GetAPIBaseURLOK struct {
 	Payload *models.APIBaseURLData
 }
 
+// IsSuccess returns true when this get Api base Url o k response has a 2xx status code
+func (o *GetAPIBaseURLOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get Api base Url o k response has a 3xx status code
+func (o *GetAPIBaseURLOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get Api base Url o k response has a 4xx status code
+func (o *GetAPIBaseURLOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get Api base Url o k response has a 5xx status code
+func (o *GetAPIBaseURLOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get Api base Url o k response a status code equal to that given
+func (o *GetAPIBaseURLOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get Api base Url o k response
+func (o *GetAPIBaseURLOK) Code() int {
+	return 200
+}
+
 func (o *GetAPIBaseURLOK) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/api_base_url][%d] getApiBaseUrlOK  %+v", 200, o.Payload)
 }
+
+func (o *GetAPIBaseURLOK) String() string {
+	return fmt.Sprintf("[GET /platform/configuration/api_base_url][%d] getApiBaseUrlOK  %+v", 200, o.Payload)
+}
+
 func (o *GetAPIBaseURLOK) GetPayload() *models.APIBaseURLData {
 	return o.Payload
 }
@@ -134,7 +170,8 @@ func NewGetAPIBaseURLNotFound() *GetAPIBaseURLNotFound {
 	return &GetAPIBaseURLNotFound{}
 }
 
-/* GetAPIBaseURLNotFound describes a response with status code 404, with default header values.
+/*
+GetAPIBaseURLNotFound describes a response with status code 404, with default header values.
 
 There is no configured API base value but optimistic locking was sent. (code: `adminconsole.base_url.not_found`)
 */
@@ -147,9 +184,44 @@ type GetAPIBaseURLNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get Api base Url not found response has a 2xx status code
+func (o *GetAPIBaseURLNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get Api base Url not found response has a 3xx status code
+func (o *GetAPIBaseURLNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get Api base Url not found response has a 4xx status code
+func (o *GetAPIBaseURLNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get Api base Url not found response has a 5xx status code
+func (o *GetAPIBaseURLNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get Api base Url not found response a status code equal to that given
+func (o *GetAPIBaseURLNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the get Api base Url not found response
+func (o *GetAPIBaseURLNotFound) Code() int {
+	return 404
+}
+
 func (o *GetAPIBaseURLNotFound) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/api_base_url][%d] getApiBaseUrlNotFound  %+v", 404, o.Payload)
 }
+
+func (o *GetAPIBaseURLNotFound) String() string {
+	return fmt.Sprintf("[GET /platform/configuration/api_base_url][%d] getApiBaseUrlNotFound  %+v", 404, o.Payload)
+}
+
 func (o *GetAPIBaseURLNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -178,7 +250,8 @@ func NewGetAPIBaseURLInternalServerError() *GetAPIBaseURLInternalServerError {
 	return &GetAPIBaseURLInternalServerError{}
 }
 
-/* GetAPIBaseURLInternalServerError describes a response with status code 500, with default header values.
+/*
+GetAPIBaseURLInternalServerError describes a response with status code 500, with default header values.
 
 The persisted Url is malformed. (code: `adminconsole.base_url.invalid_persisted_data`)
 */
@@ -191,9 +264,44 @@ type GetAPIBaseURLInternalServerError struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get Api base Url internal server error response has a 2xx status code
+func (o *GetAPIBaseURLInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get Api base Url internal server error response has a 3xx status code
+func (o *GetAPIBaseURLInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get Api base Url internal server error response has a 4xx status code
+func (o *GetAPIBaseURLInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get Api base Url internal server error response has a 5xx status code
+func (o *GetAPIBaseURLInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this get Api base Url internal server error response a status code equal to that given
+func (o *GetAPIBaseURLInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
+// Code gets the status code for the get Api base Url internal server error response
+func (o *GetAPIBaseURLInternalServerError) Code() int {
+	return 500
+}
+
 func (o *GetAPIBaseURLInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/api_base_url][%d] getApiBaseUrlInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *GetAPIBaseURLInternalServerError) String() string {
+	return fmt.Sprintf("[GET /platform/configuration/api_base_url][%d] getApiBaseUrlInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *GetAPIBaseURLInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

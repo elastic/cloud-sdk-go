@@ -62,7 +62,8 @@ func NewGetUserAPIKeyOK() *GetUserAPIKeyOK {
 	return &GetUserAPIKeyOK{}
 }
 
-/* GetUserAPIKeyOK describes a response with status code 200, with default header values.
+/*
+GetUserAPIKeyOK describes a response with status code 200, with default header values.
 
 The API key metadata is retrieved.
 */
@@ -70,9 +71,44 @@ type GetUserAPIKeyOK struct {
 	Payload *models.APIKeyResponse
 }
 
+// IsSuccess returns true when this get user Api key o k response has a 2xx status code
+func (o *GetUserAPIKeyOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get user Api key o k response has a 3xx status code
+func (o *GetUserAPIKeyOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get user Api key o k response has a 4xx status code
+func (o *GetUserAPIKeyOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get user Api key o k response has a 5xx status code
+func (o *GetUserAPIKeyOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get user Api key o k response a status code equal to that given
+func (o *GetUserAPIKeyOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get user Api key o k response
+func (o *GetUserAPIKeyOK) Code() int {
+	return 200
+}
+
 func (o *GetUserAPIKeyOK) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/auth/keys/{api_key_id}][%d] getUserApiKeyOK  %+v", 200, o.Payload)
 }
+
+func (o *GetUserAPIKeyOK) String() string {
+	return fmt.Sprintf("[GET /users/{user_id}/auth/keys/{api_key_id}][%d] getUserApiKeyOK  %+v", 200, o.Payload)
+}
+
 func (o *GetUserAPIKeyOK) GetPayload() *models.APIKeyResponse {
 	return o.Payload
 }
@@ -94,7 +130,8 @@ func NewGetUserAPIKeyNotFound() *GetUserAPIKeyNotFound {
 	return &GetUserAPIKeyNotFound{}
 }
 
-/* GetUserAPIKeyNotFound describes a response with status code 404, with default header values.
+/*
+GetUserAPIKeyNotFound describes a response with status code 404, with default header values.
 
 The {api_key_id} can't be found. (code: `api_keys.key_not_found`)
 */
@@ -107,9 +144,44 @@ type GetUserAPIKeyNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get user Api key not found response has a 2xx status code
+func (o *GetUserAPIKeyNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get user Api key not found response has a 3xx status code
+func (o *GetUserAPIKeyNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get user Api key not found response has a 4xx status code
+func (o *GetUserAPIKeyNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get user Api key not found response has a 5xx status code
+func (o *GetUserAPIKeyNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get user Api key not found response a status code equal to that given
+func (o *GetUserAPIKeyNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the get user Api key not found response
+func (o *GetUserAPIKeyNotFound) Code() int {
+	return 404
+}
+
 func (o *GetUserAPIKeyNotFound) Error() string {
 	return fmt.Sprintf("[GET /users/{user_id}/auth/keys/{api_key_id}][%d] getUserApiKeyNotFound  %+v", 404, o.Payload)
 }
+
+func (o *GetUserAPIKeyNotFound) String() string {
+	return fmt.Sprintf("[GET /users/{user_id}/auth/keys/{api_key_id}][%d] getUserApiKeyNotFound  %+v", 404, o.Payload)
+}
+
 func (o *GetUserAPIKeyNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

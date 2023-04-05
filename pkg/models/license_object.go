@@ -73,6 +73,8 @@ func (m *LicenseObject) validateLicense(formats strfmt.Registry) error {
 		if err := m.License.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("license")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("license")
 			}
 			return err
 		}
@@ -90,6 +92,8 @@ func (m *LicenseObject) validateUsageStats(formats strfmt.Registry) error {
 		if err := m.UsageStats.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("usage_stats")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("usage_stats")
 			}
 			return err
 		}
@@ -122,6 +126,8 @@ func (m *LicenseObject) contextValidateLicense(ctx context.Context, formats strf
 		if err := m.License.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("license")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("license")
 			}
 			return err
 		}
@@ -136,6 +142,8 @@ func (m *LicenseObject) contextValidateUsageStats(ctx context.Context, formats s
 		if err := m.UsageStats.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("usage_stats")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("usage_stats")
 			}
 			return err
 		}

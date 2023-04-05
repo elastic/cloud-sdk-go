@@ -71,10 +71,12 @@ func NewUpdateLdapConfigurationParamsWithHTTPClient(client *http.Client) *Update
 	}
 }
 
-/* UpdateLdapConfigurationParams contains all the parameters to send to the API endpoint
-   for the update ldap configuration operation.
+/*
+UpdateLdapConfigurationParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the update ldap configuration operation.
+
+	Typically these are written to a http.Request.
 */
 type UpdateLdapConfigurationParams struct {
 

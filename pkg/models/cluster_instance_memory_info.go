@@ -31,7 +31,7 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// ClusterInstanceMemoryInfo Information about the memory capacity and use of the Kibana instance or APM Server.
+// ClusterInstanceMemoryInfo Information about the specific instances memory capacity and its usage
 //
 // swagger:model ClusterInstanceMemoryInfo
 type ClusterInstanceMemoryInfo struct {
@@ -43,10 +43,10 @@ type ClusterInstanceMemoryInfo struct {
 	// The planned memory capacity in MB of the instance (only shown when an override is present)
 	InstanceCapacityPlanned int32 `json:"instance_capacity_planned,omitempty"`
 
-	// The % memory pressure of the service if available (60-75% consider increasing capacity, >75% can incur significant performance and stability issues)
+	// The % memory pressure of Elasticsearch JVM heap space if available (60-75% consider increasing capacity, >75% can incur significant performance and stability issues)
 	MemoryPressure int32 `json:"memory_pressure,omitempty"`
 
-	// The % native memory pressure of the service if available
+	// The % memory pressure of the instance Docker container (if available)
 	NativeMemoryPressure int32 `json:"native_memory_pressure,omitempty"`
 }
 

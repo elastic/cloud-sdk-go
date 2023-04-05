@@ -52,12 +52,6 @@ func (o *DeleteSnapshotRepositoryReader) ReadResponse(response runtime.ClientRes
 			return nil, err
 		}
 		return result, nil
-	case 449:
-		result := NewDeleteSnapshotRepositoryRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	case 500:
 		result := NewDeleteSnapshotRepositoryInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -74,7 +68,8 @@ func NewDeleteSnapshotRepositoryOK() *DeleteSnapshotRepositoryOK {
 	return &DeleteSnapshotRepositoryOK{}
 }
 
-/* DeleteSnapshotRepositoryOK describes a response with status code 200, with default header values.
+/*
+DeleteSnapshotRepositoryOK describes a response with status code 200, with default header values.
 
 successful operation
 */
@@ -82,9 +77,44 @@ type DeleteSnapshotRepositoryOK struct {
 	Payload models.EmptyResponse
 }
 
+// IsSuccess returns true when this delete snapshot repository o k response has a 2xx status code
+func (o *DeleteSnapshotRepositoryOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this delete snapshot repository o k response has a 3xx status code
+func (o *DeleteSnapshotRepositoryOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete snapshot repository o k response has a 4xx status code
+func (o *DeleteSnapshotRepositoryOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this delete snapshot repository o k response has a 5xx status code
+func (o *DeleteSnapshotRepositoryOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete snapshot repository o k response a status code equal to that given
+func (o *DeleteSnapshotRepositoryOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the delete snapshot repository o k response
+func (o *DeleteSnapshotRepositoryOK) Code() int {
+	return 200
+}
+
 func (o *DeleteSnapshotRepositoryOK) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/snapshots/repositories/{repository_name}][%d] deleteSnapshotRepositoryOK  %+v", 200, o.Payload)
 }
+
+func (o *DeleteSnapshotRepositoryOK) String() string {
+	return fmt.Sprintf("[DELETE /platform/configuration/snapshots/repositories/{repository_name}][%d] deleteSnapshotRepositoryOK  %+v", 200, o.Payload)
+}
+
 func (o *DeleteSnapshotRepositoryOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -104,7 +134,8 @@ func NewDeleteSnapshotRepositoryAccepted() *DeleteSnapshotRepositoryAccepted {
 	return &DeleteSnapshotRepositoryAccepted{}
 }
 
-/* DeleteSnapshotRepositoryAccepted describes a response with status code 202, with default header values.
+/*
+DeleteSnapshotRepositoryAccepted describes a response with status code 202, with default header values.
 
 Delete snapshot repository config
 */
@@ -112,9 +143,44 @@ type DeleteSnapshotRepositoryAccepted struct {
 	Payload models.EmptyResponse
 }
 
+// IsSuccess returns true when this delete snapshot repository accepted response has a 2xx status code
+func (o *DeleteSnapshotRepositoryAccepted) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this delete snapshot repository accepted response has a 3xx status code
+func (o *DeleteSnapshotRepositoryAccepted) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete snapshot repository accepted response has a 4xx status code
+func (o *DeleteSnapshotRepositoryAccepted) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this delete snapshot repository accepted response has a 5xx status code
+func (o *DeleteSnapshotRepositoryAccepted) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete snapshot repository accepted response a status code equal to that given
+func (o *DeleteSnapshotRepositoryAccepted) IsCode(code int) bool {
+	return code == 202
+}
+
+// Code gets the status code for the delete snapshot repository accepted response
+func (o *DeleteSnapshotRepositoryAccepted) Code() int {
+	return 202
+}
+
 func (o *DeleteSnapshotRepositoryAccepted) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/snapshots/repositories/{repository_name}][%d] deleteSnapshotRepositoryAccepted  %+v", 202, o.Payload)
 }
+
+func (o *DeleteSnapshotRepositoryAccepted) String() string {
+	return fmt.Sprintf("[DELETE /platform/configuration/snapshots/repositories/{repository_name}][%d] deleteSnapshotRepositoryAccepted  %+v", 202, o.Payload)
+}
+
 func (o *DeleteSnapshotRepositoryAccepted) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -129,44 +195,13 @@ func (o *DeleteSnapshotRepositoryAccepted) readResponse(response runtime.ClientR
 	return nil
 }
 
-// NewDeleteSnapshotRepositoryRetryWith creates a DeleteSnapshotRepositoryRetryWith with default headers values
-func NewDeleteSnapshotRepositoryRetryWith() *DeleteSnapshotRepositoryRetryWith {
-	return &DeleteSnapshotRepositoryRetryWith{}
-}
-
-/* DeleteSnapshotRepositoryRetryWith describes a response with status code 449, with default header values.
-
-elevated permissions are required. (code: '"root.unauthorized.rbac.elevated_permissions_required"')
-*/
-type DeleteSnapshotRepositoryRetryWith struct {
-	Payload *models.BasicFailedReply
-}
-
-func (o *DeleteSnapshotRepositoryRetryWith) Error() string {
-	return fmt.Sprintf("[DELETE /platform/configuration/snapshots/repositories/{repository_name}][%d] deleteSnapshotRepositoryRetryWith  %+v", 449, o.Payload)
-}
-func (o *DeleteSnapshotRepositoryRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *DeleteSnapshotRepositoryRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
 // NewDeleteSnapshotRepositoryInternalServerError creates a DeleteSnapshotRepositoryInternalServerError with default headers values
 func NewDeleteSnapshotRepositoryInternalServerError() *DeleteSnapshotRepositoryInternalServerError {
 	return &DeleteSnapshotRepositoryInternalServerError{}
 }
 
-/* DeleteSnapshotRepositoryInternalServerError describes a response with status code 500, with default header values.
+/*
+DeleteSnapshotRepositoryInternalServerError describes a response with status code 500, with default header values.
 
 Failed to delete references and disable snapshots in one or more referencing clusters.
 */
@@ -174,9 +209,44 @@ type DeleteSnapshotRepositoryInternalServerError struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete snapshot repository internal server error response has a 2xx status code
+func (o *DeleteSnapshotRepositoryInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete snapshot repository internal server error response has a 3xx status code
+func (o *DeleteSnapshotRepositoryInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete snapshot repository internal server error response has a 4xx status code
+func (o *DeleteSnapshotRepositoryInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this delete snapshot repository internal server error response has a 5xx status code
+func (o *DeleteSnapshotRepositoryInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this delete snapshot repository internal server error response a status code equal to that given
+func (o *DeleteSnapshotRepositoryInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
+// Code gets the status code for the delete snapshot repository internal server error response
+func (o *DeleteSnapshotRepositoryInternalServerError) Code() int {
+	return 500
+}
+
 func (o *DeleteSnapshotRepositoryInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/snapshots/repositories/{repository_name}][%d] deleteSnapshotRepositoryInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *DeleteSnapshotRepositoryInternalServerError) String() string {
+	return fmt.Sprintf("[DELETE /platform/configuration/snapshots/repositories/{repository_name}][%d] deleteSnapshotRepositoryInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *DeleteSnapshotRepositoryInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

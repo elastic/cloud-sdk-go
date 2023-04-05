@@ -123,6 +123,8 @@ func (m *TrafficFilterRulesetInfo) validateAssociations(formats strfmt.Registry)
 			if err := m.Associations[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("associations" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("associations" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -184,6 +186,8 @@ func (m *TrafficFilterRulesetInfo) validateRules(formats strfmt.Registry) error 
 			if err := m.Rules[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("rules" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("rules" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -229,6 +233,8 @@ func (m *TrafficFilterRulesetInfo) contextValidateAssociations(ctx context.Conte
 			if err := m.Associations[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("associations" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("associations" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -247,6 +253,8 @@ func (m *TrafficFilterRulesetInfo) contextValidateRules(ctx context.Context, for
 			if err := m.Rules[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("rules" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("rules" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

@@ -70,10 +70,12 @@ func NewRestartDeploymentStatelessResourceParamsWithHTTPClient(client *http.Clie
 	}
 }
 
-/* RestartDeploymentStatelessResourceParams contains all the parameters to send to the API endpoint
-   for the restart deployment stateless resource operation.
+/*
+RestartDeploymentStatelessResourceParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the restart deployment stateless resource operation.
+
+	Typically these are written to a http.Request.
 */
 type RestartDeploymentStatelessResourceParams struct {
 

@@ -37,6 +37,8 @@ type EnterpriseSearchSystemSettings struct {
 	// Optionally override the account within Enterprise Search - defaults to a system account that always exists (if specified, the username must also be specified). Note that this field is never returned from the API, it is write only.
 	ElasticsearchPassword string `json:"elasticsearch_password,omitempty"`
 
+	// DEPRECATED: Scheduled for removal in a future version of the API.
+	//
 	// Optionally override the URL to which to send data (for advanced users only, if unspecified the system selects an internal URL)
 	ElasticsearchURL string `json:"elasticsearch_url,omitempty"`
 

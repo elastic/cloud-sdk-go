@@ -56,7 +56,8 @@ func NewGetProxiesOK() *GetProxiesOK {
 	return &GetProxiesOK{}
 }
 
-/* GetProxiesOK describes a response with status code 200, with default header values.
+/*
+GetProxiesOK describes a response with status code 200, with default header values.
 
 An overview of all proxies.
 */
@@ -64,9 +65,44 @@ type GetProxiesOK struct {
 	Payload *models.ProxyOverview
 }
 
+// IsSuccess returns true when this get proxies o k response has a 2xx status code
+func (o *GetProxiesOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get proxies o k response has a 3xx status code
+func (o *GetProxiesOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get proxies o k response has a 4xx status code
+func (o *GetProxiesOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get proxies o k response has a 5xx status code
+func (o *GetProxiesOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get proxies o k response a status code equal to that given
+func (o *GetProxiesOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get proxies o k response
+func (o *GetProxiesOK) Code() int {
+	return 200
+}
+
 func (o *GetProxiesOK) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/proxies][%d] getProxiesOK  %+v", 200, o.Payload)
 }
+
+func (o *GetProxiesOK) String() string {
+	return fmt.Sprintf("[GET /platform/infrastructure/proxies][%d] getProxiesOK  %+v", 200, o.Payload)
+}
+
 func (o *GetProxiesOK) GetPayload() *models.ProxyOverview {
 	return o.Payload
 }

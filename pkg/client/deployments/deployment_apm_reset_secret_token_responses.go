@@ -58,12 +58,6 @@ func (o *DeploymentApmResetSecretTokenReader) ReadResponse(response runtime.Clie
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewDeploymentApmResetSecretTokenRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	case 500:
 		result := NewDeploymentApmResetSecretTokenInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -80,7 +74,8 @@ func NewDeploymentApmResetSecretTokenAccepted() *DeploymentApmResetSecretTokenAc
 	return &DeploymentApmResetSecretTokenAccepted{}
 }
 
-/* DeploymentApmResetSecretTokenAccepted describes a response with status code 202, with default header values.
+/*
+DeploymentApmResetSecretTokenAccepted describes a response with status code 202, with default header values.
 
 Response containing the new secret token, plan to apply it starts
 */
@@ -88,9 +83,44 @@ type DeploymentApmResetSecretTokenAccepted struct {
 	Payload *models.ApmCrudResponse
 }
 
+// IsSuccess returns true when this deployment apm reset secret token accepted response has a 2xx status code
+func (o *DeploymentApmResetSecretTokenAccepted) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this deployment apm reset secret token accepted response has a 3xx status code
+func (o *DeploymentApmResetSecretTokenAccepted) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this deployment apm reset secret token accepted response has a 4xx status code
+func (o *DeploymentApmResetSecretTokenAccepted) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this deployment apm reset secret token accepted response has a 5xx status code
+func (o *DeploymentApmResetSecretTokenAccepted) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this deployment apm reset secret token accepted response a status code equal to that given
+func (o *DeploymentApmResetSecretTokenAccepted) IsCode(code int) bool {
+	return code == 202
+}
+
+// Code gets the status code for the deployment apm reset secret token accepted response
+func (o *DeploymentApmResetSecretTokenAccepted) Code() int {
+	return 202
+}
+
 func (o *DeploymentApmResetSecretTokenAccepted) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/apm/{ref_id}/_reset-token][%d] deploymentApmResetSecretTokenAccepted  %+v", 202, o.Payload)
 }
+
+func (o *DeploymentApmResetSecretTokenAccepted) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/apm/{ref_id}/_reset-token][%d] deploymentApmResetSecretTokenAccepted  %+v", 202, o.Payload)
+}
+
 func (o *DeploymentApmResetSecretTokenAccepted) GetPayload() *models.ApmCrudResponse {
 	return o.Payload
 }
@@ -112,7 +142,8 @@ func NewDeploymentApmResetSecretTokenBadRequest() *DeploymentApmResetSecretToken
 	return &DeploymentApmResetSecretTokenBadRequest{}
 }
 
-/* DeploymentApmResetSecretTokenBadRequest describes a response with status code 400, with default header values.
+/*
+DeploymentApmResetSecretTokenBadRequest describes a response with status code 400, with default header values.
 
 Reset token is not supported when APM is managed by Elastic Agent. (code: `clusters.cluster_plan_state_error`)
 */
@@ -125,9 +156,44 @@ type DeploymentApmResetSecretTokenBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this deployment apm reset secret token bad request response has a 2xx status code
+func (o *DeploymentApmResetSecretTokenBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this deployment apm reset secret token bad request response has a 3xx status code
+func (o *DeploymentApmResetSecretTokenBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this deployment apm reset secret token bad request response has a 4xx status code
+func (o *DeploymentApmResetSecretTokenBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this deployment apm reset secret token bad request response has a 5xx status code
+func (o *DeploymentApmResetSecretTokenBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this deployment apm reset secret token bad request response a status code equal to that given
+func (o *DeploymentApmResetSecretTokenBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the deployment apm reset secret token bad request response
+func (o *DeploymentApmResetSecretTokenBadRequest) Code() int {
+	return 400
+}
+
 func (o *DeploymentApmResetSecretTokenBadRequest) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/apm/{ref_id}/_reset-token][%d] deploymentApmResetSecretTokenBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *DeploymentApmResetSecretTokenBadRequest) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/apm/{ref_id}/_reset-token][%d] deploymentApmResetSecretTokenBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *DeploymentApmResetSecretTokenBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -156,9 +222,11 @@ func NewDeploymentApmResetSecretTokenNotFound() *DeploymentApmResetSecretTokenNo
 	return &DeploymentApmResetSecretTokenNotFound{}
 }
 
-/* DeploymentApmResetSecretTokenNotFound describes a response with status code 404, with default header values.
+/*
+	DeploymentApmResetSecretTokenNotFound describes a response with status code 404, with default header values.
 
- * The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+	* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+
 * The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)
 */
 type DeploymentApmResetSecretTokenNotFound struct {
@@ -170,9 +238,44 @@ type DeploymentApmResetSecretTokenNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this deployment apm reset secret token not found response has a 2xx status code
+func (o *DeploymentApmResetSecretTokenNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this deployment apm reset secret token not found response has a 3xx status code
+func (o *DeploymentApmResetSecretTokenNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this deployment apm reset secret token not found response has a 4xx status code
+func (o *DeploymentApmResetSecretTokenNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this deployment apm reset secret token not found response has a 5xx status code
+func (o *DeploymentApmResetSecretTokenNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this deployment apm reset secret token not found response a status code equal to that given
+func (o *DeploymentApmResetSecretTokenNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the deployment apm reset secret token not found response
+func (o *DeploymentApmResetSecretTokenNotFound) Code() int {
+	return 404
+}
+
 func (o *DeploymentApmResetSecretTokenNotFound) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/apm/{ref_id}/_reset-token][%d] deploymentApmResetSecretTokenNotFound  %+v", 404, o.Payload)
 }
+
+func (o *DeploymentApmResetSecretTokenNotFound) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/apm/{ref_id}/_reset-token][%d] deploymentApmResetSecretTokenNotFound  %+v", 404, o.Payload)
+}
+
 func (o *DeploymentApmResetSecretTokenNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -196,56 +299,13 @@ func (o *DeploymentApmResetSecretTokenNotFound) readResponse(response runtime.Cl
 	return nil
 }
 
-// NewDeploymentApmResetSecretTokenRetryWith creates a DeploymentApmResetSecretTokenRetryWith with default headers values
-func NewDeploymentApmResetSecretTokenRetryWith() *DeploymentApmResetSecretTokenRetryWith {
-	return &DeploymentApmResetSecretTokenRetryWith{}
-}
-
-/* DeploymentApmResetSecretTokenRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type DeploymentApmResetSecretTokenRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-func (o *DeploymentApmResetSecretTokenRetryWith) Error() string {
-	return fmt.Sprintf("[POST /deployments/{deployment_id}/apm/{ref_id}/_reset-token][%d] deploymentApmResetSecretTokenRetryWith  %+v", 449, o.Payload)
-}
-func (o *DeploymentApmResetSecretTokenRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *DeploymentApmResetSecretTokenRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
 // NewDeploymentApmResetSecretTokenInternalServerError creates a DeploymentApmResetSecretTokenInternalServerError with default headers values
 func NewDeploymentApmResetSecretTokenInternalServerError() *DeploymentApmResetSecretTokenInternalServerError {
 	return &DeploymentApmResetSecretTokenInternalServerError{}
 }
 
-/* DeploymentApmResetSecretTokenInternalServerError describes a response with status code 500, with default header values.
+/*
+DeploymentApmResetSecretTokenInternalServerError describes a response with status code 500, with default header values.
 
 We have failed you. (code: `deployments.deployment_resource_no_longer_exists`)
 */
@@ -258,9 +318,44 @@ type DeploymentApmResetSecretTokenInternalServerError struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this deployment apm reset secret token internal server error response has a 2xx status code
+func (o *DeploymentApmResetSecretTokenInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this deployment apm reset secret token internal server error response has a 3xx status code
+func (o *DeploymentApmResetSecretTokenInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this deployment apm reset secret token internal server error response has a 4xx status code
+func (o *DeploymentApmResetSecretTokenInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this deployment apm reset secret token internal server error response has a 5xx status code
+func (o *DeploymentApmResetSecretTokenInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this deployment apm reset secret token internal server error response a status code equal to that given
+func (o *DeploymentApmResetSecretTokenInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
+// Code gets the status code for the deployment apm reset secret token internal server error response
+func (o *DeploymentApmResetSecretTokenInternalServerError) Code() int {
+	return 500
+}
+
 func (o *DeploymentApmResetSecretTokenInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/apm/{ref_id}/_reset-token][%d] deploymentApmResetSecretTokenInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *DeploymentApmResetSecretTokenInternalServerError) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/apm/{ref_id}/_reset-token][%d] deploymentApmResetSecretTokenInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *DeploymentApmResetSecretTokenInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

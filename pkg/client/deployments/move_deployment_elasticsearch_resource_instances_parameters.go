@@ -72,10 +72,12 @@ func NewMoveDeploymentElasticsearchResourceInstancesParamsWithHTTPClient(client 
 	}
 }
 
-/* MoveDeploymentElasticsearchResourceInstancesParams contains all the parameters to send to the API endpoint
-   for the move deployment elasticsearch resource instances operation.
+/*
+MoveDeploymentElasticsearchResourceInstancesParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the move deployment elasticsearch resource instances operation.
+
+	Typically these are written to a http.Request.
 */
 type MoveDeploymentElasticsearchResourceInstancesParams struct {
 
@@ -90,6 +92,12 @@ type MoveDeploymentElasticsearchResourceInstancesParams struct {
 	   Identifier for the Deployment.
 	*/
 	DeploymentID string
+
+	/* ForceMove.
+
+	   When `true`, moves instance data at file-system level (not via Elasticsearch), and re-creates instances on target allocator(s).
+	*/
+	ForceMove *bool
 
 	/* ForceUpdate.
 
@@ -151,6 +159,8 @@ func (o *MoveDeploymentElasticsearchResourceInstancesParams) WithDefaults() *Mov
 // All values with no default are reset to their zero value.
 func (o *MoveDeploymentElasticsearchResourceInstancesParams) SetDefaults() {
 	var (
+		forceMoveDefault = bool(false)
+
 		forceUpdateDefault = bool(false)
 
 		ignoreMissingDefault = bool(false)
@@ -163,6 +173,7 @@ func (o *MoveDeploymentElasticsearchResourceInstancesParams) SetDefaults() {
 	)
 
 	val := MoveDeploymentElasticsearchResourceInstancesParams{
+		ForceMove:     &forceMoveDefault,
 		ForceUpdate:   &forceUpdateDefault,
 		IgnoreMissing: &ignoreMissingDefault,
 		InstancesDown: &instancesDownDefault,
@@ -229,6 +240,17 @@ func (o *MoveDeploymentElasticsearchResourceInstancesParams) WithDeploymentID(de
 // SetDeploymentID adds the deploymentId to the move deployment elasticsearch resource instances params
 func (o *MoveDeploymentElasticsearchResourceInstancesParams) SetDeploymentID(deploymentID string) {
 	o.DeploymentID = deploymentID
+}
+
+// WithForceMove adds the forceMove to the move deployment elasticsearch resource instances params
+func (o *MoveDeploymentElasticsearchResourceInstancesParams) WithForceMove(forceMove *bool) *MoveDeploymentElasticsearchResourceInstancesParams {
+	o.SetForceMove(forceMove)
+	return o
+}
+
+// SetForceMove adds the forceMove to the move deployment elasticsearch resource instances params
+func (o *MoveDeploymentElasticsearchResourceInstancesParams) SetForceMove(forceMove *bool) {
+	o.ForceMove = forceMove
 }
 
 // WithForceUpdate adds the forceUpdate to the move deployment elasticsearch resource instances params
@@ -324,6 +346,23 @@ func (o *MoveDeploymentElasticsearchResourceInstancesParams) WriteToRequest(r ru
 	// path param deployment_id
 	if err := r.SetPathParam("deployment_id", o.DeploymentID); err != nil {
 		return err
+	}
+
+	if o.ForceMove != nil {
+
+		// query param force_move
+		var qrForceMove bool
+
+		if o.ForceMove != nil {
+			qrForceMove = *o.ForceMove
+		}
+		qForceMove := swag.FormatBool(qrForceMove)
+		if qForceMove != "" {
+
+			if err := r.SetQueryParam("force_move", qForceMove); err != nil {
+				return err
+			}
+		}
 	}
 
 	if o.ForceUpdate != nil {

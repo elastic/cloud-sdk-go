@@ -71,10 +71,12 @@ func NewUpdateSecurityDeploymentParamsWithHTTPClient(client *http.Client) *Updat
 	}
 }
 
-/* UpdateSecurityDeploymentParams contains all the parameters to send to the API endpoint
-   for the update security deployment operation.
+/*
+UpdateSecurityDeploymentParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the update security deployment operation.
+
+	Typically these are written to a http.Request.
 */
 type UpdateSecurityDeploymentParams struct {
 

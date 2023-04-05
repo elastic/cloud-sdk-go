@@ -104,6 +104,8 @@ func (m *AllocatorHealthStatus) validateHealthChecks(formats strfmt.Registry) er
 		if err := m.HealthChecks.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("health_checks")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("health_checks")
 			}
 			return err
 		}
@@ -162,6 +164,8 @@ func (m *AllocatorHealthStatus) contextValidateHealthChecks(ctx context.Context,
 		if err := m.HealthChecks.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("health_checks")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("health_checks")
 			}
 			return err
 		}

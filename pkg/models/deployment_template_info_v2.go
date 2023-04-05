@@ -129,6 +129,8 @@ func (m *DeploymentTemplateInfoV2) validateDeploymentTemplate(formats strfmt.Reg
 		if err := m.DeploymentTemplate.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("deployment_template")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("deployment_template")
 			}
 			return err
 		}
@@ -161,6 +163,8 @@ func (m *DeploymentTemplateInfoV2) validateInstanceConfigurations(formats strfmt
 			if err := m.InstanceConfigurations[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("instance_configurations" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("instance_configurations" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -185,6 +189,8 @@ func (m *DeploymentTemplateInfoV2) validateKibanaDeeplink(formats strfmt.Registr
 			if err := m.KibanaDeeplink[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("kibana_deeplink" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("kibana_deeplink" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -209,6 +215,8 @@ func (m *DeploymentTemplateInfoV2) validateMetadata(formats strfmt.Registry) err
 			if err := m.Metadata[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("metadata" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("metadata" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -237,6 +245,8 @@ func (m *DeploymentTemplateInfoV2) validateSource(formats strfmt.Registry) error
 		if err := m.Source.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("source")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("source")
 			}
 			return err
 		}
@@ -281,6 +291,8 @@ func (m *DeploymentTemplateInfoV2) contextValidateDeploymentTemplate(ctx context
 		if err := m.DeploymentTemplate.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("deployment_template")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("deployment_template")
 			}
 			return err
 		}
@@ -297,6 +309,8 @@ func (m *DeploymentTemplateInfoV2) contextValidateInstanceConfigurations(ctx con
 			if err := m.InstanceConfigurations[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("instance_configurations" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("instance_configurations" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -315,6 +329,8 @@ func (m *DeploymentTemplateInfoV2) contextValidateKibanaDeeplink(ctx context.Con
 			if err := m.KibanaDeeplink[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("kibana_deeplink" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("kibana_deeplink" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -333,6 +349,8 @@ func (m *DeploymentTemplateInfoV2) contextValidateMetadata(ctx context.Context, 
 			if err := m.Metadata[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("metadata" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("metadata" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -349,6 +367,8 @@ func (m *DeploymentTemplateInfoV2) contextValidateSource(ctx context.Context, fo
 		if err := m.Source.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("source")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("source")
 			}
 			return err
 		}

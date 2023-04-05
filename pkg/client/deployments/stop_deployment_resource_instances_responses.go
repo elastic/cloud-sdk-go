@@ -58,12 +58,6 @@ func (o *StopDeploymentResourceInstancesReader) ReadResponse(response runtime.Cl
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewStopDeploymentResourceInstancesRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	case 500:
 		result := NewStopDeploymentResourceInstancesInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -80,7 +74,8 @@ func NewStopDeploymentResourceInstancesAccepted() *StopDeploymentResourceInstanc
 	return &StopDeploymentResourceInstancesAccepted{}
 }
 
-/* StopDeploymentResourceInstancesAccepted describes a response with status code 202, with default header values.
+/*
+StopDeploymentResourceInstancesAccepted describes a response with status code 202, with default header values.
 
 The stop command was issued successfully.
 */
@@ -88,9 +83,44 @@ type StopDeploymentResourceInstancesAccepted struct {
 	Payload *models.DeploymentResourceCommandResponse
 }
 
+// IsSuccess returns true when this stop deployment resource instances accepted response has a 2xx status code
+func (o *StopDeploymentResourceInstancesAccepted) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this stop deployment resource instances accepted response has a 3xx status code
+func (o *StopDeploymentResourceInstancesAccepted) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this stop deployment resource instances accepted response has a 4xx status code
+func (o *StopDeploymentResourceInstancesAccepted) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this stop deployment resource instances accepted response has a 5xx status code
+func (o *StopDeploymentResourceInstancesAccepted) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this stop deployment resource instances accepted response a status code equal to that given
+func (o *StopDeploymentResourceInstancesAccepted) IsCode(code int) bool {
+	return code == 202
+}
+
+// Code gets the status code for the stop deployment resource instances accepted response
+func (o *StopDeploymentResourceInstancesAccepted) Code() int {
+	return 202
+}
+
 func (o *StopDeploymentResourceInstancesAccepted) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_ids}/_stop][%d] stopDeploymentResourceInstancesAccepted  %+v", 202, o.Payload)
 }
+
+func (o *StopDeploymentResourceInstancesAccepted) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_ids}/_stop][%d] stopDeploymentResourceInstancesAccepted  %+v", 202, o.Payload)
+}
+
 func (o *StopDeploymentResourceInstancesAccepted) GetPayload() *models.DeploymentResourceCommandResponse {
 	return o.Payload
 }
@@ -112,7 +142,8 @@ func NewStopDeploymentResourceInstancesForbidden() *StopDeploymentResourceInstan
 	return &StopDeploymentResourceInstancesForbidden{}
 }
 
-/* StopDeploymentResourceInstancesForbidden describes a response with status code 403, with default header values.
+/*
+StopDeploymentResourceInstancesForbidden describes a response with status code 403, with default header values.
 
 The start maintenance mode command was prohibited for the given Resource. (code: `deployments.instance_update_prohibited_error`)
 */
@@ -125,9 +156,44 @@ type StopDeploymentResourceInstancesForbidden struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this stop deployment resource instances forbidden response has a 2xx status code
+func (o *StopDeploymentResourceInstancesForbidden) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this stop deployment resource instances forbidden response has a 3xx status code
+func (o *StopDeploymentResourceInstancesForbidden) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this stop deployment resource instances forbidden response has a 4xx status code
+func (o *StopDeploymentResourceInstancesForbidden) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this stop deployment resource instances forbidden response has a 5xx status code
+func (o *StopDeploymentResourceInstancesForbidden) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this stop deployment resource instances forbidden response a status code equal to that given
+func (o *StopDeploymentResourceInstancesForbidden) IsCode(code int) bool {
+	return code == 403
+}
+
+// Code gets the status code for the stop deployment resource instances forbidden response
+func (o *StopDeploymentResourceInstancesForbidden) Code() int {
+	return 403
+}
+
 func (o *StopDeploymentResourceInstancesForbidden) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_ids}/_stop][%d] stopDeploymentResourceInstancesForbidden  %+v", 403, o.Payload)
 }
+
+func (o *StopDeploymentResourceInstancesForbidden) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_ids}/_stop][%d] stopDeploymentResourceInstancesForbidden  %+v", 403, o.Payload)
+}
+
 func (o *StopDeploymentResourceInstancesForbidden) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -156,9 +222,11 @@ func NewStopDeploymentResourceInstancesNotFound() *StopDeploymentResourceInstanc
 	return &StopDeploymentResourceInstancesNotFound{}
 }
 
-/* StopDeploymentResourceInstancesNotFound describes a response with status code 404, with default header values.
+/*
+	StopDeploymentResourceInstancesNotFound describes a response with status code 404, with default header values.
 
- * The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+	* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+
 * The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)
 * One or more instances of the given resource type are missing. (code: `deployments.instances_missing_on_update_error`)
 */
@@ -171,9 +239,44 @@ type StopDeploymentResourceInstancesNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this stop deployment resource instances not found response has a 2xx status code
+func (o *StopDeploymentResourceInstancesNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this stop deployment resource instances not found response has a 3xx status code
+func (o *StopDeploymentResourceInstancesNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this stop deployment resource instances not found response has a 4xx status code
+func (o *StopDeploymentResourceInstancesNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this stop deployment resource instances not found response has a 5xx status code
+func (o *StopDeploymentResourceInstancesNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this stop deployment resource instances not found response a status code equal to that given
+func (o *StopDeploymentResourceInstancesNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the stop deployment resource instances not found response
+func (o *StopDeploymentResourceInstancesNotFound) Code() int {
+	return 404
+}
+
 func (o *StopDeploymentResourceInstancesNotFound) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_ids}/_stop][%d] stopDeploymentResourceInstancesNotFound  %+v", 404, o.Payload)
 }
+
+func (o *StopDeploymentResourceInstancesNotFound) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_ids}/_stop][%d] stopDeploymentResourceInstancesNotFound  %+v", 404, o.Payload)
+}
+
 func (o *StopDeploymentResourceInstancesNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -197,56 +300,13 @@ func (o *StopDeploymentResourceInstancesNotFound) readResponse(response runtime.
 	return nil
 }
 
-// NewStopDeploymentResourceInstancesRetryWith creates a StopDeploymentResourceInstancesRetryWith with default headers values
-func NewStopDeploymentResourceInstancesRetryWith() *StopDeploymentResourceInstancesRetryWith {
-	return &StopDeploymentResourceInstancesRetryWith{}
-}
-
-/* StopDeploymentResourceInstancesRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type StopDeploymentResourceInstancesRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-func (o *StopDeploymentResourceInstancesRetryWith) Error() string {
-	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_ids}/_stop][%d] stopDeploymentResourceInstancesRetryWith  %+v", 449, o.Payload)
-}
-func (o *StopDeploymentResourceInstancesRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *StopDeploymentResourceInstancesRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
 // NewStopDeploymentResourceInstancesInternalServerError creates a StopDeploymentResourceInstancesInternalServerError with default headers values
 func NewStopDeploymentResourceInstancesInternalServerError() *StopDeploymentResourceInstancesInternalServerError {
 	return &StopDeploymentResourceInstancesInternalServerError{}
 }
 
-/* StopDeploymentResourceInstancesInternalServerError describes a response with status code 500, with default header values.
+/*
+StopDeploymentResourceInstancesInternalServerError describes a response with status code 500, with default header values.
 
 A Resource that was previously stored no longer exists. (code: `deployments.deployment_resource_no_longer_exists`)
 */
@@ -259,9 +319,44 @@ type StopDeploymentResourceInstancesInternalServerError struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this stop deployment resource instances internal server error response has a 2xx status code
+func (o *StopDeploymentResourceInstancesInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this stop deployment resource instances internal server error response has a 3xx status code
+func (o *StopDeploymentResourceInstancesInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this stop deployment resource instances internal server error response has a 4xx status code
+func (o *StopDeploymentResourceInstancesInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this stop deployment resource instances internal server error response has a 5xx status code
+func (o *StopDeploymentResourceInstancesInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this stop deployment resource instances internal server error response a status code equal to that given
+func (o *StopDeploymentResourceInstancesInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
+// Code gets the status code for the stop deployment resource instances internal server error response
+func (o *StopDeploymentResourceInstancesInternalServerError) Code() int {
+	return 500
+}
+
 func (o *StopDeploymentResourceInstancesInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_ids}/_stop][%d] stopDeploymentResourceInstancesInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *StopDeploymentResourceInstancesInternalServerError) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_ids}/_stop][%d] stopDeploymentResourceInstancesInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *StopDeploymentResourceInstancesInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

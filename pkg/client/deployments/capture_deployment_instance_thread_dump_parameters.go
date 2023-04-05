@@ -69,10 +69,12 @@ func NewCaptureDeploymentInstanceThreadDumpParamsWithHTTPClient(client *http.Cli
 	}
 }
 
-/* CaptureDeploymentInstanceThreadDumpParams contains all the parameters to send to the API endpoint
-   for the capture deployment instance thread dump operation.
+/*
+CaptureDeploymentInstanceThreadDumpParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the capture deployment instance thread dump operation.
+
+	Typically these are written to a http.Request.
 */
 type CaptureDeploymentInstanceThreadDumpParams struct {
 

@@ -69,10 +69,12 @@ func NewDemoteCoordinatorParamsWithHTTPClient(client *http.Client) *DemoteCoordi
 	}
 }
 
-/* DemoteCoordinatorParams contains all the parameters to send to the API endpoint
-   for the demote coordinator operation.
+/*
+DemoteCoordinatorParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the demote coordinator operation.
+
+	Typically these are written to a http.Request.
 */
 type DemoteCoordinatorParams struct {
 

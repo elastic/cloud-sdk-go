@@ -58,12 +58,6 @@ func (o *SetTelemetryConfigReader) ReadResponse(response runtime.ClientResponse,
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewSetTelemetryConfigRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	case 500:
 		result := NewSetTelemetryConfigInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -80,7 +74,8 @@ func NewSetTelemetryConfigOK() *SetTelemetryConfigOK {
 	return &SetTelemetryConfigOK{}
 }
 
-/* SetTelemetryConfigOK describes a response with status code 200, with default header values.
+/*
+SetTelemetryConfigOK describes a response with status code 200, with default header values.
 
 Telemetry configuration updated successfully
 */
@@ -88,9 +83,44 @@ type SetTelemetryConfigOK struct {
 	Payload *models.TelemetryConfig
 }
 
+// IsSuccess returns true when this set telemetry config o k response has a 2xx status code
+func (o *SetTelemetryConfigOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this set telemetry config o k response has a 3xx status code
+func (o *SetTelemetryConfigOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set telemetry config o k response has a 4xx status code
+func (o *SetTelemetryConfigOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this set telemetry config o k response has a 5xx status code
+func (o *SetTelemetryConfigOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set telemetry config o k response a status code equal to that given
+func (o *SetTelemetryConfigOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the set telemetry config o k response
+func (o *SetTelemetryConfigOK) Code() int {
+	return 200
+}
+
 func (o *SetTelemetryConfigOK) Error() string {
 	return fmt.Sprintf("[PUT /phone-home/config][%d] setTelemetryConfigOK  %+v", 200, o.Payload)
 }
+
+func (o *SetTelemetryConfigOK) String() string {
+	return fmt.Sprintf("[PUT /phone-home/config][%d] setTelemetryConfigOK  %+v", 200, o.Payload)
+}
+
 func (o *SetTelemetryConfigOK) GetPayload() *models.TelemetryConfig {
 	return o.Payload
 }
@@ -112,7 +142,8 @@ func NewSetTelemetryConfigForbidden() *SetTelemetryConfigForbidden {
 	return &SetTelemetryConfigForbidden{}
 }
 
-/* SetTelemetryConfigForbidden describes a response with status code 403, with default header values.
+/*
+SetTelemetryConfigForbidden describes a response with status code 403, with default header values.
 
 User must have Platform level permissions. (code: `root.unauthorized.rbac`)
 */
@@ -125,9 +156,44 @@ type SetTelemetryConfigForbidden struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this set telemetry config forbidden response has a 2xx status code
+func (o *SetTelemetryConfigForbidden) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this set telemetry config forbidden response has a 3xx status code
+func (o *SetTelemetryConfigForbidden) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set telemetry config forbidden response has a 4xx status code
+func (o *SetTelemetryConfigForbidden) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this set telemetry config forbidden response has a 5xx status code
+func (o *SetTelemetryConfigForbidden) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set telemetry config forbidden response a status code equal to that given
+func (o *SetTelemetryConfigForbidden) IsCode(code int) bool {
+	return code == 403
+}
+
+// Code gets the status code for the set telemetry config forbidden response
+func (o *SetTelemetryConfigForbidden) Code() int {
+	return 403
+}
+
 func (o *SetTelemetryConfigForbidden) Error() string {
 	return fmt.Sprintf("[PUT /phone-home/config][%d] setTelemetryConfigForbidden  %+v", 403, o.Payload)
 }
+
+func (o *SetTelemetryConfigForbidden) String() string {
+	return fmt.Sprintf("[PUT /phone-home/config][%d] setTelemetryConfigForbidden  %+v", 403, o.Payload)
+}
+
 func (o *SetTelemetryConfigForbidden) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -156,7 +222,8 @@ func NewSetTelemetryConfigConflict() *SetTelemetryConfigConflict {
 	return &SetTelemetryConfigConflict{}
 }
 
-/* SetTelemetryConfigConflict describes a response with status code 409, with default header values.
+/*
+SetTelemetryConfigConflict describes a response with status code 409, with default header values.
 
 The telemetry configuration did not exist so there was an attempt to create one. Another request resulted in the creation of a telemetry configuration before this request completed, resulting in the failure of this request to create a configuration. Please retry. (code: `telemetry.already_exists`)
 */
@@ -169,9 +236,44 @@ type SetTelemetryConfigConflict struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this set telemetry config conflict response has a 2xx status code
+func (o *SetTelemetryConfigConflict) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this set telemetry config conflict response has a 3xx status code
+func (o *SetTelemetryConfigConflict) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set telemetry config conflict response has a 4xx status code
+func (o *SetTelemetryConfigConflict) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this set telemetry config conflict response has a 5xx status code
+func (o *SetTelemetryConfigConflict) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set telemetry config conflict response a status code equal to that given
+func (o *SetTelemetryConfigConflict) IsCode(code int) bool {
+	return code == 409
+}
+
+// Code gets the status code for the set telemetry config conflict response
+func (o *SetTelemetryConfigConflict) Code() int {
+	return 409
+}
+
 func (o *SetTelemetryConfigConflict) Error() string {
 	return fmt.Sprintf("[PUT /phone-home/config][%d] setTelemetryConfigConflict  %+v", 409, o.Payload)
 }
+
+func (o *SetTelemetryConfigConflict) String() string {
+	return fmt.Sprintf("[PUT /phone-home/config][%d] setTelemetryConfigConflict  %+v", 409, o.Payload)
+}
+
 func (o *SetTelemetryConfigConflict) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -195,56 +297,13 @@ func (o *SetTelemetryConfigConflict) readResponse(response runtime.ClientRespons
 	return nil
 }
 
-// NewSetTelemetryConfigRetryWith creates a SetTelemetryConfigRetryWith with default headers values
-func NewSetTelemetryConfigRetryWith() *SetTelemetryConfigRetryWith {
-	return &SetTelemetryConfigRetryWith{}
-}
-
-/* SetTelemetryConfigRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type SetTelemetryConfigRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-func (o *SetTelemetryConfigRetryWith) Error() string {
-	return fmt.Sprintf("[PUT /phone-home/config][%d] setTelemetryConfigRetryWith  %+v", 449, o.Payload)
-}
-func (o *SetTelemetryConfigRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *SetTelemetryConfigRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
 // NewSetTelemetryConfigInternalServerError creates a SetTelemetryConfigInternalServerError with default headers values
 func NewSetTelemetryConfigInternalServerError() *SetTelemetryConfigInternalServerError {
 	return &SetTelemetryConfigInternalServerError{}
 }
 
-/* SetTelemetryConfigInternalServerError describes a response with status code 500, with default header values.
+/*
+SetTelemetryConfigInternalServerError describes a response with status code 500, with default header values.
 
 Failed to set the configuration due to an internal server error. (code: `telemetry.request_execution_failed`)
 */
@@ -257,9 +316,44 @@ type SetTelemetryConfigInternalServerError struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this set telemetry config internal server error response has a 2xx status code
+func (o *SetTelemetryConfigInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this set telemetry config internal server error response has a 3xx status code
+func (o *SetTelemetryConfigInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set telemetry config internal server error response has a 4xx status code
+func (o *SetTelemetryConfigInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this set telemetry config internal server error response has a 5xx status code
+func (o *SetTelemetryConfigInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this set telemetry config internal server error response a status code equal to that given
+func (o *SetTelemetryConfigInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
+// Code gets the status code for the set telemetry config internal server error response
+func (o *SetTelemetryConfigInternalServerError) Code() int {
+	return 500
+}
+
 func (o *SetTelemetryConfigInternalServerError) Error() string {
 	return fmt.Sprintf("[PUT /phone-home/config][%d] setTelemetryConfigInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *SetTelemetryConfigInternalServerError) String() string {
+	return fmt.Sprintf("[PUT /phone-home/config][%d] setTelemetryConfigInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *SetTelemetryConfigInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

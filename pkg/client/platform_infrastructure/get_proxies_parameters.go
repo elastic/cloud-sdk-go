@@ -69,10 +69,12 @@ func NewGetProxiesParamsWithHTTPClient(client *http.Client) *GetProxiesParams {
 	}
 }
 
-/* GetProxiesParams contains all the parameters to send to the API endpoint
-   for the get proxies operation.
+/*
+GetProxiesParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the get proxies operation.
+
+	Typically these are written to a http.Request.
 */
 type GetProxiesParams struct {
 	timeout    time.Duration

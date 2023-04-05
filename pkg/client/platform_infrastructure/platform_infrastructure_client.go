@@ -147,6 +147,8 @@ type ClientService interface {
 
 	PutConfigStoreOption(params *PutConfigStoreOptionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutConfigStoreOptionOK, error)
 
+	ReindexAdminconsoles(params *ReindexAdminconsolesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ReindexAdminconsolesAccepted, error)
+
 	ResyncAllocator(params *ResyncAllocatorParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ResyncAllocatorOK, error)
 
 	ResyncAllocators(params *ResyncAllocatorsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ResyncAllocatorsAccepted, error)
@@ -215,9 +217,9 @@ type ClientService interface {
 }
 
 /*
-  AddBlueprinterBlessing adds blessing
+AddBlueprinterBlessing adds blessing
 
-  Add a Blessing for a runner to a role.
+Add a Blessing for a runner to a role.
 */
 func (a *Client) AddBlueprinterBlessing(params *AddBlueprinterBlessingParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*AddBlueprinterBlessingOK, error) {
 	// TODO: Validate the params before sending
@@ -256,9 +258,9 @@ func (a *Client) AddBlueprinterBlessing(params *AddBlueprinterBlessingParams, au
 }
 
 /*
-  CreateBlueprinterRole creates a role
+CreateBlueprinterRole creates a role
 
-  Create a Blueprinter role.
+Create a Blueprinter role.
 */
 func (a *Client) CreateBlueprinterRole(params *CreateBlueprinterRoleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateBlueprinterRoleCreated, error) {
 	// TODO: Validate the params before sending
@@ -297,9 +299,9 @@ func (a *Client) CreateBlueprinterRole(params *CreateBlueprinterRoleParams, auth
 }
 
 /*
-  CreateConfigStoreOption creates config store option
+CreateConfigStoreOption creates config store option
 
-  Inserts new Config Store Option.
+Inserts new Config Store Option.
 */
 func (a *Client) CreateConfigStoreOption(params *CreateConfigStoreOptionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateConfigStoreOptionCreated, error) {
 	// TODO: Validate the params before sending
@@ -338,9 +340,9 @@ func (a *Client) CreateConfigStoreOption(params *CreateConfigStoreOptionParams, 
 }
 
 /*
-  CreateProxiesFilteredGroup creates filtered group of proxies
+CreateProxiesFilteredGroup creates filtered group of proxies
 
-  Create the settings for a filtered group of proxies.
+Create the settings for a filtered group of proxies.
 */
 func (a *Client) CreateProxiesFilteredGroup(params *CreateProxiesFilteredGroupParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateProxiesFilteredGroupOK, error) {
 	// TODO: Validate the params before sending
@@ -379,9 +381,9 @@ func (a *Client) CreateProxiesFilteredGroup(params *CreateProxiesFilteredGroupPa
 }
 
 /*
-  DeleteAdminconsoleLoggingSettings deletes adminconsole logging settings
+DeleteAdminconsoleLoggingSettings deletes adminconsole logging settings
 
-  Reset the default logging settings for this adminconsole instance.
+Reset the default logging settings for this adminconsole instance.
 */
 func (a *Client) DeleteAdminconsoleLoggingSettings(params *DeleteAdminconsoleLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteAdminconsoleLoggingSettingsOK, error) {
 	// TODO: Validate the params before sending
@@ -420,9 +422,9 @@ func (a *Client) DeleteAdminconsoleLoggingSettings(params *DeleteAdminconsoleLog
 }
 
 /*
-  DeleteAllocator deletes allocator
+DeleteAllocator deletes allocator
 
-  Deletes the allocator.
+Deletes the allocator.
 */
 func (a *Client) DeleteAllocator(params *DeleteAllocatorParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteAllocatorOK, error) {
 	// TODO: Validate the params before sending
@@ -461,9 +463,9 @@ func (a *Client) DeleteAllocator(params *DeleteAllocatorParams, authInfo runtime
 }
 
 /*
-  DeleteAllocatorLoggingSettings deletes allocator logging settings
+DeleteAllocatorLoggingSettings deletes allocator logging settings
 
-  Reset the default logging settings for this allocator instance.
+Reset the default logging settings for this allocator instance.
 */
 func (a *Client) DeleteAllocatorLoggingSettings(params *DeleteAllocatorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteAllocatorLoggingSettingsOK, error) {
 	// TODO: Validate the params before sending
@@ -502,9 +504,9 @@ func (a *Client) DeleteAllocatorLoggingSettings(params *DeleteAllocatorLoggingSe
 }
 
 /*
-  DeleteAllocatorMetadataItem deletes allocator metadata item
+DeleteAllocatorMetadataItem deletes allocator metadata item
 
-  Removes a single item from the allocator metadata.
+Removes a single item from the allocator metadata.
 */
 func (a *Client) DeleteAllocatorMetadataItem(params *DeleteAllocatorMetadataItemParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteAllocatorMetadataItemOK, error) {
 	// TODO: Validate the params before sending
@@ -543,9 +545,9 @@ func (a *Client) DeleteAllocatorMetadataItem(params *DeleteAllocatorMetadataItem
 }
 
 /*
-  DeleteBlueprinterRole deletes role
+DeleteBlueprinterRole deletes role
 
-  Delete a role.
+Delete a role.
 */
 func (a *Client) DeleteBlueprinterRole(params *DeleteBlueprinterRoleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteBlueprinterRoleOK, error) {
 	// TODO: Validate the params before sending
@@ -584,9 +586,9 @@ func (a *Client) DeleteBlueprinterRole(params *DeleteBlueprinterRoleParams, auth
 }
 
 /*
-  DeleteConfigStoreOption deletes config store option by name
+DeleteConfigStoreOption deletes config store option by name
 
-  Delete Config Store Option by name.
+Delete Config Store Option by name.
 */
 func (a *Client) DeleteConfigStoreOption(params *DeleteConfigStoreOptionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteConfigStoreOptionOK, error) {
 	// TODO: Validate the params before sending
@@ -625,9 +627,9 @@ func (a *Client) DeleteConfigStoreOption(params *DeleteConfigStoreOptionParams, 
 }
 
 /*
-  DeleteConstructorLoggingSettings deletes constructor logging settings
+DeleteConstructorLoggingSettings deletes constructor logging settings
 
-  Reset the default logging settings for this constructor instance.
+Reset the default logging settings for this constructor instance.
 */
 func (a *Client) DeleteConstructorLoggingSettings(params *DeleteConstructorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteConstructorLoggingSettingsOK, error) {
 	// TODO: Validate the params before sending
@@ -666,9 +668,9 @@ func (a *Client) DeleteConstructorLoggingSettings(params *DeleteConstructorLoggi
 }
 
 /*
-  DeleteCoordinatorCandidate deletes coordinator candidate
+DeleteCoordinatorCandidate deletes coordinator candidate
 
-  Delete a coordinator candidate by id.
+Delete a coordinator candidate by id.
 */
 func (a *Client) DeleteCoordinatorCandidate(params *DeleteCoordinatorCandidateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteCoordinatorCandidateOK, error) {
 	// TODO: Validate the params before sending
@@ -707,9 +709,9 @@ func (a *Client) DeleteCoordinatorCandidate(params *DeleteCoordinatorCandidatePa
 }
 
 /*
-  DeleteLicense deletes license
+DeleteLicense deletes license
 
-  Deletes the license.
+Deletes the license.
 */
 func (a *Client) DeleteLicense(params *DeleteLicenseParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteLicenseOK, error) {
 	// TODO: Validate the params before sending
@@ -748,9 +750,9 @@ func (a *Client) DeleteLicense(params *DeleteLicenseParams, authInfo runtime.Cli
 }
 
 /*
-  DeleteProxiesFilteredGroup deletes filtered group of proxies
+DeleteProxiesFilteredGroup deletes filtered group of proxies
 
-  Deletes a filtered group of proxies by ID.
+Deletes a filtered group of proxies by ID.
 */
 func (a *Client) DeleteProxiesFilteredGroup(params *DeleteProxiesFilteredGroupParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteProxiesFilteredGroupOK, error) {
 	// TODO: Validate the params before sending
@@ -789,9 +791,9 @@ func (a *Client) DeleteProxiesFilteredGroup(params *DeleteProxiesFilteredGroupPa
 }
 
 /*
-  DeleteRunner deletes runner
+DeleteRunner deletes runner
 
-  Delete a runner by id.
+Delete a runner by id.
 */
 func (a *Client) DeleteRunner(params *DeleteRunnerParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteRunnerOK, error) {
 	// TODO: Validate the params before sending
@@ -830,9 +832,9 @@ func (a *Client) DeleteRunner(params *DeleteRunnerParams, authInfo runtime.Clien
 }
 
 /*
-  DeleteRunnerLoggingSettings deletes runner logging settings
+DeleteRunnerLoggingSettings deletes runner logging settings
 
-  Reset the default logging settings for this runner instance.
+Reset the default logging settings for this runner instance.
 */
 func (a *Client) DeleteRunnerLoggingSettings(params *DeleteRunnerLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteRunnerLoggingSettingsOK, error) {
 	// TODO: Validate the params before sending
@@ -871,9 +873,9 @@ func (a *Client) DeleteRunnerLoggingSettings(params *DeleteRunnerLoggingSettings
 }
 
 /*
-  DemoteCoordinator demotes a coordinator
+DemoteCoordinator demotes a coordinator
 
-  Demotes a coordinator.
+Demotes a coordinator.
 */
 func (a *Client) DemoteCoordinator(params *DemoteCoordinatorParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DemoteCoordinatorOK, error) {
 	// TODO: Validate the params before sending
@@ -912,9 +914,9 @@ func (a *Client) DemoteCoordinator(params *DemoteCoordinatorParams, authInfo run
 }
 
 /*
-  GetAdminconsoleLoggingSettings gets adminconsole logging settings
+GetAdminconsoleLoggingSettings gets adminconsole logging settings
 
-  Get the logging settings for this adminconsole instance.
+Get the logging settings for this adminconsole instance.
 */
 func (a *Client) GetAdminconsoleLoggingSettings(params *GetAdminconsoleLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAdminconsoleLoggingSettingsOK, error) {
 	// TODO: Validate the params before sending
@@ -953,9 +955,9 @@ func (a *Client) GetAdminconsoleLoggingSettings(params *GetAdminconsoleLoggingSe
 }
 
 /*
-  GetAdminconsoles gets adminconsoles
+GetAdminconsoles gets adminconsoles
 
-  Retrieves an overview of all adminconsoles.
+Retrieves an overview of all adminconsoles.
 */
 func (a *Client) GetAdminconsoles(params *GetAdminconsolesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAdminconsolesOK, error) {
 	// TODO: Validate the params before sending
@@ -994,9 +996,9 @@ func (a *Client) GetAdminconsoles(params *GetAdminconsolesParams, authInfo runti
 }
 
 /*
-  GetAllocator gets allocator
+GetAllocator gets allocator
 
-  Retrieves the allocator by the ID.
+Retrieves the allocator by the ID.
 */
 func (a *Client) GetAllocator(params *GetAllocatorParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAllocatorOK, error) {
 	// TODO: Validate the params before sending
@@ -1035,9 +1037,9 @@ func (a *Client) GetAllocator(params *GetAllocatorParams, authInfo runtime.Clien
 }
 
 /*
-  GetAllocatorLoggingSettings gets allocator logging settings
+GetAllocatorLoggingSettings gets allocator logging settings
 
-  Get the logging settings for this allocator instance.
+Get the logging settings for this allocator instance.
 */
 func (a *Client) GetAllocatorLoggingSettings(params *GetAllocatorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAllocatorLoggingSettingsOK, error) {
 	// TODO: Validate the params before sending
@@ -1076,9 +1078,9 @@ func (a *Client) GetAllocatorLoggingSettings(params *GetAllocatorLoggingSettings
 }
 
 /*
-  GetAllocatorMetadata gets allocator metadata
+GetAllocatorMetadata gets allocator metadata
 
-  Retrieves the allocator metadata.
+Retrieves the allocator metadata.
 */
 func (a *Client) GetAllocatorMetadata(params *GetAllocatorMetadataParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAllocatorMetadataOK, error) {
 	// TODO: Validate the params before sending
@@ -1117,9 +1119,9 @@ func (a *Client) GetAllocatorMetadata(params *GetAllocatorMetadataParams, authIn
 }
 
 /*
-  GetAllocatorSettings gets allocator settings
+GetAllocatorSettings gets allocator settings
 
-  Retrieves the allocator override settings.
+Retrieves the allocator override settings.
 */
 func (a *Client) GetAllocatorSettings(params *GetAllocatorSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAllocatorSettingsOK, error) {
 	// TODO: Validate the params before sending
@@ -1158,9 +1160,9 @@ func (a *Client) GetAllocatorSettings(params *GetAllocatorSettingsParams, authIn
 }
 
 /*
-  GetAllocators gets allocators
+GetAllocators gets allocators
 
-  Retrieves the information for all of the allocators in the platform.
+Retrieves the information for all of the allocators in the platform.
 */
 func (a *Client) GetAllocators(params *GetAllocatorsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAllocatorsOK, error) {
 	// TODO: Validate the params before sending
@@ -1199,9 +1201,9 @@ func (a *Client) GetAllocators(params *GetAllocatorsParams, authInfo runtime.Cli
 }
 
 /*
-  GetAPIBaseURL gets API base Url
+GetAPIBaseURL gets API base Url
 
-  Gets the API base Url configuration value.
+Gets the API base Url configuration value.
 */
 func (a *Client) GetAPIBaseURL(params *GetAPIBaseURLParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAPIBaseURLOK, error) {
 	// TODO: Validate the params before sending
@@ -1240,9 +1242,9 @@ func (a *Client) GetAPIBaseURL(params *GetAPIBaseURLParams, authInfo runtime.Cli
 }
 
 /*
-  GetBlueprinterRole gets role
+GetBlueprinterRole gets role
 
-  Retrieve a role.
+Retrieve a role.
 */
 func (a *Client) GetBlueprinterRole(params *GetBlueprinterRoleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetBlueprinterRoleOK, error) {
 	// TODO: Validate the params before sending
@@ -1281,9 +1283,9 @@ func (a *Client) GetBlueprinterRole(params *GetBlueprinterRoleParams, authInfo r
 }
 
 /*
-  GetConfigStoreOption finds config store option by name
+GetConfigStoreOption finds config store option by name
 
-  Find Config Store Option by name.
+Find Config Store Option by name.
 */
 func (a *Client) GetConfigStoreOption(params *GetConfigStoreOptionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetConfigStoreOptionOK, error) {
 	// TODO: Validate the params before sending
@@ -1322,9 +1324,9 @@ func (a *Client) GetConfigStoreOption(params *GetConfigStoreOptionParams, authIn
 }
 
 /*
-  GetConstructor gets constructor
+GetConstructor gets constructor
 
-  Retrieves a constructor by id.
+Retrieves a constructor by id.
 */
 func (a *Client) GetConstructor(params *GetConstructorParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetConstructorOK, error) {
 	// TODO: Validate the params before sending
@@ -1363,9 +1365,9 @@ func (a *Client) GetConstructor(params *GetConstructorParams, authInfo runtime.C
 }
 
 /*
-  GetConstructorLoggingSettings gets constructor logging settings
+GetConstructorLoggingSettings gets constructor logging settings
 
-  Get the logging settings for this constructor instance.
+Get the logging settings for this constructor instance.
 */
 func (a *Client) GetConstructorLoggingSettings(params *GetConstructorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetConstructorLoggingSettingsOK, error) {
 	// TODO: Validate the params before sending
@@ -1404,9 +1406,9 @@ func (a *Client) GetConstructorLoggingSettings(params *GetConstructorLoggingSett
 }
 
 /*
-  GetConstructors gets constructors
+GetConstructors gets constructors
 
-  Retrieves an overview of all constructors in an ECE installation.
+Retrieves an overview of all constructors in an ECE installation.
 */
 func (a *Client) GetConstructors(params *GetConstructorsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetConstructorsOK, error) {
 	// TODO: Validate the params before sending
@@ -1445,9 +1447,9 @@ func (a *Client) GetConstructors(params *GetConstructorsParams, authInfo runtime
 }
 
 /*
-  GetCoordinator gets a coordinator
+GetCoordinator gets a coordinator
 
-  Retrieve overview of a single coordinator.
+Retrieve overview of a single coordinator.
 */
 func (a *Client) GetCoordinator(params *GetCoordinatorParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCoordinatorOK, error) {
 	// TODO: Validate the params before sending
@@ -1486,9 +1488,9 @@ func (a *Client) GetCoordinator(params *GetCoordinatorParams, authInfo runtime.C
 }
 
 /*
-  GetCoordinatorCandidate gets a coordinator candidate
+GetCoordinatorCandidate gets a coordinator candidate
 
-  Retrieve a coordinator candidate.
+Retrieve a coordinator candidate.
 */
 func (a *Client) GetCoordinatorCandidate(params *GetCoordinatorCandidateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCoordinatorCandidateOK, error) {
 	// TODO: Validate the params before sending
@@ -1527,9 +1529,9 @@ func (a *Client) GetCoordinatorCandidate(params *GetCoordinatorCandidateParams, 
 }
 
 /*
-  GetCoordinatorCandidates gets coordinator candidates
+GetCoordinatorCandidates gets coordinator candidates
 
-  Retrieve a list of all coordinator candidates.
+Retrieve a list of all coordinator candidates.
 */
 func (a *Client) GetCoordinatorCandidates(params *GetCoordinatorCandidatesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCoordinatorCandidatesOK, error) {
 	// TODO: Validate the params before sending
@@ -1568,9 +1570,9 @@ func (a *Client) GetCoordinatorCandidates(params *GetCoordinatorCandidatesParams
 }
 
 /*
-  GetCoordinators gets coordinators
+GetCoordinators gets coordinators
 
-  Retrieves an overview of all coordinators.
+Retrieves an overview of all coordinators.
 */
 func (a *Client) GetCoordinators(params *GetCoordinatorsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCoordinatorsOK, error) {
 	// TODO: Validate the params before sending
@@ -1609,9 +1611,9 @@ func (a *Client) GetCoordinators(params *GetCoordinatorsParams, authInfo runtime
 }
 
 /*
-  GetLicense gets license
+GetLicense gets license
 
-  Retrieves the license.
+Retrieves the license.
 */
 func (a *Client) GetLicense(params *GetLicenseParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetLicenseOK, error) {
 	// TODO: Validate the params before sending
@@ -1650,9 +1652,9 @@ func (a *Client) GetLicense(params *GetLicenseParams, authInfo runtime.ClientAut
 }
 
 /*
-  GetProxies gets proxies
+GetProxies gets proxies
 
-  Retrieves an overview of all proxies.
+Retrieves an overview of all proxies.
 */
 func (a *Client) GetProxies(params *GetProxiesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProxiesOK, error) {
 	// TODO: Validate the params before sending
@@ -1691,9 +1693,9 @@ func (a *Client) GetProxies(params *GetProxiesParams, authInfo runtime.ClientAut
 }
 
 /*
-  GetProxiesFilteredGroup gets filtered group of proxies
+GetProxiesFilteredGroup gets filtered group of proxies
 
-  Get data for a filtered group of proxies.
+Get data for a filtered group of proxies.
 */
 func (a *Client) GetProxiesFilteredGroup(params *GetProxiesFilteredGroupParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProxiesFilteredGroupOK, error) {
 	// TODO: Validate the params before sending
@@ -1732,9 +1734,9 @@ func (a *Client) GetProxiesFilteredGroup(params *GetProxiesFilteredGroupParams, 
 }
 
 /*
-  GetProxiesFilteredGroupHealth gets health for a filtered group of proxies
+GetProxiesFilteredGroupHealth gets health for a filtered group of proxies
 
-  Get the health status of a filtered group of proxies.
+Get the health status of a filtered group of proxies.
 */
 func (a *Client) GetProxiesFilteredGroupHealth(params *GetProxiesFilteredGroupHealthParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProxiesFilteredGroupHealthOK, error) {
 	// TODO: Validate the params before sending
@@ -1773,9 +1775,9 @@ func (a *Client) GetProxiesFilteredGroupHealth(params *GetProxiesFilteredGroupHe
 }
 
 /*
-  GetProxiesHealth gets proxy health
+GetProxiesHealth gets proxy health
 
-  Get the health status of all proxies.
+Get the health status of all proxies.
 */
 func (a *Client) GetProxiesHealth(params *GetProxiesHealthParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProxiesHealthOK, error) {
 	// TODO: Validate the params before sending
@@ -1814,9 +1816,10 @@ func (a *Client) GetProxiesHealth(params *GetProxiesHealthParams, authInfo runti
 }
 
 /*
-  GetProxiesSettings gets proxies settings
+	GetProxiesSettings gets proxies settings
 
-  > WARNING
+	> WARNING
+
 > This endpoint is deprecated and scheduled to be removed in the next major version.
 
 Retrieves the settings for all proxies.
@@ -1858,9 +1861,9 @@ func (a *Client) GetProxiesSettings(params *GetProxiesSettingsParams, authInfo r
 }
 
 /*
-  GetProxy gets proxy
+GetProxy gets proxy
 
-  Retrieves a single proxy by ID.
+Retrieves a single proxy by ID.
 */
 func (a *Client) GetProxy(params *GetProxyParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetProxyOK, error) {
 	// TODO: Validate the params before sending
@@ -1899,9 +1902,9 @@ func (a *Client) GetProxy(params *GetProxyParams, authInfo runtime.ClientAuthInf
 }
 
 /*
-  GetRunner gets runner
+GetRunner gets runner
 
-  Retrieves a runner by id.
+Retrieves a runner by id.
 */
 func (a *Client) GetRunner(params *GetRunnerParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRunnerOK, error) {
 	// TODO: Validate the params before sending
@@ -1940,9 +1943,9 @@ func (a *Client) GetRunner(params *GetRunnerParams, authInfo runtime.ClientAuthI
 }
 
 /*
-  GetRunnerLoggingSettings gets runner logging settings
+GetRunnerLoggingSettings gets runner logging settings
 
-  Get the logging settings for this runner instance.
+Get the logging settings for this runner instance.
 */
 func (a *Client) GetRunnerLoggingSettings(params *GetRunnerLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRunnerLoggingSettingsOK, error) {
 	// TODO: Validate the params before sending
@@ -1981,9 +1984,9 @@ func (a *Client) GetRunnerLoggingSettings(params *GetRunnerLoggingSettingsParams
 }
 
 /*
-  GetRunners gets runners
+GetRunners gets runners
 
-  Retrieves an overview of all runners.
+Retrieves an overview of all runners.
 */
 func (a *Client) GetRunners(params *GetRunnersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetRunnersOK, error) {
 	// TODO: Validate the params before sending
@@ -2022,9 +2025,9 @@ func (a *Client) GetRunners(params *GetRunnersParams, authInfo runtime.ClientAut
 }
 
 /*
-  ListBlueprinterRoles lists roles
+ListBlueprinterRoles lists roles
 
-  Retrieve all persisted roles.
+Retrieve all persisted roles.
 */
 func (a *Client) ListBlueprinterRoles(params *ListBlueprinterRolesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListBlueprinterRolesOK, error) {
 	// TODO: Validate the params before sending
@@ -2063,9 +2066,9 @@ func (a *Client) ListBlueprinterRoles(params *ListBlueprinterRolesParams, authIn
 }
 
 /*
-  ListConfigStoreOption lists config store option
+ListConfigStoreOption lists config store option
 
-  List all existing Config Store Option.
+List all existing Config Store Option.
 */
 func (a *Client) ListConfigStoreOption(params *ListConfigStoreOptionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListConfigStoreOptionOK, error) {
 	// TODO: Validate the params before sending
@@ -2104,9 +2107,9 @@ func (a *Client) ListConfigStoreOption(params *ListConfigStoreOptionParams, auth
 }
 
 /*
-  MoveClusters moves clusters
+MoveClusters moves clusters
 
-  Moves the clusters to a different allocator.
+Moves the clusters to a different allocator.
 */
 func (a *Client) MoveClusters(params *MoveClustersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MoveClustersAccepted, error) {
 	// TODO: Validate the params before sending
@@ -2145,9 +2148,9 @@ func (a *Client) MoveClusters(params *MoveClustersParams, authInfo runtime.Clien
 }
 
 /*
-  MoveClustersByType moves clusters by type
+MoveClustersByType moves clusters by type
 
-  Moves the clusters, by type, to a different allocator.
+Moves the clusters, by type, to a different allocator.
 */
 func (a *Client) MoveClustersByType(params *MoveClustersByTypeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MoveClustersByTypeAccepted, error) {
 	// TODO: Validate the params before sending
@@ -2186,9 +2189,9 @@ func (a *Client) MoveClustersByType(params *MoveClustersByTypeParams, authInfo r
 }
 
 /*
-  PromoteCoordinatorCandidate promotes a coordinator candidate
+PromoteCoordinatorCandidate promotes a coordinator candidate
 
-  Promotes a coordinator candidate.
+Promotes a coordinator candidate.
 */
 func (a *Client) PromoteCoordinatorCandidate(params *PromoteCoordinatorCandidateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PromoteCoordinatorCandidateAccepted, error) {
 	// TODO: Validate the params before sending
@@ -2227,9 +2230,9 @@ func (a *Client) PromoteCoordinatorCandidate(params *PromoteCoordinatorCandidate
 }
 
 /*
-  PutConfigStoreOption updates config store option
+PutConfigStoreOption updates config store option
 
-  Update existing Config Store Option.
+Update existing Config Store Option.
 */
 func (a *Client) PutConfigStoreOption(params *PutConfigStoreOptionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutConfigStoreOptionOK, error) {
 	// TODO: Validate the params before sending
@@ -2268,9 +2271,50 @@ func (a *Client) PutConfigStoreOption(params *PutConfigStoreOptionParams, authIn
 }
 
 /*
-  ResyncAllocator resynchronizes allocator
+ReindexAdminconsoles reindices region indices
 
-  Immediately synchronizes the allocator information in the back-end search index and caches.
+Start reindex of all regional indices.
+*/
+func (a *Client) ReindexAdminconsoles(params *ReindexAdminconsolesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ReindexAdminconsolesAccepted, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewReindexAdminconsolesParams()
+	}
+	op := &runtime.ClientOperation{
+		ID:                 "reindex-adminconsoles",
+		Method:             "POST",
+		PathPattern:        "/platform/infrastructure/adminconsoles/_reindex",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &ReindexAdminconsolesReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	}
+	for _, opt := range opts {
+		opt(op)
+	}
+
+	result, err := a.transport.Submit(op)
+	if err != nil {
+		return nil, err
+	}
+	success, ok := result.(*ReindexAdminconsolesAccepted)
+	if ok {
+		return success, nil
+	}
+	// unexpected success response
+	// safeguard: normally, absent a default response, unknown success responses return an error above: so this is a codegen issue
+	msg := fmt.Sprintf("unexpected success response for reindex-adminconsoles: API contract not enforced by server. Client expected to get an error, but got: %T", result)
+	panic(msg)
+}
+
+/*
+ResyncAllocator resynchronizes allocator
+
+Immediately synchronizes the allocator information in the back-end search index and caches.
 */
 func (a *Client) ResyncAllocator(params *ResyncAllocatorParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ResyncAllocatorOK, error) {
 	// TODO: Validate the params before sending
@@ -2309,9 +2353,9 @@ func (a *Client) ResyncAllocator(params *ResyncAllocatorParams, authInfo runtime
 }
 
 /*
-  ResyncAllocators resynchronizes allocators
+ResyncAllocators resynchronizes allocators
 
-  Asynchronously synchronizes all allocator information in the back-end search index.
+Asynchronously synchronizes all allocator information in the back-end search index.
 */
 func (a *Client) ResyncAllocators(params *ResyncAllocatorsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ResyncAllocatorsAccepted, error) {
 	// TODO: Validate the params before sending
@@ -2350,9 +2394,9 @@ func (a *Client) ResyncAllocators(params *ResyncAllocatorsParams, authInfo runti
 }
 
 /*
-  ResyncConstructor resynchronizes constructor
+ResyncConstructor resynchronizes constructor
 
-  Immediately resynchronizes the search index and cache for the selected constructor.
+Immediately resynchronizes the search index and cache for the selected constructor.
 */
 func (a *Client) ResyncConstructor(params *ResyncConstructorParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ResyncConstructorOK, error) {
 	// TODO: Validate the params before sending
@@ -2391,9 +2435,9 @@ func (a *Client) ResyncConstructor(params *ResyncConstructorParams, authInfo run
 }
 
 /*
-  ResyncConstructors resynchronizes constructors
+ResyncConstructors resynchronizes constructors
 
-  Asynchronously synchronizes all constructor information in the back-end search index.
+Asynchronously synchronizes all constructor information in the back-end search index.
 */
 func (a *Client) ResyncConstructors(params *ResyncConstructorsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ResyncConstructorsAccepted, error) {
 	// TODO: Validate the params before sending
@@ -2432,9 +2476,9 @@ func (a *Client) ResyncConstructors(params *ResyncConstructorsParams, authInfo r
 }
 
 /*
-  ResyncRunner resynchronizes runner
+ResyncRunner resynchronizes runner
 
-  Immediately resynchronizes the search index and cache for the selected runner.
+Immediately resynchronizes the search index and cache for the selected runner.
 */
 func (a *Client) ResyncRunner(params *ResyncRunnerParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ResyncRunnerOK, error) {
 	// TODO: Validate the params before sending
@@ -2473,9 +2517,9 @@ func (a *Client) ResyncRunner(params *ResyncRunnerParams, authInfo runtime.Clien
 }
 
 /*
-  ResyncRunners resynchronizes runners
+ResyncRunners resynchronizes runners
 
-  Asynchronously synchronizes all runner information in the search index.
+Asynchronously synchronizes all runner information in the search index.
 */
 func (a *Client) ResyncRunners(params *ResyncRunnersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ResyncRunnersAccepted, error) {
 	// TODO: Validate the params before sending
@@ -2514,9 +2558,9 @@ func (a *Client) ResyncRunners(params *ResyncRunnersParams, authInfo runtime.Cli
 }
 
 /*
-  SearchAllocators searches allocators
+SearchAllocators searches allocators
 
-  Retrieves the information for all the allocators in the platform that match a specified query.
+Retrieves the information for all the allocators in the platform that match a specified query.
 */
 func (a *Client) SearchAllocators(params *SearchAllocatorsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SearchAllocatorsOK, error) {
 	// TODO: Validate the params before sending
@@ -2555,9 +2599,9 @@ func (a *Client) SearchAllocators(params *SearchAllocatorsParams, authInfo runti
 }
 
 /*
-  SearchRunners searches runners
+SearchRunners searches runners
 
-  Retrieves runners that match a given query.
+Retrieves runners that match a given query.
 */
 func (a *Client) SearchRunners(params *SearchRunnersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SearchRunnersOK, error) {
 	// TODO: Validate the params before sending
@@ -2596,9 +2640,9 @@ func (a *Client) SearchRunners(params *SearchRunnersParams, authInfo runtime.Cli
 }
 
 /*
-  SetAdminconsoleLoggingSettings sets adminconsole logging settings
+SetAdminconsoleLoggingSettings sets adminconsole logging settings
 
-  Set the logging settings for this adminconsole instance.
+Set the logging settings for this adminconsole instance.
 */
 func (a *Client) SetAdminconsoleLoggingSettings(params *SetAdminconsoleLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetAdminconsoleLoggingSettingsOK, error) {
 	// TODO: Validate the params before sending
@@ -2637,9 +2681,9 @@ func (a *Client) SetAdminconsoleLoggingSettings(params *SetAdminconsoleLoggingSe
 }
 
 /*
-  SetAllocatorLoggingSettings sets allocator logging settings
+SetAllocatorLoggingSettings sets allocator logging settings
 
-  Set the logging settings for this allocator instance.
+Set the logging settings for this allocator instance.
 */
 func (a *Client) SetAllocatorLoggingSettings(params *SetAllocatorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetAllocatorLoggingSettingsOK, error) {
 	// TODO: Validate the params before sending
@@ -2678,9 +2722,9 @@ func (a *Client) SetAllocatorLoggingSettings(params *SetAllocatorLoggingSettings
 }
 
 /*
-  SetAllocatorMetadata sets allocator metadata
+SetAllocatorMetadata sets allocator metadata
 
-  Sets the allocator metadata.
+Sets the allocator metadata.
 */
 func (a *Client) SetAllocatorMetadata(params *SetAllocatorMetadataParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetAllocatorMetadataOK, error) {
 	// TODO: Validate the params before sending
@@ -2719,9 +2763,9 @@ func (a *Client) SetAllocatorMetadata(params *SetAllocatorMetadataParams, authIn
 }
 
 /*
-  SetAllocatorMetadataItem sets allocator metadata item
+SetAllocatorMetadataItem sets allocator metadata item
 
-  Adds or updates a single item in the allocator metadata.
+Adds or updates a single item in the allocator metadata.
 */
 func (a *Client) SetAllocatorMetadataItem(params *SetAllocatorMetadataItemParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetAllocatorMetadataItemOK, error) {
 	// TODO: Validate the params before sending
@@ -2760,9 +2804,9 @@ func (a *Client) SetAllocatorMetadataItem(params *SetAllocatorMetadataItemParams
 }
 
 /*
-  SetAllocatorSettings sets allocator settings
+SetAllocatorSettings sets allocator settings
 
-  Overwrites the allocator settings with the specified settings. WARNING: Any unspecified fields are deleted.
+Overwrites the allocator settings with the specified settings. WARNING: Any unspecified fields are deleted.
 */
 func (a *Client) SetAllocatorSettings(params *SetAllocatorSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetAllocatorSettingsOK, error) {
 	// TODO: Validate the params before sending
@@ -2801,9 +2845,9 @@ func (a *Client) SetAllocatorSettings(params *SetAllocatorSettingsParams, authIn
 }
 
 /*
-  SetAPIBaseURL sets API base Url
+SetAPIBaseURL sets API base Url
 
-  Saves the API base Url configuration value.
+Saves the API base Url configuration value.
 */
 func (a *Client) SetAPIBaseURL(params *SetAPIBaseURLParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetAPIBaseURLOK, error) {
 	// TODO: Validate the params before sending
@@ -2842,9 +2886,9 @@ func (a *Client) SetAPIBaseURL(params *SetAPIBaseURLParams, authInfo runtime.Cli
 }
 
 /*
-  SetBlueprinterBlessings sets blessings
+SetBlueprinterBlessings sets blessings
 
-  Set blessings for a role.
+Set blessings for a role.
 */
 func (a *Client) SetBlueprinterBlessings(params *SetBlueprinterBlessingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetBlueprinterBlessingsOK, error) {
 	// TODO: Validate the params before sending
@@ -2883,9 +2927,9 @@ func (a *Client) SetBlueprinterBlessings(params *SetBlueprinterBlessingsParams, 
 }
 
 /*
-  SetConstructorLoggingSettings sets constructor logging settings
+SetConstructorLoggingSettings sets constructor logging settings
 
-  Set the logging settings for this constructor instance.
+Set the logging settings for this constructor instance.
 */
 func (a *Client) SetConstructorLoggingSettings(params *SetConstructorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetConstructorLoggingSettingsOK, error) {
 	// TODO: Validate the params before sending
@@ -2924,9 +2968,9 @@ func (a *Client) SetConstructorLoggingSettings(params *SetConstructorLoggingSett
 }
 
 /*
-  SetLicense adds or update license
+SetLicense adds or update license
 
-  Adds a new or updates an existing license.
+Adds a new or updates an existing license.
 */
 func (a *Client) SetLicense(params *SetLicenseParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetLicenseOK, error) {
 	// TODO: Validate the params before sending
@@ -2965,9 +3009,10 @@ func (a *Client) SetLicense(params *SetLicenseParams, authInfo runtime.ClientAut
 }
 
 /*
-  SetProxiesSettings sets proxy settings
+	SetProxiesSettings sets proxy settings
 
-  > WARNING
+	> WARNING
+
 > This endpoint is deprecated and scheduled to be removed in the next major version.
 
 Overwrites the proxy settings. All unspecified fields are deleted.
@@ -3009,9 +3054,9 @@ func (a *Client) SetProxiesSettings(params *SetProxiesSettingsParams, authInfo r
 }
 
 /*
-  SetRunnerLoggingSettings sets runner logging settings
+SetRunnerLoggingSettings sets runner logging settings
 
-  Set the logging settings for this runner instance.
+Set the logging settings for this runner instance.
 */
 func (a *Client) SetRunnerLoggingSettings(params *SetRunnerLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetRunnerLoggingSettingsOK, error) {
 	// TODO: Validate the params before sending
@@ -3050,9 +3095,9 @@ func (a *Client) SetRunnerLoggingSettings(params *SetRunnerLoggingSettingsParams
 }
 
 /*
-  SetRunnerRoles sets runner roles
+SetRunnerRoles sets runner roles
 
-  Set runner roles.
+Set runner roles.
 */
 func (a *Client) SetRunnerRoles(params *SetRunnerRolesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetRunnerRolesOK, error) {
 	// TODO: Validate the params before sending
@@ -3091,9 +3136,9 @@ func (a *Client) SetRunnerRoles(params *SetRunnerRolesParams, authInfo runtime.C
 }
 
 /*
-  StartAllocatorMaintenanceMode starts maintenance mode
+StartAllocatorMaintenanceMode starts maintenance mode
 
-  Starts maintenance mode on the allocator.
+Starts maintenance mode on the allocator.
 */
 func (a *Client) StartAllocatorMaintenanceMode(params *StartAllocatorMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StartAllocatorMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
@@ -3132,9 +3177,9 @@ func (a *Client) StartAllocatorMaintenanceMode(params *StartAllocatorMaintenance
 }
 
 /*
-  StartConstructorMaintenanceMode starts maintenance mode
+StartConstructorMaintenanceMode starts maintenance mode
 
-  Start maintenance mode of a constructor. It will stop constructing new plans while continuing with on-going ones.
+Start maintenance mode of a constructor. It will stop constructing new plans while continuing with on-going ones.
 */
 func (a *Client) StartConstructorMaintenanceMode(params *StartConstructorMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StartConstructorMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
@@ -3173,9 +3218,9 @@ func (a *Client) StartConstructorMaintenanceMode(params *StartConstructorMainten
 }
 
 /*
-  StopAllocatorMaintenanceMode stops maintenance mode
+StopAllocatorMaintenanceMode stops maintenance mode
 
-  Stops maintenance mode on the allocator.
+Stops maintenance mode on the allocator.
 */
 func (a *Client) StopAllocatorMaintenanceMode(params *StopAllocatorMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StopAllocatorMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
@@ -3214,9 +3259,9 @@ func (a *Client) StopAllocatorMaintenanceMode(params *StopAllocatorMaintenanceMo
 }
 
 /*
-  StopConstructorMaintenanceMode stops maintenance mode
+StopConstructorMaintenanceMode stops maintenance mode
 
-  Stop maintenance mode of a constructor. It will resume the construction of submitted plans.
+Stop maintenance mode of a constructor. It will resume the construction of submitted plans.
 */
 func (a *Client) StopConstructorMaintenanceMode(params *StopConstructorMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StopConstructorMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
@@ -3255,9 +3300,9 @@ func (a *Client) StopConstructorMaintenanceMode(params *StopConstructorMaintenan
 }
 
 /*
-  UpdateAdminconsoleLoggingSettings updates adminconsole logging settings
+UpdateAdminconsoleLoggingSettings updates adminconsole logging settings
 
-  All changes in the specified object are applied to the logging settings for this adminconsole instance according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.
+All changes in the specified object are applied to the logging settings for this adminconsole instance according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.
 */
 func (a *Client) UpdateAdminconsoleLoggingSettings(params *UpdateAdminconsoleLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateAdminconsoleLoggingSettingsOK, error) {
 	// TODO: Validate the params before sending
@@ -3296,9 +3341,9 @@ func (a *Client) UpdateAdminconsoleLoggingSettings(params *UpdateAdminconsoleLog
 }
 
 /*
-  UpdateAllocatorLoggingSettings updates allocator logging settings
+UpdateAllocatorLoggingSettings updates allocator logging settings
 
-  All changes in the specified object are applied to the logging settings for this allocator instance according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.
+All changes in the specified object are applied to the logging settings for this allocator instance according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.
 */
 func (a *Client) UpdateAllocatorLoggingSettings(params *UpdateAllocatorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateAllocatorLoggingSettingsOK, error) {
 	// TODO: Validate the params before sending
@@ -3337,9 +3382,9 @@ func (a *Client) UpdateAllocatorLoggingSettings(params *UpdateAllocatorLoggingSe
 }
 
 /*
-  UpdateAllocatorSettings updates allocator settings
+UpdateAllocatorSettings updates allocator settings
 
-  Applies the settings as a patch. Only the fields that are referenced in the update are altered.
+Applies the settings as a patch. Only the fields that are referenced in the update are altered.
 */
 func (a *Client) UpdateAllocatorSettings(params *UpdateAllocatorSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateAllocatorSettingsOK, error) {
 	// TODO: Validate the params before sending
@@ -3378,9 +3423,9 @@ func (a *Client) UpdateAllocatorSettings(params *UpdateAllocatorSettingsParams, 
 }
 
 /*
-  UpdateBlueprinterRole updates role
+UpdateBlueprinterRole updates role
 
-  Update a role.
+Update a role.
 */
 func (a *Client) UpdateBlueprinterRole(params *UpdateBlueprinterRoleParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateBlueprinterRoleOK, error) {
 	// TODO: Validate the params before sending
@@ -3419,9 +3464,9 @@ func (a *Client) UpdateBlueprinterRole(params *UpdateBlueprinterRoleParams, auth
 }
 
 /*
-  UpdateConstructorLoggingSettings updates constructor logging settings
+UpdateConstructorLoggingSettings updates constructor logging settings
 
-  All changes in the specified object are applied to the logging settings for this constructor instance according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.
+All changes in the specified object are applied to the logging settings for this constructor instance according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.
 */
 func (a *Client) UpdateConstructorLoggingSettings(params *UpdateConstructorLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateConstructorLoggingSettingsOK, error) {
 	// TODO: Validate the params before sending
@@ -3460,9 +3505,9 @@ func (a *Client) UpdateConstructorLoggingSettings(params *UpdateConstructorLoggi
 }
 
 /*
-  UpdateProxiesFilteredGroup updates filtered group of proxies
+UpdateProxiesFilteredGroup updates filtered group of proxies
 
-  Update the settings for a filtered group of proxies.
+Update the settings for a filtered group of proxies.
 */
 func (a *Client) UpdateProxiesFilteredGroup(params *UpdateProxiesFilteredGroupParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateProxiesFilteredGroupOK, error) {
 	// TODO: Validate the params before sending
@@ -3501,9 +3546,10 @@ func (a *Client) UpdateProxiesFilteredGroup(params *UpdateProxiesFilteredGroupPa
 }
 
 /*
-  UpdateProxiesSettings updates proxy settings
+	UpdateProxiesSettings updates proxy settings
 
-  > WARNING
+	> WARNING
+
 > This endpoint is deprecated and scheduled to be removed in the next major version.
 
 Applies the settings as a patch. Only the fields that are referenced in the update are changed.
@@ -3545,9 +3591,9 @@ func (a *Client) UpdateProxiesSettings(params *UpdateProxiesSettingsParams, auth
 }
 
 /*
-  UpdateRunnerLoggingSettings updates runner logging settings
+UpdateRunnerLoggingSettings updates runner logging settings
 
-  All changes in the specified object are applied to the logging settings for this runner instance according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.
+All changes in the specified object are applied to the logging settings for this runner instance according to the JSON Merge Patch processing rules. Omitting existing fields causes the same values to be reapplied. Specifying a `null` value reverts the field to the default value, or removes the field when no default value exists.
 */
 func (a *Client) UpdateRunnerLoggingSettings(params *UpdateRunnerLoggingSettingsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateRunnerLoggingSettingsOK, error) {
 	// TODO: Validate the params before sending

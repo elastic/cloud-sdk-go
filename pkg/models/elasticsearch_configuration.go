@@ -108,6 +108,8 @@ func (m *ElasticsearchConfiguration) validateCuration(formats strfmt.Registry) e
 		if err := m.Curation.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("curation")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("curation")
 			}
 			return err
 		}
@@ -125,6 +127,8 @@ func (m *ElasticsearchConfiguration) validateSystemSettings(formats strfmt.Regis
 		if err := m.SystemSettings.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("system_settings")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("system_settings")
 			}
 			return err
 		}
@@ -147,6 +151,8 @@ func (m *ElasticsearchConfiguration) validateUserBundles(formats strfmt.Registry
 			if err := m.UserBundles[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("user_bundles" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("user_bundles" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -171,6 +177,8 @@ func (m *ElasticsearchConfiguration) validateUserPlugins(formats strfmt.Registry
 			if err := m.UserPlugins[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("user_plugins" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("user_plugins" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -213,6 +221,8 @@ func (m *ElasticsearchConfiguration) contextValidateCuration(ctx context.Context
 		if err := m.Curation.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("curation")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("curation")
 			}
 			return err
 		}
@@ -227,6 +237,8 @@ func (m *ElasticsearchConfiguration) contextValidateSystemSettings(ctx context.C
 		if err := m.SystemSettings.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("system_settings")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("system_settings")
 			}
 			return err
 		}
@@ -243,6 +255,8 @@ func (m *ElasticsearchConfiguration) contextValidateUserBundles(ctx context.Cont
 			if err := m.UserBundles[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("user_bundles" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("user_bundles" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -261,6 +275,8 @@ func (m *ElasticsearchConfiguration) contextValidateUserPlugins(ctx context.Cont
 			if err := m.UserPlugins[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("user_plugins" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("user_plugins" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

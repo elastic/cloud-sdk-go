@@ -62,7 +62,8 @@ func NewGetVersionStackOK() *GetVersionStackOK {
 	return &GetVersionStackOK{}
 }
 
-/* GetVersionStackOK describes a response with status code 200, with default header values.
+/*
+GetVersionStackOK describes a response with status code 200, with default header values.
 
 The Elastic Stack version is found.
 */
@@ -70,9 +71,44 @@ type GetVersionStackOK struct {
 	Payload *models.StackVersionConfig
 }
 
+// IsSuccess returns true when this get version stack o k response has a 2xx status code
+func (o *GetVersionStackOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get version stack o k response has a 3xx status code
+func (o *GetVersionStackOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get version stack o k response has a 4xx status code
+func (o *GetVersionStackOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get version stack o k response has a 5xx status code
+func (o *GetVersionStackOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get version stack o k response a status code equal to that given
+func (o *GetVersionStackOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get version stack o k response
+func (o *GetVersionStackOK) Code() int {
+	return 200
+}
+
 func (o *GetVersionStackOK) Error() string {
 	return fmt.Sprintf("[GET /stack/versions/{version}][%d] getVersionStackOK  %+v", 200, o.Payload)
 }
+
+func (o *GetVersionStackOK) String() string {
+	return fmt.Sprintf("[GET /stack/versions/{version}][%d] getVersionStackOK  %+v", 200, o.Payload)
+}
+
 func (o *GetVersionStackOK) GetPayload() *models.StackVersionConfig {
 	return o.Payload
 }
@@ -94,7 +130,8 @@ func NewGetVersionStackNotFound() *GetVersionStackNotFound {
 	return &GetVersionStackNotFound{}
 }
 
-/* GetVersionStackNotFound describes a response with status code 404, with default header values.
+/*
+GetVersionStackNotFound describes a response with status code 404, with default header values.
 
 The Elastic Stack version can't be found. (code: `stackpack.version_not_found`)
 */
@@ -107,9 +144,44 @@ type GetVersionStackNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get version stack not found response has a 2xx status code
+func (o *GetVersionStackNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get version stack not found response has a 3xx status code
+func (o *GetVersionStackNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get version stack not found response has a 4xx status code
+func (o *GetVersionStackNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get version stack not found response has a 5xx status code
+func (o *GetVersionStackNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get version stack not found response a status code equal to that given
+func (o *GetVersionStackNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the get version stack not found response
+func (o *GetVersionStackNotFound) Code() int {
+	return 404
+}
+
 func (o *GetVersionStackNotFound) Error() string {
 	return fmt.Sprintf("[GET /stack/versions/{version}][%d] getVersionStackNotFound  %+v", 404, o.Payload)
 }
+
+func (o *GetVersionStackNotFound) String() string {
+	return fmt.Sprintf("[GET /stack/versions/{version}][%d] getVersionStackNotFound  %+v", 404, o.Payload)
+}
+
 func (o *GetVersionStackNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

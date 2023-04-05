@@ -58,12 +58,6 @@ func (o *DeleteInstanceConfigurationReader) ReadResponse(response runtime.Client
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewDeleteInstanceConfigurationRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -74,7 +68,8 @@ func NewDeleteInstanceConfigurationOK() *DeleteInstanceConfigurationOK {
 	return &DeleteInstanceConfigurationOK{}
 }
 
-/* DeleteInstanceConfigurationOK describes a response with status code 200, with default header values.
+/*
+DeleteInstanceConfigurationOK describes a response with status code 200, with default header values.
 
 Instance configuration specified by {id} was deleted
 */
@@ -82,9 +77,44 @@ type DeleteInstanceConfigurationOK struct {
 	Payload models.EmptyResponse
 }
 
+// IsSuccess returns true when this delete instance configuration o k response has a 2xx status code
+func (o *DeleteInstanceConfigurationOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this delete instance configuration o k response has a 3xx status code
+func (o *DeleteInstanceConfigurationOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete instance configuration o k response has a 4xx status code
+func (o *DeleteInstanceConfigurationOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this delete instance configuration o k response has a 5xx status code
+func (o *DeleteInstanceConfigurationOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete instance configuration o k response a status code equal to that given
+func (o *DeleteInstanceConfigurationOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the delete instance configuration o k response
+func (o *DeleteInstanceConfigurationOK) Code() int {
+	return 200
+}
+
 func (o *DeleteInstanceConfigurationOK) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/instances/{id}][%d] deleteInstanceConfigurationOK  %+v", 200, o.Payload)
 }
+
+func (o *DeleteInstanceConfigurationOK) String() string {
+	return fmt.Sprintf("[DELETE /platform/configuration/instances/{id}][%d] deleteInstanceConfigurationOK  %+v", 200, o.Payload)
+}
+
 func (o *DeleteInstanceConfigurationOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -104,7 +134,8 @@ func NewDeleteInstanceConfigurationForbidden() *DeleteInstanceConfigurationForbi
 	return &DeleteInstanceConfigurationForbidden{}
 }
 
-/* DeleteInstanceConfigurationForbidden describes a response with status code 403, with default header values.
+/*
+DeleteInstanceConfigurationForbidden describes a response with status code 403, with default header values.
 
 Instance configuration specified by {id} is system owned (code: 'configuration.system_owned')
 */
@@ -112,9 +143,44 @@ type DeleteInstanceConfigurationForbidden struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete instance configuration forbidden response has a 2xx status code
+func (o *DeleteInstanceConfigurationForbidden) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete instance configuration forbidden response has a 3xx status code
+func (o *DeleteInstanceConfigurationForbidden) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete instance configuration forbidden response has a 4xx status code
+func (o *DeleteInstanceConfigurationForbidden) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete instance configuration forbidden response has a 5xx status code
+func (o *DeleteInstanceConfigurationForbidden) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete instance configuration forbidden response a status code equal to that given
+func (o *DeleteInstanceConfigurationForbidden) IsCode(code int) bool {
+	return code == 403
+}
+
+// Code gets the status code for the delete instance configuration forbidden response
+func (o *DeleteInstanceConfigurationForbidden) Code() int {
+	return 403
+}
+
 func (o *DeleteInstanceConfigurationForbidden) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/instances/{id}][%d] deleteInstanceConfigurationForbidden  %+v", 403, o.Payload)
 }
+
+func (o *DeleteInstanceConfigurationForbidden) String() string {
+	return fmt.Sprintf("[DELETE /platform/configuration/instances/{id}][%d] deleteInstanceConfigurationForbidden  %+v", 403, o.Payload)
+}
+
 func (o *DeleteInstanceConfigurationForbidden) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -136,7 +202,8 @@ func NewDeleteInstanceConfigurationNotFound() *DeleteInstanceConfigurationNotFou
 	return &DeleteInstanceConfigurationNotFound{}
 }
 
-/* DeleteInstanceConfigurationNotFound describes a response with status code 404, with default header values.
+/*
+DeleteInstanceConfigurationNotFound describes a response with status code 404, with default header values.
 
 Instance configuration specified by {id} cannot be found or the operation failed (code: 'configuration.instance_configuration_not_found')
 */
@@ -144,46 +211,49 @@ type DeleteInstanceConfigurationNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete instance configuration not found response has a 2xx status code
+func (o *DeleteInstanceConfigurationNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete instance configuration not found response has a 3xx status code
+func (o *DeleteInstanceConfigurationNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete instance configuration not found response has a 4xx status code
+func (o *DeleteInstanceConfigurationNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete instance configuration not found response has a 5xx status code
+func (o *DeleteInstanceConfigurationNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete instance configuration not found response a status code equal to that given
+func (o *DeleteInstanceConfigurationNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the delete instance configuration not found response
+func (o *DeleteInstanceConfigurationNotFound) Code() int {
+	return 404
+}
+
 func (o *DeleteInstanceConfigurationNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/instances/{id}][%d] deleteInstanceConfigurationNotFound  %+v", 404, o.Payload)
 }
+
+func (o *DeleteInstanceConfigurationNotFound) String() string {
+	return fmt.Sprintf("[DELETE /platform/configuration/instances/{id}][%d] deleteInstanceConfigurationNotFound  %+v", 404, o.Payload)
+}
+
 func (o *DeleteInstanceConfigurationNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *DeleteInstanceConfigurationNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewDeleteInstanceConfigurationRetryWith creates a DeleteInstanceConfigurationRetryWith with default headers values
-func NewDeleteInstanceConfigurationRetryWith() *DeleteInstanceConfigurationRetryWith {
-	return &DeleteInstanceConfigurationRetryWith{}
-}
-
-/* DeleteInstanceConfigurationRetryWith describes a response with status code 449, with default header values.
-
-elevated permissions are required. (code: '"root.unauthorized.rbac.elevated_permissions_required"')
-*/
-type DeleteInstanceConfigurationRetryWith struct {
-	Payload *models.BasicFailedReply
-}
-
-func (o *DeleteInstanceConfigurationRetryWith) Error() string {
-	return fmt.Sprintf("[DELETE /platform/configuration/instances/{id}][%d] deleteInstanceConfigurationRetryWith  %+v", 449, o.Payload)
-}
-func (o *DeleteInstanceConfigurationRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *DeleteInstanceConfigurationRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
 

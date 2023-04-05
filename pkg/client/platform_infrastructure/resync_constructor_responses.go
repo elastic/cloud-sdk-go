@@ -46,12 +46,6 @@ func (o *ResyncConstructorReader) ReadResponse(response runtime.ClientResponse, 
 			return nil, err
 		}
 		return result, nil
-	case 449:
-		result := NewResyncConstructorRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	case 500:
 		result := NewResyncConstructorInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -68,7 +62,8 @@ func NewResyncConstructorOK() *ResyncConstructorOK {
 	return &ResyncConstructorOK{}
 }
 
-/* ResyncConstructorOK describes a response with status code 200, with default header values.
+/*
+ResyncConstructorOK describes a response with status code 200, with default header values.
 
 The constructor resync operation executed successfully
 */
@@ -76,9 +71,44 @@ type ResyncConstructorOK struct {
 	Payload models.EmptyResponse
 }
 
+// IsSuccess returns true when this resync constructor o k response has a 2xx status code
+func (o *ResyncConstructorOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this resync constructor o k response has a 3xx status code
+func (o *ResyncConstructorOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this resync constructor o k response has a 4xx status code
+func (o *ResyncConstructorOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this resync constructor o k response has a 5xx status code
+func (o *ResyncConstructorOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this resync constructor o k response a status code equal to that given
+func (o *ResyncConstructorOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the resync constructor o k response
+func (o *ResyncConstructorOK) Code() int {
+	return 200
+}
+
 func (o *ResyncConstructorOK) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/constructors/{constructor_id}/_resync][%d] resyncConstructorOK  %+v", 200, o.Payload)
 }
+
+func (o *ResyncConstructorOK) String() string {
+	return fmt.Sprintf("[POST /platform/infrastructure/constructors/{constructor_id}/_resync][%d] resyncConstructorOK  %+v", 200, o.Payload)
+}
+
 func (o *ResyncConstructorOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -93,56 +123,13 @@ func (o *ResyncConstructorOK) readResponse(response runtime.ClientResponse, cons
 	return nil
 }
 
-// NewResyncConstructorRetryWith creates a ResyncConstructorRetryWith with default headers values
-func NewResyncConstructorRetryWith() *ResyncConstructorRetryWith {
-	return &ResyncConstructorRetryWith{}
-}
-
-/* ResyncConstructorRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type ResyncConstructorRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-func (o *ResyncConstructorRetryWith) Error() string {
-	return fmt.Sprintf("[POST /platform/infrastructure/constructors/{constructor_id}/_resync][%d] resyncConstructorRetryWith  %+v", 449, o.Payload)
-}
-func (o *ResyncConstructorRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *ResyncConstructorRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
 // NewResyncConstructorInternalServerError creates a ResyncConstructorInternalServerError with default headers values
 func NewResyncConstructorInternalServerError() *ResyncConstructorInternalServerError {
 	return &ResyncConstructorInternalServerError{}
 }
 
-/* ResyncConstructorInternalServerError describes a response with status code 500, with default header values.
+/*
+ResyncConstructorInternalServerError describes a response with status code 500, with default header values.
 
 The constructor resync operation failed for allocator {constructor_id}. (code: `constructors.resync_failed`)
 */
@@ -155,9 +142,44 @@ type ResyncConstructorInternalServerError struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this resync constructor internal server error response has a 2xx status code
+func (o *ResyncConstructorInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this resync constructor internal server error response has a 3xx status code
+func (o *ResyncConstructorInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this resync constructor internal server error response has a 4xx status code
+func (o *ResyncConstructorInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this resync constructor internal server error response has a 5xx status code
+func (o *ResyncConstructorInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this resync constructor internal server error response a status code equal to that given
+func (o *ResyncConstructorInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
+// Code gets the status code for the resync constructor internal server error response
+func (o *ResyncConstructorInternalServerError) Code() int {
+	return 500
+}
+
 func (o *ResyncConstructorInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/constructors/{constructor_id}/_resync][%d] resyncConstructorInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ResyncConstructorInternalServerError) String() string {
+	return fmt.Sprintf("[POST /platform/infrastructure/constructors/{constructor_id}/_resync][%d] resyncConstructorInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ResyncConstructorInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

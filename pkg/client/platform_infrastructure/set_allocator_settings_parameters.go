@@ -71,10 +71,12 @@ func NewSetAllocatorSettingsParamsWithHTTPClient(client *http.Client) *SetAlloca
 	}
 }
 
-/* SetAllocatorSettingsParams contains all the parameters to send to the API endpoint
-   for the set allocator settings operation.
+/*
+SetAllocatorSettingsParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the set allocator settings operation.
+
+	Typically these are written to a http.Request.
 */
 type SetAllocatorSettingsParams struct {
 

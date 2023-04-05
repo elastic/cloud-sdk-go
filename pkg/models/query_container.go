@@ -118,6 +118,8 @@ func (m *QueryContainer) validateBool(formats strfmt.Registry) error {
 		if err := m.Bool.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("bool")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("bool")
 			}
 			return err
 		}
@@ -135,6 +137,8 @@ func (m *QueryContainer) validateExists(formats strfmt.Registry) error {
 		if err := m.Exists.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("exists")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("exists")
 			}
 			return err
 		}
@@ -155,6 +159,11 @@ func (m *QueryContainer) validateMatch(formats strfmt.Registry) error {
 		}
 		if val, ok := m.Match[k]; ok {
 			if err := val.Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("match" + "." + k)
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("match" + "." + k)
+				}
 				return err
 			}
 		}
@@ -173,6 +182,8 @@ func (m *QueryContainer) validateNested(formats strfmt.Registry) error {
 		if err := m.Nested.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("nested")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("nested")
 			}
 			return err
 		}
@@ -193,6 +204,11 @@ func (m *QueryContainer) validatePrefix(formats strfmt.Registry) error {
 		}
 		if val, ok := m.Prefix[k]; ok {
 			if err := val.Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("prefix" + "." + k)
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("prefix" + "." + k)
+				}
 				return err
 			}
 		}
@@ -211,6 +227,8 @@ func (m *QueryContainer) validateQueryString(formats strfmt.Registry) error {
 		if err := m.QueryString.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("query_string")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("query_string")
 			}
 			return err
 		}
@@ -231,6 +249,11 @@ func (m *QueryContainer) validateRange(formats strfmt.Registry) error {
 		}
 		if val, ok := m.Range[k]; ok {
 			if err := val.Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("range" + "." + k)
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("range" + "." + k)
+				}
 				return err
 			}
 		}
@@ -252,6 +275,11 @@ func (m *QueryContainer) validateTerm(formats strfmt.Registry) error {
 		}
 		if val, ok := m.Term[k]; ok {
 			if err := val.Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("term" + "." + k)
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("term" + "." + k)
+				}
 				return err
 			}
 		}
@@ -309,6 +337,8 @@ func (m *QueryContainer) contextValidateBool(ctx context.Context, formats strfmt
 		if err := m.Bool.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("bool")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("bool")
 			}
 			return err
 		}
@@ -323,6 +353,8 @@ func (m *QueryContainer) contextValidateExists(ctx context.Context, formats strf
 		if err := m.Exists.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("exists")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("exists")
 			}
 			return err
 		}
@@ -352,6 +384,8 @@ func (m *QueryContainer) contextValidateNested(ctx context.Context, formats strf
 		if err := m.Nested.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("nested")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("nested")
 			}
 			return err
 		}
@@ -381,6 +415,8 @@ func (m *QueryContainer) contextValidateQueryString(ctx context.Context, formats
 		if err := m.QueryString.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("query_string")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("query_string")
 			}
 			return err
 		}

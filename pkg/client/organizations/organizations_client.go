@@ -71,9 +71,9 @@ type ClientService interface {
 }
 
 /*
-  AcceptOrganizationInvitation accepts an organization invitation
+AcceptOrganizationInvitation accepts an organization invitation
 
-  Accepts an organization invitation. Currently unavailable in self-hosted ECE.
+Accepts an organization invitation. Currently unavailable in self-hosted ECE.
 */
 func (a *Client) AcceptOrganizationInvitation(params *AcceptOrganizationInvitationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*AcceptOrganizationInvitationOK, error) {
 	// TODO: Validate the params before sending
@@ -112,9 +112,9 @@ func (a *Client) AcceptOrganizationInvitation(params *AcceptOrganizationInvitati
 }
 
 /*
-  CreateOrganizationInvitations creates organization invitations
+CreateOrganizationInvitations creates organization invitations
 
-  Creates or refreshes organization invitations. Currently unavailable in self-hosted ECE.
+Creates or refreshes organization invitations. Currently unavailable in self-hosted ECE.
 */
 func (a *Client) CreateOrganizationInvitations(params *CreateOrganizationInvitationsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateOrganizationInvitationsCreated, error) {
 	// TODO: Validate the params before sending
@@ -153,9 +153,9 @@ func (a *Client) CreateOrganizationInvitations(params *CreateOrganizationInvitat
 }
 
 /*
-  DeleteOrganizationInvitations deletes organization invitations
+DeleteOrganizationInvitations deletes organization invitations
 
-  Deletes one or more organization invitations. Currently unavailable in self-hosted ECE.
+Deletes one or more organization invitations. Currently unavailable in self-hosted ECE.
 */
 func (a *Client) DeleteOrganizationInvitations(params *DeleteOrganizationInvitationsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteOrganizationInvitationsOK, error) {
 	// TODO: Validate the params before sending
@@ -194,9 +194,9 @@ func (a *Client) DeleteOrganizationInvitations(params *DeleteOrganizationInvitat
 }
 
 /*
-  DeleteOrganizationMemberships deletes organization memberships
+DeleteOrganizationMemberships deletes organization memberships
 
-  Deletes one or more organization memberships. Currently unavailable in self-hosted ECE.
+Deletes one or more organization memberships. Currently unavailable in self-hosted ECE.
 */
 func (a *Client) DeleteOrganizationMemberships(params *DeleteOrganizationMembershipsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteOrganizationMembershipsOK, error) {
 	// TODO: Validate the params before sending
@@ -235,9 +235,9 @@ func (a *Client) DeleteOrganizationMemberships(params *DeleteOrganizationMembers
 }
 
 /*
-  GetOrganization fetches organization information
+GetOrganization fetches organization information
 
-  Fetch a single organization by id. Currently unavailable in self-hosted ECE.
+Fetch a single organization by id. Currently unavailable in self-hosted ECE.
 */
 func (a *Client) GetOrganization(params *GetOrganizationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetOrganizationOK, error) {
 	// TODO: Validate the params before sending
@@ -276,9 +276,9 @@ func (a *Client) GetOrganization(params *GetOrganizationParams, authInfo runtime
 }
 
 /*
-  GetOrganizationInvitation gets organization invitation
+GetOrganizationInvitation gets organization invitation
 
-  Gets a single invitation to an organization by token. Currently unavailable in self-hosted ECE.
+Gets a single invitation to an organization by token. Currently unavailable in self-hosted ECE.
 */
 func (a *Client) GetOrganizationInvitation(params *GetOrganizationInvitationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetOrganizationInvitationOK, error) {
 	// TODO: Validate the params before sending
@@ -317,9 +317,9 @@ func (a *Client) GetOrganizationInvitation(params *GetOrganizationInvitationPara
 }
 
 /*
-  ListOrganizationInvitations lists organization invitations
+ListOrganizationInvitations lists organization invitations
 
-  Fetch open invitations to the selected organization. Currently unavailable in self-hosted ECE.
+Fetch open invitations to the selected organization. Currently unavailable in self-hosted ECE.
 */
 func (a *Client) ListOrganizationInvitations(params *ListOrganizationInvitationsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListOrganizationInvitationsOK, error) {
 	// TODO: Validate the params before sending
@@ -358,9 +358,9 @@ func (a *Client) ListOrganizationInvitations(params *ListOrganizationInvitations
 }
 
 /*
-  ListOrganizationMembers lists organization members
+ListOrganizationMembers lists organization members
 
-  Fetch users belonging to the selected organization. Currently unavailable in self-hosted ECE.
+Fetch users belonging to the selected organization. Currently unavailable in self-hosted ECE.
 */
 func (a *Client) ListOrganizationMembers(params *ListOrganizationMembersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListOrganizationMembersOK, error) {
 	// TODO: Validate the params before sending
@@ -399,9 +399,9 @@ func (a *Client) ListOrganizationMembers(params *ListOrganizationMembersParams, 
 }
 
 /*
-  ListOrganizations lists organizations
+ListOrganizations lists organizations
 
-  Fetch organizations available to the current user. Currently unavailable in self-hosted ECE.
+Fetch organizations available to the current user. Currently unavailable in self-hosted ECE.
 */
 func (a *Client) ListOrganizations(params *ListOrganizationsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListOrganizationsOK, error) {
 	// TODO: Validate the params before sending
@@ -440,9 +440,10 @@ func (a *Client) ListOrganizations(params *ListOrganizationsParams, authInfo run
 }
 
 /*
-  UpdateOrganization updates organization
+	UpdateOrganization updates organization
 
-  > WARNING
+	> WARNING
+
 > This endpoint is deprecated and scheduled to be removed in the next major version.
 
 Updates an existing organization. Currently unavailable in self-hosted ECE.

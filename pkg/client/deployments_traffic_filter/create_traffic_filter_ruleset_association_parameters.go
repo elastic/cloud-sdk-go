@@ -71,10 +71,12 @@ func NewCreateTrafficFilterRulesetAssociationParamsWithHTTPClient(client *http.C
 	}
 }
 
-/* CreateTrafficFilterRulesetAssociationParams contains all the parameters to send to the API endpoint
-   for the create traffic filter ruleset association operation.
+/*
+CreateTrafficFilterRulesetAssociationParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the create traffic filter ruleset association operation.
+
+	Typically these are written to a http.Request.
 */
 type CreateTrafficFilterRulesetAssociationParams struct {
 

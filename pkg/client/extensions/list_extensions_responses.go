@@ -56,7 +56,8 @@ func NewListExtensionsOK() *ListExtensionsOK {
 	return &ListExtensionsOK{}
 }
 
-/* ListExtensionsOK describes a response with status code 200, with default header values.
+/*
+ListExtensionsOK describes a response with status code 200, with default header values.
 
 The extensions that are available
 */
@@ -64,9 +65,44 @@ type ListExtensionsOK struct {
 	Payload *models.Extensions
 }
 
+// IsSuccess returns true when this list extensions o k response has a 2xx status code
+func (o *ListExtensionsOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this list extensions o k response has a 3xx status code
+func (o *ListExtensionsOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this list extensions o k response has a 4xx status code
+func (o *ListExtensionsOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this list extensions o k response has a 5xx status code
+func (o *ListExtensionsOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this list extensions o k response a status code equal to that given
+func (o *ListExtensionsOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the list extensions o k response
+func (o *ListExtensionsOK) Code() int {
+	return 200
+}
+
 func (o *ListExtensionsOK) Error() string {
 	return fmt.Sprintf("[GET /deployments/extensions][%d] listExtensionsOK  %+v", 200, o.Payload)
 }
+
+func (o *ListExtensionsOK) String() string {
+	return fmt.Sprintf("[GET /deployments/extensions][%d] listExtensionsOK  %+v", 200, o.Payload)
+}
+
 func (o *ListExtensionsOK) GetPayload() *models.Extensions {
 	return o.Payload
 }

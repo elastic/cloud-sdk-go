@@ -58,12 +58,6 @@ func (o *DemoteCoordinatorReader) ReadResponse(response runtime.ClientResponse, 
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewDemoteCoordinatorRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -74,7 +68,8 @@ func NewDemoteCoordinatorOK() *DemoteCoordinatorOK {
 	return &DemoteCoordinatorOK{}
 }
 
-/* DemoteCoordinatorOK describes a response with status code 200, with default header values.
+/*
+DemoteCoordinatorOK describes a response with status code 200, with default header values.
 
 Accepted demote of coordinator.
 */
@@ -82,9 +77,44 @@ type DemoteCoordinatorOK struct {
 	Payload models.EmptyResponse
 }
 
+// IsSuccess returns true when this demote coordinator o k response has a 2xx status code
+func (o *DemoteCoordinatorOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this demote coordinator o k response has a 3xx status code
+func (o *DemoteCoordinatorOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this demote coordinator o k response has a 4xx status code
+func (o *DemoteCoordinatorOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this demote coordinator o k response has a 5xx status code
+func (o *DemoteCoordinatorOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this demote coordinator o k response a status code equal to that given
+func (o *DemoteCoordinatorOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the demote coordinator o k response
+func (o *DemoteCoordinatorOK) Code() int {
+	return 200
+}
+
 func (o *DemoteCoordinatorOK) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/coordinators/{coordinator_id}/_demote][%d] demoteCoordinatorOK  %+v", 200, o.Payload)
 }
+
+func (o *DemoteCoordinatorOK) String() string {
+	return fmt.Sprintf("[POST /platform/infrastructure/coordinators/{coordinator_id}/_demote][%d] demoteCoordinatorOK  %+v", 200, o.Payload)
+}
+
 func (o *DemoteCoordinatorOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -104,7 +134,8 @@ func NewDemoteCoordinatorBadRequest() *DemoteCoordinatorBadRequest {
 	return &DemoteCoordinatorBadRequest{}
 }
 
-/* DemoteCoordinatorBadRequest describes a response with status code 400, with default header values.
+/*
+DemoteCoordinatorBadRequest describes a response with status code 400, with default header values.
 
 The coordinator specified by {coordinator_id} could not be demoted. (code: `coordinators.coordinator_demote_failed`)
 */
@@ -117,9 +148,44 @@ type DemoteCoordinatorBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this demote coordinator bad request response has a 2xx status code
+func (o *DemoteCoordinatorBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this demote coordinator bad request response has a 3xx status code
+func (o *DemoteCoordinatorBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this demote coordinator bad request response has a 4xx status code
+func (o *DemoteCoordinatorBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this demote coordinator bad request response has a 5xx status code
+func (o *DemoteCoordinatorBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this demote coordinator bad request response a status code equal to that given
+func (o *DemoteCoordinatorBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the demote coordinator bad request response
+func (o *DemoteCoordinatorBadRequest) Code() int {
+	return 400
+}
+
 func (o *DemoteCoordinatorBadRequest) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/coordinators/{coordinator_id}/_demote][%d] demoteCoordinatorBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *DemoteCoordinatorBadRequest) String() string {
+	return fmt.Sprintf("[POST /platform/infrastructure/coordinators/{coordinator_id}/_demote][%d] demoteCoordinatorBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *DemoteCoordinatorBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -148,7 +214,8 @@ func NewDemoteCoordinatorNotFound() *DemoteCoordinatorNotFound {
 	return &DemoteCoordinatorNotFound{}
 }
 
-/* DemoteCoordinatorNotFound describes a response with status code 404, with default header values.
+/*
+DemoteCoordinatorNotFound describes a response with status code 404, with default header values.
 
 Unable to find the coordinator {coordinator_id}. Edit your request, then try again. (code: `coordinators.coordinator_not_found`)
 */
@@ -161,58 +228,49 @@ type DemoteCoordinatorNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this demote coordinator not found response has a 2xx status code
+func (o *DemoteCoordinatorNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this demote coordinator not found response has a 3xx status code
+func (o *DemoteCoordinatorNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this demote coordinator not found response has a 4xx status code
+func (o *DemoteCoordinatorNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this demote coordinator not found response has a 5xx status code
+func (o *DemoteCoordinatorNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this demote coordinator not found response a status code equal to that given
+func (o *DemoteCoordinatorNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the demote coordinator not found response
+func (o *DemoteCoordinatorNotFound) Code() int {
+	return 404
+}
+
 func (o *DemoteCoordinatorNotFound) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/coordinators/{coordinator_id}/_demote][%d] demoteCoordinatorNotFound  %+v", 404, o.Payload)
 }
+
+func (o *DemoteCoordinatorNotFound) String() string {
+	return fmt.Sprintf("[POST /platform/infrastructure/coordinators/{coordinator_id}/_demote][%d] demoteCoordinatorNotFound  %+v", 404, o.Payload)
+}
+
 func (o *DemoteCoordinatorNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *DemoteCoordinatorNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewDemoteCoordinatorRetryWith creates a DemoteCoordinatorRetryWith with default headers values
-func NewDemoteCoordinatorRetryWith() *DemoteCoordinatorRetryWith {
-	return &DemoteCoordinatorRetryWith{}
-}
-
-/* DemoteCoordinatorRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type DemoteCoordinatorRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-func (o *DemoteCoordinatorRetryWith) Error() string {
-	return fmt.Sprintf("[POST /platform/infrastructure/coordinators/{coordinator_id}/_demote][%d] demoteCoordinatorRetryWith  %+v", 449, o.Payload)
-}
-func (o *DemoteCoordinatorRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *DemoteCoordinatorRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// hydrates response header x-cloud-error-codes
 	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")

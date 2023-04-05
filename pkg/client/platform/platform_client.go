@@ -61,9 +61,9 @@ type ClientService interface {
 }
 
 /*
-  DeleteExtraCertificate deletes extra certificate
+DeleteExtraCertificate deletes extra certificate
 
-  Delete an extra certificate.
+Delete an extra certificate.
 */
 func (a *Client) DeleteExtraCertificate(params *DeleteExtraCertificateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteExtraCertificateOK, error) {
 	// TODO: Validate the params before sending
@@ -102,9 +102,9 @@ func (a *Client) DeleteExtraCertificate(params *DeleteExtraCertificateParams, au
 }
 
 /*
-  GetExtraCertificate reads extra certificate
+GetExtraCertificate reads extra certificate
 
-  Read an extra certificate.
+Read an extra certificate.
 */
 func (a *Client) GetExtraCertificate(params *GetExtraCertificateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetExtraCertificateOK, error) {
 	// TODO: Validate the params before sending
@@ -143,9 +143,9 @@ func (a *Client) GetExtraCertificate(params *GetExtraCertificateParams, authInfo
 }
 
 /*
-  GetExtraCertificates lists extra certificates
+GetExtraCertificates lists extra certificates
 
-  List all of the extra certificates.
+List all of the extra certificates.
 */
 func (a *Client) GetExtraCertificates(params *GetExtraCertificatesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetExtraCertificatesOK, error) {
 	// TODO: Validate the params before sending
@@ -184,9 +184,9 @@ func (a *Client) GetExtraCertificates(params *GetExtraCertificatesParams, authIn
 }
 
 /*
-  GetPlatform gets platform info
+GetPlatform gets platform info
 
-  Retrieves information about the active platform.
+Retrieves information about the active platform.
 */
 func (a *Client) GetPlatform(params *GetPlatformParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetPlatformOK, error) {
 	// TODO: Validate the params before sending
@@ -225,9 +225,9 @@ func (a *Client) GetPlatform(params *GetPlatformParams, authInfo runtime.ClientA
 }
 
 /*
-  SetExtraCertificate updates extra certificate
+SetExtraCertificate updates extra certificate
 
-  Add or update an extra certificate.
+Add or update an extra certificate.
 */
 func (a *Client) SetExtraCertificate(params *SetExtraCertificateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetExtraCertificateOK, error) {
 	// TODO: Validate the params before sending

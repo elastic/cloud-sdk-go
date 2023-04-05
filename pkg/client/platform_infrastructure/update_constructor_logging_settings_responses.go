@@ -68,7 +68,8 @@ func NewUpdateConstructorLoggingSettingsOK() *UpdateConstructorLoggingSettingsOK
 	return &UpdateConstructorLoggingSettingsOK{}
 }
 
-/* UpdateConstructorLoggingSettingsOK describes a response with status code 200, with default header values.
+/*
+UpdateConstructorLoggingSettingsOK describes a response with status code 200, with default header values.
 
 The updated logging settings for the constructor instance
 */
@@ -89,9 +90,44 @@ type UpdateConstructorLoggingSettingsOK struct {
 	Payload *models.LoggingSettings
 }
 
+// IsSuccess returns true when this update constructor logging settings o k response has a 2xx status code
+func (o *UpdateConstructorLoggingSettingsOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this update constructor logging settings o k response has a 3xx status code
+func (o *UpdateConstructorLoggingSettingsOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update constructor logging settings o k response has a 4xx status code
+func (o *UpdateConstructorLoggingSettingsOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this update constructor logging settings o k response has a 5xx status code
+func (o *UpdateConstructorLoggingSettingsOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update constructor logging settings o k response a status code equal to that given
+func (o *UpdateConstructorLoggingSettingsOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the update constructor logging settings o k response
+func (o *UpdateConstructorLoggingSettingsOK) Code() int {
+	return 200
+}
+
 func (o *UpdateConstructorLoggingSettingsOK) Error() string {
 	return fmt.Sprintf("[PATCH /platform/infrastructure/constructors/{constructor_id}/logging_settings][%d] updateConstructorLoggingSettingsOK  %+v", 200, o.Payload)
 }
+
+func (o *UpdateConstructorLoggingSettingsOK) String() string {
+	return fmt.Sprintf("[PATCH /platform/infrastructure/constructors/{constructor_id}/logging_settings][%d] updateConstructorLoggingSettingsOK  %+v", 200, o.Payload)
+}
+
 func (o *UpdateConstructorLoggingSettingsOK) GetPayload() *models.LoggingSettings {
 	return o.Payload
 }
@@ -134,7 +170,8 @@ func NewUpdateConstructorLoggingSettingsBadRequest() *UpdateConstructorLoggingSe
 	return &UpdateConstructorLoggingSettingsBadRequest{}
 }
 
-/* UpdateConstructorLoggingSettingsBadRequest describes a response with status code 400, with default header values.
+/*
+UpdateConstructorLoggingSettingsBadRequest describes a response with status code 400, with default header values.
 
 The update request is invalid. (code: `patch.request_malformed`)
 */
@@ -147,9 +184,44 @@ type UpdateConstructorLoggingSettingsBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this update constructor logging settings bad request response has a 2xx status code
+func (o *UpdateConstructorLoggingSettingsBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update constructor logging settings bad request response has a 3xx status code
+func (o *UpdateConstructorLoggingSettingsBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update constructor logging settings bad request response has a 4xx status code
+func (o *UpdateConstructorLoggingSettingsBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update constructor logging settings bad request response has a 5xx status code
+func (o *UpdateConstructorLoggingSettingsBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update constructor logging settings bad request response a status code equal to that given
+func (o *UpdateConstructorLoggingSettingsBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the update constructor logging settings bad request response
+func (o *UpdateConstructorLoggingSettingsBadRequest) Code() int {
+	return 400
+}
+
 func (o *UpdateConstructorLoggingSettingsBadRequest) Error() string {
 	return fmt.Sprintf("[PATCH /platform/infrastructure/constructors/{constructor_id}/logging_settings][%d] updateConstructorLoggingSettingsBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *UpdateConstructorLoggingSettingsBadRequest) String() string {
+	return fmt.Sprintf("[PATCH /platform/infrastructure/constructors/{constructor_id}/logging_settings][%d] updateConstructorLoggingSettingsBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *UpdateConstructorLoggingSettingsBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -178,7 +250,8 @@ func NewUpdateConstructorLoggingSettingsNotFound() *UpdateConstructorLoggingSett
 	return &UpdateConstructorLoggingSettingsNotFound{}
 }
 
-/* UpdateConstructorLoggingSettingsNotFound describes a response with status code 404, with default header values.
+/*
+UpdateConstructorLoggingSettingsNotFound describes a response with status code 404, with default header values.
 
 The logging settings for this constructor were not found. (code: `constructors.logging_settings.not_found`)
 */
@@ -191,9 +264,44 @@ type UpdateConstructorLoggingSettingsNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this update constructor logging settings not found response has a 2xx status code
+func (o *UpdateConstructorLoggingSettingsNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update constructor logging settings not found response has a 3xx status code
+func (o *UpdateConstructorLoggingSettingsNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update constructor logging settings not found response has a 4xx status code
+func (o *UpdateConstructorLoggingSettingsNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update constructor logging settings not found response has a 5xx status code
+func (o *UpdateConstructorLoggingSettingsNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update constructor logging settings not found response a status code equal to that given
+func (o *UpdateConstructorLoggingSettingsNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the update constructor logging settings not found response
+func (o *UpdateConstructorLoggingSettingsNotFound) Code() int {
+	return 404
+}
+
 func (o *UpdateConstructorLoggingSettingsNotFound) Error() string {
 	return fmt.Sprintf("[PATCH /platform/infrastructure/constructors/{constructor_id}/logging_settings][%d] updateConstructorLoggingSettingsNotFound  %+v", 404, o.Payload)
 }
+
+func (o *UpdateConstructorLoggingSettingsNotFound) String() string {
+	return fmt.Sprintf("[PATCH /platform/infrastructure/constructors/{constructor_id}/logging_settings][%d] updateConstructorLoggingSettingsNotFound  %+v", 404, o.Payload)
+}
+
 func (o *UpdateConstructorLoggingSettingsNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

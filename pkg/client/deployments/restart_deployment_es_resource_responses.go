@@ -58,12 +58,6 @@ func (o *RestartDeploymentEsResourceReader) ReadResponse(response runtime.Client
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewRestartDeploymentEsResourceRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	case 500:
 		result := NewRestartDeploymentEsResourceInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -80,7 +74,8 @@ func NewRestartDeploymentEsResourceAccepted() *RestartDeploymentEsResourceAccept
 	return &RestartDeploymentEsResourceAccepted{}
 }
 
-/* RestartDeploymentEsResourceAccepted describes a response with status code 202, with default header values.
+/*
+RestartDeploymentEsResourceAccepted describes a response with status code 202, with default header values.
 
 The restart command was issued successfully.
 */
@@ -88,9 +83,44 @@ type RestartDeploymentEsResourceAccepted struct {
 	Payload *models.DeploymentResourceCommandResponse
 }
 
+// IsSuccess returns true when this restart deployment es resource accepted response has a 2xx status code
+func (o *RestartDeploymentEsResourceAccepted) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this restart deployment es resource accepted response has a 3xx status code
+func (o *RestartDeploymentEsResourceAccepted) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this restart deployment es resource accepted response has a 4xx status code
+func (o *RestartDeploymentEsResourceAccepted) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this restart deployment es resource accepted response has a 5xx status code
+func (o *RestartDeploymentEsResourceAccepted) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this restart deployment es resource accepted response a status code equal to that given
+func (o *RestartDeploymentEsResourceAccepted) IsCode(code int) bool {
+	return code == 202
+}
+
+// Code gets the status code for the restart deployment es resource accepted response
+func (o *RestartDeploymentEsResourceAccepted) Code() int {
+	return 202
+}
+
 func (o *RestartDeploymentEsResourceAccepted) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_restart][%d] restartDeploymentEsResourceAccepted  %+v", 202, o.Payload)
 }
+
+func (o *RestartDeploymentEsResourceAccepted) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_restart][%d] restartDeploymentEsResourceAccepted  %+v", 202, o.Payload)
+}
+
 func (o *RestartDeploymentEsResourceAccepted) GetPayload() *models.DeploymentResourceCommandResponse {
 	return o.Payload
 }
@@ -112,9 +142,11 @@ func NewRestartDeploymentEsResourceNotFound() *RestartDeploymentEsResourceNotFou
 	return &RestartDeploymentEsResourceNotFound{}
 }
 
-/* RestartDeploymentEsResourceNotFound describes a response with status code 404, with default header values.
+/*
+	RestartDeploymentEsResourceNotFound describes a response with status code 404, with default header values.
 
- * The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+	* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+
 * The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)
 */
 type RestartDeploymentEsResourceNotFound struct {
@@ -126,9 +158,44 @@ type RestartDeploymentEsResourceNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this restart deployment es resource not found response has a 2xx status code
+func (o *RestartDeploymentEsResourceNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this restart deployment es resource not found response has a 3xx status code
+func (o *RestartDeploymentEsResourceNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this restart deployment es resource not found response has a 4xx status code
+func (o *RestartDeploymentEsResourceNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this restart deployment es resource not found response has a 5xx status code
+func (o *RestartDeploymentEsResourceNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this restart deployment es resource not found response a status code equal to that given
+func (o *RestartDeploymentEsResourceNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the restart deployment es resource not found response
+func (o *RestartDeploymentEsResourceNotFound) Code() int {
+	return 404
+}
+
 func (o *RestartDeploymentEsResourceNotFound) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_restart][%d] restartDeploymentEsResourceNotFound  %+v", 404, o.Payload)
 }
+
+func (o *RestartDeploymentEsResourceNotFound) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_restart][%d] restartDeploymentEsResourceNotFound  %+v", 404, o.Payload)
+}
+
 func (o *RestartDeploymentEsResourceNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -157,7 +224,8 @@ func NewRestartDeploymentEsResourceUnprocessableEntity() *RestartDeploymentEsRes
 	return &RestartDeploymentEsResourceUnprocessableEntity{}
 }
 
-/* RestartDeploymentEsResourceUnprocessableEntity describes a response with status code 422, with default header values.
+/*
+RestartDeploymentEsResourceUnprocessableEntity describes a response with status code 422, with default header values.
 
 The command sent to a Resource found the Resource in an illegal state, the error message gives more details. (code: `deployments.deployment_resource_plan_change_error`)
 */
@@ -170,9 +238,44 @@ type RestartDeploymentEsResourceUnprocessableEntity struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this restart deployment es resource unprocessable entity response has a 2xx status code
+func (o *RestartDeploymentEsResourceUnprocessableEntity) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this restart deployment es resource unprocessable entity response has a 3xx status code
+func (o *RestartDeploymentEsResourceUnprocessableEntity) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this restart deployment es resource unprocessable entity response has a 4xx status code
+func (o *RestartDeploymentEsResourceUnprocessableEntity) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this restart deployment es resource unprocessable entity response has a 5xx status code
+func (o *RestartDeploymentEsResourceUnprocessableEntity) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this restart deployment es resource unprocessable entity response a status code equal to that given
+func (o *RestartDeploymentEsResourceUnprocessableEntity) IsCode(code int) bool {
+	return code == 422
+}
+
+// Code gets the status code for the restart deployment es resource unprocessable entity response
+func (o *RestartDeploymentEsResourceUnprocessableEntity) Code() int {
+	return 422
+}
+
 func (o *RestartDeploymentEsResourceUnprocessableEntity) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_restart][%d] restartDeploymentEsResourceUnprocessableEntity  %+v", 422, o.Payload)
 }
+
+func (o *RestartDeploymentEsResourceUnprocessableEntity) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_restart][%d] restartDeploymentEsResourceUnprocessableEntity  %+v", 422, o.Payload)
+}
+
 func (o *RestartDeploymentEsResourceUnprocessableEntity) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -196,56 +299,13 @@ func (o *RestartDeploymentEsResourceUnprocessableEntity) readResponse(response r
 	return nil
 }
 
-// NewRestartDeploymentEsResourceRetryWith creates a RestartDeploymentEsResourceRetryWith with default headers values
-func NewRestartDeploymentEsResourceRetryWith() *RestartDeploymentEsResourceRetryWith {
-	return &RestartDeploymentEsResourceRetryWith{}
-}
-
-/* RestartDeploymentEsResourceRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type RestartDeploymentEsResourceRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-func (o *RestartDeploymentEsResourceRetryWith) Error() string {
-	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_restart][%d] restartDeploymentEsResourceRetryWith  %+v", 449, o.Payload)
-}
-func (o *RestartDeploymentEsResourceRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *RestartDeploymentEsResourceRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
 // NewRestartDeploymentEsResourceInternalServerError creates a RestartDeploymentEsResourceInternalServerError with default headers values
 func NewRestartDeploymentEsResourceInternalServerError() *RestartDeploymentEsResourceInternalServerError {
 	return &RestartDeploymentEsResourceInternalServerError{}
 }
 
-/* RestartDeploymentEsResourceInternalServerError describes a response with status code 500, with default header values.
+/*
+RestartDeploymentEsResourceInternalServerError describes a response with status code 500, with default header values.
 
 A Resource that was previously stored no longer exists. (code: `deployments.deployment_resource_no_longer_exists`)
 */
@@ -258,9 +318,44 @@ type RestartDeploymentEsResourceInternalServerError struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this restart deployment es resource internal server error response has a 2xx status code
+func (o *RestartDeploymentEsResourceInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this restart deployment es resource internal server error response has a 3xx status code
+func (o *RestartDeploymentEsResourceInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this restart deployment es resource internal server error response has a 4xx status code
+func (o *RestartDeploymentEsResourceInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this restart deployment es resource internal server error response has a 5xx status code
+func (o *RestartDeploymentEsResourceInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this restart deployment es resource internal server error response a status code equal to that given
+func (o *RestartDeploymentEsResourceInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
+// Code gets the status code for the restart deployment es resource internal server error response
+func (o *RestartDeploymentEsResourceInternalServerError) Code() int {
+	return 500
+}
+
 func (o *RestartDeploymentEsResourceInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_restart][%d] restartDeploymentEsResourceInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *RestartDeploymentEsResourceInternalServerError) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_restart][%d] restartDeploymentEsResourceInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *RestartDeploymentEsResourceInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

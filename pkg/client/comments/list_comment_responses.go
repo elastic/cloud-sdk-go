@@ -56,7 +56,8 @@ func NewListCommentOK() *ListCommentOK {
 	return &ListCommentOK{}
 }
 
-/* ListCommentOK describes a response with status code 200, with default header values.
+/*
+ListCommentOK describes a response with status code 200, with default header values.
 
 The Comments
 */
@@ -64,9 +65,44 @@ type ListCommentOK struct {
 	Payload *models.CommentsWithMetas
 }
 
+// IsSuccess returns true when this list comment o k response has a 2xx status code
+func (o *ListCommentOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this list comment o k response has a 3xx status code
+func (o *ListCommentOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this list comment o k response has a 4xx status code
+func (o *ListCommentOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this list comment o k response has a 5xx status code
+func (o *ListCommentOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this list comment o k response a status code equal to that given
+func (o *ListCommentOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the list comment o k response
+func (o *ListCommentOK) Code() int {
+	return 200
+}
+
 func (o *ListCommentOK) Error() string {
 	return fmt.Sprintf("[GET /comments/{resource_type}/{resource_id}][%d] listCommentOK  %+v", 200, o.Payload)
 }
+
+func (o *ListCommentOK) String() string {
+	return fmt.Sprintf("[GET /comments/{resource_type}/{resource_id}][%d] listCommentOK  %+v", 200, o.Payload)
+}
+
 func (o *ListCommentOK) GetPayload() *models.CommentsWithMetas {
 	return o.Payload
 }

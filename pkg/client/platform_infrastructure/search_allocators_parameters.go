@@ -71,10 +71,12 @@ func NewSearchAllocatorsParamsWithHTTPClient(client *http.Client) *SearchAllocat
 	}
 }
 
-/* SearchAllocatorsParams contains all the parameters to send to the API endpoint
-   for the search allocators operation.
+/*
+SearchAllocatorsParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the search allocators operation.
+
+	Typically these are written to a http.Request.
 */
 type SearchAllocatorsParams struct {
 

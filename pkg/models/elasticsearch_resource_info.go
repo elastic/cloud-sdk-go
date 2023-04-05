@@ -98,6 +98,8 @@ func (m *ElasticsearchResourceInfo) validateInfo(formats strfmt.Registry) error 
 		if err := m.Info.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("info")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("info")
 			}
 			return err
 		}
@@ -144,6 +146,8 @@ func (m *ElasticsearchResourceInfo) contextValidateInfo(ctx context.Context, for
 		if err := m.Info.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("info")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("info")
 			}
 			return err
 		}

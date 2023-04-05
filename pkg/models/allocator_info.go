@@ -165,6 +165,8 @@ func (m *AllocatorInfo) validateBuildInfo(formats strfmt.Registry) error {
 		if err := m.BuildInfo.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("build_info")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("build_info")
 			}
 			return err
 		}
@@ -183,6 +185,8 @@ func (m *AllocatorInfo) validateCapacity(formats strfmt.Registry) error {
 		if err := m.Capacity.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("capacity")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("capacity")
 			}
 			return err
 		}
@@ -210,6 +214,8 @@ func (m *AllocatorInfo) validateExternalLinks(formats strfmt.Registry) error {
 			if err := m.ExternalLinks[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("external_links" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("external_links" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -253,6 +259,8 @@ func (m *AllocatorInfo) validateInstances(formats strfmt.Registry) error {
 			if err := m.Instances[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("instances" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("instances" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -278,6 +286,8 @@ func (m *AllocatorInfo) validateMetadata(formats strfmt.Registry) error {
 			if err := m.Metadata[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("metadata" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("metadata" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -307,6 +317,8 @@ func (m *AllocatorInfo) validateSettings(formats strfmt.Registry) error {
 		if err := m.Settings.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("settings")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("settings")
 			}
 			return err
 		}
@@ -325,6 +337,8 @@ func (m *AllocatorInfo) validateStatus(formats strfmt.Registry) error {
 		if err := m.Status.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("status")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("status")
 			}
 			return err
 		}
@@ -386,6 +400,8 @@ func (m *AllocatorInfo) contextValidateBuildInfo(ctx context.Context, formats st
 		if err := m.BuildInfo.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("build_info")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("build_info")
 			}
 			return err
 		}
@@ -400,6 +416,8 @@ func (m *AllocatorInfo) contextValidateCapacity(ctx context.Context, formats str
 		if err := m.Capacity.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("capacity")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("capacity")
 			}
 			return err
 		}
@@ -416,6 +434,8 @@ func (m *AllocatorInfo) contextValidateExternalLinks(ctx context.Context, format
 			if err := m.ExternalLinks[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("external_links" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("external_links" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -434,6 +454,8 @@ func (m *AllocatorInfo) contextValidateInstances(ctx context.Context, formats st
 			if err := m.Instances[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("instances" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("instances" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -452,6 +474,8 @@ func (m *AllocatorInfo) contextValidateMetadata(ctx context.Context, formats str
 			if err := m.Metadata[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("metadata" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("metadata" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -468,6 +492,8 @@ func (m *AllocatorInfo) contextValidateSettings(ctx context.Context, formats str
 		if err := m.Settings.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("settings")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("settings")
 			}
 			return err
 		}
@@ -482,6 +508,8 @@ func (m *AllocatorInfo) contextValidateStatus(ctx context.Context, formats strfm
 		if err := m.Status.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("status")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("status")
 			}
 			return err
 		}

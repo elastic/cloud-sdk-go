@@ -69,6 +69,8 @@ func (m *TransientIntegrationsServerPlanConfiguration) validatePlanConfiguration
 		if err := m.PlanConfiguration.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("plan_configuration")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("plan_configuration")
 			}
 			return err
 		}
@@ -86,6 +88,8 @@ func (m *TransientIntegrationsServerPlanConfiguration) validateStrategy(formats 
 		if err := m.Strategy.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("strategy")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("strategy")
 			}
 			return err
 		}
@@ -118,6 +122,8 @@ func (m *TransientIntegrationsServerPlanConfiguration) contextValidatePlanConfig
 		if err := m.PlanConfiguration.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("plan_configuration")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("plan_configuration")
 			}
 			return err
 		}
@@ -132,6 +138,8 @@ func (m *TransientIntegrationsServerPlanConfiguration) contextValidateStrategy(c
 		if err := m.Strategy.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("strategy")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("strategy")
 			}
 			return err
 		}

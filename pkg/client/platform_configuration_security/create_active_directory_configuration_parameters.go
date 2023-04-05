@@ -71,10 +71,12 @@ func NewCreateActiveDirectoryConfigurationParamsWithHTTPClient(client *http.Clie
 	}
 }
 
-/* CreateActiveDirectoryConfigurationParams contains all the parameters to send to the API endpoint
-   for the create active directory configuration operation.
+/*
+CreateActiveDirectoryConfigurationParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the create active directory configuration operation.
+
+	Typically these are written to a http.Request.
 */
 type CreateActiveDirectoryConfigurationParams struct {
 

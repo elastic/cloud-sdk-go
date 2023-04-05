@@ -80,7 +80,8 @@ func NewLoginOK() *LoginOK {
 	return &LoginOK{}
 }
 
-/* LoginOK describes a response with status code 200, with default header values.
+/*
+LoginOK describes a response with status code 200, with default header values.
 
 Login successful, returns the token in the body (if 'login_state.path' not specified)
 */
@@ -88,9 +89,44 @@ type LoginOK struct {
 	Payload *models.TokenResponse
 }
 
+// IsSuccess returns true when this login o k response has a 2xx status code
+func (o *LoginOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this login o k response has a 3xx status code
+func (o *LoginOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this login o k response has a 4xx status code
+func (o *LoginOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this login o k response has a 5xx status code
+func (o *LoginOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this login o k response a status code equal to that given
+func (o *LoginOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the login o k response
+func (o *LoginOK) Code() int {
+	return 200
+}
+
 func (o *LoginOK) Error() string {
 	return fmt.Sprintf("[POST /users/auth/_login][%d] loginOK  %+v", 200, o.Payload)
 }
+
+func (o *LoginOK) String() string {
+	return fmt.Sprintf("[POST /users/auth/_login][%d] loginOK  %+v", 200, o.Payload)
+}
+
 func (o *LoginOK) GetPayload() *models.TokenResponse {
 	return o.Payload
 }
@@ -112,7 +148,8 @@ func NewLoginFound() *LoginFound {
 	return &LoginFound{}
 }
 
-/* LoginFound describes a response with status code 302, with default header values.
+/*
+LoginFound describes a response with status code 302, with default header values.
 
 Redirects to '/sso/token#BEARER_TOKEN?state=LOGIN_STATE' with the fragment containing a bearer token  (if 'login_state.path' is specified)
 */
@@ -120,9 +157,44 @@ type LoginFound struct {
 	Payload models.EmptyResponse
 }
 
+// IsSuccess returns true when this login found response has a 2xx status code
+func (o *LoginFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this login found response has a 3xx status code
+func (o *LoginFound) IsRedirect() bool {
+	return true
+}
+
+// IsClientError returns true when this login found response has a 4xx status code
+func (o *LoginFound) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this login found response has a 5xx status code
+func (o *LoginFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this login found response a status code equal to that given
+func (o *LoginFound) IsCode(code int) bool {
+	return code == 302
+}
+
+// Code gets the status code for the login found response
+func (o *LoginFound) Code() int {
+	return 302
+}
+
 func (o *LoginFound) Error() string {
 	return fmt.Sprintf("[POST /users/auth/_login][%d] loginFound  %+v", 302, o.Payload)
 }
+
+func (o *LoginFound) String() string {
+	return fmt.Sprintf("[POST /users/auth/_login][%d] loginFound  %+v", 302, o.Payload)
+}
+
 func (o *LoginFound) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -142,7 +214,8 @@ func NewLoginUnauthorized() *LoginUnauthorized {
 	return &LoginUnauthorized{}
 }
 
-/* LoginUnauthorized describes a response with status code 401, with default header values.
+/*
+LoginUnauthorized describes a response with status code 401, with default header values.
 
 The supplied authentication is invalid. (code: `root.unauthenticated`)
 */
@@ -155,9 +228,44 @@ type LoginUnauthorized struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this login unauthorized response has a 2xx status code
+func (o *LoginUnauthorized) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this login unauthorized response has a 3xx status code
+func (o *LoginUnauthorized) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this login unauthorized response has a 4xx status code
+func (o *LoginUnauthorized) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this login unauthorized response has a 5xx status code
+func (o *LoginUnauthorized) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this login unauthorized response a status code equal to that given
+func (o *LoginUnauthorized) IsCode(code int) bool {
+	return code == 401
+}
+
+// Code gets the status code for the login unauthorized response
+func (o *LoginUnauthorized) Code() int {
+	return 401
+}
+
 func (o *LoginUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /users/auth/_login][%d] loginUnauthorized  %+v", 401, o.Payload)
 }
+
+func (o *LoginUnauthorized) String() string {
+	return fmt.Sprintf("[POST /users/auth/_login][%d] loginUnauthorized  %+v", 401, o.Payload)
+}
+
 func (o *LoginUnauthorized) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -186,7 +294,8 @@ func NewLoginNotImplemented() *LoginNotImplemented {
 	return &LoginNotImplemented{}
 }
 
-/* LoginNotImplemented describes a response with status code 501, with default header values.
+/*
+LoginNotImplemented describes a response with status code 501, with default header values.
 
 The administrator needs to configure the authentication cluster. (code: `authc.no_authentication_cluster`)
 */
@@ -199,9 +308,44 @@ type LoginNotImplemented struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this login not implemented response has a 2xx status code
+func (o *LoginNotImplemented) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this login not implemented response has a 3xx status code
+func (o *LoginNotImplemented) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this login not implemented response has a 4xx status code
+func (o *LoginNotImplemented) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this login not implemented response has a 5xx status code
+func (o *LoginNotImplemented) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this login not implemented response a status code equal to that given
+func (o *LoginNotImplemented) IsCode(code int) bool {
+	return code == 501
+}
+
+// Code gets the status code for the login not implemented response
+func (o *LoginNotImplemented) Code() int {
+	return 501
+}
+
 func (o *LoginNotImplemented) Error() string {
 	return fmt.Sprintf("[POST /users/auth/_login][%d] loginNotImplemented  %+v", 501, o.Payload)
 }
+
+func (o *LoginNotImplemented) String() string {
+	return fmt.Sprintf("[POST /users/auth/_login][%d] loginNotImplemented  %+v", 501, o.Payload)
+}
+
 func (o *LoginNotImplemented) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -230,7 +374,8 @@ func NewLoginBadGateway() *LoginBadGateway {
 	return &LoginBadGateway{}
 }
 
-/* LoginBadGateway describes a response with status code 502, with default header values.
+/*
+LoginBadGateway describes a response with status code 502, with default header values.
 
 The authentication cluster failed to process the request. The response body contains details about the error. (code: `authc.authentication_cluster_error`)
 */
@@ -243,9 +388,44 @@ type LoginBadGateway struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this login bad gateway response has a 2xx status code
+func (o *LoginBadGateway) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this login bad gateway response has a 3xx status code
+func (o *LoginBadGateway) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this login bad gateway response has a 4xx status code
+func (o *LoginBadGateway) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this login bad gateway response has a 5xx status code
+func (o *LoginBadGateway) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this login bad gateway response a status code equal to that given
+func (o *LoginBadGateway) IsCode(code int) bool {
+	return code == 502
+}
+
+// Code gets the status code for the login bad gateway response
+func (o *LoginBadGateway) Code() int {
+	return 502
+}
+
 func (o *LoginBadGateway) Error() string {
 	return fmt.Sprintf("[POST /users/auth/_login][%d] loginBadGateway  %+v", 502, o.Payload)
 }
+
+func (o *LoginBadGateway) String() string {
+	return fmt.Sprintf("[POST /users/auth/_login][%d] loginBadGateway  %+v", 502, o.Payload)
+}
+
 func (o *LoginBadGateway) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

@@ -69,10 +69,12 @@ func NewGetRunnerLoggingSettingsParamsWithHTTPClient(client *http.Client) *GetRu
 	}
 }
 
-/* GetRunnerLoggingSettingsParams contains all the parameters to send to the API endpoint
-   for the get runner logging settings operation.
+/*
+GetRunnerLoggingSettingsParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the get runner logging settings operation.
+
+	Typically these are written to a http.Request.
 */
 type GetRunnerLoggingSettingsParams struct {
 

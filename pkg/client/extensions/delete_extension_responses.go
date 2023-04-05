@@ -74,7 +74,8 @@ func NewDeleteExtensionOK() *DeleteExtensionOK {
 	return &DeleteExtensionOK{}
 }
 
-/* DeleteExtensionOK describes a response with status code 200, with default header values.
+/*
+DeleteExtensionOK describes a response with status code 200, with default header values.
 
 Extension deleted successfully.
 */
@@ -95,9 +96,44 @@ type DeleteExtensionOK struct {
 	Payload models.EmptyResponse
 }
 
+// IsSuccess returns true when this delete extension o k response has a 2xx status code
+func (o *DeleteExtensionOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this delete extension o k response has a 3xx status code
+func (o *DeleteExtensionOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete extension o k response has a 4xx status code
+func (o *DeleteExtensionOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this delete extension o k response has a 5xx status code
+func (o *DeleteExtensionOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete extension o k response a status code equal to that given
+func (o *DeleteExtensionOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the delete extension o k response
+func (o *DeleteExtensionOK) Code() int {
+	return 200
+}
+
 func (o *DeleteExtensionOK) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/extensions/{extension_id}][%d] deleteExtensionOK  %+v", 200, o.Payload)
 }
+
+func (o *DeleteExtensionOK) String() string {
+	return fmt.Sprintf("[DELETE /deployments/extensions/{extension_id}][%d] deleteExtensionOK  %+v", 200, o.Payload)
+}
+
 func (o *DeleteExtensionOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -138,9 +174,11 @@ func NewDeleteExtensionUnauthorized() *DeleteExtensionUnauthorized {
 	return &DeleteExtensionUnauthorized{}
 }
 
-/* DeleteExtensionUnauthorized describes a response with status code 401, with default header values.
+/*
+	DeleteExtensionUnauthorized describes a response with status code 401, with default header values.
 
- * The extension does not belong to you. (code: `extensions.unauthorised`)
+	* The extension does not belong to you. (code: `extensions.unauthorised`)
+
 * Your current session does not have a user id associated with it. (code: `extensions.no_user_id`)
 */
 type DeleteExtensionUnauthorized struct {
@@ -152,9 +190,44 @@ type DeleteExtensionUnauthorized struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete extension unauthorized response has a 2xx status code
+func (o *DeleteExtensionUnauthorized) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete extension unauthorized response has a 3xx status code
+func (o *DeleteExtensionUnauthorized) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete extension unauthorized response has a 4xx status code
+func (o *DeleteExtensionUnauthorized) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete extension unauthorized response has a 5xx status code
+func (o *DeleteExtensionUnauthorized) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete extension unauthorized response a status code equal to that given
+func (o *DeleteExtensionUnauthorized) IsCode(code int) bool {
+	return code == 401
+}
+
+// Code gets the status code for the delete extension unauthorized response
+func (o *DeleteExtensionUnauthorized) Code() int {
+	return 401
+}
+
 func (o *DeleteExtensionUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/extensions/{extension_id}][%d] deleteExtensionUnauthorized  %+v", 401, o.Payload)
 }
+
+func (o *DeleteExtensionUnauthorized) String() string {
+	return fmt.Sprintf("[DELETE /deployments/extensions/{extension_id}][%d] deleteExtensionUnauthorized  %+v", 401, o.Payload)
+}
+
 func (o *DeleteExtensionUnauthorized) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -183,7 +256,8 @@ func NewDeleteExtensionNotFound() *DeleteExtensionNotFound {
 	return &DeleteExtensionNotFound{}
 }
 
-/* DeleteExtensionNotFound describes a response with status code 404, with default header values.
+/*
+DeleteExtensionNotFound describes a response with status code 404, with default header values.
 
 The extension requested does not exist. (code: `extensions.not_found`)
 */
@@ -196,9 +270,44 @@ type DeleteExtensionNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete extension not found response has a 2xx status code
+func (o *DeleteExtensionNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete extension not found response has a 3xx status code
+func (o *DeleteExtensionNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete extension not found response has a 4xx status code
+func (o *DeleteExtensionNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete extension not found response has a 5xx status code
+func (o *DeleteExtensionNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete extension not found response a status code equal to that given
+func (o *DeleteExtensionNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the delete extension not found response
+func (o *DeleteExtensionNotFound) Code() int {
+	return 404
+}
+
 func (o *DeleteExtensionNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/extensions/{extension_id}][%d] deleteExtensionNotFound  %+v", 404, o.Payload)
 }
+
+func (o *DeleteExtensionNotFound) String() string {
+	return fmt.Sprintf("[DELETE /deployments/extensions/{extension_id}][%d] deleteExtensionNotFound  %+v", 404, o.Payload)
+}
+
 func (o *DeleteExtensionNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -227,7 +336,8 @@ func NewDeleteExtensionConflict() *DeleteExtensionConflict {
 	return &DeleteExtensionConflict{}
 }
 
-/* DeleteExtensionConflict describes a response with status code 409, with default header values.
+/*
+DeleteExtensionConflict describes a response with status code 409, with default header values.
 
 The version you sent does not match the persisted version. (code: `extensions.version_conflict`)
 */
@@ -240,9 +350,44 @@ type DeleteExtensionConflict struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete extension conflict response has a 2xx status code
+func (o *DeleteExtensionConflict) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete extension conflict response has a 3xx status code
+func (o *DeleteExtensionConflict) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete extension conflict response has a 4xx status code
+func (o *DeleteExtensionConflict) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete extension conflict response has a 5xx status code
+func (o *DeleteExtensionConflict) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete extension conflict response a status code equal to that given
+func (o *DeleteExtensionConflict) IsCode(code int) bool {
+	return code == 409
+}
+
+// Code gets the status code for the delete extension conflict response
+func (o *DeleteExtensionConflict) Code() int {
+	return 409
+}
+
 func (o *DeleteExtensionConflict) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/extensions/{extension_id}][%d] deleteExtensionConflict  %+v", 409, o.Payload)
 }
+
+func (o *DeleteExtensionConflict) String() string {
+	return fmt.Sprintf("[DELETE /deployments/extensions/{extension_id}][%d] deleteExtensionConflict  %+v", 409, o.Payload)
+}
+
 func (o *DeleteExtensionConflict) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

@@ -70,10 +70,12 @@ func NewResyncRunnersParamsWithHTTPClient(client *http.Client) *ResyncRunnersPar
 	}
 }
 
-/* ResyncRunnersParams contains all the parameters to send to the API endpoint
-   for the resync runners operation.
+/*
+ResyncRunnersParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the resync runners operation.
+
+	Typically these are written to a http.Request.
 */
 type ResyncRunnersParams struct {
 

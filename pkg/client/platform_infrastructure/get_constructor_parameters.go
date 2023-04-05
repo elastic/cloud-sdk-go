@@ -69,10 +69,12 @@ func NewGetConstructorParamsWithHTTPClient(client *http.Client) *GetConstructorP
 	}
 }
 
-/* GetConstructorParams contains all the parameters to send to the API endpoint
-   for the get constructor operation.
+/*
+GetConstructorParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the get constructor operation.
+
+	Typically these are written to a http.Request.
 */
 type GetConstructorParams struct {
 

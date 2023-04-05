@@ -59,9 +59,9 @@ type ClientService interface {
 }
 
 /*
-  GetDefaultDeploymentDomainName gets default deployment domain name
+GetDefaultDeploymentDomainName gets default deployment domain name
 
-  Gets the default Deployment Domain Name configuration value.
+Gets the default Deployment Domain Name configuration value.
 */
 func (a *Client) GetDefaultDeploymentDomainName(params *GetDefaultDeploymentDomainNameParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDefaultDeploymentDomainNameOK, error) {
 	// TODO: Validate the params before sending
@@ -100,9 +100,9 @@ func (a *Client) GetDefaultDeploymentDomainName(params *GetDefaultDeploymentDoma
 }
 
 /*
-  GetResourceKindDeploymentDomainName gets deployment domain name for a resource kind
+GetResourceKindDeploymentDomainName gets deployment domain name for a resource kind
 
-  Gets Deployment Domain Name configuration value for a resource kind.
+Gets Deployment Domain Name configuration value for a resource kind.
 */
 func (a *Client) GetResourceKindDeploymentDomainName(params *GetResourceKindDeploymentDomainNameParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetResourceKindDeploymentDomainNameOK, error) {
 	// TODO: Validate the params before sending
@@ -141,9 +141,9 @@ func (a *Client) GetResourceKindDeploymentDomainName(params *GetResourceKindDepl
 }
 
 /*
-  SetDefaultDeploymentDomainName sets default deployment domain name
+SetDefaultDeploymentDomainName sets default deployment domain name
 
-  Saves the default Deployment Domain Name configuration value.
+Saves the default Deployment Domain Name configuration value.
 */
 func (a *Client) SetDefaultDeploymentDomainName(params *SetDefaultDeploymentDomainNameParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetDefaultDeploymentDomainNameOK, error) {
 	// TODO: Validate the params before sending
@@ -182,9 +182,9 @@ func (a *Client) SetDefaultDeploymentDomainName(params *SetDefaultDeploymentDoma
 }
 
 /*
-  SetResourceKindDeploymentDomainName sets deployment domain name for a resource kind
+SetResourceKindDeploymentDomainName sets deployment domain name for a resource kind
 
-  Saves the Deployment Domain Name configuration value for a resource kind.
+Saves the Deployment Domain Name configuration value for a resource kind.
 */
 func (a *Client) SetResourceKindDeploymentDomainName(params *SetResourceKindDeploymentDomainNameParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetResourceKindDeploymentDomainNameOK, error) {
 	// TODO: Validate the params before sending

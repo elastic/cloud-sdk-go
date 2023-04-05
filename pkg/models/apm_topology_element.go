@@ -75,6 +75,8 @@ func (m *ApmTopologyElement) validateApm(formats strfmt.Registry) error {
 		if err := m.Apm.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("apm")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("apm")
 			}
 			return err
 		}
@@ -92,6 +94,8 @@ func (m *ApmTopologyElement) validateSize(formats strfmt.Registry) error {
 		if err := m.Size.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("size")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("size")
 			}
 			return err
 		}
@@ -124,6 +128,8 @@ func (m *ApmTopologyElement) contextValidateApm(ctx context.Context, formats str
 		if err := m.Apm.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("apm")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("apm")
 			}
 			return err
 		}
@@ -138,6 +144,8 @@ func (m *ApmTopologyElement) contextValidateSize(ctx context.Context, formats st
 		if err := m.Size.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("size")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("size")
 			}
 			return err
 		}

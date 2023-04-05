@@ -100,6 +100,8 @@ func (m *DeploymentObservability) validateIssues(formats strfmt.Registry) error 
 			if err := m.Issues[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("issues" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("issues" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -119,6 +121,8 @@ func (m *DeploymentObservability) validateLogging(formats strfmt.Registry) error
 		if err := m.Logging.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("logging")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("logging")
 			}
 			return err
 		}
@@ -136,6 +140,8 @@ func (m *DeploymentObservability) validateMetrics(formats strfmt.Registry) error
 		if err := m.Metrics.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("metrics")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("metrics")
 			}
 			return err
 		}
@@ -174,6 +180,8 @@ func (m *DeploymentObservability) contextValidateIssues(ctx context.Context, for
 			if err := m.Issues[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("issues" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("issues" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -190,6 +198,8 @@ func (m *DeploymentObservability) contextValidateLogging(ctx context.Context, fo
 		if err := m.Logging.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("logging")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("logging")
 			}
 			return err
 		}
@@ -204,6 +214,8 @@ func (m *DeploymentObservability) contextValidateMetrics(ctx context.Context, fo
 		if err := m.Metrics.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("metrics")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("metrics")
 			}
 			return err
 		}

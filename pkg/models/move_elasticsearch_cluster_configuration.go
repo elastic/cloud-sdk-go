@@ -80,6 +80,8 @@ func (m *MoveElasticsearchClusterConfiguration) validatePlanOverride(formats str
 		if err := m.PlanOverride.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("plan_override")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("plan_override")
 			}
 			return err
 		}
@@ -108,6 +110,8 @@ func (m *MoveElasticsearchClusterConfiguration) contextValidatePlanOverride(ctx 
 		if err := m.PlanOverride.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("plan_override")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("plan_override")
 			}
 			return err
 		}

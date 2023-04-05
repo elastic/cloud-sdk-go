@@ -152,6 +152,8 @@ func (m *CommonClusterPlanInfo) validateError(formats strfmt.Registry) error {
 		if err := m.Error.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("error")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("error")
 			}
 			return err
 		}
@@ -184,6 +186,8 @@ func (m *CommonClusterPlanInfo) validatePlanAttemptLog(formats strfmt.Registry) 
 			if err := m.PlanAttemptLog[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("plan_attempt_log" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("plan_attempt_log" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -215,6 +219,8 @@ func (m *CommonClusterPlanInfo) validateSource(formats strfmt.Registry) error {
 		if err := m.Source.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("source")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("source")
 			}
 			return err
 		}
@@ -238,6 +244,8 @@ func (m *CommonClusterPlanInfo) validateWarnings(formats strfmt.Registry) error 
 			if err := m.Warnings[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("warnings" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("warnings" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -280,6 +288,8 @@ func (m *CommonClusterPlanInfo) contextValidateError(ctx context.Context, format
 		if err := m.Error.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("error")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("error")
 			}
 			return err
 		}
@@ -296,6 +306,8 @@ func (m *CommonClusterPlanInfo) contextValidatePlanAttemptLog(ctx context.Contex
 			if err := m.PlanAttemptLog[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("plan_attempt_log" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("plan_attempt_log" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -312,6 +324,8 @@ func (m *CommonClusterPlanInfo) contextValidateSource(ctx context.Context, forma
 		if err := m.Source.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("source")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("source")
 			}
 			return err
 		}
@@ -328,6 +342,8 @@ func (m *CommonClusterPlanInfo) contextValidateWarnings(ctx context.Context, for
 			if err := m.Warnings[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("warnings" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("warnings" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

@@ -56,7 +56,8 @@ func NewListBlueprinterRolesOK() *ListBlueprinterRolesOK {
 	return &ListBlueprinterRolesOK{}
 }
 
-/* ListBlueprinterRolesOK describes a response with status code 200, with default header values.
+/*
+ListBlueprinterRolesOK describes a response with status code 200, with default header values.
 
 The role aggregates.
 */
@@ -64,9 +65,44 @@ type ListBlueprinterRolesOK struct {
 	Payload *models.RoleAggregates
 }
 
+// IsSuccess returns true when this list blueprinter roles o k response has a 2xx status code
+func (o *ListBlueprinterRolesOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this list blueprinter roles o k response has a 3xx status code
+func (o *ListBlueprinterRolesOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this list blueprinter roles o k response has a 4xx status code
+func (o *ListBlueprinterRolesOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this list blueprinter roles o k response has a 5xx status code
+func (o *ListBlueprinterRolesOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this list blueprinter roles o k response a status code equal to that given
+func (o *ListBlueprinterRolesOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the list blueprinter roles o k response
+func (o *ListBlueprinterRolesOK) Code() int {
+	return 200
+}
+
 func (o *ListBlueprinterRolesOK) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/blueprinter/roles][%d] listBlueprinterRolesOK  %+v", 200, o.Payload)
 }
+
+func (o *ListBlueprinterRolesOK) String() string {
+	return fmt.Sprintf("[GET /platform/infrastructure/blueprinter/roles][%d] listBlueprinterRolesOK  %+v", 200, o.Payload)
+}
+
 func (o *ListBlueprinterRolesOK) GetPayload() *models.RoleAggregates {
 	return o.Payload
 }

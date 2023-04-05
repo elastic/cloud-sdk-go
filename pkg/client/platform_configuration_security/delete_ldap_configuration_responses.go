@@ -58,12 +58,6 @@ func (o *DeleteLdapConfigurationReader) ReadResponse(response runtime.ClientResp
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewDeleteLdapConfigurationRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -74,7 +68,8 @@ func NewDeleteLdapConfigurationOK() *DeleteLdapConfigurationOK {
 	return &DeleteLdapConfigurationOK{}
 }
 
-/* DeleteLdapConfigurationOK describes a response with status code 200, with default header values.
+/*
+DeleteLdapConfigurationOK describes a response with status code 200, with default header values.
 
 The LDAP configuration was successfully deleted
 */
@@ -82,9 +77,44 @@ type DeleteLdapConfigurationOK struct {
 	Payload models.EmptyResponse
 }
 
+// IsSuccess returns true when this delete ldap configuration o k response has a 2xx status code
+func (o *DeleteLdapConfigurationOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this delete ldap configuration o k response has a 3xx status code
+func (o *DeleteLdapConfigurationOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete ldap configuration o k response has a 4xx status code
+func (o *DeleteLdapConfigurationOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this delete ldap configuration o k response has a 5xx status code
+func (o *DeleteLdapConfigurationOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete ldap configuration o k response a status code equal to that given
+func (o *DeleteLdapConfigurationOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the delete ldap configuration o k response
+func (o *DeleteLdapConfigurationOK) Code() int {
+	return 200
+}
+
 func (o *DeleteLdapConfigurationOK) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/security/realms/ldap/{realm_id}][%d] deleteLdapConfigurationOK  %+v", 200, o.Payload)
 }
+
+func (o *DeleteLdapConfigurationOK) String() string {
+	return fmt.Sprintf("[DELETE /platform/configuration/security/realms/ldap/{realm_id}][%d] deleteLdapConfigurationOK  %+v", 200, o.Payload)
+}
+
 func (o *DeleteLdapConfigurationOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -104,7 +134,8 @@ func NewDeleteLdapConfigurationNotFound() *DeleteLdapConfigurationNotFound {
 	return &DeleteLdapConfigurationNotFound{}
 }
 
-/* DeleteLdapConfigurationNotFound describes a response with status code 404, with default header values.
+/*
+DeleteLdapConfigurationNotFound describes a response with status code 404, with default header values.
 
 The realm specified by {realm_id} cannot be found. (code: `security_realm.not_found`)
 */
@@ -117,9 +148,44 @@ type DeleteLdapConfigurationNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete ldap configuration not found response has a 2xx status code
+func (o *DeleteLdapConfigurationNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete ldap configuration not found response has a 3xx status code
+func (o *DeleteLdapConfigurationNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete ldap configuration not found response has a 4xx status code
+func (o *DeleteLdapConfigurationNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete ldap configuration not found response has a 5xx status code
+func (o *DeleteLdapConfigurationNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete ldap configuration not found response a status code equal to that given
+func (o *DeleteLdapConfigurationNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the delete ldap configuration not found response
+func (o *DeleteLdapConfigurationNotFound) Code() int {
+	return 404
+}
+
 func (o *DeleteLdapConfigurationNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/security/realms/ldap/{realm_id}][%d] deleteLdapConfigurationNotFound  %+v", 404, o.Payload)
 }
+
+func (o *DeleteLdapConfigurationNotFound) String() string {
+	return fmt.Sprintf("[DELETE /platform/configuration/security/realms/ldap/{realm_id}][%d] deleteLdapConfigurationNotFound  %+v", 404, o.Payload)
+}
+
 func (o *DeleteLdapConfigurationNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -148,7 +214,8 @@ func NewDeleteLdapConfigurationConflict() *DeleteLdapConfigurationConflict {
 	return &DeleteLdapConfigurationConflict{}
 }
 
-/* DeleteLdapConfigurationConflict describes a response with status code 409, with default header values.
+/*
+DeleteLdapConfigurationConflict describes a response with status code 409, with default header values.
 
 There is a version conflict. (code: `security_realm.version_conflict`)
 */
@@ -161,58 +228,49 @@ type DeleteLdapConfigurationConflict struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete ldap configuration conflict response has a 2xx status code
+func (o *DeleteLdapConfigurationConflict) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete ldap configuration conflict response has a 3xx status code
+func (o *DeleteLdapConfigurationConflict) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete ldap configuration conflict response has a 4xx status code
+func (o *DeleteLdapConfigurationConflict) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete ldap configuration conflict response has a 5xx status code
+func (o *DeleteLdapConfigurationConflict) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete ldap configuration conflict response a status code equal to that given
+func (o *DeleteLdapConfigurationConflict) IsCode(code int) bool {
+	return code == 409
+}
+
+// Code gets the status code for the delete ldap configuration conflict response
+func (o *DeleteLdapConfigurationConflict) Code() int {
+	return 409
+}
+
 func (o *DeleteLdapConfigurationConflict) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/security/realms/ldap/{realm_id}][%d] deleteLdapConfigurationConflict  %+v", 409, o.Payload)
 }
+
+func (o *DeleteLdapConfigurationConflict) String() string {
+	return fmt.Sprintf("[DELETE /platform/configuration/security/realms/ldap/{realm_id}][%d] deleteLdapConfigurationConflict  %+v", 409, o.Payload)
+}
+
 func (o *DeleteLdapConfigurationConflict) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *DeleteLdapConfigurationConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewDeleteLdapConfigurationRetryWith creates a DeleteLdapConfigurationRetryWith with default headers values
-func NewDeleteLdapConfigurationRetryWith() *DeleteLdapConfigurationRetryWith {
-	return &DeleteLdapConfigurationRetryWith{}
-}
-
-/* DeleteLdapConfigurationRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type DeleteLdapConfigurationRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-func (o *DeleteLdapConfigurationRetryWith) Error() string {
-	return fmt.Sprintf("[DELETE /platform/configuration/security/realms/ldap/{realm_id}][%d] deleteLdapConfigurationRetryWith  %+v", 449, o.Payload)
-}
-func (o *DeleteLdapConfigurationRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *DeleteLdapConfigurationRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// hydrates response header x-cloud-error-codes
 	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")

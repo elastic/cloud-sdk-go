@@ -69,10 +69,12 @@ func NewGetCoordinatorsParamsWithHTTPClient(client *http.Client) *GetCoordinator
 	}
 }
 
-/* GetCoordinatorsParams contains all the parameters to send to the API endpoint
-   for the get coordinators operation.
+/*
+GetCoordinatorsParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the get coordinators operation.
+
+	Typically these are written to a http.Request.
 */
 type GetCoordinatorsParams struct {
 	timeout    time.Duration

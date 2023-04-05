@@ -72,10 +72,12 @@ func NewSetDefaultDeploymentDomainNameParamsWithHTTPClient(client *http.Client) 
 	}
 }
 
-/* SetDefaultDeploymentDomainNameParams contains all the parameters to send to the API endpoint
-   for the set default deployment domain name operation.
+/*
+SetDefaultDeploymentDomainNameParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the set default deployment domain name operation.
+
+	Typically these are written to a http.Request.
 */
 type SetDefaultDeploymentDomainNameParams struct {
 

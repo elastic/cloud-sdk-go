@@ -68,6 +68,11 @@ func (m *ModelVersionIndexSynchronizationResults) validateResults(formats strfmt
 		}
 		if val, ok := m.Results[k]; ok {
 			if err := val.Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("results" + "." + k)
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("results" + "." + k)
+				}
 				return err
 			}
 		}

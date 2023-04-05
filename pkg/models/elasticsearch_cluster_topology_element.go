@@ -125,6 +125,8 @@ func (m *ElasticsearchClusterTopologyElement) validateAutoscalingMax(formats str
 		if err := m.AutoscalingMax.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("autoscaling_max")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("autoscaling_max")
 			}
 			return err
 		}
@@ -142,6 +144,8 @@ func (m *ElasticsearchClusterTopologyElement) validateAutoscalingMin(formats str
 		if err := m.AutoscalingMin.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("autoscaling_min")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("autoscaling_min")
 			}
 			return err
 		}
@@ -159,6 +163,8 @@ func (m *ElasticsearchClusterTopologyElement) validateElasticsearch(formats strf
 		if err := m.Elasticsearch.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("elasticsearch")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("elasticsearch")
 			}
 			return err
 		}
@@ -212,6 +218,8 @@ func (m *ElasticsearchClusterTopologyElement) validateNodeType(formats strfmt.Re
 		if err := m.NodeType.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("node_type")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("node_type")
 			}
 			return err
 		}
@@ -229,6 +237,8 @@ func (m *ElasticsearchClusterTopologyElement) validateSize(formats strfmt.Regist
 		if err := m.Size.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("size")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("size")
 			}
 			return err
 		}
@@ -246,6 +256,8 @@ func (m *ElasticsearchClusterTopologyElement) validateTopologyElementControl(for
 		if err := m.TopologyElementControl.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("topology_element_control")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("topology_element_control")
 			}
 			return err
 		}
@@ -294,6 +306,8 @@ func (m *ElasticsearchClusterTopologyElement) contextValidateAutoscalingMax(ctx 
 		if err := m.AutoscalingMax.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("autoscaling_max")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("autoscaling_max")
 			}
 			return err
 		}
@@ -308,6 +322,8 @@ func (m *ElasticsearchClusterTopologyElement) contextValidateAutoscalingMin(ctx 
 		if err := m.AutoscalingMin.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("autoscaling_min")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("autoscaling_min")
 			}
 			return err
 		}
@@ -322,6 +338,8 @@ func (m *ElasticsearchClusterTopologyElement) contextValidateElasticsearch(ctx c
 		if err := m.Elasticsearch.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("elasticsearch")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("elasticsearch")
 			}
 			return err
 		}
@@ -336,6 +354,8 @@ func (m *ElasticsearchClusterTopologyElement) contextValidateNodeType(ctx contex
 		if err := m.NodeType.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("node_type")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("node_type")
 			}
 			return err
 		}
@@ -350,6 +370,8 @@ func (m *ElasticsearchClusterTopologyElement) contextValidateSize(ctx context.Co
 		if err := m.Size.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("size")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("size")
 			}
 			return err
 		}
@@ -364,6 +386,8 @@ func (m *ElasticsearchClusterTopologyElement) contextValidateTopologyElementCont
 		if err := m.TopologyElementControl.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("topology_element_control")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("topology_element_control")
 			}
 			return err
 		}

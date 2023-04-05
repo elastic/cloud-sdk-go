@@ -62,7 +62,8 @@ func NewGetDeploymentCertificateAuthorityOK() *GetDeploymentCertificateAuthority
 	return &GetDeploymentCertificateAuthorityOK{}
 }
 
-/* GetDeploymentCertificateAuthorityOK describes a response with status code 200, with default header values.
+/*
+GetDeploymentCertificateAuthorityOK describes a response with status code 200, with default header values.
 
 The certificate authority used to sign the certificates of this deployment
 */
@@ -70,9 +71,44 @@ type GetDeploymentCertificateAuthorityOK struct {
 	Payload *models.CertificateAuthority
 }
 
+// IsSuccess returns true when this get deployment certificate authority o k response has a 2xx status code
+func (o *GetDeploymentCertificateAuthorityOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get deployment certificate authority o k response has a 3xx status code
+func (o *GetDeploymentCertificateAuthorityOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get deployment certificate authority o k response has a 4xx status code
+func (o *GetDeploymentCertificateAuthorityOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get deployment certificate authority o k response has a 5xx status code
+func (o *GetDeploymentCertificateAuthorityOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get deployment certificate authority o k response a status code equal to that given
+func (o *GetDeploymentCertificateAuthorityOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get deployment certificate authority o k response
+func (o *GetDeploymentCertificateAuthorityOK) Code() int {
+	return 200
+}
+
 func (o *GetDeploymentCertificateAuthorityOK) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/certificate-authority][%d] getDeploymentCertificateAuthorityOK  %+v", 200, o.Payload)
 }
+
+func (o *GetDeploymentCertificateAuthorityOK) String() string {
+	return fmt.Sprintf("[GET /deployments/{deployment_id}/certificate-authority][%d] getDeploymentCertificateAuthorityOK  %+v", 200, o.Payload)
+}
+
 func (o *GetDeploymentCertificateAuthorityOK) GetPayload() *models.CertificateAuthority {
 	return o.Payload
 }
@@ -94,9 +130,11 @@ func NewGetDeploymentCertificateAuthorityNotFound() *GetDeploymentCertificateAut
 	return &GetDeploymentCertificateAuthorityNotFound{}
 }
 
-/* GetDeploymentCertificateAuthorityNotFound describes a response with status code 404, with default header values.
+/*
+	GetDeploymentCertificateAuthorityNotFound describes a response with status code 404, with default header values.
 
- * The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+	* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+
 * The Elasticsearch Resource cannot be found. (code: `deployments.deployment_resource_not_found`)
 */
 type GetDeploymentCertificateAuthorityNotFound struct {
@@ -108,9 +146,44 @@ type GetDeploymentCertificateAuthorityNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get deployment certificate authority not found response has a 2xx status code
+func (o *GetDeploymentCertificateAuthorityNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get deployment certificate authority not found response has a 3xx status code
+func (o *GetDeploymentCertificateAuthorityNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get deployment certificate authority not found response has a 4xx status code
+func (o *GetDeploymentCertificateAuthorityNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get deployment certificate authority not found response has a 5xx status code
+func (o *GetDeploymentCertificateAuthorityNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get deployment certificate authority not found response a status code equal to that given
+func (o *GetDeploymentCertificateAuthorityNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the get deployment certificate authority not found response
+func (o *GetDeploymentCertificateAuthorityNotFound) Code() int {
+	return 404
+}
+
 func (o *GetDeploymentCertificateAuthorityNotFound) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/certificate-authority][%d] getDeploymentCertificateAuthorityNotFound  %+v", 404, o.Payload)
 }
+
+func (o *GetDeploymentCertificateAuthorityNotFound) String() string {
+	return fmt.Sprintf("[GET /deployments/{deployment_id}/certificate-authority][%d] getDeploymentCertificateAuthorityNotFound  %+v", 404, o.Payload)
+}
+
 func (o *GetDeploymentCertificateAuthorityNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

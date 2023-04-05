@@ -64,12 +64,6 @@ func (o *UpdateLdapConfigurationReader) ReadResponse(response runtime.ClientResp
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewUpdateLdapConfigurationRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -80,7 +74,8 @@ func NewUpdateLdapConfigurationOK() *UpdateLdapConfigurationOK {
 	return &UpdateLdapConfigurationOK{}
 }
 
-/* UpdateLdapConfigurationOK describes a response with status code 200, with default header values.
+/*
+UpdateLdapConfigurationOK describes a response with status code 200, with default header values.
 
 The LDAP configuration was successfully updated
 */
@@ -101,9 +96,44 @@ type UpdateLdapConfigurationOK struct {
 	Payload models.EmptyResponse
 }
 
+// IsSuccess returns true when this update ldap configuration o k response has a 2xx status code
+func (o *UpdateLdapConfigurationOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this update ldap configuration o k response has a 3xx status code
+func (o *UpdateLdapConfigurationOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update ldap configuration o k response has a 4xx status code
+func (o *UpdateLdapConfigurationOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this update ldap configuration o k response has a 5xx status code
+func (o *UpdateLdapConfigurationOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update ldap configuration o k response a status code equal to that given
+func (o *UpdateLdapConfigurationOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the update ldap configuration o k response
+func (o *UpdateLdapConfigurationOK) Code() int {
+	return 200
+}
+
 func (o *UpdateLdapConfigurationOK) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/security/realms/ldap/{realm_id}][%d] updateLdapConfigurationOK  %+v", 200, o.Payload)
 }
+
+func (o *UpdateLdapConfigurationOK) String() string {
+	return fmt.Sprintf("[PUT /platform/configuration/security/realms/ldap/{realm_id}][%d] updateLdapConfigurationOK  %+v", 200, o.Payload)
+}
+
 func (o *UpdateLdapConfigurationOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -144,9 +174,11 @@ func NewUpdateLdapConfigurationBadRequest() *UpdateLdapConfigurationBadRequest {
 	return &UpdateLdapConfigurationBadRequest{}
 }
 
-/* UpdateLdapConfigurationBadRequest describes a response with status code 400, with default header values.
+/*
+	UpdateLdapConfigurationBadRequest describes a response with status code 400, with default header values.
 
- * The realm id is already in use. (code: `security_realm.id_conflict`)
+	* The realm id is already in use. (code: `security_realm.id_conflict`)
+
 * The selected id is not valid. (code: `security_realm.invalid_id`)
 * Order must be greater than zero. (code: `security_realm.invalid_order`)
 * Invalid Elasticsearch Security realm type. (code: `security_realm.invalid_type`)
@@ -165,9 +197,44 @@ type UpdateLdapConfigurationBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this update ldap configuration bad request response has a 2xx status code
+func (o *UpdateLdapConfigurationBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update ldap configuration bad request response has a 3xx status code
+func (o *UpdateLdapConfigurationBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update ldap configuration bad request response has a 4xx status code
+func (o *UpdateLdapConfigurationBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update ldap configuration bad request response has a 5xx status code
+func (o *UpdateLdapConfigurationBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update ldap configuration bad request response a status code equal to that given
+func (o *UpdateLdapConfigurationBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the update ldap configuration bad request response
+func (o *UpdateLdapConfigurationBadRequest) Code() int {
+	return 400
+}
+
 func (o *UpdateLdapConfigurationBadRequest) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/security/realms/ldap/{realm_id}][%d] updateLdapConfigurationBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *UpdateLdapConfigurationBadRequest) String() string {
+	return fmt.Sprintf("[PUT /platform/configuration/security/realms/ldap/{realm_id}][%d] updateLdapConfigurationBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *UpdateLdapConfigurationBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -196,7 +263,8 @@ func NewUpdateLdapConfigurationNotFound() *UpdateLdapConfigurationNotFound {
 	return &UpdateLdapConfigurationNotFound{}
 }
 
-/* UpdateLdapConfigurationNotFound describes a response with status code 404, with default header values.
+/*
+UpdateLdapConfigurationNotFound describes a response with status code 404, with default header values.
 
 The realm specified by {realm_id} cannot be found. (code: `security_realm.not_found`)
 */
@@ -209,9 +277,44 @@ type UpdateLdapConfigurationNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this update ldap configuration not found response has a 2xx status code
+func (o *UpdateLdapConfigurationNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update ldap configuration not found response has a 3xx status code
+func (o *UpdateLdapConfigurationNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update ldap configuration not found response has a 4xx status code
+func (o *UpdateLdapConfigurationNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update ldap configuration not found response has a 5xx status code
+func (o *UpdateLdapConfigurationNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update ldap configuration not found response a status code equal to that given
+func (o *UpdateLdapConfigurationNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the update ldap configuration not found response
+func (o *UpdateLdapConfigurationNotFound) Code() int {
+	return 404
+}
+
 func (o *UpdateLdapConfigurationNotFound) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/security/realms/ldap/{realm_id}][%d] updateLdapConfigurationNotFound  %+v", 404, o.Payload)
 }
+
+func (o *UpdateLdapConfigurationNotFound) String() string {
+	return fmt.Sprintf("[PUT /platform/configuration/security/realms/ldap/{realm_id}][%d] updateLdapConfigurationNotFound  %+v", 404, o.Payload)
+}
+
 func (o *UpdateLdapConfigurationNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -240,7 +343,8 @@ func NewUpdateLdapConfigurationConflict() *UpdateLdapConfigurationConflict {
 	return &UpdateLdapConfigurationConflict{}
 }
 
-/* UpdateLdapConfigurationConflict describes a response with status code 409, with default header values.
+/*
+UpdateLdapConfigurationConflict describes a response with status code 409, with default header values.
 
 There is a version conflict. (code: `security_realm.version_conflict`)
 */
@@ -253,58 +357,49 @@ type UpdateLdapConfigurationConflict struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this update ldap configuration conflict response has a 2xx status code
+func (o *UpdateLdapConfigurationConflict) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update ldap configuration conflict response has a 3xx status code
+func (o *UpdateLdapConfigurationConflict) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update ldap configuration conflict response has a 4xx status code
+func (o *UpdateLdapConfigurationConflict) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update ldap configuration conflict response has a 5xx status code
+func (o *UpdateLdapConfigurationConflict) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update ldap configuration conflict response a status code equal to that given
+func (o *UpdateLdapConfigurationConflict) IsCode(code int) bool {
+	return code == 409
+}
+
+// Code gets the status code for the update ldap configuration conflict response
+func (o *UpdateLdapConfigurationConflict) Code() int {
+	return 409
+}
+
 func (o *UpdateLdapConfigurationConflict) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/security/realms/ldap/{realm_id}][%d] updateLdapConfigurationConflict  %+v", 409, o.Payload)
 }
+
+func (o *UpdateLdapConfigurationConflict) String() string {
+	return fmt.Sprintf("[PUT /platform/configuration/security/realms/ldap/{realm_id}][%d] updateLdapConfigurationConflict  %+v", 409, o.Payload)
+}
+
 func (o *UpdateLdapConfigurationConflict) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *UpdateLdapConfigurationConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewUpdateLdapConfigurationRetryWith creates a UpdateLdapConfigurationRetryWith with default headers values
-func NewUpdateLdapConfigurationRetryWith() *UpdateLdapConfigurationRetryWith {
-	return &UpdateLdapConfigurationRetryWith{}
-}
-
-/* UpdateLdapConfigurationRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type UpdateLdapConfigurationRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-func (o *UpdateLdapConfigurationRetryWith) Error() string {
-	return fmt.Sprintf("[PUT /platform/configuration/security/realms/ldap/{realm_id}][%d] updateLdapConfigurationRetryWith  %+v", 449, o.Payload)
-}
-func (o *UpdateLdapConfigurationRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *UpdateLdapConfigurationRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// hydrates response header x-cloud-error-codes
 	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")

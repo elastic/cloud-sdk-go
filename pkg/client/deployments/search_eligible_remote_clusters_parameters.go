@@ -71,10 +71,12 @@ func NewSearchEligibleRemoteClustersParamsWithHTTPClient(client *http.Client) *S
 	}
 }
 
-/* SearchEligibleRemoteClustersParams contains all the parameters to send to the API endpoint
-   for the search eligible remote clusters operation.
+/*
+SearchEligibleRemoteClustersParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the search eligible remote clusters operation.
+
+	Typically these are written to a http.Request.
 */
 type SearchEligibleRemoteClustersParams struct {
 

@@ -69,10 +69,12 @@ func NewGetCoordinatorCandidateParamsWithHTTPClient(client *http.Client) *GetCoo
 	}
 }
 
-/* GetCoordinatorCandidateParams contains all the parameters to send to the API endpoint
-   for the get coordinator candidate operation.
+/*
+GetCoordinatorCandidateParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the get coordinator candidate operation.
+
+	Typically these are written to a http.Request.
 */
 type GetCoordinatorCandidateParams struct {
 

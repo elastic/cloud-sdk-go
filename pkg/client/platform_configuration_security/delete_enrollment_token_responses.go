@@ -52,12 +52,6 @@ func (o *DeleteEnrollmentTokenReader) ReadResponse(response runtime.ClientRespon
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewDeleteEnrollmentTokenRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -68,7 +62,8 @@ func NewDeleteEnrollmentTokenOK() *DeleteEnrollmentTokenOK {
 	return &DeleteEnrollmentTokenOK{}
 }
 
-/* DeleteEnrollmentTokenOK describes a response with status code 200, with default header values.
+/*
+DeleteEnrollmentTokenOK describes a response with status code 200, with default header values.
 
 The supplied token has been revoked and can no longer be used to start services on new servers
 */
@@ -76,9 +71,44 @@ type DeleteEnrollmentTokenOK struct {
 	Payload models.EmptyResponse
 }
 
+// IsSuccess returns true when this delete enrollment token o k response has a 2xx status code
+func (o *DeleteEnrollmentTokenOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this delete enrollment token o k response has a 3xx status code
+func (o *DeleteEnrollmentTokenOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete enrollment token o k response has a 4xx status code
+func (o *DeleteEnrollmentTokenOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this delete enrollment token o k response has a 5xx status code
+func (o *DeleteEnrollmentTokenOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete enrollment token o k response a status code equal to that given
+func (o *DeleteEnrollmentTokenOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the delete enrollment token o k response
+func (o *DeleteEnrollmentTokenOK) Code() int {
+	return 200
+}
+
 func (o *DeleteEnrollmentTokenOK) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/security/enrollment-tokens/{token}][%d] deleteEnrollmentTokenOK  %+v", 200, o.Payload)
 }
+
+func (o *DeleteEnrollmentTokenOK) String() string {
+	return fmt.Sprintf("[DELETE /platform/configuration/security/enrollment-tokens/{token}][%d] deleteEnrollmentTokenOK  %+v", 200, o.Payload)
+}
+
 func (o *DeleteEnrollmentTokenOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -98,7 +128,8 @@ func NewDeleteEnrollmentTokenNotFound() *DeleteEnrollmentTokenNotFound {
 	return &DeleteEnrollmentTokenNotFound{}
 }
 
-/* DeleteEnrollmentTokenNotFound describes a response with status code 404, with default header values.
+/*
+DeleteEnrollmentTokenNotFound describes a response with status code 404, with default header values.
 
 Token not found (code: 'enrollment_tokens.invalid_token_id')
 */
@@ -106,46 +137,49 @@ type DeleteEnrollmentTokenNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete enrollment token not found response has a 2xx status code
+func (o *DeleteEnrollmentTokenNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete enrollment token not found response has a 3xx status code
+func (o *DeleteEnrollmentTokenNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete enrollment token not found response has a 4xx status code
+func (o *DeleteEnrollmentTokenNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete enrollment token not found response has a 5xx status code
+func (o *DeleteEnrollmentTokenNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete enrollment token not found response a status code equal to that given
+func (o *DeleteEnrollmentTokenNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the delete enrollment token not found response
+func (o *DeleteEnrollmentTokenNotFound) Code() int {
+	return 404
+}
+
 func (o *DeleteEnrollmentTokenNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/security/enrollment-tokens/{token}][%d] deleteEnrollmentTokenNotFound  %+v", 404, o.Payload)
 }
+
+func (o *DeleteEnrollmentTokenNotFound) String() string {
+	return fmt.Sprintf("[DELETE /platform/configuration/security/enrollment-tokens/{token}][%d] deleteEnrollmentTokenNotFound  %+v", 404, o.Payload)
+}
+
 func (o *DeleteEnrollmentTokenNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *DeleteEnrollmentTokenNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewDeleteEnrollmentTokenRetryWith creates a DeleteEnrollmentTokenRetryWith with default headers values
-func NewDeleteEnrollmentTokenRetryWith() *DeleteEnrollmentTokenRetryWith {
-	return &DeleteEnrollmentTokenRetryWith{}
-}
-
-/* DeleteEnrollmentTokenRetryWith describes a response with status code 449, with default header values.
-
-elevated permissions are required. (code: '"root.unauthorized.rbac.elevated_permissions_required"')
-*/
-type DeleteEnrollmentTokenRetryWith struct {
-	Payload *models.BasicFailedReply
-}
-
-func (o *DeleteEnrollmentTokenRetryWith) Error() string {
-	return fmt.Sprintf("[DELETE /platform/configuration/security/enrollment-tokens/{token}][%d] deleteEnrollmentTokenRetryWith  %+v", 449, o.Payload)
-}
-func (o *DeleteEnrollmentTokenRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *DeleteEnrollmentTokenRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
 

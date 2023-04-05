@@ -71,10 +71,12 @@ func NewCreateSecurityDeploymentParamsWithHTTPClient(client *http.Client) *Creat
 	}
 }
 
-/* CreateSecurityDeploymentParams contains all the parameters to send to the API endpoint
-   for the create security deployment operation.
+/*
+CreateSecurityDeploymentParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the create security deployment operation.
+
+	Typically these are written to a http.Request.
 */
 type CreateSecurityDeploymentParams struct {
 

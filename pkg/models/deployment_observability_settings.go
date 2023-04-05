@@ -69,6 +69,8 @@ func (m *DeploymentObservabilitySettings) validateLogging(formats strfmt.Registr
 		if err := m.Logging.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("logging")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("logging")
 			}
 			return err
 		}
@@ -86,6 +88,8 @@ func (m *DeploymentObservabilitySettings) validateMetrics(formats strfmt.Registr
 		if err := m.Metrics.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("metrics")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("metrics")
 			}
 			return err
 		}
@@ -118,6 +122,8 @@ func (m *DeploymentObservabilitySettings) contextValidateLogging(ctx context.Con
 		if err := m.Logging.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("logging")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("logging")
 			}
 			return err
 		}
@@ -132,6 +138,8 @@ func (m *DeploymentObservabilitySettings) contextValidateMetrics(ctx context.Con
 		if err := m.Metrics.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("metrics")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("metrics")
 			}
 			return err
 		}

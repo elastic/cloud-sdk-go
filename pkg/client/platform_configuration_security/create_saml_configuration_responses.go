@@ -52,12 +52,6 @@ func (o *CreateSamlConfigurationReader) ReadResponse(response runtime.ClientResp
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewCreateSamlConfigurationRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -68,7 +62,8 @@ func NewCreateSamlConfigurationCreated() *CreateSamlConfigurationCreated {
 	return &CreateSamlConfigurationCreated{}
 }
 
-/* CreateSamlConfigurationCreated describes a response with status code 201, with default header values.
+/*
+CreateSamlConfigurationCreated describes a response with status code 201, with default header values.
 
 The SAML configuration was successfully created
 */
@@ -89,9 +84,44 @@ type CreateSamlConfigurationCreated struct {
 	Payload models.EmptyResponse
 }
 
+// IsSuccess returns true when this create saml configuration created response has a 2xx status code
+func (o *CreateSamlConfigurationCreated) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this create saml configuration created response has a 3xx status code
+func (o *CreateSamlConfigurationCreated) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create saml configuration created response has a 4xx status code
+func (o *CreateSamlConfigurationCreated) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this create saml configuration created response has a 5xx status code
+func (o *CreateSamlConfigurationCreated) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create saml configuration created response a status code equal to that given
+func (o *CreateSamlConfigurationCreated) IsCode(code int) bool {
+	return code == 201
+}
+
+// Code gets the status code for the create saml configuration created response
+func (o *CreateSamlConfigurationCreated) Code() int {
+	return 201
+}
+
 func (o *CreateSamlConfigurationCreated) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/realms/saml][%d] createSamlConfigurationCreated  %+v", 201, o.Payload)
 }
+
+func (o *CreateSamlConfigurationCreated) String() string {
+	return fmt.Sprintf("[POST /platform/configuration/security/realms/saml][%d] createSamlConfigurationCreated  %+v", 201, o.Payload)
+}
+
 func (o *CreateSamlConfigurationCreated) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -132,9 +162,11 @@ func NewCreateSamlConfigurationBadRequest() *CreateSamlConfigurationBadRequest {
 	return &CreateSamlConfigurationBadRequest{}
 }
 
-/* CreateSamlConfigurationBadRequest describes a response with status code 400, with default header values.
+/*
+	CreateSamlConfigurationBadRequest describes a response with status code 400, with default header values.
 
- * The realm id is already in use. (code: `security_realm.id_conflict`)
+	* The realm id is already in use. (code: `security_realm.id_conflict`)
+
 * The selected id is not valid. (code: `security_realm.invalid_id`)
 * Order must be greater than zero. (code: `security_realm.invalid_order`)
 * Invalid Elasticsearch Security realm type. (code: `security_realm.invalid_type`)
@@ -152,58 +184,49 @@ type CreateSamlConfigurationBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this create saml configuration bad request response has a 2xx status code
+func (o *CreateSamlConfigurationBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this create saml configuration bad request response has a 3xx status code
+func (o *CreateSamlConfigurationBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create saml configuration bad request response has a 4xx status code
+func (o *CreateSamlConfigurationBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this create saml configuration bad request response has a 5xx status code
+func (o *CreateSamlConfigurationBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create saml configuration bad request response a status code equal to that given
+func (o *CreateSamlConfigurationBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the create saml configuration bad request response
+func (o *CreateSamlConfigurationBadRequest) Code() int {
+	return 400
+}
+
 func (o *CreateSamlConfigurationBadRequest) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/realms/saml][%d] createSamlConfigurationBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *CreateSamlConfigurationBadRequest) String() string {
+	return fmt.Sprintf("[POST /platform/configuration/security/realms/saml][%d] createSamlConfigurationBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *CreateSamlConfigurationBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *CreateSamlConfigurationBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewCreateSamlConfigurationRetryWith creates a CreateSamlConfigurationRetryWith with default headers values
-func NewCreateSamlConfigurationRetryWith() *CreateSamlConfigurationRetryWith {
-	return &CreateSamlConfigurationRetryWith{}
-}
-
-/* CreateSamlConfigurationRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type CreateSamlConfigurationRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-func (o *CreateSamlConfigurationRetryWith) Error() string {
-	return fmt.Sprintf("[POST /platform/configuration/security/realms/saml][%d] createSamlConfigurationRetryWith  %+v", 449, o.Payload)
-}
-func (o *CreateSamlConfigurationRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *CreateSamlConfigurationRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// hydrates response header x-cloud-error-codes
 	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")

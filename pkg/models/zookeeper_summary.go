@@ -71,6 +71,8 @@ func (m *ZookeeperSummary) validateStates(formats strfmt.Registry) error {
 			if err := m.States[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("states" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("states" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -103,6 +105,8 @@ func (m *ZookeeperSummary) contextValidateStates(ctx context.Context, formats st
 			if err := m.States[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("states" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("states" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

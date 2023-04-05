@@ -71,10 +71,12 @@ func NewSearchRunnersParamsWithHTTPClient(client *http.Client) *SearchRunnersPar
 	}
 }
 
-/* SearchRunnersParams contains all the parameters to send to the API endpoint
-   for the search runners operation.
+/*
+SearchRunnersParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the search runners operation.
+
+	Typically these are written to a http.Request.
 */
 type SearchRunnersParams struct {
 

@@ -62,7 +62,8 @@ func NewGetDefaultDeploymentDomainNameOK() *GetDefaultDeploymentDomainNameOK {
 	return &GetDefaultDeploymentDomainNameOK{}
 }
 
-/* GetDefaultDeploymentDomainNameOK describes a response with status code 200, with default header values.
+/*
+GetDefaultDeploymentDomainNameOK describes a response with status code 200, with default header values.
 
 The Deployment Domain Name was successfully retrieved
 */
@@ -83,9 +84,44 @@ type GetDefaultDeploymentDomainNameOK struct {
 	Payload *models.DeploymentDomainName
 }
 
+// IsSuccess returns true when this get default deployment domain name o k response has a 2xx status code
+func (o *GetDefaultDeploymentDomainNameOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get default deployment domain name o k response has a 3xx status code
+func (o *GetDefaultDeploymentDomainNameOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get default deployment domain name o k response has a 4xx status code
+func (o *GetDefaultDeploymentDomainNameOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get default deployment domain name o k response has a 5xx status code
+func (o *GetDefaultDeploymentDomainNameOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get default deployment domain name o k response a status code equal to that given
+func (o *GetDefaultDeploymentDomainNameOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get default deployment domain name o k response
+func (o *GetDefaultDeploymentDomainNameOK) Code() int {
+	return 200
+}
+
 func (o *GetDefaultDeploymentDomainNameOK) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/networking/deployment_domain_name][%d] getDefaultDeploymentDomainNameOK  %+v", 200, o.Payload)
 }
+
+func (o *GetDefaultDeploymentDomainNameOK) String() string {
+	return fmt.Sprintf("[GET /platform/configuration/networking/deployment_domain_name][%d] getDefaultDeploymentDomainNameOK  %+v", 200, o.Payload)
+}
+
 func (o *GetDefaultDeploymentDomainNameOK) GetPayload() *models.DeploymentDomainName {
 	return o.Payload
 }
@@ -128,7 +164,8 @@ func NewGetDefaultDeploymentDomainNameNotFound() *GetDefaultDeploymentDomainName
 	return &GetDefaultDeploymentDomainNameNotFound{}
 }
 
-/* GetDefaultDeploymentDomainNameNotFound describes a response with status code 404, with default header values.
+/*
+GetDefaultDeploymentDomainNameNotFound describes a response with status code 404, with default header values.
 
 There is no configured Deployment Domain Name but optimistic locking was sent. (code: `networking.cname.not_found`)
 */
@@ -141,9 +178,44 @@ type GetDefaultDeploymentDomainNameNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get default deployment domain name not found response has a 2xx status code
+func (o *GetDefaultDeploymentDomainNameNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get default deployment domain name not found response has a 3xx status code
+func (o *GetDefaultDeploymentDomainNameNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get default deployment domain name not found response has a 4xx status code
+func (o *GetDefaultDeploymentDomainNameNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get default deployment domain name not found response has a 5xx status code
+func (o *GetDefaultDeploymentDomainNameNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get default deployment domain name not found response a status code equal to that given
+func (o *GetDefaultDeploymentDomainNameNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the get default deployment domain name not found response
+func (o *GetDefaultDeploymentDomainNameNotFound) Code() int {
+	return 404
+}
+
 func (o *GetDefaultDeploymentDomainNameNotFound) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/networking/deployment_domain_name][%d] getDefaultDeploymentDomainNameNotFound  %+v", 404, o.Payload)
 }
+
+func (o *GetDefaultDeploymentDomainNameNotFound) String() string {
+	return fmt.Sprintf("[GET /platform/configuration/networking/deployment_domain_name][%d] getDefaultDeploymentDomainNameNotFound  %+v", 404, o.Payload)
+}
+
 func (o *GetDefaultDeploymentDomainNameNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

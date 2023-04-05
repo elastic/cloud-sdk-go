@@ -91,6 +91,8 @@ func (m *TLSPublicCertChain) validateChainStatus(formats strfmt.Registry) error 
 		if err := m.ChainStatus.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("chain_status")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("chain_status")
 			}
 			return err
 		}
@@ -128,6 +130,8 @@ func (m *TLSPublicCertChain) contextValidateChainStatus(ctx context.Context, for
 		if err := m.ChainStatus.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("chain_status")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("chain_status")
 			}
 			return err
 		}

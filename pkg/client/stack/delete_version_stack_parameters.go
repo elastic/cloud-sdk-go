@@ -69,10 +69,12 @@ func NewDeleteVersionStackParamsWithHTTPClient(client *http.Client) *DeleteVersi
 	}
 }
 
-/* DeleteVersionStackParams contains all the parameters to send to the API endpoint
-   for the delete version stack operation.
+/*
+DeleteVersionStackParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the delete version stack operation.
+
+	Typically these are written to a http.Request.
 */
 type DeleteVersionStackParams struct {
 

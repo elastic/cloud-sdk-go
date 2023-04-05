@@ -56,7 +56,8 @@ func NewSearchDeploymentsOK() *SearchDeploymentsOK {
 	return &SearchDeploymentsOK{}
 }
 
-/* SearchDeploymentsOK describes a response with status code 200, with default header values.
+/*
+SearchDeploymentsOK describes a response with status code 200, with default header values.
 
 The list of deployments that match the specified query and belong to the authenticated user.
 */
@@ -77,9 +78,44 @@ type SearchDeploymentsOK struct {
 	Payload *models.DeploymentsSearchResponse
 }
 
+// IsSuccess returns true when this search deployments o k response has a 2xx status code
+func (o *SearchDeploymentsOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this search deployments o k response has a 3xx status code
+func (o *SearchDeploymentsOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this search deployments o k response has a 4xx status code
+func (o *SearchDeploymentsOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this search deployments o k response has a 5xx status code
+func (o *SearchDeploymentsOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this search deployments o k response a status code equal to that given
+func (o *SearchDeploymentsOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the search deployments o k response
+func (o *SearchDeploymentsOK) Code() int {
+	return 200
+}
+
 func (o *SearchDeploymentsOK) Error() string {
 	return fmt.Sprintf("[POST /deployments/_search][%d] searchDeploymentsOK  %+v", 200, o.Payload)
 }
+
+func (o *SearchDeploymentsOK) String() string {
+	return fmt.Sprintf("[POST /deployments/_search][%d] searchDeploymentsOK  %+v", 200, o.Payload)
+}
+
 func (o *SearchDeploymentsOK) GetPayload() *models.DeploymentsSearchResponse {
 	return o.Payload
 }

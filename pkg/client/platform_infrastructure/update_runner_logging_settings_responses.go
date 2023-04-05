@@ -68,7 +68,8 @@ func NewUpdateRunnerLoggingSettingsOK() *UpdateRunnerLoggingSettingsOK {
 	return &UpdateRunnerLoggingSettingsOK{}
 }
 
-/* UpdateRunnerLoggingSettingsOK describes a response with status code 200, with default header values.
+/*
+UpdateRunnerLoggingSettingsOK describes a response with status code 200, with default header values.
 
 The updated logging settings for the runner instance
 */
@@ -89,9 +90,44 @@ type UpdateRunnerLoggingSettingsOK struct {
 	Payload *models.LoggingSettings
 }
 
+// IsSuccess returns true when this update runner logging settings o k response has a 2xx status code
+func (o *UpdateRunnerLoggingSettingsOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this update runner logging settings o k response has a 3xx status code
+func (o *UpdateRunnerLoggingSettingsOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update runner logging settings o k response has a 4xx status code
+func (o *UpdateRunnerLoggingSettingsOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this update runner logging settings o k response has a 5xx status code
+func (o *UpdateRunnerLoggingSettingsOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update runner logging settings o k response a status code equal to that given
+func (o *UpdateRunnerLoggingSettingsOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the update runner logging settings o k response
+func (o *UpdateRunnerLoggingSettingsOK) Code() int {
+	return 200
+}
+
 func (o *UpdateRunnerLoggingSettingsOK) Error() string {
 	return fmt.Sprintf("[PATCH /platform/infrastructure/runners/{runner_id}/logging_settings][%d] updateRunnerLoggingSettingsOK  %+v", 200, o.Payload)
 }
+
+func (o *UpdateRunnerLoggingSettingsOK) String() string {
+	return fmt.Sprintf("[PATCH /platform/infrastructure/runners/{runner_id}/logging_settings][%d] updateRunnerLoggingSettingsOK  %+v", 200, o.Payload)
+}
+
 func (o *UpdateRunnerLoggingSettingsOK) GetPayload() *models.LoggingSettings {
 	return o.Payload
 }
@@ -134,7 +170,8 @@ func NewUpdateRunnerLoggingSettingsBadRequest() *UpdateRunnerLoggingSettingsBadR
 	return &UpdateRunnerLoggingSettingsBadRequest{}
 }
 
-/* UpdateRunnerLoggingSettingsBadRequest describes a response with status code 400, with default header values.
+/*
+UpdateRunnerLoggingSettingsBadRequest describes a response with status code 400, with default header values.
 
 The update request is invalid. (code: `patch.request_malformed`)
 */
@@ -147,9 +184,44 @@ type UpdateRunnerLoggingSettingsBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this update runner logging settings bad request response has a 2xx status code
+func (o *UpdateRunnerLoggingSettingsBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update runner logging settings bad request response has a 3xx status code
+func (o *UpdateRunnerLoggingSettingsBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update runner logging settings bad request response has a 4xx status code
+func (o *UpdateRunnerLoggingSettingsBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update runner logging settings bad request response has a 5xx status code
+func (o *UpdateRunnerLoggingSettingsBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update runner logging settings bad request response a status code equal to that given
+func (o *UpdateRunnerLoggingSettingsBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the update runner logging settings bad request response
+func (o *UpdateRunnerLoggingSettingsBadRequest) Code() int {
+	return 400
+}
+
 func (o *UpdateRunnerLoggingSettingsBadRequest) Error() string {
 	return fmt.Sprintf("[PATCH /platform/infrastructure/runners/{runner_id}/logging_settings][%d] updateRunnerLoggingSettingsBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *UpdateRunnerLoggingSettingsBadRequest) String() string {
+	return fmt.Sprintf("[PATCH /platform/infrastructure/runners/{runner_id}/logging_settings][%d] updateRunnerLoggingSettingsBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *UpdateRunnerLoggingSettingsBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -178,7 +250,8 @@ func NewUpdateRunnerLoggingSettingsNotFound() *UpdateRunnerLoggingSettingsNotFou
 	return &UpdateRunnerLoggingSettingsNotFound{}
 }
 
-/* UpdateRunnerLoggingSettingsNotFound describes a response with status code 404, with default header values.
+/*
+UpdateRunnerLoggingSettingsNotFound describes a response with status code 404, with default header values.
 
 The logging settings for this runner were not found. (code: `runners.logging_settings.not_found`)
 */
@@ -191,9 +264,44 @@ type UpdateRunnerLoggingSettingsNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this update runner logging settings not found response has a 2xx status code
+func (o *UpdateRunnerLoggingSettingsNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update runner logging settings not found response has a 3xx status code
+func (o *UpdateRunnerLoggingSettingsNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update runner logging settings not found response has a 4xx status code
+func (o *UpdateRunnerLoggingSettingsNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update runner logging settings not found response has a 5xx status code
+func (o *UpdateRunnerLoggingSettingsNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update runner logging settings not found response a status code equal to that given
+func (o *UpdateRunnerLoggingSettingsNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the update runner logging settings not found response
+func (o *UpdateRunnerLoggingSettingsNotFound) Code() int {
+	return 404
+}
+
 func (o *UpdateRunnerLoggingSettingsNotFound) Error() string {
 	return fmt.Sprintf("[PATCH /platform/infrastructure/runners/{runner_id}/logging_settings][%d] updateRunnerLoggingSettingsNotFound  %+v", 404, o.Payload)
 }
+
+func (o *UpdateRunnerLoggingSettingsNotFound) String() string {
+	return fmt.Sprintf("[PATCH /platform/infrastructure/runners/{runner_id}/logging_settings][%d] updateRunnerLoggingSettingsNotFound  %+v", 404, o.Payload)
+}
+
 func (o *UpdateRunnerLoggingSettingsNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

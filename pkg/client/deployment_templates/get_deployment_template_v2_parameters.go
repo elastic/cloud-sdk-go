@@ -70,10 +70,12 @@ func NewGetDeploymentTemplateV2ParamsWithHTTPClient(client *http.Client) *GetDep
 	}
 }
 
-/* GetDeploymentTemplateV2Params contains all the parameters to send to the API endpoint
-   for the get deployment template v2 operation.
+/*
+GetDeploymentTemplateV2Params contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the get deployment template v2 operation.
+
+	Typically these are written to a http.Request.
 */
 type GetDeploymentTemplateV2Params struct {
 

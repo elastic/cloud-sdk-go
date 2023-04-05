@@ -71,6 +71,8 @@ func (m *TrustRelationshipsListResponse) validateTrustRelationships(formats strf
 			if err := m.TrustRelationships[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("trust_relationships" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("trust_relationships" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -103,6 +105,8 @@ func (m *TrustRelationshipsListResponse) contextValidateTrustRelationships(ctx c
 			if err := m.TrustRelationships[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("trust_relationships" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("trust_relationships" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

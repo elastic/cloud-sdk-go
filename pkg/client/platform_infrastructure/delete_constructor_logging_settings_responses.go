@@ -62,7 +62,8 @@ func NewDeleteConstructorLoggingSettingsOK() *DeleteConstructorLoggingSettingsOK
 	return &DeleteConstructorLoggingSettingsOK{}
 }
 
-/* DeleteConstructorLoggingSettingsOK describes a response with status code 200, with default header values.
+/*
+DeleteConstructorLoggingSettingsOK describes a response with status code 200, with default header values.
 
 The updated logging settings for the constructor instance
 */
@@ -83,9 +84,44 @@ type DeleteConstructorLoggingSettingsOK struct {
 	Payload *models.LoggingSettings
 }
 
+// IsSuccess returns true when this delete constructor logging settings o k response has a 2xx status code
+func (o *DeleteConstructorLoggingSettingsOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this delete constructor logging settings o k response has a 3xx status code
+func (o *DeleteConstructorLoggingSettingsOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete constructor logging settings o k response has a 4xx status code
+func (o *DeleteConstructorLoggingSettingsOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this delete constructor logging settings o k response has a 5xx status code
+func (o *DeleteConstructorLoggingSettingsOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete constructor logging settings o k response a status code equal to that given
+func (o *DeleteConstructorLoggingSettingsOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the delete constructor logging settings o k response
+func (o *DeleteConstructorLoggingSettingsOK) Code() int {
+	return 200
+}
+
 func (o *DeleteConstructorLoggingSettingsOK) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/constructors/{constructor_id}/logging_settings][%d] deleteConstructorLoggingSettingsOK  %+v", 200, o.Payload)
 }
+
+func (o *DeleteConstructorLoggingSettingsOK) String() string {
+	return fmt.Sprintf("[DELETE /platform/infrastructure/constructors/{constructor_id}/logging_settings][%d] deleteConstructorLoggingSettingsOK  %+v", 200, o.Payload)
+}
+
 func (o *DeleteConstructorLoggingSettingsOK) GetPayload() *models.LoggingSettings {
 	return o.Payload
 }
@@ -128,7 +164,8 @@ func NewDeleteConstructorLoggingSettingsNotFound() *DeleteConstructorLoggingSett
 	return &DeleteConstructorLoggingSettingsNotFound{}
 }
 
-/* DeleteConstructorLoggingSettingsNotFound describes a response with status code 404, with default header values.
+/*
+DeleteConstructorLoggingSettingsNotFound describes a response with status code 404, with default header values.
 
 The logging settings for this constructor were not found. (code: `constructors.logging_settings.not_found`)
 */
@@ -141,9 +178,44 @@ type DeleteConstructorLoggingSettingsNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete constructor logging settings not found response has a 2xx status code
+func (o *DeleteConstructorLoggingSettingsNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete constructor logging settings not found response has a 3xx status code
+func (o *DeleteConstructorLoggingSettingsNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete constructor logging settings not found response has a 4xx status code
+func (o *DeleteConstructorLoggingSettingsNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete constructor logging settings not found response has a 5xx status code
+func (o *DeleteConstructorLoggingSettingsNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete constructor logging settings not found response a status code equal to that given
+func (o *DeleteConstructorLoggingSettingsNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the delete constructor logging settings not found response
+func (o *DeleteConstructorLoggingSettingsNotFound) Code() int {
+	return 404
+}
+
 func (o *DeleteConstructorLoggingSettingsNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/constructors/{constructor_id}/logging_settings][%d] deleteConstructorLoggingSettingsNotFound  %+v", 404, o.Payload)
 }
+
+func (o *DeleteConstructorLoggingSettingsNotFound) String() string {
+	return fmt.Sprintf("[DELETE /platform/infrastructure/constructors/{constructor_id}/logging_settings][%d] deleteConstructorLoggingSettingsNotFound  %+v", 404, o.Payload)
+}
+
 func (o *DeleteConstructorLoggingSettingsNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

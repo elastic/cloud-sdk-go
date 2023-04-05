@@ -61,9 +61,9 @@ type ClientService interface {
 }
 
 /*
-  CreateTrustRelationship creates trust relationship
+CreateTrustRelationship creates trust relationship
 
-  Creates a trust relationship.
+Creates a trust relationship.
 */
 func (a *Client) CreateTrustRelationship(params *CreateTrustRelationshipParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateTrustRelationshipCreated, error) {
 	// TODO: Validate the params before sending
@@ -102,9 +102,9 @@ func (a *Client) CreateTrustRelationship(params *CreateTrustRelationshipParams, 
 }
 
 /*
-  DeleteTrustRelationship deletes trust relationship
+DeleteTrustRelationship deletes trust relationship
 
-  Deletes a trust relationship.
+Deletes a trust relationship.
 */
 func (a *Client) DeleteTrustRelationship(params *DeleteTrustRelationshipParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteTrustRelationshipOK, error) {
 	// TODO: Validate the params before sending
@@ -143,9 +143,9 @@ func (a *Client) DeleteTrustRelationship(params *DeleteTrustRelationshipParams, 
 }
 
 /*
-  GetTrustRelationship gets trust relationship
+GetTrustRelationship gets trust relationship
 
-  Retrieves information about a trust relationship. `local` can be used as the ID to obtain the local trust relationship.
+Retrieves information about a trust relationship.
 */
 func (a *Client) GetTrustRelationship(params *GetTrustRelationshipParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTrustRelationshipOK, error) {
 	// TODO: Validate the params before sending
@@ -184,9 +184,9 @@ func (a *Client) GetTrustRelationship(params *GetTrustRelationshipParams, authIn
 }
 
 /*
-  GetTrustRelationships lists trust relationships
+GetTrustRelationships lists trust relationships
 
-  List trust relationships.
+List trust relationships.
 */
 func (a *Client) GetTrustRelationships(params *GetTrustRelationshipsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTrustRelationshipsOK, error) {
 	// TODO: Validate the params before sending
@@ -225,9 +225,9 @@ func (a *Client) GetTrustRelationships(params *GetTrustRelationshipsParams, auth
 }
 
 /*
-  UpdateTrustRelationship updates trust relationship
+UpdateTrustRelationship updates trust relationship
 
-  Updates a trust relationship.
+Updates a trust relationship.
 */
 func (a *Client) UpdateTrustRelationship(params *UpdateTrustRelationshipParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateTrustRelationshipOK, error) {
 	// TODO: Validate the params before sending

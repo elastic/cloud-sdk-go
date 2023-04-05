@@ -70,10 +70,12 @@ func NewGetDeploymentIntegrationsServerResourceInfoParamsWithHTTPClient(client *
 	}
 }
 
-/* GetDeploymentIntegrationsServerResourceInfoParams contains all the parameters to send to the API endpoint
-   for the get deployment integrations server resource info operation.
+/*
+GetDeploymentIntegrationsServerResourceInfoParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the get deployment integrations server resource info operation.
+
+	Typically these are written to a http.Request.
 */
 type GetDeploymentIntegrationsServerResourceInfoParams struct {
 

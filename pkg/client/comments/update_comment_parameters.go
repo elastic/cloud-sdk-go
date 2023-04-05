@@ -71,10 +71,12 @@ func NewUpdateCommentParamsWithHTTPClient(client *http.Client) *UpdateCommentPar
 	}
 }
 
-/* UpdateCommentParams contains all the parameters to send to the API endpoint
-   for the update comment operation.
+/*
+UpdateCommentParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the update comment operation.
+
+	Typically these are written to a http.Request.
 */
 type UpdateCommentParams struct {
 

@@ -62,7 +62,8 @@ func NewGetDeploymentNoteOK() *GetDeploymentNoteOK {
 	return &GetDeploymentNoteOK{}
 }
 
-/* GetDeploymentNoteOK describes a response with status code 200, with default header values.
+/*
+GetDeploymentNoteOK describes a response with status code 200, with default header values.
 
 The deployment note was successfully returned
 */
@@ -83,9 +84,44 @@ type GetDeploymentNoteOK struct {
 	Payload *models.Note
 }
 
+// IsSuccess returns true when this get deployment note o k response has a 2xx status code
+func (o *GetDeploymentNoteOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get deployment note o k response has a 3xx status code
+func (o *GetDeploymentNoteOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get deployment note o k response has a 4xx status code
+func (o *GetDeploymentNoteOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get deployment note o k response has a 5xx status code
+func (o *GetDeploymentNoteOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get deployment note o k response a status code equal to that given
+func (o *GetDeploymentNoteOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get deployment note o k response
+func (o *GetDeploymentNoteOK) Code() int {
+	return 200
+}
+
 func (o *GetDeploymentNoteOK) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/notes/{note_id}][%d] getDeploymentNoteOK  %+v", 200, o.Payload)
 }
+
+func (o *GetDeploymentNoteOK) String() string {
+	return fmt.Sprintf("[GET /deployments/{deployment_id}/notes/{note_id}][%d] getDeploymentNoteOK  %+v", 200, o.Payload)
+}
+
 func (o *GetDeploymentNoteOK) GetPayload() *models.Note {
 	return o.Payload
 }
@@ -128,9 +164,11 @@ func NewGetDeploymentNoteNotFound() *GetDeploymentNoteNotFound {
 	return &GetDeploymentNoteNotFound{}
 }
 
-/* GetDeploymentNoteNotFound describes a response with status code 404, with default header values.
+/*
+	GetDeploymentNoteNotFound describes a response with status code 404, with default header values.
 
- * "The deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+	* "The deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+
 * The note specified by {note_id} cannot be found. (code: `notes.note_not_found`)
 */
 type GetDeploymentNoteNotFound struct {
@@ -142,9 +180,44 @@ type GetDeploymentNoteNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get deployment note not found response has a 2xx status code
+func (o *GetDeploymentNoteNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get deployment note not found response has a 3xx status code
+func (o *GetDeploymentNoteNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get deployment note not found response has a 4xx status code
+func (o *GetDeploymentNoteNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get deployment note not found response has a 5xx status code
+func (o *GetDeploymentNoteNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get deployment note not found response a status code equal to that given
+func (o *GetDeploymentNoteNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the get deployment note not found response
+func (o *GetDeploymentNoteNotFound) Code() int {
+	return 404
+}
+
 func (o *GetDeploymentNoteNotFound) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/notes/{note_id}][%d] getDeploymentNoteNotFound  %+v", 404, o.Payload)
 }
+
+func (o *GetDeploymentNoteNotFound) String() string {
+	return fmt.Sprintf("[GET /deployments/{deployment_id}/notes/{note_id}][%d] getDeploymentNoteNotFound  %+v", 404, o.Payload)
+}
+
 func (o *GetDeploymentNoteNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

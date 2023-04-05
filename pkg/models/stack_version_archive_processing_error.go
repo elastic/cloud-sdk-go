@@ -73,6 +73,8 @@ func (m *StackVersionArchiveProcessingError) validateErrors(formats strfmt.Regis
 		if err := m.Errors.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("errors")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("errors")
 			}
 			return err
 		}
@@ -110,6 +112,8 @@ func (m *StackVersionArchiveProcessingError) contextValidateErrors(ctx context.C
 		if err := m.Errors.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("errors")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("errors")
 			}
 			return err
 		}

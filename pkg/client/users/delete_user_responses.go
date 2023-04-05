@@ -58,12 +58,6 @@ func (o *DeleteUserReader) ReadResponse(response runtime.ClientResponse, consume
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewDeleteUserRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -74,7 +68,8 @@ func NewDeleteUserOK() *DeleteUserOK {
 	return &DeleteUserOK{}
 }
 
-/* DeleteUserOK describes a response with status code 200, with default header values.
+/*
+DeleteUserOK describes a response with status code 200, with default header values.
 
 User successfully deleted
 */
@@ -82,9 +77,44 @@ type DeleteUserOK struct {
 	Payload models.EmptyResponse
 }
 
+// IsSuccess returns true when this delete user o k response has a 2xx status code
+func (o *DeleteUserOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this delete user o k response has a 3xx status code
+func (o *DeleteUserOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete user o k response has a 4xx status code
+func (o *DeleteUserOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this delete user o k response has a 5xx status code
+func (o *DeleteUserOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete user o k response a status code equal to that given
+func (o *DeleteUserOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the delete user o k response
+func (o *DeleteUserOK) Code() int {
+	return 200
+}
+
 func (o *DeleteUserOK) Error() string {
 	return fmt.Sprintf("[DELETE /users/{user_name}][%d] deleteUserOK  %+v", 200, o.Payload)
 }
+
+func (o *DeleteUserOK) String() string {
+	return fmt.Sprintf("[DELETE /users/{user_name}][%d] deleteUserOK  %+v", 200, o.Payload)
+}
+
 func (o *DeleteUserOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -104,9 +134,11 @@ func NewDeleteUserBadRequest() *DeleteUserBadRequest {
 	return &DeleteUserBadRequest{}
 }
 
-/* DeleteUserBadRequest describes a response with status code 400, with default header values.
+/*
+	DeleteUserBadRequest describes a response with status code 400, with default header values.
 
- * The user cannot be deleted. (code: `user.restricted_deletion`)
+	* The user cannot be deleted. (code: `user.restricted_deletion`)
+
 * External users cannot be modified. (code: `user.cannot_modify_external`)
 * Built-in users cannot be modified. (code: `user.cannot_modify`)
 */
@@ -119,9 +151,44 @@ type DeleteUserBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete user bad request response has a 2xx status code
+func (o *DeleteUserBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete user bad request response has a 3xx status code
+func (o *DeleteUserBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete user bad request response has a 4xx status code
+func (o *DeleteUserBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete user bad request response has a 5xx status code
+func (o *DeleteUserBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete user bad request response a status code equal to that given
+func (o *DeleteUserBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the delete user bad request response
+func (o *DeleteUserBadRequest) Code() int {
+	return 400
+}
+
 func (o *DeleteUserBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /users/{user_name}][%d] deleteUserBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *DeleteUserBadRequest) String() string {
+	return fmt.Sprintf("[DELETE /users/{user_name}][%d] deleteUserBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *DeleteUserBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -150,7 +217,8 @@ func NewDeleteUserNotFound() *DeleteUserNotFound {
 	return &DeleteUserNotFound{}
 }
 
-/* DeleteUserNotFound describes a response with status code 404, with default header values.
+/*
+DeleteUserNotFound describes a response with status code 404, with default header values.
 
 User not found. (code: `user.not_found`)
 */
@@ -163,58 +231,49 @@ type DeleteUserNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete user not found response has a 2xx status code
+func (o *DeleteUserNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete user not found response has a 3xx status code
+func (o *DeleteUserNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete user not found response has a 4xx status code
+func (o *DeleteUserNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete user not found response has a 5xx status code
+func (o *DeleteUserNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete user not found response a status code equal to that given
+func (o *DeleteUserNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the delete user not found response
+func (o *DeleteUserNotFound) Code() int {
+	return 404
+}
+
 func (o *DeleteUserNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /users/{user_name}][%d] deleteUserNotFound  %+v", 404, o.Payload)
 }
+
+func (o *DeleteUserNotFound) String() string {
+	return fmt.Sprintf("[DELETE /users/{user_name}][%d] deleteUserNotFound  %+v", 404, o.Payload)
+}
+
 func (o *DeleteUserNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *DeleteUserNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewDeleteUserRetryWith creates a DeleteUserRetryWith with default headers values
-func NewDeleteUserRetryWith() *DeleteUserRetryWith {
-	return &DeleteUserRetryWith{}
-}
-
-/* DeleteUserRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type DeleteUserRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-func (o *DeleteUserRetryWith) Error() string {
-	return fmt.Sprintf("[DELETE /users/{user_name}][%d] deleteUserRetryWith  %+v", 449, o.Payload)
-}
-func (o *DeleteUserRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *DeleteUserRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// hydrates response header x-cloud-error-codes
 	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")

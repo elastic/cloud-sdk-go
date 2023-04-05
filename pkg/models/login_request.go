@@ -79,6 +79,8 @@ func (m *LoginRequest) validateLoginState(formats strfmt.Registry) error {
 		if err := m.LoginState.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("login_state")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("login_state")
 			}
 			return err
 		}
@@ -125,6 +127,8 @@ func (m *LoginRequest) contextValidateLoginState(ctx context.Context, formats st
 		if err := m.LoginState.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("login_state")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("login_state")
 			}
 			return err
 		}

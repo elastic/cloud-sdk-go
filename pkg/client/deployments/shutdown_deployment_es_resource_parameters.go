@@ -70,10 +70,12 @@ func NewShutdownDeploymentEsResourceParamsWithHTTPClient(client *http.Client) *S
 	}
 }
 
-/* ShutdownDeploymentEsResourceParams contains all the parameters to send to the API endpoint
-   for the shutdown deployment es resource operation.
+/*
+ShutdownDeploymentEsResourceParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the shutdown deployment es resource operation.
+
+	Typically these are written to a http.Request.
 */
 type ShutdownDeploymentEsResourceParams struct {
 

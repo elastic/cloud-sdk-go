@@ -71,10 +71,12 @@ func NewUpdateActiveDirectoryConfigurationParamsWithHTTPClient(client *http.Clie
 	}
 }
 
-/* UpdateActiveDirectoryConfigurationParams contains all the parameters to send to the API endpoint
-   for the update active directory configuration operation.
+/*
+UpdateActiveDirectoryConfigurationParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the update active directory configuration operation.
+
+	Typically these are written to a http.Request.
 */
 type UpdateActiveDirectoryConfigurationParams struct {
 

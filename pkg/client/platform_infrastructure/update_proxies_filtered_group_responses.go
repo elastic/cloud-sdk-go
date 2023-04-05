@@ -58,12 +58,6 @@ func (o *UpdateProxiesFilteredGroupReader) ReadResponse(response runtime.ClientR
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewUpdateProxiesFilteredGroupRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -74,7 +68,8 @@ func NewUpdateProxiesFilteredGroupOK() *UpdateProxiesFilteredGroupOK {
 	return &UpdateProxiesFilteredGroupOK{}
 }
 
-/* UpdateProxiesFilteredGroupOK describes a response with status code 200, with default header values.
+/*
+UpdateProxiesFilteredGroupOK describes a response with status code 200, with default header values.
 
 Returns the created or updated filtered group of proxies
 */
@@ -95,9 +90,44 @@ type UpdateProxiesFilteredGroupOK struct {
 	Payload *models.ProxiesFilteredGroup
 }
 
+// IsSuccess returns true when this update proxies filtered group o k response has a 2xx status code
+func (o *UpdateProxiesFilteredGroupOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this update proxies filtered group o k response has a 3xx status code
+func (o *UpdateProxiesFilteredGroupOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update proxies filtered group o k response has a 4xx status code
+func (o *UpdateProxiesFilteredGroupOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this update proxies filtered group o k response has a 5xx status code
+func (o *UpdateProxiesFilteredGroupOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update proxies filtered group o k response a status code equal to that given
+func (o *UpdateProxiesFilteredGroupOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the update proxies filtered group o k response
+func (o *UpdateProxiesFilteredGroupOK) Code() int {
+	return 200
+}
+
 func (o *UpdateProxiesFilteredGroupOK) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}][%d] updateProxiesFilteredGroupOK  %+v", 200, o.Payload)
 }
+
+func (o *UpdateProxiesFilteredGroupOK) String() string {
+	return fmt.Sprintf("[PUT /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}][%d] updateProxiesFilteredGroupOK  %+v", 200, o.Payload)
+}
+
 func (o *UpdateProxiesFilteredGroupOK) GetPayload() *models.ProxiesFilteredGroup {
 	return o.Payload
 }
@@ -140,7 +170,8 @@ func NewUpdateProxiesFilteredGroupBadRequest() *UpdateProxiesFilteredGroupBadReq
 	return &UpdateProxiesFilteredGroupBadRequest{}
 }
 
-/* UpdateProxiesFilteredGroupBadRequest describes a response with status code 400, with default header values.
+/*
+UpdateProxiesFilteredGroupBadRequest describes a response with status code 400, with default header values.
 
 The provided identifier doesn't match the identifier in the object. (code: `proxies.proxies_filtered_group_id_conflict`)
 */
@@ -153,9 +184,44 @@ type UpdateProxiesFilteredGroupBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this update proxies filtered group bad request response has a 2xx status code
+func (o *UpdateProxiesFilteredGroupBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update proxies filtered group bad request response has a 3xx status code
+func (o *UpdateProxiesFilteredGroupBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update proxies filtered group bad request response has a 4xx status code
+func (o *UpdateProxiesFilteredGroupBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update proxies filtered group bad request response has a 5xx status code
+func (o *UpdateProxiesFilteredGroupBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update proxies filtered group bad request response a status code equal to that given
+func (o *UpdateProxiesFilteredGroupBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the update proxies filtered group bad request response
+func (o *UpdateProxiesFilteredGroupBadRequest) Code() int {
+	return 400
+}
+
 func (o *UpdateProxiesFilteredGroupBadRequest) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}][%d] updateProxiesFilteredGroupBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *UpdateProxiesFilteredGroupBadRequest) String() string {
+	return fmt.Sprintf("[PUT /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}][%d] updateProxiesFilteredGroupBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *UpdateProxiesFilteredGroupBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -184,7 +250,8 @@ func NewUpdateProxiesFilteredGroupConflict() *UpdateProxiesFilteredGroupConflict
 	return &UpdateProxiesFilteredGroupConflict{}
 }
 
-/* UpdateProxiesFilteredGroupConflict describes a response with status code 409, with default header values.
+/*
+UpdateProxiesFilteredGroupConflict describes a response with status code 409, with default header values.
 
 There is a version conflict. (code: `proxies.proxies_filtered_group_version_conflict`)
 */
@@ -197,58 +264,49 @@ type UpdateProxiesFilteredGroupConflict struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this update proxies filtered group conflict response has a 2xx status code
+func (o *UpdateProxiesFilteredGroupConflict) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update proxies filtered group conflict response has a 3xx status code
+func (o *UpdateProxiesFilteredGroupConflict) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update proxies filtered group conflict response has a 4xx status code
+func (o *UpdateProxiesFilteredGroupConflict) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update proxies filtered group conflict response has a 5xx status code
+func (o *UpdateProxiesFilteredGroupConflict) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update proxies filtered group conflict response a status code equal to that given
+func (o *UpdateProxiesFilteredGroupConflict) IsCode(code int) bool {
+	return code == 409
+}
+
+// Code gets the status code for the update proxies filtered group conflict response
+func (o *UpdateProxiesFilteredGroupConflict) Code() int {
+	return 409
+}
+
 func (o *UpdateProxiesFilteredGroupConflict) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}][%d] updateProxiesFilteredGroupConflict  %+v", 409, o.Payload)
 }
+
+func (o *UpdateProxiesFilteredGroupConflict) String() string {
+	return fmt.Sprintf("[PUT /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}][%d] updateProxiesFilteredGroupConflict  %+v", 409, o.Payload)
+}
+
 func (o *UpdateProxiesFilteredGroupConflict) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
 
 func (o *UpdateProxiesFilteredGroupConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewUpdateProxiesFilteredGroupRetryWith creates a UpdateProxiesFilteredGroupRetryWith with default headers values
-func NewUpdateProxiesFilteredGroupRetryWith() *UpdateProxiesFilteredGroupRetryWith {
-	return &UpdateProxiesFilteredGroupRetryWith{}
-}
-
-/* UpdateProxiesFilteredGroupRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type UpdateProxiesFilteredGroupRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-func (o *UpdateProxiesFilteredGroupRetryWith) Error() string {
-	return fmt.Sprintf("[PUT /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}][%d] updateProxiesFilteredGroupRetryWith  %+v", 449, o.Payload)
-}
-func (o *UpdateProxiesFilteredGroupRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *UpdateProxiesFilteredGroupRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// hydrates response header x-cloud-error-codes
 	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
