@@ -58,12 +58,6 @@ func (o *CreateEnrollmentTokenReader) ReadResponse(response runtime.ClientRespon
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewCreateEnrollmentTokenRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -262,74 +256,6 @@ func (o *CreateEnrollmentTokenForbidden) GetPayload() *models.BasicFailedReply {
 }
 
 func (o *CreateEnrollmentTokenForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewCreateEnrollmentTokenRetryWith creates a CreateEnrollmentTokenRetryWith with default headers values
-func NewCreateEnrollmentTokenRetryWith() *CreateEnrollmentTokenRetryWith {
-	return &CreateEnrollmentTokenRetryWith{}
-}
-
-/*
-CreateEnrollmentTokenRetryWith describes a response with status code 449, with default header values.
-
-elevated permissions are required. (code: '"root.unauthorized.rbac.elevated_permissions_required"')
-*/
-type CreateEnrollmentTokenRetryWith struct {
-	Payload *models.BasicFailedReply
-}
-
-// IsSuccess returns true when this create enrollment token retry with response has a 2xx status code
-func (o *CreateEnrollmentTokenRetryWith) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this create enrollment token retry with response has a 3xx status code
-func (o *CreateEnrollmentTokenRetryWith) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this create enrollment token retry with response has a 4xx status code
-func (o *CreateEnrollmentTokenRetryWith) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this create enrollment token retry with response has a 5xx status code
-func (o *CreateEnrollmentTokenRetryWith) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this create enrollment token retry with response a status code equal to that given
-func (o *CreateEnrollmentTokenRetryWith) IsCode(code int) bool {
-	return code == 449
-}
-
-// Code gets the status code for the create enrollment token retry with response
-func (o *CreateEnrollmentTokenRetryWith) Code() int {
-	return 449
-}
-
-func (o *CreateEnrollmentTokenRetryWith) Error() string {
-	return fmt.Sprintf("[POST /platform/configuration/security/enrollment-tokens][%d] createEnrollmentTokenRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *CreateEnrollmentTokenRetryWith) String() string {
-	return fmt.Sprintf("[POST /platform/configuration/security/enrollment-tokens][%d] createEnrollmentTokenRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *CreateEnrollmentTokenRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *CreateEnrollmentTokenRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.BasicFailedReply)
 

@@ -31,21 +31,21 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// ElevatePermissionsRequest Deprecated: The request body for elevated permissions.
+// AllocatorCapacityStorage The storage capacity of the allocator.
 //
-// swagger:model ElevatePermissionsRequest
-type ElevatePermissionsRequest struct {
+// swagger:model AllocatorCapacityStorage
+type AllocatorCapacityStorage struct {
 
-	// Multi-factor authorization token
+	// Total storage in MiB capacity installed on this allocator
 	// Required: true
-	Token *string `json:"token"`
+	Total *int64 `json:"total"`
 }
 
-// Validate validates this elevate permissions request
-func (m *ElevatePermissionsRequest) Validate(formats strfmt.Registry) error {
+// Validate validates this allocator capacity storage
+func (m *AllocatorCapacityStorage) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateToken(formats); err != nil {
+	if err := m.validateTotal(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -55,22 +55,22 @@ func (m *ElevatePermissionsRequest) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *ElevatePermissionsRequest) validateToken(formats strfmt.Registry) error {
+func (m *AllocatorCapacityStorage) validateTotal(formats strfmt.Registry) error {
 
-	if err := validate.Required("token", "body", m.Token); err != nil {
+	if err := validate.Required("total", "body", m.Total); err != nil {
 		return err
 	}
 
 	return nil
 }
 
-// ContextValidate validates this elevate permissions request based on context it is used
-func (m *ElevatePermissionsRequest) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+// ContextValidate validates this allocator capacity storage based on context it is used
+func (m *AllocatorCapacityStorage) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 
 // MarshalBinary interface implementation
-func (m *ElevatePermissionsRequest) MarshalBinary() ([]byte, error) {
+func (m *AllocatorCapacityStorage) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -78,8 +78,8 @@ func (m *ElevatePermissionsRequest) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *ElevatePermissionsRequest) UnmarshalBinary(b []byte) error {
-	var res ElevatePermissionsRequest
+func (m *AllocatorCapacityStorage) UnmarshalBinary(b []byte) error {
+	var res AllocatorCapacityStorage
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

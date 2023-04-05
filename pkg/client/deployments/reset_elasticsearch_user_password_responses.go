@@ -52,12 +52,6 @@ func (o *ResetElasticsearchUserPasswordReader) ReadResponse(response runtime.Cli
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewResetElasticsearchUserPasswordRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	case 500:
 		result := NewResetElasticsearchUserPasswordInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -201,86 +195,6 @@ func (o *ResetElasticsearchUserPasswordNotFound) GetPayload() *models.BasicFaile
 }
 
 func (o *ResetElasticsearchUserPasswordNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewResetElasticsearchUserPasswordRetryWith creates a ResetElasticsearchUserPasswordRetryWith with default headers values
-func NewResetElasticsearchUserPasswordRetryWith() *ResetElasticsearchUserPasswordRetryWith {
-	return &ResetElasticsearchUserPasswordRetryWith{}
-}
-
-/*
-ResetElasticsearchUserPasswordRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type ResetElasticsearchUserPasswordRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-// IsSuccess returns true when this reset elasticsearch user password retry with response has a 2xx status code
-func (o *ResetElasticsearchUserPasswordRetryWith) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this reset elasticsearch user password retry with response has a 3xx status code
-func (o *ResetElasticsearchUserPasswordRetryWith) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this reset elasticsearch user password retry with response has a 4xx status code
-func (o *ResetElasticsearchUserPasswordRetryWith) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this reset elasticsearch user password retry with response has a 5xx status code
-func (o *ResetElasticsearchUserPasswordRetryWith) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this reset elasticsearch user password retry with response a status code equal to that given
-func (o *ResetElasticsearchUserPasswordRetryWith) IsCode(code int) bool {
-	return code == 449
-}
-
-// Code gets the status code for the reset elasticsearch user password retry with response
-func (o *ResetElasticsearchUserPasswordRetryWith) Code() int {
-	return 449
-}
-
-func (o *ResetElasticsearchUserPasswordRetryWith) Error() string {
-	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_reset-password][%d] resetElasticsearchUserPasswordRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *ResetElasticsearchUserPasswordRetryWith) String() string {
-	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_reset-password][%d] resetElasticsearchUserPasswordRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *ResetElasticsearchUserPasswordRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *ResetElasticsearchUserPasswordRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// hydrates response header x-cloud-error-codes
 	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")

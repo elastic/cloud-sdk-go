@@ -52,12 +52,6 @@ func (o *EnableDeploymentResourceSlmReader) ReadResponse(response runtime.Client
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewEnableDeploymentResourceSlmRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	case 500:
 		result := NewEnableDeploymentResourceSlmInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -201,86 +195,6 @@ func (o *EnableDeploymentResourceSlmNotFound) GetPayload() *models.BasicFailedRe
 }
 
 func (o *EnableDeploymentResourceSlmNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewEnableDeploymentResourceSlmRetryWith creates a EnableDeploymentResourceSlmRetryWith with default headers values
-func NewEnableDeploymentResourceSlmRetryWith() *EnableDeploymentResourceSlmRetryWith {
-	return &EnableDeploymentResourceSlmRetryWith{}
-}
-
-/*
-EnableDeploymentResourceSlmRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type EnableDeploymentResourceSlmRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-// IsSuccess returns true when this enable deployment resource slm retry with response has a 2xx status code
-func (o *EnableDeploymentResourceSlmRetryWith) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this enable deployment resource slm retry with response has a 3xx status code
-func (o *EnableDeploymentResourceSlmRetryWith) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this enable deployment resource slm retry with response has a 4xx status code
-func (o *EnableDeploymentResourceSlmRetryWith) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this enable deployment resource slm retry with response has a 5xx status code
-func (o *EnableDeploymentResourceSlmRetryWith) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this enable deployment resource slm retry with response a status code equal to that given
-func (o *EnableDeploymentResourceSlmRetryWith) IsCode(code int) bool {
-	return code == 449
-}
-
-// Code gets the status code for the enable deployment resource slm retry with response
-func (o *EnableDeploymentResourceSlmRetryWith) Code() int {
-	return 449
-}
-
-func (o *EnableDeploymentResourceSlmRetryWith) Error() string {
-	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_enable-slm][%d] enableDeploymentResourceSlmRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *EnableDeploymentResourceSlmRetryWith) String() string {
-	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_enable-slm][%d] enableDeploymentResourceSlmRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *EnableDeploymentResourceSlmRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *EnableDeploymentResourceSlmRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// hydrates response header x-cloud-error-codes
 	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")

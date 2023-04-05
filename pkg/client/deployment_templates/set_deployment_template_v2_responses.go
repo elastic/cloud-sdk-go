@@ -76,12 +76,6 @@ func (o *SetDeploymentTemplateV2Reader) ReadResponse(response runtime.ClientResp
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewSetDeploymentTemplateV2RetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -525,86 +519,6 @@ func (o *SetDeploymentTemplateV2Conflict) GetPayload() *models.BasicFailedReply 
 }
 
 func (o *SetDeploymentTemplateV2Conflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewSetDeploymentTemplateV2RetryWith creates a SetDeploymentTemplateV2RetryWith with default headers values
-func NewSetDeploymentTemplateV2RetryWith() *SetDeploymentTemplateV2RetryWith {
-	return &SetDeploymentTemplateV2RetryWith{}
-}
-
-/*
-SetDeploymentTemplateV2RetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type SetDeploymentTemplateV2RetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-// IsSuccess returns true when this set deployment template v2 retry with response has a 2xx status code
-func (o *SetDeploymentTemplateV2RetryWith) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this set deployment template v2 retry with response has a 3xx status code
-func (o *SetDeploymentTemplateV2RetryWith) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this set deployment template v2 retry with response has a 4xx status code
-func (o *SetDeploymentTemplateV2RetryWith) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this set deployment template v2 retry with response has a 5xx status code
-func (o *SetDeploymentTemplateV2RetryWith) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this set deployment template v2 retry with response a status code equal to that given
-func (o *SetDeploymentTemplateV2RetryWith) IsCode(code int) bool {
-	return code == 449
-}
-
-// Code gets the status code for the set deployment template v2 retry with response
-func (o *SetDeploymentTemplateV2RetryWith) Code() int {
-	return 449
-}
-
-func (o *SetDeploymentTemplateV2RetryWith) Error() string {
-	return fmt.Sprintf("[PUT /deployments/templates/{template_id}][%d] setDeploymentTemplateV2RetryWith  %+v", 449, o.Payload)
-}
-
-func (o *SetDeploymentTemplateV2RetryWith) String() string {
-	return fmt.Sprintf("[PUT /deployments/templates/{template_id}][%d] setDeploymentTemplateV2RetryWith  %+v", 449, o.Payload)
-}
-
-func (o *SetDeploymentTemplateV2RetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *SetDeploymentTemplateV2RetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// hydrates response header x-cloud-error-codes
 	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")

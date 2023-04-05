@@ -99,6 +99,12 @@ type MoveClustersParams struct {
 	*/
 	Body *models.MoveClustersRequest
 
+	/* ForceMove.
+
+	   When `true`, execute a primitive vacate by moving data at file-system level, and recreating instances on the target allocator(s).
+	*/
+	ForceMove *bool
+
 	/* ForceUpdate.
 
 	   When `true`, cancels and overwrites the pending plans, or treats the instance as an error.
@@ -137,6 +143,8 @@ func (o *MoveClustersParams) WithDefaults() *MoveClustersParams {
 // All values with no default are reset to their zero value.
 func (o *MoveClustersParams) SetDefaults() {
 	var (
+		forceMoveDefault = bool(false)
+
 		forceUpdateDefault = bool(false)
 
 		moveOnlyDefault = bool(true)
@@ -145,6 +153,7 @@ func (o *MoveClustersParams) SetDefaults() {
 	)
 
 	val := MoveClustersParams{
+		ForceMove:    &forceMoveDefault,
 		ForceUpdate:  &forceUpdateDefault,
 		MoveOnly:     &moveOnlyDefault,
 		ValidateOnly: &validateOnlyDefault,
@@ -222,6 +231,17 @@ func (o *MoveClustersParams) SetBody(body *models.MoveClustersRequest) {
 	o.Body = body
 }
 
+// WithForceMove adds the forceMove to the move clusters params
+func (o *MoveClustersParams) WithForceMove(forceMove *bool) *MoveClustersParams {
+	o.SetForceMove(forceMove)
+	return o
+}
+
+// SetForceMove adds the forceMove to the move clusters params
+func (o *MoveClustersParams) SetForceMove(forceMove *bool) {
+	o.ForceMove = forceMove
+}
+
 // WithForceUpdate adds the forceUpdate to the move clusters params
 func (o *MoveClustersParams) WithForceUpdate(forceUpdate *bool) *MoveClustersParams {
 	o.SetForceUpdate(forceUpdate)
@@ -287,6 +307,23 @@ func (o *MoveClustersParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.
 	if o.Body != nil {
 		if err := r.SetBodyParam(o.Body); err != nil {
 			return err
+		}
+	}
+
+	if o.ForceMove != nil {
+
+		// query param force_move
+		var qrForceMove bool
+
+		if o.ForceMove != nil {
+			qrForceMove = *o.ForceMove
+		}
+		qForceMove := swag.FormatBool(qrForceMove)
+		if qForceMove != "" {
+
+			if err := r.SetQueryParam("force_move", qForceMove); err != nil {
+				return err
+			}
 		}
 	}
 

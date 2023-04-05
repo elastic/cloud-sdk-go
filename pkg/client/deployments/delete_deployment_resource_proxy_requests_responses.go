@@ -52,12 +52,6 @@ func (o *DeleteDeploymentResourceProxyRequestsReader) ReadResponse(response runt
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewDeleteDeploymentResourceProxyRequestsRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -196,86 +190,6 @@ func (o *DeleteDeploymentResourceProxyRequestsNotFound) GetPayload() *models.Bas
 }
 
 func (o *DeleteDeploymentResourceProxyRequestsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewDeleteDeploymentResourceProxyRequestsRetryWith creates a DeleteDeploymentResourceProxyRequestsRetryWith with default headers values
-func NewDeleteDeploymentResourceProxyRequestsRetryWith() *DeleteDeploymentResourceProxyRequestsRetryWith {
-	return &DeleteDeploymentResourceProxyRequestsRetryWith{}
-}
-
-/*
-DeleteDeploymentResourceProxyRequestsRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type DeleteDeploymentResourceProxyRequestsRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-// IsSuccess returns true when this delete deployment resource proxy requests retry with response has a 2xx status code
-func (o *DeleteDeploymentResourceProxyRequestsRetryWith) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this delete deployment resource proxy requests retry with response has a 3xx status code
-func (o *DeleteDeploymentResourceProxyRequestsRetryWith) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this delete deployment resource proxy requests retry with response has a 4xx status code
-func (o *DeleteDeploymentResourceProxyRequestsRetryWith) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this delete deployment resource proxy requests retry with response has a 5xx status code
-func (o *DeleteDeploymentResourceProxyRequestsRetryWith) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this delete deployment resource proxy requests retry with response a status code equal to that given
-func (o *DeleteDeploymentResourceProxyRequestsRetryWith) IsCode(code int) bool {
-	return code == 449
-}
-
-// Code gets the status code for the delete deployment resource proxy requests retry with response
-func (o *DeleteDeploymentResourceProxyRequestsRetryWith) Code() int {
-	return 449
-}
-
-func (o *DeleteDeploymentResourceProxyRequestsRetryWith) Error() string {
-	return fmt.Sprintf("[DELETE /deployments/{deployment_id}/{resource_kind}/{ref_id}/proxy/{proxy_path}][%d] deleteDeploymentResourceProxyRequestsRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *DeleteDeploymentResourceProxyRequestsRetryWith) String() string {
-	return fmt.Sprintf("[DELETE /deployments/{deployment_id}/{resource_kind}/{ref_id}/proxy/{proxy_path}][%d] deleteDeploymentResourceProxyRequestsRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *DeleteDeploymentResourceProxyRequestsRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *DeleteDeploymentResourceProxyRequestsRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// hydrates response header x-cloud-error-codes
 	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")

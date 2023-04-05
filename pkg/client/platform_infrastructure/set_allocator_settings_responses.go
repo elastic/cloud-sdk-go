@@ -52,12 +52,6 @@ func (o *SetAllocatorSettingsReader) ReadResponse(response runtime.ClientRespons
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewSetAllocatorSettingsRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -193,86 +187,6 @@ func (o *SetAllocatorSettingsNotFound) GetPayload() *models.BasicFailedReply {
 }
 
 func (o *SetAllocatorSettingsNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewSetAllocatorSettingsRetryWith creates a SetAllocatorSettingsRetryWith with default headers values
-func NewSetAllocatorSettingsRetryWith() *SetAllocatorSettingsRetryWith {
-	return &SetAllocatorSettingsRetryWith{}
-}
-
-/*
-SetAllocatorSettingsRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type SetAllocatorSettingsRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-// IsSuccess returns true when this set allocator settings retry with response has a 2xx status code
-func (o *SetAllocatorSettingsRetryWith) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this set allocator settings retry with response has a 3xx status code
-func (o *SetAllocatorSettingsRetryWith) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this set allocator settings retry with response has a 4xx status code
-func (o *SetAllocatorSettingsRetryWith) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this set allocator settings retry with response has a 5xx status code
-func (o *SetAllocatorSettingsRetryWith) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this set allocator settings retry with response a status code equal to that given
-func (o *SetAllocatorSettingsRetryWith) IsCode(code int) bool {
-	return code == 449
-}
-
-// Code gets the status code for the set allocator settings retry with response
-func (o *SetAllocatorSettingsRetryWith) Code() int {
-	return 449
-}
-
-func (o *SetAllocatorSettingsRetryWith) Error() string {
-	return fmt.Sprintf("[PUT /platform/infrastructure/allocators/{allocator_id}/settings][%d] setAllocatorSettingsRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *SetAllocatorSettingsRetryWith) String() string {
-	return fmt.Sprintf("[PUT /platform/infrastructure/allocators/{allocator_id}/settings][%d] setAllocatorSettingsRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *SetAllocatorSettingsRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *SetAllocatorSettingsRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// hydrates response header x-cloud-error-codes
 	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")

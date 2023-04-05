@@ -58,12 +58,6 @@ func (o *SetTelemetryConfigReader) ReadResponse(response runtime.ClientResponse,
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewSetTelemetryConfigRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	case 500:
 		result := NewSetTelemetryConfigInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -285,86 +279,6 @@ func (o *SetTelemetryConfigConflict) GetPayload() *models.BasicFailedReply {
 }
 
 func (o *SetTelemetryConfigConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewSetTelemetryConfigRetryWith creates a SetTelemetryConfigRetryWith with default headers values
-func NewSetTelemetryConfigRetryWith() *SetTelemetryConfigRetryWith {
-	return &SetTelemetryConfigRetryWith{}
-}
-
-/*
-SetTelemetryConfigRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type SetTelemetryConfigRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-// IsSuccess returns true when this set telemetry config retry with response has a 2xx status code
-func (o *SetTelemetryConfigRetryWith) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this set telemetry config retry with response has a 3xx status code
-func (o *SetTelemetryConfigRetryWith) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this set telemetry config retry with response has a 4xx status code
-func (o *SetTelemetryConfigRetryWith) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this set telemetry config retry with response has a 5xx status code
-func (o *SetTelemetryConfigRetryWith) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this set telemetry config retry with response a status code equal to that given
-func (o *SetTelemetryConfigRetryWith) IsCode(code int) bool {
-	return code == 449
-}
-
-// Code gets the status code for the set telemetry config retry with response
-func (o *SetTelemetryConfigRetryWith) Code() int {
-	return 449
-}
-
-func (o *SetTelemetryConfigRetryWith) Error() string {
-	return fmt.Sprintf("[PUT /phone-home/config][%d] setTelemetryConfigRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *SetTelemetryConfigRetryWith) String() string {
-	return fmt.Sprintf("[PUT /phone-home/config][%d] setTelemetryConfigRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *SetTelemetryConfigRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *SetTelemetryConfigRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// hydrates response header x-cloud-error-codes
 	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")

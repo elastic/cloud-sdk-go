@@ -145,7 +145,7 @@ func (a *Client) DeleteTrustRelationship(params *DeleteTrustRelationshipParams, 
 /*
 GetTrustRelationship gets trust relationship
 
-Retrieves information about a trust relationship. `local` can be used as the ID to obtain the local trust relationship.
+Retrieves information about a trust relationship.
 */
 func (a *Client) GetTrustRelationship(params *GetTrustRelationshipParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTrustRelationshipOK, error) {
 	// TODO: Validate the params before sending

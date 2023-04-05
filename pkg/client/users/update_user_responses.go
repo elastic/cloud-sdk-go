@@ -58,12 +58,6 @@ func (o *UpdateUserReader) ReadResponse(response runtime.ClientResponse, consume
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewUpdateUserRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -284,86 +278,6 @@ func (o *UpdateUserNotFound) GetPayload() *models.BasicFailedReply {
 }
 
 func (o *UpdateUserNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewUpdateUserRetryWith creates a UpdateUserRetryWith with default headers values
-func NewUpdateUserRetryWith() *UpdateUserRetryWith {
-	return &UpdateUserRetryWith{}
-}
-
-/*
-UpdateUserRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type UpdateUserRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-// IsSuccess returns true when this update user retry with response has a 2xx status code
-func (o *UpdateUserRetryWith) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this update user retry with response has a 3xx status code
-func (o *UpdateUserRetryWith) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this update user retry with response has a 4xx status code
-func (o *UpdateUserRetryWith) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this update user retry with response has a 5xx status code
-func (o *UpdateUserRetryWith) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this update user retry with response a status code equal to that given
-func (o *UpdateUserRetryWith) IsCode(code int) bool {
-	return code == 449
-}
-
-// Code gets the status code for the update user retry with response
-func (o *UpdateUserRetryWith) Code() int {
-	return 449
-}
-
-func (o *UpdateUserRetryWith) Error() string {
-	return fmt.Sprintf("[PATCH /users/{user_name}][%d] updateUserRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *UpdateUserRetryWith) String() string {
-	return fmt.Sprintf("[PATCH /users/{user_name}][%d] updateUserRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *UpdateUserRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *UpdateUserRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// hydrates response header x-cloud-error-codes
 	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")

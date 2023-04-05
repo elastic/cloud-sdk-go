@@ -58,12 +58,6 @@ func (o *DeleteProxiesFilteredGroupReader) ReadResponse(response runtime.ClientR
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewDeleteProxiesFilteredGroupRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	default:
 		return nil, runtime.NewAPIError("response status code does not match any response statuses defined for this endpoint in the swagger spec", response, response.Code())
 	}
@@ -277,86 +271,6 @@ func (o *DeleteProxiesFilteredGroupConflict) GetPayload() *models.BasicFailedRep
 }
 
 func (o *DeleteProxiesFilteredGroupConflict) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewDeleteProxiesFilteredGroupRetryWith creates a DeleteProxiesFilteredGroupRetryWith with default headers values
-func NewDeleteProxiesFilteredGroupRetryWith() *DeleteProxiesFilteredGroupRetryWith {
-	return &DeleteProxiesFilteredGroupRetryWith{}
-}
-
-/*
-DeleteProxiesFilteredGroupRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type DeleteProxiesFilteredGroupRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-// IsSuccess returns true when this delete proxies filtered group retry with response has a 2xx status code
-func (o *DeleteProxiesFilteredGroupRetryWith) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this delete proxies filtered group retry with response has a 3xx status code
-func (o *DeleteProxiesFilteredGroupRetryWith) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this delete proxies filtered group retry with response has a 4xx status code
-func (o *DeleteProxiesFilteredGroupRetryWith) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this delete proxies filtered group retry with response has a 5xx status code
-func (o *DeleteProxiesFilteredGroupRetryWith) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this delete proxies filtered group retry with response a status code equal to that given
-func (o *DeleteProxiesFilteredGroupRetryWith) IsCode(code int) bool {
-	return code == 449
-}
-
-// Code gets the status code for the delete proxies filtered group retry with response
-func (o *DeleteProxiesFilteredGroupRetryWith) Code() int {
-	return 449
-}
-
-func (o *DeleteProxiesFilteredGroupRetryWith) Error() string {
-	return fmt.Sprintf("[DELETE /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}][%d] deleteProxiesFilteredGroupRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *DeleteProxiesFilteredGroupRetryWith) String() string {
-	return fmt.Sprintf("[DELETE /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}][%d] deleteProxiesFilteredGroupRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *DeleteProxiesFilteredGroupRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *DeleteProxiesFilteredGroupRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// hydrates response header x-cloud-error-codes
 	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")

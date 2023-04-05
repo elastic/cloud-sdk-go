@@ -58,12 +58,6 @@ func (o *DeleteDeploymentStatelessResourceReader) ReadResponse(response runtime.
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewDeleteDeploymentStatelessResourceRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	case 500:
 		result := NewDeleteDeploymentStatelessResourceInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -287,86 +281,6 @@ func (o *DeleteDeploymentStatelessResourceNotFound) GetPayload() *models.BasicFa
 }
 
 func (o *DeleteDeploymentStatelessResourceNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewDeleteDeploymentStatelessResourceRetryWith creates a DeleteDeploymentStatelessResourceRetryWith with default headers values
-func NewDeleteDeploymentStatelessResourceRetryWith() *DeleteDeploymentStatelessResourceRetryWith {
-	return &DeleteDeploymentStatelessResourceRetryWith{}
-}
-
-/*
-DeleteDeploymentStatelessResourceRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type DeleteDeploymentStatelessResourceRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-// IsSuccess returns true when this delete deployment stateless resource retry with response has a 2xx status code
-func (o *DeleteDeploymentStatelessResourceRetryWith) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this delete deployment stateless resource retry with response has a 3xx status code
-func (o *DeleteDeploymentStatelessResourceRetryWith) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this delete deployment stateless resource retry with response has a 4xx status code
-func (o *DeleteDeploymentStatelessResourceRetryWith) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this delete deployment stateless resource retry with response has a 5xx status code
-func (o *DeleteDeploymentStatelessResourceRetryWith) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this delete deployment stateless resource retry with response a status code equal to that given
-func (o *DeleteDeploymentStatelessResourceRetryWith) IsCode(code int) bool {
-	return code == 449
-}
-
-// Code gets the status code for the delete deployment stateless resource retry with response
-func (o *DeleteDeploymentStatelessResourceRetryWith) Code() int {
-	return 449
-}
-
-func (o *DeleteDeploymentStatelessResourceRetryWith) Error() string {
-	return fmt.Sprintf("[DELETE /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}][%d] deleteDeploymentStatelessResourceRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *DeleteDeploymentStatelessResourceRetryWith) String() string {
-	return fmt.Sprintf("[DELETE /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}][%d] deleteDeploymentStatelessResourceRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *DeleteDeploymentStatelessResourceRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *DeleteDeploymentStatelessResourceRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// hydrates response header x-cloud-error-codes
 	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")

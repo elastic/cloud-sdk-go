@@ -58,12 +58,6 @@ func (o *RestartDeploymentEsResourceReader) ReadResponse(response runtime.Client
 			return nil, err
 		}
 		return nil, result
-	case 449:
-		result := NewRestartDeploymentEsResourceRetryWith()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	case 500:
 		result := NewRestartDeploymentEsResourceInternalServerError()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -287,86 +281,6 @@ func (o *RestartDeploymentEsResourceUnprocessableEntity) GetPayload() *models.Ba
 }
 
 func (o *RestartDeploymentEsResourceUnprocessableEntity) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	// hydrates response header x-cloud-error-codes
-	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
-
-	if hdrXCloudErrorCodes != "" {
-		o.XCloudErrorCodes = hdrXCloudErrorCodes
-	}
-
-	o.Payload = new(models.BasicFailedReply)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
-		return err
-	}
-
-	return nil
-}
-
-// NewRestartDeploymentEsResourceRetryWith creates a RestartDeploymentEsResourceRetryWith with default headers values
-func NewRestartDeploymentEsResourceRetryWith() *RestartDeploymentEsResourceRetryWith {
-	return &RestartDeploymentEsResourceRetryWith{}
-}
-
-/*
-RestartDeploymentEsResourceRetryWith describes a response with status code 449, with default header values.
-
-Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
-*/
-type RestartDeploymentEsResourceRetryWith struct {
-
-	/* The error codes associated with the response
-	 */
-	XCloudErrorCodes string
-
-	Payload *models.BasicFailedReply
-}
-
-// IsSuccess returns true when this restart deployment es resource retry with response has a 2xx status code
-func (o *RestartDeploymentEsResourceRetryWith) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this restart deployment es resource retry with response has a 3xx status code
-func (o *RestartDeploymentEsResourceRetryWith) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this restart deployment es resource retry with response has a 4xx status code
-func (o *RestartDeploymentEsResourceRetryWith) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this restart deployment es resource retry with response has a 5xx status code
-func (o *RestartDeploymentEsResourceRetryWith) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this restart deployment es resource retry with response a status code equal to that given
-func (o *RestartDeploymentEsResourceRetryWith) IsCode(code int) bool {
-	return code == 449
-}
-
-// Code gets the status code for the restart deployment es resource retry with response
-func (o *RestartDeploymentEsResourceRetryWith) Code() int {
-	return 449
-}
-
-func (o *RestartDeploymentEsResourceRetryWith) Error() string {
-	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_restart][%d] restartDeploymentEsResourceRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *RestartDeploymentEsResourceRetryWith) String() string {
-	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_restart][%d] restartDeploymentEsResourceRetryWith  %+v", 449, o.Payload)
-}
-
-func (o *RestartDeploymentEsResourceRetryWith) GetPayload() *models.BasicFailedReply {
-	return o.Payload
-}
-
-func (o *RestartDeploymentEsResourceRetryWith) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// hydrates response header x-cloud-error-codes
 	hdrXCloudErrorCodes := response.GetHeader("x-cloud-error-codes")
