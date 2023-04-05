@@ -70,10 +70,12 @@ func NewDeleteOrganizationMembershipsParamsWithHTTPClient(client *http.Client) *
 	}
 }
 
-/* DeleteOrganizationMembershipsParams contains all the parameters to send to the API endpoint
-   for the delete organization memberships operation.
+/*
+DeleteOrganizationMembershipsParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the delete organization memberships operation.
+
+	Typically these are written to a http.Request.
 */
 type DeleteOrganizationMembershipsParams struct {
 

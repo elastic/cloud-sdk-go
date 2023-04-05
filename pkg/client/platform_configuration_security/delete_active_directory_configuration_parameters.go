@@ -69,10 +69,12 @@ func NewDeleteActiveDirectoryConfigurationParamsWithHTTPClient(client *http.Clie
 	}
 }
 
-/* DeleteActiveDirectoryConfigurationParams contains all the parameters to send to the API endpoint
-   for the delete active directory configuration operation.
+/*
+DeleteActiveDirectoryConfigurationParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the delete active directory configuration operation.
+
+	Typically these are written to a http.Request.
 */
 type DeleteActiveDirectoryConfigurationParams struct {
 

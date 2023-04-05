@@ -71,10 +71,12 @@ func NewReorderSecurityRealmsParamsWithHTTPClient(client *http.Client) *ReorderS
 	}
 }
 
-/* ReorderSecurityRealmsParams contains all the parameters to send to the API endpoint
-   for the reorder security realms operation.
+/*
+ReorderSecurityRealmsParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the reorder security realms operation.
+
+	Typically these are written to a http.Request.
 */
 type ReorderSecurityRealmsParams struct {
 

@@ -62,7 +62,8 @@ func NewSetSnapshotRepositoryOK() *SetSnapshotRepositoryOK {
 	return &SetSnapshotRepositoryOK{}
 }
 
-/* SetSnapshotRepositoryOK describes a response with status code 200, with default header values.
+/*
+SetSnapshotRepositoryOK describes a response with status code 200, with default header values.
 
 New snapshot repository config
 */
@@ -70,9 +71,44 @@ type SetSnapshotRepositoryOK struct {
 	Payload *models.RepositoryConfig
 }
 
+// IsSuccess returns true when this set snapshot repository o k response has a 2xx status code
+func (o *SetSnapshotRepositoryOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this set snapshot repository o k response has a 3xx status code
+func (o *SetSnapshotRepositoryOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set snapshot repository o k response has a 4xx status code
+func (o *SetSnapshotRepositoryOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this set snapshot repository o k response has a 5xx status code
+func (o *SetSnapshotRepositoryOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set snapshot repository o k response a status code equal to that given
+func (o *SetSnapshotRepositoryOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the set snapshot repository o k response
+func (o *SetSnapshotRepositoryOK) Code() int {
+	return 200
+}
+
 func (o *SetSnapshotRepositoryOK) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/snapshots/repositories/{repository_name}][%d] setSnapshotRepositoryOK  %+v", 200, o.Payload)
 }
+
+func (o *SetSnapshotRepositoryOK) String() string {
+	return fmt.Sprintf("[PUT /platform/configuration/snapshots/repositories/{repository_name}][%d] setSnapshotRepositoryOK  %+v", 200, o.Payload)
+}
+
 func (o *SetSnapshotRepositoryOK) GetPayload() *models.RepositoryConfig {
 	return o.Payload
 }
@@ -94,7 +130,8 @@ func NewSetSnapshotRepositoryRetryWith() *SetSnapshotRepositoryRetryWith {
 	return &SetSnapshotRepositoryRetryWith{}
 }
 
-/* SetSnapshotRepositoryRetryWith describes a response with status code 449, with default header values.
+/*
+SetSnapshotRepositoryRetryWith describes a response with status code 449, with default header values.
 
 elevated permissions are required. (code: '"root.unauthorized.rbac.elevated_permissions_required"')
 */
@@ -102,9 +139,44 @@ type SetSnapshotRepositoryRetryWith struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this set snapshot repository retry with response has a 2xx status code
+func (o *SetSnapshotRepositoryRetryWith) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this set snapshot repository retry with response has a 3xx status code
+func (o *SetSnapshotRepositoryRetryWith) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set snapshot repository retry with response has a 4xx status code
+func (o *SetSnapshotRepositoryRetryWith) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this set snapshot repository retry with response has a 5xx status code
+func (o *SetSnapshotRepositoryRetryWith) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set snapshot repository retry with response a status code equal to that given
+func (o *SetSnapshotRepositoryRetryWith) IsCode(code int) bool {
+	return code == 449
+}
+
+// Code gets the status code for the set snapshot repository retry with response
+func (o *SetSnapshotRepositoryRetryWith) Code() int {
+	return 449
+}
+
 func (o *SetSnapshotRepositoryRetryWith) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/snapshots/repositories/{repository_name}][%d] setSnapshotRepositoryRetryWith  %+v", 449, o.Payload)
 }
+
+func (o *SetSnapshotRepositoryRetryWith) String() string {
+	return fmt.Sprintf("[PUT /platform/configuration/snapshots/repositories/{repository_name}][%d] setSnapshotRepositoryRetryWith  %+v", 449, o.Payload)
+}
+
 func (o *SetSnapshotRepositoryRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

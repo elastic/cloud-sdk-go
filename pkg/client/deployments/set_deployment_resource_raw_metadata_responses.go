@@ -80,7 +80,8 @@ func NewSetDeploymentResourceRawMetadataOK() *SetDeploymentResourceRawMetadataOK
 	return &SetDeploymentResourceRawMetadataOK{}
 }
 
-/* SetDeploymentResourceRawMetadataOK describes a response with status code 200, with default header values.
+/*
+SetDeploymentResourceRawMetadataOK describes a response with status code 200, with default header values.
 
 The resource metadata was successfully changed (the updated JSON is returned)
 */
@@ -101,9 +102,44 @@ type SetDeploymentResourceRawMetadataOK struct {
 	Payload string
 }
 
+// IsSuccess returns true when this set deployment resource raw metadata o k response has a 2xx status code
+func (o *SetDeploymentResourceRawMetadataOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this set deployment resource raw metadata o k response has a 3xx status code
+func (o *SetDeploymentResourceRawMetadataOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set deployment resource raw metadata o k response has a 4xx status code
+func (o *SetDeploymentResourceRawMetadataOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this set deployment resource raw metadata o k response has a 5xx status code
+func (o *SetDeploymentResourceRawMetadataOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set deployment resource raw metadata o k response a status code equal to that given
+func (o *SetDeploymentResourceRawMetadataOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the set deployment resource raw metadata o k response
+func (o *SetDeploymentResourceRawMetadataOK) Code() int {
+	return 200
+}
+
 func (o *SetDeploymentResourceRawMetadataOK) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/metadata/raw][%d] setDeploymentResourceRawMetadataOK  %+v", 200, o.Payload)
 }
+
+func (o *SetDeploymentResourceRawMetadataOK) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/metadata/raw][%d] setDeploymentResourceRawMetadataOK  %+v", 200, o.Payload)
+}
+
 func (o *SetDeploymentResourceRawMetadataOK) GetPayload() string {
 	return o.Payload
 }
@@ -144,7 +180,8 @@ func NewSetDeploymentResourceRawMetadataBadRequest() *SetDeploymentResourceRawMe
 	return &SetDeploymentResourceRawMetadataBadRequest{}
 }
 
-/* SetDeploymentResourceRawMetadataBadRequest describes a response with status code 400, with default header values.
+/*
+SetDeploymentResourceRawMetadataBadRequest describes a response with status code 400, with default header values.
 
 The metadata is invalid. (code: `deployments.invalid_metadata`)
 */
@@ -157,9 +194,44 @@ type SetDeploymentResourceRawMetadataBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this set deployment resource raw metadata bad request response has a 2xx status code
+func (o *SetDeploymentResourceRawMetadataBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this set deployment resource raw metadata bad request response has a 3xx status code
+func (o *SetDeploymentResourceRawMetadataBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set deployment resource raw metadata bad request response has a 4xx status code
+func (o *SetDeploymentResourceRawMetadataBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this set deployment resource raw metadata bad request response has a 5xx status code
+func (o *SetDeploymentResourceRawMetadataBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set deployment resource raw metadata bad request response a status code equal to that given
+func (o *SetDeploymentResourceRawMetadataBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the set deployment resource raw metadata bad request response
+func (o *SetDeploymentResourceRawMetadataBadRequest) Code() int {
+	return 400
+}
+
 func (o *SetDeploymentResourceRawMetadataBadRequest) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/metadata/raw][%d] setDeploymentResourceRawMetadataBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *SetDeploymentResourceRawMetadataBadRequest) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/metadata/raw][%d] setDeploymentResourceRawMetadataBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *SetDeploymentResourceRawMetadataBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -188,9 +260,11 @@ func NewSetDeploymentResourceRawMetadataNotFound() *SetDeploymentResourceRawMeta
 	return &SetDeploymentResourceRawMetadataNotFound{}
 }
 
-/* SetDeploymentResourceRawMetadataNotFound describes a response with status code 404, with default header values.
+/*
+	SetDeploymentResourceRawMetadataNotFound describes a response with status code 404, with default header values.
 
- * The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+	* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+
 * The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)
 */
 type SetDeploymentResourceRawMetadataNotFound struct {
@@ -202,9 +276,44 @@ type SetDeploymentResourceRawMetadataNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this set deployment resource raw metadata not found response has a 2xx status code
+func (o *SetDeploymentResourceRawMetadataNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this set deployment resource raw metadata not found response has a 3xx status code
+func (o *SetDeploymentResourceRawMetadataNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set deployment resource raw metadata not found response has a 4xx status code
+func (o *SetDeploymentResourceRawMetadataNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this set deployment resource raw metadata not found response has a 5xx status code
+func (o *SetDeploymentResourceRawMetadataNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set deployment resource raw metadata not found response a status code equal to that given
+func (o *SetDeploymentResourceRawMetadataNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the set deployment resource raw metadata not found response
+func (o *SetDeploymentResourceRawMetadataNotFound) Code() int {
+	return 404
+}
+
 func (o *SetDeploymentResourceRawMetadataNotFound) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/metadata/raw][%d] setDeploymentResourceRawMetadataNotFound  %+v", 404, o.Payload)
 }
+
+func (o *SetDeploymentResourceRawMetadataNotFound) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/metadata/raw][%d] setDeploymentResourceRawMetadataNotFound  %+v", 404, o.Payload)
+}
+
 func (o *SetDeploymentResourceRawMetadataNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -233,7 +342,8 @@ func NewSetDeploymentResourceRawMetadataRetryWith() *SetDeploymentResourceRawMet
 	return &SetDeploymentResourceRawMetadataRetryWith{}
 }
 
-/* SetDeploymentResourceRawMetadataRetryWith describes a response with status code 449, with default header values.
+/*
+SetDeploymentResourceRawMetadataRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
@@ -246,9 +356,44 @@ type SetDeploymentResourceRawMetadataRetryWith struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this set deployment resource raw metadata retry with response has a 2xx status code
+func (o *SetDeploymentResourceRawMetadataRetryWith) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this set deployment resource raw metadata retry with response has a 3xx status code
+func (o *SetDeploymentResourceRawMetadataRetryWith) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set deployment resource raw metadata retry with response has a 4xx status code
+func (o *SetDeploymentResourceRawMetadataRetryWith) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this set deployment resource raw metadata retry with response has a 5xx status code
+func (o *SetDeploymentResourceRawMetadataRetryWith) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set deployment resource raw metadata retry with response a status code equal to that given
+func (o *SetDeploymentResourceRawMetadataRetryWith) IsCode(code int) bool {
+	return code == 449
+}
+
+// Code gets the status code for the set deployment resource raw metadata retry with response
+func (o *SetDeploymentResourceRawMetadataRetryWith) Code() int {
+	return 449
+}
+
 func (o *SetDeploymentResourceRawMetadataRetryWith) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/metadata/raw][%d] setDeploymentResourceRawMetadataRetryWith  %+v", 449, o.Payload)
 }
+
+func (o *SetDeploymentResourceRawMetadataRetryWith) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/metadata/raw][%d] setDeploymentResourceRawMetadataRetryWith  %+v", 449, o.Payload)
+}
+
 func (o *SetDeploymentResourceRawMetadataRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -277,7 +422,8 @@ func NewSetDeploymentResourceRawMetadataInternalServerError() *SetDeploymentReso
 	return &SetDeploymentResourceRawMetadataInternalServerError{}
 }
 
-/* SetDeploymentResourceRawMetadataInternalServerError describes a response with status code 500, with default header values.
+/*
+SetDeploymentResourceRawMetadataInternalServerError describes a response with status code 500, with default header values.
 
 We have failed you. (code: `deployments.metadata_internal_error`)
 */
@@ -290,9 +436,44 @@ type SetDeploymentResourceRawMetadataInternalServerError struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this set deployment resource raw metadata internal server error response has a 2xx status code
+func (o *SetDeploymentResourceRawMetadataInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this set deployment resource raw metadata internal server error response has a 3xx status code
+func (o *SetDeploymentResourceRawMetadataInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set deployment resource raw metadata internal server error response has a 4xx status code
+func (o *SetDeploymentResourceRawMetadataInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this set deployment resource raw metadata internal server error response has a 5xx status code
+func (o *SetDeploymentResourceRawMetadataInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this set deployment resource raw metadata internal server error response a status code equal to that given
+func (o *SetDeploymentResourceRawMetadataInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
+// Code gets the status code for the set deployment resource raw metadata internal server error response
+func (o *SetDeploymentResourceRawMetadataInternalServerError) Code() int {
+	return 500
+}
+
 func (o *SetDeploymentResourceRawMetadataInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/metadata/raw][%d] setDeploymentResourceRawMetadataInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *SetDeploymentResourceRawMetadataInternalServerError) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/metadata/raw][%d] setDeploymentResourceRawMetadataInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *SetDeploymentResourceRawMetadataInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

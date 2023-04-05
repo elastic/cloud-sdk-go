@@ -69,10 +69,12 @@ func NewGetAuthenticationInfoParamsWithHTTPClient(client *http.Client) *GetAuthe
 	}
 }
 
-/* GetAuthenticationInfoParams contains all the parameters to send to the API endpoint
-   for the get authentication info operation.
+/*
+GetAuthenticationInfoParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the get authentication info operation.
+
+	Typically these are written to a http.Request.
 */
 type GetAuthenticationInfoParams struct {
 	timeout    time.Duration

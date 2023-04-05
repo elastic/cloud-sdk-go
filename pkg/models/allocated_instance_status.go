@@ -149,6 +149,8 @@ func (m *AllocatedInstanceStatus) validatePlansInfo(formats strfmt.Registry) err
 		if err := m.PlansInfo.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("plans_info")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("plans_info")
 			}
 			return err
 		}
@@ -177,6 +179,8 @@ func (m *AllocatedInstanceStatus) contextValidatePlansInfo(ctx context.Context, 
 		if err := m.PlansInfo.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("plans_info")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("plans_info")
 			}
 			return err
 		}

@@ -74,7 +74,8 @@ func NewCreateEnrollmentTokenOK() *CreateEnrollmentTokenOK {
 	return &CreateEnrollmentTokenOK{}
 }
 
-/* CreateEnrollmentTokenOK describes a response with status code 200, with default header values.
+/*
+CreateEnrollmentTokenOK describes a response with status code 200, with default header values.
 
 A token has been generated that can be used to start new servers with the requested roles
 */
@@ -82,9 +83,44 @@ type CreateEnrollmentTokenOK struct {
 	Payload *models.RequestEnrollmentTokenReply
 }
 
+// IsSuccess returns true when this create enrollment token o k response has a 2xx status code
+func (o *CreateEnrollmentTokenOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this create enrollment token o k response has a 3xx status code
+func (o *CreateEnrollmentTokenOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create enrollment token o k response has a 4xx status code
+func (o *CreateEnrollmentTokenOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this create enrollment token o k response has a 5xx status code
+func (o *CreateEnrollmentTokenOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create enrollment token o k response a status code equal to that given
+func (o *CreateEnrollmentTokenOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the create enrollment token o k response
+func (o *CreateEnrollmentTokenOK) Code() int {
+	return 200
+}
+
 func (o *CreateEnrollmentTokenOK) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/enrollment-tokens][%d] createEnrollmentTokenOK  %+v", 200, o.Payload)
 }
+
+func (o *CreateEnrollmentTokenOK) String() string {
+	return fmt.Sprintf("[POST /platform/configuration/security/enrollment-tokens][%d] createEnrollmentTokenOK  %+v", 200, o.Payload)
+}
+
 func (o *CreateEnrollmentTokenOK) GetPayload() *models.RequestEnrollmentTokenReply {
 	return o.Payload
 }
@@ -106,7 +142,8 @@ func NewCreateEnrollmentTokenBadRequest() *CreateEnrollmentTokenBadRequest {
 	return &CreateEnrollmentTokenBadRequest{}
 }
 
-/* CreateEnrollmentTokenBadRequest describes a response with status code 400, with default header values.
+/*
+CreateEnrollmentTokenBadRequest describes a response with status code 400, with default header values.
 
 The token request format was invalid, details in the error (code: 'enrollment_tokens.invalid_token_request')
 */
@@ -114,9 +151,44 @@ type CreateEnrollmentTokenBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this create enrollment token bad request response has a 2xx status code
+func (o *CreateEnrollmentTokenBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this create enrollment token bad request response has a 3xx status code
+func (o *CreateEnrollmentTokenBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create enrollment token bad request response has a 4xx status code
+func (o *CreateEnrollmentTokenBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this create enrollment token bad request response has a 5xx status code
+func (o *CreateEnrollmentTokenBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create enrollment token bad request response a status code equal to that given
+func (o *CreateEnrollmentTokenBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the create enrollment token bad request response
+func (o *CreateEnrollmentTokenBadRequest) Code() int {
+	return 400
+}
+
 func (o *CreateEnrollmentTokenBadRequest) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/enrollment-tokens][%d] createEnrollmentTokenBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *CreateEnrollmentTokenBadRequest) String() string {
+	return fmt.Sprintf("[POST /platform/configuration/security/enrollment-tokens][%d] createEnrollmentTokenBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *CreateEnrollmentTokenBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -138,7 +210,8 @@ func NewCreateEnrollmentTokenForbidden() *CreateEnrollmentTokenForbidden {
 	return &CreateEnrollmentTokenForbidden{}
 }
 
-/* CreateEnrollmentTokenForbidden describes a response with status code 403, with default header values.
+/*
+CreateEnrollmentTokenForbidden describes a response with status code 403, with default header values.
 
 No signing key is available to generate a token (code: 'enrollment_tokens.signing_key_not_found')
 */
@@ -146,9 +219,44 @@ type CreateEnrollmentTokenForbidden struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this create enrollment token forbidden response has a 2xx status code
+func (o *CreateEnrollmentTokenForbidden) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this create enrollment token forbidden response has a 3xx status code
+func (o *CreateEnrollmentTokenForbidden) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create enrollment token forbidden response has a 4xx status code
+func (o *CreateEnrollmentTokenForbidden) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this create enrollment token forbidden response has a 5xx status code
+func (o *CreateEnrollmentTokenForbidden) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create enrollment token forbidden response a status code equal to that given
+func (o *CreateEnrollmentTokenForbidden) IsCode(code int) bool {
+	return code == 403
+}
+
+// Code gets the status code for the create enrollment token forbidden response
+func (o *CreateEnrollmentTokenForbidden) Code() int {
+	return 403
+}
+
 func (o *CreateEnrollmentTokenForbidden) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/enrollment-tokens][%d] createEnrollmentTokenForbidden  %+v", 403, o.Payload)
 }
+
+func (o *CreateEnrollmentTokenForbidden) String() string {
+	return fmt.Sprintf("[POST /platform/configuration/security/enrollment-tokens][%d] createEnrollmentTokenForbidden  %+v", 403, o.Payload)
+}
+
 func (o *CreateEnrollmentTokenForbidden) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -170,7 +278,8 @@ func NewCreateEnrollmentTokenRetryWith() *CreateEnrollmentTokenRetryWith {
 	return &CreateEnrollmentTokenRetryWith{}
 }
 
-/* CreateEnrollmentTokenRetryWith describes a response with status code 449, with default header values.
+/*
+CreateEnrollmentTokenRetryWith describes a response with status code 449, with default header values.
 
 elevated permissions are required. (code: '"root.unauthorized.rbac.elevated_permissions_required"')
 */
@@ -178,9 +287,44 @@ type CreateEnrollmentTokenRetryWith struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this create enrollment token retry with response has a 2xx status code
+func (o *CreateEnrollmentTokenRetryWith) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this create enrollment token retry with response has a 3xx status code
+func (o *CreateEnrollmentTokenRetryWith) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create enrollment token retry with response has a 4xx status code
+func (o *CreateEnrollmentTokenRetryWith) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this create enrollment token retry with response has a 5xx status code
+func (o *CreateEnrollmentTokenRetryWith) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create enrollment token retry with response a status code equal to that given
+func (o *CreateEnrollmentTokenRetryWith) IsCode(code int) bool {
+	return code == 449
+}
+
+// Code gets the status code for the create enrollment token retry with response
+func (o *CreateEnrollmentTokenRetryWith) Code() int {
+	return 449
+}
+
 func (o *CreateEnrollmentTokenRetryWith) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/enrollment-tokens][%d] createEnrollmentTokenRetryWith  %+v", 449, o.Payload)
 }
+
+func (o *CreateEnrollmentTokenRetryWith) String() string {
+	return fmt.Sprintf("[POST /platform/configuration/security/enrollment-tokens][%d] createEnrollmentTokenRetryWith  %+v", 449, o.Payload)
+}
+
 func (o *CreateEnrollmentTokenRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

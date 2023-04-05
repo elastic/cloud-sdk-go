@@ -86,6 +86,8 @@ func (m *ElasticsearchSystemSettings) validateScripting(formats strfmt.Registry)
 		if err := m.Scripting.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("scripting")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("scripting")
 			}
 			return err
 		}
@@ -114,6 +116,8 @@ func (m *ElasticsearchSystemSettings) contextValidateScripting(ctx context.Conte
 		if err := m.Scripting.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("scripting")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("scripting")
 			}
 			return err
 		}

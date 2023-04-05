@@ -86,6 +86,8 @@ func (m *ClusterMetadataSettings) validateResources(formats strfmt.Registry) err
 		if err := m.Resources.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("resources")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("resources")
 			}
 			return err
 		}
@@ -140,6 +142,8 @@ func (m *ClusterMetadataSettings) contextValidateResources(ctx context.Context, 
 		if err := m.Resources.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("resources")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("resources")
 			}
 			return err
 		}

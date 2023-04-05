@@ -82,6 +82,8 @@ func (m *ItemsCosts) validateCosts(formats strfmt.Registry) error {
 		if err := m.Costs.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("costs")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("costs")
 			}
 			return err
 		}
@@ -105,6 +107,8 @@ func (m *ItemsCosts) validateDataTransferAndStorage(formats strfmt.Registry) err
 			if err := m.DataTransferAndStorage[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("data_transfer_and_storage" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("data_transfer_and_storage" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -130,6 +134,8 @@ func (m *ItemsCosts) validateResources(formats strfmt.Registry) error {
 			if err := m.Resources[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("resources" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("resources" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -168,6 +174,8 @@ func (m *ItemsCosts) contextValidateCosts(ctx context.Context, formats strfmt.Re
 		if err := m.Costs.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("costs")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("costs")
 			}
 			return err
 		}
@@ -184,6 +192,8 @@ func (m *ItemsCosts) contextValidateDataTransferAndStorage(ctx context.Context, 
 			if err := m.DataTransferAndStorage[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("data_transfer_and_storage" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("data_transfer_and_storage" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -202,6 +212,8 @@ func (m *ItemsCosts) contextValidateResources(ctx context.Context, formats strfm
 			if err := m.Resources[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("resources" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("resources" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

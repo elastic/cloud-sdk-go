@@ -68,6 +68,11 @@ func (m *KeystoreContents) validateSecrets(formats strfmt.Registry) error {
 		}
 		if val, ok := m.Secrets[k]; ok {
 			if err := val.Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("secrets" + "." + k)
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("secrets" + "." + k)
+				}
 				return err
 			}
 		}

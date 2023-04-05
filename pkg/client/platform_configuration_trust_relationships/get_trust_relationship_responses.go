@@ -68,7 +68,8 @@ func NewGetTrustRelationshipOK() *GetTrustRelationshipOK {
 	return &GetTrustRelationshipOK{}
 }
 
-/* GetTrustRelationshipOK describes a response with status code 200, with default header values.
+/*
+GetTrustRelationshipOK describes a response with status code 200, with default header values.
 
 The trust relationship info response
 */
@@ -89,9 +90,44 @@ type GetTrustRelationshipOK struct {
 	Payload *models.TrustRelationshipGetResponse
 }
 
+// IsSuccess returns true when this get trust relationship o k response has a 2xx status code
+func (o *GetTrustRelationshipOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get trust relationship o k response has a 3xx status code
+func (o *GetTrustRelationshipOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get trust relationship o k response has a 4xx status code
+func (o *GetTrustRelationshipOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get trust relationship o k response has a 5xx status code
+func (o *GetTrustRelationshipOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get trust relationship o k response a status code equal to that given
+func (o *GetTrustRelationshipOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get trust relationship o k response
+func (o *GetTrustRelationshipOK) Code() int {
+	return 200
+}
+
 func (o *GetTrustRelationshipOK) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/trust-relationships/{trust_relationship_id}][%d] getTrustRelationshipOK  %+v", 200, o.Payload)
 }
+
+func (o *GetTrustRelationshipOK) String() string {
+	return fmt.Sprintf("[GET /platform/configuration/trust-relationships/{trust_relationship_id}][%d] getTrustRelationshipOK  %+v", 200, o.Payload)
+}
+
 func (o *GetTrustRelationshipOK) GetPayload() *models.TrustRelationshipGetResponse {
 	return o.Payload
 }
@@ -134,7 +170,8 @@ func NewGetTrustRelationshipUnauthorized() *GetTrustRelationshipUnauthorized {
 	return &GetTrustRelationshipUnauthorized{}
 }
 
-/* GetTrustRelationshipUnauthorized describes a response with status code 401, with default header values.
+/*
+GetTrustRelationshipUnauthorized describes a response with status code 401, with default header values.
 
 You are not authorized to perform this action.
 */
@@ -142,9 +179,44 @@ type GetTrustRelationshipUnauthorized struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get trust relationship unauthorized response has a 2xx status code
+func (o *GetTrustRelationshipUnauthorized) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get trust relationship unauthorized response has a 3xx status code
+func (o *GetTrustRelationshipUnauthorized) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get trust relationship unauthorized response has a 4xx status code
+func (o *GetTrustRelationshipUnauthorized) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get trust relationship unauthorized response has a 5xx status code
+func (o *GetTrustRelationshipUnauthorized) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get trust relationship unauthorized response a status code equal to that given
+func (o *GetTrustRelationshipUnauthorized) IsCode(code int) bool {
+	return code == 401
+}
+
+// Code gets the status code for the get trust relationship unauthorized response
+func (o *GetTrustRelationshipUnauthorized) Code() int {
+	return 401
+}
+
 func (o *GetTrustRelationshipUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/trust-relationships/{trust_relationship_id}][%d] getTrustRelationshipUnauthorized  %+v", 401, o.Payload)
 }
+
+func (o *GetTrustRelationshipUnauthorized) String() string {
+	return fmt.Sprintf("[GET /platform/configuration/trust-relationships/{trust_relationship_id}][%d] getTrustRelationshipUnauthorized  %+v", 401, o.Payload)
+}
+
 func (o *GetTrustRelationshipUnauthorized) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -166,7 +238,8 @@ func NewGetTrustRelationshipNotFound() *GetTrustRelationshipNotFound {
 	return &GetTrustRelationshipNotFound{}
 }
 
-/* GetTrustRelationshipNotFound describes a response with status code 404, with default header values.
+/*
+GetTrustRelationshipNotFound describes a response with status code 404, with default header values.
 
 The trust relationship specified by {trust_relationship_id} cannot be found. (code: `trust_relationships.not_found`)
 */
@@ -179,9 +252,44 @@ type GetTrustRelationshipNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get trust relationship not found response has a 2xx status code
+func (o *GetTrustRelationshipNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get trust relationship not found response has a 3xx status code
+func (o *GetTrustRelationshipNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get trust relationship not found response has a 4xx status code
+func (o *GetTrustRelationshipNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get trust relationship not found response has a 5xx status code
+func (o *GetTrustRelationshipNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get trust relationship not found response a status code equal to that given
+func (o *GetTrustRelationshipNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the get trust relationship not found response
+func (o *GetTrustRelationshipNotFound) Code() int {
+	return 404
+}
+
 func (o *GetTrustRelationshipNotFound) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/trust-relationships/{trust_relationship_id}][%d] getTrustRelationshipNotFound  %+v", 404, o.Payload)
 }
+
+func (o *GetTrustRelationshipNotFound) String() string {
+	return fmt.Sprintf("[GET /platform/configuration/trust-relationships/{trust_relationship_id}][%d] getTrustRelationshipNotFound  %+v", 404, o.Payload)
+}
+
 func (o *GetTrustRelationshipNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

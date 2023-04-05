@@ -62,7 +62,8 @@ func NewDeleteOrganizationMembershipsOK() *DeleteOrganizationMembershipsOK {
 	return &DeleteOrganizationMembershipsOK{}
 }
 
-/* DeleteOrganizationMembershipsOK describes a response with status code 200, with default header values.
+/*
+DeleteOrganizationMembershipsOK describes a response with status code 200, with default header values.
 
 Organization membership deleted successfully
 */
@@ -70,9 +71,44 @@ type DeleteOrganizationMembershipsOK struct {
 	Payload models.EmptyResponse
 }
 
+// IsSuccess returns true when this delete organization memberships o k response has a 2xx status code
+func (o *DeleteOrganizationMembershipsOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this delete organization memberships o k response has a 3xx status code
+func (o *DeleteOrganizationMembershipsOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete organization memberships o k response has a 4xx status code
+func (o *DeleteOrganizationMembershipsOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this delete organization memberships o k response has a 5xx status code
+func (o *DeleteOrganizationMembershipsOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete organization memberships o k response a status code equal to that given
+func (o *DeleteOrganizationMembershipsOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the delete organization memberships o k response
+func (o *DeleteOrganizationMembershipsOK) Code() int {
+	return 200
+}
+
 func (o *DeleteOrganizationMembershipsOK) Error() string {
 	return fmt.Sprintf("[DELETE /organizations/{organization_id}/members/{user_ids}][%d] deleteOrganizationMembershipsOK  %+v", 200, o.Payload)
 }
+
+func (o *DeleteOrganizationMembershipsOK) String() string {
+	return fmt.Sprintf("[DELETE /organizations/{organization_id}/members/{user_ids}][%d] deleteOrganizationMembershipsOK  %+v", 200, o.Payload)
+}
+
 func (o *DeleteOrganizationMembershipsOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -92,9 +128,11 @@ func NewDeleteOrganizationMembershipsNotFound() *DeleteOrganizationMembershipsNo
 	return &DeleteOrganizationMembershipsNotFound{}
 }
 
-/* DeleteOrganizationMembershipsNotFound describes a response with status code 404, with default header values.
+/*
+	DeleteOrganizationMembershipsNotFound describes a response with status code 404, with default header values.
 
- * User not found. (code: `user.not_found`)
+	* User not found. (code: `user.not_found`)
+
 * Organization not found. (code: `organization.not_found`)
 * Organization membership not found. (code: `organization.membership_not_found`)
 */
@@ -107,9 +145,44 @@ type DeleteOrganizationMembershipsNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete organization memberships not found response has a 2xx status code
+func (o *DeleteOrganizationMembershipsNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete organization memberships not found response has a 3xx status code
+func (o *DeleteOrganizationMembershipsNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete organization memberships not found response has a 4xx status code
+func (o *DeleteOrganizationMembershipsNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete organization memberships not found response has a 5xx status code
+func (o *DeleteOrganizationMembershipsNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete organization memberships not found response a status code equal to that given
+func (o *DeleteOrganizationMembershipsNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the delete organization memberships not found response
+func (o *DeleteOrganizationMembershipsNotFound) Code() int {
+	return 404
+}
+
 func (o *DeleteOrganizationMembershipsNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /organizations/{organization_id}/members/{user_ids}][%d] deleteOrganizationMembershipsNotFound  %+v", 404, o.Payload)
 }
+
+func (o *DeleteOrganizationMembershipsNotFound) String() string {
+	return fmt.Sprintf("[DELETE /organizations/{organization_id}/members/{user_ids}][%d] deleteOrganizationMembershipsNotFound  %+v", 404, o.Payload)
+}
+
 func (o *DeleteOrganizationMembershipsNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

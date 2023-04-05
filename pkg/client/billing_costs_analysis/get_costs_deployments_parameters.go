@@ -69,10 +69,12 @@ func NewGetCostsDeploymentsParamsWithHTTPClient(client *http.Client) *GetCostsDe
 	}
 }
 
-/* GetCostsDeploymentsParams contains all the parameters to send to the API endpoint
-   for the get costs deployments operation.
+/*
+GetCostsDeploymentsParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the get costs deployments operation.
+
+	Typically these are written to a http.Request.
 */
 type GetCostsDeploymentsParams struct {
 

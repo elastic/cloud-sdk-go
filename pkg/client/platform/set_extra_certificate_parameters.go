@@ -69,10 +69,12 @@ func NewSetExtraCertificateParamsWithHTTPClient(client *http.Client) *SetExtraCe
 	}
 }
 
-/* SetExtraCertificateParams contains all the parameters to send to the API endpoint
-   for the set extra certificate operation.
+/*
+SetExtraCertificateParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the set extra certificate operation.
+
+	Typically these are written to a http.Request.
 */
 type SetExtraCertificateParams struct {
 

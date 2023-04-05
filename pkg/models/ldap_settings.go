@@ -255,6 +255,8 @@ func (m *LdapSettings) validateGroupSearch(formats strfmt.Registry) error {
 		if err := m.GroupSearch.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("group_search")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("group_search")
 			}
 			return err
 		}
@@ -281,6 +283,8 @@ func (m *LdapSettings) validateLoadBalance(formats strfmt.Registry) error {
 		if err := m.LoadBalance.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("load_balance")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("load_balance")
 			}
 			return err
 		}
@@ -307,6 +311,8 @@ func (m *LdapSettings) validateRoleMappings(formats strfmt.Registry) error {
 		if err := m.RoleMappings.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("role_mappings")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("role_mappings")
 			}
 			return err
 		}
@@ -333,6 +339,8 @@ func (m *LdapSettings) validateUserSearch(formats strfmt.Registry) error {
 		if err := m.UserSearch.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("user_search")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("user_search")
 			}
 			return err
 		}
@@ -373,6 +381,8 @@ func (m *LdapSettings) contextValidateGroupSearch(ctx context.Context, formats s
 		if err := m.GroupSearch.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("group_search")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("group_search")
 			}
 			return err
 		}
@@ -387,6 +397,8 @@ func (m *LdapSettings) contextValidateLoadBalance(ctx context.Context, formats s
 		if err := m.LoadBalance.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("load_balance")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("load_balance")
 			}
 			return err
 		}
@@ -401,6 +413,8 @@ func (m *LdapSettings) contextValidateRoleMappings(ctx context.Context, formats 
 		if err := m.RoleMappings.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("role_mappings")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("role_mappings")
 			}
 			return err
 		}
@@ -415,6 +429,8 @@ func (m *LdapSettings) contextValidateUserSearch(ctx context.Context, formats st
 		if err := m.UserSearch.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("user_search")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("user_search")
 			}
 			return err
 		}

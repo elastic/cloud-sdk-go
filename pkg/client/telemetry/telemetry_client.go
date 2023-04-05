@@ -55,9 +55,9 @@ type ClientService interface {
 }
 
 /*
-  GetTelemetryConfig gets e c e telemetry config
+GetTelemetryConfig gets e c e telemetry config
 
-  Returns whether ECE telemetry is enabled.
+Returns whether ECE telemetry is enabled.
 */
 func (a *Client) GetTelemetryConfig(params *GetTelemetryConfigParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTelemetryConfigOK, error) {
 	// TODO: Validate the params before sending
@@ -96,9 +96,9 @@ func (a *Client) GetTelemetryConfig(params *GetTelemetryConfigParams, authInfo r
 }
 
 /*
-  SetTelemetryConfig sets e c e telemetry config
+SetTelemetryConfig sets e c e telemetry config
 
-  Sets whether to enable ECE telemetry.
+Sets whether to enable ECE telemetry.
 */
 func (a *Client) SetTelemetryConfig(params *SetTelemetryConfigParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetTelemetryConfigOK, error) {
 	// TODO: Validate the params before sending

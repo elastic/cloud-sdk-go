@@ -74,7 +74,8 @@ func NewMoveClustersByTypeAccepted() *MoveClustersByTypeAccepted {
 	return &MoveClustersByTypeAccepted{}
 }
 
-/* MoveClustersByTypeAccepted describes a response with status code 202, with default header values.
+/*
+MoveClustersByTypeAccepted describes a response with status code 202, with default header values.
 
 The move command was issued successfully, use the "GET" command on each /{cluster_id} resource to monitor progress
 */
@@ -82,9 +83,44 @@ type MoveClustersByTypeAccepted struct {
 	Payload *models.MoveClustersCommandResponse
 }
 
+// IsSuccess returns true when this move clusters by type accepted response has a 2xx status code
+func (o *MoveClustersByTypeAccepted) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this move clusters by type accepted response has a 3xx status code
+func (o *MoveClustersByTypeAccepted) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this move clusters by type accepted response has a 4xx status code
+func (o *MoveClustersByTypeAccepted) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this move clusters by type accepted response has a 5xx status code
+func (o *MoveClustersByTypeAccepted) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this move clusters by type accepted response a status code equal to that given
+func (o *MoveClustersByTypeAccepted) IsCode(code int) bool {
+	return code == 202
+}
+
+// Code gets the status code for the move clusters by type accepted response
+func (o *MoveClustersByTypeAccepted) Code() int {
+	return 202
+}
+
 func (o *MoveClustersByTypeAccepted) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/allocators/{allocator_id}/clusters/{cluster_type}/_move][%d] moveClustersByTypeAccepted  %+v", 202, o.Payload)
 }
+
+func (o *MoveClustersByTypeAccepted) String() string {
+	return fmt.Sprintf("[POST /platform/infrastructure/allocators/{allocator_id}/clusters/{cluster_type}/_move][%d] moveClustersByTypeAccepted  %+v", 202, o.Payload)
+}
+
 func (o *MoveClustersByTypeAccepted) GetPayload() *models.MoveClustersCommandResponse {
 	return o.Payload
 }
@@ -106,9 +142,11 @@ func NewMoveClustersByTypeBadRequest() *MoveClustersByTypeBadRequest {
 	return &MoveClustersByTypeBadRequest{}
 }
 
-/* MoveClustersByTypeBadRequest describes a response with status code 400, with default header values.
+/*
+	MoveClustersByTypeBadRequest describes a response with status code 400, with default header values.
 
- * The cluster definition contained errors. (code: `clusters.cluster_invalid_plan`)
+	* The cluster definition contained errors. (code: `clusters.cluster_invalid_plan`)
+
 * The cluster definition contained errors. (code: `clusters.plan_feature_not_implemented`)
 */
 type MoveClustersByTypeBadRequest struct {
@@ -120,9 +158,44 @@ type MoveClustersByTypeBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this move clusters by type bad request response has a 2xx status code
+func (o *MoveClustersByTypeBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this move clusters by type bad request response has a 3xx status code
+func (o *MoveClustersByTypeBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this move clusters by type bad request response has a 4xx status code
+func (o *MoveClustersByTypeBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this move clusters by type bad request response has a 5xx status code
+func (o *MoveClustersByTypeBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this move clusters by type bad request response a status code equal to that given
+func (o *MoveClustersByTypeBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the move clusters by type bad request response
+func (o *MoveClustersByTypeBadRequest) Code() int {
+	return 400
+}
+
 func (o *MoveClustersByTypeBadRequest) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/allocators/{allocator_id}/clusters/{cluster_type}/_move][%d] moveClustersByTypeBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *MoveClustersByTypeBadRequest) String() string {
+	return fmt.Sprintf("[POST /platform/infrastructure/allocators/{allocator_id}/clusters/{cluster_type}/_move][%d] moveClustersByTypeBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *MoveClustersByTypeBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -151,7 +224,8 @@ func NewMoveClustersByTypeForbidden() *MoveClustersByTypeForbidden {
 	return &MoveClustersByTypeForbidden{}
 }
 
-/* MoveClustersByTypeForbidden describes a response with status code 403, with default header values.
+/*
+MoveClustersByTypeForbidden describes a response with status code 403, with default header values.
 
 The move command was prohibited for the given cluster. (code: `clusters.command_prohibited`)
 */
@@ -164,9 +238,44 @@ type MoveClustersByTypeForbidden struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this move clusters by type forbidden response has a 2xx status code
+func (o *MoveClustersByTypeForbidden) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this move clusters by type forbidden response has a 3xx status code
+func (o *MoveClustersByTypeForbidden) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this move clusters by type forbidden response has a 4xx status code
+func (o *MoveClustersByTypeForbidden) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this move clusters by type forbidden response has a 5xx status code
+func (o *MoveClustersByTypeForbidden) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this move clusters by type forbidden response a status code equal to that given
+func (o *MoveClustersByTypeForbidden) IsCode(code int) bool {
+	return code == 403
+}
+
+// Code gets the status code for the move clusters by type forbidden response
+func (o *MoveClustersByTypeForbidden) Code() int {
+	return 403
+}
+
 func (o *MoveClustersByTypeForbidden) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/allocators/{allocator_id}/clusters/{cluster_type}/_move][%d] moveClustersByTypeForbidden  %+v", 403, o.Payload)
 }
+
+func (o *MoveClustersByTypeForbidden) String() string {
+	return fmt.Sprintf("[POST /platform/infrastructure/allocators/{allocator_id}/clusters/{cluster_type}/_move][%d] moveClustersByTypeForbidden  %+v", 403, o.Payload)
+}
+
 func (o *MoveClustersByTypeForbidden) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -195,7 +304,8 @@ func NewMoveClustersByTypeRetryWith() *MoveClustersByTypeRetryWith {
 	return &MoveClustersByTypeRetryWith{}
 }
 
-/* MoveClustersByTypeRetryWith describes a response with status code 449, with default header values.
+/*
+MoveClustersByTypeRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
@@ -208,9 +318,44 @@ type MoveClustersByTypeRetryWith struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this move clusters by type retry with response has a 2xx status code
+func (o *MoveClustersByTypeRetryWith) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this move clusters by type retry with response has a 3xx status code
+func (o *MoveClustersByTypeRetryWith) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this move clusters by type retry with response has a 4xx status code
+func (o *MoveClustersByTypeRetryWith) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this move clusters by type retry with response has a 5xx status code
+func (o *MoveClustersByTypeRetryWith) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this move clusters by type retry with response a status code equal to that given
+func (o *MoveClustersByTypeRetryWith) IsCode(code int) bool {
+	return code == 449
+}
+
+// Code gets the status code for the move clusters by type retry with response
+func (o *MoveClustersByTypeRetryWith) Code() int {
+	return 449
+}
+
 func (o *MoveClustersByTypeRetryWith) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/allocators/{allocator_id}/clusters/{cluster_type}/_move][%d] moveClustersByTypeRetryWith  %+v", 449, o.Payload)
 }
+
+func (o *MoveClustersByTypeRetryWith) String() string {
+	return fmt.Sprintf("[POST /platform/infrastructure/allocators/{allocator_id}/clusters/{cluster_type}/_move][%d] moveClustersByTypeRetryWith  %+v", 449, o.Payload)
+}
+
 func (o *MoveClustersByTypeRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

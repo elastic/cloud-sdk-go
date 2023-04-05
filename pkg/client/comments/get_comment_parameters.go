@@ -69,10 +69,12 @@ func NewGetCommentParamsWithHTTPClient(client *http.Client) *GetCommentParams {
 	}
 }
 
-/* GetCommentParams contains all the parameters to send to the API endpoint
-   for the get comment operation.
+/*
+GetCommentParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the get comment operation.
+
+	Typically these are written to a http.Request.
 */
 type GetCommentParams struct {
 

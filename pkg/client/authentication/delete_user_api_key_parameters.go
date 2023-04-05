@@ -69,10 +69,12 @@ func NewDeleteUserAPIKeyParamsWithHTTPClient(client *http.Client) *DeleteUserAPI
 	}
 }
 
-/* DeleteUserAPIKeyParams contains all the parameters to send to the API endpoint
-   for the delete user api key operation.
+/*
+DeleteUserAPIKeyParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the delete user api key operation.
+
+	Typically these are written to a http.Request.
 */
 type DeleteUserAPIKeyParams struct {
 

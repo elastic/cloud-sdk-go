@@ -56,7 +56,8 @@ func NewSearchAllocatorsOK() *SearchAllocatorsOK {
 	return &SearchAllocatorsOK{}
 }
 
-/* SearchAllocatorsOK describes a response with status code 200, with default header values.
+/*
+SearchAllocatorsOK describes a response with status code 200, with default header values.
 
 An overview of allocators that matched the given search query
 */
@@ -64,9 +65,44 @@ type SearchAllocatorsOK struct {
 	Payload *models.AllocatorOverview
 }
 
+// IsSuccess returns true when this search allocators o k response has a 2xx status code
+func (o *SearchAllocatorsOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this search allocators o k response has a 3xx status code
+func (o *SearchAllocatorsOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this search allocators o k response has a 4xx status code
+func (o *SearchAllocatorsOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this search allocators o k response has a 5xx status code
+func (o *SearchAllocatorsOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this search allocators o k response a status code equal to that given
+func (o *SearchAllocatorsOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the search allocators o k response
+func (o *SearchAllocatorsOK) Code() int {
+	return 200
+}
+
 func (o *SearchAllocatorsOK) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/allocators/_search][%d] searchAllocatorsOK  %+v", 200, o.Payload)
 }
+
+func (o *SearchAllocatorsOK) String() string {
+	return fmt.Sprintf("[POST /platform/infrastructure/allocators/_search][%d] searchAllocatorsOK  %+v", 200, o.Payload)
+}
+
 func (o *SearchAllocatorsOK) GetPayload() *models.AllocatorOverview {
 	return o.Payload
 }

@@ -61,9 +61,9 @@ type ClientService interface {
 }
 
 /*
-  CreateComment creates a comment
+CreateComment creates a comment
 
-  Creates a comment for the given Resource.
+Creates a comment for the given Resource.
 */
 func (a *Client) CreateComment(params *CreateCommentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateCommentCreated, error) {
 	// TODO: Validate the params before sending
@@ -102,9 +102,9 @@ func (a *Client) CreateComment(params *CreateCommentParams, authInfo runtime.Cli
 }
 
 /*
-  DeleteComment deletes comment
+DeleteComment deletes comment
 
-  Deletes a Comment.
+Deletes a Comment.
 */
 func (a *Client) DeleteComment(params *DeleteCommentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteCommentOK, error) {
 	// TODO: Validate the params before sending
@@ -143,9 +143,9 @@ func (a *Client) DeleteComment(params *DeleteCommentParams, authInfo runtime.Cli
 }
 
 /*
-  GetComment gets comment
+GetComment gets comment
 
-  Retrieves a Comment.
+Retrieves a Comment.
 */
 func (a *Client) GetComment(params *GetCommentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCommentOK, error) {
 	// TODO: Validate the params before sending
@@ -184,9 +184,9 @@ func (a *Client) GetComment(params *GetCommentParams, authInfo runtime.ClientAut
 }
 
 /*
-  ListComment lists comments
+ListComment lists comments
 
-  Retrieves all the comments for a given Resource, in reverse modified time order.
+Retrieves all the comments for a given Resource, in reverse modified time order.
 */
 func (a *Client) ListComment(params *ListCommentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListCommentOK, error) {
 	// TODO: Validate the params before sending
@@ -225,9 +225,9 @@ func (a *Client) ListComment(params *ListCommentParams, authInfo runtime.ClientA
 }
 
 /*
-  UpdateComment updates comment
+UpdateComment updates comment
 
-  Updates a Comment.
+Updates a Comment.
 */
 func (a *Client) UpdateComment(params *UpdateCommentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateCommentOK, error) {
 	// TODO: Validate the params before sending

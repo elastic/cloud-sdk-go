@@ -62,7 +62,8 @@ func NewSetRunnerLoggingSettingsOK() *SetRunnerLoggingSettingsOK {
 	return &SetRunnerLoggingSettingsOK{}
 }
 
-/* SetRunnerLoggingSettingsOK describes a response with status code 200, with default header values.
+/*
+SetRunnerLoggingSettingsOK describes a response with status code 200, with default header values.
 
 The updated logging settings for the runner instance
 */
@@ -83,9 +84,44 @@ type SetRunnerLoggingSettingsOK struct {
 	Payload *models.LoggingSettings
 }
 
+// IsSuccess returns true when this set runner logging settings o k response has a 2xx status code
+func (o *SetRunnerLoggingSettingsOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this set runner logging settings o k response has a 3xx status code
+func (o *SetRunnerLoggingSettingsOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set runner logging settings o k response has a 4xx status code
+func (o *SetRunnerLoggingSettingsOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this set runner logging settings o k response has a 5xx status code
+func (o *SetRunnerLoggingSettingsOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set runner logging settings o k response a status code equal to that given
+func (o *SetRunnerLoggingSettingsOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the set runner logging settings o k response
+func (o *SetRunnerLoggingSettingsOK) Code() int {
+	return 200
+}
+
 func (o *SetRunnerLoggingSettingsOK) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/runners/{runner_id}/logging_settings][%d] setRunnerLoggingSettingsOK  %+v", 200, o.Payload)
 }
+
+func (o *SetRunnerLoggingSettingsOK) String() string {
+	return fmt.Sprintf("[PUT /platform/infrastructure/runners/{runner_id}/logging_settings][%d] setRunnerLoggingSettingsOK  %+v", 200, o.Payload)
+}
+
 func (o *SetRunnerLoggingSettingsOK) GetPayload() *models.LoggingSettings {
 	return o.Payload
 }
@@ -128,7 +164,8 @@ func NewSetRunnerLoggingSettingsNotFound() *SetRunnerLoggingSettingsNotFound {
 	return &SetRunnerLoggingSettingsNotFound{}
 }
 
-/* SetRunnerLoggingSettingsNotFound describes a response with status code 404, with default header values.
+/*
+SetRunnerLoggingSettingsNotFound describes a response with status code 404, with default header values.
 
 The logging settings for this runner were not found. (code: `runners.logging_settings.not_found`)
 */
@@ -141,9 +178,44 @@ type SetRunnerLoggingSettingsNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this set runner logging settings not found response has a 2xx status code
+func (o *SetRunnerLoggingSettingsNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this set runner logging settings not found response has a 3xx status code
+func (o *SetRunnerLoggingSettingsNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set runner logging settings not found response has a 4xx status code
+func (o *SetRunnerLoggingSettingsNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this set runner logging settings not found response has a 5xx status code
+func (o *SetRunnerLoggingSettingsNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set runner logging settings not found response a status code equal to that given
+func (o *SetRunnerLoggingSettingsNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the set runner logging settings not found response
+func (o *SetRunnerLoggingSettingsNotFound) Code() int {
+	return 404
+}
+
 func (o *SetRunnerLoggingSettingsNotFound) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/runners/{runner_id}/logging_settings][%d] setRunnerLoggingSettingsNotFound  %+v", 404, o.Payload)
 }
+
+func (o *SetRunnerLoggingSettingsNotFound) String() string {
+	return fmt.Sprintf("[PUT /platform/infrastructure/runners/{runner_id}/logging_settings][%d] setRunnerLoggingSettingsNotFound  %+v", 404, o.Payload)
+}
+
 func (o *SetRunnerLoggingSettingsNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

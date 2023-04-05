@@ -80,7 +80,8 @@ func NewDeleteDeploymentStatelessResourceOK() *DeleteDeploymentStatelessResource
 	return &DeleteDeploymentStatelessResourceOK{}
 }
 
-/* DeleteDeploymentStatelessResourceOK describes a response with status code 200, with default header values.
+/*
+DeleteDeploymentStatelessResourceOK describes a response with status code 200, with default header values.
 
 Standard Deployment Resource Crud Response
 */
@@ -88,9 +89,44 @@ type DeleteDeploymentStatelessResourceOK struct {
 	Payload *models.DeploymentResourceCrudResponse
 }
 
+// IsSuccess returns true when this delete deployment stateless resource o k response has a 2xx status code
+func (o *DeleteDeploymentStatelessResourceOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this delete deployment stateless resource o k response has a 3xx status code
+func (o *DeleteDeploymentStatelessResourceOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete deployment stateless resource o k response has a 4xx status code
+func (o *DeleteDeploymentStatelessResourceOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this delete deployment stateless resource o k response has a 5xx status code
+func (o *DeleteDeploymentStatelessResourceOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete deployment stateless resource o k response a status code equal to that given
+func (o *DeleteDeploymentStatelessResourceOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the delete deployment stateless resource o k response
+func (o *DeleteDeploymentStatelessResourceOK) Code() int {
+	return 200
+}
+
 func (o *DeleteDeploymentStatelessResourceOK) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}][%d] deleteDeploymentStatelessResourceOK  %+v", 200, o.Payload)
 }
+
+func (o *DeleteDeploymentStatelessResourceOK) String() string {
+	return fmt.Sprintf("[DELETE /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}][%d] deleteDeploymentStatelessResourceOK  %+v", 200, o.Payload)
+}
+
 func (o *DeleteDeploymentStatelessResourceOK) GetPayload() *models.DeploymentResourceCrudResponse {
 	return o.Payload
 }
@@ -112,7 +148,8 @@ func NewDeleteDeploymentStatelessResourceBadRequest() *DeleteDeploymentStateless
 	return &DeleteDeploymentStatelessResourceBadRequest{}
 }
 
-/* DeleteDeploymentStatelessResourceBadRequest describes a response with status code 400, with default header values.
+/*
+DeleteDeploymentStatelessResourceBadRequest describes a response with status code 400, with default header values.
 
 Resource has still instances. (code: `deployments.resource_has_instances`)
 */
@@ -125,9 +162,44 @@ type DeleteDeploymentStatelessResourceBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete deployment stateless resource bad request response has a 2xx status code
+func (o *DeleteDeploymentStatelessResourceBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete deployment stateless resource bad request response has a 3xx status code
+func (o *DeleteDeploymentStatelessResourceBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete deployment stateless resource bad request response has a 4xx status code
+func (o *DeleteDeploymentStatelessResourceBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete deployment stateless resource bad request response has a 5xx status code
+func (o *DeleteDeploymentStatelessResourceBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete deployment stateless resource bad request response a status code equal to that given
+func (o *DeleteDeploymentStatelessResourceBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the delete deployment stateless resource bad request response
+func (o *DeleteDeploymentStatelessResourceBadRequest) Code() int {
+	return 400
+}
+
 func (o *DeleteDeploymentStatelessResourceBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}][%d] deleteDeploymentStatelessResourceBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *DeleteDeploymentStatelessResourceBadRequest) String() string {
+	return fmt.Sprintf("[DELETE /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}][%d] deleteDeploymentStatelessResourceBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *DeleteDeploymentStatelessResourceBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -156,9 +228,11 @@ func NewDeleteDeploymentStatelessResourceNotFound() *DeleteDeploymentStatelessRe
 	return &DeleteDeploymentStatelessResourceNotFound{}
 }
 
-/* DeleteDeploymentStatelessResourceNotFound describes a response with status code 404, with default header values.
+/*
+	DeleteDeploymentStatelessResourceNotFound describes a response with status code 404, with default header values.
 
- * The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+	* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+
 * The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)
 */
 type DeleteDeploymentStatelessResourceNotFound struct {
@@ -170,9 +244,44 @@ type DeleteDeploymentStatelessResourceNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete deployment stateless resource not found response has a 2xx status code
+func (o *DeleteDeploymentStatelessResourceNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete deployment stateless resource not found response has a 3xx status code
+func (o *DeleteDeploymentStatelessResourceNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete deployment stateless resource not found response has a 4xx status code
+func (o *DeleteDeploymentStatelessResourceNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete deployment stateless resource not found response has a 5xx status code
+func (o *DeleteDeploymentStatelessResourceNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete deployment stateless resource not found response a status code equal to that given
+func (o *DeleteDeploymentStatelessResourceNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the delete deployment stateless resource not found response
+func (o *DeleteDeploymentStatelessResourceNotFound) Code() int {
+	return 404
+}
+
 func (o *DeleteDeploymentStatelessResourceNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}][%d] deleteDeploymentStatelessResourceNotFound  %+v", 404, o.Payload)
 }
+
+func (o *DeleteDeploymentStatelessResourceNotFound) String() string {
+	return fmt.Sprintf("[DELETE /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}][%d] deleteDeploymentStatelessResourceNotFound  %+v", 404, o.Payload)
+}
+
 func (o *DeleteDeploymentStatelessResourceNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -201,7 +310,8 @@ func NewDeleteDeploymentStatelessResourceRetryWith() *DeleteDeploymentStatelessR
 	return &DeleteDeploymentStatelessResourceRetryWith{}
 }
 
-/* DeleteDeploymentStatelessResourceRetryWith describes a response with status code 449, with default header values.
+/*
+DeleteDeploymentStatelessResourceRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
@@ -214,9 +324,44 @@ type DeleteDeploymentStatelessResourceRetryWith struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete deployment stateless resource retry with response has a 2xx status code
+func (o *DeleteDeploymentStatelessResourceRetryWith) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete deployment stateless resource retry with response has a 3xx status code
+func (o *DeleteDeploymentStatelessResourceRetryWith) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete deployment stateless resource retry with response has a 4xx status code
+func (o *DeleteDeploymentStatelessResourceRetryWith) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete deployment stateless resource retry with response has a 5xx status code
+func (o *DeleteDeploymentStatelessResourceRetryWith) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete deployment stateless resource retry with response a status code equal to that given
+func (o *DeleteDeploymentStatelessResourceRetryWith) IsCode(code int) bool {
+	return code == 449
+}
+
+// Code gets the status code for the delete deployment stateless resource retry with response
+func (o *DeleteDeploymentStatelessResourceRetryWith) Code() int {
+	return 449
+}
+
 func (o *DeleteDeploymentStatelessResourceRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}][%d] deleteDeploymentStatelessResourceRetryWith  %+v", 449, o.Payload)
 }
+
+func (o *DeleteDeploymentStatelessResourceRetryWith) String() string {
+	return fmt.Sprintf("[DELETE /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}][%d] deleteDeploymentStatelessResourceRetryWith  %+v", 449, o.Payload)
+}
+
 func (o *DeleteDeploymentStatelessResourceRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -245,7 +390,8 @@ func NewDeleteDeploymentStatelessResourceInternalServerError() *DeleteDeployment
 	return &DeleteDeploymentStatelessResourceInternalServerError{}
 }
 
-/* DeleteDeploymentStatelessResourceInternalServerError describes a response with status code 500, with default header values.
+/*
+DeleteDeploymentStatelessResourceInternalServerError describes a response with status code 500, with default header values.
 
 We have failed you. (code: `deployments.deployment_resource_no_longer_exists`)
 */
@@ -258,9 +404,44 @@ type DeleteDeploymentStatelessResourceInternalServerError struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete deployment stateless resource internal server error response has a 2xx status code
+func (o *DeleteDeploymentStatelessResourceInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete deployment stateless resource internal server error response has a 3xx status code
+func (o *DeleteDeploymentStatelessResourceInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete deployment stateless resource internal server error response has a 4xx status code
+func (o *DeleteDeploymentStatelessResourceInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this delete deployment stateless resource internal server error response has a 5xx status code
+func (o *DeleteDeploymentStatelessResourceInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this delete deployment stateless resource internal server error response a status code equal to that given
+func (o *DeleteDeploymentStatelessResourceInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
+// Code gets the status code for the delete deployment stateless resource internal server error response
+func (o *DeleteDeploymentStatelessResourceInternalServerError) Code() int {
+	return 500
+}
+
 func (o *DeleteDeploymentStatelessResourceInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}][%d] deleteDeploymentStatelessResourceInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *DeleteDeploymentStatelessResourceInternalServerError) String() string {
+	return fmt.Sprintf("[DELETE /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}][%d] deleteDeploymentStatelessResourceInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *DeleteDeploymentStatelessResourceInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

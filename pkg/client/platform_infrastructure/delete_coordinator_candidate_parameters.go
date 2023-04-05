@@ -69,10 +69,12 @@ func NewDeleteCoordinatorCandidateParamsWithHTTPClient(client *http.Client) *Del
 	}
 }
 
-/* DeleteCoordinatorCandidateParams contains all the parameters to send to the API endpoint
-   for the delete coordinator candidate operation.
+/*
+DeleteCoordinatorCandidateParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the delete coordinator candidate operation.
+
+	Typically these are written to a http.Request.
 */
 type DeleteCoordinatorCandidateParams struct {
 

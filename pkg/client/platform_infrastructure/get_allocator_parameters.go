@@ -69,10 +69,12 @@ func NewGetAllocatorParamsWithHTTPClient(client *http.Client) *GetAllocatorParam
 	}
 }
 
-/* GetAllocatorParams contains all the parameters to send to the API endpoint
-   for the get allocator operation.
+/*
+GetAllocatorParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the get allocator operation.
+
+	Typically these are written to a http.Request.
 */
 type GetAllocatorParams struct {
 

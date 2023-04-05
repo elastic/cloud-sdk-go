@@ -103,6 +103,8 @@ func (m *ProxiesHealth) validateAllocations(formats strfmt.Registry) error {
 			if err := m.Allocations[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("allocations" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("allocations" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -137,6 +139,8 @@ func (m *ProxiesHealth) validateFilteredGroups(formats strfmt.Registry) error {
 			if err := m.FilteredGroups[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("filtered_groups" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("filtered_groups" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -191,6 +195,8 @@ func (m *ProxiesHealth) contextValidateAllocations(ctx context.Context, formats 
 			if err := m.Allocations[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("allocations" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("allocations" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -209,6 +215,8 @@ func (m *ProxiesHealth) contextValidateFilteredGroups(ctx context.Context, forma
 			if err := m.FilteredGroups[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("filtered_groups" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("filtered_groups" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

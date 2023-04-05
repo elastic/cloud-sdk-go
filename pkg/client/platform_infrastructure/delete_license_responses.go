@@ -68,7 +68,8 @@ func NewDeleteLicenseOK() *DeleteLicenseOK {
 	return &DeleteLicenseOK{}
 }
 
-/* DeleteLicenseOK describes a response with status code 200, with default header values.
+/*
+DeleteLicenseOK describes a response with status code 200, with default header values.
 
 The license was deleted.
 */
@@ -76,9 +77,44 @@ type DeleteLicenseOK struct {
 	Payload models.EmptyResponse
 }
 
+// IsSuccess returns true when this delete license o k response has a 2xx status code
+func (o *DeleteLicenseOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this delete license o k response has a 3xx status code
+func (o *DeleteLicenseOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete license o k response has a 4xx status code
+func (o *DeleteLicenseOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this delete license o k response has a 5xx status code
+func (o *DeleteLicenseOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete license o k response a status code equal to that given
+func (o *DeleteLicenseOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the delete license o k response
+func (o *DeleteLicenseOK) Code() int {
+	return 200
+}
+
 func (o *DeleteLicenseOK) Error() string {
 	return fmt.Sprintf("[DELETE /platform/license][%d] deleteLicenseOK  %+v", 200, o.Payload)
 }
+
+func (o *DeleteLicenseOK) String() string {
+	return fmt.Sprintf("[DELETE /platform/license][%d] deleteLicenseOK  %+v", 200, o.Payload)
+}
+
 func (o *DeleteLicenseOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -98,7 +134,8 @@ func NewDeleteLicenseNotFound() *DeleteLicenseNotFound {
 	return &DeleteLicenseNotFound{}
 }
 
-/* DeleteLicenseNotFound describes a response with status code 404, with default header values.
+/*
+DeleteLicenseNotFound describes a response with status code 404, with default header values.
 
 The license cannot be found. (code: `license.license_not_found`)
 */
@@ -111,9 +148,44 @@ type DeleteLicenseNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete license not found response has a 2xx status code
+func (o *DeleteLicenseNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete license not found response has a 3xx status code
+func (o *DeleteLicenseNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete license not found response has a 4xx status code
+func (o *DeleteLicenseNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete license not found response has a 5xx status code
+func (o *DeleteLicenseNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete license not found response a status code equal to that given
+func (o *DeleteLicenseNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the delete license not found response
+func (o *DeleteLicenseNotFound) Code() int {
+	return 404
+}
+
 func (o *DeleteLicenseNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /platform/license][%d] deleteLicenseNotFound  %+v", 404, o.Payload)
 }
+
+func (o *DeleteLicenseNotFound) String() string {
+	return fmt.Sprintf("[DELETE /platform/license][%d] deleteLicenseNotFound  %+v", 404, o.Payload)
+}
+
 func (o *DeleteLicenseNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -142,7 +214,8 @@ func NewDeleteLicenseRetryWith() *DeleteLicenseRetryWith {
 	return &DeleteLicenseRetryWith{}
 }
 
-/* DeleteLicenseRetryWith describes a response with status code 449, with default header values.
+/*
+DeleteLicenseRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
@@ -155,9 +228,44 @@ type DeleteLicenseRetryWith struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete license retry with response has a 2xx status code
+func (o *DeleteLicenseRetryWith) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete license retry with response has a 3xx status code
+func (o *DeleteLicenseRetryWith) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete license retry with response has a 4xx status code
+func (o *DeleteLicenseRetryWith) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete license retry with response has a 5xx status code
+func (o *DeleteLicenseRetryWith) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete license retry with response a status code equal to that given
+func (o *DeleteLicenseRetryWith) IsCode(code int) bool {
+	return code == 449
+}
+
+// Code gets the status code for the delete license retry with response
+func (o *DeleteLicenseRetryWith) Code() int {
+	return 449
+}
+
 func (o *DeleteLicenseRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /platform/license][%d] deleteLicenseRetryWith  %+v", 449, o.Payload)
 }
+
+func (o *DeleteLicenseRetryWith) String() string {
+	return fmt.Sprintf("[DELETE /platform/license][%d] deleteLicenseRetryWith  %+v", 449, o.Payload)
+}
+
 func (o *DeleteLicenseRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

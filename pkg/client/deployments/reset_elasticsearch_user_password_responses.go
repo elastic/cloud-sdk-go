@@ -74,7 +74,8 @@ func NewResetElasticsearchUserPasswordOK() *ResetElasticsearchUserPasswordOK {
 	return &ResetElasticsearchUserPasswordOK{}
 }
 
-/* ResetElasticsearchUserPasswordOK describes a response with status code 200, with default header values.
+/*
+ResetElasticsearchUserPasswordOK describes a response with status code 200, with default header values.
 
 The password reset was out carried successfully
 */
@@ -82,9 +83,44 @@ type ResetElasticsearchUserPasswordOK struct {
 	Payload *models.ElasticsearchElasticUserPasswordResetResponse
 }
 
+// IsSuccess returns true when this reset elasticsearch user password o k response has a 2xx status code
+func (o *ResetElasticsearchUserPasswordOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this reset elasticsearch user password o k response has a 3xx status code
+func (o *ResetElasticsearchUserPasswordOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this reset elasticsearch user password o k response has a 4xx status code
+func (o *ResetElasticsearchUserPasswordOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this reset elasticsearch user password o k response has a 5xx status code
+func (o *ResetElasticsearchUserPasswordOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this reset elasticsearch user password o k response a status code equal to that given
+func (o *ResetElasticsearchUserPasswordOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the reset elasticsearch user password o k response
+func (o *ResetElasticsearchUserPasswordOK) Code() int {
+	return 200
+}
+
 func (o *ResetElasticsearchUserPasswordOK) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_reset-password][%d] resetElasticsearchUserPasswordOK  %+v", 200, o.Payload)
 }
+
+func (o *ResetElasticsearchUserPasswordOK) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_reset-password][%d] resetElasticsearchUserPasswordOK  %+v", 200, o.Payload)
+}
+
 func (o *ResetElasticsearchUserPasswordOK) GetPayload() *models.ElasticsearchElasticUserPasswordResetResponse {
 	return o.Payload
 }
@@ -106,9 +142,11 @@ func NewResetElasticsearchUserPasswordNotFound() *ResetElasticsearchUserPassword
 	return &ResetElasticsearchUserPasswordNotFound{}
 }
 
-/* ResetElasticsearchUserPasswordNotFound describes a response with status code 404, with default header values.
+/*
+	ResetElasticsearchUserPasswordNotFound describes a response with status code 404, with default header values.
 
- * The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+	* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+
 * The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)
 */
 type ResetElasticsearchUserPasswordNotFound struct {
@@ -120,9 +158,44 @@ type ResetElasticsearchUserPasswordNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this reset elasticsearch user password not found response has a 2xx status code
+func (o *ResetElasticsearchUserPasswordNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this reset elasticsearch user password not found response has a 3xx status code
+func (o *ResetElasticsearchUserPasswordNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this reset elasticsearch user password not found response has a 4xx status code
+func (o *ResetElasticsearchUserPasswordNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this reset elasticsearch user password not found response has a 5xx status code
+func (o *ResetElasticsearchUserPasswordNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this reset elasticsearch user password not found response a status code equal to that given
+func (o *ResetElasticsearchUserPasswordNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the reset elasticsearch user password not found response
+func (o *ResetElasticsearchUserPasswordNotFound) Code() int {
+	return 404
+}
+
 func (o *ResetElasticsearchUserPasswordNotFound) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_reset-password][%d] resetElasticsearchUserPasswordNotFound  %+v", 404, o.Payload)
 }
+
+func (o *ResetElasticsearchUserPasswordNotFound) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_reset-password][%d] resetElasticsearchUserPasswordNotFound  %+v", 404, o.Payload)
+}
+
 func (o *ResetElasticsearchUserPasswordNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -151,7 +224,8 @@ func NewResetElasticsearchUserPasswordRetryWith() *ResetElasticsearchUserPasswor
 	return &ResetElasticsearchUserPasswordRetryWith{}
 }
 
-/* ResetElasticsearchUserPasswordRetryWith describes a response with status code 449, with default header values.
+/*
+ResetElasticsearchUserPasswordRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
@@ -164,9 +238,44 @@ type ResetElasticsearchUserPasswordRetryWith struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this reset elasticsearch user password retry with response has a 2xx status code
+func (o *ResetElasticsearchUserPasswordRetryWith) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this reset elasticsearch user password retry with response has a 3xx status code
+func (o *ResetElasticsearchUserPasswordRetryWith) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this reset elasticsearch user password retry with response has a 4xx status code
+func (o *ResetElasticsearchUserPasswordRetryWith) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this reset elasticsearch user password retry with response has a 5xx status code
+func (o *ResetElasticsearchUserPasswordRetryWith) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this reset elasticsearch user password retry with response a status code equal to that given
+func (o *ResetElasticsearchUserPasswordRetryWith) IsCode(code int) bool {
+	return code == 449
+}
+
+// Code gets the status code for the reset elasticsearch user password retry with response
+func (o *ResetElasticsearchUserPasswordRetryWith) Code() int {
+	return 449
+}
+
 func (o *ResetElasticsearchUserPasswordRetryWith) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_reset-password][%d] resetElasticsearchUserPasswordRetryWith  %+v", 449, o.Payload)
 }
+
+func (o *ResetElasticsearchUserPasswordRetryWith) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_reset-password][%d] resetElasticsearchUserPasswordRetryWith  %+v", 449, o.Payload)
+}
+
 func (o *ResetElasticsearchUserPasswordRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -195,7 +304,8 @@ func NewResetElasticsearchUserPasswordInternalServerError() *ResetElasticsearchU
 	return &ResetElasticsearchUserPasswordInternalServerError{}
 }
 
-/* ResetElasticsearchUserPasswordInternalServerError describes a response with status code 500, with default header values.
+/*
+ResetElasticsearchUserPasswordInternalServerError describes a response with status code 500, with default header values.
 
 Failed to reset the 'elastic' user's password. (code: `deployments.elasticsearch.password_reset_error`)
 */
@@ -208,9 +318,44 @@ type ResetElasticsearchUserPasswordInternalServerError struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this reset elasticsearch user password internal server error response has a 2xx status code
+func (o *ResetElasticsearchUserPasswordInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this reset elasticsearch user password internal server error response has a 3xx status code
+func (o *ResetElasticsearchUserPasswordInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this reset elasticsearch user password internal server error response has a 4xx status code
+func (o *ResetElasticsearchUserPasswordInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this reset elasticsearch user password internal server error response has a 5xx status code
+func (o *ResetElasticsearchUserPasswordInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this reset elasticsearch user password internal server error response a status code equal to that given
+func (o *ResetElasticsearchUserPasswordInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
+// Code gets the status code for the reset elasticsearch user password internal server error response
+func (o *ResetElasticsearchUserPasswordInternalServerError) Code() int {
+	return 500
+}
+
 func (o *ResetElasticsearchUserPasswordInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_reset-password][%d] resetElasticsearchUserPasswordInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ResetElasticsearchUserPasswordInternalServerError) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_reset-password][%d] resetElasticsearchUserPasswordInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ResetElasticsearchUserPasswordInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

@@ -69,10 +69,12 @@ func NewGetCostsChartsByDeploymentParamsWithHTTPClient(client *http.Client) *Get
 	}
 }
 
-/* GetCostsChartsByDeploymentParams contains all the parameters to send to the API endpoint
-   for the get costs charts by deployment operation.
+/*
+GetCostsChartsByDeploymentParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the get costs charts by deployment operation.
+
+	Typically these are written to a http.Request.
 */
 type GetCostsChartsByDeploymentParams struct {
 

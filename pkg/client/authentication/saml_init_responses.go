@@ -68,7 +68,8 @@ func NewSamlInitFound() *SamlInitFound {
 	return &SamlInitFound{}
 }
 
-/* SamlInitFound describes a response with status code 302, with default header values.
+/*
+SamlInitFound describes a response with status code 302, with default header values.
 
 Redirects the client to the identity provider with a SAML authentication request
 */
@@ -76,9 +77,44 @@ type SamlInitFound struct {
 	Payload models.EmptyResponse
 }
 
+// IsSuccess returns true when this saml init found response has a 2xx status code
+func (o *SamlInitFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this saml init found response has a 3xx status code
+func (o *SamlInitFound) IsRedirect() bool {
+	return true
+}
+
+// IsClientError returns true when this saml init found response has a 4xx status code
+func (o *SamlInitFound) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this saml init found response has a 5xx status code
+func (o *SamlInitFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this saml init found response a status code equal to that given
+func (o *SamlInitFound) IsCode(code int) bool {
+	return code == 302
+}
+
+// Code gets the status code for the saml init found response
+func (o *SamlInitFound) Code() int {
+	return 302
+}
+
 func (o *SamlInitFound) Error() string {
 	return fmt.Sprintf("[GET /users/auth/saml/_init][%d] samlInitFound  %+v", 302, o.Payload)
 }
+
+func (o *SamlInitFound) String() string {
+	return fmt.Sprintf("[GET /users/auth/saml/_init][%d] samlInitFound  %+v", 302, o.Payload)
+}
+
 func (o *SamlInitFound) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -98,7 +134,8 @@ func NewSamlInitNotImplemented() *SamlInitNotImplemented {
 	return &SamlInitNotImplemented{}
 }
 
-/* SamlInitNotImplemented describes a response with status code 501, with default header values.
+/*
+SamlInitNotImplemented describes a response with status code 501, with default header values.
 
 The administrator needs to configure the authentication cluster. (code: `authc.no_authentication_cluster`)
 */
@@ -111,9 +148,44 @@ type SamlInitNotImplemented struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this saml init not implemented response has a 2xx status code
+func (o *SamlInitNotImplemented) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this saml init not implemented response has a 3xx status code
+func (o *SamlInitNotImplemented) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this saml init not implemented response has a 4xx status code
+func (o *SamlInitNotImplemented) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this saml init not implemented response has a 5xx status code
+func (o *SamlInitNotImplemented) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this saml init not implemented response a status code equal to that given
+func (o *SamlInitNotImplemented) IsCode(code int) bool {
+	return code == 501
+}
+
+// Code gets the status code for the saml init not implemented response
+func (o *SamlInitNotImplemented) Code() int {
+	return 501
+}
+
 func (o *SamlInitNotImplemented) Error() string {
 	return fmt.Sprintf("[GET /users/auth/saml/_init][%d] samlInitNotImplemented  %+v", 501, o.Payload)
 }
+
+func (o *SamlInitNotImplemented) String() string {
+	return fmt.Sprintf("[GET /users/auth/saml/_init][%d] samlInitNotImplemented  %+v", 501, o.Payload)
+}
+
 func (o *SamlInitNotImplemented) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -142,7 +214,8 @@ func NewSamlInitBadGateway() *SamlInitBadGateway {
 	return &SamlInitBadGateway{}
 }
 
-/* SamlInitBadGateway describes a response with status code 502, with default header values.
+/*
+SamlInitBadGateway describes a response with status code 502, with default header values.
 
 The authentication cluster failed to process the request. The response body contains details about the error. (code: `authc.authentication_cluster_error`)
 */
@@ -155,9 +228,44 @@ type SamlInitBadGateway struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this saml init bad gateway response has a 2xx status code
+func (o *SamlInitBadGateway) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this saml init bad gateway response has a 3xx status code
+func (o *SamlInitBadGateway) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this saml init bad gateway response has a 4xx status code
+func (o *SamlInitBadGateway) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this saml init bad gateway response has a 5xx status code
+func (o *SamlInitBadGateway) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this saml init bad gateway response a status code equal to that given
+func (o *SamlInitBadGateway) IsCode(code int) bool {
+	return code == 502
+}
+
+// Code gets the status code for the saml init bad gateway response
+func (o *SamlInitBadGateway) Code() int {
+	return 502
+}
+
 func (o *SamlInitBadGateway) Error() string {
 	return fmt.Sprintf("[GET /users/auth/saml/_init][%d] samlInitBadGateway  %+v", 502, o.Payload)
 }
+
+func (o *SamlInitBadGateway) String() string {
+	return fmt.Sprintf("[GET /users/auth/saml/_init][%d] samlInitBadGateway  %+v", 502, o.Payload)
+}
+
 func (o *SamlInitBadGateway) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

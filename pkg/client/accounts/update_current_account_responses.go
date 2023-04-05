@@ -62,7 +62,8 @@ func NewUpdateCurrentAccountOK() *UpdateCurrentAccountOK {
 	return &UpdateCurrentAccountOK{}
 }
 
-/* UpdateCurrentAccountOK describes a response with status code 200, with default header values.
+/*
+UpdateCurrentAccountOK describes a response with status code 200, with default header values.
 
 Account updated successfully
 */
@@ -70,9 +71,44 @@ type UpdateCurrentAccountOK struct {
 	Payload *models.AccountResponse
 }
 
+// IsSuccess returns true when this update current account o k response has a 2xx status code
+func (o *UpdateCurrentAccountOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this update current account o k response has a 3xx status code
+func (o *UpdateCurrentAccountOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update current account o k response has a 4xx status code
+func (o *UpdateCurrentAccountOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this update current account o k response has a 5xx status code
+func (o *UpdateCurrentAccountOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update current account o k response a status code equal to that given
+func (o *UpdateCurrentAccountOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the update current account o k response
+func (o *UpdateCurrentAccountOK) Code() int {
+	return 200
+}
+
 func (o *UpdateCurrentAccountOK) Error() string {
 	return fmt.Sprintf("[PUT /account][%d] updateCurrentAccountOK  %+v", 200, o.Payload)
 }
+
+func (o *UpdateCurrentAccountOK) String() string {
+	return fmt.Sprintf("[PUT /account][%d] updateCurrentAccountOK  %+v", 200, o.Payload)
+}
+
 func (o *UpdateCurrentAccountOK) GetPayload() *models.AccountResponse {
 	return o.Payload
 }
@@ -94,7 +130,8 @@ func NewUpdateCurrentAccountNotFound() *UpdateCurrentAccountNotFound {
 	return &UpdateCurrentAccountNotFound{}
 }
 
-/* UpdateCurrentAccountNotFound describes a response with status code 404, with default header values.
+/*
+UpdateCurrentAccountNotFound describes a response with status code 404, with default header values.
 
 Account not found. (code: `accounts.not_found`)
 */
@@ -107,9 +144,44 @@ type UpdateCurrentAccountNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this update current account not found response has a 2xx status code
+func (o *UpdateCurrentAccountNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update current account not found response has a 3xx status code
+func (o *UpdateCurrentAccountNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update current account not found response has a 4xx status code
+func (o *UpdateCurrentAccountNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update current account not found response has a 5xx status code
+func (o *UpdateCurrentAccountNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update current account not found response a status code equal to that given
+func (o *UpdateCurrentAccountNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the update current account not found response
+func (o *UpdateCurrentAccountNotFound) Code() int {
+	return 404
+}
+
 func (o *UpdateCurrentAccountNotFound) Error() string {
 	return fmt.Sprintf("[PUT /account][%d] updateCurrentAccountNotFound  %+v", 404, o.Payload)
 }
+
+func (o *UpdateCurrentAccountNotFound) String() string {
+	return fmt.Sprintf("[PUT /account][%d] updateCurrentAccountNotFound  %+v", 404, o.Payload)
+}
+
 func (o *UpdateCurrentAccountNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

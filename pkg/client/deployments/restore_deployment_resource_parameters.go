@@ -70,10 +70,12 @@ func NewRestoreDeploymentResourceParamsWithHTTPClient(client *http.Client) *Rest
 	}
 }
 
-/* RestoreDeploymentResourceParams contains all the parameters to send to the API endpoint
-   for the restore deployment resource operation.
+/*
+RestoreDeploymentResourceParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the restore deployment resource operation.
+
+	Typically these are written to a http.Request.
 */
 type RestoreDeploymentResourceParams struct {
 

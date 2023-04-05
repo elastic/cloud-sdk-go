@@ -69,10 +69,12 @@ func NewDeleteDeploymentResourceProxyRequestsParamsWithHTTPClient(client *http.C
 	}
 }
 
-/* DeleteDeploymentResourceProxyRequestsParams contains all the parameters to send to the API endpoint
-   for the delete deployment resource proxy requests operation.
+/*
+DeleteDeploymentResourceProxyRequestsParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the delete deployment resource proxy requests operation.
+
+	Typically these are written to a http.Request.
 */
 type DeleteDeploymentResourceProxyRequestsParams struct {
 

@@ -74,7 +74,8 @@ func NewCreateExtensionCreated() *CreateExtensionCreated {
 	return &CreateExtensionCreated{}
 }
 
-/* CreateExtensionCreated describes a response with status code 201, with default header values.
+/*
+CreateExtensionCreated describes a response with status code 201, with default header values.
 
 The extension that was just created.
 */
@@ -95,9 +96,44 @@ type CreateExtensionCreated struct {
 	Payload *models.Extension
 }
 
+// IsSuccess returns true when this create extension created response has a 2xx status code
+func (o *CreateExtensionCreated) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this create extension created response has a 3xx status code
+func (o *CreateExtensionCreated) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create extension created response has a 4xx status code
+func (o *CreateExtensionCreated) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this create extension created response has a 5xx status code
+func (o *CreateExtensionCreated) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create extension created response a status code equal to that given
+func (o *CreateExtensionCreated) IsCode(code int) bool {
+	return code == 201
+}
+
+// Code gets the status code for the create extension created response
+func (o *CreateExtensionCreated) Code() int {
+	return 201
+}
+
 func (o *CreateExtensionCreated) Error() string {
 	return fmt.Sprintf("[POST /deployments/extensions][%d] createExtensionCreated  %+v", 201, o.Payload)
 }
+
+func (o *CreateExtensionCreated) String() string {
+	return fmt.Sprintf("[POST /deployments/extensions][%d] createExtensionCreated  %+v", 201, o.Payload)
+}
+
 func (o *CreateExtensionCreated) GetPayload() *models.Extension {
 	return o.Payload
 }
@@ -140,7 +176,8 @@ func NewCreateExtensionBadRequest() *CreateExtensionBadRequest {
 	return &CreateExtensionBadRequest{}
 }
 
-/* CreateExtensionBadRequest describes a response with status code 400, with default header values.
+/*
+CreateExtensionBadRequest describes a response with status code 400, with default header values.
 
 Could not download the extension from the specified URL. (code: `extensions.request_execution_failed`)
 */
@@ -153,9 +190,44 @@ type CreateExtensionBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this create extension bad request response has a 2xx status code
+func (o *CreateExtensionBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this create extension bad request response has a 3xx status code
+func (o *CreateExtensionBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create extension bad request response has a 4xx status code
+func (o *CreateExtensionBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this create extension bad request response has a 5xx status code
+func (o *CreateExtensionBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create extension bad request response a status code equal to that given
+func (o *CreateExtensionBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the create extension bad request response
+func (o *CreateExtensionBadRequest) Code() int {
+	return 400
+}
+
 func (o *CreateExtensionBadRequest) Error() string {
 	return fmt.Sprintf("[POST /deployments/extensions][%d] createExtensionBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *CreateExtensionBadRequest) String() string {
+	return fmt.Sprintf("[POST /deployments/extensions][%d] createExtensionBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *CreateExtensionBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -184,7 +256,8 @@ func NewCreateExtensionNotFound() *CreateExtensionNotFound {
 	return &CreateExtensionNotFound{}
 }
 
-/* CreateExtensionNotFound describes a response with status code 404, with default header values.
+/*
+CreateExtensionNotFound describes a response with status code 404, with default header values.
 
 Your current session does not have a user id associated with it. (code: `extensions.no_user_id`)
 */
@@ -197,9 +270,44 @@ type CreateExtensionNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this create extension not found response has a 2xx status code
+func (o *CreateExtensionNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this create extension not found response has a 3xx status code
+func (o *CreateExtensionNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create extension not found response has a 4xx status code
+func (o *CreateExtensionNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this create extension not found response has a 5xx status code
+func (o *CreateExtensionNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create extension not found response a status code equal to that given
+func (o *CreateExtensionNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the create extension not found response
+func (o *CreateExtensionNotFound) Code() int {
+	return 404
+}
+
 func (o *CreateExtensionNotFound) Error() string {
 	return fmt.Sprintf("[POST /deployments/extensions][%d] createExtensionNotFound  %+v", 404, o.Payload)
 }
+
+func (o *CreateExtensionNotFound) String() string {
+	return fmt.Sprintf("[POST /deployments/extensions][%d] createExtensionNotFound  %+v", 404, o.Payload)
+}
+
 func (o *CreateExtensionNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -228,7 +336,8 @@ func NewCreateExtensionConflict() *CreateExtensionConflict {
 	return &CreateExtensionConflict{}
 }
 
-/* CreateExtensionConflict describes a response with status code 409, with default header values.
+/*
+CreateExtensionConflict describes a response with status code 409, with default header values.
 
 An extension already exists with the generated id. Please try again. (code: `extensions.id_already_exists`)
 */
@@ -241,9 +350,44 @@ type CreateExtensionConflict struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this create extension conflict response has a 2xx status code
+func (o *CreateExtensionConflict) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this create extension conflict response has a 3xx status code
+func (o *CreateExtensionConflict) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create extension conflict response has a 4xx status code
+func (o *CreateExtensionConflict) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this create extension conflict response has a 5xx status code
+func (o *CreateExtensionConflict) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create extension conflict response a status code equal to that given
+func (o *CreateExtensionConflict) IsCode(code int) bool {
+	return code == 409
+}
+
+// Code gets the status code for the create extension conflict response
+func (o *CreateExtensionConflict) Code() int {
+	return 409
+}
+
 func (o *CreateExtensionConflict) Error() string {
 	return fmt.Sprintf("[POST /deployments/extensions][%d] createExtensionConflict  %+v", 409, o.Payload)
 }
+
+func (o *CreateExtensionConflict) String() string {
+	return fmt.Sprintf("[POST /deployments/extensions][%d] createExtensionConflict  %+v", 409, o.Payload)
+}
+
 func (o *CreateExtensionConflict) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

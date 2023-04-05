@@ -69,10 +69,12 @@ func NewPostDeploymentResourceProxyRequestsParamsWithHTTPClient(client *http.Cli
 	}
 }
 
-/* PostDeploymentResourceProxyRequestsParams contains all the parameters to send to the API endpoint
-   for the post deployment resource proxy requests operation.
+/*
+PostDeploymentResourceProxyRequestsParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the post deployment resource proxy requests operation.
+
+	Typically these are written to a http.Request.
 */
 type PostDeploymentResourceProxyRequestsParams struct {
 

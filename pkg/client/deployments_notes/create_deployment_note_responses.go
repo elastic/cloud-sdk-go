@@ -68,7 +68,8 @@ func NewCreateDeploymentNoteCreated() *CreateDeploymentNoteCreated {
 	return &CreateDeploymentNoteCreated{}
 }
 
-/* CreateDeploymentNoteCreated describes a response with status code 201, with default header values.
+/*
+CreateDeploymentNoteCreated describes a response with status code 201, with default header values.
 
 List of deployment notes after the new deployment note has been added
 */
@@ -76,9 +77,44 @@ type CreateDeploymentNoteCreated struct {
 	Payload *models.Notes
 }
 
+// IsSuccess returns true when this create deployment note created response has a 2xx status code
+func (o *CreateDeploymentNoteCreated) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this create deployment note created response has a 3xx status code
+func (o *CreateDeploymentNoteCreated) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create deployment note created response has a 4xx status code
+func (o *CreateDeploymentNoteCreated) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this create deployment note created response has a 5xx status code
+func (o *CreateDeploymentNoteCreated) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create deployment note created response a status code equal to that given
+func (o *CreateDeploymentNoteCreated) IsCode(code int) bool {
+	return code == 201
+}
+
+// Code gets the status code for the create deployment note created response
+func (o *CreateDeploymentNoteCreated) Code() int {
+	return 201
+}
+
 func (o *CreateDeploymentNoteCreated) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/notes][%d] createDeploymentNoteCreated  %+v", 201, o.Payload)
 }
+
+func (o *CreateDeploymentNoteCreated) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/notes][%d] createDeploymentNoteCreated  %+v", 201, o.Payload)
+}
+
 func (o *CreateDeploymentNoteCreated) GetPayload() *models.Notes {
 	return o.Payload
 }
@@ -100,7 +136,8 @@ func NewCreateDeploymentNoteNotFound() *CreateDeploymentNoteNotFound {
 	return &CreateDeploymentNoteNotFound{}
 }
 
-/* CreateDeploymentNoteNotFound describes a response with status code 404, with default header values.
+/*
+CreateDeploymentNoteNotFound describes a response with status code 404, with default header values.
 
 The deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
 */
@@ -113,9 +150,44 @@ type CreateDeploymentNoteNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this create deployment note not found response has a 2xx status code
+func (o *CreateDeploymentNoteNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this create deployment note not found response has a 3xx status code
+func (o *CreateDeploymentNoteNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create deployment note not found response has a 4xx status code
+func (o *CreateDeploymentNoteNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this create deployment note not found response has a 5xx status code
+func (o *CreateDeploymentNoteNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create deployment note not found response a status code equal to that given
+func (o *CreateDeploymentNoteNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the create deployment note not found response
+func (o *CreateDeploymentNoteNotFound) Code() int {
+	return 404
+}
+
 func (o *CreateDeploymentNoteNotFound) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/notes][%d] createDeploymentNoteNotFound  %+v", 404, o.Payload)
 }
+
+func (o *CreateDeploymentNoteNotFound) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/notes][%d] createDeploymentNoteNotFound  %+v", 404, o.Payload)
+}
+
 func (o *CreateDeploymentNoteNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -144,7 +216,8 @@ func NewCreateDeploymentNoteRetryWith() *CreateDeploymentNoteRetryWith {
 	return &CreateDeploymentNoteRetryWith{}
 }
 
-/* CreateDeploymentNoteRetryWith describes a response with status code 449, with default header values.
+/*
+CreateDeploymentNoteRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
@@ -157,9 +230,44 @@ type CreateDeploymentNoteRetryWith struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this create deployment note retry with response has a 2xx status code
+func (o *CreateDeploymentNoteRetryWith) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this create deployment note retry with response has a 3xx status code
+func (o *CreateDeploymentNoteRetryWith) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create deployment note retry with response has a 4xx status code
+func (o *CreateDeploymentNoteRetryWith) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this create deployment note retry with response has a 5xx status code
+func (o *CreateDeploymentNoteRetryWith) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create deployment note retry with response a status code equal to that given
+func (o *CreateDeploymentNoteRetryWith) IsCode(code int) bool {
+	return code == 449
+}
+
+// Code gets the status code for the create deployment note retry with response
+func (o *CreateDeploymentNoteRetryWith) Code() int {
+	return 449
+}
+
 func (o *CreateDeploymentNoteRetryWith) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/notes][%d] createDeploymentNoteRetryWith  %+v", 449, o.Payload)
 }
+
+func (o *CreateDeploymentNoteRetryWith) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/notes][%d] createDeploymentNoteRetryWith  %+v", 449, o.Payload)
+}
+
 func (o *CreateDeploymentNoteRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

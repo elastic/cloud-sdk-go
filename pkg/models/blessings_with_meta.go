@@ -73,6 +73,8 @@ func (m *BlessingsWithMeta) validateMeta(formats strfmt.Registry) error {
 		if err := m.Meta.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("meta")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("meta")
 			}
 			return err
 		}
@@ -91,6 +93,8 @@ func (m *BlessingsWithMeta) validateValue(formats strfmt.Registry) error {
 		if err := m.Value.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("value")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("value")
 			}
 			return err
 		}
@@ -123,6 +127,8 @@ func (m *BlessingsWithMeta) contextValidateMeta(ctx context.Context, formats str
 		if err := m.Meta.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("meta")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("meta")
 			}
 			return err
 		}
@@ -137,6 +143,8 @@ func (m *BlessingsWithMeta) contextValidateValue(ctx context.Context, formats st
 		if err := m.Value.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("value")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("value")
 			}
 			return err
 		}

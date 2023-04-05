@@ -69,10 +69,12 @@ func NewGetProxiesFilteredGroupHealthParamsWithHTTPClient(client *http.Client) *
 	}
 }
 
-/* GetProxiesFilteredGroupHealthParams contains all the parameters to send to the API endpoint
-   for the get proxies filtered group health operation.
+/*
+GetProxiesFilteredGroupHealthParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the get proxies filtered group health operation.
+
+	Typically these are written to a http.Request.
 */
 type GetProxiesFilteredGroupHealthParams struct {
 

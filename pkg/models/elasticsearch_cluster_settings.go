@@ -100,6 +100,8 @@ func (m *ElasticsearchClusterSettings) validateCuration(formats strfmt.Registry)
 		if err := m.Curation.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("curation")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("curation")
 			}
 			return err
 		}
@@ -117,6 +119,8 @@ func (m *ElasticsearchClusterSettings) validateMetadata(formats strfmt.Registry)
 		if err := m.Metadata.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("metadata")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("metadata")
 			}
 			return err
 		}
@@ -134,6 +138,8 @@ func (m *ElasticsearchClusterSettings) validateMonitoring(formats strfmt.Registr
 		if err := m.Monitoring.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("monitoring")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("monitoring")
 			}
 			return err
 		}
@@ -151,6 +157,8 @@ func (m *ElasticsearchClusterSettings) validateSnapshot(formats strfmt.Registry)
 		if err := m.Snapshot.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("snapshot")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("snapshot")
 			}
 			return err
 		}
@@ -168,6 +176,8 @@ func (m *ElasticsearchClusterSettings) validateTrafficFilter(formats strfmt.Regi
 		if err := m.TrafficFilter.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("traffic_filter")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("traffic_filter")
 			}
 			return err
 		}
@@ -185,6 +195,8 @@ func (m *ElasticsearchClusterSettings) validateTrust(formats strfmt.Registry) er
 		if err := m.Trust.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("trust")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("trust")
 			}
 			return err
 		}
@@ -233,6 +245,8 @@ func (m *ElasticsearchClusterSettings) contextValidateCuration(ctx context.Conte
 		if err := m.Curation.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("curation")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("curation")
 			}
 			return err
 		}
@@ -247,6 +261,8 @@ func (m *ElasticsearchClusterSettings) contextValidateMetadata(ctx context.Conte
 		if err := m.Metadata.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("metadata")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("metadata")
 			}
 			return err
 		}
@@ -261,6 +277,8 @@ func (m *ElasticsearchClusterSettings) contextValidateMonitoring(ctx context.Con
 		if err := m.Monitoring.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("monitoring")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("monitoring")
 			}
 			return err
 		}
@@ -275,6 +293,8 @@ func (m *ElasticsearchClusterSettings) contextValidateSnapshot(ctx context.Conte
 		if err := m.Snapshot.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("snapshot")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("snapshot")
 			}
 			return err
 		}
@@ -289,6 +309,8 @@ func (m *ElasticsearchClusterSettings) contextValidateTrafficFilter(ctx context.
 		if err := m.TrafficFilter.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("traffic_filter")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("traffic_filter")
 			}
 			return err
 		}
@@ -303,6 +325,8 @@ func (m *ElasticsearchClusterSettings) contextValidateTrust(ctx context.Context,
 		if err := m.Trust.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("trust")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("trust")
 			}
 			return err
 		}

@@ -69,10 +69,12 @@ func NewGetDefaultDeploymentDomainNameParamsWithHTTPClient(client *http.Client) 
 	}
 }
 
-/* GetDefaultDeploymentDomainNameParams contains all the parameters to send to the API endpoint
-   for the get default deployment domain name operation.
+/*
+GetDefaultDeploymentDomainNameParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the get default deployment domain name operation.
+
+	Typically these are written to a http.Request.
 */
 type GetDefaultDeploymentDomainNameParams struct {
 	timeout    time.Duration

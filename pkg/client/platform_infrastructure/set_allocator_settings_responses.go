@@ -68,7 +68,8 @@ func NewSetAllocatorSettingsOK() *SetAllocatorSettingsOK {
 	return &SetAllocatorSettingsOK{}
 }
 
-/* SetAllocatorSettingsOK describes a response with status code 200, with default header values.
+/*
+SetAllocatorSettingsOK describes a response with status code 200, with default header values.
 
 Returns the updated settings for the specified allocator
 */
@@ -76,9 +77,44 @@ type SetAllocatorSettingsOK struct {
 	Payload *models.AllocatorSettings
 }
 
+// IsSuccess returns true when this set allocator settings o k response has a 2xx status code
+func (o *SetAllocatorSettingsOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this set allocator settings o k response has a 3xx status code
+func (o *SetAllocatorSettingsOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set allocator settings o k response has a 4xx status code
+func (o *SetAllocatorSettingsOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this set allocator settings o k response has a 5xx status code
+func (o *SetAllocatorSettingsOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set allocator settings o k response a status code equal to that given
+func (o *SetAllocatorSettingsOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the set allocator settings o k response
+func (o *SetAllocatorSettingsOK) Code() int {
+	return 200
+}
+
 func (o *SetAllocatorSettingsOK) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/allocators/{allocator_id}/settings][%d] setAllocatorSettingsOK  %+v", 200, o.Payload)
 }
+
+func (o *SetAllocatorSettingsOK) String() string {
+	return fmt.Sprintf("[PUT /platform/infrastructure/allocators/{allocator_id}/settings][%d] setAllocatorSettingsOK  %+v", 200, o.Payload)
+}
+
 func (o *SetAllocatorSettingsOK) GetPayload() *models.AllocatorSettings {
 	return o.Payload
 }
@@ -100,7 +136,8 @@ func NewSetAllocatorSettingsNotFound() *SetAllocatorSettingsNotFound {
 	return &SetAllocatorSettingsNotFound{}
 }
 
-/* SetAllocatorSettingsNotFound describes a response with status code 404, with default header values.
+/*
+SetAllocatorSettingsNotFound describes a response with status code 404, with default header values.
 
 The allocator specified by {allocator_id} cannot be found. (code: `allocators.allocator_not_found`)
 */
@@ -113,9 +150,44 @@ type SetAllocatorSettingsNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this set allocator settings not found response has a 2xx status code
+func (o *SetAllocatorSettingsNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this set allocator settings not found response has a 3xx status code
+func (o *SetAllocatorSettingsNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set allocator settings not found response has a 4xx status code
+func (o *SetAllocatorSettingsNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this set allocator settings not found response has a 5xx status code
+func (o *SetAllocatorSettingsNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set allocator settings not found response a status code equal to that given
+func (o *SetAllocatorSettingsNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the set allocator settings not found response
+func (o *SetAllocatorSettingsNotFound) Code() int {
+	return 404
+}
+
 func (o *SetAllocatorSettingsNotFound) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/allocators/{allocator_id}/settings][%d] setAllocatorSettingsNotFound  %+v", 404, o.Payload)
 }
+
+func (o *SetAllocatorSettingsNotFound) String() string {
+	return fmt.Sprintf("[PUT /platform/infrastructure/allocators/{allocator_id}/settings][%d] setAllocatorSettingsNotFound  %+v", 404, o.Payload)
+}
+
 func (o *SetAllocatorSettingsNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -144,7 +216,8 @@ func NewSetAllocatorSettingsRetryWith() *SetAllocatorSettingsRetryWith {
 	return &SetAllocatorSettingsRetryWith{}
 }
 
-/* SetAllocatorSettingsRetryWith describes a response with status code 449, with default header values.
+/*
+SetAllocatorSettingsRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
@@ -157,9 +230,44 @@ type SetAllocatorSettingsRetryWith struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this set allocator settings retry with response has a 2xx status code
+func (o *SetAllocatorSettingsRetryWith) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this set allocator settings retry with response has a 3xx status code
+func (o *SetAllocatorSettingsRetryWith) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set allocator settings retry with response has a 4xx status code
+func (o *SetAllocatorSettingsRetryWith) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this set allocator settings retry with response has a 5xx status code
+func (o *SetAllocatorSettingsRetryWith) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set allocator settings retry with response a status code equal to that given
+func (o *SetAllocatorSettingsRetryWith) IsCode(code int) bool {
+	return code == 449
+}
+
+// Code gets the status code for the set allocator settings retry with response
+func (o *SetAllocatorSettingsRetryWith) Code() int {
+	return 449
+}
+
 func (o *SetAllocatorSettingsRetryWith) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/allocators/{allocator_id}/settings][%d] setAllocatorSettingsRetryWith  %+v", 449, o.Payload)
 }
+
+func (o *SetAllocatorSettingsRetryWith) String() string {
+	return fmt.Sprintf("[PUT /platform/infrastructure/allocators/{allocator_id}/settings][%d] setAllocatorSettingsRetryWith  %+v", 449, o.Payload)
+}
+
 func (o *SetAllocatorSettingsRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

@@ -130,6 +130,8 @@ func (m *ClusterPlanStepInfo) validateInfoLog(formats strfmt.Registry) error {
 			if err := m.InfoLog[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("info_log" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("info_log" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -279,6 +281,8 @@ func (m *ClusterPlanStepInfo) contextValidateInfoLog(ctx context.Context, format
 			if err := m.InfoLog[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("info_log" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("info_log" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

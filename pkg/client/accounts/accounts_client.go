@@ -57,9 +57,9 @@ type ClientService interface {
 }
 
 /*
-  GetCurrentAccount fetches current account information
+GetCurrentAccount fetches current account information
 
-  Fetch current account information.
+Fetch current account information.
 */
 func (a *Client) GetCurrentAccount(params *GetCurrentAccountParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCurrentAccountOK, error) {
 	// TODO: Validate the params before sending
@@ -98,9 +98,9 @@ func (a *Client) GetCurrentAccount(params *GetCurrentAccountParams, authInfo run
 }
 
 /*
-  PatchCurrentAccount updates the current account
+PatchCurrentAccount updates the current account
 
-  Updates the current account.
+Updates the current account.
 */
 func (a *Client) PatchCurrentAccount(params *PatchCurrentAccountParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PatchCurrentAccountOK, error) {
 	// TODO: Validate the params before sending
@@ -139,9 +139,9 @@ func (a *Client) PatchCurrentAccount(params *PatchCurrentAccountParams, authInfo
 }
 
 /*
-  UpdateCurrentAccount updates the current account
+UpdateCurrentAccount updates the current account
 
-  Updates the current account.
+Updates the current account.
 */
 func (a *Client) UpdateCurrentAccount(params *UpdateCurrentAccountParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateCurrentAccountOK, error) {
 	// TODO: Validate the params before sending

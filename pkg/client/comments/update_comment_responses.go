@@ -74,7 +74,8 @@ func NewUpdateCommentOK() *UpdateCommentOK {
 	return &UpdateCommentOK{}
 }
 
-/* UpdateCommentOK describes a response with status code 200, with default header values.
+/*
+UpdateCommentOK describes a response with status code 200, with default header values.
 
 Comment updated successfully.
 */
@@ -95,9 +96,44 @@ type UpdateCommentOK struct {
 	Payload *models.Comment
 }
 
+// IsSuccess returns true when this update comment o k response has a 2xx status code
+func (o *UpdateCommentOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this update comment o k response has a 3xx status code
+func (o *UpdateCommentOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update comment o k response has a 4xx status code
+func (o *UpdateCommentOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this update comment o k response has a 5xx status code
+func (o *UpdateCommentOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update comment o k response a status code equal to that given
+func (o *UpdateCommentOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the update comment o k response
+func (o *UpdateCommentOK) Code() int {
+	return 200
+}
+
 func (o *UpdateCommentOK) Error() string {
 	return fmt.Sprintf("[PUT /comments/{resource_type}/{resource_id}/{comment_id}][%d] updateCommentOK  %+v", 200, o.Payload)
 }
+
+func (o *UpdateCommentOK) String() string {
+	return fmt.Sprintf("[PUT /comments/{resource_type}/{resource_id}/{comment_id}][%d] updateCommentOK  %+v", 200, o.Payload)
+}
+
 func (o *UpdateCommentOK) GetPayload() *models.Comment {
 	return o.Payload
 }
@@ -140,9 +176,11 @@ func NewUpdateCommentUnauthorized() *UpdateCommentUnauthorized {
 	return &UpdateCommentUnauthorized{}
 }
 
-/* UpdateCommentUnauthorized describes a response with status code 401, with default header values.
+/*
+	UpdateCommentUnauthorized describes a response with status code 401, with default header values.
 
- * The Comment does not belong to you. (code: `comments.unauthorised`)
+	* The Comment does not belong to you. (code: `comments.unauthorised`)
+
 * Your current session does not have a user id associated with it. (code: `comments.no_user_id`)
 */
 type UpdateCommentUnauthorized struct {
@@ -154,9 +192,44 @@ type UpdateCommentUnauthorized struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this update comment unauthorized response has a 2xx status code
+func (o *UpdateCommentUnauthorized) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update comment unauthorized response has a 3xx status code
+func (o *UpdateCommentUnauthorized) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update comment unauthorized response has a 4xx status code
+func (o *UpdateCommentUnauthorized) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update comment unauthorized response has a 5xx status code
+func (o *UpdateCommentUnauthorized) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update comment unauthorized response a status code equal to that given
+func (o *UpdateCommentUnauthorized) IsCode(code int) bool {
+	return code == 401
+}
+
+// Code gets the status code for the update comment unauthorized response
+func (o *UpdateCommentUnauthorized) Code() int {
+	return 401
+}
+
 func (o *UpdateCommentUnauthorized) Error() string {
 	return fmt.Sprintf("[PUT /comments/{resource_type}/{resource_id}/{comment_id}][%d] updateCommentUnauthorized  %+v", 401, o.Payload)
 }
+
+func (o *UpdateCommentUnauthorized) String() string {
+	return fmt.Sprintf("[PUT /comments/{resource_type}/{resource_id}/{comment_id}][%d] updateCommentUnauthorized  %+v", 401, o.Payload)
+}
+
 func (o *UpdateCommentUnauthorized) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -185,7 +258,8 @@ func NewUpdateCommentNotFound() *UpdateCommentNotFound {
 	return &UpdateCommentNotFound{}
 }
 
-/* UpdateCommentNotFound describes a response with status code 404, with default header values.
+/*
+UpdateCommentNotFound describes a response with status code 404, with default header values.
 
 The Comment you want does not exist. (code: `comments.comment_does_not_exist`)
 */
@@ -198,9 +272,44 @@ type UpdateCommentNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this update comment not found response has a 2xx status code
+func (o *UpdateCommentNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update comment not found response has a 3xx status code
+func (o *UpdateCommentNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update comment not found response has a 4xx status code
+func (o *UpdateCommentNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update comment not found response has a 5xx status code
+func (o *UpdateCommentNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update comment not found response a status code equal to that given
+func (o *UpdateCommentNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the update comment not found response
+func (o *UpdateCommentNotFound) Code() int {
+	return 404
+}
+
 func (o *UpdateCommentNotFound) Error() string {
 	return fmt.Sprintf("[PUT /comments/{resource_type}/{resource_id}/{comment_id}][%d] updateCommentNotFound  %+v", 404, o.Payload)
 }
+
+func (o *UpdateCommentNotFound) String() string {
+	return fmt.Sprintf("[PUT /comments/{resource_type}/{resource_id}/{comment_id}][%d] updateCommentNotFound  %+v", 404, o.Payload)
+}
+
 func (o *UpdateCommentNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -229,7 +338,8 @@ func NewUpdateCommentConflict() *UpdateCommentConflict {
 	return &UpdateCommentConflict{}
 }
 
-/* UpdateCommentConflict describes a response with status code 409, with default header values.
+/*
+UpdateCommentConflict describes a response with status code 409, with default header values.
 
 The version you sent does not match the persisted version. (code: `comments.version_conflict`)
 */
@@ -242,9 +352,44 @@ type UpdateCommentConflict struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this update comment conflict response has a 2xx status code
+func (o *UpdateCommentConflict) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update comment conflict response has a 3xx status code
+func (o *UpdateCommentConflict) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update comment conflict response has a 4xx status code
+func (o *UpdateCommentConflict) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update comment conflict response has a 5xx status code
+func (o *UpdateCommentConflict) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update comment conflict response a status code equal to that given
+func (o *UpdateCommentConflict) IsCode(code int) bool {
+	return code == 409
+}
+
+// Code gets the status code for the update comment conflict response
+func (o *UpdateCommentConflict) Code() int {
+	return 409
+}
+
 func (o *UpdateCommentConflict) Error() string {
 	return fmt.Sprintf("[PUT /comments/{resource_type}/{resource_id}/{comment_id}][%d] updateCommentConflict  %+v", 409, o.Payload)
 }
+
+func (o *UpdateCommentConflict) String() string {
+	return fmt.Sprintf("[PUT /comments/{resource_type}/{resource_id}/{comment_id}][%d] updateCommentConflict  %+v", 409, o.Payload)
+}
+
 func (o *UpdateCommentConflict) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

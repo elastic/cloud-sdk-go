@@ -69,10 +69,12 @@ func NewSamlInitParamsWithHTTPClient(client *http.Client) *SamlInitParams {
 	}
 }
 
-/* SamlInitParams contains all the parameters to send to the API endpoint
-   for the saml init operation.
+/*
+SamlInitParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the saml init operation.
+
+	Typically these are written to a http.Request.
 */
 type SamlInitParams struct {
 

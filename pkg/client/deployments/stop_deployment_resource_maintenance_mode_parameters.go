@@ -70,10 +70,12 @@ func NewStopDeploymentResourceMaintenanceModeParamsWithHTTPClient(client *http.C
 	}
 }
 
-/* StopDeploymentResourceMaintenanceModeParams contains all the parameters to send to the API endpoint
-   for the stop deployment resource maintenance mode operation.
+/*
+StopDeploymentResourceMaintenanceModeParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the stop deployment resource maintenance mode operation.
+
+	Typically these are written to a http.Request.
 */
 type StopDeploymentResourceMaintenanceModeParams struct {
 

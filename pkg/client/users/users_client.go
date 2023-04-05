@@ -65,9 +65,9 @@ type ClientService interface {
 }
 
 /*
-  CreateUser creates a new user
+CreateUser creates a new user
 
-  Creates a new user.
+Creates a new user.
 */
 func (a *Client) CreateUser(params *CreateUserParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateUserOK, error) {
 	// TODO: Validate the params before sending
@@ -106,9 +106,9 @@ func (a *Client) CreateUser(params *CreateUserParams, authInfo runtime.ClientAut
 }
 
 /*
-  DeleteUser deletes an existing user
+DeleteUser deletes an existing user
 
-  Deletes an existing user.
+Deletes an existing user.
 */
 func (a *Client) DeleteUser(params *DeleteUserParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteUserOK, error) {
 	// TODO: Validate the params before sending
@@ -147,9 +147,9 @@ func (a *Client) DeleteUser(params *DeleteUserParams, authInfo runtime.ClientAut
 }
 
 /*
-  GetCurrentUser fetches current user information
+GetCurrentUser fetches current user information
 
-  Fetch current user information.
+Fetch current user information.
 */
 func (a *Client) GetCurrentUser(params *GetCurrentUserParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCurrentUserOK, error) {
 	// TODO: Validate the params before sending
@@ -188,9 +188,9 @@ func (a *Client) GetCurrentUser(params *GetCurrentUserParams, authInfo runtime.C
 }
 
 /*
-  GetUser fetches a single user
+GetUser fetches a single user
 
-  Fetches a single user.
+Fetches a single user.
 */
 func (a *Client) GetUser(params *GetUserParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetUserOK, error) {
 	// TODO: Validate the params before sending
@@ -229,9 +229,9 @@ func (a *Client) GetUser(params *GetUserParams, authInfo runtime.ClientAuthInfoW
 }
 
 /*
-  GetUsers fetches all users
+GetUsers fetches all users
 
-  Fetches all available users.
+Fetches all available users.
 */
 func (a *Client) GetUsers(params *GetUsersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetUsersOK, error) {
 	// TODO: Validate the params before sending
@@ -270,9 +270,9 @@ func (a *Client) GetUsers(params *GetUsersParams, authInfo runtime.ClientAuthInf
 }
 
 /*
-  UpdateCurrentUser updates the current user
+UpdateCurrentUser updates the current user
 
-  Updates the current user.
+Updates the current user.
 */
 func (a *Client) UpdateCurrentUser(params *UpdateCurrentUserParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateCurrentUserOK, error) {
 	// TODO: Validate the params before sending
@@ -311,9 +311,9 @@ func (a *Client) UpdateCurrentUser(params *UpdateCurrentUserParams, authInfo run
 }
 
 /*
-  UpdateUser updates an existing user
+UpdateUser updates an existing user
 
-  Updates an existing user.
+Updates an existing user.
 */
 func (a *Client) UpdateUser(params *UpdateUserParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateUserOK, error) {
 	// TODO: Validate the params before sending

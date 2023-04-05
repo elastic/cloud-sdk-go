@@ -68,7 +68,8 @@ func NewSetProxiesSettingsOK() *SetProxiesSettingsOK {
 	return &SetProxiesSettingsOK{}
 }
 
-/* SetProxiesSettingsOK describes a response with status code 200, with default header values.
+/*
+SetProxiesSettingsOK describes a response with status code 200, with default header values.
 
 Returns the updated settings
 */
@@ -76,9 +77,44 @@ type SetProxiesSettingsOK struct {
 	Payload *models.ProxiesSettings
 }
 
+// IsSuccess returns true when this set proxies settings o k response has a 2xx status code
+func (o *SetProxiesSettingsOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this set proxies settings o k response has a 3xx status code
+func (o *SetProxiesSettingsOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set proxies settings o k response has a 4xx status code
+func (o *SetProxiesSettingsOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this set proxies settings o k response has a 5xx status code
+func (o *SetProxiesSettingsOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set proxies settings o k response a status code equal to that given
+func (o *SetProxiesSettingsOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the set proxies settings o k response
+func (o *SetProxiesSettingsOK) Code() int {
+	return 200
+}
+
 func (o *SetProxiesSettingsOK) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/proxies/settings][%d] setProxiesSettingsOK  %+v", 200, o.Payload)
 }
+
+func (o *SetProxiesSettingsOK) String() string {
+	return fmt.Sprintf("[PUT /platform/infrastructure/proxies/settings][%d] setProxiesSettingsOK  %+v", 200, o.Payload)
+}
+
 func (o *SetProxiesSettingsOK) GetPayload() *models.ProxiesSettings {
 	return o.Payload
 }
@@ -100,7 +136,8 @@ func NewSetProxiesSettingsConflict() *SetProxiesSettingsConflict {
 	return &SetProxiesSettingsConflict{}
 }
 
-/* SetProxiesSettingsConflict describes a response with status code 409, with default header values.
+/*
+SetProxiesSettingsConflict describes a response with status code 409, with default header values.
 
 There is a version conflict. (code: `proxies.version_conflict`)
 */
@@ -113,9 +150,44 @@ type SetProxiesSettingsConflict struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this set proxies settings conflict response has a 2xx status code
+func (o *SetProxiesSettingsConflict) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this set proxies settings conflict response has a 3xx status code
+func (o *SetProxiesSettingsConflict) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set proxies settings conflict response has a 4xx status code
+func (o *SetProxiesSettingsConflict) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this set proxies settings conflict response has a 5xx status code
+func (o *SetProxiesSettingsConflict) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set proxies settings conflict response a status code equal to that given
+func (o *SetProxiesSettingsConflict) IsCode(code int) bool {
+	return code == 409
+}
+
+// Code gets the status code for the set proxies settings conflict response
+func (o *SetProxiesSettingsConflict) Code() int {
+	return 409
+}
+
 func (o *SetProxiesSettingsConflict) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/proxies/settings][%d] setProxiesSettingsConflict  %+v", 409, o.Payload)
 }
+
+func (o *SetProxiesSettingsConflict) String() string {
+	return fmt.Sprintf("[PUT /platform/infrastructure/proxies/settings][%d] setProxiesSettingsConflict  %+v", 409, o.Payload)
+}
+
 func (o *SetProxiesSettingsConflict) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -144,7 +216,8 @@ func NewSetProxiesSettingsRetryWith() *SetProxiesSettingsRetryWith {
 	return &SetProxiesSettingsRetryWith{}
 }
 
-/* SetProxiesSettingsRetryWith describes a response with status code 449, with default header values.
+/*
+SetProxiesSettingsRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
@@ -157,9 +230,44 @@ type SetProxiesSettingsRetryWith struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this set proxies settings retry with response has a 2xx status code
+func (o *SetProxiesSettingsRetryWith) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this set proxies settings retry with response has a 3xx status code
+func (o *SetProxiesSettingsRetryWith) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set proxies settings retry with response has a 4xx status code
+func (o *SetProxiesSettingsRetryWith) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this set proxies settings retry with response has a 5xx status code
+func (o *SetProxiesSettingsRetryWith) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set proxies settings retry with response a status code equal to that given
+func (o *SetProxiesSettingsRetryWith) IsCode(code int) bool {
+	return code == 449
+}
+
+// Code gets the status code for the set proxies settings retry with response
+func (o *SetProxiesSettingsRetryWith) Code() int {
+	return 449
+}
+
 func (o *SetProxiesSettingsRetryWith) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/proxies/settings][%d] setProxiesSettingsRetryWith  %+v", 449, o.Payload)
 }
+
+func (o *SetProxiesSettingsRetryWith) String() string {
+	return fmt.Sprintf("[PUT /platform/infrastructure/proxies/settings][%d] setProxiesSettingsRetryWith  %+v", 449, o.Payload)
+}
+
 func (o *SetProxiesSettingsRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

@@ -68,7 +68,8 @@ func NewDeleteTrafficFilterRulesetOK() *DeleteTrafficFilterRulesetOK {
 	return &DeleteTrafficFilterRulesetOK{}
 }
 
-/* DeleteTrafficFilterRulesetOK describes a response with status code 200, with default header values.
+/*
+DeleteTrafficFilterRulesetOK describes a response with status code 200, with default header values.
 
 The traffic filter ruleset was successfully deleted.
 */
@@ -76,9 +77,44 @@ type DeleteTrafficFilterRulesetOK struct {
 	Payload models.EmptyResponse
 }
 
+// IsSuccess returns true when this delete traffic filter ruleset o k response has a 2xx status code
+func (o *DeleteTrafficFilterRulesetOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this delete traffic filter ruleset o k response has a 3xx status code
+func (o *DeleteTrafficFilterRulesetOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete traffic filter ruleset o k response has a 4xx status code
+func (o *DeleteTrafficFilterRulesetOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this delete traffic filter ruleset o k response has a 5xx status code
+func (o *DeleteTrafficFilterRulesetOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete traffic filter ruleset o k response a status code equal to that given
+func (o *DeleteTrafficFilterRulesetOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the delete traffic filter ruleset o k response
+func (o *DeleteTrafficFilterRulesetOK) Code() int {
+	return 200
+}
+
 func (o *DeleteTrafficFilterRulesetOK) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/traffic-filter/rulesets/{ruleset_id}][%d] deleteTrafficFilterRulesetOK  %+v", 200, o.Payload)
 }
+
+func (o *DeleteTrafficFilterRulesetOK) String() string {
+	return fmt.Sprintf("[DELETE /deployments/traffic-filter/rulesets/{ruleset_id}][%d] deleteTrafficFilterRulesetOK  %+v", 200, o.Payload)
+}
+
 func (o *DeleteTrafficFilterRulesetOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -98,7 +134,8 @@ func NewDeleteTrafficFilterRulesetNotFound() *DeleteTrafficFilterRulesetNotFound
 	return &DeleteTrafficFilterRulesetNotFound{}
 }
 
-/* DeleteTrafficFilterRulesetNotFound describes a response with status code 404, with default header values.
+/*
+DeleteTrafficFilterRulesetNotFound describes a response with status code 404, with default header values.
 
 The traffic filter ruleset specified by {ruleset_id} cannot be found. (code: `traffic_filter.not_found`)
 */
@@ -111,9 +148,44 @@ type DeleteTrafficFilterRulesetNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete traffic filter ruleset not found response has a 2xx status code
+func (o *DeleteTrafficFilterRulesetNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete traffic filter ruleset not found response has a 3xx status code
+func (o *DeleteTrafficFilterRulesetNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete traffic filter ruleset not found response has a 4xx status code
+func (o *DeleteTrafficFilterRulesetNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete traffic filter ruleset not found response has a 5xx status code
+func (o *DeleteTrafficFilterRulesetNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete traffic filter ruleset not found response a status code equal to that given
+func (o *DeleteTrafficFilterRulesetNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the delete traffic filter ruleset not found response
+func (o *DeleteTrafficFilterRulesetNotFound) Code() int {
+	return 404
+}
+
 func (o *DeleteTrafficFilterRulesetNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/traffic-filter/rulesets/{ruleset_id}][%d] deleteTrafficFilterRulesetNotFound  %+v", 404, o.Payload)
 }
+
+func (o *DeleteTrafficFilterRulesetNotFound) String() string {
+	return fmt.Sprintf("[DELETE /deployments/traffic-filter/rulesets/{ruleset_id}][%d] deleteTrafficFilterRulesetNotFound  %+v", 404, o.Payload)
+}
+
 func (o *DeleteTrafficFilterRulesetNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -142,7 +214,8 @@ func NewDeleteTrafficFilterRulesetInternalServerError() *DeleteTrafficFilterRule
 	return &DeleteTrafficFilterRulesetInternalServerError{}
 }
 
-/* DeleteTrafficFilterRulesetInternalServerError describes a response with status code 500, with default header values.
+/*
+DeleteTrafficFilterRulesetInternalServerError describes a response with status code 500, with default header values.
 
 Error deleting the traffic filter ruleset. (code: `traffic_filter.request_execution_failed`)
 */
@@ -155,9 +228,44 @@ type DeleteTrafficFilterRulesetInternalServerError struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete traffic filter ruleset internal server error response has a 2xx status code
+func (o *DeleteTrafficFilterRulesetInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete traffic filter ruleset internal server error response has a 3xx status code
+func (o *DeleteTrafficFilterRulesetInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete traffic filter ruleset internal server error response has a 4xx status code
+func (o *DeleteTrafficFilterRulesetInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this delete traffic filter ruleset internal server error response has a 5xx status code
+func (o *DeleteTrafficFilterRulesetInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this delete traffic filter ruleset internal server error response a status code equal to that given
+func (o *DeleteTrafficFilterRulesetInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
+// Code gets the status code for the delete traffic filter ruleset internal server error response
+func (o *DeleteTrafficFilterRulesetInternalServerError) Code() int {
+	return 500
+}
+
 func (o *DeleteTrafficFilterRulesetInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/traffic-filter/rulesets/{ruleset_id}][%d] deleteTrafficFilterRulesetInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *DeleteTrafficFilterRulesetInternalServerError) String() string {
+	return fmt.Sprintf("[DELETE /deployments/traffic-filter/rulesets/{ruleset_id}][%d] deleteTrafficFilterRulesetInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *DeleteTrafficFilterRulesetInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

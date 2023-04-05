@@ -79,6 +79,8 @@ func (m *MoveApmClusterDetails) validateCalculatedPlan(formats strfmt.Registry) 
 		if err := m.CalculatedPlan.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("calculated_plan")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("calculated_plan")
 			}
 			return err
 		}
@@ -110,6 +112,8 @@ func (m *MoveApmClusterDetails) validateErrors(formats strfmt.Registry) error {
 			if err := m.Errors[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("errors" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("errors" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -144,6 +148,8 @@ func (m *MoveApmClusterDetails) contextValidateCalculatedPlan(ctx context.Contex
 		if err := m.CalculatedPlan.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("calculated_plan")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("calculated_plan")
 			}
 			return err
 		}
@@ -160,6 +166,8 @@ func (m *MoveApmClusterDetails) contextValidateErrors(ctx context.Context, forma
 			if err := m.Errors[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("errors" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("errors" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

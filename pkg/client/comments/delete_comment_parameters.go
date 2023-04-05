@@ -69,10 +69,12 @@ func NewDeleteCommentParamsWithHTTPClient(client *http.Client) *DeleteCommentPar
 	}
 }
 
-/* DeleteCommentParams contains all the parameters to send to the API endpoint
-   for the delete comment operation.
+/*
+DeleteCommentParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the delete comment operation.
+
+	Typically these are written to a http.Request.
 */
 type DeleteCommentParams struct {
 

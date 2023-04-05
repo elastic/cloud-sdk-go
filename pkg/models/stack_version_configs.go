@@ -71,6 +71,8 @@ func (m *StackVersionConfigs) validateStacks(formats strfmt.Registry) error {
 			if err := m.Stacks[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("stacks" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("stacks" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -103,6 +105,8 @@ func (m *StackVersionConfigs) contextValidateStacks(ctx context.Context, formats
 			if err := m.Stacks[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("stacks" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("stacks" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

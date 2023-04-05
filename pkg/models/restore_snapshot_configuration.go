@@ -93,6 +93,8 @@ func (m *RestoreSnapshotConfiguration) validateRepositoryConfig(formats strfmt.R
 		if err := m.RepositoryConfig.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("repository_config")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("repository_config")
 			}
 			return err
 		}
@@ -110,6 +112,8 @@ func (m *RestoreSnapshotConfiguration) validateRestorePayload(formats strfmt.Reg
 		if err := m.RestorePayload.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("restore_payload")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("restore_payload")
 			}
 			return err
 		}
@@ -196,6 +200,8 @@ func (m *RestoreSnapshotConfiguration) contextValidateRepositoryConfig(ctx conte
 		if err := m.RepositoryConfig.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("repository_config")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("repository_config")
 			}
 			return err
 		}
@@ -210,6 +216,8 @@ func (m *RestoreSnapshotConfiguration) contextValidateRestorePayload(ctx context
 		if err := m.RestorePayload.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("restore_payload")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("restore_payload")
 			}
 			return err
 		}

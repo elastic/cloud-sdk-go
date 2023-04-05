@@ -71,10 +71,12 @@ func NewUpdateDeploymentNoteParamsWithHTTPClient(client *http.Client) *UpdateDep
 	}
 }
 
-/* UpdateDeploymentNoteParams contains all the parameters to send to the API endpoint
-   for the update deployment note operation.
+/*
+UpdateDeploymentNoteParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the update deployment note operation.
+
+	Typically these are written to a http.Request.
 */
 type UpdateDeploymentNoteParams struct {
 

@@ -68,7 +68,8 @@ func NewPostDeploymentResourceProxyRequestsOK() *PostDeploymentResourceProxyRequ
 	return &PostDeploymentResourceProxyRequestsOK{}
 }
 
-/* PostDeploymentResourceProxyRequestsOK describes a response with status code 200, with default header values.
+/*
+PostDeploymentResourceProxyRequestsOK describes a response with status code 200, with default header values.
 
 The request has been processed successfully through the proxy.
 */
@@ -76,9 +77,44 @@ type PostDeploymentResourceProxyRequestsOK struct {
 	Payload *models.GenericResponse
 }
 
+// IsSuccess returns true when this post deployment resource proxy requests o k response has a 2xx status code
+func (o *PostDeploymentResourceProxyRequestsOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this post deployment resource proxy requests o k response has a 3xx status code
+func (o *PostDeploymentResourceProxyRequestsOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this post deployment resource proxy requests o k response has a 4xx status code
+func (o *PostDeploymentResourceProxyRequestsOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this post deployment resource proxy requests o k response has a 5xx status code
+func (o *PostDeploymentResourceProxyRequestsOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this post deployment resource proxy requests o k response a status code equal to that given
+func (o *PostDeploymentResourceProxyRequestsOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the post deployment resource proxy requests o k response
+func (o *PostDeploymentResourceProxyRequestsOK) Code() int {
+	return 200
+}
+
 func (o *PostDeploymentResourceProxyRequestsOK) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/proxy/{proxy_path}][%d] postDeploymentResourceProxyRequestsOK  %+v", 200, o.Payload)
 }
+
+func (o *PostDeploymentResourceProxyRequestsOK) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/proxy/{proxy_path}][%d] postDeploymentResourceProxyRequestsOK  %+v", 200, o.Payload)
+}
+
 func (o *PostDeploymentResourceProxyRequestsOK) GetPayload() *models.GenericResponse {
 	return o.Payload
 }
@@ -100,9 +136,11 @@ func NewPostDeploymentResourceProxyRequestsNotFound() *PostDeploymentResourcePro
 	return &PostDeploymentResourceProxyRequestsNotFound{}
 }
 
-/* PostDeploymentResourceProxyRequestsNotFound describes a response with status code 404, with default header values.
+/*
+	PostDeploymentResourceProxyRequestsNotFound describes a response with status code 404, with default header values.
 
- * The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+	* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+
 * The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)
 * The Resource specified by {ref_id} cannot be found. (code: `clusters.cluster_not_found`)
 */
@@ -115,9 +153,44 @@ type PostDeploymentResourceProxyRequestsNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this post deployment resource proxy requests not found response has a 2xx status code
+func (o *PostDeploymentResourceProxyRequestsNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this post deployment resource proxy requests not found response has a 3xx status code
+func (o *PostDeploymentResourceProxyRequestsNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this post deployment resource proxy requests not found response has a 4xx status code
+func (o *PostDeploymentResourceProxyRequestsNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this post deployment resource proxy requests not found response has a 5xx status code
+func (o *PostDeploymentResourceProxyRequestsNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this post deployment resource proxy requests not found response a status code equal to that given
+func (o *PostDeploymentResourceProxyRequestsNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the post deployment resource proxy requests not found response
+func (o *PostDeploymentResourceProxyRequestsNotFound) Code() int {
+	return 404
+}
+
 func (o *PostDeploymentResourceProxyRequestsNotFound) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/proxy/{proxy_path}][%d] postDeploymentResourceProxyRequestsNotFound  %+v", 404, o.Payload)
 }
+
+func (o *PostDeploymentResourceProxyRequestsNotFound) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/proxy/{proxy_path}][%d] postDeploymentResourceProxyRequestsNotFound  %+v", 404, o.Payload)
+}
+
 func (o *PostDeploymentResourceProxyRequestsNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -146,7 +219,8 @@ func NewPostDeploymentResourceProxyRequestsRetryWith() *PostDeploymentResourcePr
 	return &PostDeploymentResourceProxyRequestsRetryWith{}
 }
 
-/* PostDeploymentResourceProxyRequestsRetryWith describes a response with status code 449, with default header values.
+/*
+PostDeploymentResourceProxyRequestsRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
@@ -159,9 +233,44 @@ type PostDeploymentResourceProxyRequestsRetryWith struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this post deployment resource proxy requests retry with response has a 2xx status code
+func (o *PostDeploymentResourceProxyRequestsRetryWith) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this post deployment resource proxy requests retry with response has a 3xx status code
+func (o *PostDeploymentResourceProxyRequestsRetryWith) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this post deployment resource proxy requests retry with response has a 4xx status code
+func (o *PostDeploymentResourceProxyRequestsRetryWith) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this post deployment resource proxy requests retry with response has a 5xx status code
+func (o *PostDeploymentResourceProxyRequestsRetryWith) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this post deployment resource proxy requests retry with response a status code equal to that given
+func (o *PostDeploymentResourceProxyRequestsRetryWith) IsCode(code int) bool {
+	return code == 449
+}
+
+// Code gets the status code for the post deployment resource proxy requests retry with response
+func (o *PostDeploymentResourceProxyRequestsRetryWith) Code() int {
+	return 449
+}
+
 func (o *PostDeploymentResourceProxyRequestsRetryWith) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/proxy/{proxy_path}][%d] postDeploymentResourceProxyRequestsRetryWith  %+v", 449, o.Payload)
 }
+
+func (o *PostDeploymentResourceProxyRequestsRetryWith) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/proxy/{proxy_path}][%d] postDeploymentResourceProxyRequestsRetryWith  %+v", 449, o.Payload)
+}
+
 func (o *PostDeploymentResourceProxyRequestsRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

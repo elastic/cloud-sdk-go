@@ -68,6 +68,11 @@ func (m *PublicCertChainCollection) validateCerts(formats strfmt.Registry) error
 		}
 		if val, ok := m.Certs[k]; ok {
 			if err := val.Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("certs" + "." + k)
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("certs" + "." + k)
+				}
 				return err
 			}
 		}

@@ -69,10 +69,12 @@ func NewDeleteAllocatorLoggingSettingsParamsWithHTTPClient(client *http.Client) 
 	}
 }
 
-/* DeleteAllocatorLoggingSettingsParams contains all the parameters to send to the API endpoint
-   for the delete allocator logging settings operation.
+/*
+DeleteAllocatorLoggingSettingsParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the delete allocator logging settings operation.
+
+	Typically these are written to a http.Request.
 */
 type DeleteAllocatorLoggingSettingsParams struct {
 

@@ -142,6 +142,8 @@ func (m *AppSearchPlanControlConfiguration) validateMoveAllocators(formats strfm
 			if err := m.MoveAllocators[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("move_allocators" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("move_allocators" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -166,6 +168,8 @@ func (m *AppSearchPlanControlConfiguration) validateMoveInstances(formats strfmt
 			if err := m.MoveInstances[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("move_instances" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("move_instances" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -202,6 +206,8 @@ func (m *AppSearchPlanControlConfiguration) contextValidateMoveAllocators(ctx co
 			if err := m.MoveAllocators[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("move_allocators" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("move_allocators" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -220,6 +226,8 @@ func (m *AppSearchPlanControlConfiguration) contextValidateMoveInstances(ctx con
 			if err := m.MoveInstances[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("move_instances" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("move_instances" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

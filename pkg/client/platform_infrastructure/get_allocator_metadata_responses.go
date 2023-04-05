@@ -62,7 +62,8 @@ func NewGetAllocatorMetadataOK() *GetAllocatorMetadataOK {
 	return &GetAllocatorMetadataOK{}
 }
 
-/* GetAllocatorMetadataOK describes a response with status code 200, with default header values.
+/*
+GetAllocatorMetadataOK describes a response with status code 200, with default header values.
 
 The allocator metadata was successfully returned
 */
@@ -83,9 +84,44 @@ type GetAllocatorMetadataOK struct {
 	Payload []*models.MetadataItem
 }
 
+// IsSuccess returns true when this get allocator metadata o k response has a 2xx status code
+func (o *GetAllocatorMetadataOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get allocator metadata o k response has a 3xx status code
+func (o *GetAllocatorMetadataOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get allocator metadata o k response has a 4xx status code
+func (o *GetAllocatorMetadataOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get allocator metadata o k response has a 5xx status code
+func (o *GetAllocatorMetadataOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get allocator metadata o k response a status code equal to that given
+func (o *GetAllocatorMetadataOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get allocator metadata o k response
+func (o *GetAllocatorMetadataOK) Code() int {
+	return 200
+}
+
 func (o *GetAllocatorMetadataOK) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/allocators/{allocator_id}/metadata][%d] getAllocatorMetadataOK  %+v", 200, o.Payload)
 }
+
+func (o *GetAllocatorMetadataOK) String() string {
+	return fmt.Sprintf("[GET /platform/infrastructure/allocators/{allocator_id}/metadata][%d] getAllocatorMetadataOK  %+v", 200, o.Payload)
+}
+
 func (o *GetAllocatorMetadataOK) GetPayload() []*models.MetadataItem {
 	return o.Payload
 }
@@ -126,7 +162,8 @@ func NewGetAllocatorMetadataNotFound() *GetAllocatorMetadataNotFound {
 	return &GetAllocatorMetadataNotFound{}
 }
 
-/* GetAllocatorMetadataNotFound describes a response with status code 404, with default header values.
+/*
+GetAllocatorMetadataNotFound describes a response with status code 404, with default header values.
 
 The allocator specified by {allocator_id} cannot be found. (code: `allocators.allocator_not_found`)
 */
@@ -139,9 +176,44 @@ type GetAllocatorMetadataNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get allocator metadata not found response has a 2xx status code
+func (o *GetAllocatorMetadataNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get allocator metadata not found response has a 3xx status code
+func (o *GetAllocatorMetadataNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get allocator metadata not found response has a 4xx status code
+func (o *GetAllocatorMetadataNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get allocator metadata not found response has a 5xx status code
+func (o *GetAllocatorMetadataNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get allocator metadata not found response a status code equal to that given
+func (o *GetAllocatorMetadataNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the get allocator metadata not found response
+func (o *GetAllocatorMetadataNotFound) Code() int {
+	return 404
+}
+
 func (o *GetAllocatorMetadataNotFound) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/allocators/{allocator_id}/metadata][%d] getAllocatorMetadataNotFound  %+v", 404, o.Payload)
 }
+
+func (o *GetAllocatorMetadataNotFound) String() string {
+	return fmt.Sprintf("[GET /platform/infrastructure/allocators/{allocator_id}/metadata][%d] getAllocatorMetadataNotFound  %+v", 404, o.Payload)
+}
+
 func (o *GetAllocatorMetadataNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

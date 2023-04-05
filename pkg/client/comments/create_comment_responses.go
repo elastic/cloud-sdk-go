@@ -74,7 +74,8 @@ func NewCreateCommentCreated() *CreateCommentCreated {
 	return &CreateCommentCreated{}
 }
 
-/* CreateCommentCreated describes a response with status code 201, with default header values.
+/*
+CreateCommentCreated describes a response with status code 201, with default header values.
 
 The Comment that was just created.
 */
@@ -95,9 +96,44 @@ type CreateCommentCreated struct {
 	Payload *models.Comment
 }
 
+// IsSuccess returns true when this create comment created response has a 2xx status code
+func (o *CreateCommentCreated) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this create comment created response has a 3xx status code
+func (o *CreateCommentCreated) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create comment created response has a 4xx status code
+func (o *CreateCommentCreated) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this create comment created response has a 5xx status code
+func (o *CreateCommentCreated) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create comment created response a status code equal to that given
+func (o *CreateCommentCreated) IsCode(code int) bool {
+	return code == 201
+}
+
+// Code gets the status code for the create comment created response
+func (o *CreateCommentCreated) Code() int {
+	return 201
+}
+
 func (o *CreateCommentCreated) Error() string {
 	return fmt.Sprintf("[POST /comments/{resource_type}/{resource_id}][%d] createCommentCreated  %+v", 201, o.Payload)
 }
+
+func (o *CreateCommentCreated) String() string {
+	return fmt.Sprintf("[POST /comments/{resource_type}/{resource_id}][%d] createCommentCreated  %+v", 201, o.Payload)
+}
+
 func (o *CreateCommentCreated) GetPayload() *models.Comment {
 	return o.Payload
 }
@@ -140,7 +176,8 @@ func NewCreateCommentUnauthorized() *CreateCommentUnauthorized {
 	return &CreateCommentUnauthorized{}
 }
 
-/* CreateCommentUnauthorized describes a response with status code 401, with default header values.
+/*
+CreateCommentUnauthorized describes a response with status code 401, with default header values.
 
 Your current session does not have a user id associated with it. (code: `comments.no_user_id`)
 */
@@ -153,9 +190,44 @@ type CreateCommentUnauthorized struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this create comment unauthorized response has a 2xx status code
+func (o *CreateCommentUnauthorized) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this create comment unauthorized response has a 3xx status code
+func (o *CreateCommentUnauthorized) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create comment unauthorized response has a 4xx status code
+func (o *CreateCommentUnauthorized) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this create comment unauthorized response has a 5xx status code
+func (o *CreateCommentUnauthorized) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create comment unauthorized response a status code equal to that given
+func (o *CreateCommentUnauthorized) IsCode(code int) bool {
+	return code == 401
+}
+
+// Code gets the status code for the create comment unauthorized response
+func (o *CreateCommentUnauthorized) Code() int {
+	return 401
+}
+
 func (o *CreateCommentUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /comments/{resource_type}/{resource_id}][%d] createCommentUnauthorized  %+v", 401, o.Payload)
 }
+
+func (o *CreateCommentUnauthorized) String() string {
+	return fmt.Sprintf("[POST /comments/{resource_type}/{resource_id}][%d] createCommentUnauthorized  %+v", 401, o.Payload)
+}
+
 func (o *CreateCommentUnauthorized) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -184,7 +256,8 @@ func NewCreateCommentNotFound() *CreateCommentNotFound {
 	return &CreateCommentNotFound{}
 }
 
-/* CreateCommentNotFound describes a response with status code 404, with default header values.
+/*
+CreateCommentNotFound describes a response with status code 404, with default header values.
 
 No Resource of the given type and id exist. (code: `comments.resource_does_not_exist`)
 */
@@ -197,9 +270,44 @@ type CreateCommentNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this create comment not found response has a 2xx status code
+func (o *CreateCommentNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this create comment not found response has a 3xx status code
+func (o *CreateCommentNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create comment not found response has a 4xx status code
+func (o *CreateCommentNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this create comment not found response has a 5xx status code
+func (o *CreateCommentNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create comment not found response a status code equal to that given
+func (o *CreateCommentNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the create comment not found response
+func (o *CreateCommentNotFound) Code() int {
+	return 404
+}
+
 func (o *CreateCommentNotFound) Error() string {
 	return fmt.Sprintf("[POST /comments/{resource_type}/{resource_id}][%d] createCommentNotFound  %+v", 404, o.Payload)
 }
+
+func (o *CreateCommentNotFound) String() string {
+	return fmt.Sprintf("[POST /comments/{resource_type}/{resource_id}][%d] createCommentNotFound  %+v", 404, o.Payload)
+}
+
 func (o *CreateCommentNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -228,7 +336,8 @@ func NewCreateCommentConflict() *CreateCommentConflict {
 	return &CreateCommentConflict{}
 }
 
-/* CreateCommentConflict describes a response with status code 409, with default header values.
+/*
+CreateCommentConflict describes a response with status code 409, with default header values.
 
 A Comment already exists with the generated id. Please try again. (code: `comments.id_already_exists`)
 */
@@ -241,9 +350,44 @@ type CreateCommentConflict struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this create comment conflict response has a 2xx status code
+func (o *CreateCommentConflict) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this create comment conflict response has a 3xx status code
+func (o *CreateCommentConflict) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create comment conflict response has a 4xx status code
+func (o *CreateCommentConflict) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this create comment conflict response has a 5xx status code
+func (o *CreateCommentConflict) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create comment conflict response a status code equal to that given
+func (o *CreateCommentConflict) IsCode(code int) bool {
+	return code == 409
+}
+
+// Code gets the status code for the create comment conflict response
+func (o *CreateCommentConflict) Code() int {
+	return 409
+}
+
 func (o *CreateCommentConflict) Error() string {
 	return fmt.Sprintf("[POST /comments/{resource_type}/{resource_id}][%d] createCommentConflict  %+v", 409, o.Payload)
 }
+
+func (o *CreateCommentConflict) String() string {
+	return fmt.Sprintf("[POST /comments/{resource_type}/{resource_id}][%d] createCommentConflict  %+v", 409, o.Payload)
+}
+
 func (o *CreateCommentConflict) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

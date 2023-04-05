@@ -62,7 +62,8 @@ func NewGetRunnerOK() *GetRunnerOK {
 	return &GetRunnerOK{}
 }
 
-/* GetRunnerOK describes a response with status code 200, with default header values.
+/*
+GetRunnerOK describes a response with status code 200, with default header values.
 
 The information for the runner specified by {runner_id}.
 */
@@ -70,9 +71,44 @@ type GetRunnerOK struct {
 	Payload *models.RunnerInfo
 }
 
+// IsSuccess returns true when this get runner o k response has a 2xx status code
+func (o *GetRunnerOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get runner o k response has a 3xx status code
+func (o *GetRunnerOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get runner o k response has a 4xx status code
+func (o *GetRunnerOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get runner o k response has a 5xx status code
+func (o *GetRunnerOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get runner o k response a status code equal to that given
+func (o *GetRunnerOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get runner o k response
+func (o *GetRunnerOK) Code() int {
+	return 200
+}
+
 func (o *GetRunnerOK) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/runners/{runner_id}][%d] getRunnerOK  %+v", 200, o.Payload)
 }
+
+func (o *GetRunnerOK) String() string {
+	return fmt.Sprintf("[GET /platform/infrastructure/runners/{runner_id}][%d] getRunnerOK  %+v", 200, o.Payload)
+}
+
 func (o *GetRunnerOK) GetPayload() *models.RunnerInfo {
 	return o.Payload
 }
@@ -94,7 +130,8 @@ func NewGetRunnerNotFound() *GetRunnerNotFound {
 	return &GetRunnerNotFound{}
 }
 
-/* GetRunnerNotFound describes a response with status code 404, with default header values.
+/*
+GetRunnerNotFound describes a response with status code 404, with default header values.
 
 Unable to find the {runner_id} specified runner. Edit your request, then try again. (code: `runners.runner_not_found`)
 */
@@ -107,9 +144,44 @@ type GetRunnerNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get runner not found response has a 2xx status code
+func (o *GetRunnerNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get runner not found response has a 3xx status code
+func (o *GetRunnerNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get runner not found response has a 4xx status code
+func (o *GetRunnerNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get runner not found response has a 5xx status code
+func (o *GetRunnerNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get runner not found response a status code equal to that given
+func (o *GetRunnerNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the get runner not found response
+func (o *GetRunnerNotFound) Code() int {
+	return 404
+}
+
 func (o *GetRunnerNotFound) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/runners/{runner_id}][%d] getRunnerNotFound  %+v", 404, o.Payload)
 }
+
+func (o *GetRunnerNotFound) String() string {
+	return fmt.Sprintf("[GET /platform/infrastructure/runners/{runner_id}][%d] getRunnerNotFound  %+v", 404, o.Payload)
+}
+
 func (o *GetRunnerNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

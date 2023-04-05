@@ -62,7 +62,8 @@ func NewListOrganizationMembersOK() *ListOrganizationMembersOK {
 	return &ListOrganizationMembersOK{}
 }
 
-/* ListOrganizationMembersOK describes a response with status code 200, with default header values.
+/*
+ListOrganizationMembersOK describes a response with status code 200, with default header values.
 
 Organization members fetched successfully
 */
@@ -70,9 +71,44 @@ type ListOrganizationMembersOK struct {
 	Payload *models.OrganizationMemberships
 }
 
+// IsSuccess returns true when this list organization members o k response has a 2xx status code
+func (o *ListOrganizationMembersOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this list organization members o k response has a 3xx status code
+func (o *ListOrganizationMembersOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this list organization members o k response has a 4xx status code
+func (o *ListOrganizationMembersOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this list organization members o k response has a 5xx status code
+func (o *ListOrganizationMembersOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this list organization members o k response a status code equal to that given
+func (o *ListOrganizationMembersOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the list organization members o k response
+func (o *ListOrganizationMembersOK) Code() int {
+	return 200
+}
+
 func (o *ListOrganizationMembersOK) Error() string {
 	return fmt.Sprintf("[GET /organizations/{organization_id}/members][%d] listOrganizationMembersOK  %+v", 200, o.Payload)
 }
+
+func (o *ListOrganizationMembersOK) String() string {
+	return fmt.Sprintf("[GET /organizations/{organization_id}/members][%d] listOrganizationMembersOK  %+v", 200, o.Payload)
+}
+
 func (o *ListOrganizationMembersOK) GetPayload() *models.OrganizationMemberships {
 	return o.Payload
 }
@@ -94,7 +130,8 @@ func NewListOrganizationMembersNotFound() *ListOrganizationMembersNotFound {
 	return &ListOrganizationMembersNotFound{}
 }
 
-/* ListOrganizationMembersNotFound describes a response with status code 404, with default header values.
+/*
+ListOrganizationMembersNotFound describes a response with status code 404, with default header values.
 
 Organization not found. (code: `organization.not_found`)
 */
@@ -107,9 +144,44 @@ type ListOrganizationMembersNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this list organization members not found response has a 2xx status code
+func (o *ListOrganizationMembersNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this list organization members not found response has a 3xx status code
+func (o *ListOrganizationMembersNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this list organization members not found response has a 4xx status code
+func (o *ListOrganizationMembersNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this list organization members not found response has a 5xx status code
+func (o *ListOrganizationMembersNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this list organization members not found response a status code equal to that given
+func (o *ListOrganizationMembersNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the list organization members not found response
+func (o *ListOrganizationMembersNotFound) Code() int {
+	return 404
+}
+
 func (o *ListOrganizationMembersNotFound) Error() string {
 	return fmt.Sprintf("[GET /organizations/{organization_id}/members][%d] listOrganizationMembersNotFound  %+v", 404, o.Payload)
 }
+
+func (o *ListOrganizationMembersNotFound) String() string {
+	return fmt.Sprintf("[GET /organizations/{organization_id}/members][%d] listOrganizationMembersNotFound  %+v", 404, o.Payload)
+}
+
 func (o *ListOrganizationMembersNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

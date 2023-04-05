@@ -129,6 +129,8 @@ func (m *RegionInfo) validateAllocators(formats strfmt.Registry) error {
 		if err := m.Allocators.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("allocators")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("allocators")
 			}
 			return err
 		}
@@ -147,6 +149,8 @@ func (m *RegionInfo) validateConstructors(formats strfmt.Registry) error {
 		if err := m.Constructors.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("constructors")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("constructors")
 			}
 			return err
 		}
@@ -165,6 +169,8 @@ func (m *RegionInfo) validateContainerSetsStatus(formats strfmt.Registry) error 
 		if err := m.ContainerSetsStatus.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("container_sets_status")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("container_sets_status")
 			}
 			return err
 		}
@@ -183,6 +189,8 @@ func (m *RegionInfo) validateCoordinators(formats strfmt.Registry) error {
 		if err := m.Coordinators.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("coordinators")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("coordinators")
 			}
 			return err
 		}
@@ -201,6 +209,8 @@ func (m *RegionInfo) validateProxies(formats strfmt.Registry) error {
 		if err := m.Proxies.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("proxies")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("proxies")
 			}
 			return err
 		}
@@ -228,6 +238,8 @@ func (m *RegionInfo) validateResources(formats strfmt.Registry) error {
 		if err := m.Resources.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("resources")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("resources")
 			}
 			return err
 		}
@@ -246,6 +258,8 @@ func (m *RegionInfo) validateRunners(formats strfmt.Registry) error {
 		if err := m.Runners.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("runners")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("runners")
 			}
 			return err
 		}
@@ -264,6 +278,8 @@ func (m *RegionInfo) validateZookeeperStates(formats strfmt.Registry) error {
 		if err := m.ZookeeperStates.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("zookeeper_states")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("zookeeper_states")
 			}
 			return err
 		}
@@ -320,6 +336,8 @@ func (m *RegionInfo) contextValidateAllocators(ctx context.Context, formats strf
 		if err := m.Allocators.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("allocators")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("allocators")
 			}
 			return err
 		}
@@ -334,6 +352,8 @@ func (m *RegionInfo) contextValidateConstructors(ctx context.Context, formats st
 		if err := m.Constructors.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("constructors")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("constructors")
 			}
 			return err
 		}
@@ -348,6 +368,8 @@ func (m *RegionInfo) contextValidateContainerSetsStatus(ctx context.Context, for
 		if err := m.ContainerSetsStatus.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("container_sets_status")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("container_sets_status")
 			}
 			return err
 		}
@@ -362,6 +384,8 @@ func (m *RegionInfo) contextValidateCoordinators(ctx context.Context, formats st
 		if err := m.Coordinators.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("coordinators")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("coordinators")
 			}
 			return err
 		}
@@ -376,6 +400,8 @@ func (m *RegionInfo) contextValidateProxies(ctx context.Context, formats strfmt.
 		if err := m.Proxies.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("proxies")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("proxies")
 			}
 			return err
 		}
@@ -390,6 +416,8 @@ func (m *RegionInfo) contextValidateResources(ctx context.Context, formats strfm
 		if err := m.Resources.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("resources")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("resources")
 			}
 			return err
 		}
@@ -404,6 +432,8 @@ func (m *RegionInfo) contextValidateRunners(ctx context.Context, formats strfmt.
 		if err := m.Runners.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("runners")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("runners")
 			}
 			return err
 		}
@@ -418,6 +448,8 @@ func (m *RegionInfo) contextValidateZookeeperStates(ctx context.Context, formats
 		if err := m.ZookeeperStates.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("zookeeper_states")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("zookeeper_states")
 			}
 			return err
 		}

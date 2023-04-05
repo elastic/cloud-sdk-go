@@ -96,6 +96,8 @@ func (m *MoveClustersRequest) validateApmClusters(formats strfmt.Registry) error
 			if err := m.ApmClusters[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("apm_clusters" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("apm_clusters" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -120,6 +122,8 @@ func (m *MoveClustersRequest) validateAppsearchClusters(formats strfmt.Registry)
 			if err := m.AppsearchClusters[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("appsearch_clusters" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("appsearch_clusters" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -144,6 +148,8 @@ func (m *MoveClustersRequest) validateElasticsearchClusters(formats strfmt.Regis
 			if err := m.ElasticsearchClusters[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("elasticsearch_clusters" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("elasticsearch_clusters" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -168,6 +174,8 @@ func (m *MoveClustersRequest) validateEnterpriseSearchClusters(formats strfmt.Re
 			if err := m.EnterpriseSearchClusters[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("enterprise_search_clusters" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("enterprise_search_clusters" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -192,6 +200,8 @@ func (m *MoveClustersRequest) validateKibanaClusters(formats strfmt.Registry) er
 			if err := m.KibanaClusters[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("kibana_clusters" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("kibana_clusters" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -240,6 +250,8 @@ func (m *MoveClustersRequest) contextValidateApmClusters(ctx context.Context, fo
 			if err := m.ApmClusters[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("apm_clusters" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("apm_clusters" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -258,6 +270,8 @@ func (m *MoveClustersRequest) contextValidateAppsearchClusters(ctx context.Conte
 			if err := m.AppsearchClusters[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("appsearch_clusters" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("appsearch_clusters" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -276,6 +290,8 @@ func (m *MoveClustersRequest) contextValidateElasticsearchClusters(ctx context.C
 			if err := m.ElasticsearchClusters[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("elasticsearch_clusters" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("elasticsearch_clusters" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -294,6 +310,8 @@ func (m *MoveClustersRequest) contextValidateEnterpriseSearchClusters(ctx contex
 			if err := m.EnterpriseSearchClusters[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("enterprise_search_clusters" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("enterprise_search_clusters" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -312,6 +330,8 @@ func (m *MoveClustersRequest) contextValidateKibanaClusters(ctx context.Context,
 			if err := m.KibanaClusters[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("kibana_clusters" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("kibana_clusters" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

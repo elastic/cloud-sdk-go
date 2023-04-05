@@ -62,7 +62,8 @@ func NewDeleteAdminconsoleLoggingSettingsOK() *DeleteAdminconsoleLoggingSettings
 	return &DeleteAdminconsoleLoggingSettingsOK{}
 }
 
-/* DeleteAdminconsoleLoggingSettingsOK describes a response with status code 200, with default header values.
+/*
+DeleteAdminconsoleLoggingSettingsOK describes a response with status code 200, with default header values.
 
 The updated logging settings for the adminconsole instance
 */
@@ -83,9 +84,44 @@ type DeleteAdminconsoleLoggingSettingsOK struct {
 	Payload *models.LoggingSettings
 }
 
+// IsSuccess returns true when this delete adminconsole logging settings o k response has a 2xx status code
+func (o *DeleteAdminconsoleLoggingSettingsOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this delete adminconsole logging settings o k response has a 3xx status code
+func (o *DeleteAdminconsoleLoggingSettingsOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete adminconsole logging settings o k response has a 4xx status code
+func (o *DeleteAdminconsoleLoggingSettingsOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this delete adminconsole logging settings o k response has a 5xx status code
+func (o *DeleteAdminconsoleLoggingSettingsOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete adminconsole logging settings o k response a status code equal to that given
+func (o *DeleteAdminconsoleLoggingSettingsOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the delete adminconsole logging settings o k response
+func (o *DeleteAdminconsoleLoggingSettingsOK) Code() int {
+	return 200
+}
+
 func (o *DeleteAdminconsoleLoggingSettingsOK) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/adminconsoles/{adminconsole_id}/logging_settings][%d] deleteAdminconsoleLoggingSettingsOK  %+v", 200, o.Payload)
 }
+
+func (o *DeleteAdminconsoleLoggingSettingsOK) String() string {
+	return fmt.Sprintf("[DELETE /platform/infrastructure/adminconsoles/{adminconsole_id}/logging_settings][%d] deleteAdminconsoleLoggingSettingsOK  %+v", 200, o.Payload)
+}
+
 func (o *DeleteAdminconsoleLoggingSettingsOK) GetPayload() *models.LoggingSettings {
 	return o.Payload
 }
@@ -128,7 +164,8 @@ func NewDeleteAdminconsoleLoggingSettingsNotFound() *DeleteAdminconsoleLoggingSe
 	return &DeleteAdminconsoleLoggingSettingsNotFound{}
 }
 
-/* DeleteAdminconsoleLoggingSettingsNotFound describes a response with status code 404, with default header values.
+/*
+DeleteAdminconsoleLoggingSettingsNotFound describes a response with status code 404, with default header values.
 
 The logging settings for this adminconsole were not found. (code: `adminconsoles.logging_settings.not_found`)
 */
@@ -141,9 +178,44 @@ type DeleteAdminconsoleLoggingSettingsNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete adminconsole logging settings not found response has a 2xx status code
+func (o *DeleteAdminconsoleLoggingSettingsNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete adminconsole logging settings not found response has a 3xx status code
+func (o *DeleteAdminconsoleLoggingSettingsNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete adminconsole logging settings not found response has a 4xx status code
+func (o *DeleteAdminconsoleLoggingSettingsNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete adminconsole logging settings not found response has a 5xx status code
+func (o *DeleteAdminconsoleLoggingSettingsNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete adminconsole logging settings not found response a status code equal to that given
+func (o *DeleteAdminconsoleLoggingSettingsNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the delete adminconsole logging settings not found response
+func (o *DeleteAdminconsoleLoggingSettingsNotFound) Code() int {
+	return 404
+}
+
 func (o *DeleteAdminconsoleLoggingSettingsNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/adminconsoles/{adminconsole_id}/logging_settings][%d] deleteAdminconsoleLoggingSettingsNotFound  %+v", 404, o.Payload)
 }
+
+func (o *DeleteAdminconsoleLoggingSettingsNotFound) String() string {
+	return fmt.Sprintf("[DELETE /platform/infrastructure/adminconsoles/{adminconsole_id}/logging_settings][%d] deleteAdminconsoleLoggingSettingsNotFound  %+v", 404, o.Payload)
+}
+
 func (o *DeleteAdminconsoleLoggingSettingsNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

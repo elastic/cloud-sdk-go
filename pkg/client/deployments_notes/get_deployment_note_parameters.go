@@ -69,10 +69,12 @@ func NewGetDeploymentNoteParamsWithHTTPClient(client *http.Client) *GetDeploymen
 	}
 }
 
-/* GetDeploymentNoteParams contains all the parameters to send to the API endpoint
-   for the get deployment note operation.
+/*
+GetDeploymentNoteParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the get deployment note operation.
+
+	Typically these are written to a http.Request.
 */
 type GetDeploymentNoteParams struct {
 

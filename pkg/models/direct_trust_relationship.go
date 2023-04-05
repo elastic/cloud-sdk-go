@@ -109,6 +109,8 @@ func (m *DirectTrustRelationship) validateCertificates(formats strfmt.Registry) 
 			if err := m.Certificates[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("certificates" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("certificates" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -204,6 +206,8 @@ func (m *DirectTrustRelationship) contextValidateCertificates(ctx context.Contex
 			if err := m.Certificates[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("certificates" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("certificates" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

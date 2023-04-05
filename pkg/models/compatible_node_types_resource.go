@@ -82,6 +82,8 @@ func (m *CompatibleNodeTypesResource) validateCapacityConstraints(formats strfmt
 		if err := m.CapacityConstraints.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("capacity_constraints")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("capacity_constraints")
 			}
 			return err
 		}
@@ -128,6 +130,8 @@ func (m *CompatibleNodeTypesResource) contextValidateCapacityConstraints(ctx con
 		if err := m.CapacityConstraints.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("capacity_constraints")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("capacity_constraints")
 			}
 			return err
 		}

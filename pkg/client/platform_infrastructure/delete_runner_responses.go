@@ -74,7 +74,8 @@ func NewDeleteRunnerOK() *DeleteRunnerOK {
 	return &DeleteRunnerOK{}
 }
 
-/* DeleteRunnerOK describes a response with status code 200, with default header values.
+/*
+DeleteRunnerOK describes a response with status code 200, with default header values.
 
 The runner specified by {runner_id} was deleted.
 */
@@ -82,9 +83,44 @@ type DeleteRunnerOK struct {
 	Payload models.EmptyResponse
 }
 
+// IsSuccess returns true when this delete runner o k response has a 2xx status code
+func (o *DeleteRunnerOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this delete runner o k response has a 3xx status code
+func (o *DeleteRunnerOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete runner o k response has a 4xx status code
+func (o *DeleteRunnerOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this delete runner o k response has a 5xx status code
+func (o *DeleteRunnerOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete runner o k response a status code equal to that given
+func (o *DeleteRunnerOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the delete runner o k response
+func (o *DeleteRunnerOK) Code() int {
+	return 200
+}
+
 func (o *DeleteRunnerOK) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/runners/{runner_id}][%d] deleteRunnerOK  %+v", 200, o.Payload)
 }
+
+func (o *DeleteRunnerOK) String() string {
+	return fmt.Sprintf("[DELETE /platform/infrastructure/runners/{runner_id}][%d] deleteRunnerOK  %+v", 200, o.Payload)
+}
+
 func (o *DeleteRunnerOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -104,7 +140,8 @@ func NewDeleteRunnerBadRequest() *DeleteRunnerBadRequest {
 	return &DeleteRunnerBadRequest{}
 }
 
-/* DeleteRunnerBadRequest describes a response with status code 400, with default header values.
+/*
+DeleteRunnerBadRequest describes a response with status code 400, with default header values.
 
 The runner specified by {runner_id} could not be deleted. (code: `runners.runner_deletion_failed`)
 */
@@ -117,9 +154,44 @@ type DeleteRunnerBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete runner bad request response has a 2xx status code
+func (o *DeleteRunnerBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete runner bad request response has a 3xx status code
+func (o *DeleteRunnerBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete runner bad request response has a 4xx status code
+func (o *DeleteRunnerBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete runner bad request response has a 5xx status code
+func (o *DeleteRunnerBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete runner bad request response a status code equal to that given
+func (o *DeleteRunnerBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the delete runner bad request response
+func (o *DeleteRunnerBadRequest) Code() int {
+	return 400
+}
+
 func (o *DeleteRunnerBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/runners/{runner_id}][%d] deleteRunnerBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *DeleteRunnerBadRequest) String() string {
+	return fmt.Sprintf("[DELETE /platform/infrastructure/runners/{runner_id}][%d] deleteRunnerBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *DeleteRunnerBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -148,7 +220,8 @@ func NewDeleteRunnerNotFound() *DeleteRunnerNotFound {
 	return &DeleteRunnerNotFound{}
 }
 
-/* DeleteRunnerNotFound describes a response with status code 404, with default header values.
+/*
+DeleteRunnerNotFound describes a response with status code 404, with default header values.
 
 The runner specified by {runner_id} cannot be found. (code: `runners.runner_not_found`)
 */
@@ -161,9 +234,44 @@ type DeleteRunnerNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete runner not found response has a 2xx status code
+func (o *DeleteRunnerNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete runner not found response has a 3xx status code
+func (o *DeleteRunnerNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete runner not found response has a 4xx status code
+func (o *DeleteRunnerNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete runner not found response has a 5xx status code
+func (o *DeleteRunnerNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete runner not found response a status code equal to that given
+func (o *DeleteRunnerNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the delete runner not found response
+func (o *DeleteRunnerNotFound) Code() int {
+	return 404
+}
+
 func (o *DeleteRunnerNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/runners/{runner_id}][%d] deleteRunnerNotFound  %+v", 404, o.Payload)
 }
+
+func (o *DeleteRunnerNotFound) String() string {
+	return fmt.Sprintf("[DELETE /platform/infrastructure/runners/{runner_id}][%d] deleteRunnerNotFound  %+v", 404, o.Payload)
+}
+
 func (o *DeleteRunnerNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -192,7 +300,8 @@ func NewDeleteRunnerRetryWith() *DeleteRunnerRetryWith {
 	return &DeleteRunnerRetryWith{}
 }
 
-/* DeleteRunnerRetryWith describes a response with status code 449, with default header values.
+/*
+DeleteRunnerRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
@@ -205,9 +314,44 @@ type DeleteRunnerRetryWith struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete runner retry with response has a 2xx status code
+func (o *DeleteRunnerRetryWith) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete runner retry with response has a 3xx status code
+func (o *DeleteRunnerRetryWith) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete runner retry with response has a 4xx status code
+func (o *DeleteRunnerRetryWith) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete runner retry with response has a 5xx status code
+func (o *DeleteRunnerRetryWith) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete runner retry with response a status code equal to that given
+func (o *DeleteRunnerRetryWith) IsCode(code int) bool {
+	return code == 449
+}
+
+// Code gets the status code for the delete runner retry with response
+func (o *DeleteRunnerRetryWith) Code() int {
+	return 449
+}
+
 func (o *DeleteRunnerRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/runners/{runner_id}][%d] deleteRunnerRetryWith  %+v", 449, o.Payload)
 }
+
+func (o *DeleteRunnerRetryWith) String() string {
+	return fmt.Sprintf("[DELETE /platform/infrastructure/runners/{runner_id}][%d] deleteRunnerRetryWith  %+v", 449, o.Payload)
+}
+
 func (o *DeleteRunnerRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

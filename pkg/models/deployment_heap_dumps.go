@@ -79,6 +79,8 @@ func (m *DeploymentHeapDumps) validateElasticsearch(formats strfmt.Registry) err
 			if err := m.Elasticsearch[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("elasticsearch" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("elasticsearch" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -104,6 +106,8 @@ func (m *DeploymentHeapDumps) validateEnterpriseSearch(formats strfmt.Registry) 
 			if err := m.EnterpriseSearch[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("enterprise_search" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("enterprise_search" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -140,6 +144,8 @@ func (m *DeploymentHeapDumps) contextValidateElasticsearch(ctx context.Context, 
 			if err := m.Elasticsearch[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("elasticsearch" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("elasticsearch" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -158,6 +164,8 @@ func (m *DeploymentHeapDumps) contextValidateEnterpriseSearch(ctx context.Contex
 			if err := m.EnterpriseSearch[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("enterprise_search" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("enterprise_search" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

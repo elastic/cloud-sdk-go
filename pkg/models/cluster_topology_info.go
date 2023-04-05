@@ -88,6 +88,8 @@ func (m *ClusterTopologyInfo) validateInstances(formats strfmt.Registry) error {
 			if err := m.Instances[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("instances" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("instances" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -120,6 +122,8 @@ func (m *ClusterTopologyInfo) contextValidateInstances(ctx context.Context, form
 			if err := m.Instances[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("instances" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("instances" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

@@ -74,7 +74,8 @@ func NewUpdateSecurityDeploymentOK() *UpdateSecurityDeploymentOK {
 	return &UpdateSecurityDeploymentOK{}
 }
 
-/* UpdateSecurityDeploymentOK describes a response with status code 200, with default header values.
+/*
+UpdateSecurityDeploymentOK describes a response with status code 200, with default header values.
 
 The security deployment was successfully updated
 */
@@ -95,9 +96,44 @@ type UpdateSecurityDeploymentOK struct {
 	Payload *models.IDResponse
 }
 
+// IsSuccess returns true when this update security deployment o k response has a 2xx status code
+func (o *UpdateSecurityDeploymentOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this update security deployment o k response has a 3xx status code
+func (o *UpdateSecurityDeploymentOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update security deployment o k response has a 4xx status code
+func (o *UpdateSecurityDeploymentOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this update security deployment o k response has a 5xx status code
+func (o *UpdateSecurityDeploymentOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update security deployment o k response a status code equal to that given
+func (o *UpdateSecurityDeploymentOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the update security deployment o k response
+func (o *UpdateSecurityDeploymentOK) Code() int {
+	return 200
+}
+
 func (o *UpdateSecurityDeploymentOK) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/security/deployment][%d] updateSecurityDeploymentOK  %+v", 200, o.Payload)
 }
+
+func (o *UpdateSecurityDeploymentOK) String() string {
+	return fmt.Sprintf("[PUT /platform/configuration/security/deployment][%d] updateSecurityDeploymentOK  %+v", 200, o.Payload)
+}
+
 func (o *UpdateSecurityDeploymentOK) GetPayload() *models.IDResponse {
 	return o.Payload
 }
@@ -140,7 +176,8 @@ func NewUpdateSecurityDeploymentNotFound() *UpdateSecurityDeploymentNotFound {
 	return &UpdateSecurityDeploymentNotFound{}
 }
 
-/* UpdateSecurityDeploymentNotFound describes a response with status code 404, with default header values.
+/*
+UpdateSecurityDeploymentNotFound describes a response with status code 404, with default header values.
 
 The security deployment was not found. (code: `security_deployment.not_found`)
 */
@@ -153,9 +190,44 @@ type UpdateSecurityDeploymentNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this update security deployment not found response has a 2xx status code
+func (o *UpdateSecurityDeploymentNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update security deployment not found response has a 3xx status code
+func (o *UpdateSecurityDeploymentNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update security deployment not found response has a 4xx status code
+func (o *UpdateSecurityDeploymentNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update security deployment not found response has a 5xx status code
+func (o *UpdateSecurityDeploymentNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update security deployment not found response a status code equal to that given
+func (o *UpdateSecurityDeploymentNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the update security deployment not found response
+func (o *UpdateSecurityDeploymentNotFound) Code() int {
+	return 404
+}
+
 func (o *UpdateSecurityDeploymentNotFound) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/security/deployment][%d] updateSecurityDeploymentNotFound  %+v", 404, o.Payload)
 }
+
+func (o *UpdateSecurityDeploymentNotFound) String() string {
+	return fmt.Sprintf("[PUT /platform/configuration/security/deployment][%d] updateSecurityDeploymentNotFound  %+v", 404, o.Payload)
+}
+
 func (o *UpdateSecurityDeploymentNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -184,9 +256,11 @@ func NewUpdateSecurityDeploymentConflict() *UpdateSecurityDeploymentConflict {
 	return &UpdateSecurityDeploymentConflict{}
 }
 
-/* UpdateSecurityDeploymentConflict describes a response with status code 409, with default header values.
+/*
+	UpdateSecurityDeploymentConflict describes a response with status code 409, with default header values.
 
- * There is a version conflict. (code: `security_deployment.version_conflict`)
+	* There is a version conflict. (code: `security_deployment.version_conflict`)
+
 * There is a version conflict. (code: `security_deployment.already_exists`)
 */
 type UpdateSecurityDeploymentConflict struct {
@@ -198,9 +272,44 @@ type UpdateSecurityDeploymentConflict struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this update security deployment conflict response has a 2xx status code
+func (o *UpdateSecurityDeploymentConflict) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update security deployment conflict response has a 3xx status code
+func (o *UpdateSecurityDeploymentConflict) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update security deployment conflict response has a 4xx status code
+func (o *UpdateSecurityDeploymentConflict) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update security deployment conflict response has a 5xx status code
+func (o *UpdateSecurityDeploymentConflict) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update security deployment conflict response a status code equal to that given
+func (o *UpdateSecurityDeploymentConflict) IsCode(code int) bool {
+	return code == 409
+}
+
+// Code gets the status code for the update security deployment conflict response
+func (o *UpdateSecurityDeploymentConflict) Code() int {
+	return 409
+}
+
 func (o *UpdateSecurityDeploymentConflict) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/security/deployment][%d] updateSecurityDeploymentConflict  %+v", 409, o.Payload)
 }
+
+func (o *UpdateSecurityDeploymentConflict) String() string {
+	return fmt.Sprintf("[PUT /platform/configuration/security/deployment][%d] updateSecurityDeploymentConflict  %+v", 409, o.Payload)
+}
+
 func (o *UpdateSecurityDeploymentConflict) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -229,7 +338,8 @@ func NewUpdateSecurityDeploymentRetryWith() *UpdateSecurityDeploymentRetryWith {
 	return &UpdateSecurityDeploymentRetryWith{}
 }
 
-/* UpdateSecurityDeploymentRetryWith describes a response with status code 449, with default header values.
+/*
+UpdateSecurityDeploymentRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
@@ -242,9 +352,44 @@ type UpdateSecurityDeploymentRetryWith struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this update security deployment retry with response has a 2xx status code
+func (o *UpdateSecurityDeploymentRetryWith) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update security deployment retry with response has a 3xx status code
+func (o *UpdateSecurityDeploymentRetryWith) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update security deployment retry with response has a 4xx status code
+func (o *UpdateSecurityDeploymentRetryWith) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update security deployment retry with response has a 5xx status code
+func (o *UpdateSecurityDeploymentRetryWith) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update security deployment retry with response a status code equal to that given
+func (o *UpdateSecurityDeploymentRetryWith) IsCode(code int) bool {
+	return code == 449
+}
+
+// Code gets the status code for the update security deployment retry with response
+func (o *UpdateSecurityDeploymentRetryWith) Code() int {
+	return 449
+}
+
 func (o *UpdateSecurityDeploymentRetryWith) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/security/deployment][%d] updateSecurityDeploymentRetryWith  %+v", 449, o.Payload)
 }
+
+func (o *UpdateSecurityDeploymentRetryWith) String() string {
+	return fmt.Sprintf("[PUT /platform/configuration/security/deployment][%d] updateSecurityDeploymentRetryWith  %+v", 449, o.Payload)
+}
+
 func (o *UpdateSecurityDeploymentRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

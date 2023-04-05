@@ -74,7 +74,8 @@ func NewSamlCallbackFound() *SamlCallbackFound {
 	return &SamlCallbackFound{}
 }
 
-/* SamlCallbackFound describes a response with status code 302, with default header values.
+/*
+SamlCallbackFound describes a response with status code 302, with default header values.
 
 Redirects to the UI endpoint with an authorization token in the fragment and the relay state, if it was specified during the initialization.
 */
@@ -82,9 +83,44 @@ type SamlCallbackFound struct {
 	Payload models.EmptyResponse
 }
 
+// IsSuccess returns true when this saml callback found response has a 2xx status code
+func (o *SamlCallbackFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this saml callback found response has a 3xx status code
+func (o *SamlCallbackFound) IsRedirect() bool {
+	return true
+}
+
+// IsClientError returns true when this saml callback found response has a 4xx status code
+func (o *SamlCallbackFound) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this saml callback found response has a 5xx status code
+func (o *SamlCallbackFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this saml callback found response a status code equal to that given
+func (o *SamlCallbackFound) IsCode(code int) bool {
+	return code == 302
+}
+
+// Code gets the status code for the saml callback found response
+func (o *SamlCallbackFound) Code() int {
+	return 302
+}
+
 func (o *SamlCallbackFound) Error() string {
 	return fmt.Sprintf("[POST /users/auth/saml/_callback][%d] samlCallbackFound  %+v", 302, o.Payload)
 }
+
+func (o *SamlCallbackFound) String() string {
+	return fmt.Sprintf("[POST /users/auth/saml/_callback][%d] samlCallbackFound  %+v", 302, o.Payload)
+}
+
 func (o *SamlCallbackFound) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -104,7 +140,8 @@ func NewSamlCallbackUnauthorized() *SamlCallbackUnauthorized {
 	return &SamlCallbackUnauthorized{}
 }
 
-/* SamlCallbackUnauthorized describes a response with status code 401, with default header values.
+/*
+SamlCallbackUnauthorized describes a response with status code 401, with default header values.
 
 The supplied SAML response is invalid. (code: `root.unauthenticated`)
 */
@@ -117,9 +154,44 @@ type SamlCallbackUnauthorized struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this saml callback unauthorized response has a 2xx status code
+func (o *SamlCallbackUnauthorized) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this saml callback unauthorized response has a 3xx status code
+func (o *SamlCallbackUnauthorized) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this saml callback unauthorized response has a 4xx status code
+func (o *SamlCallbackUnauthorized) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this saml callback unauthorized response has a 5xx status code
+func (o *SamlCallbackUnauthorized) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this saml callback unauthorized response a status code equal to that given
+func (o *SamlCallbackUnauthorized) IsCode(code int) bool {
+	return code == 401
+}
+
+// Code gets the status code for the saml callback unauthorized response
+func (o *SamlCallbackUnauthorized) Code() int {
+	return 401
+}
+
 func (o *SamlCallbackUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /users/auth/saml/_callback][%d] samlCallbackUnauthorized  %+v", 401, o.Payload)
 }
+
+func (o *SamlCallbackUnauthorized) String() string {
+	return fmt.Sprintf("[POST /users/auth/saml/_callback][%d] samlCallbackUnauthorized  %+v", 401, o.Payload)
+}
+
 func (o *SamlCallbackUnauthorized) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -148,7 +220,8 @@ func NewSamlCallbackNotImplemented() *SamlCallbackNotImplemented {
 	return &SamlCallbackNotImplemented{}
 }
 
-/* SamlCallbackNotImplemented describes a response with status code 501, with default header values.
+/*
+SamlCallbackNotImplemented describes a response with status code 501, with default header values.
 
 The administrator needs to configure the authentication cluster. (code: `authc.no_authentication_cluster`)
 */
@@ -161,9 +234,44 @@ type SamlCallbackNotImplemented struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this saml callback not implemented response has a 2xx status code
+func (o *SamlCallbackNotImplemented) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this saml callback not implemented response has a 3xx status code
+func (o *SamlCallbackNotImplemented) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this saml callback not implemented response has a 4xx status code
+func (o *SamlCallbackNotImplemented) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this saml callback not implemented response has a 5xx status code
+func (o *SamlCallbackNotImplemented) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this saml callback not implemented response a status code equal to that given
+func (o *SamlCallbackNotImplemented) IsCode(code int) bool {
+	return code == 501
+}
+
+// Code gets the status code for the saml callback not implemented response
+func (o *SamlCallbackNotImplemented) Code() int {
+	return 501
+}
+
 func (o *SamlCallbackNotImplemented) Error() string {
 	return fmt.Sprintf("[POST /users/auth/saml/_callback][%d] samlCallbackNotImplemented  %+v", 501, o.Payload)
 }
+
+func (o *SamlCallbackNotImplemented) String() string {
+	return fmt.Sprintf("[POST /users/auth/saml/_callback][%d] samlCallbackNotImplemented  %+v", 501, o.Payload)
+}
+
 func (o *SamlCallbackNotImplemented) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -192,7 +300,8 @@ func NewSamlCallbackBadGateway() *SamlCallbackBadGateway {
 	return &SamlCallbackBadGateway{}
 }
 
-/* SamlCallbackBadGateway describes a response with status code 502, with default header values.
+/*
+SamlCallbackBadGateway describes a response with status code 502, with default header values.
 
 The authentication cluster failed to process the request. The response body contains details about the error. (code: `authc.authentication_cluster_error`)
 */
@@ -205,9 +314,44 @@ type SamlCallbackBadGateway struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this saml callback bad gateway response has a 2xx status code
+func (o *SamlCallbackBadGateway) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this saml callback bad gateway response has a 3xx status code
+func (o *SamlCallbackBadGateway) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this saml callback bad gateway response has a 4xx status code
+func (o *SamlCallbackBadGateway) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this saml callback bad gateway response has a 5xx status code
+func (o *SamlCallbackBadGateway) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this saml callback bad gateway response a status code equal to that given
+func (o *SamlCallbackBadGateway) IsCode(code int) bool {
+	return code == 502
+}
+
+// Code gets the status code for the saml callback bad gateway response
+func (o *SamlCallbackBadGateway) Code() int {
+	return 502
+}
+
 func (o *SamlCallbackBadGateway) Error() string {
 	return fmt.Sprintf("[POST /users/auth/saml/_callback][%d] samlCallbackBadGateway  %+v", 502, o.Payload)
 }
+
+func (o *SamlCallbackBadGateway) String() string {
+	return fmt.Sprintf("[POST /users/auth/saml/_callback][%d] samlCallbackBadGateway  %+v", 502, o.Payload)
+}
+
 func (o *SamlCallbackBadGateway) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

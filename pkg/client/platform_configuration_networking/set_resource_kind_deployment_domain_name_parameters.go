@@ -72,10 +72,12 @@ func NewSetResourceKindDeploymentDomainNameParamsWithHTTPClient(client *http.Cli
 	}
 }
 
-/* SetResourceKindDeploymentDomainNameParams contains all the parameters to send to the API endpoint
-   for the set resource kind deployment domain name operation.
+/*
+SetResourceKindDeploymentDomainNameParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the set resource kind deployment domain name operation.
+
+	Typically these are written to a http.Request.
 */
 type SetResourceKindDeploymentDomainNameParams struct {
 

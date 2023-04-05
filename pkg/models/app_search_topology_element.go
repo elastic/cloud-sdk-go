@@ -82,6 +82,8 @@ func (m *AppSearchTopologyElement) validateAppsearch(formats strfmt.Registry) er
 		if err := m.Appsearch.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("appsearch")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("appsearch")
 			}
 			return err
 		}
@@ -99,6 +101,8 @@ func (m *AppSearchTopologyElement) validateNodeType(formats strfmt.Registry) err
 		if err := m.NodeType.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("node_type")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("node_type")
 			}
 			return err
 		}
@@ -116,6 +120,8 @@ func (m *AppSearchTopologyElement) validateSize(formats strfmt.Registry) error {
 		if err := m.Size.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("size")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("size")
 			}
 			return err
 		}
@@ -152,6 +158,8 @@ func (m *AppSearchTopologyElement) contextValidateAppsearch(ctx context.Context,
 		if err := m.Appsearch.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("appsearch")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("appsearch")
 			}
 			return err
 		}
@@ -166,6 +174,8 @@ func (m *AppSearchTopologyElement) contextValidateNodeType(ctx context.Context, 
 		if err := m.NodeType.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("node_type")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("node_type")
 			}
 			return err
 		}
@@ -180,6 +190,8 @@ func (m *AppSearchTopologyElement) contextValidateSize(ctx context.Context, form
 		if err := m.Size.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("size")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("size")
 			}
 			return err
 		}

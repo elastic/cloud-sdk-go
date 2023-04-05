@@ -69,10 +69,12 @@ func NewUpdateRunnerLoggingSettingsParamsWithHTTPClient(client *http.Client) *Up
 	}
 }
 
-/* UpdateRunnerLoggingSettingsParams contains all the parameters to send to the API endpoint
-   for the update runner logging settings operation.
+/*
+UpdateRunnerLoggingSettingsParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the update runner logging settings operation.
+
+	Typically these are written to a http.Request.
 */
 type UpdateRunnerLoggingSettingsParams struct {
 

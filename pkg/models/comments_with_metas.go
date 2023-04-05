@@ -71,6 +71,8 @@ func (m *CommentsWithMetas) validateValues(formats strfmt.Registry) error {
 			if err := m.Values[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("values" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("values" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -103,6 +105,8 @@ func (m *CommentsWithMetas) contextValidateValues(ctx context.Context, formats s
 			if err := m.Values[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("values" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("values" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

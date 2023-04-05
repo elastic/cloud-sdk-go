@@ -80,7 +80,8 @@ func NewCreateOrganizationInvitationsCreated() *CreateOrganizationInvitationsCre
 	return &CreateOrganizationInvitationsCreated{}
 }
 
-/* CreateOrganizationInvitationsCreated describes a response with status code 201, with default header values.
+/*
+CreateOrganizationInvitationsCreated describes a response with status code 201, with default header values.
 
 Organization invitations created successfully
 */
@@ -88,9 +89,44 @@ type CreateOrganizationInvitationsCreated struct {
 	Payload *models.OrganizationInvitations
 }
 
+// IsSuccess returns true when this create organization invitations created response has a 2xx status code
+func (o *CreateOrganizationInvitationsCreated) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this create organization invitations created response has a 3xx status code
+func (o *CreateOrganizationInvitationsCreated) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create organization invitations created response has a 4xx status code
+func (o *CreateOrganizationInvitationsCreated) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this create organization invitations created response has a 5xx status code
+func (o *CreateOrganizationInvitationsCreated) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create organization invitations created response a status code equal to that given
+func (o *CreateOrganizationInvitationsCreated) IsCode(code int) bool {
+	return code == 201
+}
+
+// Code gets the status code for the create organization invitations created response
+func (o *CreateOrganizationInvitationsCreated) Code() int {
+	return 201
+}
+
 func (o *CreateOrganizationInvitationsCreated) Error() string {
 	return fmt.Sprintf("[POST /organizations/{organization_id}/invitations][%d] createOrganizationInvitationsCreated  %+v", 201, o.Payload)
 }
+
+func (o *CreateOrganizationInvitationsCreated) String() string {
+	return fmt.Sprintf("[POST /organizations/{organization_id}/invitations][%d] createOrganizationInvitationsCreated  %+v", 201, o.Payload)
+}
+
 func (o *CreateOrganizationInvitationsCreated) GetPayload() *models.OrganizationInvitations {
 	return o.Payload
 }
@@ -112,9 +148,11 @@ func NewCreateOrganizationInvitationsBadRequest() *CreateOrganizationInvitations
 	return &CreateOrganizationInvitationsBadRequest{}
 }
 
-/* CreateOrganizationInvitationsBadRequest describes a response with status code 400, with default header values.
+/*
+	CreateOrganizationInvitationsBadRequest describes a response with status code 400, with default header values.
 
- * Invitation email was not valid. (code: `organization.invitation_invalid_email`)
+	* Invitation email was not valid. (code: `organization.invitation_invalid_email`)
+
 * Invitation already sent. (code: `organization.invitation_already_exists`)
 * User already belongs to organization. (code: `organization.user_organization_already_belongs`)
 */
@@ -127,9 +165,44 @@ type CreateOrganizationInvitationsBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this create organization invitations bad request response has a 2xx status code
+func (o *CreateOrganizationInvitationsBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this create organization invitations bad request response has a 3xx status code
+func (o *CreateOrganizationInvitationsBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create organization invitations bad request response has a 4xx status code
+func (o *CreateOrganizationInvitationsBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this create organization invitations bad request response has a 5xx status code
+func (o *CreateOrganizationInvitationsBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create organization invitations bad request response a status code equal to that given
+func (o *CreateOrganizationInvitationsBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the create organization invitations bad request response
+func (o *CreateOrganizationInvitationsBadRequest) Code() int {
+	return 400
+}
+
 func (o *CreateOrganizationInvitationsBadRequest) Error() string {
 	return fmt.Sprintf("[POST /organizations/{organization_id}/invitations][%d] createOrganizationInvitationsBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *CreateOrganizationInvitationsBadRequest) String() string {
+	return fmt.Sprintf("[POST /organizations/{organization_id}/invitations][%d] createOrganizationInvitationsBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *CreateOrganizationInvitationsBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -158,7 +231,8 @@ func NewCreateOrganizationInvitationsForbidden() *CreateOrganizationInvitationsF
 	return &CreateOrganizationInvitationsForbidden{}
 }
 
-/* CreateOrganizationInvitationsForbidden describes a response with status code 403, with default header values.
+/*
+CreateOrganizationInvitationsForbidden describes a response with status code 403, with default header values.
 
 The current user authentication is not valid. (code: `root.invalid_authentication`)
 */
@@ -171,9 +245,44 @@ type CreateOrganizationInvitationsForbidden struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this create organization invitations forbidden response has a 2xx status code
+func (o *CreateOrganizationInvitationsForbidden) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this create organization invitations forbidden response has a 3xx status code
+func (o *CreateOrganizationInvitationsForbidden) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create organization invitations forbidden response has a 4xx status code
+func (o *CreateOrganizationInvitationsForbidden) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this create organization invitations forbidden response has a 5xx status code
+func (o *CreateOrganizationInvitationsForbidden) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create organization invitations forbidden response a status code equal to that given
+func (o *CreateOrganizationInvitationsForbidden) IsCode(code int) bool {
+	return code == 403
+}
+
+// Code gets the status code for the create organization invitations forbidden response
+func (o *CreateOrganizationInvitationsForbidden) Code() int {
+	return 403
+}
+
 func (o *CreateOrganizationInvitationsForbidden) Error() string {
 	return fmt.Sprintf("[POST /organizations/{organization_id}/invitations][%d] createOrganizationInvitationsForbidden  %+v", 403, o.Payload)
 }
+
+func (o *CreateOrganizationInvitationsForbidden) String() string {
+	return fmt.Sprintf("[POST /organizations/{organization_id}/invitations][%d] createOrganizationInvitationsForbidden  %+v", 403, o.Payload)
+}
+
 func (o *CreateOrganizationInvitationsForbidden) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -202,9 +311,11 @@ func NewCreateOrganizationInvitationsNotFound() *CreateOrganizationInvitationsNo
 	return &CreateOrganizationInvitationsNotFound{}
 }
 
-/* CreateOrganizationInvitationsNotFound describes a response with status code 404, with default header values.
+/*
+	CreateOrganizationInvitationsNotFound describes a response with status code 404, with default header values.
 
- * Organization not found. (code: `organization.not_found`)
+	* Organization not found. (code: `organization.not_found`)
+
 * User not found. (code: `user.not_found`)
 * Invitation sender does not belong to organization. (code: `organization.user_organization_does_not_belong`)
 */
@@ -217,9 +328,44 @@ type CreateOrganizationInvitationsNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this create organization invitations not found response has a 2xx status code
+func (o *CreateOrganizationInvitationsNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this create organization invitations not found response has a 3xx status code
+func (o *CreateOrganizationInvitationsNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create organization invitations not found response has a 4xx status code
+func (o *CreateOrganizationInvitationsNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this create organization invitations not found response has a 5xx status code
+func (o *CreateOrganizationInvitationsNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create organization invitations not found response a status code equal to that given
+func (o *CreateOrganizationInvitationsNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the create organization invitations not found response
+func (o *CreateOrganizationInvitationsNotFound) Code() int {
+	return 404
+}
+
 func (o *CreateOrganizationInvitationsNotFound) Error() string {
 	return fmt.Sprintf("[POST /organizations/{organization_id}/invitations][%d] createOrganizationInvitationsNotFound  %+v", 404, o.Payload)
 }
+
+func (o *CreateOrganizationInvitationsNotFound) String() string {
+	return fmt.Sprintf("[POST /organizations/{organization_id}/invitations][%d] createOrganizationInvitationsNotFound  %+v", 404, o.Payload)
+}
+
 func (o *CreateOrganizationInvitationsNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -248,7 +394,8 @@ func NewCreateOrganizationInvitationsTooManyRequests() *CreateOrganizationInvita
 	return &CreateOrganizationInvitationsTooManyRequests{}
 }
 
-/* CreateOrganizationInvitationsTooManyRequests describes a response with status code 429, with default header values.
+/*
+CreateOrganizationInvitationsTooManyRequests describes a response with status code 429, with default header values.
 
 Request exceeds organization invitation creation rate limits. (code: `organization.invitations_rate_limit_exceeded`)
 */
@@ -261,9 +408,44 @@ type CreateOrganizationInvitationsTooManyRequests struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this create organization invitations too many requests response has a 2xx status code
+func (o *CreateOrganizationInvitationsTooManyRequests) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this create organization invitations too many requests response has a 3xx status code
+func (o *CreateOrganizationInvitationsTooManyRequests) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create organization invitations too many requests response has a 4xx status code
+func (o *CreateOrganizationInvitationsTooManyRequests) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this create organization invitations too many requests response has a 5xx status code
+func (o *CreateOrganizationInvitationsTooManyRequests) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create organization invitations too many requests response a status code equal to that given
+func (o *CreateOrganizationInvitationsTooManyRequests) IsCode(code int) bool {
+	return code == 429
+}
+
+// Code gets the status code for the create organization invitations too many requests response
+func (o *CreateOrganizationInvitationsTooManyRequests) Code() int {
+	return 429
+}
+
 func (o *CreateOrganizationInvitationsTooManyRequests) Error() string {
 	return fmt.Sprintf("[POST /organizations/{organization_id}/invitations][%d] createOrganizationInvitationsTooManyRequests  %+v", 429, o.Payload)
 }
+
+func (o *CreateOrganizationInvitationsTooManyRequests) String() string {
+	return fmt.Sprintf("[POST /organizations/{organization_id}/invitations][%d] createOrganizationInvitationsTooManyRequests  %+v", 429, o.Payload)
+}
+
 func (o *CreateOrganizationInvitationsTooManyRequests) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

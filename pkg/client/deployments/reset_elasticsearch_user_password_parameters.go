@@ -69,10 +69,12 @@ func NewResetElasticsearchUserPasswordParamsWithHTTPClient(client *http.Client) 
 	}
 }
 
-/* ResetElasticsearchUserPasswordParams contains all the parameters to send to the API endpoint
-   for the reset elasticsearch user password operation.
+/*
+ResetElasticsearchUserPasswordParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the reset elasticsearch user password operation.
+
+	Typically these are written to a http.Request.
 */
 type ResetElasticsearchUserPasswordParams struct {
 

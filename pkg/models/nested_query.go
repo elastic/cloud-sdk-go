@@ -91,6 +91,8 @@ func (m *NestedQuery) validateQuery(formats strfmt.Registry) error {
 		if err := m.Query.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("query")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("query")
 			}
 			return err
 		}
@@ -170,6 +172,8 @@ func (m *NestedQuery) contextValidateQuery(ctx context.Context, formats strfmt.R
 		if err := m.Query.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("query")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("query")
 			}
 			return err
 		}

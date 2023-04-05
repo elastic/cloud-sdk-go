@@ -175,9 +175,9 @@ type ClientService interface {
 }
 
 /*
-  CancelDeploymentResourcePendingPlan cancels resource pending plan
+CancelDeploymentResourcePendingPlan cancels resource pending plan
 
-  Cancels the pending plan of a Resource belonging to a given Deployment.
+Cancels the pending plan of a Resource belonging to a given Deployment.
 */
 func (a *Client) CancelDeploymentResourcePendingPlan(params *CancelDeploymentResourcePendingPlanParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CancelDeploymentResourcePendingPlanOK, error) {
 	// TODO: Validate the params before sending
@@ -216,9 +216,9 @@ func (a *Client) CancelDeploymentResourcePendingPlan(params *CancelDeploymentRes
 }
 
 /*
-  CaptureDeploymentInstanceHeapDump captures a new on demand heap dump for the given instance
+CaptureDeploymentInstanceHeapDump captures a new on demand heap dump for the given instance
 
-  Captures a new on-demand heap dump for the given instance. The capture is completed asynchronously, and you can check its progress by getting heap dumps for the given resource.
+Captures a new on-demand heap dump for the given instance. The capture is completed asynchronously, and you can check its progress by getting heap dumps for the given resource.
 */
 func (a *Client) CaptureDeploymentInstanceHeapDump(params *CaptureDeploymentInstanceHeapDumpParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CaptureDeploymentInstanceHeapDumpAccepted, error) {
 	// TODO: Validate the params before sending
@@ -257,9 +257,9 @@ func (a *Client) CaptureDeploymentInstanceHeapDump(params *CaptureDeploymentInst
 }
 
 /*
-  CaptureDeploymentInstanceThreadDump captures a new thread dump for the given instance
+CaptureDeploymentInstanceThreadDump captures a new thread dump for the given instance
 
-  Captures a new thread dump for the given instance and returns the thread dump contents.
+Captures a new thread dump for the given instance and returns the thread dump contents.
 */
 func (a *Client) CaptureDeploymentInstanceThreadDump(params *CaptureDeploymentInstanceThreadDumpParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CaptureDeploymentInstanceThreadDumpOK, error) {
 	// TODO: Validate the params before sending
@@ -298,9 +298,9 @@ func (a *Client) CaptureDeploymentInstanceThreadDump(params *CaptureDeploymentIn
 }
 
 /*
-  CaptureDeploymentResourceDiagnostics captures diagnostics for an elasticsearch or kibana resource
+CaptureDeploymentResourceDiagnostics captures diagnostics for an elasticsearch or kibana resource
 
-  Retrieves a diagnostic bundle from an active cluster. To successfully retrieve a diagnostic bundle, the cluster must be responsive.
+Retrieves a diagnostic bundle from an active cluster. To successfully retrieve a diagnostic bundle, the cluster must be responsive.
 */
 func (a *Client) CaptureDeploymentResourceDiagnostics(params *CaptureDeploymentResourceDiagnosticsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CaptureDeploymentResourceDiagnosticsOK, error) {
 	// TODO: Validate the params before sending
@@ -339,9 +339,9 @@ func (a *Client) CaptureDeploymentResourceDiagnostics(params *CaptureDeploymentR
 }
 
 /*
-  CreateDeployment creates deployment
+CreateDeployment creates deployment
 
-  Creates a Deployment.
+Creates a Deployment.
 */
 func (a *Client) CreateDeployment(params *CreateDeploymentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateDeploymentOK, *CreateDeploymentCreated, *CreateDeploymentAccepted, error) {
 	// TODO: Validate the params before sending
@@ -383,9 +383,9 @@ func (a *Client) CreateDeployment(params *CreateDeploymentParams, authInfo runti
 }
 
 /*
-  DeleteDeployment deletes deployment
+DeleteDeployment deletes deployment
 
-  Deletes a Deployment and all its resources.
+Deletes a Deployment and all its resources.
 */
 func (a *Client) DeleteDeployment(params *DeleteDeploymentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteDeploymentOK, error) {
 	// TODO: Validate the params before sending
@@ -424,9 +424,9 @@ func (a *Client) DeleteDeployment(params *DeleteDeploymentParams, authInfo runti
 }
 
 /*
-  DeleteDeploymentResourceProxyRequests proxies HTTP d e l e t e request
+DeleteDeploymentResourceProxyRequests proxies HTTP d e l e t e request
 
-  Proxies the HTTP DELETE request to the deployment resource. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.
+Proxies the HTTP DELETE request to the deployment resource. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.
 */
 func (a *Client) DeleteDeploymentResourceProxyRequests(params *DeleteDeploymentResourceProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteDeploymentResourceProxyRequestsOK, error) {
 	// TODO: Validate the params before sending
@@ -465,9 +465,9 @@ func (a *Client) DeleteDeploymentResourceProxyRequests(params *DeleteDeploymentR
 }
 
 /*
-  DeleteDeploymentStatelessResource deletes stateless resource from deployment
+DeleteDeploymentStatelessResource deletes stateless resource from deployment
 
-  Delete Stateless Resource belonging to a given Deployment. Deployment must be shutdown already.
+Delete Stateless Resource belonging to a given Deployment. Deployment must be shutdown already.
 */
 func (a *Client) DeleteDeploymentStatelessResource(params *DeleteDeploymentStatelessResourceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteDeploymentStatelessResourceOK, error) {
 	// TODO: Validate the params before sending
@@ -506,9 +506,9 @@ func (a *Client) DeleteDeploymentStatelessResource(params *DeleteDeploymentState
 }
 
 /*
-  DeploymentApmResetSecretToken resets the secret token for an a p m resource
+DeploymentApmResetSecretToken resets the secret token for an a p m resource
 
-  Reset the token of an APM resource.
+Reset the token of an APM resource.
 */
 func (a *Client) DeploymentApmResetSecretToken(params *DeploymentApmResetSecretTokenParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeploymentApmResetSecretTokenAccepted, error) {
 	// TODO: Validate the params before sending
@@ -547,9 +547,9 @@ func (a *Client) DeploymentApmResetSecretToken(params *DeploymentApmResetSecretT
 }
 
 /*
-  DownloadDeploymentInstanceHeapDump downloads the given instance s heap dump
+DownloadDeploymentInstanceHeapDump downloads the given instance s heap dump
 
-  Returns the given instance's heap dump for download.
+Returns the given instance's heap dump for download.
 */
 func (a *Client) DownloadDeploymentInstanceHeapDump(params *DownloadDeploymentInstanceHeapDumpParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DownloadDeploymentInstanceHeapDumpOK, error) {
 	// TODO: Validate the params before sending
@@ -588,9 +588,9 @@ func (a *Client) DownloadDeploymentInstanceHeapDump(params *DownloadDeploymentIn
 }
 
 /*
-  EnableDeploymentResourceCcr migrates elasticsearch and associated kibana resources to enable c c r
+EnableDeploymentResourceCcr migrates elasticsearch and associated kibana resources to enable c c r
 
-  Migrates the specified Elasticsearch resource and its associated Kibana to enable CCR (if supported).
+Migrates the specified Elasticsearch resource and its associated Kibana to enable CCR (if supported).
 */
 func (a *Client) EnableDeploymentResourceCcr(params *EnableDeploymentResourceCcrParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*EnableDeploymentResourceCcrOK, error) {
 	// TODO: Validate the params before sending
@@ -629,9 +629,9 @@ func (a *Client) EnableDeploymentResourceCcr(params *EnableDeploymentResourceCcr
 }
 
 /*
-  EnableDeploymentResourceIlm migrates elasticsearch resource to use i l m
+EnableDeploymentResourceIlm migrates elasticsearch resource to use i l m
 
-  Migrates the specified Elasticsearch resource to use ILM.
+Migrates the specified Elasticsearch resource to use ILM.
 */
 func (a *Client) EnableDeploymentResourceIlm(params *EnableDeploymentResourceIlmParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*EnableDeploymentResourceIlmOK, error) {
 	// TODO: Validate the params before sending
@@ -670,9 +670,9 @@ func (a *Client) EnableDeploymentResourceIlm(params *EnableDeploymentResourceIlm
 }
 
 /*
-  EnableDeploymentResourceSlm migrates elasticsearch resource to use s l m
+EnableDeploymentResourceSlm migrates elasticsearch resource to use s l m
 
-  Migrates the specified Elasticsearch resource to use SLM.
+Migrates the specified Elasticsearch resource to use SLM.
 */
 func (a *Client) EnableDeploymentResourceSlm(params *EnableDeploymentResourceSlmParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*EnableDeploymentResourceSlmOK, error) {
 	// TODO: Validate the params before sending
@@ -711,9 +711,9 @@ func (a *Client) EnableDeploymentResourceSlm(params *EnableDeploymentResourceSlm
 }
 
 /*
-  GetAppsearchReadOnlyMode sets app search read only status
+GetAppsearchReadOnlyMode sets app search read only status
 
-  Enable/Disable read-only mode on the given App Search resource.
+Enable/Disable read-only mode on the given App Search resource.
 */
 func (a *Client) GetAppsearchReadOnlyMode(params *GetAppsearchReadOnlyModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAppsearchReadOnlyModeOK, error) {
 	// TODO: Validate the params before sending
@@ -752,9 +752,9 @@ func (a *Client) GetAppsearchReadOnlyMode(params *GetAppsearchReadOnlyModeParams
 }
 
 /*
-  GetDeployment gets deployment
+GetDeployment gets deployment
 
-  Retrieves information about a Deployment.
+Retrieves information about a Deployment.
 */
 func (a *Client) GetDeployment(params *GetDeploymentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentOK, error) {
 	// TODO: Validate the params before sending
@@ -793,9 +793,9 @@ func (a *Client) GetDeployment(params *GetDeploymentParams, authInfo runtime.Cli
 }
 
 /*
-  GetDeploymentApmResourceInfo gets deployment a p m resource info
+GetDeploymentApmResourceInfo gets deployment a p m resource info
 
-  Get info about an APM Resource belonging to a given Deployment.
+Get info about an APM Resource belonging to a given Deployment.
 */
 func (a *Client) GetDeploymentApmResourceInfo(params *GetDeploymentApmResourceInfoParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentApmResourceInfoOK, error) {
 	// TODO: Validate the params before sending
@@ -834,9 +834,9 @@ func (a *Client) GetDeploymentApmResourceInfo(params *GetDeploymentApmResourceIn
 }
 
 /*
-  GetDeploymentAppsearchResourceInfo gets deployment app search resource info
+GetDeploymentAppsearchResourceInfo gets deployment app search resource info
 
-  Get info about an App Search Resource belonging to a given Deployment.
+Get info about an App Search Resource belonging to a given Deployment.
 */
 func (a *Client) GetDeploymentAppsearchResourceInfo(params *GetDeploymentAppsearchResourceInfoParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentAppsearchResourceInfoOK, error) {
 	// TODO: Validate the params before sending
@@ -875,9 +875,9 @@ func (a *Client) GetDeploymentAppsearchResourceInfo(params *GetDeploymentAppsear
 }
 
 /*
-  GetDeploymentCertificateAuthority gets certificate authority
+GetDeploymentCertificateAuthority gets certificate authority
 
-  Returns the certificate authority used to sign the certificates of this deployment.
+Returns the certificate authority used to sign the certificates of this deployment.
 */
 func (a *Client) GetDeploymentCertificateAuthority(params *GetDeploymentCertificateAuthorityParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentCertificateAuthorityOK, error) {
 	// TODO: Validate the params before sending
@@ -916,9 +916,9 @@ func (a *Client) GetDeploymentCertificateAuthority(params *GetDeploymentCertific
 }
 
 /*
-  GetDeploymentEnterpriseSearchResourceInfo gets deployment enterprise search resource info
+GetDeploymentEnterpriseSearchResourceInfo gets deployment enterprise search resource info
 
-  Get info about an Enterprise Search Resource belonging to a given Deployment.
+Get info about an Enterprise Search Resource belonging to a given Deployment.
 */
 func (a *Client) GetDeploymentEnterpriseSearchResourceInfo(params *GetDeploymentEnterpriseSearchResourceInfoParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentEnterpriseSearchResourceInfoOK, error) {
 	// TODO: Validate the params before sending
@@ -957,9 +957,9 @@ func (a *Client) GetDeploymentEnterpriseSearchResourceInfo(params *GetDeployment
 }
 
 /*
-  GetDeploymentEsResourceEligibleRemoteClusters gets eligible remote clusters
+GetDeploymentEsResourceEligibleRemoteClusters gets eligible remote clusters
 
-  Returns the list of deployments which contain eligible remote clusters for the elasticsearch resource.
+Returns the list of deployments which contain eligible remote clusters for the elasticsearch resource.
 */
 func (a *Client) GetDeploymentEsResourceEligibleRemoteClusters(params *GetDeploymentEsResourceEligibleRemoteClustersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentEsResourceEligibleRemoteClustersOK, error) {
 	// TODO: Validate the params before sending
@@ -998,9 +998,9 @@ func (a *Client) GetDeploymentEsResourceEligibleRemoteClusters(params *GetDeploy
 }
 
 /*
-  GetDeploymentEsResourceInfo gets deployment elasticsearch resource info
+GetDeploymentEsResourceInfo gets deployment elasticsearch resource info
 
-  Get info about an Elasticsearch Resource belonging to a given Deployment.
+Get info about an Elasticsearch Resource belonging to a given Deployment.
 */
 func (a *Client) GetDeploymentEsResourceInfo(params *GetDeploymentEsResourceInfoParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentEsResourceInfoOK, error) {
 	// TODO: Validate the params before sending
@@ -1039,9 +1039,9 @@ func (a *Client) GetDeploymentEsResourceInfo(params *GetDeploymentEsResourceInfo
 }
 
 /*
-  GetDeploymentEsResourceKeystore gets the items in the elasticsearch resource keystore
+GetDeploymentEsResourceKeystore gets the items in the elasticsearch resource keystore
 
-  Fetches the current values of the keystore for the Elasticsearch resource.
+Fetches the current values of the keystore for the Elasticsearch resource.
 */
 func (a *Client) GetDeploymentEsResourceKeystore(params *GetDeploymentEsResourceKeystoreParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentEsResourceKeystoreOK, error) {
 	// TODO: Validate the params before sending
@@ -1080,9 +1080,9 @@ func (a *Client) GetDeploymentEsResourceKeystore(params *GetDeploymentEsResource
 }
 
 /*
-  GetDeploymentEsResourceRemoteClusters gets remote clusters
+GetDeploymentEsResourceRemoteClusters gets remote clusters
 
-  Returns the list of remote clusters for the elasticsearch resource.
+Returns the list of remote clusters for the elasticsearch resource.
 */
 func (a *Client) GetDeploymentEsResourceRemoteClusters(params *GetDeploymentEsResourceRemoteClustersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentEsResourceRemoteClustersOK, error) {
 	// TODO: Validate the params before sending
@@ -1121,9 +1121,9 @@ func (a *Client) GetDeploymentEsResourceRemoteClusters(params *GetDeploymentEsRe
 }
 
 /*
-  GetDeploymentHeapDumps gets details about heap dumps for a deployment
+GetDeploymentHeapDumps gets details about heap dumps for a deployment
 
-  Gets details about existing heap dumps and in progress heap dump captures across all instances belonging to the deployment.
+Gets details about existing heap dumps and in progress heap dump captures across all instances belonging to the deployment.
 */
 func (a *Client) GetDeploymentHeapDumps(params *GetDeploymentHeapDumpsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentHeapDumpsOK, error) {
 	// TODO: Validate the params before sending
@@ -1162,9 +1162,9 @@ func (a *Client) GetDeploymentHeapDumps(params *GetDeploymentHeapDumpsParams, au
 }
 
 /*
-  GetDeploymentIntegrationsServerResourceInfo gets deployment integrations server resource info
+GetDeploymentIntegrationsServerResourceInfo gets deployment integrations server resource info
 
-  Get info about an Integrations Server Resource belonging to a given Deployment.
+Get info about an Integrations Server Resource belonging to a given Deployment.
 */
 func (a *Client) GetDeploymentIntegrationsServerResourceInfo(params *GetDeploymentIntegrationsServerResourceInfoParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentIntegrationsServerResourceInfoOK, error) {
 	// TODO: Validate the params before sending
@@ -1203,9 +1203,9 @@ func (a *Client) GetDeploymentIntegrationsServerResourceInfo(params *GetDeployme
 }
 
 /*
-  GetDeploymentKibResourceInfo gets deployment kibana resource info
+GetDeploymentKibResourceInfo gets deployment kibana resource info
 
-  Get info about a Kibana Resource belonging to a given Deployment.
+Get info about a Kibana Resource belonging to a given Deployment.
 */
 func (a *Client) GetDeploymentKibResourceInfo(params *GetDeploymentKibResourceInfoParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentKibResourceInfoOK, error) {
 	// TODO: Validate the params before sending
@@ -1244,9 +1244,9 @@ func (a *Client) GetDeploymentKibResourceInfo(params *GetDeploymentKibResourceIn
 }
 
 /*
-  GetDeploymentResourcePlanActivity gets plan activity
+GetDeploymentResourcePlanActivity gets plan activity
 
-  Retrieves details for a single plan activity for the given resource.
+Retrieves details for a single plan activity for the given resource.
 */
 func (a *Client) GetDeploymentResourcePlanActivity(params *GetDeploymentResourcePlanActivityParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentResourcePlanActivityOK, error) {
 	// TODO: Validate the params before sending
@@ -1285,9 +1285,9 @@ func (a *Client) GetDeploymentResourcePlanActivity(params *GetDeploymentResource
 }
 
 /*
-  GetDeploymentResourceProxyRequests proxies HTTP g e t request
+GetDeploymentResourceProxyRequests proxies HTTP g e t request
 
-  Proxies the HTTP GET request to the deployment resource. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.
+Proxies the HTTP GET request to the deployment resource. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.
 */
 func (a *Client) GetDeploymentResourceProxyRequests(params *GetDeploymentResourceProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentResourceProxyRequestsOK, error) {
 	// TODO: Validate the params before sending
@@ -1326,9 +1326,9 @@ func (a *Client) GetDeploymentResourceProxyRequests(params *GetDeploymentResourc
 }
 
 /*
-  GetDeploymentUpgradeAssistantStatus gets deployment upgade assistant status
+GetDeploymentUpgradeAssistantStatus gets deployment upgade assistant status
 
-  Get details about an Elasticsearch resource belonging to a given deployment.
+Get details about an Elasticsearch resource belonging to a given deployment.
 */
 func (a *Client) GetDeploymentUpgradeAssistantStatus(params *GetDeploymentUpgradeAssistantStatusParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentUpgradeAssistantStatusOK, error) {
 	// TODO: Validate the params before sending
@@ -1367,9 +1367,9 @@ func (a *Client) GetDeploymentUpgradeAssistantStatus(params *GetDeploymentUpgrad
 }
 
 /*
-  ListDeployments lists deployments
+ListDeployments lists deployments
 
-  List Deployments.
+List Deployments.
 */
 func (a *Client) ListDeployments(params *ListDeploymentsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListDeploymentsOK, error) {
 	// TODO: Validate the params before sending
@@ -1408,9 +1408,9 @@ func (a *Client) ListDeployments(params *ListDeploymentsParams, authInfo runtime
 }
 
 /*
-  MigrateDeploymentTemplate builds request to migrate deployment to a different template
+MigrateDeploymentTemplate builds request to migrate deployment to a different template
 
-  Returns a deployment update request that would migrate this deployment to a different template.
+Returns a deployment update request that would migrate this deployment to a different template.
 */
 func (a *Client) MigrateDeploymentTemplate(params *MigrateDeploymentTemplateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MigrateDeploymentTemplateOK, error) {
 	// TODO: Validate the params before sending
@@ -1449,9 +1449,9 @@ func (a *Client) MigrateDeploymentTemplate(params *MigrateDeploymentTemplatePara
 }
 
 /*
-  MoveDeploymentElasticsearchResourceInstances moves elasticsearch resource instances
+MoveDeploymentElasticsearchResourceInstances moves elasticsearch resource instances
 
-  Moves one or more instances belonging to the given Elasticsearch resource to a different allocator.
+Moves one or more instances belonging to the given Elasticsearch resource to a different allocator.
 */
 func (a *Client) MoveDeploymentElasticsearchResourceInstances(params *MoveDeploymentElasticsearchResourceInstancesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MoveDeploymentElasticsearchResourceInstancesOK, *MoveDeploymentElasticsearchResourceInstancesAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1491,9 +1491,9 @@ func (a *Client) MoveDeploymentElasticsearchResourceInstances(params *MoveDeploy
 }
 
 /*
-  PostDeploymentResourceProxyRequests proxies HTTP p o s t request
+PostDeploymentResourceProxyRequests proxies HTTP p o s t request
 
-  Proxies the HTTP POST request to the deployment resource. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.
+Proxies the HTTP POST request to the deployment resource. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.
 */
 func (a *Client) PostDeploymentResourceProxyRequests(params *PostDeploymentResourceProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PostDeploymentResourceProxyRequestsOK, error) {
 	// TODO: Validate the params before sending
@@ -1532,9 +1532,9 @@ func (a *Client) PostDeploymentResourceProxyRequests(params *PostDeploymentResou
 }
 
 /*
-  PutDeploymentResourceProxyRequests proxies HTTP p u t request
+PutDeploymentResourceProxyRequests proxies HTTP p u t request
 
-  Proxies the HTTP PUT request to the deployment resource. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.
+Proxies the HTTP PUT request to the deployment resource. You must specify the `X-Management-Request` HTTP header. NOTE: Use this endpoint for management purposes. It does not provide high performance.
 */
 func (a *Client) PutDeploymentResourceProxyRequests(params *PutDeploymentResourceProxyRequestsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*PutDeploymentResourceProxyRequestsOK, error) {
 	// TODO: Validate the params before sending
@@ -1573,9 +1573,9 @@ func (a *Client) PutDeploymentResourceProxyRequests(params *PutDeploymentResourc
 }
 
 /*
-  ResetElasticsearchUserPassword resets elastic user password
+ResetElasticsearchUserPassword resets elastic user password
 
-  Resets the password of the 'elastic' user.
+Resets the password of the 'elastic' user.
 */
 func (a *Client) ResetElasticsearchUserPassword(params *ResetElasticsearchUserPasswordParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ResetElasticsearchUserPasswordOK, error) {
 	// TODO: Validate the params before sending
@@ -1614,9 +1614,9 @@ func (a *Client) ResetElasticsearchUserPassword(params *ResetElasticsearchUserPa
 }
 
 /*
-  RestartDeploymentEsResource restarts deployment elasticsearch resource
+RestartDeploymentEsResource restarts deployment elasticsearch resource
 
-  Restarts an Elasticsearch Resource. If a Resource is active: this command re-applies the existing plan but applies a "cluster_reboot", which issues a restart command and waits for it to complete. If a Resource is inactive: this command starts it up with the most recent successful plan.
+Restarts an Elasticsearch Resource. If a Resource is active: this command re-applies the existing plan but applies a "cluster_reboot", which issues a restart command and waits for it to complete. If a Resource is inactive: this command starts it up with the most recent successful plan.
 */
 func (a *Client) RestartDeploymentEsResource(params *RestartDeploymentEsResourceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*RestartDeploymentEsResourceAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1655,9 +1655,9 @@ func (a *Client) RestartDeploymentEsResource(params *RestartDeploymentEsResource
 }
 
 /*
-  RestartDeploymentStatelessResource restarts deployment stateless resource
+RestartDeploymentStatelessResource restarts deployment stateless resource
 
-  Restarts a Stateless Resource. If a Resource is active: this command re-applies the existing plan but applies a "cluster_reboot", which issues a restart command and waits for it to complete. If a Resource is inactive: this command starts it up with the most recent successful plan.
+Restarts a Stateless Resource. If a Resource is active: this command re-applies the existing plan but applies a "cluster_reboot", which issues a restart command and waits for it to complete. If a Resource is inactive: this command starts it up with the most recent successful plan.
 */
 func (a *Client) RestartDeploymentStatelessResource(params *RestartDeploymentStatelessResourceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*RestartDeploymentStatelessResourceAccepted, error) {
 	// TODO: Validate the params before sending
@@ -1696,9 +1696,9 @@ func (a *Client) RestartDeploymentStatelessResource(params *RestartDeploymentSta
 }
 
 /*
-  RestoreDeployment restores a shutdown deployment
+RestoreDeployment restores a shutdown deployment
 
-  Restores all resources in a Deployment.
+Restores all resources in a Deployment.
 */
 func (a *Client) RestoreDeployment(params *RestoreDeploymentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*RestoreDeploymentOK, error) {
 	// TODO: Validate the params before sending
@@ -1737,9 +1737,9 @@ func (a *Client) RestoreDeployment(params *RestoreDeploymentParams, authInfo run
 }
 
 /*
-  RestoreDeploymentResource restores a shutdown resource
+RestoreDeploymentResource restores a shutdown resource
 
-  Restores a shutdown resource belonging to a given Deployment.
+Restores a shutdown resource belonging to a given Deployment.
 */
 func (a *Client) RestoreDeploymentResource(params *RestoreDeploymentResourceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*RestoreDeploymentResourceOK, error) {
 	// TODO: Validate the params before sending
@@ -1778,9 +1778,9 @@ func (a *Client) RestoreDeploymentResource(params *RestoreDeploymentResourcePara
 }
 
 /*
-  ResyncDeployment resynchronizes deployment
+ResyncDeployment resynchronizes deployment
 
-  Immediately resynchronizes the search index for the selected deployment.
+Immediately resynchronizes the search index for the selected deployment.
 */
 func (a *Client) ResyncDeployment(params *ResyncDeploymentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ResyncDeploymentOK, error) {
 	// TODO: Validate the params before sending
@@ -1819,9 +1819,9 @@ func (a *Client) ResyncDeployment(params *ResyncDeploymentParams, authInfo runti
 }
 
 /*
-  ResyncDeployments resynchronizes deployments
+ResyncDeployments resynchronizes deployments
 
-  Resynchronizes the search index for all the deployments.
+Resynchronizes the search index for all the deployments.
 */
 func (a *Client) ResyncDeployments(params *ResyncDeploymentsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ResyncDeploymentsOK, error) {
 	// TODO: Validate the params before sending
@@ -1860,9 +1860,9 @@ func (a *Client) ResyncDeployments(params *ResyncDeploymentsParams, authInfo run
 }
 
 /*
-  SearchDeployments searches deployments
+SearchDeployments searches deployments
 
-  Retrieves the information for all of the deployments that match the specified query.
+Retrieves the information for all of the deployments that match the specified query.
 */
 func (a *Client) SearchDeployments(params *SearchDeploymentsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SearchDeploymentsOK, error) {
 	// TODO: Validate the params before sending
@@ -1901,9 +1901,9 @@ func (a *Client) SearchDeployments(params *SearchDeploymentsParams, authInfo run
 }
 
 /*
-  SearchEligibleRemoteClusters gets eligible remote clusters
+SearchEligibleRemoteClusters gets eligible remote clusters
 
-  Returns the list of deployments which contain eligible remote clusters for a specific version.
+Returns the list of deployments which contain eligible remote clusters for a specific version.
 */
 func (a *Client) SearchEligibleRemoteClusters(params *SearchEligibleRemoteClustersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SearchEligibleRemoteClustersOK, error) {
 	// TODO: Validate the params before sending
@@ -1942,9 +1942,9 @@ func (a *Client) SearchEligibleRemoteClusters(params *SearchEligibleRemoteCluste
 }
 
 /*
-  SetAllInstancesSettingsOverrides sets size overrides
+SetAllInstancesSettingsOverrides sets size overrides
 
-  Applies size overrides for all of the instances belonging to the given resource.
+Applies size overrides for all of the instances belonging to the given resource.
 */
 func (a *Client) SetAllInstancesSettingsOverrides(params *SetAllInstancesSettingsOverridesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetAllInstancesSettingsOverridesOK, error) {
 	// TODO: Validate the params before sending
@@ -1983,9 +1983,9 @@ func (a *Client) SetAllInstancesSettingsOverrides(params *SetAllInstancesSetting
 }
 
 /*
-  SetAppsearchReadOnlyMode sets app search read only status
+SetAppsearchReadOnlyMode sets app search read only status
 
-  Enable/Disable read-only mode on the given App Search resource.
+Enable/Disable read-only mode on the given App Search resource.
 */
 func (a *Client) SetAppsearchReadOnlyMode(params *SetAppsearchReadOnlyModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetAppsearchReadOnlyModeOK, error) {
 	// TODO: Validate the params before sending
@@ -2024,9 +2024,9 @@ func (a *Client) SetAppsearchReadOnlyMode(params *SetAppsearchReadOnlyModeParams
 }
 
 /*
-  SetDeploymentEsResourceKeystore adds or remove items from the elasticsearch resource keystore
+SetDeploymentEsResourceKeystore adds or remove items from the elasticsearch resource keystore
 
-  Adds the specified values to the Elasticsearch keystore, or removes the keys for the unspecified values.
+Adds the specified values to the Elasticsearch keystore, or removes the keys for the unspecified values.
 */
 func (a *Client) SetDeploymentEsResourceKeystore(params *SetDeploymentEsResourceKeystoreParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetDeploymentEsResourceKeystoreOK, error) {
 	// TODO: Validate the params before sending
@@ -2065,9 +2065,9 @@ func (a *Client) SetDeploymentEsResourceKeystore(params *SetDeploymentEsResource
 }
 
 /*
-  SetDeploymentEsResourceRemoteClusters sets remote clusters
+SetDeploymentEsResourceRemoteClusters sets remote clusters
 
-  Overwrites or creates the remote clusters for the elasticsearch resource.
+Overwrites or creates the remote clusters for the elasticsearch resource.
 */
 func (a *Client) SetDeploymentEsResourceRemoteClusters(params *SetDeploymentEsResourceRemoteClustersParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetDeploymentEsResourceRemoteClustersAccepted, error) {
 	// TODO: Validate the params before sending
@@ -2106,9 +2106,10 @@ func (a *Client) SetDeploymentEsResourceRemoteClusters(params *SetDeploymentEsRe
 }
 
 /*
-  SetDeploymentResourceRawMetadata sets a deployment s resource metadata
+	SetDeploymentResourceRawMetadata sets a deployment s resource metadata
 
-  Advanced use only. Sets the internal metadata, in free-form JSON, for the resource.
+	Advanced use only. Sets the internal metadata, in free-form JSON, for the resource.
+
 Only use the parameter to set the modified JSON that is returned from the get version of the metadata.
 */
 func (a *Client) SetDeploymentResourceRawMetadata(params *SetDeploymentResourceRawMetadataParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetDeploymentResourceRawMetadataOK, error) {
@@ -2148,9 +2149,9 @@ func (a *Client) SetDeploymentResourceRawMetadata(params *SetDeploymentResourceR
 }
 
 /*
-  SetInstanceSettingsOverrides sets size overrides
+SetInstanceSettingsOverrides sets size overrides
 
-  Applies size overrides for the given instances belonging to the given resource.
+Applies size overrides for the given instances belonging to the given resource.
 */
 func (a *Client) SetInstanceSettingsOverrides(params *SetInstanceSettingsOverridesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetInstanceSettingsOverridesOK, error) {
 	// TODO: Validate the params before sending
@@ -2189,9 +2190,9 @@ func (a *Client) SetInstanceSettingsOverrides(params *SetInstanceSettingsOverrid
 }
 
 /*
-  ShutdownDeployment shuts down deployment
+ShutdownDeployment shuts down deployment
 
-  Shuts down all resources in a Deployment.
+Shuts down all resources in a Deployment.
 */
 func (a *Client) ShutdownDeployment(params *ShutdownDeploymentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ShutdownDeploymentOK, error) {
 	// TODO: Validate the params before sending
@@ -2230,9 +2231,9 @@ func (a *Client) ShutdownDeployment(params *ShutdownDeploymentParams, authInfo r
 }
 
 /*
-  ShutdownDeploymentEsResource shutdowns deployment elasticsearch resource
+ShutdownDeploymentEsResource shutdowns deployment elasticsearch resource
 
-  Shutdown Elasticsearch Resource belonging to a given Deployment.
+Shutdown Elasticsearch Resource belonging to a given Deployment.
 */
 func (a *Client) ShutdownDeploymentEsResource(params *ShutdownDeploymentEsResourceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ShutdownDeploymentEsResourceOK, error) {
 	// TODO: Validate the params before sending
@@ -2271,9 +2272,10 @@ func (a *Client) ShutdownDeploymentEsResource(params *ShutdownDeploymentEsResour
 }
 
 /*
-  ShutdownDeploymentStatelessResource shutdowns deployment stateless resource
+	ShutdownDeploymentStatelessResource shutdowns deployment stateless resource
 
-  Shut down Stateless Resource belonging to a given Deployment.
+	Shut down Stateless Resource belonging to a given Deployment.
+
 Kibana cannot be shut down on Elasticsearch Service as it is required for Elasticsearch administrative functions, such as Snapshot Lifecycle Management and version upgrades.
 */
 func (a *Client) ShutdownDeploymentStatelessResource(params *ShutdownDeploymentStatelessResourceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ShutdownDeploymentStatelessResourceOK, error) {
@@ -2313,9 +2315,9 @@ func (a *Client) ShutdownDeploymentStatelessResource(params *ShutdownDeploymentS
 }
 
 /*
-  StartDeploymentResourceInstances starts instances
+StartDeploymentResourceInstances starts instances
 
-  Starts instances belonging to a Deployment Resource.
+Starts instances belonging to a Deployment Resource.
 */
 func (a *Client) StartDeploymentResourceInstances(params *StartDeploymentResourceInstancesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StartDeploymentResourceInstancesAccepted, error) {
 	// TODO: Validate the params before sending
@@ -2354,9 +2356,9 @@ func (a *Client) StartDeploymentResourceInstances(params *StartDeploymentResourc
 }
 
 /*
-  StartDeploymentResourceInstancesAll starts all instances
+StartDeploymentResourceInstancesAll starts all instances
 
-  Starts all instances belonging to a Deployment Resource.
+Starts all instances belonging to a Deployment Resource.
 */
 func (a *Client) StartDeploymentResourceInstancesAll(params *StartDeploymentResourceInstancesAllParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StartDeploymentResourceInstancesAllAccepted, error) {
 	// TODO: Validate the params before sending
@@ -2395,9 +2397,9 @@ func (a *Client) StartDeploymentResourceInstancesAll(params *StartDeploymentReso
 }
 
 /*
-  StartDeploymentResourceInstancesAllMaintenanceMode starts maintenance mode all instances
+StartDeploymentResourceInstancesAllMaintenanceMode starts maintenance mode all instances
 
-  Starts maintenance mode of all instances belonging to a Deployment Resource.
+Starts maintenance mode of all instances belonging to a Deployment Resource.
 */
 func (a *Client) StartDeploymentResourceInstancesAllMaintenanceMode(params *StartDeploymentResourceInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StartDeploymentResourceInstancesAllMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
@@ -2436,9 +2438,9 @@ func (a *Client) StartDeploymentResourceInstancesAllMaintenanceMode(params *Star
 }
 
 /*
-  StartDeploymentResourceMaintenanceMode starts maintenance mode
+StartDeploymentResourceMaintenanceMode starts maintenance mode
 
-  Starts maintenance mode of instances belonging to a Deployment Resource.
+Starts maintenance mode of instances belonging to a Deployment Resource.
 */
 func (a *Client) StartDeploymentResourceMaintenanceMode(params *StartDeploymentResourceMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StartDeploymentResourceMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
@@ -2477,9 +2479,9 @@ func (a *Client) StartDeploymentResourceMaintenanceMode(params *StartDeploymentR
 }
 
 /*
-  StopDeploymentResourceInstances stops instances
+StopDeploymentResourceInstances stops instances
 
-  Stops instances belonging to a Deployment Resource.
+Stops instances belonging to a Deployment Resource.
 */
 func (a *Client) StopDeploymentResourceInstances(params *StopDeploymentResourceInstancesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StopDeploymentResourceInstancesAccepted, error) {
 	// TODO: Validate the params before sending
@@ -2518,9 +2520,9 @@ func (a *Client) StopDeploymentResourceInstances(params *StopDeploymentResourceI
 }
 
 /*
-  StopDeploymentResourceInstancesAll stops all instances
+StopDeploymentResourceInstancesAll stops all instances
 
-  Stops all instances belonging to a Deployment Resource.
+Stops all instances belonging to a Deployment Resource.
 */
 func (a *Client) StopDeploymentResourceInstancesAll(params *StopDeploymentResourceInstancesAllParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StopDeploymentResourceInstancesAllAccepted, error) {
 	// TODO: Validate the params before sending
@@ -2559,9 +2561,9 @@ func (a *Client) StopDeploymentResourceInstancesAll(params *StopDeploymentResour
 }
 
 /*
-  StopDeploymentResourceInstancesAllMaintenanceMode stops maintenance mode all instances
+StopDeploymentResourceInstancesAllMaintenanceMode stops maintenance mode all instances
 
-  Stops maintenance mode of all instances belonging to a Deployment Resource.
+Stops maintenance mode of all instances belonging to a Deployment Resource.
 */
 func (a *Client) StopDeploymentResourceInstancesAllMaintenanceMode(params *StopDeploymentResourceInstancesAllMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StopDeploymentResourceInstancesAllMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
@@ -2600,9 +2602,9 @@ func (a *Client) StopDeploymentResourceInstancesAllMaintenanceMode(params *StopD
 }
 
 /*
-  StopDeploymentResourceMaintenanceMode stops maintenance mode
+StopDeploymentResourceMaintenanceMode stops maintenance mode
 
-  Stops maintenance mode of instances belonging to a Resource.
+Stops maintenance mode of instances belonging to a Resource.
 */
 func (a *Client) StopDeploymentResourceMaintenanceMode(params *StopDeploymentResourceMaintenanceModeParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*StopDeploymentResourceMaintenanceModeAccepted, error) {
 	// TODO: Validate the params before sending
@@ -2641,9 +2643,9 @@ func (a *Client) StopDeploymentResourceMaintenanceMode(params *StopDeploymentRes
 }
 
 /*
-  UpdateDeployment updates deployment
+UpdateDeployment updates deployment
 
-  Updates a Deployment.
+Updates a Deployment.
 */
 func (a *Client) UpdateDeployment(params *UpdateDeploymentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateDeploymentOK, error) {
 	// TODO: Validate the params before sending
@@ -2682,9 +2684,9 @@ func (a *Client) UpdateDeployment(params *UpdateDeploymentParams, authInfo runti
 }
 
 /*
-  UpgradeDeploymentStatelessResource upgrades kibana a p m integrations server app search enterprise search inside deployment
+UpgradeDeploymentStatelessResource upgrades kibana a p m integrations server app search enterprise search inside deployment
 
-  Upgrades a running cluster.
+Upgrades a running cluster.
 */
 func (a *Client) UpgradeDeploymentStatelessResource(params *UpgradeDeploymentStatelessResourceParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpgradeDeploymentStatelessResourceAccepted, error) {
 	// TODO: Validate the params before sending

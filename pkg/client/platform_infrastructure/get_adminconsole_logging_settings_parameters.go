@@ -69,10 +69,12 @@ func NewGetAdminconsoleLoggingSettingsParamsWithHTTPClient(client *http.Client) 
 	}
 }
 
-/* GetAdminconsoleLoggingSettingsParams contains all the parameters to send to the API endpoint
-   for the get adminconsole logging settings operation.
+/*
+GetAdminconsoleLoggingSettingsParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the get adminconsole logging settings operation.
+
+	Typically these are written to a http.Request.
 */
 type GetAdminconsoleLoggingSettingsParams struct {
 

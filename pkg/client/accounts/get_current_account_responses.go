@@ -62,7 +62,8 @@ func NewGetCurrentAccountOK() *GetCurrentAccountOK {
 	return &GetCurrentAccountOK{}
 }
 
-/* GetCurrentAccountOK describes a response with status code 200, with default header values.
+/*
+GetCurrentAccountOK describes a response with status code 200, with default header values.
 
 Account fetched successfully
 */
@@ -70,9 +71,44 @@ type GetCurrentAccountOK struct {
 	Payload *models.AccountResponse
 }
 
+// IsSuccess returns true when this get current account o k response has a 2xx status code
+func (o *GetCurrentAccountOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get current account o k response has a 3xx status code
+func (o *GetCurrentAccountOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get current account o k response has a 4xx status code
+func (o *GetCurrentAccountOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get current account o k response has a 5xx status code
+func (o *GetCurrentAccountOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get current account o k response a status code equal to that given
+func (o *GetCurrentAccountOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get current account o k response
+func (o *GetCurrentAccountOK) Code() int {
+	return 200
+}
+
 func (o *GetCurrentAccountOK) Error() string {
 	return fmt.Sprintf("[GET /account][%d] getCurrentAccountOK  %+v", 200, o.Payload)
 }
+
+func (o *GetCurrentAccountOK) String() string {
+	return fmt.Sprintf("[GET /account][%d] getCurrentAccountOK  %+v", 200, o.Payload)
+}
+
 func (o *GetCurrentAccountOK) GetPayload() *models.AccountResponse {
 	return o.Payload
 }
@@ -94,7 +130,8 @@ func NewGetCurrentAccountNotFound() *GetCurrentAccountNotFound {
 	return &GetCurrentAccountNotFound{}
 }
 
-/* GetCurrentAccountNotFound describes a response with status code 404, with default header values.
+/*
+GetCurrentAccountNotFound describes a response with status code 404, with default header values.
 
 Account not found. (code: `accounts.not_found`)
 */
@@ -107,9 +144,44 @@ type GetCurrentAccountNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get current account not found response has a 2xx status code
+func (o *GetCurrentAccountNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get current account not found response has a 3xx status code
+func (o *GetCurrentAccountNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get current account not found response has a 4xx status code
+func (o *GetCurrentAccountNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get current account not found response has a 5xx status code
+func (o *GetCurrentAccountNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get current account not found response a status code equal to that given
+func (o *GetCurrentAccountNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the get current account not found response
+func (o *GetCurrentAccountNotFound) Code() int {
+	return 404
+}
+
 func (o *GetCurrentAccountNotFound) Error() string {
 	return fmt.Sprintf("[GET /account][%d] getCurrentAccountNotFound  %+v", 404, o.Payload)
 }
+
+func (o *GetCurrentAccountNotFound) String() string {
+	return fmt.Sprintf("[GET /account][%d] getCurrentAccountNotFound  %+v", 404, o.Payload)
+}
+
 func (o *GetCurrentAccountNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

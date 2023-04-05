@@ -63,13 +63,13 @@ type ClientService interface {
 }
 
 /*
-  CreateExtension creates an extension
+	CreateExtension creates an extension
 
-  Creates the extension.
- The extensions API supports two types of usage patterns.
- A). Specify a `download_url`, http or https URL,  where the extension is currently hosted. This will result in extension being copied to elastic repository.
- B). Create only the extension metadata using the `POST` endpoint and then use `PUT` to upload the extension file. Leave the `download_url` unspecified in this case.
+	Creates the extension.
 
+The extensions API supports two types of usage patterns.
+A). Specify a `download_url`, http or https URL,  where the extension is currently hosted. This will result in extension being copied to elastic repository.
+B). Create only the extension metadata using the `POST` endpoint and then use `PUT` to upload the extension file. Leave the `download_url` unspecified in this case.
 */
 func (a *Client) CreateExtension(params *CreateExtensionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateExtensionCreated, error) {
 	// TODO: Validate the params before sending
@@ -108,9 +108,9 @@ func (a *Client) CreateExtension(params *CreateExtensionParams, authInfo runtime
 }
 
 /*
-  DeleteExtension deletes extension
+DeleteExtension deletes extension
 
-  Deletes a Extension.
+Deletes a Extension.
 */
 func (a *Client) DeleteExtension(params *DeleteExtensionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteExtensionOK, error) {
 	// TODO: Validate the params before sending
@@ -149,9 +149,9 @@ func (a *Client) DeleteExtension(params *DeleteExtensionParams, authInfo runtime
 }
 
 /*
-  GetExtension gets extension
+GetExtension gets extension
 
-  Retrieves an extension.
+Retrieves an extension.
 */
 func (a *Client) GetExtension(params *GetExtensionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetExtensionOK, error) {
 	// TODO: Validate the params before sending
@@ -190,9 +190,9 @@ func (a *Client) GetExtension(params *GetExtensionParams, authInfo runtime.Clien
 }
 
 /*
-  ListExtensions lists extensions
+ListExtensions lists extensions
 
-  Retrieves all of the available extensions.
+Retrieves all of the available extensions.
 */
 func (a *Client) ListExtensions(params *ListExtensionsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ListExtensionsOK, error) {
 	// TODO: Validate the params before sending
@@ -231,9 +231,9 @@ func (a *Client) ListExtensions(params *ListExtensionsParams, authInfo runtime.C
 }
 
 /*
-  UpdateExtension updates extension
+UpdateExtension updates extension
 
-  Updates an extension.
+Updates an extension.
 */
 func (a *Client) UpdateExtension(params *UpdateExtensionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateExtensionOK, error) {
 	// TODO: Validate the params before sending
@@ -272,9 +272,9 @@ func (a *Client) UpdateExtension(params *UpdateExtensionParams, authInfo runtime
 }
 
 /*
-  UploadExtension uploads the extension
+UploadExtension uploads the extension
 
-  Uploads archive for an extension.
+Uploads archive for an extension.
 */
 func (a *Client) UploadExtension(params *UploadExtensionParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UploadExtensionOK, error) {
 	// TODO: Validate the params before sending

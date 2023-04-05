@@ -106,6 +106,8 @@ func (m *DeploymentTemplateRequestBody) validateDeploymentTemplate(formats strfm
 		if err := m.DeploymentTemplate.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("deployment_template")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("deployment_template")
 			}
 			return err
 		}
@@ -128,6 +130,8 @@ func (m *DeploymentTemplateRequestBody) validateKibanaDeeplink(formats strfmt.Re
 			if err := m.KibanaDeeplink[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("kibana_deeplink" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("kibana_deeplink" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -152,6 +156,8 @@ func (m *DeploymentTemplateRequestBody) validateMetadata(formats strfmt.Registry
 			if err := m.Metadata[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("metadata" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("metadata" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -199,6 +205,8 @@ func (m *DeploymentTemplateRequestBody) contextValidateDeploymentTemplate(ctx co
 		if err := m.DeploymentTemplate.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("deployment_template")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("deployment_template")
 			}
 			return err
 		}
@@ -215,6 +223,8 @@ func (m *DeploymentTemplateRequestBody) contextValidateKibanaDeeplink(ctx contex
 			if err := m.KibanaDeeplink[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("kibana_deeplink" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("kibana_deeplink" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -233,6 +243,8 @@ func (m *DeploymentTemplateRequestBody) contextValidateMetadata(ctx context.Cont
 			if err := m.Metadata[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("metadata" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("metadata" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

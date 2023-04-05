@@ -68,7 +68,8 @@ func NewGetDeploymentEnterpriseSearchResourceInfoOK() *GetDeploymentEnterpriseSe
 	return &GetDeploymentEnterpriseSearchResourceInfoOK{}
 }
 
-/* GetDeploymentEnterpriseSearchResourceInfoOK describes a response with status code 200, with default header values.
+/*
+GetDeploymentEnterpriseSearchResourceInfoOK describes a response with status code 200, with default header values.
 
 Standard response.
 */
@@ -76,9 +77,44 @@ type GetDeploymentEnterpriseSearchResourceInfoOK struct {
 	Payload *models.EnterpriseSearchResourceInfo
 }
 
+// IsSuccess returns true when this get deployment enterprise search resource info o k response has a 2xx status code
+func (o *GetDeploymentEnterpriseSearchResourceInfoOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get deployment enterprise search resource info o k response has a 3xx status code
+func (o *GetDeploymentEnterpriseSearchResourceInfoOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get deployment enterprise search resource info o k response has a 4xx status code
+func (o *GetDeploymentEnterpriseSearchResourceInfoOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get deployment enterprise search resource info o k response has a 5xx status code
+func (o *GetDeploymentEnterpriseSearchResourceInfoOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get deployment enterprise search resource info o k response a status code equal to that given
+func (o *GetDeploymentEnterpriseSearchResourceInfoOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get deployment enterprise search resource info o k response
+func (o *GetDeploymentEnterpriseSearchResourceInfoOK) Code() int {
+	return 200
+}
+
 func (o *GetDeploymentEnterpriseSearchResourceInfoOK) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/enterprise_search/{ref_id}][%d] getDeploymentEnterpriseSearchResourceInfoOK  %+v", 200, o.Payload)
 }
+
+func (o *GetDeploymentEnterpriseSearchResourceInfoOK) String() string {
+	return fmt.Sprintf("[GET /deployments/{deployment_id}/enterprise_search/{ref_id}][%d] getDeploymentEnterpriseSearchResourceInfoOK  %+v", 200, o.Payload)
+}
+
 func (o *GetDeploymentEnterpriseSearchResourceInfoOK) GetPayload() *models.EnterpriseSearchResourceInfo {
 	return o.Payload
 }
@@ -100,7 +136,8 @@ func NewGetDeploymentEnterpriseSearchResourceInfoNotFound() *GetDeploymentEnterp
 	return &GetDeploymentEnterpriseSearchResourceInfoNotFound{}
 }
 
-/* GetDeploymentEnterpriseSearchResourceInfoNotFound describes a response with status code 404, with default header values.
+/*
+GetDeploymentEnterpriseSearchResourceInfoNotFound describes a response with status code 404, with default header values.
 
 The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
 */
@@ -113,9 +150,44 @@ type GetDeploymentEnterpriseSearchResourceInfoNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get deployment enterprise search resource info not found response has a 2xx status code
+func (o *GetDeploymentEnterpriseSearchResourceInfoNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get deployment enterprise search resource info not found response has a 3xx status code
+func (o *GetDeploymentEnterpriseSearchResourceInfoNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get deployment enterprise search resource info not found response has a 4xx status code
+func (o *GetDeploymentEnterpriseSearchResourceInfoNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get deployment enterprise search resource info not found response has a 5xx status code
+func (o *GetDeploymentEnterpriseSearchResourceInfoNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get deployment enterprise search resource info not found response a status code equal to that given
+func (o *GetDeploymentEnterpriseSearchResourceInfoNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the get deployment enterprise search resource info not found response
+func (o *GetDeploymentEnterpriseSearchResourceInfoNotFound) Code() int {
+	return 404
+}
+
 func (o *GetDeploymentEnterpriseSearchResourceInfoNotFound) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/enterprise_search/{ref_id}][%d] getDeploymentEnterpriseSearchResourceInfoNotFound  %+v", 404, o.Payload)
 }
+
+func (o *GetDeploymentEnterpriseSearchResourceInfoNotFound) String() string {
+	return fmt.Sprintf("[GET /deployments/{deployment_id}/enterprise_search/{ref_id}][%d] getDeploymentEnterpriseSearchResourceInfoNotFound  %+v", 404, o.Payload)
+}
+
 func (o *GetDeploymentEnterpriseSearchResourceInfoNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -144,7 +216,8 @@ func NewGetDeploymentEnterpriseSearchResourceInfoInternalServerError() *GetDeplo
 	return &GetDeploymentEnterpriseSearchResourceInfoInternalServerError{}
 }
 
-/* GetDeploymentEnterpriseSearchResourceInfoInternalServerError describes a response with status code 500, with default header values.
+/*
+GetDeploymentEnterpriseSearchResourceInfoInternalServerError describes a response with status code 500, with default header values.
 
 We have failed you. (code: `deployments.deployment_resource_no_longer_exists`)
 */
@@ -157,9 +230,44 @@ type GetDeploymentEnterpriseSearchResourceInfoInternalServerError struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get deployment enterprise search resource info internal server error response has a 2xx status code
+func (o *GetDeploymentEnterpriseSearchResourceInfoInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get deployment enterprise search resource info internal server error response has a 3xx status code
+func (o *GetDeploymentEnterpriseSearchResourceInfoInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get deployment enterprise search resource info internal server error response has a 4xx status code
+func (o *GetDeploymentEnterpriseSearchResourceInfoInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get deployment enterprise search resource info internal server error response has a 5xx status code
+func (o *GetDeploymentEnterpriseSearchResourceInfoInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this get deployment enterprise search resource info internal server error response a status code equal to that given
+func (o *GetDeploymentEnterpriseSearchResourceInfoInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
+// Code gets the status code for the get deployment enterprise search resource info internal server error response
+func (o *GetDeploymentEnterpriseSearchResourceInfoInternalServerError) Code() int {
+	return 500
+}
+
 func (o *GetDeploymentEnterpriseSearchResourceInfoInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/enterprise_search/{ref_id}][%d] getDeploymentEnterpriseSearchResourceInfoInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *GetDeploymentEnterpriseSearchResourceInfoInternalServerError) String() string {
+	return fmt.Sprintf("[GET /deployments/{deployment_id}/enterprise_search/{ref_id}][%d] getDeploymentEnterpriseSearchResourceInfoInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *GetDeploymentEnterpriseSearchResourceInfoInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

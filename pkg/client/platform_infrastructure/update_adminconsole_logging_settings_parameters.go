@@ -69,10 +69,12 @@ func NewUpdateAdminconsoleLoggingSettingsParamsWithHTTPClient(client *http.Clien
 	}
 }
 
-/* UpdateAdminconsoleLoggingSettingsParams contains all the parameters to send to the API endpoint
-   for the update adminconsole logging settings operation.
+/*
+UpdateAdminconsoleLoggingSettingsParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the update adminconsole logging settings operation.
+
+	Typically these are written to a http.Request.
 */
 type UpdateAdminconsoleLoggingSettingsParams struct {
 

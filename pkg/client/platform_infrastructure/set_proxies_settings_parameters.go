@@ -71,10 +71,12 @@ func NewSetProxiesSettingsParamsWithHTTPClient(client *http.Client) *SetProxiesS
 	}
 }
 
-/* SetProxiesSettingsParams contains all the parameters to send to the API endpoint
-   for the set proxies settings operation.
+/*
+SetProxiesSettingsParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the set proxies settings operation.
+
+	Typically these are written to a http.Request.
 */
 type SetProxiesSettingsParams struct {
 

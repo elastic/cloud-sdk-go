@@ -84,6 +84,8 @@ func (m *IntegrationsServerPlan) validateClusterTopology(formats strfmt.Registry
 			if err := m.ClusterTopology[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("cluster_topology" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("cluster_topology" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -104,6 +106,8 @@ func (m *IntegrationsServerPlan) validateIntegrationsServer(formats strfmt.Regis
 		if err := m.IntegrationsServer.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("integrations_server")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("integrations_server")
 			}
 			return err
 		}
@@ -121,6 +125,8 @@ func (m *IntegrationsServerPlan) validateTransient(formats strfmt.Registry) erro
 		if err := m.Transient.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("transient")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("transient")
 			}
 			return err
 		}
@@ -159,6 +165,8 @@ func (m *IntegrationsServerPlan) contextValidateClusterTopology(ctx context.Cont
 			if err := m.ClusterTopology[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("cluster_topology" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("cluster_topology" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -175,6 +183,8 @@ func (m *IntegrationsServerPlan) contextValidateIntegrationsServer(ctx context.C
 		if err := m.IntegrationsServer.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("integrations_server")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("integrations_server")
 			}
 			return err
 		}
@@ -189,6 +199,8 @@ func (m *IntegrationsServerPlan) contextValidateTransient(ctx context.Context, f
 		if err := m.Transient.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("transient")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("transient")
 			}
 			return err
 		}

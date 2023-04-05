@@ -62,7 +62,8 @@ func NewGetTrustedEnvsOK() *GetTrustedEnvsOK {
 	return &GetTrustedEnvsOK{}
 }
 
-/* GetTrustedEnvsOK describes a response with status code 200, with default header values.
+/*
+GetTrustedEnvsOK describes a response with status code 200, with default header values.
 
 Trusted environments for this organization
 */
@@ -70,9 +71,44 @@ type GetTrustedEnvsOK struct {
 	Payload *models.ElasticsearchClusterTrustSettings
 }
 
+// IsSuccess returns true when this get trusted envs o k response has a 2xx status code
+func (o *GetTrustedEnvsOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get trusted envs o k response has a 3xx status code
+func (o *GetTrustedEnvsOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get trusted envs o k response has a 4xx status code
+func (o *GetTrustedEnvsOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get trusted envs o k response has a 5xx status code
+func (o *GetTrustedEnvsOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get trusted envs o k response a status code equal to that given
+func (o *GetTrustedEnvsOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get trusted envs o k response
+func (o *GetTrustedEnvsOK) Code() int {
+	return 200
+}
+
 func (o *GetTrustedEnvsOK) Error() string {
 	return fmt.Sprintf("[GET /trusted-environments][%d] getTrustedEnvsOK  %+v", 200, o.Payload)
 }
+
+func (o *GetTrustedEnvsOK) String() string {
+	return fmt.Sprintf("[GET /trusted-environments][%d] getTrustedEnvsOK  %+v", 200, o.Payload)
+}
+
 func (o *GetTrustedEnvsOK) GetPayload() *models.ElasticsearchClusterTrustSettings {
 	return o.Payload
 }
@@ -94,7 +130,8 @@ func NewGetTrustedEnvsNotFound() *GetTrustedEnvsNotFound {
 	return &GetTrustedEnvsNotFound{}
 }
 
-/* GetTrustedEnvsNotFound describes a response with status code 404, with default header values.
+/*
+GetTrustedEnvsNotFound describes a response with status code 404, with default header values.
 
 Organization not found. (code: `organization.not_found`)
 */
@@ -107,9 +144,44 @@ type GetTrustedEnvsNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get trusted envs not found response has a 2xx status code
+func (o *GetTrustedEnvsNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get trusted envs not found response has a 3xx status code
+func (o *GetTrustedEnvsNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get trusted envs not found response has a 4xx status code
+func (o *GetTrustedEnvsNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get trusted envs not found response has a 5xx status code
+func (o *GetTrustedEnvsNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get trusted envs not found response a status code equal to that given
+func (o *GetTrustedEnvsNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the get trusted envs not found response
+func (o *GetTrustedEnvsNotFound) Code() int {
+	return 404
+}
+
 func (o *GetTrustedEnvsNotFound) Error() string {
 	return fmt.Sprintf("[GET /trusted-environments][%d] getTrustedEnvsNotFound  %+v", 404, o.Payload)
 }
+
+func (o *GetTrustedEnvsNotFound) String() string {
+	return fmt.Sprintf("[GET /trusted-environments][%d] getTrustedEnvsNotFound  %+v", 404, o.Payload)
+}
+
 func (o *GetTrustedEnvsNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

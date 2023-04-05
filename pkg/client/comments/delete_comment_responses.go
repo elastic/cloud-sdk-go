@@ -74,7 +74,8 @@ func NewDeleteCommentOK() *DeleteCommentOK {
 	return &DeleteCommentOK{}
 }
 
-/* DeleteCommentOK describes a response with status code 200, with default header values.
+/*
+DeleteCommentOK describes a response with status code 200, with default header values.
 
 Comment deleted successfully.
 */
@@ -95,9 +96,44 @@ type DeleteCommentOK struct {
 	Payload models.EmptyResponse
 }
 
+// IsSuccess returns true when this delete comment o k response has a 2xx status code
+func (o *DeleteCommentOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this delete comment o k response has a 3xx status code
+func (o *DeleteCommentOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete comment o k response has a 4xx status code
+func (o *DeleteCommentOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this delete comment o k response has a 5xx status code
+func (o *DeleteCommentOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete comment o k response a status code equal to that given
+func (o *DeleteCommentOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the delete comment o k response
+func (o *DeleteCommentOK) Code() int {
+	return 200
+}
+
 func (o *DeleteCommentOK) Error() string {
 	return fmt.Sprintf("[DELETE /comments/{resource_type}/{resource_id}/{comment_id}][%d] deleteCommentOK  %+v", 200, o.Payload)
 }
+
+func (o *DeleteCommentOK) String() string {
+	return fmt.Sprintf("[DELETE /comments/{resource_type}/{resource_id}/{comment_id}][%d] deleteCommentOK  %+v", 200, o.Payload)
+}
+
 func (o *DeleteCommentOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -138,9 +174,11 @@ func NewDeleteCommentUnauthorized() *DeleteCommentUnauthorized {
 	return &DeleteCommentUnauthorized{}
 }
 
-/* DeleteCommentUnauthorized describes a response with status code 401, with default header values.
+/*
+	DeleteCommentUnauthorized describes a response with status code 401, with default header values.
 
- * The Comment does not belong to you. (code: `comments.unauthorised`)
+	* The Comment does not belong to you. (code: `comments.unauthorised`)
+
 * Your current session does not have a user id associated with it. (code: `comments.no_user_id`)
 */
 type DeleteCommentUnauthorized struct {
@@ -152,9 +190,44 @@ type DeleteCommentUnauthorized struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete comment unauthorized response has a 2xx status code
+func (o *DeleteCommentUnauthorized) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete comment unauthorized response has a 3xx status code
+func (o *DeleteCommentUnauthorized) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete comment unauthorized response has a 4xx status code
+func (o *DeleteCommentUnauthorized) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete comment unauthorized response has a 5xx status code
+func (o *DeleteCommentUnauthorized) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete comment unauthorized response a status code equal to that given
+func (o *DeleteCommentUnauthorized) IsCode(code int) bool {
+	return code == 401
+}
+
+// Code gets the status code for the delete comment unauthorized response
+func (o *DeleteCommentUnauthorized) Code() int {
+	return 401
+}
+
 func (o *DeleteCommentUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /comments/{resource_type}/{resource_id}/{comment_id}][%d] deleteCommentUnauthorized  %+v", 401, o.Payload)
 }
+
+func (o *DeleteCommentUnauthorized) String() string {
+	return fmt.Sprintf("[DELETE /comments/{resource_type}/{resource_id}/{comment_id}][%d] deleteCommentUnauthorized  %+v", 401, o.Payload)
+}
+
 func (o *DeleteCommentUnauthorized) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -183,7 +256,8 @@ func NewDeleteCommentNotFound() *DeleteCommentNotFound {
 	return &DeleteCommentNotFound{}
 }
 
-/* DeleteCommentNotFound describes a response with status code 404, with default header values.
+/*
+DeleteCommentNotFound describes a response with status code 404, with default header values.
 
 The Comment you want does not exist. (code: `comments.comment_does_not_exist`)
 */
@@ -196,9 +270,44 @@ type DeleteCommentNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete comment not found response has a 2xx status code
+func (o *DeleteCommentNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete comment not found response has a 3xx status code
+func (o *DeleteCommentNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete comment not found response has a 4xx status code
+func (o *DeleteCommentNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete comment not found response has a 5xx status code
+func (o *DeleteCommentNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete comment not found response a status code equal to that given
+func (o *DeleteCommentNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the delete comment not found response
+func (o *DeleteCommentNotFound) Code() int {
+	return 404
+}
+
 func (o *DeleteCommentNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /comments/{resource_type}/{resource_id}/{comment_id}][%d] deleteCommentNotFound  %+v", 404, o.Payload)
 }
+
+func (o *DeleteCommentNotFound) String() string {
+	return fmt.Sprintf("[DELETE /comments/{resource_type}/{resource_id}/{comment_id}][%d] deleteCommentNotFound  %+v", 404, o.Payload)
+}
+
 func (o *DeleteCommentNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -227,7 +336,8 @@ func NewDeleteCommentConflict() *DeleteCommentConflict {
 	return &DeleteCommentConflict{}
 }
 
-/* DeleteCommentConflict describes a response with status code 409, with default header values.
+/*
+DeleteCommentConflict describes a response with status code 409, with default header values.
 
 The version you sent does not match the persisted version. (code: `comments.version_conflict`)
 */
@@ -240,9 +350,44 @@ type DeleteCommentConflict struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete comment conflict response has a 2xx status code
+func (o *DeleteCommentConflict) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete comment conflict response has a 3xx status code
+func (o *DeleteCommentConflict) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete comment conflict response has a 4xx status code
+func (o *DeleteCommentConflict) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete comment conflict response has a 5xx status code
+func (o *DeleteCommentConflict) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete comment conflict response a status code equal to that given
+func (o *DeleteCommentConflict) IsCode(code int) bool {
+	return code == 409
+}
+
+// Code gets the status code for the delete comment conflict response
+func (o *DeleteCommentConflict) Code() int {
+	return 409
+}
+
 func (o *DeleteCommentConflict) Error() string {
 	return fmt.Sprintf("[DELETE /comments/{resource_type}/{resource_id}/{comment_id}][%d] deleteCommentConflict  %+v", 409, o.Payload)
 }
+
+func (o *DeleteCommentConflict) String() string {
+	return fmt.Sprintf("[DELETE /comments/{resource_type}/{resource_id}/{comment_id}][%d] deleteCommentConflict  %+v", 409, o.Payload)
+}
+
 func (o *DeleteCommentConflict) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

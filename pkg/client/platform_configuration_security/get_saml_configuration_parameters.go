@@ -69,10 +69,12 @@ func NewGetSamlConfigurationParamsWithHTTPClient(client *http.Client) *GetSamlCo
 	}
 }
 
-/* GetSamlConfigurationParams contains all the parameters to send to the API endpoint
-   for the get saml configuration operation.
+/*
+GetSamlConfigurationParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the get saml configuration operation.
+
+	Typically these are written to a http.Request.
 */
 type GetSamlConfigurationParams struct {
 

@@ -71,6 +71,8 @@ func (m *DeleteUsersAPIKeysRequest) validateUserAPIKeys(formats strfmt.Registry)
 			if err := m.UserAPIKeys[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("user_api_keys" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("user_api_keys" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -103,6 +105,8 @@ func (m *DeleteUsersAPIKeysRequest) contextValidateUserAPIKeys(ctx context.Conte
 			if err := m.UserAPIKeys[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("user_api_keys" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("user_api_keys" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

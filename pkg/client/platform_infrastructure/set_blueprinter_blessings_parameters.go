@@ -72,10 +72,12 @@ func NewSetBlueprinterBlessingsParamsWithHTTPClient(client *http.Client) *SetBlu
 	}
 }
 
-/* SetBlueprinterBlessingsParams contains all the parameters to send to the API endpoint
-   for the set blueprinter blessings operation.
+/*
+SetBlueprinterBlessingsParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the set blueprinter blessings operation.
+
+	Typically these are written to a http.Request.
 */
 type SetBlueprinterBlessingsParams struct {
 

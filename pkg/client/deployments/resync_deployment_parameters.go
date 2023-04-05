@@ -69,10 +69,12 @@ func NewResyncDeploymentParamsWithHTTPClient(client *http.Client) *ResyncDeploym
 	}
 }
 
-/* ResyncDeploymentParams contains all the parameters to send to the API endpoint
-   for the resync deployment operation.
+/*
+ResyncDeploymentParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the resync deployment operation.
+
+	Typically these are written to a http.Request.
 */
 type ResyncDeploymentParams struct {
 

@@ -119,6 +119,8 @@ func (m *ClusterMetadataInfo) validatePorts(formats strfmt.Registry) error {
 		if err := m.Ports.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ports")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("ports")
 			}
 			return err
 		}
@@ -141,6 +143,8 @@ func (m *ClusterMetadataInfo) validateServicesUrls(formats strfmt.Registry) erro
 			if err := m.ServicesUrls[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("services_urls" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("services_urls" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -184,6 +188,8 @@ func (m *ClusterMetadataInfo) contextValidatePorts(ctx context.Context, formats 
 		if err := m.Ports.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("ports")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("ports")
 			}
 			return err
 		}
@@ -200,6 +206,8 @@ func (m *ClusterMetadataInfo) contextValidateServicesUrls(ctx context.Context, f
 			if err := m.ServicesUrls[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("services_urls" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("services_urls" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

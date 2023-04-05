@@ -62,7 +62,8 @@ func NewGetExtraCertificateOK() *GetExtraCertificateOK {
 	return &GetExtraCertificateOK{}
 }
 
-/* GetExtraCertificateOK describes a response with status code 200, with default header values.
+/*
+GetExtraCertificateOK describes a response with status code 200, with default header values.
 
 Extra certificate public chain if exists
 */
@@ -70,9 +71,44 @@ type GetExtraCertificateOK struct {
 	Payload *models.PublicCertChain
 }
 
+// IsSuccess returns true when this get extra certificate o k response has a 2xx status code
+func (o *GetExtraCertificateOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get extra certificate o k response has a 3xx status code
+func (o *GetExtraCertificateOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get extra certificate o k response has a 4xx status code
+func (o *GetExtraCertificateOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get extra certificate o k response has a 5xx status code
+func (o *GetExtraCertificateOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get extra certificate o k response a status code equal to that given
+func (o *GetExtraCertificateOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get extra certificate o k response
+func (o *GetExtraCertificateOK) Code() int {
+	return 200
+}
+
 func (o *GetExtraCertificateOK) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/security/extra_certs/{cert_id}][%d] getExtraCertificateOK  %+v", 200, o.Payload)
 }
+
+func (o *GetExtraCertificateOK) String() string {
+	return fmt.Sprintf("[GET /platform/configuration/security/extra_certs/{cert_id}][%d] getExtraCertificateOK  %+v", 200, o.Payload)
+}
+
 func (o *GetExtraCertificateOK) GetPayload() *models.PublicCertChain {
 	return o.Payload
 }
@@ -94,7 +130,8 @@ func NewGetExtraCertificateNotFound() *GetExtraCertificateNotFound {
 	return &GetExtraCertificateNotFound{}
 }
 
-/* GetExtraCertificateNotFound describes a response with status code 404, with default header values.
+/*
+GetExtraCertificateNotFound describes a response with status code 404, with default header values.
 
 The extra certificate cannot be found. (code: `cert.not_found`)
 */
@@ -107,9 +144,44 @@ type GetExtraCertificateNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get extra certificate not found response has a 2xx status code
+func (o *GetExtraCertificateNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get extra certificate not found response has a 3xx status code
+func (o *GetExtraCertificateNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get extra certificate not found response has a 4xx status code
+func (o *GetExtraCertificateNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get extra certificate not found response has a 5xx status code
+func (o *GetExtraCertificateNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get extra certificate not found response a status code equal to that given
+func (o *GetExtraCertificateNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the get extra certificate not found response
+func (o *GetExtraCertificateNotFound) Code() int {
+	return 404
+}
+
 func (o *GetExtraCertificateNotFound) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/security/extra_certs/{cert_id}][%d] getExtraCertificateNotFound  %+v", 404, o.Payload)
 }
+
+func (o *GetExtraCertificateNotFound) String() string {
+	return fmt.Sprintf("[GET /platform/configuration/security/extra_certs/{cert_id}][%d] getExtraCertificateNotFound  %+v", 404, o.Payload)
+}
+
 func (o *GetExtraCertificateNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

@@ -80,7 +80,8 @@ func NewSetDefaultDeploymentDomainNameOK() *SetDefaultDeploymentDomainNameOK {
 	return &SetDefaultDeploymentDomainNameOK{}
 }
 
-/* SetDefaultDeploymentDomainNameOK describes a response with status code 200, with default header values.
+/*
+SetDefaultDeploymentDomainNameOK describes a response with status code 200, with default header values.
 
 The Deployment Domain Name was successfully saved.
 */
@@ -101,9 +102,44 @@ type SetDefaultDeploymentDomainNameOK struct {
 	Payload *models.DeploymentDomainName
 }
 
+// IsSuccess returns true when this set default deployment domain name o k response has a 2xx status code
+func (o *SetDefaultDeploymentDomainNameOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this set default deployment domain name o k response has a 3xx status code
+func (o *SetDefaultDeploymentDomainNameOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set default deployment domain name o k response has a 4xx status code
+func (o *SetDefaultDeploymentDomainNameOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this set default deployment domain name o k response has a 5xx status code
+func (o *SetDefaultDeploymentDomainNameOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set default deployment domain name o k response a status code equal to that given
+func (o *SetDefaultDeploymentDomainNameOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the set default deployment domain name o k response
+func (o *SetDefaultDeploymentDomainNameOK) Code() int {
+	return 200
+}
+
 func (o *SetDefaultDeploymentDomainNameOK) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/networking/deployment_domain_name][%d] setDefaultDeploymentDomainNameOK  %+v", 200, o.Payload)
 }
+
+func (o *SetDefaultDeploymentDomainNameOK) String() string {
+	return fmt.Sprintf("[PUT /platform/configuration/networking/deployment_domain_name][%d] setDefaultDeploymentDomainNameOK  %+v", 200, o.Payload)
+}
+
 func (o *SetDefaultDeploymentDomainNameOK) GetPayload() *models.DeploymentDomainName {
 	return o.Payload
 }
@@ -146,7 +182,8 @@ func NewSetDefaultDeploymentDomainNameBadRequest() *SetDefaultDeploymentDomainNa
 	return &SetDefaultDeploymentDomainNameBadRequest{}
 }
 
-/* SetDefaultDeploymentDomainNameBadRequest describes a response with status code 400, with default header values.
+/*
+SetDefaultDeploymentDomainNameBadRequest describes a response with status code 400, with default header values.
 
 The optimistic locking version format was wrong. (code: `networking.cname.bad_version_format`)
 */
@@ -159,9 +196,44 @@ type SetDefaultDeploymentDomainNameBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this set default deployment domain name bad request response has a 2xx status code
+func (o *SetDefaultDeploymentDomainNameBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this set default deployment domain name bad request response has a 3xx status code
+func (o *SetDefaultDeploymentDomainNameBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set default deployment domain name bad request response has a 4xx status code
+func (o *SetDefaultDeploymentDomainNameBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this set default deployment domain name bad request response has a 5xx status code
+func (o *SetDefaultDeploymentDomainNameBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set default deployment domain name bad request response a status code equal to that given
+func (o *SetDefaultDeploymentDomainNameBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the set default deployment domain name bad request response
+func (o *SetDefaultDeploymentDomainNameBadRequest) Code() int {
+	return 400
+}
+
 func (o *SetDefaultDeploymentDomainNameBadRequest) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/networking/deployment_domain_name][%d] setDefaultDeploymentDomainNameBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *SetDefaultDeploymentDomainNameBadRequest) String() string {
+	return fmt.Sprintf("[PUT /platform/configuration/networking/deployment_domain_name][%d] setDefaultDeploymentDomainNameBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *SetDefaultDeploymentDomainNameBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -190,7 +262,8 @@ func NewSetDefaultDeploymentDomainNameNotFound() *SetDefaultDeploymentDomainName
 	return &SetDefaultDeploymentDomainNameNotFound{}
 }
 
-/* SetDefaultDeploymentDomainNameNotFound describes a response with status code 404, with default header values.
+/*
+SetDefaultDeploymentDomainNameNotFound describes a response with status code 404, with default header values.
 
 There is no configured Deployment Domain Name but optimistic locking was sent. (code: `networking.cname.not_found`)
 */
@@ -203,9 +276,44 @@ type SetDefaultDeploymentDomainNameNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this set default deployment domain name not found response has a 2xx status code
+func (o *SetDefaultDeploymentDomainNameNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this set default deployment domain name not found response has a 3xx status code
+func (o *SetDefaultDeploymentDomainNameNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set default deployment domain name not found response has a 4xx status code
+func (o *SetDefaultDeploymentDomainNameNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this set default deployment domain name not found response has a 5xx status code
+func (o *SetDefaultDeploymentDomainNameNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set default deployment domain name not found response a status code equal to that given
+func (o *SetDefaultDeploymentDomainNameNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the set default deployment domain name not found response
+func (o *SetDefaultDeploymentDomainNameNotFound) Code() int {
+	return 404
+}
+
 func (o *SetDefaultDeploymentDomainNameNotFound) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/networking/deployment_domain_name][%d] setDefaultDeploymentDomainNameNotFound  %+v", 404, o.Payload)
 }
+
+func (o *SetDefaultDeploymentDomainNameNotFound) String() string {
+	return fmt.Sprintf("[PUT /platform/configuration/networking/deployment_domain_name][%d] setDefaultDeploymentDomainNameNotFound  %+v", 404, o.Payload)
+}
+
 func (o *SetDefaultDeploymentDomainNameNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -234,7 +342,8 @@ func NewSetDefaultDeploymentDomainNameConflict() *SetDefaultDeploymentDomainName
 	return &SetDefaultDeploymentDomainNameConflict{}
 }
 
-/* SetDefaultDeploymentDomainNameConflict describes a response with status code 409, with default header values.
+/*
+SetDefaultDeploymentDomainNameConflict describes a response with status code 409, with default header values.
 
 There was an optimistic locking version conflict. (code: `networking.cname.version_conflict`)
 */
@@ -247,9 +356,44 @@ type SetDefaultDeploymentDomainNameConflict struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this set default deployment domain name conflict response has a 2xx status code
+func (o *SetDefaultDeploymentDomainNameConflict) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this set default deployment domain name conflict response has a 3xx status code
+func (o *SetDefaultDeploymentDomainNameConflict) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set default deployment domain name conflict response has a 4xx status code
+func (o *SetDefaultDeploymentDomainNameConflict) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this set default deployment domain name conflict response has a 5xx status code
+func (o *SetDefaultDeploymentDomainNameConflict) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set default deployment domain name conflict response a status code equal to that given
+func (o *SetDefaultDeploymentDomainNameConflict) IsCode(code int) bool {
+	return code == 409
+}
+
+// Code gets the status code for the set default deployment domain name conflict response
+func (o *SetDefaultDeploymentDomainNameConflict) Code() int {
+	return 409
+}
+
 func (o *SetDefaultDeploymentDomainNameConflict) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/networking/deployment_domain_name][%d] setDefaultDeploymentDomainNameConflict  %+v", 409, o.Payload)
 }
+
+func (o *SetDefaultDeploymentDomainNameConflict) String() string {
+	return fmt.Sprintf("[PUT /platform/configuration/networking/deployment_domain_name][%d] setDefaultDeploymentDomainNameConflict  %+v", 409, o.Payload)
+}
+
 func (o *SetDefaultDeploymentDomainNameConflict) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -278,7 +422,8 @@ func NewSetDefaultDeploymentDomainNamePreconditionFailed() *SetDefaultDeployment
 	return &SetDefaultDeploymentDomainNamePreconditionFailed{}
 }
 
-/* SetDefaultDeploymentDomainNamePreconditionFailed describes a response with status code 412, with default header values.
+/*
+SetDefaultDeploymentDomainNamePreconditionFailed describes a response with status code 412, with default header values.
 
 skip_cascading_operations was false but the Security Deployment already had a pending plan. (code: `security_deployment.cluster_pending_plan_exists`)
 */
@@ -291,9 +436,44 @@ type SetDefaultDeploymentDomainNamePreconditionFailed struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this set default deployment domain name precondition failed response has a 2xx status code
+func (o *SetDefaultDeploymentDomainNamePreconditionFailed) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this set default deployment domain name precondition failed response has a 3xx status code
+func (o *SetDefaultDeploymentDomainNamePreconditionFailed) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set default deployment domain name precondition failed response has a 4xx status code
+func (o *SetDefaultDeploymentDomainNamePreconditionFailed) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this set default deployment domain name precondition failed response has a 5xx status code
+func (o *SetDefaultDeploymentDomainNamePreconditionFailed) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set default deployment domain name precondition failed response a status code equal to that given
+func (o *SetDefaultDeploymentDomainNamePreconditionFailed) IsCode(code int) bool {
+	return code == 412
+}
+
+// Code gets the status code for the set default deployment domain name precondition failed response
+func (o *SetDefaultDeploymentDomainNamePreconditionFailed) Code() int {
+	return 412
+}
+
 func (o *SetDefaultDeploymentDomainNamePreconditionFailed) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/networking/deployment_domain_name][%d] setDefaultDeploymentDomainNamePreconditionFailed  %+v", 412, o.Payload)
 }
+
+func (o *SetDefaultDeploymentDomainNamePreconditionFailed) String() string {
+	return fmt.Sprintf("[PUT /platform/configuration/networking/deployment_domain_name][%d] setDefaultDeploymentDomainNamePreconditionFailed  %+v", 412, o.Payload)
+}
+
 func (o *SetDefaultDeploymentDomainNamePreconditionFailed) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

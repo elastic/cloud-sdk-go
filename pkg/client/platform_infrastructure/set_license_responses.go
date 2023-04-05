@@ -68,7 +68,8 @@ func NewSetLicenseOK() *SetLicenseOK {
 	return &SetLicenseOK{}
 }
 
-/* SetLicenseOK describes a response with status code 200, with default header values.
+/*
+SetLicenseOK describes a response with status code 200, with default header values.
 
 The license was updated.
 */
@@ -76,9 +77,44 @@ type SetLicenseOK struct {
 	Payload models.EmptyResponse
 }
 
+// IsSuccess returns true when this set license o k response has a 2xx status code
+func (o *SetLicenseOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this set license o k response has a 3xx status code
+func (o *SetLicenseOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set license o k response has a 4xx status code
+func (o *SetLicenseOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this set license o k response has a 5xx status code
+func (o *SetLicenseOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set license o k response a status code equal to that given
+func (o *SetLicenseOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the set license o k response
+func (o *SetLicenseOK) Code() int {
+	return 200
+}
+
 func (o *SetLicenseOK) Error() string {
 	return fmt.Sprintf("[PUT /platform/license][%d] setLicenseOK  %+v", 200, o.Payload)
 }
+
+func (o *SetLicenseOK) String() string {
+	return fmt.Sprintf("[PUT /platform/license][%d] setLicenseOK  %+v", 200, o.Payload)
+}
+
 func (o *SetLicenseOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -98,7 +134,8 @@ func NewSetLicenseBadRequest() *SetLicenseBadRequest {
 	return &SetLicenseBadRequest{}
 }
 
-/* SetLicenseBadRequest describes a response with status code 400, with default header values.
+/*
+SetLicenseBadRequest describes a response with status code 400, with default header values.
 
 The license could not be updated. (code: `license.invalid_license`)
 */
@@ -111,9 +148,44 @@ type SetLicenseBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this set license bad request response has a 2xx status code
+func (o *SetLicenseBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this set license bad request response has a 3xx status code
+func (o *SetLicenseBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set license bad request response has a 4xx status code
+func (o *SetLicenseBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this set license bad request response has a 5xx status code
+func (o *SetLicenseBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set license bad request response a status code equal to that given
+func (o *SetLicenseBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the set license bad request response
+func (o *SetLicenseBadRequest) Code() int {
+	return 400
+}
+
 func (o *SetLicenseBadRequest) Error() string {
 	return fmt.Sprintf("[PUT /platform/license][%d] setLicenseBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *SetLicenseBadRequest) String() string {
+	return fmt.Sprintf("[PUT /platform/license][%d] setLicenseBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *SetLicenseBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -142,7 +214,8 @@ func NewSetLicenseRetryWith() *SetLicenseRetryWith {
 	return &SetLicenseRetryWith{}
 }
 
-/* SetLicenseRetryWith describes a response with status code 449, with default header values.
+/*
+SetLicenseRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
@@ -155,9 +228,44 @@ type SetLicenseRetryWith struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this set license retry with response has a 2xx status code
+func (o *SetLicenseRetryWith) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this set license retry with response has a 3xx status code
+func (o *SetLicenseRetryWith) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set license retry with response has a 4xx status code
+func (o *SetLicenseRetryWith) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this set license retry with response has a 5xx status code
+func (o *SetLicenseRetryWith) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set license retry with response a status code equal to that given
+func (o *SetLicenseRetryWith) IsCode(code int) bool {
+	return code == 449
+}
+
+// Code gets the status code for the set license retry with response
+func (o *SetLicenseRetryWith) Code() int {
+	return 449
+}
+
 func (o *SetLicenseRetryWith) Error() string {
 	return fmt.Sprintf("[PUT /platform/license][%d] setLicenseRetryWith  %+v", 449, o.Payload)
 }
+
+func (o *SetLicenseRetryWith) String() string {
+	return fmt.Sprintf("[PUT /platform/license][%d] setLicenseRetryWith  %+v", 449, o.Payload)
+}
+
 func (o *SetLicenseRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

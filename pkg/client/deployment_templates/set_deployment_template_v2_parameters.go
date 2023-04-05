@@ -72,10 +72,12 @@ func NewSetDeploymentTemplateV2ParamsWithHTTPClient(client *http.Client) *SetDep
 	}
 }
 
-/* SetDeploymentTemplateV2Params contains all the parameters to send to the API endpoint
-   for the set deployment template v2 operation.
+/*
+SetDeploymentTemplateV2Params contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the set deployment template v2 operation.
+
+	Typically these are written to a http.Request.
 */
 type SetDeploymentTemplateV2Params struct {
 

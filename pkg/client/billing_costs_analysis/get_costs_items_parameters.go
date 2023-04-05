@@ -69,10 +69,12 @@ func NewGetCostsItemsParamsWithHTTPClient(client *http.Client) *GetCostsItemsPar
 	}
 }
 
-/* GetCostsItemsParams contains all the parameters to send to the API endpoint
-   for the get costs items operation.
+/*
+GetCostsItemsParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the get costs items operation.
+
+	Typically these are written to a http.Request.
 */
 type GetCostsItemsParams struct {
 

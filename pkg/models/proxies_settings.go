@@ -72,6 +72,8 @@ func (m *ProxiesSettings) validateHTTPSettings(formats strfmt.Registry) error {
 		if err := m.HTTPSettings.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("http_settings")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("http_settings")
 			}
 			return err
 		}
@@ -100,6 +102,8 @@ func (m *ProxiesSettings) contextValidateHTTPSettings(ctx context.Context, forma
 		if err := m.HTTPSettings.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("http_settings")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("http_settings")
 			}
 			return err
 		}

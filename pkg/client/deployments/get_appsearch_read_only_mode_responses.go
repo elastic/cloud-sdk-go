@@ -68,7 +68,8 @@ func NewGetAppsearchReadOnlyModeOK() *GetAppsearchReadOnlyModeOK {
 	return &GetAppsearchReadOnlyModeOK{}
 }
 
-/* GetAppsearchReadOnlyModeOK describes a response with status code 200, with default header values.
+/*
+GetAppsearchReadOnlyModeOK describes a response with status code 200, with default header values.
 
 Standard response
 */
@@ -76,9 +77,44 @@ type GetAppsearchReadOnlyModeOK struct {
 	Payload *models.ReadOnlyResponse
 }
 
+// IsSuccess returns true when this get appsearch read only mode o k response has a 2xx status code
+func (o *GetAppsearchReadOnlyModeOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get appsearch read only mode o k response has a 3xx status code
+func (o *GetAppsearchReadOnlyModeOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get appsearch read only mode o k response has a 4xx status code
+func (o *GetAppsearchReadOnlyModeOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get appsearch read only mode o k response has a 5xx status code
+func (o *GetAppsearchReadOnlyModeOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get appsearch read only mode o k response a status code equal to that given
+func (o *GetAppsearchReadOnlyModeOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get appsearch read only mode o k response
+func (o *GetAppsearchReadOnlyModeOK) Code() int {
+	return 200
+}
+
 func (o *GetAppsearchReadOnlyModeOK) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/appsearch/{ref_id}/read_only_mode][%d] getAppsearchReadOnlyModeOK  %+v", 200, o.Payload)
 }
+
+func (o *GetAppsearchReadOnlyModeOK) String() string {
+	return fmt.Sprintf("[GET /deployments/{deployment_id}/appsearch/{ref_id}/read_only_mode][%d] getAppsearchReadOnlyModeOK  %+v", 200, o.Payload)
+}
+
 func (o *GetAppsearchReadOnlyModeOK) GetPayload() *models.ReadOnlyResponse {
 	return o.Payload
 }
@@ -100,7 +136,8 @@ func NewGetAppsearchReadOnlyModeNotFound() *GetAppsearchReadOnlyModeNotFound {
 	return &GetAppsearchReadOnlyModeNotFound{}
 }
 
-/* GetAppsearchReadOnlyModeNotFound describes a response with status code 404, with default header values.
+/*
+GetAppsearchReadOnlyModeNotFound describes a response with status code 404, with default header values.
 
 The Resource specified by ref_id cannot be found. (code: `deployments.deployment_resource_not_found`)
 */
@@ -113,9 +150,44 @@ type GetAppsearchReadOnlyModeNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get appsearch read only mode not found response has a 2xx status code
+func (o *GetAppsearchReadOnlyModeNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get appsearch read only mode not found response has a 3xx status code
+func (o *GetAppsearchReadOnlyModeNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get appsearch read only mode not found response has a 4xx status code
+func (o *GetAppsearchReadOnlyModeNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get appsearch read only mode not found response has a 5xx status code
+func (o *GetAppsearchReadOnlyModeNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get appsearch read only mode not found response a status code equal to that given
+func (o *GetAppsearchReadOnlyModeNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the get appsearch read only mode not found response
+func (o *GetAppsearchReadOnlyModeNotFound) Code() int {
+	return 404
+}
+
 func (o *GetAppsearchReadOnlyModeNotFound) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/appsearch/{ref_id}/read_only_mode][%d] getAppsearchReadOnlyModeNotFound  %+v", 404, o.Payload)
 }
+
+func (o *GetAppsearchReadOnlyModeNotFound) String() string {
+	return fmt.Sprintf("[GET /deployments/{deployment_id}/appsearch/{ref_id}/read_only_mode][%d] getAppsearchReadOnlyModeNotFound  %+v", 404, o.Payload)
+}
+
 func (o *GetAppsearchReadOnlyModeNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -144,7 +216,8 @@ func NewGetAppsearchReadOnlyModeInternalServerError() *GetAppsearchReadOnlyModeI
 	return &GetAppsearchReadOnlyModeInternalServerError{}
 }
 
-/* GetAppsearchReadOnlyModeInternalServerError describes a response with status code 500, with default header values.
+/*
+GetAppsearchReadOnlyModeInternalServerError describes a response with status code 500, with default header values.
 
 We have failed you. (code: `deployments.deployment_resource_no_longer_exists`)
 */
@@ -157,9 +230,44 @@ type GetAppsearchReadOnlyModeInternalServerError struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get appsearch read only mode internal server error response has a 2xx status code
+func (o *GetAppsearchReadOnlyModeInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get appsearch read only mode internal server error response has a 3xx status code
+func (o *GetAppsearchReadOnlyModeInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get appsearch read only mode internal server error response has a 4xx status code
+func (o *GetAppsearchReadOnlyModeInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get appsearch read only mode internal server error response has a 5xx status code
+func (o *GetAppsearchReadOnlyModeInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this get appsearch read only mode internal server error response a status code equal to that given
+func (o *GetAppsearchReadOnlyModeInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
+// Code gets the status code for the get appsearch read only mode internal server error response
+func (o *GetAppsearchReadOnlyModeInternalServerError) Code() int {
+	return 500
+}
+
 func (o *GetAppsearchReadOnlyModeInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/appsearch/{ref_id}/read_only_mode][%d] getAppsearchReadOnlyModeInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *GetAppsearchReadOnlyModeInternalServerError) String() string {
+	return fmt.Sprintf("[GET /deployments/{deployment_id}/appsearch/{ref_id}/read_only_mode][%d] getAppsearchReadOnlyModeInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *GetAppsearchReadOnlyModeInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

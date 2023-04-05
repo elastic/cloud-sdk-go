@@ -62,7 +62,8 @@ func NewGetResourceKindDeploymentDomainNameOK() *GetResourceKindDeploymentDomain
 	return &GetResourceKindDeploymentDomainNameOK{}
 }
 
-/* GetResourceKindDeploymentDomainNameOK describes a response with status code 200, with default header values.
+/*
+GetResourceKindDeploymentDomainNameOK describes a response with status code 200, with default header values.
 
 The Deployment Domain Name was successfully retrieved
 */
@@ -83,9 +84,44 @@ type GetResourceKindDeploymentDomainNameOK struct {
 	Payload *models.DeploymentDomainName
 }
 
+// IsSuccess returns true when this get resource kind deployment domain name o k response has a 2xx status code
+func (o *GetResourceKindDeploymentDomainNameOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get resource kind deployment domain name o k response has a 3xx status code
+func (o *GetResourceKindDeploymentDomainNameOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get resource kind deployment domain name o k response has a 4xx status code
+func (o *GetResourceKindDeploymentDomainNameOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get resource kind deployment domain name o k response has a 5xx status code
+func (o *GetResourceKindDeploymentDomainNameOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get resource kind deployment domain name o k response a status code equal to that given
+func (o *GetResourceKindDeploymentDomainNameOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get resource kind deployment domain name o k response
+func (o *GetResourceKindDeploymentDomainNameOK) Code() int {
+	return 200
+}
+
 func (o *GetResourceKindDeploymentDomainNameOK) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/networking/deployment_domain_name/{resource_kind}][%d] getResourceKindDeploymentDomainNameOK  %+v", 200, o.Payload)
 }
+
+func (o *GetResourceKindDeploymentDomainNameOK) String() string {
+	return fmt.Sprintf("[GET /platform/configuration/networking/deployment_domain_name/{resource_kind}][%d] getResourceKindDeploymentDomainNameOK  %+v", 200, o.Payload)
+}
+
 func (o *GetResourceKindDeploymentDomainNameOK) GetPayload() *models.DeploymentDomainName {
 	return o.Payload
 }
@@ -128,7 +164,8 @@ func NewGetResourceKindDeploymentDomainNameNotFound() *GetResourceKindDeployment
 	return &GetResourceKindDeploymentDomainNameNotFound{}
 }
 
-/* GetResourceKindDeploymentDomainNameNotFound describes a response with status code 404, with default header values.
+/*
+GetResourceKindDeploymentDomainNameNotFound describes a response with status code 404, with default header values.
 
 There is no configured Deployment Domain Name but optimistic locking was sent. (code: `networking.cname.not_found`)
 */
@@ -141,9 +178,44 @@ type GetResourceKindDeploymentDomainNameNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get resource kind deployment domain name not found response has a 2xx status code
+func (o *GetResourceKindDeploymentDomainNameNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get resource kind deployment domain name not found response has a 3xx status code
+func (o *GetResourceKindDeploymentDomainNameNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get resource kind deployment domain name not found response has a 4xx status code
+func (o *GetResourceKindDeploymentDomainNameNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get resource kind deployment domain name not found response has a 5xx status code
+func (o *GetResourceKindDeploymentDomainNameNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get resource kind deployment domain name not found response a status code equal to that given
+func (o *GetResourceKindDeploymentDomainNameNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the get resource kind deployment domain name not found response
+func (o *GetResourceKindDeploymentDomainNameNotFound) Code() int {
+	return 404
+}
+
 func (o *GetResourceKindDeploymentDomainNameNotFound) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/networking/deployment_domain_name/{resource_kind}][%d] getResourceKindDeploymentDomainNameNotFound  %+v", 404, o.Payload)
 }
+
+func (o *GetResourceKindDeploymentDomainNameNotFound) String() string {
+	return fmt.Sprintf("[GET /platform/configuration/networking/deployment_domain_name/{resource_kind}][%d] getResourceKindDeploymentDomainNameNotFound  %+v", 404, o.Payload)
+}
+
 func (o *GetResourceKindDeploymentDomainNameNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

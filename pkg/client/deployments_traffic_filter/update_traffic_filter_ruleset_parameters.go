@@ -71,10 +71,12 @@ func NewUpdateTrafficFilterRulesetParamsWithHTTPClient(client *http.Client) *Upd
 	}
 }
 
-/* UpdateTrafficFilterRulesetParams contains all the parameters to send to the API endpoint
-   for the update traffic filter ruleset operation.
+/*
+UpdateTrafficFilterRulesetParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the update traffic filter ruleset operation.
+
+	Typically these are written to a http.Request.
 */
 type UpdateTrafficFilterRulesetParams struct {
 

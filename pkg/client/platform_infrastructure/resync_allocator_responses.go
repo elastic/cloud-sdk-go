@@ -68,7 +68,8 @@ func NewResyncAllocatorOK() *ResyncAllocatorOK {
 	return &ResyncAllocatorOK{}
 }
 
-/* ResyncAllocatorOK describes a response with status code 200, with default header values.
+/*
+ResyncAllocatorOK describes a response with status code 200, with default header values.
 
 The allocator resync operation executed successfully
 */
@@ -76,9 +77,44 @@ type ResyncAllocatorOK struct {
 	Payload models.EmptyResponse
 }
 
+// IsSuccess returns true when this resync allocator o k response has a 2xx status code
+func (o *ResyncAllocatorOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this resync allocator o k response has a 3xx status code
+func (o *ResyncAllocatorOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this resync allocator o k response has a 4xx status code
+func (o *ResyncAllocatorOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this resync allocator o k response has a 5xx status code
+func (o *ResyncAllocatorOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this resync allocator o k response a status code equal to that given
+func (o *ResyncAllocatorOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the resync allocator o k response
+func (o *ResyncAllocatorOK) Code() int {
+	return 200
+}
+
 func (o *ResyncAllocatorOK) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/allocators/{allocator_id}/_resync][%d] resyncAllocatorOK  %+v", 200, o.Payload)
 }
+
+func (o *ResyncAllocatorOK) String() string {
+	return fmt.Sprintf("[POST /platform/infrastructure/allocators/{allocator_id}/_resync][%d] resyncAllocatorOK  %+v", 200, o.Payload)
+}
+
 func (o *ResyncAllocatorOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -98,7 +134,8 @@ func NewResyncAllocatorRetryWith() *ResyncAllocatorRetryWith {
 	return &ResyncAllocatorRetryWith{}
 }
 
-/* ResyncAllocatorRetryWith describes a response with status code 449, with default header values.
+/*
+ResyncAllocatorRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
@@ -111,9 +148,44 @@ type ResyncAllocatorRetryWith struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this resync allocator retry with response has a 2xx status code
+func (o *ResyncAllocatorRetryWith) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this resync allocator retry with response has a 3xx status code
+func (o *ResyncAllocatorRetryWith) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this resync allocator retry with response has a 4xx status code
+func (o *ResyncAllocatorRetryWith) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this resync allocator retry with response has a 5xx status code
+func (o *ResyncAllocatorRetryWith) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this resync allocator retry with response a status code equal to that given
+func (o *ResyncAllocatorRetryWith) IsCode(code int) bool {
+	return code == 449
+}
+
+// Code gets the status code for the resync allocator retry with response
+func (o *ResyncAllocatorRetryWith) Code() int {
+	return 449
+}
+
 func (o *ResyncAllocatorRetryWith) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/allocators/{allocator_id}/_resync][%d] resyncAllocatorRetryWith  %+v", 449, o.Payload)
 }
+
+func (o *ResyncAllocatorRetryWith) String() string {
+	return fmt.Sprintf("[POST /platform/infrastructure/allocators/{allocator_id}/_resync][%d] resyncAllocatorRetryWith  %+v", 449, o.Payload)
+}
+
 func (o *ResyncAllocatorRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -142,7 +214,8 @@ func NewResyncAllocatorInternalServerError() *ResyncAllocatorInternalServerError
 	return &ResyncAllocatorInternalServerError{}
 }
 
-/* ResyncAllocatorInternalServerError describes a response with status code 500, with default header values.
+/*
+ResyncAllocatorInternalServerError describes a response with status code 500, with default header values.
 
 The allocator resync operation failed for allocator {allocator_id}. (code: `allocators.resync_failed`)
 */
@@ -155,9 +228,44 @@ type ResyncAllocatorInternalServerError struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this resync allocator internal server error response has a 2xx status code
+func (o *ResyncAllocatorInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this resync allocator internal server error response has a 3xx status code
+func (o *ResyncAllocatorInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this resync allocator internal server error response has a 4xx status code
+func (o *ResyncAllocatorInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this resync allocator internal server error response has a 5xx status code
+func (o *ResyncAllocatorInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this resync allocator internal server error response a status code equal to that given
+func (o *ResyncAllocatorInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
+// Code gets the status code for the resync allocator internal server error response
+func (o *ResyncAllocatorInternalServerError) Code() int {
+	return 500
+}
+
 func (o *ResyncAllocatorInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/allocators/{allocator_id}/_resync][%d] resyncAllocatorInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ResyncAllocatorInternalServerError) String() string {
+	return fmt.Sprintf("[POST /platform/infrastructure/allocators/{allocator_id}/_resync][%d] resyncAllocatorInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ResyncAllocatorInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

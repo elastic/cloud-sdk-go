@@ -69,10 +69,12 @@ func NewPutDeploymentResourceProxyRequestsParamsWithHTTPClient(client *http.Clie
 	}
 }
 
-/* PutDeploymentResourceProxyRequestsParams contains all the parameters to send to the API endpoint
-   for the put deployment resource proxy requests operation.
+/*
+PutDeploymentResourceProxyRequestsParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the put deployment resource proxy requests operation.
+
+	Typically these are written to a http.Request.
 */
 type PutDeploymentResourceProxyRequestsParams struct {
 

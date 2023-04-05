@@ -157,6 +157,8 @@ func (m *Extension) validateFileMetadata(formats strfmt.Registry) error {
 		if err := m.FileMetadata.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("file_metadata")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("file_metadata")
 			}
 			return err
 		}
@@ -221,6 +223,8 @@ func (m *Extension) contextValidateFileMetadata(ctx context.Context, formats str
 		if err := m.FileMetadata.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("file_metadata")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("file_metadata")
 			}
 			return err
 		}

@@ -56,7 +56,8 @@ func NewGetAdminconsolesOK() *GetAdminconsolesOK {
 	return &GetAdminconsolesOK{}
 }
 
-/* GetAdminconsolesOK describes a response with status code 200, with default header values.
+/*
+GetAdminconsolesOK describes a response with status code 200, with default header values.
 
 An overview of all adminconsoles.
 */
@@ -77,9 +78,44 @@ type GetAdminconsolesOK struct {
 	Payload *models.AdminconsolesOverview
 }
 
+// IsSuccess returns true when this get adminconsoles o k response has a 2xx status code
+func (o *GetAdminconsolesOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get adminconsoles o k response has a 3xx status code
+func (o *GetAdminconsolesOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get adminconsoles o k response has a 4xx status code
+func (o *GetAdminconsolesOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get adminconsoles o k response has a 5xx status code
+func (o *GetAdminconsolesOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get adminconsoles o k response a status code equal to that given
+func (o *GetAdminconsolesOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get adminconsoles o k response
+func (o *GetAdminconsolesOK) Code() int {
+	return 200
+}
+
 func (o *GetAdminconsolesOK) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/adminconsoles][%d] getAdminconsolesOK  %+v", 200, o.Payload)
 }
+
+func (o *GetAdminconsolesOK) String() string {
+	return fmt.Sprintf("[GET /platform/infrastructure/adminconsoles][%d] getAdminconsolesOK  %+v", 200, o.Payload)
+}
+
 func (o *GetAdminconsolesOK) GetPayload() *models.AdminconsolesOverview {
 	return o.Payload
 }

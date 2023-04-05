@@ -68,7 +68,8 @@ func NewDeleteVersionStackOK() *DeleteVersionStackOK {
 	return &DeleteVersionStackOK{}
 }
 
-/* DeleteVersionStackOK describes a response with status code 200, with default header values.
+/*
+DeleteVersionStackOK describes a response with status code 200, with default header values.
 
 The `deleted` flag is applied to the specified Elastic Stack version.
 */
@@ -76,9 +77,44 @@ type DeleteVersionStackOK struct {
 	Payload models.EmptyResponse
 }
 
+// IsSuccess returns true when this delete version stack o k response has a 2xx status code
+func (o *DeleteVersionStackOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this delete version stack o k response has a 3xx status code
+func (o *DeleteVersionStackOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete version stack o k response has a 4xx status code
+func (o *DeleteVersionStackOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this delete version stack o k response has a 5xx status code
+func (o *DeleteVersionStackOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete version stack o k response a status code equal to that given
+func (o *DeleteVersionStackOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the delete version stack o k response
+func (o *DeleteVersionStackOK) Code() int {
+	return 200
+}
+
 func (o *DeleteVersionStackOK) Error() string {
 	return fmt.Sprintf("[DELETE /stack/versions/{version}][%d] deleteVersionStackOK  %+v", 200, o.Payload)
 }
+
+func (o *DeleteVersionStackOK) String() string {
+	return fmt.Sprintf("[DELETE /stack/versions/{version}][%d] deleteVersionStackOK  %+v", 200, o.Payload)
+}
+
 func (o *DeleteVersionStackOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -98,7 +134,8 @@ func NewDeleteVersionStackNotFound() *DeleteVersionStackNotFound {
 	return &DeleteVersionStackNotFound{}
 }
 
-/* DeleteVersionStackNotFound describes a response with status code 404, with default header values.
+/*
+DeleteVersionStackNotFound describes a response with status code 404, with default header values.
 
 The Elastic Stack version can't be found. (code: `stackpack.version_not_found`)
 */
@@ -111,9 +148,44 @@ type DeleteVersionStackNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete version stack not found response has a 2xx status code
+func (o *DeleteVersionStackNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete version stack not found response has a 3xx status code
+func (o *DeleteVersionStackNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete version stack not found response has a 4xx status code
+func (o *DeleteVersionStackNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete version stack not found response has a 5xx status code
+func (o *DeleteVersionStackNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete version stack not found response a status code equal to that given
+func (o *DeleteVersionStackNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the delete version stack not found response
+func (o *DeleteVersionStackNotFound) Code() int {
+	return 404
+}
+
 func (o *DeleteVersionStackNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /stack/versions/{version}][%d] deleteVersionStackNotFound  %+v", 404, o.Payload)
 }
+
+func (o *DeleteVersionStackNotFound) String() string {
+	return fmt.Sprintf("[DELETE /stack/versions/{version}][%d] deleteVersionStackNotFound  %+v", 404, o.Payload)
+}
+
 func (o *DeleteVersionStackNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -142,7 +214,8 @@ func NewDeleteVersionStackRetryWith() *DeleteVersionStackRetryWith {
 	return &DeleteVersionStackRetryWith{}
 }
 
-/* DeleteVersionStackRetryWith describes a response with status code 449, with default header values.
+/*
+DeleteVersionStackRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
@@ -155,9 +228,44 @@ type DeleteVersionStackRetryWith struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete version stack retry with response has a 2xx status code
+func (o *DeleteVersionStackRetryWith) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete version stack retry with response has a 3xx status code
+func (o *DeleteVersionStackRetryWith) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete version stack retry with response has a 4xx status code
+func (o *DeleteVersionStackRetryWith) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete version stack retry with response has a 5xx status code
+func (o *DeleteVersionStackRetryWith) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete version stack retry with response a status code equal to that given
+func (o *DeleteVersionStackRetryWith) IsCode(code int) bool {
+	return code == 449
+}
+
+// Code gets the status code for the delete version stack retry with response
+func (o *DeleteVersionStackRetryWith) Code() int {
+	return 449
+}
+
 func (o *DeleteVersionStackRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /stack/versions/{version}][%d] deleteVersionStackRetryWith  %+v", 449, o.Payload)
 }
+
+func (o *DeleteVersionStackRetryWith) String() string {
+	return fmt.Sprintf("[DELETE /stack/versions/{version}][%d] deleteVersionStackRetryWith  %+v", 449, o.Payload)
+}
+
 func (o *DeleteVersionStackRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

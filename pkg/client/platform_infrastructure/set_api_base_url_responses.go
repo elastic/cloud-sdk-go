@@ -80,7 +80,8 @@ func NewSetAPIBaseURLOK() *SetAPIBaseURLOK {
 	return &SetAPIBaseURLOK{}
 }
 
-/* SetAPIBaseURLOK describes a response with status code 200, with default header values.
+/*
+SetAPIBaseURLOK describes a response with status code 200, with default header values.
 
 The API base Url was successfully saved.
 */
@@ -101,9 +102,44 @@ type SetAPIBaseURLOK struct {
 	Payload *models.APIBaseURLData
 }
 
+// IsSuccess returns true when this set Api base Url o k response has a 2xx status code
+func (o *SetAPIBaseURLOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this set Api base Url o k response has a 3xx status code
+func (o *SetAPIBaseURLOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set Api base Url o k response has a 4xx status code
+func (o *SetAPIBaseURLOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this set Api base Url o k response has a 5xx status code
+func (o *SetAPIBaseURLOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set Api base Url o k response a status code equal to that given
+func (o *SetAPIBaseURLOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the set Api base Url o k response
+func (o *SetAPIBaseURLOK) Code() int {
+	return 200
+}
+
 func (o *SetAPIBaseURLOK) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/api_base_url][%d] setApiBaseUrlOK  %+v", 200, o.Payload)
 }
+
+func (o *SetAPIBaseURLOK) String() string {
+	return fmt.Sprintf("[PUT /platform/configuration/api_base_url][%d] setApiBaseUrlOK  %+v", 200, o.Payload)
+}
+
 func (o *SetAPIBaseURLOK) GetPayload() *models.APIBaseURLData {
 	return o.Payload
 }
@@ -146,7 +182,8 @@ func NewSetAPIBaseURLBadRequest() *SetAPIBaseURLBadRequest {
 	return &SetAPIBaseURLBadRequest{}
 }
 
-/* SetAPIBaseURLBadRequest describes a response with status code 400, with default header values.
+/*
+SetAPIBaseURLBadRequest describes a response with status code 400, with default header values.
 
 The optimistic locking version format was wrong. (code: `adminconsole.base_url.bad_version_format`)
 */
@@ -159,9 +196,44 @@ type SetAPIBaseURLBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this set Api base Url bad request response has a 2xx status code
+func (o *SetAPIBaseURLBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this set Api base Url bad request response has a 3xx status code
+func (o *SetAPIBaseURLBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set Api base Url bad request response has a 4xx status code
+func (o *SetAPIBaseURLBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this set Api base Url bad request response has a 5xx status code
+func (o *SetAPIBaseURLBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set Api base Url bad request response a status code equal to that given
+func (o *SetAPIBaseURLBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the set Api base Url bad request response
+func (o *SetAPIBaseURLBadRequest) Code() int {
+	return 400
+}
+
 func (o *SetAPIBaseURLBadRequest) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/api_base_url][%d] setApiBaseUrlBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *SetAPIBaseURLBadRequest) String() string {
+	return fmt.Sprintf("[PUT /platform/configuration/api_base_url][%d] setApiBaseUrlBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *SetAPIBaseURLBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -190,7 +262,8 @@ func NewSetAPIBaseURLNotFound() *SetAPIBaseURLNotFound {
 	return &SetAPIBaseURLNotFound{}
 }
 
-/* SetAPIBaseURLNotFound describes a response with status code 404, with default header values.
+/*
+SetAPIBaseURLNotFound describes a response with status code 404, with default header values.
 
 There is no configured API base value but optimistic locking was sent. (code: `adminconsole.base_url.not_found`)
 */
@@ -203,9 +276,44 @@ type SetAPIBaseURLNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this set Api base Url not found response has a 2xx status code
+func (o *SetAPIBaseURLNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this set Api base Url not found response has a 3xx status code
+func (o *SetAPIBaseURLNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set Api base Url not found response has a 4xx status code
+func (o *SetAPIBaseURLNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this set Api base Url not found response has a 5xx status code
+func (o *SetAPIBaseURLNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set Api base Url not found response a status code equal to that given
+func (o *SetAPIBaseURLNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the set Api base Url not found response
+func (o *SetAPIBaseURLNotFound) Code() int {
+	return 404
+}
+
 func (o *SetAPIBaseURLNotFound) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/api_base_url][%d] setApiBaseUrlNotFound  %+v", 404, o.Payload)
 }
+
+func (o *SetAPIBaseURLNotFound) String() string {
+	return fmt.Sprintf("[PUT /platform/configuration/api_base_url][%d] setApiBaseUrlNotFound  %+v", 404, o.Payload)
+}
+
 func (o *SetAPIBaseURLNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -234,7 +342,8 @@ func NewSetAPIBaseURLConflict() *SetAPIBaseURLConflict {
 	return &SetAPIBaseURLConflict{}
 }
 
-/* SetAPIBaseURLConflict describes a response with status code 409, with default header values.
+/*
+SetAPIBaseURLConflict describes a response with status code 409, with default header values.
 
 There was an optimistic locking version conflict. (code: `adminconsole.base_url.version_conflict`)
 */
@@ -247,9 +356,44 @@ type SetAPIBaseURLConflict struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this set Api base Url conflict response has a 2xx status code
+func (o *SetAPIBaseURLConflict) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this set Api base Url conflict response has a 3xx status code
+func (o *SetAPIBaseURLConflict) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set Api base Url conflict response has a 4xx status code
+func (o *SetAPIBaseURLConflict) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this set Api base Url conflict response has a 5xx status code
+func (o *SetAPIBaseURLConflict) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set Api base Url conflict response a status code equal to that given
+func (o *SetAPIBaseURLConflict) IsCode(code int) bool {
+	return code == 409
+}
+
+// Code gets the status code for the set Api base Url conflict response
+func (o *SetAPIBaseURLConflict) Code() int {
+	return 409
+}
+
 func (o *SetAPIBaseURLConflict) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/api_base_url][%d] setApiBaseUrlConflict  %+v", 409, o.Payload)
 }
+
+func (o *SetAPIBaseURLConflict) String() string {
+	return fmt.Sprintf("[PUT /platform/configuration/api_base_url][%d] setApiBaseUrlConflict  %+v", 409, o.Payload)
+}
+
 func (o *SetAPIBaseURLConflict) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -278,7 +422,8 @@ func NewSetAPIBaseURLPreconditionFailed() *SetAPIBaseURLPreconditionFailed {
 	return &SetAPIBaseURLPreconditionFailed{}
 }
 
-/* SetAPIBaseURLPreconditionFailed describes a response with status code 412, with default header values.
+/*
+SetAPIBaseURLPreconditionFailed describes a response with status code 412, with default header values.
 
 skip_cascading_operations was false but the Security Deployment already had a pending plan. (code: `security_deployment.cluster_pending_plan_exists`)
 */
@@ -291,9 +436,44 @@ type SetAPIBaseURLPreconditionFailed struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this set Api base Url precondition failed response has a 2xx status code
+func (o *SetAPIBaseURLPreconditionFailed) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this set Api base Url precondition failed response has a 3xx status code
+func (o *SetAPIBaseURLPreconditionFailed) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set Api base Url precondition failed response has a 4xx status code
+func (o *SetAPIBaseURLPreconditionFailed) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this set Api base Url precondition failed response has a 5xx status code
+func (o *SetAPIBaseURLPreconditionFailed) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set Api base Url precondition failed response a status code equal to that given
+func (o *SetAPIBaseURLPreconditionFailed) IsCode(code int) bool {
+	return code == 412
+}
+
+// Code gets the status code for the set Api base Url precondition failed response
+func (o *SetAPIBaseURLPreconditionFailed) Code() int {
+	return 412
+}
+
 func (o *SetAPIBaseURLPreconditionFailed) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/api_base_url][%d] setApiBaseUrlPreconditionFailed  %+v", 412, o.Payload)
 }
+
+func (o *SetAPIBaseURLPreconditionFailed) String() string {
+	return fmt.Sprintf("[PUT /platform/configuration/api_base_url][%d] setApiBaseUrlPreconditionFailed  %+v", 412, o.Payload)
+}
+
 func (o *SetAPIBaseURLPreconditionFailed) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

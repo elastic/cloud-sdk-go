@@ -69,10 +69,12 @@ func NewDeploymentApmResetSecretTokenParamsWithHTTPClient(client *http.Client) *
 	}
 }
 
-/* DeploymentApmResetSecretTokenParams contains all the parameters to send to the API endpoint
-   for the deployment apm reset secret token operation.
+/*
+DeploymentApmResetSecretTokenParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the deployment apm reset secret token operation.
+
+	Typically these are written to a http.Request.
 */
 type DeploymentApmResetSecretTokenParams struct {
 

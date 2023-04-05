@@ -74,7 +74,8 @@ func NewCaptureDeploymentResourceDiagnosticsOK() *CaptureDeploymentResourceDiagn
 	return &CaptureDeploymentResourceDiagnosticsOK{}
 }
 
-/* CaptureDeploymentResourceDiagnosticsOK describes a response with status code 200, with default header values.
+/*
+CaptureDeploymentResourceDiagnosticsOK describes a response with status code 200, with default header values.
 
 The diagnostic bundle as a zip file
 */
@@ -82,9 +83,44 @@ type CaptureDeploymentResourceDiagnosticsOK struct {
 	Payload strfmt.Base64
 }
 
+// IsSuccess returns true when this capture deployment resource diagnostics o k response has a 2xx status code
+func (o *CaptureDeploymentResourceDiagnosticsOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this capture deployment resource diagnostics o k response has a 3xx status code
+func (o *CaptureDeploymentResourceDiagnosticsOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this capture deployment resource diagnostics o k response has a 4xx status code
+func (o *CaptureDeploymentResourceDiagnosticsOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this capture deployment resource diagnostics o k response has a 5xx status code
+func (o *CaptureDeploymentResourceDiagnosticsOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this capture deployment resource diagnostics o k response a status code equal to that given
+func (o *CaptureDeploymentResourceDiagnosticsOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the capture deployment resource diagnostics o k response
+func (o *CaptureDeploymentResourceDiagnosticsOK) Code() int {
+	return 200
+}
+
 func (o *CaptureDeploymentResourceDiagnosticsOK) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/diagnostics/_capture][%d] captureDeploymentResourceDiagnosticsOK  %+v", 200, o.Payload)
 }
+
+func (o *CaptureDeploymentResourceDiagnosticsOK) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/diagnostics/_capture][%d] captureDeploymentResourceDiagnosticsOK  %+v", 200, o.Payload)
+}
+
 func (o *CaptureDeploymentResourceDiagnosticsOK) GetPayload() strfmt.Base64 {
 	return o.Payload
 }
@@ -104,9 +140,11 @@ func NewCaptureDeploymentResourceDiagnosticsNotFound() *CaptureDeploymentResourc
 	return &CaptureDeploymentResourceDiagnosticsNotFound{}
 }
 
-/* CaptureDeploymentResourceDiagnosticsNotFound describes a response with status code 404, with default header values.
+/*
+	CaptureDeploymentResourceDiagnosticsNotFound describes a response with status code 404, with default header values.
 
- * The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+	* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+
 * The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)
 */
 type CaptureDeploymentResourceDiagnosticsNotFound struct {
@@ -118,9 +156,44 @@ type CaptureDeploymentResourceDiagnosticsNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this capture deployment resource diagnostics not found response has a 2xx status code
+func (o *CaptureDeploymentResourceDiagnosticsNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this capture deployment resource diagnostics not found response has a 3xx status code
+func (o *CaptureDeploymentResourceDiagnosticsNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this capture deployment resource diagnostics not found response has a 4xx status code
+func (o *CaptureDeploymentResourceDiagnosticsNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this capture deployment resource diagnostics not found response has a 5xx status code
+func (o *CaptureDeploymentResourceDiagnosticsNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this capture deployment resource diagnostics not found response a status code equal to that given
+func (o *CaptureDeploymentResourceDiagnosticsNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the capture deployment resource diagnostics not found response
+func (o *CaptureDeploymentResourceDiagnosticsNotFound) Code() int {
+	return 404
+}
+
 func (o *CaptureDeploymentResourceDiagnosticsNotFound) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/diagnostics/_capture][%d] captureDeploymentResourceDiagnosticsNotFound  %+v", 404, o.Payload)
 }
+
+func (o *CaptureDeploymentResourceDiagnosticsNotFound) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/diagnostics/_capture][%d] captureDeploymentResourceDiagnosticsNotFound  %+v", 404, o.Payload)
+}
+
 func (o *CaptureDeploymentResourceDiagnosticsNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -149,7 +222,8 @@ func NewCaptureDeploymentResourceDiagnosticsPreconditionFailed() *CaptureDeploym
 	return &CaptureDeploymentResourceDiagnosticsPreconditionFailed{}
 }
 
-/* CaptureDeploymentResourceDiagnosticsPreconditionFailed describes a response with status code 412, with default header values.
+/*
+CaptureDeploymentResourceDiagnosticsPreconditionFailed describes a response with status code 412, with default header values.
 
 The diagnostics cannot be generated because the cluster is either stopped or initializing. (code: `clusters.cluster_plan_state_error`)
 */
@@ -162,9 +236,44 @@ type CaptureDeploymentResourceDiagnosticsPreconditionFailed struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this capture deployment resource diagnostics precondition failed response has a 2xx status code
+func (o *CaptureDeploymentResourceDiagnosticsPreconditionFailed) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this capture deployment resource diagnostics precondition failed response has a 3xx status code
+func (o *CaptureDeploymentResourceDiagnosticsPreconditionFailed) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this capture deployment resource diagnostics precondition failed response has a 4xx status code
+func (o *CaptureDeploymentResourceDiagnosticsPreconditionFailed) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this capture deployment resource diagnostics precondition failed response has a 5xx status code
+func (o *CaptureDeploymentResourceDiagnosticsPreconditionFailed) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this capture deployment resource diagnostics precondition failed response a status code equal to that given
+func (o *CaptureDeploymentResourceDiagnosticsPreconditionFailed) IsCode(code int) bool {
+	return code == 412
+}
+
+// Code gets the status code for the capture deployment resource diagnostics precondition failed response
+func (o *CaptureDeploymentResourceDiagnosticsPreconditionFailed) Code() int {
+	return 412
+}
+
 func (o *CaptureDeploymentResourceDiagnosticsPreconditionFailed) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/diagnostics/_capture][%d] captureDeploymentResourceDiagnosticsPreconditionFailed  %+v", 412, o.Payload)
 }
+
+func (o *CaptureDeploymentResourceDiagnosticsPreconditionFailed) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/diagnostics/_capture][%d] captureDeploymentResourceDiagnosticsPreconditionFailed  %+v", 412, o.Payload)
+}
+
 func (o *CaptureDeploymentResourceDiagnosticsPreconditionFailed) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -193,7 +302,8 @@ func NewCaptureDeploymentResourceDiagnosticsRetryWith() *CaptureDeploymentResour
 	return &CaptureDeploymentResourceDiagnosticsRetryWith{}
 }
 
-/* CaptureDeploymentResourceDiagnosticsRetryWith describes a response with status code 449, with default header values.
+/*
+CaptureDeploymentResourceDiagnosticsRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
@@ -206,9 +316,44 @@ type CaptureDeploymentResourceDiagnosticsRetryWith struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this capture deployment resource diagnostics retry with response has a 2xx status code
+func (o *CaptureDeploymentResourceDiagnosticsRetryWith) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this capture deployment resource diagnostics retry with response has a 3xx status code
+func (o *CaptureDeploymentResourceDiagnosticsRetryWith) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this capture deployment resource diagnostics retry with response has a 4xx status code
+func (o *CaptureDeploymentResourceDiagnosticsRetryWith) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this capture deployment resource diagnostics retry with response has a 5xx status code
+func (o *CaptureDeploymentResourceDiagnosticsRetryWith) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this capture deployment resource diagnostics retry with response a status code equal to that given
+func (o *CaptureDeploymentResourceDiagnosticsRetryWith) IsCode(code int) bool {
+	return code == 449
+}
+
+// Code gets the status code for the capture deployment resource diagnostics retry with response
+func (o *CaptureDeploymentResourceDiagnosticsRetryWith) Code() int {
+	return 449
+}
+
 func (o *CaptureDeploymentResourceDiagnosticsRetryWith) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/diagnostics/_capture][%d] captureDeploymentResourceDiagnosticsRetryWith  %+v", 449, o.Payload)
 }
+
+func (o *CaptureDeploymentResourceDiagnosticsRetryWith) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/diagnostics/_capture][%d] captureDeploymentResourceDiagnosticsRetryWith  %+v", 449, o.Payload)
+}
+
 func (o *CaptureDeploymentResourceDiagnosticsRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

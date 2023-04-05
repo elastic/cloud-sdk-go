@@ -115,6 +115,8 @@ func (m *AppSearchResourceInfo) validateInfo(formats strfmt.Registry) error {
 		if err := m.Info.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("info")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("info")
 			}
 			return err
 		}
@@ -161,6 +163,8 @@ func (m *AppSearchResourceInfo) contextValidateInfo(ctx context.Context, formats
 		if err := m.Info.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("info")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("info")
 			}
 			return err
 		}

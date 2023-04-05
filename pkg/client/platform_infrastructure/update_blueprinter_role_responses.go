@@ -74,7 +74,8 @@ func NewUpdateBlueprinterRoleOK() *UpdateBlueprinterRoleOK {
 	return &UpdateBlueprinterRoleOK{}
 }
 
-/* UpdateBlueprinterRoleOK describes a response with status code 200, with default header values.
+/*
+UpdateBlueprinterRoleOK describes a response with status code 200, with default header values.
 
 The role was successfully updated.
 */
@@ -82,9 +83,44 @@ type UpdateBlueprinterRoleOK struct {
 	Payload *models.RoleAggregate
 }
 
+// IsSuccess returns true when this update blueprinter role o k response has a 2xx status code
+func (o *UpdateBlueprinterRoleOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this update blueprinter role o k response has a 3xx status code
+func (o *UpdateBlueprinterRoleOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update blueprinter role o k response has a 4xx status code
+func (o *UpdateBlueprinterRoleOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this update blueprinter role o k response has a 5xx status code
+func (o *UpdateBlueprinterRoleOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update blueprinter role o k response a status code equal to that given
+func (o *UpdateBlueprinterRoleOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the update blueprinter role o k response
+func (o *UpdateBlueprinterRoleOK) Code() int {
+	return 200
+}
+
 func (o *UpdateBlueprinterRoleOK) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/blueprinter/roles/{blueprinter_role_id}][%d] updateBlueprinterRoleOK  %+v", 200, o.Payload)
 }
+
+func (o *UpdateBlueprinterRoleOK) String() string {
+	return fmt.Sprintf("[PUT /platform/infrastructure/blueprinter/roles/{blueprinter_role_id}][%d] updateBlueprinterRoleOK  %+v", 200, o.Payload)
+}
+
 func (o *UpdateBlueprinterRoleOK) GetPayload() *models.RoleAggregate {
 	return o.Payload
 }
@@ -106,7 +142,8 @@ func NewUpdateBlueprinterRoleBadRequest() *UpdateBlueprinterRoleBadRequest {
 	return &UpdateBlueprinterRoleBadRequest{}
 }
 
-/* UpdateBlueprinterRoleBadRequest describes a response with status code 400, with default header values.
+/*
+UpdateBlueprinterRoleBadRequest describes a response with status code 400, with default header values.
 
 The role is currently running container sets. (code: `roles.in_use`)
 */
@@ -119,9 +156,44 @@ type UpdateBlueprinterRoleBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this update blueprinter role bad request response has a 2xx status code
+func (o *UpdateBlueprinterRoleBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update blueprinter role bad request response has a 3xx status code
+func (o *UpdateBlueprinterRoleBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update blueprinter role bad request response has a 4xx status code
+func (o *UpdateBlueprinterRoleBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update blueprinter role bad request response has a 5xx status code
+func (o *UpdateBlueprinterRoleBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update blueprinter role bad request response a status code equal to that given
+func (o *UpdateBlueprinterRoleBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the update blueprinter role bad request response
+func (o *UpdateBlueprinterRoleBadRequest) Code() int {
+	return 400
+}
+
 func (o *UpdateBlueprinterRoleBadRequest) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/blueprinter/roles/{blueprinter_role_id}][%d] updateBlueprinterRoleBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *UpdateBlueprinterRoleBadRequest) String() string {
+	return fmt.Sprintf("[PUT /platform/infrastructure/blueprinter/roles/{blueprinter_role_id}][%d] updateBlueprinterRoleBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *UpdateBlueprinterRoleBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -150,7 +222,8 @@ func NewUpdateBlueprinterRoleNotFound() *UpdateBlueprinterRoleNotFound {
 	return &UpdateBlueprinterRoleNotFound{}
 }
 
-/* UpdateBlueprinterRoleNotFound describes a response with status code 404, with default header values.
+/*
+UpdateBlueprinterRoleNotFound describes a response with status code 404, with default header values.
 
 The role can't be found. (code: `roles.not_found`)
 */
@@ -163,9 +236,44 @@ type UpdateBlueprinterRoleNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this update blueprinter role not found response has a 2xx status code
+func (o *UpdateBlueprinterRoleNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update blueprinter role not found response has a 3xx status code
+func (o *UpdateBlueprinterRoleNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update blueprinter role not found response has a 4xx status code
+func (o *UpdateBlueprinterRoleNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update blueprinter role not found response has a 5xx status code
+func (o *UpdateBlueprinterRoleNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update blueprinter role not found response a status code equal to that given
+func (o *UpdateBlueprinterRoleNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the update blueprinter role not found response
+func (o *UpdateBlueprinterRoleNotFound) Code() int {
+	return 404
+}
+
 func (o *UpdateBlueprinterRoleNotFound) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/blueprinter/roles/{blueprinter_role_id}][%d] updateBlueprinterRoleNotFound  %+v", 404, o.Payload)
 }
+
+func (o *UpdateBlueprinterRoleNotFound) String() string {
+	return fmt.Sprintf("[PUT /platform/infrastructure/blueprinter/roles/{blueprinter_role_id}][%d] updateBlueprinterRoleNotFound  %+v", 404, o.Payload)
+}
+
 func (o *UpdateBlueprinterRoleNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -194,7 +302,8 @@ func NewUpdateBlueprinterRoleConflict() *UpdateBlueprinterRoleConflict {
 	return &UpdateBlueprinterRoleConflict{}
 }
 
-/* UpdateBlueprinterRoleConflict describes a response with status code 409, with default header values.
+/*
+UpdateBlueprinterRoleConflict describes a response with status code 409, with default header values.
 
 Your request failed because the specified version does not match the persisted version. (code: `roles.version_conflict`)
 */
@@ -207,9 +316,44 @@ type UpdateBlueprinterRoleConflict struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this update blueprinter role conflict response has a 2xx status code
+func (o *UpdateBlueprinterRoleConflict) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update blueprinter role conflict response has a 3xx status code
+func (o *UpdateBlueprinterRoleConflict) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update blueprinter role conflict response has a 4xx status code
+func (o *UpdateBlueprinterRoleConflict) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update blueprinter role conflict response has a 5xx status code
+func (o *UpdateBlueprinterRoleConflict) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update blueprinter role conflict response a status code equal to that given
+func (o *UpdateBlueprinterRoleConflict) IsCode(code int) bool {
+	return code == 409
+}
+
+// Code gets the status code for the update blueprinter role conflict response
+func (o *UpdateBlueprinterRoleConflict) Code() int {
+	return 409
+}
+
 func (o *UpdateBlueprinterRoleConflict) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/blueprinter/roles/{blueprinter_role_id}][%d] updateBlueprinterRoleConflict  %+v", 409, o.Payload)
 }
+
+func (o *UpdateBlueprinterRoleConflict) String() string {
+	return fmt.Sprintf("[PUT /platform/infrastructure/blueprinter/roles/{blueprinter_role_id}][%d] updateBlueprinterRoleConflict  %+v", 409, o.Payload)
+}
+
 func (o *UpdateBlueprinterRoleConflict) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

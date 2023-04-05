@@ -68,7 +68,8 @@ func NewAddBlueprinterBlessingOK() *AddBlueprinterBlessingOK {
 	return &AddBlueprinterBlessingOK{}
 }
 
-/* AddBlueprinterBlessingOK describes a response with status code 200, with default header values.
+/*
+AddBlueprinterBlessingOK describes a response with status code 200, with default header values.
 
 Blessing added successfully.
 */
@@ -76,9 +77,44 @@ type AddBlueprinterBlessingOK struct {
 	Payload *models.RoleAggregate
 }
 
+// IsSuccess returns true when this add blueprinter blessing o k response has a 2xx status code
+func (o *AddBlueprinterBlessingOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this add blueprinter blessing o k response has a 3xx status code
+func (o *AddBlueprinterBlessingOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this add blueprinter blessing o k response has a 4xx status code
+func (o *AddBlueprinterBlessingOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this add blueprinter blessing o k response has a 5xx status code
+func (o *AddBlueprinterBlessingOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this add blueprinter blessing o k response a status code equal to that given
+func (o *AddBlueprinterBlessingOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the add blueprinter blessing o k response
+func (o *AddBlueprinterBlessingOK) Code() int {
+	return 200
+}
+
 func (o *AddBlueprinterBlessingOK) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/blueprinter/roles/{blueprinter_role_id}/blessings/{runner_id}][%d] addBlueprinterBlessingOK  %+v", 200, o.Payload)
 }
+
+func (o *AddBlueprinterBlessingOK) String() string {
+	return fmt.Sprintf("[PUT /platform/infrastructure/blueprinter/roles/{blueprinter_role_id}/blessings/{runner_id}][%d] addBlueprinterBlessingOK  %+v", 200, o.Payload)
+}
+
 func (o *AddBlueprinterBlessingOK) GetPayload() *models.RoleAggregate {
 	return o.Payload
 }
@@ -100,7 +136,8 @@ func NewAddBlueprinterBlessingNotFound() *AddBlueprinterBlessingNotFound {
 	return &AddBlueprinterBlessingNotFound{}
 }
 
-/* AddBlueprinterBlessingNotFound describes a response with status code 404, with default header values.
+/*
+AddBlueprinterBlessingNotFound describes a response with status code 404, with default header values.
 
 The role can't be found. (code: `roles.not_found`)
 */
@@ -113,9 +150,44 @@ type AddBlueprinterBlessingNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this add blueprinter blessing not found response has a 2xx status code
+func (o *AddBlueprinterBlessingNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this add blueprinter blessing not found response has a 3xx status code
+func (o *AddBlueprinterBlessingNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this add blueprinter blessing not found response has a 4xx status code
+func (o *AddBlueprinterBlessingNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this add blueprinter blessing not found response has a 5xx status code
+func (o *AddBlueprinterBlessingNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this add blueprinter blessing not found response a status code equal to that given
+func (o *AddBlueprinterBlessingNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the add blueprinter blessing not found response
+func (o *AddBlueprinterBlessingNotFound) Code() int {
+	return 404
+}
+
 func (o *AddBlueprinterBlessingNotFound) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/blueprinter/roles/{blueprinter_role_id}/blessings/{runner_id}][%d] addBlueprinterBlessingNotFound  %+v", 404, o.Payload)
 }
+
+func (o *AddBlueprinterBlessingNotFound) String() string {
+	return fmt.Sprintf("[PUT /platform/infrastructure/blueprinter/roles/{blueprinter_role_id}/blessings/{runner_id}][%d] addBlueprinterBlessingNotFound  %+v", 404, o.Payload)
+}
+
 func (o *AddBlueprinterBlessingNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -144,7 +216,8 @@ func NewAddBlueprinterBlessingConflict() *AddBlueprinterBlessingConflict {
 	return &AddBlueprinterBlessingConflict{}
 }
 
-/* AddBlueprinterBlessingConflict describes a response with status code 409, with default header values.
+/*
+AddBlueprinterBlessingConflict describes a response with status code 409, with default header values.
 
 Your request failed because the specified version does not match the persisted version. (code: `roles.version_conflict`)
 */
@@ -157,9 +230,44 @@ type AddBlueprinterBlessingConflict struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this add blueprinter blessing conflict response has a 2xx status code
+func (o *AddBlueprinterBlessingConflict) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this add blueprinter blessing conflict response has a 3xx status code
+func (o *AddBlueprinterBlessingConflict) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this add blueprinter blessing conflict response has a 4xx status code
+func (o *AddBlueprinterBlessingConflict) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this add blueprinter blessing conflict response has a 5xx status code
+func (o *AddBlueprinterBlessingConflict) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this add blueprinter blessing conflict response a status code equal to that given
+func (o *AddBlueprinterBlessingConflict) IsCode(code int) bool {
+	return code == 409
+}
+
+// Code gets the status code for the add blueprinter blessing conflict response
+func (o *AddBlueprinterBlessingConflict) Code() int {
+	return 409
+}
+
 func (o *AddBlueprinterBlessingConflict) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/blueprinter/roles/{blueprinter_role_id}/blessings/{runner_id}][%d] addBlueprinterBlessingConflict  %+v", 409, o.Payload)
 }
+
+func (o *AddBlueprinterBlessingConflict) String() string {
+	return fmt.Sprintf("[PUT /platform/infrastructure/blueprinter/roles/{blueprinter_role_id}/blessings/{runner_id}][%d] addBlueprinterBlessingConflict  %+v", 409, o.Payload)
+}
+
 func (o *AddBlueprinterBlessingConflict) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

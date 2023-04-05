@@ -74,7 +74,8 @@ func NewMigrateDeploymentTemplateOK() *MigrateDeploymentTemplateOK {
 	return &MigrateDeploymentTemplateOK{}
 }
 
-/* MigrateDeploymentTemplateOK describes a response with status code 200, with default header values.
+/*
+MigrateDeploymentTemplateOK describes a response with status code 200, with default header values.
 
 The request was valid and the deployment can be migrated to the template with the provided ID.
 */
@@ -82,9 +83,44 @@ type MigrateDeploymentTemplateOK struct {
 	Payload *models.DeploymentUpdateRequest
 }
 
+// IsSuccess returns true when this migrate deployment template o k response has a 2xx status code
+func (o *MigrateDeploymentTemplateOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this migrate deployment template o k response has a 3xx status code
+func (o *MigrateDeploymentTemplateOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this migrate deployment template o k response has a 4xx status code
+func (o *MigrateDeploymentTemplateOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this migrate deployment template o k response has a 5xx status code
+func (o *MigrateDeploymentTemplateOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this migrate deployment template o k response a status code equal to that given
+func (o *MigrateDeploymentTemplateOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the migrate deployment template o k response
+func (o *MigrateDeploymentTemplateOK) Code() int {
+	return 200
+}
+
 func (o *MigrateDeploymentTemplateOK) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/migrate_template][%d] migrateDeploymentTemplateOK  %+v", 200, o.Payload)
 }
+
+func (o *MigrateDeploymentTemplateOK) String() string {
+	return fmt.Sprintf("[GET /deployments/{deployment_id}/migrate_template][%d] migrateDeploymentTemplateOK  %+v", 200, o.Payload)
+}
+
 func (o *MigrateDeploymentTemplateOK) GetPayload() *models.DeploymentUpdateRequest {
 	return o.Payload
 }
@@ -106,7 +142,8 @@ func NewMigrateDeploymentTemplateBadRequest() *MigrateDeploymentTemplateBadReque
 	return &MigrateDeploymentTemplateBadRequest{}
 }
 
-/* MigrateDeploymentTemplateBadRequest describes a response with status code 400, with default header values.
+/*
+MigrateDeploymentTemplateBadRequest describes a response with status code 400, with default header values.
 
 The deployment cannot be successfully migrated to the template with the provided ID.
 */
@@ -114,9 +151,44 @@ type MigrateDeploymentTemplateBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this migrate deployment template bad request response has a 2xx status code
+func (o *MigrateDeploymentTemplateBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this migrate deployment template bad request response has a 3xx status code
+func (o *MigrateDeploymentTemplateBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this migrate deployment template bad request response has a 4xx status code
+func (o *MigrateDeploymentTemplateBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this migrate deployment template bad request response has a 5xx status code
+func (o *MigrateDeploymentTemplateBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this migrate deployment template bad request response a status code equal to that given
+func (o *MigrateDeploymentTemplateBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the migrate deployment template bad request response
+func (o *MigrateDeploymentTemplateBadRequest) Code() int {
+	return 400
+}
+
 func (o *MigrateDeploymentTemplateBadRequest) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/migrate_template][%d] migrateDeploymentTemplateBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *MigrateDeploymentTemplateBadRequest) String() string {
+	return fmt.Sprintf("[GET /deployments/{deployment_id}/migrate_template][%d] migrateDeploymentTemplateBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *MigrateDeploymentTemplateBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -138,7 +210,8 @@ func NewMigrateDeploymentTemplateUnauthorized() *MigrateDeploymentTemplateUnauth
 	return &MigrateDeploymentTemplateUnauthorized{}
 }
 
-/* MigrateDeploymentTemplateUnauthorized describes a response with status code 401, with default header values.
+/*
+MigrateDeploymentTemplateUnauthorized describes a response with status code 401, with default header values.
 
 You are not authorized to perform this action.
 */
@@ -146,9 +219,44 @@ type MigrateDeploymentTemplateUnauthorized struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this migrate deployment template unauthorized response has a 2xx status code
+func (o *MigrateDeploymentTemplateUnauthorized) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this migrate deployment template unauthorized response has a 3xx status code
+func (o *MigrateDeploymentTemplateUnauthorized) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this migrate deployment template unauthorized response has a 4xx status code
+func (o *MigrateDeploymentTemplateUnauthorized) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this migrate deployment template unauthorized response has a 5xx status code
+func (o *MigrateDeploymentTemplateUnauthorized) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this migrate deployment template unauthorized response a status code equal to that given
+func (o *MigrateDeploymentTemplateUnauthorized) IsCode(code int) bool {
+	return code == 401
+}
+
+// Code gets the status code for the migrate deployment template unauthorized response
+func (o *MigrateDeploymentTemplateUnauthorized) Code() int {
+	return 401
+}
+
 func (o *MigrateDeploymentTemplateUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/migrate_template][%d] migrateDeploymentTemplateUnauthorized  %+v", 401, o.Payload)
 }
+
+func (o *MigrateDeploymentTemplateUnauthorized) String() string {
+	return fmt.Sprintf("[GET /deployments/{deployment_id}/migrate_template][%d] migrateDeploymentTemplateUnauthorized  %+v", 401, o.Payload)
+}
+
 func (o *MigrateDeploymentTemplateUnauthorized) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -170,7 +278,8 @@ func NewMigrateDeploymentTemplateNotFound() *MigrateDeploymentTemplateNotFound {
 	return &MigrateDeploymentTemplateNotFound{}
 }
 
-/* MigrateDeploymentTemplateNotFound describes a response with status code 404, with default header values.
+/*
+MigrateDeploymentTemplateNotFound describes a response with status code 404, with default header values.
 
 The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
 */
@@ -183,9 +292,44 @@ type MigrateDeploymentTemplateNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this migrate deployment template not found response has a 2xx status code
+func (o *MigrateDeploymentTemplateNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this migrate deployment template not found response has a 3xx status code
+func (o *MigrateDeploymentTemplateNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this migrate deployment template not found response has a 4xx status code
+func (o *MigrateDeploymentTemplateNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this migrate deployment template not found response has a 5xx status code
+func (o *MigrateDeploymentTemplateNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this migrate deployment template not found response a status code equal to that given
+func (o *MigrateDeploymentTemplateNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the migrate deployment template not found response
+func (o *MigrateDeploymentTemplateNotFound) Code() int {
+	return 404
+}
+
 func (o *MigrateDeploymentTemplateNotFound) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/migrate_template][%d] migrateDeploymentTemplateNotFound  %+v", 404, o.Payload)
 }
+
+func (o *MigrateDeploymentTemplateNotFound) String() string {
+	return fmt.Sprintf("[GET /deployments/{deployment_id}/migrate_template][%d] migrateDeploymentTemplateNotFound  %+v", 404, o.Payload)
+}
+
 func (o *MigrateDeploymentTemplateNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

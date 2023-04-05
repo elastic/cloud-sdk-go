@@ -62,6 +62,8 @@ func (m *AccountUpdateRequest) validateTrust(formats strfmt.Registry) error {
 		if err := m.Trust.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("trust")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("trust")
 			}
 			return err
 		}
@@ -90,6 +92,8 @@ func (m *AccountUpdateRequest) contextValidateTrust(ctx context.Context, formats
 		if err := m.Trust.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("trust")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("trust")
 			}
 			return err
 		}

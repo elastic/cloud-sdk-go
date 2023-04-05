@@ -69,10 +69,12 @@ func NewGetCoordinatorCandidatesParamsWithHTTPClient(client *http.Client) *GetCo
 	}
 }
 
-/* GetCoordinatorCandidatesParams contains all the parameters to send to the API endpoint
-   for the get coordinator candidates operation.
+/*
+GetCoordinatorCandidatesParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the get coordinator candidates operation.
+
+	Typically these are written to a http.Request.
 */
 type GetCoordinatorCandidatesParams struct {
 	timeout    time.Duration

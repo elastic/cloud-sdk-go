@@ -121,6 +121,8 @@ func (m *StackVersionElasticsearchConfig) validateCapacityConstraints(formats st
 		if err := m.CapacityConstraints.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("capacity_constraints")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("capacity_constraints")
 			}
 			return err
 		}
@@ -161,6 +163,8 @@ func (m *StackVersionElasticsearchConfig) validateNodeTypes(formats strfmt.Regis
 			if err := m.NodeTypes[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("node_types" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("node_types" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -204,6 +208,8 @@ func (m *StackVersionElasticsearchConfig) contextValidateCapacityConstraints(ctx
 		if err := m.CapacityConstraints.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("capacity_constraints")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("capacity_constraints")
 			}
 			return err
 		}
@@ -220,6 +226,8 @@ func (m *StackVersionElasticsearchConfig) contextValidateNodeTypes(ctx context.C
 			if err := m.NodeTypes[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("node_types" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("node_types" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

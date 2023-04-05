@@ -70,10 +70,12 @@ func NewDeleteTrafficFilterRulesetParamsWithHTTPClient(client *http.Client) *Del
 	}
 }
 
-/* DeleteTrafficFilterRulesetParams contains all the parameters to send to the API endpoint
-   for the delete traffic filter ruleset operation.
+/*
+DeleteTrafficFilterRulesetParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the delete traffic filter ruleset operation.
+
+	Typically these are written to a http.Request.
 */
 type DeleteTrafficFilterRulesetParams struct {
 

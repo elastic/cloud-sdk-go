@@ -71,6 +71,8 @@ func (m *AdminconsolesOverview) validateAdminconsoles(formats strfmt.Registry) e
 			if err := m.Adminconsoles[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("adminconsoles" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("adminconsoles" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -103,6 +105,8 @@ func (m *AdminconsolesOverview) contextValidateAdminconsoles(ctx context.Context
 			if err := m.Adminconsoles[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("adminconsoles" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("adminconsoles" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

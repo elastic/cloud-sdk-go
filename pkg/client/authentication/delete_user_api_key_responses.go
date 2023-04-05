@@ -68,7 +68,8 @@ func NewDeleteUserAPIKeyOK() *DeleteUserAPIKeyOK {
 	return &DeleteUserAPIKeyOK{}
 }
 
-/* DeleteUserAPIKeyOK describes a response with status code 200, with default header values.
+/*
+DeleteUserAPIKeyOK describes a response with status code 200, with default header values.
 
 The API key is deleted.
 */
@@ -76,9 +77,44 @@ type DeleteUserAPIKeyOK struct {
 	Payload models.EmptyResponse
 }
 
+// IsSuccess returns true when this delete user Api key o k response has a 2xx status code
+func (o *DeleteUserAPIKeyOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this delete user Api key o k response has a 3xx status code
+func (o *DeleteUserAPIKeyOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete user Api key o k response has a 4xx status code
+func (o *DeleteUserAPIKeyOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this delete user Api key o k response has a 5xx status code
+func (o *DeleteUserAPIKeyOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete user Api key o k response a status code equal to that given
+func (o *DeleteUserAPIKeyOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the delete user Api key o k response
+func (o *DeleteUserAPIKeyOK) Code() int {
+	return 200
+}
+
 func (o *DeleteUserAPIKeyOK) Error() string {
 	return fmt.Sprintf("[DELETE /users/{user_id}/auth/keys/{api_key_id}][%d] deleteUserApiKeyOK  %+v", 200, o.Payload)
 }
+
+func (o *DeleteUserAPIKeyOK) String() string {
+	return fmt.Sprintf("[DELETE /users/{user_id}/auth/keys/{api_key_id}][%d] deleteUserApiKeyOK  %+v", 200, o.Payload)
+}
+
 func (o *DeleteUserAPIKeyOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -98,7 +134,8 @@ func NewDeleteUserAPIKeyNotFound() *DeleteUserAPIKeyNotFound {
 	return &DeleteUserAPIKeyNotFound{}
 }
 
-/* DeleteUserAPIKeyNotFound describes a response with status code 404, with default header values.
+/*
+DeleteUserAPIKeyNotFound describes a response with status code 404, with default header values.
 
 The {api_key_id} can't be found. (code: `api_keys.key_not_found`)
 */
@@ -111,9 +148,44 @@ type DeleteUserAPIKeyNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete user Api key not found response has a 2xx status code
+func (o *DeleteUserAPIKeyNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete user Api key not found response has a 3xx status code
+func (o *DeleteUserAPIKeyNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete user Api key not found response has a 4xx status code
+func (o *DeleteUserAPIKeyNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete user Api key not found response has a 5xx status code
+func (o *DeleteUserAPIKeyNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete user Api key not found response a status code equal to that given
+func (o *DeleteUserAPIKeyNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the delete user Api key not found response
+func (o *DeleteUserAPIKeyNotFound) Code() int {
+	return 404
+}
+
 func (o *DeleteUserAPIKeyNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /users/{user_id}/auth/keys/{api_key_id}][%d] deleteUserApiKeyNotFound  %+v", 404, o.Payload)
 }
+
+func (o *DeleteUserAPIKeyNotFound) String() string {
+	return fmt.Sprintf("[DELETE /users/{user_id}/auth/keys/{api_key_id}][%d] deleteUserApiKeyNotFound  %+v", 404, o.Payload)
+}
+
 func (o *DeleteUserAPIKeyNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -142,7 +214,8 @@ func NewDeleteUserAPIKeyRetryWith() *DeleteUserAPIKeyRetryWith {
 	return &DeleteUserAPIKeyRetryWith{}
 }
 
-/* DeleteUserAPIKeyRetryWith describes a response with status code 449, with default header values.
+/*
+DeleteUserAPIKeyRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
@@ -155,9 +228,44 @@ type DeleteUserAPIKeyRetryWith struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete user Api key retry with response has a 2xx status code
+func (o *DeleteUserAPIKeyRetryWith) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete user Api key retry with response has a 3xx status code
+func (o *DeleteUserAPIKeyRetryWith) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete user Api key retry with response has a 4xx status code
+func (o *DeleteUserAPIKeyRetryWith) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete user Api key retry with response has a 5xx status code
+func (o *DeleteUserAPIKeyRetryWith) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete user Api key retry with response a status code equal to that given
+func (o *DeleteUserAPIKeyRetryWith) IsCode(code int) bool {
+	return code == 449
+}
+
+// Code gets the status code for the delete user Api key retry with response
+func (o *DeleteUserAPIKeyRetryWith) Code() int {
+	return 449
+}
+
 func (o *DeleteUserAPIKeyRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /users/{user_id}/auth/keys/{api_key_id}][%d] deleteUserApiKeyRetryWith  %+v", 449, o.Payload)
 }
+
+func (o *DeleteUserAPIKeyRetryWith) String() string {
+	return fmt.Sprintf("[DELETE /users/{user_id}/auth/keys/{api_key_id}][%d] deleteUserApiKeyRetryWith  %+v", 449, o.Payload)
+}
+
 func (o *DeleteUserAPIKeyRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

@@ -95,9 +95,9 @@ type ClientService interface {
 }
 
 /*
-  CreateActiveDirectoryConfiguration creates active directory configuration
+CreateActiveDirectoryConfiguration creates active directory configuration
 
-  Creates a new Active Directory configuration.
+Creates a new Active Directory configuration.
 */
 func (a *Client) CreateActiveDirectoryConfiguration(params *CreateActiveDirectoryConfigurationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateActiveDirectoryConfigurationCreated, error) {
 	// TODO: Validate the params before sending
@@ -136,9 +136,9 @@ func (a *Client) CreateActiveDirectoryConfiguration(params *CreateActiveDirector
 }
 
 /*
-  CreateEnrollmentToken creates enrollment token
+CreateEnrollmentToken creates enrollment token
 
-  Creates an enrollment token.
+Creates an enrollment token.
 */
 func (a *Client) CreateEnrollmentToken(params *CreateEnrollmentTokenParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateEnrollmentTokenOK, error) {
 	// TODO: Validate the params before sending
@@ -177,9 +177,9 @@ func (a *Client) CreateEnrollmentToken(params *CreateEnrollmentTokenParams, auth
 }
 
 /*
-  CreateLdapConfiguration creates l d a p configuration
+CreateLdapConfiguration creates l d a p configuration
 
-  Creates a new LDAP configuration.
+Creates a new LDAP configuration.
 */
 func (a *Client) CreateLdapConfiguration(params *CreateLdapConfigurationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateLdapConfigurationCreated, error) {
 	// TODO: Validate the params before sending
@@ -218,9 +218,9 @@ func (a *Client) CreateLdapConfiguration(params *CreateLdapConfigurationParams, 
 }
 
 /*
-  CreateSamlConfiguration creates s a m l configuration
+CreateSamlConfiguration creates s a m l configuration
 
-  Creates a new SAML configuration.
+Creates a new SAML configuration.
 */
 func (a *Client) CreateSamlConfiguration(params *CreateSamlConfigurationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateSamlConfigurationCreated, error) {
 	// TODO: Validate the params before sending
@@ -259,9 +259,9 @@ func (a *Client) CreateSamlConfiguration(params *CreateSamlConfigurationParams, 
 }
 
 /*
-  CreateSecurityDeployment creates security deployment
+CreateSecurityDeployment creates security deployment
 
-  Creates a new security deployment configuration.
+Creates a new security deployment configuration.
 */
 func (a *Client) CreateSecurityDeployment(params *CreateSecurityDeploymentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateSecurityDeploymentCreated, error) {
 	// TODO: Validate the params before sending
@@ -300,9 +300,9 @@ func (a *Client) CreateSecurityDeployment(params *CreateSecurityDeploymentParams
 }
 
 /*
-  DeleteActiveDirectoryConfiguration deletes active directory configuration
+DeleteActiveDirectoryConfiguration deletes active directory configuration
 
-  Deletes a single Active Directory configuration.
+Deletes a single Active Directory configuration.
 */
 func (a *Client) DeleteActiveDirectoryConfiguration(params *DeleteActiveDirectoryConfigurationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteActiveDirectoryConfigurationOK, error) {
 	// TODO: Validate the params before sending
@@ -341,9 +341,9 @@ func (a *Client) DeleteActiveDirectoryConfiguration(params *DeleteActiveDirector
 }
 
 /*
-  DeleteEnrollmentToken deletes enrollment token
+DeleteEnrollmentToken deletes enrollment token
 
-  Revokes and deletes the enrollment token.
+Revokes and deletes the enrollment token.
 */
 func (a *Client) DeleteEnrollmentToken(params *DeleteEnrollmentTokenParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteEnrollmentTokenOK, error) {
 	// TODO: Validate the params before sending
@@ -382,9 +382,9 @@ func (a *Client) DeleteEnrollmentToken(params *DeleteEnrollmentTokenParams, auth
 }
 
 /*
-  DeleteLdapConfiguration deletes l d a p configuration
+DeleteLdapConfiguration deletes l d a p configuration
 
-  Deletes a single LDAP configuration.
+Deletes a single LDAP configuration.
 */
 func (a *Client) DeleteLdapConfiguration(params *DeleteLdapConfigurationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteLdapConfigurationOK, error) {
 	// TODO: Validate the params before sending
@@ -423,9 +423,9 @@ func (a *Client) DeleteLdapConfiguration(params *DeleteLdapConfigurationParams, 
 }
 
 /*
-  DeleteSamlConfiguration deletes s a m l configuration
+DeleteSamlConfiguration deletes s a m l configuration
 
-  Deletes a single SAML configuration.
+Deletes a single SAML configuration.
 */
 func (a *Client) DeleteSamlConfiguration(params *DeleteSamlConfigurationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteSamlConfigurationOK, error) {
 	// TODO: Validate the params before sending
@@ -464,9 +464,9 @@ func (a *Client) DeleteSamlConfiguration(params *DeleteSamlConfigurationParams, 
 }
 
 /*
-  GetActiveDirectoryConfiguration gets active directory configuration
+GetActiveDirectoryConfiguration gets active directory configuration
 
-  Retrieves a single Active Directory security realm configuration.
+Retrieves a single Active Directory security realm configuration.
 */
 func (a *Client) GetActiveDirectoryConfiguration(params *GetActiveDirectoryConfigurationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetActiveDirectoryConfigurationOK, error) {
 	// TODO: Validate the params before sending
@@ -505,9 +505,9 @@ func (a *Client) GetActiveDirectoryConfiguration(params *GetActiveDirectoryConfi
 }
 
 /*
-  GetEnrollmentTokens gets enrollment tokens
+GetEnrollmentTokens gets enrollment tokens
 
-  Retrieves a list of active enrollment tokens.
+Retrieves a list of active enrollment tokens.
 */
 func (a *Client) GetEnrollmentTokens(params *GetEnrollmentTokensParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetEnrollmentTokensOK, error) {
 	// TODO: Validate the params before sending
@@ -546,9 +546,9 @@ func (a *Client) GetEnrollmentTokens(params *GetEnrollmentTokensParams, authInfo
 }
 
 /*
-  GetLdapConfiguration gets l d a p configuration
+GetLdapConfiguration gets l d a p configuration
 
-  Retrieves a single LDAP security realm configuration.
+Retrieves a single LDAP security realm configuration.
 */
 func (a *Client) GetLdapConfiguration(params *GetLdapConfigurationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetLdapConfigurationOK, error) {
 	// TODO: Validate the params before sending
@@ -587,9 +587,9 @@ func (a *Client) GetLdapConfiguration(params *GetLdapConfigurationParams, authIn
 }
 
 /*
-  GetSamlConfiguration gets s a m l configuration
+GetSamlConfiguration gets s a m l configuration
 
-  Retrieves a single SAML security realm configuration.
+Retrieves a single SAML security realm configuration.
 */
 func (a *Client) GetSamlConfiguration(params *GetSamlConfigurationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSamlConfigurationOK, error) {
 	// TODO: Validate the params before sending
@@ -628,9 +628,9 @@ func (a *Client) GetSamlConfiguration(params *GetSamlConfigurationParams, authIn
 }
 
 /*
-  GetSecurityDeployment gets current security deployment
+GetSecurityDeployment gets current security deployment
 
-  Retrieves the current security deployment.
+Retrieves the current security deployment.
 */
 func (a *Client) GetSecurityDeployment(params *GetSecurityDeploymentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSecurityDeploymentOK, error) {
 	// TODO: Validate the params before sending
@@ -669,9 +669,9 @@ func (a *Client) GetSecurityDeployment(params *GetSecurityDeploymentParams, auth
 }
 
 /*
-  GetSecurityRealmConfigurations lists security realm configurations
+GetSecurityRealmConfigurations lists security realm configurations
 
-  Retrieves a list of security realm configurations.
+Retrieves a list of security realm configurations.
 */
 func (a *Client) GetSecurityRealmConfigurations(params *GetSecurityRealmConfigurationsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetSecurityRealmConfigurationsOK, error) {
 	// TODO: Validate the params before sending
@@ -710,9 +710,9 @@ func (a *Client) GetSecurityRealmConfigurations(params *GetSecurityRealmConfigur
 }
 
 /*
-  GetTLSCertificate gets TLS certificate
+GetTLSCertificate gets TLS certificate
 
-  Retrieves a certificate in the TLS certificate chain.
+Retrieves a certificate in the TLS certificate chain.
 */
 func (a *Client) GetTLSCertificate(params *GetTLSCertificateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTLSCertificateOK, error) {
 	// TODO: Validate the params before sending
@@ -751,9 +751,9 @@ func (a *Client) GetTLSCertificate(params *GetTLSCertificateParams, authInfo run
 }
 
 /*
-  ReorderSecurityRealms reorders security realms
+ReorderSecurityRealms reorders security realms
 
-  Reorder security realms.
+Reorder security realms.
 */
 func (a *Client) ReorderSecurityRealms(params *ReorderSecurityRealmsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*ReorderSecurityRealmsOK, error) {
 	// TODO: Validate the params before sending
@@ -792,9 +792,9 @@ func (a *Client) ReorderSecurityRealms(params *ReorderSecurityRealmsParams, auth
 }
 
 /*
-  SetTLSCertificate sets TLS certificate
+SetTLSCertificate sets TLS certificate
 
-  Creates or updates the TLS certificate chain.
+Creates or updates the TLS certificate chain.
 */
 func (a *Client) SetTLSCertificate(params *SetTLSCertificateParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetTLSCertificateAccepted, error) {
 	// TODO: Validate the params before sending
@@ -833,9 +833,9 @@ func (a *Client) SetTLSCertificate(params *SetTLSCertificateParams, authInfo run
 }
 
 /*
-  UpdateActiveDirectoryConfiguration updates active directory configuration
+UpdateActiveDirectoryConfiguration updates active directory configuration
 
-  Updates an existing Active Directory configuration.
+Updates an existing Active Directory configuration.
 */
 func (a *Client) UpdateActiveDirectoryConfiguration(params *UpdateActiveDirectoryConfigurationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateActiveDirectoryConfigurationOK, error) {
 	// TODO: Validate the params before sending
@@ -874,9 +874,9 @@ func (a *Client) UpdateActiveDirectoryConfiguration(params *UpdateActiveDirector
 }
 
 /*
-  UpdateLdapConfiguration updates l d a p configuration
+UpdateLdapConfiguration updates l d a p configuration
 
-  Updates an existing LDAP configuration.
+Updates an existing LDAP configuration.
 */
 func (a *Client) UpdateLdapConfiguration(params *UpdateLdapConfigurationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateLdapConfigurationOK, error) {
 	// TODO: Validate the params before sending
@@ -915,9 +915,9 @@ func (a *Client) UpdateLdapConfiguration(params *UpdateLdapConfigurationParams, 
 }
 
 /*
-  UpdateSamlConfiguration updates s a m l configuration
+UpdateSamlConfiguration updates s a m l configuration
 
-  Updates an existing SAML configuration.
+Updates an existing SAML configuration.
 */
 func (a *Client) UpdateSamlConfiguration(params *UpdateSamlConfigurationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateSamlConfigurationOK, error) {
 	// TODO: Validate the params before sending
@@ -956,9 +956,9 @@ func (a *Client) UpdateSamlConfiguration(params *UpdateSamlConfigurationParams, 
 }
 
 /*
-  UpdateSecurityDeployment updates security deployment
+UpdateSecurityDeployment updates security deployment
 
-  Updates an existing security deployment configuration.
+Updates an existing security deployment configuration.
 */
 func (a *Client) UpdateSecurityDeployment(params *UpdateSecurityDeploymentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateSecurityDeploymentOK, error) {
 	// TODO: Validate the params before sending

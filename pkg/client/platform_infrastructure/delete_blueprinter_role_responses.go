@@ -74,7 +74,8 @@ func NewDeleteBlueprinterRoleOK() *DeleteBlueprinterRoleOK {
 	return &DeleteBlueprinterRoleOK{}
 }
 
-/* DeleteBlueprinterRoleOK describes a response with status code 200, with default header values.
+/*
+DeleteBlueprinterRoleOK describes a response with status code 200, with default header values.
 
 The role was successfully deleted.
 */
@@ -82,9 +83,44 @@ type DeleteBlueprinterRoleOK struct {
 	Payload models.EmptyResponse
 }
 
+// IsSuccess returns true when this delete blueprinter role o k response has a 2xx status code
+func (o *DeleteBlueprinterRoleOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this delete blueprinter role o k response has a 3xx status code
+func (o *DeleteBlueprinterRoleOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete blueprinter role o k response has a 4xx status code
+func (o *DeleteBlueprinterRoleOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this delete blueprinter role o k response has a 5xx status code
+func (o *DeleteBlueprinterRoleOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete blueprinter role o k response a status code equal to that given
+func (o *DeleteBlueprinterRoleOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the delete blueprinter role o k response
+func (o *DeleteBlueprinterRoleOK) Code() int {
+	return 200
+}
+
 func (o *DeleteBlueprinterRoleOK) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/blueprinter/roles/{blueprinter_role_id}][%d] deleteBlueprinterRoleOK  %+v", 200, o.Payload)
 }
+
+func (o *DeleteBlueprinterRoleOK) String() string {
+	return fmt.Sprintf("[DELETE /platform/infrastructure/blueprinter/roles/{blueprinter_role_id}][%d] deleteBlueprinterRoleOK  %+v", 200, o.Payload)
+}
+
 func (o *DeleteBlueprinterRoleOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -104,7 +140,8 @@ func NewDeleteBlueprinterRoleBadRequest() *DeleteBlueprinterRoleBadRequest {
 	return &DeleteBlueprinterRoleBadRequest{}
 }
 
-/* DeleteBlueprinterRoleBadRequest describes a response with status code 400, with default header values.
+/*
+DeleteBlueprinterRoleBadRequest describes a response with status code 400, with default header values.
 
 The role is currently running container sets. (code: `roles.in_use`)
 */
@@ -117,9 +154,44 @@ type DeleteBlueprinterRoleBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete blueprinter role bad request response has a 2xx status code
+func (o *DeleteBlueprinterRoleBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete blueprinter role bad request response has a 3xx status code
+func (o *DeleteBlueprinterRoleBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete blueprinter role bad request response has a 4xx status code
+func (o *DeleteBlueprinterRoleBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete blueprinter role bad request response has a 5xx status code
+func (o *DeleteBlueprinterRoleBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete blueprinter role bad request response a status code equal to that given
+func (o *DeleteBlueprinterRoleBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the delete blueprinter role bad request response
+func (o *DeleteBlueprinterRoleBadRequest) Code() int {
+	return 400
+}
+
 func (o *DeleteBlueprinterRoleBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/blueprinter/roles/{blueprinter_role_id}][%d] deleteBlueprinterRoleBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *DeleteBlueprinterRoleBadRequest) String() string {
+	return fmt.Sprintf("[DELETE /platform/infrastructure/blueprinter/roles/{blueprinter_role_id}][%d] deleteBlueprinterRoleBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *DeleteBlueprinterRoleBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -148,7 +220,8 @@ func NewDeleteBlueprinterRoleNotFound() *DeleteBlueprinterRoleNotFound {
 	return &DeleteBlueprinterRoleNotFound{}
 }
 
-/* DeleteBlueprinterRoleNotFound describes a response with status code 404, with default header values.
+/*
+DeleteBlueprinterRoleNotFound describes a response with status code 404, with default header values.
 
 The role can't be found. (code: `roles.not_found`)
 */
@@ -161,9 +234,44 @@ type DeleteBlueprinterRoleNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete blueprinter role not found response has a 2xx status code
+func (o *DeleteBlueprinterRoleNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete blueprinter role not found response has a 3xx status code
+func (o *DeleteBlueprinterRoleNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete blueprinter role not found response has a 4xx status code
+func (o *DeleteBlueprinterRoleNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete blueprinter role not found response has a 5xx status code
+func (o *DeleteBlueprinterRoleNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete blueprinter role not found response a status code equal to that given
+func (o *DeleteBlueprinterRoleNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the delete blueprinter role not found response
+func (o *DeleteBlueprinterRoleNotFound) Code() int {
+	return 404
+}
+
 func (o *DeleteBlueprinterRoleNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/blueprinter/roles/{blueprinter_role_id}][%d] deleteBlueprinterRoleNotFound  %+v", 404, o.Payload)
 }
+
+func (o *DeleteBlueprinterRoleNotFound) String() string {
+	return fmt.Sprintf("[DELETE /platform/infrastructure/blueprinter/roles/{blueprinter_role_id}][%d] deleteBlueprinterRoleNotFound  %+v", 404, o.Payload)
+}
+
 func (o *DeleteBlueprinterRoleNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -192,7 +300,8 @@ func NewDeleteBlueprinterRoleConflict() *DeleteBlueprinterRoleConflict {
 	return &DeleteBlueprinterRoleConflict{}
 }
 
-/* DeleteBlueprinterRoleConflict describes a response with status code 409, with default header values.
+/*
+DeleteBlueprinterRoleConflict describes a response with status code 409, with default header values.
 
 Your request failed because the specified version does not match the persisted version. (code: `roles.version_conflict`)
 */
@@ -205,9 +314,44 @@ type DeleteBlueprinterRoleConflict struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete blueprinter role conflict response has a 2xx status code
+func (o *DeleteBlueprinterRoleConflict) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete blueprinter role conflict response has a 3xx status code
+func (o *DeleteBlueprinterRoleConflict) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete blueprinter role conflict response has a 4xx status code
+func (o *DeleteBlueprinterRoleConflict) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete blueprinter role conflict response has a 5xx status code
+func (o *DeleteBlueprinterRoleConflict) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete blueprinter role conflict response a status code equal to that given
+func (o *DeleteBlueprinterRoleConflict) IsCode(code int) bool {
+	return code == 409
+}
+
+// Code gets the status code for the delete blueprinter role conflict response
+func (o *DeleteBlueprinterRoleConflict) Code() int {
+	return 409
+}
+
 func (o *DeleteBlueprinterRoleConflict) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/blueprinter/roles/{blueprinter_role_id}][%d] deleteBlueprinterRoleConflict  %+v", 409, o.Payload)
 }
+
+func (o *DeleteBlueprinterRoleConflict) String() string {
+	return fmt.Sprintf("[DELETE /platform/infrastructure/blueprinter/roles/{blueprinter_role_id}][%d] deleteBlueprinterRoleConflict  %+v", 409, o.Payload)
+}
+
 func (o *DeleteBlueprinterRoleConflict) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

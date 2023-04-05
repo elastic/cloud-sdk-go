@@ -82,6 +82,8 @@ func (m *ElasticsearchClusterTrustSettings) validateAccounts(formats strfmt.Regi
 			if err := m.Accounts[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("accounts" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("accounts" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -106,6 +108,8 @@ func (m *ElasticsearchClusterTrustSettings) validateDirect(formats strfmt.Regist
 			if err := m.Direct[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("direct" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("direct" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -130,6 +134,8 @@ func (m *ElasticsearchClusterTrustSettings) validateExternal(formats strfmt.Regi
 			if err := m.External[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("external" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("external" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -170,6 +176,8 @@ func (m *ElasticsearchClusterTrustSettings) contextValidateAccounts(ctx context.
 			if err := m.Accounts[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("accounts" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("accounts" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -188,6 +196,8 @@ func (m *ElasticsearchClusterTrustSettings) contextValidateDirect(ctx context.Co
 			if err := m.Direct[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("direct" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("direct" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -206,6 +216,8 @@ func (m *ElasticsearchClusterTrustSettings) contextValidateExternal(ctx context.
 			if err := m.External[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("external" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("external" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

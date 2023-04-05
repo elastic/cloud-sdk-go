@@ -157,6 +157,8 @@ func (m *ItemCosts) validatePeriod(formats strfmt.Registry) error {
 		if err := m.Period.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("period")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("period")
 			}
 			return err
 		}
@@ -212,6 +214,8 @@ func (m *ItemCosts) contextValidatePeriod(ctx context.Context, formats strfmt.Re
 		if err := m.Period.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("period")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("period")
 			}
 			return err
 		}

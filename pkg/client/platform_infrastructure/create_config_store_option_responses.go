@@ -62,7 +62,8 @@ func NewCreateConfigStoreOptionCreated() *CreateConfigStoreOptionCreated {
 	return &CreateConfigStoreOptionCreated{}
 }
 
-/* CreateConfigStoreOptionCreated describes a response with status code 201, with default header values.
+/*
+CreateConfigStoreOptionCreated describes a response with status code 201, with default header values.
 
 The Config Store Option was inserted successfully
 */
@@ -83,9 +84,44 @@ type CreateConfigStoreOptionCreated struct {
 	Payload *models.ConfigStoreOption
 }
 
+// IsSuccess returns true when this create config store option created response has a 2xx status code
+func (o *CreateConfigStoreOptionCreated) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this create config store option created response has a 3xx status code
+func (o *CreateConfigStoreOptionCreated) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create config store option created response has a 4xx status code
+func (o *CreateConfigStoreOptionCreated) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this create config store option created response has a 5xx status code
+func (o *CreateConfigStoreOptionCreated) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create config store option created response a status code equal to that given
+func (o *CreateConfigStoreOptionCreated) IsCode(code int) bool {
+	return code == 201
+}
+
+// Code gets the status code for the create config store option created response
+func (o *CreateConfigStoreOptionCreated) Code() int {
+	return 201
+}
+
 func (o *CreateConfigStoreOptionCreated) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/store/{config_option_id}][%d] createConfigStoreOptionCreated  %+v", 201, o.Payload)
 }
+
+func (o *CreateConfigStoreOptionCreated) String() string {
+	return fmt.Sprintf("[POST /platform/configuration/store/{config_option_id}][%d] createConfigStoreOptionCreated  %+v", 201, o.Payload)
+}
+
 func (o *CreateConfigStoreOptionCreated) GetPayload() *models.ConfigStoreOption {
 	return o.Payload
 }
@@ -128,7 +164,8 @@ func NewCreateConfigStoreOptionBadRequest() *CreateConfigStoreOptionBadRequest {
 	return &CreateConfigStoreOptionBadRequest{}
 }
 
-/* CreateConfigStoreOptionBadRequest describes a response with status code 400, with default header values.
+/*
+CreateConfigStoreOptionBadRequest describes a response with status code 400, with default header values.
 
 Config Store Option data already exists for the given name. (code: `platform.config.store.already_exists`)
 */
@@ -141,9 +178,44 @@ type CreateConfigStoreOptionBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this create config store option bad request response has a 2xx status code
+func (o *CreateConfigStoreOptionBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this create config store option bad request response has a 3xx status code
+func (o *CreateConfigStoreOptionBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create config store option bad request response has a 4xx status code
+func (o *CreateConfigStoreOptionBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this create config store option bad request response has a 5xx status code
+func (o *CreateConfigStoreOptionBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create config store option bad request response a status code equal to that given
+func (o *CreateConfigStoreOptionBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the create config store option bad request response
+func (o *CreateConfigStoreOptionBadRequest) Code() int {
+	return 400
+}
+
 func (o *CreateConfigStoreOptionBadRequest) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/store/{config_option_id}][%d] createConfigStoreOptionBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *CreateConfigStoreOptionBadRequest) String() string {
+	return fmt.Sprintf("[POST /platform/configuration/store/{config_option_id}][%d] createConfigStoreOptionBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *CreateConfigStoreOptionBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

@@ -72,10 +72,12 @@ func NewSetAPIBaseURLParamsWithHTTPClient(client *http.Client) *SetAPIBaseURLPar
 	}
 }
 
-/* SetAPIBaseURLParams contains all the parameters to send to the API endpoint
-   for the set api base url operation.
+/*
+SetAPIBaseURLParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the set api base url operation.
+
+	Typically these are written to a http.Request.
 */
 type SetAPIBaseURLParams struct {
 

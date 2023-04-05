@@ -69,10 +69,12 @@ func NewGetDeploymentHeapDumpsParamsWithHTTPClient(client *http.Client) *GetDepl
 	}
 }
 
-/* GetDeploymentHeapDumpsParams contains all the parameters to send to the API endpoint
-   for the get deployment heap dumps operation.
+/*
+GetDeploymentHeapDumpsParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the get deployment heap dumps operation.
+
+	Typically these are written to a http.Request.
 */
 type GetDeploymentHeapDumpsParams struct {
 

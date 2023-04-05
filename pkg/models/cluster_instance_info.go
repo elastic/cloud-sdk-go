@@ -147,6 +147,8 @@ func (m *ClusterInstanceInfo) validateDisk(formats strfmt.Registry) error {
 		if err := m.Disk.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("disk")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("disk")
 			}
 			return err
 		}
@@ -173,6 +175,8 @@ func (m *ClusterInstanceInfo) validateInstanceConfiguration(formats strfmt.Regis
 		if err := m.InstanceConfiguration.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("instance_configuration")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("instance_configuration")
 			}
 			return err
 		}
@@ -208,6 +212,8 @@ func (m *ClusterInstanceInfo) validateMemory(formats strfmt.Registry) error {
 		if err := m.Memory.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("memory")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("memory")
 			}
 			return err
 		}
@@ -289,6 +295,8 @@ func (m *ClusterInstanceInfo) contextValidateDisk(ctx context.Context, formats s
 		if err := m.Disk.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("disk")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("disk")
 			}
 			return err
 		}
@@ -303,6 +311,8 @@ func (m *ClusterInstanceInfo) contextValidateInstanceConfiguration(ctx context.C
 		if err := m.InstanceConfiguration.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("instance_configuration")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("instance_configuration")
 			}
 			return err
 		}
@@ -317,6 +327,8 @@ func (m *ClusterInstanceInfo) contextValidateMemory(ctx context.Context, formats
 		if err := m.Memory.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("memory")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("memory")
 			}
 			return err
 		}

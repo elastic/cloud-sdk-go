@@ -84,6 +84,8 @@ func (m *EnterpriseSearchPlan) validateClusterTopology(formats strfmt.Registry) 
 			if err := m.ClusterTopology[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("cluster_topology" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("cluster_topology" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -104,6 +106,8 @@ func (m *EnterpriseSearchPlan) validateEnterpriseSearch(formats strfmt.Registry)
 		if err := m.EnterpriseSearch.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("enterprise_search")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("enterprise_search")
 			}
 			return err
 		}
@@ -121,6 +125,8 @@ func (m *EnterpriseSearchPlan) validateTransient(formats strfmt.Registry) error 
 		if err := m.Transient.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("transient")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("transient")
 			}
 			return err
 		}
@@ -159,6 +165,8 @@ func (m *EnterpriseSearchPlan) contextValidateClusterTopology(ctx context.Contex
 			if err := m.ClusterTopology[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("cluster_topology" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("cluster_topology" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -175,6 +183,8 @@ func (m *EnterpriseSearchPlan) contextValidateEnterpriseSearch(ctx context.Conte
 		if err := m.EnterpriseSearch.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("enterprise_search")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("enterprise_search")
 			}
 			return err
 		}
@@ -189,6 +199,8 @@ func (m *EnterpriseSearchPlan) contextValidateTransient(ctx context.Context, for
 		if err := m.Transient.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("transient")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("transient")
 			}
 			return err
 		}

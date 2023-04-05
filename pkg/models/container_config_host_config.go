@@ -128,6 +128,8 @@ func (m *ContainerConfigHostConfig) validatePortBindings(formats strfmt.Registry
 			if err := m.PortBindings[k][i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("port_bindings" + "." + k + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("port_bindings" + "." + k + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -157,6 +159,8 @@ func (m *ContainerConfigHostConfig) validateRestartPolicy(formats strfmt.Registr
 		if err := m.RestartPolicy.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("restart_policy")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("restart_policy")
 			}
 			return err
 		}
@@ -196,6 +200,8 @@ func (m *ContainerConfigHostConfig) contextValidatePortBindings(ctx context.Cont
 			if err := m.PortBindings[k][i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("port_bindings" + "." + k + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("port_bindings" + "." + k + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -213,6 +219,8 @@ func (m *ContainerConfigHostConfig) contextValidateRestartPolicy(ctx context.Con
 		if err := m.RestartPolicy.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("restart_policy")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("restart_policy")
 			}
 			return err
 		}

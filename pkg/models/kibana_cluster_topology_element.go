@@ -81,6 +81,8 @@ func (m *KibanaClusterTopologyElement) validateKibana(formats strfmt.Registry) e
 		if err := m.Kibana.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("kibana")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("kibana")
 			}
 			return err
 		}
@@ -98,6 +100,8 @@ func (m *KibanaClusterTopologyElement) validateSize(formats strfmt.Registry) err
 		if err := m.Size.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("size")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("size")
 			}
 			return err
 		}
@@ -130,6 +134,8 @@ func (m *KibanaClusterTopologyElement) contextValidateKibana(ctx context.Context
 		if err := m.Kibana.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("kibana")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("kibana")
 			}
 			return err
 		}
@@ -144,6 +150,8 @@ func (m *KibanaClusterTopologyElement) contextValidateSize(ctx context.Context, 
 		if err := m.Size.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("size")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("size")
 			}
 			return err
 		}

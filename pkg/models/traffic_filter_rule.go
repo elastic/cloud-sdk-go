@@ -77,6 +77,8 @@ func (m *TrafficFilterRule) validateEgressRule(formats strfmt.Registry) error {
 		if err := m.EgressRule.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("egress_rule")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("egress_rule")
 			}
 			return err
 		}
@@ -105,6 +107,8 @@ func (m *TrafficFilterRule) contextValidateEgressRule(ctx context.Context, forma
 		if err := m.EgressRule.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("egress_rule")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("egress_rule")
 			}
 			return err
 		}

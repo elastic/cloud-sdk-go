@@ -62,7 +62,8 @@ func NewCreateBlueprinterRoleCreated() *CreateBlueprinterRoleCreated {
 	return &CreateBlueprinterRoleCreated{}
 }
 
-/* CreateBlueprinterRoleCreated describes a response with status code 201, with default header values.
+/*
+CreateBlueprinterRoleCreated describes a response with status code 201, with default header values.
 
 The role aggregate that was just created.
 */
@@ -70,9 +71,44 @@ type CreateBlueprinterRoleCreated struct {
 	Payload *models.RoleAggregate
 }
 
+// IsSuccess returns true when this create blueprinter role created response has a 2xx status code
+func (o *CreateBlueprinterRoleCreated) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this create blueprinter role created response has a 3xx status code
+func (o *CreateBlueprinterRoleCreated) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create blueprinter role created response has a 4xx status code
+func (o *CreateBlueprinterRoleCreated) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this create blueprinter role created response has a 5xx status code
+func (o *CreateBlueprinterRoleCreated) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create blueprinter role created response a status code equal to that given
+func (o *CreateBlueprinterRoleCreated) IsCode(code int) bool {
+	return code == 201
+}
+
+// Code gets the status code for the create blueprinter role created response
+func (o *CreateBlueprinterRoleCreated) Code() int {
+	return 201
+}
+
 func (o *CreateBlueprinterRoleCreated) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/blueprinter/roles][%d] createBlueprinterRoleCreated  %+v", 201, o.Payload)
 }
+
+func (o *CreateBlueprinterRoleCreated) String() string {
+	return fmt.Sprintf("[POST /platform/infrastructure/blueprinter/roles][%d] createBlueprinterRoleCreated  %+v", 201, o.Payload)
+}
+
 func (o *CreateBlueprinterRoleCreated) GetPayload() *models.RoleAggregate {
 	return o.Payload
 }
@@ -94,7 +130,8 @@ func NewCreateBlueprinterRoleConflict() *CreateBlueprinterRoleConflict {
 	return &CreateBlueprinterRoleConflict{}
 }
 
-/* CreateBlueprinterRoleConflict describes a response with status code 409, with default header values.
+/*
+CreateBlueprinterRoleConflict describes a response with status code 409, with default header values.
 
 The role ID you specified is already in use. (code: `roles.already_exists`)
 */
@@ -107,9 +144,44 @@ type CreateBlueprinterRoleConflict struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this create blueprinter role conflict response has a 2xx status code
+func (o *CreateBlueprinterRoleConflict) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this create blueprinter role conflict response has a 3xx status code
+func (o *CreateBlueprinterRoleConflict) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create blueprinter role conflict response has a 4xx status code
+func (o *CreateBlueprinterRoleConflict) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this create blueprinter role conflict response has a 5xx status code
+func (o *CreateBlueprinterRoleConflict) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create blueprinter role conflict response a status code equal to that given
+func (o *CreateBlueprinterRoleConflict) IsCode(code int) bool {
+	return code == 409
+}
+
+// Code gets the status code for the create blueprinter role conflict response
+func (o *CreateBlueprinterRoleConflict) Code() int {
+	return 409
+}
+
 func (o *CreateBlueprinterRoleConflict) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/blueprinter/roles][%d] createBlueprinterRoleConflict  %+v", 409, o.Payload)
 }
+
+func (o *CreateBlueprinterRoleConflict) String() string {
+	return fmt.Sprintf("[POST /platform/infrastructure/blueprinter/roles][%d] createBlueprinterRoleConflict  %+v", 409, o.Payload)
+}
+
 func (o *CreateBlueprinterRoleConflict) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

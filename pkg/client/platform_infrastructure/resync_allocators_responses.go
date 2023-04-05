@@ -62,7 +62,8 @@ func NewResyncAllocatorsAccepted() *ResyncAllocatorsAccepted {
 	return &ResyncAllocatorsAccepted{}
 }
 
-/* ResyncAllocatorsAccepted describes a response with status code 202, with default header values.
+/*
+ResyncAllocatorsAccepted describes a response with status code 202, with default header values.
 
 The ids of documents, organized by model version, that will be synchronized.
 */
@@ -70,9 +71,44 @@ type ResyncAllocatorsAccepted struct {
 	Payload *models.ModelVersionIndexSynchronizationResults
 }
 
+// IsSuccess returns true when this resync allocators accepted response has a 2xx status code
+func (o *ResyncAllocatorsAccepted) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this resync allocators accepted response has a 3xx status code
+func (o *ResyncAllocatorsAccepted) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this resync allocators accepted response has a 4xx status code
+func (o *ResyncAllocatorsAccepted) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this resync allocators accepted response has a 5xx status code
+func (o *ResyncAllocatorsAccepted) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this resync allocators accepted response a status code equal to that given
+func (o *ResyncAllocatorsAccepted) IsCode(code int) bool {
+	return code == 202
+}
+
+// Code gets the status code for the resync allocators accepted response
+func (o *ResyncAllocatorsAccepted) Code() int {
+	return 202
+}
+
 func (o *ResyncAllocatorsAccepted) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/allocators/_resync][%d] resyncAllocatorsAccepted  %+v", 202, o.Payload)
 }
+
+func (o *ResyncAllocatorsAccepted) String() string {
+	return fmt.Sprintf("[POST /platform/infrastructure/allocators/_resync][%d] resyncAllocatorsAccepted  %+v", 202, o.Payload)
+}
+
 func (o *ResyncAllocatorsAccepted) GetPayload() *models.ModelVersionIndexSynchronizationResults {
 	return o.Payload
 }
@@ -94,7 +130,8 @@ func NewResyncAllocatorsRetryWith() *ResyncAllocatorsRetryWith {
 	return &ResyncAllocatorsRetryWith{}
 }
 
-/* ResyncAllocatorsRetryWith describes a response with status code 449, with default header values.
+/*
+ResyncAllocatorsRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
@@ -107,9 +144,44 @@ type ResyncAllocatorsRetryWith struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this resync allocators retry with response has a 2xx status code
+func (o *ResyncAllocatorsRetryWith) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this resync allocators retry with response has a 3xx status code
+func (o *ResyncAllocatorsRetryWith) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this resync allocators retry with response has a 4xx status code
+func (o *ResyncAllocatorsRetryWith) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this resync allocators retry with response has a 5xx status code
+func (o *ResyncAllocatorsRetryWith) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this resync allocators retry with response a status code equal to that given
+func (o *ResyncAllocatorsRetryWith) IsCode(code int) bool {
+	return code == 449
+}
+
+// Code gets the status code for the resync allocators retry with response
+func (o *ResyncAllocatorsRetryWith) Code() int {
+	return 449
+}
+
 func (o *ResyncAllocatorsRetryWith) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/allocators/_resync][%d] resyncAllocatorsRetryWith  %+v", 449, o.Payload)
 }
+
+func (o *ResyncAllocatorsRetryWith) String() string {
+	return fmt.Sprintf("[POST /platform/infrastructure/allocators/_resync][%d] resyncAllocatorsRetryWith  %+v", 449, o.Payload)
+}
+
 func (o *ResyncAllocatorsRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

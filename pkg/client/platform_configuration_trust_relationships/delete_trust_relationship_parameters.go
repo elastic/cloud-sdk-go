@@ -70,10 +70,12 @@ func NewDeleteTrustRelationshipParamsWithHTTPClient(client *http.Client) *Delete
 	}
 }
 
-/* DeleteTrustRelationshipParams contains all the parameters to send to the API endpoint
-   for the delete trust relationship operation.
+/*
+DeleteTrustRelationshipParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the delete trust relationship operation.
+
+	Typically these are written to a http.Request.
 */
 type DeleteTrustRelationshipParams struct {
 

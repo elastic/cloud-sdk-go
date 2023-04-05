@@ -62,7 +62,8 @@ func NewGetAllocatorSettingsOK() *GetAllocatorSettingsOK {
 	return &GetAllocatorSettingsOK{}
 }
 
-/* GetAllocatorSettingsOK describes a response with status code 200, with default header values.
+/*
+GetAllocatorSettingsOK describes a response with status code 200, with default header values.
 
 Returns the settings for the specified Allocator
 */
@@ -83,9 +84,44 @@ type GetAllocatorSettingsOK struct {
 	Payload *models.AllocatorSettings
 }
 
+// IsSuccess returns true when this get allocator settings o k response has a 2xx status code
+func (o *GetAllocatorSettingsOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get allocator settings o k response has a 3xx status code
+func (o *GetAllocatorSettingsOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get allocator settings o k response has a 4xx status code
+func (o *GetAllocatorSettingsOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get allocator settings o k response has a 5xx status code
+func (o *GetAllocatorSettingsOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get allocator settings o k response a status code equal to that given
+func (o *GetAllocatorSettingsOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get allocator settings o k response
+func (o *GetAllocatorSettingsOK) Code() int {
+	return 200
+}
+
 func (o *GetAllocatorSettingsOK) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/allocators/{allocator_id}/settings][%d] getAllocatorSettingsOK  %+v", 200, o.Payload)
 }
+
+func (o *GetAllocatorSettingsOK) String() string {
+	return fmt.Sprintf("[GET /platform/infrastructure/allocators/{allocator_id}/settings][%d] getAllocatorSettingsOK  %+v", 200, o.Payload)
+}
+
 func (o *GetAllocatorSettingsOK) GetPayload() *models.AllocatorSettings {
 	return o.Payload
 }
@@ -128,7 +164,8 @@ func NewGetAllocatorSettingsNotFound() *GetAllocatorSettingsNotFound {
 	return &GetAllocatorSettingsNotFound{}
 }
 
-/* GetAllocatorSettingsNotFound describes a response with status code 404, with default header values.
+/*
+GetAllocatorSettingsNotFound describes a response with status code 404, with default header values.
 
 The allocator specified by {allocator_id} cannot be found. (code: `allocators.allocator_not_found`)
 */
@@ -141,9 +178,44 @@ type GetAllocatorSettingsNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get allocator settings not found response has a 2xx status code
+func (o *GetAllocatorSettingsNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get allocator settings not found response has a 3xx status code
+func (o *GetAllocatorSettingsNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get allocator settings not found response has a 4xx status code
+func (o *GetAllocatorSettingsNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get allocator settings not found response has a 5xx status code
+func (o *GetAllocatorSettingsNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get allocator settings not found response a status code equal to that given
+func (o *GetAllocatorSettingsNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the get allocator settings not found response
+func (o *GetAllocatorSettingsNotFound) Code() int {
+	return 404
+}
+
 func (o *GetAllocatorSettingsNotFound) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/allocators/{allocator_id}/settings][%d] getAllocatorSettingsNotFound  %+v", 404, o.Payload)
 }
+
+func (o *GetAllocatorSettingsNotFound) String() string {
+	return fmt.Sprintf("[GET /platform/infrastructure/allocators/{allocator_id}/settings][%d] getAllocatorSettingsNotFound  %+v", 404, o.Payload)
+}
+
 func (o *GetAllocatorSettingsNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

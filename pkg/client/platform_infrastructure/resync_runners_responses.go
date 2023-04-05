@@ -62,7 +62,8 @@ func NewResyncRunnersAccepted() *ResyncRunnersAccepted {
 	return &ResyncRunnersAccepted{}
 }
 
-/* ResyncRunnersAccepted describes a response with status code 202, with default header values.
+/*
+ResyncRunnersAccepted describes a response with status code 202, with default header values.
 
 The ids of documents, organized by model version, that will be synchronized.
 */
@@ -70,9 +71,44 @@ type ResyncRunnersAccepted struct {
 	Payload *models.ModelVersionIndexSynchronizationResults
 }
 
+// IsSuccess returns true when this resync runners accepted response has a 2xx status code
+func (o *ResyncRunnersAccepted) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this resync runners accepted response has a 3xx status code
+func (o *ResyncRunnersAccepted) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this resync runners accepted response has a 4xx status code
+func (o *ResyncRunnersAccepted) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this resync runners accepted response has a 5xx status code
+func (o *ResyncRunnersAccepted) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this resync runners accepted response a status code equal to that given
+func (o *ResyncRunnersAccepted) IsCode(code int) bool {
+	return code == 202
+}
+
+// Code gets the status code for the resync runners accepted response
+func (o *ResyncRunnersAccepted) Code() int {
+	return 202
+}
+
 func (o *ResyncRunnersAccepted) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/runners/_resync][%d] resyncRunnersAccepted  %+v", 202, o.Payload)
 }
+
+func (o *ResyncRunnersAccepted) String() string {
+	return fmt.Sprintf("[POST /platform/infrastructure/runners/_resync][%d] resyncRunnersAccepted  %+v", 202, o.Payload)
+}
+
 func (o *ResyncRunnersAccepted) GetPayload() *models.ModelVersionIndexSynchronizationResults {
 	return o.Payload
 }
@@ -94,7 +130,8 @@ func NewResyncRunnersRetryWith() *ResyncRunnersRetryWith {
 	return &ResyncRunnersRetryWith{}
 }
 
-/* ResyncRunnersRetryWith describes a response with status code 449, with default header values.
+/*
+ResyncRunnersRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
@@ -107,9 +144,44 @@ type ResyncRunnersRetryWith struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this resync runners retry with response has a 2xx status code
+func (o *ResyncRunnersRetryWith) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this resync runners retry with response has a 3xx status code
+func (o *ResyncRunnersRetryWith) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this resync runners retry with response has a 4xx status code
+func (o *ResyncRunnersRetryWith) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this resync runners retry with response has a 5xx status code
+func (o *ResyncRunnersRetryWith) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this resync runners retry with response a status code equal to that given
+func (o *ResyncRunnersRetryWith) IsCode(code int) bool {
+	return code == 449
+}
+
+// Code gets the status code for the resync runners retry with response
+func (o *ResyncRunnersRetryWith) Code() int {
+	return 449
+}
+
 func (o *ResyncRunnersRetryWith) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/runners/_resync][%d] resyncRunnersRetryWith  %+v", 449, o.Payload)
 }
+
+func (o *ResyncRunnersRetryWith) String() string {
+	return fmt.Sprintf("[POST /platform/infrastructure/runners/_resync][%d] resyncRunnersRetryWith  %+v", 449, o.Payload)
+}
+
 func (o *ResyncRunnersRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

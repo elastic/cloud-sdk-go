@@ -62,7 +62,8 @@ func NewGetConstructorOK() *GetConstructorOK {
 	return &GetConstructorOK{}
 }
 
-/* GetConstructorOK describes a response with status code 200, with default header values.
+/*
+GetConstructorOK describes a response with status code 200, with default header values.
 
 The information for the constructor specified by {constructor_id}.
 */
@@ -70,9 +71,44 @@ type GetConstructorOK struct {
 	Payload *models.ConstructorInfo
 }
 
+// IsSuccess returns true when this get constructor o k response has a 2xx status code
+func (o *GetConstructorOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get constructor o k response has a 3xx status code
+func (o *GetConstructorOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get constructor o k response has a 4xx status code
+func (o *GetConstructorOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get constructor o k response has a 5xx status code
+func (o *GetConstructorOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get constructor o k response a status code equal to that given
+func (o *GetConstructorOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get constructor o k response
+func (o *GetConstructorOK) Code() int {
+	return 200
+}
+
 func (o *GetConstructorOK) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/constructors/{constructor_id}][%d] getConstructorOK  %+v", 200, o.Payload)
 }
+
+func (o *GetConstructorOK) String() string {
+	return fmt.Sprintf("[GET /platform/infrastructure/constructors/{constructor_id}][%d] getConstructorOK  %+v", 200, o.Payload)
+}
+
 func (o *GetConstructorOK) GetPayload() *models.ConstructorInfo {
 	return o.Payload
 }
@@ -94,7 +130,8 @@ func NewGetConstructorNotFound() *GetConstructorNotFound {
 	return &GetConstructorNotFound{}
 }
 
-/* GetConstructorNotFound describes a response with status code 404, with default header values.
+/*
+GetConstructorNotFound describes a response with status code 404, with default header values.
 
 The constructor specified by {constructor_id} cannot be found. (code: `constructors.constructor_not_found`)
 */
@@ -107,9 +144,44 @@ type GetConstructorNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get constructor not found response has a 2xx status code
+func (o *GetConstructorNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get constructor not found response has a 3xx status code
+func (o *GetConstructorNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get constructor not found response has a 4xx status code
+func (o *GetConstructorNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get constructor not found response has a 5xx status code
+func (o *GetConstructorNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get constructor not found response a status code equal to that given
+func (o *GetConstructorNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the get constructor not found response
+func (o *GetConstructorNotFound) Code() int {
+	return 404
+}
+
 func (o *GetConstructorNotFound) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/constructors/{constructor_id}][%d] getConstructorNotFound  %+v", 404, o.Payload)
 }
+
+func (o *GetConstructorNotFound) String() string {
+	return fmt.Sprintf("[GET /platform/infrastructure/constructors/{constructor_id}][%d] getConstructorNotFound  %+v", 404, o.Payload)
+}
+
 func (o *GetConstructorNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

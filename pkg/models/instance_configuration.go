@@ -120,6 +120,8 @@ func (m *InstanceConfiguration) validateAllocatorFilter(formats strfmt.Registry)
 		if err := m.AllocatorFilter.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("allocator_filter")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("allocator_filter")
 			}
 			return err
 		}
@@ -150,6 +152,8 @@ func (m *InstanceConfiguration) validateDiscreteSizes(formats strfmt.Registry) e
 		if err := m.DiscreteSizes.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("discrete_sizes")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("discrete_sizes")
 			}
 			return err
 		}
@@ -204,6 +208,8 @@ func (m *InstanceConfiguration) contextValidateAllocatorFilter(ctx context.Conte
 		if err := m.AllocatorFilter.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("allocator_filter")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("allocator_filter")
 			}
 			return err
 		}
@@ -218,6 +224,8 @@ func (m *InstanceConfiguration) contextValidateDiscreteSizes(ctx context.Context
 		if err := m.DiscreteSizes.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("discrete_sizes")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("discrete_sizes")
 			}
 			return err
 		}

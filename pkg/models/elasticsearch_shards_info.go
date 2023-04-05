@@ -98,6 +98,8 @@ func (m *ElasticsearchShardsInfo) validateAvailableShards(formats strfmt.Registr
 			if err := m.AvailableShards[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("available_shards" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("available_shards" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -132,6 +134,8 @@ func (m *ElasticsearchShardsInfo) validateUnavailableReplicas(formats strfmt.Reg
 			if err := m.UnavailableReplicas[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("unavailable_replicas" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("unavailable_replicas" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -157,6 +161,8 @@ func (m *ElasticsearchShardsInfo) validateUnavailableShards(formats strfmt.Regis
 			if err := m.UnavailableShards[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("unavailable_shards" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("unavailable_shards" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -197,6 +203,8 @@ func (m *ElasticsearchShardsInfo) contextValidateAvailableShards(ctx context.Con
 			if err := m.AvailableShards[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("available_shards" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("available_shards" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -215,6 +223,8 @@ func (m *ElasticsearchShardsInfo) contextValidateUnavailableReplicas(ctx context
 			if err := m.UnavailableReplicas[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("unavailable_replicas" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("unavailable_replicas" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -233,6 +243,8 @@ func (m *ElasticsearchShardsInfo) contextValidateUnavailableShards(ctx context.C
 			if err := m.UnavailableShards[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("unavailable_shards" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("unavailable_shards" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

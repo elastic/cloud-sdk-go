@@ -71,10 +71,12 @@ func NewCreateSamlConfigurationParamsWithHTTPClient(client *http.Client) *Create
 	}
 }
 
-/* CreateSamlConfigurationParams contains all the parameters to send to the API endpoint
-   for the create saml configuration operation.
+/*
+CreateSamlConfigurationParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the create saml configuration operation.
+
+	Typically these are written to a http.Request.
 */
 type CreateSamlConfigurationParams struct {
 

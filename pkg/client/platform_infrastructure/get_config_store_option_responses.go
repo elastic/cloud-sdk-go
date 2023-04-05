@@ -62,7 +62,8 @@ func NewGetConfigStoreOptionOK() *GetConfigStoreOptionOK {
 	return &GetConfigStoreOptionOK{}
 }
 
-/* GetConfigStoreOptionOK describes a response with status code 200, with default header values.
+/*
+GetConfigStoreOptionOK describes a response with status code 200, with default header values.
 
 Config Store Option retrieved successfully
 */
@@ -83,9 +84,44 @@ type GetConfigStoreOptionOK struct {
 	Payload *models.ConfigStoreOption
 }
 
+// IsSuccess returns true when this get config store option o k response has a 2xx status code
+func (o *GetConfigStoreOptionOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get config store option o k response has a 3xx status code
+func (o *GetConfigStoreOptionOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get config store option o k response has a 4xx status code
+func (o *GetConfigStoreOptionOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get config store option o k response has a 5xx status code
+func (o *GetConfigStoreOptionOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get config store option o k response a status code equal to that given
+func (o *GetConfigStoreOptionOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get config store option o k response
+func (o *GetConfigStoreOptionOK) Code() int {
+	return 200
+}
+
 func (o *GetConfigStoreOptionOK) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/store/{config_option_id}][%d] getConfigStoreOptionOK  %+v", 200, o.Payload)
 }
+
+func (o *GetConfigStoreOptionOK) String() string {
+	return fmt.Sprintf("[GET /platform/configuration/store/{config_option_id}][%d] getConfigStoreOptionOK  %+v", 200, o.Payload)
+}
+
 func (o *GetConfigStoreOptionOK) GetPayload() *models.ConfigStoreOption {
 	return o.Payload
 }
@@ -128,7 +164,8 @@ func NewGetConfigStoreOptionNotFound() *GetConfigStoreOptionNotFound {
 	return &GetConfigStoreOptionNotFound{}
 }
 
-/* GetConfigStoreOptionNotFound describes a response with status code 404, with default header values.
+/*
+GetConfigStoreOptionNotFound describes a response with status code 404, with default header values.
 
 Config Store Option do not exist by that name. (code: `platform.config.store.not_found`)
 */
@@ -141,9 +178,44 @@ type GetConfigStoreOptionNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get config store option not found response has a 2xx status code
+func (o *GetConfigStoreOptionNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get config store option not found response has a 3xx status code
+func (o *GetConfigStoreOptionNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get config store option not found response has a 4xx status code
+func (o *GetConfigStoreOptionNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get config store option not found response has a 5xx status code
+func (o *GetConfigStoreOptionNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get config store option not found response a status code equal to that given
+func (o *GetConfigStoreOptionNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the get config store option not found response
+func (o *GetConfigStoreOptionNotFound) Code() int {
+	return 404
+}
+
 func (o *GetConfigStoreOptionNotFound) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/store/{config_option_id}][%d] getConfigStoreOptionNotFound  %+v", 404, o.Payload)
 }
+
+func (o *GetConfigStoreOptionNotFound) String() string {
+	return fmt.Sprintf("[GET /platform/configuration/store/{config_option_id}][%d] getConfigStoreOptionNotFound  %+v", 404, o.Payload)
+}
+
 func (o *GetConfigStoreOptionNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

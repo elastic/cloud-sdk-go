@@ -62,7 +62,8 @@ func NewCaptureDeploymentInstanceThreadDumpOK() *CaptureDeploymentInstanceThread
 	return &CaptureDeploymentInstanceThreadDumpOK{}
 }
 
-/* CaptureDeploymentInstanceThreadDumpOK describes a response with status code 200, with default header values.
+/*
+CaptureDeploymentInstanceThreadDumpOK describes a response with status code 200, with default header values.
 
 The thread dump contents
 */
@@ -70,9 +71,44 @@ type CaptureDeploymentInstanceThreadDumpOK struct {
 	Payload strfmt.Base64
 }
 
+// IsSuccess returns true when this capture deployment instance thread dump o k response has a 2xx status code
+func (o *CaptureDeploymentInstanceThreadDumpOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this capture deployment instance thread dump o k response has a 3xx status code
+func (o *CaptureDeploymentInstanceThreadDumpOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this capture deployment instance thread dump o k response has a 4xx status code
+func (o *CaptureDeploymentInstanceThreadDumpOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this capture deployment instance thread dump o k response has a 5xx status code
+func (o *CaptureDeploymentInstanceThreadDumpOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this capture deployment instance thread dump o k response a status code equal to that given
+func (o *CaptureDeploymentInstanceThreadDumpOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the capture deployment instance thread dump o k response
+func (o *CaptureDeploymentInstanceThreadDumpOK) Code() int {
+	return 200
+}
+
 func (o *CaptureDeploymentInstanceThreadDumpOK) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_id}/thread_dump/_capture][%d] captureDeploymentInstanceThreadDumpOK  %+v", 200, o.Payload)
 }
+
+func (o *CaptureDeploymentInstanceThreadDumpOK) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_id}/thread_dump/_capture][%d] captureDeploymentInstanceThreadDumpOK  %+v", 200, o.Payload)
+}
+
 func (o *CaptureDeploymentInstanceThreadDumpOK) GetPayload() strfmt.Base64 {
 	return o.Payload
 }
@@ -92,9 +128,11 @@ func NewCaptureDeploymentInstanceThreadDumpNotFound() *CaptureDeploymentInstance
 	return &CaptureDeploymentInstanceThreadDumpNotFound{}
 }
 
-/* CaptureDeploymentInstanceThreadDumpNotFound describes a response with status code 404, with default header values.
+/*
+	CaptureDeploymentInstanceThreadDumpNotFound describes a response with status code 404, with default header values.
 
- * The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+	* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+
 * The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)
 * The specified instance cannot be found. (code: `deployments.instance_not_found_error`)
 */
@@ -107,9 +145,44 @@ type CaptureDeploymentInstanceThreadDumpNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this capture deployment instance thread dump not found response has a 2xx status code
+func (o *CaptureDeploymentInstanceThreadDumpNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this capture deployment instance thread dump not found response has a 3xx status code
+func (o *CaptureDeploymentInstanceThreadDumpNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this capture deployment instance thread dump not found response has a 4xx status code
+func (o *CaptureDeploymentInstanceThreadDumpNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this capture deployment instance thread dump not found response has a 5xx status code
+func (o *CaptureDeploymentInstanceThreadDumpNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this capture deployment instance thread dump not found response a status code equal to that given
+func (o *CaptureDeploymentInstanceThreadDumpNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the capture deployment instance thread dump not found response
+func (o *CaptureDeploymentInstanceThreadDumpNotFound) Code() int {
+	return 404
+}
+
 func (o *CaptureDeploymentInstanceThreadDumpNotFound) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_id}/thread_dump/_capture][%d] captureDeploymentInstanceThreadDumpNotFound  %+v", 404, o.Payload)
 }
+
+func (o *CaptureDeploymentInstanceThreadDumpNotFound) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/{instance_id}/thread_dump/_capture][%d] captureDeploymentInstanceThreadDumpNotFound  %+v", 404, o.Payload)
+}
+
 func (o *CaptureDeploymentInstanceThreadDumpNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

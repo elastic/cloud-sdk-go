@@ -71,6 +71,8 @@ func (m *CoordinatorCandidatesSummary) validateCandidates(formats strfmt.Registr
 			if err := m.Candidates[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("candidates" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("candidates" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -103,6 +105,8 @@ func (m *CoordinatorCandidatesSummary) contextValidateCandidates(ctx context.Con
 			if err := m.Candidates[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("candidates" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("candidates" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

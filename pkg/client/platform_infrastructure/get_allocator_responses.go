@@ -62,7 +62,8 @@ func NewGetAllocatorOK() *GetAllocatorOK {
 	return &GetAllocatorOK{}
 }
 
-/* GetAllocatorOK describes a response with status code 200, with default header values.
+/*
+GetAllocatorOK describes a response with status code 200, with default header values.
 
 The information for the allocator specified by {allocator_id}
 */
@@ -70,9 +71,44 @@ type GetAllocatorOK struct {
 	Payload *models.AllocatorInfo
 }
 
+// IsSuccess returns true when this get allocator o k response has a 2xx status code
+func (o *GetAllocatorOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get allocator o k response has a 3xx status code
+func (o *GetAllocatorOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get allocator o k response has a 4xx status code
+func (o *GetAllocatorOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get allocator o k response has a 5xx status code
+func (o *GetAllocatorOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get allocator o k response a status code equal to that given
+func (o *GetAllocatorOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get allocator o k response
+func (o *GetAllocatorOK) Code() int {
+	return 200
+}
+
 func (o *GetAllocatorOK) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/allocators/{allocator_id}][%d] getAllocatorOK  %+v", 200, o.Payload)
 }
+
+func (o *GetAllocatorOK) String() string {
+	return fmt.Sprintf("[GET /platform/infrastructure/allocators/{allocator_id}][%d] getAllocatorOK  %+v", 200, o.Payload)
+}
+
 func (o *GetAllocatorOK) GetPayload() *models.AllocatorInfo {
 	return o.Payload
 }
@@ -94,7 +130,8 @@ func NewGetAllocatorNotFound() *GetAllocatorNotFound {
 	return &GetAllocatorNotFound{}
 }
 
-/* GetAllocatorNotFound describes a response with status code 404, with default header values.
+/*
+GetAllocatorNotFound describes a response with status code 404, with default header values.
 
 The allocator specified by {allocator_id} cannot be found. (code: `allocators.allocator_not_found`)
 */
@@ -107,9 +144,44 @@ type GetAllocatorNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get allocator not found response has a 2xx status code
+func (o *GetAllocatorNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get allocator not found response has a 3xx status code
+func (o *GetAllocatorNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get allocator not found response has a 4xx status code
+func (o *GetAllocatorNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get allocator not found response has a 5xx status code
+func (o *GetAllocatorNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get allocator not found response a status code equal to that given
+func (o *GetAllocatorNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the get allocator not found response
+func (o *GetAllocatorNotFound) Code() int {
+	return 404
+}
+
 func (o *GetAllocatorNotFound) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/allocators/{allocator_id}][%d] getAllocatorNotFound  %+v", 404, o.Payload)
 }
+
+func (o *GetAllocatorNotFound) String() string {
+	return fmt.Sprintf("[GET /platform/infrastructure/allocators/{allocator_id}][%d] getAllocatorNotFound  %+v", 404, o.Payload)
+}
+
 func (o *GetAllocatorNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

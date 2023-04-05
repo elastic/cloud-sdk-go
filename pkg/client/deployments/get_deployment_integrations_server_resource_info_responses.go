@@ -68,7 +68,8 @@ func NewGetDeploymentIntegrationsServerResourceInfoOK() *GetDeploymentIntegratio
 	return &GetDeploymentIntegrationsServerResourceInfoOK{}
 }
 
-/* GetDeploymentIntegrationsServerResourceInfoOK describes a response with status code 200, with default header values.
+/*
+GetDeploymentIntegrationsServerResourceInfoOK describes a response with status code 200, with default header values.
 
 Standard response.
 */
@@ -76,9 +77,44 @@ type GetDeploymentIntegrationsServerResourceInfoOK struct {
 	Payload *models.IntegrationsServerResourceInfo
 }
 
+// IsSuccess returns true when this get deployment integrations server resource info o k response has a 2xx status code
+func (o *GetDeploymentIntegrationsServerResourceInfoOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get deployment integrations server resource info o k response has a 3xx status code
+func (o *GetDeploymentIntegrationsServerResourceInfoOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get deployment integrations server resource info o k response has a 4xx status code
+func (o *GetDeploymentIntegrationsServerResourceInfoOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get deployment integrations server resource info o k response has a 5xx status code
+func (o *GetDeploymentIntegrationsServerResourceInfoOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get deployment integrations server resource info o k response a status code equal to that given
+func (o *GetDeploymentIntegrationsServerResourceInfoOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get deployment integrations server resource info o k response
+func (o *GetDeploymentIntegrationsServerResourceInfoOK) Code() int {
+	return 200
+}
+
 func (o *GetDeploymentIntegrationsServerResourceInfoOK) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/integrations_server/{ref_id}][%d] getDeploymentIntegrationsServerResourceInfoOK  %+v", 200, o.Payload)
 }
+
+func (o *GetDeploymentIntegrationsServerResourceInfoOK) String() string {
+	return fmt.Sprintf("[GET /deployments/{deployment_id}/integrations_server/{ref_id}][%d] getDeploymentIntegrationsServerResourceInfoOK  %+v", 200, o.Payload)
+}
+
 func (o *GetDeploymentIntegrationsServerResourceInfoOK) GetPayload() *models.IntegrationsServerResourceInfo {
 	return o.Payload
 }
@@ -100,7 +136,8 @@ func NewGetDeploymentIntegrationsServerResourceInfoNotFound() *GetDeploymentInte
 	return &GetDeploymentIntegrationsServerResourceInfoNotFound{}
 }
 
-/* GetDeploymentIntegrationsServerResourceInfoNotFound describes a response with status code 404, with default header values.
+/*
+GetDeploymentIntegrationsServerResourceInfoNotFound describes a response with status code 404, with default header values.
 
 The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
 */
@@ -113,9 +150,44 @@ type GetDeploymentIntegrationsServerResourceInfoNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get deployment integrations server resource info not found response has a 2xx status code
+func (o *GetDeploymentIntegrationsServerResourceInfoNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get deployment integrations server resource info not found response has a 3xx status code
+func (o *GetDeploymentIntegrationsServerResourceInfoNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get deployment integrations server resource info not found response has a 4xx status code
+func (o *GetDeploymentIntegrationsServerResourceInfoNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get deployment integrations server resource info not found response has a 5xx status code
+func (o *GetDeploymentIntegrationsServerResourceInfoNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get deployment integrations server resource info not found response a status code equal to that given
+func (o *GetDeploymentIntegrationsServerResourceInfoNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the get deployment integrations server resource info not found response
+func (o *GetDeploymentIntegrationsServerResourceInfoNotFound) Code() int {
+	return 404
+}
+
 func (o *GetDeploymentIntegrationsServerResourceInfoNotFound) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/integrations_server/{ref_id}][%d] getDeploymentIntegrationsServerResourceInfoNotFound  %+v", 404, o.Payload)
 }
+
+func (o *GetDeploymentIntegrationsServerResourceInfoNotFound) String() string {
+	return fmt.Sprintf("[GET /deployments/{deployment_id}/integrations_server/{ref_id}][%d] getDeploymentIntegrationsServerResourceInfoNotFound  %+v", 404, o.Payload)
+}
+
 func (o *GetDeploymentIntegrationsServerResourceInfoNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -144,7 +216,8 @@ func NewGetDeploymentIntegrationsServerResourceInfoInternalServerError() *GetDep
 	return &GetDeploymentIntegrationsServerResourceInfoInternalServerError{}
 }
 
-/* GetDeploymentIntegrationsServerResourceInfoInternalServerError describes a response with status code 500, with default header values.
+/*
+GetDeploymentIntegrationsServerResourceInfoInternalServerError describes a response with status code 500, with default header values.
 
 We have failed you. (code: `deployments.deployment_resource_no_longer_exists`)
 */
@@ -157,9 +230,44 @@ type GetDeploymentIntegrationsServerResourceInfoInternalServerError struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get deployment integrations server resource info internal server error response has a 2xx status code
+func (o *GetDeploymentIntegrationsServerResourceInfoInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get deployment integrations server resource info internal server error response has a 3xx status code
+func (o *GetDeploymentIntegrationsServerResourceInfoInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get deployment integrations server resource info internal server error response has a 4xx status code
+func (o *GetDeploymentIntegrationsServerResourceInfoInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get deployment integrations server resource info internal server error response has a 5xx status code
+func (o *GetDeploymentIntegrationsServerResourceInfoInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this get deployment integrations server resource info internal server error response a status code equal to that given
+func (o *GetDeploymentIntegrationsServerResourceInfoInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
+// Code gets the status code for the get deployment integrations server resource info internal server error response
+func (o *GetDeploymentIntegrationsServerResourceInfoInternalServerError) Code() int {
+	return 500
+}
+
 func (o *GetDeploymentIntegrationsServerResourceInfoInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/integrations_server/{ref_id}][%d] getDeploymentIntegrationsServerResourceInfoInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *GetDeploymentIntegrationsServerResourceInfoInternalServerError) String() string {
+	return fmt.Sprintf("[GET /deployments/{deployment_id}/integrations_server/{ref_id}][%d] getDeploymentIntegrationsServerResourceInfoInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *GetDeploymentIntegrationsServerResourceInfoInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

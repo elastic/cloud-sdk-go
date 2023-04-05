@@ -98,6 +98,8 @@ func (m *DeploymentUpdateResponse) validateDiagnostics(formats strfmt.Registry) 
 		if err := m.Diagnostics.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("diagnostics")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("diagnostics")
 			}
 			return err
 		}
@@ -139,6 +141,8 @@ func (m *DeploymentUpdateResponse) validateResources(formats strfmt.Registry) er
 			if err := m.Resources[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("resources" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("resources" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -158,6 +162,8 @@ func (m *DeploymentUpdateResponse) validateShutdownResources(formats strfmt.Regi
 		if err := m.ShutdownResources.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("shutdown_resources")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("shutdown_resources")
 			}
 			return err
 		}
@@ -194,6 +200,8 @@ func (m *DeploymentUpdateResponse) contextValidateDiagnostics(ctx context.Contex
 		if err := m.Diagnostics.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("diagnostics")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("diagnostics")
 			}
 			return err
 		}
@@ -210,6 +218,8 @@ func (m *DeploymentUpdateResponse) contextValidateResources(ctx context.Context,
 			if err := m.Resources[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("resources" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("resources" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -226,6 +236,8 @@ func (m *DeploymentUpdateResponse) contextValidateShutdownResources(ctx context.
 		if err := m.ShutdownResources.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("shutdown_resources")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("shutdown_resources")
 			}
 			return err
 		}

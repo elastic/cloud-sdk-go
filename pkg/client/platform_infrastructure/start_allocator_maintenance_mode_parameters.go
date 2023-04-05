@@ -69,10 +69,12 @@ func NewStartAllocatorMaintenanceModeParamsWithHTTPClient(client *http.Client) *
 	}
 }
 
-/* StartAllocatorMaintenanceModeParams contains all the parameters to send to the API endpoint
-   for the start allocator maintenance mode operation.
+/*
+StartAllocatorMaintenanceModeParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the start allocator maintenance mode operation.
+
+	Typically these are written to a http.Request.
 */
 type StartAllocatorMaintenanceModeParams struct {
 

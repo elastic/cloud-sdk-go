@@ -69,10 +69,12 @@ func NewDeleteAllocatorMetadataItemParamsWithHTTPClient(client *http.Client) *De
 	}
 }
 
-/* DeleteAllocatorMetadataItemParams contains all the parameters to send to the API endpoint
-   for the delete allocator metadata item operation.
+/*
+DeleteAllocatorMetadataItemParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the delete allocator metadata item operation.
+
+	Typically these are written to a http.Request.
 */
 type DeleteAllocatorMetadataItemParams struct {
 

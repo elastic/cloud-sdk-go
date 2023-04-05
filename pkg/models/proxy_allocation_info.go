@@ -82,6 +82,8 @@ func (m *ProxyAllocationInfo) validateCounts(formats strfmt.Registry) error {
 		if err := m.Counts.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("counts")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("counts")
 			}
 			return err
 		}
@@ -110,6 +112,8 @@ func (m *ProxyAllocationInfo) contextValidateCounts(ctx context.Context, formats
 		if err := m.Counts.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("counts")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("counts")
 			}
 			return err
 		}
