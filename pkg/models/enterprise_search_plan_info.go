@@ -156,6 +156,8 @@ func (m *EnterpriseSearchPlanInfo) validateError(formats strfmt.Registry) error 
 		if err := m.Error.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("error")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("error")
 			}
 			return err
 		}
@@ -182,6 +184,8 @@ func (m *EnterpriseSearchPlanInfo) validatePlan(formats strfmt.Registry) error {
 		if err := m.Plan.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("plan")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("plan")
 			}
 			return err
 		}
@@ -205,6 +209,8 @@ func (m *EnterpriseSearchPlanInfo) validatePlanAttemptLog(formats strfmt.Registr
 			if err := m.PlanAttemptLog[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("plan_attempt_log" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("plan_attempt_log" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -236,6 +242,8 @@ func (m *EnterpriseSearchPlanInfo) validateSource(formats strfmt.Registry) error
 		if err := m.Source.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("source")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("source")
 			}
 			return err
 		}
@@ -259,6 +267,8 @@ func (m *EnterpriseSearchPlanInfo) validateWarnings(formats strfmt.Registry) err
 			if err := m.Warnings[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("warnings" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("warnings" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -305,6 +315,8 @@ func (m *EnterpriseSearchPlanInfo) contextValidateError(ctx context.Context, for
 		if err := m.Error.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("error")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("error")
 			}
 			return err
 		}
@@ -319,6 +331,8 @@ func (m *EnterpriseSearchPlanInfo) contextValidatePlan(ctx context.Context, form
 		if err := m.Plan.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("plan")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("plan")
 			}
 			return err
 		}
@@ -335,6 +349,8 @@ func (m *EnterpriseSearchPlanInfo) contextValidatePlanAttemptLog(ctx context.Con
 			if err := m.PlanAttemptLog[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("plan_attempt_log" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("plan_attempt_log" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -351,6 +367,8 @@ func (m *EnterpriseSearchPlanInfo) contextValidateSource(ctx context.Context, fo
 		if err := m.Source.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("source")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("source")
 			}
 			return err
 		}
@@ -367,6 +385,8 @@ func (m *EnterpriseSearchPlanInfo) contextValidateWarnings(ctx context.Context, 
 			if err := m.Warnings[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("warnings" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("warnings" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

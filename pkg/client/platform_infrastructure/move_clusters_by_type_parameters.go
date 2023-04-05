@@ -72,10 +72,12 @@ func NewMoveClustersByTypeParamsWithHTTPClient(client *http.Client) *MoveCluster
 	}
 }
 
-/* MoveClustersByTypeParams contains all the parameters to send to the API endpoint
-   for the move clusters by type operation.
+/*
+MoveClustersByTypeParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the move clusters by type operation.
+
+	Typically these are written to a http.Request.
 */
 type MoveClustersByTypeParams struct {
 

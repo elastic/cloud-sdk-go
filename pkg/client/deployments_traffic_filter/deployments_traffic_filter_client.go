@@ -69,9 +69,9 @@ type ClientService interface {
 }
 
 /*
-  CreateTrafficFilterRuleset creates a ruleset
+CreateTrafficFilterRuleset creates a ruleset
 
-  Creates a ruleset that consists of a set of rules.
+Creates a ruleset that consists of a set of rules.
 */
 func (a *Client) CreateTrafficFilterRuleset(params *CreateTrafficFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateTrafficFilterRulesetCreated, error) {
 	// TODO: Validate the params before sending
@@ -110,9 +110,9 @@ func (a *Client) CreateTrafficFilterRuleset(params *CreateTrafficFilterRulesetPa
 }
 
 /*
-  CreateTrafficFilterRulesetAssociation creates ruleset association
+CreateTrafficFilterRulesetAssociation creates ruleset association
 
-  Applies the ruleset to the specified deployment.
+Applies the ruleset to the specified deployment.
 */
 func (a *Client) CreateTrafficFilterRulesetAssociation(params *CreateTrafficFilterRulesetAssociationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateTrafficFilterRulesetAssociationOK, *CreateTrafficFilterRulesetAssociationCreated, error) {
 	// TODO: Validate the params before sending
@@ -152,9 +152,9 @@ func (a *Client) CreateTrafficFilterRulesetAssociation(params *CreateTrafficFilt
 }
 
 /*
-  DeleteTrafficFilterRuleset deletes a ruleset
+DeleteTrafficFilterRuleset deletes a ruleset
 
-  Deletes the ruleset by ID.
+Deletes the ruleset by ID.
 */
 func (a *Client) DeleteTrafficFilterRuleset(params *DeleteTrafficFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteTrafficFilterRulesetOK, error) {
 	// TODO: Validate the params before sending
@@ -193,9 +193,9 @@ func (a *Client) DeleteTrafficFilterRuleset(params *DeleteTrafficFilterRulesetPa
 }
 
 /*
-  DeleteTrafficFilterRulesetAssociation deletes ruleset association
+DeleteTrafficFilterRulesetAssociation deletes ruleset association
 
-  Deletes the traffic rules in the ruleset from the deployment.
+Deletes the traffic rules in the ruleset from the deployment.
 */
 func (a *Client) DeleteTrafficFilterRulesetAssociation(params *DeleteTrafficFilterRulesetAssociationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteTrafficFilterRulesetAssociationOK, error) {
 	// TODO: Validate the params before sending
@@ -234,9 +234,9 @@ func (a *Client) DeleteTrafficFilterRulesetAssociation(params *DeleteTrafficFilt
 }
 
 /*
-  GetTrafficFilterDeploymentRulesetAssociations gets associated rulesets
+GetTrafficFilterDeploymentRulesetAssociations gets associated rulesets
 
-  Retrieves the rulesets associated with a deployment.
+Retrieves the rulesets associated with a deployment.
 */
 func (a *Client) GetTrafficFilterDeploymentRulesetAssociations(params *GetTrafficFilterDeploymentRulesetAssociationsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTrafficFilterDeploymentRulesetAssociationsOK, error) {
 	// TODO: Validate the params before sending
@@ -275,9 +275,9 @@ func (a *Client) GetTrafficFilterDeploymentRulesetAssociations(params *GetTraffi
 }
 
 /*
-  GetTrafficFilterRuleset retrieves the ruleset by ID
+GetTrafficFilterRuleset retrieves the ruleset by ID
 
-  Retrieves a list of resources that are associated to the specified ruleset.
+Retrieves a list of resources that are associated to the specified ruleset.
 */
 func (a *Client) GetTrafficFilterRuleset(params *GetTrafficFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTrafficFilterRulesetOK, error) {
 	// TODO: Validate the params before sending
@@ -316,9 +316,9 @@ func (a *Client) GetTrafficFilterRuleset(params *GetTrafficFilterRulesetParams, 
 }
 
 /*
-  GetTrafficFilterRulesetDeploymentAssociations gets associated deployments
+GetTrafficFilterRulesetDeploymentAssociations gets associated deployments
 
-  Retrieves a list of deployments that are associated to the specified ruleset.
+Retrieves a list of deployments that are associated to the specified ruleset.
 */
 func (a *Client) GetTrafficFilterRulesetDeploymentAssociations(params *GetTrafficFilterRulesetDeploymentAssociationsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTrafficFilterRulesetDeploymentAssociationsOK, error) {
 	// TODO: Validate the params before sending
@@ -357,9 +357,9 @@ func (a *Client) GetTrafficFilterRulesetDeploymentAssociations(params *GetTraffi
 }
 
 /*
-  GetTrafficFilterRulesets lists traffic filter rulesets
+GetTrafficFilterRulesets lists traffic filter rulesets
 
-  List all of the traffic filter rulesets.
+List all of the traffic filter rulesets.
 */
 func (a *Client) GetTrafficFilterRulesets(params *GetTrafficFilterRulesetsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetTrafficFilterRulesetsOK, error) {
 	// TODO: Validate the params before sending
@@ -398,9 +398,9 @@ func (a *Client) GetTrafficFilterRulesets(params *GetTrafficFilterRulesetsParams
 }
 
 /*
-  UpdateTrafficFilterRuleset updates a ruleset
+UpdateTrafficFilterRuleset updates a ruleset
 
-  Updates the ruleset with the definition.
+Updates the ruleset with the definition.
 */
 func (a *Client) UpdateTrafficFilterRuleset(params *UpdateTrafficFilterRulesetParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateTrafficFilterRulesetOK, error) {
 	// TODO: Validate the params before sending

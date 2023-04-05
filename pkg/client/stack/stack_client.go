@@ -63,9 +63,9 @@ type ClientService interface {
 }
 
 /*
-  DeleteVersionStack deletes stack version
+DeleteVersionStack deletes stack version
 
-  Uses the `deleted` flag, which removes only that version of the Elastic Stack from the list of available versions. To restore the version, send an update request. For more information, see the PUT request.
+Uses the `deleted` flag, which removes only that version of the Elastic Stack from the list of available versions. To restore the version, send an update request. For more information, see the PUT request.
 */
 func (a *Client) DeleteVersionStack(params *DeleteVersionStackParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteVersionStackOK, error) {
 	// TODO: Validate the params before sending
@@ -104,9 +104,9 @@ func (a *Client) DeleteVersionStack(params *DeleteVersionStackParams, authInfo r
 }
 
 /*
-  GetInstanceTypes gets instance types
+GetInstanceTypes gets instance types
 
-  Retrieves a list of all instance types.
+Retrieves a list of all instance types.
 */
 func (a *Client) GetInstanceTypes(params *GetInstanceTypesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetInstanceTypesOK, error) {
 	// TODO: Validate the params before sending
@@ -145,9 +145,9 @@ func (a *Client) GetInstanceTypes(params *GetInstanceTypesParams, authInfo runti
 }
 
 /*
-  GetVersionStack gets stack version
+GetVersionStack gets stack version
 
-  Retrieves the Elastic Stack version and template.
+Retrieves the Elastic Stack version and template.
 */
 func (a *Client) GetVersionStack(params *GetVersionStackParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetVersionStackOK, error) {
 	// TODO: Validate the params before sending
@@ -186,9 +186,9 @@ func (a *Client) GetVersionStack(params *GetVersionStackParams, authInfo runtime
 }
 
 /*
-  GetVersionStacks gets stack versions
+GetVersionStacks gets stack versions
 
-  By default, retrieves only the available Elastic Stack versions. To retrieve all of the Elastic Stack versions, use the `show_deleted parameter`.
+By default, retrieves only the available Elastic Stack versions. To retrieve all of the Elastic Stack versions, use the `show_deleted parameter`.
 */
 func (a *Client) GetVersionStacks(params *GetVersionStacksParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetVersionStacksOK, error) {
 	// TODO: Validate the params before sending
@@ -227,9 +227,10 @@ func (a *Client) GetVersionStacks(params *GetVersionStacksParams, authInfo runti
 }
 
 /*
-  UpdateStackPacks uploads stack pack
+	UpdateStackPacks uploads stack pack
 
-  Creates or updates an Elastic Stack pack and template.
+	Creates or updates an Elastic Stack pack and template.
+
 The endpoint supports `multipart/form-data` requests, as well as `application/zip` and `application/octet-stream` requests with a binary body. The maximum size of the payload is 1Mb.
 When the archive contains an Elastic Stack configuration that is available through the API, the configuration and template are overwritten.
 */
@@ -270,9 +271,9 @@ func (a *Client) UpdateStackPacks(params *UpdateStackPacksParams, authInfo runti
 }
 
 /*
-  UpdateVersionStack updates stack version
+UpdateVersionStack updates stack version
 
-  Updates the Elastic Stack version configuration.
+Updates the Elastic Stack version configuration.
 */
 func (a *Client) UpdateVersionStack(params *UpdateVersionStackParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*UpdateVersionStackOK, error) {
 	// TODO: Validate the params before sending

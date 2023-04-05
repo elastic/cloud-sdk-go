@@ -71,6 +71,8 @@ func (m *OrganizationInvitations) validateInvitations(formats strfmt.Registry) e
 			if err := m.Invitations[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("invitations" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("invitations" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -103,6 +105,8 @@ func (m *OrganizationInvitations) contextValidateInvitations(ctx context.Context
 			if err := m.Invitations[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("invitations" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("invitations" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

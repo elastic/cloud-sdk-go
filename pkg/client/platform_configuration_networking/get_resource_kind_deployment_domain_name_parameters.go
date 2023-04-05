@@ -69,10 +69,12 @@ func NewGetResourceKindDeploymentDomainNameParamsWithHTTPClient(client *http.Cli
 	}
 }
 
-/* GetResourceKindDeploymentDomainNameParams contains all the parameters to send to the API endpoint
-   for the get resource kind deployment domain name operation.
+/*
+GetResourceKindDeploymentDomainNameParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the get resource kind deployment domain name operation.
+
+	Typically these are written to a http.Request.
 */
 type GetResourceKindDeploymentDomainNameParams struct {
 

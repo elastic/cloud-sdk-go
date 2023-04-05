@@ -72,6 +72,8 @@ func (m *DeploymentCreateSettings) validateObservability(formats strfmt.Registry
 		if err := m.Observability.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("observability")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("observability")
 			}
 			return err
 		}
@@ -89,6 +91,8 @@ func (m *DeploymentCreateSettings) validateTrafficFilterSettings(formats strfmt.
 		if err := m.TrafficFilterSettings.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("traffic_filter_settings")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("traffic_filter_settings")
 			}
 			return err
 		}
@@ -121,6 +125,8 @@ func (m *DeploymentCreateSettings) contextValidateObservability(ctx context.Cont
 		if err := m.Observability.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("observability")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("observability")
 			}
 			return err
 		}
@@ -135,6 +141,8 @@ func (m *DeploymentCreateSettings) contextValidateTrafficFilterSettings(ctx cont
 		if err := m.TrafficFilterSettings.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("traffic_filter_settings")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("traffic_filter_settings")
 			}
 			return err
 		}

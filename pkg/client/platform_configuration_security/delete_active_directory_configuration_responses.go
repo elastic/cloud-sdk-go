@@ -74,7 +74,8 @@ func NewDeleteActiveDirectoryConfigurationOK() *DeleteActiveDirectoryConfigurati
 	return &DeleteActiveDirectoryConfigurationOK{}
 }
 
-/* DeleteActiveDirectoryConfigurationOK describes a response with status code 200, with default header values.
+/*
+DeleteActiveDirectoryConfigurationOK describes a response with status code 200, with default header values.
 
 The Active Directory configuration was successfully deleted
 */
@@ -82,9 +83,44 @@ type DeleteActiveDirectoryConfigurationOK struct {
 	Payload models.EmptyResponse
 }
 
+// IsSuccess returns true when this delete active directory configuration o k response has a 2xx status code
+func (o *DeleteActiveDirectoryConfigurationOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this delete active directory configuration o k response has a 3xx status code
+func (o *DeleteActiveDirectoryConfigurationOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete active directory configuration o k response has a 4xx status code
+func (o *DeleteActiveDirectoryConfigurationOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this delete active directory configuration o k response has a 5xx status code
+func (o *DeleteActiveDirectoryConfigurationOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete active directory configuration o k response a status code equal to that given
+func (o *DeleteActiveDirectoryConfigurationOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the delete active directory configuration o k response
+func (o *DeleteActiveDirectoryConfigurationOK) Code() int {
+	return 200
+}
+
 func (o *DeleteActiveDirectoryConfigurationOK) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/security/realms/active-directory/{realm_id}][%d] deleteActiveDirectoryConfigurationOK  %+v", 200, o.Payload)
 }
+
+func (o *DeleteActiveDirectoryConfigurationOK) String() string {
+	return fmt.Sprintf("[DELETE /platform/configuration/security/realms/active-directory/{realm_id}][%d] deleteActiveDirectoryConfigurationOK  %+v", 200, o.Payload)
+}
+
 func (o *DeleteActiveDirectoryConfigurationOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -104,7 +140,8 @@ func NewDeleteActiveDirectoryConfigurationNotFound() *DeleteActiveDirectoryConfi
 	return &DeleteActiveDirectoryConfigurationNotFound{}
 }
 
-/* DeleteActiveDirectoryConfigurationNotFound describes a response with status code 404, with default header values.
+/*
+DeleteActiveDirectoryConfigurationNotFound describes a response with status code 404, with default header values.
 
 The realm specified by {realm_id} cannot be found. (code: `security_realm.not_found`)
 */
@@ -117,9 +154,44 @@ type DeleteActiveDirectoryConfigurationNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete active directory configuration not found response has a 2xx status code
+func (o *DeleteActiveDirectoryConfigurationNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete active directory configuration not found response has a 3xx status code
+func (o *DeleteActiveDirectoryConfigurationNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete active directory configuration not found response has a 4xx status code
+func (o *DeleteActiveDirectoryConfigurationNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete active directory configuration not found response has a 5xx status code
+func (o *DeleteActiveDirectoryConfigurationNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete active directory configuration not found response a status code equal to that given
+func (o *DeleteActiveDirectoryConfigurationNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the delete active directory configuration not found response
+func (o *DeleteActiveDirectoryConfigurationNotFound) Code() int {
+	return 404
+}
+
 func (o *DeleteActiveDirectoryConfigurationNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/security/realms/active-directory/{realm_id}][%d] deleteActiveDirectoryConfigurationNotFound  %+v", 404, o.Payload)
 }
+
+func (o *DeleteActiveDirectoryConfigurationNotFound) String() string {
+	return fmt.Sprintf("[DELETE /platform/configuration/security/realms/active-directory/{realm_id}][%d] deleteActiveDirectoryConfigurationNotFound  %+v", 404, o.Payload)
+}
+
 func (o *DeleteActiveDirectoryConfigurationNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -148,7 +220,8 @@ func NewDeleteActiveDirectoryConfigurationConflict() *DeleteActiveDirectoryConfi
 	return &DeleteActiveDirectoryConfigurationConflict{}
 }
 
-/* DeleteActiveDirectoryConfigurationConflict describes a response with status code 409, with default header values.
+/*
+DeleteActiveDirectoryConfigurationConflict describes a response with status code 409, with default header values.
 
 There is a version conflict. (code: `security_realm.version_conflict`)
 */
@@ -161,9 +234,44 @@ type DeleteActiveDirectoryConfigurationConflict struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete active directory configuration conflict response has a 2xx status code
+func (o *DeleteActiveDirectoryConfigurationConflict) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete active directory configuration conflict response has a 3xx status code
+func (o *DeleteActiveDirectoryConfigurationConflict) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete active directory configuration conflict response has a 4xx status code
+func (o *DeleteActiveDirectoryConfigurationConflict) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete active directory configuration conflict response has a 5xx status code
+func (o *DeleteActiveDirectoryConfigurationConflict) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete active directory configuration conflict response a status code equal to that given
+func (o *DeleteActiveDirectoryConfigurationConflict) IsCode(code int) bool {
+	return code == 409
+}
+
+// Code gets the status code for the delete active directory configuration conflict response
+func (o *DeleteActiveDirectoryConfigurationConflict) Code() int {
+	return 409
+}
+
 func (o *DeleteActiveDirectoryConfigurationConflict) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/security/realms/active-directory/{realm_id}][%d] deleteActiveDirectoryConfigurationConflict  %+v", 409, o.Payload)
 }
+
+func (o *DeleteActiveDirectoryConfigurationConflict) String() string {
+	return fmt.Sprintf("[DELETE /platform/configuration/security/realms/active-directory/{realm_id}][%d] deleteActiveDirectoryConfigurationConflict  %+v", 409, o.Payload)
+}
+
 func (o *DeleteActiveDirectoryConfigurationConflict) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -192,7 +300,8 @@ func NewDeleteActiveDirectoryConfigurationRetryWith() *DeleteActiveDirectoryConf
 	return &DeleteActiveDirectoryConfigurationRetryWith{}
 }
 
-/* DeleteActiveDirectoryConfigurationRetryWith describes a response with status code 449, with default header values.
+/*
+DeleteActiveDirectoryConfigurationRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
@@ -205,9 +314,44 @@ type DeleteActiveDirectoryConfigurationRetryWith struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete active directory configuration retry with response has a 2xx status code
+func (o *DeleteActiveDirectoryConfigurationRetryWith) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete active directory configuration retry with response has a 3xx status code
+func (o *DeleteActiveDirectoryConfigurationRetryWith) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete active directory configuration retry with response has a 4xx status code
+func (o *DeleteActiveDirectoryConfigurationRetryWith) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete active directory configuration retry with response has a 5xx status code
+func (o *DeleteActiveDirectoryConfigurationRetryWith) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete active directory configuration retry with response a status code equal to that given
+func (o *DeleteActiveDirectoryConfigurationRetryWith) IsCode(code int) bool {
+	return code == 449
+}
+
+// Code gets the status code for the delete active directory configuration retry with response
+func (o *DeleteActiveDirectoryConfigurationRetryWith) Code() int {
+	return 449
+}
+
 func (o *DeleteActiveDirectoryConfigurationRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/security/realms/active-directory/{realm_id}][%d] deleteActiveDirectoryConfigurationRetryWith  %+v", 449, o.Payload)
 }
+
+func (o *DeleteActiveDirectoryConfigurationRetryWith) String() string {
+	return fmt.Sprintf("[DELETE /platform/configuration/security/realms/active-directory/{realm_id}][%d] deleteActiveDirectoryConfigurationRetryWith  %+v", 449, o.Payload)
+}
+
 func (o *DeleteActiveDirectoryConfigurationRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

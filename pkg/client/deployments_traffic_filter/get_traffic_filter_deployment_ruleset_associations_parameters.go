@@ -69,10 +69,12 @@ func NewGetTrafficFilterDeploymentRulesetAssociationsParamsWithHTTPClient(client
 	}
 }
 
-/* GetTrafficFilterDeploymentRulesetAssociationsParams contains all the parameters to send to the API endpoint
-   for the get traffic filter deployment ruleset associations operation.
+/*
+GetTrafficFilterDeploymentRulesetAssociationsParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the get traffic filter deployment ruleset associations operation.
+
+	Typically these are written to a http.Request.
 */
 type GetTrafficFilterDeploymentRulesetAssociationsParams struct {
 

@@ -80,7 +80,8 @@ func NewGetCostsItemsOK() *GetCostsItemsOK {
 	return &GetCostsItemsOK{}
 }
 
-/* GetCostsItemsOK describes a response with status code 200, with default header values.
+/*
+GetCostsItemsOK describes a response with status code 200, with default header values.
 
 The costs associated to a set of items
 */
@@ -88,9 +89,44 @@ type GetCostsItemsOK struct {
 	Payload *models.ItemsCosts
 }
 
+// IsSuccess returns true when this get costs items o k response has a 2xx status code
+func (o *GetCostsItemsOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get costs items o k response has a 3xx status code
+func (o *GetCostsItemsOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get costs items o k response has a 4xx status code
+func (o *GetCostsItemsOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get costs items o k response has a 5xx status code
+func (o *GetCostsItemsOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get costs items o k response a status code equal to that given
+func (o *GetCostsItemsOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get costs items o k response
+func (o *GetCostsItemsOK) Code() int {
+	return 200
+}
+
 func (o *GetCostsItemsOK) Error() string {
 	return fmt.Sprintf("[GET /billing/costs/{organization_id}/items][%d] getCostsItemsOK  %+v", 200, o.Payload)
 }
+
+func (o *GetCostsItemsOK) String() string {
+	return fmt.Sprintf("[GET /billing/costs/{organization_id}/items][%d] getCostsItemsOK  %+v", 200, o.Payload)
+}
+
 func (o *GetCostsItemsOK) GetPayload() *models.ItemsCosts {
 	return o.Payload
 }
@@ -112,7 +148,8 @@ func NewGetCostsItemsBadRequest() *GetCostsItemsBadRequest {
 	return &GetCostsItemsBadRequest{}
 }
 
-/* GetCostsItemsBadRequest describes a response with status code 400, with default header values.
+/*
+GetCostsItemsBadRequest describes a response with status code 400, with default header values.
 
 The specified date range is invalid. (code: `costs.invalid_date_range`)
 */
@@ -125,9 +162,44 @@ type GetCostsItemsBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get costs items bad request response has a 2xx status code
+func (o *GetCostsItemsBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get costs items bad request response has a 3xx status code
+func (o *GetCostsItemsBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get costs items bad request response has a 4xx status code
+func (o *GetCostsItemsBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get costs items bad request response has a 5xx status code
+func (o *GetCostsItemsBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get costs items bad request response a status code equal to that given
+func (o *GetCostsItemsBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the get costs items bad request response
+func (o *GetCostsItemsBadRequest) Code() int {
+	return 400
+}
+
 func (o *GetCostsItemsBadRequest) Error() string {
 	return fmt.Sprintf("[GET /billing/costs/{organization_id}/items][%d] getCostsItemsBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *GetCostsItemsBadRequest) String() string {
+	return fmt.Sprintf("[GET /billing/costs/{organization_id}/items][%d] getCostsItemsBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *GetCostsItemsBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -156,7 +228,8 @@ func NewGetCostsItemsForbidden() *GetCostsItemsForbidden {
 	return &GetCostsItemsForbidden{}
 }
 
-/* GetCostsItemsForbidden describes a response with status code 403, with default header values.
+/*
+GetCostsItemsForbidden describes a response with status code 403, with default header values.
 
 The current user does not have access to the requested organization. (code: `organization.invalid_access`)
 */
@@ -169,9 +242,44 @@ type GetCostsItemsForbidden struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get costs items forbidden response has a 2xx status code
+func (o *GetCostsItemsForbidden) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get costs items forbidden response has a 3xx status code
+func (o *GetCostsItemsForbidden) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get costs items forbidden response has a 4xx status code
+func (o *GetCostsItemsForbidden) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get costs items forbidden response has a 5xx status code
+func (o *GetCostsItemsForbidden) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get costs items forbidden response a status code equal to that given
+func (o *GetCostsItemsForbidden) IsCode(code int) bool {
+	return code == 403
+}
+
+// Code gets the status code for the get costs items forbidden response
+func (o *GetCostsItemsForbidden) Code() int {
+	return 403
+}
+
 func (o *GetCostsItemsForbidden) Error() string {
 	return fmt.Sprintf("[GET /billing/costs/{organization_id}/items][%d] getCostsItemsForbidden  %+v", 403, o.Payload)
 }
+
+func (o *GetCostsItemsForbidden) String() string {
+	return fmt.Sprintf("[GET /billing/costs/{organization_id}/items][%d] getCostsItemsForbidden  %+v", 403, o.Payload)
+}
+
 func (o *GetCostsItemsForbidden) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -200,7 +308,8 @@ func NewGetCostsItemsNotFound() *GetCostsItemsNotFound {
 	return &GetCostsItemsNotFound{}
 }
 
-/* GetCostsItemsNotFound describes a response with status code 404, with default header values.
+/*
+GetCostsItemsNotFound describes a response with status code 404, with default header values.
 
 Organization not found. (code: `organization.not_found`)
 */
@@ -213,9 +322,44 @@ type GetCostsItemsNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get costs items not found response has a 2xx status code
+func (o *GetCostsItemsNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get costs items not found response has a 3xx status code
+func (o *GetCostsItemsNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get costs items not found response has a 4xx status code
+func (o *GetCostsItemsNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get costs items not found response has a 5xx status code
+func (o *GetCostsItemsNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get costs items not found response a status code equal to that given
+func (o *GetCostsItemsNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the get costs items not found response
+func (o *GetCostsItemsNotFound) Code() int {
+	return 404
+}
+
 func (o *GetCostsItemsNotFound) Error() string {
 	return fmt.Sprintf("[GET /billing/costs/{organization_id}/items][%d] getCostsItemsNotFound  %+v", 404, o.Payload)
 }
+
+func (o *GetCostsItemsNotFound) String() string {
+	return fmt.Sprintf("[GET /billing/costs/{organization_id}/items][%d] getCostsItemsNotFound  %+v", 404, o.Payload)
+}
+
 func (o *GetCostsItemsNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -244,7 +388,8 @@ func NewGetCostsItemsInternalServerError() *GetCostsItemsInternalServerError {
 	return &GetCostsItemsInternalServerError{}
 }
 
-/* GetCostsItemsInternalServerError describes a response with status code 500, with default header values.
+/*
+GetCostsItemsInternalServerError describes a response with status code 500, with default header values.
 
 Error fetching the itemized costs for the organization. (code: `billing_service.failed_request`)
 */
@@ -257,9 +402,44 @@ type GetCostsItemsInternalServerError struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get costs items internal server error response has a 2xx status code
+func (o *GetCostsItemsInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get costs items internal server error response has a 3xx status code
+func (o *GetCostsItemsInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get costs items internal server error response has a 4xx status code
+func (o *GetCostsItemsInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get costs items internal server error response has a 5xx status code
+func (o *GetCostsItemsInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this get costs items internal server error response a status code equal to that given
+func (o *GetCostsItemsInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
+// Code gets the status code for the get costs items internal server error response
+func (o *GetCostsItemsInternalServerError) Code() int {
+	return 500
+}
+
 func (o *GetCostsItemsInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /billing/costs/{organization_id}/items][%d] getCostsItemsInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *GetCostsItemsInternalServerError) String() string {
+	return fmt.Sprintf("[GET /billing/costs/{organization_id}/items][%d] getCostsItemsInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *GetCostsItemsInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

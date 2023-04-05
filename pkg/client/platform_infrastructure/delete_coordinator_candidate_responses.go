@@ -74,7 +74,8 @@ func NewDeleteCoordinatorCandidateOK() *DeleteCoordinatorCandidateOK {
 	return &DeleteCoordinatorCandidateOK{}
 }
 
-/* DeleteCoordinatorCandidateOK describes a response with status code 200, with default header values.
+/*
+DeleteCoordinatorCandidateOK describes a response with status code 200, with default header values.
 
 The coordinator candidate specified by {coordinator_candidate_id} was deleted.
 */
@@ -82,9 +83,44 @@ type DeleteCoordinatorCandidateOK struct {
 	Payload models.EmptyResponse
 }
 
+// IsSuccess returns true when this delete coordinator candidate o k response has a 2xx status code
+func (o *DeleteCoordinatorCandidateOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this delete coordinator candidate o k response has a 3xx status code
+func (o *DeleteCoordinatorCandidateOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete coordinator candidate o k response has a 4xx status code
+func (o *DeleteCoordinatorCandidateOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this delete coordinator candidate o k response has a 5xx status code
+func (o *DeleteCoordinatorCandidateOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete coordinator candidate o k response a status code equal to that given
+func (o *DeleteCoordinatorCandidateOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the delete coordinator candidate o k response
+func (o *DeleteCoordinatorCandidateOK) Code() int {
+	return 200
+}
+
 func (o *DeleteCoordinatorCandidateOK) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/coordinators/candidates/{coordinator_candidate_id}][%d] deleteCoordinatorCandidateOK  %+v", 200, o.Payload)
 }
+
+func (o *DeleteCoordinatorCandidateOK) String() string {
+	return fmt.Sprintf("[DELETE /platform/infrastructure/coordinators/candidates/{coordinator_candidate_id}][%d] deleteCoordinatorCandidateOK  %+v", 200, o.Payload)
+}
+
 func (o *DeleteCoordinatorCandidateOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -104,7 +140,8 @@ func NewDeleteCoordinatorCandidateBadRequest() *DeleteCoordinatorCandidateBadReq
 	return &DeleteCoordinatorCandidateBadRequest{}
 }
 
-/* DeleteCoordinatorCandidateBadRequest describes a response with status code 400, with default header values.
+/*
+DeleteCoordinatorCandidateBadRequest describes a response with status code 400, with default header values.
 
 The coordinator specified by {coordinator_candidate_id} could not be deleted. (code: `coordinators.candidate_deletion_failed`)
 */
@@ -117,9 +154,44 @@ type DeleteCoordinatorCandidateBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete coordinator candidate bad request response has a 2xx status code
+func (o *DeleteCoordinatorCandidateBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete coordinator candidate bad request response has a 3xx status code
+func (o *DeleteCoordinatorCandidateBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete coordinator candidate bad request response has a 4xx status code
+func (o *DeleteCoordinatorCandidateBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete coordinator candidate bad request response has a 5xx status code
+func (o *DeleteCoordinatorCandidateBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete coordinator candidate bad request response a status code equal to that given
+func (o *DeleteCoordinatorCandidateBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the delete coordinator candidate bad request response
+func (o *DeleteCoordinatorCandidateBadRequest) Code() int {
+	return 400
+}
+
 func (o *DeleteCoordinatorCandidateBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/coordinators/candidates/{coordinator_candidate_id}][%d] deleteCoordinatorCandidateBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *DeleteCoordinatorCandidateBadRequest) String() string {
+	return fmt.Sprintf("[DELETE /platform/infrastructure/coordinators/candidates/{coordinator_candidate_id}][%d] deleteCoordinatorCandidateBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *DeleteCoordinatorCandidateBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -148,7 +220,8 @@ func NewDeleteCoordinatorCandidateNotFound() *DeleteCoordinatorCandidateNotFound
 	return &DeleteCoordinatorCandidateNotFound{}
 }
 
-/* DeleteCoordinatorCandidateNotFound describes a response with status code 404, with default header values.
+/*
+DeleteCoordinatorCandidateNotFound describes a response with status code 404, with default header values.
 
 The coordinator candidate specified by {coordinator_candidate_id} cannot be found. (code: `coordinators.candidate_not_found`)
 */
@@ -161,9 +234,44 @@ type DeleteCoordinatorCandidateNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete coordinator candidate not found response has a 2xx status code
+func (o *DeleteCoordinatorCandidateNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete coordinator candidate not found response has a 3xx status code
+func (o *DeleteCoordinatorCandidateNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete coordinator candidate not found response has a 4xx status code
+func (o *DeleteCoordinatorCandidateNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete coordinator candidate not found response has a 5xx status code
+func (o *DeleteCoordinatorCandidateNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete coordinator candidate not found response a status code equal to that given
+func (o *DeleteCoordinatorCandidateNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the delete coordinator candidate not found response
+func (o *DeleteCoordinatorCandidateNotFound) Code() int {
+	return 404
+}
+
 func (o *DeleteCoordinatorCandidateNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/coordinators/candidates/{coordinator_candidate_id}][%d] deleteCoordinatorCandidateNotFound  %+v", 404, o.Payload)
 }
+
+func (o *DeleteCoordinatorCandidateNotFound) String() string {
+	return fmt.Sprintf("[DELETE /platform/infrastructure/coordinators/candidates/{coordinator_candidate_id}][%d] deleteCoordinatorCandidateNotFound  %+v", 404, o.Payload)
+}
+
 func (o *DeleteCoordinatorCandidateNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -192,7 +300,8 @@ func NewDeleteCoordinatorCandidateRetryWith() *DeleteCoordinatorCandidateRetryWi
 	return &DeleteCoordinatorCandidateRetryWith{}
 }
 
-/* DeleteCoordinatorCandidateRetryWith describes a response with status code 449, with default header values.
+/*
+DeleteCoordinatorCandidateRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
@@ -205,9 +314,44 @@ type DeleteCoordinatorCandidateRetryWith struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete coordinator candidate retry with response has a 2xx status code
+func (o *DeleteCoordinatorCandidateRetryWith) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete coordinator candidate retry with response has a 3xx status code
+func (o *DeleteCoordinatorCandidateRetryWith) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete coordinator candidate retry with response has a 4xx status code
+func (o *DeleteCoordinatorCandidateRetryWith) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete coordinator candidate retry with response has a 5xx status code
+func (o *DeleteCoordinatorCandidateRetryWith) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete coordinator candidate retry with response a status code equal to that given
+func (o *DeleteCoordinatorCandidateRetryWith) IsCode(code int) bool {
+	return code == 449
+}
+
+// Code gets the status code for the delete coordinator candidate retry with response
+func (o *DeleteCoordinatorCandidateRetryWith) Code() int {
+	return 449
+}
+
 func (o *DeleteCoordinatorCandidateRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/coordinators/candidates/{coordinator_candidate_id}][%d] deleteCoordinatorCandidateRetryWith  %+v", 449, o.Payload)
 }
+
+func (o *DeleteCoordinatorCandidateRetryWith) String() string {
+	return fmt.Sprintf("[DELETE /platform/infrastructure/coordinators/candidates/{coordinator_candidate_id}][%d] deleteCoordinatorCandidateRetryWith  %+v", 449, o.Payload)
+}
+
 func (o *DeleteCoordinatorCandidateRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

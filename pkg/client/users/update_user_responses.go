@@ -74,7 +74,8 @@ func NewUpdateUserOK() *UpdateUserOK {
 	return &UpdateUserOK{}
 }
 
-/* UpdateUserOK describes a response with status code 200, with default header values.
+/*
+UpdateUserOK describes a response with status code 200, with default header values.
 
 User successfully updated
 */
@@ -82,9 +83,44 @@ type UpdateUserOK struct {
 	Payload *models.User
 }
 
+// IsSuccess returns true when this update user o k response has a 2xx status code
+func (o *UpdateUserOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this update user o k response has a 3xx status code
+func (o *UpdateUserOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update user o k response has a 4xx status code
+func (o *UpdateUserOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this update user o k response has a 5xx status code
+func (o *UpdateUserOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update user o k response a status code equal to that given
+func (o *UpdateUserOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the update user o k response
+func (o *UpdateUserOK) Code() int {
+	return 200
+}
+
 func (o *UpdateUserOK) Error() string {
 	return fmt.Sprintf("[PATCH /users/{user_name}][%d] updateUserOK  %+v", 200, o.Payload)
 }
+
+func (o *UpdateUserOK) String() string {
+	return fmt.Sprintf("[PATCH /users/{user_name}][%d] updateUserOK  %+v", 200, o.Payload)
+}
+
 func (o *UpdateUserOK) GetPayload() *models.User {
 	return o.Payload
 }
@@ -106,9 +142,11 @@ func NewUpdateUserBadRequest() *UpdateUserBadRequest {
 	return &UpdateUserBadRequest{}
 }
 
-/* UpdateUserBadRequest describes a response with status code 400, with default header values.
+/*
+	UpdateUserBadRequest describes a response with status code 400, with default header values.
 
- * Some of the provided roles are invalid. (code: `user.roles.invalid`)
+	* Some of the provided roles are invalid. (code: `user.roles.invalid`)
+
 * Some of the provided roles are forbidden. (code: `user.roles.forbidden`)
 * Trying to set a restricted field. (code: `user.restricted_field`)
 * External users cannot be modified. (code: `user.cannot_modify_external`)
@@ -123,9 +161,44 @@ type UpdateUserBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this update user bad request response has a 2xx status code
+func (o *UpdateUserBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update user bad request response has a 3xx status code
+func (o *UpdateUserBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update user bad request response has a 4xx status code
+func (o *UpdateUserBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update user bad request response has a 5xx status code
+func (o *UpdateUserBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update user bad request response a status code equal to that given
+func (o *UpdateUserBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the update user bad request response
+func (o *UpdateUserBadRequest) Code() int {
+	return 400
+}
+
 func (o *UpdateUserBadRequest) Error() string {
 	return fmt.Sprintf("[PATCH /users/{user_name}][%d] updateUserBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *UpdateUserBadRequest) String() string {
+	return fmt.Sprintf("[PATCH /users/{user_name}][%d] updateUserBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *UpdateUserBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -154,7 +227,8 @@ func NewUpdateUserNotFound() *UpdateUserNotFound {
 	return &UpdateUserNotFound{}
 }
 
-/* UpdateUserNotFound describes a response with status code 404, with default header values.
+/*
+UpdateUserNotFound describes a response with status code 404, with default header values.
 
 User not found. (code: `user.not_found`)
 */
@@ -167,9 +241,44 @@ type UpdateUserNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this update user not found response has a 2xx status code
+func (o *UpdateUserNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update user not found response has a 3xx status code
+func (o *UpdateUserNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update user not found response has a 4xx status code
+func (o *UpdateUserNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update user not found response has a 5xx status code
+func (o *UpdateUserNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update user not found response a status code equal to that given
+func (o *UpdateUserNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the update user not found response
+func (o *UpdateUserNotFound) Code() int {
+	return 404
+}
+
 func (o *UpdateUserNotFound) Error() string {
 	return fmt.Sprintf("[PATCH /users/{user_name}][%d] updateUserNotFound  %+v", 404, o.Payload)
 }
+
+func (o *UpdateUserNotFound) String() string {
+	return fmt.Sprintf("[PATCH /users/{user_name}][%d] updateUserNotFound  %+v", 404, o.Payload)
+}
+
 func (o *UpdateUserNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -198,7 +307,8 @@ func NewUpdateUserRetryWith() *UpdateUserRetryWith {
 	return &UpdateUserRetryWith{}
 }
 
-/* UpdateUserRetryWith describes a response with status code 449, with default header values.
+/*
+UpdateUserRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
@@ -211,9 +321,44 @@ type UpdateUserRetryWith struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this update user retry with response has a 2xx status code
+func (o *UpdateUserRetryWith) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update user retry with response has a 3xx status code
+func (o *UpdateUserRetryWith) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update user retry with response has a 4xx status code
+func (o *UpdateUserRetryWith) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update user retry with response has a 5xx status code
+func (o *UpdateUserRetryWith) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update user retry with response a status code equal to that given
+func (o *UpdateUserRetryWith) IsCode(code int) bool {
+	return code == 449
+}
+
+// Code gets the status code for the update user retry with response
+func (o *UpdateUserRetryWith) Code() int {
+	return 449
+}
+
 func (o *UpdateUserRetryWith) Error() string {
 	return fmt.Sprintf("[PATCH /users/{user_name}][%d] updateUserRetryWith  %+v", 449, o.Payload)
 }
+
+func (o *UpdateUserRetryWith) String() string {
+	return fmt.Sprintf("[PATCH /users/{user_name}][%d] updateUserRetryWith  %+v", 449, o.Payload)
+}
+
 func (o *UpdateUserRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

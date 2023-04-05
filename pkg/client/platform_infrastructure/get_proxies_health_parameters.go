@@ -69,10 +69,12 @@ func NewGetProxiesHealthParamsWithHTTPClient(client *http.Client) *GetProxiesHea
 	}
 }
 
-/* GetProxiesHealthParams contains all the parameters to send to the API endpoint
-   for the get proxies health operation.
+/*
+GetProxiesHealthParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the get proxies health operation.
+
+	Typically these are written to a http.Request.
 */
 type GetProxiesHealthParams struct {
 

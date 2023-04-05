@@ -68,7 +68,8 @@ func NewPutDeploymentResourceProxyRequestsOK() *PutDeploymentResourceProxyReques
 	return &PutDeploymentResourceProxyRequestsOK{}
 }
 
-/* PutDeploymentResourceProxyRequestsOK describes a response with status code 200, with default header values.
+/*
+PutDeploymentResourceProxyRequestsOK describes a response with status code 200, with default header values.
 
 The request has been processed successfully through the proxy.
 */
@@ -76,9 +77,44 @@ type PutDeploymentResourceProxyRequestsOK struct {
 	Payload *models.GenericResponse
 }
 
+// IsSuccess returns true when this put deployment resource proxy requests o k response has a 2xx status code
+func (o *PutDeploymentResourceProxyRequestsOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this put deployment resource proxy requests o k response has a 3xx status code
+func (o *PutDeploymentResourceProxyRequestsOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this put deployment resource proxy requests o k response has a 4xx status code
+func (o *PutDeploymentResourceProxyRequestsOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this put deployment resource proxy requests o k response has a 5xx status code
+func (o *PutDeploymentResourceProxyRequestsOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this put deployment resource proxy requests o k response a status code equal to that given
+func (o *PutDeploymentResourceProxyRequestsOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the put deployment resource proxy requests o k response
+func (o *PutDeploymentResourceProxyRequestsOK) Code() int {
+	return 200
+}
+
 func (o *PutDeploymentResourceProxyRequestsOK) Error() string {
 	return fmt.Sprintf("[PUT /deployments/{deployment_id}/{resource_kind}/{ref_id}/proxy/{proxy_path}][%d] putDeploymentResourceProxyRequestsOK  %+v", 200, o.Payload)
 }
+
+func (o *PutDeploymentResourceProxyRequestsOK) String() string {
+	return fmt.Sprintf("[PUT /deployments/{deployment_id}/{resource_kind}/{ref_id}/proxy/{proxy_path}][%d] putDeploymentResourceProxyRequestsOK  %+v", 200, o.Payload)
+}
+
 func (o *PutDeploymentResourceProxyRequestsOK) GetPayload() *models.GenericResponse {
 	return o.Payload
 }
@@ -100,9 +136,11 @@ func NewPutDeploymentResourceProxyRequestsNotFound() *PutDeploymentResourceProxy
 	return &PutDeploymentResourceProxyRequestsNotFound{}
 }
 
-/* PutDeploymentResourceProxyRequestsNotFound describes a response with status code 404, with default header values.
+/*
+	PutDeploymentResourceProxyRequestsNotFound describes a response with status code 404, with default header values.
 
- * The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+	* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+
 * The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)
 * The Resource specified by {ref_id} cannot be found. (code: `clusters.cluster_not_found`)
 */
@@ -115,9 +153,44 @@ type PutDeploymentResourceProxyRequestsNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this put deployment resource proxy requests not found response has a 2xx status code
+func (o *PutDeploymentResourceProxyRequestsNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this put deployment resource proxy requests not found response has a 3xx status code
+func (o *PutDeploymentResourceProxyRequestsNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this put deployment resource proxy requests not found response has a 4xx status code
+func (o *PutDeploymentResourceProxyRequestsNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this put deployment resource proxy requests not found response has a 5xx status code
+func (o *PutDeploymentResourceProxyRequestsNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this put deployment resource proxy requests not found response a status code equal to that given
+func (o *PutDeploymentResourceProxyRequestsNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the put deployment resource proxy requests not found response
+func (o *PutDeploymentResourceProxyRequestsNotFound) Code() int {
+	return 404
+}
+
 func (o *PutDeploymentResourceProxyRequestsNotFound) Error() string {
 	return fmt.Sprintf("[PUT /deployments/{deployment_id}/{resource_kind}/{ref_id}/proxy/{proxy_path}][%d] putDeploymentResourceProxyRequestsNotFound  %+v", 404, o.Payload)
 }
+
+func (o *PutDeploymentResourceProxyRequestsNotFound) String() string {
+	return fmt.Sprintf("[PUT /deployments/{deployment_id}/{resource_kind}/{ref_id}/proxy/{proxy_path}][%d] putDeploymentResourceProxyRequestsNotFound  %+v", 404, o.Payload)
+}
+
 func (o *PutDeploymentResourceProxyRequestsNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -146,7 +219,8 @@ func NewPutDeploymentResourceProxyRequestsRetryWith() *PutDeploymentResourceProx
 	return &PutDeploymentResourceProxyRequestsRetryWith{}
 }
 
-/* PutDeploymentResourceProxyRequestsRetryWith describes a response with status code 449, with default header values.
+/*
+PutDeploymentResourceProxyRequestsRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
@@ -159,9 +233,44 @@ type PutDeploymentResourceProxyRequestsRetryWith struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this put deployment resource proxy requests retry with response has a 2xx status code
+func (o *PutDeploymentResourceProxyRequestsRetryWith) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this put deployment resource proxy requests retry with response has a 3xx status code
+func (o *PutDeploymentResourceProxyRequestsRetryWith) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this put deployment resource proxy requests retry with response has a 4xx status code
+func (o *PutDeploymentResourceProxyRequestsRetryWith) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this put deployment resource proxy requests retry with response has a 5xx status code
+func (o *PutDeploymentResourceProxyRequestsRetryWith) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this put deployment resource proxy requests retry with response a status code equal to that given
+func (o *PutDeploymentResourceProxyRequestsRetryWith) IsCode(code int) bool {
+	return code == 449
+}
+
+// Code gets the status code for the put deployment resource proxy requests retry with response
+func (o *PutDeploymentResourceProxyRequestsRetryWith) Code() int {
+	return 449
+}
+
 func (o *PutDeploymentResourceProxyRequestsRetryWith) Error() string {
 	return fmt.Sprintf("[PUT /deployments/{deployment_id}/{resource_kind}/{ref_id}/proxy/{proxy_path}][%d] putDeploymentResourceProxyRequestsRetryWith  %+v", 449, o.Payload)
 }
+
+func (o *PutDeploymentResourceProxyRequestsRetryWith) String() string {
+	return fmt.Sprintf("[PUT /deployments/{deployment_id}/{resource_kind}/{ref_id}/proxy/{proxy_path}][%d] putDeploymentResourceProxyRequestsRetryWith  %+v", 449, o.Payload)
+}
+
 func (o *PutDeploymentResourceProxyRequestsRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

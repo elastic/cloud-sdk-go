@@ -152,6 +152,8 @@ func (m *AppSearchInfo) validateElasticsearchCluster(formats strfmt.Registry) er
 		if err := m.ElasticsearchCluster.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("elasticsearch_cluster")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("elasticsearch_cluster")
 			}
 			return err
 		}
@@ -179,6 +181,8 @@ func (m *AppSearchInfo) validateExternalLinks(formats strfmt.Registry) error {
 			if err := m.ExternalLinks[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("external_links" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("external_links" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -219,6 +223,11 @@ func (m *AppSearchInfo) validateLinks(formats strfmt.Registry) error {
 		}
 		if val, ok := m.Links[k]; ok {
 			if err := val.Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("links" + "." + k)
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("links" + "." + k)
+				}
 				return err
 			}
 		}
@@ -237,6 +246,8 @@ func (m *AppSearchInfo) validateMetadata(formats strfmt.Registry) error {
 		if err := m.Metadata.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("metadata")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("metadata")
 			}
 			return err
 		}
@@ -264,6 +275,8 @@ func (m *AppSearchInfo) validatePlanInfo(formats strfmt.Registry) error {
 		if err := m.PlanInfo.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("plan_info")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("plan_info")
 			}
 			return err
 		}
@@ -281,6 +294,8 @@ func (m *AppSearchInfo) validateSettings(formats strfmt.Registry) error {
 		if err := m.Settings.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("settings")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("settings")
 			}
 			return err
 		}
@@ -357,6 +372,8 @@ func (m *AppSearchInfo) validateTopology(formats strfmt.Registry) error {
 		if err := m.Topology.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("topology")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("topology")
 			}
 			return err
 		}
@@ -409,6 +426,8 @@ func (m *AppSearchInfo) contextValidateElasticsearchCluster(ctx context.Context,
 		if err := m.ElasticsearchCluster.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("elasticsearch_cluster")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("elasticsearch_cluster")
 			}
 			return err
 		}
@@ -425,6 +444,8 @@ func (m *AppSearchInfo) contextValidateExternalLinks(ctx context.Context, format
 			if err := m.ExternalLinks[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("external_links" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("external_links" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -456,6 +477,8 @@ func (m *AppSearchInfo) contextValidateMetadata(ctx context.Context, formats str
 		if err := m.Metadata.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("metadata")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("metadata")
 			}
 			return err
 		}
@@ -470,6 +493,8 @@ func (m *AppSearchInfo) contextValidatePlanInfo(ctx context.Context, formats str
 		if err := m.PlanInfo.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("plan_info")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("plan_info")
 			}
 			return err
 		}
@@ -484,6 +509,8 @@ func (m *AppSearchInfo) contextValidateSettings(ctx context.Context, formats str
 		if err := m.Settings.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("settings")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("settings")
 			}
 			return err
 		}
@@ -498,6 +525,8 @@ func (m *AppSearchInfo) contextValidateTopology(ctx context.Context, formats str
 		if err := m.Topology.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("topology")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("topology")
 			}
 			return err
 		}

@@ -69,6 +69,8 @@ func (m *DeploymentDiagnostics) validateCreates(formats strfmt.Registry) error {
 		if err := m.Creates.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("creates")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("creates")
 			}
 			return err
 		}
@@ -86,6 +88,8 @@ func (m *DeploymentDiagnostics) validateUpdates(formats strfmt.Registry) error {
 		if err := m.Updates.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("updates")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("updates")
 			}
 			return err
 		}
@@ -118,6 +122,8 @@ func (m *DeploymentDiagnostics) contextValidateCreates(ctx context.Context, form
 		if err := m.Creates.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("creates")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("creates")
 			}
 			return err
 		}
@@ -132,6 +138,8 @@ func (m *DeploymentDiagnostics) contextValidateUpdates(ctx context.Context, form
 		if err := m.Updates.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("updates")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("updates")
 			}
 			return err
 		}

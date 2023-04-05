@@ -126,6 +126,8 @@ func (m *ElasticsearchClusterSecurityInfo) validateUsers(formats strfmt.Registry
 			if err := m.Users[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("users" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("users" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -151,6 +153,8 @@ func (m *ElasticsearchClusterSecurityInfo) validateUsersRoles(formats strfmt.Reg
 			if err := m.UsersRoles[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("users_roles" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("users_roles" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -196,6 +200,8 @@ func (m *ElasticsearchClusterSecurityInfo) contextValidateUsers(ctx context.Cont
 			if err := m.Users[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("users" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("users" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -214,6 +220,8 @@ func (m *ElasticsearchClusterSecurityInfo) contextValidateUsersRoles(ctx context
 			if err := m.UsersRoles[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("users_roles" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("users_roles" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

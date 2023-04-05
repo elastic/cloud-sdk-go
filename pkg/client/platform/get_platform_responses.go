@@ -56,7 +56,8 @@ func NewGetPlatformOK() *GetPlatformOK {
 	return &GetPlatformOK{}
 }
 
-/* GetPlatformOK describes a response with status code 200, with default header values.
+/*
+GetPlatformOK describes a response with status code 200, with default header values.
 
 The platform information is retrieved.
 */
@@ -64,9 +65,44 @@ type GetPlatformOK struct {
 	Payload *models.PlatformInfo
 }
 
+// IsSuccess returns true when this get platform o k response has a 2xx status code
+func (o *GetPlatformOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get platform o k response has a 3xx status code
+func (o *GetPlatformOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get platform o k response has a 4xx status code
+func (o *GetPlatformOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get platform o k response has a 5xx status code
+func (o *GetPlatformOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get platform o k response a status code equal to that given
+func (o *GetPlatformOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get platform o k response
+func (o *GetPlatformOK) Code() int {
+	return 200
+}
+
 func (o *GetPlatformOK) Error() string {
 	return fmt.Sprintf("[GET /platform][%d] getPlatformOK  %+v", 200, o.Payload)
 }
+
+func (o *GetPlatformOK) String() string {
+	return fmt.Sprintf("[GET /platform][%d] getPlatformOK  %+v", 200, o.Payload)
+}
+
 func (o *GetPlatformOK) GetPayload() *models.PlatformInfo {
 	return o.Payload
 }

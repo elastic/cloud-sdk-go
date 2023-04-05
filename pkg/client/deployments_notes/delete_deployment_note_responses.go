@@ -68,7 +68,8 @@ func NewDeleteDeploymentNoteOK() *DeleteDeploymentNoteOK {
 	return &DeleteDeploymentNoteOK{}
 }
 
-/* DeleteDeploymentNoteOK describes a response with status code 200, with default header values.
+/*
+DeleteDeploymentNoteOK describes a response with status code 200, with default header values.
 
 List of deployment notes after {note_id} has been deleted
 */
@@ -89,9 +90,44 @@ type DeleteDeploymentNoteOK struct {
 	Payload *models.Notes
 }
 
+// IsSuccess returns true when this delete deployment note o k response has a 2xx status code
+func (o *DeleteDeploymentNoteOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this delete deployment note o k response has a 3xx status code
+func (o *DeleteDeploymentNoteOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete deployment note o k response has a 4xx status code
+func (o *DeleteDeploymentNoteOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this delete deployment note o k response has a 5xx status code
+func (o *DeleteDeploymentNoteOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete deployment note o k response a status code equal to that given
+func (o *DeleteDeploymentNoteOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the delete deployment note o k response
+func (o *DeleteDeploymentNoteOK) Code() int {
+	return 200
+}
+
 func (o *DeleteDeploymentNoteOK) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/{deployment_id}/notes/{note_id}][%d] deleteDeploymentNoteOK  %+v", 200, o.Payload)
 }
+
+func (o *DeleteDeploymentNoteOK) String() string {
+	return fmt.Sprintf("[DELETE /deployments/{deployment_id}/notes/{note_id}][%d] deleteDeploymentNoteOK  %+v", 200, o.Payload)
+}
+
 func (o *DeleteDeploymentNoteOK) GetPayload() *models.Notes {
 	return o.Payload
 }
@@ -134,9 +170,11 @@ func NewDeleteDeploymentNoteNotFound() *DeleteDeploymentNoteNotFound {
 	return &DeleteDeploymentNoteNotFound{}
 }
 
-/* DeleteDeploymentNoteNotFound describes a response with status code 404, with default header values.
+/*
+	DeleteDeploymentNoteNotFound describes a response with status code 404, with default header values.
 
- * "The deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+	* "The deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+
 * The note specified by {note_id} cannot be found. (code: `notes.note_not_found`)
 */
 type DeleteDeploymentNoteNotFound struct {
@@ -148,9 +186,44 @@ type DeleteDeploymentNoteNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete deployment note not found response has a 2xx status code
+func (o *DeleteDeploymentNoteNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete deployment note not found response has a 3xx status code
+func (o *DeleteDeploymentNoteNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete deployment note not found response has a 4xx status code
+func (o *DeleteDeploymentNoteNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete deployment note not found response has a 5xx status code
+func (o *DeleteDeploymentNoteNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete deployment note not found response a status code equal to that given
+func (o *DeleteDeploymentNoteNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the delete deployment note not found response
+func (o *DeleteDeploymentNoteNotFound) Code() int {
+	return 404
+}
+
 func (o *DeleteDeploymentNoteNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/{deployment_id}/notes/{note_id}][%d] deleteDeploymentNoteNotFound  %+v", 404, o.Payload)
 }
+
+func (o *DeleteDeploymentNoteNotFound) String() string {
+	return fmt.Sprintf("[DELETE /deployments/{deployment_id}/notes/{note_id}][%d] deleteDeploymentNoteNotFound  %+v", 404, o.Payload)
+}
+
 func (o *DeleteDeploymentNoteNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -179,7 +252,8 @@ func NewDeleteDeploymentNoteRetryWith() *DeleteDeploymentNoteRetryWith {
 	return &DeleteDeploymentNoteRetryWith{}
 }
 
-/* DeleteDeploymentNoteRetryWith describes a response with status code 449, with default header values.
+/*
+DeleteDeploymentNoteRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
@@ -192,9 +266,44 @@ type DeleteDeploymentNoteRetryWith struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete deployment note retry with response has a 2xx status code
+func (o *DeleteDeploymentNoteRetryWith) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete deployment note retry with response has a 3xx status code
+func (o *DeleteDeploymentNoteRetryWith) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete deployment note retry with response has a 4xx status code
+func (o *DeleteDeploymentNoteRetryWith) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete deployment note retry with response has a 5xx status code
+func (o *DeleteDeploymentNoteRetryWith) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete deployment note retry with response a status code equal to that given
+func (o *DeleteDeploymentNoteRetryWith) IsCode(code int) bool {
+	return code == 449
+}
+
+// Code gets the status code for the delete deployment note retry with response
+func (o *DeleteDeploymentNoteRetryWith) Code() int {
+	return 449
+}
+
 func (o *DeleteDeploymentNoteRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/{deployment_id}/notes/{note_id}][%d] deleteDeploymentNoteRetryWith  %+v", 449, o.Payload)
 }
+
+func (o *DeleteDeploymentNoteRetryWith) String() string {
+	return fmt.Sprintf("[DELETE /deployments/{deployment_id}/notes/{note_id}][%d] deleteDeploymentNoteRetryWith  %+v", 449, o.Payload)
+}
+
 func (o *DeleteDeploymentNoteRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

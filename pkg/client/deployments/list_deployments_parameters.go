@@ -69,10 +69,12 @@ func NewListDeploymentsParamsWithHTTPClient(client *http.Client) *ListDeployment
 	}
 }
 
-/* ListDeploymentsParams contains all the parameters to send to the API endpoint
-   for the list deployments operation.
+/*
+ListDeploymentsParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the list deployments operation.
+
+	Typically these are written to a http.Request.
 */
 type ListDeploymentsParams struct {
 	timeout    time.Duration

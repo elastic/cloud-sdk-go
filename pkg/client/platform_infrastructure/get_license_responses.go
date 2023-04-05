@@ -62,7 +62,8 @@ func NewGetLicenseOK() *GetLicenseOK {
 	return &GetLicenseOK{}
 }
 
-/* GetLicenseOK describes a response with status code 200, with default header values.
+/*
+GetLicenseOK describes a response with status code 200, with default header values.
 
 The information for the license.
 */
@@ -70,9 +71,44 @@ type GetLicenseOK struct {
 	Payload *models.LicenseObject
 }
 
+// IsSuccess returns true when this get license o k response has a 2xx status code
+func (o *GetLicenseOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get license o k response has a 3xx status code
+func (o *GetLicenseOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get license o k response has a 4xx status code
+func (o *GetLicenseOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get license o k response has a 5xx status code
+func (o *GetLicenseOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get license o k response a status code equal to that given
+func (o *GetLicenseOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get license o k response
+func (o *GetLicenseOK) Code() int {
+	return 200
+}
+
 func (o *GetLicenseOK) Error() string {
 	return fmt.Sprintf("[GET /platform/license][%d] getLicenseOK  %+v", 200, o.Payload)
 }
+
+func (o *GetLicenseOK) String() string {
+	return fmt.Sprintf("[GET /platform/license][%d] getLicenseOK  %+v", 200, o.Payload)
+}
+
 func (o *GetLicenseOK) GetPayload() *models.LicenseObject {
 	return o.Payload
 }
@@ -94,7 +130,8 @@ func NewGetLicenseNotFound() *GetLicenseNotFound {
 	return &GetLicenseNotFound{}
 }
 
-/* GetLicenseNotFound describes a response with status code 404, with default header values.
+/*
+GetLicenseNotFound describes a response with status code 404, with default header values.
 
 The license cannot be found. (code: `license.license_not_found`)
 */
@@ -107,9 +144,44 @@ type GetLicenseNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get license not found response has a 2xx status code
+func (o *GetLicenseNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get license not found response has a 3xx status code
+func (o *GetLicenseNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get license not found response has a 4xx status code
+func (o *GetLicenseNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get license not found response has a 5xx status code
+func (o *GetLicenseNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get license not found response a status code equal to that given
+func (o *GetLicenseNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the get license not found response
+func (o *GetLicenseNotFound) Code() int {
+	return 404
+}
+
 func (o *GetLicenseNotFound) Error() string {
 	return fmt.Sprintf("[GET /platform/license][%d] getLicenseNotFound  %+v", 404, o.Payload)
 }
+
+func (o *GetLicenseNotFound) String() string {
+	return fmt.Sprintf("[GET /platform/license][%d] getLicenseNotFound  %+v", 404, o.Payload)
+}
+
 func (o *GetLicenseNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

@@ -62,7 +62,8 @@ func NewSetAllocatorLoggingSettingsOK() *SetAllocatorLoggingSettingsOK {
 	return &SetAllocatorLoggingSettingsOK{}
 }
 
-/* SetAllocatorLoggingSettingsOK describes a response with status code 200, with default header values.
+/*
+SetAllocatorLoggingSettingsOK describes a response with status code 200, with default header values.
 
 The updated logging settings for the allocator instance
 */
@@ -83,9 +84,44 @@ type SetAllocatorLoggingSettingsOK struct {
 	Payload *models.LoggingSettings
 }
 
+// IsSuccess returns true when this set allocator logging settings o k response has a 2xx status code
+func (o *SetAllocatorLoggingSettingsOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this set allocator logging settings o k response has a 3xx status code
+func (o *SetAllocatorLoggingSettingsOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set allocator logging settings o k response has a 4xx status code
+func (o *SetAllocatorLoggingSettingsOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this set allocator logging settings o k response has a 5xx status code
+func (o *SetAllocatorLoggingSettingsOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set allocator logging settings o k response a status code equal to that given
+func (o *SetAllocatorLoggingSettingsOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the set allocator logging settings o k response
+func (o *SetAllocatorLoggingSettingsOK) Code() int {
+	return 200
+}
+
 func (o *SetAllocatorLoggingSettingsOK) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/allocators/{allocator_id}/logging_settings][%d] setAllocatorLoggingSettingsOK  %+v", 200, o.Payload)
 }
+
+func (o *SetAllocatorLoggingSettingsOK) String() string {
+	return fmt.Sprintf("[PUT /platform/infrastructure/allocators/{allocator_id}/logging_settings][%d] setAllocatorLoggingSettingsOK  %+v", 200, o.Payload)
+}
+
 func (o *SetAllocatorLoggingSettingsOK) GetPayload() *models.LoggingSettings {
 	return o.Payload
 }
@@ -128,7 +164,8 @@ func NewSetAllocatorLoggingSettingsNotFound() *SetAllocatorLoggingSettingsNotFou
 	return &SetAllocatorLoggingSettingsNotFound{}
 }
 
-/* SetAllocatorLoggingSettingsNotFound describes a response with status code 404, with default header values.
+/*
+SetAllocatorLoggingSettingsNotFound describes a response with status code 404, with default header values.
 
 The logging settings for this allocator were not found. (code: `allocators.logging_settings.not_found`)
 */
@@ -141,9 +178,44 @@ type SetAllocatorLoggingSettingsNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this set allocator logging settings not found response has a 2xx status code
+func (o *SetAllocatorLoggingSettingsNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this set allocator logging settings not found response has a 3xx status code
+func (o *SetAllocatorLoggingSettingsNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set allocator logging settings not found response has a 4xx status code
+func (o *SetAllocatorLoggingSettingsNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this set allocator logging settings not found response has a 5xx status code
+func (o *SetAllocatorLoggingSettingsNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set allocator logging settings not found response a status code equal to that given
+func (o *SetAllocatorLoggingSettingsNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the set allocator logging settings not found response
+func (o *SetAllocatorLoggingSettingsNotFound) Code() int {
+	return 404
+}
+
 func (o *SetAllocatorLoggingSettingsNotFound) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/allocators/{allocator_id}/logging_settings][%d] setAllocatorLoggingSettingsNotFound  %+v", 404, o.Payload)
 }
+
+func (o *SetAllocatorLoggingSettingsNotFound) String() string {
+	return fmt.Sprintf("[PUT /platform/infrastructure/allocators/{allocator_id}/logging_settings][%d] setAllocatorLoggingSettingsNotFound  %+v", 404, o.Payload)
+}
+
 func (o *SetAllocatorLoggingSettingsNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

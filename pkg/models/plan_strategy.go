@@ -71,6 +71,8 @@ func (m *PlanStrategy) validateRolling(formats strfmt.Registry) error {
 		if err := m.Rolling.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("rolling")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("rolling")
 			}
 			return err
 		}
@@ -99,6 +101,8 @@ func (m *PlanStrategy) contextValidateRolling(ctx context.Context, formats strfm
 		if err := m.Rolling.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("rolling")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("rolling")
 			}
 			return err
 		}

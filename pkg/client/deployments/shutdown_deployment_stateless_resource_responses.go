@@ -80,7 +80,8 @@ func NewShutdownDeploymentStatelessResourceOK() *ShutdownDeploymentStatelessReso
 	return &ShutdownDeploymentStatelessResourceOK{}
 }
 
-/* ShutdownDeploymentStatelessResourceOK describes a response with status code 200, with default header values.
+/*
+ShutdownDeploymentStatelessResourceOK describes a response with status code 200, with default header values.
 
 Standard response
 */
@@ -88,9 +89,44 @@ type ShutdownDeploymentStatelessResourceOK struct {
 	Payload *models.DeploymentResourceCommandResponse
 }
 
+// IsSuccess returns true when this shutdown deployment stateless resource o k response has a 2xx status code
+func (o *ShutdownDeploymentStatelessResourceOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this shutdown deployment stateless resource o k response has a 3xx status code
+func (o *ShutdownDeploymentStatelessResourceOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this shutdown deployment stateless resource o k response has a 4xx status code
+func (o *ShutdownDeploymentStatelessResourceOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this shutdown deployment stateless resource o k response has a 5xx status code
+func (o *ShutdownDeploymentStatelessResourceOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this shutdown deployment stateless resource o k response a status code equal to that given
+func (o *ShutdownDeploymentStatelessResourceOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the shutdown deployment stateless resource o k response
+func (o *ShutdownDeploymentStatelessResourceOK) Code() int {
+	return 200
+}
+
 func (o *ShutdownDeploymentStatelessResourceOK) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_shutdown][%d] shutdownDeploymentStatelessResourceOK  %+v", 200, o.Payload)
 }
+
+func (o *ShutdownDeploymentStatelessResourceOK) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_shutdown][%d] shutdownDeploymentStatelessResourceOK  %+v", 200, o.Payload)
+}
+
 func (o *ShutdownDeploymentStatelessResourceOK) GetPayload() *models.DeploymentResourceCommandResponse {
 	return o.Payload
 }
@@ -112,7 +148,8 @@ func NewShutdownDeploymentStatelessResourceBadRequest() *ShutdownDeploymentState
 	return &ShutdownDeploymentStatelessResourceBadRequest{}
 }
 
-/* ShutdownDeploymentStatelessResourceBadRequest describes a response with status code 400, with default header values.
+/*
+ShutdownDeploymentStatelessResourceBadRequest describes a response with status code 400, with default header values.
 
 Parameter is restricted and can only be set by a Platform administrator. (code: `deployments.restricted_parameter`)
 */
@@ -125,9 +162,44 @@ type ShutdownDeploymentStatelessResourceBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this shutdown deployment stateless resource bad request response has a 2xx status code
+func (o *ShutdownDeploymentStatelessResourceBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this shutdown deployment stateless resource bad request response has a 3xx status code
+func (o *ShutdownDeploymentStatelessResourceBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this shutdown deployment stateless resource bad request response has a 4xx status code
+func (o *ShutdownDeploymentStatelessResourceBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this shutdown deployment stateless resource bad request response has a 5xx status code
+func (o *ShutdownDeploymentStatelessResourceBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this shutdown deployment stateless resource bad request response a status code equal to that given
+func (o *ShutdownDeploymentStatelessResourceBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the shutdown deployment stateless resource bad request response
+func (o *ShutdownDeploymentStatelessResourceBadRequest) Code() int {
+	return 400
+}
+
 func (o *ShutdownDeploymentStatelessResourceBadRequest) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_shutdown][%d] shutdownDeploymentStatelessResourceBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *ShutdownDeploymentStatelessResourceBadRequest) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_shutdown][%d] shutdownDeploymentStatelessResourceBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *ShutdownDeploymentStatelessResourceBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -156,9 +228,11 @@ func NewShutdownDeploymentStatelessResourceNotFound() *ShutdownDeploymentStatele
 	return &ShutdownDeploymentStatelessResourceNotFound{}
 }
 
-/* ShutdownDeploymentStatelessResourceNotFound describes a response with status code 404, with default header values.
+/*
+	ShutdownDeploymentStatelessResourceNotFound describes a response with status code 404, with default header values.
 
- * The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+	* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+
 * The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)
 */
 type ShutdownDeploymentStatelessResourceNotFound struct {
@@ -170,9 +244,44 @@ type ShutdownDeploymentStatelessResourceNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this shutdown deployment stateless resource not found response has a 2xx status code
+func (o *ShutdownDeploymentStatelessResourceNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this shutdown deployment stateless resource not found response has a 3xx status code
+func (o *ShutdownDeploymentStatelessResourceNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this shutdown deployment stateless resource not found response has a 4xx status code
+func (o *ShutdownDeploymentStatelessResourceNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this shutdown deployment stateless resource not found response has a 5xx status code
+func (o *ShutdownDeploymentStatelessResourceNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this shutdown deployment stateless resource not found response a status code equal to that given
+func (o *ShutdownDeploymentStatelessResourceNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the shutdown deployment stateless resource not found response
+func (o *ShutdownDeploymentStatelessResourceNotFound) Code() int {
+	return 404
+}
+
 func (o *ShutdownDeploymentStatelessResourceNotFound) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_shutdown][%d] shutdownDeploymentStatelessResourceNotFound  %+v", 404, o.Payload)
 }
+
+func (o *ShutdownDeploymentStatelessResourceNotFound) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_shutdown][%d] shutdownDeploymentStatelessResourceNotFound  %+v", 404, o.Payload)
+}
+
 func (o *ShutdownDeploymentStatelessResourceNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -201,7 +310,8 @@ func NewShutdownDeploymentStatelessResourceRetryWith() *ShutdownDeploymentStatel
 	return &ShutdownDeploymentStatelessResourceRetryWith{}
 }
 
-/* ShutdownDeploymentStatelessResourceRetryWith describes a response with status code 449, with default header values.
+/*
+ShutdownDeploymentStatelessResourceRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
@@ -214,9 +324,44 @@ type ShutdownDeploymentStatelessResourceRetryWith struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this shutdown deployment stateless resource retry with response has a 2xx status code
+func (o *ShutdownDeploymentStatelessResourceRetryWith) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this shutdown deployment stateless resource retry with response has a 3xx status code
+func (o *ShutdownDeploymentStatelessResourceRetryWith) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this shutdown deployment stateless resource retry with response has a 4xx status code
+func (o *ShutdownDeploymentStatelessResourceRetryWith) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this shutdown deployment stateless resource retry with response has a 5xx status code
+func (o *ShutdownDeploymentStatelessResourceRetryWith) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this shutdown deployment stateless resource retry with response a status code equal to that given
+func (o *ShutdownDeploymentStatelessResourceRetryWith) IsCode(code int) bool {
+	return code == 449
+}
+
+// Code gets the status code for the shutdown deployment stateless resource retry with response
+func (o *ShutdownDeploymentStatelessResourceRetryWith) Code() int {
+	return 449
+}
+
 func (o *ShutdownDeploymentStatelessResourceRetryWith) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_shutdown][%d] shutdownDeploymentStatelessResourceRetryWith  %+v", 449, o.Payload)
 }
+
+func (o *ShutdownDeploymentStatelessResourceRetryWith) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_shutdown][%d] shutdownDeploymentStatelessResourceRetryWith  %+v", 449, o.Payload)
+}
+
 func (o *ShutdownDeploymentStatelessResourceRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -245,7 +390,8 @@ func NewShutdownDeploymentStatelessResourceInternalServerError() *ShutdownDeploy
 	return &ShutdownDeploymentStatelessResourceInternalServerError{}
 }
 
-/* ShutdownDeploymentStatelessResourceInternalServerError describes a response with status code 500, with default header values.
+/*
+ShutdownDeploymentStatelessResourceInternalServerError describes a response with status code 500, with default header values.
 
 We have failed you. (code: `deployments.deployment_resource_no_longer_exists`)
 */
@@ -258,9 +404,44 @@ type ShutdownDeploymentStatelessResourceInternalServerError struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this shutdown deployment stateless resource internal server error response has a 2xx status code
+func (o *ShutdownDeploymentStatelessResourceInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this shutdown deployment stateless resource internal server error response has a 3xx status code
+func (o *ShutdownDeploymentStatelessResourceInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this shutdown deployment stateless resource internal server error response has a 4xx status code
+func (o *ShutdownDeploymentStatelessResourceInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this shutdown deployment stateless resource internal server error response has a 5xx status code
+func (o *ShutdownDeploymentStatelessResourceInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this shutdown deployment stateless resource internal server error response a status code equal to that given
+func (o *ShutdownDeploymentStatelessResourceInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
+// Code gets the status code for the shutdown deployment stateless resource internal server error response
+func (o *ShutdownDeploymentStatelessResourceInternalServerError) Code() int {
+	return 500
+}
+
 func (o *ShutdownDeploymentStatelessResourceInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_shutdown][%d] shutdownDeploymentStatelessResourceInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ShutdownDeploymentStatelessResourceInternalServerError) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_shutdown][%d] shutdownDeploymentStatelessResourceInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ShutdownDeploymentStatelessResourceInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

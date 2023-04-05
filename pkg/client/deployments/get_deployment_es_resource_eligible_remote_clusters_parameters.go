@@ -71,10 +71,12 @@ func NewGetDeploymentEsResourceEligibleRemoteClustersParamsWithHTTPClient(client
 	}
 }
 
-/* GetDeploymentEsResourceEligibleRemoteClustersParams contains all the parameters to send to the API endpoint
-   for the get deployment es resource eligible remote clusters operation.
+/*
+GetDeploymentEsResourceEligibleRemoteClustersParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the get deployment es resource eligible remote clusters operation.
+
+	Typically these are written to a http.Request.
 */
 type GetDeploymentEsResourceEligibleRemoteClustersParams struct {
 

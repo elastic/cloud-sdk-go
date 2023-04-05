@@ -74,7 +74,8 @@ func NewDeleteSamlConfigurationOK() *DeleteSamlConfigurationOK {
 	return &DeleteSamlConfigurationOK{}
 }
 
-/* DeleteSamlConfigurationOK describes a response with status code 200, with default header values.
+/*
+DeleteSamlConfigurationOK describes a response with status code 200, with default header values.
 
 The SAML configuration was successfully deleted
 */
@@ -82,9 +83,44 @@ type DeleteSamlConfigurationOK struct {
 	Payload models.EmptyResponse
 }
 
+// IsSuccess returns true when this delete saml configuration o k response has a 2xx status code
+func (o *DeleteSamlConfigurationOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this delete saml configuration o k response has a 3xx status code
+func (o *DeleteSamlConfigurationOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete saml configuration o k response has a 4xx status code
+func (o *DeleteSamlConfigurationOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this delete saml configuration o k response has a 5xx status code
+func (o *DeleteSamlConfigurationOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete saml configuration o k response a status code equal to that given
+func (o *DeleteSamlConfigurationOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the delete saml configuration o k response
+func (o *DeleteSamlConfigurationOK) Code() int {
+	return 200
+}
+
 func (o *DeleteSamlConfigurationOK) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/security/realms/saml/{realm_id}][%d] deleteSamlConfigurationOK  %+v", 200, o.Payload)
 }
+
+func (o *DeleteSamlConfigurationOK) String() string {
+	return fmt.Sprintf("[DELETE /platform/configuration/security/realms/saml/{realm_id}][%d] deleteSamlConfigurationOK  %+v", 200, o.Payload)
+}
+
 func (o *DeleteSamlConfigurationOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -104,7 +140,8 @@ func NewDeleteSamlConfigurationNotFound() *DeleteSamlConfigurationNotFound {
 	return &DeleteSamlConfigurationNotFound{}
 }
 
-/* DeleteSamlConfigurationNotFound describes a response with status code 404, with default header values.
+/*
+DeleteSamlConfigurationNotFound describes a response with status code 404, with default header values.
 
 The realm specified by {realm_id} cannot be found. (code: `security_realm.not_found`)
 */
@@ -117,9 +154,44 @@ type DeleteSamlConfigurationNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete saml configuration not found response has a 2xx status code
+func (o *DeleteSamlConfigurationNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete saml configuration not found response has a 3xx status code
+func (o *DeleteSamlConfigurationNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete saml configuration not found response has a 4xx status code
+func (o *DeleteSamlConfigurationNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete saml configuration not found response has a 5xx status code
+func (o *DeleteSamlConfigurationNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete saml configuration not found response a status code equal to that given
+func (o *DeleteSamlConfigurationNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the delete saml configuration not found response
+func (o *DeleteSamlConfigurationNotFound) Code() int {
+	return 404
+}
+
 func (o *DeleteSamlConfigurationNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/security/realms/saml/{realm_id}][%d] deleteSamlConfigurationNotFound  %+v", 404, o.Payload)
 }
+
+func (o *DeleteSamlConfigurationNotFound) String() string {
+	return fmt.Sprintf("[DELETE /platform/configuration/security/realms/saml/{realm_id}][%d] deleteSamlConfigurationNotFound  %+v", 404, o.Payload)
+}
+
 func (o *DeleteSamlConfigurationNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -148,7 +220,8 @@ func NewDeleteSamlConfigurationConflict() *DeleteSamlConfigurationConflict {
 	return &DeleteSamlConfigurationConflict{}
 }
 
-/* DeleteSamlConfigurationConflict describes a response with status code 409, with default header values.
+/*
+DeleteSamlConfigurationConflict describes a response with status code 409, with default header values.
 
 There is a version conflict. (code: `security_realm.version_conflict`)
 */
@@ -161,9 +234,44 @@ type DeleteSamlConfigurationConflict struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete saml configuration conflict response has a 2xx status code
+func (o *DeleteSamlConfigurationConflict) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete saml configuration conflict response has a 3xx status code
+func (o *DeleteSamlConfigurationConflict) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete saml configuration conflict response has a 4xx status code
+func (o *DeleteSamlConfigurationConflict) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete saml configuration conflict response has a 5xx status code
+func (o *DeleteSamlConfigurationConflict) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete saml configuration conflict response a status code equal to that given
+func (o *DeleteSamlConfigurationConflict) IsCode(code int) bool {
+	return code == 409
+}
+
+// Code gets the status code for the delete saml configuration conflict response
+func (o *DeleteSamlConfigurationConflict) Code() int {
+	return 409
+}
+
 func (o *DeleteSamlConfigurationConflict) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/security/realms/saml/{realm_id}][%d] deleteSamlConfigurationConflict  %+v", 409, o.Payload)
 }
+
+func (o *DeleteSamlConfigurationConflict) String() string {
+	return fmt.Sprintf("[DELETE /platform/configuration/security/realms/saml/{realm_id}][%d] deleteSamlConfigurationConflict  %+v", 409, o.Payload)
+}
+
 func (o *DeleteSamlConfigurationConflict) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -192,7 +300,8 @@ func NewDeleteSamlConfigurationRetryWith() *DeleteSamlConfigurationRetryWith {
 	return &DeleteSamlConfigurationRetryWith{}
 }
 
-/* DeleteSamlConfigurationRetryWith describes a response with status code 449, with default header values.
+/*
+DeleteSamlConfigurationRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
@@ -205,9 +314,44 @@ type DeleteSamlConfigurationRetryWith struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete saml configuration retry with response has a 2xx status code
+func (o *DeleteSamlConfigurationRetryWith) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete saml configuration retry with response has a 3xx status code
+func (o *DeleteSamlConfigurationRetryWith) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete saml configuration retry with response has a 4xx status code
+func (o *DeleteSamlConfigurationRetryWith) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete saml configuration retry with response has a 5xx status code
+func (o *DeleteSamlConfigurationRetryWith) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete saml configuration retry with response a status code equal to that given
+func (o *DeleteSamlConfigurationRetryWith) IsCode(code int) bool {
+	return code == 449
+}
+
+// Code gets the status code for the delete saml configuration retry with response
+func (o *DeleteSamlConfigurationRetryWith) Code() int {
+	return 449
+}
+
 func (o *DeleteSamlConfigurationRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/security/realms/saml/{realm_id}][%d] deleteSamlConfigurationRetryWith  %+v", 449, o.Payload)
 }
+
+func (o *DeleteSamlConfigurationRetryWith) String() string {
+	return fmt.Sprintf("[DELETE /platform/configuration/security/realms/saml/{realm_id}][%d] deleteSamlConfigurationRetryWith  %+v", 449, o.Payload)
+}
+
 func (o *DeleteSamlConfigurationRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

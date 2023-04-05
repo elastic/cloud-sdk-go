@@ -70,10 +70,12 @@ func NewGetTrustRelationshipParamsWithHTTPClient(client *http.Client) *GetTrustR
 	}
 }
 
-/* GetTrustRelationshipParams contains all the parameters to send to the API endpoint
-   for the get trust relationship operation.
+/*
+GetTrustRelationshipParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the get trust relationship operation.
+
+	Typically these are written to a http.Request.
 */
 type GetTrustRelationshipParams struct {
 

@@ -62,6 +62,8 @@ func (m *ClusterMetadataResourcesSettings) validateCPU(formats strfmt.Registry) 
 		if err := m.CPU.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("cpu")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("cpu")
 			}
 			return err
 		}
@@ -90,6 +92,8 @@ func (m *ClusterMetadataResourcesSettings) contextValidateCPU(ctx context.Contex
 		if err := m.CPU.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("cpu")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("cpu")
 			}
 			return err
 		}

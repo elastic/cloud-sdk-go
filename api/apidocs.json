@@ -2379,6 +2379,151 @@
         }
       }
     },
+    "/deployments/traffic-filter/link-ids" : {
+      "get" : {
+        "tags" : [ "DeploymentsTrafficFilter" ],
+        "summary" : "List traffic filter claimed link id",
+        "description" : "List all of the traffic filter claimed link id.",
+        "operationId" : "get-traffic-filter-claimed-link-ids",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "region",
+          "in" : "query",
+          "description" : "If provided limits the claimed id to that region only.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "organization_id",
+          "in" : "query",
+          "description" : "Retrieves a list of resources that are associated to the specified organization ID. It only takes effect if the user is an admin.",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The collection of traffic filter claimed link id",
+            "schema" : {
+              "$ref" : "#/definitions/TrafficFilterClaimedLinkIds"
+            }
+          },
+          "500" : {
+            "description" : "Error fetching traffic filter claimed link ids. (code: `traffic_filter_claimed_link_id.request_execution_failed`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "traffic_filter_claimed_link_id.request_execution_failed" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "x-doc" : {
+          "tag" : "Deployments - Traffic Filter Claimed Link Id"
+        }
+      }
+    },
+    "/deployments/traffic-filter/link-ids/_claim" : {
+      "post" : {
+        "tags" : [ "DeploymentsTrafficFilter" ],
+        "summary" : "Claim a link id",
+        "description" : "Claim the ownership of a link id.",
+        "operationId" : "claim-traffic-filter-link-id",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "The specification for traffic filter claimed link id.",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/TrafficFilterClaimedLinkIdRequest"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "The ruleset definition is valid and the creation has started.",
+            "schema" : {
+              "$ref" : "#/definitions/TrafficFilterClaimedLinkIdInfo"
+            }
+          },
+          "500" : {
+            "description" : "Error creating the traffic filter ruleset. (code: `traffic_filter_claimed_link_id.request_execution_failed`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "traffic_filter_claimed_link_id.request_execution_failed" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "x-doc" : {
+          "tag" : "Deployments - Traffic Filter Claimed Link Id"
+        }
+      }
+    },
+    "/deployments/traffic-filter/link-ids/_unclaim" : {
+      "post" : {
+        "tags" : [ "DeploymentsTrafficFilter" ],
+        "summary" : "Unclaims a link id",
+        "description" : "Unclaims the ownership of a link id.",
+        "operationId" : "unclaim-traffic-filter-link-id",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "The specification for traffic filter claimed link id.",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/TrafficFilterClaimedLinkIdRequest"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The claimed link id was successfully deleted.",
+            "schema" : {
+              "$ref" : "#/definitions/EmptyResponse"
+            }
+          },
+          "400" : {
+            "description" : "Error validating the request. (code: `traffic_filter_claimed_link_id.invalid_input`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "traffic_filter_claimed_link_id.invalid_input" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          },
+          "500" : {
+            "description" : "Error deleting the traffic filter claimed link id. (code: `traffic_filter_claimed_link_id.request_execution_failed`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "traffic_filter_claimed_link_id.request_execution_failed" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
+            }
+          }
+        },
+        "x-doc" : {
+          "tag" : "Deployments - Traffic Filter Claimed Link Id"
+        }
+      }
+    },
     "/deployments/traffic-filter/rulesets" : {
       "get" : {
         "tags" : [ "DeploymentsTrafficFilter" ],
@@ -4524,6 +4669,13 @@
           "type" : "boolean",
           "default" : false
         }, {
+          "name" : "force_move",
+          "in" : "query",
+          "description" : "When `true`, moves instance data at file-system level (not via Elasticsearch), and re-creates instances on target allocator(s).",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
           "name" : "validate_only",
           "in" : "query",
           "description" : "When `true`, validates the move request, then returns the calculated plan without applying the plan.",
@@ -6230,7 +6382,7 @@
       "put" : {
         "tags" : [ "Deployments" ],
         "summary" : "Set size overrides",
-        "description" : "Applies size overrides for all of the instances belonging to the given resource.",
+        "description" : "Applies size overrides for all of the instances belonging to the given resource. Instance size overrides will be reset with the next plan change.",
         "operationId" : "set-all-instances-settings-overrides",
         "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
@@ -6743,7 +6895,7 @@
       "put" : {
         "tags" : [ "Deployments" ],
         "summary" : "Set size overrides",
-        "description" : "Applies size overrides for the given instances belonging to the given resource.",
+        "description" : "Applies size overrides for the given instances belonging to the given resource. Instance size overrides will be reset with the next plan change.",
         "operationId" : "set-instance-settings-overrides",
         "consumes" : [ "application/json" ],
         "produces" : [ "application/json" ],
@@ -11435,7 +11587,7 @@
       "get" : {
         "tags" : [ "PlatformConfigurationTrustRelationships" ],
         "summary" : "Get trust relationship",
-        "description" : "Retrieves information about a trust relationship. `local` can be used as the ID to obtain the local trust relationship.",
+        "description" : "Retrieves information about a trust relationship.",
         "operationId" : "get-trust-relationship",
         "produces" : [ "application/json" ],
         "parameters" : [ {
@@ -11648,6 +11800,40 @@
             },
             "schema" : {
               "$ref" : "#/definitions/AdminconsolesOverview"
+            }
+          }
+        },
+        "x-doc" : {
+          "tag" : "Platform - Adminconsoles"
+        }
+      }
+    },
+    "/platform/infrastructure/adminconsoles/_reindex" : {
+      "post" : {
+        "tags" : [ "PlatformInfrastructure" ],
+        "summary" : "Reindex region indices",
+        "description" : "Start reindex of all regional indices.",
+        "operationId" : "reindex-adminconsoles",
+        "produces" : [ "application/json" ],
+        "parameters" : [ ],
+        "responses" : {
+          "202" : {
+            "description" : "Started reindexing of regional indices.",
+            "schema" : {
+              "$ref" : "#/definitions/EmptyResponse"
+            }
+          },
+          "449" : {
+            "description" : "Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)",
+            "headers" : {
+              "x-cloud-error-codes" : {
+                "type" : "string",
+                "description" : "The error codes associated with the response",
+                "enum" : [ "root.unauthorized.rbac.elevated_permissions_required" ]
+              }
+            },
+            "schema" : {
+              "$ref" : "#/definitions/BasicFailedReply"
             }
           }
         },
@@ -12208,6 +12394,13 @@
           "type" : "boolean",
           "default" : true
         }, {
+          "name" : "force_move",
+          "in" : "query",
+          "description" : "When `true`, execute a primitive vacate by moving data at file-system level, and recreating instances on the target allocator(s).",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
+        }, {
           "name" : "allocator_down",
           "in" : "query",
           "description" : "When `true`, considers all instances on the allocator as permanently shut down when deciding how to migrate data to new nodes.When left blank, the system automatically decides. NOTE: The default treats the allocator as up.",
@@ -12316,6 +12509,13 @@
           "required" : false,
           "type" : "boolean",
           "default" : true
+        }, {
+          "name" : "force_move",
+          "in" : "query",
+          "description" : "When `true`, execute a primitive vacate by moving data at file-system level, and recreating instances on the target allocator(s).",
+          "required" : false,
+          "type" : "boolean",
+          "default" : false
         }, {
           "name" : "allocator_down",
           "in" : "query",
@@ -16272,146 +16472,6 @@
         }
       }
     },
-    "/users/auth/_elevate" : {
-      "post" : {
-        "tags" : [ "Authentication" ],
-        "summary" : "Enable elevated permissions",
-        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Sudo has been retired\n\nEnables the elevated permissions for the current user. Elevated permissions allow the user to complete potentially destructive operations on clusters. Elevated permissions are available for a limited period of time and automatically expire if you do not renew them.",
-        "operationId" : "enable-elevated-permissions",
-        "consumes" : [ "application/json" ],
-        "produces" : [ "application/json" ],
-        "parameters" : [ {
-          "in" : "body",
-          "name" : "body",
-          "description" : "The request for elevated permissions",
-          "required" : false,
-          "schema" : {
-            "$ref" : "#/definitions/ElevatePermissionsRequest"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Elevated permissions are enabled and the authorization token was generated.",
-            "schema" : {
-              "$ref" : "#/definitions/TokenResponse"
-            }
-          },
-          "400" : {
-            "description" : "Missed or invalid MFA token. (code: `authc.invalid_token`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "authc.invalid_token" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "401" : {
-            "description" : "The authentication token is invalid or expired. (code: `root.unauthorized`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "501" : {
-            "description" : "The administrator needs to configure the authentication cluster. (code: `authc.no_authentication_cluster`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "authc.no_authentication_cluster" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "502" : {
-            "description" : "The authentication cluster failed to process the request. The response body contains details about the error. (code: `authc.authentication_cluster_error`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "authc.authentication_cluster_error" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          }
-        },
-        "x-doc" : {
-          "tag" : "Authentication"
-        }
-      },
-      "delete" : {
-        "tags" : [ "Authentication" ],
-        "summary" : "Disable elevated permissions",
-        "description" : "> WARNING\n> This endpoint is deprecated and scheduled to be removed in the next major version. Sudo has been retired\n\nDisables elevated permissions for the user.",
-        "operationId" : "disable-elevated-permissions",
-        "produces" : [ "application/json" ],
-        "parameters" : [ ],
-        "responses" : {
-          "200" : {
-            "description" : "The elevated permissions are disabled and the authorization token was generated",
-            "schema" : {
-              "$ref" : "#/definitions/TokenResponse"
-            }
-          },
-          "401" : {
-            "description" : "The authentication token is invalid or expired. (code: `root.unauthorized`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "root.unauthorized" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "501" : {
-            "description" : "The administrator needs to configure the authentication cluster. (code: `authc.no_authentication_cluster`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "authc.no_authentication_cluster" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          },
-          "502" : {
-            "description" : "The authentication cluster failed to process the request. The response body contains details about the error. (code: `authc.authentication_cluster_error`)",
-            "headers" : {
-              "x-cloud-error-codes" : {
-                "type" : "string",
-                "description" : "The error codes associated with the response",
-                "enum" : [ "authc.authentication_cluster_error" ]
-              }
-            },
-            "schema" : {
-              "$ref" : "#/definitions/BasicFailedReply"
-            }
-          }
-        },
-        "x-doc" : {
-          "tag" : "Authentication"
-        }
-      }
-    },
     "/users/auth/_login" : {
       "post" : {
         "tags" : [ "Authentication" ],
@@ -17746,10 +17806,14 @@
     },
     "AllocatorCapacity" : {
       "type" : "object",
-      "required" : [ "memory" ],
+      "required" : [ "memory", "storage" ],
       "properties" : {
         "memory" : {
           "$ref" : "#/definitions/AllocatorCapacityMemory"
+        },
+        "storage" : {
+          "description" : "The storage capacity of the allocator.",
+          "$ref" : "#/definitions/AllocatorCapacityStorage"
         },
         "available_cpus" : {
           "type" : "integer",
@@ -17780,6 +17844,18 @@
         }
       },
       "description" : "The available and used memory of the allocator."
+    },
+    "AllocatorCapacityStorage" : {
+      "type" : "object",
+      "required" : [ "total" ],
+      "properties" : {
+        "total" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Total storage in MiB capacity installed on this allocator"
+        }
+      },
+      "description" : "The storage capacity of the allocator."
     },
     "AllocatorHealthChecks" : {
       "type" : "object",
@@ -19464,15 +19540,15 @@
         "memory_pressure" : {
           "type" : "integer",
           "format" : "int32",
-          "description" : "The % memory pressure of the service if available (60-75% consider increasing capacity, >75% can incur significant performance and stability issues)"
+          "description" : "The % memory pressure of Elasticsearch JVM heap space if available (60-75% consider increasing capacity, >75% can incur significant performance and stability issues)"
         },
         "native_memory_pressure" : {
           "type" : "integer",
           "format" : "int32",
-          "description" : "The % native memory pressure of the service if available"
+          "description" : "The % memory pressure of the instance Docker container (if available)"
         }
       },
-      "description" : "Information about the memory capacity and use of the Kibana instance or APM Server."
+      "description" : "Information about the specific instances memory capacity and its usage"
     },
     "ClusterLicenseInfo" : {
       "type" : "object",
@@ -22931,17 +23007,6 @@
       },
       "description" : "A list of admin-uploaded plugin objects."
     },
-    "ElevatePermissionsRequest" : {
-      "type" : "object",
-      "required" : [ "token" ],
-      "properties" : {
-        "token" : {
-          "type" : "string",
-          "description" : "Multi-factor authorization token"
-        }
-      },
-      "description" : "Deprecated: The request body for elevated permissions."
-    },
     "ElevatedPermissions" : {
       "type" : "object",
       "required" : [ "enabled" ],
@@ -25783,6 +25848,20 @@
           "items" : {
             "type" : "string"
           }
+        },
+        "billing_contacts" : {
+          "type" : "array",
+          "description" : "The list of contacts for billing notifications, if specified",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "operational_contacts" : {
+          "type" : "array",
+          "description" : "The list of contacts for operational notifications, if specified",
+          "items" : {
+            "type" : "string"
+          }
         }
       },
       "description" : "An organization"
@@ -25931,6 +26010,20 @@
         "notifications_allowed_email_domains" : {
           "type" : "array",
           "description" : "The list of allowed domains for notification-email recipients",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "billing_contacts" : {
+          "type" : "array",
+          "description" : "The list of contacts for billing notifications",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "operational_contacts" : {
+          "type" : "array",
+          "description" : "The list of contacts for operational notifications",
           "items" : {
             "type" : "string"
           }
@@ -27471,6 +27564,10 @@
           "description" : "The SAML attribute mapping configuration",
           "$ref" : "#/definitions/SamlAttributeSettings"
         },
+        "nameid_format" : {
+          "type" : "string",
+          "description" : "The NameID format. If not specified the IdP default is used. Example: 'urn:oasis:names:tc:SAML:2.0:nameid-format:persistent'"
+        },
         "role_mappings" : {
           "description" : "The role mapping rules associated with the security realm",
           "$ref" : "#/definitions/SamlSecurityRealmRoleMappingRules"
@@ -28475,6 +28572,65 @@
       },
       "description" : "Measured by the amount of a resource. The final cluster size is calculated using multipliers from the topology instance configuration."
     },
+    "TrafficFilterClaimedLinkIdInfo" : {
+      "type" : "object",
+      "required" : [ "region" ],
+      "properties" : {
+        "link_id" : {
+          "type" : "string",
+          "description" : "Link id. A GCP private service connect ID or AWS VPC endpoint ID"
+        },
+        "azure_endpoint_name" : {
+          "type" : "string",
+          "description" : "Name of the Azure Private Endpoint to allow connections from"
+        },
+        "azure_endpoint_guid" : {
+          "type" : "string",
+          "description" : "Resource GUID of the Azure Private Endpoint to allow connections from"
+        },
+        "region" : {
+          "type" : "string",
+          "description" : "The claimed link id can be used only for traffic filter in the specific region"
+        }
+      }
+    },
+    "TrafficFilterClaimedLinkIdRequest" : {
+      "type" : "object",
+      "required" : [ "region" ],
+      "properties" : {
+        "link_id" : {
+          "type" : "string",
+          "description" : "Link id. A GCP private service connect ID or AWS VPC endpoint ID"
+        },
+        "azure_endpoint_name" : {
+          "type" : "string",
+          "description" : "Name of the Azure Private Endpoint to allow connections from"
+        },
+        "azure_endpoint_guid" : {
+          "type" : "string",
+          "description" : "Resource GUID of the Azure Private Endpoint to allow connections from"
+        },
+        "region" : {
+          "type" : "string",
+          "description" : "The claimed link id can be used only for traffic filter in the specific region"
+        }
+      },
+      "description" : "The specification for traffic filter claimed link id."
+    },
+    "TrafficFilterClaimedLinkIds" : {
+      "type" : "object",
+      "required" : [ "claimed_link_ids" ],
+      "properties" : {
+        "claimed_link_ids" : {
+          "type" : "array",
+          "description" : "List of traffic filter claimed link id",
+          "items" : {
+            "$ref" : "#/definitions/TrafficFilterClaimedLinkIdInfo"
+          }
+        }
+      },
+      "description" : "The container for a set of traffic filter claimed link id."
+    },
     "TrafficFilterEgressRule" : {
       "type" : "object",
       "required" : [ "protocol", "target" ],
@@ -28694,7 +28850,7 @@
         },
         "cluster_settings_json" : {
           "type" : "object",
-          "description" : "If specified, contains transient settings to be applied to an Elasticsearch cluster during changes, default values shown below applied.\nThese can be overridden by specifying them in the map (or null to unset). Additional settings can also be set. Settings will be cleared after the plan has finished. If not specified, no settings will be applied.\nNOTE: These settings are only explicitly cleared for 5.x+ clusters, they must be hand-reset to their defaults in 2.x- (or a cluster reboot will clear them).\n- indices.store.throttle.max_bytes_per_sec: 150Mb\n- indices.recovery.max_bytes_per_sec: 150Mb\n- cluster.routing.allocation.cluster_concurrent_rebalance: 10\n- cluster.routing.allocation.node_initial_primaries_recoveries: 8\n- cluster.routing.allocation.node_concurrent_incoming_recoveries: 8\n"
+          "description" : "If specified, contains transient settings to be applied to an Elasticsearch cluster during changes,default values shown below applied.\nThese can be overridden by specifying them in the map (or null to unset). Additional settings can also be set. Settings will be cleared after the plan has finished. If not specified, no settings will be applied.\nNOTE: These settings are only explicitly cleared for 5.x+ clusters, they must be hand-reset to their defaults in 2.x- (or a cluster reboot will clear them).\n- indices.store.throttle.max_bytes_per_sec: 120Mb\n- indices.recovery.max_bytes_per_sec: 120Mb\n- cluster.routing.allocation.cluster_concurrent_rebalance: 5\n- cluster.routing.allocation.node_initial_primaries_recoveries: 5\n- cluster.routing.allocation.node_concurrent_incoming_recoveries: 5\nFor version 8.1 and later no defaults are provided through this mechanism, but instead hardware dependent settings are provided to each instance."
         }
       },
       "description" : "Defines the configuration parameters that control how the plan is applied. For example, the Elasticsearch cluster topology and Elasticsearch settings."

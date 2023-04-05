@@ -69,10 +69,12 @@ func NewListConfigStoreOptionParamsWithHTTPClient(client *http.Client) *ListConf
 	}
 }
 
-/* ListConfigStoreOptionParams contains all the parameters to send to the API endpoint
-   for the list config store option operation.
+/*
+ListConfigStoreOptionParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the list config store option operation.
+
+	Typically these are written to a http.Request.
 */
 type ListConfigStoreOptionParams struct {
 	timeout    time.Duration

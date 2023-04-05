@@ -68,7 +68,8 @@ func NewGetDeploymentOK() *GetDeploymentOK {
 	return &GetDeploymentOK{}
 }
 
-/* GetDeploymentOK describes a response with status code 200, with default header values.
+/*
+GetDeploymentOK describes a response with status code 200, with default header values.
 
 The Deployment info response
 */
@@ -89,9 +90,44 @@ type GetDeploymentOK struct {
 	Payload *models.DeploymentGetResponse
 }
 
+// IsSuccess returns true when this get deployment o k response has a 2xx status code
+func (o *GetDeploymentOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get deployment o k response has a 3xx status code
+func (o *GetDeploymentOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get deployment o k response has a 4xx status code
+func (o *GetDeploymentOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get deployment o k response has a 5xx status code
+func (o *GetDeploymentOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get deployment o k response a status code equal to that given
+func (o *GetDeploymentOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get deployment o k response
+func (o *GetDeploymentOK) Code() int {
+	return 200
+}
+
 func (o *GetDeploymentOK) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}][%d] getDeploymentOK  %+v", 200, o.Payload)
 }
+
+func (o *GetDeploymentOK) String() string {
+	return fmt.Sprintf("[GET /deployments/{deployment_id}][%d] getDeploymentOK  %+v", 200, o.Payload)
+}
+
 func (o *GetDeploymentOK) GetPayload() *models.DeploymentGetResponse {
 	return o.Payload
 }
@@ -134,7 +170,8 @@ func NewGetDeploymentUnauthorized() *GetDeploymentUnauthorized {
 	return &GetDeploymentUnauthorized{}
 }
 
-/* GetDeploymentUnauthorized describes a response with status code 401, with default header values.
+/*
+GetDeploymentUnauthorized describes a response with status code 401, with default header values.
 
 You are not authorized to perform this action.
 */
@@ -142,9 +179,44 @@ type GetDeploymentUnauthorized struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get deployment unauthorized response has a 2xx status code
+func (o *GetDeploymentUnauthorized) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get deployment unauthorized response has a 3xx status code
+func (o *GetDeploymentUnauthorized) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get deployment unauthorized response has a 4xx status code
+func (o *GetDeploymentUnauthorized) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get deployment unauthorized response has a 5xx status code
+func (o *GetDeploymentUnauthorized) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get deployment unauthorized response a status code equal to that given
+func (o *GetDeploymentUnauthorized) IsCode(code int) bool {
+	return code == 401
+}
+
+// Code gets the status code for the get deployment unauthorized response
+func (o *GetDeploymentUnauthorized) Code() int {
+	return 401
+}
+
 func (o *GetDeploymentUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}][%d] getDeploymentUnauthorized  %+v", 401, o.Payload)
 }
+
+func (o *GetDeploymentUnauthorized) String() string {
+	return fmt.Sprintf("[GET /deployments/{deployment_id}][%d] getDeploymentUnauthorized  %+v", 401, o.Payload)
+}
+
 func (o *GetDeploymentUnauthorized) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -166,7 +238,8 @@ func NewGetDeploymentNotFound() *GetDeploymentNotFound {
 	return &GetDeploymentNotFound{}
 }
 
-/* GetDeploymentNotFound describes a response with status code 404, with default header values.
+/*
+GetDeploymentNotFound describes a response with status code 404, with default header values.
 
 The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
 */
@@ -179,9 +252,44 @@ type GetDeploymentNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get deployment not found response has a 2xx status code
+func (o *GetDeploymentNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get deployment not found response has a 3xx status code
+func (o *GetDeploymentNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get deployment not found response has a 4xx status code
+func (o *GetDeploymentNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get deployment not found response has a 5xx status code
+func (o *GetDeploymentNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get deployment not found response a status code equal to that given
+func (o *GetDeploymentNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the get deployment not found response
+func (o *GetDeploymentNotFound) Code() int {
+	return 404
+}
+
 func (o *GetDeploymentNotFound) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}][%d] getDeploymentNotFound  %+v", 404, o.Payload)
 }
+
+func (o *GetDeploymentNotFound) String() string {
+	return fmt.Sprintf("[GET /deployments/{deployment_id}][%d] getDeploymentNotFound  %+v", 404, o.Payload)
+}
+
 func (o *GetDeploymentNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

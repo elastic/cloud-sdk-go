@@ -80,7 +80,8 @@ func NewCreateDeploymentOK() *CreateDeploymentOK {
 	return &CreateDeploymentOK{}
 }
 
-/* CreateDeploymentOK describes a response with status code 200, with default header values.
+/*
+CreateDeploymentOK describes a response with status code 200, with default header values.
 
 The request was valid (used when validate_only is true).
 */
@@ -88,9 +89,44 @@ type CreateDeploymentOK struct {
 	Payload *models.DeploymentCreateResponse
 }
 
+// IsSuccess returns true when this create deployment o k response has a 2xx status code
+func (o *CreateDeploymentOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this create deployment o k response has a 3xx status code
+func (o *CreateDeploymentOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create deployment o k response has a 4xx status code
+func (o *CreateDeploymentOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this create deployment o k response has a 5xx status code
+func (o *CreateDeploymentOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create deployment o k response a status code equal to that given
+func (o *CreateDeploymentOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the create deployment o k response
+func (o *CreateDeploymentOK) Code() int {
+	return 200
+}
+
 func (o *CreateDeploymentOK) Error() string {
 	return fmt.Sprintf("[POST /deployments][%d] createDeploymentOK  %+v", 200, o.Payload)
 }
+
+func (o *CreateDeploymentOK) String() string {
+	return fmt.Sprintf("[POST /deployments][%d] createDeploymentOK  %+v", 200, o.Payload)
+}
+
 func (o *CreateDeploymentOK) GetPayload() *models.DeploymentCreateResponse {
 	return o.Payload
 }
@@ -112,7 +148,8 @@ func NewCreateDeploymentCreated() *CreateDeploymentCreated {
 	return &CreateDeploymentCreated{}
 }
 
-/* CreateDeploymentCreated describes a response with status code 201, with default header values.
+/*
+CreateDeploymentCreated describes a response with status code 201, with default header values.
 
 The request was valid and a new deployment was created
 */
@@ -133,9 +170,44 @@ type CreateDeploymentCreated struct {
 	Payload *models.DeploymentCreateResponse
 }
 
+// IsSuccess returns true when this create deployment created response has a 2xx status code
+func (o *CreateDeploymentCreated) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this create deployment created response has a 3xx status code
+func (o *CreateDeploymentCreated) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create deployment created response has a 4xx status code
+func (o *CreateDeploymentCreated) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this create deployment created response has a 5xx status code
+func (o *CreateDeploymentCreated) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create deployment created response a status code equal to that given
+func (o *CreateDeploymentCreated) IsCode(code int) bool {
+	return code == 201
+}
+
+// Code gets the status code for the create deployment created response
+func (o *CreateDeploymentCreated) Code() int {
+	return 201
+}
+
 func (o *CreateDeploymentCreated) Error() string {
 	return fmt.Sprintf("[POST /deployments][%d] createDeploymentCreated  %+v", 201, o.Payload)
 }
+
+func (o *CreateDeploymentCreated) String() string {
+	return fmt.Sprintf("[POST /deployments][%d] createDeploymentCreated  %+v", 201, o.Payload)
+}
+
 func (o *CreateDeploymentCreated) GetPayload() *models.DeploymentCreateResponse {
 	return o.Payload
 }
@@ -178,7 +250,8 @@ func NewCreateDeploymentAccepted() *CreateDeploymentAccepted {
 	return &CreateDeploymentAccepted{}
 }
 
-/* CreateDeploymentAccepted describes a response with status code 202, with default header values.
+/*
+CreateDeploymentAccepted describes a response with status code 202, with default header values.
 
 The request was valid and deployment creation had already been started.
 */
@@ -186,9 +259,44 @@ type CreateDeploymentAccepted struct {
 	Payload *models.DeploymentCreateResponse
 }
 
+// IsSuccess returns true when this create deployment accepted response has a 2xx status code
+func (o *CreateDeploymentAccepted) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this create deployment accepted response has a 3xx status code
+func (o *CreateDeploymentAccepted) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create deployment accepted response has a 4xx status code
+func (o *CreateDeploymentAccepted) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this create deployment accepted response has a 5xx status code
+func (o *CreateDeploymentAccepted) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create deployment accepted response a status code equal to that given
+func (o *CreateDeploymentAccepted) IsCode(code int) bool {
+	return code == 202
+}
+
+// Code gets the status code for the create deployment accepted response
+func (o *CreateDeploymentAccepted) Code() int {
+	return 202
+}
+
 func (o *CreateDeploymentAccepted) Error() string {
 	return fmt.Sprintf("[POST /deployments][%d] createDeploymentAccepted  %+v", 202, o.Payload)
 }
+
+func (o *CreateDeploymentAccepted) String() string {
+	return fmt.Sprintf("[POST /deployments][%d] createDeploymentAccepted  %+v", 202, o.Payload)
+}
+
 func (o *CreateDeploymentAccepted) GetPayload() *models.DeploymentCreateResponse {
 	return o.Payload
 }
@@ -210,7 +318,8 @@ func NewCreateDeploymentBadRequest() *CreateDeploymentBadRequest {
 	return &CreateDeploymentBadRequest{}
 }
 
-/* CreateDeploymentBadRequest describes a response with status code 400, with default header values.
+/*
+CreateDeploymentBadRequest describes a response with status code 400, with default header values.
 
 The deployment request had errors.
 */
@@ -218,9 +327,44 @@ type CreateDeploymentBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this create deployment bad request response has a 2xx status code
+func (o *CreateDeploymentBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this create deployment bad request response has a 3xx status code
+func (o *CreateDeploymentBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create deployment bad request response has a 4xx status code
+func (o *CreateDeploymentBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this create deployment bad request response has a 5xx status code
+func (o *CreateDeploymentBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create deployment bad request response a status code equal to that given
+func (o *CreateDeploymentBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the create deployment bad request response
+func (o *CreateDeploymentBadRequest) Code() int {
+	return 400
+}
+
 func (o *CreateDeploymentBadRequest) Error() string {
 	return fmt.Sprintf("[POST /deployments][%d] createDeploymentBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *CreateDeploymentBadRequest) String() string {
+	return fmt.Sprintf("[POST /deployments][%d] createDeploymentBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *CreateDeploymentBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -242,7 +386,8 @@ func NewCreateDeploymentUnauthorized() *CreateDeploymentUnauthorized {
 	return &CreateDeploymentUnauthorized{}
 }
 
-/* CreateDeploymentUnauthorized describes a response with status code 401, with default header values.
+/*
+CreateDeploymentUnauthorized describes a response with status code 401, with default header values.
 
 You are not authorized to perform this action.
 */
@@ -250,9 +395,44 @@ type CreateDeploymentUnauthorized struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this create deployment unauthorized response has a 2xx status code
+func (o *CreateDeploymentUnauthorized) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this create deployment unauthorized response has a 3xx status code
+func (o *CreateDeploymentUnauthorized) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create deployment unauthorized response has a 4xx status code
+func (o *CreateDeploymentUnauthorized) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this create deployment unauthorized response has a 5xx status code
+func (o *CreateDeploymentUnauthorized) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create deployment unauthorized response a status code equal to that given
+func (o *CreateDeploymentUnauthorized) IsCode(code int) bool {
+	return code == 401
+}
+
+// Code gets the status code for the create deployment unauthorized response
+func (o *CreateDeploymentUnauthorized) Code() int {
+	return 401
+}
+
 func (o *CreateDeploymentUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /deployments][%d] createDeploymentUnauthorized  %+v", 401, o.Payload)
 }
+
+func (o *CreateDeploymentUnauthorized) String() string {
+	return fmt.Sprintf("[POST /deployments][%d] createDeploymentUnauthorized  %+v", 401, o.Payload)
+}
+
 func (o *CreateDeploymentUnauthorized) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

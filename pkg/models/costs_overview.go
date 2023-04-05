@@ -87,6 +87,8 @@ func (m *CostsOverview) validateBalance(formats strfmt.Registry) error {
 		if err := m.Balance.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("balance")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("balance")
 			}
 			return err
 		}
@@ -105,6 +107,8 @@ func (m *CostsOverview) validateCosts(formats strfmt.Registry) error {
 		if err := m.Costs.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("costs")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("costs")
 			}
 			return err
 		}
@@ -155,6 +159,8 @@ func (m *CostsOverview) contextValidateBalance(ctx context.Context, formats strf
 		if err := m.Balance.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("balance")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("balance")
 			}
 			return err
 		}
@@ -169,6 +175,8 @@ func (m *CostsOverview) contextValidateCosts(ctx context.Context, formats strfmt
 		if err := m.Costs.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("costs")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("costs")
 			}
 			return err
 		}

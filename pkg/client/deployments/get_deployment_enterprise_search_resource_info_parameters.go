@@ -70,10 +70,12 @@ func NewGetDeploymentEnterpriseSearchResourceInfoParamsWithHTTPClient(client *ht
 	}
 }
 
-/* GetDeploymentEnterpriseSearchResourceInfoParams contains all the parameters to send to the API endpoint
-   for the get deployment enterprise search resource info operation.
+/*
+GetDeploymentEnterpriseSearchResourceInfoParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the get deployment enterprise search resource info operation.
+
+	Typically these are written to a http.Request.
 */
 type GetDeploymentEnterpriseSearchResourceInfoParams struct {
 

@@ -80,7 +80,8 @@ func NewUpdateActiveDirectoryConfigurationOK() *UpdateActiveDirectoryConfigurati
 	return &UpdateActiveDirectoryConfigurationOK{}
 }
 
-/* UpdateActiveDirectoryConfigurationOK describes a response with status code 200, with default header values.
+/*
+UpdateActiveDirectoryConfigurationOK describes a response with status code 200, with default header values.
 
 The Active Directory configuration was successfully updated
 */
@@ -101,9 +102,44 @@ type UpdateActiveDirectoryConfigurationOK struct {
 	Payload models.EmptyResponse
 }
 
+// IsSuccess returns true when this update active directory configuration o k response has a 2xx status code
+func (o *UpdateActiveDirectoryConfigurationOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this update active directory configuration o k response has a 3xx status code
+func (o *UpdateActiveDirectoryConfigurationOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update active directory configuration o k response has a 4xx status code
+func (o *UpdateActiveDirectoryConfigurationOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this update active directory configuration o k response has a 5xx status code
+func (o *UpdateActiveDirectoryConfigurationOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update active directory configuration o k response a status code equal to that given
+func (o *UpdateActiveDirectoryConfigurationOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the update active directory configuration o k response
+func (o *UpdateActiveDirectoryConfigurationOK) Code() int {
+	return 200
+}
+
 func (o *UpdateActiveDirectoryConfigurationOK) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/security/realms/active-directory/{realm_id}][%d] updateActiveDirectoryConfigurationOK  %+v", 200, o.Payload)
 }
+
+func (o *UpdateActiveDirectoryConfigurationOK) String() string {
+	return fmt.Sprintf("[PUT /platform/configuration/security/realms/active-directory/{realm_id}][%d] updateActiveDirectoryConfigurationOK  %+v", 200, o.Payload)
+}
+
 func (o *UpdateActiveDirectoryConfigurationOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -144,9 +180,11 @@ func NewUpdateActiveDirectoryConfigurationBadRequest() *UpdateActiveDirectoryCon
 	return &UpdateActiveDirectoryConfigurationBadRequest{}
 }
 
-/* UpdateActiveDirectoryConfigurationBadRequest describes a response with status code 400, with default header values.
+/*
+	UpdateActiveDirectoryConfigurationBadRequest describes a response with status code 400, with default header values.
 
- * The realm id is already in use. (code: `security_realm.id_conflict`)
+	* The realm id is already in use. (code: `security_realm.id_conflict`)
+
 * The selected id is not valid. (code: `security_realm.invalid_id`)
 * Order must be greater than zero. (code: `security_realm.invalid_order`)
 * Invalid Elasticsearch Security realm type. (code: `security_realm.invalid_type`)
@@ -165,9 +203,44 @@ type UpdateActiveDirectoryConfigurationBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this update active directory configuration bad request response has a 2xx status code
+func (o *UpdateActiveDirectoryConfigurationBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update active directory configuration bad request response has a 3xx status code
+func (o *UpdateActiveDirectoryConfigurationBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update active directory configuration bad request response has a 4xx status code
+func (o *UpdateActiveDirectoryConfigurationBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update active directory configuration bad request response has a 5xx status code
+func (o *UpdateActiveDirectoryConfigurationBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update active directory configuration bad request response a status code equal to that given
+func (o *UpdateActiveDirectoryConfigurationBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the update active directory configuration bad request response
+func (o *UpdateActiveDirectoryConfigurationBadRequest) Code() int {
+	return 400
+}
+
 func (o *UpdateActiveDirectoryConfigurationBadRequest) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/security/realms/active-directory/{realm_id}][%d] updateActiveDirectoryConfigurationBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *UpdateActiveDirectoryConfigurationBadRequest) String() string {
+	return fmt.Sprintf("[PUT /platform/configuration/security/realms/active-directory/{realm_id}][%d] updateActiveDirectoryConfigurationBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *UpdateActiveDirectoryConfigurationBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -196,7 +269,8 @@ func NewUpdateActiveDirectoryConfigurationNotFound() *UpdateActiveDirectoryConfi
 	return &UpdateActiveDirectoryConfigurationNotFound{}
 }
 
-/* UpdateActiveDirectoryConfigurationNotFound describes a response with status code 404, with default header values.
+/*
+UpdateActiveDirectoryConfigurationNotFound describes a response with status code 404, with default header values.
 
 The realm specified by {realm_id} cannot be found. (code: `security_realm.not_found`)
 */
@@ -209,9 +283,44 @@ type UpdateActiveDirectoryConfigurationNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this update active directory configuration not found response has a 2xx status code
+func (o *UpdateActiveDirectoryConfigurationNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update active directory configuration not found response has a 3xx status code
+func (o *UpdateActiveDirectoryConfigurationNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update active directory configuration not found response has a 4xx status code
+func (o *UpdateActiveDirectoryConfigurationNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update active directory configuration not found response has a 5xx status code
+func (o *UpdateActiveDirectoryConfigurationNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update active directory configuration not found response a status code equal to that given
+func (o *UpdateActiveDirectoryConfigurationNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the update active directory configuration not found response
+func (o *UpdateActiveDirectoryConfigurationNotFound) Code() int {
+	return 404
+}
+
 func (o *UpdateActiveDirectoryConfigurationNotFound) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/security/realms/active-directory/{realm_id}][%d] updateActiveDirectoryConfigurationNotFound  %+v", 404, o.Payload)
 }
+
+func (o *UpdateActiveDirectoryConfigurationNotFound) String() string {
+	return fmt.Sprintf("[PUT /platform/configuration/security/realms/active-directory/{realm_id}][%d] updateActiveDirectoryConfigurationNotFound  %+v", 404, o.Payload)
+}
+
 func (o *UpdateActiveDirectoryConfigurationNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -240,7 +349,8 @@ func NewUpdateActiveDirectoryConfigurationConflict() *UpdateActiveDirectoryConfi
 	return &UpdateActiveDirectoryConfigurationConflict{}
 }
 
-/* UpdateActiveDirectoryConfigurationConflict describes a response with status code 409, with default header values.
+/*
+UpdateActiveDirectoryConfigurationConflict describes a response with status code 409, with default header values.
 
 There is a version conflict. (code: `security_realm.version_conflict`)
 */
@@ -253,9 +363,44 @@ type UpdateActiveDirectoryConfigurationConflict struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this update active directory configuration conflict response has a 2xx status code
+func (o *UpdateActiveDirectoryConfigurationConflict) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update active directory configuration conflict response has a 3xx status code
+func (o *UpdateActiveDirectoryConfigurationConflict) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update active directory configuration conflict response has a 4xx status code
+func (o *UpdateActiveDirectoryConfigurationConflict) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update active directory configuration conflict response has a 5xx status code
+func (o *UpdateActiveDirectoryConfigurationConflict) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update active directory configuration conflict response a status code equal to that given
+func (o *UpdateActiveDirectoryConfigurationConflict) IsCode(code int) bool {
+	return code == 409
+}
+
+// Code gets the status code for the update active directory configuration conflict response
+func (o *UpdateActiveDirectoryConfigurationConflict) Code() int {
+	return 409
+}
+
 func (o *UpdateActiveDirectoryConfigurationConflict) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/security/realms/active-directory/{realm_id}][%d] updateActiveDirectoryConfigurationConflict  %+v", 409, o.Payload)
 }
+
+func (o *UpdateActiveDirectoryConfigurationConflict) String() string {
+	return fmt.Sprintf("[PUT /platform/configuration/security/realms/active-directory/{realm_id}][%d] updateActiveDirectoryConfigurationConflict  %+v", 409, o.Payload)
+}
+
 func (o *UpdateActiveDirectoryConfigurationConflict) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -284,7 +429,8 @@ func NewUpdateActiveDirectoryConfigurationRetryWith() *UpdateActiveDirectoryConf
 	return &UpdateActiveDirectoryConfigurationRetryWith{}
 }
 
-/* UpdateActiveDirectoryConfigurationRetryWith describes a response with status code 449, with default header values.
+/*
+UpdateActiveDirectoryConfigurationRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
@@ -297,9 +443,44 @@ type UpdateActiveDirectoryConfigurationRetryWith struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this update active directory configuration retry with response has a 2xx status code
+func (o *UpdateActiveDirectoryConfigurationRetryWith) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update active directory configuration retry with response has a 3xx status code
+func (o *UpdateActiveDirectoryConfigurationRetryWith) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update active directory configuration retry with response has a 4xx status code
+func (o *UpdateActiveDirectoryConfigurationRetryWith) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update active directory configuration retry with response has a 5xx status code
+func (o *UpdateActiveDirectoryConfigurationRetryWith) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update active directory configuration retry with response a status code equal to that given
+func (o *UpdateActiveDirectoryConfigurationRetryWith) IsCode(code int) bool {
+	return code == 449
+}
+
+// Code gets the status code for the update active directory configuration retry with response
+func (o *UpdateActiveDirectoryConfigurationRetryWith) Code() int {
+	return 449
+}
+
 func (o *UpdateActiveDirectoryConfigurationRetryWith) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/security/realms/active-directory/{realm_id}][%d] updateActiveDirectoryConfigurationRetryWith  %+v", 449, o.Payload)
 }
+
+func (o *UpdateActiveDirectoryConfigurationRetryWith) String() string {
+	return fmt.Sprintf("[PUT /platform/configuration/security/realms/active-directory/{realm_id}][%d] updateActiveDirectoryConfigurationRetryWith  %+v", 449, o.Payload)
+}
+
 func (o *UpdateActiveDirectoryConfigurationRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

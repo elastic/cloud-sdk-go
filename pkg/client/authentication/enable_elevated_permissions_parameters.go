@@ -71,10 +71,12 @@ func NewEnableElevatedPermissionsParamsWithHTTPClient(client *http.Client) *Enab
 	}
 }
 
-/* EnableElevatedPermissionsParams contains all the parameters to send to the API endpoint
-   for the enable elevated permissions operation.
+/*
+EnableElevatedPermissionsParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the enable elevated permissions operation.
+
+	Typically these are written to a http.Request.
 */
 type EnableElevatedPermissionsParams struct {
 

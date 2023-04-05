@@ -113,6 +113,8 @@ func (m *GlobalDeploymentTemplateInfo) validateMetadata(formats strfmt.Registry)
 			if err := m.Metadata[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("metadata" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("metadata" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -156,6 +158,8 @@ func (m *GlobalDeploymentTemplateInfo) validateRegions(formats strfmt.Registry) 
 			if err := m.Regions[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("regions" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("regions" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -192,6 +196,8 @@ func (m *GlobalDeploymentTemplateInfo) contextValidateMetadata(ctx context.Conte
 			if err := m.Metadata[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("metadata" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("metadata" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -210,6 +216,8 @@ func (m *GlobalDeploymentTemplateInfo) contextValidateRegions(ctx context.Contex
 			if err := m.Regions[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("regions" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("regions" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

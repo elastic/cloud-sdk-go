@@ -74,7 +74,8 @@ func NewRestoreDeploymentOK() *RestoreDeploymentOK {
 	return &RestoreDeploymentOK{}
 }
 
-/* RestoreDeploymentOK describes a response with status code 200, with default header values.
+/*
+RestoreDeploymentOK describes a response with status code 200, with default header values.
 
 The request was valid and the resources of the deployment were restored.
 */
@@ -82,9 +83,44 @@ type RestoreDeploymentOK struct {
 	Payload *models.DeploymentRestoreResponse
 }
 
+// IsSuccess returns true when this restore deployment o k response has a 2xx status code
+func (o *RestoreDeploymentOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this restore deployment o k response has a 3xx status code
+func (o *RestoreDeploymentOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this restore deployment o k response has a 4xx status code
+func (o *RestoreDeploymentOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this restore deployment o k response has a 5xx status code
+func (o *RestoreDeploymentOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this restore deployment o k response a status code equal to that given
+func (o *RestoreDeploymentOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the restore deployment o k response
+func (o *RestoreDeploymentOK) Code() int {
+	return 200
+}
+
 func (o *RestoreDeploymentOK) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/_restore][%d] restoreDeploymentOK  %+v", 200, o.Payload)
 }
+
+func (o *RestoreDeploymentOK) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/_restore][%d] restoreDeploymentOK  %+v", 200, o.Payload)
+}
+
 func (o *RestoreDeploymentOK) GetPayload() *models.DeploymentRestoreResponse {
 	return o.Payload
 }
@@ -106,7 +142,8 @@ func NewRestoreDeploymentBadRequest() *RestoreDeploymentBadRequest {
 	return &RestoreDeploymentBadRequest{}
 }
 
-/* RestoreDeploymentBadRequest describes a response with status code 400, with default header values.
+/*
+RestoreDeploymentBadRequest describes a response with status code 400, with default header values.
 
 There are Elasticsearch resources in the deployment which are not shut down.
 */
@@ -114,9 +151,44 @@ type RestoreDeploymentBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this restore deployment bad request response has a 2xx status code
+func (o *RestoreDeploymentBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this restore deployment bad request response has a 3xx status code
+func (o *RestoreDeploymentBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this restore deployment bad request response has a 4xx status code
+func (o *RestoreDeploymentBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this restore deployment bad request response has a 5xx status code
+func (o *RestoreDeploymentBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this restore deployment bad request response a status code equal to that given
+func (o *RestoreDeploymentBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the restore deployment bad request response
+func (o *RestoreDeploymentBadRequest) Code() int {
+	return 400
+}
+
 func (o *RestoreDeploymentBadRequest) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/_restore][%d] restoreDeploymentBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *RestoreDeploymentBadRequest) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/_restore][%d] restoreDeploymentBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *RestoreDeploymentBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -138,7 +210,8 @@ func NewRestoreDeploymentUnauthorized() *RestoreDeploymentUnauthorized {
 	return &RestoreDeploymentUnauthorized{}
 }
 
-/* RestoreDeploymentUnauthorized describes a response with status code 401, with default header values.
+/*
+RestoreDeploymentUnauthorized describes a response with status code 401, with default header values.
 
 You are not authorized to perform this action.
 */
@@ -146,9 +219,44 @@ type RestoreDeploymentUnauthorized struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this restore deployment unauthorized response has a 2xx status code
+func (o *RestoreDeploymentUnauthorized) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this restore deployment unauthorized response has a 3xx status code
+func (o *RestoreDeploymentUnauthorized) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this restore deployment unauthorized response has a 4xx status code
+func (o *RestoreDeploymentUnauthorized) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this restore deployment unauthorized response has a 5xx status code
+func (o *RestoreDeploymentUnauthorized) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this restore deployment unauthorized response a status code equal to that given
+func (o *RestoreDeploymentUnauthorized) IsCode(code int) bool {
+	return code == 401
+}
+
+// Code gets the status code for the restore deployment unauthorized response
+func (o *RestoreDeploymentUnauthorized) Code() int {
+	return 401
+}
+
 func (o *RestoreDeploymentUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/_restore][%d] restoreDeploymentUnauthorized  %+v", 401, o.Payload)
 }
+
+func (o *RestoreDeploymentUnauthorized) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/_restore][%d] restoreDeploymentUnauthorized  %+v", 401, o.Payload)
+}
+
 func (o *RestoreDeploymentUnauthorized) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -170,7 +278,8 @@ func NewRestoreDeploymentNotFound() *RestoreDeploymentNotFound {
 	return &RestoreDeploymentNotFound{}
 }
 
-/* RestoreDeploymentNotFound describes a response with status code 404, with default header values.
+/*
+RestoreDeploymentNotFound describes a response with status code 404, with default header values.
 
 The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
 */
@@ -183,9 +292,44 @@ type RestoreDeploymentNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this restore deployment not found response has a 2xx status code
+func (o *RestoreDeploymentNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this restore deployment not found response has a 3xx status code
+func (o *RestoreDeploymentNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this restore deployment not found response has a 4xx status code
+func (o *RestoreDeploymentNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this restore deployment not found response has a 5xx status code
+func (o *RestoreDeploymentNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this restore deployment not found response a status code equal to that given
+func (o *RestoreDeploymentNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the restore deployment not found response
+func (o *RestoreDeploymentNotFound) Code() int {
+	return 404
+}
+
 func (o *RestoreDeploymentNotFound) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/_restore][%d] restoreDeploymentNotFound  %+v", 404, o.Payload)
 }
+
+func (o *RestoreDeploymentNotFound) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/_restore][%d] restoreDeploymentNotFound  %+v", 404, o.Payload)
+}
+
 func (o *RestoreDeploymentNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

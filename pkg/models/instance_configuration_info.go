@@ -100,6 +100,8 @@ func (m *InstanceConfigurationInfo) validateDiscreteSizes(formats strfmt.Registr
 		if err := m.DiscreteSizes.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("discrete_sizes")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("discrete_sizes")
 			}
 			return err
 		}
@@ -150,6 +152,8 @@ func (m *InstanceConfigurationInfo) contextValidateDiscreteSizes(ctx context.Con
 		if err := m.DiscreteSizes.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("discrete_sizes")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("discrete_sizes")
 			}
 			return err
 		}

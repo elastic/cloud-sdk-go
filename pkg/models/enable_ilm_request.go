@@ -71,6 +71,8 @@ func (m *EnableIlmRequest) validateIndexPatterns(formats strfmt.Registry) error 
 			if err := m.IndexPatterns[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("index_patterns" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("index_patterns" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -103,6 +105,8 @@ func (m *EnableIlmRequest) contextValidateIndexPatterns(ctx context.Context, for
 			if err := m.IndexPatterns[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("index_patterns" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("index_patterns" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

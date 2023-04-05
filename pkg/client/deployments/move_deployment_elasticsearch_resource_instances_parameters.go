@@ -72,10 +72,12 @@ func NewMoveDeploymentElasticsearchResourceInstancesParamsWithHTTPClient(client 
 	}
 }
 
-/* MoveDeploymentElasticsearchResourceInstancesParams contains all the parameters to send to the API endpoint
-   for the move deployment elasticsearch resource instances operation.
+/*
+MoveDeploymentElasticsearchResourceInstancesParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the move deployment elasticsearch resource instances operation.
+
+	Typically these are written to a http.Request.
 */
 type MoveDeploymentElasticsearchResourceInstancesParams struct {
 

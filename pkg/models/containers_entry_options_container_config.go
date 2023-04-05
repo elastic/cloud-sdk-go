@@ -81,6 +81,8 @@ func (m *ContainersEntryOptionsContainerConfig) validateHostConfig(formats strfm
 		if err := m.HostConfig.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("host_config")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("host_config")
 			}
 			return err
 		}
@@ -109,6 +111,8 @@ func (m *ContainersEntryOptionsContainerConfig) contextValidateHostConfig(ctx co
 		if err := m.HostConfig.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("host_config")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("host_config")
 			}
 			return err
 		}

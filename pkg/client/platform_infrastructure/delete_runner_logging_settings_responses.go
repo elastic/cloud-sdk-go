@@ -62,7 +62,8 @@ func NewDeleteRunnerLoggingSettingsOK() *DeleteRunnerLoggingSettingsOK {
 	return &DeleteRunnerLoggingSettingsOK{}
 }
 
-/* DeleteRunnerLoggingSettingsOK describes a response with status code 200, with default header values.
+/*
+DeleteRunnerLoggingSettingsOK describes a response with status code 200, with default header values.
 
 The updated logging settings for the runner instance
 */
@@ -83,9 +84,44 @@ type DeleteRunnerLoggingSettingsOK struct {
 	Payload *models.LoggingSettings
 }
 
+// IsSuccess returns true when this delete runner logging settings o k response has a 2xx status code
+func (o *DeleteRunnerLoggingSettingsOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this delete runner logging settings o k response has a 3xx status code
+func (o *DeleteRunnerLoggingSettingsOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete runner logging settings o k response has a 4xx status code
+func (o *DeleteRunnerLoggingSettingsOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this delete runner logging settings o k response has a 5xx status code
+func (o *DeleteRunnerLoggingSettingsOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete runner logging settings o k response a status code equal to that given
+func (o *DeleteRunnerLoggingSettingsOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the delete runner logging settings o k response
+func (o *DeleteRunnerLoggingSettingsOK) Code() int {
+	return 200
+}
+
 func (o *DeleteRunnerLoggingSettingsOK) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/runners/{runner_id}/logging_settings][%d] deleteRunnerLoggingSettingsOK  %+v", 200, o.Payload)
 }
+
+func (o *DeleteRunnerLoggingSettingsOK) String() string {
+	return fmt.Sprintf("[DELETE /platform/infrastructure/runners/{runner_id}/logging_settings][%d] deleteRunnerLoggingSettingsOK  %+v", 200, o.Payload)
+}
+
 func (o *DeleteRunnerLoggingSettingsOK) GetPayload() *models.LoggingSettings {
 	return o.Payload
 }
@@ -128,7 +164,8 @@ func NewDeleteRunnerLoggingSettingsNotFound() *DeleteRunnerLoggingSettingsNotFou
 	return &DeleteRunnerLoggingSettingsNotFound{}
 }
 
-/* DeleteRunnerLoggingSettingsNotFound describes a response with status code 404, with default header values.
+/*
+DeleteRunnerLoggingSettingsNotFound describes a response with status code 404, with default header values.
 
 The logging settings for this runner were not found. (code: `runners.logging_settings.not_found`)
 */
@@ -141,9 +178,44 @@ type DeleteRunnerLoggingSettingsNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete runner logging settings not found response has a 2xx status code
+func (o *DeleteRunnerLoggingSettingsNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete runner logging settings not found response has a 3xx status code
+func (o *DeleteRunnerLoggingSettingsNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete runner logging settings not found response has a 4xx status code
+func (o *DeleteRunnerLoggingSettingsNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete runner logging settings not found response has a 5xx status code
+func (o *DeleteRunnerLoggingSettingsNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete runner logging settings not found response a status code equal to that given
+func (o *DeleteRunnerLoggingSettingsNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the delete runner logging settings not found response
+func (o *DeleteRunnerLoggingSettingsNotFound) Code() int {
+	return 404
+}
+
 func (o *DeleteRunnerLoggingSettingsNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/runners/{runner_id}/logging_settings][%d] deleteRunnerLoggingSettingsNotFound  %+v", 404, o.Payload)
 }
+
+func (o *DeleteRunnerLoggingSettingsNotFound) String() string {
+	return fmt.Sprintf("[DELETE /platform/infrastructure/runners/{runner_id}/logging_settings][%d] deleteRunnerLoggingSettingsNotFound  %+v", 404, o.Payload)
+}
+
 func (o *DeleteRunnerLoggingSettingsNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

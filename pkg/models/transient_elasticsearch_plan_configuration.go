@@ -94,6 +94,8 @@ func (m *TransientElasticsearchPlanConfiguration) validatePlanConfiguration(form
 		if err := m.PlanConfiguration.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("plan_configuration")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("plan_configuration")
 			}
 			return err
 		}
@@ -111,6 +113,8 @@ func (m *TransientElasticsearchPlanConfiguration) validateRemoteClusters(formats
 		if err := m.RemoteClusters.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("remote_clusters")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("remote_clusters")
 			}
 			return err
 		}
@@ -128,6 +132,8 @@ func (m *TransientElasticsearchPlanConfiguration) validateRestoreSnapshot(format
 		if err := m.RestoreSnapshot.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("restore_snapshot")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("restore_snapshot")
 			}
 			return err
 		}
@@ -145,6 +151,8 @@ func (m *TransientElasticsearchPlanConfiguration) validateStrategy(formats strfm
 		if err := m.Strategy.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("strategy")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("strategy")
 			}
 			return err
 		}
@@ -185,6 +193,8 @@ func (m *TransientElasticsearchPlanConfiguration) contextValidatePlanConfigurati
 		if err := m.PlanConfiguration.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("plan_configuration")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("plan_configuration")
 			}
 			return err
 		}
@@ -199,6 +209,8 @@ func (m *TransientElasticsearchPlanConfiguration) contextValidateRemoteClusters(
 		if err := m.RemoteClusters.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("remote_clusters")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("remote_clusters")
 			}
 			return err
 		}
@@ -213,6 +225,8 @@ func (m *TransientElasticsearchPlanConfiguration) contextValidateRestoreSnapshot
 		if err := m.RestoreSnapshot.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("restore_snapshot")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("restore_snapshot")
 			}
 			return err
 		}
@@ -227,6 +241,8 @@ func (m *TransientElasticsearchPlanConfiguration) contextValidateStrategy(ctx co
 		if err := m.Strategy.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("strategy")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("strategy")
 			}
 			return err
 		}

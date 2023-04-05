@@ -72,6 +72,8 @@ func (m *ClusterSnapshotRepositoryInfo) validateReference(formats strfmt.Registr
 		if err := m.Reference.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("reference")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("reference")
 			}
 			return err
 		}
@@ -89,6 +91,8 @@ func (m *ClusterSnapshotRepositoryInfo) validateStatic(formats strfmt.Registry) 
 		if err := m.Static.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("static")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("static")
 			}
 			return err
 		}
@@ -121,6 +125,8 @@ func (m *ClusterSnapshotRepositoryInfo) contextValidateReference(ctx context.Con
 		if err := m.Reference.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("reference")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("reference")
 			}
 			return err
 		}
@@ -135,6 +141,8 @@ func (m *ClusterSnapshotRepositoryInfo) contextValidateStatic(ctx context.Contex
 		if err := m.Static.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("static")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("static")
 			}
 			return err
 		}

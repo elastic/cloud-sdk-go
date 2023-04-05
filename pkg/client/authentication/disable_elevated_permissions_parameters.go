@@ -69,10 +69,12 @@ func NewDisableElevatedPermissionsParamsWithHTTPClient(client *http.Client) *Dis
 	}
 }
 
-/* DisableElevatedPermissionsParams contains all the parameters to send to the API endpoint
-   for the disable elevated permissions operation.
+/*
+DisableElevatedPermissionsParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the disable elevated permissions operation.
+
+	Typically these are written to a http.Request.
 */
 type DisableElevatedPermissionsParams struct {
 	timeout    time.Duration

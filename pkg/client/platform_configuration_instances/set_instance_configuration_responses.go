@@ -86,7 +86,8 @@ func NewSetInstanceConfigurationOK() *SetInstanceConfigurationOK {
 	return &SetInstanceConfigurationOK{}
 }
 
-/* SetInstanceConfigurationOK describes a response with status code 200, with default header values.
+/*
+SetInstanceConfigurationOK describes a response with status code 200, with default header values.
 
 The instance configuration was updated successfully.
 */
@@ -94,9 +95,44 @@ type SetInstanceConfigurationOK struct {
 	Payload *models.IDResponse
 }
 
+// IsSuccess returns true when this set instance configuration o k response has a 2xx status code
+func (o *SetInstanceConfigurationOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this set instance configuration o k response has a 3xx status code
+func (o *SetInstanceConfigurationOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set instance configuration o k response has a 4xx status code
+func (o *SetInstanceConfigurationOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this set instance configuration o k response has a 5xx status code
+func (o *SetInstanceConfigurationOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set instance configuration o k response a status code equal to that given
+func (o *SetInstanceConfigurationOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the set instance configuration o k response
+func (o *SetInstanceConfigurationOK) Code() int {
+	return 200
+}
+
 func (o *SetInstanceConfigurationOK) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/instances/{id}][%d] setInstanceConfigurationOK  %+v", 200, o.Payload)
 }
+
+func (o *SetInstanceConfigurationOK) String() string {
+	return fmt.Sprintf("[PUT /platform/configuration/instances/{id}][%d] setInstanceConfigurationOK  %+v", 200, o.Payload)
+}
+
 func (o *SetInstanceConfigurationOK) GetPayload() *models.IDResponse {
 	return o.Payload
 }
@@ -118,7 +154,8 @@ func NewSetInstanceConfigurationCreated() *SetInstanceConfigurationCreated {
 	return &SetInstanceConfigurationCreated{}
 }
 
-/* SetInstanceConfigurationCreated describes a response with status code 201, with default header values.
+/*
+SetInstanceConfigurationCreated describes a response with status code 201, with default header values.
 
 The instance configuration was created successfully.
 */
@@ -126,9 +163,44 @@ type SetInstanceConfigurationCreated struct {
 	Payload *models.IDResponse
 }
 
+// IsSuccess returns true when this set instance configuration created response has a 2xx status code
+func (o *SetInstanceConfigurationCreated) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this set instance configuration created response has a 3xx status code
+func (o *SetInstanceConfigurationCreated) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set instance configuration created response has a 4xx status code
+func (o *SetInstanceConfigurationCreated) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this set instance configuration created response has a 5xx status code
+func (o *SetInstanceConfigurationCreated) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set instance configuration created response a status code equal to that given
+func (o *SetInstanceConfigurationCreated) IsCode(code int) bool {
+	return code == 201
+}
+
+// Code gets the status code for the set instance configuration created response
+func (o *SetInstanceConfigurationCreated) Code() int {
+	return 201
+}
+
 func (o *SetInstanceConfigurationCreated) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/instances/{id}][%d] setInstanceConfigurationCreated  %+v", 201, o.Payload)
 }
+
+func (o *SetInstanceConfigurationCreated) String() string {
+	return fmt.Sprintf("[PUT /platform/configuration/instances/{id}][%d] setInstanceConfigurationCreated  %+v", 201, o.Payload)
+}
+
 func (o *SetInstanceConfigurationCreated) GetPayload() *models.IDResponse {
 	return o.Payload
 }
@@ -150,7 +222,8 @@ func NewSetInstanceConfigurationBadRequest() *SetInstanceConfigurationBadRequest
 	return &SetInstanceConfigurationBadRequest{}
 }
 
-/* SetInstanceConfigurationBadRequest describes a response with status code 400, with default header values.
+/*
+SetInstanceConfigurationBadRequest describes a response with status code 400, with default header values.
 
 cluster_type in the InstanceConfiguration model is invalid (code: 'configuration.invalid_cluster_type') or the ZooKeeper operation failed due to bad version, etc. (code: 'configuration.instance_configuration_update_failed') or the id in the InstanceConfiguration model is reserved/prohibited (code: 'configuration.configuration_id_reserved') or the discrete_sizes in the InstanceConfiguration model is invalid (code: 'configuration.invalid_discrete_sizes') or the metadata in the InstanceConfiguration model has empty keys or values (code: 'configuration.bad_meta_data')
 */
@@ -158,9 +231,44 @@ type SetInstanceConfigurationBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this set instance configuration bad request response has a 2xx status code
+func (o *SetInstanceConfigurationBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this set instance configuration bad request response has a 3xx status code
+func (o *SetInstanceConfigurationBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set instance configuration bad request response has a 4xx status code
+func (o *SetInstanceConfigurationBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this set instance configuration bad request response has a 5xx status code
+func (o *SetInstanceConfigurationBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set instance configuration bad request response a status code equal to that given
+func (o *SetInstanceConfigurationBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the set instance configuration bad request response
+func (o *SetInstanceConfigurationBadRequest) Code() int {
+	return 400
+}
+
 func (o *SetInstanceConfigurationBadRequest) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/instances/{id}][%d] setInstanceConfigurationBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *SetInstanceConfigurationBadRequest) String() string {
+	return fmt.Sprintf("[PUT /platform/configuration/instances/{id}][%d] setInstanceConfigurationBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *SetInstanceConfigurationBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -182,7 +290,8 @@ func NewSetInstanceConfigurationForbidden() *SetInstanceConfigurationForbidden {
 	return &SetInstanceConfigurationForbidden{}
 }
 
-/* SetInstanceConfigurationForbidden describes a response with status code 403, with default header values.
+/*
+SetInstanceConfigurationForbidden describes a response with status code 403, with default header values.
 
 system_owned or deleted_on cannot be set externally (code: 'configuration.system_owned')
 */
@@ -190,9 +299,44 @@ type SetInstanceConfigurationForbidden struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this set instance configuration forbidden response has a 2xx status code
+func (o *SetInstanceConfigurationForbidden) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this set instance configuration forbidden response has a 3xx status code
+func (o *SetInstanceConfigurationForbidden) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set instance configuration forbidden response has a 4xx status code
+func (o *SetInstanceConfigurationForbidden) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this set instance configuration forbidden response has a 5xx status code
+func (o *SetInstanceConfigurationForbidden) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set instance configuration forbidden response a status code equal to that given
+func (o *SetInstanceConfigurationForbidden) IsCode(code int) bool {
+	return code == 403
+}
+
+// Code gets the status code for the set instance configuration forbidden response
+func (o *SetInstanceConfigurationForbidden) Code() int {
+	return 403
+}
+
 func (o *SetInstanceConfigurationForbidden) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/instances/{id}][%d] setInstanceConfigurationForbidden  %+v", 403, o.Payload)
 }
+
+func (o *SetInstanceConfigurationForbidden) String() string {
+	return fmt.Sprintf("[PUT /platform/configuration/instances/{id}][%d] setInstanceConfigurationForbidden  %+v", 403, o.Payload)
+}
+
 func (o *SetInstanceConfigurationForbidden) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -214,7 +358,8 @@ func NewSetInstanceConfigurationNotFound() *SetInstanceConfigurationNotFound {
 	return &SetInstanceConfigurationNotFound{}
 }
 
-/* SetInstanceConfigurationNotFound describes a response with status code 404, with default header values.
+/*
+SetInstanceConfigurationNotFound describes a response with status code 404, with default header values.
 
 Instance configuration specified by {id} cannot be found or the operation failed (code: 'configuration.instance_configuration_not_found')
 */
@@ -222,9 +367,44 @@ type SetInstanceConfigurationNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this set instance configuration not found response has a 2xx status code
+func (o *SetInstanceConfigurationNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this set instance configuration not found response has a 3xx status code
+func (o *SetInstanceConfigurationNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set instance configuration not found response has a 4xx status code
+func (o *SetInstanceConfigurationNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this set instance configuration not found response has a 5xx status code
+func (o *SetInstanceConfigurationNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set instance configuration not found response a status code equal to that given
+func (o *SetInstanceConfigurationNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the set instance configuration not found response
+func (o *SetInstanceConfigurationNotFound) Code() int {
+	return 404
+}
+
 func (o *SetInstanceConfigurationNotFound) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/instances/{id}][%d] setInstanceConfigurationNotFound  %+v", 404, o.Payload)
 }
+
+func (o *SetInstanceConfigurationNotFound) String() string {
+	return fmt.Sprintf("[PUT /platform/configuration/instances/{id}][%d] setInstanceConfigurationNotFound  %+v", 404, o.Payload)
+}
+
 func (o *SetInstanceConfigurationNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -246,7 +426,8 @@ func NewSetInstanceConfigurationRetryWith() *SetInstanceConfigurationRetryWith {
 	return &SetInstanceConfigurationRetryWith{}
 }
 
-/* SetInstanceConfigurationRetryWith describes a response with status code 449, with default header values.
+/*
+SetInstanceConfigurationRetryWith describes a response with status code 449, with default header values.
 
 elevated permissions are required. (code: '"root.unauthorized.rbac.elevated_permissions_required"')
 */
@@ -254,9 +435,44 @@ type SetInstanceConfigurationRetryWith struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this set instance configuration retry with response has a 2xx status code
+func (o *SetInstanceConfigurationRetryWith) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this set instance configuration retry with response has a 3xx status code
+func (o *SetInstanceConfigurationRetryWith) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set instance configuration retry with response has a 4xx status code
+func (o *SetInstanceConfigurationRetryWith) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this set instance configuration retry with response has a 5xx status code
+func (o *SetInstanceConfigurationRetryWith) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set instance configuration retry with response a status code equal to that given
+func (o *SetInstanceConfigurationRetryWith) IsCode(code int) bool {
+	return code == 449
+}
+
+// Code gets the status code for the set instance configuration retry with response
+func (o *SetInstanceConfigurationRetryWith) Code() int {
+	return 449
+}
+
 func (o *SetInstanceConfigurationRetryWith) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/instances/{id}][%d] setInstanceConfigurationRetryWith  %+v", 449, o.Payload)
 }
+
+func (o *SetInstanceConfigurationRetryWith) String() string {
+	return fmt.Sprintf("[PUT /platform/configuration/instances/{id}][%d] setInstanceConfigurationRetryWith  %+v", 449, o.Payload)
+}
+
 func (o *SetInstanceConfigurationRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

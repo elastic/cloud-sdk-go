@@ -62,7 +62,8 @@ func NewGetDeploymentHeapDumpsOK() *GetDeploymentHeapDumpsOK {
 	return &GetDeploymentHeapDumpsOK{}
 }
 
-/* GetDeploymentHeapDumpsOK describes a response with status code 200, with default header values.
+/*
+GetDeploymentHeapDumpsOK describes a response with status code 200, with default header values.
 
 The heap dump details for all instances belonging to the deployment
 */
@@ -70,9 +71,44 @@ type GetDeploymentHeapDumpsOK struct {
 	Payload *models.DeploymentHeapDumps
 }
 
+// IsSuccess returns true when this get deployment heap dumps o k response has a 2xx status code
+func (o *GetDeploymentHeapDumpsOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get deployment heap dumps o k response has a 3xx status code
+func (o *GetDeploymentHeapDumpsOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get deployment heap dumps o k response has a 4xx status code
+func (o *GetDeploymentHeapDumpsOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get deployment heap dumps o k response has a 5xx status code
+func (o *GetDeploymentHeapDumpsOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get deployment heap dumps o k response a status code equal to that given
+func (o *GetDeploymentHeapDumpsOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get deployment heap dumps o k response
+func (o *GetDeploymentHeapDumpsOK) Code() int {
+	return 200
+}
+
 func (o *GetDeploymentHeapDumpsOK) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/heap_dumps][%d] getDeploymentHeapDumpsOK  %+v", 200, o.Payload)
 }
+
+func (o *GetDeploymentHeapDumpsOK) String() string {
+	return fmt.Sprintf("[GET /deployments/{deployment_id}/heap_dumps][%d] getDeploymentHeapDumpsOK  %+v", 200, o.Payload)
+}
+
 func (o *GetDeploymentHeapDumpsOK) GetPayload() *models.DeploymentHeapDumps {
 	return o.Payload
 }
@@ -94,7 +130,8 @@ func NewGetDeploymentHeapDumpsNotFound() *GetDeploymentHeapDumpsNotFound {
 	return &GetDeploymentHeapDumpsNotFound{}
 }
 
-/* GetDeploymentHeapDumpsNotFound describes a response with status code 404, with default header values.
+/*
+GetDeploymentHeapDumpsNotFound describes a response with status code 404, with default header values.
 
 The deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
 */
@@ -107,9 +144,44 @@ type GetDeploymentHeapDumpsNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get deployment heap dumps not found response has a 2xx status code
+func (o *GetDeploymentHeapDumpsNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get deployment heap dumps not found response has a 3xx status code
+func (o *GetDeploymentHeapDumpsNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get deployment heap dumps not found response has a 4xx status code
+func (o *GetDeploymentHeapDumpsNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get deployment heap dumps not found response has a 5xx status code
+func (o *GetDeploymentHeapDumpsNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get deployment heap dumps not found response a status code equal to that given
+func (o *GetDeploymentHeapDumpsNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the get deployment heap dumps not found response
+func (o *GetDeploymentHeapDumpsNotFound) Code() int {
+	return 404
+}
+
 func (o *GetDeploymentHeapDumpsNotFound) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/heap_dumps][%d] getDeploymentHeapDumpsNotFound  %+v", 404, o.Payload)
 }
+
+func (o *GetDeploymentHeapDumpsNotFound) String() string {
+	return fmt.Sprintf("[GET /deployments/{deployment_id}/heap_dumps][%d] getDeploymentHeapDumpsNotFound  %+v", 404, o.Payload)
+}
+
 func (o *GetDeploymentHeapDumpsNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

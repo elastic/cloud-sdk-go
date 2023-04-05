@@ -92,6 +92,8 @@ func (m *ClusterSnapshotSettings) validateRepository(formats strfmt.Registry) er
 		if err := m.Repository.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("repository")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("repository")
 			}
 			return err
 		}
@@ -109,6 +111,8 @@ func (m *ClusterSnapshotSettings) validateRetention(formats strfmt.Registry) err
 		if err := m.Retention.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("retention")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("retention")
 			}
 			return err
 		}
@@ -145,6 +149,8 @@ func (m *ClusterSnapshotSettings) contextValidateRepository(ctx context.Context,
 		if err := m.Repository.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("repository")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("repository")
 			}
 			return err
 		}
@@ -159,6 +165,8 @@ func (m *ClusterSnapshotSettings) contextValidateRetention(ctx context.Context, 
 		if err := m.Retention.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("retention")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("retention")
 			}
 			return err
 		}

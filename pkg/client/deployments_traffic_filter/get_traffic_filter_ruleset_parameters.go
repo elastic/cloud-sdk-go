@@ -70,10 +70,12 @@ func NewGetTrafficFilterRulesetParamsWithHTTPClient(client *http.Client) *GetTra
 	}
 }
 
-/* GetTrafficFilterRulesetParams contains all the parameters to send to the API endpoint
-   for the get traffic filter ruleset operation.
+/*
+GetTrafficFilterRulesetParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the get traffic filter ruleset operation.
+
+	Typically these are written to a http.Request.
 */
 type GetTrafficFilterRulesetParams struct {
 

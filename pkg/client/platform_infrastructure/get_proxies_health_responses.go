@@ -68,7 +68,8 @@ func NewGetProxiesHealthOK() *GetProxiesHealthOK {
 	return &GetProxiesHealthOK{}
 }
 
-/* GetProxiesHealthOK describes a response with status code 200, with default header values.
+/*
+GetProxiesHealthOK describes a response with status code 200, with default header values.
 
 Returns health information on all the proxies
 */
@@ -76,9 +77,44 @@ type GetProxiesHealthOK struct {
 	Payload *models.ProxiesHealth
 }
 
+// IsSuccess returns true when this get proxies health o k response has a 2xx status code
+func (o *GetProxiesHealthOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get proxies health o k response has a 3xx status code
+func (o *GetProxiesHealthOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get proxies health o k response has a 4xx status code
+func (o *GetProxiesHealthOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get proxies health o k response has a 5xx status code
+func (o *GetProxiesHealthOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get proxies health o k response a status code equal to that given
+func (o *GetProxiesHealthOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get proxies health o k response
+func (o *GetProxiesHealthOK) Code() int {
+	return 200
+}
+
 func (o *GetProxiesHealthOK) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/proxies/health][%d] getProxiesHealthOK  %+v", 200, o.Payload)
 }
+
+func (o *GetProxiesHealthOK) String() string {
+	return fmt.Sprintf("[GET /platform/infrastructure/proxies/health][%d] getProxiesHealthOK  %+v", 200, o.Payload)
+}
+
 func (o *GetProxiesHealthOK) GetPayload() *models.ProxiesHealth {
 	return o.Payload
 }
@@ -100,7 +136,8 @@ func NewGetProxiesHealthExpectationFailed() *GetProxiesHealthExpectationFailed {
 	return &GetProxiesHealthExpectationFailed{}
 }
 
-/* GetProxiesHealthExpectationFailed describes a response with status code 417, with default header values.
+/*
+GetProxiesHealthExpectationFailed describes a response with status code 417, with default header values.
 
 The health status is worse than the expected one.
 */
@@ -108,9 +145,44 @@ type GetProxiesHealthExpectationFailed struct {
 	Payload *models.ProxiesHealth
 }
 
+// IsSuccess returns true when this get proxies health expectation failed response has a 2xx status code
+func (o *GetProxiesHealthExpectationFailed) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get proxies health expectation failed response has a 3xx status code
+func (o *GetProxiesHealthExpectationFailed) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get proxies health expectation failed response has a 4xx status code
+func (o *GetProxiesHealthExpectationFailed) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get proxies health expectation failed response has a 5xx status code
+func (o *GetProxiesHealthExpectationFailed) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get proxies health expectation failed response a status code equal to that given
+func (o *GetProxiesHealthExpectationFailed) IsCode(code int) bool {
+	return code == 417
+}
+
+// Code gets the status code for the get proxies health expectation failed response
+func (o *GetProxiesHealthExpectationFailed) Code() int {
+	return 417
+}
+
 func (o *GetProxiesHealthExpectationFailed) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/proxies/health][%d] getProxiesHealthExpectationFailed  %+v", 417, o.Payload)
 }
+
+func (o *GetProxiesHealthExpectationFailed) String() string {
+	return fmt.Sprintf("[GET /platform/infrastructure/proxies/health][%d] getProxiesHealthExpectationFailed  %+v", 417, o.Payload)
+}
+
 func (o *GetProxiesHealthExpectationFailed) GetPayload() *models.ProxiesHealth {
 	return o.Payload
 }
@@ -132,7 +204,8 @@ func NewGetProxiesHealthRetryWith() *GetProxiesHealthRetryWith {
 	return &GetProxiesHealthRetryWith{}
 }
 
-/* GetProxiesHealthRetryWith describes a response with status code 449, with default header values.
+/*
+GetProxiesHealthRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
@@ -145,9 +218,44 @@ type GetProxiesHealthRetryWith struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get proxies health retry with response has a 2xx status code
+func (o *GetProxiesHealthRetryWith) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get proxies health retry with response has a 3xx status code
+func (o *GetProxiesHealthRetryWith) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get proxies health retry with response has a 4xx status code
+func (o *GetProxiesHealthRetryWith) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get proxies health retry with response has a 5xx status code
+func (o *GetProxiesHealthRetryWith) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get proxies health retry with response a status code equal to that given
+func (o *GetProxiesHealthRetryWith) IsCode(code int) bool {
+	return code == 449
+}
+
+// Code gets the status code for the get proxies health retry with response
+func (o *GetProxiesHealthRetryWith) Code() int {
+	return 449
+}
+
 func (o *GetProxiesHealthRetryWith) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/proxies/health][%d] getProxiesHealthRetryWith  %+v", 449, o.Payload)
 }
+
+func (o *GetProxiesHealthRetryWith) String() string {
+	return fmt.Sprintf("[GET /platform/infrastructure/proxies/health][%d] getProxiesHealthRetryWith  %+v", 449, o.Payload)
+}
+
 func (o *GetProxiesHealthRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

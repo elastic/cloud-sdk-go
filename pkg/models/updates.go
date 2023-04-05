@@ -103,6 +103,8 @@ func (m *Updates) validateApm(formats strfmt.Registry) error {
 			if err := m.Apm[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("apm" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("apm" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -127,6 +129,8 @@ func (m *Updates) validateAppsearch(formats strfmt.Registry) error {
 			if err := m.Appsearch[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("appsearch" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("appsearch" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -151,6 +155,8 @@ func (m *Updates) validateElasticsearch(formats strfmt.Registry) error {
 			if err := m.Elasticsearch[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("elasticsearch" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("elasticsearch" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -175,6 +181,8 @@ func (m *Updates) validateEnterpriseSearch(formats strfmt.Registry) error {
 			if err := m.EnterpriseSearch[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("enterprise_search" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("enterprise_search" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -199,6 +207,8 @@ func (m *Updates) validateIntegrationsServer(formats strfmt.Registry) error {
 			if err := m.IntegrationsServer[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("integrations_server" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("integrations_server" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -223,6 +233,8 @@ func (m *Updates) validateKibana(formats strfmt.Registry) error {
 			if err := m.Kibana[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("kibana" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("kibana" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -275,6 +287,8 @@ func (m *Updates) contextValidateApm(ctx context.Context, formats strfmt.Registr
 			if err := m.Apm[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("apm" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("apm" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -293,6 +307,8 @@ func (m *Updates) contextValidateAppsearch(ctx context.Context, formats strfmt.R
 			if err := m.Appsearch[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("appsearch" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("appsearch" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -311,6 +327,8 @@ func (m *Updates) contextValidateElasticsearch(ctx context.Context, formats strf
 			if err := m.Elasticsearch[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("elasticsearch" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("elasticsearch" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -329,6 +347,8 @@ func (m *Updates) contextValidateEnterpriseSearch(ctx context.Context, formats s
 			if err := m.EnterpriseSearch[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("enterprise_search" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("enterprise_search" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -347,6 +367,8 @@ func (m *Updates) contextValidateIntegrationsServer(ctx context.Context, formats
 			if err := m.IntegrationsServer[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("integrations_server" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("integrations_server" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -365,6 +387,8 @@ func (m *Updates) contextValidateKibana(ctx context.Context, formats strfmt.Regi
 			if err := m.Kibana[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("kibana" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("kibana" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

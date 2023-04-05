@@ -65,6 +65,8 @@ func (m *TopologyElementControl) validateMin(formats strfmt.Registry) error {
 		if err := m.Min.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("min")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("min")
 			}
 			return err
 		}
@@ -93,6 +95,8 @@ func (m *TopologyElementControl) contextValidateMin(ctx context.Context, formats
 		if err := m.Min.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("min")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("min")
 			}
 			return err
 		}

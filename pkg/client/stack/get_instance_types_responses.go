@@ -56,7 +56,8 @@ func NewGetInstanceTypesOK() *GetInstanceTypesOK {
 	return &GetInstanceTypesOK{}
 }
 
-/* GetInstanceTypesOK describes a response with status code 200, with default header values.
+/*
+GetInstanceTypesOK describes a response with status code 200, with default header values.
 
 List of node types
 */
@@ -64,9 +65,44 @@ type GetInstanceTypesOK struct {
 	Payload []*models.InstanceTypeResource
 }
 
+// IsSuccess returns true when this get instance types o k response has a 2xx status code
+func (o *GetInstanceTypesOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get instance types o k response has a 3xx status code
+func (o *GetInstanceTypesOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get instance types o k response has a 4xx status code
+func (o *GetInstanceTypesOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get instance types o k response has a 5xx status code
+func (o *GetInstanceTypesOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get instance types o k response a status code equal to that given
+func (o *GetInstanceTypesOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get instance types o k response
+func (o *GetInstanceTypesOK) Code() int {
+	return 200
+}
+
 func (o *GetInstanceTypesOK) Error() string {
 	return fmt.Sprintf("[GET /stack/instance-types][%d] getInstanceTypesOK  %+v", 200, o.Payload)
 }
+
+func (o *GetInstanceTypesOK) String() string {
+	return fmt.Sprintf("[GET /stack/instance-types][%d] getInstanceTypesOK  %+v", 200, o.Payload)
+}
+
 func (o *GetInstanceTypesOK) GetPayload() []*models.InstanceTypeResource {
 	return o.Payload
 }

@@ -69,10 +69,12 @@ func NewResyncAllocatorParamsWithHTTPClient(client *http.Client) *ResyncAllocato
 	}
 }
 
-/* ResyncAllocatorParams contains all the parameters to send to the API endpoint
-   for the resync allocator operation.
+/*
+ResyncAllocatorParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the resync allocator operation.
+
+	Typically these are written to a http.Request.
 */
 type ResyncAllocatorParams struct {
 

@@ -69,10 +69,12 @@ func NewGetCostsOverviewParamsWithHTTPClient(client *http.Client) *GetCostsOverv
 	}
 }
 
-/* GetCostsOverviewParams contains all the parameters to send to the API endpoint
-   for the get costs overview operation.
+/*
+GetCostsOverviewParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the get costs overview operation.
+
+	Typically these are written to a http.Request.
 */
 type GetCostsOverviewParams struct {
 

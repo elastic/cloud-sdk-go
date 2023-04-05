@@ -68,7 +68,8 @@ func NewGetDeploymentApmResourceInfoOK() *GetDeploymentApmResourceInfoOK {
 	return &GetDeploymentApmResourceInfoOK{}
 }
 
-/* GetDeploymentApmResourceInfoOK describes a response with status code 200, with default header values.
+/*
+GetDeploymentApmResourceInfoOK describes a response with status code 200, with default header values.
 
 Standard response.
 */
@@ -76,9 +77,44 @@ type GetDeploymentApmResourceInfoOK struct {
 	Payload *models.ApmResourceInfo
 }
 
+// IsSuccess returns true when this get deployment apm resource info o k response has a 2xx status code
+func (o *GetDeploymentApmResourceInfoOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get deployment apm resource info o k response has a 3xx status code
+func (o *GetDeploymentApmResourceInfoOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get deployment apm resource info o k response has a 4xx status code
+func (o *GetDeploymentApmResourceInfoOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get deployment apm resource info o k response has a 5xx status code
+func (o *GetDeploymentApmResourceInfoOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get deployment apm resource info o k response a status code equal to that given
+func (o *GetDeploymentApmResourceInfoOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get deployment apm resource info o k response
+func (o *GetDeploymentApmResourceInfoOK) Code() int {
+	return 200
+}
+
 func (o *GetDeploymentApmResourceInfoOK) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/apm/{ref_id}][%d] getDeploymentApmResourceInfoOK  %+v", 200, o.Payload)
 }
+
+func (o *GetDeploymentApmResourceInfoOK) String() string {
+	return fmt.Sprintf("[GET /deployments/{deployment_id}/apm/{ref_id}][%d] getDeploymentApmResourceInfoOK  %+v", 200, o.Payload)
+}
+
 func (o *GetDeploymentApmResourceInfoOK) GetPayload() *models.ApmResourceInfo {
 	return o.Payload
 }
@@ -100,7 +136,8 @@ func NewGetDeploymentApmResourceInfoNotFound() *GetDeploymentApmResourceInfoNotF
 	return &GetDeploymentApmResourceInfoNotFound{}
 }
 
-/* GetDeploymentApmResourceInfoNotFound describes a response with status code 404, with default header values.
+/*
+GetDeploymentApmResourceInfoNotFound describes a response with status code 404, with default header values.
 
 The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
 */
@@ -113,9 +150,44 @@ type GetDeploymentApmResourceInfoNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get deployment apm resource info not found response has a 2xx status code
+func (o *GetDeploymentApmResourceInfoNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get deployment apm resource info not found response has a 3xx status code
+func (o *GetDeploymentApmResourceInfoNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get deployment apm resource info not found response has a 4xx status code
+func (o *GetDeploymentApmResourceInfoNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get deployment apm resource info not found response has a 5xx status code
+func (o *GetDeploymentApmResourceInfoNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get deployment apm resource info not found response a status code equal to that given
+func (o *GetDeploymentApmResourceInfoNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the get deployment apm resource info not found response
+func (o *GetDeploymentApmResourceInfoNotFound) Code() int {
+	return 404
+}
+
 func (o *GetDeploymentApmResourceInfoNotFound) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/apm/{ref_id}][%d] getDeploymentApmResourceInfoNotFound  %+v", 404, o.Payload)
 }
+
+func (o *GetDeploymentApmResourceInfoNotFound) String() string {
+	return fmt.Sprintf("[GET /deployments/{deployment_id}/apm/{ref_id}][%d] getDeploymentApmResourceInfoNotFound  %+v", 404, o.Payload)
+}
+
 func (o *GetDeploymentApmResourceInfoNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -144,7 +216,8 @@ func NewGetDeploymentApmResourceInfoInternalServerError() *GetDeploymentApmResou
 	return &GetDeploymentApmResourceInfoInternalServerError{}
 }
 
-/* GetDeploymentApmResourceInfoInternalServerError describes a response with status code 500, with default header values.
+/*
+GetDeploymentApmResourceInfoInternalServerError describes a response with status code 500, with default header values.
 
 We have failed you. (code: `deployments.deployment_resource_no_longer_exists`)
 */
@@ -157,9 +230,44 @@ type GetDeploymentApmResourceInfoInternalServerError struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get deployment apm resource info internal server error response has a 2xx status code
+func (o *GetDeploymentApmResourceInfoInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get deployment apm resource info internal server error response has a 3xx status code
+func (o *GetDeploymentApmResourceInfoInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get deployment apm resource info internal server error response has a 4xx status code
+func (o *GetDeploymentApmResourceInfoInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get deployment apm resource info internal server error response has a 5xx status code
+func (o *GetDeploymentApmResourceInfoInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this get deployment apm resource info internal server error response a status code equal to that given
+func (o *GetDeploymentApmResourceInfoInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
+// Code gets the status code for the get deployment apm resource info internal server error response
+func (o *GetDeploymentApmResourceInfoInternalServerError) Code() int {
+	return 500
+}
+
 func (o *GetDeploymentApmResourceInfoInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/apm/{ref_id}][%d] getDeploymentApmResourceInfoInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *GetDeploymentApmResourceInfoInternalServerError) String() string {
+	return fmt.Sprintf("[GET /deployments/{deployment_id}/apm/{ref_id}][%d] getDeploymentApmResourceInfoInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *GetDeploymentApmResourceInfoInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

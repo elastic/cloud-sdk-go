@@ -56,7 +56,8 @@ func NewGetVersionStacksOK() *GetVersionStacksOK {
 	return &GetVersionStacksOK{}
 }
 
-/* GetVersionStacksOK describes a response with status code 200, with default header values.
+/*
+GetVersionStacksOK describes a response with status code 200, with default header values.
 
 The list of all available Elastic Stack versions are retrieved, including the template version and structure.
 */
@@ -64,9 +65,44 @@ type GetVersionStacksOK struct {
 	Payload *models.StackVersionConfigs
 }
 
+// IsSuccess returns true when this get version stacks o k response has a 2xx status code
+func (o *GetVersionStacksOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get version stacks o k response has a 3xx status code
+func (o *GetVersionStacksOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get version stacks o k response has a 4xx status code
+func (o *GetVersionStacksOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get version stacks o k response has a 5xx status code
+func (o *GetVersionStacksOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get version stacks o k response a status code equal to that given
+func (o *GetVersionStacksOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get version stacks o k response
+func (o *GetVersionStacksOK) Code() int {
+	return 200
+}
+
 func (o *GetVersionStacksOK) Error() string {
 	return fmt.Sprintf("[GET /stack/versions][%d] getVersionStacksOK  %+v", 200, o.Payload)
 }
+
+func (o *GetVersionStacksOK) String() string {
+	return fmt.Sprintf("[GET /stack/versions][%d] getVersionStacksOK  %+v", 200, o.Payload)
+}
+
 func (o *GetVersionStacksOK) GetPayload() *models.StackVersionConfigs {
 	return o.Payload
 }

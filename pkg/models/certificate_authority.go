@@ -79,6 +79,8 @@ func (m *CertificateAuthority) validatePublicCertificates(formats strfmt.Registr
 			if err := m.PublicCertificates[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("public_certificates" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("public_certificates" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -120,6 +122,8 @@ func (m *CertificateAuthority) contextValidatePublicCertificates(ctx context.Con
 			if err := m.PublicCertificates[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("public_certificates" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("public_certificates" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

@@ -68,7 +68,8 @@ func NewUpdateAdminconsoleLoggingSettingsOK() *UpdateAdminconsoleLoggingSettings
 	return &UpdateAdminconsoleLoggingSettingsOK{}
 }
 
-/* UpdateAdminconsoleLoggingSettingsOK describes a response with status code 200, with default header values.
+/*
+UpdateAdminconsoleLoggingSettingsOK describes a response with status code 200, with default header values.
 
 The updated logging settings for the adminconsole instance
 */
@@ -89,9 +90,44 @@ type UpdateAdminconsoleLoggingSettingsOK struct {
 	Payload *models.LoggingSettings
 }
 
+// IsSuccess returns true when this update adminconsole logging settings o k response has a 2xx status code
+func (o *UpdateAdminconsoleLoggingSettingsOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this update adminconsole logging settings o k response has a 3xx status code
+func (o *UpdateAdminconsoleLoggingSettingsOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update adminconsole logging settings o k response has a 4xx status code
+func (o *UpdateAdminconsoleLoggingSettingsOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this update adminconsole logging settings o k response has a 5xx status code
+func (o *UpdateAdminconsoleLoggingSettingsOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update adminconsole logging settings o k response a status code equal to that given
+func (o *UpdateAdminconsoleLoggingSettingsOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the update adminconsole logging settings o k response
+func (o *UpdateAdminconsoleLoggingSettingsOK) Code() int {
+	return 200
+}
+
 func (o *UpdateAdminconsoleLoggingSettingsOK) Error() string {
 	return fmt.Sprintf("[PATCH /platform/infrastructure/adminconsoles/{adminconsole_id}/logging_settings][%d] updateAdminconsoleLoggingSettingsOK  %+v", 200, o.Payload)
 }
+
+func (o *UpdateAdminconsoleLoggingSettingsOK) String() string {
+	return fmt.Sprintf("[PATCH /platform/infrastructure/adminconsoles/{adminconsole_id}/logging_settings][%d] updateAdminconsoleLoggingSettingsOK  %+v", 200, o.Payload)
+}
+
 func (o *UpdateAdminconsoleLoggingSettingsOK) GetPayload() *models.LoggingSettings {
 	return o.Payload
 }
@@ -134,7 +170,8 @@ func NewUpdateAdminconsoleLoggingSettingsBadRequest() *UpdateAdminconsoleLogging
 	return &UpdateAdminconsoleLoggingSettingsBadRequest{}
 }
 
-/* UpdateAdminconsoleLoggingSettingsBadRequest describes a response with status code 400, with default header values.
+/*
+UpdateAdminconsoleLoggingSettingsBadRequest describes a response with status code 400, with default header values.
 
 The update request is invalid. (code: `patch.request_malformed`)
 */
@@ -147,9 +184,44 @@ type UpdateAdminconsoleLoggingSettingsBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this update adminconsole logging settings bad request response has a 2xx status code
+func (o *UpdateAdminconsoleLoggingSettingsBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update adminconsole logging settings bad request response has a 3xx status code
+func (o *UpdateAdminconsoleLoggingSettingsBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update adminconsole logging settings bad request response has a 4xx status code
+func (o *UpdateAdminconsoleLoggingSettingsBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update adminconsole logging settings bad request response has a 5xx status code
+func (o *UpdateAdminconsoleLoggingSettingsBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update adminconsole logging settings bad request response a status code equal to that given
+func (o *UpdateAdminconsoleLoggingSettingsBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the update adminconsole logging settings bad request response
+func (o *UpdateAdminconsoleLoggingSettingsBadRequest) Code() int {
+	return 400
+}
+
 func (o *UpdateAdminconsoleLoggingSettingsBadRequest) Error() string {
 	return fmt.Sprintf("[PATCH /platform/infrastructure/adminconsoles/{adminconsole_id}/logging_settings][%d] updateAdminconsoleLoggingSettingsBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *UpdateAdminconsoleLoggingSettingsBadRequest) String() string {
+	return fmt.Sprintf("[PATCH /platform/infrastructure/adminconsoles/{adminconsole_id}/logging_settings][%d] updateAdminconsoleLoggingSettingsBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *UpdateAdminconsoleLoggingSettingsBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -178,7 +250,8 @@ func NewUpdateAdminconsoleLoggingSettingsNotFound() *UpdateAdminconsoleLoggingSe
 	return &UpdateAdminconsoleLoggingSettingsNotFound{}
 }
 
-/* UpdateAdminconsoleLoggingSettingsNotFound describes a response with status code 404, with default header values.
+/*
+UpdateAdminconsoleLoggingSettingsNotFound describes a response with status code 404, with default header values.
 
 The logging settings for this adminconsole were not found. (code: `adminconsoles.logging_settings.not_found`)
 */
@@ -191,9 +264,44 @@ type UpdateAdminconsoleLoggingSettingsNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this update adminconsole logging settings not found response has a 2xx status code
+func (o *UpdateAdminconsoleLoggingSettingsNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update adminconsole logging settings not found response has a 3xx status code
+func (o *UpdateAdminconsoleLoggingSettingsNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update adminconsole logging settings not found response has a 4xx status code
+func (o *UpdateAdminconsoleLoggingSettingsNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update adminconsole logging settings not found response has a 5xx status code
+func (o *UpdateAdminconsoleLoggingSettingsNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update adminconsole logging settings not found response a status code equal to that given
+func (o *UpdateAdminconsoleLoggingSettingsNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the update adminconsole logging settings not found response
+func (o *UpdateAdminconsoleLoggingSettingsNotFound) Code() int {
+	return 404
+}
+
 func (o *UpdateAdminconsoleLoggingSettingsNotFound) Error() string {
 	return fmt.Sprintf("[PATCH /platform/infrastructure/adminconsoles/{adminconsole_id}/logging_settings][%d] updateAdminconsoleLoggingSettingsNotFound  %+v", 404, o.Payload)
 }
+
+func (o *UpdateAdminconsoleLoggingSettingsNotFound) String() string {
+	return fmt.Sprintf("[PATCH /platform/infrastructure/adminconsoles/{adminconsole_id}/logging_settings][%d] updateAdminconsoleLoggingSettingsNotFound  %+v", 404, o.Payload)
+}
+
 func (o *UpdateAdminconsoleLoggingSettingsNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

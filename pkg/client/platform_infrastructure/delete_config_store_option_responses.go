@@ -62,7 +62,8 @@ func NewDeleteConfigStoreOptionOK() *DeleteConfigStoreOptionOK {
 	return &DeleteConfigStoreOptionOK{}
 }
 
-/* DeleteConfigStoreOptionOK describes a response with status code 200, with default header values.
+/*
+DeleteConfigStoreOptionOK describes a response with status code 200, with default header values.
 
 Config Store Option deleted successfully
 */
@@ -83,9 +84,44 @@ type DeleteConfigStoreOptionOK struct {
 	Payload models.EmptyResponse
 }
 
+// IsSuccess returns true when this delete config store option o k response has a 2xx status code
+func (o *DeleteConfigStoreOptionOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this delete config store option o k response has a 3xx status code
+func (o *DeleteConfigStoreOptionOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete config store option o k response has a 4xx status code
+func (o *DeleteConfigStoreOptionOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this delete config store option o k response has a 5xx status code
+func (o *DeleteConfigStoreOptionOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete config store option o k response a status code equal to that given
+func (o *DeleteConfigStoreOptionOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the delete config store option o k response
+func (o *DeleteConfigStoreOptionOK) Code() int {
+	return 200
+}
+
 func (o *DeleteConfigStoreOptionOK) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/store/{config_option_id}][%d] deleteConfigStoreOptionOK  %+v", 200, o.Payload)
 }
+
+func (o *DeleteConfigStoreOptionOK) String() string {
+	return fmt.Sprintf("[DELETE /platform/configuration/store/{config_option_id}][%d] deleteConfigStoreOptionOK  %+v", 200, o.Payload)
+}
+
 func (o *DeleteConfigStoreOptionOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -126,7 +162,8 @@ func NewDeleteConfigStoreOptionNotFound() *DeleteConfigStoreOptionNotFound {
 	return &DeleteConfigStoreOptionNotFound{}
 }
 
-/* DeleteConfigStoreOptionNotFound describes a response with status code 404, with default header values.
+/*
+DeleteConfigStoreOptionNotFound describes a response with status code 404, with default header values.
 
 Config Store Option do not exist by that name. (code: `platform.config.store.not_found`)
 */
@@ -139,9 +176,44 @@ type DeleteConfigStoreOptionNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete config store option not found response has a 2xx status code
+func (o *DeleteConfigStoreOptionNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete config store option not found response has a 3xx status code
+func (o *DeleteConfigStoreOptionNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete config store option not found response has a 4xx status code
+func (o *DeleteConfigStoreOptionNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete config store option not found response has a 5xx status code
+func (o *DeleteConfigStoreOptionNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete config store option not found response a status code equal to that given
+func (o *DeleteConfigStoreOptionNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the delete config store option not found response
+func (o *DeleteConfigStoreOptionNotFound) Code() int {
+	return 404
+}
+
 func (o *DeleteConfigStoreOptionNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/store/{config_option_id}][%d] deleteConfigStoreOptionNotFound  %+v", 404, o.Payload)
 }
+
+func (o *DeleteConfigStoreOptionNotFound) String() string {
+	return fmt.Sprintf("[DELETE /platform/configuration/store/{config_option_id}][%d] deleteConfigStoreOptionNotFound  %+v", 404, o.Payload)
+}
+
 func (o *DeleteConfigStoreOptionNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

@@ -74,7 +74,8 @@ func NewDeleteProxiesFilteredGroupOK() *DeleteProxiesFilteredGroupOK {
 	return &DeleteProxiesFilteredGroupOK{}
 }
 
-/* DeleteProxiesFilteredGroupOK describes a response with status code 200, with default header values.
+/*
+DeleteProxiesFilteredGroupOK describes a response with status code 200, with default header values.
 
 The filtered group of proxies was successfully deleted
 */
@@ -82,9 +83,44 @@ type DeleteProxiesFilteredGroupOK struct {
 	Payload models.EmptyResponse
 }
 
+// IsSuccess returns true when this delete proxies filtered group o k response has a 2xx status code
+func (o *DeleteProxiesFilteredGroupOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this delete proxies filtered group o k response has a 3xx status code
+func (o *DeleteProxiesFilteredGroupOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete proxies filtered group o k response has a 4xx status code
+func (o *DeleteProxiesFilteredGroupOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this delete proxies filtered group o k response has a 5xx status code
+func (o *DeleteProxiesFilteredGroupOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete proxies filtered group o k response a status code equal to that given
+func (o *DeleteProxiesFilteredGroupOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the delete proxies filtered group o k response
+func (o *DeleteProxiesFilteredGroupOK) Code() int {
+	return 200
+}
+
 func (o *DeleteProxiesFilteredGroupOK) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}][%d] deleteProxiesFilteredGroupOK  %+v", 200, o.Payload)
 }
+
+func (o *DeleteProxiesFilteredGroupOK) String() string {
+	return fmt.Sprintf("[DELETE /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}][%d] deleteProxiesFilteredGroupOK  %+v", 200, o.Payload)
+}
+
 func (o *DeleteProxiesFilteredGroupOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -104,7 +140,8 @@ func NewDeleteProxiesFilteredGroupNotFound() *DeleteProxiesFilteredGroupNotFound
 	return &DeleteProxiesFilteredGroupNotFound{}
 }
 
-/* DeleteProxiesFilteredGroupNotFound describes a response with status code 404, with default header values.
+/*
+DeleteProxiesFilteredGroupNotFound describes a response with status code 404, with default header values.
 
 Unable to find the {proxies_filtered_group_id} specified filtered group of proxies. Edit your request, then try again. (code: `proxies.proxies_filtered_group_not_found`)
 */
@@ -117,9 +154,44 @@ type DeleteProxiesFilteredGroupNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete proxies filtered group not found response has a 2xx status code
+func (o *DeleteProxiesFilteredGroupNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete proxies filtered group not found response has a 3xx status code
+func (o *DeleteProxiesFilteredGroupNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete proxies filtered group not found response has a 4xx status code
+func (o *DeleteProxiesFilteredGroupNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete proxies filtered group not found response has a 5xx status code
+func (o *DeleteProxiesFilteredGroupNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete proxies filtered group not found response a status code equal to that given
+func (o *DeleteProxiesFilteredGroupNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the delete proxies filtered group not found response
+func (o *DeleteProxiesFilteredGroupNotFound) Code() int {
+	return 404
+}
+
 func (o *DeleteProxiesFilteredGroupNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}][%d] deleteProxiesFilteredGroupNotFound  %+v", 404, o.Payload)
 }
+
+func (o *DeleteProxiesFilteredGroupNotFound) String() string {
+	return fmt.Sprintf("[DELETE /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}][%d] deleteProxiesFilteredGroupNotFound  %+v", 404, o.Payload)
+}
+
 func (o *DeleteProxiesFilteredGroupNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -148,7 +220,8 @@ func NewDeleteProxiesFilteredGroupConflict() *DeleteProxiesFilteredGroupConflict
 	return &DeleteProxiesFilteredGroupConflict{}
 }
 
-/* DeleteProxiesFilteredGroupConflict describes a response with status code 409, with default header values.
+/*
+DeleteProxiesFilteredGroupConflict describes a response with status code 409, with default header values.
 
 There is a version conflict. (code: `proxies.proxies_filtered_group_version_conflict`)
 */
@@ -161,9 +234,44 @@ type DeleteProxiesFilteredGroupConflict struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete proxies filtered group conflict response has a 2xx status code
+func (o *DeleteProxiesFilteredGroupConflict) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete proxies filtered group conflict response has a 3xx status code
+func (o *DeleteProxiesFilteredGroupConflict) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete proxies filtered group conflict response has a 4xx status code
+func (o *DeleteProxiesFilteredGroupConflict) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete proxies filtered group conflict response has a 5xx status code
+func (o *DeleteProxiesFilteredGroupConflict) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete proxies filtered group conflict response a status code equal to that given
+func (o *DeleteProxiesFilteredGroupConflict) IsCode(code int) bool {
+	return code == 409
+}
+
+// Code gets the status code for the delete proxies filtered group conflict response
+func (o *DeleteProxiesFilteredGroupConflict) Code() int {
+	return 409
+}
+
 func (o *DeleteProxiesFilteredGroupConflict) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}][%d] deleteProxiesFilteredGroupConflict  %+v", 409, o.Payload)
 }
+
+func (o *DeleteProxiesFilteredGroupConflict) String() string {
+	return fmt.Sprintf("[DELETE /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}][%d] deleteProxiesFilteredGroupConflict  %+v", 409, o.Payload)
+}
+
 func (o *DeleteProxiesFilteredGroupConflict) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -192,7 +300,8 @@ func NewDeleteProxiesFilteredGroupRetryWith() *DeleteProxiesFilteredGroupRetryWi
 	return &DeleteProxiesFilteredGroupRetryWith{}
 }
 
-/* DeleteProxiesFilteredGroupRetryWith describes a response with status code 449, with default header values.
+/*
+DeleteProxiesFilteredGroupRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
@@ -205,9 +314,44 @@ type DeleteProxiesFilteredGroupRetryWith struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete proxies filtered group retry with response has a 2xx status code
+func (o *DeleteProxiesFilteredGroupRetryWith) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete proxies filtered group retry with response has a 3xx status code
+func (o *DeleteProxiesFilteredGroupRetryWith) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete proxies filtered group retry with response has a 4xx status code
+func (o *DeleteProxiesFilteredGroupRetryWith) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete proxies filtered group retry with response has a 5xx status code
+func (o *DeleteProxiesFilteredGroupRetryWith) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete proxies filtered group retry with response a status code equal to that given
+func (o *DeleteProxiesFilteredGroupRetryWith) IsCode(code int) bool {
+	return code == 449
+}
+
+// Code gets the status code for the delete proxies filtered group retry with response
+func (o *DeleteProxiesFilteredGroupRetryWith) Code() int {
+	return 449
+}
+
 func (o *DeleteProxiesFilteredGroupRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}][%d] deleteProxiesFilteredGroupRetryWith  %+v", 449, o.Payload)
 }
+
+func (o *DeleteProxiesFilteredGroupRetryWith) String() string {
+	return fmt.Sprintf("[DELETE /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}][%d] deleteProxiesFilteredGroupRetryWith  %+v", 449, o.Payload)
+}
+
 func (o *DeleteProxiesFilteredGroupRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

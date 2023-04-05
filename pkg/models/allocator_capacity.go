@@ -71,6 +71,8 @@ func (m *AllocatorCapacity) validateMemory(formats strfmt.Registry) error {
 		if err := m.Memory.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("memory")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("memory")
 			}
 			return err
 		}
@@ -99,6 +101,8 @@ func (m *AllocatorCapacity) contextValidateMemory(ctx context.Context, formats s
 		if err := m.Memory.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("memory")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("memory")
 			}
 			return err
 		}

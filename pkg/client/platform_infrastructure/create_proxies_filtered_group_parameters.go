@@ -71,10 +71,12 @@ func NewCreateProxiesFilteredGroupParamsWithHTTPClient(client *http.Client) *Cre
 	}
 }
 
-/* CreateProxiesFilteredGroupParams contains all the parameters to send to the API endpoint
-   for the create proxies filtered group operation.
+/*
+CreateProxiesFilteredGroupParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the create proxies filtered group operation.
+
+	Typically these are written to a http.Request.
 */
 type CreateProxiesFilteredGroupParams struct {
 

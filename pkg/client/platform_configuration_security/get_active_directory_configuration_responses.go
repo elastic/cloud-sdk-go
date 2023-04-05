@@ -62,7 +62,8 @@ func NewGetActiveDirectoryConfigurationOK() *GetActiveDirectoryConfigurationOK {
 	return &GetActiveDirectoryConfigurationOK{}
 }
 
-/* GetActiveDirectoryConfigurationOK describes a response with status code 200, with default header values.
+/*
+GetActiveDirectoryConfigurationOK describes a response with status code 200, with default header values.
 
 The Active Directory configuration was successfully retrieved
 */
@@ -83,9 +84,44 @@ type GetActiveDirectoryConfigurationOK struct {
 	Payload *models.ActiveDirectorySettings
 }
 
+// IsSuccess returns true when this get active directory configuration o k response has a 2xx status code
+func (o *GetActiveDirectoryConfigurationOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get active directory configuration o k response has a 3xx status code
+func (o *GetActiveDirectoryConfigurationOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get active directory configuration o k response has a 4xx status code
+func (o *GetActiveDirectoryConfigurationOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get active directory configuration o k response has a 5xx status code
+func (o *GetActiveDirectoryConfigurationOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get active directory configuration o k response a status code equal to that given
+func (o *GetActiveDirectoryConfigurationOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get active directory configuration o k response
+func (o *GetActiveDirectoryConfigurationOK) Code() int {
+	return 200
+}
+
 func (o *GetActiveDirectoryConfigurationOK) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/security/realms/active-directory/{realm_id}][%d] getActiveDirectoryConfigurationOK  %+v", 200, o.Payload)
 }
+
+func (o *GetActiveDirectoryConfigurationOK) String() string {
+	return fmt.Sprintf("[GET /platform/configuration/security/realms/active-directory/{realm_id}][%d] getActiveDirectoryConfigurationOK  %+v", 200, o.Payload)
+}
+
 func (o *GetActiveDirectoryConfigurationOK) GetPayload() *models.ActiveDirectorySettings {
 	return o.Payload
 }
@@ -128,7 +164,8 @@ func NewGetActiveDirectoryConfigurationNotFound() *GetActiveDirectoryConfigurati
 	return &GetActiveDirectoryConfigurationNotFound{}
 }
 
-/* GetActiveDirectoryConfigurationNotFound describes a response with status code 404, with default header values.
+/*
+GetActiveDirectoryConfigurationNotFound describes a response with status code 404, with default header values.
 
 The realm specified by {realm_id} cannot be found. (code: `security_realm.not_found`)
 */
@@ -141,9 +178,44 @@ type GetActiveDirectoryConfigurationNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get active directory configuration not found response has a 2xx status code
+func (o *GetActiveDirectoryConfigurationNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get active directory configuration not found response has a 3xx status code
+func (o *GetActiveDirectoryConfigurationNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get active directory configuration not found response has a 4xx status code
+func (o *GetActiveDirectoryConfigurationNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get active directory configuration not found response has a 5xx status code
+func (o *GetActiveDirectoryConfigurationNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get active directory configuration not found response a status code equal to that given
+func (o *GetActiveDirectoryConfigurationNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the get active directory configuration not found response
+func (o *GetActiveDirectoryConfigurationNotFound) Code() int {
+	return 404
+}
+
 func (o *GetActiveDirectoryConfigurationNotFound) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/security/realms/active-directory/{realm_id}][%d] getActiveDirectoryConfigurationNotFound  %+v", 404, o.Payload)
 }
+
+func (o *GetActiveDirectoryConfigurationNotFound) String() string {
+	return fmt.Sprintf("[GET /platform/configuration/security/realms/active-directory/{realm_id}][%d] getActiveDirectoryConfigurationNotFound  %+v", 404, o.Payload)
+}
+
 func (o *GetActiveDirectoryConfigurationNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

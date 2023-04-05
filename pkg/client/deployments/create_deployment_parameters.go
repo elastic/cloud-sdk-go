@@ -72,10 +72,12 @@ func NewCreateDeploymentParamsWithHTTPClient(client *http.Client) *CreateDeploym
 	}
 }
 
-/* CreateDeploymentParams contains all the parameters to send to the API endpoint
-   for the create deployment operation.
+/*
+CreateDeploymentParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the create deployment operation.
+
+	Typically these are written to a http.Request.
 */
 type CreateDeploymentParams struct {
 

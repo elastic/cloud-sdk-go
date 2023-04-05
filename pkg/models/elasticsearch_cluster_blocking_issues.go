@@ -90,6 +90,8 @@ func (m *ElasticsearchClusterBlockingIssues) validateClusterLevel(formats strfmt
 			if err := m.ClusterLevel[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("cluster_level" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("cluster_level" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -124,6 +126,8 @@ func (m *ElasticsearchClusterBlockingIssues) validateIndexLevel(formats strfmt.R
 			if err := m.IndexLevel[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("index_level" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("index_level" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -160,6 +164,8 @@ func (m *ElasticsearchClusterBlockingIssues) contextValidateClusterLevel(ctx con
 			if err := m.ClusterLevel[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("cluster_level" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("cluster_level" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -178,6 +184,8 @@ func (m *ElasticsearchClusterBlockingIssues) contextValidateIndexLevel(ctx conte
 			if err := m.IndexLevel[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("index_level" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("index_level" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

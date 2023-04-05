@@ -69,10 +69,12 @@ func NewStartDeploymentResourceInstancesAllParamsWithHTTPClient(client *http.Cli
 	}
 }
 
-/* StartDeploymentResourceInstancesAllParams contains all the parameters to send to the API endpoint
-   for the start deployment resource instances all operation.
+/*
+StartDeploymentResourceInstancesAllParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the start deployment resource instances all operation.
+
+	Typically these are written to a http.Request.
 */
 type StartDeploymentResourceInstancesAllParams struct {
 

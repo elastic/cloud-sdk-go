@@ -62,7 +62,8 @@ func NewGetCommentOK() *GetCommentOK {
 	return &GetCommentOK{}
 }
 
-/* GetCommentOK describes a response with status code 200, with default header values.
+/*
+GetCommentOK describes a response with status code 200, with default header values.
 
 The Comment
 */
@@ -83,9 +84,44 @@ type GetCommentOK struct {
 	Payload *models.Comment
 }
 
+// IsSuccess returns true when this get comment o k response has a 2xx status code
+func (o *GetCommentOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get comment o k response has a 3xx status code
+func (o *GetCommentOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get comment o k response has a 4xx status code
+func (o *GetCommentOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get comment o k response has a 5xx status code
+func (o *GetCommentOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get comment o k response a status code equal to that given
+func (o *GetCommentOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get comment o k response
+func (o *GetCommentOK) Code() int {
+	return 200
+}
+
 func (o *GetCommentOK) Error() string {
 	return fmt.Sprintf("[GET /comments/{resource_type}/{resource_id}/{comment_id}][%d] getCommentOK  %+v", 200, o.Payload)
 }
+
+func (o *GetCommentOK) String() string {
+	return fmt.Sprintf("[GET /comments/{resource_type}/{resource_id}/{comment_id}][%d] getCommentOK  %+v", 200, o.Payload)
+}
+
 func (o *GetCommentOK) GetPayload() *models.Comment {
 	return o.Payload
 }
@@ -128,7 +164,8 @@ func NewGetCommentNotFound() *GetCommentNotFound {
 	return &GetCommentNotFound{}
 }
 
-/* GetCommentNotFound describes a response with status code 404, with default header values.
+/*
+GetCommentNotFound describes a response with status code 404, with default header values.
 
 The Comment you want does not exist. (code: `comments.comment_does_not_exist`)
 */
@@ -141,9 +178,44 @@ type GetCommentNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get comment not found response has a 2xx status code
+func (o *GetCommentNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get comment not found response has a 3xx status code
+func (o *GetCommentNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get comment not found response has a 4xx status code
+func (o *GetCommentNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get comment not found response has a 5xx status code
+func (o *GetCommentNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get comment not found response a status code equal to that given
+func (o *GetCommentNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the get comment not found response
+func (o *GetCommentNotFound) Code() int {
+	return 404
+}
+
 func (o *GetCommentNotFound) Error() string {
 	return fmt.Sprintf("[GET /comments/{resource_type}/{resource_id}/{comment_id}][%d] getCommentNotFound  %+v", 404, o.Payload)
 }
+
+func (o *GetCommentNotFound) String() string {
+	return fmt.Sprintf("[GET /comments/{resource_type}/{resource_id}/{comment_id}][%d] getCommentNotFound  %+v", 404, o.Payload)
+}
+
 func (o *GetCommentNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

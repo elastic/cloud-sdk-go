@@ -62,7 +62,8 @@ func NewGetLdapConfigurationOK() *GetLdapConfigurationOK {
 	return &GetLdapConfigurationOK{}
 }
 
-/* GetLdapConfigurationOK describes a response with status code 200, with default header values.
+/*
+GetLdapConfigurationOK describes a response with status code 200, with default header values.
 
 The LDAP configuration was successfully retrieved
 */
@@ -83,9 +84,44 @@ type GetLdapConfigurationOK struct {
 	Payload *models.LdapSettings
 }
 
+// IsSuccess returns true when this get ldap configuration o k response has a 2xx status code
+func (o *GetLdapConfigurationOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get ldap configuration o k response has a 3xx status code
+func (o *GetLdapConfigurationOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get ldap configuration o k response has a 4xx status code
+func (o *GetLdapConfigurationOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get ldap configuration o k response has a 5xx status code
+func (o *GetLdapConfigurationOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get ldap configuration o k response a status code equal to that given
+func (o *GetLdapConfigurationOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get ldap configuration o k response
+func (o *GetLdapConfigurationOK) Code() int {
+	return 200
+}
+
 func (o *GetLdapConfigurationOK) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/security/realms/ldap/{realm_id}][%d] getLdapConfigurationOK  %+v", 200, o.Payload)
 }
+
+func (o *GetLdapConfigurationOK) String() string {
+	return fmt.Sprintf("[GET /platform/configuration/security/realms/ldap/{realm_id}][%d] getLdapConfigurationOK  %+v", 200, o.Payload)
+}
+
 func (o *GetLdapConfigurationOK) GetPayload() *models.LdapSettings {
 	return o.Payload
 }
@@ -128,7 +164,8 @@ func NewGetLdapConfigurationNotFound() *GetLdapConfigurationNotFound {
 	return &GetLdapConfigurationNotFound{}
 }
 
-/* GetLdapConfigurationNotFound describes a response with status code 404, with default header values.
+/*
+GetLdapConfigurationNotFound describes a response with status code 404, with default header values.
 
 The realm specified by {realm_id} cannot be found. (code: `security_realm.not_found`)
 */
@@ -141,9 +178,44 @@ type GetLdapConfigurationNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get ldap configuration not found response has a 2xx status code
+func (o *GetLdapConfigurationNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get ldap configuration not found response has a 3xx status code
+func (o *GetLdapConfigurationNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get ldap configuration not found response has a 4xx status code
+func (o *GetLdapConfigurationNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get ldap configuration not found response has a 5xx status code
+func (o *GetLdapConfigurationNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get ldap configuration not found response a status code equal to that given
+func (o *GetLdapConfigurationNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the get ldap configuration not found response
+func (o *GetLdapConfigurationNotFound) Code() int {
+	return 404
+}
+
 func (o *GetLdapConfigurationNotFound) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/security/realms/ldap/{realm_id}][%d] getLdapConfigurationNotFound  %+v", 404, o.Payload)
 }
+
+func (o *GetLdapConfigurationNotFound) String() string {
+	return fmt.Sprintf("[GET /platform/configuration/security/realms/ldap/{realm_id}][%d] getLdapConfigurationNotFound  %+v", 404, o.Payload)
+}
+
 func (o *GetLdapConfigurationNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

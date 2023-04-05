@@ -69,10 +69,12 @@ func NewMethodsParamsWithHTTPClient(client *http.Client) *MethodsParams {
 	}
 }
 
-/* MethodsParams contains all the parameters to send to the API endpoint
-   for the methods operation.
+/*
+MethodsParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the methods operation.
+
+	Typically these are written to a http.Request.
 */
 type MethodsParams struct {
 	timeout    time.Duration

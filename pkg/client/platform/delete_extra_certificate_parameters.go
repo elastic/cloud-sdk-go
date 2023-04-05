@@ -69,10 +69,12 @@ func NewDeleteExtraCertificateParamsWithHTTPClient(client *http.Client) *DeleteE
 	}
 }
 
-/* DeleteExtraCertificateParams contains all the parameters to send to the API endpoint
-   for the delete extra certificate operation.
+/*
+DeleteExtraCertificateParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the delete extra certificate operation.
+
+	Typically these are written to a http.Request.
 */
 type DeleteExtraCertificateParams struct {
 

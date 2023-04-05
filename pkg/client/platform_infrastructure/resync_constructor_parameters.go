@@ -69,10 +69,12 @@ func NewResyncConstructorParamsWithHTTPClient(client *http.Client) *ResyncConstr
 	}
 }
 
-/* ResyncConstructorParams contains all the parameters to send to the API endpoint
-   for the resync constructor operation.
+/*
+ResyncConstructorParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the resync constructor operation.
+
+	Typically these are written to a http.Request.
 */
 type ResyncConstructorParams struct {
 

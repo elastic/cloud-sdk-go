@@ -69,10 +69,12 @@ func NewGetSnapshotRepositoryParamsWithHTTPClient(client *http.Client) *GetSnaps
 	}
 }
 
-/* GetSnapshotRepositoryParams contains all the parameters to send to the API endpoint
-   for the get snapshot repository operation.
+/*
+GetSnapshotRepositoryParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the get snapshot repository operation.
+
+	Typically these are written to a http.Request.
 */
 type GetSnapshotRepositoryParams struct {
 

@@ -80,7 +80,8 @@ func NewGetCostsChartsOK() *GetCostsChartsOK {
 	return &GetCostsChartsOK{}
 }
 
-/* GetCostsChartsOK describes a response with status code 200, with default header values.
+/*
+GetCostsChartsOK describes a response with status code 200, with default header values.
 
 The usage charts of an organization.
 */
@@ -88,9 +89,44 @@ type GetCostsChartsOK struct {
 	Payload *models.ChartItems
 }
 
+// IsSuccess returns true when this get costs charts o k response has a 2xx status code
+func (o *GetCostsChartsOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get costs charts o k response has a 3xx status code
+func (o *GetCostsChartsOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get costs charts o k response has a 4xx status code
+func (o *GetCostsChartsOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get costs charts o k response has a 5xx status code
+func (o *GetCostsChartsOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get costs charts o k response a status code equal to that given
+func (o *GetCostsChartsOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get costs charts o k response
+func (o *GetCostsChartsOK) Code() int {
+	return 200
+}
+
 func (o *GetCostsChartsOK) Error() string {
 	return fmt.Sprintf("[GET /billing/costs/{organization_id}/charts][%d] getCostsChartsOK  %+v", 200, o.Payload)
 }
+
+func (o *GetCostsChartsOK) String() string {
+	return fmt.Sprintf("[GET /billing/costs/{organization_id}/charts][%d] getCostsChartsOK  %+v", 200, o.Payload)
+}
+
 func (o *GetCostsChartsOK) GetPayload() *models.ChartItems {
 	return o.Payload
 }
@@ -112,7 +148,8 @@ func NewGetCostsChartsBadRequest() *GetCostsChartsBadRequest {
 	return &GetCostsChartsBadRequest{}
 }
 
-/* GetCostsChartsBadRequest describes a response with status code 400, with default header values.
+/*
+GetCostsChartsBadRequest describes a response with status code 400, with default header values.
 
 The specified date range is invalid. (code: `costs.invalid_date_range`)
 */
@@ -125,9 +162,44 @@ type GetCostsChartsBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get costs charts bad request response has a 2xx status code
+func (o *GetCostsChartsBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get costs charts bad request response has a 3xx status code
+func (o *GetCostsChartsBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get costs charts bad request response has a 4xx status code
+func (o *GetCostsChartsBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get costs charts bad request response has a 5xx status code
+func (o *GetCostsChartsBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get costs charts bad request response a status code equal to that given
+func (o *GetCostsChartsBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the get costs charts bad request response
+func (o *GetCostsChartsBadRequest) Code() int {
+	return 400
+}
+
 func (o *GetCostsChartsBadRequest) Error() string {
 	return fmt.Sprintf("[GET /billing/costs/{organization_id}/charts][%d] getCostsChartsBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *GetCostsChartsBadRequest) String() string {
+	return fmt.Sprintf("[GET /billing/costs/{organization_id}/charts][%d] getCostsChartsBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *GetCostsChartsBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -156,7 +228,8 @@ func NewGetCostsChartsForbidden() *GetCostsChartsForbidden {
 	return &GetCostsChartsForbidden{}
 }
 
-/* GetCostsChartsForbidden describes a response with status code 403, with default header values.
+/*
+GetCostsChartsForbidden describes a response with status code 403, with default header values.
 
 The current user does not have access to the requested organization. (code: `organization.invalid_access`)
 */
@@ -169,9 +242,44 @@ type GetCostsChartsForbidden struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get costs charts forbidden response has a 2xx status code
+func (o *GetCostsChartsForbidden) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get costs charts forbidden response has a 3xx status code
+func (o *GetCostsChartsForbidden) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get costs charts forbidden response has a 4xx status code
+func (o *GetCostsChartsForbidden) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get costs charts forbidden response has a 5xx status code
+func (o *GetCostsChartsForbidden) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get costs charts forbidden response a status code equal to that given
+func (o *GetCostsChartsForbidden) IsCode(code int) bool {
+	return code == 403
+}
+
+// Code gets the status code for the get costs charts forbidden response
+func (o *GetCostsChartsForbidden) Code() int {
+	return 403
+}
+
 func (o *GetCostsChartsForbidden) Error() string {
 	return fmt.Sprintf("[GET /billing/costs/{organization_id}/charts][%d] getCostsChartsForbidden  %+v", 403, o.Payload)
 }
+
+func (o *GetCostsChartsForbidden) String() string {
+	return fmt.Sprintf("[GET /billing/costs/{organization_id}/charts][%d] getCostsChartsForbidden  %+v", 403, o.Payload)
+}
+
 func (o *GetCostsChartsForbidden) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -200,7 +308,8 @@ func NewGetCostsChartsNotFound() *GetCostsChartsNotFound {
 	return &GetCostsChartsNotFound{}
 }
 
-/* GetCostsChartsNotFound describes a response with status code 404, with default header values.
+/*
+GetCostsChartsNotFound describes a response with status code 404, with default header values.
 
 Organization not found. (code: `organization.not_found`)
 */
@@ -213,9 +322,44 @@ type GetCostsChartsNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get costs charts not found response has a 2xx status code
+func (o *GetCostsChartsNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get costs charts not found response has a 3xx status code
+func (o *GetCostsChartsNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get costs charts not found response has a 4xx status code
+func (o *GetCostsChartsNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get costs charts not found response has a 5xx status code
+func (o *GetCostsChartsNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get costs charts not found response a status code equal to that given
+func (o *GetCostsChartsNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the get costs charts not found response
+func (o *GetCostsChartsNotFound) Code() int {
+	return 404
+}
+
 func (o *GetCostsChartsNotFound) Error() string {
 	return fmt.Sprintf("[GET /billing/costs/{organization_id}/charts][%d] getCostsChartsNotFound  %+v", 404, o.Payload)
 }
+
+func (o *GetCostsChartsNotFound) String() string {
+	return fmt.Sprintf("[GET /billing/costs/{organization_id}/charts][%d] getCostsChartsNotFound  %+v", 404, o.Payload)
+}
+
 func (o *GetCostsChartsNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -244,7 +388,8 @@ func NewGetCostsChartsInternalServerError() *GetCostsChartsInternalServerError {
 	return &GetCostsChartsInternalServerError{}
 }
 
-/* GetCostsChartsInternalServerError describes a response with status code 500, with default header values.
+/*
+GetCostsChartsInternalServerError describes a response with status code 500, with default header values.
 
 Error fetching the itemized costs for the organization. (code: `billing_service.failed_request`)
 */
@@ -257,9 +402,44 @@ type GetCostsChartsInternalServerError struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get costs charts internal server error response has a 2xx status code
+func (o *GetCostsChartsInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get costs charts internal server error response has a 3xx status code
+func (o *GetCostsChartsInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get costs charts internal server error response has a 4xx status code
+func (o *GetCostsChartsInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get costs charts internal server error response has a 5xx status code
+func (o *GetCostsChartsInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this get costs charts internal server error response a status code equal to that given
+func (o *GetCostsChartsInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
+// Code gets the status code for the get costs charts internal server error response
+func (o *GetCostsChartsInternalServerError) Code() int {
+	return 500
+}
+
 func (o *GetCostsChartsInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /billing/costs/{organization_id}/charts][%d] getCostsChartsInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *GetCostsChartsInternalServerError) String() string {
+	return fmt.Sprintf("[GET /billing/costs/{organization_id}/charts][%d] getCostsChartsInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *GetCostsChartsInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

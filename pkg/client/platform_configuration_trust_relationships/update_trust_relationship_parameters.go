@@ -71,10 +71,12 @@ func NewUpdateTrustRelationshipParamsWithHTTPClient(client *http.Client) *Update
 	}
 }
 
-/* UpdateTrustRelationshipParams contains all the parameters to send to the API endpoint
-   for the update trust relationship operation.
+/*
+UpdateTrustRelationshipParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the update trust relationship operation.
+
+	Typically these are written to a http.Request.
 */
 type UpdateTrustRelationshipParams struct {
 

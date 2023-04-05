@@ -62,7 +62,8 @@ func NewResyncConstructorsAccepted() *ResyncConstructorsAccepted {
 	return &ResyncConstructorsAccepted{}
 }
 
-/* ResyncConstructorsAccepted describes a response with status code 202, with default header values.
+/*
+ResyncConstructorsAccepted describes a response with status code 202, with default header values.
 
 The ids of documents, organized by model version, that will be synchronized.
 */
@@ -70,9 +71,44 @@ type ResyncConstructorsAccepted struct {
 	Payload *models.ModelVersionIndexSynchronizationResults
 }
 
+// IsSuccess returns true when this resync constructors accepted response has a 2xx status code
+func (o *ResyncConstructorsAccepted) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this resync constructors accepted response has a 3xx status code
+func (o *ResyncConstructorsAccepted) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this resync constructors accepted response has a 4xx status code
+func (o *ResyncConstructorsAccepted) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this resync constructors accepted response has a 5xx status code
+func (o *ResyncConstructorsAccepted) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this resync constructors accepted response a status code equal to that given
+func (o *ResyncConstructorsAccepted) IsCode(code int) bool {
+	return code == 202
+}
+
+// Code gets the status code for the resync constructors accepted response
+func (o *ResyncConstructorsAccepted) Code() int {
+	return 202
+}
+
 func (o *ResyncConstructorsAccepted) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/constructors/_resync][%d] resyncConstructorsAccepted  %+v", 202, o.Payload)
 }
+
+func (o *ResyncConstructorsAccepted) String() string {
+	return fmt.Sprintf("[POST /platform/infrastructure/constructors/_resync][%d] resyncConstructorsAccepted  %+v", 202, o.Payload)
+}
+
 func (o *ResyncConstructorsAccepted) GetPayload() *models.ModelVersionIndexSynchronizationResults {
 	return o.Payload
 }
@@ -94,7 +130,8 @@ func NewResyncConstructorsRetryWith() *ResyncConstructorsRetryWith {
 	return &ResyncConstructorsRetryWith{}
 }
 
-/* ResyncConstructorsRetryWith describes a response with status code 449, with default header values.
+/*
+ResyncConstructorsRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
@@ -107,9 +144,44 @@ type ResyncConstructorsRetryWith struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this resync constructors retry with response has a 2xx status code
+func (o *ResyncConstructorsRetryWith) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this resync constructors retry with response has a 3xx status code
+func (o *ResyncConstructorsRetryWith) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this resync constructors retry with response has a 4xx status code
+func (o *ResyncConstructorsRetryWith) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this resync constructors retry with response has a 5xx status code
+func (o *ResyncConstructorsRetryWith) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this resync constructors retry with response a status code equal to that given
+func (o *ResyncConstructorsRetryWith) IsCode(code int) bool {
+	return code == 449
+}
+
+// Code gets the status code for the resync constructors retry with response
+func (o *ResyncConstructorsRetryWith) Code() int {
+	return 449
+}
+
 func (o *ResyncConstructorsRetryWith) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/constructors/_resync][%d] resyncConstructorsRetryWith  %+v", 449, o.Payload)
 }
+
+func (o *ResyncConstructorsRetryWith) String() string {
+	return fmt.Sprintf("[POST /platform/infrastructure/constructors/_resync][%d] resyncConstructorsRetryWith  %+v", 449, o.Payload)
+}
+
 func (o *ResyncConstructorsRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

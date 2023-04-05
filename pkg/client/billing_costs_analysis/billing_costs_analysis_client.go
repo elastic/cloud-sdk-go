@@ -63,9 +63,9 @@ type ClientService interface {
 }
 
 /*
-  GetCostsCharts gets charts for the organization currently unavailable in self hosted e c e
+GetCostsCharts gets charts for the organization currently unavailable in self hosted e c e
 
-  EXPERIMENTAL (it may change in future versions): Retrieves the usage charts for the organization.
+EXPERIMENTAL (it may change in future versions): Retrieves the usage charts for the organization.
 */
 func (a *Client) GetCostsCharts(params *GetCostsChartsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCostsChartsOK, error) {
 	// TODO: Validate the params before sending
@@ -104,9 +104,9 @@ func (a *Client) GetCostsCharts(params *GetCostsChartsParams, authInfo runtime.C
 }
 
 /*
-  GetCostsChartsByDeployment gets charts by deployment currently unavailable in self hosted e c e
+GetCostsChartsByDeployment gets charts by deployment currently unavailable in self hosted e c e
 
-  EXPERIMENTAL (it may change in future versions): Retrieves the usage charts for the given  deployment.
+EXPERIMENTAL (it may change in future versions): Retrieves the usage charts for the given  deployment.
 */
 func (a *Client) GetCostsChartsByDeployment(params *GetCostsChartsByDeploymentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCostsChartsByDeploymentOK, error) {
 	// TODO: Validate the params before sending
@@ -145,9 +145,9 @@ func (a *Client) GetCostsChartsByDeployment(params *GetCostsChartsByDeploymentPa
 }
 
 /*
-  GetCostsDeployments gets deployments costs for the organization currently unavailable in self hosted e c e
+GetCostsDeployments gets deployments costs for the organization currently unavailable in self hosted e c e
 
-  EXPERIMENTAL (it may change in future versions): Retrieves the costs associated with all deployments for the organization.
+EXPERIMENTAL (it may change in future versions): Retrieves the costs associated with all deployments for the organization.
 */
 func (a *Client) GetCostsDeployments(params *GetCostsDeploymentsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCostsDeploymentsOK, error) {
 	// TODO: Validate the params before sending
@@ -186,9 +186,9 @@ func (a *Client) GetCostsDeployments(params *GetCostsDeploymentsParams, authInfo
 }
 
 /*
-  GetCostsItems gets itemized costs for the organization currently unavailable in self hosted e c e
+GetCostsItems gets itemized costs for the organization currently unavailable in self hosted e c e
 
-  EXPERIMENTAL (it may change in future versions): Retrieves the itemized costs for the organization.
+EXPERIMENTAL (it may change in future versions): Retrieves the itemized costs for the organization.
 */
 func (a *Client) GetCostsItems(params *GetCostsItemsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCostsItemsOK, error) {
 	// TODO: Validate the params before sending
@@ -227,9 +227,9 @@ func (a *Client) GetCostsItems(params *GetCostsItemsParams, authInfo runtime.Cli
 }
 
 /*
-  GetCostsItemsByDeployment gets itemized costs by deployments currently unavailable in self hosted e c e
+GetCostsItemsByDeployment gets itemized costs by deployments currently unavailable in self hosted e c e
 
-  EXPERIMENTAL (it may change in future versions): Retrieves the itemized costs for the given deployment.
+EXPERIMENTAL (it may change in future versions): Retrieves the itemized costs for the given deployment.
 */
 func (a *Client) GetCostsItemsByDeployment(params *GetCostsItemsByDeploymentParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCostsItemsByDeploymentOK, error) {
 	// TODO: Validate the params before sending
@@ -268,9 +268,9 @@ func (a *Client) GetCostsItemsByDeployment(params *GetCostsItemsByDeploymentPara
 }
 
 /*
-  GetCostsOverview gets costs overview for the organization currently unavailable in self hosted e c e
+GetCostsOverview gets costs overview for the organization currently unavailable in self hosted e c e
 
-  EXPERIMENTAL (it may change in future versions): Retrieves an overview of the costs by organization ID.
+EXPERIMENTAL (it may change in future versions): Retrieves an overview of the costs by organization ID.
 */
 func (a *Client) GetCostsOverview(params *GetCostsOverviewParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetCostsOverviewOK, error) {
 	// TODO: Validate the params before sending

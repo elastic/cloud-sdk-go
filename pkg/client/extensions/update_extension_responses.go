@@ -80,7 +80,8 @@ func NewUpdateExtensionOK() *UpdateExtensionOK {
 	return &UpdateExtensionOK{}
 }
 
-/* UpdateExtensionOK describes a response with status code 200, with default header values.
+/*
+UpdateExtensionOK describes a response with status code 200, with default header values.
 
 Extension updated successfully.
 */
@@ -101,9 +102,44 @@ type UpdateExtensionOK struct {
 	Payload *models.Extension
 }
 
+// IsSuccess returns true when this update extension o k response has a 2xx status code
+func (o *UpdateExtensionOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this update extension o k response has a 3xx status code
+func (o *UpdateExtensionOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update extension o k response has a 4xx status code
+func (o *UpdateExtensionOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this update extension o k response has a 5xx status code
+func (o *UpdateExtensionOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update extension o k response a status code equal to that given
+func (o *UpdateExtensionOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the update extension o k response
+func (o *UpdateExtensionOK) Code() int {
+	return 200
+}
+
 func (o *UpdateExtensionOK) Error() string {
 	return fmt.Sprintf("[POST /deployments/extensions/{extension_id}][%d] updateExtensionOK  %+v", 200, o.Payload)
 }
+
+func (o *UpdateExtensionOK) String() string {
+	return fmt.Sprintf("[POST /deployments/extensions/{extension_id}][%d] updateExtensionOK  %+v", 200, o.Payload)
+}
+
 func (o *UpdateExtensionOK) GetPayload() *models.Extension {
 	return o.Payload
 }
@@ -146,7 +182,8 @@ func NewUpdateExtensionBadRequest() *UpdateExtensionBadRequest {
 	return &UpdateExtensionBadRequest{}
 }
 
-/* UpdateExtensionBadRequest describes a response with status code 400, with default header values.
+/*
+UpdateExtensionBadRequest describes a response with status code 400, with default header values.
 
 Could not download the extension from the specified URL. (code: `extensions.request_execution_failed`)
 */
@@ -159,9 +196,44 @@ type UpdateExtensionBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this update extension bad request response has a 2xx status code
+func (o *UpdateExtensionBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update extension bad request response has a 3xx status code
+func (o *UpdateExtensionBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update extension bad request response has a 4xx status code
+func (o *UpdateExtensionBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update extension bad request response has a 5xx status code
+func (o *UpdateExtensionBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update extension bad request response a status code equal to that given
+func (o *UpdateExtensionBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the update extension bad request response
+func (o *UpdateExtensionBadRequest) Code() int {
+	return 400
+}
+
 func (o *UpdateExtensionBadRequest) Error() string {
 	return fmt.Sprintf("[POST /deployments/extensions/{extension_id}][%d] updateExtensionBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *UpdateExtensionBadRequest) String() string {
+	return fmt.Sprintf("[POST /deployments/extensions/{extension_id}][%d] updateExtensionBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *UpdateExtensionBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -190,9 +262,11 @@ func NewUpdateExtensionUnauthorized() *UpdateExtensionUnauthorized {
 	return &UpdateExtensionUnauthorized{}
 }
 
-/* UpdateExtensionUnauthorized describes a response with status code 401, with default header values.
+/*
+	UpdateExtensionUnauthorized describes a response with status code 401, with default header values.
 
- * The extension does not belong to you. (code: `extensions.unauthorised`)
+	* The extension does not belong to you. (code: `extensions.unauthorised`)
+
 * Your current session does not have a user id associated with it. (code: `extensions.no_user_id`)
 */
 type UpdateExtensionUnauthorized struct {
@@ -204,9 +278,44 @@ type UpdateExtensionUnauthorized struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this update extension unauthorized response has a 2xx status code
+func (o *UpdateExtensionUnauthorized) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update extension unauthorized response has a 3xx status code
+func (o *UpdateExtensionUnauthorized) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update extension unauthorized response has a 4xx status code
+func (o *UpdateExtensionUnauthorized) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update extension unauthorized response has a 5xx status code
+func (o *UpdateExtensionUnauthorized) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update extension unauthorized response a status code equal to that given
+func (o *UpdateExtensionUnauthorized) IsCode(code int) bool {
+	return code == 401
+}
+
+// Code gets the status code for the update extension unauthorized response
+func (o *UpdateExtensionUnauthorized) Code() int {
+	return 401
+}
+
 func (o *UpdateExtensionUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /deployments/extensions/{extension_id}][%d] updateExtensionUnauthorized  %+v", 401, o.Payload)
 }
+
+func (o *UpdateExtensionUnauthorized) String() string {
+	return fmt.Sprintf("[POST /deployments/extensions/{extension_id}][%d] updateExtensionUnauthorized  %+v", 401, o.Payload)
+}
+
 func (o *UpdateExtensionUnauthorized) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -235,7 +344,8 @@ func NewUpdateExtensionNotFound() *UpdateExtensionNotFound {
 	return &UpdateExtensionNotFound{}
 }
 
-/* UpdateExtensionNotFound describes a response with status code 404, with default header values.
+/*
+UpdateExtensionNotFound describes a response with status code 404, with default header values.
 
 The extension you want does not exist. (code: `extensions.not_found`)
 */
@@ -248,9 +358,44 @@ type UpdateExtensionNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this update extension not found response has a 2xx status code
+func (o *UpdateExtensionNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update extension not found response has a 3xx status code
+func (o *UpdateExtensionNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update extension not found response has a 4xx status code
+func (o *UpdateExtensionNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update extension not found response has a 5xx status code
+func (o *UpdateExtensionNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update extension not found response a status code equal to that given
+func (o *UpdateExtensionNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the update extension not found response
+func (o *UpdateExtensionNotFound) Code() int {
+	return 404
+}
+
 func (o *UpdateExtensionNotFound) Error() string {
 	return fmt.Sprintf("[POST /deployments/extensions/{extension_id}][%d] updateExtensionNotFound  %+v", 404, o.Payload)
 }
+
+func (o *UpdateExtensionNotFound) String() string {
+	return fmt.Sprintf("[POST /deployments/extensions/{extension_id}][%d] updateExtensionNotFound  %+v", 404, o.Payload)
+}
+
 func (o *UpdateExtensionNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -279,7 +424,8 @@ func NewUpdateExtensionConflict() *UpdateExtensionConflict {
 	return &UpdateExtensionConflict{}
 }
 
-/* UpdateExtensionConflict describes a response with status code 409, with default header values.
+/*
+UpdateExtensionConflict describes a response with status code 409, with default header values.
 
 The version you sent does not match the persisted version. (code: `extensions.version_conflict`)
 */
@@ -292,9 +438,44 @@ type UpdateExtensionConflict struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this update extension conflict response has a 2xx status code
+func (o *UpdateExtensionConflict) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update extension conflict response has a 3xx status code
+func (o *UpdateExtensionConflict) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update extension conflict response has a 4xx status code
+func (o *UpdateExtensionConflict) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update extension conflict response has a 5xx status code
+func (o *UpdateExtensionConflict) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update extension conflict response a status code equal to that given
+func (o *UpdateExtensionConflict) IsCode(code int) bool {
+	return code == 409
+}
+
+// Code gets the status code for the update extension conflict response
+func (o *UpdateExtensionConflict) Code() int {
+	return 409
+}
+
 func (o *UpdateExtensionConflict) Error() string {
 	return fmt.Sprintf("[POST /deployments/extensions/{extension_id}][%d] updateExtensionConflict  %+v", 409, o.Payload)
 }
+
+func (o *UpdateExtensionConflict) String() string {
+	return fmt.Sprintf("[POST /deployments/extensions/{extension_id}][%d] updateExtensionConflict  %+v", 409, o.Payload)
+}
+
 func (o *UpdateExtensionConflict) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

@@ -70,10 +70,12 @@ func NewDeleteBlueprinterRoleParamsWithHTTPClient(client *http.Client) *DeleteBl
 	}
 }
 
-/* DeleteBlueprinterRoleParams contains all the parameters to send to the API endpoint
-   for the delete blueprinter role operation.
+/*
+DeleteBlueprinterRoleParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the delete blueprinter role operation.
+
+	Typically these are written to a http.Request.
 */
 type DeleteBlueprinterRoleParams struct {
 

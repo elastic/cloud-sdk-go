@@ -68,7 +68,8 @@ func NewPutConfigStoreOptionOK() *PutConfigStoreOptionOK {
 	return &PutConfigStoreOptionOK{}
 }
 
-/* PutConfigStoreOptionOK describes a response with status code 200, with default header values.
+/*
+PutConfigStoreOptionOK describes a response with status code 200, with default header values.
 
 Config Store Option retrieved successfully
 */
@@ -89,9 +90,44 @@ type PutConfigStoreOptionOK struct {
 	Payload *models.ConfigStoreOption
 }
 
+// IsSuccess returns true when this put config store option o k response has a 2xx status code
+func (o *PutConfigStoreOptionOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this put config store option o k response has a 3xx status code
+func (o *PutConfigStoreOptionOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this put config store option o k response has a 4xx status code
+func (o *PutConfigStoreOptionOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this put config store option o k response has a 5xx status code
+func (o *PutConfigStoreOptionOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this put config store option o k response a status code equal to that given
+func (o *PutConfigStoreOptionOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the put config store option o k response
+func (o *PutConfigStoreOptionOK) Code() int {
+	return 200
+}
+
 func (o *PutConfigStoreOptionOK) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/store/{config_option_id}][%d] putConfigStoreOptionOK  %+v", 200, o.Payload)
 }
+
+func (o *PutConfigStoreOptionOK) String() string {
+	return fmt.Sprintf("[PUT /platform/configuration/store/{config_option_id}][%d] putConfigStoreOptionOK  %+v", 200, o.Payload)
+}
+
 func (o *PutConfigStoreOptionOK) GetPayload() *models.ConfigStoreOption {
 	return o.Payload
 }
@@ -134,7 +170,8 @@ func NewPutConfigStoreOptionNotFound() *PutConfigStoreOptionNotFound {
 	return &PutConfigStoreOptionNotFound{}
 }
 
-/* PutConfigStoreOptionNotFound describes a response with status code 404, with default header values.
+/*
+PutConfigStoreOptionNotFound describes a response with status code 404, with default header values.
 
 There was no existing data for the given Config Store Id. (code: `platform.config.store.not_found`)
 */
@@ -147,9 +184,44 @@ type PutConfigStoreOptionNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this put config store option not found response has a 2xx status code
+func (o *PutConfigStoreOptionNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this put config store option not found response has a 3xx status code
+func (o *PutConfigStoreOptionNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this put config store option not found response has a 4xx status code
+func (o *PutConfigStoreOptionNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this put config store option not found response has a 5xx status code
+func (o *PutConfigStoreOptionNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this put config store option not found response a status code equal to that given
+func (o *PutConfigStoreOptionNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the put config store option not found response
+func (o *PutConfigStoreOptionNotFound) Code() int {
+	return 404
+}
+
 func (o *PutConfigStoreOptionNotFound) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/store/{config_option_id}][%d] putConfigStoreOptionNotFound  %+v", 404, o.Payload)
 }
+
+func (o *PutConfigStoreOptionNotFound) String() string {
+	return fmt.Sprintf("[PUT /platform/configuration/store/{config_option_id}][%d] putConfigStoreOptionNotFound  %+v", 404, o.Payload)
+}
+
 func (o *PutConfigStoreOptionNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -178,7 +250,8 @@ func NewPutConfigStoreOptionConflict() *PutConfigStoreOptionConflict {
 	return &PutConfigStoreOptionConflict{}
 }
 
-/* PutConfigStoreOptionConflict describes a response with status code 409, with default header values.
+/*
+PutConfigStoreOptionConflict describes a response with status code 409, with default header values.
 
 There is a version conflict. (code: `platform.config.store.version_conflict`)
 */
@@ -191,9 +264,44 @@ type PutConfigStoreOptionConflict struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this put config store option conflict response has a 2xx status code
+func (o *PutConfigStoreOptionConflict) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this put config store option conflict response has a 3xx status code
+func (o *PutConfigStoreOptionConflict) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this put config store option conflict response has a 4xx status code
+func (o *PutConfigStoreOptionConflict) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this put config store option conflict response has a 5xx status code
+func (o *PutConfigStoreOptionConflict) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this put config store option conflict response a status code equal to that given
+func (o *PutConfigStoreOptionConflict) IsCode(code int) bool {
+	return code == 409
+}
+
+// Code gets the status code for the put config store option conflict response
+func (o *PutConfigStoreOptionConflict) Code() int {
+	return 409
+}
+
 func (o *PutConfigStoreOptionConflict) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/store/{config_option_id}][%d] putConfigStoreOptionConflict  %+v", 409, o.Payload)
 }
+
+func (o *PutConfigStoreOptionConflict) String() string {
+	return fmt.Sprintf("[PUT /platform/configuration/store/{config_option_id}][%d] putConfigStoreOptionConflict  %+v", 409, o.Payload)
+}
+
 func (o *PutConfigStoreOptionConflict) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

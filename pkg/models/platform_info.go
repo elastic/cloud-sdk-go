@@ -129,6 +129,8 @@ func (m *PlatformInfo) validateRegions(formats strfmt.Registry) error {
 			if err := m.Regions[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("regions" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("regions" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -154,6 +156,8 @@ func (m *PlatformInfo) validateServices(formats strfmt.Registry) error {
 			if err := m.Services[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("services" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("services" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -179,6 +183,8 @@ func (m *PlatformInfo) validateUnreachableRegions(formats strfmt.Registry) error
 			if err := m.UnreachableRegions[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("unreachable_regions" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("unreachable_regions" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -228,6 +234,8 @@ func (m *PlatformInfo) contextValidateRegions(ctx context.Context, formats strfm
 			if err := m.Regions[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("regions" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("regions" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -246,6 +254,8 @@ func (m *PlatformInfo) contextValidateServices(ctx context.Context, formats strf
 			if err := m.Services[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("services" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("services" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -264,6 +274,8 @@ func (m *PlatformInfo) contextValidateUnreachableRegions(ctx context.Context, fo
 			if err := m.UnreachableRegions[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("unreachable_regions" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("unreachable_regions" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

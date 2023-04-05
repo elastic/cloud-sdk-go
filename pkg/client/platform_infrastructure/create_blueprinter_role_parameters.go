@@ -71,10 +71,12 @@ func NewCreateBlueprinterRoleParamsWithHTTPClient(client *http.Client) *CreateBl
 	}
 }
 
-/* CreateBlueprinterRoleParams contains all the parameters to send to the API endpoint
-   for the create blueprinter role operation.
+/*
+CreateBlueprinterRoleParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the create blueprinter role operation.
+
+	Typically these are written to a http.Request.
 */
 type CreateBlueprinterRoleParams struct {
 

@@ -69,10 +69,12 @@ func NewDeleteDeploymentStatelessResourceParamsWithHTTPClient(client *http.Clien
 	}
 }
 
-/* DeleteDeploymentStatelessResourceParams contains all the parameters to send to the API endpoint
-   for the delete deployment stateless resource operation.
+/*
+DeleteDeploymentStatelessResourceParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the delete deployment stateless resource operation.
+
+	Typically these are written to a http.Request.
 */
 type DeleteDeploymentStatelessResourceParams struct {
 

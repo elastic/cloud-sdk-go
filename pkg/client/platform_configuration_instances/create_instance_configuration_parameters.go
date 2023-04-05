@@ -71,10 +71,12 @@ func NewCreateInstanceConfigurationParamsWithHTTPClient(client *http.Client) *Cr
 	}
 }
 
-/* CreateInstanceConfigurationParams contains all the parameters to send to the API endpoint
-   for the create instance configuration operation.
+/*
+CreateInstanceConfigurationParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the create instance configuration operation.
+
+	Typically these are written to a http.Request.
 */
 type CreateInstanceConfigurationParams struct {
 

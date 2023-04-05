@@ -74,7 +74,8 @@ func NewStartAllocatorMaintenanceModeAccepted() *StartAllocatorMaintenanceModeAc
 	return &StartAllocatorMaintenanceModeAccepted{}
 }
 
-/* StartAllocatorMaintenanceModeAccepted describes a response with status code 202, with default header values.
+/*
+StartAllocatorMaintenanceModeAccepted describes a response with status code 202, with default header values.
 
 The start maintenance mode command was issued successfully
 */
@@ -82,9 +83,44 @@ type StartAllocatorMaintenanceModeAccepted struct {
 	Payload models.EmptyResponse
 }
 
+// IsSuccess returns true when this start allocator maintenance mode accepted response has a 2xx status code
+func (o *StartAllocatorMaintenanceModeAccepted) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this start allocator maintenance mode accepted response has a 3xx status code
+func (o *StartAllocatorMaintenanceModeAccepted) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this start allocator maintenance mode accepted response has a 4xx status code
+func (o *StartAllocatorMaintenanceModeAccepted) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this start allocator maintenance mode accepted response has a 5xx status code
+func (o *StartAllocatorMaintenanceModeAccepted) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this start allocator maintenance mode accepted response a status code equal to that given
+func (o *StartAllocatorMaintenanceModeAccepted) IsCode(code int) bool {
+	return code == 202
+}
+
+// Code gets the status code for the start allocator maintenance mode accepted response
+func (o *StartAllocatorMaintenanceModeAccepted) Code() int {
+	return 202
+}
+
 func (o *StartAllocatorMaintenanceModeAccepted) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/allocators/{allocator_id}/maintenance-mode/_start][%d] startAllocatorMaintenanceModeAccepted  %+v", 202, o.Payload)
 }
+
+func (o *StartAllocatorMaintenanceModeAccepted) String() string {
+	return fmt.Sprintf("[POST /platform/infrastructure/allocators/{allocator_id}/maintenance-mode/_start][%d] startAllocatorMaintenanceModeAccepted  %+v", 202, o.Payload)
+}
+
 func (o *StartAllocatorMaintenanceModeAccepted) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -104,7 +140,8 @@ func NewStartAllocatorMaintenanceModeForbidden() *StartAllocatorMaintenanceModeF
 	return &StartAllocatorMaintenanceModeForbidden{}
 }
 
-/* StartAllocatorMaintenanceModeForbidden describes a response with status code 403, with default header values.
+/*
+StartAllocatorMaintenanceModeForbidden describes a response with status code 403, with default header values.
 
 The start maintenance mode command was prohibited for the given allocator. (code: `root.unauthorized.rbac`)
 */
@@ -117,9 +154,44 @@ type StartAllocatorMaintenanceModeForbidden struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this start allocator maintenance mode forbidden response has a 2xx status code
+func (o *StartAllocatorMaintenanceModeForbidden) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this start allocator maintenance mode forbidden response has a 3xx status code
+func (o *StartAllocatorMaintenanceModeForbidden) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this start allocator maintenance mode forbidden response has a 4xx status code
+func (o *StartAllocatorMaintenanceModeForbidden) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this start allocator maintenance mode forbidden response has a 5xx status code
+func (o *StartAllocatorMaintenanceModeForbidden) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this start allocator maintenance mode forbidden response a status code equal to that given
+func (o *StartAllocatorMaintenanceModeForbidden) IsCode(code int) bool {
+	return code == 403
+}
+
+// Code gets the status code for the start allocator maintenance mode forbidden response
+func (o *StartAllocatorMaintenanceModeForbidden) Code() int {
+	return 403
+}
+
 func (o *StartAllocatorMaintenanceModeForbidden) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/allocators/{allocator_id}/maintenance-mode/_start][%d] startAllocatorMaintenanceModeForbidden  %+v", 403, o.Payload)
 }
+
+func (o *StartAllocatorMaintenanceModeForbidden) String() string {
+	return fmt.Sprintf("[POST /platform/infrastructure/allocators/{allocator_id}/maintenance-mode/_start][%d] startAllocatorMaintenanceModeForbidden  %+v", 403, o.Payload)
+}
+
 func (o *StartAllocatorMaintenanceModeForbidden) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -148,7 +220,8 @@ func NewStartAllocatorMaintenanceModeNotFound() *StartAllocatorMaintenanceModeNo
 	return &StartAllocatorMaintenanceModeNotFound{}
 }
 
-/* StartAllocatorMaintenanceModeNotFound describes a response with status code 404, with default header values.
+/*
+StartAllocatorMaintenanceModeNotFound describes a response with status code 404, with default header values.
 
 The allocator specified by {allocator_id} cannot be found. (code: `allocators.allocator_not_found`)
 */
@@ -161,9 +234,44 @@ type StartAllocatorMaintenanceModeNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this start allocator maintenance mode not found response has a 2xx status code
+func (o *StartAllocatorMaintenanceModeNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this start allocator maintenance mode not found response has a 3xx status code
+func (o *StartAllocatorMaintenanceModeNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this start allocator maintenance mode not found response has a 4xx status code
+func (o *StartAllocatorMaintenanceModeNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this start allocator maintenance mode not found response has a 5xx status code
+func (o *StartAllocatorMaintenanceModeNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this start allocator maintenance mode not found response a status code equal to that given
+func (o *StartAllocatorMaintenanceModeNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the start allocator maintenance mode not found response
+func (o *StartAllocatorMaintenanceModeNotFound) Code() int {
+	return 404
+}
+
 func (o *StartAllocatorMaintenanceModeNotFound) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/allocators/{allocator_id}/maintenance-mode/_start][%d] startAllocatorMaintenanceModeNotFound  %+v", 404, o.Payload)
 }
+
+func (o *StartAllocatorMaintenanceModeNotFound) String() string {
+	return fmt.Sprintf("[POST /platform/infrastructure/allocators/{allocator_id}/maintenance-mode/_start][%d] startAllocatorMaintenanceModeNotFound  %+v", 404, o.Payload)
+}
+
 func (o *StartAllocatorMaintenanceModeNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -192,7 +300,8 @@ func NewStartAllocatorMaintenanceModeRetryWith() *StartAllocatorMaintenanceModeR
 	return &StartAllocatorMaintenanceModeRetryWith{}
 }
 
-/* StartAllocatorMaintenanceModeRetryWith describes a response with status code 449, with default header values.
+/*
+StartAllocatorMaintenanceModeRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
@@ -205,9 +314,44 @@ type StartAllocatorMaintenanceModeRetryWith struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this start allocator maintenance mode retry with response has a 2xx status code
+func (o *StartAllocatorMaintenanceModeRetryWith) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this start allocator maintenance mode retry with response has a 3xx status code
+func (o *StartAllocatorMaintenanceModeRetryWith) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this start allocator maintenance mode retry with response has a 4xx status code
+func (o *StartAllocatorMaintenanceModeRetryWith) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this start allocator maintenance mode retry with response has a 5xx status code
+func (o *StartAllocatorMaintenanceModeRetryWith) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this start allocator maintenance mode retry with response a status code equal to that given
+func (o *StartAllocatorMaintenanceModeRetryWith) IsCode(code int) bool {
+	return code == 449
+}
+
+// Code gets the status code for the start allocator maintenance mode retry with response
+func (o *StartAllocatorMaintenanceModeRetryWith) Code() int {
+	return 449
+}
+
 func (o *StartAllocatorMaintenanceModeRetryWith) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/allocators/{allocator_id}/maintenance-mode/_start][%d] startAllocatorMaintenanceModeRetryWith  %+v", 449, o.Payload)
 }
+
+func (o *StartAllocatorMaintenanceModeRetryWith) String() string {
+	return fmt.Sprintf("[POST /platform/infrastructure/allocators/{allocator_id}/maintenance-mode/_start][%d] startAllocatorMaintenanceModeRetryWith  %+v", 449, o.Payload)
+}
+
 func (o *StartAllocatorMaintenanceModeRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

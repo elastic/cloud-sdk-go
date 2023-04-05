@@ -71,6 +71,8 @@ func (m *ConstructorOverview) validateConstructors(formats strfmt.Registry) erro
 			if err := m.Constructors[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("constructors" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("constructors" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -103,6 +105,8 @@ func (m *ConstructorOverview) contextValidateConstructors(ctx context.Context, f
 			if err := m.Constructors[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("constructors" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("constructors" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

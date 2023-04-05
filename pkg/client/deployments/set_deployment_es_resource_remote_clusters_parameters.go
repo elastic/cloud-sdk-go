@@ -71,10 +71,12 @@ func NewSetDeploymentEsResourceRemoteClustersParamsWithHTTPClient(client *http.C
 	}
 }
 
-/* SetDeploymentEsResourceRemoteClustersParams contains all the parameters to send to the API endpoint
-   for the set deployment es resource remote clusters operation.
+/*
+SetDeploymentEsResourceRemoteClustersParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the set deployment es resource remote clusters operation.
+
+	Typically these are written to a http.Request.
 */
 type SetDeploymentEsResourceRemoteClustersParams struct {
 

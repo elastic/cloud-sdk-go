@@ -69,10 +69,12 @@ func NewSamlCallbackParamsWithHTTPClient(client *http.Client) *SamlCallbackParam
 	}
 }
 
-/* SamlCallbackParams contains all the parameters to send to the API endpoint
-   for the saml callback operation.
+/*
+SamlCallbackParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the saml callback operation.
+
+	Typically these are written to a http.Request.
 */
 type SamlCallbackParams struct {
 

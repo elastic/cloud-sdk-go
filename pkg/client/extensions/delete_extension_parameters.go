@@ -69,10 +69,12 @@ func NewDeleteExtensionParamsWithHTTPClient(client *http.Client) *DeleteExtensio
 	}
 }
 
-/* DeleteExtensionParams contains all the parameters to send to the API endpoint
-   for the delete extension operation.
+/*
+DeleteExtensionParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the delete extension operation.
+
+	Typically these are written to a http.Request.
 */
 type DeleteExtensionParams struct {
 

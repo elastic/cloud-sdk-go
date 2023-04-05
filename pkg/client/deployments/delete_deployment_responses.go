@@ -74,7 +74,8 @@ func NewDeleteDeploymentOK() *DeleteDeploymentOK {
 	return &DeleteDeploymentOK{}
 }
 
-/* DeleteDeploymentOK describes a response with status code 200, with default header values.
+/*
+DeleteDeploymentOK describes a response with status code 200, with default header values.
 
 The request was valid and the deployment was deleted.
 */
@@ -82,9 +83,44 @@ type DeleteDeploymentOK struct {
 	Payload *models.DeploymentDeleteResponse
 }
 
+// IsSuccess returns true when this delete deployment o k response has a 2xx status code
+func (o *DeleteDeploymentOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this delete deployment o k response has a 3xx status code
+func (o *DeleteDeploymentOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete deployment o k response has a 4xx status code
+func (o *DeleteDeploymentOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this delete deployment o k response has a 5xx status code
+func (o *DeleteDeploymentOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete deployment o k response a status code equal to that given
+func (o *DeleteDeploymentOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the delete deployment o k response
+func (o *DeleteDeploymentOK) Code() int {
+	return 200
+}
+
 func (o *DeleteDeploymentOK) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/{deployment_id}][%d] deleteDeploymentOK  %+v", 200, o.Payload)
 }
+
+func (o *DeleteDeploymentOK) String() string {
+	return fmt.Sprintf("[DELETE /deployments/{deployment_id}][%d] deleteDeploymentOK  %+v", 200, o.Payload)
+}
+
 func (o *DeleteDeploymentOK) GetPayload() *models.DeploymentDeleteResponse {
 	return o.Payload
 }
@@ -106,7 +142,8 @@ func NewDeleteDeploymentBadRequest() *DeleteDeploymentBadRequest {
 	return &DeleteDeploymentBadRequest{}
 }
 
-/* DeleteDeploymentBadRequest describes a response with status code 400, with default header values.
+/*
+DeleteDeploymentBadRequest describes a response with status code 400, with default header values.
 
 The Deployment resources have not been shutdown yet.
 */
@@ -114,9 +151,44 @@ type DeleteDeploymentBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete deployment bad request response has a 2xx status code
+func (o *DeleteDeploymentBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete deployment bad request response has a 3xx status code
+func (o *DeleteDeploymentBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete deployment bad request response has a 4xx status code
+func (o *DeleteDeploymentBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete deployment bad request response has a 5xx status code
+func (o *DeleteDeploymentBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete deployment bad request response a status code equal to that given
+func (o *DeleteDeploymentBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the delete deployment bad request response
+func (o *DeleteDeploymentBadRequest) Code() int {
+	return 400
+}
+
 func (o *DeleteDeploymentBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/{deployment_id}][%d] deleteDeploymentBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *DeleteDeploymentBadRequest) String() string {
+	return fmt.Sprintf("[DELETE /deployments/{deployment_id}][%d] deleteDeploymentBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *DeleteDeploymentBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -138,7 +210,8 @@ func NewDeleteDeploymentUnauthorized() *DeleteDeploymentUnauthorized {
 	return &DeleteDeploymentUnauthorized{}
 }
 
-/* DeleteDeploymentUnauthorized describes a response with status code 401, with default header values.
+/*
+DeleteDeploymentUnauthorized describes a response with status code 401, with default header values.
 
 You are not authorized to perform this action.
 */
@@ -146,9 +219,44 @@ type DeleteDeploymentUnauthorized struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete deployment unauthorized response has a 2xx status code
+func (o *DeleteDeploymentUnauthorized) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete deployment unauthorized response has a 3xx status code
+func (o *DeleteDeploymentUnauthorized) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete deployment unauthorized response has a 4xx status code
+func (o *DeleteDeploymentUnauthorized) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete deployment unauthorized response has a 5xx status code
+func (o *DeleteDeploymentUnauthorized) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete deployment unauthorized response a status code equal to that given
+func (o *DeleteDeploymentUnauthorized) IsCode(code int) bool {
+	return code == 401
+}
+
+// Code gets the status code for the delete deployment unauthorized response
+func (o *DeleteDeploymentUnauthorized) Code() int {
+	return 401
+}
+
 func (o *DeleteDeploymentUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/{deployment_id}][%d] deleteDeploymentUnauthorized  %+v", 401, o.Payload)
 }
+
+func (o *DeleteDeploymentUnauthorized) String() string {
+	return fmt.Sprintf("[DELETE /deployments/{deployment_id}][%d] deleteDeploymentUnauthorized  %+v", 401, o.Payload)
+}
+
 func (o *DeleteDeploymentUnauthorized) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -170,7 +278,8 @@ func NewDeleteDeploymentNotFound() *DeleteDeploymentNotFound {
 	return &DeleteDeploymentNotFound{}
 }
 
-/* DeleteDeploymentNotFound describes a response with status code 404, with default header values.
+/*
+DeleteDeploymentNotFound describes a response with status code 404, with default header values.
 
 The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
 */
@@ -183,9 +292,44 @@ type DeleteDeploymentNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete deployment not found response has a 2xx status code
+func (o *DeleteDeploymentNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete deployment not found response has a 3xx status code
+func (o *DeleteDeploymentNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete deployment not found response has a 4xx status code
+func (o *DeleteDeploymentNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete deployment not found response has a 5xx status code
+func (o *DeleteDeploymentNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete deployment not found response a status code equal to that given
+func (o *DeleteDeploymentNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the delete deployment not found response
+func (o *DeleteDeploymentNotFound) Code() int {
+	return 404
+}
+
 func (o *DeleteDeploymentNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/{deployment_id}][%d] deleteDeploymentNotFound  %+v", 404, o.Payload)
 }
+
+func (o *DeleteDeploymentNotFound) String() string {
+	return fmt.Sprintf("[DELETE /deployments/{deployment_id}][%d] deleteDeploymentNotFound  %+v", 404, o.Payload)
+}
+
 func (o *DeleteDeploymentNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

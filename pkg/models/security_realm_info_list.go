@@ -71,6 +71,8 @@ func (m *SecurityRealmInfoList) validateRealms(formats strfmt.Registry) error {
 			if err := m.Realms[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("realms" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("realms" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -103,6 +105,8 @@ func (m *SecurityRealmInfoList) contextValidateRealms(ctx context.Context, forma
 			if err := m.Realms[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("realms" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("realms" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

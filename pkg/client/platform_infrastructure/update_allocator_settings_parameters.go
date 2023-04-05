@@ -69,10 +69,12 @@ func NewUpdateAllocatorSettingsParamsWithHTTPClient(client *http.Client) *Update
 	}
 }
 
-/* UpdateAllocatorSettingsParams contains all the parameters to send to the API endpoint
-   for the update allocator settings operation.
+/*
+UpdateAllocatorSettingsParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the update allocator settings operation.
+
+	Typically these are written to a http.Request.
 */
 type UpdateAllocatorSettingsParams struct {
 

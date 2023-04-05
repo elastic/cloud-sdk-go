@@ -106,6 +106,8 @@ func (m *InstanceTypeResource) validateCompatibility(formats strfmt.Registry) er
 			if err := m.Compatibility[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("compatibility" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("compatibility" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -158,6 +160,8 @@ func (m *InstanceTypeResource) validateNodeTypes(formats strfmt.Registry) error 
 			if err := m.NodeTypes[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("node_types" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("node_types" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -194,6 +198,8 @@ func (m *InstanceTypeResource) contextValidateCompatibility(ctx context.Context,
 			if err := m.Compatibility[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("compatibility" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("compatibility" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -212,6 +218,8 @@ func (m *InstanceTypeResource) contextValidateNodeTypes(ctx context.Context, for
 			if err := m.NodeTypes[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("node_types" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("node_types" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

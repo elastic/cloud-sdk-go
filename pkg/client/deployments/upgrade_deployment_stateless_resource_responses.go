@@ -68,7 +68,8 @@ func NewUpgradeDeploymentStatelessResourceAccepted() *UpgradeDeploymentStateless
 	return &UpgradeDeploymentStatelessResourceAccepted{}
 }
 
-/* UpgradeDeploymentStatelessResourceAccepted describes a response with status code 202, with default header values.
+/*
+UpgradeDeploymentStatelessResourceAccepted describes a response with status code 202, with default header values.
 
 The upgrade command was issued successfully. Use the "GET" command on the /{deployment_id} resource to monitor progress
 */
@@ -76,9 +77,44 @@ type UpgradeDeploymentStatelessResourceAccepted struct {
 	Payload *models.DeploymentResourceUpgradeResponse
 }
 
+// IsSuccess returns true when this upgrade deployment stateless resource accepted response has a 2xx status code
+func (o *UpgradeDeploymentStatelessResourceAccepted) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this upgrade deployment stateless resource accepted response has a 3xx status code
+func (o *UpgradeDeploymentStatelessResourceAccepted) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this upgrade deployment stateless resource accepted response has a 4xx status code
+func (o *UpgradeDeploymentStatelessResourceAccepted) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this upgrade deployment stateless resource accepted response has a 5xx status code
+func (o *UpgradeDeploymentStatelessResourceAccepted) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this upgrade deployment stateless resource accepted response a status code equal to that given
+func (o *UpgradeDeploymentStatelessResourceAccepted) IsCode(code int) bool {
+	return code == 202
+}
+
+// Code gets the status code for the upgrade deployment stateless resource accepted response
+func (o *UpgradeDeploymentStatelessResourceAccepted) Code() int {
+	return 202
+}
+
 func (o *UpgradeDeploymentStatelessResourceAccepted) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_upgrade][%d] upgradeDeploymentStatelessResourceAccepted  %+v", 202, o.Payload)
 }
+
+func (o *UpgradeDeploymentStatelessResourceAccepted) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_upgrade][%d] upgradeDeploymentStatelessResourceAccepted  %+v", 202, o.Payload)
+}
+
 func (o *UpgradeDeploymentStatelessResourceAccepted) GetPayload() *models.DeploymentResourceUpgradeResponse {
 	return o.Payload
 }
@@ -100,9 +136,11 @@ func NewUpgradeDeploymentStatelessResourceNotFound() *UpgradeDeploymentStateless
 	return &UpgradeDeploymentStatelessResourceNotFound{}
 }
 
-/* UpgradeDeploymentStatelessResourceNotFound describes a response with status code 404, with default header values.
+/*
+	UpgradeDeploymentStatelessResourceNotFound describes a response with status code 404, with default header values.
 
- * The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+	* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+
 * The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)
 */
 type UpgradeDeploymentStatelessResourceNotFound struct {
@@ -114,9 +152,44 @@ type UpgradeDeploymentStatelessResourceNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this upgrade deployment stateless resource not found response has a 2xx status code
+func (o *UpgradeDeploymentStatelessResourceNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this upgrade deployment stateless resource not found response has a 3xx status code
+func (o *UpgradeDeploymentStatelessResourceNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this upgrade deployment stateless resource not found response has a 4xx status code
+func (o *UpgradeDeploymentStatelessResourceNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this upgrade deployment stateless resource not found response has a 5xx status code
+func (o *UpgradeDeploymentStatelessResourceNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this upgrade deployment stateless resource not found response a status code equal to that given
+func (o *UpgradeDeploymentStatelessResourceNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the upgrade deployment stateless resource not found response
+func (o *UpgradeDeploymentStatelessResourceNotFound) Code() int {
+	return 404
+}
+
 func (o *UpgradeDeploymentStatelessResourceNotFound) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_upgrade][%d] upgradeDeploymentStatelessResourceNotFound  %+v", 404, o.Payload)
 }
+
+func (o *UpgradeDeploymentStatelessResourceNotFound) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_upgrade][%d] upgradeDeploymentStatelessResourceNotFound  %+v", 404, o.Payload)
+}
+
 func (o *UpgradeDeploymentStatelessResourceNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -145,7 +218,8 @@ func NewUpgradeDeploymentStatelessResourceRetryWith() *UpgradeDeploymentStateles
 	return &UpgradeDeploymentStatelessResourceRetryWith{}
 }
 
-/* UpgradeDeploymentStatelessResourceRetryWith describes a response with status code 449, with default header values.
+/*
+UpgradeDeploymentStatelessResourceRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
@@ -158,9 +232,44 @@ type UpgradeDeploymentStatelessResourceRetryWith struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this upgrade deployment stateless resource retry with response has a 2xx status code
+func (o *UpgradeDeploymentStatelessResourceRetryWith) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this upgrade deployment stateless resource retry with response has a 3xx status code
+func (o *UpgradeDeploymentStatelessResourceRetryWith) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this upgrade deployment stateless resource retry with response has a 4xx status code
+func (o *UpgradeDeploymentStatelessResourceRetryWith) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this upgrade deployment stateless resource retry with response has a 5xx status code
+func (o *UpgradeDeploymentStatelessResourceRetryWith) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this upgrade deployment stateless resource retry with response a status code equal to that given
+func (o *UpgradeDeploymentStatelessResourceRetryWith) IsCode(code int) bool {
+	return code == 449
+}
+
+// Code gets the status code for the upgrade deployment stateless resource retry with response
+func (o *UpgradeDeploymentStatelessResourceRetryWith) Code() int {
+	return 449
+}
+
 func (o *UpgradeDeploymentStatelessResourceRetryWith) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_upgrade][%d] upgradeDeploymentStatelessResourceRetryWith  %+v", 449, o.Payload)
 }
+
+func (o *UpgradeDeploymentStatelessResourceRetryWith) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/{stateless_resource_kind}/{ref_id}/_upgrade][%d] upgradeDeploymentStatelessResourceRetryWith  %+v", 449, o.Payload)
+}
+
 func (o *UpgradeDeploymentStatelessResourceRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

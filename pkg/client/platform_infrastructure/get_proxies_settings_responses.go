@@ -56,7 +56,8 @@ func NewGetProxiesSettingsOK() *GetProxiesSettingsOK {
 	return &GetProxiesSettingsOK{}
 }
 
-/* GetProxiesSettingsOK describes a response with status code 200, with default header values.
+/*
+GetProxiesSettingsOK describes a response with status code 200, with default header values.
 
 Settings for all proxies.
 */
@@ -64,9 +65,44 @@ type GetProxiesSettingsOK struct {
 	Payload *models.ProxiesSettings
 }
 
+// IsSuccess returns true when this get proxies settings o k response has a 2xx status code
+func (o *GetProxiesSettingsOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get proxies settings o k response has a 3xx status code
+func (o *GetProxiesSettingsOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get proxies settings o k response has a 4xx status code
+func (o *GetProxiesSettingsOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get proxies settings o k response has a 5xx status code
+func (o *GetProxiesSettingsOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get proxies settings o k response a status code equal to that given
+func (o *GetProxiesSettingsOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get proxies settings o k response
+func (o *GetProxiesSettingsOK) Code() int {
+	return 200
+}
+
 func (o *GetProxiesSettingsOK) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/proxies/settings][%d] getProxiesSettingsOK  %+v", 200, o.Payload)
 }
+
+func (o *GetProxiesSettingsOK) String() string {
+	return fmt.Sprintf("[GET /platform/infrastructure/proxies/settings][%d] getProxiesSettingsOK  %+v", 200, o.Payload)
+}
+
 func (o *GetProxiesSettingsOK) GetPayload() *models.ProxiesSettings {
 	return o.Payload
 }

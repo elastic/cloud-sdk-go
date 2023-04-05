@@ -69,10 +69,12 @@ func NewSetTLSCertificateParamsWithHTTPClient(client *http.Client) *SetTLSCertif
 	}
 }
 
-/* SetTLSCertificateParams contains all the parameters to send to the API endpoint
-   for the set tls certificate operation.
+/*
+SetTLSCertificateParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the set tls certificate operation.
+
+	Typically these are written to a http.Request.
 */
 type SetTLSCertificateParams struct {
 

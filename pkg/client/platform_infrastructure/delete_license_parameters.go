@@ -69,10 +69,12 @@ func NewDeleteLicenseParamsWithHTTPClient(client *http.Client) *DeleteLicensePar
 	}
 }
 
-/* DeleteLicenseParams contains all the parameters to send to the API endpoint
-   for the delete license operation.
+/*
+DeleteLicenseParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the delete license operation.
+
+	Typically these are written to a http.Request.
 */
 type DeleteLicenseParams struct {
 	timeout    time.Duration

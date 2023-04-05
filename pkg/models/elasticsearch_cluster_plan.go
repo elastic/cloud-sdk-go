@@ -96,6 +96,8 @@ func (m *ElasticsearchClusterPlan) validateClusterTopology(formats strfmt.Regist
 			if err := m.ClusterTopology[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("cluster_topology" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("cluster_topology" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -115,6 +117,8 @@ func (m *ElasticsearchClusterPlan) validateDeploymentTemplate(formats strfmt.Reg
 		if err := m.DeploymentTemplate.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("deployment_template")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("deployment_template")
 			}
 			return err
 		}
@@ -133,6 +137,8 @@ func (m *ElasticsearchClusterPlan) validateElasticsearch(formats strfmt.Registry
 		if err := m.Elasticsearch.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("elasticsearch")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("elasticsearch")
 			}
 			return err
 		}
@@ -150,6 +156,8 @@ func (m *ElasticsearchClusterPlan) validateTransient(formats strfmt.Registry) er
 		if err := m.Transient.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("transient")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("transient")
 			}
 			return err
 		}
@@ -192,6 +200,8 @@ func (m *ElasticsearchClusterPlan) contextValidateClusterTopology(ctx context.Co
 			if err := m.ClusterTopology[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("cluster_topology" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("cluster_topology" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -208,6 +218,8 @@ func (m *ElasticsearchClusterPlan) contextValidateDeploymentTemplate(ctx context
 		if err := m.DeploymentTemplate.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("deployment_template")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("deployment_template")
 			}
 			return err
 		}
@@ -222,6 +234,8 @@ func (m *ElasticsearchClusterPlan) contextValidateElasticsearch(ctx context.Cont
 		if err := m.Elasticsearch.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("elasticsearch")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("elasticsearch")
 			}
 			return err
 		}
@@ -236,6 +250,8 @@ func (m *ElasticsearchClusterPlan) contextValidateTransient(ctx context.Context,
 		if err := m.Transient.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("transient")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("transient")
 			}
 			return err
 		}

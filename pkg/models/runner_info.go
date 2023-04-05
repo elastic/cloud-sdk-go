@@ -142,6 +142,8 @@ func (m *RunnerInfo) validateBuildInfo(formats strfmt.Registry) error {
 		if err := m.BuildInfo.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("build_info")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("build_info")
 			}
 			return err
 		}
@@ -174,6 +176,8 @@ func (m *RunnerInfo) validateContainers(formats strfmt.Registry) error {
 			if err := m.Containers[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("containers" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("containers" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -193,6 +197,8 @@ func (m *RunnerInfo) validateHealthChecks(formats strfmt.Registry) error {
 		if err := m.HealthChecks.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("health_checks")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("health_checks")
 			}
 			return err
 		}
@@ -243,6 +249,8 @@ func (m *RunnerInfo) validateRoles(formats strfmt.Registry) error {
 			if err := m.Roles[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("roles" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("roles" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -294,6 +302,8 @@ func (m *RunnerInfo) contextValidateBuildInfo(ctx context.Context, formats strfm
 		if err := m.BuildInfo.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("build_info")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("build_info")
 			}
 			return err
 		}
@@ -310,6 +320,8 @@ func (m *RunnerInfo) contextValidateContainers(ctx context.Context, formats strf
 			if err := m.Containers[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("containers" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("containers" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -326,6 +338,8 @@ func (m *RunnerInfo) contextValidateHealthChecks(ctx context.Context, formats st
 		if err := m.HealthChecks.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("health_checks")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("health_checks")
 			}
 			return err
 		}
@@ -342,6 +356,8 @@ func (m *RunnerInfo) contextValidateRoles(ctx context.Context, formats strfmt.Re
 			if err := m.Roles[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("roles" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("roles" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

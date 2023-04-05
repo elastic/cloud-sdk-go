@@ -68,7 +68,8 @@ func NewSetAllInstancesSettingsOverridesOK() *SetAllInstancesSettingsOverridesOK
 	return &SetAllInstancesSettingsOverridesOK{}
 }
 
-/* SetAllInstancesSettingsOverridesOK describes a response with status code 200, with default header values.
+/*
+SetAllInstancesSettingsOverridesOK describes a response with status code 200, with default header values.
 
 The updated overrides
 */
@@ -76,9 +77,44 @@ type SetAllInstancesSettingsOverridesOK struct {
 	Payload *models.InstanceOverrides
 }
 
+// IsSuccess returns true when this set all instances settings overrides o k response has a 2xx status code
+func (o *SetAllInstancesSettingsOverridesOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this set all instances settings overrides o k response has a 3xx status code
+func (o *SetAllInstancesSettingsOverridesOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set all instances settings overrides o k response has a 4xx status code
+func (o *SetAllInstancesSettingsOverridesOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this set all instances settings overrides o k response has a 5xx status code
+func (o *SetAllInstancesSettingsOverridesOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set all instances settings overrides o k response a status code equal to that given
+func (o *SetAllInstancesSettingsOverridesOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the set all instances settings overrides o k response
+func (o *SetAllInstancesSettingsOverridesOK) Code() int {
+	return 200
+}
+
 func (o *SetAllInstancesSettingsOverridesOK) Error() string {
 	return fmt.Sprintf("[PUT /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/overrides][%d] setAllInstancesSettingsOverridesOK  %+v", 200, o.Payload)
 }
+
+func (o *SetAllInstancesSettingsOverridesOK) String() string {
+	return fmt.Sprintf("[PUT /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/overrides][%d] setAllInstancesSettingsOverridesOK  %+v", 200, o.Payload)
+}
+
 func (o *SetAllInstancesSettingsOverridesOK) GetPayload() *models.InstanceOverrides {
 	return o.Payload
 }
@@ -100,9 +136,11 @@ func NewSetAllInstancesSettingsOverridesNotFound() *SetAllInstancesSettingsOverr
 	return &SetAllInstancesSettingsOverridesNotFound{}
 }
 
-/* SetAllInstancesSettingsOverridesNotFound describes a response with status code 404, with default header values.
+/*
+	SetAllInstancesSettingsOverridesNotFound describes a response with status code 404, with default header values.
 
- * The deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+	* The deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+
 * The Resource specified by {ref_id} cannot by found. (code: `deployments.deployment_resource_not_found`)
 * The specified override was out of range. Capacity must be in the range [1024, 65536] and storage multiplier must be in the range [1.0, 1000.0]. (code: `instance_overrides.out_of_range`)
 */
@@ -115,9 +153,44 @@ type SetAllInstancesSettingsOverridesNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this set all instances settings overrides not found response has a 2xx status code
+func (o *SetAllInstancesSettingsOverridesNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this set all instances settings overrides not found response has a 3xx status code
+func (o *SetAllInstancesSettingsOverridesNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set all instances settings overrides not found response has a 4xx status code
+func (o *SetAllInstancesSettingsOverridesNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this set all instances settings overrides not found response has a 5xx status code
+func (o *SetAllInstancesSettingsOverridesNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set all instances settings overrides not found response a status code equal to that given
+func (o *SetAllInstancesSettingsOverridesNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the set all instances settings overrides not found response
+func (o *SetAllInstancesSettingsOverridesNotFound) Code() int {
+	return 404
+}
+
 func (o *SetAllInstancesSettingsOverridesNotFound) Error() string {
 	return fmt.Sprintf("[PUT /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/overrides][%d] setAllInstancesSettingsOverridesNotFound  %+v", 404, o.Payload)
 }
+
+func (o *SetAllInstancesSettingsOverridesNotFound) String() string {
+	return fmt.Sprintf("[PUT /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/overrides][%d] setAllInstancesSettingsOverridesNotFound  %+v", 404, o.Payload)
+}
+
 func (o *SetAllInstancesSettingsOverridesNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -146,7 +219,8 @@ func NewSetAllInstancesSettingsOverridesRetryWith() *SetAllInstancesSettingsOver
 	return &SetAllInstancesSettingsOverridesRetryWith{}
 }
 
-/* SetAllInstancesSettingsOverridesRetryWith describes a response with status code 449, with default header values.
+/*
+SetAllInstancesSettingsOverridesRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
@@ -159,9 +233,44 @@ type SetAllInstancesSettingsOverridesRetryWith struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this set all instances settings overrides retry with response has a 2xx status code
+func (o *SetAllInstancesSettingsOverridesRetryWith) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this set all instances settings overrides retry with response has a 3xx status code
+func (o *SetAllInstancesSettingsOverridesRetryWith) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set all instances settings overrides retry with response has a 4xx status code
+func (o *SetAllInstancesSettingsOverridesRetryWith) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this set all instances settings overrides retry with response has a 5xx status code
+func (o *SetAllInstancesSettingsOverridesRetryWith) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set all instances settings overrides retry with response a status code equal to that given
+func (o *SetAllInstancesSettingsOverridesRetryWith) IsCode(code int) bool {
+	return code == 449
+}
+
+// Code gets the status code for the set all instances settings overrides retry with response
+func (o *SetAllInstancesSettingsOverridesRetryWith) Code() int {
+	return 449
+}
+
 func (o *SetAllInstancesSettingsOverridesRetryWith) Error() string {
 	return fmt.Sprintf("[PUT /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/overrides][%d] setAllInstancesSettingsOverridesRetryWith  %+v", 449, o.Payload)
 }
+
+func (o *SetAllInstancesSettingsOverridesRetryWith) String() string {
+	return fmt.Sprintf("[PUT /deployments/{deployment_id}/{resource_kind}/{ref_id}/instances/overrides][%d] setAllInstancesSettingsOverridesRetryWith  %+v", 449, o.Payload)
+}
+
 func (o *SetAllInstancesSettingsOverridesRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

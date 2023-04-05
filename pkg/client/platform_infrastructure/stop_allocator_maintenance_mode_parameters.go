@@ -69,10 +69,12 @@ func NewStopAllocatorMaintenanceModeParamsWithHTTPClient(client *http.Client) *S
 	}
 }
 
-/* StopAllocatorMaintenanceModeParams contains all the parameters to send to the API endpoint
-   for the stop allocator maintenance mode operation.
+/*
+StopAllocatorMaintenanceModeParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the stop allocator maintenance mode operation.
+
+	Typically these are written to a http.Request.
 */
 type StopAllocatorMaintenanceModeParams struct {
 

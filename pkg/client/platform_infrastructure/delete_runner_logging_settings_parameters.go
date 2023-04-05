@@ -69,10 +69,12 @@ func NewDeleteRunnerLoggingSettingsParamsWithHTTPClient(client *http.Client) *De
 	}
 }
 
-/* DeleteRunnerLoggingSettingsParams contains all the parameters to send to the API endpoint
-   for the delete runner logging settings operation.
+/*
+DeleteRunnerLoggingSettingsParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the delete runner logging settings operation.
+
+	Typically these are written to a http.Request.
 */
 type DeleteRunnerLoggingSettingsParams struct {
 

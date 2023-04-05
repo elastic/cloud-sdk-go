@@ -87,6 +87,8 @@ func (m *RoleAggregate) validateBlessings(formats strfmt.Registry) error {
 		if err := m.Blessings.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("blessings")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("blessings")
 			}
 			return err
 		}
@@ -113,6 +115,8 @@ func (m *RoleAggregate) validatePending(formats strfmt.Registry) error {
 		if err := m.Pending.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("pending")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("pending")
 			}
 			return err
 		}
@@ -131,6 +135,8 @@ func (m *RoleAggregate) validateRole(formats strfmt.Registry) error {
 		if err := m.Role.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("role")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("role")
 			}
 			return err
 		}
@@ -167,6 +173,8 @@ func (m *RoleAggregate) contextValidateBlessings(ctx context.Context, formats st
 		if err := m.Blessings.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("blessings")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("blessings")
 			}
 			return err
 		}
@@ -181,6 +189,8 @@ func (m *RoleAggregate) contextValidatePending(ctx context.Context, formats strf
 		if err := m.Pending.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("pending")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("pending")
 			}
 			return err
 		}
@@ -195,6 +205,8 @@ func (m *RoleAggregate) contextValidateRole(ctx context.Context, formats strfmt.
 		if err := m.Role.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("role")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("role")
 			}
 			return err
 		}

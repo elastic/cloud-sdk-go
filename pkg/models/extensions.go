@@ -71,6 +71,8 @@ func (m *Extensions) validateExtensions(formats strfmt.Registry) error {
 			if err := m.Extensions[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("extensions" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("extensions" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -103,6 +105,8 @@ func (m *Extensions) contextValidateExtensions(ctx context.Context, formats strf
 			if err := m.Extensions[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("extensions" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("extensions" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

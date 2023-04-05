@@ -74,7 +74,8 @@ func NewEnableDeploymentResourceSlmOK() *EnableDeploymentResourceSlmOK {
 	return &EnableDeploymentResourceSlmOK{}
 }
 
-/* EnableDeploymentResourceSlmOK describes a response with status code 200, with default header values.
+/*
+EnableDeploymentResourceSlmOK describes a response with status code 200, with default header values.
 
 Standard response
 */
@@ -82,9 +83,44 @@ type EnableDeploymentResourceSlmOK struct {
 	Payload *models.DeploymentResourceCommandResponse
 }
 
+// IsSuccess returns true when this enable deployment resource slm o k response has a 2xx status code
+func (o *EnableDeploymentResourceSlmOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this enable deployment resource slm o k response has a 3xx status code
+func (o *EnableDeploymentResourceSlmOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this enable deployment resource slm o k response has a 4xx status code
+func (o *EnableDeploymentResourceSlmOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this enable deployment resource slm o k response has a 5xx status code
+func (o *EnableDeploymentResourceSlmOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this enable deployment resource slm o k response a status code equal to that given
+func (o *EnableDeploymentResourceSlmOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the enable deployment resource slm o k response
+func (o *EnableDeploymentResourceSlmOK) Code() int {
+	return 200
+}
+
 func (o *EnableDeploymentResourceSlmOK) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_enable-slm][%d] enableDeploymentResourceSlmOK  %+v", 200, o.Payload)
 }
+
+func (o *EnableDeploymentResourceSlmOK) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_enable-slm][%d] enableDeploymentResourceSlmOK  %+v", 200, o.Payload)
+}
+
 func (o *EnableDeploymentResourceSlmOK) GetPayload() *models.DeploymentResourceCommandResponse {
 	return o.Payload
 }
@@ -106,9 +142,11 @@ func NewEnableDeploymentResourceSlmNotFound() *EnableDeploymentResourceSlmNotFou
 	return &EnableDeploymentResourceSlmNotFound{}
 }
 
-/* EnableDeploymentResourceSlmNotFound describes a response with status code 404, with default header values.
+/*
+	EnableDeploymentResourceSlmNotFound describes a response with status code 404, with default header values.
 
- * The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+	* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+
 * The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)
 */
 type EnableDeploymentResourceSlmNotFound struct {
@@ -120,9 +158,44 @@ type EnableDeploymentResourceSlmNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this enable deployment resource slm not found response has a 2xx status code
+func (o *EnableDeploymentResourceSlmNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this enable deployment resource slm not found response has a 3xx status code
+func (o *EnableDeploymentResourceSlmNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this enable deployment resource slm not found response has a 4xx status code
+func (o *EnableDeploymentResourceSlmNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this enable deployment resource slm not found response has a 5xx status code
+func (o *EnableDeploymentResourceSlmNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this enable deployment resource slm not found response a status code equal to that given
+func (o *EnableDeploymentResourceSlmNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the enable deployment resource slm not found response
+func (o *EnableDeploymentResourceSlmNotFound) Code() int {
+	return 404
+}
+
 func (o *EnableDeploymentResourceSlmNotFound) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_enable-slm][%d] enableDeploymentResourceSlmNotFound  %+v", 404, o.Payload)
 }
+
+func (o *EnableDeploymentResourceSlmNotFound) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_enable-slm][%d] enableDeploymentResourceSlmNotFound  %+v", 404, o.Payload)
+}
+
 func (o *EnableDeploymentResourceSlmNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -151,7 +224,8 @@ func NewEnableDeploymentResourceSlmRetryWith() *EnableDeploymentResourceSlmRetry
 	return &EnableDeploymentResourceSlmRetryWith{}
 }
 
-/* EnableDeploymentResourceSlmRetryWith describes a response with status code 449, with default header values.
+/*
+EnableDeploymentResourceSlmRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
@@ -164,9 +238,44 @@ type EnableDeploymentResourceSlmRetryWith struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this enable deployment resource slm retry with response has a 2xx status code
+func (o *EnableDeploymentResourceSlmRetryWith) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this enable deployment resource slm retry with response has a 3xx status code
+func (o *EnableDeploymentResourceSlmRetryWith) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this enable deployment resource slm retry with response has a 4xx status code
+func (o *EnableDeploymentResourceSlmRetryWith) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this enable deployment resource slm retry with response has a 5xx status code
+func (o *EnableDeploymentResourceSlmRetryWith) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this enable deployment resource slm retry with response a status code equal to that given
+func (o *EnableDeploymentResourceSlmRetryWith) IsCode(code int) bool {
+	return code == 449
+}
+
+// Code gets the status code for the enable deployment resource slm retry with response
+func (o *EnableDeploymentResourceSlmRetryWith) Code() int {
+	return 449
+}
+
 func (o *EnableDeploymentResourceSlmRetryWith) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_enable-slm][%d] enableDeploymentResourceSlmRetryWith  %+v", 449, o.Payload)
 }
+
+func (o *EnableDeploymentResourceSlmRetryWith) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_enable-slm][%d] enableDeploymentResourceSlmRetryWith  %+v", 449, o.Payload)
+}
+
 func (o *EnableDeploymentResourceSlmRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -195,7 +304,8 @@ func NewEnableDeploymentResourceSlmInternalServerError() *EnableDeploymentResour
 	return &EnableDeploymentResourceSlmInternalServerError{}
 }
 
-/* EnableDeploymentResourceSlmInternalServerError describes a response with status code 500, with default header values.
+/*
+EnableDeploymentResourceSlmInternalServerError describes a response with status code 500, with default header values.
 
 We have failed you. (code: `deployments.deployment_resource_no_longer_exists`)
 */
@@ -208,9 +318,44 @@ type EnableDeploymentResourceSlmInternalServerError struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this enable deployment resource slm internal server error response has a 2xx status code
+func (o *EnableDeploymentResourceSlmInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this enable deployment resource slm internal server error response has a 3xx status code
+func (o *EnableDeploymentResourceSlmInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this enable deployment resource slm internal server error response has a 4xx status code
+func (o *EnableDeploymentResourceSlmInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this enable deployment resource slm internal server error response has a 5xx status code
+func (o *EnableDeploymentResourceSlmInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this enable deployment resource slm internal server error response a status code equal to that given
+func (o *EnableDeploymentResourceSlmInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
+// Code gets the status code for the enable deployment resource slm internal server error response
+func (o *EnableDeploymentResourceSlmInternalServerError) Code() int {
+	return 500
+}
+
 func (o *EnableDeploymentResourceSlmInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_enable-slm][%d] enableDeploymentResourceSlmInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *EnableDeploymentResourceSlmInternalServerError) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/elasticsearch/{ref_id}/_enable-slm][%d] enableDeploymentResourceSlmInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *EnableDeploymentResourceSlmInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

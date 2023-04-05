@@ -69,10 +69,12 @@ func NewGetConstructorsParamsWithHTTPClient(client *http.Client) *GetConstructor
 	}
 }
 
-/* GetConstructorsParams contains all the parameters to send to the API endpoint
-   for the get constructors operation.
+/*
+GetConstructorsParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the get constructors operation.
+
+	Typically these are written to a http.Request.
 */
 type GetConstructorsParams struct {
 	timeout    time.Duration

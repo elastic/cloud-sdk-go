@@ -108,6 +108,8 @@ func (m *DeploymentCreateResponse) validateDiagnostics(formats strfmt.Registry) 
 		if err := m.Diagnostics.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("diagnostics")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("diagnostics")
 			}
 			return err
 		}
@@ -149,6 +151,8 @@ func (m *DeploymentCreateResponse) validateResources(formats strfmt.Registry) er
 			if err := m.Resources[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("resources" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("resources" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -183,6 +187,8 @@ func (m *DeploymentCreateResponse) contextValidateDiagnostics(ctx context.Contex
 		if err := m.Diagnostics.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("diagnostics")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("diagnostics")
 			}
 			return err
 		}
@@ -199,6 +205,8 @@ func (m *DeploymentCreateResponse) contextValidateResources(ctx context.Context,
 			if err := m.Resources[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("resources" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("resources" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

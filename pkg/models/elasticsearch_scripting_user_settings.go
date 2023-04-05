@@ -85,6 +85,8 @@ func (m *ElasticsearchScriptingUserSettings) validateFile(formats strfmt.Registr
 		if err := m.File.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("file")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("file")
 			}
 			return err
 		}
@@ -102,6 +104,8 @@ func (m *ElasticsearchScriptingUserSettings) validateInline(formats strfmt.Regis
 		if err := m.Inline.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("inline")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("inline")
 			}
 			return err
 		}
@@ -119,6 +123,8 @@ func (m *ElasticsearchScriptingUserSettings) validateStored(formats strfmt.Regis
 		if err := m.Stored.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("stored")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("stored")
 			}
 			return err
 		}
@@ -155,6 +161,8 @@ func (m *ElasticsearchScriptingUserSettings) contextValidateFile(ctx context.Con
 		if err := m.File.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("file")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("file")
 			}
 			return err
 		}
@@ -169,6 +177,8 @@ func (m *ElasticsearchScriptingUserSettings) contextValidateInline(ctx context.C
 		if err := m.Inline.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("inline")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("inline")
 			}
 			return err
 		}
@@ -183,6 +193,8 @@ func (m *ElasticsearchScriptingUserSettings) contextValidateStored(ctx context.C
 		if err := m.Stored.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("stored")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("stored")
 			}
 			return err
 		}

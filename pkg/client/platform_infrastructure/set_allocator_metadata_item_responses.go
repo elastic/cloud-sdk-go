@@ -74,7 +74,8 @@ func NewSetAllocatorMetadataItemOK() *SetAllocatorMetadataItemOK {
 	return &SetAllocatorMetadataItemOK{}
 }
 
-/* SetAllocatorMetadataItemOK describes a response with status code 200, with default header values.
+/*
+SetAllocatorMetadataItemOK describes a response with status code 200, with default header values.
 
 The allocator metadata was successfully changed (the updated JSON is returned)
 */
@@ -82,9 +83,44 @@ type SetAllocatorMetadataItemOK struct {
 	Payload []*models.MetadataItem
 }
 
+// IsSuccess returns true when this set allocator metadata item o k response has a 2xx status code
+func (o *SetAllocatorMetadataItemOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this set allocator metadata item o k response has a 3xx status code
+func (o *SetAllocatorMetadataItemOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set allocator metadata item o k response has a 4xx status code
+func (o *SetAllocatorMetadataItemOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this set allocator metadata item o k response has a 5xx status code
+func (o *SetAllocatorMetadataItemOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set allocator metadata item o k response a status code equal to that given
+func (o *SetAllocatorMetadataItemOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the set allocator metadata item o k response
+func (o *SetAllocatorMetadataItemOK) Code() int {
+	return 200
+}
+
 func (o *SetAllocatorMetadataItemOK) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/allocators/{allocator_id}/metadata/{key}][%d] setAllocatorMetadataItemOK  %+v", 200, o.Payload)
 }
+
+func (o *SetAllocatorMetadataItemOK) String() string {
+	return fmt.Sprintf("[PUT /platform/infrastructure/allocators/{allocator_id}/metadata/{key}][%d] setAllocatorMetadataItemOK  %+v", 200, o.Payload)
+}
+
 func (o *SetAllocatorMetadataItemOK) GetPayload() []*models.MetadataItem {
 	return o.Payload
 }
@@ -104,7 +140,8 @@ func NewSetAllocatorMetadataItemBadRequest() *SetAllocatorMetadataItemBadRequest
 	return &SetAllocatorMetadataItemBadRequest{}
 }
 
-/* SetAllocatorMetadataItemBadRequest describes a response with status code 400, with default header values.
+/*
+SetAllocatorMetadataItemBadRequest describes a response with status code 400, with default header values.
 
 The value specified for the metadata tag is empty. (code: `allocators.invalid_empty_metadata_item`)
 */
@@ -117,9 +154,44 @@ type SetAllocatorMetadataItemBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this set allocator metadata item bad request response has a 2xx status code
+func (o *SetAllocatorMetadataItemBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this set allocator metadata item bad request response has a 3xx status code
+func (o *SetAllocatorMetadataItemBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set allocator metadata item bad request response has a 4xx status code
+func (o *SetAllocatorMetadataItemBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this set allocator metadata item bad request response has a 5xx status code
+func (o *SetAllocatorMetadataItemBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set allocator metadata item bad request response a status code equal to that given
+func (o *SetAllocatorMetadataItemBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the set allocator metadata item bad request response
+func (o *SetAllocatorMetadataItemBadRequest) Code() int {
+	return 400
+}
+
 func (o *SetAllocatorMetadataItemBadRequest) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/allocators/{allocator_id}/metadata/{key}][%d] setAllocatorMetadataItemBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *SetAllocatorMetadataItemBadRequest) String() string {
+	return fmt.Sprintf("[PUT /platform/infrastructure/allocators/{allocator_id}/metadata/{key}][%d] setAllocatorMetadataItemBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *SetAllocatorMetadataItemBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -148,9 +220,11 @@ func NewSetAllocatorMetadataItemNotFound() *SetAllocatorMetadataItemNotFound {
 	return &SetAllocatorMetadataItemNotFound{}
 }
 
-/* SetAllocatorMetadataItemNotFound describes a response with status code 404, with default header values.
+/*
+	SetAllocatorMetadataItemNotFound describes a response with status code 404, with default header values.
 
- * The allocator specified by {allocator_id} cannot be found. (code: `allocators.allocator_not_found`)
+	* The allocator specified by {allocator_id} cannot be found. (code: `allocators.allocator_not_found`)
+
 * The metadata item specified by {key} cannot be found. (code: `allocators.metadata_item_not_found`)
 */
 type SetAllocatorMetadataItemNotFound struct {
@@ -162,9 +236,44 @@ type SetAllocatorMetadataItemNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this set allocator metadata item not found response has a 2xx status code
+func (o *SetAllocatorMetadataItemNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this set allocator metadata item not found response has a 3xx status code
+func (o *SetAllocatorMetadataItemNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set allocator metadata item not found response has a 4xx status code
+func (o *SetAllocatorMetadataItemNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this set allocator metadata item not found response has a 5xx status code
+func (o *SetAllocatorMetadataItemNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set allocator metadata item not found response a status code equal to that given
+func (o *SetAllocatorMetadataItemNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the set allocator metadata item not found response
+func (o *SetAllocatorMetadataItemNotFound) Code() int {
+	return 404
+}
+
 func (o *SetAllocatorMetadataItemNotFound) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/allocators/{allocator_id}/metadata/{key}][%d] setAllocatorMetadataItemNotFound  %+v", 404, o.Payload)
 }
+
+func (o *SetAllocatorMetadataItemNotFound) String() string {
+	return fmt.Sprintf("[PUT /platform/infrastructure/allocators/{allocator_id}/metadata/{key}][%d] setAllocatorMetadataItemNotFound  %+v", 404, o.Payload)
+}
+
 func (o *SetAllocatorMetadataItemNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -193,7 +302,8 @@ func NewSetAllocatorMetadataItemRetryWith() *SetAllocatorMetadataItemRetryWith {
 	return &SetAllocatorMetadataItemRetryWith{}
 }
 
-/* SetAllocatorMetadataItemRetryWith describes a response with status code 449, with default header values.
+/*
+SetAllocatorMetadataItemRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
@@ -206,9 +316,44 @@ type SetAllocatorMetadataItemRetryWith struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this set allocator metadata item retry with response has a 2xx status code
+func (o *SetAllocatorMetadataItemRetryWith) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this set allocator metadata item retry with response has a 3xx status code
+func (o *SetAllocatorMetadataItemRetryWith) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set allocator metadata item retry with response has a 4xx status code
+func (o *SetAllocatorMetadataItemRetryWith) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this set allocator metadata item retry with response has a 5xx status code
+func (o *SetAllocatorMetadataItemRetryWith) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set allocator metadata item retry with response a status code equal to that given
+func (o *SetAllocatorMetadataItemRetryWith) IsCode(code int) bool {
+	return code == 449
+}
+
+// Code gets the status code for the set allocator metadata item retry with response
+func (o *SetAllocatorMetadataItemRetryWith) Code() int {
+	return 449
+}
+
 func (o *SetAllocatorMetadataItemRetryWith) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/allocators/{allocator_id}/metadata/{key}][%d] setAllocatorMetadataItemRetryWith  %+v", 449, o.Payload)
 }
+
+func (o *SetAllocatorMetadataItemRetryWith) String() string {
+	return fmt.Sprintf("[PUT /platform/infrastructure/allocators/{allocator_id}/metadata/{key}][%d] setAllocatorMetadataItemRetryWith  %+v", 449, o.Payload)
+}
+
 func (o *SetAllocatorMetadataItemRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

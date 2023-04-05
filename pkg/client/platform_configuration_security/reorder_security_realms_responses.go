@@ -68,7 +68,8 @@ func NewReorderSecurityRealmsOK() *ReorderSecurityRealmsOK {
 	return &ReorderSecurityRealmsOK{}
 }
 
-/* ReorderSecurityRealmsOK describes a response with status code 200, with default header values.
+/*
+ReorderSecurityRealmsOK describes a response with status code 200, with default header values.
 
 The reorder request was successful
 */
@@ -76,9 +77,44 @@ type ReorderSecurityRealmsOK struct {
 	Payload models.EmptyResponse
 }
 
+// IsSuccess returns true when this reorder security realms o k response has a 2xx status code
+func (o *ReorderSecurityRealmsOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this reorder security realms o k response has a 3xx status code
+func (o *ReorderSecurityRealmsOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this reorder security realms o k response has a 4xx status code
+func (o *ReorderSecurityRealmsOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this reorder security realms o k response has a 5xx status code
+func (o *ReorderSecurityRealmsOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this reorder security realms o k response a status code equal to that given
+func (o *ReorderSecurityRealmsOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the reorder security realms o k response
+func (o *ReorderSecurityRealmsOK) Code() int {
+	return 200
+}
+
 func (o *ReorderSecurityRealmsOK) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/realms/_reorder][%d] reorderSecurityRealmsOK  %+v", 200, o.Payload)
 }
+
+func (o *ReorderSecurityRealmsOK) String() string {
+	return fmt.Sprintf("[POST /platform/configuration/security/realms/_reorder][%d] reorderSecurityRealmsOK  %+v", 200, o.Payload)
+}
+
 func (o *ReorderSecurityRealmsOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -98,9 +134,11 @@ func NewReorderSecurityRealmsBadRequest() *ReorderSecurityRealmsBadRequest {
 	return &ReorderSecurityRealmsBadRequest{}
 }
 
-/* ReorderSecurityRealmsBadRequest describes a response with status code 400, with default header values.
+/*
+	ReorderSecurityRealmsBadRequest describes a response with status code 400, with default header values.
 
- * Invalid ids . (code: `security_realm.invalid_ids`)
+	* Invalid ids . (code: `security_realm.invalid_ids`)
+
 * Missing ids . (code: `security_realm.missing_ids`)
 */
 type ReorderSecurityRealmsBadRequest struct {
@@ -112,9 +150,44 @@ type ReorderSecurityRealmsBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this reorder security realms bad request response has a 2xx status code
+func (o *ReorderSecurityRealmsBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this reorder security realms bad request response has a 3xx status code
+func (o *ReorderSecurityRealmsBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this reorder security realms bad request response has a 4xx status code
+func (o *ReorderSecurityRealmsBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this reorder security realms bad request response has a 5xx status code
+func (o *ReorderSecurityRealmsBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this reorder security realms bad request response a status code equal to that given
+func (o *ReorderSecurityRealmsBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the reorder security realms bad request response
+func (o *ReorderSecurityRealmsBadRequest) Code() int {
+	return 400
+}
+
 func (o *ReorderSecurityRealmsBadRequest) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/realms/_reorder][%d] reorderSecurityRealmsBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *ReorderSecurityRealmsBadRequest) String() string {
+	return fmt.Sprintf("[POST /platform/configuration/security/realms/_reorder][%d] reorderSecurityRealmsBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *ReorderSecurityRealmsBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -143,7 +216,8 @@ func NewReorderSecurityRealmsRetryWith() *ReorderSecurityRealmsRetryWith {
 	return &ReorderSecurityRealmsRetryWith{}
 }
 
-/* ReorderSecurityRealmsRetryWith describes a response with status code 449, with default header values.
+/*
+ReorderSecurityRealmsRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
@@ -156,9 +230,44 @@ type ReorderSecurityRealmsRetryWith struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this reorder security realms retry with response has a 2xx status code
+func (o *ReorderSecurityRealmsRetryWith) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this reorder security realms retry with response has a 3xx status code
+func (o *ReorderSecurityRealmsRetryWith) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this reorder security realms retry with response has a 4xx status code
+func (o *ReorderSecurityRealmsRetryWith) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this reorder security realms retry with response has a 5xx status code
+func (o *ReorderSecurityRealmsRetryWith) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this reorder security realms retry with response a status code equal to that given
+func (o *ReorderSecurityRealmsRetryWith) IsCode(code int) bool {
+	return code == 449
+}
+
+// Code gets the status code for the reorder security realms retry with response
+func (o *ReorderSecurityRealmsRetryWith) Code() int {
+	return 449
+}
+
 func (o *ReorderSecurityRealmsRetryWith) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/realms/_reorder][%d] reorderSecurityRealmsRetryWith  %+v", 449, o.Payload)
 }
+
+func (o *ReorderSecurityRealmsRetryWith) String() string {
+	return fmt.Sprintf("[POST /platform/configuration/security/realms/_reorder][%d] reorderSecurityRealmsRetryWith  %+v", 449, o.Payload)
+}
+
 func (o *ReorderSecurityRealmsRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

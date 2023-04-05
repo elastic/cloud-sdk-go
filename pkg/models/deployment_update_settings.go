@@ -65,6 +65,8 @@ func (m *DeploymentUpdateSettings) validateObservability(formats strfmt.Registry
 		if err := m.Observability.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("observability")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("observability")
 			}
 			return err
 		}
@@ -93,6 +95,8 @@ func (m *DeploymentUpdateSettings) contextValidateObservability(ctx context.Cont
 		if err := m.Observability.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("observability")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("observability")
 			}
 			return err
 		}

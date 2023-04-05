@@ -97,6 +97,8 @@ func (m *DeploymentShutdownResponse) validateOrphaned(formats strfmt.Registry) e
 		if err := m.Orphaned.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("orphaned")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("orphaned")
 			}
 			return err
 		}
@@ -125,6 +127,8 @@ func (m *DeploymentShutdownResponse) contextValidateOrphaned(ctx context.Context
 		if err := m.Orphaned.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("orphaned")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("orphaned")
 			}
 			return err
 		}

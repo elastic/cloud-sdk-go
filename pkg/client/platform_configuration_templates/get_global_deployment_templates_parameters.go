@@ -69,10 +69,12 @@ func NewGetGlobalDeploymentTemplatesParamsWithHTTPClient(client *http.Client) *G
 	}
 }
 
-/* GetGlobalDeploymentTemplatesParams contains all the parameters to send to the API endpoint
-   for the get global deployment templates operation.
+/*
+GetGlobalDeploymentTemplatesParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the get global deployment templates operation.
+
+	Typically these are written to a http.Request.
 */
 type GetGlobalDeploymentTemplatesParams struct {
 	timeout    time.Duration

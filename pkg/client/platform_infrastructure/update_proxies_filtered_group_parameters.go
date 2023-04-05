@@ -71,10 +71,12 @@ func NewUpdateProxiesFilteredGroupParamsWithHTTPClient(client *http.Client) *Upd
 	}
 }
 
-/* UpdateProxiesFilteredGroupParams contains all the parameters to send to the API endpoint
-   for the update proxies filtered group operation.
+/*
+UpdateProxiesFilteredGroupParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the update proxies filtered group operation.
+
+	Typically these are written to a http.Request.
 */
 type UpdateProxiesFilteredGroupParams struct {
 

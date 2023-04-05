@@ -62,7 +62,8 @@ func NewGetDeploymentResourcePlanActivityOK() *GetDeploymentResourcePlanActivity
 	return &GetDeploymentResourcePlanActivityOK{}
 }
 
-/* GetDeploymentResourcePlanActivityOK describes a response with status code 200, with default header values.
+/*
+GetDeploymentResourcePlanActivityOK describes a response with status code 200, with default header values.
 
 Returning the single plan activity for the specified resource
 */
@@ -70,9 +71,44 @@ type GetDeploymentResourcePlanActivityOK struct {
 	Payload *models.CommonClusterPlanInfo
 }
 
+// IsSuccess returns true when this get deployment resource plan activity o k response has a 2xx status code
+func (o *GetDeploymentResourcePlanActivityOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get deployment resource plan activity o k response has a 3xx status code
+func (o *GetDeploymentResourcePlanActivityOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get deployment resource plan activity o k response has a 4xx status code
+func (o *GetDeploymentResourcePlanActivityOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get deployment resource plan activity o k response has a 5xx status code
+func (o *GetDeploymentResourcePlanActivityOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get deployment resource plan activity o k response a status code equal to that given
+func (o *GetDeploymentResourcePlanActivityOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get deployment resource plan activity o k response
+func (o *GetDeploymentResourcePlanActivityOK) Code() int {
+	return 200
+}
+
 func (o *GetDeploymentResourcePlanActivityOK) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/{resource_kind}/{ref_id}/activity/{attempt_id}][%d] getDeploymentResourcePlanActivityOK  %+v", 200, o.Payload)
 }
+
+func (o *GetDeploymentResourcePlanActivityOK) String() string {
+	return fmt.Sprintf("[GET /deployments/{deployment_id}/{resource_kind}/{ref_id}/activity/{attempt_id}][%d] getDeploymentResourcePlanActivityOK  %+v", 200, o.Payload)
+}
+
 func (o *GetDeploymentResourcePlanActivityOK) GetPayload() *models.CommonClusterPlanInfo {
 	return o.Payload
 }
@@ -94,9 +130,11 @@ func NewGetDeploymentResourcePlanActivityNotFound() *GetDeploymentResourcePlanAc
 	return &GetDeploymentResourcePlanActivityNotFound{}
 }
 
-/* GetDeploymentResourcePlanActivityNotFound describes a response with status code 404, with default header values.
+/*
+	GetDeploymentResourcePlanActivityNotFound describes a response with status code 404, with default header values.
 
- * The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+	* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+
 * The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)
 */
 type GetDeploymentResourcePlanActivityNotFound struct {
@@ -108,9 +146,44 @@ type GetDeploymentResourcePlanActivityNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get deployment resource plan activity not found response has a 2xx status code
+func (o *GetDeploymentResourcePlanActivityNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get deployment resource plan activity not found response has a 3xx status code
+func (o *GetDeploymentResourcePlanActivityNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get deployment resource plan activity not found response has a 4xx status code
+func (o *GetDeploymentResourcePlanActivityNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get deployment resource plan activity not found response has a 5xx status code
+func (o *GetDeploymentResourcePlanActivityNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get deployment resource plan activity not found response a status code equal to that given
+func (o *GetDeploymentResourcePlanActivityNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the get deployment resource plan activity not found response
+func (o *GetDeploymentResourcePlanActivityNotFound) Code() int {
+	return 404
+}
+
 func (o *GetDeploymentResourcePlanActivityNotFound) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/{resource_kind}/{ref_id}/activity/{attempt_id}][%d] getDeploymentResourcePlanActivityNotFound  %+v", 404, o.Payload)
 }
+
+func (o *GetDeploymentResourcePlanActivityNotFound) String() string {
+	return fmt.Sprintf("[GET /deployments/{deployment_id}/{resource_kind}/{ref_id}/activity/{attempt_id}][%d] getDeploymentResourcePlanActivityNotFound  %+v", 404, o.Payload)
+}
+
 func (o *GetDeploymentResourcePlanActivityNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

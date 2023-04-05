@@ -68,7 +68,8 @@ func NewDeleteTrafficFilterRulesetAssociationOK() *DeleteTrafficFilterRulesetAss
 	return &DeleteTrafficFilterRulesetAssociationOK{}
 }
 
-/* DeleteTrafficFilterRulesetAssociationOK describes a response with status code 200, with default header values.
+/*
+DeleteTrafficFilterRulesetAssociationOK describes a response with status code 200, with default header values.
 
 Delete association request was valid and the association has been deleted
 */
@@ -76,9 +77,44 @@ type DeleteTrafficFilterRulesetAssociationOK struct {
 	Payload models.EmptyResponse
 }
 
+// IsSuccess returns true when this delete traffic filter ruleset association o k response has a 2xx status code
+func (o *DeleteTrafficFilterRulesetAssociationOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this delete traffic filter ruleset association o k response has a 3xx status code
+func (o *DeleteTrafficFilterRulesetAssociationOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete traffic filter ruleset association o k response has a 4xx status code
+func (o *DeleteTrafficFilterRulesetAssociationOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this delete traffic filter ruleset association o k response has a 5xx status code
+func (o *DeleteTrafficFilterRulesetAssociationOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete traffic filter ruleset association o k response a status code equal to that given
+func (o *DeleteTrafficFilterRulesetAssociationOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the delete traffic filter ruleset association o k response
+func (o *DeleteTrafficFilterRulesetAssociationOK) Code() int {
+	return 200
+}
+
 func (o *DeleteTrafficFilterRulesetAssociationOK) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/traffic-filter/rulesets/{ruleset_id}/associations/{association_type}/{associated_entity_id}][%d] deleteTrafficFilterRulesetAssociationOK  %+v", 200, o.Payload)
 }
+
+func (o *DeleteTrafficFilterRulesetAssociationOK) String() string {
+	return fmt.Sprintf("[DELETE /deployments/traffic-filter/rulesets/{ruleset_id}/associations/{association_type}/{associated_entity_id}][%d] deleteTrafficFilterRulesetAssociationOK  %+v", 200, o.Payload)
+}
+
 func (o *DeleteTrafficFilterRulesetAssociationOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -98,7 +134,8 @@ func NewDeleteTrafficFilterRulesetAssociationNotFound() *DeleteTrafficFilterRule
 	return &DeleteTrafficFilterRulesetAssociationNotFound{}
 }
 
-/* DeleteTrafficFilterRulesetAssociationNotFound describes a response with status code 404, with default header values.
+/*
+DeleteTrafficFilterRulesetAssociationNotFound describes a response with status code 404, with default header values.
 
 The traffic filter ruleset association cannot be found. (code: `traffic_filter.not_found`)
 */
@@ -111,9 +148,44 @@ type DeleteTrafficFilterRulesetAssociationNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete traffic filter ruleset association not found response has a 2xx status code
+func (o *DeleteTrafficFilterRulesetAssociationNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete traffic filter ruleset association not found response has a 3xx status code
+func (o *DeleteTrafficFilterRulesetAssociationNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete traffic filter ruleset association not found response has a 4xx status code
+func (o *DeleteTrafficFilterRulesetAssociationNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete traffic filter ruleset association not found response has a 5xx status code
+func (o *DeleteTrafficFilterRulesetAssociationNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete traffic filter ruleset association not found response a status code equal to that given
+func (o *DeleteTrafficFilterRulesetAssociationNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the delete traffic filter ruleset association not found response
+func (o *DeleteTrafficFilterRulesetAssociationNotFound) Code() int {
+	return 404
+}
+
 func (o *DeleteTrafficFilterRulesetAssociationNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/traffic-filter/rulesets/{ruleset_id}/associations/{association_type}/{associated_entity_id}][%d] deleteTrafficFilterRulesetAssociationNotFound  %+v", 404, o.Payload)
 }
+
+func (o *DeleteTrafficFilterRulesetAssociationNotFound) String() string {
+	return fmt.Sprintf("[DELETE /deployments/traffic-filter/rulesets/{ruleset_id}/associations/{association_type}/{associated_entity_id}][%d] deleteTrafficFilterRulesetAssociationNotFound  %+v", 404, o.Payload)
+}
+
 func (o *DeleteTrafficFilterRulesetAssociationNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -142,7 +214,8 @@ func NewDeleteTrafficFilterRulesetAssociationInternalServerError() *DeleteTraffi
 	return &DeleteTrafficFilterRulesetAssociationInternalServerError{}
 }
 
-/* DeleteTrafficFilterRulesetAssociationInternalServerError describes a response with status code 500, with default header values.
+/*
+DeleteTrafficFilterRulesetAssociationInternalServerError describes a response with status code 500, with default header values.
 
 Deletion failed. (code: `traffic_filter.request_execution_failed`)
 */
@@ -155,9 +228,44 @@ type DeleteTrafficFilterRulesetAssociationInternalServerError struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete traffic filter ruleset association internal server error response has a 2xx status code
+func (o *DeleteTrafficFilterRulesetAssociationInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete traffic filter ruleset association internal server error response has a 3xx status code
+func (o *DeleteTrafficFilterRulesetAssociationInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete traffic filter ruleset association internal server error response has a 4xx status code
+func (o *DeleteTrafficFilterRulesetAssociationInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this delete traffic filter ruleset association internal server error response has a 5xx status code
+func (o *DeleteTrafficFilterRulesetAssociationInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this delete traffic filter ruleset association internal server error response a status code equal to that given
+func (o *DeleteTrafficFilterRulesetAssociationInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
+// Code gets the status code for the delete traffic filter ruleset association internal server error response
+func (o *DeleteTrafficFilterRulesetAssociationInternalServerError) Code() int {
+	return 500
+}
+
 func (o *DeleteTrafficFilterRulesetAssociationInternalServerError) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/traffic-filter/rulesets/{ruleset_id}/associations/{association_type}/{associated_entity_id}][%d] deleteTrafficFilterRulesetAssociationInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *DeleteTrafficFilterRulesetAssociationInternalServerError) String() string {
+	return fmt.Sprintf("[DELETE /deployments/traffic-filter/rulesets/{ruleset_id}/associations/{association_type}/{associated_entity_id}][%d] deleteTrafficFilterRulesetAssociationInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *DeleteTrafficFilterRulesetAssociationInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

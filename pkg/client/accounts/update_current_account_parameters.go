@@ -71,10 +71,12 @@ func NewUpdateCurrentAccountParamsWithHTTPClient(client *http.Client) *UpdateCur
 	}
 }
 
-/* UpdateCurrentAccountParams contains all the parameters to send to the API endpoint
-   for the update current account operation.
+/*
+UpdateCurrentAccountParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the update current account operation.
+
+	Typically these are written to a http.Request.
 */
 type UpdateCurrentAccountParams struct {
 

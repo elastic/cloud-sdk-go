@@ -96,6 +96,8 @@ func (m *Balance) validateLineItems(formats strfmt.Registry) error {
 			if err := m.LineItems[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("line_items" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("line_items" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -137,6 +139,8 @@ func (m *Balance) contextValidateLineItems(ctx context.Context, formats strfmt.R
 			if err := m.LineItems[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("line_items" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("line_items" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

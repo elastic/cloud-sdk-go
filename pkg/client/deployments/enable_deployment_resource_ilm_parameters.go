@@ -72,10 +72,12 @@ func NewEnableDeploymentResourceIlmParamsWithHTTPClient(client *http.Client) *En
 	}
 }
 
-/* EnableDeploymentResourceIlmParams contains all the parameters to send to the API endpoint
-   for the enable deployment resource ilm operation.
+/*
+EnableDeploymentResourceIlmParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the enable deployment resource ilm operation.
+
+	Typically these are written to a http.Request.
 */
 type EnableDeploymentResourceIlmParams struct {
 

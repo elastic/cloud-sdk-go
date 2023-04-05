@@ -69,10 +69,12 @@ func NewListCommentParamsWithHTTPClient(client *http.Client) *ListCommentParams 
 	}
 }
 
-/* ListCommentParams contains all the parameters to send to the API endpoint
-   for the list comment operation.
+/*
+ListCommentParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the list comment operation.
+
+	Typically these are written to a http.Request.
 */
 type ListCommentParams struct {
 

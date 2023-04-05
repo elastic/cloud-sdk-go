@@ -62,7 +62,8 @@ func NewListDeploymentsOK() *ListDeploymentsOK {
 	return &ListDeploymentsOK{}
 }
 
-/* ListDeploymentsOK describes a response with status code 200, with default header values.
+/*
+ListDeploymentsOK describes a response with status code 200, with default header values.
 
 The list of deployments that belong to the authenticated user.
 */
@@ -70,9 +71,44 @@ type ListDeploymentsOK struct {
 	Payload *models.DeploymentsListResponse
 }
 
+// IsSuccess returns true when this list deployments o k response has a 2xx status code
+func (o *ListDeploymentsOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this list deployments o k response has a 3xx status code
+func (o *ListDeploymentsOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this list deployments o k response has a 4xx status code
+func (o *ListDeploymentsOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this list deployments o k response has a 5xx status code
+func (o *ListDeploymentsOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this list deployments o k response a status code equal to that given
+func (o *ListDeploymentsOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the list deployments o k response
+func (o *ListDeploymentsOK) Code() int {
+	return 200
+}
+
 func (o *ListDeploymentsOK) Error() string {
 	return fmt.Sprintf("[GET /deployments][%d] listDeploymentsOK  %+v", 200, o.Payload)
 }
+
+func (o *ListDeploymentsOK) String() string {
+	return fmt.Sprintf("[GET /deployments][%d] listDeploymentsOK  %+v", 200, o.Payload)
+}
+
 func (o *ListDeploymentsOK) GetPayload() *models.DeploymentsListResponse {
 	return o.Payload
 }
@@ -94,7 +130,8 @@ func NewListDeploymentsUnauthorized() *ListDeploymentsUnauthorized {
 	return &ListDeploymentsUnauthorized{}
 }
 
-/* ListDeploymentsUnauthorized describes a response with status code 401, with default header values.
+/*
+ListDeploymentsUnauthorized describes a response with status code 401, with default header values.
 
 You are not authorized to perform this action.
 */
@@ -102,9 +139,44 @@ type ListDeploymentsUnauthorized struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this list deployments unauthorized response has a 2xx status code
+func (o *ListDeploymentsUnauthorized) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this list deployments unauthorized response has a 3xx status code
+func (o *ListDeploymentsUnauthorized) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this list deployments unauthorized response has a 4xx status code
+func (o *ListDeploymentsUnauthorized) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this list deployments unauthorized response has a 5xx status code
+func (o *ListDeploymentsUnauthorized) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this list deployments unauthorized response a status code equal to that given
+func (o *ListDeploymentsUnauthorized) IsCode(code int) bool {
+	return code == 401
+}
+
+// Code gets the status code for the list deployments unauthorized response
+func (o *ListDeploymentsUnauthorized) Code() int {
+	return 401
+}
+
 func (o *ListDeploymentsUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /deployments][%d] listDeploymentsUnauthorized  %+v", 401, o.Payload)
 }
+
+func (o *ListDeploymentsUnauthorized) String() string {
+	return fmt.Sprintf("[GET /deployments][%d] listDeploymentsUnauthorized  %+v", 401, o.Payload)
+}
+
 func (o *ListDeploymentsUnauthorized) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

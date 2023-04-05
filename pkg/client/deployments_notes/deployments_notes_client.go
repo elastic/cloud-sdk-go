@@ -61,9 +61,10 @@ type ClientService interface {
 }
 
 /*
-  CreateDeploymentNote creates deployment note
+	CreateDeploymentNote creates deployment note
 
-  > WARNING
+	> WARNING
+
 > This endpoint is deprecated and scheduled to be removed in the next major version. Use [Create a Comment](#Comments) instead.
 
 Create note for the running deployment.
@@ -105,9 +106,10 @@ func (a *Client) CreateDeploymentNote(params *CreateDeploymentNoteParams, authIn
 }
 
 /*
-  DeleteDeploymentNote deletes deployment note
+	DeleteDeploymentNote deletes deployment note
 
-  > WARNING
+	> WARNING
+
 > This endpoint is deprecated and scheduled to be removed in the next major version. Use [Delete Comment](#Comments) instead.
 
 Delete note for the running deployment.
@@ -149,9 +151,10 @@ func (a *Client) DeleteDeploymentNote(params *DeleteDeploymentNoteParams, authIn
 }
 
 /*
-  GetDeploymentNote gets a deployment note
+	GetDeploymentNote gets a deployment note
 
-  > WARNING
+	> WARNING
+
 > This endpoint is deprecated and scheduled to be removed in the next major version. Use [Get Comment](#Comments) instead.
 
 Gets a deployment note.
@@ -193,9 +196,10 @@ func (a *Client) GetDeploymentNote(params *GetDeploymentNoteParams, authInfo run
 }
 
 /*
-  GetDeploymentNotes gets deployment notes
+	GetDeploymentNotes gets deployment notes
 
-  > WARNING
+	> WARNING
+
 > This endpoint is deprecated and scheduled to be removed in the next major version. Use [List Comments](#Comments) instead.
 
 Get deployment notes.
@@ -237,9 +241,10 @@ func (a *Client) GetDeploymentNotes(params *GetDeploymentNotesParams, authInfo r
 }
 
 /*
-  UpdateDeploymentNote updates deployment note
+	UpdateDeploymentNote updates deployment note
 
-  > WARNING
+	> WARNING
+
 > This endpoint is deprecated and scheduled to be removed in the next major version. Use [Update Comment](#Comments) instead.
 
 Update note for the running deployment.

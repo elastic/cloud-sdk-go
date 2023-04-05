@@ -72,10 +72,12 @@ func NewMoveClustersParamsWithHTTPClient(client *http.Client) *MoveClustersParam
 	}
 }
 
-/* MoveClustersParams contains all the parameters to send to the API endpoint
-   for the move clusters operation.
+/*
+MoveClustersParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the move clusters operation.
+
+	Typically these are written to a http.Request.
 */
 type MoveClustersParams struct {
 

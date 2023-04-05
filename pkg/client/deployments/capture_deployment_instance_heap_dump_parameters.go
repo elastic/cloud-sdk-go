@@ -69,10 +69,12 @@ func NewCaptureDeploymentInstanceHeapDumpParamsWithHTTPClient(client *http.Clien
 	}
 }
 
-/* CaptureDeploymentInstanceHeapDumpParams contains all the parameters to send to the API endpoint
-   for the capture deployment instance heap dump operation.
+/*
+CaptureDeploymentInstanceHeapDumpParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the capture deployment instance heap dump operation.
+
+	Typically these are written to a http.Request.
 */
 type CaptureDeploymentInstanceHeapDumpParams struct {
 

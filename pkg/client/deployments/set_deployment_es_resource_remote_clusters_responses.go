@@ -68,7 +68,8 @@ func NewSetDeploymentEsResourceRemoteClustersAccepted() *SetDeploymentEsResource
 	return &SetDeploymentEsResourceRemoteClustersAccepted{}
 }
 
-/* SetDeploymentEsResourceRemoteClustersAccepted describes a response with status code 202, with default header values.
+/*
+SetDeploymentEsResourceRemoteClustersAccepted describes a response with status code 202, with default header values.
 
 The Remote Clusters were updated
 */
@@ -76,9 +77,44 @@ type SetDeploymentEsResourceRemoteClustersAccepted struct {
 	Payload models.EmptyResponse
 }
 
+// IsSuccess returns true when this set deployment es resource remote clusters accepted response has a 2xx status code
+func (o *SetDeploymentEsResourceRemoteClustersAccepted) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this set deployment es resource remote clusters accepted response has a 3xx status code
+func (o *SetDeploymentEsResourceRemoteClustersAccepted) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set deployment es resource remote clusters accepted response has a 4xx status code
+func (o *SetDeploymentEsResourceRemoteClustersAccepted) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this set deployment es resource remote clusters accepted response has a 5xx status code
+func (o *SetDeploymentEsResourceRemoteClustersAccepted) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set deployment es resource remote clusters accepted response a status code equal to that given
+func (o *SetDeploymentEsResourceRemoteClustersAccepted) IsCode(code int) bool {
+	return code == 202
+}
+
+// Code gets the status code for the set deployment es resource remote clusters accepted response
+func (o *SetDeploymentEsResourceRemoteClustersAccepted) Code() int {
+	return 202
+}
+
 func (o *SetDeploymentEsResourceRemoteClustersAccepted) Error() string {
 	return fmt.Sprintf("[PUT /deployments/{deployment_id}/elasticsearch/{ref_id}/remote-clusters][%d] setDeploymentEsResourceRemoteClustersAccepted  %+v", 202, o.Payload)
 }
+
+func (o *SetDeploymentEsResourceRemoteClustersAccepted) String() string {
+	return fmt.Sprintf("[PUT /deployments/{deployment_id}/elasticsearch/{ref_id}/remote-clusters][%d] setDeploymentEsResourceRemoteClustersAccepted  %+v", 202, o.Payload)
+}
+
 func (o *SetDeploymentEsResourceRemoteClustersAccepted) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -98,9 +134,11 @@ func NewSetDeploymentEsResourceRemoteClustersNotFound() *SetDeploymentEsResource
 	return &SetDeploymentEsResourceRemoteClustersNotFound{}
 }
 
-/* SetDeploymentEsResourceRemoteClustersNotFound describes a response with status code 404, with default header values.
+/*
+	SetDeploymentEsResourceRemoteClustersNotFound describes a response with status code 404, with default header values.
 
- * The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+	* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+
 * The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)
 */
 type SetDeploymentEsResourceRemoteClustersNotFound struct {
@@ -112,9 +150,44 @@ type SetDeploymentEsResourceRemoteClustersNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this set deployment es resource remote clusters not found response has a 2xx status code
+func (o *SetDeploymentEsResourceRemoteClustersNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this set deployment es resource remote clusters not found response has a 3xx status code
+func (o *SetDeploymentEsResourceRemoteClustersNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set deployment es resource remote clusters not found response has a 4xx status code
+func (o *SetDeploymentEsResourceRemoteClustersNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this set deployment es resource remote clusters not found response has a 5xx status code
+func (o *SetDeploymentEsResourceRemoteClustersNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set deployment es resource remote clusters not found response a status code equal to that given
+func (o *SetDeploymentEsResourceRemoteClustersNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the set deployment es resource remote clusters not found response
+func (o *SetDeploymentEsResourceRemoteClustersNotFound) Code() int {
+	return 404
+}
+
 func (o *SetDeploymentEsResourceRemoteClustersNotFound) Error() string {
 	return fmt.Sprintf("[PUT /deployments/{deployment_id}/elasticsearch/{ref_id}/remote-clusters][%d] setDeploymentEsResourceRemoteClustersNotFound  %+v", 404, o.Payload)
 }
+
+func (o *SetDeploymentEsResourceRemoteClustersNotFound) String() string {
+	return fmt.Sprintf("[PUT /deployments/{deployment_id}/elasticsearch/{ref_id}/remote-clusters][%d] setDeploymentEsResourceRemoteClustersNotFound  %+v", 404, o.Payload)
+}
+
 func (o *SetDeploymentEsResourceRemoteClustersNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -143,7 +216,8 @@ func NewSetDeploymentEsResourceRemoteClustersRetryWith() *SetDeploymentEsResourc
 	return &SetDeploymentEsResourceRemoteClustersRetryWith{}
 }
 
-/* SetDeploymentEsResourceRemoteClustersRetryWith describes a response with status code 449, with default header values.
+/*
+SetDeploymentEsResourceRemoteClustersRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
@@ -156,9 +230,44 @@ type SetDeploymentEsResourceRemoteClustersRetryWith struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this set deployment es resource remote clusters retry with response has a 2xx status code
+func (o *SetDeploymentEsResourceRemoteClustersRetryWith) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this set deployment es resource remote clusters retry with response has a 3xx status code
+func (o *SetDeploymentEsResourceRemoteClustersRetryWith) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set deployment es resource remote clusters retry with response has a 4xx status code
+func (o *SetDeploymentEsResourceRemoteClustersRetryWith) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this set deployment es resource remote clusters retry with response has a 5xx status code
+func (o *SetDeploymentEsResourceRemoteClustersRetryWith) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set deployment es resource remote clusters retry with response a status code equal to that given
+func (o *SetDeploymentEsResourceRemoteClustersRetryWith) IsCode(code int) bool {
+	return code == 449
+}
+
+// Code gets the status code for the set deployment es resource remote clusters retry with response
+func (o *SetDeploymentEsResourceRemoteClustersRetryWith) Code() int {
+	return 449
+}
+
 func (o *SetDeploymentEsResourceRemoteClustersRetryWith) Error() string {
 	return fmt.Sprintf("[PUT /deployments/{deployment_id}/elasticsearch/{ref_id}/remote-clusters][%d] setDeploymentEsResourceRemoteClustersRetryWith  %+v", 449, o.Payload)
 }
+
+func (o *SetDeploymentEsResourceRemoteClustersRetryWith) String() string {
+	return fmt.Sprintf("[PUT /deployments/{deployment_id}/elasticsearch/{ref_id}/remote-clusters][%d] setDeploymentEsResourceRemoteClustersRetryWith  %+v", 449, o.Payload)
+}
+
 func (o *SetDeploymentEsResourceRemoteClustersRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

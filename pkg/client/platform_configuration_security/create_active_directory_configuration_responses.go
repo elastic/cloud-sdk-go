@@ -68,7 +68,8 @@ func NewCreateActiveDirectoryConfigurationCreated() *CreateActiveDirectoryConfig
 	return &CreateActiveDirectoryConfigurationCreated{}
 }
 
-/* CreateActiveDirectoryConfigurationCreated describes a response with status code 201, with default header values.
+/*
+CreateActiveDirectoryConfigurationCreated describes a response with status code 201, with default header values.
 
 The Active Directory configuration was successfully created
 */
@@ -89,9 +90,44 @@ type CreateActiveDirectoryConfigurationCreated struct {
 	Payload models.EmptyResponse
 }
 
+// IsSuccess returns true when this create active directory configuration created response has a 2xx status code
+func (o *CreateActiveDirectoryConfigurationCreated) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this create active directory configuration created response has a 3xx status code
+func (o *CreateActiveDirectoryConfigurationCreated) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create active directory configuration created response has a 4xx status code
+func (o *CreateActiveDirectoryConfigurationCreated) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this create active directory configuration created response has a 5xx status code
+func (o *CreateActiveDirectoryConfigurationCreated) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create active directory configuration created response a status code equal to that given
+func (o *CreateActiveDirectoryConfigurationCreated) IsCode(code int) bool {
+	return code == 201
+}
+
+// Code gets the status code for the create active directory configuration created response
+func (o *CreateActiveDirectoryConfigurationCreated) Code() int {
+	return 201
+}
+
 func (o *CreateActiveDirectoryConfigurationCreated) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/realms/active-directory][%d] createActiveDirectoryConfigurationCreated  %+v", 201, o.Payload)
 }
+
+func (o *CreateActiveDirectoryConfigurationCreated) String() string {
+	return fmt.Sprintf("[POST /platform/configuration/security/realms/active-directory][%d] createActiveDirectoryConfigurationCreated  %+v", 201, o.Payload)
+}
+
 func (o *CreateActiveDirectoryConfigurationCreated) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -132,9 +168,11 @@ func NewCreateActiveDirectoryConfigurationBadRequest() *CreateActiveDirectoryCon
 	return &CreateActiveDirectoryConfigurationBadRequest{}
 }
 
-/* CreateActiveDirectoryConfigurationBadRequest describes a response with status code 400, with default header values.
+/*
+	CreateActiveDirectoryConfigurationBadRequest describes a response with status code 400, with default header values.
 
- * The realm id is already in use. (code: `security_realm.id_conflict`)
+	* The realm id is already in use. (code: `security_realm.id_conflict`)
+
 * The selected id is not valid. (code: `security_realm.invalid_id`)
 * Order must be greater than zero. (code: `security_realm.invalid_order`)
 * Invalid Elasticsearch Security realm type. (code: `security_realm.invalid_type`)
@@ -153,9 +191,44 @@ type CreateActiveDirectoryConfigurationBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this create active directory configuration bad request response has a 2xx status code
+func (o *CreateActiveDirectoryConfigurationBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this create active directory configuration bad request response has a 3xx status code
+func (o *CreateActiveDirectoryConfigurationBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create active directory configuration bad request response has a 4xx status code
+func (o *CreateActiveDirectoryConfigurationBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this create active directory configuration bad request response has a 5xx status code
+func (o *CreateActiveDirectoryConfigurationBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create active directory configuration bad request response a status code equal to that given
+func (o *CreateActiveDirectoryConfigurationBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the create active directory configuration bad request response
+func (o *CreateActiveDirectoryConfigurationBadRequest) Code() int {
+	return 400
+}
+
 func (o *CreateActiveDirectoryConfigurationBadRequest) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/realms/active-directory][%d] createActiveDirectoryConfigurationBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *CreateActiveDirectoryConfigurationBadRequest) String() string {
+	return fmt.Sprintf("[POST /platform/configuration/security/realms/active-directory][%d] createActiveDirectoryConfigurationBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *CreateActiveDirectoryConfigurationBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -184,7 +257,8 @@ func NewCreateActiveDirectoryConfigurationRetryWith() *CreateActiveDirectoryConf
 	return &CreateActiveDirectoryConfigurationRetryWith{}
 }
 
-/* CreateActiveDirectoryConfigurationRetryWith describes a response with status code 449, with default header values.
+/*
+CreateActiveDirectoryConfigurationRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
@@ -197,9 +271,44 @@ type CreateActiveDirectoryConfigurationRetryWith struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this create active directory configuration retry with response has a 2xx status code
+func (o *CreateActiveDirectoryConfigurationRetryWith) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this create active directory configuration retry with response has a 3xx status code
+func (o *CreateActiveDirectoryConfigurationRetryWith) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this create active directory configuration retry with response has a 4xx status code
+func (o *CreateActiveDirectoryConfigurationRetryWith) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this create active directory configuration retry with response has a 5xx status code
+func (o *CreateActiveDirectoryConfigurationRetryWith) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this create active directory configuration retry with response a status code equal to that given
+func (o *CreateActiveDirectoryConfigurationRetryWith) IsCode(code int) bool {
+	return code == 449
+}
+
+// Code gets the status code for the create active directory configuration retry with response
+func (o *CreateActiveDirectoryConfigurationRetryWith) Code() int {
+	return 449
+}
+
 func (o *CreateActiveDirectoryConfigurationRetryWith) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/realms/active-directory][%d] createActiveDirectoryConfigurationRetryWith  %+v", 449, o.Payload)
 }
+
+func (o *CreateActiveDirectoryConfigurationRetryWith) String() string {
+	return fmt.Sprintf("[POST /platform/configuration/security/realms/active-directory][%d] createActiveDirectoryConfigurationRetryWith  %+v", 449, o.Payload)
+}
+
 func (o *CreateActiveDirectoryConfigurationRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

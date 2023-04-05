@@ -92,6 +92,8 @@ func (m *BoolQuery) validateFilter(formats strfmt.Registry) error {
 			if err := m.Filter[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("filter" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("filter" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -116,6 +118,8 @@ func (m *BoolQuery) validateMust(formats strfmt.Registry) error {
 			if err := m.Must[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("must" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("must" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -140,6 +144,8 @@ func (m *BoolQuery) validateMustNot(formats strfmt.Registry) error {
 			if err := m.MustNot[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("must_not" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("must_not" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -164,6 +170,8 @@ func (m *BoolQuery) validateShould(formats strfmt.Registry) error {
 			if err := m.Should[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("should" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("should" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -208,6 +216,8 @@ func (m *BoolQuery) contextValidateFilter(ctx context.Context, formats strfmt.Re
 			if err := m.Filter[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("filter" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("filter" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -226,6 +236,8 @@ func (m *BoolQuery) contextValidateMust(ctx context.Context, formats strfmt.Regi
 			if err := m.Must[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("must" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("must" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -244,6 +256,8 @@ func (m *BoolQuery) contextValidateMustNot(ctx context.Context, formats strfmt.R
 			if err := m.MustNot[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("must_not" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("must_not" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -262,6 +276,8 @@ func (m *BoolQuery) contextValidateShould(ctx context.Context, formats strfmt.Re
 			if err := m.Should[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("should" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("should" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

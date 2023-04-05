@@ -62,7 +62,8 @@ func NewGetInstanceConfigurationOK() *GetInstanceConfigurationOK {
 	return &GetInstanceConfigurationOK{}
 }
 
-/* GetInstanceConfigurationOK describes a response with status code 200, with default header values.
+/*
+GetInstanceConfigurationOK describes a response with status code 200, with default header values.
 
 An InstanceConfiguration
 */
@@ -70,9 +71,44 @@ type GetInstanceConfigurationOK struct {
 	Payload *models.InstanceConfiguration
 }
 
+// IsSuccess returns true when this get instance configuration o k response has a 2xx status code
+func (o *GetInstanceConfigurationOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get instance configuration o k response has a 3xx status code
+func (o *GetInstanceConfigurationOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get instance configuration o k response has a 4xx status code
+func (o *GetInstanceConfigurationOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get instance configuration o k response has a 5xx status code
+func (o *GetInstanceConfigurationOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get instance configuration o k response a status code equal to that given
+func (o *GetInstanceConfigurationOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get instance configuration o k response
+func (o *GetInstanceConfigurationOK) Code() int {
+	return 200
+}
+
 func (o *GetInstanceConfigurationOK) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/instances/{id}][%d] getInstanceConfigurationOK  %+v", 200, o.Payload)
 }
+
+func (o *GetInstanceConfigurationOK) String() string {
+	return fmt.Sprintf("[GET /platform/configuration/instances/{id}][%d] getInstanceConfigurationOK  %+v", 200, o.Payload)
+}
+
 func (o *GetInstanceConfigurationOK) GetPayload() *models.InstanceConfiguration {
 	return o.Payload
 }
@@ -94,7 +130,8 @@ func NewGetInstanceConfigurationNotFound() *GetInstanceConfigurationNotFound {
 	return &GetInstanceConfigurationNotFound{}
 }
 
-/* GetInstanceConfigurationNotFound describes a response with status code 404, with default header values.
+/*
+GetInstanceConfigurationNotFound describes a response with status code 404, with default header values.
 
 Instance configuration specified by {id} cannot be found (code: 'configuration.instance_configuration_not_found')
 */
@@ -102,9 +139,44 @@ type GetInstanceConfigurationNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get instance configuration not found response has a 2xx status code
+func (o *GetInstanceConfigurationNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get instance configuration not found response has a 3xx status code
+func (o *GetInstanceConfigurationNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get instance configuration not found response has a 4xx status code
+func (o *GetInstanceConfigurationNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get instance configuration not found response has a 5xx status code
+func (o *GetInstanceConfigurationNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get instance configuration not found response a status code equal to that given
+func (o *GetInstanceConfigurationNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the get instance configuration not found response
+func (o *GetInstanceConfigurationNotFound) Code() int {
+	return 404
+}
+
 func (o *GetInstanceConfigurationNotFound) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/instances/{id}][%d] getInstanceConfigurationNotFound  %+v", 404, o.Payload)
 }
+
+func (o *GetInstanceConfigurationNotFound) String() string {
+	return fmt.Sprintf("[GET /platform/configuration/instances/{id}][%d] getInstanceConfigurationNotFound  %+v", 404, o.Payload)
+}
+
 func (o *GetInstanceConfigurationNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

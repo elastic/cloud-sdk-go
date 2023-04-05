@@ -62,7 +62,8 @@ func NewSetExtraCertificateOK() *SetExtraCertificateOK {
 	return &SetExtraCertificateOK{}
 }
 
-/* SetExtraCertificateOK describes a response with status code 200, with default header values.
+/*
+SetExtraCertificateOK describes a response with status code 200, with default header values.
 
 Updates extra certificate under given id
 */
@@ -70,9 +71,44 @@ type SetExtraCertificateOK struct {
 	Payload models.EmptyResponse
 }
 
+// IsSuccess returns true when this set extra certificate o k response has a 2xx status code
+func (o *SetExtraCertificateOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this set extra certificate o k response has a 3xx status code
+func (o *SetExtraCertificateOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set extra certificate o k response has a 4xx status code
+func (o *SetExtraCertificateOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this set extra certificate o k response has a 5xx status code
+func (o *SetExtraCertificateOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set extra certificate o k response a status code equal to that given
+func (o *SetExtraCertificateOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the set extra certificate o k response
+func (o *SetExtraCertificateOK) Code() int {
+	return 200
+}
+
 func (o *SetExtraCertificateOK) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/security/extra_certs/{cert_id}][%d] setExtraCertificateOK  %+v", 200, o.Payload)
 }
+
+func (o *SetExtraCertificateOK) String() string {
+	return fmt.Sprintf("[PUT /platform/configuration/security/extra_certs/{cert_id}][%d] setExtraCertificateOK  %+v", 200, o.Payload)
+}
+
 func (o *SetExtraCertificateOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -92,7 +128,8 @@ func NewSetExtraCertificateBadRequest() *SetExtraCertificateBadRequest {
 	return &SetExtraCertificateBadRequest{}
 }
 
-/* SetExtraCertificateBadRequest describes a response with status code 400, with default header values.
+/*
+SetExtraCertificateBadRequest describes a response with status code 400, with default header values.
 
 Certificate uses unknown cryptographic algorithm. (code: `cert.unknown_cert_algorithm`)
 */
@@ -105,9 +142,44 @@ type SetExtraCertificateBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this set extra certificate bad request response has a 2xx status code
+func (o *SetExtraCertificateBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this set extra certificate bad request response has a 3xx status code
+func (o *SetExtraCertificateBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set extra certificate bad request response has a 4xx status code
+func (o *SetExtraCertificateBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this set extra certificate bad request response has a 5xx status code
+func (o *SetExtraCertificateBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set extra certificate bad request response a status code equal to that given
+func (o *SetExtraCertificateBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the set extra certificate bad request response
+func (o *SetExtraCertificateBadRequest) Code() int {
+	return 400
+}
+
 func (o *SetExtraCertificateBadRequest) Error() string {
 	return fmt.Sprintf("[PUT /platform/configuration/security/extra_certs/{cert_id}][%d] setExtraCertificateBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *SetExtraCertificateBadRequest) String() string {
+	return fmt.Sprintf("[PUT /platform/configuration/security/extra_certs/{cert_id}][%d] setExtraCertificateBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *SetExtraCertificateBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

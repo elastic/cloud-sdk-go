@@ -68,7 +68,8 @@ func NewResyncDeploymentOK() *ResyncDeploymentOK {
 	return &ResyncDeploymentOK{}
 }
 
-/* ResyncDeploymentOK describes a response with status code 200, with default header values.
+/*
+ResyncDeploymentOK describes a response with status code 200, with default header values.
 
 The deployment resync operation executed successfully.
 */
@@ -76,9 +77,44 @@ type ResyncDeploymentOK struct {
 	Payload *models.IndexSynchronizationResults
 }
 
+// IsSuccess returns true when this resync deployment o k response has a 2xx status code
+func (o *ResyncDeploymentOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this resync deployment o k response has a 3xx status code
+func (o *ResyncDeploymentOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this resync deployment o k response has a 4xx status code
+func (o *ResyncDeploymentOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this resync deployment o k response has a 5xx status code
+func (o *ResyncDeploymentOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this resync deployment o k response a status code equal to that given
+func (o *ResyncDeploymentOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the resync deployment o k response
+func (o *ResyncDeploymentOK) Code() int {
+	return 200
+}
+
 func (o *ResyncDeploymentOK) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/_resync][%d] resyncDeploymentOK  %+v", 200, o.Payload)
 }
+
+func (o *ResyncDeploymentOK) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/_resync][%d] resyncDeploymentOK  %+v", 200, o.Payload)
+}
+
 func (o *ResyncDeploymentOK) GetPayload() *models.IndexSynchronizationResults {
 	return o.Payload
 }
@@ -100,7 +136,8 @@ func NewResyncDeploymentRetryWith() *ResyncDeploymentRetryWith {
 	return &ResyncDeploymentRetryWith{}
 }
 
-/* ResyncDeploymentRetryWith describes a response with status code 449, with default header values.
+/*
+ResyncDeploymentRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
@@ -113,9 +150,44 @@ type ResyncDeploymentRetryWith struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this resync deployment retry with response has a 2xx status code
+func (o *ResyncDeploymentRetryWith) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this resync deployment retry with response has a 3xx status code
+func (o *ResyncDeploymentRetryWith) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this resync deployment retry with response has a 4xx status code
+func (o *ResyncDeploymentRetryWith) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this resync deployment retry with response has a 5xx status code
+func (o *ResyncDeploymentRetryWith) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this resync deployment retry with response a status code equal to that given
+func (o *ResyncDeploymentRetryWith) IsCode(code int) bool {
+	return code == 449
+}
+
+// Code gets the status code for the resync deployment retry with response
+func (o *ResyncDeploymentRetryWith) Code() int {
+	return 449
+}
+
 func (o *ResyncDeploymentRetryWith) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/_resync][%d] resyncDeploymentRetryWith  %+v", 449, o.Payload)
 }
+
+func (o *ResyncDeploymentRetryWith) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/_resync][%d] resyncDeploymentRetryWith  %+v", 449, o.Payload)
+}
+
 func (o *ResyncDeploymentRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -144,7 +216,8 @@ func NewResyncDeploymentInternalServerError() *ResyncDeploymentInternalServerErr
 	return &ResyncDeploymentInternalServerError{}
 }
 
-/* ResyncDeploymentInternalServerError describes a response with status code 500, with default header values.
+/*
+ResyncDeploymentInternalServerError describes a response with status code 500, with default header values.
 
 The deployment resync operation failed for deployment {deployment_id}. (code: `deployments.resync_failed`)
 */
@@ -157,9 +230,44 @@ type ResyncDeploymentInternalServerError struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this resync deployment internal server error response has a 2xx status code
+func (o *ResyncDeploymentInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this resync deployment internal server error response has a 3xx status code
+func (o *ResyncDeploymentInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this resync deployment internal server error response has a 4xx status code
+func (o *ResyncDeploymentInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this resync deployment internal server error response has a 5xx status code
+func (o *ResyncDeploymentInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this resync deployment internal server error response a status code equal to that given
+func (o *ResyncDeploymentInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
+// Code gets the status code for the resync deployment internal server error response
+func (o *ResyncDeploymentInternalServerError) Code() int {
+	return 500
+}
+
 func (o *ResyncDeploymentInternalServerError) Error() string {
 	return fmt.Sprintf("[POST /deployments/{deployment_id}/_resync][%d] resyncDeploymentInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *ResyncDeploymentInternalServerError) String() string {
+	return fmt.Sprintf("[POST /deployments/{deployment_id}/_resync][%d] resyncDeploymentInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *ResyncDeploymentInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

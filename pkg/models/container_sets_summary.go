@@ -113,6 +113,8 @@ func (m *ContainerSetsSummary) validateUnhealthyContainerSets(formats strfmt.Reg
 			if err := m.UnhealthyContainerSets[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("unhealthy_container_sets" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("unhealthy_container_sets" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -154,6 +156,8 @@ func (m *ContainerSetsSummary) contextValidateUnhealthyContainerSets(ctx context
 			if err := m.UnhealthyContainerSets[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("unhealthy_container_sets" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("unhealthy_container_sets" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

@@ -45,7 +45,7 @@ func TestSearch(t *testing.T) {
 	var searchReqErr = `validation failure list:
 validation failure list:
 validation failure list:
-field in body is required`
+query.exists.field in body is required`
 
 	type args struct {
 		params SearchParams

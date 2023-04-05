@@ -71,10 +71,12 @@ func NewPutConfigStoreOptionParamsWithHTTPClient(client *http.Client) *PutConfig
 	}
 }
 
-/* PutConfigStoreOptionParams contains all the parameters to send to the API endpoint
-   for the put config store option operation.
+/*
+PutConfigStoreOptionParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the put config store option operation.
+
+	Typically these are written to a http.Request.
 */
 type PutConfigStoreOptionParams struct {
 

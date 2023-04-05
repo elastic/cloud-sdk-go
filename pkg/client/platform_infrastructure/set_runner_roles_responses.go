@@ -74,7 +74,8 @@ func NewSetRunnerRolesOK() *SetRunnerRolesOK {
 	return &SetRunnerRolesOK{}
 }
 
-/* SetRunnerRolesOK describes a response with status code 200, with default header values.
+/*
+SetRunnerRolesOK describes a response with status code 200, with default header values.
 
 The roles for the {runner_id} specified runner are assigned.
 */
@@ -82,9 +83,44 @@ type SetRunnerRolesOK struct {
 	Payload *models.RunnerRolesInfo
 }
 
+// IsSuccess returns true when this set runner roles o k response has a 2xx status code
+func (o *SetRunnerRolesOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this set runner roles o k response has a 3xx status code
+func (o *SetRunnerRolesOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set runner roles o k response has a 4xx status code
+func (o *SetRunnerRolesOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this set runner roles o k response has a 5xx status code
+func (o *SetRunnerRolesOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set runner roles o k response a status code equal to that given
+func (o *SetRunnerRolesOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the set runner roles o k response
+func (o *SetRunnerRolesOK) Code() int {
+	return 200
+}
+
 func (o *SetRunnerRolesOK) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/runners/{runner_id}/roles][%d] setRunnerRolesOK  %+v", 200, o.Payload)
 }
+
+func (o *SetRunnerRolesOK) String() string {
+	return fmt.Sprintf("[PUT /platform/infrastructure/runners/{runner_id}/roles][%d] setRunnerRolesOK  %+v", 200, o.Payload)
+}
+
 func (o *SetRunnerRolesOK) GetPayload() *models.RunnerRolesInfo {
 	return o.Payload
 }
@@ -106,7 +142,8 @@ func NewSetRunnerRolesBadRequest() *SetRunnerRolesBadRequest {
 	return &SetRunnerRolesBadRequest{}
 }
 
-/* SetRunnerRolesBadRequest describes a response with status code 400, with default header values.
+/*
+SetRunnerRolesBadRequest describes a response with status code 400, with default header values.
 
 There was an error while assigning the roles for the {runner_id} specified runner. Try your request again. (code: `runners.runner_set_roles_failed`)
 */
@@ -119,9 +156,44 @@ type SetRunnerRolesBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this set runner roles bad request response has a 2xx status code
+func (o *SetRunnerRolesBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this set runner roles bad request response has a 3xx status code
+func (o *SetRunnerRolesBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set runner roles bad request response has a 4xx status code
+func (o *SetRunnerRolesBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this set runner roles bad request response has a 5xx status code
+func (o *SetRunnerRolesBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set runner roles bad request response a status code equal to that given
+func (o *SetRunnerRolesBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the set runner roles bad request response
+func (o *SetRunnerRolesBadRequest) Code() int {
+	return 400
+}
+
 func (o *SetRunnerRolesBadRequest) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/runners/{runner_id}/roles][%d] setRunnerRolesBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *SetRunnerRolesBadRequest) String() string {
+	return fmt.Sprintf("[PUT /platform/infrastructure/runners/{runner_id}/roles][%d] setRunnerRolesBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *SetRunnerRolesBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -150,7 +222,8 @@ func NewSetRunnerRolesNotFound() *SetRunnerRolesNotFound {
 	return &SetRunnerRolesNotFound{}
 }
 
-/* SetRunnerRolesNotFound describes a response with status code 404, with default header values.
+/*
+SetRunnerRolesNotFound describes a response with status code 404, with default header values.
 
 Unable to find the {runner_id} specified runner. Edit your request, then try again. (code: `runners.runner_not_found`)
 */
@@ -163,9 +236,44 @@ type SetRunnerRolesNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this set runner roles not found response has a 2xx status code
+func (o *SetRunnerRolesNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this set runner roles not found response has a 3xx status code
+func (o *SetRunnerRolesNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set runner roles not found response has a 4xx status code
+func (o *SetRunnerRolesNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this set runner roles not found response has a 5xx status code
+func (o *SetRunnerRolesNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set runner roles not found response a status code equal to that given
+func (o *SetRunnerRolesNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the set runner roles not found response
+func (o *SetRunnerRolesNotFound) Code() int {
+	return 404
+}
+
 func (o *SetRunnerRolesNotFound) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/runners/{runner_id}/roles][%d] setRunnerRolesNotFound  %+v", 404, o.Payload)
 }
+
+func (o *SetRunnerRolesNotFound) String() string {
+	return fmt.Sprintf("[PUT /platform/infrastructure/runners/{runner_id}/roles][%d] setRunnerRolesNotFound  %+v", 404, o.Payload)
+}
+
 func (o *SetRunnerRolesNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -194,7 +302,8 @@ func NewSetRunnerRolesRetryWith() *SetRunnerRolesRetryWith {
 	return &SetRunnerRolesRetryWith{}
 }
 
-/* SetRunnerRolesRetryWith describes a response with status code 449, with default header values.
+/*
+SetRunnerRolesRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
@@ -207,9 +316,44 @@ type SetRunnerRolesRetryWith struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this set runner roles retry with response has a 2xx status code
+func (o *SetRunnerRolesRetryWith) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this set runner roles retry with response has a 3xx status code
+func (o *SetRunnerRolesRetryWith) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set runner roles retry with response has a 4xx status code
+func (o *SetRunnerRolesRetryWith) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this set runner roles retry with response has a 5xx status code
+func (o *SetRunnerRolesRetryWith) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set runner roles retry with response a status code equal to that given
+func (o *SetRunnerRolesRetryWith) IsCode(code int) bool {
+	return code == 449
+}
+
+// Code gets the status code for the set runner roles retry with response
+func (o *SetRunnerRolesRetryWith) Code() int {
+	return 449
+}
+
 func (o *SetRunnerRolesRetryWith) Error() string {
 	return fmt.Sprintf("[PUT /platform/infrastructure/runners/{runner_id}/roles][%d] setRunnerRolesRetryWith  %+v", 449, o.Payload)
 }
+
+func (o *SetRunnerRolesRetryWith) String() string {
+	return fmt.Sprintf("[PUT /platform/infrastructure/runners/{runner_id}/roles][%d] setRunnerRolesRetryWith  %+v", 449, o.Payload)
+}
+
 func (o *SetRunnerRolesRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

@@ -72,10 +72,12 @@ func NewSetAllInstancesSettingsOverridesParamsWithHTTPClient(client *http.Client
 	}
 }
 
-/* SetAllInstancesSettingsOverridesParams contains all the parameters to send to the API endpoint
-   for the set all instances settings overrides operation.
+/*
+SetAllInstancesSettingsOverridesParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the set all instances settings overrides operation.
+
+	Typically these are written to a http.Request.
 */
 type SetAllInstancesSettingsOverridesParams struct {
 

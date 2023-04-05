@@ -71,10 +71,12 @@ func NewUpdateSamlConfigurationParamsWithHTTPClient(client *http.Client) *Update
 	}
 }
 
-/* UpdateSamlConfigurationParams contains all the parameters to send to the API endpoint
-   for the update saml configuration operation.
+/*
+UpdateSamlConfigurationParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the update saml configuration operation.
+
+	Typically these are written to a http.Request.
 */
 type UpdateSamlConfigurationParams struct {
 

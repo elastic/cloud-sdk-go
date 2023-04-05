@@ -69,10 +69,12 @@ func NewGetDeploymentUpgradeAssistantStatusParamsWithHTTPClient(client *http.Cli
 	}
 }
 
-/* GetDeploymentUpgradeAssistantStatusParams contains all the parameters to send to the API endpoint
-   for the get deployment upgrade assistant status operation.
+/*
+GetDeploymentUpgradeAssistantStatusParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the get deployment upgrade assistant status operation.
+
+	Typically these are written to a http.Request.
 */
 type GetDeploymentUpgradeAssistantStatusParams struct {
 

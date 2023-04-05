@@ -102,6 +102,8 @@ func (m *CoordinatorCandidateInfo) validateACL(formats strfmt.Registry) error {
 		if err := m.ACL.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("acl")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("acl")
 			}
 			return err
 		}
@@ -200,6 +202,8 @@ func (m *CoordinatorCandidateInfo) contextValidateACL(ctx context.Context, forma
 		if err := m.ACL.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("acl")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("acl")
 			}
 			return err
 		}

@@ -68,6 +68,11 @@ func (m *PendingStates) validateRunnerIdsToPendingState(formats strfmt.Registry)
 		}
 		if val, ok := m.RunnerIdsToPendingState[k]; ok {
 			if err := val.Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("runner_ids_to_pending_state" + "." + k)
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("runner_ids_to_pending_state" + "." + k)
+				}
 				return err
 			}
 		}

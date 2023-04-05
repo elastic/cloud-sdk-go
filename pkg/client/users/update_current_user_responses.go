@@ -68,7 +68,8 @@ func NewUpdateCurrentUserOK() *UpdateCurrentUserOK {
 	return &UpdateCurrentUserOK{}
 }
 
-/* UpdateCurrentUserOK describes a response with status code 200, with default header values.
+/*
+UpdateCurrentUserOK describes a response with status code 200, with default header values.
 
 User successfully updated
 */
@@ -76,9 +77,44 @@ type UpdateCurrentUserOK struct {
 	Payload *models.User
 }
 
+// IsSuccess returns true when this update current user o k response has a 2xx status code
+func (o *UpdateCurrentUserOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this update current user o k response has a 3xx status code
+func (o *UpdateCurrentUserOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update current user o k response has a 4xx status code
+func (o *UpdateCurrentUserOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this update current user o k response has a 5xx status code
+func (o *UpdateCurrentUserOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update current user o k response a status code equal to that given
+func (o *UpdateCurrentUserOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the update current user o k response
+func (o *UpdateCurrentUserOK) Code() int {
+	return 200
+}
+
 func (o *UpdateCurrentUserOK) Error() string {
 	return fmt.Sprintf("[PATCH /user][%d] updateCurrentUserOK  %+v", 200, o.Payload)
 }
+
+func (o *UpdateCurrentUserOK) String() string {
+	return fmt.Sprintf("[PATCH /user][%d] updateCurrentUserOK  %+v", 200, o.Payload)
+}
+
 func (o *UpdateCurrentUserOK) GetPayload() *models.User {
 	return o.Payload
 }
@@ -100,9 +136,11 @@ func NewUpdateCurrentUserBadRequest() *UpdateCurrentUserBadRequest {
 	return &UpdateCurrentUserBadRequest{}
 }
 
-/* UpdateCurrentUserBadRequest describes a response with status code 400, with default header values.
+/*
+	UpdateCurrentUserBadRequest describes a response with status code 400, with default header values.
 
- * Some of the provided roles are invalid. (code: `user.roles.invalid`)
+	* Some of the provided roles are invalid. (code: `user.roles.invalid`)
+
 * Some of the provided roles are forbidden. (code: `user.roles.forbidden`)
 * Trying to set a restricted field. (code: `user.restricted_field`)
 * External users cannot be modified. (code: `user.cannot_modify_external`)
@@ -117,9 +155,44 @@ type UpdateCurrentUserBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this update current user bad request response has a 2xx status code
+func (o *UpdateCurrentUserBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update current user bad request response has a 3xx status code
+func (o *UpdateCurrentUserBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update current user bad request response has a 4xx status code
+func (o *UpdateCurrentUserBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update current user bad request response has a 5xx status code
+func (o *UpdateCurrentUserBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update current user bad request response a status code equal to that given
+func (o *UpdateCurrentUserBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the update current user bad request response
+func (o *UpdateCurrentUserBadRequest) Code() int {
+	return 400
+}
+
 func (o *UpdateCurrentUserBadRequest) Error() string {
 	return fmt.Sprintf("[PATCH /user][%d] updateCurrentUserBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *UpdateCurrentUserBadRequest) String() string {
+	return fmt.Sprintf("[PATCH /user][%d] updateCurrentUserBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *UpdateCurrentUserBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -148,7 +221,8 @@ func NewUpdateCurrentUserNotFound() *UpdateCurrentUserNotFound {
 	return &UpdateCurrentUserNotFound{}
 }
 
-/* UpdateCurrentUserNotFound describes a response with status code 404, with default header values.
+/*
+UpdateCurrentUserNotFound describes a response with status code 404, with default header values.
 
 User not found. (code: `user.not_found`)
 */
@@ -161,9 +235,44 @@ type UpdateCurrentUserNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this update current user not found response has a 2xx status code
+func (o *UpdateCurrentUserNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update current user not found response has a 3xx status code
+func (o *UpdateCurrentUserNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update current user not found response has a 4xx status code
+func (o *UpdateCurrentUserNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update current user not found response has a 5xx status code
+func (o *UpdateCurrentUserNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update current user not found response a status code equal to that given
+func (o *UpdateCurrentUserNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the update current user not found response
+func (o *UpdateCurrentUserNotFound) Code() int {
+	return 404
+}
+
 func (o *UpdateCurrentUserNotFound) Error() string {
 	return fmt.Sprintf("[PATCH /user][%d] updateCurrentUserNotFound  %+v", 404, o.Payload)
 }
+
+func (o *UpdateCurrentUserNotFound) String() string {
+	return fmt.Sprintf("[PATCH /user][%d] updateCurrentUserNotFound  %+v", 404, o.Payload)
+}
+
 func (o *UpdateCurrentUserNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

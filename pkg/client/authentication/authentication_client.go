@@ -91,9 +91,9 @@ type ClientService interface {
 }
 
 /*
-  CreateAPIKey creates API key
+CreateAPIKey creates API key
 
-  Creates a new API key.
+Creates a new API key.
 */
 func (a *Client) CreateAPIKey(params *CreateAPIKeyParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateAPIKeyCreated, error) {
 	// TODO: Validate the params before sending
@@ -132,9 +132,9 @@ func (a *Client) CreateAPIKey(params *CreateAPIKeyParams, authInfo runtime.Clien
 }
 
 /*
-  DeleteAPIKey deletes API key
+DeleteAPIKey deletes API key
 
-  Delete or invalidate the API key.
+Delete or invalidate the API key.
 */
 func (a *Client) DeleteAPIKey(params *DeleteAPIKeyParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteAPIKeyOK, error) {
 	// TODO: Validate the params before sending
@@ -173,9 +173,9 @@ func (a *Client) DeleteAPIKey(params *DeleteAPIKeyParams, authInfo runtime.Clien
 }
 
 /*
-  DeleteAPIKeys deletes API keys
+DeleteAPIKeys deletes API keys
 
-  Delete or invalidate API keys.
+Delete or invalidate API keys.
 */
 func (a *Client) DeleteAPIKeys(params *DeleteAPIKeysParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteAPIKeysOK, error) {
 	// TODO: Validate the params before sending
@@ -214,9 +214,9 @@ func (a *Client) DeleteAPIKeys(params *DeleteAPIKeysParams, authInfo runtime.Cli
 }
 
 /*
-  DeleteUserAPIKey deletes an API key for a user
+DeleteUserAPIKey deletes an API key for a user
 
-  Delete or invalidate an API key for a user.
+Delete or invalidate an API key for a user.
 */
 func (a *Client) DeleteUserAPIKey(params *DeleteUserAPIKeyParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteUserAPIKeyOK, error) {
 	// TODO: Validate the params before sending
@@ -255,9 +255,9 @@ func (a *Client) DeleteUserAPIKey(params *DeleteUserAPIKeyParams, authInfo runti
 }
 
 /*
-  DeleteUserAPIKeys deletes API keys for a user
+DeleteUserAPIKeys deletes API keys for a user
 
-  Delete or invalidate all of the API keys for a user.
+Delete or invalidate all of the API keys for a user.
 */
 func (a *Client) DeleteUserAPIKeys(params *DeleteUserAPIKeysParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteUserAPIKeysOK, error) {
 	// TODO: Validate the params before sending
@@ -296,9 +296,9 @@ func (a *Client) DeleteUserAPIKeys(params *DeleteUserAPIKeysParams, authInfo run
 }
 
 /*
-  DeleteUsersAPIKeys deletes API keys of multiple users
+DeleteUsersAPIKeys deletes API keys of multiple users
 
-  Delete or invalidate the API keys for multiple users.
+Delete or invalidate the API keys for multiple users.
 */
 func (a *Client) DeleteUsersAPIKeys(params *DeleteUsersAPIKeysParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteUsersAPIKeysOK, error) {
 	// TODO: Validate the params before sending
@@ -337,9 +337,10 @@ func (a *Client) DeleteUsersAPIKeys(params *DeleteUsersAPIKeysParams, authInfo r
 }
 
 /*
-  DisableElevatedPermissions disables elevated permissions
+	DisableElevatedPermissions disables elevated permissions
 
-  > WARNING
+	> WARNING
+
 > This endpoint is deprecated and scheduled to be removed in the next major version. Sudo has been retired
 
 Disables elevated permissions for the user.
@@ -381,9 +382,10 @@ func (a *Client) DisableElevatedPermissions(params *DisableElevatedPermissionsPa
 }
 
 /*
-  EnableElevatedPermissions enables elevated permissions
+	EnableElevatedPermissions enables elevated permissions
 
-  > WARNING
+	> WARNING
+
 > This endpoint is deprecated and scheduled to be removed in the next major version. Sudo has been retired
 
 Enables the elevated permissions for the current user. Elevated permissions allow the user to complete potentially destructive operations on clusters. Elevated permissions are available for a limited period of time and automatically expire if you do not renew them.
@@ -425,9 +427,9 @@ func (a *Client) EnableElevatedPermissions(params *EnableElevatedPermissionsPara
 }
 
 /*
-  GetAPIKey gets API key
+GetAPIKey gets API key
 
-  Retrieves the metadata for an API key.
+Retrieves the metadata for an API key.
 */
 func (a *Client) GetAPIKey(params *GetAPIKeyParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAPIKeyOK, error) {
 	// TODO: Validate the params before sending
@@ -466,9 +468,9 @@ func (a *Client) GetAPIKey(params *GetAPIKeyParams, authInfo runtime.ClientAuthI
 }
 
 /*
-  GetAPIKeys gets all API keys
+GetAPIKeys gets all API keys
 
-  Retrieves the metadata for all of the API keys that the user generated.
+Retrieves the metadata for all of the API keys that the user generated.
 */
 func (a *Client) GetAPIKeys(params *GetAPIKeysParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAPIKeysOK, error) {
 	// TODO: Validate the params before sending
@@ -507,9 +509,9 @@ func (a *Client) GetAPIKeys(params *GetAPIKeysParams, authInfo runtime.ClientAut
 }
 
 /*
-  GetAuthenticationInfo users authentication information
+GetAuthenticationInfo users authentication information
 
-  Provides authentication information about a user, including elevated permission status and TOTP device availability.
+Provides authentication information about a user, including elevated permission status and TOTP device availability.
 */
 func (a *Client) GetAuthenticationInfo(params *GetAuthenticationInfoParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetAuthenticationInfoOK, error) {
 	// TODO: Validate the params before sending
@@ -548,9 +550,9 @@ func (a *Client) GetAuthenticationInfo(params *GetAuthenticationInfoParams, auth
 }
 
 /*
-  GetUserAPIKey gets a user API key
+GetUserAPIKey gets a user API key
 
-  Retrieves the API key metadata for a user.
+Retrieves the API key metadata for a user.
 */
 func (a *Client) GetUserAPIKey(params *GetUserAPIKeyParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetUserAPIKeyOK, error) {
 	// TODO: Validate the params before sending
@@ -589,9 +591,9 @@ func (a *Client) GetUserAPIKey(params *GetUserAPIKeyParams, authInfo runtime.Cli
 }
 
 /*
-  GetUserAPIKeys gets API key metadata for all keys created by the user
+GetUserAPIKeys gets API key metadata for all keys created by the user
 
-  Retrieves metadata for all API keys created by the given user.
+Retrieves metadata for all API keys created by the given user.
 */
 func (a *Client) GetUserAPIKeys(params *GetUserAPIKeysParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetUserAPIKeysOK, error) {
 	// TODO: Validate the params before sending
@@ -630,9 +632,9 @@ func (a *Client) GetUserAPIKeys(params *GetUserAPIKeysParams, authInfo runtime.C
 }
 
 /*
-  GetUsersAPIKeys gets all API keys for all users
+GetUsersAPIKeys gets all API keys for all users
 
-  Retrieves the metadata for all of the API keys for all users.
+Retrieves the metadata for all of the API keys for all users.
 */
 func (a *Client) GetUsersAPIKeys(params *GetUsersAPIKeysParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetUsersAPIKeysOK, error) {
 	// TODO: Validate the params before sending
@@ -671,9 +673,9 @@ func (a *Client) GetUsersAPIKeys(params *GetUsersAPIKeysParams, authInfo runtime
 }
 
 /*
-  Login logins to e c e
+Login logins to e c e
 
-  Authenticates against available users.
+Authenticates against available users.
 */
 func (a *Client) Login(params *LoginParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*LoginOK, error) {
 	// TODO: Validate the params before sending
@@ -712,9 +714,9 @@ func (a *Client) Login(params *LoginParams, authInfo runtime.ClientAuthInfoWrite
 }
 
 /*
-  Logout logouts from e c e
+Logout logouts from e c e
 
-  Destroys the current session.
+Destroys the current session.
 */
 func (a *Client) Logout(params *LogoutParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*LogoutOK, error) {
 	// TODO: Validate the params before sending
@@ -753,9 +755,9 @@ func (a *Client) Logout(params *LogoutParams, authInfo runtime.ClientAuthInfoWri
 }
 
 /*
-  Methods availables authentication methods
+Methods availables authentication methods
 
-  Provides information about available authentication methods.
+Provides information about available authentication methods.
 */
 func (a *Client) Methods(params *MethodsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*MethodsOK, error) {
 	// TODO: Validate the params before sending
@@ -794,9 +796,9 @@ func (a *Client) Methods(params *MethodsParams, authInfo runtime.ClientAuthInfoW
 }
 
 /*
-  RefreshToken refreshes authentication token
+RefreshToken refreshes authentication token
 
-  Issues a new authentication token.
+Issues a new authentication token.
 */
 func (a *Client) RefreshToken(params *RefreshTokenParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*RefreshTokenOK, error) {
 	// TODO: Validate the params before sending
@@ -835,9 +837,9 @@ func (a *Client) RefreshToken(params *RefreshTokenParams, authInfo runtime.Clien
 }
 
 /*
-  SamlCallback s a m l callback
+SamlCallback s a m l callback
 
-  Accepts a callback request from an identity provider and authenticates the user.
+Accepts a callback request from an identity provider and authenticates the user.
 */
 func (a *Client) SamlCallback(params *SamlCallbackParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) error {
 	// TODO: Validate the params before sending
@@ -869,9 +871,9 @@ func (a *Client) SamlCallback(params *SamlCallbackParams, authInfo runtime.Clien
 }
 
 /*
-  SamlInit initiates s a m l protocol
+SamlInit initiates s a m l protocol
 
-  Calls the authentication cluster to initiate SAML Single Sign-on (Web Browser SSO profile) protocol and redirects the user to the identity provider for authentication. The authentication cluster must be configured prior to initiation.
+Calls the authentication cluster to initiate SAML Single Sign-on (Web Browser SSO profile) protocol and redirects the user to the identity provider for authentication. The authentication cluster must be configured prior to initiation.
 */
 func (a *Client) SamlInit(params *SamlInitParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) error {
 	// TODO: Validate the params before sending

@@ -79,6 +79,8 @@ func (m *RulesetAssociations) validateAssociations(formats strfmt.Registry) erro
 			if err := m.Associations[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("associations" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("associations" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -120,6 +122,8 @@ func (m *RulesetAssociations) contextValidateAssociations(ctx context.Context, f
 			if err := m.Associations[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("associations" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("associations" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

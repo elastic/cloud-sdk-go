@@ -62,7 +62,8 @@ func NewGetOrganizationInvitationOK() *GetOrganizationInvitationOK {
 	return &GetOrganizationInvitationOK{}
 }
 
-/* GetOrganizationInvitationOK describes a response with status code 200, with default header values.
+/*
+GetOrganizationInvitationOK describes a response with status code 200, with default header values.
 
 Organization invitation fetched successfully
 */
@@ -70,9 +71,44 @@ type GetOrganizationInvitationOK struct {
 	Payload *models.OrganizationInvitation
 }
 
+// IsSuccess returns true when this get organization invitation o k response has a 2xx status code
+func (o *GetOrganizationInvitationOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get organization invitation o k response has a 3xx status code
+func (o *GetOrganizationInvitationOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get organization invitation o k response has a 4xx status code
+func (o *GetOrganizationInvitationOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get organization invitation o k response has a 5xx status code
+func (o *GetOrganizationInvitationOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get organization invitation o k response a status code equal to that given
+func (o *GetOrganizationInvitationOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get organization invitation o k response
+func (o *GetOrganizationInvitationOK) Code() int {
+	return 200
+}
+
 func (o *GetOrganizationInvitationOK) Error() string {
 	return fmt.Sprintf("[GET /organizations/invitations/{invitation_token}][%d] getOrganizationInvitationOK  %+v", 200, o.Payload)
 }
+
+func (o *GetOrganizationInvitationOK) String() string {
+	return fmt.Sprintf("[GET /organizations/invitations/{invitation_token}][%d] getOrganizationInvitationOK  %+v", 200, o.Payload)
+}
+
 func (o *GetOrganizationInvitationOK) GetPayload() *models.OrganizationInvitation {
 	return o.Payload
 }
@@ -94,7 +130,8 @@ func NewGetOrganizationInvitationNotFound() *GetOrganizationInvitationNotFound {
 	return &GetOrganizationInvitationNotFound{}
 }
 
-/* GetOrganizationInvitationNotFound describes a response with status code 404, with default header values.
+/*
+GetOrganizationInvitationNotFound describes a response with status code 404, with default header values.
 
 Invitation not found. (code: `organization.invitation_not_found`)
 */
@@ -107,9 +144,44 @@ type GetOrganizationInvitationNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get organization invitation not found response has a 2xx status code
+func (o *GetOrganizationInvitationNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get organization invitation not found response has a 3xx status code
+func (o *GetOrganizationInvitationNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get organization invitation not found response has a 4xx status code
+func (o *GetOrganizationInvitationNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get organization invitation not found response has a 5xx status code
+func (o *GetOrganizationInvitationNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get organization invitation not found response a status code equal to that given
+func (o *GetOrganizationInvitationNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the get organization invitation not found response
+func (o *GetOrganizationInvitationNotFound) Code() int {
+	return 404
+}
+
 func (o *GetOrganizationInvitationNotFound) Error() string {
 	return fmt.Sprintf("[GET /organizations/invitations/{invitation_token}][%d] getOrganizationInvitationNotFound  %+v", 404, o.Payload)
 }
+
+func (o *GetOrganizationInvitationNotFound) String() string {
+	return fmt.Sprintf("[GET /organizations/invitations/{invitation_token}][%d] getOrganizationInvitationNotFound  %+v", 404, o.Payload)
+}
+
 func (o *GetOrganizationInvitationNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

@@ -73,6 +73,8 @@ func (m *MoveClustersCommandResponse) validateFailures(formats strfmt.Registry) 
 		if err := m.Failures.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("failures")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("failures")
 			}
 			return err
 		}
@@ -91,6 +93,8 @@ func (m *MoveClustersCommandResponse) validateMoves(formats strfmt.Registry) err
 		if err := m.Moves.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("moves")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("moves")
 			}
 			return err
 		}
@@ -123,6 +127,8 @@ func (m *MoveClustersCommandResponse) contextValidateFailures(ctx context.Contex
 		if err := m.Failures.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("failures")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("failures")
 			}
 			return err
 		}
@@ -137,6 +143,8 @@ func (m *MoveClustersCommandResponse) contextValidateMoves(ctx context.Context, 
 		if err := m.Moves.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("moves")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("moves")
 			}
 			return err
 		}

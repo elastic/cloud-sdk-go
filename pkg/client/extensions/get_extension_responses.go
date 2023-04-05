@@ -62,7 +62,8 @@ func NewGetExtensionOK() *GetExtensionOK {
 	return &GetExtensionOK{}
 }
 
-/* GetExtensionOK describes a response with status code 200, with default header values.
+/*
+GetExtensionOK describes a response with status code 200, with default header values.
 
 The Extension
 */
@@ -83,9 +84,44 @@ type GetExtensionOK struct {
 	Payload *models.Extension
 }
 
+// IsSuccess returns true when this get extension o k response has a 2xx status code
+func (o *GetExtensionOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get extension o k response has a 3xx status code
+func (o *GetExtensionOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get extension o k response has a 4xx status code
+func (o *GetExtensionOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get extension o k response has a 5xx status code
+func (o *GetExtensionOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get extension o k response a status code equal to that given
+func (o *GetExtensionOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get extension o k response
+func (o *GetExtensionOK) Code() int {
+	return 200
+}
+
 func (o *GetExtensionOK) Error() string {
 	return fmt.Sprintf("[GET /deployments/extensions/{extension_id}][%d] getExtensionOK  %+v", 200, o.Payload)
 }
+
+func (o *GetExtensionOK) String() string {
+	return fmt.Sprintf("[GET /deployments/extensions/{extension_id}][%d] getExtensionOK  %+v", 200, o.Payload)
+}
+
 func (o *GetExtensionOK) GetPayload() *models.Extension {
 	return o.Payload
 }
@@ -128,7 +164,8 @@ func NewGetExtensionNotFound() *GetExtensionNotFound {
 	return &GetExtensionNotFound{}
 }
 
-/* GetExtensionNotFound describes a response with status code 404, with default header values.
+/*
+GetExtensionNotFound describes a response with status code 404, with default header values.
 
 The extension requested does not exist. (code: `extensions.not_found`)
 */
@@ -141,9 +178,44 @@ type GetExtensionNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get extension not found response has a 2xx status code
+func (o *GetExtensionNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get extension not found response has a 3xx status code
+func (o *GetExtensionNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get extension not found response has a 4xx status code
+func (o *GetExtensionNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get extension not found response has a 5xx status code
+func (o *GetExtensionNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get extension not found response a status code equal to that given
+func (o *GetExtensionNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the get extension not found response
+func (o *GetExtensionNotFound) Code() int {
+	return 404
+}
+
 func (o *GetExtensionNotFound) Error() string {
 	return fmt.Sprintf("[GET /deployments/extensions/{extension_id}][%d] getExtensionNotFound  %+v", 404, o.Payload)
 }
+
+func (o *GetExtensionNotFound) String() string {
+	return fmt.Sprintf("[GET /deployments/extensions/{extension_id}][%d] getExtensionNotFound  %+v", 404, o.Payload)
+}
+
 func (o *GetExtensionNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

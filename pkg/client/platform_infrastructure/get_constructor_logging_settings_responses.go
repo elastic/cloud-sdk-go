@@ -62,7 +62,8 @@ func NewGetConstructorLoggingSettingsOK() *GetConstructorLoggingSettingsOK {
 	return &GetConstructorLoggingSettingsOK{}
 }
 
-/* GetConstructorLoggingSettingsOK describes a response with status code 200, with default header values.
+/*
+GetConstructorLoggingSettingsOK describes a response with status code 200, with default header values.
 
 The logging settings for the constructor instance
 */
@@ -83,9 +84,44 @@ type GetConstructorLoggingSettingsOK struct {
 	Payload *models.LoggingSettings
 }
 
+// IsSuccess returns true when this get constructor logging settings o k response has a 2xx status code
+func (o *GetConstructorLoggingSettingsOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get constructor logging settings o k response has a 3xx status code
+func (o *GetConstructorLoggingSettingsOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get constructor logging settings o k response has a 4xx status code
+func (o *GetConstructorLoggingSettingsOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get constructor logging settings o k response has a 5xx status code
+func (o *GetConstructorLoggingSettingsOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get constructor logging settings o k response a status code equal to that given
+func (o *GetConstructorLoggingSettingsOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get constructor logging settings o k response
+func (o *GetConstructorLoggingSettingsOK) Code() int {
+	return 200
+}
+
 func (o *GetConstructorLoggingSettingsOK) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/constructors/{constructor_id}/logging_settings][%d] getConstructorLoggingSettingsOK  %+v", 200, o.Payload)
 }
+
+func (o *GetConstructorLoggingSettingsOK) String() string {
+	return fmt.Sprintf("[GET /platform/infrastructure/constructors/{constructor_id}/logging_settings][%d] getConstructorLoggingSettingsOK  %+v", 200, o.Payload)
+}
+
 func (o *GetConstructorLoggingSettingsOK) GetPayload() *models.LoggingSettings {
 	return o.Payload
 }
@@ -128,7 +164,8 @@ func NewGetConstructorLoggingSettingsNotFound() *GetConstructorLoggingSettingsNo
 	return &GetConstructorLoggingSettingsNotFound{}
 }
 
-/* GetConstructorLoggingSettingsNotFound describes a response with status code 404, with default header values.
+/*
+GetConstructorLoggingSettingsNotFound describes a response with status code 404, with default header values.
 
 The logging settings for this constructor were not found. (code: `constructors.logging_settings.not_found`)
 */
@@ -141,9 +178,44 @@ type GetConstructorLoggingSettingsNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get constructor logging settings not found response has a 2xx status code
+func (o *GetConstructorLoggingSettingsNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get constructor logging settings not found response has a 3xx status code
+func (o *GetConstructorLoggingSettingsNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get constructor logging settings not found response has a 4xx status code
+func (o *GetConstructorLoggingSettingsNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get constructor logging settings not found response has a 5xx status code
+func (o *GetConstructorLoggingSettingsNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get constructor logging settings not found response a status code equal to that given
+func (o *GetConstructorLoggingSettingsNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the get constructor logging settings not found response
+func (o *GetConstructorLoggingSettingsNotFound) Code() int {
+	return 404
+}
+
 func (o *GetConstructorLoggingSettingsNotFound) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/constructors/{constructor_id}/logging_settings][%d] getConstructorLoggingSettingsNotFound  %+v", 404, o.Payload)
 }
+
+func (o *GetConstructorLoggingSettingsNotFound) String() string {
+	return fmt.Sprintf("[GET /platform/infrastructure/constructors/{constructor_id}/logging_settings][%d] getConstructorLoggingSettingsNotFound  %+v", 404, o.Payload)
+}
+
 func (o *GetConstructorLoggingSettingsNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

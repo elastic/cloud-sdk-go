@@ -80,7 +80,8 @@ func NewDeleteDeploymentTemplateV2OK() *DeleteDeploymentTemplateV2OK {
 	return &DeleteDeploymentTemplateV2OK{}
 }
 
-/* DeleteDeploymentTemplateV2OK describes a response with status code 200, with default header values.
+/*
+DeleteDeploymentTemplateV2OK describes a response with status code 200, with default header values.
 
 The deployment template was successfully deleted.
 */
@@ -88,9 +89,44 @@ type DeleteDeploymentTemplateV2OK struct {
 	Payload models.EmptyResponse
 }
 
+// IsSuccess returns true when this delete deployment template v2 o k response has a 2xx status code
+func (o *DeleteDeploymentTemplateV2OK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this delete deployment template v2 o k response has a 3xx status code
+func (o *DeleteDeploymentTemplateV2OK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete deployment template v2 o k response has a 4xx status code
+func (o *DeleteDeploymentTemplateV2OK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this delete deployment template v2 o k response has a 5xx status code
+func (o *DeleteDeploymentTemplateV2OK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete deployment template v2 o k response a status code equal to that given
+func (o *DeleteDeploymentTemplateV2OK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the delete deployment template v2 o k response
+func (o *DeleteDeploymentTemplateV2OK) Code() int {
+	return 200
+}
+
 func (o *DeleteDeploymentTemplateV2OK) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/templates/{template_id}][%d] deleteDeploymentTemplateV2OK  %+v", 200, o.Payload)
 }
+
+func (o *DeleteDeploymentTemplateV2OK) String() string {
+	return fmt.Sprintf("[DELETE /deployments/templates/{template_id}][%d] deleteDeploymentTemplateV2OK  %+v", 200, o.Payload)
+}
+
 func (o *DeleteDeploymentTemplateV2OK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -110,7 +146,8 @@ func NewDeleteDeploymentTemplateV2BadRequest() *DeleteDeploymentTemplateV2BadReq
 	return &DeleteDeploymentTemplateV2BadRequest{}
 }
 
-/* DeleteDeploymentTemplateV2BadRequest describes a response with status code 400, with default header values.
+/*
+DeleteDeploymentTemplateV2BadRequest describes a response with status code 400, with default header values.
 
 The requested region is not supported. (code: `templates.region_not_found`)
 */
@@ -123,9 +160,44 @@ type DeleteDeploymentTemplateV2BadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete deployment template v2 bad request response has a 2xx status code
+func (o *DeleteDeploymentTemplateV2BadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete deployment template v2 bad request response has a 3xx status code
+func (o *DeleteDeploymentTemplateV2BadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete deployment template v2 bad request response has a 4xx status code
+func (o *DeleteDeploymentTemplateV2BadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete deployment template v2 bad request response has a 5xx status code
+func (o *DeleteDeploymentTemplateV2BadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete deployment template v2 bad request response a status code equal to that given
+func (o *DeleteDeploymentTemplateV2BadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the delete deployment template v2 bad request response
+func (o *DeleteDeploymentTemplateV2BadRequest) Code() int {
+	return 400
+}
+
 func (o *DeleteDeploymentTemplateV2BadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/templates/{template_id}][%d] deleteDeploymentTemplateV2BadRequest  %+v", 400, o.Payload)
 }
+
+func (o *DeleteDeploymentTemplateV2BadRequest) String() string {
+	return fmt.Sprintf("[DELETE /deployments/templates/{template_id}][%d] deleteDeploymentTemplateV2BadRequest  %+v", 400, o.Payload)
+}
+
 func (o *DeleteDeploymentTemplateV2BadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -154,7 +226,8 @@ func NewDeleteDeploymentTemplateV2Unauthorized() *DeleteDeploymentTemplateV2Unau
 	return &DeleteDeploymentTemplateV2Unauthorized{}
 }
 
-/* DeleteDeploymentTemplateV2Unauthorized describes a response with status code 401, with default header values.
+/*
+DeleteDeploymentTemplateV2Unauthorized describes a response with status code 401, with default header values.
 
 The user is not authorized to access requested region. (code: `templates.region_not_allowed`)
 */
@@ -167,9 +240,44 @@ type DeleteDeploymentTemplateV2Unauthorized struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete deployment template v2 unauthorized response has a 2xx status code
+func (o *DeleteDeploymentTemplateV2Unauthorized) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete deployment template v2 unauthorized response has a 3xx status code
+func (o *DeleteDeploymentTemplateV2Unauthorized) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete deployment template v2 unauthorized response has a 4xx status code
+func (o *DeleteDeploymentTemplateV2Unauthorized) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete deployment template v2 unauthorized response has a 5xx status code
+func (o *DeleteDeploymentTemplateV2Unauthorized) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete deployment template v2 unauthorized response a status code equal to that given
+func (o *DeleteDeploymentTemplateV2Unauthorized) IsCode(code int) bool {
+	return code == 401
+}
+
+// Code gets the status code for the delete deployment template v2 unauthorized response
+func (o *DeleteDeploymentTemplateV2Unauthorized) Code() int {
+	return 401
+}
+
 func (o *DeleteDeploymentTemplateV2Unauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/templates/{template_id}][%d] deleteDeploymentTemplateV2Unauthorized  %+v", 401, o.Payload)
 }
+
+func (o *DeleteDeploymentTemplateV2Unauthorized) String() string {
+	return fmt.Sprintf("[DELETE /deployments/templates/{template_id}][%d] deleteDeploymentTemplateV2Unauthorized  %+v", 401, o.Payload)
+}
+
 func (o *DeleteDeploymentTemplateV2Unauthorized) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -198,7 +306,8 @@ func NewDeleteDeploymentTemplateV2NotFound() *DeleteDeploymentTemplateV2NotFound
 	return &DeleteDeploymentTemplateV2NotFound{}
 }
 
-/* DeleteDeploymentTemplateV2NotFound describes a response with status code 404, with default header values.
+/*
+DeleteDeploymentTemplateV2NotFound describes a response with status code 404, with default header values.
 
 The deployment template specified by {template_id} cannot be found. (code: `templates.template_not_found`)
 */
@@ -211,9 +320,44 @@ type DeleteDeploymentTemplateV2NotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete deployment template v2 not found response has a 2xx status code
+func (o *DeleteDeploymentTemplateV2NotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete deployment template v2 not found response has a 3xx status code
+func (o *DeleteDeploymentTemplateV2NotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete deployment template v2 not found response has a 4xx status code
+func (o *DeleteDeploymentTemplateV2NotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete deployment template v2 not found response has a 5xx status code
+func (o *DeleteDeploymentTemplateV2NotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete deployment template v2 not found response a status code equal to that given
+func (o *DeleteDeploymentTemplateV2NotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the delete deployment template v2 not found response
+func (o *DeleteDeploymentTemplateV2NotFound) Code() int {
+	return 404
+}
+
 func (o *DeleteDeploymentTemplateV2NotFound) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/templates/{template_id}][%d] deleteDeploymentTemplateV2NotFound  %+v", 404, o.Payload)
 }
+
+func (o *DeleteDeploymentTemplateV2NotFound) String() string {
+	return fmt.Sprintf("[DELETE /deployments/templates/{template_id}][%d] deleteDeploymentTemplateV2NotFound  %+v", 404, o.Payload)
+}
+
 func (o *DeleteDeploymentTemplateV2NotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -242,7 +386,8 @@ func NewDeleteDeploymentTemplateV2RetryWith() *DeleteDeploymentTemplateV2RetryWi
 	return &DeleteDeploymentTemplateV2RetryWith{}
 }
 
-/* DeleteDeploymentTemplateV2RetryWith describes a response with status code 449, with default header values.
+/*
+DeleteDeploymentTemplateV2RetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
@@ -255,9 +400,44 @@ type DeleteDeploymentTemplateV2RetryWith struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete deployment template v2 retry with response has a 2xx status code
+func (o *DeleteDeploymentTemplateV2RetryWith) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete deployment template v2 retry with response has a 3xx status code
+func (o *DeleteDeploymentTemplateV2RetryWith) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete deployment template v2 retry with response has a 4xx status code
+func (o *DeleteDeploymentTemplateV2RetryWith) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete deployment template v2 retry with response has a 5xx status code
+func (o *DeleteDeploymentTemplateV2RetryWith) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete deployment template v2 retry with response a status code equal to that given
+func (o *DeleteDeploymentTemplateV2RetryWith) IsCode(code int) bool {
+	return code == 449
+}
+
+// Code gets the status code for the delete deployment template v2 retry with response
+func (o *DeleteDeploymentTemplateV2RetryWith) Code() int {
+	return 449
+}
+
 func (o *DeleteDeploymentTemplateV2RetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /deployments/templates/{template_id}][%d] deleteDeploymentTemplateV2RetryWith  %+v", 449, o.Payload)
 }
+
+func (o *DeleteDeploymentTemplateV2RetryWith) String() string {
+	return fmt.Sprintf("[DELETE /deployments/templates/{template_id}][%d] deleteDeploymentTemplateV2RetryWith  %+v", 449, o.Payload)
+}
+
 func (o *DeleteDeploymentTemplateV2RetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

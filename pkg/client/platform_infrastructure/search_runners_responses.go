@@ -62,7 +62,8 @@ func NewSearchRunnersOK() *SearchRunnersOK {
 	return &SearchRunnersOK{}
 }
 
-/* SearchRunnersOK describes a response with status code 200, with default header values.
+/*
+SearchRunnersOK describes a response with status code 200, with default header values.
 
 An overview of runners that matched the given search query.
 */
@@ -70,9 +71,44 @@ type SearchRunnersOK struct {
 	Payload *models.RunnerOverview
 }
 
+// IsSuccess returns true when this search runners o k response has a 2xx status code
+func (o *SearchRunnersOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this search runners o k response has a 3xx status code
+func (o *SearchRunnersOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this search runners o k response has a 4xx status code
+func (o *SearchRunnersOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this search runners o k response has a 5xx status code
+func (o *SearchRunnersOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this search runners o k response a status code equal to that given
+func (o *SearchRunnersOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the search runners o k response
+func (o *SearchRunnersOK) Code() int {
+	return 200
+}
+
 func (o *SearchRunnersOK) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/runners/_search][%d] searchRunnersOK  %+v", 200, o.Payload)
 }
+
+func (o *SearchRunnersOK) String() string {
+	return fmt.Sprintf("[POST /platform/infrastructure/runners/_search][%d] searchRunnersOK  %+v", 200, o.Payload)
+}
+
 func (o *SearchRunnersOK) GetPayload() *models.RunnerOverview {
 	return o.Payload
 }
@@ -94,7 +130,8 @@ func NewSearchRunnersBadRequest() *SearchRunnersBadRequest {
 	return &SearchRunnersBadRequest{}
 }
 
-/* SearchRunnersBadRequest describes a response with status code 400, with default header values.
+/*
+SearchRunnersBadRequest describes a response with status code 400, with default header values.
 
 The search request failed. (code: `runners.search_failed`)
 */
@@ -107,9 +144,44 @@ type SearchRunnersBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this search runners bad request response has a 2xx status code
+func (o *SearchRunnersBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this search runners bad request response has a 3xx status code
+func (o *SearchRunnersBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this search runners bad request response has a 4xx status code
+func (o *SearchRunnersBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this search runners bad request response has a 5xx status code
+func (o *SearchRunnersBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this search runners bad request response a status code equal to that given
+func (o *SearchRunnersBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the search runners bad request response
+func (o *SearchRunnersBadRequest) Code() int {
+	return 400
+}
+
 func (o *SearchRunnersBadRequest) Error() string {
 	return fmt.Sprintf("[POST /platform/infrastructure/runners/_search][%d] searchRunnersBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *SearchRunnersBadRequest) String() string {
+	return fmt.Sprintf("[POST /platform/infrastructure/runners/_search][%d] searchRunnersBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *SearchRunnersBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

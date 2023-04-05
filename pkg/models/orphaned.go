@@ -129,6 +129,8 @@ func (m *Orphaned) validateElasticsearch(formats strfmt.Registry) error {
 			if err := m.Elasticsearch[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("elasticsearch" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("elasticsearch" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -188,6 +190,8 @@ func (m *Orphaned) contextValidateElasticsearch(ctx context.Context, formats str
 			if err := m.Elasticsearch[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("elasticsearch" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("elasticsearch" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

@@ -80,7 +80,8 @@ func NewUpdateOrganizationOK() *UpdateOrganizationOK {
 	return &UpdateOrganizationOK{}
 }
 
-/* UpdateOrganizationOK describes a response with status code 200, with default header values.
+/*
+UpdateOrganizationOK describes a response with status code 200, with default header values.
 
 Organization updated successfully
 */
@@ -88,9 +89,44 @@ type UpdateOrganizationOK struct {
 	Payload *models.Organization
 }
 
+// IsSuccess returns true when this update organization o k response has a 2xx status code
+func (o *UpdateOrganizationOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this update organization o k response has a 3xx status code
+func (o *UpdateOrganizationOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update organization o k response has a 4xx status code
+func (o *UpdateOrganizationOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this update organization o k response has a 5xx status code
+func (o *UpdateOrganizationOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update organization o k response a status code equal to that given
+func (o *UpdateOrganizationOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the update organization o k response
+func (o *UpdateOrganizationOK) Code() int {
+	return 200
+}
+
 func (o *UpdateOrganizationOK) Error() string {
 	return fmt.Sprintf("[PUT /organizations/{organization_id}][%d] updateOrganizationOK  %+v", 200, o.Payload)
 }
+
+func (o *UpdateOrganizationOK) String() string {
+	return fmt.Sprintf("[PUT /organizations/{organization_id}][%d] updateOrganizationOK  %+v", 200, o.Payload)
+}
+
 func (o *UpdateOrganizationOK) GetPayload() *models.Organization {
 	return o.Payload
 }
@@ -112,9 +148,11 @@ func NewUpdateOrganizationBadRequest() *UpdateOrganizationBadRequest {
 	return &UpdateOrganizationBadRequest{}
 }
 
-/* UpdateOrganizationBadRequest describes a response with status code 400, with default header values.
+/*
+	UpdateOrganizationBadRequest describes a response with status code 400, with default header values.
 
- * Name must be between 2 and 30 characters. (code: `organization.invalid_name`)
+	* Name must be between 2 and 30 characters. (code: `organization.invalid_name`)
+
 * User already has an organization. (code: `organization.user_organization_already_exists`)
 */
 type UpdateOrganizationBadRequest struct {
@@ -126,9 +164,44 @@ type UpdateOrganizationBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this update organization bad request response has a 2xx status code
+func (o *UpdateOrganizationBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update organization bad request response has a 3xx status code
+func (o *UpdateOrganizationBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update organization bad request response has a 4xx status code
+func (o *UpdateOrganizationBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update organization bad request response has a 5xx status code
+func (o *UpdateOrganizationBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update organization bad request response a status code equal to that given
+func (o *UpdateOrganizationBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the update organization bad request response
+func (o *UpdateOrganizationBadRequest) Code() int {
+	return 400
+}
+
 func (o *UpdateOrganizationBadRequest) Error() string {
 	return fmt.Sprintf("[PUT /organizations/{organization_id}][%d] updateOrganizationBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *UpdateOrganizationBadRequest) String() string {
+	return fmt.Sprintf("[PUT /organizations/{organization_id}][%d] updateOrganizationBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *UpdateOrganizationBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -157,7 +230,8 @@ func NewUpdateOrganizationUnauthorized() *UpdateOrganizationUnauthorized {
 	return &UpdateOrganizationUnauthorized{}
 }
 
-/* UpdateOrganizationUnauthorized describes a response with status code 401, with default header values.
+/*
+UpdateOrganizationUnauthorized describes a response with status code 401, with default header values.
 
 You are not authorized to perform this action
 */
@@ -165,9 +239,44 @@ type UpdateOrganizationUnauthorized struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this update organization unauthorized response has a 2xx status code
+func (o *UpdateOrganizationUnauthorized) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update organization unauthorized response has a 3xx status code
+func (o *UpdateOrganizationUnauthorized) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update organization unauthorized response has a 4xx status code
+func (o *UpdateOrganizationUnauthorized) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update organization unauthorized response has a 5xx status code
+func (o *UpdateOrganizationUnauthorized) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update organization unauthorized response a status code equal to that given
+func (o *UpdateOrganizationUnauthorized) IsCode(code int) bool {
+	return code == 401
+}
+
+// Code gets the status code for the update organization unauthorized response
+func (o *UpdateOrganizationUnauthorized) Code() int {
+	return 401
+}
+
 func (o *UpdateOrganizationUnauthorized) Error() string {
 	return fmt.Sprintf("[PUT /organizations/{organization_id}][%d] updateOrganizationUnauthorized  %+v", 401, o.Payload)
 }
+
+func (o *UpdateOrganizationUnauthorized) String() string {
+	return fmt.Sprintf("[PUT /organizations/{organization_id}][%d] updateOrganizationUnauthorized  %+v", 401, o.Payload)
+}
+
 func (o *UpdateOrganizationUnauthorized) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -189,7 +298,8 @@ func NewUpdateOrganizationForbidden() *UpdateOrganizationForbidden {
 	return &UpdateOrganizationForbidden{}
 }
 
-/* UpdateOrganizationForbidden describes a response with status code 403, with default header values.
+/*
+UpdateOrganizationForbidden describes a response with status code 403, with default header values.
 
 The current user does not have access to the requested organization. (code: `organization.invalid_access`)
 */
@@ -202,9 +312,44 @@ type UpdateOrganizationForbidden struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this update organization forbidden response has a 2xx status code
+func (o *UpdateOrganizationForbidden) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update organization forbidden response has a 3xx status code
+func (o *UpdateOrganizationForbidden) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update organization forbidden response has a 4xx status code
+func (o *UpdateOrganizationForbidden) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update organization forbidden response has a 5xx status code
+func (o *UpdateOrganizationForbidden) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update organization forbidden response a status code equal to that given
+func (o *UpdateOrganizationForbidden) IsCode(code int) bool {
+	return code == 403
+}
+
+// Code gets the status code for the update organization forbidden response
+func (o *UpdateOrganizationForbidden) Code() int {
+	return 403
+}
+
 func (o *UpdateOrganizationForbidden) Error() string {
 	return fmt.Sprintf("[PUT /organizations/{organization_id}][%d] updateOrganizationForbidden  %+v", 403, o.Payload)
 }
+
+func (o *UpdateOrganizationForbidden) String() string {
+	return fmt.Sprintf("[PUT /organizations/{organization_id}][%d] updateOrganizationForbidden  %+v", 403, o.Payload)
+}
+
 func (o *UpdateOrganizationForbidden) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -233,7 +378,8 @@ func NewUpdateOrganizationNotFound() *UpdateOrganizationNotFound {
 	return &UpdateOrganizationNotFound{}
 }
 
-/* UpdateOrganizationNotFound describes a response with status code 404, with default header values.
+/*
+UpdateOrganizationNotFound describes a response with status code 404, with default header values.
 
 Organization not found. (code: `organization.not_found`)
 */
@@ -246,9 +392,44 @@ type UpdateOrganizationNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this update organization not found response has a 2xx status code
+func (o *UpdateOrganizationNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update organization not found response has a 3xx status code
+func (o *UpdateOrganizationNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update organization not found response has a 4xx status code
+func (o *UpdateOrganizationNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update organization not found response has a 5xx status code
+func (o *UpdateOrganizationNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update organization not found response a status code equal to that given
+func (o *UpdateOrganizationNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the update organization not found response
+func (o *UpdateOrganizationNotFound) Code() int {
+	return 404
+}
+
 func (o *UpdateOrganizationNotFound) Error() string {
 	return fmt.Sprintf("[PUT /organizations/{organization_id}][%d] updateOrganizationNotFound  %+v", 404, o.Payload)
 }
+
+func (o *UpdateOrganizationNotFound) String() string {
+	return fmt.Sprintf("[PUT /organizations/{organization_id}][%d] updateOrganizationNotFound  %+v", 404, o.Payload)
+}
+
 func (o *UpdateOrganizationNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

@@ -71,10 +71,12 @@ func NewCreateDeploymentNoteParamsWithHTTPClient(client *http.Client) *CreateDep
 	}
 }
 
-/* CreateDeploymentNoteParams contains all the parameters to send to the API endpoint
-   for the create deployment note operation.
+/*
+CreateDeploymentNoteParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the create deployment note operation.
+
+	Typically these are written to a http.Request.
 */
 type CreateDeploymentNoteParams struct {
 

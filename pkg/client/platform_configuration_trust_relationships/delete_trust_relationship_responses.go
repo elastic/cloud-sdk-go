@@ -68,7 +68,8 @@ func NewDeleteTrustRelationshipOK() *DeleteTrustRelationshipOK {
 	return &DeleteTrustRelationshipOK{}
 }
 
-/* DeleteTrustRelationshipOK describes a response with status code 200, with default header values.
+/*
+DeleteTrustRelationshipOK describes a response with status code 200, with default header values.
 
 The request was valid and the trust relationship was deleted.
 */
@@ -76,9 +77,44 @@ type DeleteTrustRelationshipOK struct {
 	Payload models.EmptyResponse
 }
 
+// IsSuccess returns true when this delete trust relationship o k response has a 2xx status code
+func (o *DeleteTrustRelationshipOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this delete trust relationship o k response has a 3xx status code
+func (o *DeleteTrustRelationshipOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete trust relationship o k response has a 4xx status code
+func (o *DeleteTrustRelationshipOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this delete trust relationship o k response has a 5xx status code
+func (o *DeleteTrustRelationshipOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete trust relationship o k response a status code equal to that given
+func (o *DeleteTrustRelationshipOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the delete trust relationship o k response
+func (o *DeleteTrustRelationshipOK) Code() int {
+	return 200
+}
+
 func (o *DeleteTrustRelationshipOK) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/trust-relationships/{trust_relationship_id}][%d] deleteTrustRelationshipOK  %+v", 200, o.Payload)
 }
+
+func (o *DeleteTrustRelationshipOK) String() string {
+	return fmt.Sprintf("[DELETE /platform/configuration/trust-relationships/{trust_relationship_id}][%d] deleteTrustRelationshipOK  %+v", 200, o.Payload)
+}
+
 func (o *DeleteTrustRelationshipOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -98,7 +134,8 @@ func NewDeleteTrustRelationshipUnauthorized() *DeleteTrustRelationshipUnauthoriz
 	return &DeleteTrustRelationshipUnauthorized{}
 }
 
-/* DeleteTrustRelationshipUnauthorized describes a response with status code 401, with default header values.
+/*
+DeleteTrustRelationshipUnauthorized describes a response with status code 401, with default header values.
 
 You are not authorized to perform this action.
 */
@@ -106,9 +143,44 @@ type DeleteTrustRelationshipUnauthorized struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete trust relationship unauthorized response has a 2xx status code
+func (o *DeleteTrustRelationshipUnauthorized) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete trust relationship unauthorized response has a 3xx status code
+func (o *DeleteTrustRelationshipUnauthorized) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete trust relationship unauthorized response has a 4xx status code
+func (o *DeleteTrustRelationshipUnauthorized) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete trust relationship unauthorized response has a 5xx status code
+func (o *DeleteTrustRelationshipUnauthorized) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete trust relationship unauthorized response a status code equal to that given
+func (o *DeleteTrustRelationshipUnauthorized) IsCode(code int) bool {
+	return code == 401
+}
+
+// Code gets the status code for the delete trust relationship unauthorized response
+func (o *DeleteTrustRelationshipUnauthorized) Code() int {
+	return 401
+}
+
 func (o *DeleteTrustRelationshipUnauthorized) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/trust-relationships/{trust_relationship_id}][%d] deleteTrustRelationshipUnauthorized  %+v", 401, o.Payload)
 }
+
+func (o *DeleteTrustRelationshipUnauthorized) String() string {
+	return fmt.Sprintf("[DELETE /platform/configuration/trust-relationships/{trust_relationship_id}][%d] deleteTrustRelationshipUnauthorized  %+v", 401, o.Payload)
+}
+
 func (o *DeleteTrustRelationshipUnauthorized) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -130,7 +202,8 @@ func NewDeleteTrustRelationshipNotFound() *DeleteTrustRelationshipNotFound {
 	return &DeleteTrustRelationshipNotFound{}
 }
 
-/* DeleteTrustRelationshipNotFound describes a response with status code 404, with default header values.
+/*
+DeleteTrustRelationshipNotFound describes a response with status code 404, with default header values.
 
 The trust relationship specified by {trust_relationship_id} cannot be found. (code: `trust_relationships.not_found`)
 */
@@ -143,9 +216,44 @@ type DeleteTrustRelationshipNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete trust relationship not found response has a 2xx status code
+func (o *DeleteTrustRelationshipNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete trust relationship not found response has a 3xx status code
+func (o *DeleteTrustRelationshipNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete trust relationship not found response has a 4xx status code
+func (o *DeleteTrustRelationshipNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete trust relationship not found response has a 5xx status code
+func (o *DeleteTrustRelationshipNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete trust relationship not found response a status code equal to that given
+func (o *DeleteTrustRelationshipNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the delete trust relationship not found response
+func (o *DeleteTrustRelationshipNotFound) Code() int {
+	return 404
+}
+
 func (o *DeleteTrustRelationshipNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /platform/configuration/trust-relationships/{trust_relationship_id}][%d] deleteTrustRelationshipNotFound  %+v", 404, o.Payload)
 }
+
+func (o *DeleteTrustRelationshipNotFound) String() string {
+	return fmt.Sprintf("[DELETE /platform/configuration/trust-relationships/{trust_relationship_id}][%d] deleteTrustRelationshipNotFound  %+v", 404, o.Payload)
+}
+
 func (o *DeleteTrustRelationshipNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

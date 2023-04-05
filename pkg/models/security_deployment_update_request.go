@@ -65,6 +65,8 @@ func (m *SecurityDeploymentUpdateRequest) validateTopology(formats strfmt.Regist
 		if err := m.Topology.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("topology")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("topology")
 			}
 			return err
 		}
@@ -93,6 +95,8 @@ func (m *SecurityDeploymentUpdateRequest) contextValidateTopology(ctx context.Co
 		if err := m.Topology.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("topology")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("topology")
 			}
 			return err
 		}

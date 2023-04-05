@@ -69,10 +69,12 @@ func NewDeleteConstructorLoggingSettingsParamsWithHTTPClient(client *http.Client
 	}
 }
 
-/* DeleteConstructorLoggingSettingsParams contains all the parameters to send to the API endpoint
-   for the delete constructor logging settings operation.
+/*
+DeleteConstructorLoggingSettingsParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the delete constructor logging settings operation.
+
+	Typically these are written to a http.Request.
 */
 type DeleteConstructorLoggingSettingsParams struct {
 

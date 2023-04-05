@@ -69,10 +69,12 @@ func NewUploadExtensionParamsWithHTTPClient(client *http.Client) *UploadExtensio
 	}
 }
 
-/* UploadExtensionParams contains all the parameters to send to the API endpoint
-   for the upload extension operation.
+/*
+UploadExtensionParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the upload extension operation.
+
+	Typically these are written to a http.Request.
 */
 type UploadExtensionParams struct {
 

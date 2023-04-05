@@ -62,7 +62,8 @@ func NewSearchEligibleRemoteClustersOK() *SearchEligibleRemoteClustersOK {
 	return &SearchEligibleRemoteClustersOK{}
 }
 
-/* SearchEligibleRemoteClustersOK describes a response with status code 200, with default header values.
+/*
+SearchEligibleRemoteClustersOK describes a response with status code 200, with default header values.
 
 List of deployments which contains eligible remote clusters for a specific version
 */
@@ -70,9 +71,44 @@ type SearchEligibleRemoteClustersOK struct {
 	Payload *models.DeploymentsSearchResponse
 }
 
+// IsSuccess returns true when this search eligible remote clusters o k response has a 2xx status code
+func (o *SearchEligibleRemoteClustersOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this search eligible remote clusters o k response has a 3xx status code
+func (o *SearchEligibleRemoteClustersOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this search eligible remote clusters o k response has a 4xx status code
+func (o *SearchEligibleRemoteClustersOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this search eligible remote clusters o k response has a 5xx status code
+func (o *SearchEligibleRemoteClustersOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this search eligible remote clusters o k response a status code equal to that given
+func (o *SearchEligibleRemoteClustersOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the search eligible remote clusters o k response
+func (o *SearchEligibleRemoteClustersOK) Code() int {
+	return 200
+}
+
 func (o *SearchEligibleRemoteClustersOK) Error() string {
 	return fmt.Sprintf("[POST /deployments/eligible-remote-clusters][%d] searchEligibleRemoteClustersOK  %+v", 200, o.Payload)
 }
+
+func (o *SearchEligibleRemoteClustersOK) String() string {
+	return fmt.Sprintf("[POST /deployments/eligible-remote-clusters][%d] searchEligibleRemoteClustersOK  %+v", 200, o.Payload)
+}
+
 func (o *SearchEligibleRemoteClustersOK) GetPayload() *models.DeploymentsSearchResponse {
 	return o.Payload
 }
@@ -94,7 +130,8 @@ func NewSearchEligibleRemoteClustersBadRequest() *SearchEligibleRemoteClustersBa
 	return &SearchEligibleRemoteClustersBadRequest{}
 }
 
-/* SearchEligibleRemoteClustersBadRequest describes a response with status code 400, with default header values.
+/*
+SearchEligibleRemoteClustersBadRequest describes a response with status code 400, with default header values.
 
 The provided version is invalid. (code: `stackpack.invalid_version`)
 */
@@ -107,9 +144,44 @@ type SearchEligibleRemoteClustersBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this search eligible remote clusters bad request response has a 2xx status code
+func (o *SearchEligibleRemoteClustersBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this search eligible remote clusters bad request response has a 3xx status code
+func (o *SearchEligibleRemoteClustersBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this search eligible remote clusters bad request response has a 4xx status code
+func (o *SearchEligibleRemoteClustersBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this search eligible remote clusters bad request response has a 5xx status code
+func (o *SearchEligibleRemoteClustersBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this search eligible remote clusters bad request response a status code equal to that given
+func (o *SearchEligibleRemoteClustersBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the search eligible remote clusters bad request response
+func (o *SearchEligibleRemoteClustersBadRequest) Code() int {
+	return 400
+}
+
 func (o *SearchEligibleRemoteClustersBadRequest) Error() string {
 	return fmt.Sprintf("[POST /deployments/eligible-remote-clusters][%d] searchEligibleRemoteClustersBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *SearchEligibleRemoteClustersBadRequest) String() string {
+	return fmt.Sprintf("[POST /deployments/eligible-remote-clusters][%d] searchEligibleRemoteClustersBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *SearchEligibleRemoteClustersBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

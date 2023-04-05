@@ -68,7 +68,8 @@ func NewGetProxiesFilteredGroupHealthOK() *GetProxiesFilteredGroupHealthOK {
 	return &GetProxiesFilteredGroupHealthOK{}
 }
 
-/* GetProxiesFilteredGroupHealthOK describes a response with status code 200, with default header values.
+/*
+GetProxiesFilteredGroupHealthOK describes a response with status code 200, with default header values.
 
 Returns health information on a filtered group of proxies
 */
@@ -76,9 +77,44 @@ type GetProxiesFilteredGroupHealthOK struct {
 	Payload *models.ProxiesFilteredGroupHealth
 }
 
+// IsSuccess returns true when this get proxies filtered group health o k response has a 2xx status code
+func (o *GetProxiesFilteredGroupHealthOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get proxies filtered group health o k response has a 3xx status code
+func (o *GetProxiesFilteredGroupHealthOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get proxies filtered group health o k response has a 4xx status code
+func (o *GetProxiesFilteredGroupHealthOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get proxies filtered group health o k response has a 5xx status code
+func (o *GetProxiesFilteredGroupHealthOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get proxies filtered group health o k response a status code equal to that given
+func (o *GetProxiesFilteredGroupHealthOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get proxies filtered group health o k response
+func (o *GetProxiesFilteredGroupHealthOK) Code() int {
+	return 200
+}
+
 func (o *GetProxiesFilteredGroupHealthOK) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}/health][%d] getProxiesFilteredGroupHealthOK  %+v", 200, o.Payload)
 }
+
+func (o *GetProxiesFilteredGroupHealthOK) String() string {
+	return fmt.Sprintf("[GET /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}/health][%d] getProxiesFilteredGroupHealthOK  %+v", 200, o.Payload)
+}
+
 func (o *GetProxiesFilteredGroupHealthOK) GetPayload() *models.ProxiesFilteredGroupHealth {
 	return o.Payload
 }
@@ -100,7 +136,8 @@ func NewGetProxiesFilteredGroupHealthExpectationFailed() *GetProxiesFilteredGrou
 	return &GetProxiesFilteredGroupHealthExpectationFailed{}
 }
 
-/* GetProxiesFilteredGroupHealthExpectationFailed describes a response with status code 417, with default header values.
+/*
+GetProxiesFilteredGroupHealthExpectationFailed describes a response with status code 417, with default header values.
 
 The health status is worse than the expected one.
 */
@@ -108,9 +145,44 @@ type GetProxiesFilteredGroupHealthExpectationFailed struct {
 	Payload *models.ProxiesFilteredGroupHealth
 }
 
+// IsSuccess returns true when this get proxies filtered group health expectation failed response has a 2xx status code
+func (o *GetProxiesFilteredGroupHealthExpectationFailed) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get proxies filtered group health expectation failed response has a 3xx status code
+func (o *GetProxiesFilteredGroupHealthExpectationFailed) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get proxies filtered group health expectation failed response has a 4xx status code
+func (o *GetProxiesFilteredGroupHealthExpectationFailed) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get proxies filtered group health expectation failed response has a 5xx status code
+func (o *GetProxiesFilteredGroupHealthExpectationFailed) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get proxies filtered group health expectation failed response a status code equal to that given
+func (o *GetProxiesFilteredGroupHealthExpectationFailed) IsCode(code int) bool {
+	return code == 417
+}
+
+// Code gets the status code for the get proxies filtered group health expectation failed response
+func (o *GetProxiesFilteredGroupHealthExpectationFailed) Code() int {
+	return 417
+}
+
 func (o *GetProxiesFilteredGroupHealthExpectationFailed) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}/health][%d] getProxiesFilteredGroupHealthExpectationFailed  %+v", 417, o.Payload)
 }
+
+func (o *GetProxiesFilteredGroupHealthExpectationFailed) String() string {
+	return fmt.Sprintf("[GET /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}/health][%d] getProxiesFilteredGroupHealthExpectationFailed  %+v", 417, o.Payload)
+}
+
 func (o *GetProxiesFilteredGroupHealthExpectationFailed) GetPayload() *models.ProxiesFilteredGroupHealth {
 	return o.Payload
 }
@@ -132,7 +204,8 @@ func NewGetProxiesFilteredGroupHealthRetryWith() *GetProxiesFilteredGroupHealthR
 	return &GetProxiesFilteredGroupHealthRetryWith{}
 }
 
-/* GetProxiesFilteredGroupHealthRetryWith describes a response with status code 449, with default header values.
+/*
+GetProxiesFilteredGroupHealthRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
@@ -145,9 +218,44 @@ type GetProxiesFilteredGroupHealthRetryWith struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get proxies filtered group health retry with response has a 2xx status code
+func (o *GetProxiesFilteredGroupHealthRetryWith) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get proxies filtered group health retry with response has a 3xx status code
+func (o *GetProxiesFilteredGroupHealthRetryWith) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get proxies filtered group health retry with response has a 4xx status code
+func (o *GetProxiesFilteredGroupHealthRetryWith) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get proxies filtered group health retry with response has a 5xx status code
+func (o *GetProxiesFilteredGroupHealthRetryWith) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get proxies filtered group health retry with response a status code equal to that given
+func (o *GetProxiesFilteredGroupHealthRetryWith) IsCode(code int) bool {
+	return code == 449
+}
+
+// Code gets the status code for the get proxies filtered group health retry with response
+func (o *GetProxiesFilteredGroupHealthRetryWith) Code() int {
+	return 449
+}
+
 func (o *GetProxiesFilteredGroupHealthRetryWith) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}/health][%d] getProxiesFilteredGroupHealthRetryWith  %+v", 449, o.Payload)
 }
+
+func (o *GetProxiesFilteredGroupHealthRetryWith) String() string {
+	return fmt.Sprintf("[GET /platform/infrastructure/proxies/filtered-groups/{proxies_filtered_group_id}/health][%d] getProxiesFilteredGroupHealthRetryWith  %+v", 449, o.Payload)
+}
+
 func (o *GetProxiesFilteredGroupHealthRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

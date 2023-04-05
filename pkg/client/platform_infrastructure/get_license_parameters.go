@@ -69,10 +69,12 @@ func NewGetLicenseParamsWithHTTPClient(client *http.Client) *GetLicenseParams {
 	}
 }
 
-/* GetLicenseParams contains all the parameters to send to the API endpoint
-   for the get license operation.
+/*
+GetLicenseParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the get license operation.
+
+	Typically these are written to a http.Request.
 */
 type GetLicenseParams struct {
 	timeout    time.Duration

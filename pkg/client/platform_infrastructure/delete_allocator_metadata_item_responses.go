@@ -68,7 +68,8 @@ func NewDeleteAllocatorMetadataItemOK() *DeleteAllocatorMetadataItemOK {
 	return &DeleteAllocatorMetadataItemOK{}
 }
 
-/* DeleteAllocatorMetadataItemOK describes a response with status code 200, with default header values.
+/*
+DeleteAllocatorMetadataItemOK describes a response with status code 200, with default header values.
 
 The allocator metadata was successfully changed (the updated JSON is returned)
 */
@@ -76,9 +77,44 @@ type DeleteAllocatorMetadataItemOK struct {
 	Payload []*models.MetadataItem
 }
 
+// IsSuccess returns true when this delete allocator metadata item o k response has a 2xx status code
+func (o *DeleteAllocatorMetadataItemOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this delete allocator metadata item o k response has a 3xx status code
+func (o *DeleteAllocatorMetadataItemOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete allocator metadata item o k response has a 4xx status code
+func (o *DeleteAllocatorMetadataItemOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this delete allocator metadata item o k response has a 5xx status code
+func (o *DeleteAllocatorMetadataItemOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete allocator metadata item o k response a status code equal to that given
+func (o *DeleteAllocatorMetadataItemOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the delete allocator metadata item o k response
+func (o *DeleteAllocatorMetadataItemOK) Code() int {
+	return 200
+}
+
 func (o *DeleteAllocatorMetadataItemOK) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/allocators/{allocator_id}/metadata/{key}][%d] deleteAllocatorMetadataItemOK  %+v", 200, o.Payload)
 }
+
+func (o *DeleteAllocatorMetadataItemOK) String() string {
+	return fmt.Sprintf("[DELETE /platform/infrastructure/allocators/{allocator_id}/metadata/{key}][%d] deleteAllocatorMetadataItemOK  %+v", 200, o.Payload)
+}
+
 func (o *DeleteAllocatorMetadataItemOK) GetPayload() []*models.MetadataItem {
 	return o.Payload
 }
@@ -98,7 +134,8 @@ func NewDeleteAllocatorMetadataItemNotFound() *DeleteAllocatorMetadataItemNotFou
 	return &DeleteAllocatorMetadataItemNotFound{}
 }
 
-/* DeleteAllocatorMetadataItemNotFound describes a response with status code 404, with default header values.
+/*
+DeleteAllocatorMetadataItemNotFound describes a response with status code 404, with default header values.
 
 The allocator specified by {allocator_id} cannot be found. (code: `allocators.allocator_not_found`)
 */
@@ -111,9 +148,44 @@ type DeleteAllocatorMetadataItemNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete allocator metadata item not found response has a 2xx status code
+func (o *DeleteAllocatorMetadataItemNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete allocator metadata item not found response has a 3xx status code
+func (o *DeleteAllocatorMetadataItemNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete allocator metadata item not found response has a 4xx status code
+func (o *DeleteAllocatorMetadataItemNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete allocator metadata item not found response has a 5xx status code
+func (o *DeleteAllocatorMetadataItemNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete allocator metadata item not found response a status code equal to that given
+func (o *DeleteAllocatorMetadataItemNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the delete allocator metadata item not found response
+func (o *DeleteAllocatorMetadataItemNotFound) Code() int {
+	return 404
+}
+
 func (o *DeleteAllocatorMetadataItemNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/allocators/{allocator_id}/metadata/{key}][%d] deleteAllocatorMetadataItemNotFound  %+v", 404, o.Payload)
 }
+
+func (o *DeleteAllocatorMetadataItemNotFound) String() string {
+	return fmt.Sprintf("[DELETE /platform/infrastructure/allocators/{allocator_id}/metadata/{key}][%d] deleteAllocatorMetadataItemNotFound  %+v", 404, o.Payload)
+}
+
 func (o *DeleteAllocatorMetadataItemNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -142,7 +214,8 @@ func NewDeleteAllocatorMetadataItemRetryWith() *DeleteAllocatorMetadataItemRetry
 	return &DeleteAllocatorMetadataItemRetryWith{}
 }
 
-/* DeleteAllocatorMetadataItemRetryWith describes a response with status code 449, with default header values.
+/*
+DeleteAllocatorMetadataItemRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
@@ -155,9 +228,44 @@ type DeleteAllocatorMetadataItemRetryWith struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete allocator metadata item retry with response has a 2xx status code
+func (o *DeleteAllocatorMetadataItemRetryWith) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete allocator metadata item retry with response has a 3xx status code
+func (o *DeleteAllocatorMetadataItemRetryWith) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete allocator metadata item retry with response has a 4xx status code
+func (o *DeleteAllocatorMetadataItemRetryWith) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete allocator metadata item retry with response has a 5xx status code
+func (o *DeleteAllocatorMetadataItemRetryWith) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete allocator metadata item retry with response a status code equal to that given
+func (o *DeleteAllocatorMetadataItemRetryWith) IsCode(code int) bool {
+	return code == 449
+}
+
+// Code gets the status code for the delete allocator metadata item retry with response
+func (o *DeleteAllocatorMetadataItemRetryWith) Code() int {
+	return 449
+}
+
 func (o *DeleteAllocatorMetadataItemRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/allocators/{allocator_id}/metadata/{key}][%d] deleteAllocatorMetadataItemRetryWith  %+v", 449, o.Payload)
 }
+
+func (o *DeleteAllocatorMetadataItemRetryWith) String() string {
+	return fmt.Sprintf("[DELETE /platform/infrastructure/allocators/{allocator_id}/metadata/{key}][%d] deleteAllocatorMetadataItemRetryWith  %+v", 449, o.Payload)
+}
+
 func (o *DeleteAllocatorMetadataItemRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

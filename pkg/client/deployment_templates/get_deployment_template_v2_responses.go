@@ -74,7 +74,8 @@ func NewGetDeploymentTemplateV2OK() *GetDeploymentTemplateV2OK {
 	return &GetDeploymentTemplateV2OK{}
 }
 
-/* GetDeploymentTemplateV2OK describes a response with status code 200, with default header values.
+/*
+GetDeploymentTemplateV2OK describes a response with status code 200, with default header values.
 
 The deployment template was found and returned successfully.
 */
@@ -82,9 +83,44 @@ type GetDeploymentTemplateV2OK struct {
 	Payload *models.DeploymentTemplateInfoV2
 }
 
+// IsSuccess returns true when this get deployment template v2 o k response has a 2xx status code
+func (o *GetDeploymentTemplateV2OK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get deployment template v2 o k response has a 3xx status code
+func (o *GetDeploymentTemplateV2OK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get deployment template v2 o k response has a 4xx status code
+func (o *GetDeploymentTemplateV2OK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get deployment template v2 o k response has a 5xx status code
+func (o *GetDeploymentTemplateV2OK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get deployment template v2 o k response a status code equal to that given
+func (o *GetDeploymentTemplateV2OK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get deployment template v2 o k response
+func (o *GetDeploymentTemplateV2OK) Code() int {
+	return 200
+}
+
 func (o *GetDeploymentTemplateV2OK) Error() string {
 	return fmt.Sprintf("[GET /deployments/templates/{template_id}][%d] getDeploymentTemplateV2OK  %+v", 200, o.Payload)
 }
+
+func (o *GetDeploymentTemplateV2OK) String() string {
+	return fmt.Sprintf("[GET /deployments/templates/{template_id}][%d] getDeploymentTemplateV2OK  %+v", 200, o.Payload)
+}
+
 func (o *GetDeploymentTemplateV2OK) GetPayload() *models.DeploymentTemplateInfoV2 {
 	return o.Payload
 }
@@ -106,7 +142,8 @@ func NewGetDeploymentTemplateV2BadRequest() *GetDeploymentTemplateV2BadRequest {
 	return &GetDeploymentTemplateV2BadRequest{}
 }
 
-/* GetDeploymentTemplateV2BadRequest describes a response with status code 400, with default header values.
+/*
+GetDeploymentTemplateV2BadRequest describes a response with status code 400, with default header values.
 
 The requested region is not supported. (code: `templates.region_not_found`)
 */
@@ -119,9 +156,44 @@ type GetDeploymentTemplateV2BadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get deployment template v2 bad request response has a 2xx status code
+func (o *GetDeploymentTemplateV2BadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get deployment template v2 bad request response has a 3xx status code
+func (o *GetDeploymentTemplateV2BadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get deployment template v2 bad request response has a 4xx status code
+func (o *GetDeploymentTemplateV2BadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get deployment template v2 bad request response has a 5xx status code
+func (o *GetDeploymentTemplateV2BadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get deployment template v2 bad request response a status code equal to that given
+func (o *GetDeploymentTemplateV2BadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the get deployment template v2 bad request response
+func (o *GetDeploymentTemplateV2BadRequest) Code() int {
+	return 400
+}
+
 func (o *GetDeploymentTemplateV2BadRequest) Error() string {
 	return fmt.Sprintf("[GET /deployments/templates/{template_id}][%d] getDeploymentTemplateV2BadRequest  %+v", 400, o.Payload)
 }
+
+func (o *GetDeploymentTemplateV2BadRequest) String() string {
+	return fmt.Sprintf("[GET /deployments/templates/{template_id}][%d] getDeploymentTemplateV2BadRequest  %+v", 400, o.Payload)
+}
+
 func (o *GetDeploymentTemplateV2BadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -150,7 +222,8 @@ func NewGetDeploymentTemplateV2Unauthorized() *GetDeploymentTemplateV2Unauthoriz
 	return &GetDeploymentTemplateV2Unauthorized{}
 }
 
-/* GetDeploymentTemplateV2Unauthorized describes a response with status code 401, with default header values.
+/*
+GetDeploymentTemplateV2Unauthorized describes a response with status code 401, with default header values.
 
 The user is not authorized to access requested region. (code: `templates.region_not_allowed`)
 */
@@ -163,9 +236,44 @@ type GetDeploymentTemplateV2Unauthorized struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get deployment template v2 unauthorized response has a 2xx status code
+func (o *GetDeploymentTemplateV2Unauthorized) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get deployment template v2 unauthorized response has a 3xx status code
+func (o *GetDeploymentTemplateV2Unauthorized) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get deployment template v2 unauthorized response has a 4xx status code
+func (o *GetDeploymentTemplateV2Unauthorized) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get deployment template v2 unauthorized response has a 5xx status code
+func (o *GetDeploymentTemplateV2Unauthorized) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get deployment template v2 unauthorized response a status code equal to that given
+func (o *GetDeploymentTemplateV2Unauthorized) IsCode(code int) bool {
+	return code == 401
+}
+
+// Code gets the status code for the get deployment template v2 unauthorized response
+func (o *GetDeploymentTemplateV2Unauthorized) Code() int {
+	return 401
+}
+
 func (o *GetDeploymentTemplateV2Unauthorized) Error() string {
 	return fmt.Sprintf("[GET /deployments/templates/{template_id}][%d] getDeploymentTemplateV2Unauthorized  %+v", 401, o.Payload)
 }
+
+func (o *GetDeploymentTemplateV2Unauthorized) String() string {
+	return fmt.Sprintf("[GET /deployments/templates/{template_id}][%d] getDeploymentTemplateV2Unauthorized  %+v", 401, o.Payload)
+}
+
 func (o *GetDeploymentTemplateV2Unauthorized) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -194,7 +302,8 @@ func NewGetDeploymentTemplateV2NotFound() *GetDeploymentTemplateV2NotFound {
 	return &GetDeploymentTemplateV2NotFound{}
 }
 
-/* GetDeploymentTemplateV2NotFound describes a response with status code 404, with default header values.
+/*
+GetDeploymentTemplateV2NotFound describes a response with status code 404, with default header values.
 
 The deployment template specified by {template_id} cannot be found. (code: `templates.template_not_found`)
 */
@@ -207,9 +316,44 @@ type GetDeploymentTemplateV2NotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get deployment template v2 not found response has a 2xx status code
+func (o *GetDeploymentTemplateV2NotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get deployment template v2 not found response has a 3xx status code
+func (o *GetDeploymentTemplateV2NotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get deployment template v2 not found response has a 4xx status code
+func (o *GetDeploymentTemplateV2NotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get deployment template v2 not found response has a 5xx status code
+func (o *GetDeploymentTemplateV2NotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get deployment template v2 not found response a status code equal to that given
+func (o *GetDeploymentTemplateV2NotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the get deployment template v2 not found response
+func (o *GetDeploymentTemplateV2NotFound) Code() int {
+	return 404
+}
+
 func (o *GetDeploymentTemplateV2NotFound) Error() string {
 	return fmt.Sprintf("[GET /deployments/templates/{template_id}][%d] getDeploymentTemplateV2NotFound  %+v", 404, o.Payload)
 }
+
+func (o *GetDeploymentTemplateV2NotFound) String() string {
+	return fmt.Sprintf("[GET /deployments/templates/{template_id}][%d] getDeploymentTemplateV2NotFound  %+v", 404, o.Payload)
+}
+
 func (o *GetDeploymentTemplateV2NotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

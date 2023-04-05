@@ -96,6 +96,8 @@ func (m *DeploymentCosts) validateCosts(formats strfmt.Registry) error {
 		if err := m.Costs.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("costs")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("costs")
 			}
 			return err
 		}
@@ -140,6 +142,8 @@ func (m *DeploymentCosts) validatePeriod(formats strfmt.Registry) error {
 		if err := m.Period.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("period")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("period")
 			}
 			return err
 		}
@@ -172,6 +176,8 @@ func (m *DeploymentCosts) contextValidateCosts(ctx context.Context, formats strf
 		if err := m.Costs.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("costs")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("costs")
 			}
 			return err
 		}
@@ -186,6 +192,8 @@ func (m *DeploymentCosts) contextValidatePeriod(ctx context.Context, formats str
 		if err := m.Period.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("period")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("period")
 			}
 			return err
 		}

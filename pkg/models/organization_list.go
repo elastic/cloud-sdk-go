@@ -74,6 +74,8 @@ func (m *OrganizationList) validateOrganizations(formats strfmt.Registry) error 
 			if err := m.Organizations[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("organizations" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("organizations" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -106,6 +108,8 @@ func (m *OrganizationList) contextValidateOrganizations(ctx context.Context, for
 			if err := m.Organizations[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("organizations" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("organizations" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

@@ -134,6 +134,8 @@ func (m *StackVersionConfig) validateApm(formats strfmt.Registry) error {
 		if err := m.Apm.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("apm")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("apm")
 			}
 			return err
 		}
@@ -151,6 +153,8 @@ func (m *StackVersionConfig) validateAppsearch(formats strfmt.Registry) error {
 		if err := m.Appsearch.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("appsearch")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("appsearch")
 			}
 			return err
 		}
@@ -169,6 +173,8 @@ func (m *StackVersionConfig) validateElasticsearch(formats strfmt.Registry) erro
 		if err := m.Elasticsearch.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("elasticsearch")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("elasticsearch")
 			}
 			return err
 		}
@@ -186,6 +192,8 @@ func (m *StackVersionConfig) validateEnterpriseSearch(formats strfmt.Registry) e
 		if err := m.EnterpriseSearch.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("enterprise_search")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("enterprise_search")
 			}
 			return err
 		}
@@ -204,6 +212,8 @@ func (m *StackVersionConfig) validateKibana(formats strfmt.Registry) error {
 		if err := m.Kibana.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("kibana")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("kibana")
 			}
 			return err
 		}
@@ -221,6 +231,8 @@ func (m *StackVersionConfig) validateMetadata(formats strfmt.Registry) error {
 		if err := m.Metadata.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("metadata")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("metadata")
 			}
 			return err
 		}
@@ -239,6 +251,8 @@ func (m *StackVersionConfig) validateTemplate(formats strfmt.Registry) error {
 		if err := m.Template.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("template")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("template")
 			}
 			return err
 		}
@@ -308,6 +322,8 @@ func (m *StackVersionConfig) contextValidateApm(ctx context.Context, formats str
 		if err := m.Apm.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("apm")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("apm")
 			}
 			return err
 		}
@@ -322,6 +338,8 @@ func (m *StackVersionConfig) contextValidateAppsearch(ctx context.Context, forma
 		if err := m.Appsearch.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("appsearch")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("appsearch")
 			}
 			return err
 		}
@@ -345,6 +363,8 @@ func (m *StackVersionConfig) contextValidateElasticsearch(ctx context.Context, f
 		if err := m.Elasticsearch.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("elasticsearch")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("elasticsearch")
 			}
 			return err
 		}
@@ -359,6 +379,8 @@ func (m *StackVersionConfig) contextValidateEnterpriseSearch(ctx context.Context
 		if err := m.EnterpriseSearch.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("enterprise_search")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("enterprise_search")
 			}
 			return err
 		}
@@ -373,6 +395,8 @@ func (m *StackVersionConfig) contextValidateKibana(ctx context.Context, formats 
 		if err := m.Kibana.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("kibana")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("kibana")
 			}
 			return err
 		}
@@ -387,6 +411,8 @@ func (m *StackVersionConfig) contextValidateMetadata(ctx context.Context, format
 		if err := m.Metadata.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("metadata")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("metadata")
 			}
 			return err
 		}
@@ -401,6 +427,8 @@ func (m *StackVersionConfig) contextValidateTemplate(ctx context.Context, format
 		if err := m.Template.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("template")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("template")
 			}
 			return err
 		}

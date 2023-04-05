@@ -62,7 +62,8 @@ func NewGetProxyOK() *GetProxyOK {
 	return &GetProxyOK{}
 }
 
-/* GetProxyOK describes a response with status code 200, with default header values.
+/*
+GetProxyOK describes a response with status code 200, with default header values.
 
 The information for the proxy specified by {proxy_id}.
 */
@@ -70,9 +71,44 @@ type GetProxyOK struct {
 	Payload *models.ProxyInfo
 }
 
+// IsSuccess returns true when this get proxy o k response has a 2xx status code
+func (o *GetProxyOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get proxy o k response has a 3xx status code
+func (o *GetProxyOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get proxy o k response has a 4xx status code
+func (o *GetProxyOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get proxy o k response has a 5xx status code
+func (o *GetProxyOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get proxy o k response a status code equal to that given
+func (o *GetProxyOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get proxy o k response
+func (o *GetProxyOK) Code() int {
+	return 200
+}
+
 func (o *GetProxyOK) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/proxies/{proxy_id}][%d] getProxyOK  %+v", 200, o.Payload)
 }
+
+func (o *GetProxyOK) String() string {
+	return fmt.Sprintf("[GET /platform/infrastructure/proxies/{proxy_id}][%d] getProxyOK  %+v", 200, o.Payload)
+}
+
 func (o *GetProxyOK) GetPayload() *models.ProxyInfo {
 	return o.Payload
 }
@@ -94,7 +130,8 @@ func NewGetProxyNotFound() *GetProxyNotFound {
 	return &GetProxyNotFound{}
 }
 
-/* GetProxyNotFound describes a response with status code 404, with default header values.
+/*
+GetProxyNotFound describes a response with status code 404, with default header values.
 
 Unable to find the {proxy_id} specified proxy. Edit your request, then try again. (code: `proxies.proxy_not_found`)
 */
@@ -107,9 +144,44 @@ type GetProxyNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get proxy not found response has a 2xx status code
+func (o *GetProxyNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get proxy not found response has a 3xx status code
+func (o *GetProxyNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get proxy not found response has a 4xx status code
+func (o *GetProxyNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get proxy not found response has a 5xx status code
+func (o *GetProxyNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get proxy not found response a status code equal to that given
+func (o *GetProxyNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the get proxy not found response
+func (o *GetProxyNotFound) Code() int {
+	return 404
+}
+
 func (o *GetProxyNotFound) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/proxies/{proxy_id}][%d] getProxyNotFound  %+v", 404, o.Payload)
 }
+
+func (o *GetProxyNotFound) String() string {
+	return fmt.Sprintf("[GET /platform/infrastructure/proxies/{proxy_id}][%d] getProxyNotFound  %+v", 404, o.Payload)
+}
+
 func (o *GetProxyNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

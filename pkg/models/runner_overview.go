@@ -71,6 +71,8 @@ func (m *RunnerOverview) validateRunners(formats strfmt.Registry) error {
 			if err := m.Runners[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("runners" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("runners" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -103,6 +105,8 @@ func (m *RunnerOverview) contextValidateRunners(ctx context.Context, formats str
 			if err := m.Runners[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("runners" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("runners" + "." + strconv.Itoa(i))
 				}
 				return err
 			}

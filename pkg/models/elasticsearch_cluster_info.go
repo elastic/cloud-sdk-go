@@ -222,6 +222,8 @@ func (m *ElasticsearchClusterInfo) validateAssociatedApmClusters(formats strfmt.
 			if err := m.AssociatedApmClusters[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("associated_apm_clusters" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("associated_apm_clusters" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -247,6 +249,8 @@ func (m *ElasticsearchClusterInfo) validateAssociatedAppsearchClusters(formats s
 			if err := m.AssociatedAppsearchClusters[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("associated_appsearch_clusters" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("associated_appsearch_clusters" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -272,6 +276,8 @@ func (m *ElasticsearchClusterInfo) validateAssociatedEnterpriseSearchClusters(fo
 			if err := m.AssociatedEnterpriseSearchClusters[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("associated_enterprise_search_clusters" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("associated_enterprise_search_clusters" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -297,6 +303,8 @@ func (m *ElasticsearchClusterInfo) validateAssociatedKibanaClusters(formats strf
 			if err := m.AssociatedKibanaClusters[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("associated_kibana_clusters" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("associated_kibana_clusters" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -335,6 +343,8 @@ func (m *ElasticsearchClusterInfo) validateElasticsearch(formats strfmt.Registry
 		if err := m.Elasticsearch.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("elasticsearch")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("elasticsearch")
 			}
 			return err
 		}
@@ -352,6 +362,8 @@ func (m *ElasticsearchClusterInfo) validateElasticsearchMonitoringInfo(formats s
 		if err := m.ElasticsearchMonitoringInfo.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("elasticsearch_monitoring_info")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("elasticsearch_monitoring_info")
 			}
 			return err
 		}
@@ -379,6 +391,8 @@ func (m *ElasticsearchClusterInfo) validateExternalLinks(formats strfmt.Registry
 			if err := m.ExternalLinks[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("external_links" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("external_links" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -410,6 +424,11 @@ func (m *ElasticsearchClusterInfo) validateLinks(formats strfmt.Registry) error 
 		}
 		if val, ok := m.Links[k]; ok {
 			if err := val.Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("links" + "." + k)
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("links" + "." + k)
+				}
 				return err
 			}
 		}
@@ -429,6 +448,8 @@ func (m *ElasticsearchClusterInfo) validateMetadata(formats strfmt.Registry) err
 		if err := m.Metadata.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("metadata")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("metadata")
 			}
 			return err
 		}
@@ -447,6 +468,8 @@ func (m *ElasticsearchClusterInfo) validatePlanInfo(formats strfmt.Registry) err
 		if err := m.PlanInfo.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("plan_info")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("plan_info")
 			}
 			return err
 		}
@@ -464,6 +487,8 @@ func (m *ElasticsearchClusterInfo) validateSecurity(formats strfmt.Registry) err
 		if err := m.Security.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("security")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("security")
 			}
 			return err
 		}
@@ -481,6 +506,8 @@ func (m *ElasticsearchClusterInfo) validateSettings(formats strfmt.Registry) err
 		if err := m.Settings.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("settings")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("settings")
 			}
 			return err
 		}
@@ -499,6 +526,8 @@ func (m *ElasticsearchClusterInfo) validateSnapshots(formats strfmt.Registry) er
 		if err := m.Snapshots.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("snapshots")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("snapshots")
 			}
 			return err
 		}
@@ -579,6 +608,8 @@ func (m *ElasticsearchClusterInfo) validateSystemAlerts(formats strfmt.Registry)
 			if err := m.SystemAlerts[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("system_alerts" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("system_alerts" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -599,6 +630,8 @@ func (m *ElasticsearchClusterInfo) validateTopology(formats strfmt.Registry) err
 		if err := m.Topology.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("topology")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("topology")
 			}
 			return err
 		}
@@ -685,6 +718,8 @@ func (m *ElasticsearchClusterInfo) contextValidateAssociatedApmClusters(ctx cont
 			if err := m.AssociatedApmClusters[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("associated_apm_clusters" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("associated_apm_clusters" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -703,6 +738,8 @@ func (m *ElasticsearchClusterInfo) contextValidateAssociatedAppsearchClusters(ct
 			if err := m.AssociatedAppsearchClusters[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("associated_appsearch_clusters" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("associated_appsearch_clusters" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -721,6 +758,8 @@ func (m *ElasticsearchClusterInfo) contextValidateAssociatedEnterpriseSearchClus
 			if err := m.AssociatedEnterpriseSearchClusters[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("associated_enterprise_search_clusters" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("associated_enterprise_search_clusters" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -739,6 +778,8 @@ func (m *ElasticsearchClusterInfo) contextValidateAssociatedKibanaClusters(ctx c
 			if err := m.AssociatedKibanaClusters[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("associated_kibana_clusters" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("associated_kibana_clusters" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -755,6 +796,8 @@ func (m *ElasticsearchClusterInfo) contextValidateElasticsearch(ctx context.Cont
 		if err := m.Elasticsearch.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("elasticsearch")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("elasticsearch")
 			}
 			return err
 		}
@@ -769,6 +812,8 @@ func (m *ElasticsearchClusterInfo) contextValidateElasticsearchMonitoringInfo(ct
 		if err := m.ElasticsearchMonitoringInfo.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("elasticsearch_monitoring_info")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("elasticsearch_monitoring_info")
 			}
 			return err
 		}
@@ -785,6 +830,8 @@ func (m *ElasticsearchClusterInfo) contextValidateExternalLinks(ctx context.Cont
 			if err := m.ExternalLinks[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("external_links" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("external_links" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -816,6 +863,8 @@ func (m *ElasticsearchClusterInfo) contextValidateMetadata(ctx context.Context, 
 		if err := m.Metadata.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("metadata")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("metadata")
 			}
 			return err
 		}
@@ -830,6 +879,8 @@ func (m *ElasticsearchClusterInfo) contextValidatePlanInfo(ctx context.Context, 
 		if err := m.PlanInfo.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("plan_info")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("plan_info")
 			}
 			return err
 		}
@@ -844,6 +895,8 @@ func (m *ElasticsearchClusterInfo) contextValidateSecurity(ctx context.Context, 
 		if err := m.Security.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("security")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("security")
 			}
 			return err
 		}
@@ -858,6 +911,8 @@ func (m *ElasticsearchClusterInfo) contextValidateSettings(ctx context.Context, 
 		if err := m.Settings.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("settings")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("settings")
 			}
 			return err
 		}
@@ -872,6 +927,8 @@ func (m *ElasticsearchClusterInfo) contextValidateSnapshots(ctx context.Context,
 		if err := m.Snapshots.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("snapshots")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("snapshots")
 			}
 			return err
 		}
@@ -888,6 +945,8 @@ func (m *ElasticsearchClusterInfo) contextValidateSystemAlerts(ctx context.Conte
 			if err := m.SystemAlerts[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("system_alerts" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("system_alerts" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -904,6 +963,8 @@ func (m *ElasticsearchClusterInfo) contextValidateTopology(ctx context.Context, 
 		if err := m.Topology.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("topology")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("topology")
 			}
 			return err
 		}

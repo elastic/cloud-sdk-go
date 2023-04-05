@@ -62,7 +62,8 @@ func NewDeleteAllocatorLoggingSettingsOK() *DeleteAllocatorLoggingSettingsOK {
 	return &DeleteAllocatorLoggingSettingsOK{}
 }
 
-/* DeleteAllocatorLoggingSettingsOK describes a response with status code 200, with default header values.
+/*
+DeleteAllocatorLoggingSettingsOK describes a response with status code 200, with default header values.
 
 The updated logging settings for the allocator instance
 */
@@ -83,9 +84,44 @@ type DeleteAllocatorLoggingSettingsOK struct {
 	Payload *models.LoggingSettings
 }
 
+// IsSuccess returns true when this delete allocator logging settings o k response has a 2xx status code
+func (o *DeleteAllocatorLoggingSettingsOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this delete allocator logging settings o k response has a 3xx status code
+func (o *DeleteAllocatorLoggingSettingsOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete allocator logging settings o k response has a 4xx status code
+func (o *DeleteAllocatorLoggingSettingsOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this delete allocator logging settings o k response has a 5xx status code
+func (o *DeleteAllocatorLoggingSettingsOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete allocator logging settings o k response a status code equal to that given
+func (o *DeleteAllocatorLoggingSettingsOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the delete allocator logging settings o k response
+func (o *DeleteAllocatorLoggingSettingsOK) Code() int {
+	return 200
+}
+
 func (o *DeleteAllocatorLoggingSettingsOK) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/allocators/{allocator_id}/logging_settings][%d] deleteAllocatorLoggingSettingsOK  %+v", 200, o.Payload)
 }
+
+func (o *DeleteAllocatorLoggingSettingsOK) String() string {
+	return fmt.Sprintf("[DELETE /platform/infrastructure/allocators/{allocator_id}/logging_settings][%d] deleteAllocatorLoggingSettingsOK  %+v", 200, o.Payload)
+}
+
 func (o *DeleteAllocatorLoggingSettingsOK) GetPayload() *models.LoggingSettings {
 	return o.Payload
 }
@@ -128,7 +164,8 @@ func NewDeleteAllocatorLoggingSettingsNotFound() *DeleteAllocatorLoggingSettings
 	return &DeleteAllocatorLoggingSettingsNotFound{}
 }
 
-/* DeleteAllocatorLoggingSettingsNotFound describes a response with status code 404, with default header values.
+/*
+DeleteAllocatorLoggingSettingsNotFound describes a response with status code 404, with default header values.
 
 The logging settings for this allocator were not found. (code: `allocators.logging_settings.not_found`)
 */
@@ -141,9 +178,44 @@ type DeleteAllocatorLoggingSettingsNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete allocator logging settings not found response has a 2xx status code
+func (o *DeleteAllocatorLoggingSettingsNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete allocator logging settings not found response has a 3xx status code
+func (o *DeleteAllocatorLoggingSettingsNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete allocator logging settings not found response has a 4xx status code
+func (o *DeleteAllocatorLoggingSettingsNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete allocator logging settings not found response has a 5xx status code
+func (o *DeleteAllocatorLoggingSettingsNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete allocator logging settings not found response a status code equal to that given
+func (o *DeleteAllocatorLoggingSettingsNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the delete allocator logging settings not found response
+func (o *DeleteAllocatorLoggingSettingsNotFound) Code() int {
+	return 404
+}
+
 func (o *DeleteAllocatorLoggingSettingsNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/allocators/{allocator_id}/logging_settings][%d] deleteAllocatorLoggingSettingsNotFound  %+v", 404, o.Payload)
 }
+
+func (o *DeleteAllocatorLoggingSettingsNotFound) String() string {
+	return fmt.Sprintf("[DELETE /platform/infrastructure/allocators/{allocator_id}/logging_settings][%d] deleteAllocatorLoggingSettingsNotFound  %+v", 404, o.Payload)
+}
+
 func (o *DeleteAllocatorLoggingSettingsNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

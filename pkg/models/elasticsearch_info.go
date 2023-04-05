@@ -109,6 +109,8 @@ func (m *ElasticsearchInfo) validateBlockingIssues(formats strfmt.Registry) erro
 		if err := m.BlockingIssues.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("blocking_issues")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("blocking_issues")
 			}
 			return err
 		}
@@ -126,6 +128,8 @@ func (m *ElasticsearchInfo) validateClusterBlockingIssues(formats strfmt.Registr
 		if err := m.ClusterBlockingIssues.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("cluster_blocking_issues")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("cluster_blocking_issues")
 			}
 			return err
 		}
@@ -153,6 +157,8 @@ func (m *ElasticsearchInfo) validateMasterInfo(formats strfmt.Registry) error {
 		if err := m.MasterInfo.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("master_info")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("master_info")
 			}
 			return err
 		}
@@ -171,6 +177,8 @@ func (m *ElasticsearchInfo) validateShardInfo(formats strfmt.Registry) error {
 		if err := m.ShardInfo.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("shard_info")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("shard_info")
 			}
 			return err
 		}
@@ -188,6 +196,8 @@ func (m *ElasticsearchInfo) validateShardsStatus(formats strfmt.Registry) error 
 		if err := m.ShardsStatus.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("shards_status")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("shards_status")
 			}
 			return err
 		}
@@ -232,6 +242,8 @@ func (m *ElasticsearchInfo) contextValidateBlockingIssues(ctx context.Context, f
 		if err := m.BlockingIssues.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("blocking_issues")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("blocking_issues")
 			}
 			return err
 		}
@@ -246,6 +258,8 @@ func (m *ElasticsearchInfo) contextValidateClusterBlockingIssues(ctx context.Con
 		if err := m.ClusterBlockingIssues.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("cluster_blocking_issues")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("cluster_blocking_issues")
 			}
 			return err
 		}
@@ -260,6 +274,8 @@ func (m *ElasticsearchInfo) contextValidateMasterInfo(ctx context.Context, forma
 		if err := m.MasterInfo.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("master_info")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("master_info")
 			}
 			return err
 		}
@@ -274,6 +290,8 @@ func (m *ElasticsearchInfo) contextValidateShardInfo(ctx context.Context, format
 		if err := m.ShardInfo.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("shard_info")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("shard_info")
 			}
 			return err
 		}
@@ -288,6 +306,8 @@ func (m *ElasticsearchInfo) contextValidateShardsStatus(ctx context.Context, for
 		if err := m.ShardsStatus.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("shards_status")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("shards_status")
 			}
 			return err
 		}

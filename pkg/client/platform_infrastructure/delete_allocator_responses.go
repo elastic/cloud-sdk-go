@@ -74,7 +74,8 @@ func NewDeleteAllocatorOK() *DeleteAllocatorOK {
 	return &DeleteAllocatorOK{}
 }
 
-/* DeleteAllocatorOK describes a response with status code 200, with default header values.
+/*
+DeleteAllocatorOK describes a response with status code 200, with default header values.
 
 The allocator specified by {allocator_id} was successfully deleted
 */
@@ -82,9 +83,44 @@ type DeleteAllocatorOK struct {
 	Payload models.EmptyResponse
 }
 
+// IsSuccess returns true when this delete allocator o k response has a 2xx status code
+func (o *DeleteAllocatorOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this delete allocator o k response has a 3xx status code
+func (o *DeleteAllocatorOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete allocator o k response has a 4xx status code
+func (o *DeleteAllocatorOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this delete allocator o k response has a 5xx status code
+func (o *DeleteAllocatorOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete allocator o k response a status code equal to that given
+func (o *DeleteAllocatorOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the delete allocator o k response
+func (o *DeleteAllocatorOK) Code() int {
+	return 200
+}
+
 func (o *DeleteAllocatorOK) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/allocators/{allocator_id}][%d] deleteAllocatorOK  %+v", 200, o.Payload)
 }
+
+func (o *DeleteAllocatorOK) String() string {
+	return fmt.Sprintf("[DELETE /platform/infrastructure/allocators/{allocator_id}][%d] deleteAllocatorOK  %+v", 200, o.Payload)
+}
+
 func (o *DeleteAllocatorOK) GetPayload() models.EmptyResponse {
 	return o.Payload
 }
@@ -104,9 +140,11 @@ func NewDeleteAllocatorBadRequest() *DeleteAllocatorBadRequest {
 	return &DeleteAllocatorBadRequest{}
 }
 
-/* DeleteAllocatorBadRequest describes a response with status code 400, with default header values.
+/*
+	DeleteAllocatorBadRequest describes a response with status code 400, with default header values.
 
- * The allocator specified by {allocator_id} could not be deleted. (code: `allocators.delete_connected_allocator_attempt`)
+	* The allocator specified by {allocator_id} could not be deleted. (code: `allocators.delete_connected_allocator_attempt`)
+
 * The allocator specified by {allocator_id} could not be deleted. (code: `allocators.delete_allocator_with_instances_attempt`)
 */
 type DeleteAllocatorBadRequest struct {
@@ -118,9 +156,44 @@ type DeleteAllocatorBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete allocator bad request response has a 2xx status code
+func (o *DeleteAllocatorBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete allocator bad request response has a 3xx status code
+func (o *DeleteAllocatorBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete allocator bad request response has a 4xx status code
+func (o *DeleteAllocatorBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete allocator bad request response has a 5xx status code
+func (o *DeleteAllocatorBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete allocator bad request response a status code equal to that given
+func (o *DeleteAllocatorBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the delete allocator bad request response
+func (o *DeleteAllocatorBadRequest) Code() int {
+	return 400
+}
+
 func (o *DeleteAllocatorBadRequest) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/allocators/{allocator_id}][%d] deleteAllocatorBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *DeleteAllocatorBadRequest) String() string {
+	return fmt.Sprintf("[DELETE /platform/infrastructure/allocators/{allocator_id}][%d] deleteAllocatorBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *DeleteAllocatorBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -149,7 +222,8 @@ func NewDeleteAllocatorNotFound() *DeleteAllocatorNotFound {
 	return &DeleteAllocatorNotFound{}
 }
 
-/* DeleteAllocatorNotFound describes a response with status code 404, with default header values.
+/*
+DeleteAllocatorNotFound describes a response with status code 404, with default header values.
 
 The allocator specified by {allocator_id} cannot be found. (code: `allocators.allocator_not_found`)
 */
@@ -162,9 +236,44 @@ type DeleteAllocatorNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete allocator not found response has a 2xx status code
+func (o *DeleteAllocatorNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete allocator not found response has a 3xx status code
+func (o *DeleteAllocatorNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete allocator not found response has a 4xx status code
+func (o *DeleteAllocatorNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete allocator not found response has a 5xx status code
+func (o *DeleteAllocatorNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete allocator not found response a status code equal to that given
+func (o *DeleteAllocatorNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the delete allocator not found response
+func (o *DeleteAllocatorNotFound) Code() int {
+	return 404
+}
+
 func (o *DeleteAllocatorNotFound) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/allocators/{allocator_id}][%d] deleteAllocatorNotFound  %+v", 404, o.Payload)
 }
+
+func (o *DeleteAllocatorNotFound) String() string {
+	return fmt.Sprintf("[DELETE /platform/infrastructure/allocators/{allocator_id}][%d] deleteAllocatorNotFound  %+v", 404, o.Payload)
+}
+
 func (o *DeleteAllocatorNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -193,7 +302,8 @@ func NewDeleteAllocatorRetryWith() *DeleteAllocatorRetryWith {
 	return &DeleteAllocatorRetryWith{}
 }
 
-/* DeleteAllocatorRetryWith describes a response with status code 449, with default header values.
+/*
+DeleteAllocatorRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
@@ -206,9 +316,44 @@ type DeleteAllocatorRetryWith struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this delete allocator retry with response has a 2xx status code
+func (o *DeleteAllocatorRetryWith) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this delete allocator retry with response has a 3xx status code
+func (o *DeleteAllocatorRetryWith) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this delete allocator retry with response has a 4xx status code
+func (o *DeleteAllocatorRetryWith) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this delete allocator retry with response has a 5xx status code
+func (o *DeleteAllocatorRetryWith) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this delete allocator retry with response a status code equal to that given
+func (o *DeleteAllocatorRetryWith) IsCode(code int) bool {
+	return code == 449
+}
+
+// Code gets the status code for the delete allocator retry with response
+func (o *DeleteAllocatorRetryWith) Code() int {
+	return 449
+}
+
 func (o *DeleteAllocatorRetryWith) Error() string {
 	return fmt.Sprintf("[DELETE /platform/infrastructure/allocators/{allocator_id}][%d] deleteAllocatorRetryWith  %+v", 449, o.Payload)
 }
+
+func (o *DeleteAllocatorRetryWith) String() string {
+	return fmt.Sprintf("[DELETE /platform/infrastructure/allocators/{allocator_id}][%d] deleteAllocatorRetryWith  %+v", 449, o.Payload)
+}
+
 func (o *DeleteAllocatorRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

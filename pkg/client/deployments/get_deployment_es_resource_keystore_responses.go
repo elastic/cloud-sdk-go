@@ -74,7 +74,8 @@ func NewGetDeploymentEsResourceKeystoreOK() *GetDeploymentEsResourceKeystoreOK {
 	return &GetDeploymentEsResourceKeystoreOK{}
 }
 
-/* GetDeploymentEsResourceKeystoreOK describes a response with status code 200, with default header values.
+/*
+GetDeploymentEsResourceKeystoreOK describes a response with status code 200, with default header values.
 
 The contents of the Elasticsearch keystore
 */
@@ -82,9 +83,44 @@ type GetDeploymentEsResourceKeystoreOK struct {
 	Payload *models.KeystoreContents
 }
 
+// IsSuccess returns true when this get deployment es resource keystore o k response has a 2xx status code
+func (o *GetDeploymentEsResourceKeystoreOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get deployment es resource keystore o k response has a 3xx status code
+func (o *GetDeploymentEsResourceKeystoreOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get deployment es resource keystore o k response has a 4xx status code
+func (o *GetDeploymentEsResourceKeystoreOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get deployment es resource keystore o k response has a 5xx status code
+func (o *GetDeploymentEsResourceKeystoreOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get deployment es resource keystore o k response a status code equal to that given
+func (o *GetDeploymentEsResourceKeystoreOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get deployment es resource keystore o k response
+func (o *GetDeploymentEsResourceKeystoreOK) Code() int {
+	return 200
+}
+
 func (o *GetDeploymentEsResourceKeystoreOK) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/elasticsearch/{ref_id}/keystore][%d] getDeploymentEsResourceKeystoreOK  %+v", 200, o.Payload)
 }
+
+func (o *GetDeploymentEsResourceKeystoreOK) String() string {
+	return fmt.Sprintf("[GET /deployments/{deployment_id}/elasticsearch/{ref_id}/keystore][%d] getDeploymentEsResourceKeystoreOK  %+v", 200, o.Payload)
+}
+
 func (o *GetDeploymentEsResourceKeystoreOK) GetPayload() *models.KeystoreContents {
 	return o.Payload
 }
@@ -106,9 +142,11 @@ func NewGetDeploymentEsResourceKeystoreNotFound() *GetDeploymentEsResourceKeysto
 	return &GetDeploymentEsResourceKeystoreNotFound{}
 }
 
-/* GetDeploymentEsResourceKeystoreNotFound describes a response with status code 404, with default header values.
+/*
+	GetDeploymentEsResourceKeystoreNotFound describes a response with status code 404, with default header values.
 
- * The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+	* The Deployment specified by {deployment_id} cannot be found. (code: `deployments.deployment_not_found`)
+
 * The Resource specified by {ref_id} cannot be found. (code: `deployments.deployment_resource_not_found`)
 */
 type GetDeploymentEsResourceKeystoreNotFound struct {
@@ -120,9 +158,44 @@ type GetDeploymentEsResourceKeystoreNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get deployment es resource keystore not found response has a 2xx status code
+func (o *GetDeploymentEsResourceKeystoreNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get deployment es resource keystore not found response has a 3xx status code
+func (o *GetDeploymentEsResourceKeystoreNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get deployment es resource keystore not found response has a 4xx status code
+func (o *GetDeploymentEsResourceKeystoreNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get deployment es resource keystore not found response has a 5xx status code
+func (o *GetDeploymentEsResourceKeystoreNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get deployment es resource keystore not found response a status code equal to that given
+func (o *GetDeploymentEsResourceKeystoreNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the get deployment es resource keystore not found response
+func (o *GetDeploymentEsResourceKeystoreNotFound) Code() int {
+	return 404
+}
+
 func (o *GetDeploymentEsResourceKeystoreNotFound) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/elasticsearch/{ref_id}/keystore][%d] getDeploymentEsResourceKeystoreNotFound  %+v", 404, o.Payload)
 }
+
+func (o *GetDeploymentEsResourceKeystoreNotFound) String() string {
+	return fmt.Sprintf("[GET /deployments/{deployment_id}/elasticsearch/{ref_id}/keystore][%d] getDeploymentEsResourceKeystoreNotFound  %+v", 404, o.Payload)
+}
+
 func (o *GetDeploymentEsResourceKeystoreNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -151,7 +224,8 @@ func NewGetDeploymentEsResourceKeystoreRetryWith() *GetDeploymentEsResourceKeyst
 	return &GetDeploymentEsResourceKeystoreRetryWith{}
 }
 
-/* GetDeploymentEsResourceKeystoreRetryWith describes a response with status code 449, with default header values.
+/*
+GetDeploymentEsResourceKeystoreRetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
@@ -164,9 +238,44 @@ type GetDeploymentEsResourceKeystoreRetryWith struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get deployment es resource keystore retry with response has a 2xx status code
+func (o *GetDeploymentEsResourceKeystoreRetryWith) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get deployment es resource keystore retry with response has a 3xx status code
+func (o *GetDeploymentEsResourceKeystoreRetryWith) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get deployment es resource keystore retry with response has a 4xx status code
+func (o *GetDeploymentEsResourceKeystoreRetryWith) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get deployment es resource keystore retry with response has a 5xx status code
+func (o *GetDeploymentEsResourceKeystoreRetryWith) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get deployment es resource keystore retry with response a status code equal to that given
+func (o *GetDeploymentEsResourceKeystoreRetryWith) IsCode(code int) bool {
+	return code == 449
+}
+
+// Code gets the status code for the get deployment es resource keystore retry with response
+func (o *GetDeploymentEsResourceKeystoreRetryWith) Code() int {
+	return 449
+}
+
 func (o *GetDeploymentEsResourceKeystoreRetryWith) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/elasticsearch/{ref_id}/keystore][%d] getDeploymentEsResourceKeystoreRetryWith  %+v", 449, o.Payload)
 }
+
+func (o *GetDeploymentEsResourceKeystoreRetryWith) String() string {
+	return fmt.Sprintf("[GET /deployments/{deployment_id}/elasticsearch/{ref_id}/keystore][%d] getDeploymentEsResourceKeystoreRetryWith  %+v", 449, o.Payload)
+}
+
 func (o *GetDeploymentEsResourceKeystoreRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -195,7 +304,8 @@ func NewGetDeploymentEsResourceKeystoreInternalServerError() *GetDeploymentEsRes
 	return &GetDeploymentEsResourceKeystoreInternalServerError{}
 }
 
-/* GetDeploymentEsResourceKeystoreInternalServerError describes a response with status code 500, with default header values.
+/*
+GetDeploymentEsResourceKeystoreInternalServerError describes a response with status code 500, with default header values.
 
 We have failed you. (code: `deployments.metadata_internal_error`)
 */
@@ -208,9 +318,44 @@ type GetDeploymentEsResourceKeystoreInternalServerError struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get deployment es resource keystore internal server error response has a 2xx status code
+func (o *GetDeploymentEsResourceKeystoreInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get deployment es resource keystore internal server error response has a 3xx status code
+func (o *GetDeploymentEsResourceKeystoreInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get deployment es resource keystore internal server error response has a 4xx status code
+func (o *GetDeploymentEsResourceKeystoreInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get deployment es resource keystore internal server error response has a 5xx status code
+func (o *GetDeploymentEsResourceKeystoreInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this get deployment es resource keystore internal server error response a status code equal to that given
+func (o *GetDeploymentEsResourceKeystoreInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
+// Code gets the status code for the get deployment es resource keystore internal server error response
+func (o *GetDeploymentEsResourceKeystoreInternalServerError) Code() int {
+	return 500
+}
+
 func (o *GetDeploymentEsResourceKeystoreInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /deployments/{deployment_id}/elasticsearch/{ref_id}/keystore][%d] getDeploymentEsResourceKeystoreInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *GetDeploymentEsResourceKeystoreInternalServerError) String() string {
+	return fmt.Sprintf("[GET /deployments/{deployment_id}/elasticsearch/{ref_id}/keystore][%d] getDeploymentEsResourceKeystoreInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *GetDeploymentEsResourceKeystoreInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

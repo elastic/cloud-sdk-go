@@ -92,7 +92,8 @@ func NewSetDeploymentTemplateV2OK() *SetDeploymentTemplateV2OK {
 	return &SetDeploymentTemplateV2OK{}
 }
 
-/* SetDeploymentTemplateV2OK describes a response with status code 200, with default header values.
+/*
+SetDeploymentTemplateV2OK describes a response with status code 200, with default header values.
 
 The deployment definition was valid and the template has been updated.
 */
@@ -100,9 +101,44 @@ type SetDeploymentTemplateV2OK struct {
 	Payload *models.IDResponse
 }
 
+// IsSuccess returns true when this set deployment template v2 o k response has a 2xx status code
+func (o *SetDeploymentTemplateV2OK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this set deployment template v2 o k response has a 3xx status code
+func (o *SetDeploymentTemplateV2OK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set deployment template v2 o k response has a 4xx status code
+func (o *SetDeploymentTemplateV2OK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this set deployment template v2 o k response has a 5xx status code
+func (o *SetDeploymentTemplateV2OK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set deployment template v2 o k response a status code equal to that given
+func (o *SetDeploymentTemplateV2OK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the set deployment template v2 o k response
+func (o *SetDeploymentTemplateV2OK) Code() int {
+	return 200
+}
+
 func (o *SetDeploymentTemplateV2OK) Error() string {
 	return fmt.Sprintf("[PUT /deployments/templates/{template_id}][%d] setDeploymentTemplateV2OK  %+v", 200, o.Payload)
 }
+
+func (o *SetDeploymentTemplateV2OK) String() string {
+	return fmt.Sprintf("[PUT /deployments/templates/{template_id}][%d] setDeploymentTemplateV2OK  %+v", 200, o.Payload)
+}
+
 func (o *SetDeploymentTemplateV2OK) GetPayload() *models.IDResponse {
 	return o.Payload
 }
@@ -124,7 +160,8 @@ func NewSetDeploymentTemplateV2Created() *SetDeploymentTemplateV2Created {
 	return &SetDeploymentTemplateV2Created{}
 }
 
-/* SetDeploymentTemplateV2Created describes a response with status code 201, with default header values.
+/*
+SetDeploymentTemplateV2Created describes a response with status code 201, with default header values.
 
 The deployment definition was valid and the template was created.
 */
@@ -132,9 +169,44 @@ type SetDeploymentTemplateV2Created struct {
 	Payload *models.IDResponse
 }
 
+// IsSuccess returns true when this set deployment template v2 created response has a 2xx status code
+func (o *SetDeploymentTemplateV2Created) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this set deployment template v2 created response has a 3xx status code
+func (o *SetDeploymentTemplateV2Created) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set deployment template v2 created response has a 4xx status code
+func (o *SetDeploymentTemplateV2Created) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this set deployment template v2 created response has a 5xx status code
+func (o *SetDeploymentTemplateV2Created) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set deployment template v2 created response a status code equal to that given
+func (o *SetDeploymentTemplateV2Created) IsCode(code int) bool {
+	return code == 201
+}
+
+// Code gets the status code for the set deployment template v2 created response
+func (o *SetDeploymentTemplateV2Created) Code() int {
+	return 201
+}
+
 func (o *SetDeploymentTemplateV2Created) Error() string {
 	return fmt.Sprintf("[PUT /deployments/templates/{template_id}][%d] setDeploymentTemplateV2Created  %+v", 201, o.Payload)
 }
+
+func (o *SetDeploymentTemplateV2Created) String() string {
+	return fmt.Sprintf("[PUT /deployments/templates/{template_id}][%d] setDeploymentTemplateV2Created  %+v", 201, o.Payload)
+}
+
 func (o *SetDeploymentTemplateV2Created) GetPayload() *models.IDResponse {
 	return o.Payload
 }
@@ -156,7 +228,8 @@ func NewSetDeploymentTemplateV2BadRequest() *SetDeploymentTemplateV2BadRequest {
 	return &SetDeploymentTemplateV2BadRequest{}
 }
 
-/* SetDeploymentTemplateV2BadRequest describes a response with status code 400, with default header values.
+/*
+SetDeploymentTemplateV2BadRequest describes a response with status code 400, with default header values.
 
 The requested region is not supported. (code: `templates.region_not_found`)
 */
@@ -169,9 +242,44 @@ type SetDeploymentTemplateV2BadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this set deployment template v2 bad request response has a 2xx status code
+func (o *SetDeploymentTemplateV2BadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this set deployment template v2 bad request response has a 3xx status code
+func (o *SetDeploymentTemplateV2BadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set deployment template v2 bad request response has a 4xx status code
+func (o *SetDeploymentTemplateV2BadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this set deployment template v2 bad request response has a 5xx status code
+func (o *SetDeploymentTemplateV2BadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set deployment template v2 bad request response a status code equal to that given
+func (o *SetDeploymentTemplateV2BadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the set deployment template v2 bad request response
+func (o *SetDeploymentTemplateV2BadRequest) Code() int {
+	return 400
+}
+
 func (o *SetDeploymentTemplateV2BadRequest) Error() string {
 	return fmt.Sprintf("[PUT /deployments/templates/{template_id}][%d] setDeploymentTemplateV2BadRequest  %+v", 400, o.Payload)
 }
+
+func (o *SetDeploymentTemplateV2BadRequest) String() string {
+	return fmt.Sprintf("[PUT /deployments/templates/{template_id}][%d] setDeploymentTemplateV2BadRequest  %+v", 400, o.Payload)
+}
+
 func (o *SetDeploymentTemplateV2BadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -200,7 +308,8 @@ func NewSetDeploymentTemplateV2Unauthorized() *SetDeploymentTemplateV2Unauthoriz
 	return &SetDeploymentTemplateV2Unauthorized{}
 }
 
-/* SetDeploymentTemplateV2Unauthorized describes a response with status code 401, with default header values.
+/*
+SetDeploymentTemplateV2Unauthorized describes a response with status code 401, with default header values.
 
 The user is not authorized to access requested region. (code: `templates.region_not_allowed`)
 */
@@ -213,9 +322,44 @@ type SetDeploymentTemplateV2Unauthorized struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this set deployment template v2 unauthorized response has a 2xx status code
+func (o *SetDeploymentTemplateV2Unauthorized) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this set deployment template v2 unauthorized response has a 3xx status code
+func (o *SetDeploymentTemplateV2Unauthorized) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set deployment template v2 unauthorized response has a 4xx status code
+func (o *SetDeploymentTemplateV2Unauthorized) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this set deployment template v2 unauthorized response has a 5xx status code
+func (o *SetDeploymentTemplateV2Unauthorized) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set deployment template v2 unauthorized response a status code equal to that given
+func (o *SetDeploymentTemplateV2Unauthorized) IsCode(code int) bool {
+	return code == 401
+}
+
+// Code gets the status code for the set deployment template v2 unauthorized response
+func (o *SetDeploymentTemplateV2Unauthorized) Code() int {
+	return 401
+}
+
 func (o *SetDeploymentTemplateV2Unauthorized) Error() string {
 	return fmt.Sprintf("[PUT /deployments/templates/{template_id}][%d] setDeploymentTemplateV2Unauthorized  %+v", 401, o.Payload)
 }
+
+func (o *SetDeploymentTemplateV2Unauthorized) String() string {
+	return fmt.Sprintf("[PUT /deployments/templates/{template_id}][%d] setDeploymentTemplateV2Unauthorized  %+v", 401, o.Payload)
+}
+
 func (o *SetDeploymentTemplateV2Unauthorized) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -244,7 +388,8 @@ func NewSetDeploymentTemplateV2NotFound() *SetDeploymentTemplateV2NotFound {
 	return &SetDeploymentTemplateV2NotFound{}
 }
 
-/* SetDeploymentTemplateV2NotFound describes a response with status code 404, with default header values.
+/*
+SetDeploymentTemplateV2NotFound describes a response with status code 404, with default header values.
 
 The deployment template specified by {template_id} cannot be found. (code: `templates.template_not_found`)
 */
@@ -257,9 +402,44 @@ type SetDeploymentTemplateV2NotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this set deployment template v2 not found response has a 2xx status code
+func (o *SetDeploymentTemplateV2NotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this set deployment template v2 not found response has a 3xx status code
+func (o *SetDeploymentTemplateV2NotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set deployment template v2 not found response has a 4xx status code
+func (o *SetDeploymentTemplateV2NotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this set deployment template v2 not found response has a 5xx status code
+func (o *SetDeploymentTemplateV2NotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set deployment template v2 not found response a status code equal to that given
+func (o *SetDeploymentTemplateV2NotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the set deployment template v2 not found response
+func (o *SetDeploymentTemplateV2NotFound) Code() int {
+	return 404
+}
+
 func (o *SetDeploymentTemplateV2NotFound) Error() string {
 	return fmt.Sprintf("[PUT /deployments/templates/{template_id}][%d] setDeploymentTemplateV2NotFound  %+v", 404, o.Payload)
 }
+
+func (o *SetDeploymentTemplateV2NotFound) String() string {
+	return fmt.Sprintf("[PUT /deployments/templates/{template_id}][%d] setDeploymentTemplateV2NotFound  %+v", 404, o.Payload)
+}
+
 func (o *SetDeploymentTemplateV2NotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -288,7 +468,8 @@ func NewSetDeploymentTemplateV2Conflict() *SetDeploymentTemplateV2Conflict {
 	return &SetDeploymentTemplateV2Conflict{}
 }
 
-/* SetDeploymentTemplateV2Conflict describes a response with status code 409, with default header values.
+/*
+SetDeploymentTemplateV2Conflict describes a response with status code 409, with default header values.
 
 The version supplied in the request conflicted with the version found on the server. (code: `templates.version_conflict`)
 */
@@ -301,9 +482,44 @@ type SetDeploymentTemplateV2Conflict struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this set deployment template v2 conflict response has a 2xx status code
+func (o *SetDeploymentTemplateV2Conflict) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this set deployment template v2 conflict response has a 3xx status code
+func (o *SetDeploymentTemplateV2Conflict) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set deployment template v2 conflict response has a 4xx status code
+func (o *SetDeploymentTemplateV2Conflict) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this set deployment template v2 conflict response has a 5xx status code
+func (o *SetDeploymentTemplateV2Conflict) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set deployment template v2 conflict response a status code equal to that given
+func (o *SetDeploymentTemplateV2Conflict) IsCode(code int) bool {
+	return code == 409
+}
+
+// Code gets the status code for the set deployment template v2 conflict response
+func (o *SetDeploymentTemplateV2Conflict) Code() int {
+	return 409
+}
+
 func (o *SetDeploymentTemplateV2Conflict) Error() string {
 	return fmt.Sprintf("[PUT /deployments/templates/{template_id}][%d] setDeploymentTemplateV2Conflict  %+v", 409, o.Payload)
 }
+
+func (o *SetDeploymentTemplateV2Conflict) String() string {
+	return fmt.Sprintf("[PUT /deployments/templates/{template_id}][%d] setDeploymentTemplateV2Conflict  %+v", 409, o.Payload)
+}
+
 func (o *SetDeploymentTemplateV2Conflict) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -332,7 +548,8 @@ func NewSetDeploymentTemplateV2RetryWith() *SetDeploymentTemplateV2RetryWith {
 	return &SetDeploymentTemplateV2RetryWith{}
 }
 
-/* SetDeploymentTemplateV2RetryWith describes a response with status code 449, with default header values.
+/*
+SetDeploymentTemplateV2RetryWith describes a response with status code 449, with default header values.
 
 Elevated permissions are required. (code: `root.unauthorized.rbac.elevated_permissions_required`)
 */
@@ -345,9 +562,44 @@ type SetDeploymentTemplateV2RetryWith struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this set deployment template v2 retry with response has a 2xx status code
+func (o *SetDeploymentTemplateV2RetryWith) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this set deployment template v2 retry with response has a 3xx status code
+func (o *SetDeploymentTemplateV2RetryWith) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set deployment template v2 retry with response has a 4xx status code
+func (o *SetDeploymentTemplateV2RetryWith) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this set deployment template v2 retry with response has a 5xx status code
+func (o *SetDeploymentTemplateV2RetryWith) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set deployment template v2 retry with response a status code equal to that given
+func (o *SetDeploymentTemplateV2RetryWith) IsCode(code int) bool {
+	return code == 449
+}
+
+// Code gets the status code for the set deployment template v2 retry with response
+func (o *SetDeploymentTemplateV2RetryWith) Code() int {
+	return 449
+}
+
 func (o *SetDeploymentTemplateV2RetryWith) Error() string {
 	return fmt.Sprintf("[PUT /deployments/templates/{template_id}][%d] setDeploymentTemplateV2RetryWith  %+v", 449, o.Payload)
 }
+
+func (o *SetDeploymentTemplateV2RetryWith) String() string {
+	return fmt.Sprintf("[PUT /deployments/templates/{template_id}][%d] setDeploymentTemplateV2RetryWith  %+v", 449, o.Payload)
+}
+
 func (o *SetDeploymentTemplateV2RetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

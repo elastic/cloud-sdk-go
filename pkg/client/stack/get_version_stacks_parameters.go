@@ -70,10 +70,12 @@ func NewGetVersionStacksParamsWithHTTPClient(client *http.Client) *GetVersionSta
 	}
 }
 
-/* GetVersionStacksParams contains all the parameters to send to the API endpoint
-   for the get version stacks operation.
+/*
+GetVersionStacksParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the get version stacks operation.
+
+	Typically these are written to a http.Request.
 */
 type GetVersionStacksParams struct {
 

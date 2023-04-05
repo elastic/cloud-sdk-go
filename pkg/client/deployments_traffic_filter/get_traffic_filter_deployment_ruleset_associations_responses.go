@@ -68,7 +68,8 @@ func NewGetTrafficFilterDeploymentRulesetAssociationsOK() *GetTrafficFilterDeplo
 	return &GetTrafficFilterDeploymentRulesetAssociationsOK{}
 }
 
-/* GetTrafficFilterDeploymentRulesetAssociationsOK describes a response with status code 200, with default header values.
+/*
+GetTrafficFilterDeploymentRulesetAssociationsOK describes a response with status code 200, with default header values.
 
 Rulesets in the deployment were successfully returned
 */
@@ -76,9 +77,44 @@ type GetTrafficFilterDeploymentRulesetAssociationsOK struct {
 	Payload *models.TrafficFilterSettings
 }
 
+// IsSuccess returns true when this get traffic filter deployment ruleset associations o k response has a 2xx status code
+func (o *GetTrafficFilterDeploymentRulesetAssociationsOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get traffic filter deployment ruleset associations o k response has a 3xx status code
+func (o *GetTrafficFilterDeploymentRulesetAssociationsOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get traffic filter deployment ruleset associations o k response has a 4xx status code
+func (o *GetTrafficFilterDeploymentRulesetAssociationsOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get traffic filter deployment ruleset associations o k response has a 5xx status code
+func (o *GetTrafficFilterDeploymentRulesetAssociationsOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get traffic filter deployment ruleset associations o k response a status code equal to that given
+func (o *GetTrafficFilterDeploymentRulesetAssociationsOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get traffic filter deployment ruleset associations o k response
+func (o *GetTrafficFilterDeploymentRulesetAssociationsOK) Code() int {
+	return 200
+}
+
 func (o *GetTrafficFilterDeploymentRulesetAssociationsOK) Error() string {
 	return fmt.Sprintf("[GET /deployments/traffic-filter/associations/{association_type}/{associated_entity_id}/rulesets][%d] getTrafficFilterDeploymentRulesetAssociationsOK  %+v", 200, o.Payload)
 }
+
+func (o *GetTrafficFilterDeploymentRulesetAssociationsOK) String() string {
+	return fmt.Sprintf("[GET /deployments/traffic-filter/associations/{association_type}/{associated_entity_id}/rulesets][%d] getTrafficFilterDeploymentRulesetAssociationsOK  %+v", 200, o.Payload)
+}
+
 func (o *GetTrafficFilterDeploymentRulesetAssociationsOK) GetPayload() *models.TrafficFilterSettings {
 	return o.Payload
 }
@@ -100,7 +136,8 @@ func NewGetTrafficFilterDeploymentRulesetAssociationsBadRequest() *GetTrafficFil
 	return &GetTrafficFilterDeploymentRulesetAssociationsBadRequest{}
 }
 
-/* GetTrafficFilterDeploymentRulesetAssociationsBadRequest describes a response with status code 400, with default header values.
+/*
+GetTrafficFilterDeploymentRulesetAssociationsBadRequest describes a response with status code 400, with default header values.
 
 Invalid association type. (code: `traffic_filter.invalid_association_type`)
 */
@@ -113,9 +150,44 @@ type GetTrafficFilterDeploymentRulesetAssociationsBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get traffic filter deployment ruleset associations bad request response has a 2xx status code
+func (o *GetTrafficFilterDeploymentRulesetAssociationsBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get traffic filter deployment ruleset associations bad request response has a 3xx status code
+func (o *GetTrafficFilterDeploymentRulesetAssociationsBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get traffic filter deployment ruleset associations bad request response has a 4xx status code
+func (o *GetTrafficFilterDeploymentRulesetAssociationsBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get traffic filter deployment ruleset associations bad request response has a 5xx status code
+func (o *GetTrafficFilterDeploymentRulesetAssociationsBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get traffic filter deployment ruleset associations bad request response a status code equal to that given
+func (o *GetTrafficFilterDeploymentRulesetAssociationsBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the get traffic filter deployment ruleset associations bad request response
+func (o *GetTrafficFilterDeploymentRulesetAssociationsBadRequest) Code() int {
+	return 400
+}
+
 func (o *GetTrafficFilterDeploymentRulesetAssociationsBadRequest) Error() string {
 	return fmt.Sprintf("[GET /deployments/traffic-filter/associations/{association_type}/{associated_entity_id}/rulesets][%d] getTrafficFilterDeploymentRulesetAssociationsBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *GetTrafficFilterDeploymentRulesetAssociationsBadRequest) String() string {
+	return fmt.Sprintf("[GET /deployments/traffic-filter/associations/{association_type}/{associated_entity_id}/rulesets][%d] getTrafficFilterDeploymentRulesetAssociationsBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *GetTrafficFilterDeploymentRulesetAssociationsBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -144,7 +216,8 @@ func NewGetTrafficFilterDeploymentRulesetAssociationsInternalServerError() *GetT
 	return &GetTrafficFilterDeploymentRulesetAssociationsInternalServerError{}
 }
 
-/* GetTrafficFilterDeploymentRulesetAssociationsInternalServerError describes a response with status code 500, with default header values.
+/*
+GetTrafficFilterDeploymentRulesetAssociationsInternalServerError describes a response with status code 500, with default header values.
 
 Error fetching traffic filter rulesets. (code: `traffic_filter.request_execution_failed`)
 */
@@ -157,9 +230,44 @@ type GetTrafficFilterDeploymentRulesetAssociationsInternalServerError struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get traffic filter deployment ruleset associations internal server error response has a 2xx status code
+func (o *GetTrafficFilterDeploymentRulesetAssociationsInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get traffic filter deployment ruleset associations internal server error response has a 3xx status code
+func (o *GetTrafficFilterDeploymentRulesetAssociationsInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get traffic filter deployment ruleset associations internal server error response has a 4xx status code
+func (o *GetTrafficFilterDeploymentRulesetAssociationsInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get traffic filter deployment ruleset associations internal server error response has a 5xx status code
+func (o *GetTrafficFilterDeploymentRulesetAssociationsInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this get traffic filter deployment ruleset associations internal server error response a status code equal to that given
+func (o *GetTrafficFilterDeploymentRulesetAssociationsInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
+// Code gets the status code for the get traffic filter deployment ruleset associations internal server error response
+func (o *GetTrafficFilterDeploymentRulesetAssociationsInternalServerError) Code() int {
+	return 500
+}
+
 func (o *GetTrafficFilterDeploymentRulesetAssociationsInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /deployments/traffic-filter/associations/{association_type}/{associated_entity_id}/rulesets][%d] getTrafficFilterDeploymentRulesetAssociationsInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *GetTrafficFilterDeploymentRulesetAssociationsInternalServerError) String() string {
+	return fmt.Sprintf("[GET /deployments/traffic-filter/associations/{association_type}/{associated_entity_id}/rulesets][%d] getTrafficFilterDeploymentRulesetAssociationsInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *GetTrafficFilterDeploymentRulesetAssociationsInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

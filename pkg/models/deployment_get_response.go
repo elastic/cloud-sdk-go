@@ -130,6 +130,8 @@ func (m *DeploymentGetResponse) validateMetadata(formats strfmt.Registry) error 
 		if err := m.Metadata.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("metadata")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("metadata")
 			}
 			return err
 		}
@@ -156,6 +158,8 @@ func (m *DeploymentGetResponse) validateObservability(formats strfmt.Registry) e
 		if err := m.Observability.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("observability")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("observability")
 			}
 			return err
 		}
@@ -174,6 +178,8 @@ func (m *DeploymentGetResponse) validateResources(formats strfmt.Registry) error
 		if err := m.Resources.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("resources")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("resources")
 			}
 			return err
 		}
@@ -191,6 +197,8 @@ func (m *DeploymentGetResponse) validateSettings(formats strfmt.Registry) error 
 		if err := m.Settings.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("settings")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("settings")
 			}
 			return err
 		}
@@ -231,6 +239,8 @@ func (m *DeploymentGetResponse) contextValidateMetadata(ctx context.Context, for
 		if err := m.Metadata.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("metadata")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("metadata")
 			}
 			return err
 		}
@@ -245,6 +255,8 @@ func (m *DeploymentGetResponse) contextValidateObservability(ctx context.Context
 		if err := m.Observability.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("observability")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("observability")
 			}
 			return err
 		}
@@ -259,6 +271,8 @@ func (m *DeploymentGetResponse) contextValidateResources(ctx context.Context, fo
 		if err := m.Resources.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("resources")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("resources")
 			}
 			return err
 		}
@@ -273,6 +287,8 @@ func (m *DeploymentGetResponse) contextValidateSettings(ctx context.Context, for
 		if err := m.Settings.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("settings")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("settings")
 			}
 			return err
 		}

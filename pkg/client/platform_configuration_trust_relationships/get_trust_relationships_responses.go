@@ -62,7 +62,8 @@ func NewGetTrustRelationshipsOK() *GetTrustRelationshipsOK {
 	return &GetTrustRelationshipsOK{}
 }
 
-/* GetTrustRelationshipsOK describes a response with status code 200, with default header values.
+/*
+GetTrustRelationshipsOK describes a response with status code 200, with default header values.
 
 The list of trust relationships.
 */
@@ -70,9 +71,44 @@ type GetTrustRelationshipsOK struct {
 	Payload *models.TrustRelationshipsListResponse
 }
 
+// IsSuccess returns true when this get trust relationships o k response has a 2xx status code
+func (o *GetTrustRelationshipsOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get trust relationships o k response has a 3xx status code
+func (o *GetTrustRelationshipsOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get trust relationships o k response has a 4xx status code
+func (o *GetTrustRelationshipsOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get trust relationships o k response has a 5xx status code
+func (o *GetTrustRelationshipsOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get trust relationships o k response a status code equal to that given
+func (o *GetTrustRelationshipsOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get trust relationships o k response
+func (o *GetTrustRelationshipsOK) Code() int {
+	return 200
+}
+
 func (o *GetTrustRelationshipsOK) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/trust-relationships][%d] getTrustRelationshipsOK  %+v", 200, o.Payload)
 }
+
+func (o *GetTrustRelationshipsOK) String() string {
+	return fmt.Sprintf("[GET /platform/configuration/trust-relationships][%d] getTrustRelationshipsOK  %+v", 200, o.Payload)
+}
+
 func (o *GetTrustRelationshipsOK) GetPayload() *models.TrustRelationshipsListResponse {
 	return o.Payload
 }
@@ -94,7 +130,8 @@ func NewGetTrustRelationshipsUnauthorized() *GetTrustRelationshipsUnauthorized {
 	return &GetTrustRelationshipsUnauthorized{}
 }
 
-/* GetTrustRelationshipsUnauthorized describes a response with status code 401, with default header values.
+/*
+GetTrustRelationshipsUnauthorized describes a response with status code 401, with default header values.
 
 You are not authorized to perform this action.
 */
@@ -102,9 +139,44 @@ type GetTrustRelationshipsUnauthorized struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get trust relationships unauthorized response has a 2xx status code
+func (o *GetTrustRelationshipsUnauthorized) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get trust relationships unauthorized response has a 3xx status code
+func (o *GetTrustRelationshipsUnauthorized) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get trust relationships unauthorized response has a 4xx status code
+func (o *GetTrustRelationshipsUnauthorized) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get trust relationships unauthorized response has a 5xx status code
+func (o *GetTrustRelationshipsUnauthorized) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get trust relationships unauthorized response a status code equal to that given
+func (o *GetTrustRelationshipsUnauthorized) IsCode(code int) bool {
+	return code == 401
+}
+
+// Code gets the status code for the get trust relationships unauthorized response
+func (o *GetTrustRelationshipsUnauthorized) Code() int {
+	return 401
+}
+
 func (o *GetTrustRelationshipsUnauthorized) Error() string {
 	return fmt.Sprintf("[GET /platform/configuration/trust-relationships][%d] getTrustRelationshipsUnauthorized  %+v", 401, o.Payload)
 }
+
+func (o *GetTrustRelationshipsUnauthorized) String() string {
+	return fmt.Sprintf("[GET /platform/configuration/trust-relationships][%d] getTrustRelationshipsUnauthorized  %+v", 401, o.Payload)
+}
+
 func (o *GetTrustRelationshipsUnauthorized) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

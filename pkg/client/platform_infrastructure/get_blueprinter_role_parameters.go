@@ -69,10 +69,12 @@ func NewGetBlueprinterRoleParamsWithHTTPClient(client *http.Client) *GetBlueprin
 	}
 }
 
-/* GetBlueprinterRoleParams contains all the parameters to send to the API endpoint
-   for the get blueprinter role operation.
+/*
+GetBlueprinterRoleParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the get blueprinter role operation.
+
+	Typically these are written to a http.Request.
 */
 type GetBlueprinterRoleParams struct {
 

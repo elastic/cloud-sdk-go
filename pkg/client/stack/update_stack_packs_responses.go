@@ -62,7 +62,8 @@ func NewUpdateStackPacksOK() *UpdateStackPacksOK {
 	return &UpdateStackPacksOK{}
 }
 
-/* UpdateStackPacksOK describes a response with status code 200, with default header values.
+/*
+UpdateStackPacksOK describes a response with status code 200, with default header values.
 
 The Elastic Stack pack successfully processed.
 */
@@ -70,9 +71,44 @@ type UpdateStackPacksOK struct {
 	Payload *models.StackVersionArchiveProcessingResult
 }
 
+// IsSuccess returns true when this update stack packs o k response has a 2xx status code
+func (o *UpdateStackPacksOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this update stack packs o k response has a 3xx status code
+func (o *UpdateStackPacksOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update stack packs o k response has a 4xx status code
+func (o *UpdateStackPacksOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this update stack packs o k response has a 5xx status code
+func (o *UpdateStackPacksOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update stack packs o k response a status code equal to that given
+func (o *UpdateStackPacksOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the update stack packs o k response
+func (o *UpdateStackPacksOK) Code() int {
+	return 200
+}
+
 func (o *UpdateStackPacksOK) Error() string {
 	return fmt.Sprintf("[POST /stack/versions][%d] updateStackPacksOK  %+v", 200, o.Payload)
 }
+
+func (o *UpdateStackPacksOK) String() string {
+	return fmt.Sprintf("[POST /stack/versions][%d] updateStackPacksOK  %+v", 200, o.Payload)
+}
+
 func (o *UpdateStackPacksOK) GetPayload() *models.StackVersionArchiveProcessingResult {
 	return o.Payload
 }
@@ -94,9 +130,11 @@ func NewUpdateStackPacksBadRequest() *UpdateStackPacksBadRequest {
 	return &UpdateStackPacksBadRequest{}
 }
 
-/* UpdateStackPacksBadRequest describes a response with status code 400, with default header values.
+/*
+	UpdateStackPacksBadRequest describes a response with status code 400, with default header values.
 
- * There is an error in the file. Choose a different file, then try again. (code: `stackpack.bad_archive`)
+	* There is an error in the file. Choose a different file, then try again. (code: `stackpack.bad_archive`)
+
 * Some unexpected error occurred. (code: `stackpack.unknown_internal_error`)
 */
 type UpdateStackPacksBadRequest struct {
@@ -108,9 +146,44 @@ type UpdateStackPacksBadRequest struct {
 	Payload *models.StackVersionArchiveProcessingResult
 }
 
+// IsSuccess returns true when this update stack packs bad request response has a 2xx status code
+func (o *UpdateStackPacksBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this update stack packs bad request response has a 3xx status code
+func (o *UpdateStackPacksBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this update stack packs bad request response has a 4xx status code
+func (o *UpdateStackPacksBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this update stack packs bad request response has a 5xx status code
+func (o *UpdateStackPacksBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this update stack packs bad request response a status code equal to that given
+func (o *UpdateStackPacksBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the update stack packs bad request response
+func (o *UpdateStackPacksBadRequest) Code() int {
+	return 400
+}
+
 func (o *UpdateStackPacksBadRequest) Error() string {
 	return fmt.Sprintf("[POST /stack/versions][%d] updateStackPacksBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *UpdateStackPacksBadRequest) String() string {
+	return fmt.Sprintf("[POST /stack/versions][%d] updateStackPacksBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *UpdateStackPacksBadRequest) GetPayload() *models.StackVersionArchiveProcessingResult {
 	return o.Payload
 }

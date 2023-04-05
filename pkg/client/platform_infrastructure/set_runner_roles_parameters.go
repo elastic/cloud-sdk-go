@@ -72,10 +72,12 @@ func NewSetRunnerRolesParamsWithHTTPClient(client *http.Client) *SetRunnerRolesP
 	}
 }
 
-/* SetRunnerRolesParams contains all the parameters to send to the API endpoint
-   for the set runner roles operation.
+/*
+SetRunnerRolesParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the set runner roles operation.
+
+	Typically these are written to a http.Request.
 */
 type SetRunnerRolesParams struct {
 

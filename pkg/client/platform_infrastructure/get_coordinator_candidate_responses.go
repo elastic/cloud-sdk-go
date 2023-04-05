@@ -62,7 +62,8 @@ func NewGetCoordinatorCandidateOK() *GetCoordinatorCandidateOK {
 	return &GetCoordinatorCandidateOK{}
 }
 
-/* GetCoordinatorCandidateOK describes a response with status code 200, with default header values.
+/*
+GetCoordinatorCandidateOK describes a response with status code 200, with default header values.
 
 Info about a coordinator candidate.
 */
@@ -70,9 +71,44 @@ type GetCoordinatorCandidateOK struct {
 	Payload *models.CoordinatorCandidateInfo
 }
 
+// IsSuccess returns true when this get coordinator candidate o k response has a 2xx status code
+func (o *GetCoordinatorCandidateOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get coordinator candidate o k response has a 3xx status code
+func (o *GetCoordinatorCandidateOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get coordinator candidate o k response has a 4xx status code
+func (o *GetCoordinatorCandidateOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get coordinator candidate o k response has a 5xx status code
+func (o *GetCoordinatorCandidateOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get coordinator candidate o k response a status code equal to that given
+func (o *GetCoordinatorCandidateOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get coordinator candidate o k response
+func (o *GetCoordinatorCandidateOK) Code() int {
+	return 200
+}
+
 func (o *GetCoordinatorCandidateOK) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/coordinators/candidates/{coordinator_candidate_id}][%d] getCoordinatorCandidateOK  %+v", 200, o.Payload)
 }
+
+func (o *GetCoordinatorCandidateOK) String() string {
+	return fmt.Sprintf("[GET /platform/infrastructure/coordinators/candidates/{coordinator_candidate_id}][%d] getCoordinatorCandidateOK  %+v", 200, o.Payload)
+}
+
 func (o *GetCoordinatorCandidateOK) GetPayload() *models.CoordinatorCandidateInfo {
 	return o.Payload
 }
@@ -94,7 +130,8 @@ func NewGetCoordinatorCandidateNotFound() *GetCoordinatorCandidateNotFound {
 	return &GetCoordinatorCandidateNotFound{}
 }
 
-/* GetCoordinatorCandidateNotFound describes a response with status code 404, with default header values.
+/*
+GetCoordinatorCandidateNotFound describes a response with status code 404, with default header values.
 
 Unable to find coordinator candidate {coordinator_candidate_id}. Edit your request, then try again. (code: `coordinators.candidate_not_found`)
 */
@@ -107,9 +144,44 @@ type GetCoordinatorCandidateNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get coordinator candidate not found response has a 2xx status code
+func (o *GetCoordinatorCandidateNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get coordinator candidate not found response has a 3xx status code
+func (o *GetCoordinatorCandidateNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get coordinator candidate not found response has a 4xx status code
+func (o *GetCoordinatorCandidateNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get coordinator candidate not found response has a 5xx status code
+func (o *GetCoordinatorCandidateNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get coordinator candidate not found response a status code equal to that given
+func (o *GetCoordinatorCandidateNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the get coordinator candidate not found response
+func (o *GetCoordinatorCandidateNotFound) Code() int {
+	return 404
+}
+
 func (o *GetCoordinatorCandidateNotFound) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/coordinators/candidates/{coordinator_candidate_id}][%d] getCoordinatorCandidateNotFound  %+v", 404, o.Payload)
 }
+
+func (o *GetCoordinatorCandidateNotFound) String() string {
+	return fmt.Sprintf("[GET /platform/infrastructure/coordinators/candidates/{coordinator_candidate_id}][%d] getCoordinatorCandidateNotFound  %+v", 404, o.Payload)
+}
+
 func (o *GetCoordinatorCandidateNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

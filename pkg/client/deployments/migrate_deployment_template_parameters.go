@@ -69,10 +69,12 @@ func NewMigrateDeploymentTemplateParamsWithHTTPClient(client *http.Client) *Migr
 	}
 }
 
-/* MigrateDeploymentTemplateParams contains all the parameters to send to the API endpoint
-   for the migrate deployment template operation.
+/*
+MigrateDeploymentTemplateParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the migrate deployment template operation.
+
+	Typically these are written to a http.Request.
 */
 type MigrateDeploymentTemplateParams struct {
 

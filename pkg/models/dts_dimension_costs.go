@@ -123,6 +123,8 @@ func (m *DtsDimensionCosts) validateQuantity(formats strfmt.Registry) error {
 		if err := m.Quantity.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("quantity")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("quantity")
 			}
 			return err
 		}
@@ -141,6 +143,8 @@ func (m *DtsDimensionCosts) validateRate(formats strfmt.Registry) error {
 		if err := m.Rate.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("rate")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("rate")
 			}
 			return err
 		}
@@ -191,6 +195,8 @@ func (m *DtsDimensionCosts) contextValidateQuantity(ctx context.Context, formats
 		if err := m.Quantity.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("quantity")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("quantity")
 			}
 			return err
 		}
@@ -205,6 +211,8 @@ func (m *DtsDimensionCosts) contextValidateRate(ctx context.Context, formats str
 		if err := m.Rate.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("rate")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("rate")
 			}
 			return err
 		}

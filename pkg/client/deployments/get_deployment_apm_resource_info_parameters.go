@@ -70,10 +70,12 @@ func NewGetDeploymentApmResourceInfoParamsWithHTTPClient(client *http.Client) *G
 	}
 }
 
-/* GetDeploymentApmResourceInfoParams contains all the parameters to send to the API endpoint
-   for the get deployment apm resource info operation.
+/*
+GetDeploymentApmResourceInfoParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the get deployment apm resource info operation.
+
+	Typically these are written to a http.Request.
 */
 type GetDeploymentApmResourceInfoParams struct {
 

@@ -62,7 +62,8 @@ func NewSetTLSCertificateAccepted() *SetTLSCertificateAccepted {
 	return &SetTLSCertificateAccepted{}
 }
 
-/* SetTLSCertificateAccepted describes a response with status code 202, with default header values.
+/*
+SetTLSCertificateAccepted describes a response with status code 202, with default header values.
 
 The TLS update has been accepted for the given service and will take effect throughout the system
 */
@@ -70,9 +71,44 @@ type SetTLSCertificateAccepted struct {
 	Payload *models.UpdatedTLSChain
 }
 
+// IsSuccess returns true when this set Tls certificate accepted response has a 2xx status code
+func (o *SetTLSCertificateAccepted) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this set Tls certificate accepted response has a 3xx status code
+func (o *SetTLSCertificateAccepted) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set Tls certificate accepted response has a 4xx status code
+func (o *SetTLSCertificateAccepted) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this set Tls certificate accepted response has a 5xx status code
+func (o *SetTLSCertificateAccepted) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set Tls certificate accepted response a status code equal to that given
+func (o *SetTLSCertificateAccepted) IsCode(code int) bool {
+	return code == 202
+}
+
+// Code gets the status code for the set Tls certificate accepted response
+func (o *SetTLSCertificateAccepted) Code() int {
+	return 202
+}
+
 func (o *SetTLSCertificateAccepted) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/tls/{service_name}][%d] setTlsCertificateAccepted  %+v", 202, o.Payload)
 }
+
+func (o *SetTLSCertificateAccepted) String() string {
+	return fmt.Sprintf("[POST /platform/configuration/security/tls/{service_name}][%d] setTlsCertificateAccepted  %+v", 202, o.Payload)
+}
+
 func (o *SetTLSCertificateAccepted) GetPayload() *models.UpdatedTLSChain {
 	return o.Payload
 }
@@ -94,7 +130,8 @@ func NewSetTLSCertificateRetryWith() *SetTLSCertificateRetryWith {
 	return &SetTLSCertificateRetryWith{}
 }
 
-/* SetTLSCertificateRetryWith describes a response with status code 449, with default header values.
+/*
+SetTLSCertificateRetryWith describes a response with status code 449, with default header values.
 
 elevated permissions are required. (code: '"root.unauthorized.rbac.elevated_permissions_required"')
 */
@@ -102,9 +139,44 @@ type SetTLSCertificateRetryWith struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this set Tls certificate retry with response has a 2xx status code
+func (o *SetTLSCertificateRetryWith) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this set Tls certificate retry with response has a 3xx status code
+func (o *SetTLSCertificateRetryWith) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this set Tls certificate retry with response has a 4xx status code
+func (o *SetTLSCertificateRetryWith) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this set Tls certificate retry with response has a 5xx status code
+func (o *SetTLSCertificateRetryWith) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this set Tls certificate retry with response a status code equal to that given
+func (o *SetTLSCertificateRetryWith) IsCode(code int) bool {
+	return code == 449
+}
+
+// Code gets the status code for the set Tls certificate retry with response
+func (o *SetTLSCertificateRetryWith) Code() int {
+	return 449
+}
+
 func (o *SetTLSCertificateRetryWith) Error() string {
 	return fmt.Sprintf("[POST /platform/configuration/security/tls/{service_name}][%d] setTlsCertificateRetryWith  %+v", 449, o.Payload)
 }
+
+func (o *SetTLSCertificateRetryWith) String() string {
+	return fmt.Sprintf("[POST /platform/configuration/security/tls/{service_name}][%d] setTlsCertificateRetryWith  %+v", 449, o.Payload)
+}
+
 func (o *SetTLSCertificateRetryWith) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

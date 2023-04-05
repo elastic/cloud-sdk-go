@@ -53,9 +53,9 @@ type ClientService interface {
 }
 
 /*
-  GetGlobalDeploymentTemplates gets all templates cross region
+GetGlobalDeploymentTemplates gets all templates cross region
 
-  Global deployment template endpoint which fetches the deployment templates across all region services.
+Global deployment template endpoint which fetches the deployment templates across all region services.
 */
 func (a *Client) GetGlobalDeploymentTemplates(params *GetGlobalDeploymentTemplatesParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetGlobalDeploymentTemplatesOK, error) {
 	// TODO: Validate the params before sending

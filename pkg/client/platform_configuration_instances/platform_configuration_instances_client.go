@@ -61,9 +61,9 @@ type ClientService interface {
 }
 
 /*
-  CreateInstanceConfiguration creates instance configuration
+CreateInstanceConfiguration creates instance configuration
 
-  Create instance configuration and return the auto-generated ID.
+Create instance configuration and return the auto-generated ID.
 */
 func (a *Client) CreateInstanceConfiguration(params *CreateInstanceConfigurationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateInstanceConfigurationCreated, error) {
 	// TODO: Validate the params before sending
@@ -102,9 +102,9 @@ func (a *Client) CreateInstanceConfiguration(params *CreateInstanceConfiguration
 }
 
 /*
-  DeleteInstanceConfiguration deletes a instance configuration
+DeleteInstanceConfiguration deletes a instance configuration
 
-  Delete the instance configuration with the given id.
+Delete the instance configuration with the given id.
 */
 func (a *Client) DeleteInstanceConfiguration(params *DeleteInstanceConfigurationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteInstanceConfigurationOK, error) {
 	// TODO: Validate the params before sending
@@ -143,9 +143,9 @@ func (a *Client) DeleteInstanceConfiguration(params *DeleteInstanceConfiguration
 }
 
 /*
-  GetInstanceConfiguration gets instance configuration
+GetInstanceConfiguration gets instance configuration
 
-  Get instance configuration by id.
+Get instance configuration by id.
 */
 func (a *Client) GetInstanceConfiguration(params *GetInstanceConfigurationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetInstanceConfigurationOK, error) {
 	// TODO: Validate the params before sending
@@ -184,9 +184,9 @@ func (a *Client) GetInstanceConfiguration(params *GetInstanceConfigurationParams
 }
 
 /*
-  GetInstanceConfigurations gets instance configurations
+GetInstanceConfigurations gets instance configurations
 
-  Get instance configurations.
+Get instance configurations.
 */
 func (a *Client) GetInstanceConfigurations(params *GetInstanceConfigurationsParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetInstanceConfigurationsOK, error) {
 	// TODO: Validate the params before sending
@@ -225,9 +225,9 @@ func (a *Client) GetInstanceConfigurations(params *GetInstanceConfigurationsPara
 }
 
 /*
-  SetInstanceConfiguration sets instance configuration
+SetInstanceConfiguration sets instance configuration
 
-  Creates or updates an instance configuration.
+Creates or updates an instance configuration.
 */
 func (a *Client) SetInstanceConfiguration(params *SetInstanceConfigurationParams, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetInstanceConfigurationOK, *SetInstanceConfigurationCreated, error) {
 	// TODO: Validate the params before sending

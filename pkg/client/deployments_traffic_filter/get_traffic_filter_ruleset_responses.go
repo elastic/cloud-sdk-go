@@ -68,7 +68,8 @@ func NewGetTrafficFilterRulesetOK() *GetTrafficFilterRulesetOK {
 	return &GetTrafficFilterRulesetOK{}
 }
 
-/* GetTrafficFilterRulesetOK describes a response with status code 200, with default header values.
+/*
+GetTrafficFilterRulesetOK describes a response with status code 200, with default header values.
 
 The container for a set of traffic filter rules.
 */
@@ -76,9 +77,44 @@ type GetTrafficFilterRulesetOK struct {
 	Payload *models.TrafficFilterRulesetInfo
 }
 
+// IsSuccess returns true when this get traffic filter ruleset o k response has a 2xx status code
+func (o *GetTrafficFilterRulesetOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get traffic filter ruleset o k response has a 3xx status code
+func (o *GetTrafficFilterRulesetOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get traffic filter ruleset o k response has a 4xx status code
+func (o *GetTrafficFilterRulesetOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get traffic filter ruleset o k response has a 5xx status code
+func (o *GetTrafficFilterRulesetOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get traffic filter ruleset o k response a status code equal to that given
+func (o *GetTrafficFilterRulesetOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get traffic filter ruleset o k response
+func (o *GetTrafficFilterRulesetOK) Code() int {
+	return 200
+}
+
 func (o *GetTrafficFilterRulesetOK) Error() string {
 	return fmt.Sprintf("[GET /deployments/traffic-filter/rulesets/{ruleset_id}][%d] getTrafficFilterRulesetOK  %+v", 200, o.Payload)
 }
+
+func (o *GetTrafficFilterRulesetOK) String() string {
+	return fmt.Sprintf("[GET /deployments/traffic-filter/rulesets/{ruleset_id}][%d] getTrafficFilterRulesetOK  %+v", 200, o.Payload)
+}
+
 func (o *GetTrafficFilterRulesetOK) GetPayload() *models.TrafficFilterRulesetInfo {
 	return o.Payload
 }
@@ -100,7 +136,8 @@ func NewGetTrafficFilterRulesetNotFound() *GetTrafficFilterRulesetNotFound {
 	return &GetTrafficFilterRulesetNotFound{}
 }
 
-/* GetTrafficFilterRulesetNotFound describes a response with status code 404, with default header values.
+/*
+GetTrafficFilterRulesetNotFound describes a response with status code 404, with default header values.
 
 The traffic filter ruleset specified by {ruleset_id} cannot be found. (code: `traffic_filter.not_found`)
 */
@@ -113,9 +150,44 @@ type GetTrafficFilterRulesetNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get traffic filter ruleset not found response has a 2xx status code
+func (o *GetTrafficFilterRulesetNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get traffic filter ruleset not found response has a 3xx status code
+func (o *GetTrafficFilterRulesetNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get traffic filter ruleset not found response has a 4xx status code
+func (o *GetTrafficFilterRulesetNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get traffic filter ruleset not found response has a 5xx status code
+func (o *GetTrafficFilterRulesetNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get traffic filter ruleset not found response a status code equal to that given
+func (o *GetTrafficFilterRulesetNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the get traffic filter ruleset not found response
+func (o *GetTrafficFilterRulesetNotFound) Code() int {
+	return 404
+}
+
 func (o *GetTrafficFilterRulesetNotFound) Error() string {
 	return fmt.Sprintf("[GET /deployments/traffic-filter/rulesets/{ruleset_id}][%d] getTrafficFilterRulesetNotFound  %+v", 404, o.Payload)
 }
+
+func (o *GetTrafficFilterRulesetNotFound) String() string {
+	return fmt.Sprintf("[GET /deployments/traffic-filter/rulesets/{ruleset_id}][%d] getTrafficFilterRulesetNotFound  %+v", 404, o.Payload)
+}
+
 func (o *GetTrafficFilterRulesetNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -144,7 +216,8 @@ func NewGetTrafficFilterRulesetInternalServerError() *GetTrafficFilterRulesetInt
 	return &GetTrafficFilterRulesetInternalServerError{}
 }
 
-/* GetTrafficFilterRulesetInternalServerError describes a response with status code 500, with default header values.
+/*
+GetTrafficFilterRulesetInternalServerError describes a response with status code 500, with default header values.
 
 Error reading the traffic filter ruleset. (code: `traffic_filter.request_execution_failed`)
 */
@@ -157,9 +230,44 @@ type GetTrafficFilterRulesetInternalServerError struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get traffic filter ruleset internal server error response has a 2xx status code
+func (o *GetTrafficFilterRulesetInternalServerError) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get traffic filter ruleset internal server error response has a 3xx status code
+func (o *GetTrafficFilterRulesetInternalServerError) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get traffic filter ruleset internal server error response has a 4xx status code
+func (o *GetTrafficFilterRulesetInternalServerError) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get traffic filter ruleset internal server error response has a 5xx status code
+func (o *GetTrafficFilterRulesetInternalServerError) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this get traffic filter ruleset internal server error response a status code equal to that given
+func (o *GetTrafficFilterRulesetInternalServerError) IsCode(code int) bool {
+	return code == 500
+}
+
+// Code gets the status code for the get traffic filter ruleset internal server error response
+func (o *GetTrafficFilterRulesetInternalServerError) Code() int {
+	return 500
+}
+
 func (o *GetTrafficFilterRulesetInternalServerError) Error() string {
 	return fmt.Sprintf("[GET /deployments/traffic-filter/rulesets/{ruleset_id}][%d] getTrafficFilterRulesetInternalServerError  %+v", 500, o.Payload)
 }
+
+func (o *GetTrafficFilterRulesetInternalServerError) String() string {
+	return fmt.Sprintf("[GET /deployments/traffic-filter/rulesets/{ruleset_id}][%d] getTrafficFilterRulesetInternalServerError  %+v", 500, o.Payload)
+}
+
 func (o *GetTrafficFilterRulesetInternalServerError) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

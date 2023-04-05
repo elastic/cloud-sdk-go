@@ -80,6 +80,8 @@ func (m *ApmPlan) validateApm(formats strfmt.Registry) error {
 		if err := m.Apm.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("apm")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("apm")
 			}
 			return err
 		}
@@ -102,6 +104,8 @@ func (m *ApmPlan) validateClusterTopology(formats strfmt.Registry) error {
 			if err := m.ClusterTopology[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("cluster_topology" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("cluster_topology" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -121,6 +125,8 @@ func (m *ApmPlan) validateTransient(formats strfmt.Registry) error {
 		if err := m.Transient.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("transient")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("transient")
 			}
 			return err
 		}
@@ -157,6 +163,8 @@ func (m *ApmPlan) contextValidateApm(ctx context.Context, formats strfmt.Registr
 		if err := m.Apm.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("apm")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("apm")
 			}
 			return err
 		}
@@ -173,6 +181,8 @@ func (m *ApmPlan) contextValidateClusterTopology(ctx context.Context, formats st
 			if err := m.ClusterTopology[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("cluster_topology" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("cluster_topology" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -189,6 +199,8 @@ func (m *ApmPlan) contextValidateTransient(ctx context.Context, formats strfmt.R
 		if err := m.Transient.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("transient")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("transient")
 			}
 			return err
 		}

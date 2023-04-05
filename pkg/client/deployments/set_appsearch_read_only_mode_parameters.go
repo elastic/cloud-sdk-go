@@ -71,10 +71,12 @@ func NewSetAppsearchReadOnlyModeParamsWithHTTPClient(client *http.Client) *SetAp
 	}
 }
 
-/* SetAppsearchReadOnlyModeParams contains all the parameters to send to the API endpoint
-   for the set appsearch read only mode operation.
+/*
+SetAppsearchReadOnlyModeParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the set appsearch read only mode operation.
+
+	Typically these are written to a http.Request.
 */
 type SetAppsearchReadOnlyModeParams struct {
 

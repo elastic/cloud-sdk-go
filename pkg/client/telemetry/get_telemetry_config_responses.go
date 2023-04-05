@@ -62,7 +62,8 @@ func NewGetTelemetryConfigOK() *GetTelemetryConfigOK {
 	return &GetTelemetryConfigOK{}
 }
 
-/* GetTelemetryConfigOK describes a response with status code 200, with default header values.
+/*
+GetTelemetryConfigOK describes a response with status code 200, with default header values.
 
 The current ECE telemetry configuration
 */
@@ -70,9 +71,44 @@ type GetTelemetryConfigOK struct {
 	Payload *models.TelemetryConfig
 }
 
+// IsSuccess returns true when this get telemetry config o k response has a 2xx status code
+func (o *GetTelemetryConfigOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get telemetry config o k response has a 3xx status code
+func (o *GetTelemetryConfigOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get telemetry config o k response has a 4xx status code
+func (o *GetTelemetryConfigOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get telemetry config o k response has a 5xx status code
+func (o *GetTelemetryConfigOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get telemetry config o k response a status code equal to that given
+func (o *GetTelemetryConfigOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get telemetry config o k response
+func (o *GetTelemetryConfigOK) Code() int {
+	return 200
+}
+
 func (o *GetTelemetryConfigOK) Error() string {
 	return fmt.Sprintf("[GET /phone-home/config][%d] getTelemetryConfigOK  %+v", 200, o.Payload)
 }
+
+func (o *GetTelemetryConfigOK) String() string {
+	return fmt.Sprintf("[GET /phone-home/config][%d] getTelemetryConfigOK  %+v", 200, o.Payload)
+}
+
 func (o *GetTelemetryConfigOK) GetPayload() *models.TelemetryConfig {
 	return o.Payload
 }
@@ -94,7 +130,8 @@ func NewGetTelemetryConfigForbidden() *GetTelemetryConfigForbidden {
 	return &GetTelemetryConfigForbidden{}
 }
 
-/* GetTelemetryConfigForbidden describes a response with status code 403, with default header values.
+/*
+GetTelemetryConfigForbidden describes a response with status code 403, with default header values.
 
 User must have Platform level permissions. (code: `root.unauthorized.rbac`)
 */
@@ -107,9 +144,44 @@ type GetTelemetryConfigForbidden struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get telemetry config forbidden response has a 2xx status code
+func (o *GetTelemetryConfigForbidden) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get telemetry config forbidden response has a 3xx status code
+func (o *GetTelemetryConfigForbidden) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get telemetry config forbidden response has a 4xx status code
+func (o *GetTelemetryConfigForbidden) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get telemetry config forbidden response has a 5xx status code
+func (o *GetTelemetryConfigForbidden) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get telemetry config forbidden response a status code equal to that given
+func (o *GetTelemetryConfigForbidden) IsCode(code int) bool {
+	return code == 403
+}
+
+// Code gets the status code for the get telemetry config forbidden response
+func (o *GetTelemetryConfigForbidden) Code() int {
+	return 403
+}
+
 func (o *GetTelemetryConfigForbidden) Error() string {
 	return fmt.Sprintf("[GET /phone-home/config][%d] getTelemetryConfigForbidden  %+v", 403, o.Payload)
 }
+
+func (o *GetTelemetryConfigForbidden) String() string {
+	return fmt.Sprintf("[GET /phone-home/config][%d] getTelemetryConfigForbidden  %+v", 403, o.Payload)
+}
+
 func (o *GetTelemetryConfigForbidden) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

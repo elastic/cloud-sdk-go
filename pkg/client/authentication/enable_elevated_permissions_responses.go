@@ -80,7 +80,8 @@ func NewEnableElevatedPermissionsOK() *EnableElevatedPermissionsOK {
 	return &EnableElevatedPermissionsOK{}
 }
 
-/* EnableElevatedPermissionsOK describes a response with status code 200, with default header values.
+/*
+EnableElevatedPermissionsOK describes a response with status code 200, with default header values.
 
 Elevated permissions are enabled and the authorization token was generated.
 */
@@ -88,9 +89,44 @@ type EnableElevatedPermissionsOK struct {
 	Payload *models.TokenResponse
 }
 
+// IsSuccess returns true when this enable elevated permissions o k response has a 2xx status code
+func (o *EnableElevatedPermissionsOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this enable elevated permissions o k response has a 3xx status code
+func (o *EnableElevatedPermissionsOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this enable elevated permissions o k response has a 4xx status code
+func (o *EnableElevatedPermissionsOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this enable elevated permissions o k response has a 5xx status code
+func (o *EnableElevatedPermissionsOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this enable elevated permissions o k response a status code equal to that given
+func (o *EnableElevatedPermissionsOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the enable elevated permissions o k response
+func (o *EnableElevatedPermissionsOK) Code() int {
+	return 200
+}
+
 func (o *EnableElevatedPermissionsOK) Error() string {
 	return fmt.Sprintf("[POST /users/auth/_elevate][%d] enableElevatedPermissionsOK  %+v", 200, o.Payload)
 }
+
+func (o *EnableElevatedPermissionsOK) String() string {
+	return fmt.Sprintf("[POST /users/auth/_elevate][%d] enableElevatedPermissionsOK  %+v", 200, o.Payload)
+}
+
 func (o *EnableElevatedPermissionsOK) GetPayload() *models.TokenResponse {
 	return o.Payload
 }
@@ -112,7 +148,8 @@ func NewEnableElevatedPermissionsBadRequest() *EnableElevatedPermissionsBadReque
 	return &EnableElevatedPermissionsBadRequest{}
 }
 
-/* EnableElevatedPermissionsBadRequest describes a response with status code 400, with default header values.
+/*
+EnableElevatedPermissionsBadRequest describes a response with status code 400, with default header values.
 
 Missed or invalid MFA token. (code: `authc.invalid_token`)
 */
@@ -125,9 +162,44 @@ type EnableElevatedPermissionsBadRequest struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this enable elevated permissions bad request response has a 2xx status code
+func (o *EnableElevatedPermissionsBadRequest) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this enable elevated permissions bad request response has a 3xx status code
+func (o *EnableElevatedPermissionsBadRequest) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this enable elevated permissions bad request response has a 4xx status code
+func (o *EnableElevatedPermissionsBadRequest) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this enable elevated permissions bad request response has a 5xx status code
+func (o *EnableElevatedPermissionsBadRequest) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this enable elevated permissions bad request response a status code equal to that given
+func (o *EnableElevatedPermissionsBadRequest) IsCode(code int) bool {
+	return code == 400
+}
+
+// Code gets the status code for the enable elevated permissions bad request response
+func (o *EnableElevatedPermissionsBadRequest) Code() int {
+	return 400
+}
+
 func (o *EnableElevatedPermissionsBadRequest) Error() string {
 	return fmt.Sprintf("[POST /users/auth/_elevate][%d] enableElevatedPermissionsBadRequest  %+v", 400, o.Payload)
 }
+
+func (o *EnableElevatedPermissionsBadRequest) String() string {
+	return fmt.Sprintf("[POST /users/auth/_elevate][%d] enableElevatedPermissionsBadRequest  %+v", 400, o.Payload)
+}
+
 func (o *EnableElevatedPermissionsBadRequest) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -156,7 +228,8 @@ func NewEnableElevatedPermissionsUnauthorized() *EnableElevatedPermissionsUnauth
 	return &EnableElevatedPermissionsUnauthorized{}
 }
 
-/* EnableElevatedPermissionsUnauthorized describes a response with status code 401, with default header values.
+/*
+EnableElevatedPermissionsUnauthorized describes a response with status code 401, with default header values.
 
 The authentication token is invalid or expired. (code: `root.unauthorized`)
 */
@@ -169,9 +242,44 @@ type EnableElevatedPermissionsUnauthorized struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this enable elevated permissions unauthorized response has a 2xx status code
+func (o *EnableElevatedPermissionsUnauthorized) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this enable elevated permissions unauthorized response has a 3xx status code
+func (o *EnableElevatedPermissionsUnauthorized) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this enable elevated permissions unauthorized response has a 4xx status code
+func (o *EnableElevatedPermissionsUnauthorized) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this enable elevated permissions unauthorized response has a 5xx status code
+func (o *EnableElevatedPermissionsUnauthorized) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this enable elevated permissions unauthorized response a status code equal to that given
+func (o *EnableElevatedPermissionsUnauthorized) IsCode(code int) bool {
+	return code == 401
+}
+
+// Code gets the status code for the enable elevated permissions unauthorized response
+func (o *EnableElevatedPermissionsUnauthorized) Code() int {
+	return 401
+}
+
 func (o *EnableElevatedPermissionsUnauthorized) Error() string {
 	return fmt.Sprintf("[POST /users/auth/_elevate][%d] enableElevatedPermissionsUnauthorized  %+v", 401, o.Payload)
 }
+
+func (o *EnableElevatedPermissionsUnauthorized) String() string {
+	return fmt.Sprintf("[POST /users/auth/_elevate][%d] enableElevatedPermissionsUnauthorized  %+v", 401, o.Payload)
+}
+
 func (o *EnableElevatedPermissionsUnauthorized) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -200,7 +308,8 @@ func NewEnableElevatedPermissionsNotImplemented() *EnableElevatedPermissionsNotI
 	return &EnableElevatedPermissionsNotImplemented{}
 }
 
-/* EnableElevatedPermissionsNotImplemented describes a response with status code 501, with default header values.
+/*
+EnableElevatedPermissionsNotImplemented describes a response with status code 501, with default header values.
 
 The administrator needs to configure the authentication cluster. (code: `authc.no_authentication_cluster`)
 */
@@ -213,9 +322,44 @@ type EnableElevatedPermissionsNotImplemented struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this enable elevated permissions not implemented response has a 2xx status code
+func (o *EnableElevatedPermissionsNotImplemented) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this enable elevated permissions not implemented response has a 3xx status code
+func (o *EnableElevatedPermissionsNotImplemented) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this enable elevated permissions not implemented response has a 4xx status code
+func (o *EnableElevatedPermissionsNotImplemented) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this enable elevated permissions not implemented response has a 5xx status code
+func (o *EnableElevatedPermissionsNotImplemented) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this enable elevated permissions not implemented response a status code equal to that given
+func (o *EnableElevatedPermissionsNotImplemented) IsCode(code int) bool {
+	return code == 501
+}
+
+// Code gets the status code for the enable elevated permissions not implemented response
+func (o *EnableElevatedPermissionsNotImplemented) Code() int {
+	return 501
+}
+
 func (o *EnableElevatedPermissionsNotImplemented) Error() string {
 	return fmt.Sprintf("[POST /users/auth/_elevate][%d] enableElevatedPermissionsNotImplemented  %+v", 501, o.Payload)
 }
+
+func (o *EnableElevatedPermissionsNotImplemented) String() string {
+	return fmt.Sprintf("[POST /users/auth/_elevate][%d] enableElevatedPermissionsNotImplemented  %+v", 501, o.Payload)
+}
+
 func (o *EnableElevatedPermissionsNotImplemented) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }
@@ -244,7 +388,8 @@ func NewEnableElevatedPermissionsBadGateway() *EnableElevatedPermissionsBadGatew
 	return &EnableElevatedPermissionsBadGateway{}
 }
 
-/* EnableElevatedPermissionsBadGateway describes a response with status code 502, with default header values.
+/*
+EnableElevatedPermissionsBadGateway describes a response with status code 502, with default header values.
 
 The authentication cluster failed to process the request. The response body contains details about the error. (code: `authc.authentication_cluster_error`)
 */
@@ -257,9 +402,44 @@ type EnableElevatedPermissionsBadGateway struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this enable elevated permissions bad gateway response has a 2xx status code
+func (o *EnableElevatedPermissionsBadGateway) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this enable elevated permissions bad gateway response has a 3xx status code
+func (o *EnableElevatedPermissionsBadGateway) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this enable elevated permissions bad gateway response has a 4xx status code
+func (o *EnableElevatedPermissionsBadGateway) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this enable elevated permissions bad gateway response has a 5xx status code
+func (o *EnableElevatedPermissionsBadGateway) IsServerError() bool {
+	return true
+}
+
+// IsCode returns true when this enable elevated permissions bad gateway response a status code equal to that given
+func (o *EnableElevatedPermissionsBadGateway) IsCode(code int) bool {
+	return code == 502
+}
+
+// Code gets the status code for the enable elevated permissions bad gateway response
+func (o *EnableElevatedPermissionsBadGateway) Code() int {
+	return 502
+}
+
 func (o *EnableElevatedPermissionsBadGateway) Error() string {
 	return fmt.Sprintf("[POST /users/auth/_elevate][%d] enableElevatedPermissionsBadGateway  %+v", 502, o.Payload)
 }
+
+func (o *EnableElevatedPermissionsBadGateway) String() string {
+	return fmt.Sprintf("[POST /users/auth/_elevate][%d] enableElevatedPermissionsBadGateway  %+v", 502, o.Payload)
+}
+
 func (o *EnableElevatedPermissionsBadGateway) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

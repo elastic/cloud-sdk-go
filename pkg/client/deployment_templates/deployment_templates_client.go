@@ -61,9 +61,9 @@ type ClientService interface {
 }
 
 /*
-  CreateDeploymentTemplateV2 creates deployment template
+CreateDeploymentTemplateV2 creates deployment template
 
-  Creates a deployment template.
+Creates a deployment template.
 */
 func (a *Client) CreateDeploymentTemplateV2(params *CreateDeploymentTemplateV2Params, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*CreateDeploymentTemplateV2OK, *CreateDeploymentTemplateV2Created, error) {
 	// TODO: Validate the params before sending
@@ -103,9 +103,9 @@ func (a *Client) CreateDeploymentTemplateV2(params *CreateDeploymentTemplateV2Pa
 }
 
 /*
-  DeleteDeploymentTemplateV2 deletes deployment template
+DeleteDeploymentTemplateV2 deletes deployment template
 
-  Deletes a deployment template by id.
+Deletes a deployment template by id.
 */
 func (a *Client) DeleteDeploymentTemplateV2(params *DeleteDeploymentTemplateV2Params, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*DeleteDeploymentTemplateV2OK, error) {
 	// TODO: Validate the params before sending
@@ -144,9 +144,9 @@ func (a *Client) DeleteDeploymentTemplateV2(params *DeleteDeploymentTemplateV2Pa
 }
 
 /*
-  GetDeploymentTemplateV2 gets deployment template
+GetDeploymentTemplateV2 gets deployment template
 
-  Retrieves a deployment template by id.
+Retrieves a deployment template by id.
 */
 func (a *Client) GetDeploymentTemplateV2(params *GetDeploymentTemplateV2Params, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentTemplateV2OK, error) {
 	// TODO: Validate the params before sending
@@ -185,9 +185,9 @@ func (a *Client) GetDeploymentTemplateV2(params *GetDeploymentTemplateV2Params, 
 }
 
 /*
-  GetDeploymentTemplatesV2 gets deployment templates
+GetDeploymentTemplatesV2 gets deployment templates
 
-  Retrieves all deployment templates.
+Retrieves all deployment templates.
 */
 func (a *Client) GetDeploymentTemplatesV2(params *GetDeploymentTemplatesV2Params, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*GetDeploymentTemplatesV2OK, error) {
 	// TODO: Validate the params before sending
@@ -226,9 +226,9 @@ func (a *Client) GetDeploymentTemplatesV2(params *GetDeploymentTemplatesV2Params
 }
 
 /*
-  SetDeploymentTemplateV2 sets deployment template
+SetDeploymentTemplateV2 sets deployment template
 
-  Creates or updates a deployment template.
+Creates or updates a deployment template.
 */
 func (a *Client) SetDeploymentTemplateV2(params *SetDeploymentTemplateV2Params, authInfo runtime.ClientAuthInfoWriter, opts ...ClientOption) (*SetDeploymentTemplateV2OK, *SetDeploymentTemplateV2Created, error) {
 	// TODO: Validate the params before sending

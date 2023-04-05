@@ -62,7 +62,8 @@ func NewGetCoordinatorOK() *GetCoordinatorOK {
 	return &GetCoordinatorOK{}
 }
 
-/* GetCoordinatorOK describes a response with status code 200, with default header values.
+/*
+GetCoordinatorOK describes a response with status code 200, with default header values.
 
 An overview of a coordinator instance.
 */
@@ -70,9 +71,44 @@ type GetCoordinatorOK struct {
 	Payload *models.CoordinatorSummary
 }
 
+// IsSuccess returns true when this get coordinator o k response has a 2xx status code
+func (o *GetCoordinatorOK) IsSuccess() bool {
+	return true
+}
+
+// IsRedirect returns true when this get coordinator o k response has a 3xx status code
+func (o *GetCoordinatorOK) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get coordinator o k response has a 4xx status code
+func (o *GetCoordinatorOK) IsClientError() bool {
+	return false
+}
+
+// IsServerError returns true when this get coordinator o k response has a 5xx status code
+func (o *GetCoordinatorOK) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get coordinator o k response a status code equal to that given
+func (o *GetCoordinatorOK) IsCode(code int) bool {
+	return code == 200
+}
+
+// Code gets the status code for the get coordinator o k response
+func (o *GetCoordinatorOK) Code() int {
+	return 200
+}
+
 func (o *GetCoordinatorOK) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/coordinators/{coordinator_id}][%d] getCoordinatorOK  %+v", 200, o.Payload)
 }
+
+func (o *GetCoordinatorOK) String() string {
+	return fmt.Sprintf("[GET /platform/infrastructure/coordinators/{coordinator_id}][%d] getCoordinatorOK  %+v", 200, o.Payload)
+}
+
 func (o *GetCoordinatorOK) GetPayload() *models.CoordinatorSummary {
 	return o.Payload
 }
@@ -94,7 +130,8 @@ func NewGetCoordinatorNotFound() *GetCoordinatorNotFound {
 	return &GetCoordinatorNotFound{}
 }
 
-/* GetCoordinatorNotFound describes a response with status code 404, with default header values.
+/*
+GetCoordinatorNotFound describes a response with status code 404, with default header values.
 
 Unable to find coordinator {coordinator_id}. Edit your request, then try again. (code: `coordinators.coordinator_not_found`)
 */
@@ -107,9 +144,44 @@ type GetCoordinatorNotFound struct {
 	Payload *models.BasicFailedReply
 }
 
+// IsSuccess returns true when this get coordinator not found response has a 2xx status code
+func (o *GetCoordinatorNotFound) IsSuccess() bool {
+	return false
+}
+
+// IsRedirect returns true when this get coordinator not found response has a 3xx status code
+func (o *GetCoordinatorNotFound) IsRedirect() bool {
+	return false
+}
+
+// IsClientError returns true when this get coordinator not found response has a 4xx status code
+func (o *GetCoordinatorNotFound) IsClientError() bool {
+	return true
+}
+
+// IsServerError returns true when this get coordinator not found response has a 5xx status code
+func (o *GetCoordinatorNotFound) IsServerError() bool {
+	return false
+}
+
+// IsCode returns true when this get coordinator not found response a status code equal to that given
+func (o *GetCoordinatorNotFound) IsCode(code int) bool {
+	return code == 404
+}
+
+// Code gets the status code for the get coordinator not found response
+func (o *GetCoordinatorNotFound) Code() int {
+	return 404
+}
+
 func (o *GetCoordinatorNotFound) Error() string {
 	return fmt.Sprintf("[GET /platform/infrastructure/coordinators/{coordinator_id}][%d] getCoordinatorNotFound  %+v", 404, o.Payload)
 }
+
+func (o *GetCoordinatorNotFound) String() string {
+	return fmt.Sprintf("[GET /platform/infrastructure/coordinators/{coordinator_id}][%d] getCoordinatorNotFound  %+v", 404, o.Payload)
+}
+
 func (o *GetCoordinatorNotFound) GetPayload() *models.BasicFailedReply {
 	return o.Payload
 }

@@ -70,10 +70,12 @@ func NewRestartDeploymentEsResourceParamsWithHTTPClient(client *http.Client) *Re
 	}
 }
 
-/* RestartDeploymentEsResourceParams contains all the parameters to send to the API endpoint
-   for the restart deployment es resource operation.
+/*
+RestartDeploymentEsResourceParams contains all the parameters to send to the API endpoint
 
-   Typically these are written to a http.Request.
+	for the restart deployment es resource operation.
+
+	Typically these are written to a http.Request.
 */
 type RestartDeploymentEsResourceParams struct {
 

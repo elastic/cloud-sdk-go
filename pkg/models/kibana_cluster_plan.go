@@ -84,6 +84,8 @@ func (m *KibanaClusterPlan) validateClusterTopology(formats strfmt.Registry) err
 			if err := m.ClusterTopology[i].Validate(formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("cluster_topology" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("cluster_topology" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -104,6 +106,8 @@ func (m *KibanaClusterPlan) validateKibana(formats strfmt.Registry) error {
 		if err := m.Kibana.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("kibana")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("kibana")
 			}
 			return err
 		}
@@ -121,6 +125,8 @@ func (m *KibanaClusterPlan) validateTransient(formats strfmt.Registry) error {
 		if err := m.Transient.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("transient")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("transient")
 			}
 			return err
 		}
@@ -159,6 +165,8 @@ func (m *KibanaClusterPlan) contextValidateClusterTopology(ctx context.Context, 
 			if err := m.ClusterTopology[i].ContextValidate(ctx, formats); err != nil {
 				if ve, ok := err.(*errors.Validation); ok {
 					return ve.ValidateName("cluster_topology" + "." + strconv.Itoa(i))
+				} else if ce, ok := err.(*errors.CompositeError); ok {
+					return ce.ValidateName("cluster_topology" + "." + strconv.Itoa(i))
 				}
 				return err
 			}
@@ -175,6 +183,8 @@ func (m *KibanaClusterPlan) contextValidateKibana(ctx context.Context, formats s
 		if err := m.Kibana.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("kibana")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("kibana")
 			}
 			return err
 		}
@@ -189,6 +199,8 @@ func (m *KibanaClusterPlan) contextValidateTransient(ctx context.Context, format
 		if err := m.Transient.ContextValidate(ctx, formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("transient")
+			} else if ce, ok := err.(*errors.CompositeError); ok {
+				return ce.ValidateName("transient")
 			}
 			return err
 		}
