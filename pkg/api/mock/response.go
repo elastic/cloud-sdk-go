@@ -22,7 +22,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"strings"
 )
@@ -39,12 +38,12 @@ type Response struct {
 
 // NewStringBody creates an io.ReadCloser from a string.
 func NewStringBody(b string) io.ReadCloser {
-	return ioutil.NopCloser(strings.NewReader(b))
+	return io.NopCloser(strings.NewReader(b))
 }
 
 // NewByteBody creates an io.ReadCloser from a slice of bytes.
 func NewByteBody(b []byte) io.ReadCloser {
-	return ioutil.NopCloser(bytes.NewReader(b))
+	return io.NopCloser(bytes.NewReader(b))
 }
 
 // NewStructBody creates an io.ReadCloser from a structure that is attempted
@@ -54,7 +53,7 @@ func NewStructBody(i interface{}) io.ReadCloser {
 	if err := json.NewEncoder(b).Encode(i); err != nil {
 		panic(fmt.Sprintf("Failed to json.Encode structure %+v", i))
 	}
-	return ioutil.NopCloser(b)
+	return io.NopCloser(b)
 }
 
 // New200Response creates a new response with a statuscode 200

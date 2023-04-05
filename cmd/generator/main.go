@@ -30,7 +30,6 @@ import (
 	"errors"
 	"flag"
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"text/template"
@@ -83,7 +82,7 @@ func main() {
 	flag.StringVar(&version, "version", "", "ECE version")
 	flag.Parse()
 
-	b, err := ioutil.ReadFile(sourceFile)
+	b, err := os.ReadFile(sourceFile)
 	exitOnError(err, codeCannotOpenFile)
 
 	if len(b) == 0 {

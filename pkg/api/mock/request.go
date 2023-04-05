@@ -21,7 +21,6 @@ import (
 	"bytes"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"net/url"
 	"reflect"
@@ -48,13 +47,13 @@ func AssertRequest(want *RequestAssertion, req *http.Request) error {
 		if !reflect.DeepEqual(want.Body, req.Body) {
 			var wantB []byte
 			if want.Body != nil {
-				wantB, _ = ioutil.ReadAll(
+				wantB, _ = io.ReadAll(
 					io.TeeReader(want.Body, new(bytes.Buffer)),
 				)
 			}
 			var gotB []byte
 			if req.Body != nil {
-				gotB, _ = ioutil.ReadAll(
+				gotB, _ = io.ReadAll(
 					io.TeeReader(req.Body, new(bytes.Buffer)),
 				)
 			}

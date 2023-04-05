@@ -21,7 +21,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"os"
@@ -115,7 +115,7 @@ func buildRequest(host, path, method string) *http.Request {
 		r := strings.NewReader(`{}`)
 		return &http.Request{
 			Method: method,
-			Body:   ioutil.NopCloser(r),
+			Body:   io.NopCloser(r),
 			URL: &url.URL{
 				Host: host,
 				Path: path,

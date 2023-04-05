@@ -16,11 +16,11 @@ unit: _report_path
 .PHONY: format
 format: deps
 	@ echo "-> Formatting Go files..."
-	@ $(GOBIN)/go-licenser -license ASL2 -notice .
+	@ $(GOBIN)/go-licenser -license ASL2 .
 	@ $(GOBIN)/golangci-lint run --fix
 	@ echo "-> Done."
 
-## Checks if there's any format violations on the Go files.
+## Checks if there's any format violations on the Go files.
 .PHONY: lint
 lint: deps
 	@ echo "-> Running linters..."

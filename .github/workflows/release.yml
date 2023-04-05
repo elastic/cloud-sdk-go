@@ -37,16 +37,16 @@ jobs:
           tag: ${{ steps.get_branch.outputs.TAGNAME }}
 
       - name: Set up Go
-        uses: actions/setup-go@v3
+        uses: actions/setup-go@v4
         with:
-          go-version: 1.17
+          go-version: 1.19
         id: go
 
       - name: Bump main version
         run: make patch
 
       - name: Create a GitHub branch
-        uses: peterjgrainger/action-create-branch@v2.2.0
+        uses: peterjgrainger/action-create-branch@v2.4.0
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         with:
@@ -73,9 +73,9 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
 
       - name: Set up Go
-        uses: actions/setup-go@v3
+        uses: actions/setup-go@v4
         with:
-          go-version: 1.17
+          go-version: 1.19
         id: go
 
       - name: Bump main version
